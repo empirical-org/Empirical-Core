@@ -4,6 +4,9 @@ class Auth::GoogleController < ApplicationController
     access_token = request.env['omniauth.auth']['credentials']['token']
     session[:google_access_token] = access_token
     name, email, google_id = GoogleIntegration::Profile.fetch_name_email_and_google_id(access_token)
+    if  ['/session/new', '/teachers/classrooms/dashboard'].exclude?(URI(request.referer).path)
+      return redirect_to URI(request.referer).path
+    end
     if session[:role].present?
       google_sign_up(name, email, session[:role], access_token, google_id)
     else

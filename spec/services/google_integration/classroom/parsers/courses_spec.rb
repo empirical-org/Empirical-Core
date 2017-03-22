@@ -5,48 +5,25 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
   let!(:user) { FactoryGirl.create(:user, google_id: "117520115627269298978", role: 'teacher') }
   let!(:imported_classroom) { FactoryGirl.create(:classroom, google_classroom_id: '455798942', teacher_id: user.id)}
 
-  let!(:body) {
-    x = {"courses":[{"id":"455798942",
-                      "name":"class1",
-                      "ownerId":"117520115627269298978",
-                      "creationTime":"2016-02-01T21:19:54.662Z",
-                      "updateTime":"2016-02-01T21:20:39.424Z",
-                      "enrollmentCode":"w5o4h0v",
-                      "alternateLink":"http://classroom.google.com/c/NDU1Nzk4OTQy"}]}
-    x.to_json
-  }
-
   let!(:response) {
-    Response = Struct.new(:body)
-    r = Response.new(body)
-    r
-  }
-
-  let!(:archived_body) {
-    x = {"courses":[{"id":"455798942",
-                      "name":"class1",
-                      "ownerId":"117520115627269298978",
-                      "creationTime":"2016-02-01T21:19:54.662Z",
-                      "updateTime":"2016-02-01T21:20:39.424Z",
-                      "enrollmentCode":"w5o4h0v",
-                      "courseState":"ARCHIVED",
-                      "alternateLink":"http://classroom.google.com/c/NDU1Nzk4OTQy"}]}
-    x.to_json
+    {courses:[{id:"455798942",
+                      name:"class1",
+                      ownerId:"117520115627269298978",
+                      creationTime:"2016-02-01T21:19:54.662Z",
+                      updateTime:"2016-02-01T21:20:39.424Z",
+                      enrollmentCode:"w5o4h0v",
+                      alternateLink:"http://classroom.google.com/c/NDU1Nzk4OTQy"}]}
   }
 
   let!(:archived_response) {
-    Response = Struct.new(:body)
-    # putting struct body makes the next
-    # line automatically set archived body as the value attached to the
-    # :body key
-    r = Response.new(archived_body)
-    r
+    response[:courses].first[:courseState] = 'ARCHIVED'
+    response
   }
 
   let!(:expected_result) {
-    course = JSON.parse(body)['courses'][0]
+    course = response[:courses][0]
     [
-      {id: course['id'].to_i, name: course['name'], ownerId: course['ownerId'], alreadyImported: true, creationTime: course['creationTime']}
+      {id: course[:id].to_i, name: course[:name], ownerId: course[:ownerId], alreadyImported: true, creationTime: course[:creationTime]}
     ]
   }
 
@@ -79,11 +56,11 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
     let!(:student) { FactoryGirl.create(:user, role: 'student') }
 
     it 'only returns google classroom ids where the student is not the class owner' do
-      expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response)).to eq([JSON.parse(body)['courses'][0]['id']])
+      expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response)).to eq([response[:courses][0][:id]])
     end
 
     it 'will not return google classroom ids where the student is the class owner' do
-      student.update(google_id: JSON.parse(body)['courses'][0]['ownerId'])
+      student.update(google_id: response[:courses][0][:ownerId])
       expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response)).to eq([])
     end
   end

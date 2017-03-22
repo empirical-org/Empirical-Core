@@ -20,13 +20,13 @@ example JSON.parse(response.body) :
 
   def self.parse_courses_for_teacher(course_response, user)
     courses = []
-    if course_response['courses'].any?
+    if course_response[:courses].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
-      course_response['courses'].each do |course|
-        course['alreadyImported'] = self.already_imported?(course, existing_google_classroom_ids)
+      course_response[:courses].each do |course|
+        course[:alreadyImported] = self.already_imported?(course, existing_google_classroom_ids)
         if self.valid?(course, user, existing_google_classroom_ids)
-          name = course['section'] ? "#{course['name']} #{course['section']}" : course['name']
-          courses << {id: course['id'].to_i, name: name, ownerId: course['ownerId'], alreadyImported: course['alreadyImported'], creationTime: course['creationTime']}
+          name = course[:section] ? "#{course[:name]} #{course[:section]}" : course[:name]
+          courses << {id: course[:id].to_i, name: name, ownerId: course[:ownerId], alreadyImported: course[:alreadyImported], creationTime: course[:creationTime]}
         end
       end
     end
@@ -35,10 +35,10 @@ example JSON.parse(response.body) :
 
   def self.parse_courses_for_student(course_response, user)
     course_ids = []
-    if course_response['courses'].any?
+    if course_response[:courses].any?
       # checking to make sure student is not the owner (teacher) of the course
-      course_response['courses'].select{ |c| !own_course(c, user) }.each do |course|
-        course_ids << course['id']
+      course_response[:courses].select{ |c| !own_course(c, user) }.each do |course|
+        course_ids << course[:id]
       end
     end
     course_ids
@@ -49,19 +49,19 @@ example JSON.parse(response.body) :
   end
 
   def self.valid?(course, user, existing_google_classroom_ids)
-    self.own_course(course, user) && (self.not_archived(course) || course['alreadyImported'])
+    self.own_course(course, user) && (self.not_archived(course) || course[:alreadyImported])
   end
 
   def self.own_course(course, user)
-    course['ownerId'] == user.google_id
+    course[:ownerId] == user.google_id
   end
 
   def self.not_archived(course)
-    course['courseState'] != 'ARCHIVED'
+    course[:courseState] != 'ARCHIVED'
   end
 
   def self.already_imported?(course, existing_google_classroom_ids)
-    existing_google_classroom_ids.include?(course['id'].to_i)
+    existing_google_classroom_ids.include?(course[:id].to_i)
   end
 
 
