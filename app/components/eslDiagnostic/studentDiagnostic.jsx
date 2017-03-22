@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, nextQuestionWithoutSaving } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, nextQuestionWithoutSaving, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
@@ -13,6 +13,7 @@ import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import TitleCard from './titleCard.jsx';
+import SessionActions from '../../actions/sessions.js';
 const request = require('request');
 
 const StudentDiagnostic = React.createClass({
@@ -100,11 +101,26 @@ const StudentDiagnostic = React.createClass({
 
   componentWillMount() {
     this.props.dispatch(clearData());
+    if (this.state.sessionID) {
+      SessionActions.get(this.state.sessionID, (data) => {
+        this.setState({ session: data, });
+      });
+    }
+  },
+
+  getPreviousSessionData() {
+    return this.state.session;
+  },
+
+  resumeSession(data) {
+    if (data) {
+      this.props.dispatch(resumePreviousDiagnosticSession(data));
+    }
   },
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
-      // this.saveSessionData(nextProps.playDiagnostic);
+      this.saveSessionData(nextProps.playDiagnostic);
     }
   },
 
@@ -246,7 +262,7 @@ const StudentDiagnostic = React.createClass({
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
         } else {
-          component = <LandingPage begin={() => { this.startActivity('John', data); }} />;
+          component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
