@@ -57,7 +57,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playLesson);
+      // this.saveSessionData(nextProps.playLesson);
     }
   },
 
