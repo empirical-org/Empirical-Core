@@ -9,19 +9,32 @@ import fragmentActions from '../../actions/sentenceFragments.js';
 import {
   submitNewResponse,
   incrementChildResponseCount,
-  incrementResponseCount
-
+  incrementResponseCount,
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import icon from '../../img/question_icon.svg';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { hashToCollection } from '../../libs/hashToCollection.js';
 
-let key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
+const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
 const PlaySentenceFragment = React.createClass({
   getInitialState() {
     return {
-      response: '',
+      response: this.props.question.prompt,
       checkAnswerEnabled: true,
+      submitted: false,
     };
+  },
+
+  componentDidMount() {
+    getGradedResponsesWithCallback(
+      this.getQuestion().key,
+      (data) => {
+        this.setState({ responses: data, });
+      }
+    );
   },
 
   choosingSentenceOrFragment() {
@@ -41,7 +54,15 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getQuestion() {
-    return this.props.question.prompt;
+    const { question, } = this.props;
+    if (question.key.endsWith('-esp')) {
+      question.key = question.key.slice(0, -4);
+    }
+    return question;
+  },
+
+  getResponses() {
+    return this.state.responses;
   },
 
   checkChoice(choice) {
@@ -62,43 +83,34 @@ const PlaySentenceFragment = React.createClass({
     this.setState({ response: e, });
   },
 
+  handleAttemptSubmission() {
+    if (this.state.submitted === false) {
+      this.setState(
+        { submitted: true, },
+        this.props.nextQuestion()
+      );
+    }
+  },
+
   checkAnswer() {
-    if (this.state.checkAnswerEnabled) {
+    if (this.state.checkAnswerEnabled && this.state.responses) {
+      const key = this.getQuestion().key;
+      const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const fragment = this.props.sentenceFragments.data[key];
-
-        const responseMatcher = new POSMatcher(fragment.responses);
+        const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
+        const fields = {
+          prompt,
+          responses: hashToCollection(this.getResponses()),
+          questionUID: key,
+          wordCountChange,
+          ignoreCaseAndPunc,
+        };
+        const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-
-        let newResponse;
-
-        if (matched.found) {
-          if (matched.posMatch && !matched.exactMatch) {
-            newResponse = {
-              text: matched.submitted,
-              parentID: matched.response.key,
-              count: 1,
-              feedback: matched.response.optimal ? 'Excellent!' : 'Try writing the sentence in another way.',
-              questionUID: key,
-            };
-            if (matched.response.optimal) {
-              newResponse.optimal = matched.response.optimal;
-            }
-            this.props.dispatch(submitNewResponse(newResponse, newResponse.parentId));
-            this.props.dispatch(incrementChildResponseCount(matched.response.key)); // parent has no parentID
-          } else {
-            this.props.dispatch(incrementResponseCount(key, matched.response.key, matched.response.parentID));
-          }
-        } else {
-          newResponse = {
-            text: matched.submitted,
-            count: 1,
-            questionUID: key,
-          };
-          this.props.dispatch(submitNewResponse(newResponse));
-        }
+        updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
-        this.props.nextQuestion();
+        this.setState({ checkAnswerEnabled: true, });
+        this.handleAttemptSubmission();
       });
     }
   },
@@ -109,11 +121,11 @@ const PlaySentenceFragment = React.createClass({
         <div className="container">
           <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
             <div className="feedback-row">
-              <img className="info" src={icon} />
+              <img className="info" src={icon} style={{ marginTop: 3, }} />
               <p>Is this a complete or an incomplete sentence?</p>
             </div>
             <div className="feedback-row">
-              <img className="info" src={icon} />
+              <img className="info" src={icon} style={{ marginTop: 3, }} />
               <p>Esta oración esta complete o incompleta?</p>
             </div>
             {this.getSentenceOrFragmentButtons()}
@@ -129,11 +141,28 @@ const PlaySentenceFragment = React.createClass({
     const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>;
 
     if (!this.choosingSentenceOrFragment()) {
-      let instructions;
+      // let instructions;
+      let component;
       if (this.props.question.instructions && this.props.question.instructions !== '') {
-        instructions = this.props.question.instructions;
+        component = (
+          <div className="feedback-row">
+            <img className="info" src={icon} style={{ marginTop: 3, }} />
+            <p dangerouslySetInnerHTML={{ __html: this.props.question.instructions, }} />
+          </div>
+        );
+        // instructions = this.props.question.instructions;
       } else {
-        instructions = 'Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.';
+        component = (
+          <div className="feedback-row">
+            <img className="info" src={icon} />
+            <p>
+              If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.
+              <br /><br />
+              Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.
+            </p>
+          </div>
+        );
+        // instructions = 'Añadir al grupo de palabras para hacer una oración completa. Añada el menor número posible de palabras.';
       }
 
       return (
@@ -142,15 +171,8 @@ const PlaySentenceFragment = React.createClass({
             transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
             transitionLeaveTimeout={300}
           >
-            <div className="feedback-row">
-              <img className="info" src={icon} />
-              <p>If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.</p>
-            </div>
-            <div className="feedback-row">
-              <img className="info" src={icon} />
-              <p>{instructions}</p>
-            </div>
-            <TextEditor value={fragment.prompt} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+            {component}
+            <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
             <div className="question-button-group">
               {button}
             </div>
@@ -161,29 +183,23 @@ const PlaySentenceFragment = React.createClass({
   },
 
   render() {
-    if (this.props.sentenceFragments.hasreceiveddata) {
-      key = this.props.params ? this.props.params.fragmentID : this.props.currentKey;
-      const fragment = this.props.sentenceFragments.data[key];
-      return (
-        <div className="student-container-inner-diagnostic">
-          <div className="draft-js sentence-fragments prevent-selection">
-            <p>{this.getQuestion()}</p>
-          </div>
-
-          {this.renderSentenceOrFragmentMode()}
-          {this.renderPlaySentenceFragmentMode(fragment)}
+    const fragment = this.getQuestion();
+    return (
+      <div className="student-container-inner-diagnostic">
+        <div className="draft-js sentence-fragments prevent-selection">
+          <p>{this.getQuestion().prompt}</p>
         </div>
-      );
-    } else {
-      return (<div className="container">Loading...</div>);
-    }
+
+        {this.renderSentenceOrFragmentMode()}
+        {this.renderPlaySentenceFragmentMode(fragment)}
+      </div>
+    );
   },
 });
 
 function select(state) {
   return {
     routing: state.routing,
-    sentenceFragments: state.sentenceFragments,
   };
 }
 

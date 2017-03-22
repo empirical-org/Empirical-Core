@@ -104,7 +104,7 @@ const sentenceFragmentForm = React.createClass({
         </p>
         <label className="label">Instructions</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.instructions} onChange={this.handleChange.bind(null, 'instructions')} />
+          <textarea className="input" value={this.state.instructions} onChange={this.handleChange.bind(null, 'instructions')} />
         </p>
         <p className="control">
           <label className="checkbox">

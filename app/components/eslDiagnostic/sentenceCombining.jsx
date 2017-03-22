@@ -14,7 +14,13 @@ import pathwayActions from '../../actions/pathways';
 const C = require('../../constants').default;
 import rootRef from '../../libs/firebase';
 const sessionsRef = rootRef.child('sessions');
-
+import {
+  submitNewResponse,
+  incrementChildResponseCount,
+  incrementResponseCount,
+  getResponsesWithCallback,
+  getGradedResponsesWithCallback
+} from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
@@ -37,18 +43,22 @@ const PlayDiagnosticQuestion = React.createClass({
       editing: false,
       response: '',
       readyForNext: false,
-      hasOrIsGettingResponses: false,
     };
+  },
+
+  componentDidMount() {
+    getGradedResponsesWithCallback(
+      this.getQuestion().key,
+      (data) => {
+        this.setState({ responses: data, });
+      }
+    );
   },
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playLesson);
+      // this.saveSessionData(nextProps.playLesson);
     }
-  },
-
-  doesNotHaveAndIsNotGettingResponses() {
-    return (!this.state.hasOrIsGettingResponses);
   },
 
   getInitialValue() {
@@ -62,17 +72,19 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getQuestion() {
-    return this.props.question;
+    const { question, } = this.props;
+    if (question.key.endsWith('-esp')) {
+      question.key = question.key.slice(0, -4);
+    }
+    return question;
   },
 
   getResponses() {
-    return this.props.responses.data[this.props.question.key];
+    return this.state.responses;
   },
 
   getResponse2(rid) {
-    const { data, } = this.props.questions,
-      questionID = this.props.question.key;
-    return data[questionID].responses[rid];
+    return this.getResponses()[rid];
   },
 
   submitResponse(response) {
@@ -177,6 +189,16 @@ const PlayDiagnosticQuestion = React.createClass({
     }
   },
 
+  renderMedia() {
+    if (this.getQuestion().mediaURL) {
+      return (
+        <div style={{ marginTop: 15, minWidth: 200, }}>
+          <img src={this.getQuestion().mediaURL} />
+        </div>
+      );
+    }
+  },
+
   render() {
     const questionID = this.props.question.key;
     let button;
@@ -189,13 +211,18 @@ const PlayDiagnosticQuestion = React.createClass({
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
       return (
         <div className="student-container-inner-diagnostic">
-          {this.renderSentenceFragments()}
-          {this.renderCues()}
-          <div className="feedback-row">
-            <img src={icon} />
-            <p>{instructions}</p>
+          <div style={{ display: 'flex', }}>
+            <div>
+              {this.renderSentenceFragments()}
+              {this.renderCues()}
+              <div className="feedback-row">
+                <img src={icon} style={{ marginTop: 3, }} />
+                <p dangerouslySetInnerHTML={{ __html: instructions, }} />
+              </div>
+            </div>
+            {this.renderMedia()}
           </div>
-          <h5 className="title is-5" />
+
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
               className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
@@ -224,7 +251,6 @@ function select(state) {
     concepts: state.concepts,
     questions: state.questions,
     routing: state.routing,
-    responses: state.responses,
   };
 }
 export default connect(select)(PlayDiagnosticQuestion);

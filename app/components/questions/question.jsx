@@ -22,7 +22,8 @@ import {
   submitResponseEdit,
   submitNewConceptResult,
   deleteConceptResult,
-  removeLinkToParentID
+  removeLinkToParentID,
+  submitNewResponse
 } from '../../actions/responses';
 
 const labels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
@@ -34,7 +35,7 @@ const Question = React.createClass({
     return {
       selectedBoilerplateCategory: '',
       responses: [],
-      loadedResponses: false
+      loadedResponses: false,
     };
   },
 
@@ -46,10 +47,10 @@ const Question = React.createClass({
       (data) => {
         this.setState({
           responses: data,
-          loadedResponses: true
-        })
+          loadedResponses: true,
+        });
       }
-    )
+    );
   },
 
   componentWillUnmount() {
@@ -77,7 +78,7 @@ const Question = React.createClass({
   getResponses() {
     // const { questionID, } = this.props.params;
     // return this.props.responses.data[questionID];
-    return this.state.responses
+    return this.state.responses;
   },
 
   getResponse(responseID) {
@@ -128,14 +129,16 @@ const Question = React.createClass({
         text: this.refs.newResponseText.value,
         feedback: this.refs.newResponseFeedback.value,
         optimal: this.refs.newResponseOptimal.checked,
+        questionUID: this.props.params.questionID,
+        gradeIndex: `human${this.props.params.questionID}`,
+        count: 1,
       },
-      questionID: this.props.params.questionID,
     };
     this.refs.newResponseText.value = null;
     this.refs.newResponseFeedback.value = null;
     this.refs.newResponseOptimal.checked = false;
-    this.refs.boilerplate.value = null;
-    this.props.dispatch(questionActions.submitNewResponse(newResp.questionID, newResp.vals)); // fIXME
+    // this.refs.boilerplate.value = null;
+    this.props.dispatch(submitNewResponse(newResp.vals)); // fIXME
   },
 
   gatherVisibleResponses() {
@@ -180,7 +183,7 @@ const Question = React.createClass({
   },
 
   renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description: description, });
+    const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
     if (selectedCategory) {
       return (
         <span className="select">
@@ -286,7 +289,7 @@ function select(state) {
     concepts: state.concepts,
     questions: state.questions,
     itemLevels: state.itemLevels,
-    routing: state.routing
+    routing: state.routing,
   };
 }
 
