@@ -184,7 +184,9 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_google_classrooms
-    render json: {classrooms: GoogleIntegration::Classroom::Main.pull_data(current_user, session[:google_access_token])}
+    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user, session[:google_access_token])
+    data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
+    render json: data
   end
 
   def update_google_classrooms

@@ -8,8 +8,7 @@ example JSON.parse(response.body) :
 
 =end
 
-  def self.run(user, response)
-    course_response = JSON.parse(response.body)
+  def self.run(user, course_response)
     if user.role == 'teacher'
       self.parse_courses_for_teacher(course_response, user)
     else
