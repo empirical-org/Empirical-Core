@@ -14,7 +14,7 @@ describe('UnitTemplate component', () => {
         <UnitTemplate unitTemplate={{}}
           returnToIndex={() => null} />
       );
-      expect(wrapper.find(MarkdownParser).length).toBe(0);
+      expect(wrapper.find(MarkdownParser)).toHaveLength(0);
     });
 
     it('should render if there is activity_info in the state', () => {
@@ -23,7 +23,7 @@ describe('UnitTemplate component', () => {
           returnToIndex={() => null} />
       );
       wrapper.setState({model: {activity_info: 'i am the activity info'}})
-      expect(wrapper.find(MarkdownParser).length).toBe(1);
+      expect(wrapper.find(MarkdownParser)).toHaveLength(1);
     });
 
   });
