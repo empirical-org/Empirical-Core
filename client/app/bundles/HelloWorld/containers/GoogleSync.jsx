@@ -2,6 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import LoadingIndicator from '../components/shared/loading_indicator.jsx'
 import GoogleClassroomList from '../components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx'
+import {authForGoogleSyncPage} from '../components/modules/google_authentication.js'
 
 
 export default class extends React.Component{
@@ -18,7 +19,10 @@ export default class extends React.Component{
   getGoogleClassrooms(){
     const that = this;
     $.get('/teachers/classrooms/retrieve_google_classrooms', (data) => {
-      that.setState({classrooms: data.classrooms, errors: data.errors})
+      if (data.errors === 'UNAUTHENTICATED') {
+        authForGoogleSyncPage();
+      }
+      that.setState({classrooms: data.classrooms})
     })
     .fail((data)=>{
       that.setState({error: data.errors})
@@ -33,7 +37,7 @@ export default class extends React.Component{
     if (this.state.loading) {
       return <LoadingIndicator/>
     } else if (this.state.errors) {
-      return <div>There is an error</div>
+
     } else {
       return <GoogleClassroomList classrooms={this.state.classrooms}/>
     }

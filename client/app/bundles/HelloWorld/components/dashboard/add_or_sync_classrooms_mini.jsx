@@ -13,7 +13,7 @@ export default React.createClass({
   },
 
     syncClassrooms: function() {
-      window.location.href = '/auth/google_oauth2/'
+      window.location = '/auth/google_oauth2/'
     },
 
     hideModal() {
