@@ -17,7 +17,7 @@ describe('NewTeacher component', () => {
                     update={() => null}
                     signUp={() => null} />
       );
-      expect(wrapper.find(BasicTeacherInfo).length).toBe(1);
+      expect(wrapper.find(BasicTeacherInfo)).toHaveLength(1);
   });
 
   it('should render <EducatorType /> if stage is 2', () => {
@@ -29,7 +29,7 @@ describe('NewTeacher component', () => {
                     signUp={() => null}
                     analytics={new AnalyticsWrapper()} />
       );
-      expect(wrapper.find(EducatorType).length).toBe(1);
+      expect(wrapper.find(EducatorType)).toHaveLength(1);
   });
 
 });
