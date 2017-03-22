@@ -166,9 +166,9 @@ module PublicProgressReports
     end
 
 
-    def get_recommendations_for_classroom classroom_id
+    def get_recommendations_for_classroom classroom_id, activity_id
       classroom = Classroom.find(classroom_id)
-      diagnostic = Activity.find(413)
+      diagnostic = Activity.find(activity_id)
       students = classroom.students
       activity_sessions = students.map do |student|
         student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: diagnostic.id, is_final_score: true)
@@ -177,11 +177,15 @@ module PublicProgressReports
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
                                          .sort_by {|stud| stud[:name].split()[1]}
-      recommendations = Recommendations.new.diagnostic.map do |activity_pack_recommendation|
+      recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |activity_pack_recommendation|
         students = []
         activity_sessions_counted.each do |activity_session|
           activity_pack_recommendation[:requirements].each do |req|
-            if activity_session[:concept_scores][req[:concept_id]] < req[:count]
+            if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]["total"] > activity_session[:concept_scores][req[:concept_id]]["correct"]
+              students.push(activity_session[:user_id])
+              break
+            end
+            if activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
               students.push(activity_session[:user_id])
               break
             end
@@ -213,9 +217,10 @@ module PublicProgressReports
     end
 
     def concept_results_by_count activity_session
-      hash = Hash.new(0)
+      hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
       activity_session.concept_results.each do |concept_result|
-        hash[concept_result.concept.uid] += concept_result["metadata"]["correct"]
+        hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]
+        hash[concept_result.concept.uid]["total"] += 1
       end
       hash
     end
