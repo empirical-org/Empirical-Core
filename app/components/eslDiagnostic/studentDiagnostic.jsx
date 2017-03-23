@@ -35,6 +35,7 @@ const StudentDiagnostic = React.createClass({
   },
 
   saveToLMS() {
+    this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
     const sessionID = this.state.sessionID;
     if (sessionID) {
@@ -59,7 +60,7 @@ const StudentDiagnostic = React.createClass({
         if (httpResponse.statusCode === 200) {
           console.log('Finished Saving');
           console.log(err, httpResponse, body);
-          // sessionActions.delete(this.state.sessionID);
+          SessionActions.delete(this.state.sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL;
           this.setState({ saved: true, });
         } else {
@@ -260,7 +261,7 @@ const StudentDiagnostic = React.createClass({
             />);
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
+          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
         } else {
           component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
           // (
