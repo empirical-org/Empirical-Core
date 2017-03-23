@@ -3,6 +3,7 @@ import $ from 'jquery'
 import LoadingIndicator from '../components/shared/loading_indicator.jsx'
 import GoogleClassroomList from '../components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx'
 import {authForGoogleSyncPage} from '../components/modules/google_authentication.js'
+require('../../../assets/styles/app-variables.scss')
 
 
 export default class extends React.Component{
@@ -39,13 +40,22 @@ export default class extends React.Component{
     } else if (this.state.errors) {
       return <div>Google has returned the following error</div>
     } else {
-      return <GoogleClassroomList classrooms={this.state.classrooms}/>
+      return this.content()
     }
   }
 
+  content(){
+    return (
+      <div>
+        <h3>Choose Which Google Classrooms To Sync</h3>
+        <p>Select all of the classes that you would like to sync with Google Classroom</p>
+        <GoogleClassroomList classrooms={this.state.classrooms}/>
+      </div>
+    )
+  }
+
   render(){
-    return(<div>
-      We're on the Google Sync page!!!!
+    return(<div className='google-sync'>
       {this.loadingIndicatorOrContent()}
     </div>)
   }

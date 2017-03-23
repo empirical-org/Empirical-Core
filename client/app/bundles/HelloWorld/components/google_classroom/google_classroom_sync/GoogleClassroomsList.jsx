@@ -13,9 +13,10 @@ export default class extends React.Component{
     this.addAlreadyImportedClassroomToSelectedClassroomIds()
   }
 
-  handleCheckboxClick = (e) => {
+  handleCheckboxClick = (classy) => {
     const newSelectedClassroomIds = Object.assign(this.state.selectedClassroomIds, {})
-    e.currentTarget.checked ? newSelectedClassroomIds.add(e.target.id) : newSelectedClassroomIds.delete(e.target.id)
+    const idString = classy.id.toString();
+    newSelectedClassroomIds.has(idString) ? newSelectedClassroomIds.delete(idString) :  newSelectedClassroomIds.add(idString)
     this.setState({ selectedClassroomIds: newSelectedClassroomIds }, console.log(this.state.selectedClassroomIds))
   }
 
@@ -73,11 +74,25 @@ export default class extends React.Component{
     })
   }
 
+  renderSelectedCheck = (classy) => {
+		if (this.state.selectedClassroomIds.has(classy.id.toString())) {
+			return (
+				<img className="recommendation-check" src="/images/recommendation_check.svg"></img>
+			)
+		}
+	}
+
+  // <input type="checkbox" id={classy.id} defaultChecked={classy.alreadyImported} onClick={this.handleCheckboxClick}/>
   classroomRows(){
+    let that = this;
     return this.orderGoogleClassrooms().map((classy)=>{
       return(
         <tr key={classy.id}>
-          <td><input type="checkbox" id={classy.id} defaultChecked={classy.alreadyImported} onClick={this.handleCheckboxClick}/></td>
+          <td>
+            <div className="recommendations-table-row-item-checkbox" onClick={that.handleCheckboxClick.bind(null, classy)}>
+  						{that.renderSelectedCheck(classy)}
+  					</div>
+          </td>
           <td>{classy.name}</td>
           <td>{`${classy.alreadyImported}`}</td>
           <td>{classy.creationTime}</td>
