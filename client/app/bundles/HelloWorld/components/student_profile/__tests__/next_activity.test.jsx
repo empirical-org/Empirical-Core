@@ -54,7 +54,7 @@ describe('NextActivity component', () => {
         hasActivities={true}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.html()).toBe('<span></span>');
   });
 
   it('should display a message saying there are no activities assigned if props.data is empty and props.hasActivities is false', () => {

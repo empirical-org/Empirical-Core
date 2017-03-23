@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`NextActivity component should not display if props.hasActivities is true and props.data is empty 1`] = `<span />`;
