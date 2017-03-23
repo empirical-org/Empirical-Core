@@ -176,7 +176,7 @@ export default React.createClass({
 				: '';
 			return (
 				<div className={'recommendations-table-row-item' + recommended + selected} key={recommendation.activity_pack_id}>
-					<div className="recommendations-table-row-item-checkbox" onClick={this.toggleSelected.bind(null, student, i)}>
+					<div className="donalito-checkbox" onClick={this.toggleSelected.bind(null, student, i)}>
 						{this.renderSelectedCheck(student, selection)}
 					</div>
 					<p>{recommendation.name}</p>

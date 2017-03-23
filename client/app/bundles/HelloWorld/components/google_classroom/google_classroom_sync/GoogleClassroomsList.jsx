@@ -89,7 +89,7 @@ export default class extends React.Component{
       return(
         <tr key={classy.id}>
           <td>
-            <div className="recommendations-table-row-item-checkbox" onClick={that.handleCheckboxClick.bind(null, classy)}>
+            <div className="donalito-checkbox" onClick={that.handleCheckboxClick.bind(null, classy)}>
   						{that.renderSelectedCheck(classy)}
   					</div>
           </td>
