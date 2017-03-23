@@ -31,7 +31,7 @@ export default React.createClass({
       statusCode: {
         200: function() {
           window.location = '/profile'        },
-        422: function(response) {
+        400: function(response) {
           that.setState({errors: response.responseJSON.errors})
         }
       }
