@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import StudentProfileActivities from '../student_profile_activities';
 
-import StudentProfileActivity from '../student_profile_activities';
+import StudentProfileActivity from '../student_profile_activity';
 
 describe('StudentProfileActivities component', () => {
 
@@ -11,12 +11,19 @@ describe('StudentProfileActivities component', () => {
     it('should render a <StudentProfileActivity /> component for each activity', () => {
       const wrapper = shallow(
         <StudentProfileActivities
-          data={[{},{}]}
+          data={[
+            { id: 'foo', activity: { id: 'foo', name: 'Activity', classification: { id: 'foo' } } },
+            { id: 'bar', activity: { id: 'bar', name: 'Activity', classification: { id: 'bar' } } }
+          ]}
           header={''}
+          finished={true}
         />
       );
-      expect(wrapper.find(StudentProfileActivity).at(0).exists()).toBe(true);
-      expect(wrapper.find(StudentProfileActivity).at(1).exists()).toBe(true);
+      expect(wrapper.find(StudentProfileActivity).length).toBe(2);
+      expect(wrapper.find(StudentProfileActivity).at(0).props().finished).toBe(true);
+      expect(wrapper.find(StudentProfileActivity).at(0).props().data.id).toBe('foo');
+      expect(wrapper.find(StudentProfileActivity).at(1).props().finished).toBe(true);
+      expect(wrapper.find(StudentProfileActivity).at(1).props().data.id).toBe('bar');
     });
 
     it('should render the appropriate header', () => {
