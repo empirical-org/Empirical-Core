@@ -1,5 +1,6 @@
 'use strict'
 import React from 'react'
+import ScoreColor from '../../modules/score_color.js'
 
 export default React.createClass({
 
@@ -8,24 +9,16 @@ export default React.createClass({
     },
 
     scoreColor: function() {
-        var score = this.props.percentage;
-        var color;
-        if ((score >= 0) && (score <= 0.5)) {
-            color = 'red';
-        } else if ((score >= 0.51) && (score <= 0.75)) {
-            color = 'yellow';
-        } else {
-            color = 'green';
-        }
-        return color;
+        var score = this.props.percentage * 100;
+        return ScoreColor(score);
     },
 
     backgroundColor: function() {
         var scoreColor = this.state.scoreColor;
         var color;
-        if (scoreColor === 'red') {
+        if (scoreColor === 'red-score-color') {
             color = '#E7522C';
-        } else if (scoreColor === 'yellow') {
+        } else if (scoreColor === 'yellow-score-color') {
             color = '#F6A625';
         } else {
             color = '#5AAF46';
@@ -36,9 +29,9 @@ export default React.createClass({
     fontColor: function() {
         var scoreColor = this.state.scoreColor;
         var color;
-        if (scoreColor === 'red') {
+        if (scoreColor === 'red-score-color') {
             color = '#82290D';
-        } else if (scoreColor === 'yellow') {
+        } else if (scoreColor === 'yellow-score-color') {
             color = '#79500E';
         } else {
             color = '#305217';

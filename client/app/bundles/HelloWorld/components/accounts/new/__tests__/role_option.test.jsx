@@ -22,6 +22,6 @@ describe('RoleOption component', () => {
         <RoleOption selectRole={mockClick} role={'student'} />
     );
     wrapper.find('button').simulate('click');
-    expect(mockClick.mock.calls.length).toBe(1);
+    expect(mockClick.mock.calls).toHaveLength(1);
   });
 });

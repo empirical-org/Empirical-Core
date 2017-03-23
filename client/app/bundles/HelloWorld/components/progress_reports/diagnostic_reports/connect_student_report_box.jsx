@@ -12,13 +12,14 @@ export default React.createClass({
 		);
 	},
 
-	directions: (directions) => {
-		if (directions) {
-			return <tr className='directions'>
-				<td>Directions</td>
-				<td />
-				<td><span>{directions}</span></td>
-			</tr>
+	feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
+		if (directionsOrFeedback) {
+			return (
+				<tr className={classNameAndText}>
+					<td>{classNameAndText}</td>
+					<td />
+					<td>{directionsOrFeedback}</td>
+			</tr>)
 		}
 	},
 
@@ -26,9 +27,21 @@ export default React.createClass({
 		const conceptsByAttempt = this.groupByAttempt();
 		let attemptNum = 1;
 		let results = [];
+		let feedback;
+		let currAttempt = conceptsByAttempt[attemptNum]
 		while (conceptsByAttempt[attemptNum]) {
-			let currAttempt = conceptsByAttempt[attemptNum]
-			let directions = this.directions(currAttempt[0].directions)
+			let nextAttempt = conceptsByAttempt[attemptNum + 1]
+			if (nextAttempt) {
+				let index = 0;
+				while (!feedback && nextAttempt[index]) {
+					feedback = nextAttempt[index].directions
+					index++
+				}
+				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
+				if (typeof feedback === 'string') {
+					feedback = this.feedbackOrDirections(feedback, 'Feedback')
+				}
+			}
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
 				concept.correct ? score++ : null;
@@ -36,7 +49,7 @@ export default React.createClass({
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
 			let scoreRow = this.scoreRow(currAttempt[0].answer, attemptNum, averageScore)
-			attemptNum > 1 ? results.push(directions, scoreRow, concepts) : results.push(scoreRow, concepts)
+			feedback ? results.push(scoreRow, feedback, concepts) : results.push(scoreRow, concepts)
 			if (conceptsByAttempt[attemptNum + 1]) {
 				results.push(this.emptyRow())
 			}
@@ -86,7 +99,7 @@ export default React.createClass({
 								<table>
 									<tbody>
 										{header}
-										{this.directions(data.directions)}
+										{this.feedbackOrDirections(data.directions, 'Directions')}
 										<tr>
 											<td>Prompt</td>
 											<td/>
