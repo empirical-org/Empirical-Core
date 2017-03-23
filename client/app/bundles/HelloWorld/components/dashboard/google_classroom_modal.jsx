@@ -69,7 +69,7 @@ export default React.createClass({
                             : 'Update Email'} disabled={this.state.updated}/>
                     </form>
                     {this.showEmailErrors()}
-                    <a className="q-button cta-button bg-quillgreen text-white" onClick={this.props.syncClassrooms}>
+                    <a className="q-button cta-button bg-quillgreen text-white" href='/auth/google_oauth2'>
                       Next: Choose Google Classrooms
                     </a>
                 </Modal.Body>

@@ -13,7 +13,7 @@ export default React.createClass({
   },
 
     syncClassrooms: function() {
-      window.location = '/auth/google_oauth2/'
+      window.location = '/teachers/classrooms/google_sync'
     },
 
     hideModal() {
