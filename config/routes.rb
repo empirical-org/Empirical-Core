@@ -74,6 +74,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
 
+  put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }

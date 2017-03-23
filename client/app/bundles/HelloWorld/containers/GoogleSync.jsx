@@ -37,7 +37,7 @@ export default class extends React.Component{
     if (this.state.loading) {
       return <LoadingIndicator/>
     } else if (this.state.errors) {
-
+      return <div>Google has returned the following error</div>
     } else {
       return <GoogleClassroomList classrooms={this.state.classrooms}/>
     }

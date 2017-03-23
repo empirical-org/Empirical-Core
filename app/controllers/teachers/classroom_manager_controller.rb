@@ -202,8 +202,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   private
 
   def authorize!
-    puts "Authorizing!"
-    puts current_user.classrooms_i_teach.any?
     if current_user.classrooms_i_teach.any?
       if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])

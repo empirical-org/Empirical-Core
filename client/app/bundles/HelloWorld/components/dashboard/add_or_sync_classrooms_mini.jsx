@@ -41,7 +41,7 @@ export default React.createClass({
               <GoogleClassroomModal syncClassrooms={this.syncClassrooms} user={this.props.user} show={this.state.showModal} hideModal={this.hideModal}/>
                 <div id="google-classroom-mini">
                   <img src="/images/google_sync_icon.svg" alt="google sync"/>
-                  <h3>Import Classrooms from <br/> Google Classrooms</h3>
+                  <h3>Sync Classrooms from <br/> Google Classroom</h3>
                 </div>
               </div>
             </div>
