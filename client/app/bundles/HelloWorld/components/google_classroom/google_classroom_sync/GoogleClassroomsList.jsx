@@ -10,55 +10,39 @@ export default class extends React.Component{
   }
 
   componentDidMount(){
-    this.addAlreadyImportedClassroomToSelectedClassroomIds()
+    this.addAlreadyImportedClassroomsToSelected()
   }
 
   handleCheckboxClick = (classy) => {
     const newSelectedClassroomIds = Object.assign(this.state.selectedClassroomIds, {})
-    const idString = classy.id.toString();
-    newSelectedClassroomIds.has(idString) ? newSelectedClassroomIds.delete(idString) :  newSelectedClassroomIds.add(idString)
-    this.setState({ selectedClassroomIds: newSelectedClassroomIds }, console.log(this.state.selectedClassroomIds))
+    newSelectedClassroomIds.has(classy.id) ? newSelectedClassroomIds.delete(classy.id) :  newSelectedClassroomIds.add(classy.id)
+    this.setState({ selectedClassroomIds: newSelectedClassroomIds })
   }
 
-  addAlreadyImportedClassroomToSelectedClassroomIds = () => {
-    this.props.classrooms.forEach((classy) => {
+  addAlreadyImportedClassroomsToSelected = () => {
+    // we get the intitial list of classrooms and check them/keep track of what is already imported
+    this.props.classrooms.forEach((classy, index) => {
       if (classy.alreadyImported) {
-        const newSelectedClassroomIds = Object.assign(this.state.selectedClassroomIds, {})
-        this.setState({ selectedClassroomIds: newSelectedClassroomIds.add(classy.id.toString())})
+        const alreadyImportedClasses = Object.assign(this.state.selectedClassroomIds, {})
+        this.setState({
+          selectedClassroomIds: alreadyImportedClasses.add(classy.id)
+        })
       }
     })
-  }
-
-  syncClassrooms = () => {
-    const that = this
-    const selectedClassrooms = JSON.stringify(this.getSelectedClassroomsData())
-    $.ajax({
-      type: 'post',
-      data: {selected_classrooms: selectedClassrooms},
-      url: '/teachers/classrooms/update_google_classrooms',
-      statusCode: {
-        200: function() {
-          that.syncClassroomSuccess()
-          }
-      }
-    })
-  }
-
-  syncClassroomSuccess = () => {
-    $.ajax({
-      type: 'get',
-      url: '/teachers/classrooms/import_google_students'
-    })
-    console.log('we did it! now importing students')
   }
 
   getSelectedClassroomsData = () => {
     const selectedClassrooms = []
-    const that = this;
-    this.state.selectedClassroomIds.forEach((id) => {
-      selectedClassrooms.push(that.props.classrooms.find((classy) => classy.id == id))
+    let archivedCount = 0;
+    const that = this
+    this.props.classrooms.forEach((classy)=>{
+      if (that.state.selectedClassroomIds.has(classy.id)) {
+        selectedClassrooms.push(classy)
+      } else if (classy.alreadyImported) {
+        archivedCount ++;
+      }
     })
-    return selectedClassrooms
+    return({selectedClassrooms, archivedCount})
   }
 
   orderGoogleClassrooms = () => {
@@ -75,14 +59,19 @@ export default class extends React.Component{
   }
 
   renderSelectedCheck = (classy) => {
-		if (this.state.selectedClassroomIds.has(classy.id.toString())) {
+		if (this.state.selectedClassroomIds.has(classy.id)) {
 			return (
 				<img className="recommendation-check" src="/images/recommendation_check.svg"></img>
 			)
 		}
 	}
 
-  // <input type="checkbox" id={classy.id} defaultChecked={classy.alreadyImported} onClick={this.handleCheckboxClick}/>
+  connected = (alreadyImported) => {
+    if (alreadyImported) {
+      return <span className='connected'>Connected</span>
+    }
+  }
+
   classroomRows(){
     let that = this;
     return this.orderGoogleClassrooms().map((classy)=>{
@@ -94,17 +83,22 @@ export default class extends React.Component{
   					</div>
           </td>
           <td>{classy.name}</td>
-          <td>{`${classy.alreadyImported}`}</td>
+          <td>{classy.section || 'section #'}</td>
+          <td>{this.connected(classy.alreadyImported)}</td>
           <td>{classy.creationTime}</td>
         </tr>
       )
     })
   }
 
+  syncClassrooms(){
+    this.props.syncClassrooms(this.getSelectedClassroomsData())
+  }
+
   classroomsTable(){
     return (<table>
       <tbody>
-      {this.classroomRows()}
+        {this.classroomRows()}
       </tbody>
     </table>)
   }
@@ -112,7 +106,7 @@ export default class extends React.Component{
     return(
       <div>
         {this.classroomsTable()}
-        <button onClick={this.syncClassrooms}>Sync Classrooms</button>
+        <button onClick={() => this.syncClassrooms()}>Sync Classrooms</button>
       </div>)
   }
 }
