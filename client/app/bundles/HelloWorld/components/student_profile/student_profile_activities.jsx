@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react'
 import StudentProfileActivity from './student_profile_activity.jsx'
-
+import _ from 'underscore';
 
 export default React.createClass({
   propTypes: {
