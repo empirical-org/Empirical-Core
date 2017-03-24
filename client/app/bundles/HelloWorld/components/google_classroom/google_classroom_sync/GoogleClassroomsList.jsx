@@ -6,28 +6,26 @@ export default class extends React.Component{
   }
 
   state = {
-    selectedClassroomIds: new Set(),
-    alreadyImportedClasses: new Set()
+    selectedClassroomIds: new Set()
   }
 
   componentDidMount(){
-    this.addAlreadyImportedClassroomsToState()
+    this.addAlreadyImportedClassroomsToSelected()
   }
 
   handleCheckboxClick = (classy) => {
     const newSelectedClassroomIds = Object.assign(this.state.selectedClassroomIds, {})
-    const idString = classy.id.toString();
-    newSelectedClassroomIds.has(idString) ? newSelectedClassroomIds.delete(idString) :  newSelectedClassroomIds.add(idString)
+    newSelectedClassroomIds.has(classy.id) ? newSelectedClassroomIds.delete(classy.id) :  newSelectedClassroomIds.add(classy.id)
     this.setState({ selectedClassroomIds: newSelectedClassroomIds })
   }
 
-  addAlreadyImportedClassroomsToState = () => {
+  addAlreadyImportedClassroomsToSelected = () => {
     // we get the intitial list of classrooms and check them/keep track of what is already imported
     this.props.classrooms.forEach((classy, index) => {
       if (classy.alreadyImported) {
         const alreadyImportedClasses = Object.assign(this.state.selectedClassroomIds, {})
         this.setState({
-          selectedClassroomIds: alreadyImportedClasses.add(classy.id.toString())
+          selectedClassroomIds: alreadyImportedClasses.add(classy.id)
         })
       }
     })
@@ -36,18 +34,15 @@ export default class extends React.Component{
   getSelectedClassroomsData = () => {
     const selectedClassrooms = []
     let archivedCount = 0;
-    // this.state.selectedClassroomIds.forEach((id) => {
-    //   selectedClassrooms.push(that.props.classrooms.find((classy) => classy.id == id))
-    // })
     const that = this
     this.props.classrooms.forEach((classy)=>{
-      if (that.state.selectedClassroomIds.has(classy.id.toString())) {
+      if (that.state.selectedClassroomIds.has(classy.id)) {
         selectedClassrooms.push(classy)
       } else if (classy.alreadyImported) {
         archivedCount ++;
       }
     })
-    console.log({selectedClassrooms, archivedCount})
+    return({selectedClassrooms, archivedCount})
   }
 
   orderGoogleClassrooms = () => {
@@ -64,7 +59,7 @@ export default class extends React.Component{
   }
 
   renderSelectedCheck = (classy) => {
-		if (this.state.selectedClassroomIds.has(classy.id.toString())) {
+		if (this.state.selectedClassroomIds.has(classy.id)) {
 			return (
 				<img className="recommendation-check" src="/images/recommendation_check.svg"></img>
 			)
@@ -97,7 +92,7 @@ export default class extends React.Component{
   }
 
   syncClassrooms(){
-    this.props.syncClassrooms(this.getSelectedClassroomsData(), this.state.alreadyImportedClasses)
+    this.props.syncClassrooms(this.getSelectedClassroomsData())
   }
 
   classroomsTable(){
