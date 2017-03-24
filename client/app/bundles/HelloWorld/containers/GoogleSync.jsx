@@ -14,6 +14,7 @@ export default class extends React.Component{
   constructor(){
     super()
     this.hideModal = this.hideModal.bind(this);
+    this.syncClassrooms = this.syncClassrooms.bind(this);
     this.syncClassroomsAjax = this.syncClassroomsAjax.bind(this);
   }
 
@@ -68,17 +69,15 @@ export default class extends React.Component{
   syncClassrooms = (classData) => {
     this.setState(
       {classData},
-      ()=>{
-        if (!this.modalWarning()) {
-          // modal warning triggers a modal if the user has unchecked existing classes
-          this.syncClassroomsAjax()
-        }
-      })
+      ()=>(this.modalWarning())
+    )
   }
 
   modalWarning = () => {
     if (this.state.classData.archivedCount > 0) {
       this.setState({showModal: true})
+    } else {
+      this.syncClassroomsAjax();
     }
   }
 
