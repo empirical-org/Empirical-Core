@@ -62,7 +62,7 @@ export default React.createClass({
 			alert('You must select a classroom before assigning the diagnostic.')
 		} else {
 			$.ajax({type: 'POST', url: '/teachers/units', data: JSON.stringify(data), dataType: 'json', contentType: 'application/json'}).done(function() {
-				window.location = '/diagnostic#/success'
+				window.location = '/diagnostic/success'
 			}).fail(function() {
 				alert('There has been an error assigning the lesson. Please make sure you have selected a classroom');
 			})
@@ -159,7 +159,7 @@ export default React.createClass({
 		return (
 			<Modal {...this.props} show={this.state.show} onHide={this.hideModal} dialogClassName='add-class-modal'>
 				<Modal.Body>
-					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='images/close_x.svg' alt='close-modal'/>
+					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='/images/close_x.svg' alt='close-modal'/>
 					<CreateClass closeModal={this.hideModal}/>
 				</Modal.Body>
 			</Modal>
@@ -191,7 +191,7 @@ export default React.createClass({
 					<div className='pull-right text-center'>
 						<button style={display} onClick={this.submitClasses} className='button-green'>Save & Assign</button>
 						<br/>
-						<Link to='/stage/2'>Back</Link>
+						<Link to='/diagnostic/stage/2'>Back</Link>
 					</div>
 				</div>
 			</div>
