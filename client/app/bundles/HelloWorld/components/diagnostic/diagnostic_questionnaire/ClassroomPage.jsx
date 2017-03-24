@@ -118,8 +118,8 @@ export default React.createClass({
 		return (
 			<div className='classroom-row' key={classy.id}>
 				<div className='pull-left'>
-					<input type='checkbox' id={classy.name} className='css-checkbox' value='on' onChange={() => this.handleChange(index)}/>
-					<label htmlFor={classy.name} id={classy.name} className='css-label'>
+					<input type='checkbox' className='css-checkbox' id={classy.id} onChange={() => this.handleChange(index)}/>
+					<label htmlFor={classy.id} className='css-label'>
 						<h3>{classy.name}</h3>
 					</label>
 				</div>
