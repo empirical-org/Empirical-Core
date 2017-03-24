@@ -20,7 +20,7 @@ describe('EducatorType component', () => {
         <EducatorType />
       );
       wrapper.setState({ stage: 2 });
-      expect(wrapper.find(UsK12View).length).toBe(1);
+      expect(wrapper.find(UsK12View)).toHaveLength(1);
   });
 
   it('should render NotUsK12View if stage state is 3', () => {
@@ -28,7 +28,7 @@ describe('EducatorType component', () => {
         <EducatorType />
       );
       wrapper.setState({ stage: 3 });
-      expect(wrapper.find(NotUsK12View).length).toBe(1);
+      expect(wrapper.find(NotUsK12View)).toHaveLength(1);
   });
 
   it('should be teachers/classrooms/google_sync if teacherFromGoogleSignUp prop is true', () => {
