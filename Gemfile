@@ -166,6 +166,7 @@ end
 group :test do
   gem 'capybara'
   gem 'poltergeist'
+  gem 'puffing-billy'
   gem "vcr"
   gem "webmock"
   gem "codeclimate-test-reporter", require: nil
