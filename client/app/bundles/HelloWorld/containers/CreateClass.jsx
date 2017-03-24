@@ -4,6 +4,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NumberSuffix from '../components/modules/numberSuffixBuilder.js'
 import LoadingSpinner from '../components/shared/loading_indicator.jsx'
+import GoogleClassroomModal from '../components/dashboard/google_classroom_modal'
 require('../../../assets/styles/app-variables.scss')
 
 export default React.createClass({
@@ -25,7 +26,8 @@ export default React.createClass({
                 code: null
             },
             loading: true,
-            errors: ''
+            errors: '',
+            showModal: false
         }
     },
 
@@ -62,11 +64,7 @@ export default React.createClass({
         this.setState({classroom: newClass});
     },
 
-    onClick: function(){
-      this.getClassCode();
-    },
-
-    buttonClick: function(){
+    clickCreateAClass: function(){
       const classroom = this.state.classroom
       if (classroom.name && classroom.grade) {
         this.submitClassroom();
@@ -103,6 +101,25 @@ export default React.createClass({
         })
     },
 
+    syncOrModal: function(){
+      if (this.props.user.signed_up_with_google) {
+        // they are already a google user, so we just need to use the callback
+        this.syncClassrooms();
+      } else {
+        // they are not a google user, so we will show them the modal where they
+        // can become one
+        this.setState({showModal: true});
+      }
+    },
+
+    syncClassrooms: function() {
+      window.location = '/teachers/classrooms/google_sync'
+    },
+
+    hideModal() {
+      this.setState({showModal: false});
+    },
+
     render: function() {
         let classroom = this.state.classroom
         function formatTitle(){
@@ -119,11 +136,11 @@ export default React.createClass({
             contents =
               <div>
                 <h1>Create Your Class</h1>
-                <label htmlFor="class-name">*Class Name</label>
+                <label htmlFor="class-name">Class Name:</label>
                 <br/>
                 <input type="text" id='class-name' placeholder='e.g. 6th Period ELA' value={classroom.name} onChange={this.handleChange}/>
                 <br/>
-                <label htmlFor="">*Grade</label>
+                <label htmlFor="">Grade:</label>
                 <br/>
                 <DropdownButton className={classroom.grade ? 'has-grade' : null} bsStyle='default' id='select-grade' title={formatTitle()}   onSelect={this.handleSelect}>
                     {this.grades()}
@@ -133,15 +150,23 @@ export default React.createClass({
                     <label htmlFor="classroom_code">Class Code:</label>
                     <input className="inactive class-code text-center" disabled="true" type="text" value={classroom.code} name="classroom[code]" id="classroom_code"/>
                   </span>
-                  <span id='regenerate-class-code' onClick={this.onClick}>Regenerate Class Code</span>
+                  <span id='regenerate-class-code' onClick={this.getclassCode}>Regenerate Class Code</span>
                   </div>
-                  <button className="button-green" onClick={this.buttonClick}>Create a Class</button>
+                  <button className="button-green" onClick={this.clickCreateAClass}>Create a Class</button>
                   <h4 className='errors'>{this.state.errors}</h4>
             </div>
           }
-          return (<div className='container'>
+          return (<div className='container create-a-class'>
           <div id="new-classroom">
             {contents}
+            </div>
+            <div id='new-google-classroom'>
+              <div id="google-classroom-header">
+                <h1>Google Classroom User?</h1>
+                <img src="/images/google_classroom_icon.png" data-pin-nopin="true"/>
+              </div>
+              <p>If you have an account with Google Classroom, you can import all your classes and students to Quill.</p>
+              <button className="button-green" onClick={this.syncOrModal()}>Import From Google Classroom</button>
             </div>
           </div>)
     }
