@@ -50,6 +50,9 @@ import sentenceFragmentActions from './actions/sentenceFragments';
 import pathwayActions from './actions/pathways';
 import lessonActions from './actions/lessons';
 import levelActions from './actions/item-levels';
+
+import AdminRoutes from './routers/admin-router.jsx';
+import PlayRoutes from './routers/play-router.jsx';
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory';
@@ -83,110 +86,13 @@ render((
       {/* <Route path="/" component={Root}>*/}
       {/* <IndexRoute component={Welcome} />*/}
 
-      <Route path="/play" component={StudentRoot}>
-        <IndexRoute component={Play} />
-        <Route path="turk" component={Turk} />
-        <Route path="turk/:lessonID" component={Turk} />
-        <Route path="game" component={Passthrough}>
-          <IndexRoute
-            component={Passthrough}
-            onEnter={
-                (nextState, replaceWith) => {
-                  const lessonID = getParameterByName('uid');
-                  const studentID = getParameterByName('student');
-                  if (lessonID) {
-                    document.location.href = `${document.location.origin + document.location.pathname}#/play/game/${lessonID}?student=${studentID}`;
-                  }
-                }
-              }
-          />
-          <Route path=":lessonID" component={GameLesson} />
-        </Route>
-        <Route path="lesson" component={Passthrough}>
-          <IndexRoute
-            component={Passthrough}
-            onEnter={
-                (nextState, replaceWith) => {
-                  const lessonID = getParameterByName('uid');
-                  const studentID = getParameterByName('student');
-                  if (lessonID) {
-                    document.location.href = `${document.location.origin + document.location.pathname}#/play/lesson/${lessonID}?student=${studentID}`;
-                  }
-                }
-              }
-          />
-          <Route path=":lessonID" component={StudentLesson} />
-        </Route>
-
-        <Route path="diagnostic" component={Passthrough}>
-          <IndexRoute
-            component={Passthrough}
-            onEnter={
-                (nextState, replaceWith) => {
-                  const lessonID = getParameterByName('uid');
-                  const studentID = getParameterByName('student');
-                  if (lessonID) {
-                    document.location.href = `${document.location.origin + document.location.pathname}#/play/diagnostic/${lessonID}?student=${studentID}`;
-                  }
-                }
-              }
-          />
-          <Route path="ell" component={ESLDiagnostic} />
-          <Route path=":diagnosticID" component={StudentDiagnostic} />
-        </Route>
-        {/* <Route path="diagnostic/esl" component={ESLDiagnostic}/>
-          <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>
-          <Redirect from="diagnostic?student=:studentID&uid=:diagnosticID" to="/diagnostic/:diagnosticID" /> */}
-
-        <Route path="questions/:questionID" component={PlayQuestion} />
-        <Route path="sentence-fragments/:fragmentID" component={PlaySentenceFragment} />
-      </Route>
+      {PlayRoutes}
       <Route path="/lessons" component={Activities} />
       <Route path="/results" component={Passthrough}>
         <IndexRoute component={Results} />
         <Route path="questions/:questionID" component={Review} />
       </Route>
-      <Route path="/admin" component={Admin}>
-        {/* concepts section*/}
-        <Route path="concepts" component={Concepts} />
-        <Route path="concepts/:conceptID" component={Concept} />
-
-        {/* questions section*/}
-        <Route path="questions" component={Questions} />
-        <Route path="questions/:questionID" component={Question} />
-
-        {/* questions section*/}
-        <Route path="datadash" component={ScoreAnalysis} />
-
-        {/* questions section*/}
-        <Route path="diagnostic-questions" component={DiagnosticQuestions} />
-        <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} />
-
-        {/* sentence Fragment sections*/}
-        <Route path="sentence-fragments" component={SentenceFragments} />
-        <Route path="sentence-fragments/new" component={NewSentenceFragment} />
-        <Route path="sentence-fragments/:sentenceFragmentID" component={SentenceFragment} />
-
-        {/* lessons section*/}
-        <Route path="lessons" component={Lessons} />
-        <Route path="lessons/:lessonID" component={Lesson} />
-        <Route path="lessons/:lessonID/results" component={LessonResults} />
-
-        {/* diagnostics */}
-        <Route path="diagnostics" component={Diagnostics} />
-        <Route path="diagnostics/new" component={NewDiagnostic} />
-
-        {/* targeted Feedback */}
-        <Route path="concepts-feedback" component={ConceptsFeedback}>
-          <Route path=":feedbackID" component={ConceptFeedback} />
-        </Route>
-
-        {/* item Levels */}
-        <Route path="item-levels" component={ItemLevels} />
-        <Route path="item-levels/new" component={ItemLevelForm} />
-        <Route path="item-levels/:itemLevelID" component={ItemLevelDetails} />
-        <Route path="item-levels/:itemLevelID/edit" component={ItemLevel} />
-      </Route>
+      {AdminRoutes}
       {/* </Route>*/}
 
     </Router>
