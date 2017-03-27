@@ -256,14 +256,14 @@ const Question = React.createClass({
       return (
         <div>
           {this.renderEditForm()}
-          <Link to={'admin/questions'}> Return to All Questions </Link>
           <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
           <h6 className="subtitle">{responses.length} Responses</h6>
-          <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link> <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">View Only</Link><br /><br />
-          <Chart data={_.values(this.formatForPieChart())} />
+
           <p className="control button-group">
-            <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button>
-            <Link to={'admin/questions'} className="button is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
+            <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link>
+            <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">Share Page</Link>
+            <button className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</button>
+            <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
           {this.renderNewResponseForm()}
           <ResponseComponent
@@ -274,6 +274,10 @@ const Question = React.createClass({
             dispatch={this.props.dispatch}
             admin
           />
+          <div style={{ marginTop: 15, }}>
+            <Chart data={_.values(this.formatForPieChart())} />
+          </div>
+
         </div>
       );
     } else {
