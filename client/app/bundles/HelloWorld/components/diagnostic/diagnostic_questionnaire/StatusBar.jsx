@@ -47,7 +47,7 @@ export default React.createClass({
         return (
             <div id='status-bar-wrapper'>
                 <div id='diagnostic-icon-section'>
-                    <img id='diagnostic-icon' src="images/diagnostic_icon.svg" alt="diagnostic_icon"/>
+                    <img id='diagnostic-icon' src="/images/diagnostic_icon.svg" alt="diagnostic_icon"/>
                     <span>Sentence Structure</span><br/><span>Diagnostic</span>
                 </div>
                 <div id="checkpoint-wrapper">
