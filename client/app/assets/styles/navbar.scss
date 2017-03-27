@@ -23,6 +23,9 @@
       background-color: white;
     }
     &:active, &.active {
+      a {
+        margin-top: -3px;
+      }
       &:after {
         content: "";
         width: 100%;
