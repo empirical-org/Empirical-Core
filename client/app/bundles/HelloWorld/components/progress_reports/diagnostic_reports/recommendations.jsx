@@ -17,7 +17,7 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.getRecommendationData(this.props.params.classroomId);
+		this.getRecommendationData(this.props.params.classroomId, this.props.params.activityId);
 	},
 
 	componentWillReceiveProps(nextProps) {
@@ -26,12 +26,12 @@ export default React.createClass({
 			assigning: false,
 			assigned: false
 		});
-		this.getRecommendationData(nextProps.params.classroomId);
+		this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
 	},
 
-	getRecommendationData: function(classroomId){
+	getRecommendationData: function(classroomId, activityId){
 		var that = this;
-		$.get('/teachers/progress_reports/recommendations_for_classroom/' + classroomId, (data) => {
+		$.get('/teachers/progress_reports/recommendations_for_classroom/' + classroomId + '/activity/' + activityId, (data) => {
 			that.setState({
 				recommendations: JSON.parse(JSON.stringify(data.recommendations)),
 				selections: [...data.recommendations],

@@ -50,7 +50,7 @@ export default React.createClass({
                 </div>
                 <a href="/activity_sessions/anonymous?activity_id=413" target='_blank'><button id='preview' className='button-green'>Preview the Diagnostic</button></a>
                 <br/>
-                <Link id='assign' to='/stage/3'><button className='button-green'>Continue to Assign</button></Link>
+                <Link id='assign' to='/diagnostic/stage/3'><button className='button-green'>Continue to Assign</button></Link>
             </div>
         )
     }
