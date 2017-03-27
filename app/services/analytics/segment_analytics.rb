@@ -56,6 +56,16 @@ class SegmentAnalytics
     })
   end
 
+  def track_student_login_pdf_download(user_id, classroom_id)
+    track({
+      user_id: user_id,
+      event: SegmentIo::Events::STUDENT_LOGIN_PDF_DOWNLOAD,
+      properties: {
+        classroom_id: classroom_id
+      }
+    })
+  end
+
   def track(options)
     puts "calling backend track"
     backend.track(options)
