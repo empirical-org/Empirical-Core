@@ -192,12 +192,10 @@ $tool-grey: #f8f9f9;
         color: #ea9a1a;
     }
     .tool-hero {
-      height: 300px;
       box-sizing: border-box;
       .cta-button {
         padding: 9px 19px;
-        margin: 26px;
-        margin-bottom: 37px;
+        margin-top: 50px;
       }
       .description {
         max-width: 750px;
@@ -316,6 +314,7 @@ $tool-grey: #f8f9f9;
     .q-h1 {
         font-size: 36px;
         margin-top: 0px;
+        margin-bottom: 25px;
     }
 }
 
@@ -342,7 +341,7 @@ $tool-grey: #f8f9f9;
 
 .tool-animation-section {
     margin: 60px;
-    height: 488px;
+    max-height: 488px;
     .tool-animation {
         margin: 60px auto;
         border-radius: 12px;
@@ -359,7 +358,7 @@ $tool-grey: #f8f9f9;
 }
 
 .tool-testimonial {
-    padding: 54px 0 58px;
+    padding: 54px 10px 58px;
 
     .quote {
         width: 95%;
