@@ -3,6 +3,7 @@ import $ from 'jquery'
 import LoadingIndicator from '../components/shared/loading_indicator.jsx'
 import GoogleClassroomList from '../components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx'
 import ArchiveClassesWarning from '../components/google_classroom/google_classroom_sync/ArchiveClassesWarning.jsx'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {authForGoogleSyncPage} from '../components/modules/google_authentication.js'
 import Modal from 'react-bootstrap/lib/Modal'
 
@@ -98,7 +99,7 @@ export default class extends React.Component{
         <h3>Choose Which Google Classrooms To Sync</h3>
         <p>Select all of the classes that you would like to sync with Google Classroom</p>
         <GoogleClassroomList classrooms={this.state.classrooms} syncClassrooms={this.syncClassrooms}/>
-        <p>If  you deselect a classroom, the classroom will be archived on Quill and will no longer sync data with Google Classroom.</p>
+        <p>If you deselect a classroom, the classroom will be archived on Quill and will no longer sync data with Google Classroom.</p>
         <ArchiveClassesWarning show={this.state.showModal} classData={this.state.classData} syncClassroomsAjax={this.syncClassroomsAjax} hideModal={this.hideModal} />
       </div>
     )
