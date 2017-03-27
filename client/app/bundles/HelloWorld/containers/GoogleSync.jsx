@@ -20,7 +20,7 @@ export default class extends React.Component{
   }
 
   state = {loading: true}
-  
+
   componentDidMount(){
     this.getGoogleClassrooms()
   }
@@ -99,7 +99,6 @@ export default class extends React.Component{
         <h2>Choose Which Google Classrooms To Sync</h2>
         <p>Select all of the classes that you would like to sync with Google Classroom. Previously connected classes will import new students.</p>
         <GoogleClassroomList classrooms={this.state.classrooms} syncClassrooms={this.syncClassrooms}/>
-        <p>If you deselect a classroom, the classroom will be archived on Quill and will no longer sync data with Google Classroom.</p>
         <ArchiveClassesWarning show={this.state.showModal} classData={this.state.classData} syncClassroomsAjax={this.syncClassroomsAjax} hideModal={this.hideModal} />
       </div>
     )

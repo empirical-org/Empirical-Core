@@ -17,13 +17,13 @@
   p {
     font-size: 18px;
     line-height: 28px;
-    margin-bottom: 25px;
   }
   table {
     background-color: white;
     width: 100%;
     font-size: 18px;
     white-space: nowrap;
+    margin: 25px 0;
     tr {
       height: 50px;
       border: solid 1px #c0c0c0;
@@ -110,5 +110,11 @@
     width: 79px;
   	font-weight: 600;;
   	color: #027360;
+  }
+
+  .sync-classrooms {
+    width: 196px;
+  	font-size: 16px;
+    margin-top: 25px;
   }
 }
