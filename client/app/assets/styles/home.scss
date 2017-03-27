@@ -244,6 +244,14 @@ nav.q-navbar-home {
 
   /* small screens */
 
+  @media only screen and (max-width: 865px) {
+    a.q-button {
+      // &.cta-button, &.icon-button {
+        padding-left: 0px;
+        padding-right: 0px;
+      // }
+    }
+  }
   @media screen and (min-width: 551px) {
     nav.home-nav-dropdown[role="home-custom-dropdown"] {
       display: none;

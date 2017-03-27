@@ -586,3 +586,11 @@ $tool-grey: #f8f9f9;
   width: 22px;
   margin-right: 10px;
 }
+
+// -ms-high-contrast is Microsoft-specific, available in IE 10+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .video-section {
+      min-height: 0px;
+      padding-top: 30px;
+    }
+}
