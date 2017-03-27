@@ -497,30 +497,67 @@ li.premium-tab > a:hover {
 }
 
 .premium-flyer {
-  box-sizing: border-box;
-  margin-top: 72px;
-  margin-bottom: 80px;
-  // position: absolute;
-  // left: 0;
-  // right: 0;
-  position: relative;
-  width: 100vw;
-  left: calc(-50vw + 50%);
-  height: 358px;
-  background-color: #5FA4DF;
-  background-image: url("/images/homepage/homepage_pattern_blue_premium.png");
-  .content {
-    margin-left: 166px;
-    margin-top: 62px;
-    max-width: 563px;
-    color: white;
-    display: inline-block;
-    h1 {
-      font-size: 36px;
-      font-weight: 600;
-    }
-    p {
-      font-size: 20px;
+    box-sizing: border-box;
+    margin-top: 72px;
+    margin-bottom: 80px;
+    position: relative;
+    width: 100vw;
+    left: calc(-50vw + 50%);
+    height: 316px;
+    overflow: hidden;
+    background-color: #5FA4DF;
+    background-image: url(/images/homepage/homepage_pattern_blue_premium.png);
+    .inner-premium-flyer {
+      max-width: 1009px;
+      width: 100%;
+      margin: auto;
+      .content {
+        display: inline-block;
+        margin-top: 48px;
+        max-width: 568px;
+        width: 100%;
+        color: white;
+        display: inline-block;
+        h1 {
+          font-size: 36px;
+          font-weight: 600;
+          margin-bottom: 15px;
+        }
+        p {
+          font-size: 20px;
+          margin-bottom: 30px;
+        }
+        .download-button {
+          display: inline-block;
+          width: 251px;
+          height: 45px;
+          border-radius: 6px;
+          background-color: #014f92;
+          font-family: AdelleSans;
+          font-size: 18px;
+          font-weight: bold;
+          line-height: 0.83;
+          text-align: center;
+          color: white;
+          padding-top: 15px;
+          .fa {
+            margin-right: 8px;
+          }
+        }
+      }
+      .picture {
+        display: inline-block;
+        img {
+          -webkit-transform: rotate(5deg);
+          transform: rotate(5deg);
+          margin: -123px -114px 0px -45px;
+        }
+      }
+      @media screen and (max-width: 1007px) {
+        text-align: center;
+        .picture {
+          display: none;
+        }
+      }
     }
   }
-}
