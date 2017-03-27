@@ -3,7 +3,7 @@
   <% @active_tab = 'Quill Diagnostic' %>
   <% @tool = 'diagnostic' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
-  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
+  <%# render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 <div class="tool-container diagnostic-tool-page">
 
@@ -14,7 +14,7 @@
         <p class='description'>
             Quickly determine which skills your students need to work on with our 22 question diagnostic. The diagnostic covers vital sentence construction skills and generates a personalized learning plan based on the student’s performance.
         </p>
-        <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Try the Diagnostic Now</a>
+        <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Try Quill Diagnostic Now</a>
     </section>
 
     <section class="tool-animation-section " id="overview">
@@ -168,7 +168,7 @@
         </div>
     </section>
 
-    <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern">
+    <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern-magnifier">
         <h2 class='q-h1'>Try It Out for Yourself</h2>
         <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
     </section>
@@ -204,7 +204,7 @@
           <h1 class='q-h1'>
               Get started now! Assign the Quill Diagnostic.
           </h1>
-          <a href='/diagnostic#/stage/1' class="q-button cta-button bg-quillgreen text-white">Assign</a>
+          <a href='/diagnostic/stage/1' class="q-button cta-button bg-quillgreen text-white">Assign</a>
       </section>
       <% end %>
 
