@@ -93,16 +93,15 @@ export default class extends React.Component{
   formatTitle(grade){
     // this is the title of the dropdown menu
     if (grade) {
-      return grade == 'University' ? grade : NumberSuffix(grade)
+      return grade == 'University' ? grade : `${NumberSuffix(grade)} Grade`
     } else {
-      return 'Grade'
+      return 'Select Grade'
     }
   }
 
   classroomRows(){
     let that = this;
     return this.orderGoogleClassrooms().map((classy)=>{
-      console.log(classy);
       return(
         <tr key={classy.id}>
           <td>
@@ -117,8 +116,7 @@ export default class extends React.Component{
             <DropdownButton
               id={`grade-dropdown-${classy.id}`}
               disabled={!classy.checked}
-              className={classy.grade ? 'has-grade' : null}
-              bsStyle='default'
+              className={`select-grade ${classy.grade ? 'has-grade' : null}`}
               title={this.formatTitle(classy.grade)}
               onSelect={this.handleSelect}>
                 {that.grades(classy.id)}
@@ -146,7 +144,7 @@ export default class extends React.Component{
   }
 
   classroomsTable(){
-    return (<table>
+    return (<table className='table table-responsive'>
       <tbody>
         {this.classroomRows()}
       </tbody>
