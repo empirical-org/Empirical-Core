@@ -130,16 +130,16 @@ const Question = React.createClass({
   },
 
   formatForQuestionBar() {
-    let totalResponseCount = Object.values(this.responsesByStatusCodeAndResponseCount()).reduce((a, b) => a + b);
-    if(totalResponseCount == 0) {
+    const totalResponseCount = Object.values(this.responsesByStatusCodeAndResponseCount()).reduce((a, b) => a + b);
+    if (totalResponseCount == 0) {
       return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
         value: 1 / Object.keys(this.responsesByStatusCodeAndResponseCount()).length * 100,
-        color: '#eeeeee'
+        color: '#eeeeee',
       }));
     } else {
       return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
         value: val / totalResponseCount * 100,
-        color: colors[key]
+        color: colors[key],
       }));
     }
   },
@@ -291,6 +291,7 @@ const Question = React.createClass({
         <div>
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
+          <QuestionBar data={_.values(this.formatForQuestionBar())} />
           <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} style={{ marginBottom: 0, }} />
           <Cues getQuestion={this.getQuestion} />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
@@ -298,7 +299,6 @@ const Question = React.createClass({
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <h6 className="subtitle">{responses.length} Responses</h6>
-          <QuestionBar data={_.values(this.formatForQuestionBar())} />
           <p className="control button-group">
             <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link>
             <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">Share Page</Link>

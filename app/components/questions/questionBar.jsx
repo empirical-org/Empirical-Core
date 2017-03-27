@@ -1,22 +1,23 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-export default React.createClass ({
+export default React.createClass({
 
-  render: function() {
-    return(
-      <div style={{height: 10}}>
+  render() {
+    return (
+      <div style={{ height: 10, marginBottom: 15, }}>
         {
           this.props.data.map((d, i) => (
-            <div style={{
+            <div
+              style={{
                 backgroundColor: d.color,
                 display: 'inline-block',
-                width: d.value + '%',
-                height: '100%'}
-            }></div>
+                width: `${d.value}%`,
+                height: '100%', }}
+            />
           ))
         }
       </div>
-    )
-  }
+    );
+  },
 
-})
+});
