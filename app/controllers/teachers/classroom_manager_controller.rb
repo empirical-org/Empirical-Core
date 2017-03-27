@@ -190,6 +190,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_google_classrooms
+    if current_user.google_classrooms.any?
+      google_classroom_ids = JSON.parse(params[:selected_classrooms]).map{ |sc| sc["id"] }
+      current_user.google_classrooms.each do |classy|
+        if google_classroom_ids.exclude?(classy.google_classroom_id)
+          classy.update(visible: false)
+        end
+      end
+    end
     GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, JSON.parse(params[:selected_classrooms], {:symbolize_names => true}))
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
