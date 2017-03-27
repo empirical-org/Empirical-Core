@@ -60,7 +60,7 @@ export default React.createClass({
       <div>
         {this.manageClassGear()}
         <img className='class_icon' src='/class_icon.png'></img>
-        <a href={this.manageClassLink()}><h3 className='classroom_name'>
+        <a href="/teachers/classrooms/scorebook"><h3 className='classroom_name'>
           {this.props.classObj.classroom.name}</h3></a>
         <div className='classMetaData text-center'>
           <p>
