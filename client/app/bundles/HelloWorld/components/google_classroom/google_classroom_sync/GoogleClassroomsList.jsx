@@ -192,7 +192,8 @@ export default class extends React.Component{
     return(
       <div>
         {this.classroomsOrLoading()}
-        <button onClick={() => this.syncClassrooms()}>Sync Classrooms</button>
+        <p>If you deselect a classroom, the classroom will be archived on Quill and will no longer sync data with Google Classroom.</p>
+        <button className='q-button cta-button bg-quillgreen text-white sync-classrooms' onClick={() => this.syncClassrooms()}>Sync Classrooms</button>
       </div>)
   }
 }
