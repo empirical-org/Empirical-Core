@@ -14,6 +14,7 @@ import EditFrom from './questionForm.jsx';
 import Response from './response.jsx';
 import C from '../../constants';
 import Chart from './pieChart.jsx';
+import QuestionBar from './questionBar.jsx';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import {
@@ -113,6 +114,21 @@ const Question = React.createClass({
 
   responsesByStatusCodeAndResponseCount() {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
+  },
+
+  formatForQuestionBar() {
+    let totalResponseCount = Object.values(this.responsesByStatusCodeAndResponseCount()).reduce((a, b) => a + b);
+    if(totalResponseCount == 0) {
+      return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
+        value: 1 / Object.keys(this.responsesByStatusCodeAndResponseCount()).length * 100,
+        color: '#eeeeee'
+      }));
+    } else {
+      return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
+        value: val / totalResponseCount * 100,
+        color: colors[key]
+      }));
+    }
   },
 
   formatForPieChart() {
@@ -260,6 +276,7 @@ const Question = React.createClass({
           <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
           <h6 className="subtitle">{responses.length} Responses</h6>
           <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link> <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">View Only</Link><br /><br />
+          <QuestionBar data={_.values(this.formatForQuestionBar())} />
           <Chart data={_.values(this.formatForPieChart())} />
           <p className="control button-group">
             <button className="button is-info" onClick={this.startEditingQuestion}>Edit Question</button>
