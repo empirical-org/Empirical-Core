@@ -1,8 +1,6 @@
 'use strict'
 
 import React from 'react'
-require('../../../../../../../assets/styles/app-variables.scss')
-
 
 export default  React.createClass({
 
