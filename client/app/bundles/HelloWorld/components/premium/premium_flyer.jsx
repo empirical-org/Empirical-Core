@@ -8,11 +8,16 @@ export default class extends React.Component{
   render(){
     return (
       <div className="premium-flyer">
-        {/* <img src="/images/homepage/homepage_pattern_blue_premium.png"/> */}
+        <div className="inner-premium-flyer">
           <div className="content">
             <h1>Get Our Premium Flyer</h1>
             <p>To learn more about our Premium product, its features and benefits, you can download and print this one-page overview and share it with your school.</p>
+            <a className="download-button" href="/premium_info.pdf" download="Quill Premium"><i className="fa fa-file-pdf-o"/>Download Premium PDF</a>
           </div>
+          <div className="picture">
+            <img src="/images/premium_flyer.png"/>
+          </div>
+        </div>
       </div>
     )}
 }
