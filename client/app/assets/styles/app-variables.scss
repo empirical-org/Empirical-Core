@@ -4,9 +4,13 @@
     margin-bottom: 30px;
   }
   a {
-    // color: $green;
+    /* color: $green;*/
     text-decoration: underline;
   }
+}
+.google-sync-container {
+  background-color: #f6f3f3;
+  width: 100%;
 }
 
 .google-sync {
@@ -15,21 +19,45 @@
   max-width: 900px;
   width: 100%;
   padding: 35px 40px;
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
   p {
     font-size: 18px;
     line-height: 28px;
+    margin-bottom: 25px;
   }
   table {
     background-color: white;
     width: 100%;
     font-size: 18px;
+    white-space: nowrap;
     tr {
       width: 100%;
       height: 50px;
     	border: solid 1px #c0c0c0;
       border-bottom: none;
-      td:first-child  {
-        padding-left: 15px;
+      td {
+        &:first-child {
+          padding-left: 15px;
+          width: 55px;
+        }
+        &:nth-child(2) {
+          max-width: 60px;
+          margin-right: 5px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        &:last-child {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          justify-content: flex-end;
+
+        }
       }
       .connected {
         font-size: 14px;
