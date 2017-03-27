@@ -3,12 +3,16 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 import LoadingIndicator from '../../shared/loading_indicator.jsx'
+import Pluralize from 'pluralize'
 
 export default class extends React.Component{
   constructor(){
     super()
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleExpansionRowClick = this.handleExpansionRowClick.bind(this)
   }
+
+  state = {showAllRows: false}
 
   componentDidMount(){
     this.checkImportedClassroomsAndMoveAllToState()
@@ -99,32 +103,57 @@ export default class extends React.Component{
     }
   }
 
+  handleExpansionRowClick(){
+    this.setState({showAllRows: true}, console.log(this.state))
+  }
+
   classroomRows(){
-    let that = this;
-    return this.orderGoogleClassrooms().map((classy)=>{
-      return(
-        <tr key={classy.id}>
-          <td>
-            <div className="donalito-checkbox" onClick={that.handleCheckboxClick.bind(null, classy)}>
-  						{that.renderSelectedCheck(classy)}
-  					</div>
-          </td>
-          <td>{classy.name}</td>
-          <td>{classy.section || ''}</td>
-          <td>{that.connected(classy.alreadyImported)}</td>
-          <td>
-            <DropdownButton
-              id={`grade-dropdown-${classy.id}`}
-              disabled={!classy.checked}
-              className={`select-grade ${classy.grade ? 'has-grade' : null}`}
-              title={this.formatTitle(classy.grade)}
-              onSelect={this.handleSelect}>
-                {that.grades(classy.id)}
-            </DropdownButton>
-          </td>
-        </tr>
-      )
-    })
+    const defaultRowLength = 2;
+    const tableRows = [];
+    const orderedClassrooms = this.orderGoogleClassrooms();
+    const maxNumber = this.state.showAllRows ?  orderedClassrooms.length : Math.min(orderedClassrooms.length, defaultRowLength)
+    console.log(maxNumber);
+    for (let i = 0; i < maxNumber; i++) {
+      tableRows.push(this.rowConstructor(orderedClassrooms[i]))
+    }
+    const extraRows = orderedClassrooms.length - defaultRowLength
+    if (!this.state.showAllRows && extraRows > 0) {
+      tableRows.push(this.expansionRow(extraRows))
+    }
+    return tableRows
+  }
+
+  expansionRow(extraRows) {
+    return(
+      <tr className='expansion' key='expansion' onClick={this.handleExpansionRowClick}>
+        <td colSpan={100}>You have {extraRows} more {Pluralize('class', extraRows)} (<span>Show Classrooms</span>)</td>
+      </tr>
+    )
+  }
+
+  rowConstructor = (classy) => {
+    return(
+      <tr key={classy.id}>
+        <td>
+          <div className="donalito-checkbox" onClick={this.handleCheckboxClick.bind(null, classy)}>
+            {this.renderSelectedCheck(classy)}
+          </div>
+        </td>
+        <td>{classy.name}</td>
+        <td>{classy.section || ''}</td>
+        <td>{this.connected(classy.alreadyImported)}</td>
+        <td>
+          <DropdownButton
+            id={`grade-dropdown-${classy.id}`}
+            disabled={!classy.checked}
+            className={`select-grade ${classy.grade ? 'has-grade' : null}`}
+            title={this.formatTitle(classy.grade)}
+            onSelect={this.handleSelect}>
+              {this.grades(classy.id)}
+          </DropdownButton>
+        </td>
+      </tr>
+    )
   }
 
   grades(id) {
@@ -144,7 +173,7 @@ export default class extends React.Component{
   }
 
   classroomsTable(){
-    return (<table className='table table-responsive'>
+    return (<table key={this.state.showAll}>
       <tbody>
         {this.classroomRows()}
       </tbody>
