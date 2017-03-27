@@ -14,6 +14,7 @@ import EditFrom from './questionForm.jsx';
 import Response from './response.jsx';
 import C from '../../constants';
 import Chart from './pieChart.jsx';
+import QuestionBar from './questionBar.jsx';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import icon from '../../img/question_icon.svg';
@@ -126,6 +127,21 @@ const Question = React.createClass({
 
   responsesByStatusCodeAndResponseCount() {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
+  },
+
+  formatForQuestionBar() {
+    let totalResponseCount = Object.values(this.responsesByStatusCodeAndResponseCount()).reduce((a, b) => a + b);
+    if(totalResponseCount == 0) {
+      return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
+        value: 1 / Object.keys(this.responsesByStatusCodeAndResponseCount()).length * 100,
+        color: '#eeeeee'
+      }));
+    } else {
+      return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
+        value: val / totalResponseCount * 100,
+        color: colors[key]
+      }));
+    }
   },
 
   formatForPieChart() {
@@ -282,7 +298,7 @@ const Question = React.createClass({
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <h6 className="subtitle">{responses.length} Responses</h6>
-
+          <QuestionBar data={_.values(this.formatForQuestionBar())} />
           <p className="control button-group">
             <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link>
             <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">Share Page</Link>
