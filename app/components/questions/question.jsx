@@ -91,6 +91,10 @@ const Question = React.createClass({
     return this.state.responses;
   },
 
+  getTotalAttempts() {
+    return _.reduce(this.getResponses(), (memo, item) => memo + item.count, 0);
+  },
+
   getResponse(responseID) {
     const { data, states, } = this.props.questions,
       { questionID, } = this.props.params;
@@ -291,21 +295,20 @@ const Question = React.createClass({
         <div>
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
-          <QuestionBar data={_.values(this.formatForQuestionBar())} />
           <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} style={{ marginBottom: 0, }} />
           <Cues getQuestion={this.getQuestion} />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
-          <h6 className="subtitle">{responses.length} Responses</h6>
-          <p className="control button-group">
+          <p className="control button-group" style={{ marginTop: 10, }}>
             <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link>
             <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">Share Page</Link>
             <button className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</button>
             <button className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</button>
             <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
+          <QuestionBar data={_.values(this.formatForQuestionBar())} />
           <ResponseComponent
             question={data[questionID]}
             responses={this.getResponses()}

@@ -1,29 +1,29 @@
-import React from 'react'
+import React from 'react';
 
 export default React.createClass({
-  stateSpecificClass: function (stateName) {
+  stateSpecificClass(stateName) {
     if (this.props.sorting === stateName) {
-      return " is-active"
+      return ' is-active';
     }
   },
 
-  renderAscendingArrow: function (stateName) {
+  renderAscendingArrow(stateName) {
     if (this.props.sorting === stateName) {
-      return this.props.ascending ? "^" : "v"
+      return this.props.ascending ? ' ⬆' : ' ⬇';
     }
   },
 
-  renderSortField: function (displayName, stateName) {
+  renderSortField(displayName, stateName) {
     return (
       <li className={this.stateSpecificClass(stateName)}>
         <a onClick={this.props.toggleResponseSort.bind(null, stateName)}>
           {displayName} {this.renderAscendingArrow(stateName)}
         </a>
       </li>
-    )
+    );
   },
 
-  render: function () {
+  render() {
     return (
       <ul>
         {this.renderSortField('Submissions', 'count')}
@@ -32,6 +32,6 @@ export default React.createClass({
         {this.renderSortField('Status', 'statusCode')}
       </ul>
     );
-  }
+  },
 
-})
+});

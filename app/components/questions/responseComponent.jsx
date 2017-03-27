@@ -75,15 +75,25 @@ const Responses = React.createClass({
     this.clearResponsesFromMassEditArray();
   },
 
+  getTotalAttempts() {
+    return _.reduce(this.props.responses, (memo, item) => memo + item.count, 0);
+  },
+
+  getResponseCount() {
+    if (this.props.responses) {
+      return hashToCollection(this.props.responses).length;
+    }
+  },
+
   chooseMassEditBoilerplateCategory(e) {
     this.setState({ selectedMassEditBoilerplateCategory: e.target.value, });
   },
 
   chooseMassEditSpecificBoilerplateFeedback(e) {
     if (e.target.value === 'Select specific boilerplate feedback') {
-      this.setState({ selectedMassEditBoilerplate: '' });
+      this.setState({ selectedMassEditBoilerplate: '', });
     } else {
-      this.setState({ selectedMassEditBoilerplate: e.target.value });
+      this.setState({ selectedMassEditBoilerplate: e.target.value, });
     }
   },
 
@@ -96,44 +106,44 @@ const Responses = React.createClass({
   },
 
   incrementAllResponsesInMassEditArray() {
-    let selectedResponses = this.props.massEdit.selectedResponses;
-    selectedResponses.forEach((response) => this.props.dispatch(incrementResponseCount(this.props.questionID, response)));
+    const selectedResponses = this.props.massEdit.selectedResponses;
+    selectedResponses.forEach(response => this.props.dispatch(incrementResponseCount(this.props.questionID, response)));
   },
 
   updateAllResponsesInMassEditArray() {
-    let selectedResponses = this.props.massEdit.selectedResponses;
+    const selectedResponses = this.props.massEdit.selectedResponses;
     const newResp = {
       weak: false,
       feedback: this.state.massEditFeedback,
-      optimal: this.refs.massEditOptimal.checked
+      optimal: this.refs.massEditOptimal.checked,
     };
     selectedResponses.forEach((responseKey) => {
       const uniqVals = Object.assign({}, newResp, {
-        gradeIndex: "human" + responseKey
-      })
-      this.props.dispatch(submitResponseEdit(responseKey, uniqVals))
+        gradeIndex: `human${responseKey}`,
+      });
+      this.props.dispatch(submitResponseEdit(responseKey, uniqVals));
       this.props.dispatch(removeLinkToParentID(responseKey));
     });
   },
 
   deleteAllResponsesInMassEditArray() {
-    let selectedResponses = this.props.massEdit.selectedResponses;
-    if(window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
-      selectedResponses.forEach((response) => this.props.dispatch(deleteResponse(this.props.questionID, response)));
+    const selectedResponses = this.props.massEdit.selectedResponses;
+    if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
+      selectedResponses.forEach(response => this.props.dispatch(deleteResponse(this.props.questionID, response)));
       this.clearResponsesFromMassEditArray();
     }
   },
 
   addMassEditConceptResults() {
-    let selectedResponses = this.props.massEdit.selectedResponses;
+    const selectedResponses = this.props.massEdit.selectedResponses;
     const newMassEditConceptResultConceptUID = this.state.newMassEditConceptResultConceptUID;
 
     selectedResponses.forEach((responseKey) => {
-      let currentConceptResultsForResponse = this.props.responses[responseKey].conceptResults || {};
-      let conceptResultUidsArrayForResponse = Object.keys(currentConceptResultsForResponse).map((concept) => this.props.responses[responseKey].conceptResults[concept].conceptUID);
-      if(conceptResultUidsArrayForResponse.includes(newMassEditConceptResultConceptUID)) {
+      const currentConceptResultsForResponse = this.props.responses[responseKey].conceptResults || {};
+      const conceptResultUidsArrayForResponse = Object.keys(currentConceptResultsForResponse).map(concept => this.props.responses[responseKey].conceptResults[concept].conceptUID);
+      if (conceptResultUidsArrayForResponse.includes(newMassEditConceptResultConceptUID)) {
         const conceptKey = _.compact(_.map(currentConceptResultsForResponse, (concept, conceptValues) => {
-          if(concept.conceptUID == newMassEditConceptResultConceptUID) {
+          if (concept.conceptUID == newMassEditConceptResultConceptUID) {
             return concept;
           } else {
             return null;
@@ -144,46 +154,44 @@ const Responses = React.createClass({
 
       this.props.dispatch(submitNewConceptResult(this.props.questionID, responseKey, {
         conceptUID: newMassEditConceptResultConceptUID,
-        correct: this.state.newMassEditConceptResultCorrect
+        correct: this.state.newMassEditConceptResultCorrect,
       }));
     });
   },
 
   handleMassEditFeedbackTextChange(value) {
-    this.setState({ massEditFeedback: value })
+    this.setState({ massEditFeedback: value, });
   },
 
   selectMassEditConceptForResult(e) {
-    this.setState({newMassEditConceptResultConceptUID: e.value});
+    this.setState({ newMassEditConceptResultConceptUID: e.value, });
   },
 
   updateMassEditConceptResultCorrect() {
-    this.setState({newMassEditConceptResultCorrect: this.refs.massEditConceptResultsCorrect.checked});
+    this.setState({ newMassEditConceptResultCorrect: this.refs.massEditConceptResultsCorrect.checked, });
   },
 
   toggleMassEditSummaryList() {
     let display = 'none';
     let text = 'Expand List';
-    if(this.state.massEditSummaryListButtonText == 'Expand List') {
+    if (this.state.massEditSummaryListButtonText == 'Expand List') {
       display = 'block';
       text = 'Collapse List';
     }
     this.setState({
       massEditSummaryListDisplay: display,
       massEditSummaryListButtonText: text,
-    })
+    });
   },
 
   renderMassEditSummaryListResponse(response) {
     return (
-      <p><input type="checkbox" defaultChecked={true} checked={true} style={{marginRight: '0.5em' }} onClick={() => this.removeResponseFromMassEditArray(response)} />{this.props.responses[response].text}</p>
+      <p><input type="checkbox" defaultChecked checked style={{ marginRight: '0.5em', }} onClick={() => this.removeResponseFromMassEditArray(response)} />{this.props.responses[response].text}</p>
     );
   },
 
   renderMassEditSummaryList() {
-    const summaryResponses = this.props.massEdit.selectedResponses.map((response) => {
-      return this.renderMassEditSummaryListResponse(response)
-    });
+    const summaryResponses = this.props.massEdit.selectedResponses.map(response => this.renderMassEditSummaryListResponse(response));
     return (<div className="content">{summaryResponses}</div>);
   },
 
@@ -212,7 +220,7 @@ const Responses = React.createClass({
   },
 
   renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description: description, });
+    const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
     if (selectedCategory) {
       return (
         <span className="select">
@@ -489,19 +497,19 @@ const Responses = React.createClass({
 
     if (this.allClosed()) {
       handleClick = this.expandAllResponses;
-      text = 'Expand All';
+      text = 'Expand';
     } else {
       handleClick = this.collapseAllResponses;
-      text = 'Close All';
+      text = 'Close';
     }
-    return <a className="button is-fullwidth" onClick={handleClick}> {text} </a>;
+    return <a className="button is-fullwidth" onClick={handleClick}>{text}</a>;
   },
 
   renderRematchAllButton() {
     if (this.props.admin) {
       return (
         <div className="column">
-          <button className="button is-fullwidth is-outlined" onClick={this.rematchAllResponses}> Rematch All </button>
+          <button className="button is-fullwidth is-outlined" onClick={this.rematchAllResponses}>Rematch</button>
         </div>
       );
     }
@@ -521,7 +529,7 @@ const Responses = React.createClass({
   renderViewPOSButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: false, responsePageNumber: 1, }); }}> View Parts of Speech </button>
+        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: false, responsePageNumber: 1, }); }}>POS</button>
       </div>
     );
   },
@@ -529,7 +537,7 @@ const Responses = React.createClass({
   renderViewResponsesButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: true, responsePageNumber: 1, }); }}> View Unique Responses </button>
+        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: true, responsePageNumber: 1, }); }}>Uniques</button>
       </div>
     );
   },
@@ -537,7 +545,7 @@ const Responses = React.createClass({
   renderResetAllFiltersButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Reset All Filters</button>
+        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Reset</button>
       </div>
     );
   },
@@ -604,14 +612,14 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.setState({stringFilter: this.refs.stringFilter.value, responsePageNumber: 1});
+    this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, });
   },
 
   getFilteredResponses(responses) {
-    if(this.state.stringFilter == "") {
+    if (this.state.stringFilter == '') {
       return responses;
     }
-    let that = this;
+    const that = this;
     return _.filter(responses, response => response.text.indexOf(that.state.stringFilter) >= 0);
   },
 
@@ -755,17 +763,17 @@ const Responses = React.createClass({
   },
 
   renderMassEditForm() {
-    let selectedResponses = this.props.massEdit.selectedResponses;
-    if(selectedResponses.length > 1) {
+    const selectedResponses = this.props.massEdit.selectedResponses;
+    if (selectedResponses.length > 1) {
       return (
         <div>
           <div className="card is-fullwidth has-bottom-margin has-top-margin">
             <header className="card-content expanded">
               <div className="content">
-                <h1 className="title is-3" style={{marginBottom: '0'}}><strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses Selected for Mass Editing:</h1>
+                <h1 className="title is-3" style={{ marginBottom: '0', }}><strong style={{ fontWeight: '700', }}>{selectedResponses.length}</strong> Responses Selected for Mass Editing:</h1>
               </div>
             </header>
-            <div className="card-content" style={{display: this.state.massEditSummaryListDisplay}}>
+            <div className="card-content" style={{ display: this.state.massEditSummaryListDisplay, }}>
               {this.renderMassEditSummaryList()}
             </div>
             <footer className="card-footer">
@@ -776,11 +784,11 @@ const Responses = React.createClass({
           </div>
           <div className="card is-fullwidth has-bottom-margin has-top-margin">
             <header className="card-content expanded">
-                <h1 className="title is-3" style={{display: 'inline-block'}}>Modify Feedback for <strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses</h1>
+              <h1 className="title is-3" style={{ display: 'inline-block', }}>Modify Feedback for <strong style={{ fontWeight: '700', }}>{selectedResponses.length}</strong> Responses</h1>
             </header>
             <div className="card-content">
               <div className="content">
-                <h3>FEEDBACK <span style={{fontSize: '0.7em', marginLeft: '0.75em'}}>⚠️️ All other feedback associated with selected responses will be overwritten ⚠️️</span></h3>
+                <h3>FEEDBACK <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other feedback associated with selected responses will be overwritten ⚠️️</span></h3>
                 <TextEditor text={this.state.massEditFeedback || ''} handleTextChange={this.handleMassEditFeedbackTextChange} boilerplate={this.state.selectedMassEditBoilerplate} />
               </div>
               <div className="content">
@@ -792,7 +800,7 @@ const Responses = React.createClass({
               </div>
               <div className="content">
                 <label className="checkbox">
-                  <h3><input ref="massEditOptimal" defaultChecked={false} type="checkbox" /> OPTIMAL <span style={{fontSize: '0.7em', marginLeft: '0.75em'}}>⚠️️ All selected responses will be marked with this optimality ⚠️️</span></h3>
+                  <h3><input ref="massEditOptimal" defaultChecked={false} type="checkbox" /> OPTIMAL <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All selected responses will be marked with this optimality ⚠️️</span></h3>
                 </label>
               </div>
             </div>
@@ -804,11 +812,11 @@ const Responses = React.createClass({
           </div>
           <div className="card is-fullwidth has-bottom-margin has-top-margin">
             <header className="card-content expanded">
-                <h1 className="title is-3" style={{display: 'inline-block'}}>Add Concept Results for <strong style={{fontWeight: '700'}}>{selectedResponses.length}</strong> Responses</h1>
+              <h1 className="title is-3" style={{ display: 'inline-block', }}>Add Concept Results for <strong style={{ fontWeight: '700', }}>{selectedResponses.length}</strong> Responses</h1>
             </header>
             <div className="card-content">
               <div className="content">
-                <h3>ADD CONCEPT RESULTS <span style={{fontSize: '0.7em', marginLeft: '0.75em'}}>⚠️️ This concept result will be added to all selected responses ⚠️️</span></h3>
+                <h3>ADD CONCEPT RESULTS <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ This concept result will be added to all selected responses ⚠️️</span></h3>
                 <ConceptSelector currentConceptUID={this.state.newMassEditConceptResultConceptUID} handleSelectorChange={this.selectMassEditConceptForResult} />
                 <br />
                 <label className="checkbox">
@@ -821,36 +829,38 @@ const Responses = React.createClass({
             </footer>
           </div>
         </div>
-      )
+      );
     }
   },
 
   render() {
     return (
-      <div>
-        {this.renderFocusPoint()}
-        <div className="columns">
-          <div className="column">
-            Percentage of weak reponses: {this.getPercentageWeakResponses()}%
-          </div>
-        </div>
-        <div className="tabs is-toggle is-fullwidth">
-          {this.renderSortingFields()}
-        </div>
+      <div style={{ marginTop: 0, paddingTop: 0, }}>
+        <h4 className="title is-5" >
+          Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak reponses: <strong>{this.getPercentageWeakResponses()}%</strong>
+        </h4>
         <div className="tabs is-toggle is-fullwidth">
           {this.renderStatusToggleMenu()}
         </div>
         <div className="columns">
           <div className="column">
-            {this.renderExpandCollapseAll()}
+            <div className="tabs is-toggle is-fullwidth">
+              {this.renderSortingFields()}
+            </div>
           </div>
-          {this.renderRematchAllButton()}
-          {this.renderResetAllFiltersButton()}
-          {this.renderViewResponsesButton()}
-          {this.renderViewPOSButton()}
+          <div className="column">
+            <div className="columns">
+              <div className="column">
+                {this.renderExpandCollapseAll()}
+              </div>
+              {this.renderRematchAllButton()}
+              {this.renderResetAllFiltersButton()}
+              {this.renderViewResponsesButton()}
+              {this.renderViewPOSButton()}
+            </div>
+          </div>
         </div>
-
-        <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Filter answers by string..." /><br /><br />
+        <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}
@@ -868,7 +878,7 @@ function select(state) {
     pathways: state.pathways,
     conceptsFeedback: state.conceptsFeedback,
     concepts: state.concepts,
-    massEdit: state.massEdit
+    massEdit: state.massEdit,
   };
 }
 

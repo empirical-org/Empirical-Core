@@ -34,11 +34,9 @@ export default React.createClass({
     }
 
     return (
-      <div className="column" style={{flexGrow: '0'}}>
-        <label className="panel-checkbox toggle">
-          <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status}</span>
-        </label>
-      </div>
+      <label className="panel-checkbox toggle">
+        <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status.replace(' Hint', '')}</span>
+      </label>
     );
   },
 
@@ -50,14 +48,12 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <p>Filter responses by correctness of response</p>
-        <div className="columns is-multiline">
+        <div style={{ margin: '10 0', }}>
           {this.props.qualityLabels.map(label => this.renderToggleField(label))}
         </div>
-        <p>Additionally, filter responses by feedback algorithm</p>
-        <div className="columns">
+        <div style={{ margin: '10 0 0 0', display: 'flex', flexWrap: 'wrap', }}>
           {this.props.labels.map(label => this.renderToggleField(label))}
-          {this.renderToggleField('No Hint')}
+          {this.renderToggleField('None Hint')}
         </div>
       </div>
     );
