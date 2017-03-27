@@ -47,11 +47,8 @@ function getParameterByName(name, url) {
 render((
   <Provider store={store}>
     <Router history={history}>
-      {/* <Route path="/" component={Root}>*/}
-      {/* <IndexRoute component={Welcome} />*/}
 
       {PlayRoutes}
-      <Route path="/lessons" component={Activities} />
       <Route path="/results" component={Passthrough}>
         <IndexRoute component={Results} />
         <Route path="questions/:questionID" component={Review} />

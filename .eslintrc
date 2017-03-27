@@ -30,6 +30,7 @@
       "maxBOF": 0
     }],
     "no-restricted-syntax": ['off', "ForInStatement"],
-    "capitalized-comments": ["error", "never"]
+    "capitalized-comments": ["error", "never"],
+    "import/extensions": 0
   },
 }
