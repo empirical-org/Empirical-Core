@@ -14,6 +14,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def new
     class_ids = current_user.classrooms_i_teach.map(&:id)
+    @user = current_user
     @has_activities = ClassroomActivity.where(classroom_id: class_ids).exists?
   end
 
