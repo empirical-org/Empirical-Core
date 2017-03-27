@@ -16,6 +16,8 @@ import C from '../../constants';
 import Chart from './pieChart.jsx';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import icon from '../../img/question_icon.svg';
+import Cues from '../renderForQuestions/cues.jsx';
 import {
   deleteResponse,
   incrementResponseCount,
@@ -36,6 +38,7 @@ const Question = React.createClass({
       selectedBoilerplateCategory: '',
       responses: [],
       loadedResponses: false,
+      addingNewResponse: false,
     };
   },
 
@@ -75,6 +78,12 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals));
   },
 
+  getQuestion() {
+    const { data, } = this.props.questions;
+    const { questionID, } = this.props.params;
+    return data[questionID];
+  },
+
   getResponses() {
     // const { questionID, } = this.props.params;
     // return this.props.responses.data[questionID];
@@ -86,6 +95,10 @@ const Question = React.createClass({
       { questionID, } = this.props.params;
     const responses = hashToCollection(this.getResponses());
     return _.find(responses, { key: responseID, });
+  },
+
+  startAddingNewResponse() {
+    this.setState({ addingNewResponse: true, });
   },
 
   responsesWithStatus() {
@@ -138,7 +151,8 @@ const Question = React.createClass({
     this.refs.newResponseFeedback.value = null;
     this.refs.newResponseOptimal.checked = false;
     // this.refs.boilerplate.value = null;
-    this.props.dispatch(submitNewResponse(newResp.vals)); // fIXME
+    this.props.dispatch(submitNewResponse(newResp.vals));
+    this.setState({ addingNewResponse: false, });
   },
 
   gatherVisibleResponses() {
@@ -199,32 +213,36 @@ const Question = React.createClass({
   },
 
   renderNewResponseForm() {
-    return (
-      <div className="box">
-        <h6 className="control subtitle">Add a new response</h6>
-        <label className="label">Response text</label>
-        <p className="control">
-          <input className="input" type="text" ref="newResponseText" />
-        </p>
-        <label className="label">Feedback</label>
-        <p className="control">
-          <input className="input" type="text" ref="newResponseFeedback" />
-        </p>
-        <label className="label">Boilerplate feedback</label>
-        <div className="boilerplate-feedback-dropdown-container">
-          {this.renderBoilerplateCategoryDropdown(this.chooseBoilerplateCategory)}
-          {this.renderBoilerplateCategoryOptionsDropdown(this.chooseSpecificBoilerplateFeedback, this.state.selectedBoilerplateCategory)}
-        </div>
-        <br />
-        <p className="control">
-          <label className="checkbox">
-            <input ref="newResponseOptimal" type="checkbox" />
-            Optimal?
-          </label>
-        </p>
-        <button className="button is-primary" onClick={this.submitNewResponse}>Add Response</button>
-      </div>
-    );
+    if (this.state.addingNewResponse) {
+      return (
+        <Modal close={() => { this.setState({ addingNewResponse: false, }); }}>
+          <div className="box">
+            <h6 className="control subtitle">Add a new response</h6>
+            <label className="label">Response text</label>
+            <p className="control">
+              <input className="input" type="text" ref="newResponseText" />
+            </p>
+            <label className="label">Feedback</label>
+            <p className="control">
+              <input className="input" type="text" ref="newResponseFeedback" />
+            </p>
+            <label className="label">Boilerplate feedback</label>
+            <div className="boilerplate-feedback-dropdown-container">
+              {this.renderBoilerplateCategoryDropdown(this.chooseBoilerplateCategory)}
+              {this.renderBoilerplateCategoryOptionsDropdown(this.chooseSpecificBoilerplateFeedback, this.state.selectedBoilerplateCategory)}
+            </div>
+            <br />
+            <p className="control">
+              <label className="checkbox">
+                <input ref="newResponseOptimal" type="checkbox" />
+                Optimal?
+              </label>
+            </p>
+            <button className="button is-primary" onClick={this.submitNewResponse}>Add Response</button>
+          </div>
+        </Modal>
+      );
+    }
   },
 
   renderEditForm() {
@@ -256,16 +274,22 @@ const Question = React.createClass({
       return (
         <div>
           {this.renderEditForm()}
-          <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
+          {this.renderNewResponseForm()}
+          <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} style={{ marginBottom: 0, }} />
+          <Cues getQuestion={this.getQuestion} />
+          <div className="feedback-row student-feedback-inner-container admin-feedback-row">
+            <img className="info" src={icon} />
+            <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
+          </div>
           <h6 className="subtitle">{responses.length} Responses</h6>
 
           <p className="control button-group">
             <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link>
             <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">Share Page</Link>
             <button className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</button>
+            <button className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</button>
             <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
-          {this.renderNewResponseForm()}
           <ResponseComponent
             question={data[questionID]}
             responses={this.getResponses()}
