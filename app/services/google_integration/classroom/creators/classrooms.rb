@@ -1,7 +1,6 @@
 module GoogleIntegration::Classroom::Creators::Classrooms
 
   def self.run(teacher, courses)
-    puts teacher
     courses.map{ |course| self.create_classroom(teacher, course) }
            .compact
   end
@@ -15,6 +14,7 @@ module GoogleIntegration::Classroom::Creators::Classrooms
         classroom.attributes = {name: course[:name] || "Classroom #{course[:id]}", teacher_id: teacher.id}
         classroom.save!
       end
+      classroom.update(grade: course[:grade])
       classroom.reload
     end
     classroom

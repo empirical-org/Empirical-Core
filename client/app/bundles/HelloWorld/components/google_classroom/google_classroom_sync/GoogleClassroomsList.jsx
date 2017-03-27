@@ -25,10 +25,12 @@ export default class extends React.Component{
 
 
   handleSelect(e) {
+    // e looks like {id: 232322, grade: 3}
     const newClassrooms = this.state.classrooms.slice(0);
     const classy = newClassrooms.find((c)=>c.id === e.id)
     const classyIndex = newClassrooms.indexOf(classy);
-    const newClassy = Object.assign({grade: e.grade}, classy);
+    const newClassy = Object.assign({}, classy);
+    newClassy.grade = e.grade
     newClassrooms[classyIndex] = newClassy;
     this.setState({classrooms: newClassrooms})
   }
@@ -46,6 +48,8 @@ export default class extends React.Component{
   }
 
   getSelectedClassroomsData = () => {
+    // returns an array of checked classrooms, along with an count
+    // of how many were archived for us to warn the user
     const selectedClassrooms = []
     let archivedCount = 0;
     const that = this
@@ -60,8 +64,8 @@ export default class extends React.Component{
   }
 
   orderGoogleClassrooms = () => {
+    // sorts by if alreadyImported, then by creationTime
     return this.state.classrooms.sort((a, b) => {
-      // sorts by if alreadyImported, then by creationTime
       if (a.alreadyImported === b.alreadyImported) {
         return a.creationTime-b.creationTime;
       } else if (a.alreadyImported) {
@@ -87,8 +91,8 @@ export default class extends React.Component{
   }
 
   formatTitle(grade){
+    // this is the title of the dropdown menu
     if (grade) {
-      debugger;
       return grade == 'University' ? grade : NumberSuffix(grade)
     } else {
       return 'Grade'
@@ -98,6 +102,7 @@ export default class extends React.Component{
   classroomRows(){
     let that = this;
     return this.orderGoogleClassrooms().map((classy)=>{
+      console.log(classy);
       return(
         <tr key={classy.id}>
           <td>
@@ -106,7 +111,7 @@ export default class extends React.Component{
   					</div>
           </td>
           <td>{classy.name}</td>
-          <td>{classy.section || 'section #'}</td>
+          <td>{classy.section || ''}</td>
           <td>{that.connected(classy.alreadyImported)}</td>
           <td>
             <DropdownButton
@@ -125,6 +130,7 @@ export default class extends React.Component{
   }
 
   grades(id) {
+    // populates dropdown menu with grades
       let grades = [];
       for (let grade = 1; grade <= 12; grade++) {
           grades.push(
