@@ -4,7 +4,7 @@ import $ from 'jquery'
 import Modal from 'react-bootstrap/lib/Modal';
 
 export default React.createClass({
-
+  
     render: function() {
         return (
             <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal'>

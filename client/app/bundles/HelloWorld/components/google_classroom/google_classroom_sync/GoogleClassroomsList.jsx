@@ -1,42 +1,56 @@
 import React from 'react'
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+import NumberSuffix from '../../modules/numberSuffixBuilder.js'
+import LoadingIndicator from '../../shared/loading_indicator.jsx'
 
 export default class extends React.Component{
   constructor(){
     super()
-  }
-
-  state = {
-    selectedClassroomIds: new Set()
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
   componentDidMount(){
-    this.addAlreadyImportedClassroomsToSelected()
+    this.checkImportedClassroomsAndMoveAllToState()
   }
 
   handleCheckboxClick = (classy) => {
-    const newSelectedClassroomIds = Object.assign(this.state.selectedClassroomIds, {})
-    newSelectedClassroomIds.has(classy.id) ? newSelectedClassroomIds.delete(classy.id) :  newSelectedClassroomIds.add(classy.id)
-    this.setState({ selectedClassroomIds: newSelectedClassroomIds })
+    const newClassy = Object.assign(classy);
+    const newClassrooms = this.state.classrooms.slice(0);
+    const classyIndex = newClassrooms.indexOf(classy)
+    newClassy.checked = newClassy.checked ? false : true;
+    newClassrooms[classyIndex] = newClassy;
+    this.setState({classrooms: newClassrooms})
   }
 
-  addAlreadyImportedClassroomsToSelected = () => {
+
+  handleSelect(e) {
+    const newClassrooms = this.state.classrooms.slice(0);
+    const classy = newClassrooms.find((c)=>c.id === e.id)
+    const classyIndex = newClassrooms.indexOf(classy);
+    const newClassy = Object.assign({grade: e.grade}, classy);
+    newClassrooms[classyIndex] = newClassy;
+    this.setState({classrooms: newClassrooms})
+  }
+
+  checkImportedClassroomsAndMoveAllToState = () => {
     // we get the intitial list of classrooms and check them/keep track of what is already imported
+    const classrooms = [];
     this.props.classrooms.forEach((classy, index) => {
       if (classy.alreadyImported) {
-        const alreadyImportedClasses = Object.assign(this.state.selectedClassroomIds, {})
-        this.setState({
-          selectedClassroomIds: alreadyImportedClasses.add(classy.id)
-        })
+        classy.checked = true;
       }
+      classrooms.push(classy)
     })
+    this.setState({classrooms})
   }
 
   getSelectedClassroomsData = () => {
     const selectedClassrooms = []
     let archivedCount = 0;
     const that = this
-    this.props.classrooms.forEach((classy)=>{
-      if (that.state.selectedClassroomIds.has(classy.id)) {
+    this.state.classrooms.forEach((classy)=>{
+      if (classy.checked) {
         selectedClassrooms.push(classy)
       } else if (classy.alreadyImported) {
         archivedCount ++;
@@ -46,7 +60,7 @@ export default class extends React.Component{
   }
 
   orderGoogleClassrooms = () => {
-    return this.props.classrooms.sort((a, b) => {
+    return this.state.classrooms.sort((a, b) => {
       // sorts by if alreadyImported, then by creationTime
       if (a.alreadyImported === b.alreadyImported) {
         return a.creationTime-b.creationTime;
@@ -59,7 +73,7 @@ export default class extends React.Component{
   }
 
   renderSelectedCheck = (classy) => {
-		if (this.state.selectedClassroomIds.has(classy.id)) {
+		if (classy.checked) {
 			return (
 				<img className="recommendation-check" src="/images/recommendation_check.svg"></img>
 			)
@@ -69,6 +83,15 @@ export default class extends React.Component{
   connected = (alreadyImported) => {
     if (alreadyImported) {
       return <span className='connected'>Connected</span>
+    }
+  }
+
+  formatTitle(grade){
+    if (grade) {
+      debugger;
+      return grade == 'University' ? grade : NumberSuffix(grade)
+    } else {
+      return 'Grade'
     }
   }
 
@@ -84,11 +107,32 @@ export default class extends React.Component{
           </td>
           <td>{classy.name}</td>
           <td>{classy.section || 'section #'}</td>
-          <td>{this.connected(classy.alreadyImported)}</td>
-          <td>{classy.creationTime}</td>
+          <td>{that.connected(classy.alreadyImported)}</td>
+          <td>
+            <DropdownButton
+              id={`grade-dropdown-${classy.id}`}
+              disabled={!classy.checked}
+              className={classy.grade ? 'has-grade' : null}
+              bsStyle='default'
+              title={this.formatTitle(classy.grade)}
+              onSelect={this.handleSelect}>
+                {that.grades(classy.id)}
+            </DropdownButton>
+          </td>
         </tr>
       )
     })
+  }
+
+  grades(id) {
+      let grades = [];
+      for (let grade = 1; grade <= 12; grade++) {
+          grades.push(
+              <MenuItem id={`${grade}-${id}`} key={`${grade}-${id}`} eventKey={{id, grade: grade}}>{NumberSuffix(grade)}</MenuItem>
+          )
+      }
+      grades.push(<MenuItem id={`university-${id}`} key={`university-${id}`} eventKey={'University'}>University</MenuItem>)
+      return grades
   }
 
   syncClassrooms(){
@@ -102,10 +146,19 @@ export default class extends React.Component{
       </tbody>
     </table>)
   }
+
+  classroomsOrLoading(){
+    if (this.state && this.state.classrooms) {
+      return this.classroomsTable()
+    } else {
+      return <LoadingIndicator/>
+    }
+  }
+
   render(){
     return(
       <div>
-        {this.classroomsTable()}
+        {this.classroomsOrLoading()}
         <button onClick={() => this.syncClassrooms()}>Sync Classrooms</button>
       </div>)
   }
