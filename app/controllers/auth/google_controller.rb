@@ -4,7 +4,7 @@ class Auth::GoogleController < ApplicationController
     access_token = request.env['omniauth.auth']['credentials']['token']
     session[:google_access_token] = access_token
     name, email, google_id = GoogleIntegration::Profile.fetch_name_email_and_google_id(access_token)
-    if URI(request.referer) && URI(request.referer).path && ['/session/new', '/teachers/classrooms/dashboard'].exclude?(URI(request.referer).path)
+    if request.referer && URI(request.referer).path && ['/session/new', '/teachers/classrooms/dashboard'].exclude?(URI(request.referer).path)
       # If we are here it is simply to get a new access token. Ultimately, we should
       # set this up for refresh tokens at which point, this will no longer be necessary.
       return redirect_to URI(request.referer).path
@@ -58,7 +58,7 @@ class Auth::GoogleController < ApplicationController
       return
     else
       user.update(signed_up_with_google: true)
-      if URI(request.referer) && URI(request.referer) && URI(request.referer).path == '/teachers/classrooms/dashboard'
+      if request.referer && URI(request.referer) && URI(request.referer).path == '/teachers/classrooms/dashboard'
         # if they are hitting this route through the dashboard, they should be brought to the google sync page
         redirect_to '/teachers/classrooms/google_sync'
         return
