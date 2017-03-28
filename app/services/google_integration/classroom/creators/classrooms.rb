@@ -14,7 +14,7 @@ module GoogleIntegration::Classroom::Creators::Classrooms
         classroom.attributes = {name: course[:name] || "Classroom #{course[:id]}", teacher_id: teacher.id}
         classroom.save!
       end
-      classroom.update(grade: course[:grade])
+      classroom.update(grade: course[:grade], visible: true)
       classroom.reload
     end
     classroom

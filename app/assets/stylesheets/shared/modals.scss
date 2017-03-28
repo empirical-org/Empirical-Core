@@ -1,5 +1,19 @@
 .google-classroom-modal {
     text-align: center;
+    .block {
+      height: 21px;
+      width: 21px;
+      display: inline-block;
+      position: relative;
+      top: 3px;
+      right: 11px;
+      &.red-block {
+      	background-color: #ff4542;
+      }
+      &.green-block {
+      	background-color: #82bf3c;
+      }
+    }
     .modal-content {
       max-width: 522px;
       margin: auto;
@@ -24,7 +38,7 @@
        content: ' ';
        display: block;
        width: 87px;
-       margin: 9px auto 20px;
+       margin: 17px auto 20px;
        border-top: solid 1px #ebebeb;
      }
    }
@@ -75,12 +89,54 @@
      .error {
        font-size: 12px;
        height: 37px;
+       display: -webkit-box;
+       display: -ms-flexbox;
        display: flex;
-       justify-content: center;
-       align-items: center;
+       -webkit-box-pack: center;
+           -ms-flex-pack: center;
+               justify-content: center;
+       -webkit-box-align: center;
+           -ms-flex-align: center;
+               align-items: center;
        color: #ff4542;
        i {
          padding-right: 3.5px;
        }
+     }
+   }
+
+   .archive-warning, .sync-success {
+     .subheader {
+       color: #737373;
+       font-size: 18px;
+       margin-bottom: 30px;
+     }
+     button {
+       &.close-modal {
+         border-radius: 6px;
+         border: solid 1px #737373;
+         padding: 9px 34px;
+         width: 126px;
+         height: 40px;
+       }
+       &.sync-classrooms {
+         width: 196px;
+         height: 40px;
+       }
+       &.back-to-profile {
+         width: 180px;
+       }
+     }
+     .button-wrapper {
+       padding-top:L 18px;
+       max-width: 336px;
+       margin: auto;
+       margin-top: 33px;
+       display: -webkit-box;
+       display: -ms-flexbox;
+       display: flex;
+       -webkit-box-pack: justify;
+           -ms-flex-pack: justify;
+               justify-content: space-between;
      }
    }
