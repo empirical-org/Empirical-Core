@@ -25,6 +25,7 @@
     &:active, &.active {
       a {
         margin-top: -3px;
+        font-weight: 600;
       }
       &:after {
         content: "";
