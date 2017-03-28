@@ -35,9 +35,10 @@ const AdminRoutes = (
     <Route path="questions" component={Questions} />
     <Route path="questions/:questionID" component={Question}>
       <IndexRoute component={ResponseComponentWrapper} />
+      {/* <Route path="focus-points" component={}/> */}
     </Route>
 
-    {/* questions section*/}
+    {/* data section*/}
     <Route path="datadash" component={ScoreAnalysis} />
 
     {/* questions section*/}
