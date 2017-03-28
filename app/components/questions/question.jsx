@@ -83,75 +83,8 @@ const Question = React.createClass({
     return data[questionID];
   },
 
-  getResponses() {
-    // const { questionID, } = this.props.params;
-    // return this.props.responses.data[questionID];
-    return this.state.responses;
-  },
-
-  getTotalAttempts() {
-    return _.reduce(this.getResponses(), (memo, item) => memo + item.count, 0);
-  },
-
-  getResponse(responseID) {
-    const { data, states, } = this.props.questions,
-      { questionID, } = this.props.params;
-    const responses = hashToCollection(this.getResponses());
-    return _.find(responses, { key: responseID, });
-  },
-
   startAddingNewResponse() {
     this.setState({ addingNewResponse: true, });
-  },
-
-  responsesWithStatus() {
-    const { data, states, } = this.props.questions,
-      { questionID, } = this.props.params;
-    const responses = hashToCollection(this.getResponses());
-    return responses.map((response) => {
-      let statusCode;
-      if (!response.feedback) {
-        statusCode = 4;
-      } else if (response.parentID) {
-        const parentResponse = this.getResponse(response.parentID);
-        statusCode = 3;
-      } else {
-        statusCode = (response.optimal ? 0 : 1);
-      }
-      response.statusCode = statusCode;
-      return response;
-    });
-  },
-
-  responsesGroupedByStatus() {
-    return _.groupBy(this.responsesWithStatus(), 'statusCode');
-  },
-
-  responsesByStatusCodeAndResponseCount() {
-    return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
-  },
-
-  formatForQuestionBar() {
-    const totalResponseCount = Object.values(this.responsesByStatusCodeAndResponseCount()).reduce((a, b) => a + b);
-    if (totalResponseCount == 0) {
-      return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
-        value: 1 / Object.keys(this.responsesByStatusCodeAndResponseCount()).length * 100,
-        color: '#eeeeee',
-      }));
-    } else {
-      return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
-        value: val / totalResponseCount * 100,
-        color: colors[key],
-      }));
-    }
-  },
-
-  formatForPieChart() {
-    return _.mapObject(this.responsesByStatusCodeAndResponseCount(), (val, key) => ({
-      value: val,
-      label: labels[key],
-      color: colors[key],
-    }));
   },
 
   submitNewResponse() {
@@ -171,11 +104,6 @@ const Question = React.createClass({
     // this.refs.boilerplate.value = null;
     this.props.dispatch(submitNewResponse(newResp.vals));
     this.setState({ addingNewResponse: false, });
-  },
-
-  gatherVisibleResponses() {
-    const responses = this.responsesWithStatus();
-    return _.filter(responses, response => this.state.visibleStatuses[labels[response.statusCode]]);
   },
 
   boilerplateCategoriesToOptions() {
@@ -287,7 +215,6 @@ const Question = React.createClass({
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
-      const responses = hashToCollection(this.getResponses());
       return (
         <div>
           {this.renderEditForm()}
@@ -305,21 +232,7 @@ const Question = React.createClass({
             <button className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</button>
             <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
-
-          {/* <QuestionBar data={_.values(this.formatForQuestionBar())} /> */}
           {this.props.children}
-          {/* <ResponseComponent
-            question={data[questionID]}
-            responses={this.getResponses()}
-            questionID={questionID}
-            states={states}
-            dispatch={this.props.dispatch}
-            admin
-          />
-          <div style={{ marginTop: 15, }}>
-            <Chart data={_.values(this.formatForPieChart())} />
-          </div> */}
-
         </div>
       );
     } else {
