@@ -154,6 +154,7 @@ export default React.createClass({
 		} else if (this.state.classrooms === [] || null) {
 			return <span></span>
 		} else {
+			console.log(this.state.classrooms)
 			let rows = this.state.classrooms.map((classy, index) => this.buildClassRow(classy, index));
 			return <div id='classroom-table-wrapper'>{rows}</div>
 		}
