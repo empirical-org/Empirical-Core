@@ -104,15 +104,16 @@ export default class extends React.Component{
   }
 
   handleExpansionRowClick(){
-    this.setState({showAllRows: true}, console.log(this.state))
+    this.setState({showAllRows: true})
   }
 
   classroomRows(){
-    const defaultRowLength = 2;
+    // by default, only shows the smaller of 15 classes or the total Classes
+    // if showAll is true, it shows all classes
+    const defaultRowLength = 15;
     const tableRows = [];
     const orderedClassrooms = this.orderGoogleClassrooms();
     const maxNumber = this.state.showAllRows ?  orderedClassrooms.length : Math.min(orderedClassrooms.length, defaultRowLength)
-    console.log(maxNumber);
     for (let i = 0; i < maxNumber; i++) {
       tableRows.push(this.rowConstructor(orderedClassrooms[i]))
     }
