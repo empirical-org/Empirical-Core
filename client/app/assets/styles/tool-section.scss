@@ -200,18 +200,7 @@ $tool-grey: #f8f9f9;
     .text-connect-yellow {
         color: #ea9a1a;
     }
-    .tool-hero {
-      box-sizing: border-box;
-      .cta-button {
-        padding: 9px 19px;
-        margin-top: 50px;
-      }
-      .description {
-        max-width: 750px;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-      }
-    }
+
     .boy-playing-quill {
       display: none;
       background-color: gray;
@@ -317,14 +306,26 @@ $tool-grey: #f8f9f9;
 }
 
 .tool-hero {
-    min-height: 166px;
-    padding: 30px 0 45px;
-    color: white;
-    .q-h1 {
-        font-size: 36px;
-        margin-top: 0px;
-        margin-bottom: 25px;
-    }
+  padding: 45px 0 30px;
+  color: white;
+  box-sizing: border-box;
+  .cta-button {
+    padding: 11px 19px 8px;
+    margin-top: 26px;
+  }
+  .q-h1 {
+    font-size: 36px;
+    margin-top: 0px;
+    margin-bottom: 25px;
+  }
+  .description {
+    margin: auto;
+    max-width: 750px;
+    width: 95%;
+    font-size: 18px;
+    margin-bottom: 0px;
+    line-height: 25px;
+  }
 }
 
 .tool-try-it {
@@ -334,17 +335,6 @@ $tool-grey: #f8f9f9;
     padding-bottom: 50px;
     .q-h1 {
       font-size: 36px;
-    }
-}
-
-.tool-hero {
-    .description {
-        margin: auto;
-        max-width: 560px;
-        width: 95%;
-        font-size: 18px;
-        margin-bottom: 10px;
-        line-height: 25px;
     }
 }
 
@@ -662,6 +652,11 @@ $tool-grey: #f8f9f9;
 }
 
 .diagnostic-tool-page {
+  .tool-hero {
+    .cta-button {
+      margin-top: 50px;
+    }
+  }
   .tool-animation-section {
     background-image: url('/images/landing_page_diagnostic_pattern.png');
     background-position: center;
