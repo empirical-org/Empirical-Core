@@ -184,6 +184,15 @@ $tool-grey: #f8f9f9;
 .tool-container {
     text-align: center;
 
+    .q-button {
+      box-sizing: border-box;
+      height: 45px;
+      font-size: 18px;
+      &.cta-button {
+        font-size: 18px;
+      }
+    }
+
     .bg-connect-yellow {
         background-color: #ea9a1a;
     }
@@ -373,7 +382,7 @@ $tool-grey: #f8f9f9;
     .q-button {
         margin-top: 10px;
         border: solid 1px #979797;
-
+        padding-top: 11px;
         span {
             line-height: 30px;
             font-weight: 500;
