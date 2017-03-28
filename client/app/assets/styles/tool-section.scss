@@ -382,7 +382,7 @@ $tool-grey: #f8f9f9;
     min-height: 450px;
 
     .video-section img {
-      display: none
+      display: none !important;
     }
 
     .info-section {
