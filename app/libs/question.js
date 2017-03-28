@@ -386,7 +386,13 @@ export default class Question {
   }
 
   checkFocusPointMatch(response) {
-    return _.find(this.focusPoints, fp => response.toLowerCase().indexOf(fp.text) === -1);
+    const hitCount = 0;
+    const matchedFocusPoints = [];
+    return _.find(this.focusPoints, (fp) => {
+      const options = fp.text.split('|||');
+      const anyMatches = _.any(options, opt => response.toLowerCase().indexOf(opt) !== -1);
+      return !anyMatches;
+    });
   }
 
   checkSpacingBeforePunctuationMatch(response) {
