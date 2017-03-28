@@ -43,24 +43,6 @@ const Question = React.createClass({
     };
   },
 
-  // componentWillMount() {
-  //   const { questionID, } = this.props.params;
-  //   // this.props.dispatch(loadResponseDataAndListen(questionID));
-  //   // listenToResponsesWithCallback(
-  //   //   questionID,
-  //   //   (data) => {
-  //   //     this.setState({
-  //   //       responses: data,
-  //   //       loadedResponses: true,
-  //   //     });
-  //   //   }
-  //   // );
-  // },
-  //
-  // componentWillUnmount() {
-  //   console.log('Unmounting');
-  // },
-
   deleteQuestion() {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID));
   },
