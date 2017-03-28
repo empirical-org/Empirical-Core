@@ -4,7 +4,9 @@ class Auth::GoogleController < ApplicationController
     access_token = request.env['omniauth.auth']['credentials']['token']
     session[:google_access_token] = access_token
     name, email, google_id = GoogleIntegration::Profile.fetch_name_email_and_google_id(access_token)
-    if request.referer && URI(request.referer).path && ['/session/new', '/teachers/classrooms/dashboard'].exclude?(URI(request.referer).path)
+    puts request.referer
+    puts 'there is the request referer'
+    if request.referer && URI(request.referer).path && ['/session/new', '/teachers/classrooms/dashboard', '/AccountChooser'].exclude?(URI(request.referer).path)
       # If we are here it is simply to get a new access token. Ultimately, we should
       # set this up for refresh tokens at which point, this will no longer be necessary.
       return redirect_to URI(request.referer).path
