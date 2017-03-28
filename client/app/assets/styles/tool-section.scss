@@ -154,6 +154,7 @@ $tool-grey: #f8f9f9;
         background-image: none;
         min-height: initial;
         margin-bottom: 25px;
+        height: 528px;
       }
 
       .info-section {
@@ -580,17 +581,8 @@ $tool-grey: #f8f9f9;
     color: #9C2ADE;
 }
 
-
 .icon-white {
   height: 22px;
   width: 22px;
   margin-right: 10px;
-}
-
-// -ms-high-contrast is Microsoft-specific, available in IE 10+
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .video-section {
-      min-height: 0px;
-      padding-top: 30px;
-    }
 }
