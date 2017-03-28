@@ -24,6 +24,7 @@ import ItemLevels from '../components/itemLevels/itemLevels.jsx';
 import ItemLevel from '../components/itemLevels/itemLevel.jsx';
 import ItemLevelForm from '../components/itemLevels/itemLevelForm.jsx';
 import ItemLevelDetails from '../components/itemLevels/itemLevelDetails.jsx';
+import FocusPointsContainer from '../components/focusPoints/focusPointsContainer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -35,7 +36,7 @@ const AdminRoutes = (
     <Route path="questions" component={Questions} />
     <Route path="questions/:questionID" component={Question}>
       <IndexRoute component={ResponseComponentWrapper} />
-      {/* <Route path="focus-points" component={}/> */}
+      <Route path="focus-points" component={FocusPointsContainer} />
     </Route>
 
     {/* data section*/}
