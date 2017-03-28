@@ -29,9 +29,6 @@ import {
   submitNewResponse
 } from '../../actions/responses';
 
-const labels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
-const colors = ['#81c784', '#ffb74d', '#ba68c8', '#5171A5', '#e57373'];
-
 const Question = React.createClass({
 
   getInitialState() {
