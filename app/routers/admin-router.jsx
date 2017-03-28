@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
 import Admin from '../components/admin/admin.jsx';
 import ConceptsFeedback from '../components/feedback/concepts-feedback.jsx';
@@ -9,6 +9,7 @@ import Concept from '../components/concepts/concept.jsx';
 import ScoreAnalysis from '../components/scoreAnalysis/scoreAnalysis.jsx';
 import Questions from '../components/questions/questions.jsx';
 import Question from '../components/questions/question.jsx';
+import ResponseComponentWrapper from '../components/questions/responseRouteWrapper.jsx';
 import DiagnosticQuestions from '../components/diagnosticQuestions/diagnosticQuestions.jsx';
 import DiagnosticQuestion from '../components/diagnosticQuestions/diagnosticQuestion.jsx';
 import SentenceFragments from '../components/sentenceFragments/sentenceFragments.jsx';
@@ -32,7 +33,9 @@ const AdminRoutes = (
 
     {/* questions section*/}
     <Route path="questions" component={Questions} />
-    <Route path="questions/:questionID" component={Question} />
+    <Route path="questions/:questionID" component={Question}>
+      <IndexRoute component={ResponseComponentWrapper} />
+    </Route>
 
     {/* questions section*/}
     <Route path="datadash" component={ScoreAnalysis} />

@@ -21,6 +21,7 @@ import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptSelector from '../shared/conceptSelector.jsx';
+import QuestionBar from './questionBar.jsx';
 import {
   deleteResponse,
   incrementResponseCount,
@@ -366,6 +367,26 @@ const Responses = React.createClass({
 
   responsesGroupedByStatus() {
     return _.groupBy(this.responsesWithStatus(), 'statusCode');
+  },
+
+  responsesByStatusCodeAndResponseCount() {
+    return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
+  },
+
+  formatForQuestionBar() {
+    const sortedResponses = this.responsesByStatusCodeAndResponseCount();
+    const totalResponseCount = Object.values(sortedResponses).reduce((a, b) => a + b);
+    if (totalResponseCount == 0) {
+      return _.mapObject(sortedResponses, (val, key) => ({
+        value: 1 / Object.keys(sortedResponses).length * 100,
+        color: '#eeeeee',
+      }));
+    } else {
+      return _.mapObject(sortedResponses, (val, key) => ({
+        value: val / totalResponseCount * 100,
+        color: colors[key],
+      }));
+    }
   },
 
   gatherVisibleResponses() {
@@ -836,6 +857,7 @@ const Responses = React.createClass({
   render() {
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
+        <QuestionBar data={_.values(this.formatForQuestionBar())} />
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak reponses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>

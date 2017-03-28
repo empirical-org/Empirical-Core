@@ -43,25 +43,23 @@ const Question = React.createClass({
     };
   },
 
-  componentWillMount() {
-    const { questionID, } = this.props.params;
-    // this.props.dispatch(loadResponseDataAndListen(questionID));
-    listenToResponsesWithCallback(
-      questionID,
-      (data) => {
-        this.setState({
-          responses: data,
-          loadedResponses: true,
-        });
-      }
-    );
-  },
-
-  componentWillUnmount() {
-    console.log('Unmounting');
-    const { questionID, } = this.props.params;
-    this.props.dispatch(stopListeningToResponses(questionID));
-  },
+  // componentWillMount() {
+  //   const { questionID, } = this.props.params;
+  //   // this.props.dispatch(loadResponseDataAndListen(questionID));
+  //   // listenToResponsesWithCallback(
+  //   //   questionID,
+  //   //   (data) => {
+  //   //     this.setState({
+  //   //       responses: data,
+  //   //       loadedResponses: true,
+  //   //     });
+  //   //   }
+  //   // );
+  // },
+  //
+  // componentWillUnmount() {
+  //   console.log('Unmounting');
+  // },
 
   deleteQuestion() {
     this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID));
@@ -280,8 +278,7 @@ const Question = React.createClass({
 
   isLoading() {
     const loadingData = this.props.questions.hasreceiveddata === false;
-    const loadingResponses = this.state.loadedResponses;
-    return (loadingData || !loadingResponses);
+    return loadingData;
   },
 
   render() {
@@ -308,8 +305,10 @@ const Question = React.createClass({
             <button className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</button>
             <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
-          <QuestionBar data={_.values(this.formatForQuestionBar())} />
-          <ResponseComponent
+
+          {/* <QuestionBar data={_.values(this.formatForQuestionBar())} /> */}
+          {this.props.children}
+          {/* <ResponseComponent
             question={data[questionID]}
             responses={this.getResponses()}
             questionID={questionID}
@@ -319,7 +318,7 @@ const Question = React.createClass({
           />
           <div style={{ marginTop: 15, }}>
             <Chart data={_.values(this.formatForPieChart())} />
-          </div>
+          </div> */}
 
         </div>
       );
