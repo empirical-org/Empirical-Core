@@ -15,7 +15,13 @@ export default React.createClass({
 	},
 
 	getInitialState: function() {
-		return ({loading: true, classrooms: null, show: false, hidden: true})
+		return ({
+			loading: true,
+			classrooms: null,
+			show: false,
+			hidden: true,
+			selectedClassrooms: []
+		})
 	},
 
 	getClassrooms: function() {
@@ -30,22 +36,22 @@ export default React.createClass({
 		});
 	},
 
-	// TODO: we shoud just maintain an array of selectedClassrooms in state and push/pop
-	classroomsSelected: function(classrooms) {
+	updateSelectedClassrooms: function() {
+		const classrooms = this.state.classrooms
 		let checkedClassrooms = [];
 		classrooms.forEach((c) => {
 			if (c.checked) {
 				checkedClassrooms.push({'id': c.id, 'student_ids': []})
 			}
 		})
-		return checkedClassrooms;
+		this.setState({selectedClassrooms: checkedClassrooms, hidden: checkedClassrooms.length < 1});
 	},
 
 	assignedClassData: function() {
 		return ({
 			unit: {
 				name: 'Beta: Diagnostic',
-				classrooms: this.classroomsSelected(this.state.classrooms),
+				classrooms: this.state.selectedClassrooms,
 				activities: [
 					{
 						id: 413
@@ -80,10 +86,19 @@ export default React.createClass({
 	},
 
 	addCheckedProp: function(classrooms) {
-		let updatedClassrooms = classrooms.map((classy) => {
-			classy.checked = false
-			return classy
-		})
+		let updatedClassrooms
+		if (this.state.selectedClassrooms) {
+			const selectedClassroomIds = this.state.selectedClassrooms.map((classy) => classy.id)
+			updatedClassrooms = classrooms.map((classy) => {
+				classy.checked = selectedClassroomIds.includes(classy.id)
+				return classy
+			})
+		} else {
+			updatedClassrooms = classrooms.map((classy) => {
+					classy.checked = false
+					return classy
+			})
+		}
 		return updatedClassrooms
 	},
 
@@ -102,7 +117,7 @@ export default React.createClass({
 	handleChange: function(index) {
 		let updatedClassrooms = this.state.classrooms.slice(0);
 		updatedClassrooms[index].checked = !updatedClassrooms[index].checked;
-		this.setState({classrooms: updatedClassrooms, hidden: this.classroomsSelected(updatedClassrooms).length < 1 })
+		this.setState({classrooms: updatedClassrooms}, this.updateSelectedClassrooms)
 	},
 
 	buildClassRow: function(classy, index) {
