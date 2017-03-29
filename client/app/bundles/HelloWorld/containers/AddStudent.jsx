@@ -6,6 +6,7 @@ import ClassroomsStudentsTable from '../components/general_components/classrooms
 import LoadingSpinner from '../components/general_components/loading_indicator.jsx'
 import StudentCreatesAccountSection from '../components/invite_users/add_students/StudentCreatesAccountSection.jsx'
 import TeacherCreatesAccountSection from '../components/invite_users/add_students/TeacherCreatesAccountSection.jsx'
+require('../../../assets/styles/add-students.scss')
 
 export default React.createClass({
 
@@ -76,7 +77,6 @@ export default React.createClass({
 			})
 
 			.success((data) => {
-				console.log(data)
 					const student = data.user
 					let students = this.state.students.slice(0)
 					students.unshift(student)
@@ -91,7 +91,6 @@ export default React.createClass({
 				})
 
 			.fail(function(jqXHR) {
-				console.log(jqXHR)
 				that.setState({
 					disabled: false,
 					loading: false,
@@ -104,7 +103,10 @@ export default React.createClass({
 	render: function() {
 		return (
 			<div className="container invite-students">
-				<ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom}/>
+				<div className='dropdown-section'>
+					<h3 className='dropdown-label'>Select Classroom:</h3>
+					<ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom}/>
+				</div>
 				<StudentCreatesAccountSection key='student-section' classCode={this.state.selectedClassroom.code}/>
 				<TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors}/> {this.stateSpecificComponent()}
 			</div>
