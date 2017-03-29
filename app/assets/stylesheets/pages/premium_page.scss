@@ -294,11 +294,11 @@ li.premium-tab > a:hover {
   }
   .quote-author {
     margin-top: 14px;
-    font-size: 16px;
+    font-size: 16px !important;
     font-weight: bold;
-    font-color: #606060
+    color: #606060;
     span {
-      font-color: #343434
+      color: #343434;
     }
   }
 
@@ -547,6 +547,9 @@ li.premium-tab > a:hover {
           text-align: center;
           color: white;
           padding-top: 15px;
+          &:hover, &:focus {
+            text-decoration: none;
+          }
           .fa {
             margin-right: 8px;
           }
