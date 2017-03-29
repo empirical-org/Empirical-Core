@@ -1,9 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import GoogleSync from '../GoogleSync.jsx';
 import GoogleClassroomsList from '../../components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx'
 import LoadingIndicator from '../../components/shared/loading_indicator.jsx'
+import SyncSuccessModal from '../../components/google_classroom/google_classroom_sync/SyncSuccessModal.jsx'
 
 describe('GoogleSync container', () => {
 
@@ -49,7 +50,5 @@ describe('GoogleSync container', () => {
         expect(wrapper.find(GoogleClassroomsList).length).toBe(1);
     });
   })
-
-
 
 });
