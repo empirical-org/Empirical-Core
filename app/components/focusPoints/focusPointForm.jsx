@@ -26,8 +26,7 @@ export default React.createClass({
   },
 
   addOrEditFocusPoint: function() {
-    let prefix = (!!this.props.fp ? 'Edit': 'Add New');
-    return prefix + ' Focus Point'
+    return this.props.fp ? 'Edit Focus Point' : 'Add New Focus Point';
   },
 
   toggleFocusPointForm: function() {
@@ -48,16 +47,16 @@ export default React.createClass({
     })
   },
 
-  submit: function(){
+  submit: function(newFocusPoint) {
     let data = {
       text: this.state.fpText,
       feedback: this.state.fpFeedback,
       conceptUID: this.state.fpConceptUID
     };
-    this.props.submitFocusPoint(data);
+    this.props.submitFocusPoint(data, newFocusPoint);
   },
 
-  modal: function() {
+  modal: function(newFocusPoint) {
     let fp = this.props.fp;
     if (this.state.modalDisplay) {
       return (
@@ -73,8 +72,7 @@ export default React.createClass({
         <ConceptSelector handleSelectorChange={this.handleConceptChange} currentConceptUID={this.state.fpConceptUID} />
         </div>
         <p className="control">
-        {/*<button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>*/}
-        <button className={"button is-primary "} onClick={this.submit}>Submit</button>
+        <button className={"button is-primary "} onClick={() => this.submit(newFocusPoint)}>Submit</button>
         </p>
         </div>
         </Modal>
@@ -84,13 +82,22 @@ export default React.createClass({
 
   render: function() {
     let fp = this.props.fp;
-    let classy = fp? 'is-info' : 'is-primary';
-    return (
-      <div>
-      <button type='button' onClick={this.toggleFocusPointForm} className={'button ' + classy}>{this.addOrEditFocusPoint()}</button>
-      {this.modal()}
-      </div>
-    );
+    if(fp) {
+      return(
+        <footer className="card-footer">
+          <a onClick={this.toggleFocusPointForm} className="card-footer-item">Edit</a>
+          <a className="card-footer-item">Delete</a>
+          {this.modal(false)}
+        </footer>
+      );
+    } else {
+      return(
+        <div>
+          <button type='button' onClick={this.toggleFocusPointForm}>Add Focus Point</button>
+          {this.modal(true)}
+        </div>
+      );
+    }
   }
 
 });
