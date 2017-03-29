@@ -210,6 +210,9 @@ li.premium-tab > a:hover {
         margin-left: 6px;
         margin-right: 6px;
       }
+      &.purple {
+        padding-left: 14px;
+      }
       &.empty-purple {
         padding-left: 9px;
       }
@@ -229,7 +232,6 @@ li.premium-tab > a:hover {
       background-color: $quillgreen;
     }
     .purple {
-      padding-left: 14px;
       background-color: #9c2bde;
     }
     .button-container {
@@ -293,7 +295,11 @@ li.premium-tab > a:hover {
   .quote-author {
     margin-top: 14px;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: bold;
+    font-color: #606060
+    span {
+      font-color: #343434
+    }
   }
 
 }
@@ -479,7 +485,7 @@ li.premium-tab > a:hover {
     padding-top: 9px;
     margin-bottom: 5px;
   	font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
     height: 40px;
   }
   @media (max-width: 990px) {
@@ -503,17 +509,17 @@ li.premium-tab > a:hover {
     position: relative;
     width: 100vw;
     left: calc(-50vw + 50%);
-    height: 316px;
+    height: 360px;
     overflow: hidden;
-    background-color: #5FA4DF;
+    background-color: $quillblue;
     background-image: url(/images/homepage/homepage_pattern_blue_premium.png);
     .inner-premium-flyer {
-      max-width: 1009px;
+      max-width: 1080px;
       width: 100%;
       margin: auto;
       .content {
         display: inline-block;
-        margin-top: 48px;
+        margin-top: 70px;
         max-width: 568px;
         width: 100%;
         color: white;
@@ -521,11 +527,11 @@ li.premium-tab > a:hover {
         h1 {
           font-size: 36px;
           font-weight: 600;
-          margin-bottom: 15px;
+          margin-bottom: 25px;
         }
         p {
-          font-size: 18px;
-          margin-bottom: 30px;
+          font-size: 18px !important;
+          margin-bottom: 40px;
         }
         .download-button {
           display: inline-block;
@@ -548,12 +554,12 @@ li.premium-tab > a:hover {
       .picture {
         display: inline-block;
         img {
-          -webkit-transform: rotate(5deg);
-          transform: rotate(5deg);
-          margin: -123px -114px 0px -45px;
+          height: auto;
+          width: 470px;
+          margin: -109px 0px 0px 42px;
         }
       }
-      @media screen and (max-width: 1007px) {
+      @media screen and (max-width: 1080px) {
         text-align: center;
         .picture {
           display: none;
