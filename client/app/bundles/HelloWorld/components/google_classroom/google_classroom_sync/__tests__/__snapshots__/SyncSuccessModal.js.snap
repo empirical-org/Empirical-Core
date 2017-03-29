@@ -46,8 +46,9 @@ exports[`the SyncSuccessModal component should render 1`] = `
     <h1
       className="q-h2"
     >
-      <div
-        className="block green-block"
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
       />
       Great! You've synced 
       5 classes
