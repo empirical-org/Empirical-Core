@@ -8,10 +8,6 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 import {authForGoogleSyncPage} from '../components/modules/google_authentication.js'
 import Modal from 'react-bootstrap/lib/Modal'
 
-
-require('../../../assets/styles/app-variables.scss')
-
-
 export default class extends React.Component{
   constructor(){
     super()
@@ -87,6 +83,7 @@ export default class extends React.Component{
   hideModal() {
     this.setState({showModal: false})
   }
+
   hideSuccessModal() {
     this.setState({showSuccessModal: false})
   }
@@ -117,8 +114,9 @@ export default class extends React.Component{
   }
 
   render(){
-    return(<div className='google-sync-container'>
-      {this.loadingIndicatorOrContent()}
-    </div>)
+    return(
+      <div className='google-sync-container'>
+        {this.loadingIndicatorOrContent()}
+      </div>)
   }
 }
