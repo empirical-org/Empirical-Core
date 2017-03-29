@@ -19,7 +19,7 @@ export default React.createClass({
     let fp = this.props.fp;
     return ({
       modalDisplay: false,
-      fpText: fp ? fp.text : '',
+      fpText: fp ? fp.text + '|||' : '',
       fpFeedback: fp ? fp.feedback : '',
       fpConceptUID: fp ? fp.conceptUID : ''
     });
@@ -37,7 +37,11 @@ export default React.createClass({
 
   handleChange: function(stateKey, e) {
     var obj = {};
-    obj[stateKey] = e.target.value;
+    let value = e.target.value;
+    if(stateKey == 'fpText') {
+      value = Array.from(document.getElementsByClassName('focus-point-text')).map(i=>i.value).filter((val)=>val!=='').join("|||") + "|||";
+    }
+    obj[stateKey] = value;
     this.setState(obj);
   },
 
@@ -56,6 +60,12 @@ export default React.createClass({
     this.props.submitFocusPoint(data, newFocusPoint);
   },
 
+  renderTextInputFields: function() {
+    return this.state.fpText.split("|||").map((text) => (
+      <input className="input focus-point-text" style={{marginBottom: 5}} onChange={this.handleChange.bind(null, 'fpText')} type="text" value={text || ''} />
+    ));
+  },
+
   modal: function(newFocusPoint) {
     let fp = this.props.fp;
     if (this.state.modalDisplay) {
@@ -64,11 +74,11 @@ export default React.createClass({
         <div className="box">
         <h4 className="title">{this.addOrEditFocusPoint()}</h4>
         <div className="control">
-        <label className="label" >Focus Point Text</label>
-        <input className="input" onChange={this.handleChange.bind(null, 'fpText')} type="text" value={this.state.fpText || ''} />
-        <label className="label" >Feedback</label>
-        <input className="input" onChange={this.handleChange.bind(null, 'fpFeedback')} type="text" value={this.state.fpFeedback || ''} />
-        <label className="label" >Concept (Users who hit this focus point will recieve a false concept result for this)</label>
+        <label className="label">Focus Point Text</label>
+        {this.renderTextInputFields()}
+        <label className="label" style={{marginTop: 10}}>Feedback</label>
+        <input className="input" style={{marginBottom: 5}} onChange={this.handleChange.bind(null, 'fpFeedback')} type="text" value={this.state.fpFeedback || ''} />
+        <label className="label" style={{marginTop: 10}}>Concept (Users who hit this focus point will recieve a false concept result for this)</label>
         <ConceptSelector handleSelectorChange={this.handleConceptChange} currentConceptUID={this.state.fpConceptUID} />
         </div>
         <p className="control">
@@ -92,8 +102,8 @@ export default React.createClass({
       );
     } else {
       return(
-        <div>
-          <button type='button' onClick={this.toggleFocusPointForm}>Add Focus Point</button>
+        <div style={{display: 'inline', float: 'right'}}>
+          <button type="button" className="button is-outlined is-primary" onClick={this.toggleFocusPointForm}>Add Focus Point</button>
           {this.modal(true)}
         </div>
       );

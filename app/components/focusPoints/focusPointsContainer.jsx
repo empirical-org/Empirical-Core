@@ -60,8 +60,7 @@ class FocusPointsContainer extends Component {
   render() {
     return (
       <div>
-        <FocusPointForm submitFocusPoint={this.submitFocusPointForm} />
-        <h1 className="title is-3 has-top-margin">Focus Points</h1>
+        <h1 className="title is-3 has-top-margin">Focus Points <FocusPointForm submitFocusPoint={this.submitFocusPointForm} /></h1>
         {this.renderFocusPointsList()}
         {this.props.children}
       </div>
