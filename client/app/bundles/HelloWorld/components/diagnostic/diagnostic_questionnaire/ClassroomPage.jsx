@@ -18,8 +18,8 @@ export default React.createClass({
 		return ({
 			loading: true,
 			classrooms: null,
-			show: false,
-			hidden: true,
+			showModal: false,
+			hiddenButton: true,
 			selectedClassrooms: []
 		})
 	},
@@ -44,7 +44,7 @@ export default React.createClass({
 				checkedClassrooms.push({'id': c.id, 'student_ids': []})
 			}
 		})
-		this.setState({selectedClassrooms: checkedClassrooms, hidden: checkedClassrooms.length < 1});
+		this.setState({selectedClassrooms: checkedClassrooms, hiddenButton: checkedClassrooms.length < 1});
 	},
 
 	assignedClassData: function() {
@@ -62,7 +62,7 @@ export default React.createClass({
 	},
 
 	submitClasses: function() {
-		this.setState({hidden: true})
+		this.setState({hiddenButton: true})
 		let data = this.assignedClassData();
 		if (data.unit.classrooms.length < 1) {
 			alert('You must select a classroom before assigning the diagnostic.')
@@ -151,29 +151,28 @@ export default React.createClass({
 	classroomTable: function() {
 		if (this.state.loading) {
 			//return loading image
-		} else if (this.state.classrooms === [] || null) {
+		} else if (this.state.classrooms === [] || this.state.classrooms === null) {
 			return <span></span>
 		} else {
-			console.log(this.state.classrooms)
 			let rows = this.state.classrooms.map((classy, index) => this.buildClassRow(classy, index));
 			return <div id='classroom-table-wrapper'>{rows}</div>
 		}
 	},
 
 	showModal() {
-		this.setState({show: true});
+		this.setState({showModal: true});
 	},
 
 	hideModal(becauseClassAdded) {
 		if (becauseClassAdded) {
 			this.getClassrooms()
 		}
-		this.setState({show: false});
+		this.setState({showModal: false});
 	},
 
 	modal() {
 		return (
-			<Modal {...this.props} show={this.state.show} onHide={this.hideModal} dialogClassName='add-class-modal'>
+			<Modal {...this.props} show={this.state.showModal} onHide={this.hideModal} dialogClassName='add-class-modal'>
 				<Modal.Body>
 					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='/images/close_x.svg' alt='close-modal'/>
 					<CreateClass closeModal={this.hideModal}/>
@@ -187,7 +186,7 @@ export default React.createClass({
 			? <LoadingSpinner/>
 			: this.classroomTable()
 		let display = {
-			display: this.state.hidden
+			display: this.state.hiddenButton
 				? 'none'
 				: null
 		}
@@ -201,11 +200,11 @@ export default React.createClass({
 				{content}
 				<div id='footer-buttons'>
 					<div className='pull-left text-center'>
-						<button className='button button-transparent' onClick={this.showModal}>Add a Class</button>
+						<button className='button button-transparent' id='add-a-class-button' onClick={this.showModal}>Add a Class</button>
 						{this.modal()}
 					</div>
 					<div className='pull-right text-center'>
-						<button style={display} onClick={this.submitClasses} className='button-green'>Save & Assign</button>
+						<button style={display} onClick={this.submitClasses} className='button-green' id='save-and-assign-button'>Save & Assign</button>
 						<br/>
 						<Link to='/diagnostic/stage/2'>Back</Link>
 					</div>
