@@ -152,7 +152,7 @@ export default React.createClass({
                   <label htmlFor="classroom_code">Class Code:</label>
                   <input className="inactive class-code text-center" disabled="true" type="text" value={classroom.code} name="classroom[code]" id="classroom_code"/>
                 </div>
-                <div id='regenerate-class-code' onClick={this.getclassCode}><span><i className="fa fa-refresh" />Regenerate Class Code</span></div>
+                <div id='regenerate-class-code' onClick={this.getClassCode}><span><i className="fa fa-refresh" />Regenerate Class Code</span></div>
                 <button className="button-green submit-button" onClick={this.clickCreateAClass}>Create a Class</button>
                 <h4 className='errors'>{this.state.errors}</h4>
                 </div>

@@ -40,6 +40,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def invite_students
     @classrooms = current_user.classrooms_i_teach
+    @user = current_user
   end
 
   def manage_archived_classrooms
