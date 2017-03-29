@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingIndicator component should render 1`] = `
+<div
+  className="spinner-container"
+>
+  <img
+    className="spinner"
+    src="/images/loader_still.svg"
+  />
+</div>
+`;
