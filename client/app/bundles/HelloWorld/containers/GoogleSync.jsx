@@ -101,7 +101,7 @@ export default class extends React.Component{
     })
   }
 
-  content(){
+  googleClassroomList(){
     return (
       <div className='google-sync'>
         <h2>Choose Which Google Classrooms To Sync</h2>
@@ -109,8 +109,23 @@ export default class extends React.Component{
         <GoogleClassroomList classrooms={this.state.classrooms} syncClassrooms={this.syncClassrooms}/>
         <ArchiveClassesWarning show={this.state.showModal} data={this.state.classData} syncClassroomsAjax={this.syncClassroomsAjax} hideModal={this.hideModal} />
         <SyncSuccessModal show={this.state.showSuccessModal} data={this.state.classData} syncClassroomsAjax={this.syncClassroomsAjax} hideModal={this.hideSuccessModal} />
-      </div>
-    )
+      </div>)
+  }
+
+  noClassroomsNotice(){
+    return (
+      <div className='google-sync'>
+        <h2>It seems that you don't have any Google Classrooms.</h2>
+        <p>If you believe this is an error, please contact us at <a href="www.support.quill.org">www.support.quill.org</a></p>
+        <p>Otherwise, you can join Google Classroom or add classrooms <a href="https://classroom.google.com/h">here.</a></p>
+      </div>)
+  }
+
+  content(){
+    if (this.state.classrooms && this.state.classrooms.length) {
+      return this.googleClassroomList()
+    }
+    return this.noClassroomsNotice()
   }
 
   render(){
