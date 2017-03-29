@@ -67,17 +67,12 @@ class Teachers::ClassroomManagerController < ApplicationController
       classroom = Classroom.find_by_id(cr_id)
       @selected_classroom = {name: classroom.try(:name), value: classroom.try(:id), id: classroom.try(:id)}
       if current_user.students.empty?
-        if current_user.classrooms_i_teach.last.activities.empty?
-          redirect_to(controller: "teachers/classroom_manager",
-            action: "lesson_planner",
-            tab: "exploreActivityPacks",
-            grade: current_user.classrooms_i_teach.last.grade)
-        else
-          redirect_to invite_students_teachers_classrooms_path
-        end
+        @missing = 'students'
+      elsif current_user.classrooms_i_teach.last.activities.any?
+        @missing = 'activities'
       end
     elsif current_user.classrooms_i_teach.empty?
-      redirect_to new_teachers_classroom_path
+      @missing = 'true'
     end
   end
 
