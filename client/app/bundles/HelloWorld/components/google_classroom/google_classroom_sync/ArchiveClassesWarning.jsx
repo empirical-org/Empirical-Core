@@ -17,7 +17,7 @@ export default React.createClass({
             <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal archive-warning'>
               <Modal.Body>
                   <img className='pull-right react-bootstrap-close' onClick={this.props.hideModal} src='/images/close_x.svg' alt='close-modal'/>
-                  <h1 className='q-h2'><div className='block red-block'></div>Warning: Archiving Classroom</h1>
+                  <h1 className='q-h2'><i className="fa fa-exclamation-triangle"></i>Warning: Archiving Classroom</h1>
                   <h3 className='subheader'>You are archiving <strong>{`${archivedCount} ${pluralize('classroom', archivedCount)}.`}</strong></h3>
                   <p>
                     When a classroom is deselected, Quill will archive the classroom and it will no longer sync that classroom with Google Classroom. If you would like to use the classroom, please go back and select it
