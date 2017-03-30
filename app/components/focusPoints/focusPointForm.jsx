@@ -51,13 +51,14 @@ export default React.createClass({
     })
   },
 
-  submit: function(newFocusPoint) {
+  submit: function(focusPoint) {
     let data = {
-      text: this.state.fpText,
+      text: this.state.fpText.split('|||').filter((val)=>val!=='').join("|||"),
       feedback: this.state.fpFeedback,
       conceptUID: this.state.fpConceptUID
     };
-    this.props.submitFocusPoint(data, newFocusPoint);
+    this.props.submitFocusPoint(data, focusPoint);
+    this.toggleFocusPointForm();
   },
 
   renderTextInputFields: function() {
@@ -66,25 +67,25 @@ export default React.createClass({
     ));
   },
 
-  modal: function(newFocusPoint) {
+  modal: function(focusPoint) {
     let fp = this.props.fp;
     if (this.state.modalDisplay) {
       return (
         <Modal close={this.toggleFocusPointForm}>
-        <div className="box">
-        <h4 className="title">{this.addOrEditFocusPoint()}</h4>
-        <div className="control">
-        <label className="label">Focus Point Text</label>
-        {this.renderTextInputFields()}
-        <label className="label" style={{marginTop: 10}}>Feedback</label>
-        <input className="input" style={{marginBottom: 5}} onChange={this.handleChange.bind(null, 'fpFeedback')} type="text" value={this.state.fpFeedback || ''} />
-        <label className="label" style={{marginTop: 10}}>Concept (Users who hit this focus point will recieve a false concept result for this)</label>
-        <ConceptSelector handleSelectorChange={this.handleConceptChange} currentConceptUID={this.state.fpConceptUID} />
-        </div>
-        <p className="control">
-        <button className={"button is-primary "} onClick={() => this.submit(newFocusPoint)}>Submit</button>
-        </p>
-        </div>
+          <div className="box">
+            <h4 className="title">{this.addOrEditFocusPoint()}</h4>
+            <div className="control">
+              <label className="label">Focus Point Text</label>
+              {this.renderTextInputFields()}
+              <label className="label" style={{marginTop: 10}}>Feedback</label>
+              <input className="input" style={{marginBottom: 5}} onChange={this.handleChange.bind(null, 'fpFeedback')} type="text" value={this.state.fpFeedback || ''} />
+              <label className="label" style={{marginTop: 10}}>Concept (Users who hit this focus point will recieve a false concept result for this)</label>
+              <ConceptSelector handleSelectorChange={this.handleConceptChange} currentConceptUID={this.state.fpConceptUID} />
+            </div>
+            <p className="control">
+              <button className={"button is-primary "} onClick={() => this.submit(focusPoint)}>Submit</button>
+            </p>
+          </div>
         </Modal>
       );
     }
@@ -92,19 +93,20 @@ export default React.createClass({
 
   render: function() {
     let fp = this.props.fp;
+    console.log(fp);
     if(fp) {
       return(
         <footer className="card-footer">
           <a onClick={this.toggleFocusPointForm} className="card-footer-item">Edit</a>
-          <a className="card-footer-item">Delete</a>
-          {this.modal(false)}
+          <a onClick={() => this.props.deleteFocusPoint(fp.id)} className="card-footer-item">Delete</a>
+          {this.modal(fp.id)}
         </footer>
       );
     } else {
       return(
-        <div style={{display: 'inline', float: 'right'}}>
+        <div style={{display: 'inline-block', float: 'right'}}>
           <button type="button" className="button is-outlined is-primary" onClick={this.toggleFocusPointForm}>Add Focus Point</button>
-          {this.modal(true)}
+          {this.modal(null)}
         </div>
       );
     }
