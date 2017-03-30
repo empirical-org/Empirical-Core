@@ -1,24 +1,27 @@
 <section class="tool-header">
   <%= render partial: 'pages/shared/home_navbar' %>
   <% @active_tab = 'Quill Diagnostic' %>
+  <% @tool = 'diagnostic' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+  <%# render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
-<div class="tool-container">
+<div class="tool-container diagnostic-tool-page">
 
-    <section class='tool-hero text-center bg-darkred bg-image-diagnostic-pattern'>
+    <section class='tool-hero text-center bg-darkred'>
         <h1 class="q-h1">
-            Quill Diagnostic
+            <img class="tool-page-icon" src='/images/quill_diagnostic_white.svg'>Quill Diagnostic
         </h1>
         <p class='description'>
             Quickly determine which skills your students need to work on with our 22 question diagnostic. The diagnostic covers vital sentence construction skills and generates a personalized learning plan based on the student’s performance.
         </p>
+        <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Try Quill Diagnostic Now</a>
     </section>
 
-    <section class="tool-animation-section ">
+    <section class="tool-animation-section " id="overview">
           <video class='tool-animation' src="/videos/diagnostic.mp4" autoplay loop/>
     </section>
 
-    <section class="diagnostic-walk-thru-wrapper desktop">
+    <section class="diagnostic-walk-thru-wrapper desktop" id="how-it-works">
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
                 <img src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
@@ -111,7 +114,7 @@
         </div>
     </section>
 
-    <section class="tool-carousel">
+    <section class="tool-carousel" id="walkthrough">
         <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
             <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
@@ -165,18 +168,22 @@
         </div>
     </section>
 
-    <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern">
-        <h2 class='q-h1'>Try It Yourself!</h2>
+    <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern-magnifier">
+        <h2 class='q-h1'>Try It Out for Yourself</h2>
         <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
     </section>
 
-    <section class="tool-testimonial">
+    <section>
+      <div class="boy-playing-quill" />
+    </section>
+
+    <section class="tool-testimonial" id="testimonial">
         <!-- <img class='q-headshot' src="/images/daniel_90.png" alt="Daniel Scibienski"> -->
         <p class='quote'>
             "It was very useful to see which concepts students needed more help with. It is extremely beneficial if I want to work on grouping students based on skill."
         </p>
         <h4 class="q-h4 author">
-            NORMA BONILLA, DOWNTOWN COLLEGE PREP
+            <span>Norma Bonilla,</span> Downtown College Prep
         </h4>
         <a href="/activities/packs/20" class='q-button text-black'>
             <span>View My Story</span>
@@ -195,9 +202,9 @@
       <% else %>
       <section class="tool-sign-up">
           <h1 class='q-h1'>
-              Start using the Quill Diagnostic in your class today!
+              Get started now! Assign the Quill Diagnostic.
           </h1>
-          <a href='/diagnostic/stage/1' class="q-button cta-button bg-quillgreen text-white">Get Started</a>
+          <a href='/diagnostic/stage/1' class="q-button cta-button bg-quillgreen text-white">Assign</a>
       </section>
       <% end %>
 
