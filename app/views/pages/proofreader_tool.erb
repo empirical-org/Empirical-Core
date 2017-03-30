@@ -3,15 +3,16 @@
   <% @active_tab = 'Quill Proofreader' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
 </section>
-<div class="tool-container">
+<div class="tool-container proofreader-tool-page">
 
-    <section class='bg-quillblue bg-image-proofreader-pattern tool-hero text-center'>
+    <section class='bg-quillblue tool-hero text-center'>
       <h1 class="q-h1">
-        Quill Proofreader
+          <img class="tool-page-icon" src='/images/quill_proofreader_white.svg'>Quill Proofreader
       </h1>
       <p class='description'>
         Proofreader teaches your students editing skills by having them proofread passages. Students edit passages and receive personalized exercises based on their results. With over 100 expository passages, Proofreader gives students the practice they need to spot common grammatical errors.
       </p>
+      <a href='/play' target="_blank" class="q-button cta-button text-quillblue bg-white">Try Quill Proofreader Now</a>
     </section>
 
     <section class="tool-animation-section ">
@@ -76,18 +77,22 @@
       </div>
   </section>
 
-  <section class="tool-try-it bg-quillblue bg-image-proofreader-pattern">
+  <section class="tool-try-it bg-quillblue bg-image-proofreader-pattern-flag">
     <h2 class='q-h1'>Try Proofreader Yourself!</h2>
     <a href='/play' target="_blank" class="q-button cta-button text-quillblue bg-white">Preview Proofreader</a>
   </section>
 
-  <section class="tool-testimonial">
-    <img class='q-headshot' src="/images/stephanie_90.png" alt="Daniel Scibienski">
+  <section>
+    <div class="boy-playing-quill" />
+  </section>
+
+  <section class="tool-testimonial" id="testimonial">
+    <!-- <img class='q-headshot' src="/images/stephanie_90.png" alt="Daniel Scibienski"> -->
     <p class='quote'>
       “Students are eager to use the program and are quick to celebrate getting a 'green square,' denoting that they have passed an assigned skill.”
     </p>
     <h4 class="q-h4 author">
-      STEPHANIE L., KIPP D.C.
+      <span>Stephanie L.</span>, Kipp D.C.
     </h4>
     <a href="/activities/packs/4" class='q-button text-black'>
       <span>View My Story</span>
@@ -106,9 +111,9 @@
     <% else %>
     <section class="tool-sign-up">
         <h1 class='q-h1'>
-            Start using Quill Proofreader in your class today!
+            Get started now! Assign Quill Proofreader.
         </h1>
-        <a href='/teachers/classrooms/activity_planner/create-unit' class="q-button cta-button bg-quillgreen text-white">Get Started</a>
+        <a href='/teachers/classrooms/activity_planner/create-unit' class="q-button cta-button bg-quillgreen text-white">Assign</a>
     </section>
     <% end %>
 
