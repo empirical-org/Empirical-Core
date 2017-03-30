@@ -6,7 +6,6 @@ import ClassroomsStudentsTable from '../components/general_components/classrooms
 import LoadingSpinner from '../components/general_components/loading_indicator.jsx'
 import StudentCreatesAccountSection from '../components/invite_users/add_students/StudentCreatesAccountSection.jsx'
 import TeacherCreatesAccountSection from '../components/invite_users/add_students/TeacherCreatesAccountSection.jsx'
-require('../../../assets/styles/add-students.scss')
 
 export default React.createClass({
 
