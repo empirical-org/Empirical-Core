@@ -1,7 +1,7 @@
 import React from 'react'
 import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import EmptyAssignedUnits from '../../lesson_planner/manage_units/EmptyAssignedUnits.jsx'
+import EmptyProgressReport from '../../scorebook/EmptyProgressReport.jsx'
 import $ from 'jquery'
 
 'use strict'
@@ -33,7 +33,7 @@ export default React.createClass({
 		if (this.state.loaded) {
 			if (this.state.units.length === 0) {
 				return (
-					<EmptyAssignedUnits/>
+					<EmptyProgressReport missing='activities'/>
 				);
 			} else {
 				return (
