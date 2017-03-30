@@ -40,6 +40,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def invite_students
     @classrooms = current_user.classrooms_i_teach
+    @user = current_user
   end
 
   def manage_archived_classrooms
@@ -174,11 +175,37 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {}
   end
 
+  def google_sync
+    # renders the google sync jsx file
+  end
+
+  def retrieve_google_classrooms
+    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user, session[:google_access_token])
+    data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
+    render json: data
+  end
+
+  def update_google_classrooms
+    if current_user.google_classrooms.any?
+      google_classroom_ids = JSON.parse(params[:selected_classrooms]).map{ |sc| sc["id"] }
+      current_user.google_classrooms.each do |classy|
+        if google_classroom_ids.exclude?(classy.google_classroom_id)
+          classy.update(visible: false)
+        end
+      end
+    end
+    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, JSON.parse(params[:selected_classrooms], {:symbolize_names => true}))
+    render json: { classrooms: current_user.google_classrooms }.to_json
+  end
+
+  def import_google_students
+    GoogleStudentImporterWorker.perform_async(current_user.id, session[:google_access_token])
+    render json: {}
+  end
+
   private
 
   def authorize!
-    puts "Authorizing!"
-    puts current_user.classrooms_i_teach.any?
     if current_user.classrooms_i_teach.any?
       if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
