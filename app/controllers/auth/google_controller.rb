@@ -7,13 +7,11 @@ class Auth::GoogleController < ApplicationController
     puts request.referer
     puts 'there is the request referer'
     if redirect_request(request)
-      puts 'i should not redirect!'
       # If we are here it is simply to get a new access token. Ultimately, we should
       # set this up for refresh tokens at which point, this will no longer be necessary.
       return redirect_to URI(request.referer).path
     end
     if (session[:role].present? && User.where(google_id: google_id).none?) || (current_user && !current_user.signed_up_with_google)
-      puts 'i should not be in here'
 
       # If the above is true, the user is either currently signing up and has session[:role] or
       # the user is extant and is about to register with google for the first time
@@ -34,7 +32,6 @@ class Auth::GoogleController < ApplicationController
   end
 
   def google_login(email, access_token, google_id)
-    'i should be here'
     user = User.find_by(email: email.downcase)
     if user.present?
       user.google_id ? nil : user.update(google_id: google_id)
