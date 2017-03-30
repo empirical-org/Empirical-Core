@@ -79,7 +79,6 @@ export default React.createClass({
 			})
 
 			.success((data) => {
-				console.log(data)
 					const student = data.user
 					let students = this.state.students.slice(0)
 					students.unshift(student)
@@ -94,7 +93,6 @@ export default React.createClass({
 				})
 
 			.fail(function(jqXHR) {
-				console.log(jqXHR)
 				that.setState({
 					disabled: false,
 					loading: false,
