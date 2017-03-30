@@ -11,6 +11,11 @@
   width: 100%;
   height: 100%;
   padding: 35px 40px;
+  &.no-classrooms {
+    a {
+      color: $quillforestgreen
+    }
+  }
   h2 {
     font-size: 24px;
     font-weight: 600;
