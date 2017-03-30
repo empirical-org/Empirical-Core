@@ -168,7 +168,10 @@
       }
     }
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 600px) {
+      .box-top h1 img {
+        display: none;
+      }
       .group-together {
         display: flex;
         flex-direction: column;
@@ -178,6 +181,12 @@
         .name-input {
           margin-bottom: 10px;
         }
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .class-code {
+        margin-left: 10px !important;
       }
     }
 
