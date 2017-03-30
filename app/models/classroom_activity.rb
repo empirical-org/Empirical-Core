@@ -29,8 +29,24 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def session_for user
-    ass = activity_sessions.where(user: user, activity: activity).includes(:activity).order(created_at: :asc)
-    as = if ass.any? then ass.first else activity_sessions.create(user: user, activity: activity) end
+    ass = ActivitySession.unscoped.where(classroom_activity: self, user: user, activity: activity).includes(:activity).order(created_at: :asc)
+    if ass.any?
+      if ass.any? { |as| as.is_final_score }
+        keeper = ass.find { |as| as.is_final_score}
+      # the next two cases should not be necessary to handle
+      # since the highest  but due to some data confusion
+      # we're going to leave it in for ow
+      elsif ass.any? { |as| as.state == 'finished' }
+        keeper = ass.find_all { |as| as.state == 'finished' }.sort_by { |as| as.percentage }.first
+      elsif ass.any? { |as| as.state == 'started' }
+        keeper = ass.find_all { |as| as.state == 'started' }.sort_by { |as| as.updated_at }.last
+      else
+        keeper = ass.sort_by { |as| as.updated_at }.last
+      end
+      keeper.update(visible: true)
+    else
+      activity_sessions.create(user: user, activity: activity)
+    end
 
     # if as.save
     #
