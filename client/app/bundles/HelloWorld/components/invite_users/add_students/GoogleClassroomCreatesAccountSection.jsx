@@ -15,7 +15,7 @@ export default React.createClass({
           <p>
             If you have an account with Google Classroom, you can import all your classes and students to Quill. Your students can log in using their Google accounts.
           </p>
-          <button className="button-green" onClick={this.props.syncOrModal}>Import From Google Classroom</button>
+          <button className='white-bg' onClick={this.props.syncOrModal}>Sync With Google Classroom</button>
           <GoogleClassroomModal syncClassrooms={this.props.syncClassrooms} user={this.props.user} show={this.props.showModal} hideModal={this.props.hideModal}/>
         </div>
       </div>

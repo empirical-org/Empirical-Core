@@ -140,7 +140,7 @@ export default React.createClass({
 						/>
 						</div>
 					</div>
-					{/* <TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors}/> {this.stateSpecificComponent()} */}
+					<TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors}/> {this.stateSpecificComponent()}
 				</div>
 			</div>
 		);
