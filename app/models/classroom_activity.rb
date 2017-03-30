@@ -34,8 +34,9 @@ class ClassroomActivity < ActiveRecord::Base
       if ass.any? { |as| as.is_final_score }
         keeper = ass.find { |as| as.is_final_score}
       # the next two cases should not be necessary to handle
-      # since the highest  but due to some data confusion
-      # we're going to leave it in for ow
+      # since the highest score should always have .is_final_score
+      # and only one should be started at a time,
+      # but due to some data confusion we're going to leave it in for now
       elsif ass.any? { |as| as.state == 'finished' }
         keeper = ass.find_all { |as| as.state == 'finished' }.sort_by { |as| as.percentage }.first
       elsif ass.any? { |as| as.state == 'started' }
