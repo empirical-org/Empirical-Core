@@ -20,11 +20,15 @@ export default class extends React.Component{
 
   handleCheckboxClick = (classy) => {
     const newClassy = Object.assign(classy);
-    const newClassrooms = this.state.classrooms.slice(0);
-    const classyIndex = newClassrooms.indexOf(classy)
+    const classrooms = this.state.classrooms.slice(0);
+    let newClassCount = this.state.newClassCount;
+    const classyIndex = classrooms.indexOf(classy)
     newClassy.checked = newClassy.checked ? false : true;
-    newClassrooms[classyIndex] = newClassy;
-    this.setState({classrooms: newClassrooms})
+    if (!newClassy.alreadyImported) {
+      newClassy.checked ? newClassCount++ : newClassCount--
+    }
+    classrooms[classyIndex] = newClassy;
+    this.setState({classrooms, newClassCount})
   }
 
 
@@ -42,13 +46,15 @@ export default class extends React.Component{
   checkImportedClassroomsAndMoveAllToState = () => {
     // we get the intitial list of classrooms and check them/keep track of what is already imported
     const classrooms = [];
+    let alwaysShowEditButton = false;
     this.props.classrooms.forEach((classy, index) => {
       if (classy.alreadyImported) {
         classy.checked = true;
+        alwaysShowEditButton = true;
       }
       classrooms.push(classy)
     })
-    this.setState({classrooms})
+    this.setState({classrooms, alwaysShowEditButton, newClassCount: 0})
   }
 
   getSelectedClassroomsData = () => {
@@ -189,12 +195,18 @@ export default class extends React.Component{
     }
   }
 
+  syncButton(){
+    if (this.state.alwaysShowEditButton || this.state.newClassCount) {
+      return <button className='q-button cta-button bg-quillgreen text-white sync-classrooms' onClick={() => this.syncClassrooms()}>Sync Classrooms</button>
+    }
+  }
+
   render(){
     return(
       <div>
         {this.classroomsOrLoading()}
         <p>If you deselect a classroom, the classroom will be archived on Quill and will no longer sync data with Google Classroom.</p>
-        <button className='q-button cta-button bg-quillgreen text-white sync-classrooms' onClick={() => this.syncClassrooms()}>Sync Classrooms</button>
+        {this.syncButton()}
       </div>)
   }
 }

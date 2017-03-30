@@ -35,8 +35,8 @@ exports[`the ArchiveClassesWarning component should render 1`] = `
     <h1
       className="q-h2"
     >
-      <div
-        className="block red-block"
+      <i
+        className="fa fa-exclamation-triangle"
       />
       Warning: Archiving Classroom
     </h1>

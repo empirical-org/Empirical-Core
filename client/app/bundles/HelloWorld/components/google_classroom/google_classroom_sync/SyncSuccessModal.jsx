@@ -16,7 +16,7 @@ export default React.createClass({
             <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal sync-success'>
               <Modal.Body>
                   <img className='pull-right react-bootstrap-close' onClick={this.props.hideModal} src='/images/close_x.svg' alt='close-modal'/>
-                  <h1 className='q-h2'><div className='block green-block'></div>Great! You've synced {`${syncedCount} ${pluralize('class', syncedCount)}`}</h1>
+                  <h1 className='q-h2'><i className="fa fa-check" aria-hidden="true"></i>Great! You've synced {`${syncedCount} ${pluralize('class', syncedCount)}`}</h1>
                   <h3 className='subheader'>It may take up to <strong>5 minutes</strong> to import your students.</h3>
                   <p>
                     Please have your students log in using their Google accounts. If you have any questions, you can check <a href='www.support.quill.org'>support.quill.org</a>

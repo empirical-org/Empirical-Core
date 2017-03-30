@@ -1,18 +1,12 @@
 .google-classroom-modal {
     text-align: center;
-    .block {
-      height: 21px;
-      width: 21px;
-      display: inline-block;
-      position: relative;
-      top: 3px;
-      right: 11px;
-      &.red-block {
-      	background-color: #ff4542;
-      }
-      &.green-block {
-      	background-color: #82bf3c;
-      }
+    .fa-exclamation-triangle {
+      color: #ff4542;
+      padding-right: 0.5em
+    }
+    .fa-check {
+      color: #82bf3c;
+      padding-right: 0.5em
     }
     .modal-content {
       max-width: 522px;
