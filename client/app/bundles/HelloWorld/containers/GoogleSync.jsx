@@ -95,7 +95,12 @@ export default class extends React.Component{
       url: '/teachers/classrooms/import_google_students',
       statusCode: {
         200: function() {
-          that.setState({showSuccessModal: true})
+          that.setState({showModal: false})
+          if (that.state.classData.selectedClassrooms.length > 0) {
+            that.setState({showSuccessModal: true})
+          } else {
+            window.location = '/'
+          }
         }
       }
     })
@@ -114,7 +119,7 @@ export default class extends React.Component{
 
   noClassroomsNotice(){
     return (
-      <div className='google-sync'>
+      <div className='google-sync no-classrooms'>
         <h2>It seems that you don't have any Google Classrooms.</h2>
         <p>If you believe this is an error, please contact us at <a href="www.support.quill.org">www.support.quill.org</a></p>
         <p>Otherwise, you can join Google Classroom or add classrooms <a href="https://classroom.google.com/h">here.</a></p>
