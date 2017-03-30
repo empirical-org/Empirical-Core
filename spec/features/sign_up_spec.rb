@@ -157,7 +157,7 @@ feature 'Signing up', js: true do
           FactoryGirl.build :vinnie_barbarino, password: ''
         end
 
-        it 'shows the problem on the form' do
+        xit 'shows the problem on the form' do
           expect(sign_up_page).to have_content password_cannot_be_blank
         end
       end
