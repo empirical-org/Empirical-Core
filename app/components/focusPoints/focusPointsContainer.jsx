@@ -61,7 +61,7 @@ class FocusPointsContainer extends Component {
             {this.renderFocusPointTagsForFocusPoint(val.text)}
           </p>
           <p className="card-header-icon">
-            #{val.order}
+            {/* TODO: make val.order display here once ordering functionality is implemented */}
           </p>
         </header>
         <div className="card-content">

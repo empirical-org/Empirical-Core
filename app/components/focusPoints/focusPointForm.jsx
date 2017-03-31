@@ -33,9 +33,15 @@ export default React.createClass({
     let state = { modalDisplay: !this.state.modalDisplay }
     if(fp) {
       state = Object.assign(state, {
-        fpText: fp.text + '|||',
+        fpText: fp.text ? fp.text + '|||' : '',
         fpFeedback: fp.feedback,
         fpConcepts: fp.concepts ? fp.concepts : {}
+      });
+    } else {
+      state = Object.assign(state, {
+        fpText: '',
+        fpFeedback: '',
+        fpConcepts: {}
       });
     }
     this.setState(state);
@@ -78,7 +84,7 @@ export default React.createClass({
   },
 
   renderConceptSelectorFields: function(fp) {
-    let components = _.mapObject(Object.assign(this.state.fpConcepts, {null: {correct: false, text: ''}}), (val, key) => (
+    let components = _.mapObject(Object.assign(this.state.fpConcepts, {null: {correct: false, text: 'This is a placeholder'}}), (val, key) => (
       <ConceptSelectorWithCheckbox
         handleSelectorChange={this.handleConceptChange}
         currentConceptUID={key}
