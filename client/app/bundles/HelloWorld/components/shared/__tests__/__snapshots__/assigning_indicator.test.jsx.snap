@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssigningIndicator component should render 1`] = `
+<span
+  className="assigner-container"
+>
+  <img
+    className="assigner"
+    src="/images/assigner_still.png"
+  />
+</span>
+`;

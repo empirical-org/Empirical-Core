@@ -349,44 +349,4 @@
         }
     }
 
-    .google-classroom-modal {
-        .modal-content {
-          max-height: 360px;
-          max-width: 508px;
-        }
-        .modal-body {
-          padding: 40px 63px;
-          .react-bootstrap-close {
-            position: absolute;
-            right: 12px;
-            top: 12px;
-            height: 39px;
-          }
-        }
-       .q-h2 {
-         font-size: 24px;
-         font-weight: 600;
-         margin-bottom: 14px;
-       }
-       p {
-         margin-top: 10px;
-       }
-       form {
-         margin: 35px 0;
-       }
-       input[type=submit] {
-         margin-left: 8px;
-         border: 1px solid #737373;
-         font-weight: 600;
-       }
-       a.q-button.cta-button {
-           border: none;
-           font-size: 16px;
-           height: 40px;
-           &:hover {
-             color: white;
-             text-decoration: none;
-           }
-
-         }
-       }
+    
