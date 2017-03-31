@@ -21,7 +21,7 @@ export default React.createClass({
       modalDisplay: false,
       fpText: fp ? fp.text + '|||' : '',
       fpFeedback: fp ? fp.feedback : '',
-      fpConcepts: fp ? (fp.concepts ? fp.concepts : {}) : {}
+      fpConcepts: fp ? (fp.conceptResults ? fp.conceptResults : {}) : {}
     });
   },
 
@@ -35,7 +35,7 @@ export default React.createClass({
       state = Object.assign(state, {
         fpText: fp.text ? fp.text + '|||' : '',
         fpFeedback: fp.feedback,
-        fpConcepts: fp.concepts ? fp.concepts : {}
+        fpConcepts: fp.conceptResults ? fp.conceptResults : {}
       });
     } else {
       state = Object.assign(state, {
@@ -71,7 +71,7 @@ export default React.createClass({
     let data = {
       text: this.state.fpText.split('|||').filter((val)=>val!=='').join('|||'),
       feedback: this.state.fpFeedback,
-      concepts: this.state.fpConcepts
+      conceptResults: this.state.fpConcepts
     };
     this.props.submitFocusPoint(data, focusPoint);
     this.toggleFocusPointForm();

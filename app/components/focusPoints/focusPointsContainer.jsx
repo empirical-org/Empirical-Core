@@ -21,7 +21,7 @@ class FocusPointsContainer extends Component {
   }
 
   submitFocusPointForm(data, focusPoint) {
-    delete data.concepts[null];
+    delete data.conceptResults[null];
     if(focusPoint) {
       this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPoint));
     } else {
@@ -38,7 +38,7 @@ class FocusPointsContainer extends Component {
   deleteConceptResult(conceptResultKey, focusPointKey) {
     if(confirm('⚠️ Are you sure you want to delete this? 😱')) {
       let data = this.getFocusPoints()[focusPointKey];
-      delete data.concepts[conceptResultKey];
+      delete data.conceptResults[conceptResultKey];
       this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPointKey));
     }
   }
@@ -76,7 +76,7 @@ class FocusPointsContainer extends Component {
         </header>
         <div className="card-content">
           <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
-          {this.renderConceptResults(val.concepts, key)}
+          {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <FocusPointForm fp={Object.assign(val, {id: key})} submitFocusPoint={this.submitFocusPointForm} deleteFocusPoint={this.deleteFocusPoint} />
       </div>
