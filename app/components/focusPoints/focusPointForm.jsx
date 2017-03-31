@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
-// import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import Modal from '../modal/modal.jsx'
-// import {hashToCollection} from '../../libs/hashToCollection'
+import {hashToCollection} from '../../libs/hashToCollection'
 import C from '../../constants'
 import ConceptSelector from '../shared/conceptSelector.jsx'
+import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
 export default React.createClass({
 
@@ -21,7 +21,7 @@ export default React.createClass({
       modalDisplay: false,
       fpText: fp ? fp.text + '|||' : '',
       fpFeedback: fp ? fp.feedback : '',
-      fpConceptUID: fp ? fp.conceptUID : ''
+      fpConcepts: fp ? (fp.concepts ? fp.concepts : {}) : {}
     });
   },
 
@@ -29,10 +29,16 @@ export default React.createClass({
     return this.props.fp ? 'Edit Focus Point' : 'Add New Focus Point';
   },
 
-  toggleFocusPointForm: function() {
-    this.setState({
-      modalDisplay: !this.state.modalDisplay
-    });
+  toggleFocusPointForm: function(fp) {
+    let state = { modalDisplay: !this.state.modalDisplay }
+    if(fp) {
+      state = Object.assign(state, {
+        fpText: fp.text + '|||',
+        fpFeedback: fp.feedback,
+        fpConcepts: fp.concepts ? fp.concepts : {}
+      });
+    }
+    this.setState(state);
   },
 
   handleChange: function(stateKey, e) {
@@ -46,25 +52,40 @@ export default React.createClass({
   },
 
   handleConceptChange: function (e) {
-    this.setState({
-      fpConceptUID: e.value
-    })
+    let concepts = this.state.fpConcepts;
+    if(!concepts.hasOwnProperty(e.value)) {
+      concepts[e.value] = {correct: true, name: e.name};
+      this.setState({
+        fpConcepts: concepts
+      });
+    }
   },
 
   submit: function(focusPoint) {
     let data = {
-      text: this.state.fpText.split('|||').filter((val)=>val!=='').join("|||"),
+      text: this.state.fpText.split('|||').filter((val)=>val!=='').join('|||'),
       feedback: this.state.fpFeedback,
-      conceptUID: this.state.fpConceptUID
+      concepts: this.state.fpConcepts
     };
     this.props.submitFocusPoint(data, focusPoint);
     this.toggleFocusPointForm();
   },
 
   renderTextInputFields: function() {
-    return this.state.fpText.split("|||").map((text) => (
+    return this.state.fpText.split('|||').map((text) => (
       <input className="input focus-point-text" style={{marginBottom: 5}} onChange={this.handleChange.bind(null, 'fpText')} type="text" value={text || ''} />
     ));
+  },
+
+  renderConceptSelectorFields: function(fp) {
+    let components = _.mapObject(Object.assign(this.state.fpConcepts, {null: {correct: false, text: ''}}), (val, key) => (
+      <ConceptSelectorWithCheckbox
+        handleSelectorChange={this.handleConceptChange}
+        currentConceptUID={key}
+        checked={val.correct}
+      />
+    ));
+    return _.values(components);
   },
 
   modal: function(focusPoint) {
@@ -79,8 +100,8 @@ export default React.createClass({
               {this.renderTextInputFields()}
               <label className="label" style={{marginTop: 10}}>Feedback</label>
               <input className="input" style={{marginBottom: 5}} onChange={this.handleChange.bind(null, 'fpFeedback')} type="text" value={this.state.fpFeedback || ''} />
-              <label className="label" style={{marginTop: 10}}>Concept (Users who hit this focus point will recieve a false concept result for this)</label>
-              <ConceptSelector handleSelectorChange={this.handleConceptChange} currentConceptUID={this.state.fpConceptUID} />
+              <label className="label" style={{marginTop: 10}}>Concepts</label>
+              {this.renderConceptSelectorFields(focusPoint)}
             </div>
             <p className="control">
               <button className={"button is-primary "} onClick={() => this.submit(focusPoint)}>Submit</button>
@@ -93,11 +114,10 @@ export default React.createClass({
 
   render: function() {
     let fp = this.props.fp;
-    console.log(fp);
     if(fp) {
       return(
         <footer className="card-footer">
-          <a onClick={this.toggleFocusPointForm} className="card-footer-item">Edit</a>
+          <a onClick={() => this.toggleFocusPointForm(fp)} className="card-footer-item">Edit</a>
           <a onClick={() => this.props.deleteFocusPoint(fp.id)} className="card-footer-item">Delete</a>
           {this.modal(fp.id)}
         </footer>
@@ -105,7 +125,7 @@ export default React.createClass({
     } else {
       return(
         <div style={{display: 'inline-block', float: 'right'}}>
-          <button type="button" className="button is-outlined is-primary" onClick={this.toggleFocusPointForm}>Add Focus Point</button>
+          <button type="button" className="button is-outlined is-primary" onClick={() => this.toggleFocusPointForm(null)}>Add Focus Point</button>
           {this.modal(null)}
         </div>
       );

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointForm from './focusPointForm.jsx';
 import questionActions from '../../actions/questions.js'
+import {hashToCollection} from '../../libs/hashToCollection'
 
 class FocusPointsContainer extends Component {
   constructor() {
@@ -28,7 +29,7 @@ class FocusPointsContainer extends Component {
   }
 
   deleteFocusPoint(focusPointID) {
-    if(confirm('⚠️ Are you sure you want to delete this focus point? 😱')) {
+    if(confirm('⚠️ Are you sure you want to delete this? 😱')) {
       this.props.dispatch(questionActions.deleteFocusPoint(this.props.params.questionID, focusPointID));
     }
   }
@@ -39,12 +40,16 @@ class FocusPointsContainer extends Component {
     });
   }
 
-  renderConceptResults(crUID) {
-    //TODO: make this work
-    if(crUID) {
-      return (
-        <p className="control sub-title is-6"><strong>Concept</strong>: {crUID}</p>
-      )
+  renderConceptResults(concepts) {
+    if(concepts) {
+      const components = _.mapObject(concepts, (val, key) => (
+        <p className="control sub-title is-6">{val.name}
+          {val.correct ? <span className="tag is-small is-success" style={{marginLeft: 5}}>Correct</span>
+          : <span className="tag is-small is-danger" style={{marginLeft: 5}}>Incorrect</span> }
+        </p>
+        )
+      );
+      return _.values(components);
     }
   }
 
@@ -61,7 +66,7 @@ class FocusPointsContainer extends Component {
         </header>
         <div className="card-content">
           <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
-          {this.renderConceptResults(val.conceptUID)}
+          {this.renderConceptResults(val.concepts)}
         </div>
         <FocusPointForm fp={Object.assign(val, {id: key})} submitFocusPoint={this.submitFocusPointForm} deleteFocusPoint={this.deleteFocusPoint} />
       </div>
