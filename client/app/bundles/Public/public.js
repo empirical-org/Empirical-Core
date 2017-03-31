@@ -1,3 +1,5 @@
+import ClientRegistration from './startup/ClientRegistration'
+
 // for news page
 $(document).ready(function() {
   $("iframe").ready(function() {
