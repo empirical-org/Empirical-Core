@@ -1,11 +1,9 @@
 module GoogleIntegration::Classroom::Student
 
-  def self.run(user, courses)
-    return if courses.empty?
-    first_course = courses.first
-    classroom = Classroom.find_by(google_classroom_id: first_course[:id])
-    return if classroom.nil?
-    self.join_classroom(user, classroom)
+  def self.run(user, google_classroom_ids)
+    return if google_classroom_ids.empty?
+    classrooms = Classroom.where(google_classroom_id: google_classroom_ids)
+    classrooms.each { |c| self.join_classroom(user, c)}
   end
 
   private

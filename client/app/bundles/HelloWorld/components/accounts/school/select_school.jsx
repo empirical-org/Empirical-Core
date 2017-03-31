@@ -83,7 +83,7 @@ export default React.createClass({
     var schoolOptions, initialValue;
     if (this.props.schoolOptions.length == 0) {
       schoolOptions = <option value="enter-zipcode">Enter Your School&#39;s Zip Code</option>;
-      initialValue = "enter-zipcode";
+      initialValue = 'enter-zipcode';
     } else {
       schoolOptions = _.map(this.props.schoolOptions, function (schoolOption) {
         return <option key={schoolOption.id} value={schoolOption.id}>{schoolOption.text}</option>;
@@ -92,7 +92,7 @@ export default React.createClass({
         initialValue = this.props.selectedSchool.id;
       } else {
         var defaultOption = <option key='choose' value="choose">Choose Your School</option>;
-        initialValue = "choose";
+        initialValue = 'choose';
         schoolOptions.unshift(defaultOption);
       }
     }
