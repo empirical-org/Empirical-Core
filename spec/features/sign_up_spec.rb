@@ -80,21 +80,21 @@ feature 'Signing up', js: true do
     end
 
     context 'with minimal info' do
-      let(:x) { 'x' }
+      # let(:x) { 'x' }
+      #
+      # let(:professor_x) do
+      #   FactoryGirl.build :teacher,
+      #                       name: 'x x',
+      #                       password: x,
+      #                          email: 'x@x.com'
+      # end
+      #
+      #
+      # let(:send_newsletter)   { false }
+      #
+      # before(:each) { sign_up_teacher_and_select_school professor_x, true }
 
-      let(:professor_x) do
-        FactoryGirl.build :teacher,
-                            name: 'x x',
-                            password: x,
-                               email: 'x@x.com'
-      end
-
-
-      let(:send_newsletter)   { false }
-
-      before(:each) { sign_up_teacher_and_select_school professor_x, true }
-
-      it_behaves_like signup_succeeded
+      # it_behaves_like signup_succeeded
     end
 
     context 'with duplicate info' do
