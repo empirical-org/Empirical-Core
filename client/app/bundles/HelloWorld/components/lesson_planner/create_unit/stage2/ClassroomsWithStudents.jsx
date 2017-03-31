@@ -111,6 +111,7 @@ export default class extends React.Component {
     return (
 			<div>
 				<h2 className='edit-students-h2'>Edit Students for {this.props.unitName}</h2>
+				<p>Please note that unselecting a student on this page will delete all of their assignments associated with this pack, even if those assignments have already been completed.</p>
 				{classroomList}
 				{this.createOrUpdateButton()}
 			</div>
