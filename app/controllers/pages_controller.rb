@@ -109,6 +109,7 @@ class PagesController < ApplicationController
   end
 
   def firewall_info
+    redirect_to 'http://support.quill.org/knowledgebase/articles/1099558-why-aren-t-activities-loading-firewall-issues'
   end
 
   private
