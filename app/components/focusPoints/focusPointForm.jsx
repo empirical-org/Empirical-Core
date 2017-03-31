@@ -97,9 +97,7 @@ export default React.createClass({
 
   toggleCheckboxCorrect: function(key) {
     let data = this.state;
-    console.log(data);
     data.fpConcepts[key].correct = data.fpConcepts[key].correct ? false : true;
-    console.log(data)
     this.setState(data);
   },
 
