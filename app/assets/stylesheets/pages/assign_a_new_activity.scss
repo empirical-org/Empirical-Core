@@ -127,3 +127,13 @@ min-height: 112px;
     }
   }
 }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .activity-filter.button-row {
+    button {
+      div:last-of-type {
+        width: 191px;
+      }
+    }
+  }
+}
