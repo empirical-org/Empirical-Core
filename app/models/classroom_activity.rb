@@ -45,6 +45,7 @@ class ClassroomActivity < ActiveRecord::Base
         keeper = ass.sort_by { |as| as.updated_at }.last
       end
       keeper.update(visible: true)
+      return keeper
     else
       activity_sessions.create(user: user, activity: activity)
     end
