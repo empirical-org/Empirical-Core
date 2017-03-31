@@ -1,4 +1,4 @@
-import ClientRegistration from './startup/ClientRegistration'
+import ClientRegistration from './startup/clientRegistration'
 
 // for news page
 $(document).ready(function() {
