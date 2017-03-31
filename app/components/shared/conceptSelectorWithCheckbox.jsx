@@ -13,7 +13,7 @@ class ConceptSelectorWithCheckbox extends React.Component {
           />
         </div>
         <label className="checkbox" style={{lineHeight: '32px'}}>
-          <h3><input checked={this.props.checked} type="checkbox" onChange={null} /> Correct?</h3>
+          <h3><input checked={this.props.checked} type="checkbox" onClick={this.props.onCheckboxChange} /> Correct?</h3>
         </label>
       </div>
     );

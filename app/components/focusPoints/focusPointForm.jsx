@@ -89,9 +89,16 @@ export default React.createClass({
         handleSelectorChange={this.handleConceptChange}
         currentConceptUID={key}
         checked={val.correct}
+        onCheckboxChange={() => this.toggleCheckboxCorrect(key)}
       />
     ));
     return _.values(components);
+  },
+
+  toggleCheckboxCorrect: function(key) {
+    let data = this.state;
+    data.fpConcepts[key].correct = data.fpConcepts[key].correct ? false : true;
+    this.setState(data);
   },
 
   modal: function(focusPoint) {
