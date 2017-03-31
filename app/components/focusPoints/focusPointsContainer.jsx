@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointForm from './focusPointForm.jsx';
-import questionActions from '../../actions/questions.js'
-import {hashToCollection} from '../../libs/hashToCollection'
+import questionActions from '../../actions/questions.js';
+import { hashToCollection } from '../../libs/hashToCollection';
 
 class FocusPointsContainer extends Component {
   constructor() {
@@ -21,8 +21,8 @@ class FocusPointsContainer extends Component {
   }
 
   submitFocusPointForm(data, focusPoint) {
-    delete data.conceptResults[null];
-    if(focusPoint) {
+    delete data.conceptResults.null;
+    if (focusPoint) {
       this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPoint));
     } else {
       this.props.dispatch(questionActions.submitNewFocusPoint(this.props.params.questionID, data));
@@ -30,32 +30,30 @@ class FocusPointsContainer extends Component {
   }
 
   deleteFocusPoint(focusPointID) {
-    if(confirm('⚠️ Are you sure you want to delete this? 😱')) {
+    if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       this.props.dispatch(questionActions.deleteFocusPoint(this.props.params.questionID, focusPointID));
     }
   }
 
   deleteConceptResult(conceptResultKey, focusPointKey) {
-    if(confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      let data = this.getFocusPoints()[focusPointKey];
+    if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
+      const data = this.getFocusPoints()[focusPointKey];
       delete data.conceptResults[conceptResultKey];
       this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPointKey));
     }
   }
 
   renderFocusPointTagsForFocusPoint(focusPoint) {
-    return focusPoint.split('|||').map((fp) => {
-      return(<span className="tag is-medium is-light" style={{margin: '3px'}}>{fp}</span>)
-    });
+    return focusPoint.split('|||').map((fp, index) => (<span key={`fp${index}`} className="tag is-medium is-light" style={{ margin: '3px', }}>{fp}</span>));
   }
 
   renderConceptResults(concepts, focusPointKey) {
-    if(concepts) {
+    if (concepts) {
       const components = _.mapObject(concepts, (val, key) => (
-        <p className="control sub-title is-6">{val.name}
-          {val.correct ? <span className="tag is-small is-success" style={{marginLeft: 5}}>Correct</span>
-          : <span className="tag is-small is-danger" style={{marginLeft: 5}}>Incorrect</span> }
-          <span className="tag is-small is-warning" style={{cursor: 'pointer', marginLeft: 5}} onClick={() => this.deleteConceptResult(key, focusPointKey)}>Delete</span>
+        <p key={`${val.name}`}className="control sub-title is-6">{val.name}
+          {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
+          : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
+          <span className="tag is-small is-warning" style={{ cursor: 'pointer', marginLeft: 5, }} onClick={() => this.deleteConceptResult(key, focusPointKey)}>Delete</span>
         </p>
         )
       );
@@ -65,20 +63,20 @@ class FocusPointsContainer extends Component {
 
   renderFocusPointsList() {
     const components = _.mapObject(this.getFocusPoints(), (val, key) => (
-      <div className="card is-fullwidth has-bottom-margin">
+      <div key={`${val.name}list`} className="card is-fullwidth has-bottom-margin">
         <header className="card-header">
-          <p className="card-header-title" style={{display: 'inline-block'}}>
+          <p className="card-header-title" style={{ display: 'inline-block', }}>
             {this.renderFocusPointTagsForFocusPoint(val.text)}
           </p>
           <p className="card-header-icon">
-            {/* TODO: make val.order display here once ordering functionality is implemented */}
+            {/* tODO: make val.order display here once ordering functionality is implemented */}
           </p>
         </header>
         <div className="card-content">
           <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
-        <FocusPointForm fp={Object.assign(val, {id: key})} submitFocusPoint={this.submitFocusPointForm} deleteFocusPoint={this.deleteFocusPoint} />
+        <FocusPointForm fp={Object.assign(val, { id: key, })} submitFocusPoint={this.submitFocusPointForm} deleteFocusPoint={this.deleteFocusPoint} />
       </div>
     ));
     return _.values(components);
@@ -87,8 +85,8 @@ class FocusPointsContainer extends Component {
   render() {
     return (
       <div>
-        <div className='has-top-margin'>
-          <h1 className="title is-3" style={{display: 'inline-block'}}>Focus Points</h1>
+        <div className="has-top-margin">
+          <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
           <FocusPointForm submitFocusPoint={this.submitFocusPointForm} />
         </div>
         {this.renderFocusPointsList()}
