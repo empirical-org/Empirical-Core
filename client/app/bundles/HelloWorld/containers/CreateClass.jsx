@@ -4,6 +4,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NumberSuffix from '../components/modules/numberSuffixBuilder.js'
 import LoadingSpinner from '../components/shared/loading_indicator.jsx'
+import GoogleClassroomModal from '../components/dashboard/google_classroom_modal'
 require('../../../assets/styles/app-variables.scss')
 
 export default React.createClass({
@@ -25,7 +26,8 @@ export default React.createClass({
                 code: null
             },
             loading: true,
-            errors: ''
+            errors: '',
+            showModal: false
         }
     },
 
@@ -62,11 +64,7 @@ export default React.createClass({
         this.setState({classroom: newClass});
     },
 
-    onClick: function(){
-      this.getClassCode();
-    },
-
-    buttonClick: function(){
+    clickCreateAClass: function(){
       const classroom = this.state.classroom
       if (classroom.name && classroom.grade) {
         this.submitClassroom();
@@ -103,13 +101,32 @@ export default React.createClass({
         })
     },
 
+    syncOrModal: function(){
+      if (this.props.user.signed_up_with_google) {
+        // they are already a google user, so we just need to use the callback
+        this.syncClassrooms();
+      } else {
+        // they are not a google user, so we will show them the modal where they
+        // can become one
+        this.setState({showModal: true});
+      }
+    },
+
+    syncClassrooms: function() {
+      window.location = '/teachers/classrooms/google_sync'
+    },
+
+    hideModal() {
+      this.setState({showModal: false});
+    },
+
     render: function() {
         let classroom = this.state.classroom
         function formatTitle(){
           if (classroom.grade) {
             return classroom.grade == 'University' ? classroom.grade : NumberSuffix(classroom.grade)
           } else {
-            return 'Grade'
+            return 'Select Grade'
           }
         }
         let contents
@@ -117,32 +134,41 @@ export default React.createClass({
             contents = <LoadingSpinner/>
           } else {
             contents =
-              <div>
+            <div>
+              <div id="new-classroom">
                 <h1>Create Your Class</h1>
-                <label htmlFor="class-name">*Class Name</label>
-                <br/>
-                <input type="text" id='class-name' placeholder='e.g. 6th Period ELA' value={classroom.name} onChange={this.handleChange}/>
-                <br/>
-                <label htmlFor="">*Grade</label>
-                <br/>
-                <DropdownButton className={classroom.grade ? 'has-grade' : null} bsStyle='default' id='select-grade' title={formatTitle()}   onSelect={this.handleSelect}>
-                    {this.grades()}
-                </DropdownButton>
-                <div>
-                  <span>
-                    <label htmlFor="classroom_code">Class Code:</label>
-                    <input className="inactive class-code text-center" disabled="true" type="text" value={classroom.code} name="classroom[code]" id="classroom_code"/>
-                  </span>
-                  <span id='regenerate-class-code' onClick={this.onClick}>Regenerate Class Code</span>
-                  </div>
-                  <button className="button-green" onClick={this.buttonClick}>Create a Class</button>
-                  <h4 className='errors'>{this.state.errors}</h4>
+                <p>After you create a class, you can create students’ accounts or have your students sign up with a class code.</p>
+                <div className="input-row">
+                  <label htmlFor="class-name">Class Name:</label>
+                  <input type="text" id='class-name' placeholder='e.g. 6th Period ELA' value={classroom.name} onChange={this.handleChange}/>
+                </div>
+                <div className="input-row">
+                  <label htmlFor="">Grade:</label>
+                  <DropdownButton className={classroom.grade ? 'has-grade' : null} bsStyle='default' id='select-grade' title={formatTitle()}   onSelect={this.handleSelect}>
+                      {this.grades()}
+                  </DropdownButton>
+                </div>
+                <div className="input-row">
+                  <label htmlFor="classroom_code">Class Code:</label>
+                  <input className="inactive class-code text-center" disabled="true" type="text" value={classroom.code} name="classroom[code]" id="classroom_code"/>
+                </div>
+                <div id='regenerate-class-code' onClick={this.getClassCode}><span><i className="fa fa-refresh" />Regenerate Class Code</span></div>
+                <button className="button-green submit-button" onClick={this.clickCreateAClass}>Create a Class</button>
+                <h4 className='errors'>{this.state.errors}</h4>
+                </div>
+                <div id='new-google-classroom'>
+                  <h1>Google Classroom User? <img src="/images/google_classroom_icon.png" data-pin-nopin="true"/></h1>
+                  <p>If you have an account with Google Classroom, you can import all your classes and students to Quill.</p>
+                  <button className="button-green" onClick={this.syncOrModal}>Import From Google Classroom</button>
+                  <GoogleClassroomModal syncClassrooms={this.syncClassrooms} user={this.props.user} show={this.state.showModal} hideModal={this.hideModal}/>
+                </div>
             </div>
           }
-          return (<div className='container'>
-          <div id="new-classroom">
-            {contents}
-            </div>
-          </div>)
+          return (
+            <div className='create-a-class-page'>
+              <div className='create-a-class'>
+                {contents}
+              </div>
+              </div>)
     }
 });

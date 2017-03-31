@@ -6,7 +6,7 @@
       <%- if current_user.has_classrooms? %>
         <li><%= active_link_to 'Overview', dashboard_teachers_classrooms_path%></li>
 	      <li><%= link_to 'Invite Students', (invite_students_teachers_classrooms_path), class: ((action_name == 'invite_students')) ? 'active' : '' %></li>
-	      <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: ((action_name == 'index') or (action_name == 'edit')) ? 'active' : '' %></li>
+	      <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: (%w(index edit google_sync).include?(action_name)) ? 'active' : '' %></li>
 	    <% end %>
 	    <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
       <li><%= active_link_to 'My Account', teachers_my_account_path %></li>

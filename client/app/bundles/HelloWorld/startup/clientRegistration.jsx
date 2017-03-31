@@ -18,6 +18,7 @@ import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx'
 import CreateClassApp from './CreateClassAppClient.jsx'
 import UnitTemplatesApp from './UnitTemplatesClient.jsx'
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx'
+import GoogleSyncApp from './GoogleSyncAppClient.jsx'
 require('../../../assets/styles/home.scss')
 
 // This is how react_on_rails can see the HelloWorldApp in the browser.
@@ -27,4 +28,5 @@ ReactOnRails.register({  TeacherGuideApp, DashboardApp,
   PremiumPricingGuideApp, ProgressReportApp,
   ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
   AdminsEditorApp, PublicActivityPacksApp, AddStudentApp,
-  DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp});
+  DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp,
+  GoogleSyncApp});
