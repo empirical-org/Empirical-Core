@@ -21,6 +21,7 @@ class FocusPointsContainer extends Component {
   }
 
   submitFocusPointForm(data, focusPoint) {
+    delete data.concepts[null];
     if(focusPoint) {
       this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPoint));
     } else {
@@ -34,18 +35,27 @@ class FocusPointsContainer extends Component {
     }
   }
 
+  deleteConceptResult(conceptResultKey, focusPointKey) {
+    if(confirm('⚠️ Are you sure you want to delete this? 😱')) {
+      let data = this.getFocusPoints()[focusPointKey];
+      delete data.concepts[conceptResultKey];
+      this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPointKey));
+    }
+  }
+
   renderFocusPointTagsForFocusPoint(focusPoint) {
     return focusPoint.split('|||').map((fp) => {
       return(<span className="tag is-medium is-light" style={{margin: '3px'}}>{fp}</span>)
     });
   }
 
-  renderConceptResults(concepts) {
+  renderConceptResults(concepts, focusPointKey) {
     if(concepts) {
       const components = _.mapObject(concepts, (val, key) => (
         <p className="control sub-title is-6">{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{marginLeft: 5}}>Correct</span>
           : <span className="tag is-small is-danger" style={{marginLeft: 5}}>Incorrect</span> }
+          <span className="tag is-small is-warning" style={{cursor: 'pointer', marginLeft: 5}} onClick={() => this.deleteConceptResult(key, focusPointKey)}>Delete</span>
         </p>
         )
       );
@@ -66,7 +76,7 @@ class FocusPointsContainer extends Component {
         </header>
         <div className="card-content">
           <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
-          {this.renderConceptResults(val.concepts)}
+          {this.renderConceptResults(val.concepts, key)}
         </div>
         <FocusPointForm fp={Object.assign(val, {id: key})} submitFocusPoint={this.submitFocusPointForm} deleteFocusPoint={this.deleteFocusPoint} />
       </div>
