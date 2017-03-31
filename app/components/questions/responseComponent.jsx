@@ -10,8 +10,6 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import ResponseSortFields from './responseSortFields.jsx';
 import ResponseToggleFields from './responseToggleFields.jsx';
-import FocusPointForm from './focusPointForm.jsx';
-import FocusPointSummary from './focusPointSummary.jsx';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
@@ -242,10 +240,6 @@ const Responses = React.createClass({
 
   updateRematchedResponse(rid, vals) {
     this.props.dispatch(submitResponseEdit(rid, vals));
-  },
-
-  getFocusPoint() {
-    return this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints)[0] : undefined;
   },
 
   getPercentageWeakResponses() {
@@ -685,25 +679,6 @@ const Responses = React.createClass({
       array = hashToCollection(this.getPOSTagsList());
     }
     return Math.ceil(array.length / responsesPerPage);
-  },
-
-  submitFocusPointForm(data) {
-    if (this.getFocusPoint()) {
-      this.props.dispatch(this.state.actions.submitEditedFocusPoint(this.props.questionID, data, this.getFocusPoint().key));
-    } else {
-      this.props.dispatch(this.state.actions.submitNewFocusPoint(this.props.questionID, data));
-    }
-  },
-
-  renderFocusPoint() {
-    // fp is a required prop for FocusPointForm, however, if a question doesn't have
-    // an fp, it evaluates to undefined, triggering an error on a required proptype.
-    const fp = this.getFocusPoint() ? this.getFocusPoint() : false;
-    return (
-      <FocusPointSummary fp={fp}>
-        <FocusPointForm fp={fp} submitFocusPoint={this.submitFocusPointForm} />
-      </FocusPointSummary>
-    );
   },
 
   resetPageNumber() {
