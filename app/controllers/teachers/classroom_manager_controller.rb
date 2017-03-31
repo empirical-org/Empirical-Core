@@ -69,7 +69,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       @selected_classroom = {name: classroom.try(:name), value: classroom.try(:id), id: classroom.try(:id)}
       if current_user.students.empty?
         @missing = 'students'
-      elsif current_user.classrooms_i_teach.last.activities.empty?
+      elsif Unit.find_by(user_id: current_user.id).nil?
         @missing = 'activities'
       end
     elsif current_user.classrooms_i_teach.empty?
