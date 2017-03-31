@@ -74,6 +74,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
 
+  put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
@@ -157,6 +158,10 @@ EmpiricalGrammar::Application.routes.draw do
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
+        get :google_sync, controller: 'classroom_manager', action: 'google_sync'
+        get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
+        post :update_google_classrooms, controller: 'classroom_manager', action: 'update_google_classrooms'
+        get :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
@@ -322,4 +327,5 @@ EmpiricalGrammar::Application.routes.draw do
 
   # catch-all 404
   get '*path', to: 'application#routing_error'
+
 end

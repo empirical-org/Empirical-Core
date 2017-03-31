@@ -9,6 +9,7 @@ import LoadingIndicator from '../components/general_components/loading_indicator
 import ScorebookFilters from '../components/scorebook/scorebook_filters'
 import ScoreLegend from '../components/scorebook/score_legend'
 import AppLegend from '../components/scorebook/app_legend.jsx'
+import EmptyProgressReport from '../components/scorebook/EmptyProgressReport'
 
 
 export default React.createClass({
@@ -141,28 +142,36 @@ export default React.createClass({
   },
 
   render: function() {
-    var scores = _.map(this.state.scores, function(data) {
+    let content, loadingIndicator
+    const scores = _.map(this.state.scores, function(data) {
       return <StudentScores key={data.user.id} data={data} premium_state={this.state.premium_state}/>
     }, this);
+
     if (this.state.loading) {
-      var loadingIndicator = <LoadingIndicator/>;
+      loadingIndicator = <LoadingIndicator/>;
     } else {
-      var loadingIndicator = null;
+      loadingIndicator = null;
+    }
+
+    if (this.props.missing) {
+      content = <EmptyProgressReport missing={this.props.missing}/>
+    } else {
+      content =  <span>
+                    <div className="container">
+                      <section className="section-content-wrapper">
+                          <ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates}/>
+                          <ScoreLegend/>
+                          <AppLegend/>
+                        </section>
+                      </div>
+                      {scores}
+                      {loadingIndicator}
+                  </span>
     }
     return (
       <div className="page-content-wrapper">
          <div className="tab-pane" id="scorebook">
-             <span>
-                 <div className="container">
-                     <section className="section-content-wrapper">
-                         <ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates}/>
-                         <ScoreLegend/>
-                         <AppLegend/>
-                     </section>
-                 </div>
-                 {scores}
-                 {loadingIndicator}
-             </span>
+           {content}
          </div>
      </div>
     );

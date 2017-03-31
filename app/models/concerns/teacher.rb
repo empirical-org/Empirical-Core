@@ -29,6 +29,10 @@ module Teacher
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
+  def google_classrooms
+    Classroom.where(teacher_id: self.id).where.not(google_classroom_id: nil)
+  end
+
   def scorebook_scores(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
     Scorebook::Query.new(self).query(current_page, classroom_id, unit_id, begin_date, end_date)
   end

@@ -5,6 +5,7 @@ import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_
 import TeacherTestimonial from '../components/premium/teacher_testimonial.jsx'
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx'
 import DistrictPricingBox from '../components/premium/district_pricing_box.jsx'
+import PremiumFlyer from '../components/premium/premium_flyer'
 
 export default React.createClass({
 
@@ -45,6 +46,7 @@ export default React.createClass({
           </div>
           <PremiumPricingMinisRow/>
           <DistrictPricingBox/>
+          <PremiumFlyer />
           <TeacherTestimonial/>
           <SubscriberLogos subscribers={this.subscribers()}/>
           <p className='logo-tag'>Trusted by some of the best schools in the country.</p>

@@ -3,18 +3,15 @@
    ========================================================================== */
 #teacher-nav-tabs {
   width: 100%;
-  border-bottom: none;
   padding-left: 24px;
     li {
         a {
             border-top: 3px solid transparent;
             border-bottom: 1px solid #cecece;
-            padding-top: 8px;
-            padding-bottom: 11px;
             padding-left: 34px;
             padding-right: 34px;
             font-size: 15px;
-            height: 46px;
+            margin-top: 0px;
             &.mobile {
                 display: none;
             }
@@ -23,6 +20,7 @@
             border-top: 3px solid #027360;
             border-bottom: none;
             position: relative;
+            font-weight: normal;
             &:after {
               position: absolute;
               bottom: 0;
