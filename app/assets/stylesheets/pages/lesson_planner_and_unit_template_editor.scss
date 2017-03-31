@@ -32,6 +32,9 @@
     .hidden-error-message {
       display: none;
     }
+    button {
+      background-color: #C0C0C0;
+    }
   }
   input {
     &#search_activities_input,
@@ -204,4 +207,10 @@
 }
 #search_activities_input, #unit_name {
   margin-top: 20px;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .select-by-student-button {
+    background-color: #e6e6e6;
+  }
 }
