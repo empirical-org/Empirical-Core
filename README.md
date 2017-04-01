@@ -31,27 +31,25 @@ npm run build:rollup
 
 ## Memento (Steps)
 
-### 1. Create package.json
+### package.json
 ```
 npm init -f
 ```
 
-### 2. TypeScript
+### TypeScript
 
 ```
-npm i awesome-typescript-loader typescript -D
+npm i ts-loader typescript -D
 ```
+or "awesome-typescript-loader"
 
-### 3. Create "tsConfig.json"
+### "tsConfig.json"
 ```
 tsc --init
 ```
 
-### 4. Create "src" and "dist" directories
-with "src/main.ts"
+### Mocha
 
-### 5. Test
-Mocha
 ```
 npm i chai mocha -D
 ```
@@ -59,10 +57,9 @@ types
 ```
 npm i @types/chai @types/mocha -D
 ```
-Jasmine
-TODO
 
-### 6. Karma
+### Karma
+
 Create "karma.conf.js"
 ```
 karma init
@@ -71,15 +68,14 @@ With Mocha
 ```
 npm i  karma-mocha karma-phantomjs-launcher karma-webpack -D
 ```
-
 singleRun .. true
 
-### 7. Webpack
+### Webpack
 ```
 npm i  webpack webpack-dev-server -D
 ```
 
-### 8. NPM Scripts
+### NPM Scripts
 ```
 npm i cross-env -D
 ```
@@ -97,15 +93,21 @@ Lint
 npm run lint
 ```
 
-### 9. Build
-Rollup
+Build
+```
+npm run build
+```
+
+Build With Rollup
 ```
 npm i rollup rollup-plugin-typescript uglify-js -D
 ```
-Create directory "build" with rollup configuration
 
+```
+npm run build: rollup
+```
 
-### 10. Editor config
+### Editor config
 
 Create file ".editorconfig"
 
@@ -113,7 +115,7 @@ http://editorconfig.org/
 
 Editor : Visual Studio Code
 
-### 11. tsLint
+### tsLint
 ```
 npm i tslint -D
 ```
@@ -123,12 +125,12 @@ tslint --init
 ```
 + extension: tsLint for Visual Studio Code
 
-### 12. CI
+### CI
 Travis
 
 Create ".travis.yml"
 
-### 13. LICENSE MIT
+### LICENSE MIT
 
-### 14. gitignore
+### gitignore
 

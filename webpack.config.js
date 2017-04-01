@@ -10,7 +10,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.ts$/, exclude: /node_modules/, loader: "awesome-typescript-loader" },
+            { test: /\.ts$/, exclude: /node_modules/, loader: "ts-loader" },
             { test: /\.css$/, loaders: ['style', 'css'] }
         ]
     },
