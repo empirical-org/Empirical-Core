@@ -38,16 +38,22 @@ module.exports = function (config) {
         },
 
 
-        webpack: webpackConfig,
-        webpackMiddleware: {
-            stats: { chunks: false },
+        webpack: {
+            resolve: {
+                extensions: [".ts", ".js"]
+            },
+            module: {
+                rules: [
+                    { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] }
+                ]
+            },
         },
 
-        plugins: [
-            require('karma-webpack'),
-            require('karma-mocha'),
-            require('karma-phantomjs-launcher')
-        ],
+        webpackMiddleware: {
+            stats: {
+                colors: true
+            }
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
@@ -83,6 +89,12 @@ module.exports = function (config) {
 
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: Infinity
+        concurrency: Infinity,
+
+        plugins: [
+            require('karma-mocha'),
+            require('karma-phantomjs-launcher'),
+            require('karma-webpack')
+        ]
     })
 }

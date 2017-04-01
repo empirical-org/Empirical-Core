@@ -1,5 +1,11 @@
 # TypeScript Starter Project
 
+- TypeScript 2.2
+- Webpack 2 
+- Rollup
+- tslint
+- Mocha + Karma + PhantomJS
+
 ## Usage
 
 Install dependencies
@@ -18,7 +24,7 @@ Test (Karma + PhantomJS)
 npm run test
 ```
 
-Lint (tsLint)
+Lint (tslint)
 ```
 npm run lint
 ```

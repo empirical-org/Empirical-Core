@@ -9,16 +9,16 @@ module.exports = {
         filename: 'build.js'
     },
     module: {
-        loaders: [
-            { test: /\.ts$/, exclude: /node_modules/, loader: "ts-loader" },
-            { test: /\.css$/, loaders: ['style', 'css'] }
+        rules: [
+            { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] },
+            { test: /\.css$/, use: ['style-loader', 'css-loader'] }
         ]
     },
     resolve: {
-        extensions: ["", ".ts", ".js"]
+        extensions: [".tsx", ".ts", ".js"]
     },
     devServer: {
-        contentBase: "./example",
+        contentBase: path.resolve(__dirname, './example'),
         historyApiFallback: true,
         noInfo: true
     },
