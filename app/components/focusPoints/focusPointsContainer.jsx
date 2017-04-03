@@ -4,12 +4,14 @@ import _ from 'underscore';
 import FocusPointForm from './focusPointForm.jsx';
 import questionActions from '../../actions/questions.js';
 import { hashToCollection } from '../../libs/hashToCollection';
+import SortableList from '../questions/sortableList/sortableList.jsx';
 
 class FocusPointsContainer extends Component {
   constructor() {
     super();
     this.deleteFocusPoint = this.deleteFocusPoint.bind(this);
     this.submitFocusPointForm = this.submitFocusPointForm.bind(this);
+    this.sortCallback = this.sortCallback.bind(this);
   }
 
   getQuestion() {
@@ -63,13 +65,13 @@ class FocusPointsContainer extends Component {
 
   renderFocusPointsList() {
     const components = _.mapObject(this.getFocusPoints(), (val, key) => (
-      <div key={`${val.name}list`} className="card is-fullwidth has-bottom-margin">
+      <div key={key} className="card is-fullwidth has-bottom-margin">
         <header className="card-header">
           <p className="card-header-title" style={{ display: 'inline-block', }}>
             {this.renderFocusPointTagsForFocusPoint(val.text)}
           </p>
           <p className="card-header-icon">
-            {/* tODO: make val.order display here once ordering functionality is implemented */}
+            {val.order}
           </p>
         </header>
         <div className="card-content">
@@ -79,7 +81,17 @@ class FocusPointsContainer extends Component {
         <FocusPointForm fp={Object.assign(val, { id: key, })} submitFocusPoint={this.submitFocusPointForm} deleteFocusPoint={this.deleteFocusPoint} />
       </div>
     ));
-    return _.values(components);
+    return <SortableList key={_.values(components).length} sortCallback={this.sortCallback} data={_.values(components)} />;
+  }
+
+  sortCallback(sortInfo) {
+    if (sortInfo.draggingIndex !== null) {
+      const index = parseInt(sortInfo.draggingIndex);
+      const data = { order: index, };
+      const focusPointId = sortInfo.data.items[index].key;
+      // const focusPoint = this.getFocusPoints()[focusPointKey];
+      this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPointId));
+    }
   }
 
   render() {
