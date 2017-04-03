@@ -19,7 +19,6 @@ export default React.createClass({
     const fp = this.props.fp;
     return ({
       modalDisplay: false,
-      fpOrder: fp ? fp.order : '',
       fpText: fp ? `${fp.text}|||` : '',
       fpFeedback: fp ? fp.feedback : '',
       fpConcepts: fp ? (fp.conceptResults ? fp.conceptResults : {}) : {},
@@ -85,7 +84,7 @@ export default React.createClass({
   },
 
   renderConceptSelectorFields(fp) {
-    const components = _.mapObject(Object.assign(this.state.fpConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
+    const components = _.mapObject(Object.assign({}, this.state.fpConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
         handleSelectorChange={this.handleConceptChange}
         currentConceptUID={key}
@@ -136,13 +135,14 @@ export default React.createClass({
           {this.modal(fp.id)}
         </footer>
       );
+    } else {
+      return (
+        <div style={{ display: 'inline-block', float: 'right', }}>
+          <button type="button" className="button is-outlined is-primary" onClick={() => this.toggleFocusPointForm(null)}>Add Focus Point</button>
+          {this.modal(null)}
+        </div>
+      );
     }
-    return (
-      <div style={{ display: 'inline-block', float: 'right', }}>
-        <button type="button" className="button is-outlined is-primary" onClick={() => this.toggleFocusPointForm(null)}>Add Focus Point</button>
-        {this.modal(null)}
-      </div>
-    );
   },
 
 });
