@@ -78,7 +78,10 @@ class FocusPointsContainer extends Component {
           <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
-        <MultipleInputAndConceptSelectorForm item={Object.assign(val, { id: key, })} onSubmit={this.submitForm} delete={this.deleteFocusPoint} />
+        <footer className="card-footer">
+          <a href={`/#/admin/questions/${this.props.params.questionID}/focus-points/${key}/edit`} className="card-footer-item">Edit</a>
+          <a onClick={() => this.deleteFocusPoint(key)} className="card-footer-item">Delete</a>
+        </footer>
       </div>
     ));
     return <SortableList key={_.values(components).length} sortCallback={this.sortCallback} data={_.values(components)} />;
@@ -99,7 +102,7 @@ class FocusPointsContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <MultipleInputAndConceptSelectorForm onSubmit={this.submitForm} />
+          <a className="button is-outlined is-primary" style={{float: 'right'}} href={`/#/admin/questions/${this.props.params.questionID}/focus-points/new`}>Add Focus Point</a>
         </div>
         {this.renderFocusPointsList()}
         {this.props.children}

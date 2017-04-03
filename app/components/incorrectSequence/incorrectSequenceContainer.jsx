@@ -78,7 +78,10 @@ class IncorrectSequencesContainer extends Component {
           <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
-        <MultipleInputAndConceptSelectorForm item={Object.assign(val, { id: key, })} onSubmit={this.submitSequenceForm} delete={this.deleteSequence} />
+        <footer className="card-footer">
+          <a href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/${key}/edit`} className="card-footer-item">Edit</a>
+          <a onClick={() => this.deleteSequence(key)} className="card-footer-item">Delete</a>
+        </footer>
       </div>
     ));
     return <SortableList key={_.values(components).length} sortCallback={this.sortCallback} data={_.values(components)} />;
@@ -95,12 +98,11 @@ class IncorrectSequencesContainer extends Component {
   }
 
   render() {
-    console.log(this.getSequences());
     return (
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <MultipleInputAndConceptSelectorForm onSubmit={this.submitSequenceForm} />
+          <a className="button is-outlined is-primary" style={{float: 'right'}} href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/new`}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
         {this.props.children}

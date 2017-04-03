@@ -2,49 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'underscore';
-import Modal from '../modal/modal.jsx';
-import { hashToCollection } from '../../libs/hashToCollection';
 import C from '../../constants';
-import ConceptSelector from './conceptSelector.jsx';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 
 export default React.createClass({
 
   propTypes: {
-    item: React.PropTypes.any,
+    item: React.PropTypes.obj,
     onSubmit: React.PropTypes.func.isRequired,
   },
 
   getInitialState() {
     const item = this.props.item;
     return ({
-      modalDisplay: false,
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
     });
   },
 
-  addOrEditFocusPoint() {
-    return this.props.item ? 'Edit Focus Point' : 'Add New Focus Point';
-  },
-
-  toggleFocusPointForm(item) {
-    let state = { modalDisplay: !this.state.modalDisplay, };
-    if (item) {
-      state = Object.assign(state, {
-        itemText: item.text ? `${item.text}|||` : '',
-        itemFeedback: item.feedback,
-        itemConcepts: item.conceptResults ? item.conceptResults : {},
-      });
-    } else {
-      state = Object.assign(state, {
-        itemText: '',
-        itemFeedback: '',
-        itemConcepts: {},
-      });
-    }
-    this.setState(state);
+  addOrEditItemLabel() {
+    return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
   },
 
   handleChange(stateKey, e) {
@@ -83,7 +61,7 @@ export default React.createClass({
     ));
   },
 
-  renderConceptSelectorFields(item) {
+  renderConceptSelectorFields() {
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
         handleSelectorChange={this.handleConceptChange}
@@ -101,48 +79,23 @@ export default React.createClass({
     this.setState(data);
   },
 
-  modal(focusPoint) {
-    const item = this.props.item;
-    if (this.state.modalDisplay) {
-      return (
-        <Modal close={this.toggleFocusPointForm}>
-          <div className="box">
-            <h4 className="title">{this.addOrEditFocusPoint()}</h4>
-            <div className="control">
-              <label className="label">Focus Point Text</label>
-              {this.renderTextInputFields()}
-              <label className="label" style={{ marginTop: 10, }}>Feedback</label>
-              <input className="input" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemFeedback')} type="text" value={this.state.itemFeedback || ''} />
-              <label className="label" style={{ marginTop: 10, }}>Concepts</label>
-              {this.renderConceptSelectorFields(focusPoint)}
-            </div>
-            <p className="control">
-              <button className={'button is-primary '} onClick={() => this.submit(focusPoint)}>Submit</button>
-            </p>
-          </div>
-        </Modal>
-      );
-    }
-  },
-
   render() {
-    const item = this.props.item;
-    if (item) {
-      return (
-        <footer className="card-footer">
-          <a onClick={() => this.toggleFocusPointForm(item)} className="card-footer-item">Edit</a>
-          <a onClick={() => this.props.delete(item.id)} className="card-footer-item">Delete</a>
-          {this.modal(item.id)}
-        </footer>
-      );
-    } else {
-      return (
-        <div style={{ display: 'inline-block', float: 'right', }}>
-          <button type="button" className="button is-outlined is-primary" onClick={() => this.toggleFocusPointForm(null)}>Add Focus Point</button>
-          {this.modal(null)}
+    return(
+      <div className="box">
+        <h4 className="title">{this.addOrEditItemLabel()}</h4>
+        <div className="control">
+          <label className="label">{this.props.itemLabel} Text</label>
+          {this.renderTextInputFields()}
+          <label className="label" style={{ marginTop: 10, }}>Feedback</label>
+          <input className="input" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemFeedback')} type="text" value={this.state.itemFeedback || ''} />
+          <label className="label" style={{ marginTop: 10, }}>Concepts</label>
+          {this.renderConceptSelectorFields()}
         </div>
-      );
-    }
+        <p className="control">
+          <button className={'button is-primary '} onClick={() => this.submit(this.props.item)}>Submit</button>
+        </p>
+      </div>
+    );
   },
 
 });
