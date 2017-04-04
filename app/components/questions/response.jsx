@@ -531,6 +531,11 @@ export default React.createClass({
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
+                  <span>{ icon } { response.firstAttemptCount ? response.firstAttemptCount : 0 }</span>
+                </figure>
+              </div>
+              <div className="media-right" style={{ textAlign: 'right', }}>
+                <figure className="image is-32x32">
                   <span>{ icon } { response.count ? response.count : 0 }</span>
                 </figure>
               </div>
