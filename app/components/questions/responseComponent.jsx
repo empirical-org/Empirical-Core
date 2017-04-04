@@ -541,18 +541,13 @@ const Responses = React.createClass({
     }
   },
 
-  renderViewPOSButton() {
+  renderViewResponsesOrPOSButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: false, responsePageNumber: 1, }); }}>POS</button>
-      </div>
-    );
-  },
-
-  renderViewResponsesButton() {
-    return (
-      <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: true, responsePageNumber: 1, }); }}>Uniques</button>
+        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({
+            viewingResponses: !this.state.viewingResponses,
+            responsePageNumber: 1,
+          }); }}>Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
     );
   },
@@ -852,8 +847,7 @@ const Responses = React.createClass({
               </div>
               {this.renderRematchAllButton()}
               {this.renderResetAllFiltersButton()}
-              {this.renderViewResponsesButton()}
-              {this.renderViewPOSButton()}
+              {this.renderViewResponsesOrPOSButton()}
             </div>
           </div>
         </div>
