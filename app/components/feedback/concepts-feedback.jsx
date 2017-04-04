@@ -19,6 +19,7 @@ const ConceptsFeedback = React.createClass({
   },
 
   renderConceptsFeedback: function () {
+    console.log(this.props.conceptsFeedback);
     const data = this.props.concepts.data;
     if (data && data["0"]) {
       return data["0"].map((concept) => {
