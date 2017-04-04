@@ -25,7 +25,11 @@ import ItemLevel from '../components/itemLevels/itemLevel.jsx';
 import ItemLevelForm from '../components/itemLevels/itemLevelForm.jsx';
 import ItemLevelDetails from '../components/itemLevels/itemLevelDetails.jsx';
 import FocusPointsContainer from '../components/focusPoints/focusPointsContainer.jsx';
+import EditFocusPointsContainer from '../components/focusPoints/editFocusPointsContainer.jsx';
+import NewFocusPointsContainer from '../components/focusPoints/newFocusPointsContainer.jsx';
 import IncorrectSequenceContainer from '../components/incorrectSequence/incorrectSequenceContainer.jsx';
+import EditIncorrectSequenceContainer from '../components/incorrectSequence/editIncorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from '../components/incorrectSequence/newIncorrectSequenceContainer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -38,7 +42,11 @@ const AdminRoutes = (
     <Route path="questions/:questionID" component={Question}>
       <IndexRoute component={ResponseComponentWrapper} />
       <Route path="focus-points" component={FocusPointsContainer} />
+      <Route path="focus-points/:focusPointID/edit" component={EditFocusPointsContainer} />
+      <Route path="focus-points/new" component={NewFocusPointsContainer} />
       <Route path="incorrect-sequences" component={IncorrectSequenceContainer} />
+      <Route path="incorrect-sequences/:incorrectSequenceID/edit" component={EditIncorrectSequenceContainer} />
+      <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
     </Route>
 
     {/* data section*/}
