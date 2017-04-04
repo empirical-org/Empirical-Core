@@ -191,7 +191,6 @@ const Question = React.createClass({
   render() {
     const { data, states, } = this.props.questions,
       { questionID, } = this.props.params;
-    console.log("HERE: ", data[questionID]);
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
