@@ -96,7 +96,7 @@ const StudentDiagnostic = React.createClass({
 
   saveSessionData(lessonData) {
     if (this.state.sessionID) {
-      // sessionActions.update(this.state.sessionID, lessonData);
+      SessionActions.update(this.state.sessionID, lessonData);
     }
   },
 
