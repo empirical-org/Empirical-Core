@@ -92,6 +92,7 @@ export default React.createClass({
         </div>
         <p className="control">
           <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
+          <button className={'button is-outlined is-info'} style={{marginLeft: 5}} onClick={() => window.history.back()}>Cancel</button>
         </p>
       </div>
     );
