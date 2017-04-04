@@ -14,6 +14,9 @@ article.simple-rounded-box.cms
     dd= @user.username
     dt Role
     dd= @user.role
+    - if @user.role == 'student'
+      dt Belongs to Classes
+      dd= @user.classrooms.collect { |c| "#{c.name} - #{c.teacher.name}" }.join('<br />').html_safe
     dt Classcode
     dd= @user.classcode
     dt School
@@ -21,8 +24,14 @@ article.simple-rounded-box.cms
     dt School Location
     dd= "#{@user.school_mail_city}, #{@user.school_mail_state}" if @user.school
     - if @user.teacher?
+      dt Premium Status
+      dd= @user.subscriptions.last&.account_type
+      dt Premium Expires
+      dd= @user.subscriptions.last&.expiration
       dt Grades
       dd= @user.classrooms_i_teach.collect {|c| "#{c.name} - #{c.grade}"}.join('<br />').html_safe
+    dt User Location
+    dd= "#{Pointpin.locate(@user.ip_address)&.city_name}, #{Pointpin.locate(@user.ip_address)&.region_name}"
     dt IP Address
     dd= @user.ip_address
     dt Created

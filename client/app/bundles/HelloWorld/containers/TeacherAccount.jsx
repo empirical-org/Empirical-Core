@@ -83,6 +83,8 @@ export default React.createClass({
 			username: data.username,
 			email: data.email,
 			role: data.role,
+			googleId: data.google_id,
+			signedUpWithGoogle: data.signed_up_with_google,
 			selectedSchool: schoolData,
 			originalSelectedSchoolId: originalSelectedSchoolId,
 			schoolOptionsDoNotApply: (originalSelectedSchoolId == null),
@@ -270,7 +272,7 @@ export default React.createClass({
 		if (this.state.loading) {
 			return <LoadingSpinner/>
 		}
-		var selectRole,
+		let selectRole, subscription, showEmail
 			subscription;
 		if (this.props.userType == 'staff') {
 			selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
@@ -279,6 +281,38 @@ export default React.createClass({
 			selectRole = <UserSelectRole role={this.state.roll || 'teacher'} updateRole={this.updateRole}/>
 			subscription = <StaticDisplaySubscription subscription={this.state.subscription}/>
 		}
+
+		// TODO deprecate signedUpWithGoogle - need it here for now
+		if (this.state.googleId || this.state.signedUpWithGoogle) {
+			if (this.props.userType == 'staff') {
+				showEmail = <div className='row'>
+											<div className='form-label col-xs-2'>
+												Email
+											</div>
+											<div className='col-xs-4'>
+												<input className="inactive" ref='email' value={this.state.email} readOnly/>
+											</div>
+											<div className='col-xs-4 error'>
+												<span>This is a Google Classroom user, so changing their email here will break their account. Have a dev do it.</span>
+											</div>
+										</div>
+			}
+		} else {
+			showEmail = <div className='row'>
+										<div className='form-label col-xs-2'>
+											Email
+										</div>
+										<div className='col-xs-4'>
+											<input ref='email' onChange={this.updateEmail} value={this.state.email}/>
+										</div>
+										<div className='col-xs-4 error'>
+											{this.state.errors.email}
+										</div>
+									</div>
+		}
+
+
+
 		return (
 			<div className='container' id='my-account'>
 				<div className='row'>
@@ -313,17 +347,8 @@ export default React.createClass({
 
 						{selectRole}
 
-						<div className='row'>
-							<div className='form-label col-xs-2'>
-								Email
-							</div>
-							<div className='col-xs-4'>
-								<input ref='email' onChange={this.updateEmail} value={this.state.email}/>
-							</div>
-							<div className='col-xs-4 error'>
-								{this.state.errors.email}
-							</div>
-						</div>
+						{showEmail}
+
 						<div className='row'>
 							<div className='form-label col-xs-2'>
 								Password

@@ -19,6 +19,14 @@ class TeachersController < ApplicationController
     render json: {classrooms: current_user.classrooms_i_teach_with_students}
   end
 
+  def update_current_user
+    if current_user.update(teacher_params)
+      render json: current_user
+    else
+      render json: {errors: current_user.errors}, status: 400
+    end
+  end
+
   private
 
   def set_admin_account
