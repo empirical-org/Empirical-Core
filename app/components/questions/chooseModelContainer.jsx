@@ -12,6 +12,13 @@ class ChooseModelContainer extends Component {
     this.setState = this.setState.bind(this);
     this.selectConcept = this.selectConcept.bind(this);
     this.saveModelConcept = this.saveModelConcept.bind(this);
+    this.removeModelConcept = this.removeModelConcept.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      modelConceptUID: this.props.questions.data[this.props.params.questionID].modelConceptUID
+    })
   }
 
   getModelConceptUID() {
@@ -24,8 +31,38 @@ class ChooseModelContainer extends Component {
     window.history.back();
   }
 
+  removeModelConcept() {
+    let questionData = Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: null});
+    this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, questionData));
+  }
+
   selectConcept(e) {
     this.setState({modelConceptUID: e.value});
+  }
+
+  renderButtons() {
+    return(
+      <p className="control">
+        <button
+          className={'button is-primary'}
+          onClick={this.saveModelConcept}
+          disabled={this.state.modelConceptUID == this.props.questions.data[this.props.params.questionID].modelConceptUID ? 'true' : null}>
+          Save Model Concept
+        </button>
+        <button
+          className={'button is-outlined is-info'}
+          style={{marginLeft: 5}}
+          onClick={() => window.history.back()}>
+          Cancel
+        </button>
+        <button
+          className="button is-outlined is-danger"
+          style={{marginLeft: 5}}
+          onClick={this.removeModelConcept}>
+          Remove
+        </button>
+      </p>
+    )
   }
 
   render() {
@@ -37,10 +74,7 @@ class ChooseModelContainer extends Component {
           <ConceptExplanation {...this.props.conceptsFeedback.data[this.getModelConceptUID()]} />
           {this.props.children}
         </div>
-        <p className="control">
-          <button className={'button is-primary '} onClick={this.saveModelConcept}>Save Model Concept</button>
-          <button className={'button is-outlined is-info'} style={{marginLeft: 5}} onClick={() => window.history.back()}>Cancel</button>
-        </p>
+        {this.renderButtons()}
       </div>
     )
   }

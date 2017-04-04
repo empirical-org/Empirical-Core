@@ -191,6 +191,7 @@ const Question = React.createClass({
   render() {
     const { data, states, } = this.props.questions,
       { questionID, } = this.props.params;
+    console.log("HERE: ", data[questionID]);
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
@@ -209,6 +210,7 @@ const Question = React.createClass({
             <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">Share Page</Link>
             <button className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</button>
             <button className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</button>
+            <Link to={`/admin/questions/${questionID}/choose-model`} className="button is-outlined is-primary">{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</Link>
             <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
           {this.props.children}
