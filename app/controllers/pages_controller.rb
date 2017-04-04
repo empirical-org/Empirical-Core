@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_filter :resolve_body_class
+  before_filter :resolve_body_class, :determine_js_file
   layout :determine_layout
 
   def home
@@ -45,7 +45,6 @@ class PagesController < ApplicationController
   end
 
   def media
-
   end
 
   def faq
@@ -105,12 +104,6 @@ class PagesController < ApplicationController
   def premium
   end
 
-  def map
-  end
-
-  def firewall_info
-  end
-
   private
 
   def determine_layout
@@ -119,6 +112,13 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool'
       'twenty_seventeen_home'
+    end
+  end
+
+  def determine_js_file
+    case action_name
+    when 'partners', 'mission', 'news', 'media', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher_resources', 'news', 'stats', 'activities'
+      @js_file = 'public'
     end
   end
 

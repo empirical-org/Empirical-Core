@@ -15,7 +15,13 @@ export default React.createClass({
 	},
 
 	getInitialState: function() {
-		return ({loading: true, classrooms: null, show: false, hidden: true})
+		return ({
+			loading: true,
+			classrooms: null,
+			showModal: false,
+			hiddenButton: true,
+			selectedClassrooms: []
+		})
 	},
 
 	getClassrooms: function() {
@@ -30,22 +36,22 @@ export default React.createClass({
 		});
 	},
 
-	// TODO: we shoud just maintain an array of selectedClassrooms in state and push/pop
-	classroomsSelected: function(classrooms) {
+	updateSelectedClassrooms: function() {
+		const classrooms = this.state.classrooms
 		let checkedClassrooms = [];
 		classrooms.forEach((c) => {
 			if (c.checked) {
 				checkedClassrooms.push({'id': c.id, 'student_ids': []})
 			}
 		})
-		return checkedClassrooms;
+		this.setState({selectedClassrooms: checkedClassrooms, hiddenButton: checkedClassrooms.length < 1});
 	},
 
 	assignedClassData: function() {
 		return ({
 			unit: {
 				name: 'Beta: Diagnostic',
-				classrooms: this.classroomsSelected(this.state.classrooms),
+				classrooms: this.state.selectedClassrooms,
 				activities: [
 					{
 						id: 413
@@ -56,13 +62,13 @@ export default React.createClass({
 	},
 
 	submitClasses: function() {
-		this.setState({hidden: true})
+		this.setState({hiddenButton: true})
 		let data = this.assignedClassData();
 		if (data.unit.classrooms.length < 1) {
 			alert('You must select a classroom before assigning the diagnostic.')
 		} else {
 			$.ajax({type: 'POST', url: '/teachers/units', data: JSON.stringify(data), dataType: 'json', contentType: 'application/json'}).done(function() {
-				window.location = '/diagnostic#/success'
+				window.location = '/diagnostic/success'
 			}).fail(function() {
 				alert('There has been an error assigning the lesson. Please make sure you have selected a classroom');
 			})
@@ -80,10 +86,19 @@ export default React.createClass({
 	},
 
 	addCheckedProp: function(classrooms) {
-		let updatedClassrooms = classrooms.map((classy) => {
-			classy.checked = false
-			return classy
-		})
+		let updatedClassrooms
+		if (this.state.selectedClassrooms) {
+			const selectedClassroomIds = this.state.selectedClassrooms.map((classy) => classy.id)
+			updatedClassrooms = classrooms.map((classy) => {
+				classy.checked = selectedClassroomIds.includes(classy.id)
+				return classy
+			})
+		} else {
+			updatedClassrooms = classrooms.map((classy) => {
+					classy.checked = false
+					return classy
+			})
+		}
 		return updatedClassrooms
 	},
 
@@ -102,7 +117,7 @@ export default React.createClass({
 	handleChange: function(index) {
 		let updatedClassrooms = this.state.classrooms.slice(0);
 		updatedClassrooms[index].checked = !updatedClassrooms[index].checked;
-		this.setState({classrooms: updatedClassrooms, hidden: this.classroomsSelected(updatedClassrooms).length < 1 })
+		this.setState({classrooms: updatedClassrooms}, this.updateSelectedClassrooms)
 	},
 
 	buildClassRow: function(classy, index) {
@@ -118,8 +133,8 @@ export default React.createClass({
 		return (
 			<div className='classroom-row' key={classy.id}>
 				<div className='pull-left'>
-					<input type='checkbox' id={classy.name} className='css-checkbox' value='on' onChange={() => this.handleChange(index)}/>
-					<label htmlFor={classy.name} id={classy.name} className='css-label'>
+					<input type='checkbox' className='css-checkbox' id={classy.id} onChange={() => this.handleChange(index)}/>
+					<label htmlFor={classy.id} className='css-label'>
 						<h3>{classy.name}</h3>
 					</label>
 				</div>
@@ -136,7 +151,7 @@ export default React.createClass({
 	classroomTable: function() {
 		if (this.state.loading) {
 			//return loading image
-		} else if (this.state.classrooms === [] || null) {
+		} else if (this.state.classrooms === [] || this.state.classrooms === null) {
 			return <span></span>
 		} else {
 			let rows = this.state.classrooms.map((classy, index) => this.buildClassRow(classy, index));
@@ -145,21 +160,21 @@ export default React.createClass({
 	},
 
 	showModal() {
-		this.setState({show: true});
+		this.setState({showModal: true});
 	},
 
 	hideModal(becauseClassAdded) {
 		if (becauseClassAdded) {
 			this.getClassrooms()
 		}
-		this.setState({show: false});
+		this.setState({showModal: false});
 	},
 
 	modal() {
 		return (
-			<Modal {...this.props} show={this.state.show} onHide={this.hideModal} dialogClassName='add-class-modal'>
+			<Modal {...this.props} show={this.state.showModal} onHide={this.hideModal} dialogClassName='add-class-modal'>
 				<Modal.Body>
-					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='images/close_x.svg' alt='close-modal'/>
+					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='/images/close_x.svg' alt='close-modal'/>
 					<CreateClass closeModal={this.hideModal}/>
 				</Modal.Body>
 			</Modal>
@@ -171,7 +186,7 @@ export default React.createClass({
 			? <LoadingSpinner/>
 			: this.classroomTable()
 		let display = {
-			display: this.state.hidden
+			display: this.state.hiddenButton
 				? 'none'
 				: null
 		}
@@ -185,13 +200,13 @@ export default React.createClass({
 				{content}
 				<div id='footer-buttons'>
 					<div className='pull-left text-center'>
-						<button className='button button-transparent' onClick={this.showModal}>Add a Class</button>
+						<button className='button button-transparent' id='add-a-class-button' onClick={this.showModal}>Add a Class</button>
 						{this.modal()}
 					</div>
 					<div className='pull-right text-center'>
-						<button style={display} onClick={this.submitClasses} className='button-green'>Save & Assign</button>
+						<button style={display} onClick={this.submitClasses} className='button-green' id='save-and-assign-button'>Save & Assign</button>
 						<br/>
-						<Link to='/stage/2'>Back</Link>
+						<Link to='/diagnostic/stage/2'>Back</Link>
 					</div>
 				</div>
 			</div>

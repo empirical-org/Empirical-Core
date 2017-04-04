@@ -1,5 +1,6 @@
 'use strict'
 import React from 'react'
+import $ from 'jquery'
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx'
 import LoadingIndicator from '../components/general_components/loading_indicator.jsx'
 
@@ -92,6 +93,7 @@ export default class extends React.Component {
 
 	selectPreviouslyAssignedStudents() {
 	// 	// @TODO if (window.location.pathname.includes('edit')) {
+		const that = this;
 		const newState = Object.assign({}, this.state);
 			newState.classrooms.forEach((classy, classroomIndex) => {
 				const ca = classy.classroom_activity
@@ -99,18 +101,22 @@ export default class extends React.Component {
 				if (ca) {
 						if (ca.assigned_student_ids && ca.assigned_student_ids.length > 0) {
 							ca.assigned_student_ids.forEach((studId) => {
-								let studIndex = this.findTargetStudentIndex(studId, classroomIndex);
-								this.toggleStudentSelection(studIndex, classroomIndex)
-								selectedCount += 1;
+								let studIndex = that.findTargetStudentIndex(studId, classroomIndex);
+								// only do this if the student is still in the classroom
+								// otherwise, we may have assigned students that have left the classroom
+								if (studIndex !== -1) {
+									that.toggleStudentSelection(studIndex, classroomIndex)
+									selectedCount += 1;
+								}
 							})
 						} else {
 							classy.students.forEach((stud, studIndex) => {
-								this.toggleStudentSelection(studIndex, classroomIndex)
+								that.toggleStudentSelection(studIndex, classroomIndex)
 								selectedCount += 1;
 						})
 					}
 				}
-				this.updateAllOrNoneAssigned(classy, selectedCount)
+				that.updateAllOrNoneAssigned(classy, selectedCount)
 			})
 			this.setState(newState)
 	}
@@ -129,8 +135,6 @@ export default class extends React.Component {
 	}
 
 	countAssigned = classy => classy.students.filter((student) => student.isSelected).length
-
-
 
 	getClassroomsAndStudentsData() {
 		const that = this;

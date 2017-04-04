@@ -6,6 +6,8 @@ import ClassroomsStudentsTable from '../components/general_components/classrooms
 import LoadingSpinner from '../components/general_components/loading_indicator.jsx'
 import StudentCreatesAccountSection from '../components/invite_users/add_students/StudentCreatesAccountSection.jsx'
 import TeacherCreatesAccountSection from '../components/invite_users/add_students/TeacherCreatesAccountSection.jsx'
+import GoogleClassroomCreatesAccountSection from '../components/invite_users/add_students/GoogleClassroomCreatesAccountSection.jsx'
+require('../../../../../app/assets/stylesheets/pages/invite-students.scss')
 
 export default React.createClass({
 
@@ -25,7 +27,8 @@ export default React.createClass({
 			lastName: '',
 			loading: true,
 			errors: null,
-			disabled: false
+			disabled: false,
+			showModal: false
 		})
 	},
 
@@ -76,7 +79,6 @@ export default React.createClass({
 			})
 
 			.success((data) => {
-				console.log(data)
 					const student = data.user
 					let students = this.state.students.slice(0)
 					students.unshift(student)
@@ -91,7 +93,6 @@ export default React.createClass({
 				})
 
 			.fail(function(jqXHR) {
-				console.log(jqXHR)
 				that.setState({
 					disabled: false,
 					loading: false,
@@ -100,13 +101,45 @@ export default React.createClass({
 			})
 		},
 
+		syncOrModal: function(){
+			if (this.props.user.signed_up_with_google) {
+				// they are already a google user, so we just need to use the callback
+				this.syncClassrooms();
+			} else {
+				// they are not a google user, so we will show them the modal where they
+				// can become one
+				this.setState({showModal: true});
+			}
+		},
+
+		syncClassrooms: function() {
+			window.location = '/teachers/classrooms/google_sync'
+		},
+
+		hideModal() {
+			this.setState({showModal: false});
+		},
+
 
 	render: function() {
 		return (
-			<div className="container invite-students">
-				<ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom}/>
-				<StudentCreatesAccountSection key='student-section' classCode={this.state.selectedClassroom.code}/>
-				<TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors}/> {this.stateSpecificComponent()}
+			<div className="invite-students">
+				<div className="container">
+					<div className="classroom-dropdown-row">Select Classroom: <ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom}/></div>
+					<div className="option-boxes">
+						<div className="box-section"><StudentCreatesAccountSection key='student-section' classCode={this.state.selectedClassroom.code}/></div>
+						<div className="box-section"><GoogleClassroomCreatesAccountSection
+							key='google-classroom-section'
+							user={this.props.user}
+							syncClassrooms={this.syncClassrooms}
+							showModal={this.state.showModal}
+							hideModal={this.hideModal}
+							syncOrModal={this.syncOrModal}
+						/>
+						</div>
+					</div>
+					<TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors}/> {this.stateSpecificComponent()}
+				</div>
 			</div>
 		);
 	}

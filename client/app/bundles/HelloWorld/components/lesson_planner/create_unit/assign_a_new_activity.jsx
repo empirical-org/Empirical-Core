@@ -12,7 +12,7 @@ export default React.createClass({
   minis: function(){
     let minis =
       [
-        <a href='/diagnostic#/stage/1'
+        <a href='/diagnostic/stage/1'
             key={1}>
           <AssignmentTypeMini
             toggleTab={this.props.toggleTab}

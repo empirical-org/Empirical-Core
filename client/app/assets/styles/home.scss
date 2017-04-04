@@ -133,12 +133,13 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
   }
 }
 
-$background-images-list: (diagnostic-pattern connect-pattern grammar-pattern proofreader-pattern);
+$background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye grammar-pattern-puzzle proofreader-pattern-flag);
 
 @each $background-image in $background-images-list {
   .bg-image-#{$background-image} {
     background-image: url("../../../../public/images/background_images/#{$background-image}.png");
     background-repeat: repeat;
+    background-position-y: -10px;
   }
 }
 
@@ -244,6 +245,14 @@ nav.q-navbar-home {
 
   /* small screens */
 
+  @media only screen and (max-width: 865px) {
+    a.q-button {
+      // &.cta-button, &.icon-button {
+        padding-left: 0px;
+        padding-right: 0px;
+      // }
+    }
+  }
   @media screen and (min-width: 551px) {
     nav.home-nav-dropdown[role="home-custom-dropdown"] {
       display: none;
@@ -380,8 +389,45 @@ nav.q-navbar-home {
 }
 
 @media only screen and (max-width: 1152px) and (min-width: 656px) {
+  .info-section {
+    .icon-button {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
   .icon-button,
   .learn-more-button {
     width: 227px;
+  }
+  .press-cta {
+    a.q-button.cta-button {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+}
+
+// -ms-high-contrast is Microsoft-specific, available in IE 10+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .tool-section {
+    .video-section {
+      // IE has a bug regarding using minimum height without a specific height specified
+        height: 610px;
+        img {
+          top: 30px;
+        }
+      }
+    }
+}
+
+@media all and (max-width: 900px) and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .press-links {
+    display: none !important;
+  }
+
+  .press-cta {
+    a.q-button.cta-button {
+      margin-top: 80px;
+    }
   }
 }

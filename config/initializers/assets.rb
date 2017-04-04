@@ -34,6 +34,8 @@ Rails.application.config.assets.precompile +=
     "session.js",
     "firewall_test-bundle.js",
     "firewall_test.js",
+    "public-bundle.js",
+    "public.js",
     "home.css",
     "home.js",
     "cookie_warning.js",

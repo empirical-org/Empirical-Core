@@ -6,7 +6,11 @@ import $ from 'jquery';
 export default React.createClass({
 
   getInitialState: function () {
-    return {role: this.props.role, email: this.props.email, errors: []}
+    return {role: this.props.role,
+            email: this.props.email,
+            notGoogleUser: (!this.props.googleId && !this.props.signedUpWithGoogle),
+            errors: []
+          }
   },
 
   handleSelect: function(role){
@@ -31,7 +35,7 @@ export default React.createClass({
       statusCode: {
         200: function() {
           window.location = '/profile'        },
-        422: function(response) {
+        400: function(response) {
           that.setState({errors: response.responseJSON.errors})
         }
       }
@@ -46,27 +50,31 @@ export default React.createClass({
     let submitButton, email
     // email and submitButton should only show for the student page
     if (window.location.pathname === '/account_settings') {
-      email = (
-        <div className="row">
-          <div className="form-label col-xs-2">
-            Email
-          </div>
-          <div className="col-xs-4">
-            <input
-              name='Email'
-              label='Email'
-              defaultValue={this.props.email}
-              onChange={this.updateEmail}
-            />
-          </div>
-        </div>
-      )
       submitButton = (
         <div className="row">
           <div className="col-xs-4 offset-xs-2">
             <button className="button-green" onClick={this.handleClick}>Submit</button>
           </div>
-        </div>)}
+        </div>)
+        // email should only show up if the student is not a google user
+      if (this.state.notGoogleUser) {
+        email = (
+          <div className="row">
+            <div className="form-label col-xs-2">
+              Email
+            </div>
+            <div className="col-xs-4">
+              <input
+                name='Email'
+                label='Email'
+                defaultValue={this.props.email}
+                onChange={this.updateEmail}
+              />
+            </div>
+          </div>
+        )
+      }
+    }
 
     return (
       <div>
