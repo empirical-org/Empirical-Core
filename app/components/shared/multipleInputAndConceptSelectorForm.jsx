@@ -52,7 +52,6 @@ export default React.createClass({
       conceptResults: this.state.itemConcepts,
     };
     this.props.onSubmit(data, focusPoint);
-    this.toggleFocusPointForm();
   },
 
   renderTextInputFields() {
@@ -92,7 +91,7 @@ export default React.createClass({
           {this.renderConceptSelectorFields()}
         </div>
         <p className="control">
-          <button className={'button is-primary '} onClick={() => this.submit(this.props.item)}>Submit</button>
+          <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
         </p>
       </div>
     );

@@ -64,26 +64,30 @@ class FocusPointsContainer extends Component {
   }
 
   renderFocusPointsList() {
-    const components = _.mapObject(this.getFocusPoints(), (val, key) => (
-      <div key={key} className="card is-fullwidth has-bottom-margin">
-        <header className="card-header">
-          <p className="card-header-title" style={{ display: 'inline-block', }}>
-            {this.renderTagsForFocusPoint(val.text)}
-          </p>
-          <p className="card-header-icon">
-            {val.order}
-          </p>
-        </header>
-        <div className="card-content">
-          <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
-          {this.renderConceptResults(val.conceptResults, key)}
-        </div>
-        <footer className="card-footer">
-          <a href={`/#/admin/questions/${this.props.params.questionID}/focus-points/${key}/edit`} className="card-footer-item">Edit</a>
-          <a onClick={() => this.deleteFocusPoint(key)} className="card-footer-item">Delete</a>
-        </footer>
-      </div>
-    ));
+    const components = _.mapObject(this.getFocusPoints(), (val, key) => {
+      if(val.text) {
+        return (
+          <div key={key} className="card is-fullwidth has-bottom-margin">
+            <header className="card-header">
+              <p className="card-header-title" style={{ display: 'inline-block', }}>
+                {this.renderTagsForFocusPoint(val.text)}
+              </p>
+              <p className="card-header-icon">
+                {val.order}
+              </p>
+            </header>
+            <div className="card-content">
+              <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
+              {this.renderConceptResults(val.conceptResults, key)}
+            </div>
+            <footer className="card-footer">
+              <a href={`/#/admin/questions/${this.props.params.questionID}/focus-points/${key}/edit`} className="card-footer-item">Edit</a>
+              <a onClick={() => this.deleteFocusPoint(key)} className="card-footer-item">Delete</a>
+            </footer>
+          </div>
+        );
+      }
+    });
     return <SortableList key={_.values(components).length} sortCallback={this.sortCallback} data={_.values(components)} />;
   }
 
