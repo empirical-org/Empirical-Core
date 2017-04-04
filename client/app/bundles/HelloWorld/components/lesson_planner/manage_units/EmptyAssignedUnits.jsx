@@ -16,7 +16,7 @@
    render: function () {
  		return (
         <div className="container">
-          <div className="row empty-unit-manager">
+          <div className="row empty-state-manager">
             <div className="col-xs-7">
               <p>Welcome! This is where your assigned activity packs are stored, but it's empty at the moment.</p>
               <p>Let's add your first activity.</p>

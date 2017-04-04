@@ -15,7 +15,7 @@ export default React.createClass({
 	render: function() {
 		return (
         <div className="container manage-units">
-          <div className="row empty-unit-manager">
+          <div className="row empty-state-manager">
             <div className="col-xs-7">
               <p>Welcome! This is where you'll be able to see reports detailing your students' diagnostic results, but they haven't completed a diagnostic yet.</p>
               <p>Let's add your first diagnostic!</p>

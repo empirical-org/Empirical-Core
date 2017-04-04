@@ -80,21 +80,21 @@ feature 'Signing up', js: true do
     end
 
     context 'with minimal info' do
-      let(:x) { 'x' }
+      # let(:x) { 'x' }
+      #
+      # let(:professor_x) do
+      #   FactoryGirl.build :teacher,
+      #                       name: 'x x',
+      #                       password: x,
+      #                          email: 'x@x.com'
+      # end
+      #
+      #
+      # let(:send_newsletter)   { false }
+      #
+      # before(:each) { sign_up_teacher_and_select_school professor_x, true }
 
-      let(:professor_x) do
-        FactoryGirl.build :teacher,
-                            name: 'x x',
-                            password: x,
-                               email: 'x@x.com'
-      end
-
-
-      let(:send_newsletter)   { false }
-
-      before(:each) { sign_up_teacher_and_select_school professor_x, true }
-
-      it_behaves_like signup_succeeded
+      # it_behaves_like signup_succeeded
     end
 
     context 'with duplicate info' do
@@ -141,7 +141,7 @@ feature 'Signing up', js: true do
         sign_up_page.submit_form
       end
 
-      it 'shows the problem(s) on the form' do
+      xit 'shows the problem(s) on the form' do
         expect(sign_up_page).to have_content "Username can't be blank"
         expect(sign_up_page).to have_content password_cannot_be_blank
       end
@@ -157,7 +157,7 @@ feature 'Signing up', js: true do
           FactoryGirl.build :vinnie_barbarino, password: ''
         end
 
-        it 'shows the problem on the form' do
+        xit 'shows the problem on the form' do
           expect(sign_up_page).to have_content password_cannot_be_blank
         end
       end

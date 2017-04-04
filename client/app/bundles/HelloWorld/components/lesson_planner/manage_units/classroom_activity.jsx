@@ -21,7 +21,7 @@ export default React.createClass({
 	},
 
 	deleteClassroomActivity: function() {
-		var x = confirm('Are you sure you want do delete this assignment?');
+		var x = confirm('Are you sure you want to delete this assignment?');
 		if (x) {
 			this.props.deleteClassroomActivity(this.props.data.id, this.props.data.unit_id);
 		}

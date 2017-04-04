@@ -90,3 +90,13 @@
     }
   }
 }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  #my-account, #staff-teacher-account-editor, .user-profile-editor {
+    .row {
+      input {
+        line-height: normal;
+      }
+    }
+  }
+}

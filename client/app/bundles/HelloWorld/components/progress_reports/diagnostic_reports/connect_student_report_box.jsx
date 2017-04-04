@@ -27,12 +27,13 @@ export default React.createClass({
 		const conceptsByAttempt = this.groupByAttempt();
 		let attemptNum = 1;
 		let results = [];
-		let feedback;
-		let currAttempt = conceptsByAttempt[attemptNum]
 		while (conceptsByAttempt[attemptNum]) {
+			let currAttempt = conceptsByAttempt[attemptNum]
+			let feedback = false
 			let nextAttempt = conceptsByAttempt[attemptNum + 1]
 			if (nextAttempt) {
 				let index = 0;
+				// iterate until we find a next attempt with directions
 				while (!feedback && nextAttempt[index]) {
 					feedback = nextAttempt[index].directions
 					index++
@@ -45,21 +46,21 @@ export default React.createClass({
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
 				concept.correct ? score++ : null;
-				return [<ConceptResultTableRow key={concept.id} concept={concept}/>]
+				return [<ConceptResultTableRow key={concept.id + attemptNum} concept={concept}/>]
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
-			let scoreRow = this.scoreRow(currAttempt[0].answer, attemptNum, averageScore)
+			let scoreRow = this.scoreRow(conceptsByAttempt[attemptNum][0].answer, attemptNum, averageScore)
 			feedback ? results.push(scoreRow, feedback, concepts) : results.push(scoreRow, concepts)
 			if (conceptsByAttempt[attemptNum + 1]) {
-				results.push(this.emptyRow())
+				results.push(this.emptyRow(attemptNum + averageScore))
 			}
 			attemptNum ++;
 		}
 		return results;
 	},
 
-	emptyRow: function(){
-		return (<tr>
+	emptyRow: function(key){
+		return (<tr key={'empty-row'+key}>
 							<td/>
 							<td/>
 							<td/>
@@ -68,7 +69,7 @@ export default React.createClass({
 
 	scoreRow: function(answer, attemptNum, averageScore) {
 		return (
-			<tr className={ScoreColor(averageScore)}>
+			<tr key={attemptNum + answer}className={ScoreColor(averageScore)}>
 				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
 				<td />
 				<td>{answer}</td>
@@ -77,7 +78,10 @@ export default React.createClass({
 	},
 
 	questionScore: function() {
-		if (this.props.questionData.questionScore) {
+		// occassionally there is no questionScore
+		// don't just do ...questionData && ...questionData.questionScore because
+		// if it questionScore is zero it will evaluate to false
+		if (typeof this.props.questionData.questionScore !== undefined) {
 			return (
 						<tr>
 							<td>Score</td>

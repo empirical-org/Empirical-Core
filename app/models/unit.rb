@@ -18,12 +18,19 @@ class Unit < ActiveRecord::Base
   has_many :activities, through: :classroom_activities
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
+  after_save :hide_classroom_activities_if_visible_false
 
 
 
   def hide_if_no_visible_classroom_activities
     if  ClassroomActivity.unscoped.where(unit_id: self.id, visible: false).length == self.classroom_activities.length
       self.update(visible: false)
+    end
+  end
+
+  def hide_classroom_activities_if_visible_false
+    if self.visible == false
+      ClassroomActivity.where(unit_id: self.id, visible: true).each{|ca| ca.update(visible: false)}
     end
   end
 
