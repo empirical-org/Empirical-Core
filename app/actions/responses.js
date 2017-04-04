@@ -113,11 +113,11 @@ export function stopListeningToResponses(questionId) {
   };
 }
 
-export function submitNewResponse(content, prid) {
+export function submitNewResponse(content, prid, isFirstAttempt) {
   const newResponse = Object.assign({}, content,
     {
       createdAt: moment().format('x'),
-      firstAttemptCount: prid ? 0 : 1
+      firstAttemptCount: isFirstAttempt ? 1 : 0
     }
   );
   return (dispatch) => {
@@ -190,7 +190,7 @@ export function incrementFirstAttemptCount(rid) {
   }
 }
 
-export function incrementResponseCount(qid, rid, prid) {
+export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
   return (dispatch) => {
     const responseRef = responsesRef.child(rid);
     responseRef.child('/count').transaction(currentCount => currentCount + 1, (error) => {
@@ -199,7 +199,7 @@ export function incrementResponseCount(qid, rid, prid) {
       } else {
         dispatch(pathwaysActions.submitNewPathway(rid, prid, qid));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully incremented!', });
-        if (!prid) {
+        if (isFirstAttempt) {
           dispatch(incrementFirstAttemptCount(rid))
         }
       }

@@ -27,7 +27,7 @@ export default React.createClass({
     return (
       <ul>
         {this.renderSortField('Submissions', 'count')}
-        {this.renderSortField('First Attempt Submission', 'firstAttemptCount')}
+        {this.renderSortField('First Attempts', 'firstAttemptCount')}
         {this.renderSortField('Text', 'text')}
         {this.renderSortField('Created At', 'createdAt')}
         {this.renderSortField('Status', 'statusCode')}
