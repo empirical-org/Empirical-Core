@@ -98,7 +98,7 @@ export default class Question {
         ];
       }
       if (focusPointMatch.conceptResults) {
-        res.conceptResults = focusPointMatch.conceptResults
+        res.conceptResults = focusPointMatch.conceptResults;
       }
       return returnValue;
     }
@@ -108,8 +108,7 @@ export default class Question {
       res.author = 'Focus Point Hint';
       res.parentID = getTopOptimalResponse(this.responses).key;
       if (incorrectSequenceMatch.conceptUID) {
-        res.conceptResults = incorrectSequenceMatch.conceptResults)
-        ];
+        res.conceptResults = incorrectSequenceMatch.conceptResults;
       }
       return returnValue;
     }
