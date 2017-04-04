@@ -6,7 +6,7 @@ class ClassroomActivity < ActiveRecord::Base
   belongs_to :activity
   belongs_to :unit, touch: true
   has_one :topic, through: :activity
-  has_many :activity_sessions, dependent: :destroy
+  has_many :activity_sessions
 
   default_scope { where(visible: true) }
   scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
