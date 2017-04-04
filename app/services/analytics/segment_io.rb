@@ -38,5 +38,6 @@ module SegmentIo
     TEACHER_DELETED_STUDENT_ACCOUNT ||= 'Teacher deleted student account'
     MYSTERY_STUDENT_DELETION ||= 'Mystery student deletion'
     ACTIVITY_SEARCH ||= 'Activity search'
+    STUDENT_LOGIN_PDF_DOWNLOAD ||= 'Student login PDF download'
   end
 end

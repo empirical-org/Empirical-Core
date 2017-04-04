@@ -210,6 +210,9 @@ li.premium-tab > a:hover {
         margin-left: 6px;
         margin-right: 6px;
       }
+      &.purple {
+        padding-left: 14px;
+      }
       &.empty-purple {
         padding-left: 9px;
       }
@@ -229,7 +232,6 @@ li.premium-tab > a:hover {
       background-color: $quillgreen;
     }
     .purple {
-      padding-left: 14px;
       background-color: #9c2bde;
     }
     .button-container {
@@ -292,8 +294,12 @@ li.premium-tab > a:hover {
   }
   .quote-author {
     margin-top: 14px;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 16px !important;
+    font-weight: bold;
+    color: #606060;
+    span {
+      color: #343434;
+    }
   }
 
 }
@@ -479,7 +485,7 @@ li.premium-tab > a:hover {
     padding-top: 9px;
     margin-bottom: 5px;
   	font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
     height: 40px;
   }
   @media (max-width: 990px) {
@@ -495,3 +501,73 @@ li.premium-tab > a:hover {
     }
   }
 }
+
+.premium-flyer {
+    box-sizing: border-box;
+    margin-top: 72px;
+    margin-bottom: 80px;
+    position: relative;
+    width: 100vw;
+    left: calc(-50vw + 50%);
+    height: 360px;
+    overflow: hidden;
+    background-color: $quillblue;
+    background-image: url(/images/homepage/homepage_pattern_blue_premium.png);
+    .inner-premium-flyer {
+      max-width: 1080px;
+      width: 100%;
+      margin: auto;
+      .content {
+        display: inline-block;
+        margin-top: 70px;
+        margin-bottom: 62px;
+        max-width: 568px;
+        width: 100%;
+        color: white;
+        display: inline-block;
+        h1 {
+          font-size: 36px;
+          font-weight: 600;
+          margin-bottom: 25px;
+        }
+        p {
+          font-size: 18px !important;
+          margin-bottom: 40px;
+        }
+        .download-button {
+          display: inline-block;
+          width: 251px;
+          height: 45px;
+          border-radius: 6px;
+          background-color: #014f92;
+          font-family: AdelleSans;
+          font-size: 18px;
+          font-weight: bold;
+          line-height: 0.83;
+          text-align: center;
+          color: white;
+          padding-top: 15px;
+          &:hover, &:focus {
+            text-decoration: none;
+          }
+          .fa {
+            margin-right: 8px;
+          }
+        }
+      }
+      .picture {
+        display: inline-block;
+        img {
+          height: auto;
+          width: 470px;
+          margin: -109px 0px 0px 42px;
+        }
+      }
+      @media screen and (max-width: 1080px) {
+        text-align: center;
+        .picture {
+          display: none;
+        }
+      }
+    }
+  }
