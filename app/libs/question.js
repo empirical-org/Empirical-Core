@@ -97,6 +97,20 @@ export default class Question {
           conceptResultTemplate(focusPointMatch.conceptUID)
         ];
       }
+      if (focusPointMatch.conceptResults) {
+        res.conceptResults = focusPointMatch.conceptResults
+      }
+      return returnValue;
+    }
+    const incorrectSequenceMatch = this.checkIncorrectSequenceMatch(response);
+    if (incorrectSequenceMatch !== undefined) {
+      res.feedback = incorrectSequenceMatch.feedback;
+      res.author = 'Focus Point Hint';
+      res.parentID = getTopOptimalResponse(this.responses).key;
+      if (incorrectSequenceMatch.conceptUID) {
+        res.conceptResults = incorrectSequenceMatch.conceptResults)
+        ];
+      }
       return returnValue;
     }
     const lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
