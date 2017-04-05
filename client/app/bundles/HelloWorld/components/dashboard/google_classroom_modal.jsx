@@ -57,7 +57,7 @@ export default React.createClass({
     render: function() {
         const inputBorderColor = this.state.error ? { 'border': '1px solid #ff4542'} : { 'border': '1px solid #737373'}
         return (
-            <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal'>
+            <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal' restoreFocus={true}>
                 <Modal.Body>
                     <img className='pull-right react-bootstrap-close' onClick={this.props.hideModal} src='/images/close_x.svg' alt='close-modal'/>
                     <h1 className='q-h2'>First: Update Your Email</h1>
