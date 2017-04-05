@@ -106,6 +106,33 @@ module.exports = {
       });
     };
   },
+  submitNewIncorrectSequence(qid, data) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  submitEditedIncorrectSequence(qid, data, seqid) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  deleteIncorrectSequence(qid, seqid) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
+        if (error) {
+          alert(`Delete failed! ${error}`);
+        }
+      });
+    };
+  },
   submitNewConceptResult(rid, data) {
     return function (dispatch, getState) {
       responsesRef.child(`${rid}/conceptResults`).push(data, (error) => {

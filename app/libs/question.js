@@ -64,6 +64,7 @@ export default class Question {
     this.responses = data.responses;
     this.questionUID = data.questionUID;
     this.focusPoints = downcasedFocusPoints(data.focusPoints) || [];
+    this.incorrectSequences = data.incorrectSequences || [];
   }
 
   checkMatch(response) {
@@ -95,6 +96,19 @@ export default class Question {
         res.conceptResults = [
           conceptResultTemplate(focusPointMatch.conceptUID)
         ];
+      }
+      if (focusPointMatch.conceptResults) {
+        res.conceptResults = focusPointMatch.conceptResults;
+      }
+      return returnValue;
+    }
+    const incorrectSequenceMatch = this.checkIncorrectSequenceMatch(response);
+    if (incorrectSequenceMatch !== undefined) {
+      res.feedback = incorrectSequenceMatch.feedback;
+      res.author = 'Focus Point Hint';
+      res.parentID = getTopOptimalResponse(this.responses).key;
+      if (incorrectSequenceMatch.conceptUID) {
+        res.conceptResults = incorrectSequenceMatch.conceptResults;
       }
       return returnValue;
     }
@@ -386,12 +400,18 @@ export default class Question {
   }
 
   checkFocusPointMatch(response) {
-    const hitCount = 0;
-    const matchedFocusPoints = [];
     return _.find(this.focusPoints, (fp) => {
       const options = fp.text.split('|||');
       const anyMatches = _.any(options, opt => response.toLowerCase().indexOf(opt) !== -1);
       return !anyMatches;
+    });
+  }
+
+  checkIncorrectSequenceMatch(response) {
+    return _.find(this.incorrectSequences, (incSeq) => {
+      const options = incSeq.text.split('|||');
+      const anyMatches = _.any(options, opt => response.toLowerCase().indexOf(opt) !== -1);
+      return anyMatches;
     });
   }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import FocusPointForm from './focusPointForm.jsx';
+import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import SortableList from '../questions/sortableList/sortableList.jsx';
@@ -10,7 +10,7 @@ class FocusPointsContainer extends Component {
   constructor() {
     super();
     this.deleteFocusPoint = this.deleteFocusPoint.bind(this);
-    this.submitFocusPointForm = this.submitFocusPointForm.bind(this);
+    this.submitForm = this.submitForm.bind(this);
     this.sortCallback = this.sortCallback.bind(this);
   }
 
@@ -22,7 +22,7 @@ class FocusPointsContainer extends Component {
     return this.getQuestion().focusPoints;
   }
 
-  submitFocusPointForm(data, focusPoint) {
+  submitForm(data, focusPoint) {
     delete data.conceptResults.null;
     if (focusPoint) {
       this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPoint));
@@ -45,8 +45,8 @@ class FocusPointsContainer extends Component {
     }
   }
 
-  renderFocusPointTagsForFocusPoint(focusPoint) {
-    return focusPoint.split('|||').map((fp, index) => (<span key={`fp${index}`} className="tag is-medium is-light" style={{ margin: '3px', }}>{fp}</span>));
+  renderTagsForFocusPoint(focusPointString) {
+    return focusPointString.split('|||').map((fp, index) => (<span key={`fp${index}`} className="tag is-medium is-light" style={{ margin: '3px', }}>{fp}</span>));
   }
 
   renderConceptResults(concepts, focusPointKey) {
@@ -64,23 +64,30 @@ class FocusPointsContainer extends Component {
   }
 
   renderFocusPointsList() {
-    const components = _.mapObject(this.getFocusPoints(), (val, key) => (
-      <div key={key} className="card is-fullwidth has-bottom-margin">
-        <header className="card-header">
-          <p className="card-header-title" style={{ display: 'inline-block', }}>
-            {this.renderFocusPointTagsForFocusPoint(val.text)}
-          </p>
-          <p className="card-header-icon">
-            {val.order}
-          </p>
-        </header>
-        <div className="card-content">
-          <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
-          {this.renderConceptResults(val.conceptResults, key)}
-        </div>
-        <FocusPointForm fp={Object.assign(val, { id: key, })} submitFocusPoint={this.submitFocusPointForm} deleteFocusPoint={this.deleteFocusPoint} />
-      </div>
-    ));
+    const components = _.mapObject(this.getFocusPoints(), (val, key) => {
+      if(val.text) {
+        return (
+          <div key={key} className="card is-fullwidth has-bottom-margin">
+            <header className="card-header">
+              <p className="card-header-title" style={{ display: 'inline-block', }}>
+                {this.renderTagsForFocusPoint(val.text)}
+              </p>
+              <p className="card-header-icon">
+                {val.order}
+              </p>
+            </header>
+            <div className="card-content">
+              <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
+              {this.renderConceptResults(val.conceptResults, key)}
+            </div>
+            <footer className="card-footer">
+              <a href={`/#/admin/questions/${this.props.params.questionID}/focus-points/${key}/edit`} className="card-footer-item">Edit</a>
+              <a onClick={() => this.deleteFocusPoint(key)} className="card-footer-item">Delete</a>
+            </footer>
+          </div>
+        );
+      }
+    });
     return <SortableList key={_.values(components).length} sortCallback={this.sortCallback} data={_.values(components)} />;
   }
 
@@ -99,7 +106,7 @@ class FocusPointsContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <FocusPointForm submitFocusPoint={this.submitFocusPointForm} />
+          <a className="button is-outlined is-primary" style={{float: 'right'}} href={`/#/admin/questions/${this.props.params.questionID}/focus-points/new`}>Add Focus Point</a>
         </div>
         {this.renderFocusPointsList()}
         {this.props.children}
