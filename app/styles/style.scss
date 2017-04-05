@@ -87,8 +87,7 @@ ul.is-unstyled {
 }
 
 .panel-checkbox.toggle {
-  display: inline;
-  padding: 9px 10px 9px 10px;
+  padding: 5px;
 }
 
 .intro-next-button {
@@ -359,8 +358,9 @@ textarea.submission {
   width: 100%;
 }
 
-// .response-component-page-number {
-//   a:visited {
-//     color: blue;
-//   }
-// }
+.admin-container {
+  max-width: 960px;
+  padding: 15;
+  height: calc(100vh - 30px);
+  overflow-y: scroll;
+}

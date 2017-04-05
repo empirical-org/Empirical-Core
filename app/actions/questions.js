@@ -57,15 +57,6 @@ module.exports = {
       });
     };
   },
-  submitEditedFocusPoint(qid, data, fpid) {
-    return function (dispatch, getState) {
-      questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
-  },
   toggleNewQuestionModal() {
     return { type: C.TOGGLE_NEW_QUESTION_MODAL, };
   },
@@ -93,6 +84,51 @@ module.exports = {
       questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  submitEditedFocusPoint(qid, data, fpid) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  deleteFocusPoint(qid, fpid) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
+        if (error) {
+          alert(`Delete failed! ${error}`);
+        }
+      });
+    };
+  },
+  submitNewIncorrectSequence(qid, data) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  submitEditedIncorrectSequence(qid, data, seqid) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  deleteIncorrectSequence(qid, seqid) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
+        if (error) {
+          alert(`Delete failed! ${error}`);
         }
       });
     };
