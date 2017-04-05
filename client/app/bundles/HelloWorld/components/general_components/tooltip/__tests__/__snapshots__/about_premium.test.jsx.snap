@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutPremium component should render 1`] = `
+<div
+  className="advert"
+>
+  <div
+    className="advert-icon"
+  />
+  <div
+    className="advert-copy"
+  >
+    Save time grading with Premium Progress Reports
+  </div>
+</div>
+`;
