@@ -12,7 +12,6 @@ class Auth::GoogleController < ApplicationController
       return redirect_to URI(request.referer).path
     end
     if (session[:role].present? && User.where(google_id: google_id).none?) || (current_user && !current_user.signed_up_with_google)
-
       # If the above is true, the user is either currently signing up and has session[:role] or
       # the user is extant and is about to register with google for the first time
       register_with_google(name, email, session[:role], access_token, google_id)

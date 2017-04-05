@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe User, type: :model do
   let(:user) { FactoryGirl.build(:user) }
+  let!(:user_with_original_email) { FactoryGirl.build(:user, email: 'fake@example.com') }
 
 
   describe '#newsletter?' do
@@ -347,9 +348,40 @@ describe User, type: :model do
           expect(user).to be_valid
         end
       end
+
+      context "when there is an existing user" do
+        it 'can update other parts of its record even if it is does not have a unique email' do
+          user = User.new(email: user_with_original_email.email)
+          expect(user.save(validate: false)).to be
+        end
+        it 'can not update it\'s email to an existing one' do
+          user = User.create(email: 'whatever@example.com', name: 'whatever whatever')
+          user.save(validate: false)
+          expect(user.update(email: user_with_original_email.email)).to_not be(false)
+        end
+      end
     end
 
     describe "username attribute" do
+
+      it "is invalid when not unique" do
+         FactoryGirl.create(:user,  username: "testtest.lan")
+         user = FactoryGirl.build(:user,  username: "testtest.lan")
+         expect(user).to_not be_valid
+      end
+
+      it "uniqueness is enforced on extant users changing to an existing username" do
+        user1 = FactoryGirl.create(:user)
+        user2 = FactoryGirl.create(:user)
+        expect(user2.update(username: user1.username)).to be(false)
+      end
+      it "uniqueness is not enforced on non-unique usernames changing other fields" do
+        user1 = FactoryGirl.create(:user,  username: "testtest.lan")
+        user2 = FactoryGirl.build(:user,  username: "testtest.lan")
+        user2.save(validate: false)
+        expect(user2.username).to eq(user1.username)
+      end
+
       context "role is permanent" do
         it "is invalid without username and email" do
           user.safe_role_assignment "student"
