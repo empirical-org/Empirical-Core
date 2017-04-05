@@ -8,7 +8,13 @@ import _ from 'underscore'
 class ConceptSelector extends React.Component {
 
   conceptsToOptions () {
-    return _.map(this.props.concepts.data["0"], (concept)=>{
+    let concepts = this.props.concepts.data["0"];
+    if(this.props.onlyShowConceptsWithConceptFeedback) {
+      concepts = _.filter(concepts, (concept) => {
+        return _.keys(this.props.conceptsFeedback.data).includes(concept.uid);
+      });
+    }
+    return _.map(concepts, (concept)=>{
       return (
         {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
@@ -44,7 +50,8 @@ class ConceptSelector extends React.Component {
 
 function select (state) {
   return {
-    concepts: state.concepts
+    concepts: state.concepts,
+    conceptsFeedback: state.conceptsFeedback
   }
 }
 
