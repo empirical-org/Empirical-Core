@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import moment from 'moment';
 
 import Scorebook from '../Scorebook.jsx'
 import EmptyProgressReport from '../../components/scorebook/EmptyProgressReport'
@@ -91,7 +92,8 @@ describe('Scorebook component', () => {
     })
   })
 
-  describe('if it gets data', () => {
+  describe('if it gets data when it had none', () => {
+
     const wrapper = shallow(<Scorebook/>)
     wrapper.setState({currentPage: 1})
     wrapper.instance().displayData(data)
@@ -112,9 +114,80 @@ describe('Scorebook component', () => {
       expect(wrapper.find(AppLegend).length).toEqual(1)
     })
 
+    it('updates the state.scores to be equal to the new ones', () => {
+      expect(wrapper.state('scores')).toEqual(scores)
+    })
+
     it('renders as many StudentScores as there are state.scores', () => {
       expect(wrapper.find(StudentScores).length).toEqual(wrapper.state('scores').length)
     })
   })
+
+  describe('if it gets data when it had some', () => {
+
+    const wrapper = shallow(<Scorebook/>)
+    const scoreArray = [{results: '', user: {id: 666}}]
+    wrapper.setState({scores: scoreArray})
+    wrapper.instance().displayData(data)
+
+    it('does not render LoadingIndicator', () => {
+      expect(wrapper.find(LoadingIndicator).length).toEqual(0)
+    })
+
+    it('renders ScorebookFilters', () => {
+      expect(wrapper.find(ScorebookFilters).length).toEqual(1)
+    })
+
+    it('renders ScoreLegend', () => {
+      expect(wrapper.find(ScoreLegend).length).toEqual(1)
+    })
+
+    it('renders AppLegend', () => {
+      expect(wrapper.find(AppLegend).length).toEqual(1)
+    })
+
+    it('updates the state.scores to add the new ones', () => {
+      expect(wrapper.state('scores')).toEqual(scoreArray.concat(scores))
+    })
+
+    it('renders as many StudentScores as there are state.scores', () => {
+      expect(wrapper.find(StudentScores).length).toEqual(wrapper.state('scores').length)
+    })
+  })
+
+  describe('selectedClassroom function', () => {
+
+    it('returns All Classrooms if there is no selectedClassroom in props', () => {
+      const wrapper = shallow(<Scorebook/>)
+      expect(wrapper.instance().selectedClassroom()).toEqual({name: 'All Classrooms', value: ''})
+    })
+
+    it('returns props.selectedClassrom if there is a selectedClassroom in props', () => {
+      const wrapper = shallow(<Scorebook selectedClassroom={classrooms[0]}/>)
+      expect(wrapper.instance().selectedClassroom()).toEqual(classrooms[0])
+    })
+  })
+
+  it('sets state.selectedUnit when selectUnit is called', () => {
+    const wrapper = shallow(<Scorebook/>)
+    wrapper.instance().selectUnit(units[0])
+    expect(wrapper.state('selectedUnit')).toEqual(units[0])
+  })
+
+  it('sets state.selectedClassroom when selectClassroom is called', () => {
+    const wrapper = shallow(<Scorebook/>)
+    wrapper.instance().selectClassroom(classrooms[0])
+    expect(wrapper.state('selectedClassroom')).toEqual(classrooms[0])
+  })
+
+  it('sets state.beginDate and state.endDate when selectDates is called', () => {
+    const beginDate = moment(-7)
+    const endDate = moment(7)
+    const wrapper = shallow(<Scorebook/>)
+    wrapper.instance().selectDates(beginDate, endDate)
+    expect(wrapper.state('beginDate')).toEqual(beginDate)
+    expect(wrapper.state('endDate')).toEqual(endDate)
+  })
+
 
 })
