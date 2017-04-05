@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRangeFilter component should render 1`] = `
+<div
+  className="row date-range-filter"
+>
+  <div
+    className="no-pl col-xs-6 col-sm-5"
+  >
+    <DatePicker
+      dateFormatCalendar="MMMM YYYY"
+      disabled={false}
+      disabledKeyboardNavigation={false}
+      dropdownMode="scroll"
+      maxDate={"2017-04-05T20:06:02.845Z"}
+      monthsShown={1}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onMonthChange={[Function]}
+      placeholderText="Completed: From"
+      popoverAttachment="top left"
+      popoverTargetAttachment="bottom left"
+      popoverTargetOffset="10px 0"
+      selected={null}
+      tetherConstraints={
+        Array [
+          Object {
+            "attachment": "together",
+            "to": "window",
+          },
+        ]
+      }
+      utcOffset={-240}
+      withPortal={false}
+    />
+  </div>
+  <div
+    className="no-pl col-xs-6 col-sm-5"
+  >
+    <DatePicker
+      dateFormatCalendar="MMMM YYYY"
+      disabled={false}
+      disabledKeyboardNavigation={false}
+      dropdownMode="scroll"
+      maxDate={"2017-04-05T20:06:02.845Z"}
+      monthsShown={1}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onMonthChange={[Function]}
+      placeholderText="Completed: To"
+      popoverAttachment="top left"
+      popoverTargetAttachment="bottom left"
+      popoverTargetOffset="10px 0"
+      selected={null}
+      tetherConstraints={
+        Array [
+          Object {
+            "attachment": "together",
+            "to": "window",
+          },
+        ]
+      }
+      utcOffset={-240}
+      withPortal={false}
+    />
+  </div>
+</div>
+`;
