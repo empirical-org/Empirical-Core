@@ -609,6 +609,14 @@ $tool-grey: #f8f9f9;
         .blurb {
             max-width: 457px;
             text-align: left;
+            h2 img{
+              margin-left: 12px;
+              height: 20px;
+            }
+            a {
+              color: #0d614d;
+              text-decoration: underline;
+            }
         }
 
         .content-wrapper {
@@ -618,12 +626,25 @@ $tool-grey: #f8f9f9;
         }
 
         img {
-            max-width: 100%;
+          max-width: 100%;
         }
     }
 
     .negative-left-margin {
         margin-left: -90px;
+    }
+
+    #ell-diagnostic-img {
+      margin-left: -30px;
+      @media screen and (max-width: 1025px) and (min-width: 930px) {
+        margin-left: -20px;
+      }
+    }
+
+    &.desktop {
+        @media (max-width: 930px) {
+            display: none;
+        }
     }
 
     &.mobile {
