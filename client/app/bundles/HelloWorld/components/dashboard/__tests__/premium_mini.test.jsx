@@ -6,7 +6,7 @@ import PremiumMini from '../premium_mini';
 
 jest.mock('jquery', () => {
   return {
-    post: jest.fn().mockReturnValue(() => {
+    post: jest.fn().mockReturnValue({
       success: jest.fn()
     })
   };
