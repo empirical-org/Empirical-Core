@@ -97,6 +97,15 @@ module.exports = {
       });
     };
   },
+  submitBatchEditedFocusPoint(qid, data) {
+    return function (dispatch, getState) {
+      questionsRef.child(`${qid}/focusPoints/`).set(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
   deleteFocusPoint(qid, fpid) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
