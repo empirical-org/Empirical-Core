@@ -249,7 +249,6 @@ $tool-grey: #f8f9f9;
 }
 
 .tool-carousel {
-    background-color: $tool-grey;
     padding-top: 55px;
 
     .carousel {
@@ -264,9 +263,9 @@ $tool-grey: #f8f9f9;
                 max-width: 950px;
                 padding: 20px;
                 width: 75%;
-                -webkit-box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
-                -moz-box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
-                box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
+                -webkit-box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
+                box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
             }
 
             img {
@@ -299,7 +298,7 @@ $tool-grey: #f8f9f9;
         }
 
         .left {
-            background: $tool-grey url("../../../../public/images/carousel/chevron_left.svg") no-repeat center;
+            background: url("../../../../public/images/carousel/chevron_left.svg") no-repeat center;
         }
 
         .right {
@@ -699,15 +698,15 @@ $tool-grey: #f8f9f9;
           position: absolute;
           &.arrow-1 {
             left: -121px;
-            top: 138px;
+            top: 161px;
           }
           &.arrow-2 {
             left: 439px;
-            top: 147px;
+            top: 186px;
           }
           &.arrow-3 {
             left: -121px;
-            top: 116px;
+            top: 151px;
           }
         }
         .prompt {
@@ -727,15 +726,40 @@ $tool-grey: #f8f9f9;
           }
         }
         .blurb {
+          &.introduction {
+            h2 {
+              margin-bottom: 10px;
+            }
+            p {
+              margin-top: 0px;
+            }
+          }
+          &.blurb-attempt-1 h2 {
+            margin-top: 54px;
+          }
+          &.blurb-attempt-2 h2 {
+            margin-top: 70px;
+          }
+          &.blurb-attempt-3 h2 {
+            margin-top: 62px;
+          }
+          &.blurb-attempt-4 {
+            h2 {
+              margin-top: 42px;
+            }
+            p {
+              margin-bottom: 0px;
+              &:nth-of-type(2) {
+                margin-top: 2px;
+              }
+            }
+          }
           h2 {
-            margin-bottom: 10px;
             span {
               color: #b3b3b3;
             }
           }
           p {
-            margin-top: 0px;
-            margin-bottom: 5px;
             span {
               font-style: italic;
             }
