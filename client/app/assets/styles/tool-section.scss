@@ -699,26 +699,25 @@ $tool-grey: #f8f9f9;
           position: absolute;
           &.arrow-1 {
             left: -121px;
-            top: 145px;
+            top: 138px;
           }
           &.arrow-2 {
             left: 439px;
-            top: 159px;
+            top: 147px;
           }
           &.arrow-3 {
             left: -121px;
-            top: 126px;
+            top: 116px;
           }
         }
         .prompt {
           text-align: left;
-          margin-top: -44px;
           .prompt-header {
             font-size: 12px;
             font-weight: bold;
             letter-spacing: 0.4px;
             color: #f5ba5b;
-            margin: auto
+            margin: 0px auto 10px;
           }
           .prompt-text {
             font-size: 24px;
@@ -729,11 +728,14 @@ $tool-grey: #f8f9f9;
         }
         .blurb {
           h2 {
+            margin-bottom: 10px;
             span {
               color: #b3b3b3;
             }
           }
           p {
+            margin-top: 0px;
+            margin-bottom: 5px;
             span {
               font-style: italic;
             }
