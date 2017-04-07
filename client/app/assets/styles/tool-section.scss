@@ -539,7 +539,7 @@ $tool-grey: #f8f9f9;
 }
 // all for diagnostic page
 
-.diagnostic-walk-thru-wrapper {
+.walk-thru-wrapper {
     background-color: white;
 
     .walk-thru-step {
@@ -562,12 +562,12 @@ $tool-grey: #f8f9f9;
             max-width: 457px;
         }
 
-        .diagnostic-blurb {
+        .blurb {
             max-width: 457px;
             text-align: left;
         }
 
-        .diagnostic-content-wrapper {
+        .content-wrapper {
             max-width: 960px;
             width: 95%;
             margin: auto;
@@ -578,20 +578,11 @@ $tool-grey: #f8f9f9;
         }
     }
 
-    #negative-left-margin {
+    .negative-left-margin {
         margin-left: -90px;
     }
 
-    &.desktop {
-        @media (max-width: 930px) {
-            display: none;
-        }
-    }
-
     &.mobile {
-        @media (min-width: 930px) {
-            display: none;
-        }
 
         #shrink-me {
             width: 100%;
@@ -603,7 +594,7 @@ $tool-grey: #f8f9f9;
             padding: 55px 10px 35px;
         }
 
-        .diagnostic-blurb {
+        .blurb {
             padding-top: 45px;
             margin: auto;
             text-align: center;
@@ -669,13 +660,130 @@ $tool-grey: #f8f9f9;
     background-position: center;
     background-repeat: no-repeat;
   }
-}
+
+  .walk-thru-wrapper {
+    &.desktop {
+        @media (max-width: 930px) {
+            display: none;
+        }
+    }
+
+    &.mobile {
+        @media (min-width: 930px) {
+            display: none;
+        }
+      }
+    }
+  }
 
 .connect-tool-page {
   .tool-animation-section {
     background-image: url('/images/landing_page_connect_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
+  }
+  .walk-thru-wrapper {
+    .walk-thru-step {
+      &:first-of-type {
+        background-color: #fff8f0;
+      }
+      .content-wrapper {
+        position: relative;
+        .img-attempt-3 {
+          margin-top: -10px;
+        }
+        .img-attempt-4 {
+          margin-top: 10px;
+        }
+        .arrow {
+          position: absolute;
+          &.arrow-1 {
+            left: -121px;
+            top: 145px;
+          }
+          &.arrow-2 {
+            left: 439px;
+            top: 159px;
+          }
+          &.arrow-3 {
+            left: -121px;
+            top: 126px;
+          }
+        }
+        .prompt {
+          text-align: left;
+          margin-top: -44px;
+          .prompt-header {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.4px;
+            color: #f5ba5b;
+            margin: auto
+          }
+          .prompt-text {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0px auto;
+            padding-bottom: 8px;
+          }
+        }
+        .blurb {
+          h2 {
+            span {
+              color: #b3b3b3;
+            }
+          }
+          p {
+            span {
+              font-style: italic;
+            }
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 1278px) {
+      .arrow {
+        display: none;
+      }
+    }
+    &.desktop {
+      .walk-thru-step:first-of-type {
+          background-image: url('/images/tools/connect/background_pattern.png');
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      @media screen and (max-width: 1265px) {
+        display: none;
+      }
+
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        .arrow {
+          display: none;
+        }
+      }
+    }
+    &.mobile {
+      .walk-thru-step {
+        .blurb {
+          max-width: 524px;
+          margin: auto;
+          p {
+            max-width: 100%;
+          }
+        }
+        img, .prompt {
+          margin-left: 25px;
+          margin-top: auto;
+
+          @media screen and (max-width: 500px) {
+            margin-left: auto;
+          }
+        }
+      }
+      @media screen and (min-width: 1265px) {
+        display: none;
+      }
+    }
   }
 }
 
