@@ -5,7 +5,7 @@ import questionActions from '../../actions/questions.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import SortableList from '../questions/sortableList/sortableList.jsx';
 
-class FocusPointsContainer extends Component {
+export class FocusPointsContainer extends Component {
   constructor() {
     super();
     this.deleteFocusPoint = this.deleteFocusPoint.bind(this);
