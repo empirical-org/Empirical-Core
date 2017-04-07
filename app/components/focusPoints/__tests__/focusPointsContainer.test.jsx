@@ -4,27 +4,32 @@ import { genericQuestion } from '../../../../test/data/jest_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
 import SortableList from '../../questions/sortableList/sortableList.jsx';
 
-const params = { questionID: 100, };
-const questions = { data: { 100: genericQuestion, }, };
-const props = { params, questions, };
+function setup() {
+  const params = { questionID: 100, };
+  const questions = { data: { 100: genericQuestion, }, };
+  const props = { params, questions, };
+  const wrapper = shallow(<FocusPointsContainer {...props} />);
+
+  return {
+    props,
+    wrapper,
+  };
+}
 
 describe('The focusPointsContainer', () => {
+  const { wrapper, } = setup();
+
   it('should render', () => {
-    const wrapper = shallow(
-      <FocusPointsContainer {...props} />
-      );
     expect(wrapper).toMatchSnapshot();
   });
 
   describe('focus points', () => {
     it('should render in a sortable list', () => {
-      const wrapper = shallow(
-        <FocusPointsContainer {...props} />
-        );
       expect(wrapper.find(SortableList)).toHaveLength(1);
     });
 
     it('should render in the correct order', () => {
+      const { props, } = setup();
       const wrapper = mount(
         <FocusPointsContainer {...props} />
         );
