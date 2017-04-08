@@ -5,8 +5,8 @@ import PremiumPricingGuide from '../PremiumPricingGuide.jsx';
 
 describe('PremiumPricingGuide container', () => {
 
-  it('should ', () => {
-
+  it('should render', () => {
+    expect(shallow(<PremiumPricingGuide />)).toMatchSnapshot();
   });
 
 });
