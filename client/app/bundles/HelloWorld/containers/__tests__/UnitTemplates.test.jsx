@@ -9,7 +9,7 @@ describe('UnitTemplates container', () => {
 
   it('should render a Cms component', () => {
     const wrapper = shallow(<UnitTemplates />);
-    expect(wrapper.find(<Cms />).exists()).toBe(true);
+    expect(wrapper.find(Cms).exists()).toBe(true);
   });
 
 });
