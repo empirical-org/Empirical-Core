@@ -127,8 +127,7 @@ export default React.createClass({
 			Pusher.logToConsole = true;
 		}
 		const params = this.props.params
-		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
-		const params = this.props.params
+		const pusher = new Pusher(process.env['PUSHER_KEY'], {encrypted: true});
 		const channel = pusher.subscribe(this.props.params.classroomId);
 		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
