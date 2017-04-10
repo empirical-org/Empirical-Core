@@ -21,6 +21,7 @@ export default React.createClass({
 
 	componentDidMount: function() {
 		this.getRecommendationData(this.props.params.classroomId, this.props.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(this.props.params.classroomId, this.props.params.activityId);
 	},
 
 	componentWillReceiveProps(nextProps) {
@@ -30,6 +31,7 @@ export default React.createClass({
 			assigned: false
 		});
 		this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
 	},
 
 	getRecommendationData: function(classroomId, activityId){
@@ -126,6 +128,7 @@ export default React.createClass({
 		}
 		const params = this.props.params
 		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+		const params = this.props.params
 		const channel = pusher.subscribe(this.props.params.classroomId);
 		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
@@ -233,7 +236,6 @@ export default React.createClass({
 			const selected = this.studentIsSelected(student, selection)
 				? ' selected '
 				: '';
-
 			return (
 				<RecommendationsTableCell
 					key={student.id + '/' + recommendation.activity_pack_id}
