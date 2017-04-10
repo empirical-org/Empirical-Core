@@ -1,6 +1,7 @@
 'use strict'
 
  import React from 'react'
+ import _ from 'underscore'
  import ClassMini from './class_mini.jsx'
  import AddOrSyncClassroomsMini from './add_or_sync_classrooms_mini.jsx'
 

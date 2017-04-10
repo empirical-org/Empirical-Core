@@ -573,3 +573,29 @@ hr {
   position: fixed;
 }
 }
+
+@media only screen and (max-width: 415px) {
+
+  .tool-carousel {
+    padding-top: 0;
+    a.left.carousel-control, a.right.carousel-control {
+      background: none;
+      width: 25px;
+      height: 300px;
+      i {
+        display: none;
+      }
+    }
+    .carousel {
+      .item, .item.active {
+        padding-bottom: 130px;
+
+        .wrapper {
+          width: 100%;
+          padding: 15px;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}

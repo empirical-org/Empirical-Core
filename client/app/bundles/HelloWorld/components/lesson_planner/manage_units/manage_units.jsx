@@ -57,7 +57,7 @@
 			}
 		});
 	},
-	deleteClassroomActivity: function (ca_id, unit_id) {
+	hideClassroomActivity: function (ca_id, unit_id) {
 		var units, x1;
 		units = this.state.units;
 		x1 = _.map(units, function (unit) {
@@ -71,8 +71,8 @@
 		this.setState({units: x1});
 
 		$.ajax({
-			type: 'delete',
-			url: '/teachers/classroom_activities/' + ca_id,
+			type: 'put',
+			url: '/teachers/classroom_activities/' + ca_id + '/hide',
 			success: function () {
 			},
 			error: function () {
@@ -113,7 +113,7 @@
 				<Units
 					updateDueDate={this.updateDueDate}
 					editUnit={this.props.actions.editUnit}
-					deleteClassroomActivity={this.deleteClassroomActivity}
+					hideClassroomActivity={this.hideClassroomActivity}
 					hideUnit={this.hideUnit} data={this.state.units} />
 				</span>
 			);
