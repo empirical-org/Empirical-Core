@@ -343,6 +343,11 @@ $tool-grey: #f8f9f9;
     .q-h1 {
       font-size: 36px;
     }
+    @media only screen and (max-width : 435px) {
+      .q-h1 {
+        font-size: 30px;
+      }
+    }
 }
 
 .tool-animation-section {
@@ -519,6 +524,23 @@ $tool-grey: #f8f9f9;
 
         .small-screen {
             display: block;
+
+            .q-nav-bar .desktop-nav-list {
+              display: flex;
+              flex-wrap: nowrap;
+              max-width: 100%;
+
+              li {
+                flex-grow: 1;
+                text-align: center;
+                a {
+                  padding-left: 0;
+                  padding-right: 0;  
+                }
+
+              }
+
+            }
         }
     }
 }
@@ -534,6 +556,17 @@ $tool-grey: #f8f9f9;
 
     .q-button {
         margin-top: 34px;
+    }
+
+    @media only screen and (max-width : 435px) {
+      padding: 26px 15px 50px 15px;
+      min-height: 0px;
+      .q-h1 {
+        font-size: 22px;
+      }
+      .q-button {
+        margin-top: 15px;
+      }
     }
 }
 // all for diagnostic page
@@ -758,6 +791,7 @@ $tool-grey: #f8f9f9;
             span {
               color: #b3b3b3;
             }
+
           }
           p {
             span {
@@ -793,6 +827,10 @@ $tool-grey: #f8f9f9;
         .blurb {
           max-width: 524px;
           margin: auto;
+          text-align: left;
+          h2 {
+            font-size: 22px;
+          }
           p {
             max-width: 100%;
           }
