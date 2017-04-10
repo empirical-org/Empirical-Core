@@ -28,6 +28,7 @@ module EmpiricalGrammar
       #{config.root}/app/controllers/concerns
       #{config.root}/lib
       #{config.root}/app/uploaders
+      #{config.root}/app/pusher_modules
       #{config.root}/app/services/analytics
       #{config.root}/app/queries/scorebook
     )
