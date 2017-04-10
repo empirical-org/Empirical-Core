@@ -10,6 +10,7 @@ export default React.createClass({
 		return {
 			loading: true,
 			recommendations: [],
+			previouslyAssignedRecommendations: [],
 			selections: [],
 			students: [],
 			assigning: false,
@@ -19,6 +20,7 @@ export default React.createClass({
 
 	componentDidMount: function() {
 		this.getRecommendationData(this.props.params.classroomId, this.props.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(this.props.params.classroomId, this.props.params.activityId);
 	},
 
 	componentWillReceiveProps(nextProps) {
@@ -28,6 +30,7 @@ export default React.createClass({
 			assigned: false
 		});
 		this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
 	},
 
 	getRecommendationData: function(classroomId, activityId){
@@ -40,6 +43,21 @@ export default React.createClass({
 				loading: false
 			})
 		})
+	},
+
+	getPreviouslyAssignedRecommendationData: function(classroomId, activityId) {
+		const that = this;
+		$.get('/teachers/progress_reports/previously_assigned_recommendations/' + classroomId + '/activity/' + activityId, (data => {
+			that.setState({
+				previouslyAssignedRecommendations: data.previouslyAssignedRecommendations
+			})
+		}))
+	},
+
+	studentWasAssigned: function(student, previouslyAssignedRecommendation) {
+		if (previouslyAssignedRecommendation.students) {
+			return previouslyAssignedRecommendation.students.includes(student.id)
+		}
 	},
 
 	studentIsSelected: function(student, selection) {
@@ -92,12 +110,13 @@ export default React.createClass({
 		// if (process.env.NODE_ENV === 'development') {
 		// 	Pusher.logToConsole = true;
 		// }
-		const pusher = new Pusher('e8e2624f034662fa347d', {encrypted: true});
+		const params = this.props.params
+		const pusher = new Pusher('a253169073ce7474f0ce', {encrypted: true});
 		const channel = pusher.subscribe(this.props.params.classroomId);
 		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
+			that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId)
 			that.setState({assigning: false, assigned: true})
-			alert(data.message);
 		});
 	},
 
@@ -116,8 +135,13 @@ export default React.createClass({
 		return (
 			<div className="recommendations-top-bar">
 				<div className="recommendations-key">
-					<div className="recommendations-key-icon"></div>
-					<p>Recommended Activity Packs</p>
+						<div className="recommendations-key-icon"></div>
+						<p>Recommended Activity Packs</p>
+						<div className="assigned-recommendations-key-icon"><i className="fa fa-check-circle"/></div>
+						<span className="assigned-activity-pack-text">
+							<p>Assigned Activity Packs</p>
+							<p>Assigned activities will not be assigned again.</p>
+						</span>
 				</div>
 				{this.renderAssignButton()}
 			</div>
@@ -183,26 +207,41 @@ export default React.createClass({
 
 	renderActivityPackRowItems: function(student) {
 		return this.state.recommendations.map((recommendation, i) => {
-			let selection = this.state.selections[i];
+			console.log('i', i)
+			console.log(this.state.previouslyAssignedRecommendations[i])
+			let checkboxOnClick, check
+			let selection = this.state.selections[i]
+			let previouslyAssignedRecommendation = this.state.previouslyAssignedRecommendations[i]
+			const previouslyAssigned = this.studentWasAssigned(student, previouslyAssignedRecommendation)
+				? ' previouslyAssigned '
+				: '';
 			const recommended = this.studentIsRecommended(student, recommendation)
 				? ' recommended '
 				: '';
 			const selected = this.studentIsSelected(student, selection)
 				? ' selected '
 				: '';
+			checkboxOnClick = previouslyAssigned ? null : this.toggleSelected.bind(null, student, i)
+			check = this.renderCheck(previouslyAssigned, selected)
+
 			return (
-				<div className={'recommendations-table-row-item' + recommended + selected} key={recommendation.activity_pack_id}>
-					<div className="donalito-checkbox" onClick={this.toggleSelected.bind(null, student, i)}>
-						{this.renderSelectedCheck(student, selection)}
-					</div>
+				<div className={'recommendations-table-row-item' + previouslyAssigned + recommended + selected} key={recommendation.activity_pack_id}>
+					<div className="donalito-checkbox" onClick={checkboxOnClick}>
+							{check}
+						</div>
 					<p>{recommendation.name}</p>
 				</div>
 			)
 		})
 	},
 
-	renderSelectedCheck: function(student, selection) {
-		if (this.studentIsSelected(student, selection)) {
+	renderCheck: function(previouslyAssigned, selected) {
+		if (previouslyAssigned) {
+			return (
+				<i className="fa fa-check-circle"/>
+			)
+		}
+		else if (selected) {
 			return (
 				<img className="recommendation-check" src="/images/recommendation_check.svg"></img>
 			)
