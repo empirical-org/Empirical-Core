@@ -24,6 +24,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         render json: get_recommendations_for_classroom(params[:classroom_id], params[:activity_id])
     end
 
+    def previously_assigned_recommendations
+      render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
+    end
+
     def assign_selected_packs
         create_or_update_selected_packs
         render json: { data: 'Hi' }

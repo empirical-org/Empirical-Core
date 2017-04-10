@@ -290,6 +290,19 @@ $lightgray: #cecece;
       border: solid 1px #cecece;
       margin-right: 9px;
     }
+    .assigned-recommendations-key-icon {
+      i {
+        font-size: 35px;
+        color: #82bf3c;
+        margin-left: 44px;
+      }
+    }
+    .assigned-activity-pack-text {
+      margin-left: 10px;
+      p:nth-of-type(2) {
+        color: #737373;
+      }
+    }
   }
 }
 
