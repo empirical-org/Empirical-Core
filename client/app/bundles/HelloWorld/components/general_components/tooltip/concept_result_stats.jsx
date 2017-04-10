@@ -26,7 +26,7 @@ export default React.createClass({
         return conRes2.percentage - conRes1.percentage;
       }
       // finally, sort alphabetically
-      return conRes2.name - conRes1.name;
+      return conRes2.name < conRes1.name;
     })
   },
 
