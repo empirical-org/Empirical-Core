@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddClassSection component should render 1`] = `
+<a
+  href="/teachers/classrooms/new"
+>
+  <div
+    className="dashed"
+  >
+    <img
+      className="plus-icon"
+      src="/add_class.png"
+    />
+    <h3>
+      Add a Class
+    </h3>
+  </div>
+</a>
+`;
