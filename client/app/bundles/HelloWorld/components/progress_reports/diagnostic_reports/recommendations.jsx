@@ -55,7 +55,7 @@ export default React.createClass({
 	},
 
 	studentWasAssigned: function(student, previouslyAssignedRecommendation) {
-		if (previouslyAssignedRecommendation.students) {
+		if (previouslyAssignedRecommendation && previouslyAssignedRecommendation.students) {
 			return previouslyAssignedRecommendation.students.includes(student.id)
 		}
 	},
@@ -110,7 +110,7 @@ export default React.createClass({
 		if (process.env.NODE_ENV === 'development') {
 			Pusher.logToConsole = true;
 		}
-		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+		const pusher = new Pusher(process.env['PUSHER_KEY'], {encrypted: true});
 		const channel = pusher.subscribe(this.props.params.classroomId);
 		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
@@ -206,13 +206,11 @@ export default React.createClass({
 
 	renderActivityPackRowItems: function(student) {
 		return this.state.recommendations.map((recommendation, i) => {
-			console.log('i', i)
-			console.log(this.state.previouslyAssignedRecommendations[i])
-			let checkboxOnClick, check
+			let checkboxClass,checkboxOnClick, check
 			let selection = this.state.selections[i]
 			let previouslyAssignedRecommendation = this.state.previouslyAssignedRecommendations[i]
 			const previouslyAssigned = this.studentWasAssigned(student, previouslyAssignedRecommendation)
-				? ' previouslyAssigned '
+				? ' previously-assigned '
 				: '';
 			const recommended = this.studentIsRecommended(student, recommendation)
 				? ' recommended '
@@ -220,12 +218,18 @@ export default React.createClass({
 			const selected = this.studentIsSelected(student, selection)
 				? ' selected '
 				: '';
-			checkboxOnClick = previouslyAssigned ? null : this.toggleSelected.bind(null, student, i)
+			if (previouslyAssigned) {
+				checkboxOnClick = null
+				checkboxClass = ''
+			} else {
+				checkboxOnClick = this.toggleSelected.bind(null, student, i)
+				checkboxClass = 'donalito-checkbox'
+			}
 			check = this.renderCheck(previouslyAssigned, selected)
 
 			return (
 				<div className={'recommendations-table-row-item' + previouslyAssigned + recommended + selected} key={recommendation.activity_pack_id}>
-					<div className="donalito-checkbox" onClick={checkboxOnClick}>
+					<div className={checkboxClass} onClick={checkboxOnClick}>
 							{check}
 						</div>
 					<p>{recommendation.name}</p>
