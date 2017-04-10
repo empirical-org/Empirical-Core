@@ -107,11 +107,10 @@ export default React.createClass({
 	},
 
 	initializePusher: function(){
-		// if (process.env.NODE_ENV === 'development') {
-		// 	Pusher.logToConsole = true;
-		// }
-		const params = this.props.params
-		const pusher = new Pusher('a253169073ce7474f0ce', {encrypted: true});
+		if (process.env.NODE_ENV === 'development') {
+			Pusher.logToConsole = true;
+		}
+		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
 		const channel = pusher.subscribe(this.props.params.classroomId);
 		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
