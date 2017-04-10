@@ -21,6 +21,7 @@ exports[`the ArchiveClassesWarning component should render 1`] = `
   }
   onHide={[Function]}
   renderBackdrop={[Function]}
+  restoreFocus={true}
   show={false}
 >
   <ModalBody

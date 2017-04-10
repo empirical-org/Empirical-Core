@@ -10,6 +10,12 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
+	endRow: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		maxWidth: '220px'
+	}
 }
 
 export default React.createClass({
@@ -20,10 +26,10 @@ export default React.createClass({
 		}
 	},
 
-	deleteClassroomActivity: function() {
+	hideClassroomActivity: function() {
 		var x = confirm('Are you sure you want to delete this assignment?');
 		if (x) {
-			this.props.deleteClassroomActivity(this.props.data.id, this.props.data.unit_id);
+			this.props.hideClassroomActivity(this.props.data.id, this.props.data.unit_id);
 		}
 	},
 
@@ -66,7 +72,7 @@ export default React.createClass({
 
   deleteRow:function(){
     if (!this.props.report) {
-      return <div className="pull-right"><img className='delete-classroom-activity h-pointer' onClick={this.deleteClassroomActivity} src="/images/x.svg"/></div>
+      return <div className="pull-right"><img className='delete-classroom-activity h-pointer' onClick={this.hideClassroomActivity} src="/images/x.svg"/></div>
     }
   },
 
@@ -85,11 +91,9 @@ export default React.createClass({
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
-				<div className='cell col-md-3'>
-					<div style={styles.row}>
+				<div className='cell col-md-3' style={styles.endRow}>
 						{this.finalCell()}
 						{this.deleteRow()}
-					</div>
 				</div>
 			</div>
 		);
