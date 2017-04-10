@@ -34,7 +34,7 @@ export default React.createClass({
               <input className="name-input" placeholder='Last Name' type="text" value={this.props.lastName} onChange={(e)=> this.props.nameChange(e, 'lastName')}/>
               <button className='button-green' onClick={this.props.submitStudent}>Add Student</button>
             </span>
-            <button className="white-bg"><a href={'/teachers/classrooms/' + this.props.classID + '/student_logins.pdf'}>Download Login Sheet</a></button>
+            <a className="white-bg" href={'/teachers/classrooms/' + this.props.classID + '/student_logins.pdf'}>Download Login Sheet</a>
           </div>
           <div className="errors">{this.props.errors}</div>
         </div>
