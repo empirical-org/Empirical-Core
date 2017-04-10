@@ -99,7 +99,12 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
-    resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
+    resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path' do
+      collection do
+        put ':id/hide' => 'classroom_activities#hide'
+      end
+    end
+
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'

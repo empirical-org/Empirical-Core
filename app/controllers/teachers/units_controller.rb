@@ -131,7 +131,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def destroy
-    Unit.find(params[:id]).destroy
+    # Unit.find(params[:id]).update(visible: false)
     render json: {}
   end
 
