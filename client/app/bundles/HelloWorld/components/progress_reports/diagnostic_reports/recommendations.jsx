@@ -82,23 +82,21 @@ export default React.createClass({
 		  	contentType: 'application/json',
 		  	data: JSON.stringify(selections),
 				success: () => {
-					this.setState({assigning: false, assigned: true}, ()=>this.initializePusher())
+					this.initializePusher()
 				}
 			})
 		})
 	},
 
 	initializePusher: function(){
-		if (process.env.NODE_ENV === 'development') {
-			Pusher.logToConsole = true;
-		}
-
+		// if (process.env.NODE_ENV === 'development') {
+		// 	Pusher.logToConsole = true;
+		// }
 		const pusher = new Pusher('e8e2624f034662fa347d', {encrypted: true});
-
-		console.log(this.props.params.classroomId)
 		const channel = pusher.subscribe(this.props.params.classroomId);
+		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
-			console.log('data', data)
+			that.setState({assigning: false, assigned: true})
 			alert(data.message);
 		});
 	},
