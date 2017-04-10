@@ -2,6 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import _ from 'underscore'
+import Pusher from 'pusher-js'
 
 export default React.createClass({
 
@@ -88,16 +89,18 @@ export default React.createClass({
 	},
 
 	initializePusher: function(){
-		// if (process.env.NODE_ENV === 'development') {
-		// 	Pusher.logToConsole = true;
-		// }
-		//
-		// const pusher = new Pusher('e8e2624f034662fa347d', {encrypted: true});
-		//
-		// const channel = pusher.subscribe('my-channel');
-		// channel.bind('my-event', function(data) {
-		// 	alert(data.message);
-		// });
+		if (process.env.NODE_ENV === 'development') {
+			Pusher.logToConsole = true;
+		}
+
+		const pusher = new Pusher('e8e2624f034662fa347d', {encrypted: true});
+
+		console.log(this.props.params.classroomId)
+		const channel = pusher.subscribe(this.props.params.classroomId);
+		channel.bind('recommendations-assigned', function(data) {
+			console.log('data', data)
+			alert(data.message);
+		});
 	},
 
 	renderExplanation: function(){
