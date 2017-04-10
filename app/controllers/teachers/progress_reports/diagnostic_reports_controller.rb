@@ -42,15 +42,17 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     def create_or_update_selected_packs
         teacher_id = current_user.id
-        selections_with_students = params[:selections].select do |ut|
-          ut[:classrooms][0][:student_ids].any?
+        selections_with_students = params["selections"].select do |ut|
+          ut["classrooms"][0]["student_ids"].any?
         end
-        number_of_selections = selections_with_students.length
-        selections_with_students.reverse.each_with_index do |value, index|
-            last = (number_of_selections - 1) == index
-            # this only accommodates one classroom at a time
-            classroom = value[:classrooms][0]
-            AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids], last)
+        if selections_with_students.any?
+          number_of_selections = selections_with_students.length
+          selections_with_students.reverse.each_with_index do |value, index|
+              last = (number_of_selections - 1) == index
+              # this only accommodates one classroom at a time
+              classroom = value["classrooms"][0]
+              AssignRecommendationsWorker.perform_async(value["id"], classroom["id"], classroom["student_ids"], last)
+          end
         end
     end
 end
