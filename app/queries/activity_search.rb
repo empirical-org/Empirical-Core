@@ -38,6 +38,7 @@ class ActivitySearch
       field = 'topic_categories.name'
     end
 
-    field + ' ' + order + ' ' + field2 + ' ' + order
+    return (field + ' ' + order + ', ' + field2 + ' ' + order) if field2
+    field + ' ' + order
   end
 end
