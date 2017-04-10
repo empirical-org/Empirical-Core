@@ -80,9 +80,24 @@ export default React.createClass({
 		  	dataType: 'json',
 		  	contentType: 'application/json',
 		  	data: JSON.stringify(selections),
-				success: () => {this.setState({assigning: false, assigned: true})}
+				success: () => {
+					this.setState({assigning: false, assigned: true}, ()=>this.initializePusher())
+				}
 			})
 		})
+	},
+
+	initializePusher: function(){
+		// if (process.env.NODE_ENV === 'development') {
+		// 	Pusher.logToConsole = true;
+		// }
+		//
+		// const pusher = new Pusher('e8e2624f034662fa347d', {encrypted: true});
+		//
+		// const channel = pusher.subscribe('my-channel');
+		// channel.bind('my-event', function(data) {
+		// 	alert(data.message);
+		// });
 	},
 
 	renderExplanation: function(){
@@ -123,7 +138,7 @@ export default React.createClass({
 			)
 		} else {
 			return (
-				<div className="recommendations-assign-button" onClick={() => this.assignSelectedPacks()}>
+				<div className="recommendations-assign-button" onClick={this.assignSelectedPacks}>
 					<span>Assign Activity Packs</span>
 				</div>
 			)
