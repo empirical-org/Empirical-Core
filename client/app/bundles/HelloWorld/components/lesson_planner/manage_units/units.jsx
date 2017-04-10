@@ -10,7 +10,7 @@
 		var units = _.map(this.props.data, function (data) {
       if (data.classroom_activities.length > 0) {
   			return (<Unit   key={data.unit.id}
-                deleteClassroomActivity={this.props.deleteClassroomActivity}
+                hideClassroomActivity={this.props.hideClassroomActivity}
                 hideUnit={this.props.hideUnit}
                 report={this.props.report}
                 updateDueDate={this.props.updateDueDate}

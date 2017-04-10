@@ -5,7 +5,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   before_filter :teacher!
   before_filter :authorize!
 
-
   def update
     cas = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
     cas.each{ |ca| ca.try(:update_attributes, classroom_activity_params)}
@@ -13,8 +12,14 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def destroy
-    cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
-    cas.each{|ca| ca.destroy}
+    # cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
+    # cas.each{|ca| ca.destroy}
+    # @classroom_activity.unit.hide_if_no_visible_classroom_activities
+    # render json: {}
+  end
+
+  def hide
+    @classroom_activity.update(visible: false)
     @classroom_activity.unit.hide_if_no_visible_classroom_activities
     render json: {}
   end
