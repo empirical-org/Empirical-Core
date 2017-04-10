@@ -44,7 +44,7 @@ export default React.createClass({
         key={classroom.id}
         onClick={() => that.handleClassroomClick(classroom.id)}>
         <div>{classroom.teacher}</div>
-      <div>{classroom.name}</div>
+      <div className="classroom-box-classroom">{classroom.name}</div>
     </div>)
     });
     return classrooms
