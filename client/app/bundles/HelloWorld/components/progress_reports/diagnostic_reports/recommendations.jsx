@@ -2,6 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import _ from 'underscore'
+import Pusher from 'pusher-js'
 
 export default React.createClass({
 
@@ -62,7 +63,11 @@ export default React.createClass({
 	assignSelectedPacks: function() {
 		this.setState({assigning: true}, () => {
 			const classroomId = this.props.params.classroomId;
+			let studentsAssigned
 			let selections = this.state.selections.map((activityPack) => {
+				if (!studentsAssigned && activityPack.students.length) {
+					studentsAssigned = true
+				}
 				return {
 					id: activityPack.activity_pack_id,
 					classrooms: [
@@ -73,16 +78,37 @@ export default React.createClass({
 					]
 				}
 			})
-			selections = {selections}
-			$.ajax({
-		  	type : 'POST',
-		  	url :  '/teachers/progress_reports/assign_selected_packs/',
-		  	dataType: 'json',
-		  	contentType: 'application/json',
-		  	data: JSON.stringify(selections),
-				success: () => {this.setState({assigning: false, assigned: true})}
-			})
+			if (studentsAssigned) {
+				this.recommendationsAjaxCall({selections})
+			} else {
+				this.setState({assigning: false, assigned: true})
+			}
 		})
+	},
+
+	recommendationsAjaxCall: function(selections) {
+		$.ajax({
+			type : 'POST',
+			url :  '/teachers/progress_reports/assign_selected_packs/',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(selections),
+			success: () => {
+				this.initializePusher()
+			}
+		})
+	},
+
+	initializePusher: function(){
+		if (process.env.NODE_ENV === 'development') {
+			Pusher.logToConsole = true;
+		}
+		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+		const channel = pusher.subscribe(this.props.params.classroomId);
+		const that = this;
+		channel.bind('recommendations-assigned', function(data) {
+			that.setState({assigning: false, assigned: true})
+		});
 	},
 
 	renderExplanation: function(){
@@ -123,7 +149,7 @@ export default React.createClass({
 			)
 		} else {
 			return (
-				<div className="recommendations-assign-button" onClick={() => this.assignSelectedPacks()}>
+				<div className="recommendations-assign-button" onClick={this.assignSelectedPacks}>
 					<span>Assign Activity Packs</span>
 				</div>
 			)

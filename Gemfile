@@ -63,6 +63,10 @@ gem 'pdf-core'
 gem 'pdf-inspector'
 gem 'ttfunk'
 
+
+# WEBSOCKETS
+gem 'pusher'
+
 # PARSING
 gem 'parslet'
 gem 'redcarpet'
