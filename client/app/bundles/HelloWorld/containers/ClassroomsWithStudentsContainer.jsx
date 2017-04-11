@@ -74,7 +74,7 @@ export default class extends React.Component {
 		const newState = Object.assign({}, this.state);
 		const classIndex = this.findTargetClassIndex(classroomId)
 		const studentIndex = this.findTargetStudentIndex(studentId, classIndex)
-		newState.classrooms[classIndex].edited = true;
+		newState.classrooms[classIndex].edited = this.classroomUpdated(newState.classrooms[classIndex]);
 		newState.studentsChanged = true;
 		this.setState(newState, () => this.toggleStudentSelection(studentIndex, classIndex));
 	}
@@ -83,7 +83,7 @@ export default class extends React.Component {
 		const newState = Object.assign({}, this.state);
 		const classIndex = this.findTargetClassIndex(classy.id);
 		const classroom = newState.classrooms[classIndex];
-		classroom.edited = true;
+		classroom.edited = !classroom.edited;
 		classroom.allSelected = !classroom.allSelected;
 		classroom.noneSelected = !classroom.allSelected
 		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
@@ -135,6 +135,33 @@ export default class extends React.Component {
 	}
 
 	countAssigned = classy => classy.students.filter((student) => student.isSelected).length
+
+	getAssignedIds = classy => classy.students.filter((student) => student.isSelected).map((stud) => stud.id)
+
+	classroomUpdated(classy) {
+		const assignedStudentIds = getAssignedIds(classy)
+		let updated
+		if (assignedStudentIds.length > 0 && classy.classroomActivity) {
+			if (assignedStudentIds == classy.classroomActivity.assigned_student_ids) {
+				updated = false
+			}
+		} else if (assignedStudentIds.length == 0) {
+			updated = false
+		} else {
+			updated = true
+		}
+		return updated
+	}
+
+	studentsChanged() {
+		let changed
+		this.state.classrooms.forEach((classy) => {
+			if (this.classroomUpdated(classy)) {
+				changed = true
+			}
+		})
+		return changed
+	}
 
 	getClassroomsAndStudentsData() {
 		const that = this;
