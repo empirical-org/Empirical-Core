@@ -3,6 +3,7 @@ import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import _ from 'underscore'
 import Pusher from 'pusher-js'
+import RecommendationsTableCell from './recommendations_table_cell'
 
 export default React.createClass({
 
@@ -110,7 +111,8 @@ export default React.createClass({
 		if (process.env.NODE_ENV === 'development') {
 			Pusher.logToConsole = true;
 		}
-		const pusher = new Pusher(process.env['PUSHER_KEY'], {encrypted: true});
+		const params = this.props.params
+		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
 		const channel = pusher.subscribe(this.props.params.classroomId);
 		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
@@ -206,7 +208,7 @@ export default React.createClass({
 
 	renderActivityPackRowItems: function(student) {
 		return this.state.recommendations.map((recommendation, i) => {
-			let checkboxClass,checkboxOnClick, check
+			let checkboxOnClick
 			let selection = this.state.selections[i]
 			let previouslyAssignedRecommendation = this.state.previouslyAssignedRecommendations[i]
 			const previouslyAssigned = this.studentWasAssigned(student, previouslyAssignedRecommendation)
@@ -218,37 +220,18 @@ export default React.createClass({
 			const selected = this.studentIsSelected(student, selection)
 				? ' selected '
 				: '';
-			if (previouslyAssigned) {
-				checkboxOnClick = null
-				checkboxClass = ''
-			} else {
-				checkboxOnClick = this.toggleSelected.bind(null, student, i)
-				checkboxClass = 'donalito-checkbox'
-			}
-			check = this.renderCheck(previouslyAssigned, selected)
 
 			return (
-				<div className={'recommendations-table-row-item' + previouslyAssigned + recommended + selected} key={recommendation.activity_pack_id}>
-					<div className={checkboxClass} onClick={checkboxOnClick}>
-							{check}
-						</div>
-					<p>{recommendation.name}</p>
-				</div>
+				<RecommendationsTableCell
+					key={recommendation.activity_pack_id}
+					previouslyAssigned={previouslyAssigned}
+					recommended={recommended}
+					selected={selected}
+					recommendation={recommendation}
+					checkboxOnClick={this.toggleSelected.bind(null, student, i)}
+				/>
 			)
 		})
-	},
-
-	renderCheck: function(previouslyAssigned, selected) {
-		if (previouslyAssigned) {
-			return (
-				<i className="fa fa-check-circle"/>
-			)
-		}
-		else if (selected) {
-			return (
-				<img className="recommendation-check" src="/images/recommendation_check.svg"></img>
-			)
-		}
 	},
 
 	renderBottomBar: function() {
