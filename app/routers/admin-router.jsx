@@ -31,6 +31,7 @@ import IncorrectSequenceContainer from '../components/incorrectSequence/incorrec
 import EditIncorrectSequenceContainer from '../components/incorrectSequence/editIncorrectSequenceContainer.jsx';
 import NewIncorrectSequenceContainer from '../components/incorrectSequence/newIncorrectSequenceContainer.jsx';
 import TestQuestionContainer from '../components/questions/testQuestion.jsx';
+import ChooseModelContainer from '../components/questions/chooseModelContainer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -42,6 +43,7 @@ const AdminRoutes = (
     <Route path="questions" component={Questions} />
     <Route path="questions/:questionID" component={Question}>
       <IndexRoute component={ResponseComponentWrapper} />
+      <Route path="choose-model" component={ChooseModelContainer} />
       <Route path="focus-points" component={FocusPointsContainer} />
       <Route path="focus-points/:focusPointID/edit" component={EditFocusPointsContainer} />
       <Route path="focus-points/new" component={NewFocusPointsContainer} />
