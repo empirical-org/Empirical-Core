@@ -10,13 +10,6 @@ describe ClassroomActivity, type: :model do
     let!(:unit) { FactoryGirl.create(:unit) }
     let!(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
 
-    describe '#destroy' do
-        it 'should destroy associated activity_sessions' do
-            classroom_activity.destroy
-            expect(student.activity_sessions.count).to eq(0)
-        end
-    end
-
     describe '#assigned_students' do
         it 'must be empty if none assigned' do
             expect(classroom_activity.assigned_students).to be_empty

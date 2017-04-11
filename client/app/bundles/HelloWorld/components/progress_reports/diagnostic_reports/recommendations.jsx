@@ -99,11 +99,14 @@ export default React.createClass({
 		  	url :  '/teachers/progress_reports/assign_selected_packs/',
 		  	dataType: 'json',
 		  	contentType: 'application/json',
-		  	data: JSON.stringify(selections),
-				success: () => {
-					this.initializePusher()
-				}
+		  	data: JSON.stringify(selections)
 			})
+			.done(() => {this.setState({assigning: false, assigned: true})})
+			.fail(() => {
+				alert('We had trouble processing your request. Please check your network connection and try again.')
+				this.setState({assigning: false})
+			})
+
 		})
 	},
 
