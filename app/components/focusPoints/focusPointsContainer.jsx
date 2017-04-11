@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import SortableList from '../questions/sortableList/sortableList.jsx';
 
-class FocusPointsContainer extends Component {
+export class FocusPointsContainer extends Component {
   constructor() {
     super();
     this.deleteFocusPoint = this.deleteFocusPoint.bind(this);
-    this.submitForm = this.submitForm.bind(this);
     this.sortCallback = this.sortCallback.bind(this);
+    this.updatefpOrder = this.updatefpOrder.bind(this);
+    this.state = { fpOrderedIds: null, };
   }
 
   getQuestion() {
@@ -20,15 +20,6 @@ class FocusPointsContainer extends Component {
 
   getFocusPoints() {
     return this.getQuestion().focusPoints;
-  }
-
-  submitForm(data, focusPoint) {
-    delete data.conceptResults.null;
-    if (focusPoint) {
-      this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPoint));
-    } else {
-      this.props.dispatch(questionActions.submitNewFocusPoint(this.props.params.questionID, data));
-    }
   }
 
   deleteFocusPoint(focusPointID) {
@@ -62,27 +53,31 @@ class FocusPointsContainer extends Component {
       return _.values(components);
     }
   }
+  //
+  fPsortedByOrder() {
+    return hashToCollection(this.getFocusPoints()).sort((a, b) => a.order - b.order);
+  }
 
   renderFocusPointsList() {
-    const components = _.mapObject(this.getFocusPoints(), (val, key) => {
-      if(val.text) {
+    const components = this.fPsortedByOrder().map((fp) => {
+      if (fp.text) {
         return (
-          <div key={key} className="card is-fullwidth has-bottom-margin">
+          <div key={fp.key} className="card is-fullwidth has-bottom-margin">
             <header className="card-header">
               <p className="card-header-title" style={{ display: 'inline-block', }}>
-                {this.renderTagsForFocusPoint(val.text)}
+                {this.renderTagsForFocusPoint(fp.text)}
               </p>
               <p className="card-header-icon">
-                {val.order}
+                {fp.order}
               </p>
             </header>
             <div className="card-content">
-              <p className="control title is-4"><strong>Feedback</strong>: {val.feedback}</p>
-              {this.renderConceptResults(val.conceptResults, key)}
+              <p className="control title is-4"><strong>Feedback</strong>: {fp.feedback}</p>
+              {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
-              <a href={`/#/admin/questions/${this.props.params.questionID}/focus-points/${key}/edit`} className="card-footer-item">Edit</a>
-              <a onClick={() => this.deleteFocusPoint(key)} className="card-footer-item">Delete</a>
+              <a href={`/#/admin/questions/${this.props.params.questionID}/focus-points/${fp.key}/edit`} className="card-footer-item">Edit</a>
+              <a onClick={() => this.deleteFocusPoint(fp.key)} className="card-footer-item">Delete</a>
             </footer>
           </div>
         );
@@ -93,12 +88,31 @@ class FocusPointsContainer extends Component {
 
   sortCallback(sortInfo) {
     if (sortInfo.draggingIndex !== null) {
-      const index = parseInt(sortInfo.draggingIndex);
-      const data = { order: index, };
-      const focusPointId = sortInfo.data.items[index].key;
-      // const focusPoint = this.getFocusPoints()[focusPointKey];
-      this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPointId));
+      const fpOrderedIds = sortInfo.data.items.map(item => item.key);
+      this.setState({ fpOrderedIds, });
     }
+  }
+
+  updatefpOrder() {
+    if (this.state.fpOrderedIds) {
+      const focusPoints = this.getFocusPoints();
+      const newFp = {};
+      this.state.fpOrderedIds.forEach((id, index) => {
+        const fp = Object.assign({}, focusPoints[id]);
+        fp.order = index + 1;
+        newFp[id] = fp;
+      });
+      this.props.dispatch(questionActions.submitBatchEditedFocusPoint(this.props.params.questionID, newFp));
+      alert('saved!');
+    } else {
+      alert('no changes to focus points have been made');
+    }
+  }
+
+  renderfPButton() {
+    return (
+      this.state.fpOrderedIds ? <button className="button is-outlined is-primary" style={{ float: 'right', }} onClick={this.updatefpOrder}>Save FP Order</button> : null
+    );
   }
 
   render() {
@@ -106,7 +120,8 @@ class FocusPointsContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <a className="button is-outlined is-primary" style={{float: 'right'}} href={`/#/admin/questions/${this.props.params.questionID}/focus-points/new`}>Add Focus Point</a>
+          <a className="button is-outlined is-primary" style={{ float: 'right', }} href={`/#/admin/questions/${this.props.params.questionID}/focus-points/new`}>Add Focus Point</a>
+          {this.renderfPButton()}
         </div>
         {this.renderFocusPointsList()}
         {this.props.children}

@@ -1,0 +1,302 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The focusPointsContainer should render 1`] = `
+<div>
+  <div
+    className="has-top-margin"
+  >
+    <h1
+      className="title is-3"
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      Focus Points
+    </h1>
+    <a
+      className="button is-outlined is-primary"
+      href="/#/admin/questions/100/focus-points/new"
+      style={
+        Object {
+          "float": "right",
+        }
+      }
+    >
+      Add Focus Point
+    </a>
+  </div>
+  <sortableList
+    data={
+      Array [
+        <div
+          className="card is-fullwidth has-bottom-margin"
+      >
+          <header
+              className="card-header"
+          >
+              <p
+                  className="card-header-title"
+                  style={
+                      Object {
+                          "display": "inline-block",
+                        }
+                  }
+              >
+                  <span
+                      className="tag is-medium is-light"
+                      style={
+                          Object {
+                              "margin": "3px",
+                            }
+                      }
+                  >
+                      Anne Lindbergh
+                  </span>
+              </p>
+              <p
+                  className="card-header-icon"
+              >
+                  1
+              </p>
+          </header>
+          <div
+              className="card-content"
+          >
+              <p
+                  className="control title is-4"
+              >
+                  <strong>
+                      Feedback
+                  </strong>
+                  : 
+                  Who flew around the world.
+              </p>
+              <p
+                  className="control sub-title is-6"
+              >
+                  Verbs | Active and Passive Voice | Passive Voice
+                  <span
+                      className="tag is-small is-success"
+                      style={
+                          Object {
+                              "marginLeft": 5,
+                            }
+                      }
+                  >
+                      Correct
+                  </span>
+                  <span
+                      className="tag is-small is-warning"
+                      onClick={[Function]}
+                      style={
+                          Object {
+                              "cursor": "pointer",
+                              "marginLeft": 5,
+                            }
+                      }
+                  >
+                      Delete
+                  </span>
+              </p>
+          </div>
+          <footer
+              className="card-footer"
+          >
+              <a
+                  className="card-footer-item"
+                  href="/#/admin/questions/100/focus-points/-Kh82k5DfAAQQKljJmyU/edit"
+              >
+                  Edit
+              </a>
+              <a
+                  className="card-footer-item"
+                  onClick={[Function]}
+              >
+                  Delete
+              </a>
+          </footer>
+      </div>,
+        <div
+          className="card is-fullwidth has-bottom-margin"
+      >
+          <header
+              className="card-header"
+          >
+              <p
+                  className="card-header-title"
+                  style={
+                      Object {
+                          "display": "inline-block",
+                        }
+                  }
+              >
+                  <span
+                      className="tag is-medium is-light"
+                      style={
+                          Object {
+                              "margin": "3px",
+                            }
+                      }
+                  >
+                      husband
+                  </span>
+              </p>
+              <p
+                  className="card-header-icon"
+              >
+                  2
+              </p>
+          </header>
+          <div
+              className="card-content"
+          >
+              <p
+                  className="control title is-4"
+              >
+                  <strong>
+                      Feedback
+                  </strong>
+                  : 
+                  Who did she fly around the world with?
+              </p>
+              <p
+                  className="control sub-title is-6"
+              >
+                  Adjectives & Adverbs | Adjectives to Adverbs | Adjectives to Adverbs: Consonant Ending
+                  <span
+                      className="tag is-small is-success"
+                      style={
+                          Object {
+                              "marginLeft": 5,
+                            }
+                      }
+                  >
+                      Correct
+                  </span>
+                  <span
+                      className="tag is-small is-warning"
+                      onClick={[Function]}
+                      style={
+                          Object {
+                              "cursor": "pointer",
+                              "marginLeft": 5,
+                            }
+                      }
+                  >
+                      Delete
+                  </span>
+              </p>
+          </div>
+          <footer
+              className="card-footer"
+          >
+              <a
+                  className="card-footer-item"
+                  href="/#/admin/questions/100/focus-points/-Kh82qvvcNKb85yZPHOs/edit"
+              >
+                  Edit
+              </a>
+              <a
+                  className="card-footer-item"
+                  onClick={[Function]}
+              >
+                  Delete
+              </a>
+          </footer>
+      </div>,
+        <div
+          className="card is-fullwidth has-bottom-margin"
+      >
+          <header
+              className="card-header"
+          >
+              <p
+                  className="card-header-title"
+                  style={
+                      Object {
+                          "display": "inline-block",
+                        }
+                  }
+              >
+                  <span
+                      className="tag is-medium is-light"
+                      style={
+                          Object {
+                              "margin": "3px",
+                            }
+                      }
+                  >
+                      home
+                  </span>
+              </p>
+              <p
+                  className="card-header-icon"
+              >
+                  3
+              </p>
+          </header>
+          <div
+              className="card-content"
+          >
+              <p
+                  className="control title is-4"
+              >
+                  <strong>
+                      Feedback
+                  </strong>
+                  : 
+                  What could she do instead of fly?
+              </p>
+              <p
+                  className="control sub-title is-6"
+              >
+                  Verbs | Active and Passive Voice | Passive Voice
+                  <span
+                      className="tag is-small is-success"
+                      style={
+                          Object {
+                              "marginLeft": 5,
+                            }
+                      }
+                  >
+                      Correct
+                  </span>
+                  <span
+                      className="tag is-small is-warning"
+                      onClick={[Function]}
+                      style={
+                          Object {
+                              "cursor": "pointer",
+                              "marginLeft": 5,
+                            }
+                      }
+                  >
+                      Delete
+                  </span>
+              </p>
+          </div>
+          <footer
+              className="card-footer"
+          >
+              <a
+                  className="card-footer-item"
+                  href="/#/admin/questions/100/focus-points/-Kh82vHrCCP4CG2eSSaC/edit"
+              >
+                  Edit
+              </a>
+              <a
+                  className="card-footer-item"
+                  onClick={[Function]}
+              >
+                  Delete
+              </a>
+          </footer>
+      </div>,
+      ]
+    }
+    sortCallback={[Function]}
+  />
+</div>
+`;
