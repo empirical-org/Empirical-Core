@@ -290,6 +290,19 @@ $lightgray: #cecece;
       border: solid 1px #cecece;
       margin-right: 9px;
     }
+    .assigned-recommendations-key-icon {
+      i {
+        font-size: 35px;
+        color: #82bf3c;
+        margin-left: 44px;
+      }
+    }
+    .assigned-activity-pack-text {
+      margin-left: 10px;
+      p:nth-of-type(2) {
+        color: #737373;
+      }
+    }
   }
 }
 
@@ -297,6 +310,7 @@ $lightgray: #cecece;
   height: 40px;
   border-radius: 6px;
   background-color: #01c2a2;
+  cursor: pointer;
 
   span {
     font-family: 'adelle-sans';
@@ -412,7 +426,17 @@ $lightgray: #cecece;
 
       &.selected {
         p {
-          color: #333;
+          color: #000000;
+        }
+      }
+      &.previously-assigned {
+        p {
+          color: #737373 !important;
+        }
+        i {
+          font-size: 14px;
+          color: #82bf3c;
+          margin-right: 10px;
         }
       }
 
@@ -426,7 +450,7 @@ $lightgray: #cecece;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         font-weight: normal;
-        line-height: 1.15;
+        line-height: 1.25;
         color: #646464;
       }
 
