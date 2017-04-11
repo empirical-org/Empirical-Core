@@ -2,6 +2,8 @@ import React from 'react'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import _ from 'underscore'
+import Pusher from 'pusher-js'
+import RecommendationsTableCell from './recommendations_table_cell'
 
 export default React.createClass({
 
@@ -9,6 +11,7 @@ export default React.createClass({
 		return {
 			loading: true,
 			recommendations: [],
+			previouslyAssignedRecommendations: [],
 			selections: [],
 			students: [],
 			assigning: false,
@@ -18,6 +21,7 @@ export default React.createClass({
 
 	componentDidMount: function() {
 		this.getRecommendationData(this.props.params.classroomId, this.props.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(this.props.params.classroomId, this.props.params.activityId);
 	},
 
 	componentWillReceiveProps(nextProps) {
@@ -27,6 +31,7 @@ export default React.createClass({
 			assigned: false
 		});
 		this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
 	},
 
 	getRecommendationData: function(classroomId, activityId){
@@ -39,6 +44,21 @@ export default React.createClass({
 				loading: false
 			})
 		})
+	},
+
+	getPreviouslyAssignedRecommendationData: function(classroomId, activityId) {
+		const that = this;
+		$.get('/teachers/progress_reports/previously_assigned_recommendations/' + classroomId + '/activity/' + activityId, (data => {
+			that.setState({
+				previouslyAssignedRecommendations: data.previouslyAssignedRecommendations
+			})
+		}))
+	},
+
+	studentWasAssigned: function(student, previouslyAssignedRecommendation) {
+		if (previouslyAssignedRecommendation && previouslyAssignedRecommendation.students) {
+			return previouslyAssignedRecommendation.students.includes(student.id)
+		}
 	},
 
 	studentIsSelected: function(student, selection) {
@@ -81,13 +101,27 @@ export default React.createClass({
 		  	contentType: 'application/json',
 		  	data: JSON.stringify(selections)
 			})
-			.done(() => {this.setState({assigning: false, assigned: true})})
+			.done(() => {this.initializePusher()})
 			.fail(() => {
 				alert('We had trouble processing your request. Please check your network connection and try again.')
 				this.setState({assigning: false})
 			})
 
 		})
+	},
+
+	initializePusher: function(){
+		if (process.env.NODE_ENV === 'development') {
+			Pusher.logToConsole = true;
+		}
+		const params = this.props.params
+		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+		const channel = pusher.subscribe(this.props.params.classroomId);
+		const that = this;
+		channel.bind('recommendations-assigned', function(data) {
+			that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId)
+			that.setState({assigning: false, assigned: true})
+		});
 	},
 
 	renderExplanation: function(){
@@ -105,8 +139,13 @@ export default React.createClass({
 		return (
 			<div className="recommendations-top-bar">
 				<div className="recommendations-key">
-					<div className="recommendations-key-icon"></div>
-					<p>Recommended Activity Packs</p>
+						<div className="recommendations-key-icon"></div>
+						<p>Recommended Activity Packs</p>
+						<div className="assigned-recommendations-key-icon"><i className="fa fa-check-circle"/></div>
+						<span className="assigned-activity-pack-text">
+							<p>Assigned Activity Packs</p>
+							<p>Assigned activities will not be assigned again.</p>
+						</span>
 				</div>
 				{this.renderAssignButton()}
 			</div>
@@ -128,7 +167,7 @@ export default React.createClass({
 			)
 		} else {
 			return (
-				<div className="recommendations-assign-button" onClick={() => this.assignSelectedPacks()}>
+				<div className="recommendations-assign-button" onClick={this.assignSelectedPacks}>
 					<span>Assign Activity Packs</span>
 				</div>
 			)
@@ -172,30 +211,30 @@ export default React.createClass({
 
 	renderActivityPackRowItems: function(student) {
 		return this.state.recommendations.map((recommendation, i) => {
-			let selection = this.state.selections[i];
+			let checkboxOnClick
+			let selection = this.state.selections[i]
+			let previouslyAssignedRecommendation = this.state.previouslyAssignedRecommendations[i]
+			const previouslyAssigned = this.studentWasAssigned(student, previouslyAssignedRecommendation)
+				? ' previously-assigned '
+				: '';
 			const recommended = this.studentIsRecommended(student, recommendation)
 				? ' recommended '
 				: '';
 			const selected = this.studentIsSelected(student, selection)
 				? ' selected '
 				: '';
+
 			return (
-				<div className={'recommendations-table-row-item' + recommended + selected} key={recommendation.activity_pack_id}>
-					<div className="donalito-checkbox" onClick={this.toggleSelected.bind(null, student, i)}>
-						{this.renderSelectedCheck(student, selection)}
-					</div>
-					<p>{recommendation.name}</p>
-				</div>
+				<RecommendationsTableCell
+					key={recommendation.activity_pack_id}
+					previouslyAssigned={previouslyAssigned}
+					recommended={recommended}
+					selected={selected}
+					recommendation={recommendation}
+					checkboxOnClick={this.toggleSelected.bind(null, student, i)}
+				/>
 			)
 		})
-	},
-
-	renderSelectedCheck: function(student, selection) {
-		if (this.studentIsSelected(student, selection)) {
-			return (
-				<img className="recommendation-check" src="/images/recommendation_check.svg"></img>
-			)
-		}
 	},
 
 	renderBottomBar: function() {

@@ -14,8 +14,6 @@ export default React.createClass({
     });
   },
 
-
-
   selectBeginDate: function (date) {
     this.setState({beginDate: date}, this.selectDates);
   },
