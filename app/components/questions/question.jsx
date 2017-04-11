@@ -210,6 +210,7 @@ const Question = React.createClass({
             <button className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</button>
             <button className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</button>
             <Link to={`/admin/questions/${questionID}/choose-model`} className="button is-outlined is-primary">{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</Link>
+            <Link to={`/admin/questions/${questionID}/focus-points`} className="button is-outlined is-primary">{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</Link>
             <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
           {this.props.children}
