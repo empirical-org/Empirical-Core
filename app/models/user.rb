@@ -48,14 +48,18 @@ class User < ActiveRecord::Base
   validates :password,              presence:     { if: :requires_password? }
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { if: :email_required_or_present? }
+                                    uniqueness:   { if: :email_required_or_present? },
+                                    on: :create
+
+  validate  :validate_username_and_email,  on: :update
 
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
-                                    format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?}
+                                    format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?},
+                                    on: :create
 
   validates :flag,                  inclusion: { in: %w(alpha beta production),
                                     message: "%{value} is not a valid flag" }, :allow_nil => true
@@ -255,7 +259,6 @@ class User < ActiveRecord::Base
   # Connect to any classrooms already created by a teacher
   def connect_to_classrooms!
     classrooms = Classroom.where(clever_id: clever_user.sections.collect(&:id)).all
-
     classrooms.each { |c| c.students << self}
   end
 
@@ -288,7 +291,6 @@ class User < ActiveRecord::Base
   end
 
   def newsletter?
-    #newsletter.to_i == 1
     send_newsletter
   end
 
@@ -301,6 +303,27 @@ class User < ActiveRecord::Base
   end
 
 private
+  def validate_username_and_email
+    # change_field will return the field (username or email) that is changing
+    change_field = detect_username_or_email_updated
+    if change_field && User.find_by(change_field => self[change_field])
+      # if the field has been changed, to that of an existing record,
+      # raise an error
+      errors.add(change_field, "is being updated to a #{change_field} that exists")
+    end
+  end
+
+  def detect_username_or_email_updated
+    @db_self = User.find(self.id)
+    if @db_self.username != self.username
+      return :username
+    elsif @db_self.email != self.email
+      return :email
+    else
+      nil
+    end
+  end
+
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
     self.username= username.downcase unless username.blank?

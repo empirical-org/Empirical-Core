@@ -7,6 +7,7 @@ const autoprefixer = require('autoprefixer');
 const devBuild = process.env.NODE_ENV !== 'production';
 const firebaseApiKey = process.env.FIREBASE_API_KEY
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL
+const pusherKey = process.env.PUSHER_KEY
 
 const nodeEnv = devBuild ? 'development' : 'production';
 
@@ -60,7 +61,8 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
         FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
-        FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl)
+        FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
+        PUSHER_KEY: JSON.stringify(pusherKey)
       },
       TRACE_TURBOLINKS: devBuild,
     }),

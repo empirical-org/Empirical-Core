@@ -165,7 +165,6 @@ module PublicProgressReports
       (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
     end
 
-
     def get_recommendations_for_classroom classroom_id, activity_id
       classroom = Classroom.find(classroom_id)
       diagnostic = Activity.find(activity_id)
@@ -205,6 +204,22 @@ module PublicProgressReports
         name: activity_pack_recommendation[:recommendation],
         students: students
       }
+    end
+
+    def get_previously_assigned_recommendations_by_classroom(classroom_id, activity_id)
+      classroom = Classroom.find(classroom_id)
+      teacher_id = classroom.teacher_id
+      diagnostic = Activity.find(activity_id)
+      assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
+        unit_name = [(rec[:recommendation] + ' | BETA'), rec[:recommendation]]
+        # using where instead of .find_by here because we will
+        # presumably be taking the BETA tag away soon. there should only be
+        # one unit per teacher with this name.
+        unit = Unit.where(user_id: teacher_id, name: unit_name).first
+        student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids)
+        return_value_for_recommendation(student_ids, rec)
+      end
+      {previouslyAssignedRecommendations: assigned_recommendations}
     end
 
     def activity_sessions_with_counted_concepts activity_sessions

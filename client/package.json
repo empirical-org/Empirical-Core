@@ -40,6 +40,8 @@
     "node-sass": "^3.4.2",
     "pluralize": "^3.0.0",
     "postcss-loader": "^0.8.2",
+    "pusher": "^1.5.1",
+    "pusher-js": "^4.0.0",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-update": "^15.2.1",
