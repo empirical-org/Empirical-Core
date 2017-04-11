@@ -101,7 +101,7 @@ export default React.createClass({
 		  	contentType: 'application/json',
 		  	data: JSON.stringify(selections)
 			})
-			.done(() => {this.setState({assigning: false, assigned: true})})
+			.done(() => {this.initializePusher()})
 			.fail(() => {
 				alert('We had trouble processing your request. Please check your network connection and try again.')
 				this.setState({assigning: false})
