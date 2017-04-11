@@ -131,10 +131,12 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def teacher_checkbox
-    teacher = self.classroom.teacher
-    checkbox_name = checkbox_type
-    if teacher && self.unit && self.unit.name
-      find_or_create_checkbox(checkbox_name, teacher)
+    if self.classroom && self.classroom.teacher
+      teacher = self.classroom.teacher
+      checkbox_name = checkbox_type
+      if teacher && self.unit && self.unit.name
+        find_or_create_checkbox(checkbox_name, teacher)
+      end
     end
   end
 
