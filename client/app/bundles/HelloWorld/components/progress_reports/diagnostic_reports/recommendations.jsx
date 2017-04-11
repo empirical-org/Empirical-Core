@@ -127,7 +127,7 @@ export default React.createClass({
 			Pusher.logToConsole = true;
 		}
 		const params = this.props.params
-		const pusher = new Pusher(process.env['PUSHER_KEY'], {encrypted: true});
+		const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
 		const channel = pusher.subscribe(this.props.params.classroomId);
 		const that = this;
 		channel.bind('recommendations-assigned', function(data) {
@@ -235,9 +235,10 @@ export default React.createClass({
 			const selected = this.studentIsSelected(student, selection)
 				? ' selected '
 				: '';
+
 			return (
 				<RecommendationsTableCell
-					key={student.id + '/' + recommendation.activity_pack_id}
+					key={recommendation.activity_pack_id}
 					previouslyAssigned={previouslyAssigned}
 					recommended={recommended}
 					selected={selected}
