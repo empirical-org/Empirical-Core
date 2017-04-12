@@ -4,11 +4,19 @@ import { shallow } from 'enzyme';
 import CreateClass from '../CreateClass.jsx';
 
 import $ from 'jquery'
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 import LoadingSpinner from '../../components/shared/loading_indicator.jsx'
+import GoogleClassroomModal from '../../components/dashboard/google_classroom_modal'
 
 jest.mock('jquery', () => {
   return {
-    ajax: jest.fn()
+    ajax: jest.fn(),
+    post: jest.fn().mockReturnValue({
+      success: jest.fn().mockReturnValue({
+        error: jest.fn()
+      })
+    })
   }
 });
 
@@ -26,7 +34,9 @@ describe('CreateClass container', () => {
 
   describe('with class in state', () => {
     const wrapper = shallow(
-      <CreateClass />
+      <CreateClass
+        user={{foo: 'bar'}}
+      />
     );
     wrapper.setState({
       classroom: {
@@ -49,16 +59,18 @@ describe('CreateClass container', () => {
     });
 
     describe('DropdownButton component', () => {
-      it.skip('should have correctly formatted title prop', () => {
-
+      it('should have correctly formatted title prop', () => {
+        //TODO: test this more thoroughly, and add tests for NumberSuffix
+        expect(wrapper.find(DropdownButton).props().title).toBe('7th');
       });
 
-      it.skip('should have grades as a child prop', () => {
-
+      it('should render MenuItems for grades K-12 & University', () => {
+        expect(wrapper.find(MenuItem)).toHaveLength(13);
       });
 
-      it.skip('should handle onSelect event', () => {
-
+      it('onSelect event should change grade in state', () => {
+        wrapper.find(DropdownButton).simulate('select', 6);
+        expect(wrapper.state().classroom.grade).toBe(6);
       });
     });
 
@@ -151,25 +163,48 @@ describe('CreateClass container', () => {
     });
 
     describe('GoogleClassroomModal component', () => {
-      it.skip('should have syncClassrooms prop', () => {
+      it('should have syncClassrooms prop', () => {
+        //TODO: determine how best to test syncClassrooms actually redirects w/ window.location
+        expect(wrapper.find(GoogleClassroomModal).props().syncClassrooms).toBe(wrapper.instance().syncClassrooms);
+      });
+
+      it('should have user prop', () => {
+        expect(wrapper.find(GoogleClassroomModal).props().user.foo).toBe('bar');
+      });
+
+      it('should have show prop based on state.showModal', () => {
+        wrapper.setState({showModal: false});
+        expect(wrapper.find(GoogleClassroomModal).props().show).toBe(false);
+        wrapper.setState({showModal: true});
+        expect(wrapper.find(GoogleClassroomModal).props().show).toBe(true);
 
       });
 
-      it.skip('should have user prop', () => {
-
-      });
-
-      it.skip('should have show prop', () => {
-
-      });
-
-      it.skip('should have hideModal prop', () => {
-
+      it('should have hideModal prop that hides modal', () => {
+        wrapper.setState({showModal: true});
+        wrapper.find(GoogleClassroomModal).props().hideModal();
+        expect(wrapper.state().showModal).toBe(false);
       });
     });
 
     describe('submitClassroom function', () => {
-      // hoo boy, this is gonna be a rough one
+      //TODO: add tests for contents of success and error functions?
+      const wrapper = shallow(<CreateClass />);
+      it('should send post request with classroom data', () => {
+        wrapper.setState({
+          classroom: {
+            name: 'English 202',
+            grade: 9,
+            code: 'cute-puppy'
+          }
+        });
+        wrapper.instance().submitClassroom();
+        expect($.post).toHaveBeenCalled();
+        expect($.post.mock.calls[0][0]).toBe('/teachers/classrooms/');
+        expect($.post.mock.calls[0][1].classroom.name).toBe('English 202');
+        expect($.post.mock.calls[0][1].classroom.grade).toBe(9);
+        expect($.post.mock.calls[0][1].classroom.code).toBe('cute-puppy');
+      });
     });
 
   });
