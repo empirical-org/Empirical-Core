@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateClass container should render a blank create class form if no class exists in state 1`] = `
+<div
+  className="create-a-class-page"
+>
+  <div
+    className="create-a-class"
+  >
+    <loading_indicator />
+  </div>
+</div>
+`;
