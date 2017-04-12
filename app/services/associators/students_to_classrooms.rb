@@ -3,7 +3,8 @@ module Associators::StudentsToClassrooms
   def self.run(student, classroom)
     @@classroom = classroom
     if self.legit_classroom && self.legit_teacher && (student.role == 'student')
-      student.students_classrooms.find_or_create_by(student_id: student.id, classroom_id: classroom[:id])
+      sc = StudentsClassrooms.unscoped.find_or_create_by(student_id: student.id, classroom_id: classroom[:id])
+      sc.update(visible: true)
       student.reload
       student.assign_classroom_activities
     end
