@@ -3,6 +3,7 @@ import React from 'react'
 import $ from 'jquery'
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx'
 import LoadingIndicator from '../components/general_components/loading_indicator.jsx'
+import _ from 'underscore'
 
 export default class extends React.Component {
 	constructor(props) {
@@ -61,6 +62,8 @@ export default class extends React.Component {
 		const classy = newState.classrooms[classIndex]
 	  let selectedStudent = classy.students[studentIndex]
 		selectedStudent.isSelected = !selectedStudent.isSelected;
+		newState.classrooms[classIndex].edited = this.classroomUpdated(newState.classrooms[classIndex]);
+		newState.studentsChanged = this.studentsChanged();
 		// we check to see if something has changed because this method gets called when the page loads
 		// as well as when a student's checkbox is clicked
 		if (newState.studentsChanged) {
@@ -71,12 +74,9 @@ export default class extends React.Component {
 	}
 
 	handleStudentCheckboxClick = (studentId, classroomId) =>{
-		const newState = Object.assign({}, this.state);
 		const classIndex = this.findTargetClassIndex(classroomId)
 		const studentIndex = this.findTargetStudentIndex(studentId, classIndex)
-		newState.classrooms[classIndex].edited = this.classroomUpdated(newState.classrooms[classIndex]);
-		newState.studentsChanged = true;
-		this.setState(newState, () => this.toggleStudentSelection(studentIndex, classIndex));
+		this.toggleStudentSelection(studentIndex, classIndex)
 	}
 
 	toggleClassroomSelection = (classy) => {
@@ -87,7 +87,7 @@ export default class extends React.Component {
 		classroom.allSelected = !classroom.allSelected;
 		classroom.noneSelected = !classroom.allSelected
 		classroom.students.forEach((stud)=>stud.isSelected=classroom.allSelected);
-		newState.studentsChanged = true;
+		newState.studentsChanged = this.studentsChanged();
 		this.setState(newState);
 	}
 
@@ -139,12 +139,10 @@ export default class extends React.Component {
 	getAssignedIds = classy => classy.students.filter((student) => student.isSelected).map((stud) => stud.id)
 
 	classroomUpdated(classy) {
-		const assignedStudentIds = getAssignedIds(classy)
+		const assignedStudentIds = this.getAssignedIds(classy).sort()
 		let updated
-		if (assignedStudentIds.length > 0 && classy.classroomActivity) {
-			if (assignedStudentIds == classy.classroomActivity.assigned_student_ids) {
-				updated = false
-			}
+		if (assignedStudentIds.length > 0 && classy.classroom_activity) {
+			updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort())
 		} else if (assignedStudentIds.length == 0) {
 			updated = false
 		} else {
@@ -190,20 +188,6 @@ export default class extends React.Component {
 		})
 	}
 
-	noClassroomsSelected(){
-		const classes = this.state.classrooms
-		return (classes.filter((cl)=>cl.noneSelected).length === classes.length)
-	}
-
-	isSaveButtonEnabled(){
-		const s = this.state
-		if (!s.studentsChanged || this.noClassroomsSelected()) {
-			return false
-		} else {
-			return true
-		}
-	}
-
 	render() {
 		if (this.state.loading) {
 			return <LoadingIndicator/>
@@ -219,7 +203,7 @@ export default class extends React.Component {
 									createOrEdit={this.state.newUnit ? 'create' : 'edit'}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
-									isSaveButtonEnabled={this.isSaveButtonEnabled.bind(this)}
+									isSaveButtonEnabled={this.state.studentsChanged}
 									/>
 							</div>
 						</div>)
