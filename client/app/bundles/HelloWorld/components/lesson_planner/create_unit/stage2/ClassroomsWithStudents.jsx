@@ -74,7 +74,7 @@ export default class extends React.Component {
 												disabledText={'Add Students Before Assigning'}
 												requestType={'POST'}
 												url={'/teachers/units'}
-												successCallback={this.sendToSuccess}
+												successCallback={this.resetPage}
 												buttonText={'Assign Activity Pack'}
 												dataFunc={this.ajaxData}
 												/>
