@@ -39,5 +39,6 @@ Rails.application.config.assets.precompile +=
     "home.css",
     "home.js",
     "cookie_warning.js",
-    "application_#{type}.css"
+    "application_#{type}.css",
+    "styleguide.html"
   ]
