@@ -115,31 +115,6 @@ export default React.createClass({
     this.fetchUnitTemplateModels();
   },
 
-  toggleTab: function (tab) {
-    if (tab == 'createUnit') {
-      this.updateCreateUnit({
-                              stage: 1,
-                              model: {
-                                name: null,
-                                selectedActivities: []
-                              }
-                            });
-
-      // this.setState({tab: tab})
-
-    } else if (tab == 'exploreActivityPacks') {
-      this.deepExtendState({tab: tab, unitTemplatesManager: {stage: 'index', model_id: null, model: null}})
-      this.fetchUnitTemplateModels();
-    } else {
-      // this.setState({tab: tab})
-    }
-  },
-
-  toggleStage: function (stage) {
-    this.updateCreateUnit({stage: 2})
-    this.fetchClassrooms();
-  },
-
   fetchClassrooms: function() {
     var that = this;
     $.ajax({
@@ -153,11 +128,6 @@ export default React.createClass({
 
   getSelectedActivities: function () {
     return this.state.createUnit.model.selectedActivities;
-  },
-
-  toggleActivitySelection: function (activity, true_or_false) {
-    var sas = this.modules.fnl.toggle(this.getSelectedActivities(), activity);
-    this.updateCreateUnitModel({selectedActivities: sas});
   },
 
   assign: function () {
