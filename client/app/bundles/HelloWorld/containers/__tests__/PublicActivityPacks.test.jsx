@@ -7,7 +7,7 @@ import UnitTemplatesManager from '../../components/lesson_planner/unit_templates
 
 describe('PublicActivityPacks container', () => {
   //TODO: test the funkiness in getInitialState
-  //TODO: mock modules?
+  //TODO: mock and test modules?
 
   const wrapper = shallow(<PublicActivityPacks />);
 
@@ -99,13 +99,29 @@ describe('PublicActivityPacks container', () => {
       });
 
       describe('selectModel function', () => {
-        it.skip('should call updateUnitTemplatesManager', () => {
-
+        it('should call updateUnitTemplatesManager', () => {
+          wrapper.instance().updateUnitTemplatesManager = jest.fn();
+          wrapper.setState({
+            unitTemplatesManager: Object.assign({},
+              wrapper.state().unitTemplatesManager, {
+                models: [
+                  {unit_template_category: {id: 3}},
+                  {unit_template_category: {id: 7}},
+                  {unit_template_category: {id: 7}}
+                ]
+              }
+            )
+          });
+          wrapper.find(UnitTemplatesManager).props().actions.selectModel({name: 'Example', unit_template_category: {id: 7}});
+          expect(wrapper.instance().updateUnitTemplatesManager).toHaveBeenCalled;
+          expect(wrapper.instance().updateUnitTemplatesManager.mock.calls[0][0].stage).toBe('profile');
+          expect(wrapper.instance().updateUnitTemplatesManager.mock.calls[0][0].model.name).toBe('Example');
+          expect(wrapper.instance().updateUnitTemplatesManager.mock.calls[0][0].relatedModels).toHaveLength(2);
+          expect(wrapper.instance().updateUnitTemplatesManager.mock.calls[0][0].relatedModels[0].unit_template_category.id).toBe(7);
+          expect(wrapper.instance().updateUnitTemplatesManager.mock.calls[0][0].relatedModels[1].unit_template_category.id).toBe(7);
         });
 
-        it.skip('should call windowPosition module reset function', () => {
-
-        });
+        //TODO: test the windowPosition.reset() module function call
       });
 
       describe('signUp function', () => {
@@ -114,12 +130,18 @@ describe('PublicActivityPacks container', () => {
     });
   });
 
-  describe.skip('fetchClassrooms function', () => {
+  // describe('fetchClassrooms function', () => {
+    //TODO: figure out how to mock jQuery and have getInitialState still work.
+    //TODO: finish these tests
+    // wrapper.instance().fetchClassrooms();
+    // expect($.ajax).toHaveBeenCalled();
+    // expect($.ajax.mock.calls[0][0].url).toBe('/teachers/classrooms/retrieve_classrooms_for_assigning_activities');
+    // expect($.ajax.mock.calls[0][0].context).toBe(wrapper.instance());
+    // expect($.ajax.mock.calls[0][0].success).toBe(wrapper.instance().updateCreateUnit);
+    // expect($.ajax.mock.calls[0][0].url).toBe();
+  // });
 
-  });
-
-  describe.skip('toggleTab function', () => {
-
-  });
+  //TODO: test componentDidMount
+  //TODO: test fetchUnitTemplateModels
 
 });
