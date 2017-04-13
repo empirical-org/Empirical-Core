@@ -2,7 +2,7 @@
 import React from 'react'
 import $ from 'jquery'
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx'
-import LoadingIndicator from '../components/general_components/loading_indicator.jsx'
+import LoadingIndicator from '../components/shared/loading_indicator.jsx'
 
 export default class extends React.Component {
 	constructor(props) {
