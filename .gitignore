@@ -41,4 +41,4 @@ data.tsv
 .firebaserc
 
 # webpack files
-.webpack-assets.json
+webpack-assets.json
