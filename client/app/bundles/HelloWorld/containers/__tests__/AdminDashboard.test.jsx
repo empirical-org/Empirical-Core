@@ -53,8 +53,8 @@ describe('AdminDashboard container', () => {
       // expect(wrapper.find(AdminsTeachers).props().sortHandler).toBe();
     });
 
-    it.skip('should have data prop equal to sorted teachers', () => {
-      // this could be a tough one
+    it.skip('should call TableSortingMixin applySorting function', () => {
+      // TODO: determine best way to test a mixin
     });
 
     it('have columns prop equal to teacherColumns function', () => {
@@ -111,8 +111,30 @@ describe('AdminDashboard container', () => {
     // expect($.ajax.mock.calls[0][0].data.teacher.foo).toBe('bar');
   });
 
-  // sortDefinitions
-  // componentDidMount
-  // receiveData
+  it('sortDefinitions function should return sort definitions', () => {
+    expect(wrapper.instance().sortDefinitions()).toEqual({
+      config: {
+        name: 'natural',
+        number_of_students: 'numeric',
+        number_of_questions_completed: 'numeric',
+        time_spent: 'numeric'
+      },
+      default: {
+        field: 'name',
+        direction: 'asc'
+      }
+    });
+  });
+
+  describe.skip('componentDidMount', () => {
+    //TODO: test componentDidMount once we have the whole $ situation sorted out.
+
+  });
+
+  it('receiveData function should set loading to false and modal to data', () => {
+    wrapper.instance().receiveData('wumbo');
+    expect(wrapper.state().model).toBe('wumbo');
+    expect(wrapper.state().loading).toBe(false);
+  });
 
 });
