@@ -1,5 +1,6 @@
 'use strict'
 import React from 'react';
+import ReactDOM from 'react-dom';
 import SelectRole from '../components/accounts/edit/select_role';
 import UserSelectRole from '../components/accounts/edit/user_accessible_select_role.jsx';
 import SelectSubscription from '../components/accounts/subscriptions/select_subscription';
@@ -243,23 +244,7 @@ export default React.createClass({
 		}
 	},
 	updateSchoolOptionsDoNotApply: function() {
-		var x = $(this.refs.schoolOptionsDoNotApply.getDOMNode()).attr('checked');
-		var schoolOptionsDoNotApply;
-		if (x == 'checked') {
-			schoolOptionsDoNotApply = true;
-		} else {
-			schoolOptionsDoNotApply = false;
-		}
-		this.setState({schoolOptionsDoNotApply: schoolOptionsDoNotApply});
-	},
-	determineIfSchoolOptionsDoNotApplyShouldBeChecked: function() {
-		var value;
-		if (this.state.schoolOptionsDoNotApply) {
-			value = 'checked';
-		} else {
-			value = null;
-		}
-		return value;
+		this.setState({schoolOptionsDoNotApply: !this.state.schoolOptionsDoNotApply});
 	},
 	updatePassword: function() {
 		var password = $(this.refs.password).val()
@@ -365,7 +350,7 @@ export default React.createClass({
 						<div className='row school-checkbox'>
 							<div className='form-label col-xs-2'></div>
 							<div className='col-xs-1 no-pr'>
-								<input ref='schoolOptionsDoNotApply' onChange={this.updateSchoolOptionsDoNotApply} type='checkbox' checked={this.determineIfSchoolOptionsDoNotApplyShouldBeChecked()}/>
+								<input ref='schoolOptionsDoNotApply' onChange={this.updateSchoolOptionsDoNotApply} type='checkbox' checked={this.state.schoolOptionsDoNotApply}/>
 							</div>
 							<div className='col-xs-6 no-pl form-label checkbox-label'>
 								My school is not listed.
