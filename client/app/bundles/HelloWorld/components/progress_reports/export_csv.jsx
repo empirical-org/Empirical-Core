@@ -2,9 +2,9 @@
 
 import React from 'react'
 import ExportCsvModal from './export_csv_modal.jsx'
-import $ from 'jquery'
 import request from 'request'
 import auth_token from '../modules/get_auth_token.js'
+import Pusher from 'pusher-js'
 
 export default React.createClass({
     propTypes: {
@@ -48,11 +48,33 @@ export default React.createClass({
         },
 
         openModal: function() {
+          this.setState({preparingForCSV: true})
+          if (process.env.NODE_ENV === 'development') {
+            Pusher.logToConsole = true;
+          }
+          const params = this.props.params
+          const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+          let teacherId = this.props.teacher.id
+          console.log(teacherId.toString());
+          const channel = pusher.subscribe(teacherId.toString());
+          const that = this;
+          channel.bind('csv-export-completed', function(data) {
+            that.wtf()
+            // that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId)
+            that.setState({assigning: false, assigned: true})
+          });
+
+
             // TODO: fix modals using react-bootstrap so we can stop using js alerts
             // alert('Your Quill Progress Report is on its way to your email! This table is being emailed to you as a CSV spreadsheet, which can be opened with Google Sheets or Excel. It should arrive within the next five minutes. Please Check: ' + {this.props.email} + ' If you do not receive an email within 10 minutes, please check your spamfolder.')
             alert('Your Progress Report is being emailed to you! It should arrive within the next five minutes.')
             // console.log($(this.refs.exportModal.getDOMNode()));
             // $(this.refs.exportModal.getDOMNode()).modal();
+        },
+
+        wtf: function() {
+          debugger;
+          alert('hi')
         },
 
         render: function() {
