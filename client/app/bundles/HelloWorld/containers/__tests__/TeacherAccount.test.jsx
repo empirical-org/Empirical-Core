@@ -192,11 +192,13 @@ describe('TeacherAccount container', () => {
     });
 
     it('should have value equal to state.name', () => {
-
+      wrapper.setState({name: 'Cosmo Kramer'});
+      expect(wrapper.ref('name').props().value).toBe('Cosmo Kramer');
     });
 
     it('should have an onChange event that changes state.name', () => {
-
+      wrapper.ref('name').simulate('change', {target: {value: 'Cosmo'}});
+      expect(wrapper.state().name).toBe('Cosmo');
     });
   });
 
@@ -211,11 +213,13 @@ describe('TeacherAccount container', () => {
     });
 
     it('should have value equal to state.username', () => {
-
+      wrapper.setState({username: 'koko_the_monkey'});
+      expect(wrapper.ref('username').props().value).toBe('koko_the_monkey');
     });
 
     it('should have an onChange event that changes state.username', () => {
-
+      wrapper.ref('username').simulate('change', {target: {value: 'koko'}});
+      expect(wrapper.state().username).toBe('koko');
     });
   });
 
@@ -230,7 +234,8 @@ describe('TeacherAccount container', () => {
     });
 
     it('should have an onChange event that changes state.password', () => {
-
+      wrapper.ref('password').simulate('change', {target: {value: 'bosco'}});
+      expect(wrapper.state().password).toBe('bosco');
     });
   });
 
@@ -245,15 +250,18 @@ describe('TeacherAccount container', () => {
     });
 
     it('should have errors prop depending on state', () => {
-
+      wrapper.setState({errors: {school: 'Error!'}});
+      expect(wrapper.find(SelectSchool).props().errors).toBe('Error!');
     });
 
     it('should have selectedSchool prop based on state', () => {
-
+      wrapper.setState({selectedSchool: {foo: 'bar'}});
+      expect(wrapper.find(SelectSchool).props().selectedSchool.foo).toBe('bar');
     });
 
     it('should have schoolOptions prop based on state', () => {
-
+      wrapper.setState({schoolOptions: [{zipcode: 10005}]});
+      expect(wrapper.find(SelectSchool).props().schoolOptions[0].zipcode).toBe(10005);
     });
 
     it.skip('should have requestSchools prop that fires ajax call to schools.json', () => {
@@ -261,7 +269,8 @@ describe('TeacherAccount container', () => {
     });
 
     it('should have updateSchool prop that changes state', () => {
-
+      wrapper.find(SelectSchool).props().updateSchool({foo: 'baz'});
+      expect(wrapper.state().selectedSchool.foo).toBe('baz');
     });
   });
 

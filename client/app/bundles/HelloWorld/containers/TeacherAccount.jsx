@@ -1,6 +1,5 @@
 'use strict'
 import React from 'react';
-import ReactDOM from 'react-dom';
 import SelectRole from '../components/accounts/edit/select_role';
 import UserSelectRole from '../components/accounts/edit/user_accessible_select_role.jsx';
 import SelectSubscription from '../components/accounts/subscriptions/select_subscription';
@@ -246,9 +245,8 @@ export default React.createClass({
 	updateSchoolOptionsDoNotApply: function() {
 		this.setState({schoolOptionsDoNotApply: !this.state.schoolOptionsDoNotApply});
 	},
-	updatePassword: function() {
-		var password = $(this.refs.password).val()
-		this.setState({password: password});
+	updatePassword: function(e) {
+		this.setState({password: e.target.value});
 	},
 	updateRole: function(role) {
 		this.setState({role: role});
