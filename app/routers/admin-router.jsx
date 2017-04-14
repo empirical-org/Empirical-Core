@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, IndexRedirect } from 'react-router';
 
 import Admin from '../components/admin/admin.jsx';
 import ConceptsFeedback from '../components/feedback/concepts-feedback.jsx';
@@ -42,7 +42,8 @@ const AdminRoutes = (
     {/* questions section*/}
     <Route path="questions" component={Questions} />
     <Route path="questions/:questionID" component={Question}>
-      <IndexRoute component={ResponseComponentWrapper} />
+      <IndexRedirect to="/admin/questions/:questionID/responses" />
+      <Route path="responses" component={ResponseComponentWrapper} />
       <Route path="choose-model" component={ChooseModelContainer} />
       <Route path="focus-points" component={FocusPointsContainer} />
       <Route path="focus-points/:focusPointID/edit" component={EditFocusPointsContainer} />
