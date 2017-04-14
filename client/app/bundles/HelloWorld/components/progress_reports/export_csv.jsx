@@ -4,6 +4,7 @@ import React from 'react'
 import ExportCsvModal from './export_csv_modal.jsx'
 import $ from 'jquery'
 import request from 'request'
+import auth_token from '../modules/get_auth_token.js'
 
 export default React.createClass({
     propTypes: {
@@ -23,7 +24,7 @@ export default React.createClass({
             alert('CSV Exports are a Quill Premium Feature! Upgrade to Premium for reports, diagnostics, and more.')
         } else {
             const data = {
-                    authenticity_token: $('meta[name=csrf-token]').attr('content'),
+                    authenticity_token: auth_token(),
                     report_url: this.props.reportUrl,
                     csv_export: {
                         export_type: this.props.exportType,
