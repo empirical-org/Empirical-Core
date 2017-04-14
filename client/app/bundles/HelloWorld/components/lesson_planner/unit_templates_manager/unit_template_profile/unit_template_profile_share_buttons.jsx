@@ -58,7 +58,7 @@
     return (
       <div className='share light-gray-bordered-box'>
           <strong>Share this Activity Pack</strong>
-          <div className='container'>
+          <div className='container' style={{width: 'auto'}}>
             {links}
           </div>
       </div>

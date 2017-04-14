@@ -149,7 +149,7 @@
 							key={ca.id}
               report={this.props.report}
 							updateDueDate={this.props.updateDueDate}
-							deleteClassroomActivity={this.props.deleteClassroomActivity}
+							hideClassroomActivity={this.props.hideClassroomActivity}
 							data={ca} />);
 		}, this);
 		return (

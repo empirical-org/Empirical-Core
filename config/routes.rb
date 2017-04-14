@@ -99,7 +99,12 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
-    resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path'
+    resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path' do
+      collection do
+        put ':id/hide' => 'classroom_activities#hide'
+      end
+    end
+
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
@@ -119,6 +124,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
+      get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
       post 'assign_selected_packs' => 'diagnostic_reports#assign_selected_packs'
 
       namespace :concepts do

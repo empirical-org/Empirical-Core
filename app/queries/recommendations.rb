@@ -104,7 +104,7 @@ class Recommendations
             },
 
             {
-                recommendation: 'Appositive and Modifying Phrases',
+                recommendation: 'Appositives and Modifying Phrases',
                 activityPackId: 27,
                 requirements: [
                     {
