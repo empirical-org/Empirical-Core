@@ -13,7 +13,7 @@ export default React.createClass({
        syncedCount = 0;
      }
         return (
-            <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal sync-success'>
+            <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal sync-success' restoreFocus={true}>
               <Modal.Body>
                   <img className='pull-right react-bootstrap-close' onClick={this.props.hideModal} src='/images/close_x.svg' alt='close-modal'/>
                   <h1 className='q-h2'><i className="fa fa-check" aria-hidden="true"></i>Great! You've synced {`${syncedCount} ${pluralize('class', syncedCount)}`}</h1>
