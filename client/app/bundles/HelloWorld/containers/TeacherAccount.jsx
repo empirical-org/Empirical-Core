@@ -261,7 +261,7 @@ export default React.createClass({
 			selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
 			subscription = <SelectSubscription subscription={this.state.subscription} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState}/>
 		} else {
-			selectRole = <UserSelectRole role={this.state.roll || 'teacher'} updateRole={this.updateRole}/>
+			selectRole = <UserSelectRole role={this.state.role || 'teacher'} updateRole={this.updateRole}/>
 			subscription = <StaticDisplaySubscription subscription={this.state.subscription}/>
 		}
 
