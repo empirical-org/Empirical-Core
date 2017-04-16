@@ -1,0 +1,143 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><title>Quill</title><link data-turbolinks-track="true" href="http://assets.quill.org/assets/application-ebf178c90a94dd799573446a0a4c8cf2.css" media="all" rel="stylesheet" /><script data-turbolinks-track="true" src="http://assets.quill.org/assets/application-64c3f752b3e11cd5f971b1a8a4a26b07.js"></script><link data-turbolinks-track="true" href="http://assets.quill.org/assets/codemirror-835bdf3a5dc77cf3d0ffe6606fa41903.css" media="screen" rel="stylesheet" /><script data-turbolinks-track="true" src="http://assets.quill.org/assets/cms-fb496a77e1039bb83ba043711953dcfb.js"></script><meta content="authenticity_token" name="csrf-param" />
+<meta content="AQOhuso2dCuTrdIiRQkgs3+EyWREntVEt1afS7IMH9k=" name="csrf-token" /><link href="/images/favicon.gif" rel="icon" type="image/ico" /><link href="http://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+  b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+  mixpanel.init("2e87e79bda898d69197d3623c426be35");</script><!-- end Mixpanel -->
+
+<script src="http://widget.uservoice.com/XFuqqcbl7tBFNAdEDKbZDA.js"></script>
+
+  <!-- start Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42943443-1', 'quill.org');
+    ga('send', 'pageview');
+
+  </script>
+  <!-- end Google Analytics -->
+<!--[if !IE 7]>
+  <style type="text/css">
+    #wrap { display: table ; height: 100% }
+  </style>
+<![endif]--></head><body class="home-page"><div class="sticky-footer-wrapper"><div class="sticky-footer-content"><header><div class="container clearfix"><div class="navbar"><div class="navbar-inner"><a class="brand" href="http://www.quill.org/">Quill</a><div class="nav-collapse collapse"><ul class="nav"><li><a href="/mission">Mission</a></li><li><a href="http://news.quill.org/">News</a></li><li><a href="/develop">Develop</a></li><li><a href="/about">About Us</a></li><li><a href="/faq">FAQ</a></li><li><a href="/lessons">Lessons</a></li><li class="nav-btn"><a href="/session/new">Login</a></li><li class="nav-btn btn-primary"><a href="/account/new">Sign Up</a></li></ul></div></div></div></div></header><div class="container"><article class="home-content"><div class="home-hero-unit"><div class="content-overlay"><div class="home-lesson"><div class="container"><iframe allowtransparency="true" id="activity-iframe" src="http://quill-questions-module.herokuapp.com/stories/homepage?uid=BaJi4-PhNRz9um-o0u-w6Q&amp;anonymous=true" style="width: 100% ; border: 0"></iframe><script type="text/javascript">jQuery(function ($) {
+  window.quill = new Quill('http://quill-questions-module.herokuapp.com/stories/homepage?uid=BaJi4-PhNRz9um-o0u-w6Q&amp;anonymous=true')
+  quill.listen();
+});</script></div></div><div class="home-pitch"><h2>Quill provides interactive grammar lessons.</h2><div class="subtitle">Learn English grammar by writing sentences and proofreading passages.</div><div class="call-to-action"><a class="btn btn-primary" href="/account/new?as=student">I'm a Student</a><a class="btn btn-primary" href="/account/new?as=teacher">I'm a Teacher</a></div></div></div><div class="floats-overlay overlay"></div><div class="water-overlay overlay"></div></div></div></div>
+
+<div class="sticky-footer-footer"><footer class="con-darkgrey"><div class="container clearfix" id="footer-inner"><div class="span3" id="copyright" style="width: 280px"><span class="non-profit footer-logo-image"><img alt="Emperical logo" src="http://assets.quill.org/assets/emperical-logo-291feee9f636d8ba3b9c548b86135018.png" /></span><span class="non-profit"><em>Knowledge through experience</em></span><span>Empirical is a nonprofit developer of interactive educational tools.</span><span><br /><a href="mailto:hello@quill.org">hello@quill.org</a></span><br><br><br></div>
+
+
+<div class="span9" id="footer-item" style="width: 640px"><!--<ul><li><a href="/develop" title="Open Community"><img alt="Opencommunity" src="http://assets.quill.org/assets/opencommunity-d186f388a1d09a7fd60893f0e0b046a9.png" /></a></li><li><a href="/develop" title="Open Content"><img alt="Opencontent" src="http://assets.quill.org/assets/opencontent-df75b8d83b36b3746d9d843a68fb46fb.png" /></a></li><li><a href="https://github.com/empirical-org/quill" title="Open Source"><img alt="Opensource" src="http://assets.quill.org/assets/opensource-67f521a441428af63d3b7819f9a75883.png" /></a></li></ul>-->
+
+
+<div data-uv-embed="contact"></div>
+
+
+
+<br>
+
+<ul>
+  <li>
+    About Quill
+  </li>
+  <li>
+    Our Community
+  </li>
+  <li>
+    Discussion & Support
+  </li>
+  <li>
+    [F][T][G]
+  </li>
+</ul>
+
+</div>
+
+
+
+</div></footer></div><script type="text/javascript">if (!NREUMQ.f) { NREUMQ.f=function() {
+NREUMQ.push(["load",new Date().getTime()]);
+var e=document.createElement("script");
+e.type="text/javascript";
+e.src=(("http:"===document.location.protocol)?"http:":"https:") + "//" +
+  "js-agent.newrelic.com/nr-100.js";
+document.body.appendChild(e);
+if(NREUMQ.a)NREUMQ.a();
+};
+NREUMQ.a=window.onload;window.onload=NREUMQ.f;
+};
+NREUMQ.push(["nrfj","beacon-4.newrelic.com","64c982a9ee","3040824","IFwMQERZWltSFh9CVgRWERteWVtS",4,34,new Date().getTime(),"","","","",""]);
+
+$(function(){
+
+  $("#suggestion-title").focus(function(){ alert("hello")});
+
+});
+
+</script>
+
+
+
+
+
+  <!-- start UserVoice SDK -->
+<script>
+// Include the UserVoice JavaScript SDK (only needed once on a page)
+UserVoice=window.UserVoice||[];
+(function(){
+  var uv=document.createElement('script');
+  uv.type='text/javascript';
+  uv.async=true;
+  uv.src='//widget.uservoice.com/XFuqqcbl7tBFNAdEDKbZDA.js';
+  var s=document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(uv,s)
+})();
+
+//
+// UserVoice Javascript SDK developer documentation:
+// https://www.uservoice.com/o/javascript-sdk
+//
+
+// Customizing
+UserVoice.push(['set', {
+accent_color: '#3a8ac6',
+trigger_color: 'black',
+trigger_background_color: 'red',
+screenshot_enabled: false,
+contact_title: '',
+height: '180px'
+}]);
+
+// Identify the user and pass traits
+// To enable, replace sample data with actual user traits and uncomment the line
+//UserVoice.push(['identify', {
+//email: 'john.doe@example.com', // User’s email address
+//name: 'John Doe', // User’s real name
+//created_at: 1364406966, // Unix timestamp for the date the user signed up
+//id: 123, // Optional: Unique id of the user (if set, this should not change)
+//type: 'Owner', // Optional: segment your users by type
+//account: {
+// id: 123, // Optional: associate multiple users with a single account
+// name: 'Acme, Co.', // Account name
+// created_at: 1364406966, // Unix timestamp for the date the account was created
+// monthly_rate: 9.99, // Decimal; monthly rate of the account
+// ltv: 1495.00, // Decimal; lifetime value of the account
+// plan: 'Enhanced' // Plan name for the account
+//}
+//}]);
+
+// Add default trigger to the bottom-right corner of the window:
+//UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+
+// Or, use your own custom trigger:
+//UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
+
+// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+UserVoice.push(['autoprompt', {}]);
+
+</script>
+  <!-- end UserVoice SDK -->
+</body></html>
