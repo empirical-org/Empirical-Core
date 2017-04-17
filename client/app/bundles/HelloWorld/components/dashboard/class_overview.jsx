@@ -30,13 +30,19 @@
     var minis = _.map(this.props.data, function(overviewObj){
       return <OverviewMini overviewObj={overviewObj} key={overviewObj.header}/>;
     });
-    if (this.props.flag === 'beta') {
-      minis.unshift(<BetaMini key='beta-mini'/>)
-    }
-    if (this.state.displayTeacherGuide){
-      minis.unshift(<TeacherGuide dashboardMini key='teacher-guide-displayed' hideTeacherGuide={this.hideTeacherGuide} isDisplayed={false}/>);
-    }
     return minis;
+  },
+
+  betaMini: function() {
+    if (this.props.flag === 'beta') {
+      return <BetaMini key='beta-mini'/>
+    }
+  },
+
+  teacherGuide: function() {
+    if (this.state.displayTeacherGuide){
+      return <TeacherGuide dashboardMini key='teacher-guide-displayed' hideTeacherGuide={this.hideTeacherGuide} isDisplayed={false}/>;
+    }
   },
 
   hasPremium: function() {
@@ -56,9 +62,11 @@
   render: function() {
     return (
       <div className='row'>
+        {this.teacherGuide()}
         {this.announcementMini()}
         {this.overviewMinis()}
         {this.hasPremium()}
+        {this.betaMini()}
       </div>
     );
   }
