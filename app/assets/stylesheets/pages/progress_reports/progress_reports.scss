@@ -199,9 +199,12 @@ a.progress-reports-nav {
 
   .export-csv {
     float: right;
-
-    button {
+    a {
+      color: white;
       font-weight: normal;
+    }
+    img {
+      margin-left: 15px;
     }
   }
 

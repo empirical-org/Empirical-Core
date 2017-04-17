@@ -1,6 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
-import AssigningIndicator from '../../../shared/assigning_indicator'
+import AssigningIndicator from '../../../shared/button_loading_indicator'
 
 class UpdateUnitButton extends React.Component {
   constructor(props) {
