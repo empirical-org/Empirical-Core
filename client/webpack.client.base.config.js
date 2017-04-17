@@ -8,6 +8,7 @@ const devBuild = process.env.NODE_ENV !== 'production';
 const firebaseApiKey = process.env.FIREBASE_API_KEY
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL
 const pusherKey = process.env.PUSHER_KEY
+const defaultUrl = process.env.DEFAULT_URL
 
 const nodeEnv = devBuild ? 'development' : 'production';
 
@@ -62,7 +63,8 @@ module.exports = {
         NODE_ENV: JSON.stringify(nodeEnv),
         FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
         FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
-        PUSHER_KEY: JSON.stringify(pusherKey)
+        PUSHER_KEY: JSON.stringify(pusherKey),
+        DEFAULT_URL: JSON.stringify(defaultUrl)
       },
       TRACE_TURBOLINKS: devBuild,
     }),

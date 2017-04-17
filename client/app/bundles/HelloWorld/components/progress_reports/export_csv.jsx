@@ -17,7 +17,7 @@ export default React.createClass({
     },
 
     getDefaultProps: function() {
-        return {requestUrl: 'http://localhost:3000/teachers/progress_reports/csv_exports'};
+      return {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`}
     },
 
     getInitialState: function() {
