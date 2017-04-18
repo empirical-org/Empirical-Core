@@ -16,12 +16,12 @@ export default React.createClass({
             key={1}>
           <AssignmentTypeMini
             toggleTab={this.props.toggleTab}
-            title={'Beta: Entry Diagnostic'}
+            title={'Entry Diagnostic'}
             img={'/images/diagnostic_icon.svg'}
             bodyText={'Find your students’ writing abilities through a 15 question diagnostic.'}
             directions={'use intermittently'}
             quantity={1}
-            unit={'Beta: Diagnostic'}
+            unit={'Diagnostic'}
             timeDuration={'~20 Min.'}
             />
           </a>,

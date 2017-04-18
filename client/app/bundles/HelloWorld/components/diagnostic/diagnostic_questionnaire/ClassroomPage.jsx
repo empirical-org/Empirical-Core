@@ -58,7 +58,7 @@ export default React.createClass({
 	assignedClassData: function() {
 		return ({
 			unit: {
-				name: 'Beta: Diagnostic',
+				name: 'Diagnostic',
 				classrooms: this.state.selectedClassrooms,
 				activities: [
 					{

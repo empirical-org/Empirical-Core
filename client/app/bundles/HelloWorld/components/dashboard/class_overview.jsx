@@ -7,6 +7,7 @@
  import TeacherGuide from '../teacher_guide/teacher_guide'
  import BetaMini from './beta_mini.jsx'
  import NewTools from './new_tools_mini.jsx'
+ import EllDiagnosticAnnouncement from './ell_diagnostic_announcement_mini.jsx'
  import PremiumPromo from './premium_promo.jsx'
 
  export default React.createClass({
@@ -56,7 +57,8 @@
   },
 
   announcementMini: function () {
-    return <NewTools key='new-tools'/>
+    // return <NewTools key='new-tools'/>
+    return <EllDiagnosticAnnouncement key='ell-diagnostic-announcement'/>
   },
 
   render: function() {
