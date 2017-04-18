@@ -2,8 +2,6 @@
 import React from 'react'
 import AssignmentTypeMini from './assignment_type_mini.jsx'
 
-
-
 export default React.createClass({
   propTypes: {
     toggleTab: React.PropTypes.func.isRequired
@@ -12,15 +10,15 @@ export default React.createClass({
   minis: function(){
     let minis =
       [
-        <a href='/diagnostic/stage/1'
+        <a href='/teachers/classrooms/activity_planner/assign-a-diagnostic'
             key={1}>
           <AssignmentTypeMini
             toggleTab={this.props.toggleTab}
-            title={'Entry Diagnostic'}
+            title={'Entry Diagnostics'}
             img={'/images/diagnostic_icon.svg'}
-            bodyText={'Find your students’ writing abilities through a 15 question diagnostic.'}
+            bodyText={'Find your students’ writing abilities with a 22 question diagnostic.'}
             directions={'use intermittently'}
-            quantity={1}
+            quantity={2}
             unit={'Diagnostic'}
             timeDuration={'~20 Min.'}
             />
