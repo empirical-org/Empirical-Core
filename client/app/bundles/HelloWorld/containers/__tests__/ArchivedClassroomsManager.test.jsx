@@ -60,10 +60,26 @@ describe('ArchivedClassroomsManager container', () => {
   wrapperTeacher.setState({classrooms: classrooms});
   wrapperStudent.setState({classrooms: classrooms});
 
-  //TODO: test getInitialState
-  //TODO: test componentDidMount
-    //TODO: test getClassrooms()
-  //TODO: test classAction()
+  describe('initial state', () => {
+    it('should return the correct paths for a teacher', () => {
+      expect(wrapperTeacher.state().basePath).toBe('/teachers/classrooms');
+      expect(wrapperTeacher.state().getClassroomsPath).toBe('/teachers/classrooms/archived_classroom_manager_data');
+    });
+
+    it('should return the correct paths for a student', () => {
+      expect(wrapperStudent.state().basePath).toBe('/students_classrooms');
+      expect(wrapperStudent.state().getClassroomsPath).toBe('/students_classrooms/classroom_manager_data');
+    });
+  });
+
+  it('componentDidMount should call getClassrooms', () => {
+    wrapperTeacher.instance().getClassrooms = jest.fn();
+    wrapperTeacher.instance().componentDidMount();
+    expect(wrapperTeacher.instance().getClassrooms).toHaveBeenCalled();
+  });
+
+  //TODO: test getClassrooms() once request is in instead of ajax
+  //TODO: test classAction() once request is in instead of ajax
 
   it('should render link to add a class if role is teacher', () => {
     expect(wrapperTeacher.find('.btn').text()).toBe('Add a Class');
@@ -79,6 +95,7 @@ describe('ArchivedClassroomsManager container', () => {
     wrapperTeacher.setState({classrooms: null});
     expect(wrapperTeacher.text()).toMatch('loading');
     wrapperTeacher.setState({classrooms: classrooms});
+    wrapperStudent.setState({classrooms: classrooms});
   });
 
   describe('active classrooms section', () => {
