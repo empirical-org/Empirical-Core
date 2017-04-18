@@ -127,7 +127,7 @@ export default  React.createClass({
           that use Quill, the more free activities we can create.
         </p>
       <p className='social-copy'>
-        <i>I’m using the {this.activityName()} Activity Pack from Quill.org to teach writing & grammar. quill.org/activity_packs/{this.props.data.id}</i>
+        <i>I’m using the {this.activityName()} Activity Pack from Quill.org to teach writing & grammar. quill.org/activities/packs/{this.props.data.id}</i>
       </p>
       <div className='container'>
         <UnitTemplateProfileShareButtons data={this.data()} />

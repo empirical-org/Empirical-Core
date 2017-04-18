@@ -56,13 +56,20 @@ export default React.createClass({
 	},
 
 	assignedClassData: function() {
+		let name
+		if (this.props.diagnosticActivityId === 413) {
+			name = 'Sentence Structure Diagnostic'
+		} else if (this.props.diagnosticActivityId === 447) {
+			name = 'ELL Diagnostic'
+		}
+
 		return ({
 			unit: {
-				name: 'Diagnostic',
+				name: name,
 				classrooms: this.state.selectedClassrooms,
 				activities: [
 					{
-						id: 413
+						id: this.props.diagnosticActivityId
 					}
 				]
 			}
@@ -72,11 +79,12 @@ export default React.createClass({
 	submitClasses: function() {
 		this.setState({hiddenButton: true})
 		let data = this.assignedClassData();
+		let that = this
 		if (data.unit.classrooms.length < 1) {
 			alert('You must select a classroom before assigning the diagnostic.')
 		} else {
 			$.ajax({type: 'POST', url: '/teachers/units', data: JSON.stringify(data), dataType: 'json', contentType: 'application/json'}).done(function() {
-				window.location = '/diagnostic/success'
+				window.location = `/diagnostic/${that.props.diagnosticActivityId}/success`
 			}).fail(function() {
 				alert('There has been an error assigning the lesson. Please make sure you have selected a classroom');
 			})
@@ -214,7 +222,7 @@ export default React.createClass({
 					<div className='pull-right text-center'>
 						<button style={display} onClick={this.submitClasses} className='button-green' id='save-and-assign-button'>Save & Assign</button>
 						<br/>
-						<Link to='/diagnostic/stage/2'>Back</Link>
+						<Link to={`/diagnostic/${this.props.diagnosticActivityId}/stage/2`}>Back</Link>
 					</div>
 				</div>
 			</div>
