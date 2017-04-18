@@ -22,7 +22,7 @@ export default React.createClass({
 				bodyText: 'See how students responded to each question and get a clear analysis of the skills they demonstrated.',
 				flag: null
 			}, {
-				title: 'Beta: Diagnostic',
+				title: 'Diagnostic',
 				href: '/teachers/progress_reports/diagnostic_report',
 				img: '/images/diagnostic.svg',
 				bodyText: 'View the results of the diagnostic, and get a personalized learning plan with recommended activities.',

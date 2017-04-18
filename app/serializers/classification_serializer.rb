@@ -9,9 +9,9 @@ class ClassificationSerializer < ActiveModel::Serializer
   	when 2
   		'Quill Grammar'
     when 4
-      'Beta: Quill Diagnostic'
+      'Quill Diagnostic'
     when 5
-      'Beta: Quill Connect'
+      'Quill Connect'
   	end
   end
 
