@@ -6,8 +6,8 @@ module Units::Updater
   # and array of student ids.
 
   # TODO: rename this -- it isn't always the method called on the instance
-  def self.run(unit, activities_data, classrooms_data)
-    self.update_helper(unit, activities_data, classrooms_data)
+  def self.run(unit, activities_data, classrooms_data, unit_template_id=nil)
+    self.update_helper(unit, activities_data, classrooms_data, unit_template_id)
   end
 
   def self.assign_unit_template_to_one_class(unit, classrooms_data)
@@ -19,13 +19,14 @@ module Units::Updater
     teacher = User.find(teacher_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
-    self.update_helper(unit, activities_data, classrooms_data)
+    self.update_helper(unit, activities_data, classrooms_data, unit_template.id)
   end
 
   private
 
 
-  def self.update_helper(unit, activities_data, classrooms_data)
+  def self.update_helper(unit, activities_data, classrooms_data, ut_id=nil)
+    UnitTemplateUnit.find_or_create_by(unit_id: unit.id, unit_template_id: ut_id) if ut_id
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms_data.each do |classroom|
@@ -48,7 +49,7 @@ module Units::Updater
         classroom_activity.update(due_date: due_date, assigned_student_ids: classroom[:student_ids])
       end
     end
-    unit.hide_if_no_visible_classroom_activities 
+    unit.hide_if_no_visible_classroom_activities
     # necessary activity sessions are created in an after_create and after_save callback
     # in activity_sessions.rb
     # TODO: Assign Activity Worker should be labeled as an analytics worker

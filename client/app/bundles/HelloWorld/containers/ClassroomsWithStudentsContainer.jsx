@@ -175,7 +175,7 @@ export default class extends React.Component {
 			dataType: 'json',
 			statusCode: {
 				200: function(data) {
-					that.setState({loading: false, unitName: data.name, activityIds: data.activity_ids}, that.getClassroomsAndStudentsData)
+					that.setState({unitName: data.name, activityIds: data.activity_ids}, that.getClassroomsAndStudentsData)
 				},
 				422: function(response) {
 					that.setState({errors: response.responseJSON.errors,
@@ -221,6 +221,7 @@ export default class extends React.Component {
 						<div className='container edit-assigned-students-container'>
 								<ClassroomsWithStudents
 									unitId={this.props.params.unitId}
+									unitTemplateId={this.props.params.activityPackId}
 									unitName={this.state.unitName}
 									classrooms={this.state.classrooms}
 									activityIds={this.state.activityIds}

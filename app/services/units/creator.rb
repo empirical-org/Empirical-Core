@@ -1,8 +1,8 @@
 module Units::Creator
 
 
-  def self.run(teacher, name, activities_data, classrooms_data)
-    self.create_helper(teacher, name, activities_data, classrooms_data)
+  def self.run(teacher, name, activities_data, classrooms_data, unit_template_id=nil)
+    self.create_helper(teacher, name, activities_data, classrooms_data, unit_template_id)
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template_id)
