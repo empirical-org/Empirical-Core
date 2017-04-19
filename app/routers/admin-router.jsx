@@ -32,6 +32,7 @@ import EditIncorrectSequenceContainer from '../components/incorrectSequence/edit
 import NewIncorrectSequenceContainer from '../components/incorrectSequence/newIncorrectSequenceContainer.jsx';
 import TestQuestionContainer from '../components/questions/testQuestion.jsx';
 import ChooseModelContainer from '../components/questions/chooseModelContainer.jsx';
+import AnswerVisualizer from '../components/misc/answerVisualizer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -52,6 +53,7 @@ const AdminRoutes = (
       <Route path="incorrect-sequences/:incorrectSequenceID/edit" component={EditIncorrectSequenceContainer} />
       <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
       <Route path="test" component={TestQuestionContainer} />
+      <Route path="visualize" component={AnswerVisualizer} />
     </Route>
 
     {/* data section*/}
