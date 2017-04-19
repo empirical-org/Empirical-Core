@@ -27,7 +27,7 @@ export default React.createClass({
               directions={'use continuously'}
               quantity={1}
               unit={'Diagnostic'}
-              timeDuration={'~35 Min.'}
+              timeDuration={'~25 Min.'}
             />
           </a>,
           <a key={3}>
