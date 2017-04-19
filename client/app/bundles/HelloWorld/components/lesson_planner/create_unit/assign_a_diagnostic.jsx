@@ -22,7 +22,7 @@ export default React.createClass({
           <a key={2} href='/diagnostic/447/stage/2'>
             <AssignmentTypeMini
               title={'ELL Diagnostic'}
-              img={'/images/diagnostic_icon.svg'}
+              img={'/images/ell_diagnostic_icon.svg'}
               bodyText={'Find your students’ writing abilities with a 22 question diagnostic for language learners.'}
               directions={'use continuously'}
               quantity={1}
