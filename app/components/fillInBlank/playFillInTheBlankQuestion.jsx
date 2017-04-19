@@ -28,9 +28,17 @@ const styles = {
 class ClassName extends Component {
   constructor() {
     super();
+    this.state = {
+      splitPrompt: [],
+      inputVals: [],
+    };
   }
 
   componentDidMount() {
+    this.setState({
+      splitPrompt: this.getQuestion().prompt.split('___'),
+      inputVals: this.generateInputs(this.getQuestion().prompt.split('___')),
+    });
     getGradedResponsesWithCallback(
       this.getQuestion().key,
       (data) => {
@@ -44,21 +52,50 @@ class ClassName extends Component {
     return question;
   }
 
-  getPromptElements() {
-    const splitPrompt = this.props.question.prompt.split('___');
-    const l = splitPrompt.length;
-    const splitPromptWithInput = [];
-    splitPrompt.forEach((section, i) => {
-      if (i != l - 1) {
-        splitPromptWithInput.push(section);
-        splitPromptWithInput.push((
-          <input style={styles.input} type="text" />
-        ));
-      } else {
-        splitPromptWithInput.push(section);
-      }
+  generateInputs(promptArray) {
+    const inputs = [];
+    for (let i = 0; i < promptArray.length - 2; i++) {
+      inputs.push('');
+    }
+    return inputs;
+  }
+
+  handleChange(i, e) {
+    const existing = [...this.state.inputVals];
+    existing[i] = e.target.value;
+    this.setState({
+      inputVals: existing,
     });
-    return splitPromptWithInput;
+  }
+
+  getChangeHandler(index) {
+    return (e) => {
+      this.handleChange(index, e);
+    };
+  }
+
+  getPromptElements() {
+    if (this.state.splitPrompt) {
+      const { splitPrompt, } = this.state;
+      const l = splitPrompt.length;
+      const splitPromptWithInput = [];
+      splitPrompt.forEach((section, i) => {
+        if (i != l - 1) {
+          splitPromptWithInput.push(section);
+          splitPromptWithInput.push((
+            <input
+              style={styles.input}
+              type="text"
+              onChange={this.getChangeHandler(i)}
+              value={this.state.inputVals[i]}
+            />
+          ));
+        } else {
+          splitPromptWithInput.push(section);
+        }
+      });
+      return splitPromptWithInput;
+    }
   }
 
   renderPrompt() {
