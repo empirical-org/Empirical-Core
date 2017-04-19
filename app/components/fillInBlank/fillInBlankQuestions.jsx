@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class ClassName extends Component {
+class FillInBlankQuestions extends Component {
   constructor() {
     super();
   }
@@ -9,7 +9,7 @@ class ClassName extends Component {
   render() {
     return (
       <div>
-        New Component
+fillInBlankQuestion.jsx
       </div>
     );
   }
@@ -18,8 +18,8 @@ class ClassName extends Component {
 
 function select(props) {
   return {
-    Key: props.Value,
+    fillInBlank: props.fillInBlank,
   };
 }
 
-export default connect(select)(ClassName);
+export default connect(select)(FillInBlankQuestions);
