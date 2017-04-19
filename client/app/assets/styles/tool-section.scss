@@ -695,7 +695,7 @@ $tool-grey: #f8f9f9;
     }
   }
   .tool-animation-section {
-    background-image: url('/images/landing_page_diagnostic_pattern.png');
+    background-image: url('../../../../public/images/landing_page_diagnostic_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -717,7 +717,7 @@ $tool-grey: #f8f9f9;
 
 .connect-tool-page {
   .tool-animation-section {
-    background-image: url('/images/landing_page_connect_pattern.png');
+    background-image: url('../../../../public/images/landing_page_connect_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -815,7 +815,7 @@ $tool-grey: #f8f9f9;
     }
     &.desktop {
       .walk-thru-step:first-of-type {
-          background-image: url('/images/tools/connect/background_pattern.png');
+          background-image: url('../../../../public/images/tools/connect/background_pattern.png');
           background-position: center;
           background-repeat: no-repeat;
         }
@@ -860,7 +860,7 @@ $tool-grey: #f8f9f9;
 
 .proofreader-tool-page {
   .tool-animation-section {
-    background-image: url('/images/landing_page_proofreader_pattern.png');
+    background-image: url('../../../../public/images/landing_page_proofreader_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -868,7 +868,7 @@ $tool-grey: #f8f9f9;
 
 .grammar-tool-page {
   .tool-animation-section {
-    background-image: url('/images/landing_page_grammar_pattern.png');
+    background-image: url('../../../../public/images/landing_page_grammar_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
