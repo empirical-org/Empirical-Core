@@ -13,9 +13,14 @@ export default class extends React.Component {
 			classrooms: null,
 			loading: true,
 			studentsChanged: false,
-			newUnit: !!this.props.params.activityIdsArray
+			newUnit: !!this.props.params.activityPackId,
+			activityIds: []
 		}
-		this.getClassroomsAndStudentsData()
+		if (this.state.newUnit) {
+			this.getUnitInfo()
+		} else {
+			this.getClassroomsAndStudentsData()
+		}
 	}
 
 
@@ -161,12 +166,31 @@ export default class extends React.Component {
 		return changed
 	}
 
+	getUnitInfo() {
+		const that = this
+		$.ajax({
+			type: 'GET',
+			url: '/teachers/unit_templates/activities_and_name',
+			data: {id: that.props.params.activityPackId},
+			dataType: 'json',
+			statusCode: {
+				200: function(data) {
+					that.setState({loading: false, unitName: data.name, activityIds: data.activity_ids}, that.getClassroomsAndStudentsData)
+				},
+				422: function(response) {
+					that.setState({errors: response.responseJSON.errors,
+					loading: false})
+				}
+			}
+		})
+	}
+
 	getClassroomsAndStudentsData() {
 		const that = this;
 		let url, unitName
 		if (this.state.newUnit) {
 			url = '/teachers/classrooms_i_teach_with_students'
-			unitName = () => this.props.params.unitName
+			unitName = () => this.state.unitName
 		} else {
 			url = `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`
 			unitName = (data) => data.unit_name
@@ -199,7 +223,7 @@ export default class extends React.Component {
 									unitId={this.props.params.unitId}
 									unitName={this.state.unitName}
 									classrooms={this.state.classrooms}
-									activityIds={this.props.params.activityIdsArray}
+									activityIds={this.state.activityIds}
 									createOrEdit={this.state.newUnit ? 'create' : 'edit'}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
