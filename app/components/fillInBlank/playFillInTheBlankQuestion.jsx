@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'underscore';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
 import icon from '../../img/question_icon.svg';
@@ -28,6 +29,7 @@ const styles = {
 class ClassName extends Component {
   constructor() {
     super();
+    this.checkAnswer = this.checkAnswer.bind(this);
     this.state = {
       splitPrompt: [],
       inputVals: [],
@@ -106,7 +108,14 @@ class ClassName extends Component {
     );
   }
 
+  zipInputsAndText() {
+    const zipped = _.zip(this.state.splitPrompt, this.state.inputVals);
+    return _.flatten(zipped).join('');
+  }
+
   checkAnswer() {
+    const zippedAnswer = this.zipInputsAndText();
+    console.log(zippedAnswer);
     return false;
   }
 
