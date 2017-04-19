@@ -79,49 +79,13 @@ class Teachers::UnitsController < ApplicationController
 
   def index
     cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
-    units = cas.group_by{|ca| ca.unit_id}
-    arr = []
-    units.each do |unit_id, classroom_activities|
+    render json: units(cas).to_json
+  end
 
-      if params[:report]
-        classroom_activities =  classroom_activities.select{|ca| ca.has_a_completed_session? && ca.from_valid_date_for_activity_analysis?}
-        next if classroom_activities.empty?
-      end
-
-
-      x1 = classroom_activities.compact
-
-      x1 = ClassroomActivitySorter::sort(x1)
-
-      x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
-
-      classrooms = x1.map{|ca| ca[:classroom]}.compact.uniq
-
-      assigned_student_ids = []
-
-      classroom_activities.each do |ca|
-        if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
-          y = ca.classroom.students.map(&:id)
-        else
-          y = ca.assigned_student_ids
-        end
-        assigned_student_ids = assigned_student_ids.concat(y)
-      end
-
-      num_students_assigned = assigned_student_ids.uniq.length
-
-      x1 = x1.uniq{|y| y[:activity_id] }
-
-      unit = Unit.where(id: unit_id).first
-      if unit.present?
-        ele = {unit: unit, classroom_activities: x1, num_students_assigned: num_students_assigned, classrooms: classrooms}
-        arr.push ele
-      end
-    end
-
-    arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
-    arr1 = arr1.sort_by{|ele| ele[:unit].created_at}
-    render json: {units: arr2.concat(arr1)}.to_json
+  def diagnostic_units
+    diagnostic_activity_ids = [413, 447]
+    cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).where(classroom_activities: {activity_id: diagnostic_activity_ids}).map(&:classroom_activities).flatten
+    render json: units(cas).to_json
   end
 
   def hide
@@ -162,6 +126,52 @@ class Teachers::UnitsController < ApplicationController
     cas = unit.classroom_activities
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
+  end
+
+  def units(cas)
+    units = cas.group_by{|ca| ca.unit_id}
+    arr = []
+    units.each do |unit_id, classroom_activities|
+
+      if params[:report]
+        classroom_activities =  classroom_activities.select{|ca| ca.has_a_completed_session? && ca.from_valid_date_for_activity_analysis?}
+        next if classroom_activities.empty?
+      end
+
+
+        x1 = classroom_activities.compact
+
+        x1 = ClassroomActivitySorter::sort(x1)
+
+        x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
+
+        classrooms = x1.map{|ca| ca[:classroom]}.compact.uniq
+
+        assigned_student_ids = []
+
+        classroom_activities.each do |ca|
+          if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
+            y = ca.classroom.students.map(&:id)
+          else
+            y = ca.assigned_student_ids
+          end
+          assigned_student_ids = assigned_student_ids.concat(y)
+        end
+
+        num_students_assigned = assigned_student_ids.uniq.length
+
+        x1 = x1.uniq{|y| y[:activity_id] }
+
+        unit = Unit.where(id: unit_id).first
+        if unit.present?
+          ele = {unit: unit, classroom_activities: x1, num_students_assigned: num_students_assigned, classrooms: classrooms}
+          arr.push ele
+        end
+      end
+
+      arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
+      arr1 = arr1.sort_by{|ele| ele[:unit].created_at}
+      {units: arr2.concat(arr1)}
   end
 
 end
