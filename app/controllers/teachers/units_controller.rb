@@ -10,12 +10,13 @@ class Teachers::UnitsController < ApplicationController
     if params[:unit][:create]
       params[:unit][:classrooms] = JSON.parse(params[:unit][:classrooms])
       params[:unit][:activities] = JSON.parse(params[:unit][:activities])
+      params[:unit][:unit_template_id] = params[:unit][:unit_template_id]
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first, params[:unit][:activities], params[:unit][:classrooms])
+      Units::Updater.run(units_with_same_name.first, params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id])
     else
-      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
+      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id])
     end
     render json: {id: Unit.where(user: current_user).last.id}
   end
