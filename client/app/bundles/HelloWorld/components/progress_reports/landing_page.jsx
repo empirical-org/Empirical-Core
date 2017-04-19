@@ -23,7 +23,7 @@ export default React.createClass({
 				flag: null
 			}, {
 				title: 'Entry Diagnostics',
-				href: '/teachers/progress_reports/diagnostic_report',
+				href: '/teachers/progress_reports/diagnostic_reports#/diagnostics',
 				img: '/images/diagnostic.svg',
 				bodyText: 'View the results of the diagnostics, and get a personalized learning plan with recommended activities.',
 				flag: null

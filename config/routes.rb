@@ -89,7 +89,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     get 'prohibited_unit_names' => 'units#prohibited_unit_names'
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
-
+    get 'diagnostic_units' => 'units#diagnostic_units'
 
     resources :unit_templates, only: [:index] do
       collection do
