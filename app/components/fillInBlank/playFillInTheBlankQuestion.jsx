@@ -4,6 +4,8 @@ import _ from 'underscore';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
 import icon from '../../img/question_icon.svg';
+import Grader from '../../libs/fillInBlank.js';
+import { hashToCollection } from '../../libs/hashToCollection';
 
 const styles = {
   container: {
@@ -16,13 +18,17 @@ const styles = {
   input: {
     color: '#3D3D3D',
     fontSize: 24,
-    marginLeft: 5,
-    marginRight: 5,
+    marginRight: 10,
     width: 75,
     textAlign: 'center',
+    boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0))',
+    borderImageSlice: 1,
   },
   text: {
-
+    marginRight: 10,
   },
 };
 
@@ -76,6 +82,14 @@ class ClassName extends Component {
     };
   }
 
+  renderText(text, i) {
+    let style = {};
+    if (text.length > 0) {
+      style = styles.text;
+    }
+    return <span key={i} style={style}>{text}</span>;
+  }
+
   getPromptElements() {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
@@ -83,9 +97,10 @@ class ClassName extends Component {
       const splitPromptWithInput = [];
       splitPrompt.forEach((section, i) => {
         if (i != l - 1) {
-          splitPromptWithInput.push(section);
+          splitPromptWithInput.push(this.renderText(section, i));
           splitPromptWithInput.push((
             <input
+              key={i + 100}
               style={styles.input}
               type="text"
               onChange={this.getChangeHandler(i)}
@@ -93,7 +108,7 @@ class ClassName extends Component {
             />
           ));
         } else {
-          splitPromptWithInput.push(section);
+          splitPromptWithInput.push(this.renderText(section, i));
         }
       });
       return splitPromptWithInput;
@@ -116,7 +131,14 @@ class ClassName extends Component {
   checkAnswer() {
     const zippedAnswer = this.zipInputsAndText();
     console.log(zippedAnswer);
-    return false;
+    const fields = {
+      prompt: this.getQuestion().prompt,
+      responses: hashToCollection(this.state.responses),
+      questionUID: this.getQuestion().key,
+    };
+    const newQuestion = new Grader(fields);
+    const newResponse = newQuestion.checkMatch(zippedAnswer);
+    return newResponse;
   }
 
   render() {
@@ -126,13 +148,12 @@ class ClassName extends Component {
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', }}>
           <div>
-            <RenderSentenceFragments prompt={'Fill In The Blanks'} />
-
+            {this.renderPrompt()}
             <div className="feedback-row">
               <img src={icon} style={{ marginTop: 3, }} />
               <p dangerouslySetInnerHTML={{ __html: instructions, }} />
             </div>
-            {this.renderPrompt()}
+
             <div className="question-button-group button-group">
               {button}
             </div>
