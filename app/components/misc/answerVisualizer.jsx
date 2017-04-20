@@ -78,6 +78,17 @@ export class AnswerVisualizer extends Component {
     });
   }
 
+  renderDiffsBetweenIncorrectResponsesAndPrompt() {
+    return this.getHumanIncorrectResponses().map((response) => {
+      return(
+        <DiffedResponse
+          firstResponse={this.props.questions.data[this.props.params.questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
+          newResponse={response}
+        />
+      );
+    });
+  }
+
   render() {
     if(this.state.loadedResponses) {
       return (
@@ -92,6 +103,12 @@ export class AnswerVisualizer extends Component {
             <div className="card-content">
               <h1 className="title is-3">Diffs Between Correct Responses and Prompt</h1>
               {this.renderDiffsBetweenCorrectResponsesAndPrompt()}
+            </div>
+          </div>
+          <div className="card is-fullwidth has-bottom-margin">
+            <div className="card-content">
+              <h1 className="title is-3">Diffs Between Incorrect Responses and Prompt</h1>
+              {this.renderDiffsBetweenIncorrectResponsesAndPrompt()}
             </div>
           </div>
           {this.props.children}
