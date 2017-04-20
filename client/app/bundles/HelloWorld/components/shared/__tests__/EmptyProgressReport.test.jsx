@@ -15,7 +15,7 @@ describe('EmptyProgressReport component', () => {
     })
 
     it('should render paragraphs with the expected text', () => {
-      const expectedText = "Welcome! This is where your student reports will be stored, but you haven't assigned any activities yet.Let's add your first activity."
+      const expectedText = "Welcome! This is where your student reports will be stored, but none of your students have completed an assignment yet.Let's assign an activity."
       expect(wrapper.find('.col-xs-7').text()).toEqual(expectedText)
     })
 

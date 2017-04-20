@@ -42,6 +42,11 @@ export default React.createClass({
 		this.setState({units: data.units, loaded: true});
 	},
 
+	goToDiagnosticReport: function() {
+		const ca = this.state.units[0].classroom_activities[0]
+		window.location = `/teachers/progress_reports/diagnostic_reports#/u/${ca.unit_id}/a/${ca.activity_id}/c/${ca.classroom_id}/students`
+	},
+
 	stateBasedComponent: function() {
 		if (this.state.loaded) {
 			if (this.state.units.length === 0) {
@@ -49,8 +54,7 @@ export default React.createClass({
 					<EmptyDiagnosticProgressReport status={this.state.diagnosticStatus}/>
 				);
 			} else if (this.state.units.length === 1) {
-        const ca = this.state.units[0].classroom_activities[0]
-        window.location = `/teachers/progress_reports/diagnostic_reports#/u/${ca.unit_id}/a/${ca.activity_id}/c/${ca.classroom_id}/students`
+				this.goToDiagnosticReport()
       } else {
 				return (
 					<div className='activity-analysis'>
