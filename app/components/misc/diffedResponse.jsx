@@ -27,7 +27,7 @@ export class DiffedResponse extends Component {
 
   render() {
     return(
-      <div>
+      <div style={{marginBottom: 8}}>
         {this.generateDiff()}
       </div>
     )

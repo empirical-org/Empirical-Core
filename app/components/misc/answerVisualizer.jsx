@@ -27,16 +27,29 @@ export class AnswerVisualizer extends Component {
     );
   }
 
+  sortResponsesByCount(responseObj) {
+    let sortable = [];
+    for(var response in responseObj) {
+      sortable.push([responseObj[response].text, responseObj[response].count]);
+    }
+    sortable.sort((a, b) => {
+      return b[1] - a[1];
+    });
+    return sortable.map((response) => {
+      return response[0];
+    });
+  }
+
   getHumanCorrectResponses() {
-    return _.reject(_.values(_.mapObject(this.state.responses, (r) => {
-      return r.statusCode == 0 ? r.text : null;
-    })), (r) => { return !r });
+    return this.sortResponsesByCount(_.reject(_.values(_.mapObject(this.state.responses, (r) => {
+      return r.statusCode == 0 ? {text: r.text, count: r.count}: null;
+    })), (r) => { return !r }));
   }
 
   getHumanIncorrectResponses() {
-    return _.reject(_.values(_.mapObject(this.state.responses, (r) => {
-      return r.statusCode == 1 ? r.text : null;
-    })), (r) => { return !r });
+    return this.sortResponsesByCount(_.reject(_.values(_.mapObject(this.state.responses, (r) => {
+      return r.statusCode == 1 ? {text: r.text, count: r.count} : null;
+    })), (r) => { return !r }));
   }
 
   getClosestCorrectResponse(response) {
