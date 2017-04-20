@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PlayFillInTheBlankQuestion from './playFillInTheBlankQuestion.jsx';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions/diagnostics.js';
 
 class TestQuestion extends Component {
   constructor() {
@@ -30,7 +30,7 @@ class TestQuestion extends Component {
     return [
       {
         type: 'FB',
-        question,
+        data: question,
       }
     ];
   }
@@ -47,8 +47,8 @@ class TestQuestion extends Component {
   }
 
   render() {
-    if (this.props.playLesson.currentQuestion) {
-      const { question, } = this.props.playLesson.currentQuestion;
+    if (this.props.playDiagnostic.currentQuestion) {
+      const question = this.props.playDiagnostic.currentQuestion.data;
       console.log(question);
       return (
         <div className="test-question-container">
@@ -67,7 +67,7 @@ class TestQuestion extends Component {
 function select(props) {
   return {
     fillInBlank: props.fillInBlank,
-    playLesson: props.playLesson,
+    playDiagnostic: props.playDiagnostic,
   };
 }
 

@@ -6,6 +6,9 @@ import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx
 import icon from '../../img/question_icon.svg';
 import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
+import { submitResponse, } from '../../actions/diagnostics.js';
+import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const styles = {
   container: {
@@ -32,7 +35,7 @@ const styles = {
   },
 };
 
-class ClassName extends Component {
+class PlayFillInTheBlankQuestion extends Component {
   constructor() {
     super();
     this.checkAnswer = this.checkAnswer.bind(this);
@@ -128,6 +131,10 @@ class ClassName extends Component {
     return _.flatten(zipped).join('');
   }
 
+  nextQuestion() {
+    this.props.nextQuestion();
+  }
+
   checkAnswer() {
     const zippedAnswer = this.zipInputsAndText();
     console.log(zippedAnswer);
@@ -137,8 +144,23 @@ class ClassName extends Component {
       questionUID: this.getQuestion().key,
     };
     const newQuestion = new Grader(fields);
-    const newResponse = newQuestion.checkMatch(zippedAnswer);
-    return newResponse;
+    const response = newQuestion.checkMatch(zippedAnswer);
+    this.updateResponseResource(response);
+    this.submitResponse(response);
+    this.setState({
+      editing: false,
+      response: '',
+    },
+      this.nextQuestion()
+    );
+  }
+
+  submitResponse(response) {
+    submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
+  }
+
+  updateResponseResource(response) {
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
   }
 
   render() {
@@ -167,8 +189,7 @@ class ClassName extends Component {
 
 function select(props) {
   return {
-    Key: props.Value,
   };
 }
 
-export default connect(select)(ClassName);
+export default connect(select)(PlayFillInTheBlankQuestion);
