@@ -21,7 +21,7 @@ describe('EmptyProgressReport component', () => {
 
   })
 
-  describe('when "activities" is passed as its missing prop', () => {
+  describe('when "students" is passed as its missing prop', () => {
     const wrapper = shallow(
       <EmptyProgressReport missing="students" />
     );
@@ -37,7 +37,7 @@ describe('EmptyProgressReport component', () => {
 
   })
 
-  describe('when "activities" is passed as its missing prop', () => {
+  describe('when "classrooms" is passed as its missing prop', () => {
     const wrapper = shallow(
       <EmptyProgressReport missing="classrooms" />
     );

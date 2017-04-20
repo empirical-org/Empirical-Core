@@ -1,7 +1,7 @@
 import React from 'react'
 import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import EmptyProgressReport from '../../scorebook/EmptyProgressReport.jsx'
+import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import $ from 'jquery'
 
 'use strict'
@@ -9,7 +9,7 @@ import $ from 'jquery'
 export default React.createClass({
 
 	getInitialState: function() {
-		return {units: [], loaded: false}
+		return {units: [], loaded: false, diagnosticStatus: ''}
 	},
 
 	componentWillMount(){
@@ -19,6 +19,7 @@ export default React.createClass({
 
 	componentDidMount: function() {
     this.getDiagnosticUnits()
+		this.getDiagnosticStatus()
 	},
 
   getDiagnosticUnits: function() {
@@ -30,6 +31,13 @@ export default React.createClass({
     });
   },
 
+	getDiagnosticStatus: function() {
+		$.ajax({
+			url: '/teachers/progress_reports/diagnostic_status',
+			success: data => {this.setState({diagnosticStatus: data.diagnosticStatus})},
+		});
+	},
+
 	displayUnits: function(data) {
 		this.setState({units: data.units, loaded: true});
 	},
@@ -38,7 +46,7 @@ export default React.createClass({
 		if (this.state.loaded) {
 			if (this.state.units.length === 0) {
 				return (
-					<EmptyProgressReport missing='diagnosticActivities'/>
+					<EmptyDiagnosticProgressReport status={this.state.diagnosticStatus}/>
 				);
 			} else if (this.state.units.length === 1) {
         const ca = this.state.units[0].classroom_activities[0]
