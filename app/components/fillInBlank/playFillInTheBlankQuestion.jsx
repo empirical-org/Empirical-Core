@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import icon from '../../img/question_icon.svg';
+import tooltipChevron from '../../img/tooltipChevron.svg';
 import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
@@ -110,16 +111,76 @@ class PlayFillInTheBlankQuestion extends Component {
     this.setState({ inputErrors: newErrors, }, () => console.log(this.state.inputErrors));
   }
 
-  renderInput(i) {
+  renderWarning(i) {
+    const warningStyle = {
+      border: '1px #ff4542 solid',
+      color: '#ff4542',
+      fontSize: '14px',
+      width: '350px',
+      top: '-30px',
+      position: 'absolute',
+      backgroundColor: 'white',
+      borderRadius: '2px',
+      height: '26px',
+    };
+    const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
+    const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
+    let chevyStyle = this.chevyStyleLeft();
+    if (rectangle.left > (body.width / 2)) {
+      warningStyle.right = '-73px';
+      chevyStyle = this.chevyStyleRight();
+    }
     return (
-      <input
-        key={i + 100}
-        style={styles.input}
-        type="text"
-        onChange={this.getChangeHandler(i)}
-        value={this.state.inputVals[i]}
-        onBlur={() => this.validateInput(i)}
-      />
+      <div style={warningStyle} key={`warning${i}`}>
+        <p>Uh-oh, try using one of the words below or leave blank.</p>
+        <img style={chevyStyle} src={tooltipChevron} alt="chevron" />
+      </div>
+    );
+  }
+
+  chevyStyleRight() {
+    return {
+      float: 'right',
+      marginRight: '20px',
+      position: 'relative',
+      top: '-2px',
+    };
+  }
+
+  chevyStyleLeft() {
+    return {
+      float: 'left',
+      marginLeft: '20px',
+      position: 'relative',
+      top: '-2px',
+    };
+  }
+
+  renderInput(i) {
+    let styling = styles.input;
+    let warning;
+    if (this.state.inputErrors.has(i)) {
+      warning = this.renderWarning(i);
+      styling = Object.assign({}, styling);
+      styling.borderColor = '#ff7370';
+      styling.borderWidth = '2px';
+      delete styling.borderImageSource;
+    }
+    return (
+      <span>
+        <div style={{ position: 'relative', height: 0, width: 0, }}>
+          {warning}
+        </div>
+        <input
+          id={`input${i}`}
+          key={i + 100}
+          style={styling}
+          type="text"
+          onChange={this.getChangeHandler(i)}
+          value={this.state.inputVals[i]}
+          onBlur={() => this.validateInput(i)}
+        />
+      </span>
     );
   }
 
