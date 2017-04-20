@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
 import icon from '../../img/question_icon.svg';
 import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import Cues from '../renderForQuestions/cues.jsx';
 
 const styles = {
   container: {
     marginTop: 15,
+    marginBottom: 20,
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -39,16 +40,21 @@ class PlayFillInTheBlankQuestion extends Component {
   constructor() {
     super();
     this.checkAnswer = this.checkAnswer.bind(this);
+    this.getQuestion = this.getQuestion.bind(this);
     this.state = {
       splitPrompt: [],
       inputVals: [],
+      inputErrors: new Set(),
     };
   }
+
+  // $('input').getBoundingClientRect();
 
   componentDidMount() {
     this.setState({
       splitPrompt: this.getQuestion().prompt.split('___'),
       inputVals: this.generateInputs(this.getQuestion().prompt.split('___')),
+      cues: this.getQuestion().cues,
     });
     getGradedResponsesWithCallback(
       this.getQuestion().key,
@@ -73,7 +79,7 @@ class PlayFillInTheBlankQuestion extends Component {
 
   handleChange(i, e) {
     const existing = [...this.state.inputVals];
-    existing[i] = e.target.value;
+    existing[i] = e.target.value.trim();
     this.setState({
       inputVals: existing,
     });
@@ -93,6 +99,30 @@ class PlayFillInTheBlankQuestion extends Component {
     return <span key={i} style={style}>{text}</span>;
   }
 
+  validateInput(i) {
+    const newErrors = new Set(this.state.inputErrors);
+    const inputVal = this.state.inputVals[i];
+    if (inputVal && this.state.cues.indexOf(this.state.inputVals[i]) === -1) {
+      newErrors.add(i);
+    } else {
+      newErrors.delete(i);
+    }
+    this.setState({ inputErrors: newErrors, }, () => console.log(this.state.inputErrors));
+  }
+
+  renderInput(i) {
+    return (
+      <input
+        key={i + 100}
+        style={styles.input}
+        type="text"
+        onChange={this.getChangeHandler(i)}
+        value={this.state.inputVals[i]}
+        onBlur={() => this.validateInput(i)}
+      />
+    );
+  }
+
   getPromptElements() {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
@@ -101,15 +131,7 @@ class PlayFillInTheBlankQuestion extends Component {
       splitPrompt.forEach((section, i) => {
         if (i != l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
-          splitPromptWithInput.push((
-            <input
-              key={i + 100}
-              style={styles.input}
-              type="text"
-              onChange={this.getChangeHandler(i)}
-              value={this.state.inputVals[i]}
-            />
-          ));
+          splitPromptWithInput.push(this.renderInput(i));
         } else {
           splitPromptWithInput.push(this.renderText(section, i));
         }
@@ -136,8 +158,8 @@ class PlayFillInTheBlankQuestion extends Component {
   }
 
   checkAnswer() {
+    this.setState({ checkingAnswer: true, });
     const zippedAnswer = this.zipInputsAndText();
-    console.log(zippedAnswer);
     const fields = {
       prompt: this.getQuestion().prompt,
       responses: hashToCollection(this.state.responses),
@@ -171,11 +193,11 @@ class PlayFillInTheBlankQuestion extends Component {
         <div style={{ display: 'flex', }}>
           <div>
             {this.renderPrompt()}
+            <Cues getQuestion={this.getQuestion} customText={'Add words or leave blank'} />
             <div className="feedback-row">
               <img src={icon} style={{ marginTop: 3, }} />
               <p dangerouslySetInnerHTML={{ __html: instructions, }} />
             </div>
-
             <div className="question-button-group button-group">
               {button}
             </div>

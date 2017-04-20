@@ -54,7 +54,6 @@ export default class Question {
     }
     returnValue.found = false;
     returnValue.response.gradeIndex = `unmarked${this.questionUID}`;
-    console.log('Response: ', returnValue);
     return returnValue;
   }
 
