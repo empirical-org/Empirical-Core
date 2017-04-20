@@ -1,7 +1,7 @@
 import React from 'react'
 import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import EmptyProgressReport from '../../scorebook/EmptyProgressReport.jsx'
+import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx'
 import $ from 'jquery'
 
 'use strict'

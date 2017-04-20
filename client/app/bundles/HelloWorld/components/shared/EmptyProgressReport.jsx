@@ -20,13 +20,6 @@
          <p>Welcome! This is where your student reports will be stored, but you haven't invited any students yet.</p>
          <p>Let's invite some students.</p>
        </div>
-     } else if (this.props.missing === 'diagnosticActivities') {
-       link = '/teachers/classrooms/activity_planner/assign-a-diagnostic'
-       buttonText = 'Assign a Diagnostic'
-       content = <div>
-         <p>Welcome! This is where your diagnostic reports will be stored, but none of your students have completed a diagnostic yet.</p>
-         <p>Let's assign a diagnostic.</p>
-       </div>
      } else {
        link = '/teachers/classrooms/new'
        buttonText = 'Create a Class'
