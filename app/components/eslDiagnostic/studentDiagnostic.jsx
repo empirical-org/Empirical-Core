@@ -240,7 +240,7 @@ const StudentDiagnostic = React.createClass({
   render() {
     const diagnosticID = this.props.params.diagnosticID;
     let component;
-    if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
+    if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata && this.props.fillInBlank.hasreceiveddata) {
       const data = this.getFetchedData();
       if (data) {
         if (this.props.playDiagnostic.currentQuestion) {

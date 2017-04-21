@@ -4,7 +4,7 @@ const sessionsRef = rootRef.child('sessions');
 
 export default function submitQuestionResponse(response, props, sessionKey, submitFunction) {
   const action = submitFunction(response);
-  // props.dispatch(action);
+  props.dispatch(action);
   // var sessionRef = sessionsRef.child(sessionKey + '/attempts').set(props.question.attempts, (error) => {
   //   return
   // })
