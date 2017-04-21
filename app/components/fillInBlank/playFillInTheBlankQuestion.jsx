@@ -52,15 +52,14 @@ export class PlayFillInTheBlankQuestion extends Component {
   // $('input').getBoundingClientRect();
 
   componentDidMount() {
-    const q = this.getQuestion();
     this.setState({
-      splitPrompt: q.prompt.split('___'),
-      inputVals: this.generateInputs(q.prompt.split('___')),
-      cues: q.cues,
-      blankAllowed: q.blankAllowed,
+      splitPrompt: this.getQuestion().prompt.split('___'),
+      inputVals: this.generateInputs(this.getQuestion().prompt.split('___')),
+      cues: this.getQuestion().cues,
+      blankAllowed: this.getQuestion().blankAllowed,
     });
     getGradedResponsesWithCallback(
-      q.key,
+      this.getQuestion().key,
       (data) => {
         this.setState({ responses: data, });
       }
