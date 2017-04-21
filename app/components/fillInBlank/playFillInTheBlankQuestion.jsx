@@ -135,7 +135,7 @@ export class PlayFillInTheBlankQuestion extends Component {
       chevyStyle = this.chevyStyleRight();
     }
     return (
-      <div style={warningStyle} key={`warning${i}`}>
+      <div className="warning-dialogue" style={warningStyle} key={`warning${i}`}>
         <span style={{ whiteSpace: 'nowrap', }}>{this.warningText()}</span>
         <img style={chevyStyle} src={tooltipChevron} alt="chevron" />
       </div>

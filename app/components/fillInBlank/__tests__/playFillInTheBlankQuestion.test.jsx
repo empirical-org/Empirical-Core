@@ -128,5 +128,25 @@ describe('PlayFillInTheBlankQuestion component', () => {
         });
       });
     });
+
+    describe('warning dialogues', () => {
+      const inputErrors = new Set();
+      it('renders if there are input errors in state', () => {
+        const wrapper = mount(
+          <PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />
+        );
+        inputErrors.add(1);
+        wrapper.setState({ inputErrors, });
+        expect(wrapper.find('.warning-dialogue')).toHaveLength(1);
+      });
+      it('does not renders if there are not input errors in state', () => {
+        const wrapper = mount(
+          <PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />
+        );
+        inputErrors.delete(1);
+        wrapper.setState({ inputErrors, });
+        expect(wrapper.find('.warning-dialogue')).toHaveLength(0);
+      });
+    });
   });
 });
