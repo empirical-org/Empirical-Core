@@ -111,7 +111,9 @@
   "jest": {
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
-    ]
+    ],
+    "coverageDirectory": "<rootDir>/coverage/",
+    "collectCoverage": true
   },
   "author": "Empirical",
   "license": "ISC"
