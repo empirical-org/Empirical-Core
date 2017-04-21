@@ -23,15 +23,15 @@ export default function diagnosticQuestions() {
       content: "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You'll rewrite the sentence, filling in the blank with one of the words from a list or choosing that no word is needed in the blank.</p><br/><h3>Completa el Espacio en Blanco: A, An, The</h3><p>En esta sección, cada oración tendrá dos o tres espacios en blanco.</p><p>Volverás a escribir la oración, rellenando el espacio en blanco con una de las palabras de una lista o eligiendo que no se necesite ninguna palabra en el espacio en blanco.</p>",
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-Ke_6gyGVXuHiealUgD3', // i have _____ friend named Marco who loves _____ football
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-Ke_70Ul5Ka4AKbbtAOa', // _____ school ends when _____ bell rings
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-Ke_7AgPuCE56lUNwFJN', // _____ girl lives in _____ apartment in _____ New York City
     },
     {
@@ -65,23 +65,23 @@ export default function diagnosticQuestions() {
       content: "<h3>Fill in the Blank</h3><p>You're halfway there! In this section, you'll choose the best word to complete a sentence. You'll rewrite a sentence, filling in the blank with one of the words from a list.</p><br/><h3>Completa el Espacio en Blanco</h3><p>¡Ya estás en la mitad del camino! En esta sección, elige la palabra más adecuada para completar la oración. Vuelve a escribir la oración, completando el espacio en blanco con una de las palabras de la lista.</p>",
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-KfC7o1X3EPt7xv3nc8A', // i put the book _____ the shelf.
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-KdCg3xpEyLVWWjWADa9', // we arrived ______ school before the bell rang.
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-KfD6DGRaPhBflVzswJx', // cinco de Mayo is _______ May.
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-KdCgy8wt_rQiYpOURdW', // sarah rides the bus ______ school every day.
     },
     {
-      type: 'SC',
+      type: 'FB',
       key: '-KdChHgbE9377Jgzkoci', // i put the milk _______ the refrigerator.
     },
     {

@@ -1,41 +1,20 @@
 import React from 'react';
-const Markdown = require('react-remarkable');
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import Question from '../../libs/diagnosticQuestion';
-import Textarea from 'react-textarea-autosize';
 import icon from '../../img/question_icon.svg';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
-import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
+import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
-import questionActions from '../../actions/questions';
-import pathwayActions from '../../actions/pathways';
 const C = require('../../constants').default;
-import rootRef from '../../libs/firebase';
-const sessionsRef = rootRef.child('sessions');
-import {
-  submitNewResponse,
-  incrementChildResponseCount,
-  incrementResponseCount,
-  getResponsesWithCallback,
-  getGradedResponsesWithCallback
-} from '../../actions/responses.js';
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
 import RenderFeedback from '../renderForQuestions/feedback.jsx';
-import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
 import getResponse from '../renderForQuestions/checkAnswer.js';
-import handleFocus from '../renderForQuestions/handleFocus.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
-
-import StateFinished from '../renderForQuestions/renderThankYou.jsx';
-import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-const feedbackStrings = C.FEEDBACK_STRINGS;
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {
@@ -133,13 +112,21 @@ const PlayDiagnosticQuestion = React.createClass({
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking);
       this.updateResponseResource(response);
-      this.submitResponse(response);
-      this.setState({
-        editing: false,
-        response: '',
-      },
-        this.nextQuestion()
-      );
+      if (response.found && response.response.author === 'Missing Details Hint') {
+        this.setState({
+          editing: false,
+          error: 'Your answer is too short. Please read the directions carefully and try again.',
+        });
+      } else {
+        this.submitResponse(response);
+        this.setState({
+          editing: false,
+          response: '',
+          error: undefined,
+        },
+          this.nextQuestion()
+        );
+      }
     }
   },
 
@@ -200,7 +187,6 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   render() {
-    const questionID = this.props.question.key;
     let button;
     if (this.props.question.attempts.length > 0) {
       button = <button className="button student-submit" onClick={this.nextQuestion}>Submit / Enviar</button>;
@@ -225,12 +211,16 @@ const PlayDiagnosticQuestion = React.createClass({
 
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
-              className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+              className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
               handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
               disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+              hasError={this.state.error}
             />
-            <div className="question-button-group button-group">
-              {button}
+            <div className="button-and-error-row">
+              <p className="error">{this.state.error}</p>
+              <div className="question-button-group button-group">
+                {button}
+              </div>
             </div>
           </ReactTransition>
         </div>

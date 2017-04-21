@@ -1,0 +1,152 @@
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion.jsx';
+import { fillInBlankQuestionBlankAllowed,
+       fillInBlankQuestionBlankNotAllowed }
+       from '../../../../test/data/jest_data.js';
+
+function setup() {
+  const question = { fillInBlankQuestionBlankAllowed, };
+  const props = { question, };
+  const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+
+  return {
+    props,
+    wrapper,
+  };
+}
+
+describe('PlayFillInTheBlankQuestion component', () => {
+  Object.defineProperty(document, 'getElementById', {
+    writable: true,
+    value: () => ({ getBoundingClientRect() {
+      return {
+        left: 10,
+        right: 320,
+      };
+    }, }),
+  });
+  const { wrapper, props, } = setup();
+
+  it('should render', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  describe('checkAnswer', () => {
+    it('should call nextQuestion if there are no inputErrors in state', () => {
+      const nextQuestion = jest.fn();
+      props.nextQuestion = nextQuestion;
+      const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      wrapper.instance().checkAnswer();
+      expect(nextQuestion.mock.calls.length).toBe(1);
+    });
+
+    it('should not call nextQuestion if there are no inputErrors in state', () => {
+      const nextQuestion = jest.fn();
+      props.nextQuestion = nextQuestion;
+      const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      wrapper.setState({ inputErrors: ['foo'], });
+      wrapper.instance().checkAnswer();
+      expect(nextQuestion.mock.calls.length).toBe(0);
+    });
+
+    it('is triggered by clicking the submit button', () => {
+      const nextQuestion = jest.fn();
+      props.nextQuestion = nextQuestion;
+      const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      wrapper.find('.button').simulate('click');
+      expect(nextQuestion.mock.calls.length).toBe(1);
+    });
+  });
+
+  describe('zipInputsAndText', () => {
+    it('returns a string zipping inputs and texts', () => {
+      wrapper.setState({ inputVals: ['the', 'a'],
+        splitPrompt: ['I have ', ' friend named Marco who loves ', ' football.'],
+      });
+      expect(wrapper.instance().zipInputsAndText()).toBe('I have the friend named Marco who loves a football.');
+    });
+  });
+
+  describe('zipInputsAndText', () => {
+    it('returns a string zipping inputs and texts', () => {
+      wrapper.setState({ inputVals: ['the', 'a'],
+        splitPrompt: ['I have ', ' friend named Marco who loves ', ' football.'],
+      });
+      expect(wrapper.instance().zipInputsAndText()).toBe('I have the friend named Marco who loves a football.');
+    });
+  });
+
+  describe('the input fields', () => {
+    it('know which one to update onChange', () => {
+      wrapper.setState({ inputVals: ['', ''], });
+      wrapper.find('#input1').simulate('change', { target: { value: 'bar', }, });
+      wrapper.find('#input0').simulate('change', { target: { value: 'foo', }, });
+      expect(wrapper.state().inputVals).toEqual(['foo', 'bar']);
+    });
+
+    describe('validateInput onBlur', () => {
+      describe('updates this.state.inputErrors', () => {
+        describe('by adding the index of the input if the input is', () => {
+          it('not in the cues list', () => {
+            wrapper.setState({ inputVals: ['', 'foo'],
+              cues: ['a', 'and', 'the'],
+              inputErrors: new Set(), });
+            wrapper.find('#input1').simulate('blur');
+            expect(wrapper.state().inputErrors.has(1)).toBe(true);
+          });
+          it('empty and question.blankAllowed is false', () => {
+            const wrapper = mount(<PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />);
+            wrapper.setState({ inputVals: ['', 'foo'],
+              cues: ['a', 'and', 'the'],
+              inputErrors: new Set(), });
+            wrapper.find('#input1').simulate('blur');
+            expect(wrapper.state().inputErrors.has(1)).toBe(true);
+          });
+        });
+        describe('by removing the index of the input if the input is', () => {
+          const inputErrorSet = new Set();
+          inputErrorSet.add(1);
+          const someState = { cues: ['a', 'and', 'the'],
+            inputErrors: inputErrorSet,
+            blankAllowed: true,
+            inputVals: ['', 'a'],
+          };
+
+          it('in the cues list', () => {
+            wrapper.setState(someState);
+            wrapper.find('#input1').simulate('blur');
+            expect(wrapper.state().inputErrors.has(1)).toBe(false);
+          });
+
+          it('empty and state.blankAllowed is true', () => {
+            someState.inputVals = ['', ''];
+            wrapper.setState(someState);
+            wrapper.find('#input1').simulate('blur');
+            expect(wrapper.state().inputErrors.has(1)).toBe(false);
+          });
+        });
+      });
+    });
+
+    describe('warning dialogues', () => {
+      const inputErrors = new Set();
+      it('renders if there are input errors in state', () => {
+        const wrapper = mount(
+          <PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />
+        );
+        inputErrors.add(1);
+        wrapper.setState({ inputErrors, });
+        expect(wrapper.find('.warning-dialogue')).toHaveLength(1);
+      });
+      it('does not renders if there are not input errors in state', () => {
+        const wrapper = mount(
+          <PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />
+        );
+        inputErrors.delete(1);
+        wrapper.setState({ inputErrors, });
+        expect(wrapper.find('.warning-dialogue')).toHaveLength(0);
+      });
+    });
+  });
+});

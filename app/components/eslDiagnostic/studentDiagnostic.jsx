@@ -9,6 +9,7 @@ import { loadResponseData } from '../../actions/responses';
 import Spinner from '../shared/spinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion.jsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
@@ -222,6 +223,8 @@ const StudentDiagnostic = React.createClass({
         data = this.props.questions.data[obj.key];
       } else if (obj.type === 'SF') {
         data = this.props.sentenceFragments.data[obj.key];
+      } else if (obj.type === 'FB') {
+        data = this.props.fillInBlank.data[obj.key];
       } else {
         data = obj;
       }
@@ -252,6 +255,13 @@ const StudentDiagnostic = React.createClass({
                 nextQuestion={this.nextQuestionWithoutSaving}
               />
             );
+          } else if (this.props.playDiagnostic.currentQuestion.type === 'FB') {
+            component = (<PlayFillInTheBlankQuestion
+              question={this.props.playDiagnostic.currentQuestion.data}
+              nextQuestion={this.nextQuestion}
+              key={this.props.playDiagnostic.currentQuestion.data.key}
+              dispatch={this.props.dispatch}
+            />);
           } else {
             component = (<PlaySentenceFragment
               question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
@@ -298,6 +308,7 @@ function select(state) {
   return {
     routing: state.routing,
     questions: state.questions,
+    fillInBlank: state.fillInBlank,
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
     sessions: state.sessions,
