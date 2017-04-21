@@ -17,6 +17,7 @@ import scoreAnalysis from './scoreAnalysis';
 import sessions from './sessions';
 import filters from './filtersReducer';
 import massEdit from './massEdit';
+import fillInBlank from './fillInBlank';
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
@@ -30,6 +31,7 @@ const combinedReducers = combineReducers({
   sentenceFragments,
   questionSelect,
   pathways,
+  fillInBlank,
   filters,
   lessons,
   playLesson,

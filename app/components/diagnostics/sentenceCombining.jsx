@@ -63,6 +63,8 @@ const PlayDiagnosticQuestion = React.createClass({
       return true;
     } else if (this.state.responses !== nextState.responses) {
       return true;
+    } else if (this.state.error !== nextState.error) {
+      return true;
     }
     return false;
   },
@@ -132,17 +134,25 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   checkAnswer(e) {
-    if (this.state.editing && this.state.responses) {
+    if (this.state.editing) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), 'diagnostic');
+      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking);
       this.updateResponseResource(response);
-      this.submitResponse(response);
-      this.setState({
-        editing: false,
-        response: '',
-      },
-        this.nextQuestion()
-      );
+      if (response.found && response.response.author === 'Missing Details Hint') {
+        this.setState({
+          editing: false,
+          error: 'Your answer is too short. Please read the directions carefully and try again.',
+        });
+      } else {
+        this.submitResponse(response);
+        this.setState({
+          editing: false,
+          response: '',
+          error: undefined,
+        },
+          this.nextQuestion()
+        );
+      }
     }
   },
 
@@ -203,16 +213,20 @@ const PlayDiagnosticQuestion = React.createClass({
             <img src={icon} />
             <p>{instructions}</p>
           </div>
-          {/* <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}> */}
-          <TextEditor
-            className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
-            handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
-            disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
-          />
-          <div className="question-button-group button-group">
-            {button}
-          </div>
-          {/* </ReactTransition> */}
+          <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
+            <TextEditor
+              className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
+              handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
+              disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+              hasError={this.state.error}
+            />
+            <div className="button-and-error-row">
+              <p className="error">{this.state.error}</p>
+              <div className="question-button-group button-group">
+                {button}
+              </div>
+            </div>
+          </ReactTransition>
         </div>
       );
     } else {

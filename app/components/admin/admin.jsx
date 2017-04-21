@@ -6,6 +6,7 @@ import NavBar from '../navbar/navbar.jsx';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
+import fillInBlankActions from '../../actions/fillInBlank';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
@@ -24,6 +25,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(conceptActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     this.props.dispatch(questionActions.startListeningToQuestions());
+    this.props.dispatch(fillInBlankActions.startListeningToQuestions());
     this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(lessonActions.startListeningToLessons());
@@ -49,6 +51,7 @@ const adminContainer = React.createClass({
               <TabLink to={'/admin/questions'} activeClassName="is-active">Sentence Combining</TabLink>
               <TabLink to={'/admin/diagnostic-questions'} activeClassName="is-active">Diagnostic Questions</TabLink>
               <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Sentence Fragments</TabLink>
+              <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Fill In The Blanks</TabLink>
             </ul>
             <p className="menu-label">
               Supporting

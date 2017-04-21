@@ -1,7 +1,7 @@
 .feedback-row {
   display: flex;
   align-items: flex-start;
-  margin-top: 16px;
+  margin-top: 33px;
   img {
     max-width: 22px;
     margin-right: 8px;
@@ -300,5 +300,21 @@ progress[value]::-webkit-progress-value {
 
   &:focus {
     outline: none;
+  }
+}
+
+.red-outline {
+  border: 1px solid #ff4542;
+}
+
+.button-and-error-row {
+  display: flex;
+  justify-content: space-between;
+  .error {
+    margin-top: 28px;
+    font-size: 20px;
+    color: #ff4542;
+    padding-right: 25px;
+    padding-left: 15px;
   }
 }

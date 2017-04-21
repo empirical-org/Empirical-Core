@@ -33,6 +33,9 @@ import NewIncorrectSequenceContainer from '../components/incorrectSequence/newIn
 import TestQuestionContainer from '../components/questions/testQuestion.jsx';
 import ChooseModelContainer from '../components/questions/chooseModelContainer.jsx';
 import AnswerVisualizer from '../components/misc/answerVisualizer.jsx';
+import FillInBlankQuestions from '../components/fillInBlank/fillInBlankQuestions.jsx';
+import FillInBlankQuestion from '../components/fillInBlank/fillInBlankQuestion.jsx';
+import TestFillInBlankQuestionContainer from '../components/fillInBlank/testFillInBlankQuestionContainer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -54,6 +57,14 @@ const AdminRoutes = (
       <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
       <Route path="test" component={TestQuestionContainer} />
       <Route path="visualize" component={AnswerVisualizer} />
+    </Route>
+
+    {/* fill in the blanks section*/}
+    <Route path="fill-in-the-blanks" component={FillInBlankQuestions} />
+    <Route path="fill-in-the-blanks/:questionID" component={FillInBlankQuestion}>
+      <IndexRedirect to="/admin/fill-in-the-blanks/:questionID/responses" />
+      <Route path="responses" component={ResponseComponentWrapper} />
+      <Route path="test" component={TestFillInBlankQuestionContainer} />
     </Route>
 
     {/* data section*/}

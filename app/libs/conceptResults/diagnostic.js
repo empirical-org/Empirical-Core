@@ -4,12 +4,17 @@ import {
 import {
   getConceptResultsForSentenceCombining
 } from './sentenceCombining';
+import {
+  getConceptResultsForFillInTheBlanks
+} from './fillInTheBlanks';
 
 export function getConceptResultsForQuestion(question) {
   if (question.type === 'SF') {
     return getAllSentenceFragmentConceptResults(question.data);
   } else if (question.type === 'SC') {
     return getConceptResultsForSentenceCombining(question.data);
+  } else if (question.type === 'FB') {
+    return getConceptResultsForFillInTheBlanks(question.data);
   }
 }
 
