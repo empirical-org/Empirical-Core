@@ -116,8 +116,8 @@ class PlayFillInTheBlankQuestion extends Component {
 
   renderWarning(i) {
     const warningStyle = {
-      border: '1px #ff4542 solid',
-      color: '#ff4542',
+      border: '1px #ff3730 solid',
+      color: '#ff3730',
       fontSize: '14px',
       top: '-34px',
       position: 'absolute',
@@ -274,7 +274,6 @@ class PlayFillInTheBlankQuestion extends Component {
 
   render() {
     const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
-    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', }}>
@@ -289,7 +288,7 @@ class PlayFillInTheBlankQuestion extends Component {
           {this.renderMedia()}
         </div>
         <div className="question-button-group button-group">
-          {button}
+          <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>
         </div>
       </div>
     );
