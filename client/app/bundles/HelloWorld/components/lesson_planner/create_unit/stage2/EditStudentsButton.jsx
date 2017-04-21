@@ -42,7 +42,7 @@ class UpdateUnitButton extends React.Component {
 
 	render() {
     let text, color, clickHandler;
-    if (this.props.enabled() && !this.state.loading) {
+    if (this.props.enabled && !this.state.loading) {
       text = this.props.buttonText;
       color = 'quillgreen';
       clickHandler = this.handleClick
