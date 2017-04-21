@@ -17,7 +17,7 @@ export function getConceptResultsForSentenceCombining(question) {
     }];
   }
   let directions = question.instructions || 'Combine the sentences.';
-  if (question.cues && question.cues[0] !== '') {
+  if (question.cues) {
     directions += ` ${formattedCues(question.cues)}`;
   }
   return conceptResults.map(conceptResult => ({
