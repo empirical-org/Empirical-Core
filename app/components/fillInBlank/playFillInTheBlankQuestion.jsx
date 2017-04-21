@@ -14,7 +14,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 const styles = {
   container: {
     marginTop: 15,
-    marginBottom: 20,
+    marginBottom: 18,
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -119,14 +119,13 @@ class PlayFillInTheBlankQuestion extends Component {
       border: '1px #ff4542 solid',
       color: '#ff4542',
       fontSize: '14px',
-      width: '365px',
       top: '-34px',
       position: 'absolute',
       textAlign: 'center',
       backgroundColor: 'white',
       borderRadius: '3px',
       height: '26px',
-      paddingTop: '2px',
+      padding: '2px 7px',
     };
     const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
     const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
@@ -137,10 +136,15 @@ class PlayFillInTheBlankQuestion extends Component {
     }
     return (
       <div style={warningStyle} key={`warning${i}`}>
-        <p>Uh-oh, try using one of the words below or leaving blank.</p>
+        <span style={{ whiteSpace: 'nowrap', }}>{this.warningText()}</span>
         <img style={chevyStyle} src={tooltipChevron} alt="chevron" />
       </div>
     );
+  }
+
+  warningText() {
+    const text = 'Uh-oh, try using one of the words below';
+    return `${text}${this.state.blankAllowed ? ' or leaving blank.' : '.'}`;
   }
 
   chevyStyleRight() {
@@ -172,7 +176,7 @@ class PlayFillInTheBlankQuestion extends Component {
       delete styling.borderImageSource;
     }
     return (
-      <span>
+      <span key={`span${i}`}>
         <div style={{ position: 'relative', height: 0, width: 0, }}>
           {warning}
         </div>
@@ -253,6 +257,21 @@ class PlayFillInTheBlankQuestion extends Component {
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
   }
 
+  renderMedia() {
+    if (this.getQuestion().mediaURL) {
+      return (
+        <div style={{ marginTop: 15, minWidth: 200, }}>
+          <img src={this.getQuestion().mediaURL} />
+        </div>
+      );
+    }
+  }
+
+  customText() {
+    const text = 'Add words';
+    return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
+  }
+
   render() {
     const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
     const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
@@ -261,15 +280,16 @@ class PlayFillInTheBlankQuestion extends Component {
         <div style={{ display: 'flex', }}>
           <div>
             {this.renderPrompt()}
-            <Cues getQuestion={this.getQuestion} customText={'Add words or leave blank'} />
+            <Cues getQuestion={this.getQuestion} customText={this.customText()} />
             <div className="feedback-row">
               <img src={icon} alt="icon" style={{ marginTop: 3, }} />
               <p dangerouslySetInnerHTML={{ __html: instructions, }} />
             </div>
-            <div className="question-button-group button-group">
-              {button}
-            </div>
           </div>
+          {this.renderMedia()}
+        </div>
+        <div className="question-button-group button-group">
+          {button}
         </div>
       </div>
     );
