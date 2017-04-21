@@ -79,6 +79,7 @@
     if (this.state.loading) {
       return <LoadingIndicator />
     } else {
+      document.querySelector("meta[name='og:description']").content = `Check out the '${this.state.data.name}' activity pack I just assigned on Quill.org!`;
       return (
         <div className='unit-template-profile'>
           {this.showListFilterOptions()}
