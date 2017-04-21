@@ -5,7 +5,8 @@ import { diffWords } from 'diff';
 import {
   checkChangeObjectMatch
 } from './algorithms/changeObjects';
-import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
+import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
+
 import { sortByLevenshteinAndOptimal } from './responseTools.js';
 const jsDiff = require('diff');
 
@@ -74,6 +75,13 @@ export default class Question {
       this.copyParentResponses(res, punctuationAndCaseMatch);
       return returnValue;
     }
+    const minLengthMatch = this.checkMinLengthMatch(response);
+    if (minLengthMatch !== undefined) {
+      res.feedback = constants.FEEDBACK_STRINGS.minLengthError;
+      res.author = 'Missing Details Hint';
+      res.parentID = minLengthMatch.key;
+      return returnValue;
+    }
     const changeObjectMatch = this.checkChangeObjectLevenshteinMatch(response);
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
@@ -110,6 +118,19 @@ export default class Question {
     returnValue.found = false;
     returnValue.response.gradeIndex = `unmarked${this.questionUID}`;
     return returnValue;
+  }
+
+  checkMinLengthMatch(response) {
+    const optimalResponses = getOptimalResponses(this.responses);
+    if (optimalResponses.length < 2) {
+      return undefined;
+    }
+    const lengthsOfResponses = optimalResponses.map(resp => resp.text.normalize().length);
+    const minLength = _.min(lengthsOfResponses) - 10;
+    if (response.length < minLength) {
+      return _.sortBy(optimalResponses, resp => resp.text.normalize().length)[0];
+    }
+    return undefined;
   }
 
   nonChildResponses(responses) {

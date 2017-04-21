@@ -112,13 +112,21 @@ const PlayDiagnosticQuestion = React.createClass({
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking);
       this.updateResponseResource(response);
-      this.submitResponse(response);
-      this.setState({
-        editing: false,
-        response: '',
-      },
-        this.nextQuestion()
-      );
+      if (response.found && response.response.author === 'Missing Details Hint') {
+        this.setState({
+          editing: false,
+          error: 'Your answer is too short. Please read the directions carefully and try again.',
+        });
+      } else {
+        this.submitResponse(response);
+        this.setState({
+          editing: false,
+          response: '',
+          error: undefined,
+        },
+          this.nextQuestion()
+        );
+      }
     }
   },
 
@@ -203,12 +211,16 @@ const PlayDiagnosticQuestion = React.createClass({
 
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
-              className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+              className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
               handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
               disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+              hasError={this.state.error}
             />
-            <div className="question-button-group button-group">
-              {button}
+            <div className="button-and-error-row">
+              <p className="error">{this.state.error}</p>
+              <div className="question-button-group button-group">
+                {button}
+              </div>
             </div>
           </ReactTransition>
         </div>
