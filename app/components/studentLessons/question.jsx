@@ -135,6 +135,8 @@ const playLessonQuestion = React.createClass({
     let sentence;
     if (override) {
       sentence = override;
+    } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+      sentence = 'Revise your work. Use the model below as a hint.';
     } else {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
@@ -269,6 +271,11 @@ const playLessonQuestion = React.createClass({
             return <ConceptExplanation {...data} />;
           }
         }
+      } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+        const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+        if (dataF) {
+          return <ConceptExplanation {...dataF} />;
+        }
       } else if (this.getQuestion().conceptID) {
         const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
         if (data) {
@@ -376,9 +383,8 @@ const playLessonQuestion = React.createClass({
           {component}
         </div>
       );
-    } else {
-      return (<p>Loading...</p>);
     }
+    return (<p>Loading...</p>);
   },
 });
 

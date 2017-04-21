@@ -28,6 +28,9 @@ import {
   removeLinkToParentID,
   submitNewResponse
 } from '../../actions/responses';
+import activeComponent from 'react-router-active-component';
+
+const NavLink = activeComponent('li');
 
 const Question = React.createClass({
 
@@ -205,12 +208,20 @@ const Question = React.createClass({
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-            <Link to={`play/questions/${questionID}`} className="button is-outlined is-primary">Play Question</Link>
-            <Link to={`/results/questions/${questionID}`} className="button is-outlined is-primary">Share Page</Link>
-            <button className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</button>
-            <button className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</button>
+
+            <a className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</a>
+            <a className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</a>
             <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
+          <div className="tabs">
+            <ul>
+              <NavLink activeClassName="is-active" to={`admin/questions/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`admin/questions/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
+            </ul>
+          </div>
           {this.props.children}
         </div>
       );

@@ -105,7 +105,7 @@ export default class Question {
     const incorrectSequenceMatch = this.checkIncorrectSequenceMatch(response);
     if (incorrectSequenceMatch !== undefined) {
       res.feedback = incorrectSequenceMatch.feedback;
-      res.author = 'Focus Point Hint';
+      res.author = 'Incorrect Sequence Hint';
       res.parentID = getTopOptimalResponse(this.responses).key;
       if (incorrectSequenceMatch.conceptUID) {
         res.conceptResults = incorrectSequenceMatch.conceptResults;

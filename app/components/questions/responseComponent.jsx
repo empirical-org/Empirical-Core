@@ -522,11 +522,7 @@ const Responses = React.createClass({
 
   renderRematchAllButton() {
     if (this.props.admin) {
-      return (
-        <div className="column">
-          <button className="button is-fullwidth is-outlined" onClick={this.rematchAllResponses}>Rematch</button>
-        </div>
-      );
+      return(<button className="button is-outlined is-danger" style={{float: 'right'}} onClick={this.rematchAllResponses}>Rematch Responses</button>);
     }
   },
 
@@ -541,18 +537,13 @@ const Responses = React.createClass({
     }
   },
 
-  renderViewPOSButton() {
+  renderViewResponsesOrPOSButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: false, responsePageNumber: 1, }); }}>POS</button>
-      </div>
-    );
-  },
-
-  renderViewResponsesButton() {
-    return (
-      <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({ viewingResponses: true, responsePageNumber: 1, }); }}>Uniques</button>
+        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({
+            viewingResponses: !this.state.viewingResponses,
+            responsePageNumber: 1,
+          }); }}>Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
     );
   },
@@ -832,7 +823,7 @@ const Responses = React.createClass({
   render() {
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
-        <QuestionBar data={_.values(this.formatForQuestionBar())} />
+        <QuestionBar data={_.values(this.formatForQuestionBar())} />{this.renderRematchAllButton()}
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak reponses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
@@ -850,10 +841,8 @@ const Responses = React.createClass({
               <div className="column">
                 {this.renderExpandCollapseAll()}
               </div>
-              {this.renderRematchAllButton()}
               {this.renderResetAllFiltersButton()}
-              {this.renderViewResponsesButton()}
-              {this.renderViewPOSButton()}
+              {this.renderViewResponsesOrPOSButton()}
             </div>
           </div>
         </div>

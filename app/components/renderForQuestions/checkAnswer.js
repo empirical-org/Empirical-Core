@@ -4,12 +4,13 @@ import DiagnosticQuestion from '../../libs/diagnosticQuestion';
 
 export default function checkAnswer(question, response, responses, mode = 'default') {
   const Brain = mode === 'default' ? Question : DiagnosticQuestion;
-  
+
   const fields = {
     prompt: question.prompt,
     responses: hashToCollection(responses),
     questionUID: question.key,
     focusPoints: hashToCollection(question.focusPoints),
+    incorrectSequences: hashToCollection(question.incorrectSequences),
   };
   const newQuestion = new Brain(fields);
   const newResponse = newQuestion.checkMatch(response);

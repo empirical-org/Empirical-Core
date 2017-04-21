@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, IndexRedirect } from 'react-router';
 
 import Admin from '../components/admin/admin.jsx';
 import ConceptsFeedback from '../components/feedback/concepts-feedback.jsx';
@@ -30,6 +30,8 @@ import NewFocusPointsContainer from '../components/focusPoints/newFocusPointsCon
 import IncorrectSequenceContainer from '../components/incorrectSequence/incorrectSequenceContainer.jsx';
 import EditIncorrectSequenceContainer from '../components/incorrectSequence/editIncorrectSequenceContainer.jsx';
 import NewIncorrectSequenceContainer from '../components/incorrectSequence/newIncorrectSequenceContainer.jsx';
+import TestQuestionContainer from '../components/questions/testQuestion.jsx';
+import ChooseModelContainer from '../components/questions/chooseModelContainer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -40,13 +42,16 @@ const AdminRoutes = (
     {/* questions section*/}
     <Route path="questions" component={Questions} />
     <Route path="questions/:questionID" component={Question}>
-      <IndexRoute component={ResponseComponentWrapper} />
+      <IndexRedirect to="/admin/questions/:questionID/responses" />
+      <Route path="responses" component={ResponseComponentWrapper} />
+      <Route path="choose-model" component={ChooseModelContainer} />
       <Route path="focus-points" component={FocusPointsContainer} />
       <Route path="focus-points/:focusPointID/edit" component={EditFocusPointsContainer} />
       <Route path="focus-points/new" component={NewFocusPointsContainer} />
       <Route path="incorrect-sequences" component={IncorrectSequenceContainer} />
       <Route path="incorrect-sequences/:incorrectSequenceID/edit" component={EditIncorrectSequenceContainer} />
       <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
+      <Route path="test" component={TestQuestionContainer} />
     </Route>
 
     {/* data section*/}
