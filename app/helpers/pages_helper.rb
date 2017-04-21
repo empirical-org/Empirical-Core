@@ -59,7 +59,7 @@ module PagesHelper
 		      img: 'thumb-peter.png',
 		      name: 'Peter Gault',
 		      title: 'Executive Director, Cofounder',
-		      desc: "Peter designs the user experience, coordinates the team, and leads fundraising. He grew up playing and  designing educational games and found his passion for writing as a journalist at his high school's newspaper. With Quill, Peter aims to help millions of students to become better writers and thinkers. He wrote his senior thesis at Bates College on how emotions influence learning and moral judgments. In 2016, he was awarded Forbes 30 Under 30 for education."
+		      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 			},
 			{
 				img: 'thumb-ryan.png',
@@ -71,9 +71,7 @@ module PagesHelper
 					img: 'thumb-donald.png',
 		      name: 'Donald McKendrick',
 		      title: 'Technology Director, Cofounder',
-		      desc: "Donald is a developer who likes to create open platforms for learning.
-					He has a master's degree in chemistry with a specialization in computer
-					aided modeling and statistical analysis."
+		      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
 			},
 			{
 		      img: 'thumb-hannah.png',
