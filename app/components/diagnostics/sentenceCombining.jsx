@@ -44,7 +44,6 @@ const PlayDiagnosticQuestion = React.createClass({
       editing: false,
       response: '',
       readyForNext: false,
-      error: ''
     };
   },
 
@@ -65,7 +64,7 @@ const PlayDiagnosticQuestion = React.createClass({
     } else if (this.state.responses !== nextState.responses) {
       return true;
     } else if (this.state.error !== nextState.error) {
-      return true
+      return true;
     }
     return false;
   },
@@ -215,18 +214,18 @@ const PlayDiagnosticQuestion = React.createClass({
             <p>{instructions}</p>
           </div>
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
-          <TextEditor
-            className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
-            handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
-            disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
-            hasError={this.state.error}
-          />
-          <div className="button-and-error-row">
-            <p className="error">{this.state.error}</p>
-            <div className="question-button-group button-group">
-              {button}
+            <TextEditor
+              className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
+              handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
+              disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+              hasError={this.state.error}
+            />
+            <div className="button-and-error-row">
+              <p className="error">{this.state.error}</p>
+              <div className="question-button-group button-group">
+                {button}
+              </div>
             </div>
-          </div>
           </ReactTransition>
         </div>
       );
