@@ -118,7 +118,7 @@ export default React.createClass({
 
   render() {
     return (
-      <div className={`student text-editor card is-fullwidth ${this.props.disabled ? 'disabled-editor' : ''}`}>
+      <div className={`student text-editor card is-fullwidth ${this.props.hasError ? 'red-outline' : ''} ${this.props.disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
           <div className="content">
             <Textarea

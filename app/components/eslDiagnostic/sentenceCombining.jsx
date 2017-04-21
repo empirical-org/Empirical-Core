@@ -212,12 +212,16 @@ const PlayDiagnosticQuestion = React.createClass({
 
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
-              className="textarea is-question is-disabled" defaultValue={this.getInitialValue()}
+              className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
               handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
               disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+              hasError={this.state.error}
             />
-            <div className="question-button-group button-group">
-              {button}
+            <div className="button-and-error-row">
+              <p className="error">{this.state.error}</p>
+              <div className="question-button-group button-group">
+                {button}
+              </div>
             </div>
           </ReactTransition>
         </div>
