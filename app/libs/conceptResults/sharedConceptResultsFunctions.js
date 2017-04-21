@@ -7,7 +7,7 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
     directions = question.attempts[attemptIndex - 1].response.feedback;
   } else {
     directions = question.instructions || defaultInstructions;
-    if (question.cues) {
+    if (question.cues && question.cues[0] !== '') {
       directions += ` ${formattedCues(question.cues)}`;
     }
   }
@@ -22,9 +22,9 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
     return;
   }
   if (conceptResults.length === 0) {
-    let score
+    let score;
     if (question.attempts[attemptIndex].response) {
-      score = question.attempts[attemptIndex].response.optimal
+      score = question.attempts[attemptIndex].response.optimal;
     }
     conceptResults = [{
       conceptUID: question.conceptID,
