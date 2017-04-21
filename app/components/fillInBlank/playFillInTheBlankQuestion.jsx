@@ -225,7 +225,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   checkAnswer() {
-    if (!this.state.inputErrors.length) {
+    if (!this.state.inputErrors.size) {
       if (!this.state.blankAllowed) {
         if (this.state.inputVals.length === 0) {
           this.validateInput(0);
