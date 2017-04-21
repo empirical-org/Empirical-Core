@@ -1,7 +1,7 @@
 import { hashToCollection } from '../hashToCollection';
 import { formattedCues } from '../formattedCues';
 
-export function getConceptResultsForSentenceCombining(question) {
+export function getConceptResultsForFillInTheBlanks(question) {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
   const answer = question.attempts[0].submitted;
   let conceptResults = [];
@@ -16,13 +16,13 @@ export function getConceptResultsForSentenceCombining(question) {
       correct: false,
     }];
   }
-  let directions = question.instructions || 'Combine the sentences.';
-  if (question.cues) {
+  let directions = question.instructions || 'Fill in the blanks.';
+  if (question.cues && question.cues[0] !== '') {
     directions += ` ${formattedCues(question.cues)}`;
   }
   return conceptResults.map(conceptResult => ({
     concept_uid: conceptResult.conceptUID,
-    question_type: 'sentence-combining',
+    question_type: 'fill-in-the-blanks',
     metadata: {
       correct: conceptResult.correct ? 1 : 0,
       directions,
