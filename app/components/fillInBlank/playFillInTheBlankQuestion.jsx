@@ -14,7 +14,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 const styles = {
   container: {
     marginTop: 15,
-    marginBottom: 20,
+    marginBottom: 18,
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -37,7 +37,7 @@ const styles = {
   },
 };
 
-class PlayFillInTheBlankQuestion extends Component {
+export class PlayFillInTheBlankQuestion extends Component {
   constructor() {
     super();
     this.checkAnswer = this.checkAnswer.bind(this);
@@ -52,13 +52,15 @@ class PlayFillInTheBlankQuestion extends Component {
   // $('input').getBoundingClientRect();
 
   componentDidMount() {
+    const q = this.getQuestion();
     this.setState({
-      splitPrompt: this.getQuestion().prompt.split('___'),
-      inputVals: this.generateInputs(this.getQuestion().prompt.split('___')),
-      cues: this.getQuestion().cues,
+      splitPrompt: q.prompt.split('___'),
+      inputVals: this.generateInputs(q.prompt.split('___')),
+      cues: q.cues,
+      blankAllowed: q.blankAllowed,
     });
     getGradedResponsesWithCallback(
-      this.getQuestion().key,
+      q.key,
       (data) => {
         this.setState({ responses: data, });
       }
@@ -103,25 +105,27 @@ class PlayFillInTheBlankQuestion extends Component {
   validateInput(i) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i];
-    if (inputVal.toLowerCase() && this.state.cues.indexOf(this.state.inputVals[i].toLowerCase()) === -1) {
+    const inputSufficient = this.state.blankAllowed ? true : inputVal;
+    if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
       newErrors.add(i);
     } else {
       newErrors.delete(i);
     }
-    this.setState({ inputErrors: newErrors, }, () => console.log(this.state.inputErrors));
+    this.setState({ inputErrors: newErrors, });
   }
 
   renderWarning(i) {
     const warningStyle = {
-      border: '1px #ff4542 solid',
-      color: '#ff4542',
+      border: '1px #ff3730 solid',
+      color: '#ff3730',
       fontSize: '14px',
-      width: '350px',
-      top: '-30px',
+      top: '-34px',
       position: 'absolute',
+      textAlign: 'center',
       backgroundColor: 'white',
-      borderRadius: '2px',
+      borderRadius: '3px',
       height: '26px',
+      padding: '2px 7px',
     };
     const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
     const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
@@ -131,11 +135,16 @@ class PlayFillInTheBlankQuestion extends Component {
       chevyStyle = this.chevyStyleRight();
     }
     return (
-      <div style={warningStyle} key={`warning${i}`}>
-        <p>Uh-oh, try using one of the words below or leave blank.</p>
+      <div className="warning-dialogue" style={warningStyle} key={`warning${i}`}>
+        <span style={{ whiteSpace: 'nowrap', }}>{this.warningText()}</span>
         <img style={chevyStyle} src={tooltipChevron} alt="chevron" />
       </div>
     );
+  }
+
+  warningText() {
+    const text = 'Uh-oh, try using one of the words below';
+    return `${text}${this.state.blankAllowed ? ' or leaving blank.' : '.'}`;
   }
 
   chevyStyleRight() {
@@ -143,7 +152,7 @@ class PlayFillInTheBlankQuestion extends Component {
       float: 'right',
       marginRight: '20px',
       position: 'relative',
-      top: '-2px',
+      top: '-3px',
     };
   }
 
@@ -152,7 +161,7 @@ class PlayFillInTheBlankQuestion extends Component {
       float: 'left',
       marginLeft: '20px',
       position: 'relative',
-      top: '-2px',
+      top: '-3px',
     };
   }
 
@@ -167,7 +176,7 @@ class PlayFillInTheBlankQuestion extends Component {
       delete styling.borderImageSource;
     }
     return (
-      <span>
+      <span key={`span${i}`}>
         <div style={{ position: 'relative', height: 0, width: 0, }}>
           {warning}
         </div>
@@ -190,7 +199,7 @@ class PlayFillInTheBlankQuestion extends Component {
       const l = splitPrompt.length;
       const splitPromptWithInput = [];
       splitPrompt.forEach((section, i) => {
-        if (i != l - 1) {
+        if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
           splitPromptWithInput.push(this.renderInput(i));
         } else {
@@ -214,13 +223,8 @@ class PlayFillInTheBlankQuestion extends Component {
     return _.flatten(zipped).join('');
   }
 
-  nextQuestion() {
-    this.props.nextQuestion();
-  }
-
   checkAnswer() {
     if (this.state.inputErrors.size === 0) {
-      this.setState({ checkingAnswer: true, });
       const zippedAnswer = this.zipInputsAndText();
       const fields = {
         prompt: this.getQuestion().prompt,
@@ -232,11 +236,9 @@ class PlayFillInTheBlankQuestion extends Component {
       this.updateResponseResource(response);
       this.submitResponse(response);
       this.setState({
-        editing: false,
         response: '',
-      },
-        this.nextQuestion()
-      );
+      });
+      this.props.nextQuestion();
     }
   }
 
@@ -248,23 +250,38 @@ class PlayFillInTheBlankQuestion extends Component {
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
   }
 
+  renderMedia() {
+    if (this.getQuestion().mediaURL) {
+      return (
+        <div style={{ marginTop: 15, minWidth: 200, }}>
+          <img src={this.getQuestion().mediaURL} />
+        </div>
+      );
+    }
+  }
+
+  customText() {
+    const text = 'Add words';
+    return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
+  }
+
   render() {
     const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
-    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', }}>
           <div>
             {this.renderPrompt()}
-            <Cues getQuestion={this.getQuestion} customText={'Add words or leave blank'} />
+            <Cues getQuestion={this.getQuestion} customText={this.customText()} />
             <div className="feedback-row">
-              <img src={icon} style={{ marginTop: 3, }} />
+              <img src={icon} alt="icon" style={{ marginTop: 3, }} />
               <p dangerouslySetInnerHTML={{ __html: instructions, }} />
             </div>
-            <div className="question-button-group button-group">
-              {button}
-            </div>
           </div>
+          {this.renderMedia()}
+        </div>
+        <div className="question-button-group button-group">
+          <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>
         </div>
       </div>
     );

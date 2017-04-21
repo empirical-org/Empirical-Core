@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import Landing from '../landing';
 
 describe('Landing component', () => {
-
   describe('with no session present', () => {
     it('should render begin button', () => {
       const wrapper = shallow(
@@ -55,5 +54,4 @@ describe('Landing component', () => {
       expect(mockResumeActivity.mock.calls[0][0]).toBe('anything');
     });
   });
-
 });
