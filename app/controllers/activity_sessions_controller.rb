@@ -4,11 +4,7 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_for_update, only: [:update]
   before_action :activity, only: [:play, :result]
 
-  before_action :activity_session_authorize!, only: [:play, :result, :show]
-
-  def show
-    render json: @activity_session.to_json
-  end
+  before_action :activity_session_authorize!, only: [:play, :result]
 
   def play
     if @activity_session.state == "finished"
@@ -73,8 +69,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def activity_session_authorize!
-    @activity_session ||= ActivitySession.find(params[:id])
-    if @activity_session && @activity_session.user_id.nil?
+    if @activity_session.user_id.nil?
       return true
     elsif !ActivityAuthorizer.new(current_user, @activity_session).authorize
       render_error(404)
