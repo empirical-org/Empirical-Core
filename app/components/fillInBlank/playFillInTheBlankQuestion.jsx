@@ -52,13 +52,15 @@ class PlayFillInTheBlankQuestion extends Component {
   // $('input').getBoundingClientRect();
 
   componentDidMount() {
+    const q = this.getQuestion();
     this.setState({
-      splitPrompt: this.getQuestion().prompt.split('___'),
-      inputVals: this.generateInputs(this.getQuestion().prompt.split('___')),
-      cues: this.getQuestion().cues,
+      splitPrompt: q.prompt.split('___'),
+      inputVals: this.generateInputs(q.prompt.split('___')),
+      cues: q.cues,
+      blankAllowed: q.blankAllowed,
     });
     getGradedResponsesWithCallback(
-      this.getQuestion().key,
+      q.key,
       (data) => {
         this.setState({ responses: data, });
       }
@@ -103,12 +105,13 @@ class PlayFillInTheBlankQuestion extends Component {
   validateInput(i) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i];
-    if (inputVal.toLowerCase() && this.state.cues.indexOf(this.state.inputVals[i].toLowerCase()) === -1) {
+    const inputSufficient = this.state.blankAllowed ? true : inputVal;
+    if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
       newErrors.add(i);
     } else {
       newErrors.delete(i);
     }
-    this.setState({ inputErrors: newErrors, }, () => console.log(this.state.inputErrors));
+    this.setState({ inputErrors: newErrors, });
   }
 
   renderWarning(i) {
@@ -116,12 +119,14 @@ class PlayFillInTheBlankQuestion extends Component {
       border: '1px #ff4542 solid',
       color: '#ff4542',
       fontSize: '14px',
-      width: '350px',
-      top: '-30px',
+      width: '365px',
+      top: '-34px',
       position: 'absolute',
+      textAlign: 'center',
       backgroundColor: 'white',
-      borderRadius: '2px',
+      borderRadius: '3px',
       height: '26px',
+      paddingTop: '2px',
     };
     const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
     const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
@@ -132,7 +137,7 @@ class PlayFillInTheBlankQuestion extends Component {
     }
     return (
       <div style={warningStyle} key={`warning${i}`}>
-        <p>Uh-oh, try using one of the words below or leave blank.</p>
+        <p>Uh-oh, try using one of the words below or leaving blank.</p>
         <img style={chevyStyle} src={tooltipChevron} alt="chevron" />
       </div>
     );
@@ -143,7 +148,7 @@ class PlayFillInTheBlankQuestion extends Component {
       float: 'right',
       marginRight: '20px',
       position: 'relative',
-      top: '-2px',
+      top: '-3px',
     };
   }
 
@@ -152,7 +157,7 @@ class PlayFillInTheBlankQuestion extends Component {
       float: 'left',
       marginLeft: '20px',
       position: 'relative',
-      top: '-2px',
+      top: '-3px',
     };
   }
 
@@ -190,7 +195,7 @@ class PlayFillInTheBlankQuestion extends Component {
       const l = splitPrompt.length;
       const splitPromptWithInput = [];
       splitPrompt.forEach((section, i) => {
-        if (i != l - 1) {
+        if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
           splitPromptWithInput.push(this.renderInput(i));
         } else {
@@ -258,7 +263,7 @@ class PlayFillInTheBlankQuestion extends Component {
             {this.renderPrompt()}
             <Cues getQuestion={this.getQuestion} customText={'Add words or leave blank'} />
             <div className="feedback-row">
-              <img src={icon} style={{ marginTop: 3, }} />
+              <img src={icon} alt="icon" style={{ marginTop: 3, }} />
               <p dangerouslySetInnerHTML={{ __html: instructions, }} />
             </div>
             <div className="question-button-group button-group">
