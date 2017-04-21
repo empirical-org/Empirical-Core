@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion.jsx';
-import { fillInBlankQuestionBlankAllowed,
-       fillInBlankQuestionBlankNotAllowed }
+import { fillInBlankQuestionBlankAllowed, fillInBlankQuestionBlankNotAllowed }
        from '../../../../test/data/jest_data.js';
 
 function setup() {
-  const question = { fillInBlankQuestionBlankAllowed, };
+  const question = { fillInBlankQuestionBlankAllowed,
+    fillInBlankQuestionBlankNotAllowed, };
   const props = { question, };
   const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
 
@@ -37,15 +37,18 @@ describe('PlayFillInTheBlankQuestion component', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
       const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      wrapper.setState({ blankAllowed: true, });
       wrapper.instance().checkAnswer();
       expect(nextQuestion.mock.calls.length).toBe(1);
     });
 
-    it('should not call nextQuestion if there are no inputErrors in state', () => {
+    it('should not call nextQuestion if there are inputErrors in state', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
+      const inputErrors = new Set();
+      inputErrors.add(1);
       const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
-      wrapper.setState({ inputErrors: ['foo'], });
+      wrapper.setState({ blankAllowed: true, inputErrors, });
       wrapper.instance().checkAnswer();
       expect(nextQuestion.mock.calls.length).toBe(0);
     });
@@ -54,17 +57,9 @@ describe('PlayFillInTheBlankQuestion component', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
       const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      wrapper.setState({ blankAllowed: true, });
       wrapper.find('.button').simulate('click');
       expect(nextQuestion.mock.calls.length).toBe(1);
-    });
-  });
-
-  describe('zipInputsAndText', () => {
-    it('returns a string zipping inputs and texts', () => {
-      wrapper.setState({ inputVals: ['the', 'a'],
-        splitPrompt: ['I have ', ' friend named Marco who loves ', ' football.'],
-      });
-      expect(wrapper.instance().zipInputsAndText()).toBe('I have the friend named Marco who loves a football.');
     });
   });
 
