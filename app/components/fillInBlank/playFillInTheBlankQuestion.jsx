@@ -103,7 +103,7 @@ class PlayFillInTheBlankQuestion extends Component {
   validateInput(i) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i];
-    if (inputVal && this.state.cues.indexOf(this.state.inputVals[i]) === -1) {
+    if (inputVal.toLowerCase() && this.state.cues.indexOf(this.state.inputVals[i].toLowerCase()) === -1) {
       newErrors.add(i);
     } else {
       newErrors.delete(i);
@@ -219,23 +219,25 @@ class PlayFillInTheBlankQuestion extends Component {
   }
 
   checkAnswer() {
-    this.setState({ checkingAnswer: true, });
-    const zippedAnswer = this.zipInputsAndText();
-    const fields = {
-      prompt: this.getQuestion().prompt,
-      responses: hashToCollection(this.state.responses),
-      questionUID: this.getQuestion().key,
-    };
-    const newQuestion = new Grader(fields);
-    const response = newQuestion.checkMatch(zippedAnswer);
-    this.updateResponseResource(response);
-    this.submitResponse(response);
-    this.setState({
-      editing: false,
-      response: '',
-    },
-      this.nextQuestion()
-    );
+    if (this.state.inputErrors.size === 0) {
+      this.setState({ checkingAnswer: true, });
+      const zippedAnswer = this.zipInputsAndText();
+      const fields = {
+        prompt: this.getQuestion().prompt,
+        responses: hashToCollection(this.state.responses),
+        questionUID: this.getQuestion().key,
+      };
+      const newQuestion = new Grader(fields);
+      const response = newQuestion.checkMatch(zippedAnswer);
+      this.updateResponseResource(response);
+      this.submitResponse(response);
+      this.setState({
+        editing: false,
+        response: '',
+      },
+        this.nextQuestion()
+      );
+    }
   }
 
   submitResponse(response) {
