@@ -104,8 +104,9 @@ export class PlayFillInTheBlankQuestion extends Component {
 
   validateInput(i) {
     const newErrors = new Set(this.state.inputErrors);
-    const inputVal = this.state.inputVals[i];
+    const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
+
     if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
       newErrors.add(i);
     } else {
@@ -224,7 +225,13 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   checkAnswer() {
-    if (this.state.inputErrors.size === 0) {
+    if (!this.state.inputErrors.length) {
+      if (!this.state.blankAllowed) {
+        if (this.state.inputVals.length === 0) {
+          this.validateInput(0);
+          return;
+        }
+      }
       const zippedAnswer = this.zipInputsAndText();
       const fields = {
         prompt: this.getQuestion().prompt,
