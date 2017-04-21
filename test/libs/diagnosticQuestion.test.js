@@ -118,3 +118,70 @@ describe('The question object', () => {
     expect(typoSubOptimal.response).toBe(data.responses[1]);
   });
 });
+
+const marcellaData = {
+  questionUID: 'TestingMarcella',
+  responses: [
+    {
+      key: 1,
+      text: 'Marcella wore a heavy coat since it was snowing.',
+      feedback: "Excellent, that's correct!",
+      optimal: true,
+    },
+    {
+      key: 2,
+      text: 'Since it was snowing, Marcella wore a heavy coat.',
+      feedback: "Excellent, that's correct!",
+      optimal: true,
+    },
+    {
+      key: 3,
+      text: 'Since it was snowing, Marcella had to wear a heavy coat.',
+      feedback: "Excellent, that's correct!",
+      optimal: true,
+    },
+    {
+      key: 4,
+      text: 'It was snowing',
+      feedback: "You're missing important information.",
+      optimal: false,
+    },
+    {
+      key: 5,
+      text: 'Since, it was snowing Marcella wore a heavy coat.',
+      feedback: 'Interesting, but wrong.',
+      optimal: false,
+    }
+
+  ],
+};
+
+describe('The diagnostic marking logic', () => {
+  const question = new Question(marcellaData);
+
+  it('should be able to identify when a response is an exact match but shorter than any optimal answers', () => {
+    const responseObject = question.checkMatch(marcellaData.responses[3].text);
+    expect(responseObject.found).toEqual(true);
+    expect(responseObject.submitted).toEqual(marcellaData.responses[3].text);
+    expect(responseObject.response.key).toEqual(4);
+    expect(responseObject.response).toEqual(marcellaData.responses[3]);
+  });
+
+  it('should be able to identify when a new response is shorter than any optimal answers by ten characters or more', () => {
+    const tooShortString = 'Since it was snowing.';
+    const responseObject = question.checkMatch(tooShortString);
+    expect(responseObject.found).toEqual(true);
+    expect(responseObject.submitted).toEqual(tooShortString);
+    expect(responseObject.response.parentID).toEqual(1);
+    expect(responseObject.response.author).toEqual('Missing Details Hint');
+  });
+
+  it('should do something when a new response is exactly ten characters shorter than any optimal answers', () => {
+    const tenCharactersShorter = 'Marcella wore a heavy coat since it wa';
+    const shortestOptimalAnswer = marcellaData.responses[0].text;
+    const responseObject = question.checkMatch(tenCharactersShorter);
+    expect(responseObject.submitted).toEqual(tenCharactersShorter);
+    expect(shortestOptimalAnswer.length - tenCharactersShorter.length).toEqual(10);
+    expect(responseObject.response.author).toNotEqual('Missing Details Hint');
+  });
+});
