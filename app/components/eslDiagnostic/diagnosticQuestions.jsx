@@ -1,39 +1,39 @@
 export default function diagnosticQuestions() {
   return ([
-    {
-      type: 'TL',
-      key: 'titlecard-ell-complete-sentences',
-      content: "<h3>Complete Sentences</h3><p>In this section, you'll add to a group of words to make a complete sentence. Add as few words as possible.</p><p>Let's start!</p><br/><h3>Oraciones Completas</h3><p>En esta sección, agregarás un grupo de palabras para formar una oración. Trata de agregar el menor número posible de palabras.</p><p>¡Comencemos!</p>",
-    },
-    {
-      type: 'SF',
-      key: '-Ke_LpBo1GAcq4gXHORz', // watches the movie
-    },
-    {
-      type: 'SF',
-      key: '-Ke_Lw0PG3zy5QodpFdo', // the family from China
-    },
-    {
-      type: 'SF',
-      key: '-KOqMWRFOrYgv-KjRYdy-esp', // after the football game ended
-    },
-    {
-      type: 'TL',
-      key: 'titlecard-ell-fill-in-the-blank-scaffolded',
-      content: "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You'll rewrite the sentence, filling in the blank with one of the words from a list or choosing that no word is needed in the blank.</p><br/><h3>Completa el Espacio en Blanco: A, An, The</h3><p>En esta sección, cada oración tendrá dos o tres espacios en blanco.</p><p>Volverás a escribir la oración, rellenando el espacio en blanco con una de las palabras de una lista o eligiendo que no se necesite ninguna palabra en el espacio en blanco.</p>",
-    },
-    {
-      type: 'FB',
-      key: '-Ke_6gyGVXuHiealUgD3', // i have _____ friend named Marco who loves _____ football
-    },
-    {
-      type: 'FB',
-      key: '-Ke_70Ul5Ka4AKbbtAOa', // _____ school ends when _____ bell rings
-    },
-    {
-      type: 'FB',
-      key: '-Ke_7AgPuCE56lUNwFJN', // _____ girl lives in _____ apartment in _____ New York City
-    },
+    // {
+    //   type: 'TL',
+    //   key: 'titlecard-ell-complete-sentences',
+    //   content: "<h3>Complete Sentences</h3><p>In this section, you'll add to a group of words to make a complete sentence. Add as few words as possible.</p><p>Let's start!</p><br/><h3>Oraciones Completas</h3><p>En esta sección, agregarás un grupo de palabras para formar una oración. Trata de agregar el menor número posible de palabras.</p><p>¡Comencemos!</p>",
+    // },
+    // {
+    //   type: 'SF',
+    //   key: '-Ke_LpBo1GAcq4gXHORz', // watches the movie
+    // },
+    // {
+    //   type: 'SF',
+    //   key: '-Ke_Lw0PG3zy5QodpFdo', // the family from China
+    // },
+    // {
+    //   type: 'SF',
+    //   key: '-KOqMWRFOrYgv-KjRYdy-esp', // after the football game ended
+    // },
+    // {
+    //   type: 'TL',
+    //   key: 'titlecard-ell-fill-in-the-blank-scaffolded',
+    //   content: "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You'll rewrite the sentence, filling in the blank with one of the words from a list or choosing that no word is needed in the blank.</p><br/><h3>Completa el Espacio en Blanco: A, An, The</h3><p>En esta sección, cada oración tendrá dos o tres espacios en blanco.</p><p>Volverás a escribir la oración, rellenando el espacio en blanco con una de las palabras de una lista o eligiendo que no se necesite ninguna palabra en el espacio en blanco.</p>",
+    // },
+    // {
+    //   type: 'FB',
+    //   key: '-Ke_6gyGVXuHiealUgD3', // i have _____ friend named Marco who loves _____ football
+    // },
+    // {
+    //   type: 'FB',
+    //   key: '-Ke_70Ul5Ka4AKbbtAOa', // _____ school ends when _____ bell rings
+    // },
+    // {
+    //   type: 'FB',
+    //   key: '-Ke_7AgPuCE56lUNwFJN', // _____ girl lives in _____ apartment in _____ New York City
+    // },
     {
       type: 'TL',
       key: 'titlecard-ell-past-present-and-future-tense',

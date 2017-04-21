@@ -112,13 +112,22 @@ const PlayDiagnosticQuestion = React.createClass({
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking);
       this.updateResponseResource(response);
-      this.submitResponse(response);
-      this.setState({
-        editing: false,
-        response: '',
-      },
-        this.nextQuestion()
-      );
+      console.log('response: ', response);
+      if (response.found && response.response.author === 'Missing Details Hint') {
+        this.setState({
+          editing: false,
+          error: 'Your answer is too short. Please read the directions carefully and try again.',
+        });
+      } else {
+        this.submitResponse(response);
+        this.setState({
+          editing: false,
+          response: '',
+          error: undefined,
+        },
+          this.nextQuestion()
+        );
+      }
     }
   },
 
