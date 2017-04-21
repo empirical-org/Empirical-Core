@@ -112,7 +112,6 @@ const PlayDiagnosticQuestion = React.createClass({
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking);
       this.updateResponseResource(response);
-      console.log('response: ', response);
       if (response.found && response.response.author === 'Missing Details Hint') {
         this.setState({
           editing: false,
