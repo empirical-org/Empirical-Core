@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
 import icon from '../../img/question_icon.svg';
+import tooltipChevron from '../../img/tooltipChevron.svg';
 import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import Cues from '../renderForQuestions/cues.jsx';
 
 const styles = {
   container: {
     marginTop: 15,
+    marginBottom: 20,
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -39,16 +41,21 @@ class PlayFillInTheBlankQuestion extends Component {
   constructor() {
     super();
     this.checkAnswer = this.checkAnswer.bind(this);
+    this.getQuestion = this.getQuestion.bind(this);
     this.state = {
       splitPrompt: [],
       inputVals: [],
+      inputErrors: new Set(),
     };
   }
+
+  // $('input').getBoundingClientRect();
 
   componentDidMount() {
     this.setState({
       splitPrompt: this.getQuestion().prompt.split('___'),
       inputVals: this.generateInputs(this.getQuestion().prompt.split('___')),
+      cues: this.getQuestion().cues,
     });
     getGradedResponsesWithCallback(
       this.getQuestion().key,
@@ -73,7 +80,7 @@ class PlayFillInTheBlankQuestion extends Component {
 
   handleChange(i, e) {
     const existing = [...this.state.inputVals];
-    existing[i] = e.target.value;
+    existing[i] = e.target.value.trim();
     this.setState({
       inputVals: existing,
     });
@@ -93,6 +100,90 @@ class PlayFillInTheBlankQuestion extends Component {
     return <span key={i} style={style}>{text}</span>;
   }
 
+  validateInput(i) {
+    const newErrors = new Set(this.state.inputErrors);
+    const inputVal = this.state.inputVals[i];
+    if (inputVal && this.state.cues.indexOf(this.state.inputVals[i]) === -1) {
+      newErrors.add(i);
+    } else {
+      newErrors.delete(i);
+    }
+    this.setState({ inputErrors: newErrors, }, () => console.log(this.state.inputErrors));
+  }
+
+  renderWarning(i) {
+    const warningStyle = {
+      border: '1px #ff4542 solid',
+      color: '#ff4542',
+      fontSize: '14px',
+      width: '350px',
+      top: '-30px',
+      position: 'absolute',
+      backgroundColor: 'white',
+      borderRadius: '2px',
+      height: '26px',
+    };
+    const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
+    const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
+    let chevyStyle = this.chevyStyleLeft();
+    if (rectangle.left > (body.width / 2)) {
+      warningStyle.right = '-73px';
+      chevyStyle = this.chevyStyleRight();
+    }
+    return (
+      <div style={warningStyle} key={`warning${i}`}>
+        <p>Uh-oh, try using one of the words below or leave blank.</p>
+        <img style={chevyStyle} src={tooltipChevron} alt="chevron" />
+      </div>
+    );
+  }
+
+  chevyStyleRight() {
+    return {
+      float: 'right',
+      marginRight: '20px',
+      position: 'relative',
+      top: '-2px',
+    };
+  }
+
+  chevyStyleLeft() {
+    return {
+      float: 'left',
+      marginLeft: '20px',
+      position: 'relative',
+      top: '-2px',
+    };
+  }
+
+  renderInput(i) {
+    let styling = styles.input;
+    let warning;
+    if (this.state.inputErrors.has(i)) {
+      warning = this.renderWarning(i);
+      styling = Object.assign({}, styling);
+      styling.borderColor = '#ff7370';
+      styling.borderWidth = '2px';
+      delete styling.borderImageSource;
+    }
+    return (
+      <span>
+        <div style={{ position: 'relative', height: 0, width: 0, }}>
+          {warning}
+        </div>
+        <input
+          id={`input${i}`}
+          key={i + 100}
+          style={styling}
+          type="text"
+          onChange={this.getChangeHandler(i)}
+          value={this.state.inputVals[i]}
+          onBlur={() => this.validateInput(i)}
+        />
+      </span>
+    );
+  }
+
   getPromptElements() {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
@@ -101,15 +192,7 @@ class PlayFillInTheBlankQuestion extends Component {
       splitPrompt.forEach((section, i) => {
         if (i != l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
-          splitPromptWithInput.push((
-            <input
-              key={i + 100}
-              style={styles.input}
-              type="text"
-              onChange={this.getChangeHandler(i)}
-              value={this.state.inputVals[i]}
-            />
-          ));
+          splitPromptWithInput.push(this.renderInput(i));
         } else {
           splitPromptWithInput.push(this.renderText(section, i));
         }
@@ -136,8 +219,8 @@ class PlayFillInTheBlankQuestion extends Component {
   }
 
   checkAnswer() {
+    this.setState({ checkingAnswer: true, });
     const zippedAnswer = this.zipInputsAndText();
-    console.log(zippedAnswer);
     const fields = {
       prompt: this.getQuestion().prompt,
       responses: hashToCollection(this.state.responses),
@@ -171,11 +254,11 @@ class PlayFillInTheBlankQuestion extends Component {
         <div style={{ display: 'flex', }}>
           <div>
             {this.renderPrompt()}
+            <Cues getQuestion={this.getQuestion} customText={'Add words or leave blank'} />
             <div className="feedback-row">
               <img src={icon} style={{ marginTop: 3, }} />
               <p dangerouslySetInnerHTML={{ __html: instructions, }} />
             </div>
-
             <div className="question-button-group button-group">
               {button}
             </div>
