@@ -32,6 +32,7 @@ import EditIncorrectSequenceContainer from '../components/incorrectSequence/edit
 import NewIncorrectSequenceContainer from '../components/incorrectSequence/newIncorrectSequenceContainer.jsx';
 import TestQuestionContainer from '../components/questions/testQuestion.jsx';
 import ChooseModelContainer from '../components/questions/chooseModelContainer.jsx';
+import AnswerVisualizer from '../components/misc/answerVisualizer.jsx';
 import FillInBlankQuestions from '../components/fillInBlank/fillInBlankQuestions.jsx';
 import FillInBlankQuestion from '../components/fillInBlank/fillInBlankQuestion.jsx';
 import TestFillInBlankQuestionContainer from '../components/fillInBlank/testFillInBlankQuestionContainer.jsx';
@@ -55,6 +56,7 @@ const AdminRoutes = (
       <Route path="incorrect-sequences/:incorrectSequenceID/edit" component={EditIncorrectSequenceContainer} />
       <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
       <Route path="test" component={TestQuestionContainer} />
+      <Route path="visualize" component={AnswerVisualizer} />
     </Route>
 
     {/* fill in the blanks section*/}
