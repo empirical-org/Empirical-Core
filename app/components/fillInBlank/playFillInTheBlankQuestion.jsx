@@ -37,7 +37,7 @@ const styles = {
   },
 };
 
-class PlayFillInTheBlankQuestion extends Component {
+export class PlayFillInTheBlankQuestion extends Component {
   constructor() {
     super();
     this.checkAnswer = this.checkAnswer.bind(this);
@@ -223,13 +223,8 @@ class PlayFillInTheBlankQuestion extends Component {
     return _.flatten(zipped).join('');
   }
 
-  nextQuestion() {
-    this.props.nextQuestion();
-  }
-
   checkAnswer() {
     if (this.state.inputErrors.size === 0) {
-      this.setState({ checkingAnswer: true, });
       const zippedAnswer = this.zipInputsAndText();
       const fields = {
         prompt: this.getQuestion().prompt,
@@ -241,11 +236,9 @@ class PlayFillInTheBlankQuestion extends Component {
       this.updateResponseResource(response);
       this.submitResponse(response);
       this.setState({
-        editing: false,
         response: '',
-      },
-        this.nextQuestion()
-      );
+      });
+      this.props.nextQuestion();
     }
   }
 

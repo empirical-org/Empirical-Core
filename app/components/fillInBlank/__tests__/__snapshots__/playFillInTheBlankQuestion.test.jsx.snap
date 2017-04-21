@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayFillInTheBlankQuestion component should render 1`] = `
+<div
+  className="student-container-inner-diagnostic"
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexWrap": "wrap",
+            "fontSize": 24,
+            "marginBottom": 18,
+            "marginTop": 15,
+          }
+        }
+      />
+      <cues
+        customText="Add words."
+        getQuestion={[Function]}
+      />
+      <div
+        className="feedback-row"
+      >
+        <img
+          alt="icon"
+          src="test-file-stub"
+          style={
+            Object {
+              "marginTop": 3,
+            }
+          }
+        />
+        <p
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Combine the sentences into one sentence. Combinar las frases en una frase.",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="question-button-group button-group"
+  >
+    <button
+      className="button student-submit"
+      onClick={[Function]}
+    >
+      Submit | Enviar
+    </button>
+  </div>
+</div>
+`;
