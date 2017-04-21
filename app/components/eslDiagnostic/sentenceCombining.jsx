@@ -217,8 +217,11 @@ const PlayDiagnosticQuestion = React.createClass({
               disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
               hasError={this.state.error}
             />
-            <div className="question-button-group button-group">
-              {button}
+            <div className="button-and-error-row">
+              <p className="error">{this.state.error}</p>
+              <div className="question-button-group button-group">
+                {button}
+              </div>
             </div>
           </ReactTransition>
         </div>
