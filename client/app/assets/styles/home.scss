@@ -148,6 +148,15 @@ section.q-hero {
   height: 530px;
   background-image: url(../../../../public/images/homepage/homepage_pattern.png);
   background-position: center center;
+  .header {
+    .q-h1 {
+      margin-bottom: 0px;
+    }
+    p.text-white {
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+  }
 }
 
 nav.q-navbar-home {
@@ -259,6 +268,8 @@ nav.q-navbar-home {
     }
   }
   @media screen and (max-width: 550px) {
+    height: 60px;
+
     .home-nav-right.wide {
       display: none;
     }
@@ -300,7 +311,7 @@ nav.q-navbar-home {
         font-size: 4em;
         @media only screen and (max-width : 419px) {
           font-size: 3em;
-          top: -10px;
+          top: -8px;
         }
       }
 

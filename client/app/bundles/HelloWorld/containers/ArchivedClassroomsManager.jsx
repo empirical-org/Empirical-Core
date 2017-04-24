@@ -53,7 +53,7 @@ export default React.createClass({
 
  tableRows: function(cl, action){
    let manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
-   let final = <span onClick={this.classAction.bind(null, action, cl.id)} className={action.toLowerCase() + ' ' + cl.className.replace(/ /g,'')}>{action}</span>;
+   let final = <span onClick={() => {this.classAction(action, cl.id)}} className={action.toLowerCase() + ' ' + cl.className.replace(/ /g,'')}>{action}</span>;
    if (this.props.role === 'teacher') {
      return (
        <tr key={cl.id}>
@@ -129,7 +129,7 @@ export default React.createClass({
   joinOrAddClass: function(){
     if (this.props.role === 'teacher') {
       return(<a href='/teachers/classrooms/new' className='btn button-green'>Add a Class</a>);
-    } else if (this.props.role === 'students') {
+    } else if (this.props.role === 'student') {
       return(<a href='/students_classrooms/add_classroom' className='btn button-green'>Join a Class</a>);
     }
   },
