@@ -49,7 +49,7 @@
     "react-datepicker": "^0.40.0",
     "react-dom": "^15.2.1",
     "react-markdown": "^2.4.6",
-    "react-on-rails": "^6.0.4",
+    "react-on-rails": "=6.5.0",
     "react-redux": "^4.4.1",
     "react-router": "^2.0.1",
     "redux": "^3.3.1",
@@ -111,7 +111,11 @@
   "jest": {
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "author": "Empirical",
   "license": "ISC"
