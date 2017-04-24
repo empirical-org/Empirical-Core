@@ -38,26 +38,22 @@ const styles = {
 };
 
 export class PlayFillInTheBlankQuestion extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.getQuestion = this.getQuestion.bind(this);
+    const q = this.getQuestion();
+    const splitPrompt = q.prompt.split('___');
     this.state = {
-      splitPrompt: [],
-      inputVals: [],
+      splitPrompt,
+      inputVals: this.generateInputs(splitPrompt),
       inputErrors: new Set(),
+      cues: q.cues,
+      blankAllowed: q.blankAllowed,
     };
   }
 
-  // $('input').getBoundingClientRect();
-
   componentDidMount() {
-    this.setState({
-      splitPrompt: this.getQuestion().prompt.split('___'),
-      inputVals: this.generateInputs(this.getQuestion().prompt.split('___')),
-      cues: this.getQuestion().cues,
-      blankAllowed: this.getQuestion().blankAllowed,
-    });
     getGradedResponsesWithCallback(
       this.getQuestion().key,
       (data) => {
