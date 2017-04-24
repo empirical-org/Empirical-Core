@@ -243,27 +243,10 @@ export default React.createClass({
 		}
 	},
 	updateSchoolOptionsDoNotApply: function() {
-		var x = $(this.refs.schoolOptionsDoNotApply.getDOMNode()).attr('checked');
-		var schoolOptionsDoNotApply;
-		if (x == 'checked') {
-			schoolOptionsDoNotApply = true;
-		} else {
-			schoolOptionsDoNotApply = false;
-		}
-		this.setState({schoolOptionsDoNotApply: schoolOptionsDoNotApply});
+		this.setState({schoolOptionsDoNotApply: !this.state.schoolOptionsDoNotApply});
 	},
-	determineIfSchoolOptionsDoNotApplyShouldBeChecked: function() {
-		var value;
-		if (this.state.schoolOptionsDoNotApply) {
-			value = 'checked';
-		} else {
-			value = null;
-		}
-		return value;
-	},
-	updatePassword: function() {
-		var password = $(this.refs.password).val()
-		this.setState({password: password});
+	updatePassword: function(e) {
+		this.setState({password: e.target.value});
 	},
 	updateRole: function(role) {
 		this.setState({role: role});
@@ -278,7 +261,7 @@ export default React.createClass({
 			selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role}/>
 			subscription = <SelectSubscription subscription={this.state.subscription} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState}/>
 		} else {
-			selectRole = <UserSelectRole role={this.state.roll || 'teacher'} updateRole={this.updateRole}/>
+			selectRole = <UserSelectRole role={this.state.role || 'teacher'} updateRole={this.updateRole}/>
 			subscription = <StaticDisplaySubscription subscription={this.state.subscription}/>
 		}
 
@@ -365,7 +348,7 @@ export default React.createClass({
 						<div className='row school-checkbox'>
 							<div className='form-label col-xs-2'></div>
 							<div className='col-xs-1 no-pr'>
-								<input ref='schoolOptionsDoNotApply' onChange={this.updateSchoolOptionsDoNotApply} type='checkbox' checked={this.determineIfSchoolOptionsDoNotApplyShouldBeChecked()}/>
+								<input ref='schoolOptionsDoNotApply' onChange={this.updateSchoolOptionsDoNotApply} type='checkbox' checked={this.state.schoolOptionsDoNotApply}/>
 							</div>
 							<div className='col-xs-6 no-pl form-label checkbox-label'>
 								My school is not listed.
