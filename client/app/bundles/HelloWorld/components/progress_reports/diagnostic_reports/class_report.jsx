@@ -66,7 +66,7 @@ export default React.createClass({
         time: 'numeric'
       },
       default: {
-        field: 'name',
+        field: 'score',
         direction: 'asc'
       }
     };

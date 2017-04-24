@@ -12,7 +12,7 @@
  import ActivitySearchResults from './activity_search_results/activity_search_results'
  import Pagination from './pagination/pagination'
  import SelectedActivities from './selected_activities/selected_activities'
- import LoadingIndicator from '../../../general_components/loading_indicator.jsx'
+ import LoadingIndicator from '../../../shared/loading_indicator.jsx'
 
 
  export default  React.createClass({

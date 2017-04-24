@@ -110,6 +110,6 @@ export default React.createClass({
         break;
     }
 
-    return result;
+    return result || null;
   }
 });

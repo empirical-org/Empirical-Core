@@ -23,7 +23,7 @@ include_context "Unit Assignments Variables"
 
   describe 'assign_selected_packs recommendations' do
 
-      it 'can create new units and classroom activities' do
+      skip 'can create new units and classroom activities' do
           data = {"selections":[
                     {"id":unit_template1.id,"classrooms":[{"id":classroom.id,"student_ids":[144835]}]},
                     {"id":unit_template2.id,"classrooms":[{"id":classroom.id,"student_ids":[144835, 144836]}]},
@@ -49,7 +49,7 @@ include_context "Unit Assignments Variables"
         expect(units_have_a_corresponding_classroom_activities?(unit_template_ids)).to eq(false)
       end
 
-      it 'can update existing units without duplicating them' do
+      skip 'can update existing units without duplicating them' do
 
           old_data = {"selections":[
                         {"id":unit_template3.id,"classrooms":[{"id":classroom.id,"student_ids":[student1.id]}]}
