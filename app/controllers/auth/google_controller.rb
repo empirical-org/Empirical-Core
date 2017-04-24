@@ -27,7 +27,7 @@ class Auth::GoogleController < ApplicationController
     request.referer &&
     URI(request.referer).path &&
     URI(request.referer).host != "accounts.google.com" &&
-    ['/session/new', '/account/new', '/teachers/classrooms/herokudashboard'].exclude?(URI(request.referer).path)
+    ['/session/new', '/account/new', '/teachers/classrooms/dashboard'].exclude?(URI(request.referer).path)
   end
 
   def google_login(email, access_token, google_id)
