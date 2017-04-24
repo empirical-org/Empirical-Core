@@ -1,4 +1,4 @@
-.google-classroom-modal, .google-mismatch-container {
+.google-classroom-modal {
     text-align: center;
     .fa-exclamation-triangle {
       color: #ff4542;
@@ -43,6 +43,7 @@
    form {
      min-height: 30px;
      input[type=text] {
+       border: 1px solid #737373;
        max-width: 264px;
        width: 100%;
        float: left;

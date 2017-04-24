@@ -58,16 +58,21 @@ export default class extends React.Component{
   showEmailErrors() {
     let content
     if (this.state.error) {
-      content = <span><i className="fa fa-exclamation-triangle" aria-hidden="true"></i>{this.state.error}</span>
+      content = <span><i className="fa fa-exclamation-triangle" aria-hidden="true"/>{this.state.error}</span>
     }
     return <div className="error">{content}</div>
   }
 
   render(){
-    const inputBorderColor = this.state.error ? { 'border': '1px solid #ff4542'} : { 'border': '1px solid #737373'}
+    const inputBorderColor = this.state.error ? { 'border': '1px solid #ff4542'} : {'display': 'inherit'}
+    const input = this.state.email
+    ? <input type="text" value={this.state.email} style={inputBorderColor} onChange={this.handleChange}/>
+    : <input type="text" placeholder={'Update your Quill email'} style={inputBorderColor} onChange={this.handleChange}/>
+
+
     return(<div>
       <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.email || 'Enter your email address'} style={inputBorderColor} onChange={this.handleChange}/>
+          <input type="text" value={this.state.email || 'Update your Quill email'} style={inputBorderColor} onChange={this.handleChange}/>
           <input type="submit" className='q-button cta-button bg-white text-black' value={this.state.updated
               ? 'Updated!'
               : 'Update Email'} disabled={this.state.updated}/>
