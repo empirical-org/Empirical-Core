@@ -1,4 +1,4 @@
-.google-classroom-modal {
+.google-classroom-modal, .google-mismatch-container {
     text-align: center;
     .fa-exclamation-triangle {
       color: #ff4542;
@@ -133,4 +133,5 @@
            -ms-flex-pack: justify;
                justify-content: space-between;
      }
+
    }
