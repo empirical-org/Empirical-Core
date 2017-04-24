@@ -63,7 +63,7 @@ class Auth::GoogleController < ApplicationController
 
 
   def register_with_google(name, email, role, access_token, google_id)
-    if current_user.email != email
+    if current_user && current_user.email != email
       redirect_to "/auth/google_email_mismatch/#{email}"
       return
     else
