@@ -34,6 +34,8 @@ import TestQuestionContainer from '../components/questions/testQuestion.jsx';
 import ChooseModelContainer from '../components/questions/chooseModelContainer.jsx';
 import AnswerVisualizer from '../components/misc/answerVisualizer.jsx';
 import FillInBlankQuestions from '../components/fillInBlank/fillInBlankQuestions.jsx';
+import NewFillInBlank from '../components/fillInBlank/newFillInBlank.jsx';
+import EditFillInBlank from '../components/fillInBlank/editFillInBlank.jsx';
 import FillInBlankQuestion from '../components/fillInBlank/fillInBlankQuestion.jsx';
 import TestFillInBlankQuestionContainer from '../components/fillInBlank/testFillInBlankQuestionContainer.jsx';
 
@@ -61,9 +63,11 @@ const AdminRoutes = (
 
     {/* fill in the blanks section*/}
     <Route path="fill-in-the-blanks" component={FillInBlankQuestions} />
+    <Route path="fill-in-the-blanks/new" component={NewFillInBlank} />
     <Route path="fill-in-the-blanks/:questionID" component={FillInBlankQuestion}>
       <IndexRedirect to="/admin/fill-in-the-blanks/:questionID/responses" />
       <Route path="responses" component={ResponseComponentWrapper} />
+      <Route path="edit" component={EditFillInBlank} />
       <Route path="test" component={TestFillInBlankQuestionContainer} />
     </Route>
 
