@@ -22,7 +22,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   def google_email_mismatch
-    @google_email = params[:email]
+    @google_email = params[:email] || ''
     render 'accounts/google_mismatch'
   end
 
