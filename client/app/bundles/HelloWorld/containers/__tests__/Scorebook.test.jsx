@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import Scorebook from '../Scorebook.jsx'
 import EmptyProgressReport from '../../components/scorebook/EmptyProgressReport'
-import LoadingIndicator from '../../components/general_components/loading_indicator'
+import LoadingIndicator from '../../components/shared/loading_indicator'
 import StudentScores from '../../components/scorebook/student_scores'
 import ScorebookFilters from '../../components/scorebook/scorebook_filters'
 import ScoreLegend from '../../components/scorebook/score_legend'
