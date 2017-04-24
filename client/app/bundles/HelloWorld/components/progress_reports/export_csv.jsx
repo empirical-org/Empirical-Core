@@ -1,65 +1,96 @@
-"use strict";
+'use strict';
 
 import React from 'react'
 import ExportCsvModal from './export_csv_modal.jsx'
-import $ from 'jquery'
+import request from 'request'
+import auth_token from '../modules/get_auth_token.js'
+import Pusher from 'pusher-js'
+import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx'
+
 export default React.createClass({
-  propTypes: {
-    exportType: React.PropTypes.string.isRequired,
-    filters: React.PropTypes.object.isRequired,
-    reportUrl: React.PropTypes.string.isRequired,
-    teacher: React.PropTypes.object.isRequired,
-    disabled: React.PropTypes.bool
-  },
+    propTypes: {
+        exportType: React.PropTypes.string.isRequired,
+        filters: React.PropTypes.object.isRequired,
+        reportUrl: React.PropTypes.string.isRequired,
+        teacher: React.PropTypes.object.isRequired,
+        disabled: React.PropTypes.bool
+    },
 
-  getDefaultProps: function() {
-    return {
-      requestUrl: '/teachers/progress_reports/csv_exports'
-    };
-  },
+    getDefaultProps: function() {
+      return {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`}
+    },
 
-  createExport: function() {
-    if (this.props.disabled) {
-      alert('CSV Exports are a Quill Premium Feature! Upgrade to Premium for reports, diagnostics, and more.')
-    } else {
-      $.ajax({
-        url: this.props.requestUrl,
-        data: {
-          authenticity_token: $('meta[name=csrf-token]').attr('content'),
-          report_url: this.props.reportUrl,
-          csv_export: {
-            export_type: this.props.exportType,
-            filters: this.props.filters
+    getInitialState: function() {
+      return {csvUrl: undefined, waitingForCsv: false}
+    },
+
+    createExport: function() {
+        if (this.props.disabled) {
+            alert('CSV Exports are a Quill Premium Feature! Upgrade to Premium for reports, diagnostics, and more.')
+        } else {
+            const data = {
+                    authenticity_token: auth_token(),
+                    report_url: this.props.reportUrl,
+                    csv_export: {
+                        export_type: this.props.exportType,
+                        filters: this.props.filters
+                    }
+                }
+                const that = this;
+                request({
+                    url: this.props.requestUrl,
+                    method: 'POST',
+                    json: data
+                },
+                (err, httpResponse, body) => {
+                    if (httpResponse.statusCode === 200) {
+                      that.initializePusher()
+                    } else {
+                      alert('Something went wrong with your CSV export. Please contact support.')
+                    }
+                })
+            }
+        },
+
+        initializePusher: function() {
+          this.setState({waitingForCsv: true})
+          if (process.env.NODE_ENV === 'development') {
+            Pusher.logToConsole = true;
           }
+          const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+          let teacherId = this.props.teacher.id
+          const channel = pusher.subscribe(teacherId.toString());
+          const that = this;
+          channel.bind('csv-export-completed', function(data) {
+            that.csvReceived(data)
+            pusher.unsubscribe(teacherId.toString())
+          });
         },
-        context: this,
-        dataType: 'json',
-        type: 'POST',
-        success: function onSuccess(data) {
-          this.openModal();
+
+        csvReceived: function(data, teacherId) {
+          this.setState({waitingForCsv: false, csvUrl: data.message})
         },
-        error: function(xhr) {
-          alert('Something went wrong with your CSV export. Most likely it is not implemented yet.');
+
+        render: function() {
+          let content
+          const s = this.state
+          if (s.csvUrl) {
+            content = 'Ready: Click here'
+          } else if (s.waitingForCsv) {
+            content = <span>
+                        Downloading
+                        <ButtonLoadingIndicator/>
+                      </span>
+          } else {
+            content = 'Download Report'
+          }
+            return (
+                <div className="export-csv">
+                    <a href={s.csvUrl || null} className="download-button q-button bg-quillgreen text-white"
+                        disabled={this.state.waitingForCsv}
+                        download={s.csvUrl ? 'CSV' : null}
+                        onClick={!s.csvUrl && !s.waitingForCsv ? this.createExport : null}>{content}</a>
+                </div>
+            );
         }
-      });
-    }
-
-  },
-
-  openModal: function() {
-    // TODO: fix modals using react-bootstrap so we can stop using js alerts
-    // alert('Your Quill Progress Report is on its way to your email! This table is being emailed to you as a CSV spreadsheet, which can be opened with Google Sheets or Excel. It should arrive within the next five minutes. Please Check: ' + {this.props.email} + ' If you do not receive an email within 10 minutes, please check your spamfolder.')
-    alert('Your Progress Report is being emailed to you! It should arrive within the next five minutes.')
-    // console.log($(this.refs.exportModal.getDOMNode()));
-    // $(this.refs.exportModal.getDOMNode()).modal();
-  },
-
-  render: function() {
-    return (
-      <div className="export-csv">
-        <ExportCsvModal email={this.props.teacher.email} ref="exportModal" />
-        <button className="button-green" onClick={this.createExport}>Download Report</button>
-      </div>
-    );
-  }
-});
+    });
