@@ -40,6 +40,7 @@ export default React.createClass({
         </div>
       );
     } else {
+      // HARDCODED
       return (
         <div className="landing-page">
           <h1>You've completed the Quill Placement Activity</h1>

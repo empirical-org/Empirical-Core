@@ -11,10 +11,12 @@ export default React.createClass({
     if (this.props.session) {
       // resume session if one is passed
       onClickFn = this.resume;
+      // HARDCODED
       text = <span>Resume / Reanudo</span>;
     } else {
       // otherwise begin new session
       onClickFn = this.props.begin;
+      // HARDCODED
       text = <span>Begin / Comienzo</span>;
     }
     return (
@@ -25,6 +27,7 @@ export default React.createClass({
   },
 
   render: function () {
+    // HARDCODED
     return (
       <div className="landing-page">
         <h1>

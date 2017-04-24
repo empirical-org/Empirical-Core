@@ -71,6 +71,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getSentenceOrFragmentButtons() {
+    // HARDCODED
     return (
       <div className="sf-button-group">
         <button className="button sf-button" value="Sentence" onClick={() => { this.checkChoice('Sentence'); }}>Complete / Completa la oración</button>
@@ -116,6 +117,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   renderSentenceOrFragmentMode() {
+    // HARDCODED
     if (this.choosingSentenceOrFragment()) {
       return (
         <div className="container">
@@ -138,6 +140,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   renderPlaySentenceFragmentMode(fragment) {
+    // HARDCODED
     const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>;
 
     if (!this.choosingSentenceOrFragment()) {
@@ -152,6 +155,7 @@ const PlaySentenceFragment = React.createClass({
         );
         // instructions = this.props.question.instructions;
       } else {
+        // HARDCODED
         component = (
           <div className="feedback-row">
             <img className="info" src={icon} />
