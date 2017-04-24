@@ -6,7 +6,7 @@ import AddStudent from '../AddStudent.jsx';
 import $ from 'jquery'
 import ClassroomDropdown from '../../components/general_components/dropdown_selectors/classroom_dropdown.jsx'
 import ClassroomsStudentsTable from '../../components/general_components/classrooms_students_table.jsx'
-import LoadingSpinner from '../../components/general_components/loading_indicator.jsx'
+import LoadingSpinner from '../../components/shared/loading_indicator.jsx'
 import StudentCreatesAccountSection from '../../components/invite_users/add_students/StudentCreatesAccountSection.jsx'
 import TeacherCreatesAccountSection from '../../components/invite_users/add_students/TeacherCreatesAccountSection.jsx'
 import GoogleClassroomCreatesAccountSection from '../../components/invite_users/add_students/GoogleClassroomCreatesAccountSection.jsx'
