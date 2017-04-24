@@ -2,6 +2,8 @@
 
  import React from 'react'
  import { Link } from 'react-router'
+ import $ from 'jquery'
+
  import LoadingIndicator from '../../../shared/loading_indicator'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateProfileHeader from './unit_template_profile_header'
@@ -44,7 +46,6 @@
       location.reload()
     }
   }
-
 
   displayUnit(response) {
     this.setState({
