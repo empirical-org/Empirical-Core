@@ -17,10 +17,10 @@
     var grade = this.props.data.grade;
     if (grade && grade.toLowerCase() !== 'university'.toLowerCase()) {
       return `Great Activity Packs for Your ${SuffixBuilder(grade)} Grade Class`;
-    } else if (grade.toLowerCase() === 'university'.toLowerCase()) {
+    } else if (grade && grade.toLowerCase() === 'university'.toLowerCase()) {
       return 'Great Activity Packs for Your University Class'
     } else {
-      return "Featured Activity Packs";
+      return 'Featured Activity Packs';
     }
   },
 
