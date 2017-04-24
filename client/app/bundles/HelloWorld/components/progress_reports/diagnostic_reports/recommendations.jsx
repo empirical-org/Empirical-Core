@@ -21,7 +21,6 @@ export default React.createClass({
 
 	componentDidMount: function() {
 		this.getRecommendationData(this.props.params.classroomId, this.props.params.activityId);
-		this.getPreviouslyAssignedRecommendationData(this.props.params.classroomId, this.props.params.activityId);
 	},
 
 	componentWillReceiveProps(nextProps) {
@@ -31,7 +30,6 @@ export default React.createClass({
 			assigned: false
 		});
 		this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
-		this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
 	},
 
 	getRecommendationData: function(classroomId, activityId){
@@ -39,10 +37,9 @@ export default React.createClass({
 		$.get('/teachers/progress_reports/recommendations_for_classroom/' + classroomId + '/activity/' + activityId, (data) => {
 			that.setState({
 				recommendations: JSON.parse(JSON.stringify(data.recommendations)),
-				selections: [...data.recommendations],
 				students: data.students,
 				loading: false
-			})
+			}, that.getPreviouslyAssignedRecommendationData(classroomId, activityId))
 		})
 	},
 
@@ -50,9 +47,22 @@ export default React.createClass({
 		const that = this;
 		$.get('/teachers/progress_reports/previously_assigned_recommendations/' + classroomId + '/activity/' + activityId, (data => {
 			that.setState({
-				previouslyAssignedRecommendations: data.previouslyAssignedRecommendations
-			})
+				previouslyAssignedRecommendations: data.previouslyAssignedRecommendations,
+			}, that.setSelections(data.previouslyAssignedRecommendations))
 		}))
+	},
+
+	setSelections: function(previouslyAssignedRecommendations) {
+		const selections = this.state.recommendations.map((recommendation, i) => {
+			const prevAssigned = previouslyAssignedRecommendations[i]
+			const allAssignedStudents = _.uniq(recommendation.students.concat(prevAssigned.students))
+			return {
+				activity_pack_id: recommendation.activity_pack_id,
+				name: recommendation.name,
+				students: allAssignedStudents
+			}
+		})
+		this.setState({selections})
 	},
 
 	studentWasAssigned: function(student, previouslyAssignedRecommendation) {
@@ -62,7 +72,7 @@ export default React.createClass({
 	},
 
 	studentIsSelected: function(student, selection) {
-		return (_.indexOf(selection.students, student.id) != -1)
+		return selection.students.includes(student.id)
 	},
 
 	studentIsRecommended: function(student, recommendation) {

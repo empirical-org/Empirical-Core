@@ -4,7 +4,7 @@
  import Classroom from './classroom'
  import ActivityDueDate from './activity_due_date'
  import ClassroomsWithStudents  from './ClassroomsWithStudents.jsx'
- import AssigningIndicator from '../../../shared/assigning_indicator'
+ import AssigningIndicator from '../../../shared/button_loading_indicator'
 
  export default  React.createClass({
 

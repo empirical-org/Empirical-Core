@@ -5,7 +5,7 @@
  import ActivitySearchAndSelect from '../activity_search/activity_search_and_select'
  import NameTheUnit from './name_the_unit'
  import LoadingIndicator from '../../../shared/loading_indicator.jsx'
- import AssigningIndicator from '../../../shared/assigning_indicator'
+ import AssigningIndicator from '../../../shared/button_loading_indicator'
 
  export default React.createClass({
   propTypes: {

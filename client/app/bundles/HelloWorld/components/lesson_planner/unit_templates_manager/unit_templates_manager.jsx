@@ -5,6 +5,7 @@ import _l from 'lodash'
 import _ from 'underscore'
 import UnitTemplateMinis from './unit_template_minis/unit_template_minis'
 import UnitTemplateProfile from './unit_template_profile/unit_template_profile'
+import ScrollToTop from '../../shared/scroll_to_top'
 import fnl from '../../modules/fnl'
 import updaterGenerator from '../../modules/updater'
 import Server from '../../modules/server/server'
@@ -201,6 +202,7 @@ export default React.createClass({
   render: function () {
     return (
       <span>
+        <ScrollToTop />
         <div className='unit-templates-manager'>
           {this.showUnitTemplates()}
         </div>
