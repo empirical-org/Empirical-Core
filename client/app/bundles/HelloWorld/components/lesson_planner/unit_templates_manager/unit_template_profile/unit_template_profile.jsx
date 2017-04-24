@@ -5,6 +5,7 @@
  import $ from 'jquery'
 
  import LoadingIndicator from '../../../shared/loading_indicator'
+ import ScrollToTop from '../../../shared/scroll_to_top'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateProfileHeader from './unit_template_profile_header'
  import UnitTemplateProfileDescription from './unit_template_profile_description'
@@ -82,6 +83,7 @@
     } else {
       return (
         <div className='unit-template-profile'>
+          <ScrollToTop/>
           {this.showListFilterOptions()}
           <UnitTemplateProfileHeader data={this.state.data} />
           <div className="container white">
