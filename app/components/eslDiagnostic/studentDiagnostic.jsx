@@ -11,6 +11,7 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion.jsx';
 import LandingPage from './landing.jsx';
+import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import TitleCard from './titleCard.jsx';
@@ -268,7 +269,7 @@ const StudentDiagnostic = React.createClass({
         } else if (this.props.playDiagnostic.language) {
           component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
         } else {
-          component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
+          component = <LanguagePage setLanguage={() => alert('Setting Lang')} />;
         }
       }
     } else {
