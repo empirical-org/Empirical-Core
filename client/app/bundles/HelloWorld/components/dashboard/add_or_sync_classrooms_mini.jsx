@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import LoadingSpinner from '../general_components/loading_indicator.jsx'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 import $ from 'jquery'
 import GoogleClassroomModal from './google_classroom_modal'
 import AddClassSection from './add_class_section.jsx'

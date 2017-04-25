@@ -3,7 +3,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     require 'pusher'
 
     def show
-        @classroom_id = current_user.classrooms_i_teach.last.id || nil
+        @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
         @report = params[:report] || 'question'
     end
 

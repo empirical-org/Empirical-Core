@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AssigningIndicator from '../assigning_indicator';
+import AssigningIndicator from '../button_loading_indicator';
 
 describe('AssigningIndicator component', () => {
 

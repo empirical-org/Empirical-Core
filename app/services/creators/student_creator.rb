@@ -19,7 +19,9 @@ module Creators::StudentCreator
   end
 
   def self.buildClassroomRelation(classroom_id)
-    StudentsClassrooms.find_or_create_by(student_id: @student.id, classroom_id: classroom_id)
+    sc  = StudentsClassrooms.unscoped.find_or_create_by(student_id: @student.id, classroom_id: classroom_id)
+    sc.update(visible: true)
+    sc
   end
 
 end

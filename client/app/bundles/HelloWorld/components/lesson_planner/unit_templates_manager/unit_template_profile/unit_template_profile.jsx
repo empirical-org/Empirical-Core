@@ -2,7 +2,10 @@
 
  import React from 'react'
  import { Link } from 'react-router'
+ import $ from 'jquery'
+
  import LoadingIndicator from '../../../shared/loading_indicator'
+ import ScrollToTop from '../../../shared/scroll_to_top'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import UnitTemplateProfileHeader from './unit_template_profile_header'
  import UnitTemplateProfileDescription from './unit_template_profile_description'
@@ -45,7 +48,6 @@
     }
   }
 
-
   displayUnit(response) {
     this.setState({
       data: response.data,
@@ -79,8 +81,12 @@
     if (this.state.loading) {
       return <LoadingIndicator />
     } else {
+      if(document.querySelector("meta[name='og:description']")) {
+        document.querySelector("meta[name='og:description']").content = `Check out the '${this.state.data.name}' activity pack I just assigned on Quill.org!`;
+      }
       return (
         <div className='unit-template-profile'>
+          <ScrollToTop/>
           {this.showListFilterOptions()}
           <UnitTemplateProfileHeader data={this.state.data} />
           <div className="container white">

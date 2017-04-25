@@ -7,8 +7,7 @@ class Classroom < ActiveRecord::Base
   validates_presence_of :name
   default_scope { where(visible: true)}
 
-
-
+  after_commit :hide_appropriate_classroom_activities
 
   has_many :classroom_activities
   has_many :activities, through: :classroom_activities
@@ -100,6 +99,20 @@ class Classroom < ActiveRecord::Base
      teacher: self.teacher.name,
      id: self.id,
      join_date: StudentsClassrooms.find_by_classroom_id_and_student_id(self.id, student_id).created_at}
+  end
+
+  def hide_appropriate_classroom_activities
+    # on commit callback that checks if archived
+    if self.visible == false
+      hide_all_classroom_activities
+      return
+    end
+  end
+
+  def hide_all_classroom_activities
+    self.classroom_activities.each do |ca|
+      ca.update(visible: false)
+    end
   end
 
   private

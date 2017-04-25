@@ -64,11 +64,11 @@ export default class extends React.Component {
 	createButton(){
 		return(
 			<EditStudentsButton enabled={this.props.isSaveButtonEnabled}
-												disabledText={'Add Students Before Saving'}
+												disabledText={'Add Students Before Assigning'}
 												requestType={'POST'}
 												url={'/teachers/units'}
 												successCallback={this.resetPage}
-												buttonText={'Add Students'}
+												buttonText={'Assign Activity Pack'}
 												dataFunc={this.ajaxData}
 												/>
 		)
@@ -92,7 +92,7 @@ export default class extends React.Component {
 	}
 
 	render() {
-		let classroomList;
+		let classroomList, warningBlurb;
 		if (this.props.classrooms) {
 			let that = this;
 			classroomList = this.props.classrooms.map((el)=> {
@@ -108,10 +108,13 @@ export default class extends React.Component {
 		} else {
 			classroomList = []
 		}
+		if (this.props.createOrEdit === 'edit') {
+			warningBlurb = <p>Please note that unselecting a student on this page will delete all of their assignments associated with this pack, even if those assignments have already been completed.</p>
+		}
     return (
 			<div>
 				<h2 className='edit-students-h2'>Edit Students for {this.props.unitName}</h2>
-				<p>Please note that unselecting a student on this page will delete all of their assignments associated with this pack, even if those assignments have already been completed.</p>
+				{warningBlurb}
 				{classroomList}
 				{this.createOrUpdateButton()}
 			</div>

@@ -11,7 +11,7 @@ import LoadingSpinner from '../../shared/loading_indicator.jsx'
 export default React.createClass({
 
 	componentDidMount: function() {
-		this.getClassrooms()
+		this.getTeacher()
 	},
 
 	getInitialState: function() {
@@ -20,7 +20,8 @@ export default React.createClass({
 			classrooms: null,
 			showModal: false,
 			hiddenButton: true,
-			selectedClassrooms: []
+			selectedClassrooms: [],
+			user: {}
 		})
 	},
 
@@ -34,6 +35,13 @@ export default React.createClass({
 		}).always(function() {
 			that.setState({loading: false})
 		});
+	},
+
+	getTeacher: function() {
+		const that = this;
+		$.get('/current_user_json').done(function(data) {
+			that.setState({user: data}, that.getClassrooms())
+		})
 	},
 
 	updateSelectedClassrooms: function() {
@@ -175,7 +183,7 @@ export default React.createClass({
 			<Modal {...this.props} show={this.state.showModal} onHide={this.hideModal} dialogClassName='add-class-modal'>
 				<Modal.Body>
 					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='/images/close_x.svg' alt='close-modal'/>
-					<CreateClass closeModal={this.hideModal}/>
+					<CreateClass closeModal={this.hideModal} user={this.state.user}/>
 				</Modal.Body>
 			</Modal>
 		)
