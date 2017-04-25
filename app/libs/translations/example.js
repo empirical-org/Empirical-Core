@@ -1,5 +1,5 @@
 const buttonText = {
-  'submit button': '',
+  'submit button text': '',
   'resume button text': '',
   'begin button text': '',
   'sentence fragment complete button': '',

@@ -1,5 +1,5 @@
 const buttonText = {
-  'submit button': 'Enviar',
+  'submit button text': 'Enviar',
   'resume button text': 'Reanudo',
   'begin button text': 'Comienzo',
   'sentence fragment complete button': 'Completa la oración',
@@ -35,7 +35,7 @@ const scaffolds = {
   'joining word cues multiple': 'palabras sumarias',
 };
 
-const exampleTranslation = {
+const spanishTranslation = {
   ...prompts,
   ...instructions,
   ...titleCards,
@@ -43,4 +43,4 @@ const exampleTranslation = {
   ...scaffolds,
 };
 
-export default exampleTranslation;
+export default spanishTranslation;

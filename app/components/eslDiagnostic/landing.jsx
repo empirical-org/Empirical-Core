@@ -1,5 +1,7 @@
-import React from 'react'
-import beginArrow from '../../img/begin_arrow.svg'
+import React from 'react';
+import beginArrow from '../../img/begin_arrow.svg';
+
+import translations from '../../libs/translations/index.js';
 export default React.createClass({
 
   resume() {
@@ -7,26 +9,27 @@ export default React.createClass({
   },
 
   renderButton() {
-    let onClickFn, text;
+    let onClickFn,
+      text;
     if (this.props.session) {
       // resume session if one is passed
       onClickFn = this.resume;
       // HARDCODED
-      text = <span>Resume / Reanudo</span>;
+      text = <span>{translations.english['resume button text']} / {translations.spanish['resume button text']}</span>;
     } else {
       // otherwise begin new session
       onClickFn = this.props.begin;
       // HARDCODED
-      text = <span>Begin / Comienzo</span>;
+      text = <span>{translations.english['begin button text']} / {translations.spanish['begin button text']}</span>;
     }
     return (
       <button className="button student-begin" onClick={onClickFn}>
-      {text} <img className="begin-arrow" src={beginArrow}/>
+        {text} <img className="begin-arrow" src={beginArrow} />
       </button>
     );
   },
 
-  render: function () {
+  render() {
     // HARDCODED
     return (
       <div className="landing-page">
@@ -39,7 +42,7 @@ export default React.createClass({
         <p className="second-p">
         Some of the questions might be about things you haven't learned yet &mdash; that's okay! Just answer them as best as you can. Once you're finished, Quill will create a learning plan just for you!
         </p>
-        <br/>
+        <br />
         <h1>
           Quill Placement Actividad
         </h1>
@@ -51,7 +54,7 @@ export default React.createClass({
         </p>
         {this.renderButton()}
       </div>
-    )
+    );
   },
 
-})
+});
