@@ -19,14 +19,16 @@ const titleCards = {
 const instructions = {
   'sentence fragment complete vs incomplete choice instructions': '',
   'sentence fragment complete vs incomplete completion instructions': '',
-  'fill-in-the-blank-scaffolded-instructions': '',
+  'fill-in-the-blank-multiple-instructions': '',
+  'fill-in-the-blank-single-instructions': '',
   'tense-question-instructions': '',
   'combine-sentences-instructions': '',
   'combine-sentences-with-joining-words-instructions': '',
 };
 
 const scaffolds = {
-  'joining word cues': '',
+  'joining word cues single': '',
+  'joining word cues multiple': '',
 };
 
 const exampleTranslation = {
