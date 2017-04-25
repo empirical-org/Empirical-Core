@@ -2,8 +2,8 @@ const buttonText = {
   'submit button text': 'Submit',
   'resume button text': 'Resume',
   'begin button text': 'Begin',
-  'sentence fragment complete button': '',
-  'sentence fragment incomplete button': '',
+  'sentence fragment complete button': 'Complete',
+  'sentence fragment incomplete button': 'Incomplete',
 };
 
 const titleCards = {

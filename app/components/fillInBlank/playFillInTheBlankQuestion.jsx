@@ -10,6 +10,7 @@ import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
+import translations from '../../libs/translations/index.js';
 
 const styles = {
   container: {
@@ -267,6 +268,14 @@ export class PlayFillInTheBlankQuestion extends Component {
     return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
 
+  getSubmitButtonText() {
+    let text = translations.english['submit button text'];
+    if (this.props.language !== 'english') {
+      text += ` / ${translations[this.props.language]['submit button text']}`;
+    }
+    return text;
+  }
+
   render() {
     const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
     return (
@@ -283,7 +292,7 @@ export class PlayFillInTheBlankQuestion extends Component {
           {this.renderMedia()}
         </div>
         <div className="question-button-group button-group">
-          <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>
+          <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>
         </div>
       </div>
     );

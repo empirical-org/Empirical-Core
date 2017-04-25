@@ -16,6 +16,7 @@ import {
 import icon from '../../img/question_icon.svg';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
+import translations from '../../libs/translations/index.js';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
@@ -139,9 +140,17 @@ const PlaySentenceFragment = React.createClass({
     }
   },
 
+  getSubmitButtonText() {
+    let text = translations.english['submit button text'];
+    if (this.props.language !== 'english') {
+      text += ` / ${translations[this.props.language]['submit button text']}`;
+    }
+    return text;
+  },
+
   renderPlaySentenceFragmentMode(fragment) {
     // HARDCODED
-    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>;
+    const button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
 
     if (!this.choosingSentenceOrFragment()) {
       // let instructions;
