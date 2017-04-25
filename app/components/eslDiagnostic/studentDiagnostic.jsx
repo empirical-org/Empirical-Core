@@ -233,8 +233,8 @@ const StudentDiagnostic = React.createClass({
   },
 
   language() {
-    return this.props.playDiagnostic.language
-  }
+    return this.props.playDiagnostic.language;
+  },
 
   renderQuestionComponent() {
     if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
@@ -289,12 +289,12 @@ const StudentDiagnostic = React.createClass({
             language={this.language()}
           />);
         } else if (this.props.playDiagnostic.language) {
-          component = <LandingPage
+          component = (<LandingPage
             begin={() => { this.startActivity('John', data); }}
             session={this.getPreviousSessionData()}
             resumeActivity={this.resumeSession}
             language={this.language()}
-          />;
+          />);
         } else {
           component = <LanguagePage setLanguage={(language) => { this.updateLanguage(language); }} />;
         }
