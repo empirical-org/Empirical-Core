@@ -2247,6 +2247,13 @@ CREATE INDEX index_students_classrooms_on_student_id ON students_classrooms USIN
 
 
 --
+-- Name: index_students_classrooms_on_student_id_and_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON students_classrooms USING btree (student_id, classroom_id);
+
+
+--
 -- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2815,4 +2822,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170313154512');
 INSERT INTO schema_migrations (version) VALUES ('20170314181527');
 
 INSERT INTO schema_migrations (version) VALUES ('20170315183853');
+
+INSERT INTO schema_migrations (version) VALUES ('20170412154159');
 

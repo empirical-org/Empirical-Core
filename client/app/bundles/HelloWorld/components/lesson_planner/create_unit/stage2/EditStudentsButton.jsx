@@ -1,6 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
-import AssigningIndicator from '../../../shared/assigning_indicator'
+import AssigningIndicator from '../../../shared/button_loading_indicator'
 
 class UpdateUnitButton extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class UpdateUnitButton extends React.Component {
 
 	render() {
     let text, color, clickHandler;
-    if (this.props.enabled() && !this.state.loading) {
+    if (this.props.enabled && !this.state.loading) {
       text = this.props.buttonText;
       color = 'quillgreen';
       clickHandler = this.handleClick
