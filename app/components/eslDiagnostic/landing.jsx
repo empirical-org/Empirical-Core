@@ -38,12 +38,10 @@ export default React.createClass({
     if (this.props.session) {
       // resume session if one is passed
       onClickFn = this.resume;
-      // HARDCODED
       text = <span>{this.getResumeButtonText()}</span>;
     } else {
       // otherwise begin new session
       onClickFn = this.props.begin;
-      // HARDCODED
       text = <span>{this.getBeginButtonText()}</span>;
     }
     return (
@@ -54,7 +52,6 @@ export default React.createClass({
   },
 
   render() {
-    // HARDCODED
     return (
       <div className="landing-page">
         <div dangerouslySetInnerHTML={{ __html: this.getLandingPageHTML(), }} />
