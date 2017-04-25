@@ -48,7 +48,8 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  def new_google_user(name, email, role, access_token, google_id)
+  def new_google_user(name, email, role, access_token, google_id, user)
+    @user = user
     @user.attributes = {signed_up_with_google: true, name: name, role: role, google_id: google_id}
     @user.save
     sign_in(@user)
@@ -63,7 +64,6 @@ class Auth::GoogleController < ApplicationController
 
 
   def register_with_google(name, email, role, access_token, google_id)
-    current_user.reload
     if current_user && current_user.email != email
       session[:google_email] = email
       redirect_to "/auth/google_email_mismatch/"
