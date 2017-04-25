@@ -19,7 +19,7 @@ export default class LanguagePage extends React.Component {
           <div className="language-button" onClick={() => this.props.selectLanguage('chinese')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png" />中文</div>
           <div className="language-button" onClick={() => this.props.selectLanguage('french')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png" />Français</div>
           <div className="language-button" onClick={() => this.props.selectLanguage('vietnamese')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png" />Tiếng Việt</div>
-          <div className="language-button" onClick={() => this.props.selectLanguage('arabic')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png" />العربية</div>
+          <div className="language-button arabic" onClick={() => this.props.selectLanguage('arabic')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png" />العربية</div>
           <div className="language-button" onClick={() => this.props.selectLanguage('hindi')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png" />हिंदी</div>
         </div>
         <div className="divider" />

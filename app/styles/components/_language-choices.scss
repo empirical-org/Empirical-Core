@@ -51,6 +51,11 @@
     line-height: 1.17;
     color: #000000;
     margin-bottom: 20px;
+
+    &.arabic {
+      justify-content: space-between;
+      padding-right: 56px;
+    }
   }
 }
 
