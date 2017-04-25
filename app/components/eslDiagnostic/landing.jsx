@@ -8,6 +8,30 @@ export default React.createClass({
     this.props.resumeActivity(this.props.session);
   },
 
+  getResumeButtonText() {
+    let text = translations.english['resume button text'];
+    if (this.props.language !== 'english') {
+      text += ` / ${translations[this.props.language]['resume button text']}`;
+    }
+    return text;
+  },
+
+  getBeginButtonText() {
+    let text = translations.english['begin button text'];
+    if (this.props.language !== 'english') {
+      text += ` / ${translations[this.props.language]['begin button text']}`;
+    }
+    return text;
+  },
+
+  getLandingPageHTML() {
+    let html = translations.english['diagnostic intro text'];
+    if (this.props.language !== 'english') {
+      html += `<br/>${translations[this.props.language]['diagnostic intro text']}`;
+    }
+    return html;
+  },
+
   renderButton() {
     let onClickFn,
       text;
@@ -15,12 +39,12 @@ export default React.createClass({
       // resume session if one is passed
       onClickFn = this.resume;
       // HARDCODED
-      text = <span>{translations.english['resume button text']} / {translations[this.props.language]['resume button text']}</span>;
+      text = <span>{this.getResumeButtonText()}</span>;
     } else {
       // otherwise begin new session
       onClickFn = this.props.begin;
       // HARDCODED
-      text = <span>{translations.english['begin button text']} / {translations[this.props.language]['begin button text']}</span>;
+      text = <span>{this.getBeginButtonText()}</span>;
     }
     return (
       <button className="button student-begin" onClick={onClickFn}>
@@ -33,9 +57,7 @@ export default React.createClass({
     // HARDCODED
     return (
       <div className="landing-page">
-        <div dangerouslySetInnerHTML={{ __html: translations.english['diagnostic intro text'], }} />
-        <br />
-        <div dangerouslySetInnerHTML={{ __html: translations[this.props.language]['diagnostic intro text'], }} />
+        <div dangerouslySetInnerHTML={{ __html: this.getLandingPageHTML(), }} />
         {this.renderButton()}
       </div>
     );
