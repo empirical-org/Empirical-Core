@@ -21,6 +21,8 @@ const instructions = {
   'sentence fragment complete vs incomplete completion instructions': '',
   'fill-in-the-blank-scaffolded-instructions': '',
   'tense-question-instructions': '',
+  'combine-sentences-instructions': '',
+  'combine-sentences-with-joining-words-instructions': '',
 };
 
 const scaffolds = {
