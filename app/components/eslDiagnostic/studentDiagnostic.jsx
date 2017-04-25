@@ -274,11 +274,6 @@ const StudentDiagnostic = React.createClass({
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
         } else {
           component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
-          // (
-          //   <div className="container">
-          //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-          //   </div>
-          // )
         }
       }
     } else {
