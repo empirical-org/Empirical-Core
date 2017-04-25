@@ -15,15 +15,15 @@ export default class LanguagePage extends React.Component {
           <p>and I want <span>additional</span> directions in:</p>
         </div>
         <div className="language-button-container">
-          <div className="language-button" onClick={() => this.props.selectLanguage('spanish')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png" />Español</div>
-          <div className="language-button" onClick={() => this.props.selectLanguage('chinese')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png" />中文</div>
-          <div className="language-button" onClick={() => this.props.selectLanguage('french')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png" />Français</div>
-          <div className="language-button" onClick={() => this.props.selectLanguage('vietnamese')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png" />Tiếng Việt</div>
-          <div className="language-button arabic" onClick={() => this.props.selectLanguage('arabic')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png" />العربية</div>
-          <div className="language-button" onClick={() => this.props.selectLanguage('hindi')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png" />हिंदी</div>
+          <div className="language-button" onClick={() => this.props.setLanguage('spanish')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png" />Español</div>
+          <div className="language-button" onClick={() => this.props.setLanguage('chinese')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png" />中文</div>
+          <div className="language-button" onClick={() => this.props.setLanguage('french')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png" />Français</div>
+          <div className="language-button" onClick={() => this.props.setLanguage('vietnamese')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png" />Tiếng Việt</div>
+          <div className="language-button arabic" onClick={() => this.props.setLanguage('arabic')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png" />العربية</div>
+          <div className="language-button" onClick={() => this.props.setLanguage('hindi')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png" />हिंदी</div>
         </div>
         <div className="divider" />
-        <div className="no-language-button" onClick={() => this.props.selectLanguage('english')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png" /> No translations needed - Show only English</div>
+        <div className="no-language-button" onClick={() => this.props.setLanguage('english')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png" />Only show directions in English</div>
       </div>
     );
   }

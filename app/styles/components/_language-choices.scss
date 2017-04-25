@@ -2,7 +2,8 @@
   text-align: center;
   max-width: 610px;
   width: 100%;
-  margin: 26px auto 0;
+  margin: 0 auto;
+  padding-top: 26px;
   p {
     font-size: 20px;
     margin-bottom: 15px;
@@ -52,6 +53,11 @@
     color: #000000;
     margin-bottom: 20px;
 
+    &:hover {
+      cursor: pointer;
+      border: solid 2px $green;
+    }
+
     &.arabic {
       justify-content: space-between;
       padding-right: 56px;
@@ -79,6 +85,7 @@
   padding: 0 34px;
   text-align: center;
   display: flex;
+  justify-content: center;
   align-items: center;
   font-family: AdelleSans;
   font-size: 24px;
@@ -87,6 +94,5 @@
 
   .language-button-img {
     height: 35px;
-    margin-right: 10px;
   }
 }
