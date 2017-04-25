@@ -4,7 +4,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import activeComponent from 'react-router-active-component';
-import questionActions from '../../actions/questions';
+import fillInTheBlankActions from '../../actions/fillInBlank';
 const NavLink = activeComponent('li');
 
 class ClassName extends Component {
@@ -25,7 +25,7 @@ class ClassName extends Component {
   }
 
   deleteQuestion() {
-    this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID));
+    this.props.dispatch(fillInTheBlankActions.deleteQuestion(this.props.params.questionID));
   }
 
   render() {

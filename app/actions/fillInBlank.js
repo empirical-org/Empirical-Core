@@ -40,6 +40,8 @@ module.exports = {
           dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
         } else {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
+          const action = push(`/admin/fill-in-the-blanks`);
+          dispatch(action);
         }
       });
     };
@@ -72,7 +74,7 @@ module.exports = {
           response.gradeIndex = `human${newRef.key}`;
           dispatch(submitNewResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          const action = push(`/admin/questions/${newRef.key}`);
+          const action = push(`/admin/fill-in-the-blanks/${newRef.key}`);
           dispatch(action);
         }
       });

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 class EditFillInBlank extends Component {
 
   render() {
+    debugger
     return(
       <div>
         <h1>Hi, I'm an edit form.</h1>
@@ -17,6 +18,7 @@ function select(state) {
     // sentenceFragments: state.sentenceFragments,
     // concepts: state.concepts,
     routing: state.routing,
+    questions: state.questions
   };
 }
 
