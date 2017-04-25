@@ -22,7 +22,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   def google_email_mismatch
-    @google_email = params[:email] || ''
+    @google_email = session[:google_email] || ''
     render 'accounts/google_mismatch'
   end
 
@@ -63,8 +63,10 @@ class Auth::GoogleController < ApplicationController
 
 
   def register_with_google(name, email, role, access_token, google_id)
+    current_user.reload
     if current_user && current_user.email != email
-      redirect_to "/auth/google_email_mismatch/#{email}"
+      session[:google_email] = email
+      redirect_to "/auth/google_email_mismatch/"
       return
     else
       @user = User.find_or_initialize_by(email: email.downcase)
@@ -81,7 +83,7 @@ class Auth::GoogleController < ApplicationController
         redirect_to new_account_path
         return
       else
-        @user.update(signed_up_with_google: true)
+        @user.update(signed_up_with_google: true, google_id: google_id)
         if request.referer && URI(request.referer) &&
           (URI(request.referer).path == '/teachers/classrooms/dashboard' || URI(request.referer).path == '/teachers/classrooms/new')
           # if they are hitting this route through the dashboard or new classrooms page, they should be brought to the google sync page

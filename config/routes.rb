@@ -236,7 +236,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   namespace :auth do
-    get "/google_email_mismatch/:email" => 'google#google_email_mismatch'
+    get "/google_email_mismatch" => 'google#google_email_mismatch'
     get "/google_oauth2/callback" => 'google#google'
     get '/clever/callback', to: 'clever#clever'
   end
