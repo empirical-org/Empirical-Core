@@ -232,9 +232,19 @@ const StudentDiagnostic = React.createClass({
     return returnValue;
   },
 
+  language() {
+    return this.props.playDiagnostic.language
+  }
+
   renderQuestionComponent() {
     if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
-      return (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} marking="diagnostic" />);
+      return (<PlayDiagnosticQuestion
+        question={this.props.playDiagnostic.currentQuestion.data}
+        nextQuestion={this.nextQuestion}
+        key={this.props.playDiagnostic.currentQuestion.data.key}
+        marking="diagnostic"
+        language={this.language()}
+      />);
     } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
       return (
         <TitleCard
@@ -242,6 +252,7 @@ const StudentDiagnostic = React.createClass({
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
           dispatch={this.props.dispatch}
           nextQuestion={this.nextQuestionWithoutSaving}
+          language={this.language()}
         />
       );
     } else if (this.props.playDiagnostic.currentQuestion.type === 'FB') {
@@ -250,6 +261,7 @@ const StudentDiagnostic = React.createClass({
         nextQuestion={this.nextQuestion}
         key={this.props.playDiagnostic.currentQuestion.data.key}
         dispatch={this.props.dispatch}
+        language={this.language()}
       />);
     } else {
       return (<PlaySentenceFragment
@@ -257,6 +269,7 @@ const StudentDiagnostic = React.createClass({
         key={this.props.playDiagnostic.currentQuestion.data.key}
         nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
         updateAttempts={this.submitResponse}
+        language={this.language()}
       />);
     }
   },
@@ -269,9 +282,19 @@ const StudentDiagnostic = React.createClass({
         if (this.props.playDiagnostic.currentQuestion) {
           component = this.renderQuestionComponent();
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
+          component = (<FinishedDiagnostic
+            saveToLMS={this.saveToLMS}
+            saved={this.state.saved}
+            error={this.state.error}
+            language={this.language()}
+          />);
         } else if (this.props.playDiagnostic.language) {
-          component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
+          component = <LandingPage
+            begin={() => { this.startActivity('John', data); }}
+            session={this.getPreviousSessionData()}
+            resumeActivity={this.resumeSession}
+            language={this.language()}
+          />;
         } else {
           component = <LanguagePage setLanguage={(language) => { this.updateLanguage(language); }} />;
         }
