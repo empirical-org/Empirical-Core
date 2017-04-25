@@ -2,6 +2,7 @@ import React from 'react';
 import arrow from '../../img/arrow_icon.svg';
 
 export default React.createClass({
+  // HARDCODED
   renderExplanation() {
     let text;
     if (this.props.customText) {
