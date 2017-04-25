@@ -26,12 +26,17 @@ const instructions = {
   'combine-sentences-with-joining-words-instructions': '',
 };
 
+const prompts = {
+  'sentence fragment complete vs incomplete choice prompt': '',
+};
+
 const scaffolds = {
   'joining word cues single': '',
   'joining word cues multiple': '',
 };
 
 const exampleTranslation = {
+  ...prompts,
   ...instructions,
   ...titleCards,
   ...buttonText,
