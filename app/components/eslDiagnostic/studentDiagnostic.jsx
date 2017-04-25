@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, nextQuestionWithoutSaving, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, nextQuestionWithoutSaving, resumePreviousDiagnosticSession, updateLanguage } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
@@ -199,6 +199,10 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(action);
   },
 
+  updateLanguage(language) {
+    this.props.dispatch(updateLanguage(language));
+  },
+
   getProgressPercent() {
     if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
       return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100;
@@ -269,7 +273,7 @@ const StudentDiagnostic = React.createClass({
         } else if (this.props.playDiagnostic.language) {
           component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
         } else {
-          component = <LanguagePage setLanguage={() => alert('Setting Lang')} />;
+          component = <LanguagePage setLanguage={(language) => { this.updateLanguage(language); }} />;
         }
       }
     } else {
