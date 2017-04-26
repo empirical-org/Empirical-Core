@@ -100,3 +100,9 @@
 .right-to-left {
   text-align: right;
 }
+
+.arabic-title-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}

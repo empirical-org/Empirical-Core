@@ -27,7 +27,8 @@ export default React.createClass({
   getLandingPageHTML() {
     let html = translations.english['diagnostic intro text'];
     if (this.props.language !== 'english') {
-      html += `<br/>${translations[this.props.language]['diagnostic intro text']}`;
+      const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
+      html += `<br/><div class="${textClass}">${translations[this.props.language]['diagnostic intro text']}</div>`;
     }
     return html;
   },
