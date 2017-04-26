@@ -16,6 +16,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
+import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {
@@ -57,6 +58,16 @@ const PlayDiagnosticQuestion = React.createClass({
       question.key = question.key.slice(0, -4);
     }
     return question;
+  },
+
+  getInstructionText() {
+    const textKey = translationMap[this.getQuestion().key];
+    let text = `<p>${translations.english[textKey]}</p>`;
+    if (this.props.language !== 'english') {
+      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
+      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
+    }
+    return text;
   },
 
   getResponses() {
@@ -212,7 +223,7 @@ const PlayDiagnosticQuestion = React.createClass({
               {this.renderCues()}
               <div className="feedback-row">
                 <img src={icon} style={{ marginTop: 3, }} />
-                <p dangerouslySetInnerHTML={{ __html: instructions, }} />
+                <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
               </div>
             </div>
             {this.renderMedia()}

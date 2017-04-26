@@ -11,6 +11,7 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
+import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const styles = {
   container: {
@@ -66,6 +67,16 @@ export class PlayFillInTheBlankQuestion extends Component {
   getQuestion() {
     const { question, } = this.props;
     return question;
+  }
+
+  getInstructionText() {
+    const textKey = translationMap[this.getQuestion().key];
+    let text = `<p>${translations.english[textKey]}</p>`;
+    if (this.props.language !== 'english') {
+      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
+      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
+    }
+    return text;
   }
 
   generateInputs(promptArray) {
@@ -264,6 +275,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   customText() {
+    // HARDCODED
     const text = 'Add words';
     return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
@@ -277,7 +289,6 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   render() {
-    const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', }}>
@@ -286,7 +297,7 @@ export class PlayFillInTheBlankQuestion extends Component {
             <Cues getQuestion={this.getQuestion} customText={this.customText()} />
             <div className="feedback-row">
               <img src={icon} alt="icon" style={{ marginTop: 3, }} />
-              <p dangerouslySetInnerHTML={{ __html: instructions, }} />
+              <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
             </div>
           </div>
           {this.renderMedia()}

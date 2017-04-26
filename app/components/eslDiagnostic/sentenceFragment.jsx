@@ -32,9 +32,10 @@ const PlaySentenceFragment = React.createClass({
 
   getInstructionText() {
     const textKey = translationMap[this.getQuestion().key];
-    let text = translations.english[textKey];
+    let text = `<p>${translations.english[textKey]}</p>`;
     if (this.props.language !== 'english') {
-      text += `<br/><br/>${translations[this.props.language][textKey]}`;
+      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
+      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
     }
     return text;
   },
@@ -170,7 +171,7 @@ const PlaySentenceFragment = React.createClass({
       const component = (
         <div className="feedback-row">
           <img className="info" src={icon} style={{ marginTop: 3, }} />
-          <p dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+          <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
         </div>
       );
 
