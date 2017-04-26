@@ -36,12 +36,6 @@ const PlayDiagnosticQuestion = React.createClass({
     );
   },
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
-      // this.saveSessionData(nextProps.playLesson);
-    }
-  },
-
   getInitialValue() {
     if (this.props.prefill) {
       return this.getQuestion().prefilledText;
@@ -108,7 +102,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderCues() {
-    return <RenderQuestionCues getQuestion={this.getQuestion} esl />;
+    return <RenderQuestionCues getQuestion={this.getQuestion} />;
   },
 
   updateResponseResource(response) {

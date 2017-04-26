@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { updateLanguage } from '../../actions/diagnostics.js';
 
 const Navbar = React.createClass({
   getInitialState() {
@@ -32,9 +33,33 @@ const Navbar = React.createClass({
     }
   },
 
+  updateLanguage(event) {
+    const language = event.target.value;
+    this.props.dispatch(updateLanguage(language));
+  },
+
+  renderLanguageSelector() {
+    if (window.location.href.includes('play/diagnostic/ell')) {
+      return (
+        <div>
+          <select name="language" value={this.props.language} onChange={event => this.updateLanguage(event)}>
+            <option value="english"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png" />English</option>
+            <option value="spanish"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png" />Español</option>
+            <option value="chinese"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png" />中文</option>
+            <option value="french"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png" />Français</option>
+            <option value="vietnamese"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png" />Tiếng Việt</option>
+            <option value="arabic"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png" />العربي</option>
+            <option value="hindi"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png" />हिंद</option>
+          </select>
+        </div>
+      );
+    }
+  },
+
   renderLinks() {
     return (
       <div className="nav-right nav-menu" style={this.navStyles()}>
+        {this.renderLanguageSelector()}
         <a onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
       </div>
     );
