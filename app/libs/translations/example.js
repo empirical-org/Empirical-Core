@@ -31,6 +31,7 @@ const instructions = {
 const scaffolds = {
   'joining word cues single': '',
   'joining word cues multiple': '',
+  'add word bank cue': ''
 };
 
 const exampleTranslation = {
