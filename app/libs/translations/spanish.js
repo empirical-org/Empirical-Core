@@ -18,17 +18,13 @@ const titleCards = {
 };
 
 const instructions = {
-  'sentence fragment complete vs incomplete choice instructions': 'Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.',
-  'sentence fragment complete vs incomplete completion instructions': 'Añadir al grupo de palabras para hacer una oración completa. Añada el menor número posible de palabras.',
+  'sentence-fragment-complete-vs-incomplete-choice-instructions': 'Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.',
+  'sentence-fragment-complete-vs-incomplete-completion-instructions': 'Añadir al grupo de palabras para hacer una oración completa. Añada el menor número posible de palabras.',
   'fill-in-the-blank-multiple-instructions': 'Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.',
   'tense-question-instructions': 'Vuelve a escribir la oración. Conjuga el verbo resaltado en negro al tiempo correcto para que coincida con el resto de la oración.',
   'fill-in-the-blank-single-instructions': 'Vuelve a escribir la oración y completa el espacio en blanco con una de estas palabras: on, in, at, to',
   'combine-sentences-instructions': 'Combina las oraciones a una sola oración.',
   'combine-sentences-with-joining-words-instructions': 'Combina las oraciones, usando una de las palabras sumarias.',
-};
-
-const prompts = {
-  'sentence fragment complete vs incomplete choice prompt': 'Esta oración esta complete o incompleta?',
 };
 
 const scaffolds = {
@@ -37,7 +33,6 @@ const scaffolds = {
 };
 
 const spanishTranslation = {
-  ...prompts,
   ...instructions,
   ...titleCards,
   ...buttonText,

@@ -17,6 +17,7 @@ import icon from '../../img/question_icon.svg';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import translations from '../../libs/translations/index.js';
+import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
@@ -27,6 +28,17 @@ const PlaySentenceFragment = React.createClass({
       checkAnswerEnabled: true,
       submitted: false,
     };
+  },
+
+  getInstructionText() {
+    const textKey = translationMap[this.getQuestion().key];
+    console.log(textKey);
+    let text = translations.english[textKey];
+    console.log(text);
+    if (this.props.language !== 'english') {
+      text += `<br/><br/>${translations[this.props.language][textKey]}`;
+    }
+    return text;
   },
 
   componentDidMount() {
@@ -153,30 +165,12 @@ const PlaySentenceFragment = React.createClass({
     const button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
 
     if (!this.choosingSentenceOrFragment()) {
-      // let instructions;
-      let component;
-      if (this.props.question.instructions && this.props.question.instructions !== '') {
-        component = (
-          <div className="feedback-row">
-            <img className="info" src={icon} style={{ marginTop: 3, }} />
-            <p dangerouslySetInnerHTML={{ __html: this.props.question.instructions, }} />
-          </div>
-        );
-        // instructions = this.props.question.instructions;
-      } else {
-        // HARDCODED
-        component = (
-          <div className="feedback-row">
-            <img className="info" src={icon} />
-            <p>
-              If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.
-              <br /><br />
-              Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.
-            </p>
-          </div>
-        );
-        // instructions = 'Añadir al grupo de palabras para hacer una oración completa. Añada el menor número posible de palabras.';
-      }
+      const component = (
+        <div className="feedback-row">
+          <img className="info" src={icon} style={{ marginTop: 3, }} />
+          <p dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+        </div>
+      );
 
       return (
         <div className="container">

@@ -1,7 +1,7 @@
 const questionToCopyMap = {
-  '-Ke_LpBo1GAcq4gXHORz': 'sentence fragment complete vs incomplete completion prompt',
-  '-Ke_Lw0PG3zy5QodpFdo': 'sentence fragment complete vs incomplete completion prompt',
-  '-KOqMWRFOrYgv-KjRYdy-esp': 'sentence fragment complete vs incomplete completion prompt',
+  '-Ke_LpBo1GAcq4gXHORz': 'sentence-fragment-complete-vs-incomplete-completion-instructions',
+  '-Ke_Lw0PG3zy5QodpFdo': 'sentence-fragment-complete-vs-incomplete-completion-instructions',
+  '-KOqMWRFOrYgv-KjRYdy-esp': 'sentence-fragment-complete-vs-incomplete-completion-instructions',
   '-Ke_6gyGVXuHiealUgD3': 'fill-in-the-blank-multiple-instructions',
   '-Ke_70Ul5Ka4AKbbtAOa': 'fill-in-the-blank-multiple-instructions',
   '-Ke_7AgPuCE56lUNwFJN': 'fill-in-the-blank-multiple-instructions',
