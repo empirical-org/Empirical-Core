@@ -27,6 +27,7 @@ class ProgressReports::Standards::StudentSerializer < ActiveModel::Serializer
 
   def mastery_status
     if average_score >= 0.75
+    # consolidate me
       "Proficient"
     else
       "Not Yet Proficient"

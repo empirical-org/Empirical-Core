@@ -7,6 +7,7 @@ export default React.createClass({
 
   circleClass: function() {
     if (this.props.score > 0.75) {
+    // consolidate me
       return 'circle proficient';
     } else {
       return 'circle not-proficient';
@@ -15,6 +16,7 @@ export default React.createClass({
 
   text: function() {
     if (this.props.score > 0.75) {
+    // consolidate me
       return 'Proficient';
     } else if (this.props.score <= 0.75) {
       return 'Not Yet Proficient';
