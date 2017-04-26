@@ -1,24 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import fillInBlankActions from '../../actions/fillInBlank.js';
+import FillInBlankForm from './fillInBlankForm.jsx';
 
 class EditFillInBlank extends Component {
+  constructor() {
+    super();
+    this.state = {};
+    this.editQuestion = this.editQuestion.bind(this);
+    this.returnQuestionState = this.returnQuestionState.bind(this);
+  }
+
+  editQuestion(data, newQuestionOptimalResponse) {
+    const fillInBlankQuestionID = this.props.params.questionID;
+    this.props.dispatch(fillInBlankActions.submitQuestionEdit(fillInBlankQuestionID, data));
+  }
+
+  returnQuestionState() {
+    const fillInBlankQuestionID = this.props.params.questionID;
+    const fillInBlankQuestion = this.props.fillInBlank.data[fillInBlankQuestionID];
+    return {
+      prompt: fillInBlankQuestion.prompt,
+      blankAllowed: fillInBlankQuestion.blankAllowed,
+      instructions: fillInBlankQuestion.instructions,
+      cues: fillInBlankQuestion.cues.join(','),
+      itemLevel: fillInBlankQuestion.itemLevel,
+      conceptID: fillInBlankQuestion.conceptID
+    };
+  }
 
   render() {
-    debugger
-    return(
-      <div>
-        <h1>Hi, I'm an edit form.</h1>
-      </div>
-    )
+    return <FillInBlankForm action={this.editQuestion} editing={true} state={this.returnQuestionState()} />;
   }
 }
 
 function select(state) {
   return {
-    // sentenceFragments: state.sentenceFragments,
-    // concepts: state.concepts,
-    routing: state.routing,
-    questions: state.questions
+    fillInBlank: state.fillInBlank
   };
 }
 
