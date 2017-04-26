@@ -1,13 +1,13 @@
 module Concepts
 
+  # This groups all concept results by question type, then groups them by concept for the reports page
+
   extend ActiveSupport::Concern
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?
-    # Generate a header for each applicable concept class (activity session has concept tag results for that class)
-    concept_results = activity_session.concept_results.partition{|c| c.metadata['questionUid']}
-    # concept_results[0] is from sentence writing, [1] from story
-    concepts = activity_session.concepts
-    organize_by_type(concept_results, concepts)
+    @concepts = activity_session.concepts
+    @concept_results_by_question_type = activity_session.concept_results.group_by{|c| c.question_type}.values
+    organize_by_type
   end
 
   private
@@ -17,10 +17,10 @@ module Concepts
     question_type ? question_type.gsub('-',' ').split.map(&:capitalize).join(' ') : 'Results'
   end
 
-  def organize_by_type(concept_results, concepts)
+  def organize_by_type
     h = Hash.new {|h,k| h[k] = [] }
-    concepts.map do |concept|
-      concept_results.map do |cr|
+    @concepts.map do |concept|
+      @concept_results_by_question_type.map do |cr|
         if cr.any?
           type = human_readable_question_type(cr.first['question_type'])
           h[type].push(stats_for_concept(concept, cr))
@@ -41,7 +41,6 @@ module Concepts
       else
         incorrect_count += 1
       end
-
     end
    {
     conceptId: concept.id,
