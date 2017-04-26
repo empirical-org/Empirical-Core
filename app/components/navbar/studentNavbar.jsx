@@ -33,11 +33,6 @@ const Navbar = React.createClass({
     }
   },
 
-  updateLanguage(event) {
-    const language = event.target.value;
-    this.props.dispatch(updateLanguage(language));
-  },
-
   renderLanguageSelector() {
     if (window.location.href.includes('play/diagnostic/ell')) {
       return (

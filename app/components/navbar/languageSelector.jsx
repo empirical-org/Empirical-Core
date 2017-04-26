@@ -2,28 +2,54 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateLanguage } from '../../actions/diagnostics.js';
 
+const languageFlagMap = {
+  english: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png',
+  spanish: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png',
+  chinese: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png',
+  french: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png',
+  vietnamese: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png',
+  arabic: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png',
+  hindi: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png',
+};
+
 class LanguageSelector extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      dropdownOpen: false,
+    };
+    this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
-  updateLanguage(event) {
-    const language = event.target.value;
-    this.props.dispatch(updateLanguage(language));
+  updateLanguage(language) {
+    this.setState({ dropdownOpen: false, }, () => this.props.dispatch(updateLanguage(language)));
+  }
+
+  renderDropdown() {
+    if (this.state.dropdownOpen) {
+      return (
+        <ul className="nav-language-selector-dropdown">
+          <li onClick={() => this.updateLanguage('english')}><img className="language-button-img" src={languageFlagMap.english} />English</li>
+          <li onClick={() => this.updateLanguage('spanish')}><img className="language-button-img" src={languageFlagMap.spanish} />Español</li>
+          <li onClick={() => this.updateLanguage('chinese')}><img className="language-button-img" src={languageFlagMap.chinese} />中文</li>
+          <li onClick={() => this.updateLanguage('french')}><img className="language-button-img" src={languageFlagMap.french} />Français</li>
+          <li onClick={() => this.updateLanguage('vietnamese')}><img className="language-button-img" src={languageFlagMap.vietnamese} />Tiếng Việt</li>
+          <li onClick={() => this.updateLanguage('arabic')}><img className="language-button-img" src={languageFlagMap.arabic} />العربي</li>
+          <li onClick={() => this.updateLanguage('hindi')}><img className="language-button-img" src={languageFlagMap.hindi} />हिंद</li>
+        </ul>
+      );
+    }
+  }
+
+  toggleDropdown() {
+    this.setState({ dropdownOpen: !this.state.dropdownOpen, }, console.log(this.state.dropdownOpen));
   }
 
   render() {
     return (
-      <div>
-        <select name="language" value={this.props.playDiagnostic.language} onChange={event => this.updateLanguage(event)}>
-          <option value="english"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png" />English</option>
-          <option value="spanish"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png" />Español</option>
-          <option value="chinese"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png" />中文</option>
-          <option value="french"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png" />Français</option>
-          <option value="vietnamese"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png" />Tiếng Việt</option>
-          <option value="arabic"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png" />العربي</option>
-          <option value="hindi"><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png" />हिंद</option>
-        </select>
+      <div className="nav-language-selector">
+        <a name="language" value={this.props.playDiagnostic.language} onClick={this.toggleDropdown}><img className="language-button-img" src={languageFlagMap[this.props.playDiagnostic.language]} />{this.props.playDiagnostic.language}</a>
+        {this.renderDropdown()}
       </div>
     );
   }
