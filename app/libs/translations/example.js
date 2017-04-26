@@ -2,6 +2,7 @@ const buttonText = {
   'submit button text': '',
   'resume button text': '',
   'begin button text': '',
+  'continue button text': '',
   'sentence fragment complete button': '',
   'sentence fragment incomplete button': '',
 };
