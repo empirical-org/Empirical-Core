@@ -32,11 +32,17 @@ const PlaySentenceFragment = React.createClass({
 
   getInstructionText() {
     const textKey = translationMap[this.getQuestion().key];
-    console.log(textKey);
     let text = translations.english[textKey];
-    console.log(text);
     if (this.props.language !== 'english') {
       text += `<br/><br/>${translations[this.props.language][textKey]}`;
+    }
+    return text;
+  },
+
+  getChoiceHTML() {
+    let text = translations.english['sentence-fragment-complete-vs-incomplete-button-choice-instructions'];
+    if (this.props.language !== 'english') {
+      text += `<br/><br/>${translations[this.props.language]['sentence-fragment-complete-vs-incomplete-button-choice-instructions']}`;
     }
     return text;
   },
@@ -137,11 +143,7 @@ const PlaySentenceFragment = React.createClass({
           <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
             <div className="feedback-row">
               <img className="info" src={icon} style={{ marginTop: 3, }} />
-              <p>Is this a complete or an incomplete sentence?</p>
-            </div>
-            <div className="feedback-row">
-              <img className="info" src={icon} style={{ marginTop: 3, }} />
-              <p>Esta oración esta complete o incompleta?</p>
+              <p dangerouslySetInnerHTML={{ __html: this.getChoiceHTML(), }} />
             </div>
             {this.getSentenceOrFragmentButtons()}
           </ReactTransition>

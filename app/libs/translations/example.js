@@ -18,8 +18,9 @@ const titleCards = {
 };
 
 const instructions = {
-  'sentence fragment complete vs incomplete choice instructions': '',
-  'sentence fragment complete vs incomplete completion instructions': '',
+  'sentence-fragment-complete-vs-incomplete-button-choice-instructions': '',
+  'sentence-fragment-complete-vs-incomplete-choice-instructions': '',
+  'sentence-fragment-complete-vs-incomplete-completion-instructions': '',
   'fill-in-the-blank-multiple-instructions': '',
   'fill-in-the-blank-single-instructions': '',
   'tense-question-instructions': '',

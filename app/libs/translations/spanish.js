@@ -18,6 +18,7 @@ const titleCards = {
 };
 
 const instructions = {
+  'sentence-fragment-complete-vs-incomplete-button-choice-instructions': 'Esta oración esta complete o incompleta?',
   'sentence-fragment-complete-vs-incomplete-choice-instructions': 'Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.',
   'sentence-fragment-complete-vs-incomplete-completion-instructions': 'Añadir al grupo de palabras para hacer una oración completa. Añada el menor número posible de palabras.',
   'fill-in-the-blank-multiple-instructions': 'Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.',
