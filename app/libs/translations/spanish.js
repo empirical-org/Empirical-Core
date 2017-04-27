@@ -31,7 +31,7 @@ const instructions = {
 const scaffolds = {
   'joining word cues single': 'palabras sumarias',
   'joining word cues multiple': 'palabras sumarias',
-  'add word bank cue': ''
+  'add word bank cue': 'Añadir palabras.'
 };
 
 const spanishTranslation = {

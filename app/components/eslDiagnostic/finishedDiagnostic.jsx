@@ -1,9 +1,19 @@
 import React from 'react';
 import Spinner from '../shared/spinner.jsx';
+import translations from '../../libs/translations/index.js';
 export default React.createClass({
 
   componentDidMount() {
     this.props.saveToLMS();
+  },
+
+  getCompletedPageHTML() {
+    let html = translations.english['completion page'];
+    if (this.props.language !== 'english') {
+      const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
+      html += `<br/><div class="${textClass}">${translations[this.props.language]['completion page']}</div>`;
+    }
+    return html;
   },
 
   renderSavedIndicator() {
@@ -40,18 +50,9 @@ export default React.createClass({
         </div>
       );
     } else {
-      // HARDCODED
       return (
         <div className="landing-page">
-          <h1>You've completed the Quill Placement Activity</h1>
-          <p>
-            Your results are being saved now. You'll be redirected automatically once they are saved.
-          </p>
-          <br />
-          <h1>As terminado el ejercicio de Quill Placement</h1>
-          <p>
-            Tus resultados están sido guardados ahora. Cuando se terminan de archivar te vamos a enviar a la próxima pagina.
-          </p>
+          <div dangerouslySetInnerHTML={{ __html: this.getCompletedPageHTML(), }} />
           <Spinner />
         </div>
       );

@@ -21,9 +21,9 @@ const instructions = {
   'sentence-fragment-complete-vs-incomplete-button-choice-instructions': 'Is this a complete or an incomplete sentence?',
   'sentence-fragment-complete-vs-incomplete-typing-choice-instructions': 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.',
   'sentence-fragment-complete-vs-incomplete-completion-instructions': 'Add to the group of words to make a complete sentence. Add as few words as possible.',
-  'fill-in-the-blank-multiple-instructions': 'Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.',
+  'fill-in-the-blank-multiple-instructions': 'Fill in the blank with one of the articles above. If no article is needed, remove the blank.',
   'tense-question-instructions': 'Rewrite the sentence. Correct the verb in bold so it is in the right tense to match the rest of the sentence.',
-  'fill-in-the-blank-single-instructions': 'Fill in the blank with one of these words: on, in, at, to',
+  'fill-in-the-blank-single-instructions': 'Fill in the blank with one of the words above.',
   'combine-sentences-instructions': 'Combine the sentences into one sentence.',
   'combine-sentences-with-joining-words-instructions': 'Combine the sentences. Use one of the joining words.',
 };
@@ -31,7 +31,7 @@ const instructions = {
 const scaffolds = {
   'joining word cues single': 'joining word',
   'joining word cues multiple': 'joining words',
-  'add word bank cue': 'Add words.'
+  'add word bank cue': 'Add words'
 };
 
 const englishTranslation = {
