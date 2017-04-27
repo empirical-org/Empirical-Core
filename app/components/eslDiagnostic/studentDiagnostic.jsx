@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, nextQuestionWithoutSaving, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, nextQuestionWithoutSaving, resumePreviousDiagnosticSession, updateLanguage } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
@@ -11,6 +11,7 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion.jsx';
 import LandingPage from './landing.jsx';
+import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import TitleCard from './titleCard.jsx';
@@ -152,16 +153,6 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(action);
   },
 
-  renderQuestionComponent() {
-    if (this.props.question.currentQuestion) {
-      return (<Question
-        question={this.props.question.currentQuestion}
-        submitResponse={this.submitResponse}
-        prefill={this.getLesson().prefill}
-      />);
-    }
-  },
-
   questionsForDiagnostic() {
     const questionsCollection = hashToCollection(this.props.questions.data);
     const { data, } = this.props.lessons,
@@ -208,6 +199,10 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(action);
   },
 
+  updateLanguage(language) {
+    this.props.dispatch(updateLanguage(language));
+  },
+
   getProgressPercent() {
     if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
       return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100;
@@ -237,48 +232,71 @@ const StudentDiagnostic = React.createClass({
     return returnValue;
   },
 
+  language() {
+    return this.props.playDiagnostic.language;
+  },
+
+  renderQuestionComponent() {
+    if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
+      return (<PlayDiagnosticQuestion
+        question={this.props.playDiagnostic.currentQuestion.data}
+        nextQuestion={this.nextQuestion}
+        key={this.props.playDiagnostic.currentQuestion.data.key}
+        marking="diagnostic"
+        language={this.language()}
+      />);
+    } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
+      return (
+        <TitleCard
+          data={this.props.playDiagnostic.currentQuestion.data}
+          currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+          dispatch={this.props.dispatch}
+          nextQuestion={this.nextQuestionWithoutSaving}
+          language={this.language()}
+        />
+      );
+    } else if (this.props.playDiagnostic.currentQuestion.type === 'FB') {
+      return (<PlayFillInTheBlankQuestion
+        question={this.props.playDiagnostic.currentQuestion.data}
+        nextQuestion={this.nextQuestion}
+        key={this.props.playDiagnostic.currentQuestion.data.key}
+        dispatch={this.props.dispatch}
+        language={this.language()}
+      />);
+    } else {
+      return (<PlaySentenceFragment
+        question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+        key={this.props.playDiagnostic.currentQuestion.data.key}
+        nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+        updateAttempts={this.submitResponse}
+        language={this.language()}
+      />);
+    }
+  },
+
   render() {
-    const diagnosticID = this.props.params.diagnosticID;
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata && this.props.fillInBlank.hasreceiveddata) {
       const data = this.getFetchedData();
       if (data) {
         if (this.props.playDiagnostic.currentQuestion) {
-          if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} marking="diagnostic" />);
-          } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
-            component = (
-              <TitleCard
-                data={this.props.playDiagnostic.currentQuestion.data}
-                currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-                dispatch={this.props.dispatch}
-                nextQuestion={this.nextQuestionWithoutSaving}
-              />
-            );
-          } else if (this.props.playDiagnostic.currentQuestion.type === 'FB') {
-            component = (<PlayFillInTheBlankQuestion
-              question={this.props.playDiagnostic.currentQuestion.data}
-              nextQuestion={this.nextQuestion}
-              key={this.props.playDiagnostic.currentQuestion.data.key}
-              dispatch={this.props.dispatch}
-            />);
-          } else {
-            component = (<PlaySentenceFragment
-              question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-              key={this.props.playDiagnostic.currentQuestion.data.key}
-              nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-              updateAttempts={this.submitResponse}
-            />);
-          }
+          component = this.renderQuestionComponent();
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
+          component = (<FinishedDiagnostic
+            saveToLMS={this.saveToLMS}
+            saved={this.state.saved}
+            error={this.state.error}
+            language={this.language()}
+          />);
+        } else if (this.props.playDiagnostic.language) {
+          component = (<LandingPage
+            begin={() => { this.startActivity('John', data); }}
+            session={this.getPreviousSessionData()}
+            resumeActivity={this.resumeSession}
+            language={this.language()}
+          />);
         } else {
-          component = <LandingPage begin={() => { this.startActivity('John', data); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
-          // (
-          //   <div className="container">
-          //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
-          //   </div>
-          // )
+          component = <LanguagePage setLanguage={(language) => { this.updateLanguage(language); }} />;
         }
       }
     } else {

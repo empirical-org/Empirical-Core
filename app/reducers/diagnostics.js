@@ -62,6 +62,9 @@ function question(state = initialState, action) {
     case SubmitActions.UPDATE_DIAGNOSTIC_NAME:
       var changes = { name: action.data, };
       return Object.assign({}, state, changes);
+    case SubmitActions.UPDATE_DIAGNOSTIC_LANGUAGE:
+      const changes = { language: action.data, };
+      return Object.assign({}, state, changes);
     case SubmitActions.UPDATE_DIAGNOSTIC_CURRENT_QUESTION:
       var change = action.data;
       var changes = { currentQuestion: Object.assign({}, state.currentQuestion, {

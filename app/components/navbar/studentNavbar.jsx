@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import LanguageSelector from './languageSelector.jsx';
 
 const Navbar = React.createClass({
   getInitialState() {
@@ -32,9 +33,18 @@ const Navbar = React.createClass({
     }
   },
 
+  renderLanguageSelector() {
+    if (window.location.href.includes('play/diagnostic/ell')) {
+      return (
+        <LanguageSelector />
+      );
+    }
+  },
+
   renderLinks() {
     return (
       <div className="nav-right nav-menu" style={this.navStyles()}>
+        {this.renderLanguageSelector()}
         <a onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
       </div>
     );
