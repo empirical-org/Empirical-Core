@@ -56,7 +56,6 @@ describe Topic, type: :model do
       expect(found_topics[0].name).to be_present
       expect(found_topics[0].total_student_count).to be_present
       expect(found_topics[0].proficient_student_count).to be_present
-      expect(found_topics[0].near_proficient_student_count).to be_present
       expect(found_topics[0].not_proficient_student_count).to be_present
       expect(found_topics[0].total_activity_count).to be_present
       expect(found_topics[0].average_score).to be_present
