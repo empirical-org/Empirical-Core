@@ -72,7 +72,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   getInstructionText() {
     const textKey = translationMap[this.getQuestion().key];
     let text = `<p>${translations.english[textKey]}</p>`;
-    if (this.props.language !== 'english') {
+    if (this.props.language && this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
       text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
     }
@@ -278,7 +278,7 @@ export class PlayFillInTheBlankQuestion extends Component {
     // HARDCODED
     let text = translations.english['add word bank cue'];
     text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
-    if (this.props.language !== 'english') {
+    if (this.props.language && this.props.language !== 'english') {
       text += ` / ${translations[this.props.language]['add word bank cue']}`;
     }
     return text;
@@ -286,7 +286,7 @@ export class PlayFillInTheBlankQuestion extends Component {
 
   getSubmitButtonText() {
     let text = translations.english['submit button text'];
-    if (this.props.language !== 'english') {
+    if (this.props.language && this.props.language !== 'english') {
       text += ` / ${translations[this.props.language]['submit button text']}`;
     }
     return text;
