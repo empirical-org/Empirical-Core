@@ -7,13 +7,13 @@ export default React.createClass({
   getJoiningWordsText() {
     if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
       let text = translations.english['joining word cues single'];
-      if (this.props.language !== 'english') {
+      if (this.props.language && this.props.language !== 'english') {
         text += ` / ${translations[this.props.language]['joining word cues single']}`;
       }
       return text;
     } else {
       let text = translations.english['joining word cues multiple'];
-      if (this.props.language !== 'english') {
+      if (this.props.language && this.props.language !== 'english') {
         text += ` / ${translations[this.props.language]['joining word cues multiple']}`;
       }
       return text;
@@ -25,7 +25,7 @@ export default React.createClass({
     if (this.props.customText) {
       text = this.props.customText;
     } else {
-      text = this.getJoiningWordsText()
+      text = this.getJoiningWordsText();
     }
     return (
       <div className="cue-explanation" key="explanation">
