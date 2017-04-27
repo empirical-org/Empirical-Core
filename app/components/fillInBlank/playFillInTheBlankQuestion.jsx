@@ -121,6 +121,7 @@ export class PlayFillInTheBlankQuestion extends Component {
       backgroundColor: 'white',
       borderRadius: '3px',
       height: '26px',
+      zIndex: '100',
       padding: '2px 7px',
     };
     const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
