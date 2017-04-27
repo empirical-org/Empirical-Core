@@ -12,6 +12,16 @@ const languageFlagMap = {
   hindi: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png',
 };
 
+const languageDisplayNameMap = {
+  english: 'English',
+  spanish: 'Español',
+  chinese: '中文',
+  french: 'Français',
+  vietnamese: 'Tiếng Việt',
+  arabic: 'العربي',
+  hindi: 'हिंद',
+};
+
 class LanguageSelector extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +33,10 @@ class LanguageSelector extends Component {
 
   updateLanguage(language) {
     this.setState({ dropdownOpen: false, }, () => this.props.dispatch(updateLanguage(language)));
+  }
+
+  arrowClass() {
+    return this.state.dropdownOpen ? 'arrow-up' : 'arrow-down';
   }
 
   renderDropdown() {
@@ -48,7 +62,11 @@ class LanguageSelector extends Component {
   render() {
     return (
       <div className="nav-language-selector">
-        <a name="language" value={this.props.playDiagnostic.language} onClick={this.toggleDropdown}><img className="language-button-img" src={languageFlagMap[this.props.playDiagnostic.language]} />{this.props.playDiagnostic.language}</a>
+        <div className="nav-language-selector-trigger" name="language" value={this.props.playDiagnostic.language} onClick={this.toggleDropdown}>
+          <img className="language-button-img" src={languageFlagMap[this.props.playDiagnostic.language]} />
+          <div className="language-button-text">{languageDisplayNameMap[this.props.playDiagnostic.language] || 'Languages'} </div>
+          <div className={this.arrowClass()} />
+        </div>
         {this.renderDropdown()}
       </div>
     );
