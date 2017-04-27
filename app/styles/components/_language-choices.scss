@@ -92,6 +92,11 @@
   line-height: 1.29;
   color: #000000;
 
+  &:hover {
+    cursor: pointer;
+    border: solid 2px $green;
+  }
+
   .language-button-img {
     height: 35px;
   }
