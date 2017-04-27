@@ -18,7 +18,7 @@ const languageDisplayNameMap = {
   chinese: '中文',
   french: 'Français',
   vietnamese: 'Tiếng Việt',
-  arabic: 'العربي',
+  arabic: 'العربية',
   hindi: 'हिंद',
 };
 
@@ -48,7 +48,7 @@ class LanguageSelector extends Component {
           <li onClick={() => this.updateLanguage('chinese')}><img className="language-button-img" src={languageFlagMap.chinese} />中文</li>
           <li onClick={() => this.updateLanguage('french')}><img className="language-button-img" src={languageFlagMap.french} />Français</li>
           <li onClick={() => this.updateLanguage('vietnamese')}><img className="language-button-img" src={languageFlagMap.vietnamese} />Tiếng Việt</li>
-          <li onClick={() => this.updateLanguage('arabic')}><img className="language-button-img" src={languageFlagMap.arabic} />العربي</li>
+          <li onClick={() => this.updateLanguage('arabic')}><img className="language-button-img" src={languageFlagMap.arabic} />العربية</li>
           <li onClick={() => this.updateLanguage('hindi')}><img className="language-button-img" src={languageFlagMap.hindi} />हिंद</li>
         </ul>
       );
@@ -60,18 +60,27 @@ class LanguageSelector extends Component {
   }
 
   render() {
-    return (
-      <div className="nav-language-selector">
-        <div className="nav-language-selector-trigger" name="language" value={this.props.playDiagnostic.language} onClick={this.toggleDropdown}>
-          <img className="language-button-img" src={languageFlagMap[this.props.playDiagnostic.language]} />
-          <div className="language-button-text">{languageDisplayNameMap[this.props.playDiagnostic.language] || 'Languages'} </div>
-          <div className={this.arrowClass()} />
+    if (this.props.playDiagnostic.language) {
+      return (
+        <div className="nav-language-selector-container">
+          <div className="nav-language-selector-directions">Directions in:</div>
+          <div className="nav-language-selector">
+            <div className="nav-language-selector-trigger" name="language" value={this.props.playDiagnostic.language} onClick={this.toggleDropdown}>
+              <img className="language-button-img" src={languageFlagMap[this.props.playDiagnostic.language]} />
+              <div className="language-button-text">{languageDisplayNameMap[this.props.playDiagnostic.language] || 'Languages'} </div>
+              <div className={this.arrowClass()} />
+            </div>
+            {this.renderDropdown()}
+          </div>
         </div>
-        {this.renderDropdown()}
-      </div>
-    );
-  }
 
+      );
+    } else {
+      return (
+        <div />
+      );
+    }
+  }
 }
 
 function select(props) {

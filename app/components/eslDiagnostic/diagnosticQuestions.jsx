@@ -1,44 +1,44 @@
 export default function diagnosticQuestions() {
   return ([
-    // {
-    //   type: 'TL',
-    //   key: 'titlecard-ell-complete-sentences',
-    //   content: 'sentence fragments title card',
-    // },
-    // {
-    //   type: 'SF',
-    //   key: '-Ke_LpBo1GAcq4gXHORz', // watches the movie
-    // },
-    // {
-    //   type: 'SF',
-    //   key: '-Ke_Lw0PG3zy5QodpFdo', // the family from China
-    // },
-    // {
-    //   type: 'SF',
-    //   key: '-KOqMWRFOrYgv-KjRYdy-esp', // after the football game ended
-    // },
-    // {
-    //   type: 'TL',
-    //   key: 'titlecard-ell-fill-in-the-blank-scaffolded',
-    //   content: 'fill in multiple blanks title card',
-    // },
-    // {
-    //   type: 'FB',
-    //   key: '-Ke_6gyGVXuHiealUgD3', // i have _____ friend named Marco who loves _____ football
-    // },
-    // {
-    //   type: 'FB',
-    //   key: '-Ke_70Ul5Ka4AKbbtAOa', // _____ school ends when _____ bell rings
-    // },
-    // {
-    //   type: 'FB',
-    //   key: '-Ke_7AgPuCE56lUNwFJN', // _____ girl lives in _____ apartment in _____ New York City
-    // },
-    // {
-    //   type: 'TL',
-    //   key: 'titlecard-ell-past-present-and-future-tense',
-    //   content: 'tense title card',
-    // },
+    {
+      type: 'TL',
+      key: 'titlecard-ell-complete-sentences',
+      content: 'sentence fragments title card',
+    },
+    {
+      type: 'SF',
+      key: '-Ke_LpBo1GAcq4gXHORz', // watches the movie
+    },
+    {
+      type: 'SF',
+      key: '-Ke_Lw0PG3zy5QodpFdo', // the family from China
+    },
+    {
+      type: 'SF',
+      key: '-KOqMWRFOrYgv-KjRYdy-esp', // after the football game ended
+    },
+    {
+      type: 'TL',
+      key: 'titlecard-ell-fill-in-the-blank-scaffolded',
+      content: 'fill in multiple blanks title card',
+    },
+    {
+      type: 'FB',
+      key: '-Ke_6gyGVXuHiealUgD3', // i have _____ friend named Marco who loves _____ football
+    },
+    {
+      type: 'FB',
+      key: '-Ke_70Ul5Ka4AKbbtAOa', // _____ school ends when _____ bell rings
+    },
+    {
+      type: 'FB',
+      key: '-Ke_7AgPuCE56lUNwFJN', // _____ girl lives in _____ apartment in _____ New York City
+    },
+    {
+      type: 'TL',
+      key: 'titlecard-ell-past-present-and-future-tense',
+      content: 'tense title card',
+    },
     {
       type: 'SC',
       key: '-KdCbiGL0xjiiPQ-vYLz', // mariana eats salad for lunch yesterday

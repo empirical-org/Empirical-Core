@@ -107,6 +107,14 @@
   align-items: flex-end;
 }
 
+.nav-language-selector-container {
+  display: flex;
+  align-items: center;
+  .nav-language-selector-directions {
+    color: white;
+    margin-right: 10px;
+  }
+}
 
 .nav-language-selector {
   position: relative;
