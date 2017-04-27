@@ -276,8 +276,12 @@ export class PlayFillInTheBlankQuestion extends Component {
 
   customText() {
     // HARDCODED
-    const text = 'Add words';
-    return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
+    let text = translations.english['add word bank cue'];
+    text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
+    if (this.props.language !== 'english') {
+      text += ` / ${translations[this.props.language]['add word bank cue']}`;
+    }
+    return text;
   }
 
   getSubmitButtonText() {

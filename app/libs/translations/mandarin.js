@@ -1,10 +1,10 @@
 const buttonText = {
-  'submit button text': '',
-  'resume button text': '',
-  'begin button text': '',
-  'continue button text': '',
-  'sentence fragment complete button': '',
-  'sentence fragment incomplete button': '',
+  'submit button text': '递交',
+  'resume button text': '恢复',
+  'begin button text': '开始',
+  'continue button text': '继续',
+  'sentence fragment complete button': '完整句子',
+  'sentence fragment incomplete button': '不完整的句子',
 };
 
 const titleCards = {
@@ -29,9 +29,9 @@ const instructions = {
 };
 
 const scaffolds = {
-  'joining word cues single': '',
-  'joining word cues multiple': '',
-  'add word bank cue': ''
+  'joining word cues single': '加入词',
+  'joining word cues multiple': '加入词',
+  'add word bank cue': '添加单词'
 };
 
 const exampleTranslation = {

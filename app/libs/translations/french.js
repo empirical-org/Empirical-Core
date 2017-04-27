@@ -1,8 +1,8 @@
 const buttonText = {
-  'submit button text': '',
-  'resume button text': '',
-  'begin button text': '',
-  'continue button text': '',
+  'submit button text': 'Soumettre',
+  'resume button text': 'Reprendre',
+  'begin button text': 'Commencer',
+  'continue button text': 'Continuer',
   'sentence fragment complete button': 'complète',
   'sentence fragment incomplete button': 'incomplète',
 };

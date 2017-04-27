@@ -1,10 +1,10 @@
 const buttonText = {
-  'submit button text': '',
-  'resume button text': '',
-  'begin button text': '',
-  'continue button text': '',
-  'sentence fragment complete button': '',
-  'sentence fragment incomplete button': '',
+  'submit button text': 'जमा करें',
+  'resume button text': 'दुबारा आरम्भ करना',
+  'begin button text': 'शुरू',
+  'continue button text': 'जारी रहना',
+  'sentence fragment complete button': 'पुरा वाक्य',
+  'sentence fragment incomplete button': 'अपूर्ण वाक्य',
 };
 
 const titleCards = {
@@ -29,9 +29,9 @@ const instructions = {
 };
 
 const scaffolds = {
-  'joining word cues single': '',
-  'joining word cues multiple': '',
-  'add word bank cue': ''
+  'joining word cues single': 'शब्द में शामिल होना',
+  'joining word cues multiple': 'शब्दों में शामिल होने',
+  'add word bank cue': 'शब्दों को जोड़ें'
 };
 
 const exampleTranslation = {
