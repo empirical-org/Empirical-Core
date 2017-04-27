@@ -152,8 +152,8 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   warningText() {
-    const text = 'Uh-oh, try using one of the words below';
-    return `${text}${this.state.blankAllowed ? ' or leaving blank.' : '.'}`;
+    const text = 'Use one of the words below';
+    return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
 
   chevyStyleRight() {
