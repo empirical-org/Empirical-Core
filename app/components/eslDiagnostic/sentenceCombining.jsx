@@ -15,6 +15,8 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import translations from '../../libs/translations/index.js';
+import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {
@@ -34,12 +36,6 @@ const PlayDiagnosticQuestion = React.createClass({
     );
   },
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
-      // this.saveSessionData(nextProps.playLesson);
-    }
-  },
-
   getInitialValue() {
     if (this.props.prefill) {
       return this.getQuestion().prefilledText;
@@ -56,6 +52,16 @@ const PlayDiagnosticQuestion = React.createClass({
       question.key = question.key.slice(0, -4);
     }
     return question;
+  },
+
+  getInstructionText() {
+    const textKey = translationMap[this.getQuestion().key];
+    let text = `<p>${translations.english[textKey]}</p>`;
+    if (this.props.language !== 'english') {
+      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
+      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
+    }
+    return text;
   },
 
   getResponses() {
@@ -96,7 +102,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderCues() {
-    return <RenderQuestionCues getQuestion={this.getQuestion} esl />;
+    return <RenderQuestionCues language={this.props.language} getQuestion={this.getQuestion} />;
   },
 
   updateResponseResource(response) {
@@ -186,12 +192,20 @@ const PlayDiagnosticQuestion = React.createClass({
     }
   },
 
+  getSubmitButtonText() {
+    let text = translations.english['submit button text'];
+    if (this.props.language !== 'english') {
+      text += ` / ${translations[this.props.language]['submit button text']}`;
+    }
+    return text;
+  },
+
   render() {
     let button;
     if (this.props.question.attempts.length > 0) {
-      button = <button className="button student-submit" onClick={this.nextQuestion}>Submit / Enviar</button>;
+      button = <button className="button student-submit" onClick={this.nextQuestion}>{this.getSubmitButtonText()}</button>;
     } else {
-      button = <button className="button student-submit" onClick={this.checkAnswer}>Submit / Enviar</button>;
+      button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
     }
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
@@ -203,7 +217,7 @@ const PlayDiagnosticQuestion = React.createClass({
               {this.renderCues()}
               <div className="feedback-row">
                 <img src={icon} style={{ marginTop: 3, }} />
-                <p dangerouslySetInnerHTML={{ __html: instructions, }} />
+                <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
               </div>
             </div>
             {this.renderMedia()}

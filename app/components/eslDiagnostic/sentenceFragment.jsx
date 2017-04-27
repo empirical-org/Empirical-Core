@@ -16,6 +16,8 @@ import {
 import icon from '../../img/question_icon.svg';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
+import translations from '../../libs/translations/index.js';
+import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
@@ -26,6 +28,24 @@ const PlaySentenceFragment = React.createClass({
       checkAnswerEnabled: true,
       submitted: false,
     };
+  },
+
+  getInstructionText() {
+    const textKey = translationMap[this.getQuestion().key];
+    let text = `<p>${translations.english[textKey]}</p>`;
+    if (this.props.language !== 'english') {
+      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
+      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
+    }
+    return text;
+  },
+
+  getChoiceHTML() {
+    let text = translations.english['sentence-fragment-complete-vs-incomplete-button-choice-instructions'];
+    if (this.props.language !== 'english') {
+      text += `<br/><br/>${translations[this.props.language]['sentence-fragment-complete-vs-incomplete-button-choice-instructions']}`;
+    }
+    return text;
   },
 
   componentDidMount() {
@@ -124,11 +144,7 @@ const PlaySentenceFragment = React.createClass({
           <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
             <div className="feedback-row">
               <img className="info" src={icon} style={{ marginTop: 3, }} />
-              <p>Is this a complete or an incomplete sentence?</p>
-            </div>
-            <div className="feedback-row">
-              <img className="info" src={icon} style={{ marginTop: 3, }} />
-              <p>Esta oración esta complete o incompleta?</p>
+              <p dangerouslySetInnerHTML={{ __html: this.getChoiceHTML(), }} />
             </div>
             {this.getSentenceOrFragmentButtons()}
           </ReactTransition>
@@ -139,35 +155,25 @@ const PlaySentenceFragment = React.createClass({
     }
   },
 
+  getSubmitButtonText() {
+    let text = translations.english['submit button text'];
+    if (this.props.language !== 'english') {
+      text += ` / ${translations[this.props.language]['submit button text']}`;
+    }
+    return text;
+  },
+
   renderPlaySentenceFragmentMode(fragment) {
     // HARDCODED
-    const button = <button className="button student-submit" onClick={this.checkAnswer}>Submit | Enviar</button>;
+    const button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
 
     if (!this.choosingSentenceOrFragment()) {
-      // let instructions;
-      let component;
-      if (this.props.question.instructions && this.props.question.instructions !== '') {
-        component = (
-          <div className="feedback-row">
-            <img className="info" src={icon} style={{ marginTop: 3, }} />
-            <p dangerouslySetInnerHTML={{ __html: this.props.question.instructions, }} />
-          </div>
-        );
-        // instructions = this.props.question.instructions;
-      } else {
-        // HARDCODED
-        component = (
-          <div className="feedback-row">
-            <img className="info" src={icon} />
-            <p>
-              If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.
-              <br /><br />
-              Si es una oración completa, aprieta el botón que dice “enviar”. Si es una oración incompleta, complete la oración ahora.
-            </p>
-          </div>
-        );
-        // instructions = 'Añadir al grupo de palabras para hacer una oración completa. Añada el menor número posible de palabras.';
-      }
+      const component = (
+        <div className="feedback-row">
+          <img className="info" src={icon} style={{ marginTop: 3, }} />
+          <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+        </div>
+      );
 
       return (
         <div className="container">
