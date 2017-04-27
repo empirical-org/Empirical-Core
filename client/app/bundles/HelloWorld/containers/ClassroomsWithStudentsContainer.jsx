@@ -161,6 +161,14 @@ export default class extends React.Component {
 		return changed
 	}
 
+	enableSave() {
+		if (this.state.classrooms.find((classy) => classy.students.length > 0)) {
+			return this.state.studentsChanged
+		} else if (this.state.classrooms.find((classy) => classy.allSelected)) {
+			return true
+		}
+	}
+
 	getClassroomsAndStudentsData() {
 		const that = this;
 		let url, unitName
@@ -203,10 +211,11 @@ export default class extends React.Component {
 									createOrEdit={this.state.newUnit ? 'create' : 'edit'}
 									handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
 									toggleClassroomSelection={this.toggleClassroomSelection}
-									isSaveButtonEnabled={this.state.studentsChanged}
+									isSaveButtonEnabled={this.enableSave()}
 									/>
 							</div>
-						</div>)
+						</div>
+					)
 		} else {
 			return <div>You must first add a classroom.</div>
 		}
