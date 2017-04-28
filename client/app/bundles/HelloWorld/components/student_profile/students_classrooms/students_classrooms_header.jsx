@@ -2,6 +2,7 @@
 import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
+import Pluralize from 'pluralize'
 
 export default React.createClass({
 
@@ -9,7 +10,9 @@ export default React.createClass({
     return {
       classrooms: null,
       selectedClassroomId: this.props.currentClassroomId,
-      switchingClassrooms: false
+      switchingClassrooms: false,
+      showDropdownBoxes: false,
+      defaultClassroomNumber: 5
     }
   },
 
@@ -36,25 +39,73 @@ export default React.createClass({
     }
   },
 
-  mapClassrooms: function() {
-    var that = this
-    var classrooms = _.map(this.state.classrooms, function(classroom, index) {
-      return (<div
-        className={that.isActive(classroom.id, index) + ' classroom-box'}
+  horizontalClassrooms: function() {
+    // by default, only shows the smaller of 5 classes or the total Classes
+    const classroomBoxes = [];
+    if (this.state.classrooms) {
+      const maxNumber = Math.min(this.state.classrooms.length, this.state.defaultClassroomNumber)
+
+      for (let i = 0; i < maxNumber; i++) {
+        classroomBoxes.push(this.boxConstructor(this.state.classrooms[i], i))
+      }
+      const extraBoxCount = this.state.classrooms.length - this.state.defaultClassroomNumber
+      if (extraBoxCount > 0) {
+        classroomBoxes.push(this.dropdownTab(extraBoxCount))
+      }
+      return classroomBoxes
+    }
+  },
+
+  verticalClassrooms: function() {
+    if (this.state.showDropdownBoxes) {
+      const classroomBoxes = [];
+      if (this.state.classrooms) {
+        const numberOfExtraClassrooms = this.state.classrooms.length - this.state.defaultClassroomNumber
+        for (let i = (numberOfExtraClassrooms + 1); i < this.state.classrooms.length; i++) {
+          classroomBoxes.push(this.boxConstructor(this.state.classrooms[i], i))
+        }
+      return classroomBoxes
+    }}
+  },
+
+  toggleDropdown: function() {
+    this.setState({
+      showDropdownBoxes: !this.state.showDropdownBoxes
+    })
+  },
+
+  dropdownTab: function(extraBoxCount) {
+    const carat = this.state.showDropdownBoxes ? <i className="fa fa-angle-up"/> : <i className="fa fa-angle-down"/>
+    return <div className='classroom-box dropdown-tab' onClick={this.toggleDropdown}>
+      {extraBoxCount} More {Pluralize('Class', extraBoxCount)} {carat}
+    </div>
+  },
+
+  boxConstructor: function(classroom, index) {
+    return (
+      <div
+        className={this.isActive(classroom.id, index) + ' classroom-box'}
         key={classroom.id}
-        onClick={() => that.handleClassroomClick(classroom.id)}>
+        onClick={() => this.handleClassroomClick(classroom.id)}>
         <div>{classroom.teacher}</div>
-      <div className="classroom-box-classroom">{classroom.name}</div>
-    </div>)
-    });
-    return classrooms
+        <div className="classroom-box-classroom">{classroom.name}</div>
+      </div>
+    )
   },
 
   render: function() {
-    return(<div>{this.mapClassrooms()}</div>)
+    return(
+      <div className="students-classrooms">
+        <div className="tab-subnavigation-wrapper student-subnavigation">
+          <div className="container">
+            <span className="pull-right student-course-info">
+              <div>{this.horizontalClassrooms()}</div>
+            </span>
+          </div>
+          <div className='dropdown-classrooms'>{this.verticalClassrooms()}</div>
+        </div>
+      </div>
+    )
   }
-
-
-
 
 })

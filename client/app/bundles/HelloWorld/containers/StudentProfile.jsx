@@ -1,9 +1,10 @@
 import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
-import StudentProfileHeader from '../components/student_profile/student_profile_header.jsx'
+import StudentClassroomNavbar from '../components/student_profile/student_classroom_navbar.jsx'
 import NextActivity from '../components/student_profile/next_activity.jsx'
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx'
+import StudentProfileHeader from '../components/student_profile/student_profile_header'
 import Setter from '../components/modules/setter.jsx'
 
 export default React.createClass({
@@ -48,11 +49,12 @@ export default React.createClass({
   render: function () {
     if (this.state.firstBatchLoaded) {
       return (
-        <div id="student-profile">
-          <StudentProfileHeader data={this.state.student} fetchData={this.fetchData} loading={this.state.loading} />
-          <NextActivity data={this.state.next_activity_session} loading={this.state.loading} hasActivities={!(_.isEmpty(this.state.grouped_scores))}/>
-          <StudentProfileUnits data={this.state.grouped_scores} loading={this.state.loading}/>
-        </div>
+          <div id="student-profile">
+            <StudentClassroomNavbar data={this.state.student} fetchData={this.fetchData} loading={this.state.loading} />
+            <StudentProfileHeader studentName={this.state.student.name} classroomName={this.state.student.classroom.name} teacherName={this.state.student.classroom.teacher.name}/>
+            <NextActivity data={this.state.next_activity_session} loading={this.state.loading} hasActivities={!(_.isEmpty(this.state.grouped_scores))}/>
+            <StudentProfileUnits data={this.state.grouped_scores} loading={this.state.loading}/>
+          </div>
       )
     } else return <span></span>
   }
