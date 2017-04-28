@@ -7,7 +7,7 @@ describe CsvExportWorker, type: :worker do
 
   subject { worker.perform(csv_export.id, teacher.id) }
 
-  it 'generates the CSV' do
+  skip 'generates the CSV' do
     subject
     expect(csv_export.reload.csv_file.url).to_not be_nil
   end
