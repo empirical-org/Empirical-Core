@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import StudentProfile from '../StudentProfile.jsx';
 
 import $ from 'jquery'
-import StudentProfileHeader from '../../components/student_profile/student_profile_header.jsx'
+import StudentClassroomNavbar from '../../components/student_profile/student_classroom_navbar.jsx'
 import NextActivity from '../../components/student_profile/next_activity.jsx'
 import StudentProfileUnits from '../../components/student_profile/student_profile_units.jsx'
 
@@ -34,17 +34,17 @@ describe('StudentProfile container', () => {
         food: 'bars'
       }
     });
-    describe('StudentProfileHeader component', () => {
+    describe('StudentClassroomNavbar component', () => {
       it('should render', () => {
-        expect(wrapper.find(StudentProfileHeader).exists()).toBe(true);
+        expect(wrapper.find(StudentClassroomNavbar).exists()).toBe(true);
       });
 
       it('should have student data in data prop', () => {
-        expect(wrapper.find(StudentProfileHeader).props().data.foo).toBe('bar');
+        expect(wrapper.find(StudentClassroomNavbar).props().data.foo).toBe('bar');
       });
 
       it('should have fetchData prop that fetches data', () => {
-        wrapper.find(StudentProfileHeader).props().fetchData(3);
+        wrapper.find(StudentClassroomNavbar).props().fetchData(3);
         expect(wrapper.state().currentClassroom).toBe(3);
         expect(wrapper.state().loading).toBe(true);
         expect($.ajax).toHaveBeenCalled();
