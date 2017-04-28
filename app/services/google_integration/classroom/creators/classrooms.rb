@@ -8,15 +8,14 @@ module GoogleIntegration::Classroom::Creators::Classrooms
   private
 
   def self.create_classroom(teacher, course)
-    if teacher.google_id == course[:ownerId]
-      classroom = ::Classroom.unscoped.find_or_initialize_by(google_classroom_id: course[:id], teacher_id: teacher.id)
+
+    classroom = ::Classroom.unscoped.find_or_initialize_by(google_classroom_id: course[:id], teacher_id: teacher.id)
       if classroom.new_record?
         classroom.attributes = {name: course[:name] || "Classroom #{course[:id]}", teacher_id: teacher.id}
         classroom.save!
       end
       classroom.update(grade: course[:grade], visible: true)
       classroom.reload
-    end
     classroom
   end
 
