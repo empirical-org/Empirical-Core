@@ -6,7 +6,7 @@ describe Subscription, type: :model do
     let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
 
     it "updates the expirary to the later of one year from today or July 1, 2018" do
-        Subscription.start_premium(user)
+        Subscription.start_premium(user.id)
         july_1_2017 = Date.new(2017, 7, 1)
         expected_date = [Date.today, july_1_2017].max + 365
         expect(subscription.reload.expiration).to eq(expected_date)
@@ -18,12 +18,12 @@ describe Subscription, type: :model do
 
     it "creates one" do
       expect {
-        Subscription.start_premium(user)
+        Subscription.start_premium(user.id)
       }.to change { Subscription.count }.by(1)
     end
 
     it "gives the subscription an expiration of to the later of one year from today or July 1, 2018" do
-      Subscription.start_premium(user)
+      Subscription.start_premium(user.id)
       july_1_2017 = Date.new(2017, 7, 1)
       expected_date = [Date.today, july_1_2017].max + 365
       expect(user.reload.subscriptions.last.expiration).to eq(expected_date)
