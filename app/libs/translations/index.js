@@ -13,7 +13,7 @@ const translations = {
   french: FrenchTranslation,
   hindi: HindiTranslation,
   vietnamese: VietnameseTranslation,
-  mandarin: MandarinTranslation
+  chinese: MandarinTranslation,
 };
 
 export default translations;

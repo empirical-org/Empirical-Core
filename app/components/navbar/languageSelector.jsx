@@ -45,7 +45,7 @@ class LanguageSelector extends Component {
         <ul className="nav-language-selector-dropdown">
           <li onClick={() => this.updateLanguage('english')}><img className="language-button-img" src={languageFlagMap.english} />English</li>
           <li onClick={() => this.updateLanguage('spanish')}><img className="language-button-img" src={languageFlagMap.spanish} />Español</li>
-          {/* <li onClick={() => this.updateLanguage('chinese')}><img className="language-button-img" src={languageFlagMap.chinese} />中文</li> */}
+          <li onClick={() => this.updateLanguage('chinese')}><img className="language-button-img" src={languageFlagMap.chinese} />中文</li>
           <li onClick={() => this.updateLanguage('french')}><img className="language-button-img" src={languageFlagMap.french} />Français</li>
           <li onClick={() => this.updateLanguage('vietnamese')}><img className="language-button-img" src={languageFlagMap.vietnamese} />Tiếng Việt</li>
           <li onClick={() => this.updateLanguage('arabic')}><img className="language-button-img" src={languageFlagMap.arabic} />العربية</li>
