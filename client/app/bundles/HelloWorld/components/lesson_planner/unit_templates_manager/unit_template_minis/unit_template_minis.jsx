@@ -4,7 +4,6 @@
  import { Link } from 'react-router'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
- import UnitTemplateMinisHeader from './unit_template_minis_header'
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
  import _l from 'lodash'
@@ -102,13 +101,6 @@
     }
   },
 
-  renderHeader: function () {
-    if (!this.props.data.selectedCategoryId) {
-      return <UnitTemplateMinisHeader data={this.props.data} />
-    }
-  },
-
-
   userLoggedIn: function () {
     return this.props.signedInTeacher
   },
@@ -144,7 +136,6 @@
 
   alwaysRender: function () {
     return (<div key='always-display' className='unit-template-minis'>
-      {this.renderHeader()}
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>
