@@ -21,13 +21,18 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
+  def google_email_mismatch
+    @google_email = session[:google_email] || ''
+    render 'accounts/google_mismatch'
+  end
+
   private
 
   def redirect_request(request)
     request.referer &&
     URI(request.referer).path &&
     URI(request.referer).host != "accounts.google.com" &&
-    ['/session/new', '/account/new', '/teachers/classrooms/dashboard'].exclude?(URI(request.referer).path)
+    ['/session/new', '/account/new', '/teachers/classrooms/dashboard', '/teachers/classrooms/new'].exclude?(URI(request.referer).path)
   end
 
   def google_login(email, access_token, google_id)
@@ -43,37 +48,51 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
+  def new_google_user(name, email, role, access_token, google_id, user)
+    @user = user
+    @user.attributes = {signed_up_with_google: true, name: name, role: role, google_id: google_id}
+    @user.save
+    sign_in(@user)
+    ip = request.remote_ip
+    AccountCreationCallbacks.new(@user, ip).trigger
+    @user.subscribe_to_newsletter
+    if @user.role == 'teacher'
+      @js_file = 'session'
+      @teacherFromGoogleSignUp = true
+    end
+  end
+
 
   def register_with_google(name, email, role, access_token, google_id)
-    user = User.find_or_initialize_by(email: email.downcase)
-    if user.new_record?
-      user.attributes = {signed_up_with_google: true, name: name, role: role, google_id: google_id}
-      user.save
-      sign_in(user)
-      ip = request.remote_ip
-      AccountCreationCallbacks.new(user, ip).trigger
-      user.subscribe_to_newsletter
-      if user.role == 'teacher'
-        @js_file = 'session'
-        @teacherFromGoogleSignUp = true
-        render 'accounts/new'
-        return
-      else
-        GoogleIntegration::Classroom::Main.join_existing_google_classrooms(user, access_token)
-      end
-    end
-    if user.errors.any?
-      redirect_to new_account_path
+    if current_user && current_user.email != email
+      session[:google_email] = email
+      redirect_to "/auth/google_email_mismatch/"
       return
     else
-      user.update(signed_up_with_google: true)
-      if request.referer && URI(request.referer) && URI(request.referer).path == '/teachers/classrooms/dashboard'
-        # if they are hitting this route through the dashboard, they should be brought to the google sync page
-        redirect_to '/teachers/classrooms/google_sync'
+      @user = User.find_or_initialize_by(email: email.downcase)
+      if @user.new_record?
+        new_google_user(name, email, role, access_token, google_id, @user)
+        if @user.role == 'teacher'
+          render 'accounts/new'
+          return
+        else
+          GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user, access_token)
+        end
+      end
+      if @user.errors.any?
+        redirect_to new_account_path
+        return
+      else
+        @user.update(signed_up_with_google: true, google_id: google_id)
+        if request.referer && URI(request.referer) &&
+          (URI(request.referer).path == '/teachers/classrooms/dashboard' || URI(request.referer).path == '/teachers/classrooms/new')
+          # if they are hitting this route through the dashboard or new classrooms page, they should be brought to the google sync page
+          redirect_to '/teachers/classrooms/google_sync'
+          return
+        end
+        redirect_to profile_path
         return
       end
-      redirect_to profile_path
-      return
     end
   end
 
