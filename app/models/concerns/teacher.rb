@@ -123,7 +123,6 @@ module Teacher
     else
       subscriptions
         .where("subscriptions.expiration >= ?", Date.today)
-        .where("subscriptions.account_limit >= ?", self.students.count)
         .any?
     end
   end

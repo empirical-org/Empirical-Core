@@ -1,6 +1,7 @@
 class ProgressReports::Standards::Student
   def initialize(teacher)
     @teacher = teacher
+    @proficiency_cutoff = ProficiencyEvaluator.proficiency_cutoff
   end
 
   def results(filters)
@@ -18,19 +19,18 @@ class ProgressReports::Standards::Student
         COALESCE(AVG(not_proficient_count.topic_count), 0)::integer as not_proficient_standard_count
       SQL
       ).joins('JOIN users ON users.id = best_activity_sessions.user_id')
-      .joins(<<-JOINS
+      .joins("
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
            from best_per_topic_user
-           where avg_score_in_topic > 0.75
+           where avg_score_in_topic >= #{@proficiency_cutoff}
            group by user_id
-        ) as proficient_count ON proficient_count.user_id = users.id
-      JOINS
+        ) as proficient_count ON proficient_count.user_id = users.id"
       ).joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(topic_id)) as topic_count, user_id
            from best_per_topic_user
-           where avg_score_in_topic <= 0.75
+           where avg_score_in_topic < #{@proficiency_cutoff}
            group by user_id
         ) as not_proficient_count ON not_proficient_count.user_id = users.id
       JOINS

@@ -115,6 +115,7 @@ gem 'kaminari'
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
+gem 'rack-host-redirect'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
