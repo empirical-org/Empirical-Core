@@ -1,7 +1,10 @@
-"use strict";
+'use strict';
 import React from 'react'
+import {proficiencyCutoffsAsPercentage} from '../../../../modules/proficiency_cutoffs.js'
+
 export default React.createClass({
 	render: function () {
+		const cutOff = proficiencyCutoffsAsPercentage();
 		return (
 			 <div className="icons-wrapper icon-legend score-legend">
 		        <div className="row no-pl">
@@ -10,21 +13,21 @@ export default React.createClass({
 		              <div className="icon-wrapper icon-green"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">At Proficiency</p>
-		                <p className="explanation">80-100%</p>
+		                <p className="explanation">{`${cutOff.proficient}-100%`}</p>
 		              </div>
 		            </div>
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 		              <div className="icon-wrapper icon-orange"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">Nearly Proficient</p>
-		                <p className="explanation">60-79%</p>
+		                <p className="explanation">{`${cutOff.nearlyProficient}-${cutOff.proficient - 1}%`}</p>
 		              </div>
 		            </div>
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
 		              <div className="icon-wrapper icon-red"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">Not Yet Proficient</p>
-		                <p className="explanation">0-59%</p>
+		                <p className="explanation">{`0-${cutOff.nearlyProficient - 1}%`}</p>
 		              </div>
 		            </div>
 		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
