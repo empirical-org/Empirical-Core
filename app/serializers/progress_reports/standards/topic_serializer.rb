@@ -8,7 +8,6 @@ class ProgressReports::Standards::TopicSerializer < ActiveModel::Serializer
              :section_name,
              :total_student_count,
              :proficient_student_count,
-             :near_proficient_student_count,
              :not_proficient_student_count,
              :total_activity_count,
              :average_score,
@@ -27,10 +26,7 @@ class ProgressReports::Standards::TopicSerializer < ActiveModel::Serializer
   end
 
   def mastery_status
-    if average_score >= 0.75
-      "Proficient"
-    else
-      "Not Yet Proficient"
-    end
+    ProficiencyEvaluator.evaluate(average_score)
   end
+
 end
