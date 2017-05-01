@@ -4,7 +4,7 @@ class AssignRecommendationsWorker
   def perform(ut_id, classroom_id, student_id_array, last)
     classroom = Classroom.find(classroom_id)
     teacher = classroom.teacher
-    unit = UnitTemplate.find(ut_id).units.where(user_id: teacher.id).first
+    unit = UnitTemplate.find(ut_id).units.find_by(user_id: teacher.id)
 
     classroom_array = [{id: classroom_id, student_ids: student_id_array}]
 
