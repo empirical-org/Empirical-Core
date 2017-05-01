@@ -55,7 +55,7 @@ export default React.createClass({
   selectOption: function (event) {
     var schoolId, schoolObject;
     schoolId = event.target.value;
-    schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
+    schoolObject = this.props.schoolOptions.find((so) => { return so.id == parseInt(schoolId) })
     this.props.updateSchool(schoolObject);
   },
 
