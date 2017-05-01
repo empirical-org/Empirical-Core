@@ -3,15 +3,17 @@ module ScorebookHelper
 
 
   def percentage_color(score)
+    proficiency_cutoff = ProficiencyEvaluator.proficiency_cutoff
+    nearly_proficient_cutoff = ProficiencyEvaluator.nearly_proficient_cutoff
     return 'gray' unless score
     score = score.to_f / 100.0 if score > 1
     score = score.round(2)
     case score
-    when 0.8..1.0
+    when proficiency_cutoff..1.0
       'green'
-    when 0.6..0.79
+    when nearly_proficient_cutoff...proficiency_cutoff
       'orange'
-    when 0.0..0.59
+    when 0.0...nearly_proficient_cutoff
       'red'
     else
       'gray'

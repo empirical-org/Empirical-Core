@@ -42,7 +42,9 @@
    }
    form {
      min-height: 30px;
+     width: 418px;
      input[type=text] {
+       border: 1px solid #737373;
        max-width: 264px;
        width: 100%;
        float: left;
@@ -133,4 +135,5 @@
            -ms-flex-pack: justify;
                justify-content: space-between;
      }
+
    }
