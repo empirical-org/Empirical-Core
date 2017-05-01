@@ -4,7 +4,6 @@ class ProgressReports::Standards::ClassroomSerializer  < ActiveModel::Serializer
   attributes :name,
              :total_student_count,
              :proficient_student_count,
-             :near_proficient_student_count,
              :not_proficient_student_count,
              :total_standard_count,
              :students_href,

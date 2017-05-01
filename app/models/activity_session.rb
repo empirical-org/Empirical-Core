@@ -129,16 +129,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def percentile
-    case percentage
-    when 0.75..1.0
-      1.0
-    when 0.5..0.75
-      0.75
-    when 0.0..0.5
-      0.5
-    else
-      0.0
-    end
+    ProficiencyEvaluator.lump_into_center_of_proficiency_band(percentage)
   end
 
   def percentage_as_percent_prefixed_by_scored
