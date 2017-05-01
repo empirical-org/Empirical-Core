@@ -8,8 +8,8 @@ const buttonText = {
 };
 
 const titleCards = {
-  'fill in multiple blanks title card': "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You'll rewrite the sentence, filling in the blank with one of the words from a list or choosing that no word is needed in the blank.</p>",
-  'fill in single blanks title card': "<h3>Fill in the Blank</h3><p>You're halfway there! In this section, you'll choose the best word to complete a sentence. You'll rewrite a sentence, filling in the blank with one of the words from a list.</p>",
+  'fill in multiple blanks title card': "<h3>Fill in the Blank: A, An, The</h3><p>In this section, each sentence will have two or three blanks.</p><p>You'll fill in the blank with one of the words from a list, or you'll leave the blank empty if no word is needed.</p>",
+  'fill in single blanks title card': "<h3>Fill in the Blank</h3><p>You're halfway there! In this section, you'll choose the best word to complete a sentence. You'll fill in the blank with one of the words from a list.</p>",
   'sentence fragments title card': "<h3>Complete Sentences</h3><p>In this section, you'll add to a group of words to make a complete sentence. Add as few words as possible.</p><p>Let's start!</p>",
   'tense title card': "<h3>Past, Present, and Future Tense </h3><p>In this section, you'll correct sentences by putting the verb in the right tense to match the rest of the sentence.</p><p>You're doing great so far!</p>",
   'sentence combining title card': "<h3>Sentence Combining</h3><p>In this section, you'll combine sentences into one sentence.</p><p>Sometimes you'll be given joining words to choose from, and sometimes you'll have to choose your own way of combining the sentences.</p><p>Only add or change words when you need to, and try to keep the meaning of the sentences the same.</p><p>You've got this!</p>",
@@ -21,7 +21,7 @@ const instructions = {
   'sentence-fragment-complete-vs-incomplete-button-choice-instructions': 'Is this a complete or an incomplete sentence?',
   'sentence-fragment-complete-vs-incomplete-typing-choice-instructions': 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.',
   'sentence-fragment-complete-vs-incomplete-completion-instructions': 'Add to the group of words to make a complete sentence. Add as few words as possible.',
-  'fill-in-the-blank-multiple-instructions': 'Fill in the blank with one of the articles above. If no article is needed, remove the blank.',
+  'fill-in-the-blank-multiple-instructions': 'Fill in each blank with a word above. If no word is needed, leave the blank empty',
   'tense-question-instructions': 'Rewrite the sentence. Correct the verb in bold so it is in the right tense to match the rest of the sentence.',
   'fill-in-the-blank-single-instructions': 'Fill in the blank with one of the words above.',
   'combine-sentences-instructions': 'Combine the sentences into one sentence.',
