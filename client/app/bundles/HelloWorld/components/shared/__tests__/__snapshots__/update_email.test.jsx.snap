@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the UpdateEmail component should render 1`] = `
+<div>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "inherit",
+        }
+      }
+      type="text"
+      value="hal@spaceodyssey.org"
+    />
+    <input
+      className="q-button cta-button bg-white text-black"
+      disabled={false}
+      type="submit"
+      value="Update Email"
+    />
+  </form>
+  <div
+    className="error"
+  />
+</div>
+`;
