@@ -281,6 +281,7 @@ const Responses = React.createClass({
       prompt: item.prompt,
       responses: _.filter(this.responsesWithStatus(), resp => resp.statusCode < 2),
       focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
+      incorrectSequences: item.incorrectSequences ? hashToCollection(item.incorrectSequences) : [],
       ignoreCaseAndPunc: item.ignoreCaseAndPunc,
     };
     const markingObject = new this.state.matcher(fields);
@@ -356,7 +357,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return this.getFilteredResponses(hashToCollection(respWithStatus(this.props.responses)));
+    return hashToCollection(respWithStatus(this.props.responses));
   },
 
   responsesGroupedByStatus() {
@@ -522,7 +523,7 @@ const Responses = React.createClass({
 
   renderRematchAllButton() {
     if (this.props.admin) {
-      return(<button className="button is-outlined is-danger" style={{float: 'right'}} onClick={this.rematchAllResponses}>Rematch Responses</button>);
+      return (<button className="button is-outlined is-danger" style={{ float: 'right', }} onClick={this.rematchAllResponses}>Rematch Responses</button>);
     }
   },
 
@@ -540,10 +541,14 @@ const Responses = React.createClass({
   renderViewResponsesOrPOSButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={() => { this.setState({
-            viewingResponses: !this.state.viewingResponses,
-            responsePageNumber: 1,
-          }); }}>Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
+        <button
+          className="button is-fullwidth is-outlined" onClick={() => {
+            this.setState({
+              viewingResponses: !this.state.viewingResponses,
+              responsePageNumber: 1,
+            });
+          }}
+        >Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
     );
   },

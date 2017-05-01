@@ -173,6 +173,7 @@ export default {
 
   ERROR_AUTHORS: [
     'Focus Point Hint',
+    'Incorrect Sequence Hint',
     'Capitalization Hint',
     'Starting Capitalization Hint',
     'Punctuation Hint',
