@@ -26,10 +26,7 @@ class ProgressReports::Standards::StudentSerializer < ActiveModel::Serializer
   end
 
   def mastery_status
-    if average_score >= 0.75
-      "Proficient"
-    else
-      "Not Yet Proficient"
-    end
+    ProficiencyEvaluator.evaluate(average_score)
   end
+
 end

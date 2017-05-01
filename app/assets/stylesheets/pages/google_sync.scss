@@ -1,7 +1,6 @@
 .google-sync-container {
   background-color: #f6f3f3;
   width: 100%;
-  height: 100%;
 }
 
 .google-sync {
@@ -9,7 +8,6 @@
   text-align: center;
   max-width: 900px;
   width: 100%;
-  height: 100%;
   padding: 35px 40px;
   &.no-classrooms {
     a {
@@ -32,7 +30,6 @@
     white-space: nowrap;
     margin: 25px 0;
     tr {
-      height: 50px;
       border: solid 1px #c0c0c0;
     }
     tr:not(.expansion){
@@ -68,8 +65,10 @@
           display: flex;
           justify-content: flex-end;
           padding-right: 15px;
+          border-right: solid 1px #c0c0c0;
           .dropdown {
             padding-top: 5px;
+            padding-bottom: 5px;
           }
           .dropdown-toggle {
             width: 125px;
@@ -86,9 +85,6 @@
           }
         }
         @media(max-width: 1000px) {
-           &:nth-child(2) {
-             width: 45px;
-           }
            &:nth-child(3) {
               display: none;
           }
@@ -108,6 +104,7 @@
     text-align: center;
     border: dashed 1px #c0c0c0;
     border-bottom: dashed 1px #c0c0c0;
+    height: 50px;
     span {
       color: #027360;
     }

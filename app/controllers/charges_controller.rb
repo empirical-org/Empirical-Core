@@ -17,7 +17,7 @@ class ChargesController < ApplicationController
     :receipt_email =>  params['source']['email']
   )
 
-  Subscription.start_premium(current_user) if charge
+  Subscription.start_premium(current_user.id) if charge
 
   respond_to  do |format|
     format.json { render :json => {route: premium_redirect}}

@@ -243,7 +243,18 @@ export default React.createClass({
 		}
 	},
 	updateSchoolOptionsDoNotApply: function() {
-		this.setState({schoolOptionsDoNotApply: !this.state.schoolOptionsDoNotApply});
+		this.setState({schoolOptionsDoNotApply: !this.state.schoolOptionsDoNotApply}, () => this.updateSelectedSchool());
+	},
+	updateSelectedSchool: function() {
+		if (this.state.schoolOptionsDoNotApply) {
+			this.setState({
+				selectedSchool: {
+					id: 103341,
+					zipcode: null,
+					name: 'not listed'
+				}
+			})
+		}
 	},
 	updatePassword: function(e) {
 		this.setState({password: e.target.value});
