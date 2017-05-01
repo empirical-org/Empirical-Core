@@ -20,7 +20,7 @@ example JSON.parse(response.body) :
 
   def self.parse_courses_for_teacher(course_response, user)
     courses = []
-    if course_response[:courses].any?
+    if course_response[:courses] && course_response[:courses].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
       course_response[:courses].each do |course|
         alreadyImported = self.already_imported?(course, existing_google_classroom_ids)
