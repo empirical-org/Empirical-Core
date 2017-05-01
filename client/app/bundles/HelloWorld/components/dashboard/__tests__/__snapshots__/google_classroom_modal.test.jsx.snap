@@ -46,28 +46,8 @@ exports[`the GoogleClassroomModal component should render 1`] = `
     <p>
       Your Quill email address must be the same as your Google Classroom email. If your email is the same click Next. If it is different, you can update your Quill email below.
     </p>
-    <form
-      onSubmit={[Function]}
-    >
-      <input
-        onChange={[Function]}
-        style={
-          Object {
-            "border": "1px solid #737373",
-          }
-        }
-        type="text"
-        value="hal@spaceodyssey.org"
-      />
-      <input
-        className="q-button cta-button bg-white text-black"
-        disabled={false}
-        type="submit"
-        value="Update Email"
-      />
-    </form>
-    <div
-      className="error"
+    <_class
+      email="hal@spaceodyssey.org"
     />
     <a
       className="q-button cta-button bg-quillgreen text-white"
