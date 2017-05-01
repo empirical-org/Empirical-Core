@@ -616,6 +616,11 @@ $tool-grey: #f8f9f9;
               color: #0d614d;
               text-decoration: underline;
             }
+            p img {
+              width: 20px;
+              margin-right: 3px;
+              margin-bottom: -3px;
+            }
         }
 
         .content-wrapper {
@@ -896,4 +901,10 @@ $tool-grey: #f8f9f9;
     background-position: center;
     background-repeat: no-repeat;
   }
+}
+
+// TODO this classname is given to a tags on diagnostic tool page that currently go nowhere
+// should be removed when these links are up
+.need-links {
+  display: none;
 }
