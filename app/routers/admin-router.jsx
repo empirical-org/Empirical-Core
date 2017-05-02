@@ -76,12 +76,18 @@ const AdminRoutes = (
 
     {/* questions section*/}
     <Route path="diagnostic-questions" component={DiagnosticQuestions} />
-    <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} />
+    <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
+      <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
+      <Route path="responses" component={ResponseComponentWrapper} />
+    </Route>
 
     {/* sentence Fragment sections*/}
     <Route path="sentence-fragments" component={SentenceFragments} />
     <Route path="sentence-fragments/new" component={NewSentenceFragment} />
-    <Route path="sentence-fragments/:sentenceFragmentID" component={SentenceFragment} />
+    <Route path="sentence-fragments/:questionID" component={SentenceFragment}>
+      <IndexRedirect to="/admin/sentence-fragments/:questionID/responses" />
+      <Route path="responses" component={ResponseComponentWrapper} />
+    </Route>
 
     {/* lessons section*/}
     <Route path="lessons" component={Lessons} />
