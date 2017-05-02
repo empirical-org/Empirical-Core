@@ -47,14 +47,14 @@
       font-size: 14px;
       line-height: 1.4;
       width: 161px;
-      color: #626262;
       border-right: solid 1px #cecece;
       text-overflow: ellipsis;
+      color: black;
       &:first-of-type {
         border-left: solid 1px #cecece;
       }
       &.active {
-        color: black;
+        font-weight: 600;
         margin-top: auto;
         div:first-of-type {
           margin-top: auto;
