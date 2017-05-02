@@ -86,7 +86,6 @@ export default React.createClass({
     this.setState({showDropdownBoxes: false})
   },
 
-
   dropdownTab: function(extraBoxCount) {
     const carat = this.state.showDropdownBoxes ? <i className="fa fa-angle-up"/> : <i className="fa fa-angle-down"/>
     return <div className='classroom-box dropdown-tab' onClick={this.toggleDropdown} tabIndex="0" onBlur={this.hideDropdownBoxes}>
