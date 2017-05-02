@@ -7,19 +7,6 @@ import StudentsClassroomsHeader from '../students_classrooms/students_classrooms
 
 describe('StudentClassroomNavbar component', () => {
 
-  it('should render name', () => {
-    const wrapper = shallow(
-      <StudentClassroomNavbar
-        data={{
-          name: 'Name',
-          classroom: { id: 1 },
-        }}
-        fetchData={() => null}
-        loading={false}
-      />
-    );
-    expect(wrapper.find('.section-header').text()).toBe('Name');
-  });
 
   it('should render <StudentsClassroomsHeader /> component with correct props', () => {
     const wrapper = shallow(
