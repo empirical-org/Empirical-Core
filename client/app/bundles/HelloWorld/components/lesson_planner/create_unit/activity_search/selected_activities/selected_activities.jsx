@@ -15,8 +15,8 @@
 		rows = this.props.selectedActivities.map((ele) => <SelectedActivity key={ele.id} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />);
 
 		return (
-			<section>
-				<h3 className="section-header unit_name">{this.props.unitName}</h3>
+			<section className="selected-activities-section">
+				<h3 className="section-header">Selected Activities</h3>
 				<table className="table activity-table selected-activities headless-rounded-table">
 					<tbody>
 						{rows}
