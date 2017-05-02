@@ -104,6 +104,7 @@
       activeFilterOn: false
     },
     function(){that.searchRequest();});
+    this.updateSearchQuery('')
   },
 
   searchRequestSuccess: function (data) {
