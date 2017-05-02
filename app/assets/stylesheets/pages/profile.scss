@@ -1,10 +1,8 @@
-
-
 #student-profile {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
-  width: 980px;
+  max-width: 980px;
   margin: auto;
   position: relative;
 
@@ -75,7 +73,9 @@
         color: #00c2a2;
         position: relative;
         i {
-          display: inline;
+          font-weight: bold;
+          font-size: 16px;
+          margin-left: 8px;
         }
       }
       .classroom-box-classroom {

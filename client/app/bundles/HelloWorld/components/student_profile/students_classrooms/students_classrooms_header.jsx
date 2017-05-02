@@ -97,7 +97,7 @@ export default React.createClass({
   dropdownTab: function(extraBoxCount) {
     const carat = this.state.showDropdownBoxes ? <i className="fa fa-angle-up"/> : <i className="fa fa-angle-down"/>
     return <div className='classroom-box dropdown-tab' onClick={this.toggleDropdown}>
-      {extraBoxCount} More {Pluralize('Class', extraBoxCount)} {carat}
+      <p>{extraBoxCount} More {Pluralize('Class', extraBoxCount)}{carat}</p>
       <ul className='dropdown-classrooms'>
         {this.verticalClassrooms()}
       </ul>
