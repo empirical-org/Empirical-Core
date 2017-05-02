@@ -14,6 +14,11 @@ jest.mock('jquery', () => {
   }
 });
 
+const student = {
+  name: 'student',
+  classroom: {name: 'classroom', teacher: {name: 'teacher'}}
+}
+
 describe('StudentProfile container', () => {
 
   it('should render empty spans if first batch is not loaded', () => {
@@ -24,9 +29,7 @@ describe('StudentProfile container', () => {
     const wrapper = shallow(<StudentProfile />);
     wrapper.setState({
       firstBatchLoaded: true,
-      student: {
-        foo: 'bar'
-      },
+      student,
       next_activity_session: {
         foo: 'baz'
       },
@@ -40,7 +43,7 @@ describe('StudentProfile container', () => {
       });
 
       it('should have student data in data prop', () => {
-        expect(wrapper.find(StudentClassroomNavbar).props().data.foo).toBe('bar');
+        expect(wrapper.find(StudentClassroomNavbar).props().data.name).toBe('student');
       });
 
       it('should have fetchData prop that fetches data', () => {
