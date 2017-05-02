@@ -9,8 +9,8 @@ export default class StudentProfileHeader extends React.Component {
     return(
       <div className="container student-profile-header">
         <div className="header">
-          <span>{this.props.studentName}</span>
           <span>{this.props.classroomName} | {this.props.teacherName}</span>
+          <span>{this.props.studentName}</span>
         </div>
         <div className="dividing-line"/>
       </div>

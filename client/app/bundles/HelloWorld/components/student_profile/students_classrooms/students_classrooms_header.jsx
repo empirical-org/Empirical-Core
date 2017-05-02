@@ -19,25 +19,15 @@ export default React.createClass({
   componentDidMount: function() {
     window.addEventListener('resize', this.updateDefaultClassroomNumber);
     this.updateDefaultClassroomNumber()
-    $.ajax({url: '/students_classrooms_json', format: 'json', success: data => this.updateClassrooms(data.classrooms)})
+    $.ajax({url: '/students_classrooms_json', format: 'json', success: this.updateClassrooms})
   },
 
   componentWillUnmount: function() {
     window.removeEventListener('resize', this.updateDefaultClassroomNumber);
   },
 
-  updateClassrooms: function(classrooms) {
-    const selectedClassroomId = this.state.selectedClassroomId || this.props.currentClassroomId
-    const selectedClassroom = []
-    const otherClassrooms = []
-    classrooms.forEach(classy => {
-      if (classy.id === selectedClassroomId) {
-        selectedClassroom.push(classy)
-      } else {
-        otherClassrooms.push(classy)
-      }
-    })
-    this.setState({classrooms: selectedClassroom.concat(otherClassrooms)})
+  updateClassrooms: function(data) {
+    this.setState({classrooms: data.classrooms})
   },
 
   isActive: function(id, index) {
@@ -48,9 +38,7 @@ export default React.createClass({
 
   handleClassroomClick: function(classroomId) {
     if (!this.props.loading) {
-      this.setState({
-        selectedClassroomId: classroomId
-      }, () => this.updateClassrooms(this.state.classrooms))
+      this.setState({ selectedClassroomId: classroomId })
       this.props.fetchData(classroomId)
     }
   },
