@@ -262,6 +262,7 @@
 
         <ActivitySearchAndFilters
           updateSearchQuery={this.updateSearchQuery}
+          searchQuery={this.state.searchQuery}
           selectFilterOption={this.selectFilterOption}
           data={this.state.filters}
           clearFilters={this.clearFilters}

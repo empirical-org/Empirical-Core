@@ -14,6 +14,9 @@
 #unit-template-editor {
   section {
     border-bottom: none;
+    &.name-the-unit {
+      padding-bottom: 10px;
+    }
   }
   .error-message-and-button {
     display: inline-block;
@@ -23,11 +26,14 @@
     .error-message {
       position: absolute;
       float: left;
-      top: 30px;
-      right: 150px;
+      top: 10px;
+      right: 125px;
     }
     .visible-error-message {
       color: red;
+      i {
+        margin-right: 5px;
+      }
     }
     .hidden-error-message {
       display: none;
@@ -37,13 +43,27 @@
     }
   }
   input {
-    &#search_activities_input,
     &#unit_name {
       width: 326px;
-      & + img {
-        position: relative;
-        right: 20px;
-        cursor: pointer;
+      &.name-error {
+        background-color: #ffeded;
+        border: solid 1px #ff4542;
+        &::placeholder {
+          color: #ff4542;
+        }
+        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+          color: #ff4542;
+        }
+        &::-moz-placeholder { /* Firefox 19+ */
+          color: #ff4542;
+        }
+        &:-ms-input-placeholder { /* IE 10+ */
+          color: #ff4542;
+        }
+        &:-moz-placeholder { /* Firefox 18- */
+          color: #ff4542;
+        }
+
       }
     }
   }
@@ -70,7 +90,7 @@
   }
 }
 .activity-page-dropdown-wrapper {
-  margin-top: 20px;
+  margin-top: 15px;
   cursor: pointer;
   padding-left: 0px;
   padding-right: 15px;

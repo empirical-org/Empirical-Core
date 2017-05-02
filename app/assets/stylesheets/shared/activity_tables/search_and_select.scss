@@ -1,3 +1,5 @@
+
+
 .drop-down-filters-and-search, .activity-filter-drop-downs {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -12,15 +14,16 @@
       height: 40px;
       margin-left: 15px;
     }
-    margin-bottom: 20px;
-    padding-left: 15px;
 }
 
 .drop-down-filters-and-search {
+  margin-left: 15px;
 
   #search_activities_input {
     margin-top: 0px;
     margin-bottom: 20px;
+    width: 280px;
+    margin-right: 15px;
   }
   #search_activities_button {
     margin-right: 15px;
@@ -28,15 +31,12 @@
 }
 
 .activity-filter-drop-downs {
-  .no-pl {
-    margin-right: 15px;
-  }
   button {
     overflow: hidden;
   }
   .button-select {
     height: 40px;
-    width: 163px;
+    width: 220px;
     margin-right: 15px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -48,9 +48,10 @@
     }
   }
   .clear-button {
+    padding: 0px;
+    background-color: white;
     margin-right: 0px;
-    width: 81px;
-    background: #F7F5F5;
+    width: 75px;
     border: none;
     @media (max-width: 768px) {
       margin-top: 20px;
@@ -61,6 +62,6 @@
     right: 36px;
   }
   img {
-    padding-top: 4px;
+    padding-left: 8px;
   }
 }
