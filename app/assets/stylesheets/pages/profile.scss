@@ -77,6 +77,9 @@
           font-size: 16px;
           margin-left: 8px;
         }
+        &:focus {
+          outline: none;
+        }
       }
       .classroom-box-classroom {
         display: inline-block;

@@ -49,7 +49,7 @@ export default React.createClass({
   },
 
   horizontalClassrooms: function() {
-    // by default, only shows the smaller of 5 classes or the total Classes
+    // only shows the smaller of the defaultClassroomNumber classes or the total Classes
     const classroomBoxes = [];
     if (this.state.classrooms) {
       const maxNumber = Math.min(this.state.classrooms.length, this.state.defaultClassroomNumber)
@@ -82,9 +82,14 @@ export default React.createClass({
     })
   },
 
+  hideDropdownBoxes: function(data) {
+    this.setState({showDropdownBoxes: false})
+  },
+
+
   dropdownTab: function(extraBoxCount) {
     const carat = this.state.showDropdownBoxes ? <i className="fa fa-angle-up"/> : <i className="fa fa-angle-down"/>
-    return <div className='classroom-box dropdown-tab' onClick={this.toggleDropdown}>
+    return <div className='classroom-box dropdown-tab' onClick={this.toggleDropdown} tabIndex="0" onBlur={this.hideDropdownBoxes}>
       <p>{extraBoxCount} More {Pluralize('Class', extraBoxCount)}{carat}</p>
       <ul className='dropdown-classrooms'>
         {this.verticalClassrooms()}
