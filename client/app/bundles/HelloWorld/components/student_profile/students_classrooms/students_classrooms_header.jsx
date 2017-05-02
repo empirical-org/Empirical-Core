@@ -12,16 +12,32 @@ export default React.createClass({
       selectedClassroomId: this.props.currentClassroomId,
       switchingClassrooms: false,
       showDropdownBoxes: false,
-      defaultClassroomNumber: 5
+      defaultClassroomNumber: 1
     }
   },
 
   componentDidMount: function() {
-    $.ajax({url: '/students_classrooms_json', format: 'json', success: this.updateClassrooms})
+    window.addEventListener('resize', this.updateDefaultClassroomNumber);
+    this.updateDefaultClassroomNumber()
+    $.ajax({url: '/students_classrooms_json', format: 'json', success: data => this.updateClassrooms(data.classrooms)})
   },
 
-  updateClassrooms: function(data) {
-    this.setState({classrooms: data.classrooms})
+  componentWillUnmount: function() {
+    window.removeEventListener('resize', this.updateDefaultClassroomNumber);
+  },
+
+  updateClassrooms: function(classrooms) {
+    const selectedClassroomId = this.state.selectedClassroomId || this.props.currentClassroomId
+    const selectedClassroom = []
+    const otherClassrooms = []
+    classrooms.forEach(classy => {
+      if (classy.id === selectedClassroomId) {
+        selectedClassroom.push(classy)
+      } else {
+        otherClassrooms.push(classy)
+      }
+    })
+    this.setState({classrooms: selectedClassroom.concat(otherClassrooms)})
   },
 
   isActive: function(id, index) {
@@ -34,9 +50,14 @@ export default React.createClass({
     if (!this.props.loading) {
       this.setState({
         selectedClassroomId: classroomId
-      })
+      }, () => this.updateClassrooms(this.state.classrooms))
       this.props.fetchData(classroomId)
     }
+  },
+
+  updateDefaultClassroomNumber: function() {
+    const defaultClassroomNumber = window.innerWidth > 1000 ? 5 : 1
+    this.setState({defaultClassroomNumber})
   },
 
   horizontalClassrooms: function() {
@@ -60,9 +81,8 @@ export default React.createClass({
     if (this.state.showDropdownBoxes) {
       const classroomBoxes = [];
       if (this.state.classrooms) {
-        const numberOfExtraClassrooms = this.state.classrooms.length - this.state.defaultClassroomNumber
-        for (let i = (numberOfExtraClassrooms + 1); i < this.state.classrooms.length; i++) {
-          classroomBoxes.push(this.boxConstructor(this.state.classrooms[i], i))
+        for (let i = this.state.defaultClassroomNumber; i < this.state.classrooms.length; i++) {
+          classroomBoxes.push(<li key={i}>{this.boxConstructor(this.state.classrooms[i], i)}</li>)
         }
       return classroomBoxes
     }}
@@ -78,6 +98,9 @@ export default React.createClass({
     const carat = this.state.showDropdownBoxes ? <i className="fa fa-angle-up"/> : <i className="fa fa-angle-down"/>
     return <div className='classroom-box dropdown-tab' onClick={this.toggleDropdown}>
       {extraBoxCount} More {Pluralize('Class', extraBoxCount)} {carat}
+      <ul className='dropdown-classrooms'>
+        {this.verticalClassrooms()}
+      </ul>
     </div>
   },
 
@@ -95,16 +118,13 @@ export default React.createClass({
 
   render: function() {
     return(
-      <div className="students-classrooms">
         <div className="tab-subnavigation-wrapper student-subnavigation">
           <div className="container">
             <span className="pull-right student-course-info">
               <div>{this.horizontalClassrooms()}</div>
             </span>
           </div>
-          <div className='dropdown-classrooms'>{this.verticalClassrooms()}</div>
         </div>
-      </div>
     )
   }
 

@@ -25,7 +25,18 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    right: 0;
+    right: -1px;
+    top: 65px;
+    z-index: 1;
+    background-color: white;
+    li {
+      padding: 0px;
+    }
+    .classroom-box {
+      border-left: solid 1px #cecece;
+      width: 162px;
+      border-bottom: solid 1px #cecece;
+    }
   }
 
     .classroom-box {
@@ -39,9 +50,11 @@
       line-height: 1.4;
       width: 161px;
       color: #626262;
-      border-left: solid 1px #cecece;
       border-right: solid 1px #cecece;
       text-overflow: ellipsis;
+      &:first-of-type {
+        border-left: solid 1px #cecece;
+      }
       &.active {
         color: black;
         margin-top: auto;
@@ -60,6 +73,7 @@
       }
       &.dropdown-tab {
         color: #00c2a2;
+        position: relative;
         i {
           display: inline;
         }
@@ -78,6 +92,9 @@
     position: relative;
     width: 100vw;
     left: calc(-50vw + 50%);
+    @media only screen and (max-width: 980px) {
+      left: 0;
+    }
   }
 
   .student-profile-header {
@@ -91,7 +108,7 @@
       span {
         font-size: 24px;
       	font-weight: 600;
-        color: #969696;
+        color: #3b3b3b;
       }
     }
     .dividing-line {
