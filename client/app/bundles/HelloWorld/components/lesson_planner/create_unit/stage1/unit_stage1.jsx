@@ -62,7 +62,7 @@
 
   nameComponent: function(){
     if (!this.props.hideNameTheUnit) {
-      const nameError = this.state.prematureContinueAttempted && this.props.errorMessage.includes('name') ? 'name-error' : ''
+      const nameError = this.state.prematureContinueAttempted && this.props.errorMessage && this.props.errorMessage.includes('name') ? 'name-error' : ''
       return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} nameError={nameError}/>
     } else if (this.props.unitName) {
       return <h2 className='edit-activities-h2'>Activities In {this.props.unitName}</h2>
