@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default React.createClass({
-  renderToggleField(status) {
+  renderToggleField(status, index) {
     let tagClass = 'tag';
     let addColorToTag = false;
     if (this.props.visibleStatuses[status]) addColorToTag = true;
@@ -34,7 +34,7 @@ export default React.createClass({
     }
 
     return (
-      <label className="panel-checkbox toggle">
+      <label className="panel-checkbox toggle" key={index}>
         <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status.replace(' Hint', '')}</span>
       </label>
     );
@@ -49,10 +49,10 @@ export default React.createClass({
     return (
       <div>
         <div style={{ margin: '10 0', }}>
-          {this.props.qualityLabels.map(label => this.renderToggleField(label))}
+          {this.props.qualityLabels.map((label, i) => this.renderToggleField(label, i))}
         </div>
         <div style={{ margin: '10 0 0 0', display: 'flex', flexWrap: 'wrap', }}>
-          {this.props.labels.map(label => this.renderToggleField(label))}
+          {this.props.labels.map((label, i) => this.renderToggleField(label, i))}
           {this.renderToggleField('None Hint')}
         </div>
       </div>

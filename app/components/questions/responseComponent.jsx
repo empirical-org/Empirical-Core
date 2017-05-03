@@ -190,19 +190,19 @@ const Responses = React.createClass({
   },
 
   renderMassEditSummaryList() {
-    const summaryResponses = this.props.massEdit.selectedResponses.map(response => this.renderMassEditSummaryListResponse(response));
-    return (<div className="content">{summaryResponses}</div>);
+    const summaryResponses = this.props.massEdit.selectedResponses.map((response, i) => this.renderMassEditSummaryListResponse(response));
+    return (<div key={i} className="content">{summaryResponses}</div>);
   },
 
   boilerplateCategoriesToOptions() {
-    return getBoilerplateFeedback().map(category => (
-      <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
+    return getBoilerplateFeedback().map((category, i) => (
+      <option key={i} className="boilerplate-feedback-dropdown-option">{category.description}</option>
       ));
   },
 
   boilerplateSpecificFeedbackToOptions(selectedCategory) {
-    return selectedCategory.children.map(childFeedback => (
-      <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
+    return selectedCategory.children.map((childFeedback, i) => (
+      <option key={i} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       ));
   },
 
@@ -712,7 +712,7 @@ const Responses = React.createClass({
     const pageNumbers = _.range(1, numPages + 1);
 
     let pageNumberStyle = {};
-    const numbersToRender = pageNumbers.map((pageNumber) => {
+    const numbersToRender = pageNumbers.map((pageNumber, i) => {
       if (this.state.responsePageNumber === pageNumber) {
         pageNumberStyle = {
           backgroundColor: 'lightblue',
@@ -721,7 +721,7 @@ const Responses = React.createClass({
         pageNumberStyle = {};
       }
       return (
-        <li>
+        <li key={i}>
           <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a>
         </li>
       );

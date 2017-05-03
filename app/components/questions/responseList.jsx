@@ -7,6 +7,7 @@ export default React.createClass({
     var responseListItems = this.props.responses.map((resp) => {
       if (resp) {return (
           <Response
+          key={resp.key}
           response={resp}
           responses={this.props.responses}
           getResponse={this.props.getResponse}
@@ -15,7 +16,6 @@ export default React.createClass({
           state={this.props.states[this.props.questionID]}
           questionID={this.props.questionID}
           dispatch={this.props.dispatch}
-          key={resp.key}
           readOnly={this.props.admin}
           allExpanded={this.props.expanded}
           expanded={this.props.expanded[resp.key]}
