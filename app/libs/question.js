@@ -107,7 +107,7 @@ export default class Question {
       res.feedback = incorrectSequenceMatch.feedback;
       res.author = 'Incorrect Sequence Hint';
       res.parentID = getTopOptimalResponse(this.responses).key;
-      if (incorrectSequenceMatch.conceptUID) {
+      if (incorrectSequenceMatch.conceptResults) {
         res.conceptResults = incorrectSequenceMatch.conceptResults;
       }
       return returnValue;

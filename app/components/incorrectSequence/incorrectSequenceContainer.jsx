@@ -88,13 +88,14 @@ class IncorrectSequencesContainer extends Component {
   }
 
   sortCallback(sortInfo) {
-    if (sortInfo.draggingIndex !== null) {
-      const index = parseInt(sortInfo.draggingIndex);
-      const data = { order: index, };
-      const sequenceID = sortInfo.data.items[index].key;
-      // const focusPoint = this.getFocusPoints()[focusPointKey];
-      this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, sequenceID));
-    }
+    console.log('Not supported yet.');
+    // if (sortInfo.draggingIndex !== null) {
+    //   const index = parseInt(sortInfo.draggingIndex);
+    //   const data = { order: index, };
+    //   const sequenceID = sortInfo.data.items[index].key;
+    //   // const focusPoint = this.getFocusPoints()[focusPointKey];
+    //   this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, sequenceID));
+    // }
   }
 
   render() {
@@ -102,7 +103,7 @@ class IncorrectSequencesContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" style={{float: 'right'}} href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/new`}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" style={{ float: 'right', }} href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/new`}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
         {this.props.children}
