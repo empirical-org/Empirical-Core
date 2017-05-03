@@ -1,7 +1,7 @@
-import React, { Component } from 'React';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {hashToCollection} from '../../libs/hashToCollection';
-import TextEditor from '../questions/TextEditor.jsx';
+import TextEditor from '../questions/textEditor.jsx';
 import ConceptSelector from '../shared/conceptSelector.jsx'
 
 class FillInBlankForm extends Component {
