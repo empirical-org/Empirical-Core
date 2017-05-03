@@ -4,7 +4,7 @@ export default React.createClass({
   renderFillInBlankListItems() {
     if (this.props.fillInTheBlanks.length !== 0) {
       return this.props.fillInTheBlanks.map(fillInBlank => (
-        <li><Link to={`admin/fill-in-the-blanks/${fillInBlank.key}`}>{fillInBlank.prompt}</Link></li>
+        <li key={fillInBlank.key}><Link to={`admin/fill-in-the-blanks/${fillInBlank.key}`}>{fillInBlank.prompt}</Link></li>
       ));
     }
   },
