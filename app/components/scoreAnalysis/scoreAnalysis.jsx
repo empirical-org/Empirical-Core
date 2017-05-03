@@ -31,7 +31,7 @@ class ScoreAnalysis extends Component {
 
   formatDataForTable() {
     const { questions, scoreAnalysis, } = this.props;
-    const formatted = _.map(hashToCollection(questions.data).filter(function(e){return e.conceptID}), (question) => {
+    const formatted = _.map(hashToCollection(questions.data).filter(e => e.conceptID), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData && scoreData.totalAttempts >= this.state.minResponses) {
         return {
@@ -41,7 +41,7 @@ class ScoreAnalysis extends Component {
           attempts: scoreData.totalAttempts || 0,
           unmatched: scoreData.unmatchedResponses || 0,
           commonUnmatched: scoreData.commonUnmatchedResponses || 0,
-          percentWeak: ((scoreData.commonUnmatchedResponses || 0) / scoreData.responses * 100).toFixed(2) + "%",
+          percentWeak: `${((scoreData.commonUnmatchedAttempts || 0) / scoreData.commonMatchedAttempts * 100).toFixed(2)}%`,
         };
       }
     });
@@ -68,9 +68,9 @@ class ScoreAnalysis extends Component {
     if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata) {
       return (
         <div>
-          <p style={{fontSize: '1.5em', textAlign: 'center', margin: '0.75em 0'}}><label for="minResponses">Show questions with a minimum of </label>
-          <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({minResponses: this.refs.minResponses.value})} style={{fontSize: '1.25em', width: '100'}}/>
-          <label for="minResponses"> total responses.</label></p>
+          <p style={{ fontSize: '1.5em', textAlign: 'center', margin: '0.75em 0', }}><label htmlFor="minResponses">Show questions with a minimum of </label>
+            <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({ minResponses: this.refs.minResponses.value, })} style={{ fontSize: '1.25em', width: '100', }} />
+            <label htmlFor="minResponses"> total responses.</label></p>
           <table className="table is-striped is-bordered">
             <thead>
               <tr>
