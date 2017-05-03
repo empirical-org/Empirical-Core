@@ -52,7 +52,7 @@ class FillInBlankForm extends Component {
   itemLevelToOptions() {
     return hashToCollection(this.props.itemLevels.data).map((level) => {
       return (
-        <option>{level.name}</option>
+        <option key={level.key}>{level.name}</option>
       )
     });
   }
