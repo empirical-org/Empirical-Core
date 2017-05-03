@@ -190,19 +190,19 @@ const Responses = React.createClass({
   },
 
   renderMassEditSummaryList() {
-    const summaryResponses = this.props.massEdit.selectedResponses.map((response, i) => this.renderMassEditSummaryListResponse(response));
-    return (<div key={i} className="content">{summaryResponses}</div>);
+    const summaryResponses = this.props.massEdit.selectedResponses.map((response) => this.renderMassEditSummaryListResponse(response));
+    return (<div key={response.key} className="content">{summaryResponses}</div>);
   },
 
   boilerplateCategoriesToOptions() {
-    return getBoilerplateFeedback().map((category, i) => (
-      <option key={i} className="boilerplate-feedback-dropdown-option">{category.description}</option>
+    return getBoilerplateFeedback().map((category) => (
+      <option key={category.key} className="boilerplate-feedback-dropdown-option">{category.description}</option>
       ));
   },
 
   boilerplateSpecificFeedbackToOptions(selectedCategory) {
-    return selectedCategory.children.map((childFeedback, i) => (
-      <option key={i} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
+    return selectedCategory.children.map((childFeedback) => (
+      <option key={childFeedback.key} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       ));
   },
 
