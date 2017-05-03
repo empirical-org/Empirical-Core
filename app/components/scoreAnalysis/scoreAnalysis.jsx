@@ -4,6 +4,7 @@ import scoreActions from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import { Link } from 'react-router';
+import _ from 'underscore';
 
 class ScoreAnalysis extends Component {
   constructor(props) {
@@ -30,8 +31,9 @@ class ScoreAnalysis extends Component {
   }
 
   formatDataForTable() {
-    const { questions, scoreAnalysis, } = this.props;
-    const formatted = _.map(hashToCollection(questions.data).filter(e => e.conceptID), (question) => {
+    const { questions, concepts, scoreAnalysis, } = this.props;
+    const validConcepts = _.map(concepts.data[0], con => con.uid);
+    const formatted = _.map(hashToCollection(questions.data).filter(e => validConcepts.includes(e.conceptID)), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData && scoreData.totalAttempts >= this.state.minResponses) {
         return {
@@ -41,7 +43,7 @@ class ScoreAnalysis extends Component {
           attempts: scoreData.totalAttempts || 0,
           unmatched: scoreData.unmatchedResponses || 0,
           commonUnmatched: scoreData.commonUnmatchedResponses || 0,
-          percentWeak: `${((scoreData.commonUnmatchedAttempts || 0) / scoreData.commonMatchedAttempts * 100).toFixed(2)}%`,
+          percentWeak: scoreData.commonMatchedAttempts > 0 ? ((scoreData.commonUnmatchedAttempts || 0) / scoreData.commonMatchedAttempts * 100).toFixed(2) : 0.0,
         };
       }
     });
@@ -49,7 +51,7 @@ class ScoreAnalysis extends Component {
   }
 
   renderRows() {
-    const sorted = _.sortBy(this.formatDataForTable(), this.state.sort);
+    const sorted = this.formatDataForTable().sort((a, b) => a[this.state.sort] - b[this.state.sort]);
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, question => (
       <tr>
@@ -64,8 +66,8 @@ class ScoreAnalysis extends Component {
   }
 
   render() {
-    const { questions, scoreAnalysis, } = this.props;
-    if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata) {
+    const { questions, scoreAnalysis, concepts, } = this.props;
+    if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <div>
           <p style={{ fontSize: '1.5em', textAlign: 'center', margin: '0.75em 0', }}><label htmlFor="minResponses">Show questions with a minimum of </label>
@@ -75,7 +77,7 @@ class ScoreAnalysis extends Component {
             <thead>
               <tr>
                 <th width="600px" onClick={this.clickSort.bind(this, 'prompt')}>Prompt</th>
-                <th onClick={this.clickSort.bind(this, 'percentWeak')}>Weak</th>
+                <th onClick={this.clickSort.bind(this, 'percentWeak')}>Weak (%)</th>
                 <th onClick={this.clickSort.bind(this, 'commonUnmatched')}>Common Unmatched</th>
                 <th onClick={this.clickSort.bind(this, 'unmatched')}>Unmatched</th>
                 <th onClick={this.clickSort.bind(this, 'responses')}>Responses</th>
@@ -98,6 +100,7 @@ class ScoreAnalysis extends Component {
 function select(state) {
   return {
     questions: state.questions,
+    concepts: state.concepts,
     scoreAnalysis: state.scoreAnalysis,
     routing: state.routing,
   };
