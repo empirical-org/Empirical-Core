@@ -72,6 +72,7 @@
 
 
   render: function() {
+    const error = this.props.errorMessage ? <span><i className="fa fa-exclamation-triangle"/>{this.props.errorMessage}</span> : ''
     return (
       <div className="container">
         {this.nameComponent()}
@@ -80,7 +81,7 @@
                                     clickContinue={this.props.clickContinue}
                                     errorMessage={this.props.errorMessage} />
         <div className='error-message-and-button'>
-          <div className={this.determineErrorMessageClass()}><i className="fa fa-exclamation-triangle"/>{this.props.errorMessage}</div>
+          <div className={this.determineErrorMessageClass()}>{error}</div>
           {this.ctaButton()}
         </div>
       </div>
