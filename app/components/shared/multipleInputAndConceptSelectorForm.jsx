@@ -37,8 +37,9 @@ export default React.createClass({
 
   handleConceptChange(e) {
     const concepts = this.state.itemConcepts;
+    console.log(concepts);
     if (!concepts.hasOwnProperty(e.value)) {
-      concepts[e.value] = { correct: true, name: e.name, };
+      concepts[e.value] = { correct: true, name: e.name, conceptUID: e.value, };
       this.setState({
         itemConcepts: concepts,
       });
@@ -79,7 +80,7 @@ export default React.createClass({
   },
 
   render() {
-    return(
+    return (
       <div className="box">
         <h4 className="title">{this.addOrEditItemLabel()}</h4>
         <div className="control">
@@ -92,7 +93,7 @@ export default React.createClass({
         </div>
         <p className="control">
           <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-          <button className={'button is-outlined is-info'} style={{marginLeft: 5}} onClick={() => window.history.back()}>Cancel</button>
+          <button className={'button is-outlined is-info'} style={{ marginLeft: 5, }} onClick={() => window.history.back()}>Cancel</button>
         </p>
       </div>
     );
