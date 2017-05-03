@@ -10,12 +10,12 @@
 	},
 
 	render: function () {
-		var rows, buttonClassName;
+		let rows, buttonClassName, content
 
 		rows = this.props.selectedActivities.map((ele) => <SelectedActivity key={ele.id} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />);
 
-		return (
-			<section className="selected-activities-section">
+    if (this.props.selectedActivities.length > 0) {
+      content = <section className="selected-activities-section">
 				<h3 className="section-header">Selected Activities</h3>
 				<table className="table activity-table selected-activities headless-rounded-table">
 					<tbody>
@@ -23,6 +23,11 @@
 					</tbody>
 				</table>
 			</section>
+    } else {
+      content = <span/>
+    }
+		return (
+      <div>{content}</div>
 		);
 	}
 });
