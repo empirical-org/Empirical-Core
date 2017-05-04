@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import icon from '../../img/question_icon.svg';
 import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
@@ -12,6 +11,8 @@ import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import WarningDialogue from './warningDialogue.jsx'
+import Prompt from './prompt.jsx'
+import Instructions from './instructions.jsx'
 
 const styles = {
   container: {
@@ -229,14 +230,6 @@ export class PlayFillInTheBlankQuestion extends Component {
     }
   }
 
-  renderPrompt() {
-    return (
-      <div style={styles.container} >
-        {this.getPromptElements()}
-      </div>
-    );
-  }
-
   zipInputsAndText() {
     const zipped = _.zip(this.state.splitPrompt, this.state.inputVals);
     return _.flatten(zipped).join('');
@@ -314,11 +307,10 @@ export class PlayFillInTheBlankQuestion extends Component {
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={fullPageInstructions}>
-            {this.renderPrompt()}
-            <Cues getQuestion={this.getQuestion} customText={this.customText()} />
-            <div className="feedback-row">
-              <img src={icon} alt="icon" style={{ marginTop: 3, }} />
-              <div style={fullPageInstructions} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+            <div>
+              <Prompt style={styles.container} elements={this.getPromptElements()} />
+              <Cues getQuestion={this.getQuestion} customText={this.customText()} />
+              <Instructions html={this.getInstructionText()} />
             </div>
           </div>
           {this.renderMedia()}
