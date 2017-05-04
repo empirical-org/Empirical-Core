@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import icon from '../../img/question_icon.svg';
-import tooltipChevron from '../../img/tooltipChevron.svg';
 import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
@@ -12,6 +11,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import WarningDialogue from './warningDialogue.jsx'
 
 const styles = {
   container: {
@@ -152,10 +152,12 @@ export class PlayFillInTheBlankQuestion extends Component {
       chevyStyle = this.chevyStyleRight();
     }
     return (
-      <div className="warning-dialogue" style={warningStyle} key={`warning${i}`}>
-        <span style={{ whiteSpace: 'nowrap', }}>{this.warningText()}</span>
-        <img style={chevyStyle} src={tooltipChevron} alt="chevron" />
-      </div>
+      <WarningDialogue
+        key={`warning${i}`}
+        style={warningStyle}
+        chevyStyle={chevyStyle}
+        text={this.warningText()}
+      />
     );
   }
 
