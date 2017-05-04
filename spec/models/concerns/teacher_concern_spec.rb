@@ -89,14 +89,16 @@ describe User, type: :model do
       context 'user has an associated subscription' do
         context 'that has expired' do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
-          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher, account_limit: 1, expiration: Date.yesterday-1, account_type: 'premium')}
+          let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.yesterday-1, account_type: 'premium')}
+          let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: teacher.id, subscription: subscription)}
           it 'returns false' do
             expect(teacher_premium_test.is_premium?).to be false
           end
         end
 
         context 'that has not expired' do
-          let!(:subscription) {FactoryGirl.create(:subscription, user: teacher_premium_test, account_limit: 1, expiration: Date.tomorrow, account_type: 'trial')}
+          let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.tomorrow, account_type: 'trial')}
+          let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: teacher_premium_test.id, subscription: subscription)}
           let!(:student1) {FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
           context 'that has passed its account limit' do
             let!(:student2) {FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
@@ -129,7 +131,8 @@ describe User, type: :model do
 
       context 'user is on a valid trial' do
         let!(:trial_teacher) {FactoryGirl.create(:user, role: 'teacher')}
-        let!(:subscription) {FactoryGirl.create(:subscription, user: trial_teacher, account_limit: 1, expiration: Date.today + 1, account_type: 'trial')}
+        let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'trial')}
+        let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: trial_teacher.id, subscription: subscription)}
         it "returns 'trial'" do
           expect(trial_teacher.premium_state).to eq('trial')
         end
@@ -137,14 +140,16 @@ describe User, type: :model do
 
       context 'user is on a paid plan' do
         let!(:paid_teacher) {FactoryGirl.create(:user, role: 'teacher')}
-        let!(:subscription) {FactoryGirl.create(:subscription, user: paid_teacher, account_limit: 1, expiration: Date.today + 1, account_type: 'paid')}
+        let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'paid')}
+        let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: paid_teacher.id, subscription: subscription)}
         it "returns 'paid'" do
           expect(paid_teacher.premium_state).to eq('paid')
         end
       end
 
       context 'users trial is expired' do
-        let!(:subscription) {FactoryGirl.create(:subscription, user_id: teacher.id, account_limit: 1, expiration: Date.yesterday, account_type: 'paid')}
+        let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.yesterday, account_type: 'paid')}
+          let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: teacher.id, subscription: subscription)}
         it "returns 'locked'" do
           expect(teacher.premium_state).to eq('locked')
         end

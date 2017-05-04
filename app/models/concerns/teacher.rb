@@ -14,7 +14,7 @@ module Teacher
     has_many :admin_accounts_i_am_part_of, through: :admin_accounts_teachers, class_name: "AdminAccount", source: :admin_account
     has_many :units
     has_one :user_subscription
-    has_one :subscription, through: :user_subscription, foreign_key: :subscription_id
+    has_one :subscription, through: :user_subscription
   end
 
   class << self
@@ -123,9 +123,7 @@ module Teacher
     if part_of_admin_account?
       true
     else
-      subscriptions
-        .where("subscriptions.expiration >= ?", Date.today)
-        .any?
+      !!(subscription && subscription.expiration >= Date.today)
     end
   end
 
@@ -142,9 +140,7 @@ module Teacher
   end
 
   def is_trial_expired?
-    subscriptions
-      .where("subscriptions.expiration < ?", Date.today)
-      .any?
+    subscription && subscription.expiration < Date.today
   end
 
   def teachers_activity_sessions_since_trial_start_date
@@ -157,7 +153,7 @@ module Teacher
   end
 
   def trial_days_remaining
-    valid_subscription = subscriptions.where("subscriptions.expiration >= ?", Date.today).first
+    valid_subscription =   subscription && subscription.expiration > Date.today
     if valid_subscription && (valid_subscription.is_not_paid?)
       (valid_subscription.expiration - Date.today).to_i
     else
@@ -166,20 +162,24 @@ module Teacher
   end
 
   def premium_updated_or_created_today?
-    subscriptions.where("created_at >= ? OR updated_at >= ?", Time.zone.now.beginning_of_day, Time.zone.now.beginning_of_day).any?
+    if subscription
+      [subscription.created_at, subscription.updated_at].max(Time.zone.now.beginning_of_day)
+    end
   end
 
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
-    if !is_beta_period_over?
-      "beta"
-    elsif part_of_admin_account?
-      'school'
-    elsif is_premium?
-      ## returns 'trial' or 'paid'
-      subscriptions.where("subscriptions.expiration >= ?", Date.today).first.trial_or_paid
-    elsif is_trial_expired?
-      "locked"
+    if part_of_admin_account?
+        'school'
+    elsif subscription
+      if !is_beta_period_over?
+        "beta"
+      elsif is_premium?
+        ## returns 'trial' or 'paid'
+        subscription.trial_or_paid
+      elsif is_trial_expired?
+        "locked"
+      end
     else
       'none'
     end
