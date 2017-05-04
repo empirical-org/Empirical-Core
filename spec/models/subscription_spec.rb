@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe Subscription, type: :model do
   describe "start premium when subscription" do
-    let(:user) { FactoryGirl.create(:user) }
-    let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:subscription) { FactoryGirl.create(:subscription) }
+    let!(:user_subscription) {FactoryGirl.create(:user_subscription, user: user, subscription: subscription)}
 
     it "updates the expirary to the later of one year from today or July 1, 2018" do
         Subscription.start_premium(user.id)
@@ -26,7 +27,7 @@ describe Subscription, type: :model do
       Subscription.start_premium(user.id)
       july_1_2017 = Date.new(2017, 7, 1)
       expected_date = [Date.today, july_1_2017].max + 365
-      expect(user.reload.subscriptions.last.expiration).to eq(expected_date)
+      expect(user.reload.subscription.expiration).to eq(expected_date)
     end
   end
 end
