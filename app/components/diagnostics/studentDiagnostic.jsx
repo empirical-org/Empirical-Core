@@ -219,6 +219,23 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(action);
   },
 
+  getProgressPercent() {
+    let percent
+    const playDiagnostic = this.props.playDiagnostic
+    if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
+      const questionSetCount = playDiagnostic.questionSet.length
+      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length
+      if (this.props.playDiagnostic.currentQuestion) {
+        percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
+      } else {
+        percent = ((answeredQuestionCount) / questionSetCount) * 100
+      }
+    } else {
+      percent = 0;
+    }
+    return percent
+  },
+
   getFetchedData() {
     const returnValue = this.getData().map((obj) => {
       let data;
@@ -283,7 +300,7 @@ const StudentDiagnostic = React.createClass({
     // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
     return (
       <div>
-        <DiagnosticProgressBar playDiagnostic={this.props.playDiagnostic}/>
+        <DiagnosticProgressBar percent={this.getProgressPercent()} />
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
             <CarouselAnim>
