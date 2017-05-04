@@ -13,6 +13,8 @@ module Teacher
     has_many :admin_accounts_teachers,  foreign_key: 'teacher_id', class_name: "AdminAccountsTeachers"
     has_many :admin_accounts_i_am_part_of, through: :admin_accounts_teachers, class_name: "AdminAccount", source: :admin_account
     has_many :units
+    has_one :user_subscription
+    has_one :subscription, through: :user_subscription, foreign_key: :subscription_id
   end
 
   class << self
