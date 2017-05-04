@@ -1,5 +1,5 @@
 class Subscription < ActiveRecord::Base
-  belongs_to :user
+  has_and_belongs_to_many :user_subscriptions
   validates :expiration, presence: true
   validates :account_limit, presence: true
 
