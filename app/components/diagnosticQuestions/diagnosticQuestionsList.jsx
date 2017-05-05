@@ -7,7 +7,7 @@ export default React.createClass({
     }
     return this.props.diagnosticQuestions.map((diagnosticQuestion) => {
       return (
-        <li><Link to={'admin/diagnostic-questions/' + diagnosticQuestion.key}>{diagnosticQuestion.prompt}</Link></li>
+        <li key={diagnosticQuestion.key}><Link to={'admin/diagnostic-questions/' + diagnosticQuestion.key}>{diagnosticQuestion.prompt}</Link></li>
       )
     })
   },

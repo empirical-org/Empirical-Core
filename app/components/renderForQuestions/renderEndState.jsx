@@ -66,10 +66,11 @@ const EndState = React.createClass({
       attemptKey = getLatestAttempt(this.props.question.attempts).response.key
     }
     return responsesToRender.map((response, index) => {
+      const active = attemptKey === response.key ? 'active' : ''
       return (
-        <li key={index} className={"top-answer-list-item " + (attemptKey === response.key ? 'active' : '')} >
+        <li key={index} className={`top-answer-list-item ${active}`}>
           <div className="top-answer-list-item-index">
-            {(index+1) + ". "}
+            {`${index + 1}. `}
           </div>
           <div className="top-answer-list-item-text" dangerouslySetInnerHTML={{__html: this.findDiffs(response.text)}}>
           </div>
