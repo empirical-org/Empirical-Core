@@ -2,9 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions/concepts'
 import _ from 'underscore'
-import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
-import ConceptListItem from './conceptListItem.jsx'
+import LinkListItem from '../shared/linkListItem.jsx'
 
 const Concepts = React.createClass({
   createNew: function () {
@@ -23,8 +22,13 @@ const Concepts = React.createClass({
     // const keys = _.keys(data["0"]);
     if (data) {
       return data.map((concept) => {
-        //// console.log(key, data, data[key])
-        return <ConceptListItem key={concept.id} uid={concept.uid} displayName={concept.displayName} />
+        return <LinkListItem
+           key={concept.uid}
+           itemKey={concept.uid}
+           basePath='concepts'
+           text={concept.displayName}
+           activeClassName='is-active'
+         />
       })
     }
   },

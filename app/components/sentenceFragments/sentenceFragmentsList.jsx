@@ -1,5 +1,5 @@
 import React from 'react';
-import PromptListItem from '../shared/promptListItem.jsx'
+import LinkListItem from '../shared/linkListItem.jsx'
 export default React.createClass({
   renderSentenceFragmentListItems: function () {
     if (this.props.sentenceFragments.length === 0) {
@@ -7,11 +7,11 @@ export default React.createClass({
     }
     return this.props.sentenceFragments.map((sentenceFragment) => {
       return (
-        <PromptListItem
+        <LinkListItem
           key={sentenceFragment.key}
           itemKey={sentenceFragment.key}
-          prompt={sentenceFragment.prompt}
-          questionType="sentence-fragments"
+          text={sentenceFragment.prompt}
+          basePath="sentence-fragments"
         />
       )
     })

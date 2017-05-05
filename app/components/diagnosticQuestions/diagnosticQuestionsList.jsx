@@ -1,5 +1,5 @@
 import React from 'react';
-import PromptListItem from '../shared/promptListItem.jsx'
+import LinkListItem from '../shared/linkListItem.jsx'
 
 export default React.createClass({
   renderListItems: function () {
@@ -8,11 +8,11 @@ export default React.createClass({
     }
     return this.props.diagnosticQuestions.map((diagnosticQuestion) => {
       return (
-        <PromptListItem
+        <LinkListItem
           key={diagnosticQuestion.key}
           itemKey={diagnosticQuestion.key}
-          prompt={diagnosticQuestion.prompt}
-          questionType="diagnostic-questions"
+          text={diagnosticQuestion.prompt}
+          basePath="diagnostic-questions"
         />
       )
     })
