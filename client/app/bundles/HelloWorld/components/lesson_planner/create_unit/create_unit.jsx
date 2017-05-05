@@ -192,7 +192,6 @@ export default React.createClass({
 		return ((this.getUnitName() != null) && (this.getUnitName() != ''));
 	},
 
-
 	determineIfInputProvidedAndValid: function() {
 		const validUnitName = this.isUnitNameValid();
 		let isUnique;
