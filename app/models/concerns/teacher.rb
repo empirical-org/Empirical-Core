@@ -29,6 +29,10 @@ module Teacher
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
+  def archived_classrooms
+    Classroom.unscoped.where(teacher_id: self.id, visible: false)
+  end
+
   def google_classrooms
     Classroom.where(teacher_id: self.id).where.not(google_classroom_id: nil)
   end
