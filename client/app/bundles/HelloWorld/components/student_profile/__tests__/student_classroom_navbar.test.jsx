@@ -1,29 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import StudentProfileHeader from '../student_profile_header';
+import StudentClassroomNavbar from '../student_classroom_navbar';
 
 import StudentsClassroomsHeader from '../students_classrooms/students_classrooms_header.jsx'
 
-describe('StudentProfileHeader component', () => {
+describe('StudentClassroomNavbar component', () => {
 
-  it('should render name', () => {
-    const wrapper = shallow(
-      <StudentProfileHeader
-        data={{
-          name: 'Name',
-          classroom: { id: 1 },
-        }}
-        fetchData={() => null}
-        loading={false}
-      />
-    );
-    expect(wrapper.find('.section-header').text()).toBe('Name');
-  });
 
   it('should render <StudentsClassroomsHeader /> component with correct props', () => {
     const wrapper = shallow(
-      <StudentProfileHeader
+      <StudentClassroomNavbar
         data={{
           name: 'Name',
           classroom: { id: 1 },
