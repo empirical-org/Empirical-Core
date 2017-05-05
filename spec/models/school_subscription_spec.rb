@@ -40,10 +40,7 @@ let!(:school_sub) {FactoryGirl.create(:school_subscription)}
 
 
   context '#update_schools_users' do
-    let!(:bk_school) { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11206'}
     let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
-    let!(:bk_teacher) { FactoryGirl.create(:teacher, schools: [bk_school]) }
-    let!(:bk_teacher_colleague) { FactoryGirl.create(:teacher, schools: [bk_school]) }
     let!(:queens_teacher) { FactoryGirl.create(:teacher, schools: [queens_school]) }
     let!(:subscription) {FactoryGirl.create(:subscription)}
     let!(:school_sub) {FactoryGirl.create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}

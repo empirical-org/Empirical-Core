@@ -116,7 +116,42 @@ describe User, type: :model do
       end
     end
 
+    describe '#updated_school' do
+      let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
+      let!(:queens_teacher) { FactoryGirl.create(:teacher) }
+      let!(:teacher_subscription) {FactoryGirl.create(:subscription)}
+      let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: queens_teacher.id, subscription_id: teacher_subscription.id)}
+      let!(:subscription) {FactoryGirl.create(:subscription)}
 
+      context "when the school has no subscription" do
+
+        it 'does nothing to the teachers subscription' do
+          expect(queens_teacher.subscription).to eq(teacher_subscription)
+          queens_teacher.updated_school(queens_school)
+          expect(queens_teacher.subscription).to eq(teacher_subscription)
+        end
+      end
+
+      context "when the school has a subscription" do
+        let!(:school_sub) {FactoryGirl.create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
+        it "overwrites the teacher's if the teacher has a subscription too" do
+          expect(queens_teacher.subscription).to eq(teacher_subscription)
+          queens_teacher.updated_school(queens_school)
+          expect(queens_teacher.reload.subscription).to eq(subscription)
+        end
+
+        it "creates the teacher's if the teacher does not have a subscription too" do
+          user_subscription.destroy
+          queens_teacher.updated_school(queens_school)
+          expect(queens_teacher.reload.subscription).to eq(subscription)
+        end
+
+      end
+
+
+
+
+    end
     describe '#premium_state' do
       let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
 

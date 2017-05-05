@@ -86,6 +86,7 @@ module Teacher
           end
         end
         unless self.schools.where(id: params[:school_id]).any?
+          self.updated_school(params[:school_id])
           (self.schools << School.find(params[:school_id]))
           find_or_create_checkbox('Add School', self)
         end
@@ -113,6 +114,13 @@ module Teacher
       response = self
     end
     response
+  end
+
+  def updated_school(school_id)
+    joined_school_sub = SchoolSubscription.find_by_school_id school_id
+    if joined_school_sub
+      UserSubscription.update_or_create(self.id, joined_school_sub.subscription_id)
+    end
   end
 
   def part_of_admin_account?
