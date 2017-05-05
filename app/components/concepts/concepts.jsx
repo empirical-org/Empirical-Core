@@ -4,8 +4,9 @@ import actions from '../../actions/concepts'
 import _ from 'underscore'
 import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
+import ConceptListItem from './conceptListItem.jsx'
 
-const Concept = React.createClass({
+const Concepts = React.createClass({
   createNew: function () {
     this.props.dispatch(actions.toggleNewConceptModal())
   },
@@ -23,7 +24,7 @@ const Concept = React.createClass({
     if (data) {
       return data.map((concept) => {
         //// console.log(key, data, data[key])
-        return (<li key={concept.id}><Link to={'/admin/concepts/' + concept.uid} activeClassName="is-active" key={concept.uid}>{concept.displayName}</Link></li>)
+        return <ConceptListItem key={concept.id} uid={concept.uid} displayName={concept.displayName} />
       })
     }
   },
@@ -81,4 +82,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(Concept)
+export default connect(select)(Concepts)
