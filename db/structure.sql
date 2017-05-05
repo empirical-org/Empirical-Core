@@ -1144,7 +1144,6 @@ ALTER SEQUENCE students_classrooms_id_seq OWNED BY students_classrooms.id;
 
 CREATE TABLE subscriptions (
     id integer NOT NULL,
-    user_id integer,
     expiration date,
     account_limit integer,
     created_at timestamp without time zone,
@@ -2983,4 +2982,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170502185232');
 INSERT INTO schema_migrations (version) VALUES ('20170503205419');
 
 INSERT INTO schema_migrations (version) VALUES ('20170504150058');
+
+INSERT INTO schema_migrations (version) VALUES ('20170505152533');
 
