@@ -23,7 +23,7 @@ const Concept = React.createClass({
     if (data) {
       return data.map((concept) => {
         //// console.log(key, data, data[key])
-        return (<li><Link to={'/admin/concepts/' + concept.uid} activeClassName="is-active" key={concept.uid}>{concept.displayName}</Link></li>)
+        return (<li key={concept.id}><Link to={'/admin/concepts/' + concept.uid} activeClassName="is-active" key={concept.uid}>{concept.displayName}</Link></li>)
       })
     }
   },

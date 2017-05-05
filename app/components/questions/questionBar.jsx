@@ -8,6 +8,7 @@ export default React.createClass({
         {
           this.props.data.map((d, i) => (
             <div
+              key={i}
               style={{
                 backgroundColor: d.color,
                 display: 'inline-block',

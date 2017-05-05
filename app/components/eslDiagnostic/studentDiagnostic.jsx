@@ -13,6 +13,7 @@ import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestio
 import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import TitleCard from './titleCard.jsx';
 import SessionActions from '../../actions/sessions.js';
@@ -203,14 +204,6 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(updateLanguage(language));
   },
 
-  getProgressPercent() {
-    if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
-      return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100;
-    } else {
-      0;
-    }
-  },
-
   getFetchedData() {
     const returnValue = this.getData().map((obj) => {
       let data;
@@ -234,6 +227,23 @@ const StudentDiagnostic = React.createClass({
 
   language() {
     return this.props.playDiagnostic.language;
+  },
+
+  getProgressPercent() {
+    let percent
+    const playDiagnostic = this.props.playDiagnostic
+    if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
+      const questionSetCount = playDiagnostic.questionSet.length
+      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length
+      if (this.props.playDiagnostic.currentQuestion) {
+        percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
+      } else {
+        percent = ((answeredQuestionCount) / questionSetCount) * 100
+      }
+    } else {
+      percent = 0;
+    }
+    return percent
   },
 
   renderQuestionComponent() {
@@ -305,7 +315,7 @@ const StudentDiagnostic = React.createClass({
 
     return (
       <div>
-        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <DiagnosticProgressBar percent={this.getProgressPercent()} />
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
             <ReactCSSTransitionGroup

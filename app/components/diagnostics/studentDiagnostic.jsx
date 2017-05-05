@@ -14,6 +14,7 @@ import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import TitleCard from './titleCard.jsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 const request = require('request');
 
@@ -219,11 +220,20 @@ const StudentDiagnostic = React.createClass({
   },
 
   getProgressPercent() {
-    if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
-      return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100;
+    let percent
+    const playDiagnostic = this.props.playDiagnostic
+    if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
+      const questionSetCount = playDiagnostic.questionSet.length
+      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length
+      if (this.props.playDiagnostic.currentQuestion) {
+        percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
+      } else {
+        percent = ((answeredQuestionCount) / questionSetCount) * 100
+      }
     } else {
-      0;
+      percent = 0;
     }
+    return percent
   },
 
   getFetchedData() {
@@ -290,7 +300,7 @@ const StudentDiagnostic = React.createClass({
     // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
     return (
       <div>
-        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <DiagnosticProgressBar percent={this.getProgressPercent()} />
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
             <CarouselAnim>
