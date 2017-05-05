@@ -27,7 +27,7 @@ let!(:school_sub) {FactoryGirl.create(:school_subscription)}
 
   context "#SchoolSubscription.update_or_create" do
     it "updates existing SchoolSubscriptions to the new subscription_id" do
-      SchoolSubscription.update_or_create(school_sub.id, 11)
+      SchoolSubscription.update_or_create(school_sub.school_id, 11)
       expect(school_sub.reload.subscription_id).to eq(11)
     end
 
