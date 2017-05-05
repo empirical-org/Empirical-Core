@@ -20,8 +20,9 @@ class Subscription < ActiveRecord::Base
   def self.create_with_user_join user_id, attributes
     new_sub = Subscription.create(attributes)
     if new_sub.persisted?
-      UserSubscription.create(user_id: user_id, subscription_id: new_sub.id)
+      UserSubscription.update_or_create(user_id, new_sub.id)
     end
+    new_sub
   end
 
   def is_not_paid?
