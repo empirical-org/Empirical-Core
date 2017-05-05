@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import scoreActions from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
+import QuestionRow from './questionRow.jsx'
 import { hashToCollection } from '../../libs/hashToCollection.js';
-import { Link } from 'react-router';
 import _ from 'underscore';
 
 class ScoreAnalysis extends Component {
@@ -44,6 +44,9 @@ class ScoreAnalysis extends Component {
           unmatched: scoreData.unmatchedResponses || 0,
           commonUnmatched: scoreData.commonUnmatchedResponses || 0,
           percentWeak: scoreData.commonMatchedAttempts > 0 ? ((scoreData.commonUnmatchedAttempts || 0) / scoreData.commonMatchedAttempts * 100).toFixed(2) : 0.0,
+          hasModelConcept: !!question.modelConceptUID,
+          focusPoints: question.focusPoints ? Object.keys(question.focusPoints).length : 0,
+          incorrectSequences: question.incorrectSequences ? Object.keys(question.incorrectSequences).length : 0
         };
       }
     });
@@ -54,15 +57,8 @@ class ScoreAnalysis extends Component {
     const sorted = this.formatDataForTable().sort((a, b) => a[this.state.sort] - b[this.state.sort]);
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, question => (
-      <tr>
-        <td width="600px"><Link to={`/admin/questions/${question.key}`}>{question.prompt}</Link></td>
-        <td>{question.percentWeak}</td>
-        <td>{question.commonUnmatched}</td>
-        <td>{question.unmatched}</td>
-        <td>{question.responses}</td>
-        <td>{question.attempts}</td>
-      </tr>
-      ));
+      <QuestionRow key={question.key} question={question} />
+    ));
   }
 
   render() {
@@ -82,6 +78,9 @@ class ScoreAnalysis extends Component {
                 <th onClick={this.clickSort.bind(this, 'unmatched')}>Unmatched</th>
                 <th onClick={this.clickSort.bind(this, 'responses')}>Responses</th>
                 <th onClick={this.clickSort.bind(this, 'attempts')}>Attempts</th>
+                <th onClick={this.clickSort.bind(this, 'hasModelConcept')}>Has Model Concept</th>
+                <th onClick={this.clickSort.bind(this, 'focusPoints')}>Focus Points</th>
+                <th onClick={this.clickSort.bind(this, 'incorrectSequences')}>Incorrect Sequences</th>
               </tr>
             </thead>
             <tbody>
