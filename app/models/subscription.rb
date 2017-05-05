@@ -1,5 +1,6 @@
 class Subscription < ActiveRecord::Base
   has_many :user_subscriptions
+  # has_many :schools_subscriptions
   validates :expiration, presence: true
   validates :account_limit, presence: true
 
@@ -14,6 +15,13 @@ class Subscription < ActiveRecord::Base
       user_sub.subscription.update!(expiration: [user_sub.subscription.expiration + 365, Date.new(2018, 7, 1)].max, account_limit: 1000, account_type: 'paid')
     end
     PremiumAnalyticsWorker.perform_async(user_sub.user_id, 'paid')
+  end
+
+  def self.create_with_user_join user_id, attributes
+    new_sub = Subscription.create(attributes)
+    if new_sub.persisted?
+      UserSubscription.create(user_id: user_id, subscription_id: new_sub.id)
+    end
   end
 
   def is_not_paid?

@@ -154,8 +154,8 @@ module Teacher
 
   def trial_days_remaining
     valid_subscription =   subscription && subscription.expiration > Date.today
-    if valid_subscription && (valid_subscription.is_not_paid?)
-      (valid_subscription.expiration - Date.today).to_i
+    if valid_subscription && (subscription.is_not_paid?)
+      (subscription.expiration - Date.today).to_i
     else
       nil
     end
@@ -163,7 +163,7 @@ module Teacher
 
   def premium_updated_or_created_today?
     if subscription
-      [subscription.created_at, subscription.updated_at].max(Time.zone.now.beginning_of_day)
+      [subscription.created_at, subscription.updated_at].max == Time.zone.now.beginning_of_day
     end
   end
 
