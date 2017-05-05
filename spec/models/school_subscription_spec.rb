@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 describe SchoolSubscription, type: :model do
+
 let!(:school_sub) {FactoryGirl.create(:school_subscription)}
 
   context "validates" do
-
-    let!(:school_sub) {FactoryGirl.create(:school_subscription)}
 
     describe "uniqueness of" do
 
@@ -26,7 +25,7 @@ let!(:school_sub) {FactoryGirl.create(:school_subscription)}
 
   end
 
-  context "SchoolSubscription.update_or_create" do
+  context "#SchoolSubscription.update_or_create" do
     it "updates existing SchoolSubscriptions to the new subscription_id" do
       SchoolSubscription.update_or_create(school_sub.id, 11)
       expect(school_sub.reload.subscription_id).to eq(11)
@@ -36,6 +35,31 @@ let!(:school_sub) {FactoryGirl.create(:school_subscription)}
       SchoolSubscription.update_or_create(99, 11)
       new_school_sub = SchoolSubscription.last
       expect([ new_school_sub.school_id,  new_school_sub.subscription_id]).to eq([99,11])
+    end
+  end
+
+
+  context '#update_schools_users' do
+    let!(:bk_school) { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11206'}
+    let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
+    let!(:bk_teacher) { FactoryGirl.create(:teacher, schools: [bk_school]) }
+    let!(:bk_teacher_colleague) { FactoryGirl.create(:teacher, schools: [bk_school]) }
+    let!(:queens_teacher) { FactoryGirl.create(:teacher, schools: [queens_school]) }
+    let!(:subscription) {FactoryGirl.create(:subscription)}
+    let!(:school_sub) {FactoryGirl.create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
+
+
+    it "connects a premium account to school's users if they do not have one" do
+      expect(queens_teacher.subscription).to eq(nil)
+      school_sub.update_schools_users
+      expect(queens_teacher.reload.subscription).to eq(school_sub.subscription)
+    end
+
+    it "connects a new premium account to school's users if they do have one" do
+      old_sub = Subscription.create_with_user_join(queens_teacher.id, {account_type: 'paid', account_limit: 1000})
+      expect(queens_teacher.reload.subscription).to eq(old_sub.id)
+      school_sub.update_schools_users
+      expect(queens_teacher.reload.subscription).to eq(school_sub.subscription)
     end
   end
 

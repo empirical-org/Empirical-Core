@@ -13,11 +13,7 @@ class SchoolSubscription < ActiveRecord::Base
   def update_schools_users
     if self.school && self.school.users
       self.school.users.each do |u|
-        if u.user_subscription
-          u.user_subscription.update(subscription_id: self.subscription_id)
-        else
-          UserSubscription.create(subscription_id: self.subscription_id, user_id: u.id)
-        end
+        UserSubscription.update_or_create(u.id, self.subscription_id)
       end
     end
   end
