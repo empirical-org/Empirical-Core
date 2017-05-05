@@ -1,5 +1,7 @@
 class School < ActiveRecord::Base
   has_and_belongs_to_many :users
+  has_one :school_subscription
+  has_one :subscription, through: :school_subscription
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade

@@ -1,6 +1,6 @@
 class Subscription < ActiveRecord::Base
   has_many :user_subscriptions
-  # has_many :schools_subscriptions
+  has_many :school_subscriptions
   validates :expiration, presence: true
   validates :account_limit, presence: true
 
@@ -17,12 +17,12 @@ class Subscription < ActiveRecord::Base
     PremiumAnalyticsWorker.perform_async(user_sub.user_id, 'paid')
   end
 
+  def self.create_with_school_join school_id, attributes
+    self.create_with_school_or_user_join school_id, 'School', attributes
+  end
+
   def self.create_with_user_join user_id, attributes
-    new_sub = Subscription.create(attributes)
-    if new_sub.persisted?
-      UserSubscription.update_or_create(user_id, new_sub.id)
-    end
-    new_sub
+    self.create_with_school_or_user_join user_id, 'User', attributes
   end
 
   def is_not_paid?
@@ -32,5 +32,16 @@ class Subscription < ActiveRecord::Base
   def trial_or_paid
     is_not_paid? ? 'trial' : 'paid'
   end
+
+  private
+
+  def self.create_with_school_or_user_join school_or_user_id, type, attributes
+    new_sub = Subscription.create(attributes)
+    if new_sub.persisted?
+      "#{type}Subscription".constantize.update_or_create(school_or_user_id, new_sub.id)
+    end
+    new_sub
+  end
+
 
 end
