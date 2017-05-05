@@ -971,40 +971,6 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: school_subscriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE school_subscriptions (
-    id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    school_id integer,
-    account_type character varying,
-    account_limit integer,
-    expiration date
-);
-
-
---
--- Name: school_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE school_subscriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: school_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE school_subscriptions_id_seq OWNED BY school_subscriptions.id;
-
-
---
 -- Name: schools; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1144,6 +1110,7 @@ ALTER SEQUENCE students_classrooms_id_seq OWNED BY students_classrooms.id;
 
 CREATE TABLE subscriptions (
     id integer NOT NULL,
+    user_id integer,
     expiration date,
     account_limit integer,
     created_at timestamp without time zone,
@@ -1266,36 +1233,6 @@ CREATE SEQUENCE unit_template_categories_id_seq
 --
 
 ALTER SEQUENCE unit_template_categories_id_seq OWNED BY unit_template_categories.id;
-
-
---
--- Name: unit_template_units; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE unit_template_units (
-    id integer NOT NULL,
-    unit_id integer,
-    unit_template_id integer
-);
-
-
---
--- Name: unit_template_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE unit_template_units_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: unit_template_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE unit_template_units_id_seq OWNED BY unit_template_units.id;
 
 
 --
@@ -1627,13 +1564,6 @@ ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_missed
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY school_subscriptions ALTER COLUMN id SET DEFAULT nextval('school_subscriptions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::regclass);
 
 
@@ -1677,13 +1607,6 @@ ALTER TABLE ONLY topics ALTER COLUMN id SET DEFAULT nextval('topics_id_seq'::reg
 --
 
 ALTER TABLE ONLY unit_template_categories ALTER COLUMN id SET DEFAULT nextval('unit_template_categories_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY unit_template_units ALTER COLUMN id SET DEFAULT nextval('unit_template_units_id_seq'::regclass);
 
 
 --
@@ -1915,14 +1838,6 @@ ALTER TABLE ONLY rules_misseds
 
 
 --
--- Name: school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY school_subscriptions
-    ADD CONSTRAINT school_subscriptions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1979,14 +1894,6 @@ ALTER TABLE ONLY unit_template_categories
 
 
 --
--- Name: unit_template_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY unit_template_units
-    ADD CONSTRAINT unit_template_units_pkey PRIMARY KEY (id);
-
-
---
 -- Name: unit_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2023,13 +1930,6 @@ ALTER TABLE ONLY users
 --
 
 CREATE INDEX aut ON activities_unit_templates USING btree (activity_id, unit_template_id);
-
-
---
--- Name: email_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX email_idx ON users USING gin (email gin_trgm_ops);
 
 
 --
@@ -2299,13 +2199,6 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING 
 
 
 --
--- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_school_subscriptions_on_school_id ON school_subscriptions USING btree (school_id);
-
-
---
 -- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2387,20 +2280,6 @@ CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (nam
 --
 
 CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
-
-
---
--- Name: index_unit_template_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_unit_template_units_on_unit_id ON unit_template_units USING btree (unit_id);
-
-
---
--- Name: index_unit_template_units_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_unit_template_units_on_unit_template_id ON unit_template_units USING btree (unit_template_id);
 
 
 --
@@ -2975,13 +2854,5 @@ INSERT INTO schema_migrations (version) VALUES ('20170315183853');
 
 INSERT INTO schema_migrations (version) VALUES ('20170412154159');
 
-INSERT INTO schema_migrations (version) VALUES ('20170414191416');
-
-INSERT INTO schema_migrations (version) VALUES ('20170502185232');
-
-INSERT INTO schema_migrations (version) VALUES ('20170503205419');
-
-INSERT INTO schema_migrations (version) VALUES ('20170504150058');
-
-INSERT INTO schema_migrations (version) VALUES ('20170505152533');
+INSERT INTO schema_migrations (version) VALUES ('20170505182334');
 
