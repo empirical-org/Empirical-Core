@@ -30,4 +30,20 @@ describe Subscription, type: :model do
       expect(user.reload.subscription.expiration).to eq(expected_date)
     end
   end
+
+  describe "create_with_user_join" do
+    it "creates a subscription based off of the passed attributes" do
+      attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
+      new_sub = Subscription.create_with_user_join(12, attributes)
+      expect(new_sub.account_limit).to eq(1000)
+      expect(new_sub.account_type).to eq('paid')
+    end
+
+    it "makes a matching UserSubscription join" do
+      attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
+      new_sub = Subscription.create_with_user_join(12, attributes)
+      join = new_sub.user_subscriptions.first
+      expect([join.user_id, join.subscription_id]).to eq([12, new_sub.id])
+    end
+  end
 end
