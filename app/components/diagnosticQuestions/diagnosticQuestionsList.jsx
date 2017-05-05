@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router'
+import PromptListItem from '../shared/promptListItem.jsx'
+
 export default React.createClass({
   renderListItems: function () {
     if (this.props.diagnosticQuestions.length === 0) {
@@ -7,7 +8,12 @@ export default React.createClass({
     }
     return this.props.diagnosticQuestions.map((diagnosticQuestion) => {
       return (
-        <li key={diagnosticQuestion.key}><Link to={'admin/diagnostic-questions/' + diagnosticQuestion.key}>{diagnosticQuestion.prompt}</Link></li>
+        <PromptListItem
+          key={diagnosticQuestion.key}
+          itemKey={diagnosticQuestion.key}
+          prompt={diagnosticQuestion.prompt}
+          questionType="diagnostic-questions"
+        />
       )
     })
   },

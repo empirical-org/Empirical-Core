@@ -1,14 +1,14 @@
 import React from 'react';
-import FillInBlankListItem from './fillInBlankListItem.jsx'
-import { Link } from 'react-router';
+import PromptListItem from '../shared/promptListItem.jsx'
 export default React.createClass({
   renderFillInBlankListItems() {
     if (this.props.fillInTheBlanks.length !== 0) {
       return this.props.fillInTheBlanks.map(fillInBlank => (
-        <FillInBlankListItem
+        <PromptListItem
           key={fillInBlank.key}
-          identifier={fillInBlank.key}
+          itemKey={fillInBlank.key}
           prompt={fillInBlank.prompt}
+          questionType="fill-in-the-blanks"
         />
       ));
     }
