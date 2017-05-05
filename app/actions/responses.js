@@ -113,10 +113,11 @@ export function stopListeningToResponses(questionId) {
   };
 }
 
-export function submitNewResponse(content, prid) {
+export function submitNewResponse(content, prid, isFirstAttempt) {
   const newResponse = Object.assign({}, content,
     {
       createdAt: moment().format('x'),
+      firstAttemptCount: isFirstAttempt ? 1 : 0
     }
   );
   return (dispatch) => {
@@ -177,7 +178,19 @@ export function submitResponseEdit(rid, content) {
   };
 }
 
-export function incrementResponseCount(qid, rid, prid) {
+export function incrementFirstAttemptCount(rid) {
+  return (dispatch) => {
+    responsesRef.child(`${rid}/firstAttemptCount`).transaction(currentCount => currentCount + 1, (error) => {
+      if (error) {
+        dispatch({ type: C.DISPLAY_ERROR, error: `increment failed! ${error}`, });
+      } else {
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'first attempt count successfully incremented!', });
+      }
+    })
+  }
+}
+
+export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
   return (dispatch) => {
     const responseRef = responsesRef.child(rid);
     responseRef.child('/count').transaction(currentCount => currentCount + 1, (error) => {
@@ -186,6 +199,9 @@ export function incrementResponseCount(qid, rid, prid) {
       } else {
         dispatch(pathwaysActions.submitNewPathway(rid, prid, qid));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully incremented!', });
+        if (isFirstAttempt) {
+          dispatch(incrementFirstAttemptCount(rid))
+        }
       }
     });
     responseRef.child('parentID').once('value', (snap) => {
