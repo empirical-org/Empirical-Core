@@ -22,6 +22,34 @@
     }
   }
 
+  .manage-units-header {
+    margin-top: 30px;
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .header-content {
+      margin-top: 21px;
+      display: flex;
+      justify-content: space-between;
+      @media only screen and (max-width: 500px) {
+        flex-direction: column;
+        button {
+          width: 100%;
+          margin-top: 20px;
+        }
+      }
+      p {
+        max-width: 559px;
+        width: 100%;
+        font-size: 16px;
+        @media only screen and (max-width: 1000px) {
+          max-width: 528px;
+        }
+      }
+    }
+  }
+
   padding-top: 80px;
   section {
     border-bottom: none;
