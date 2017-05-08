@@ -43,7 +43,7 @@ example JSON.parse(response.body) :
 
   def self.parse_courses_for_student(course_response, user)
     course_ids = []
-    if course_response[:courses].any?
+    if course_response[:courses] && course_response[:courses].any?
       # checking to make sure student is not the owner (teacher) of the course
       course_response[:courses].select{ |c| !own_course(c, user) }.each do |course|
         course_ids << course[:id]
