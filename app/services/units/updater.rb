@@ -34,7 +34,7 @@ module Units::Updater
       product.each do |pair|
         activity_data, classroom_id = pair
         classroom_activity = unit.classroom_activities.find_or_initialize_by(activity_id: activity_data[:id], classroom_id: classroom_id)
-        if classroom[:student_ids] === false
+        if classroom[:student_ids] == false
           classroom_activity.update(visible: false)
           next
         end
@@ -48,7 +48,7 @@ module Units::Updater
         classroom_activity.update(due_date: due_date, assigned_student_ids: classroom[:student_ids])
       end
     end
-    unit.hide_if_no_visible_classroom_activities 
+    unit.hide_if_no_visible_classroom_activities
     # necessary activity sessions are created in an after_create and after_save callback
     # in activity_sessions.rb
     # TODO: Assign Activity Worker should be labeled as an analytics worker
