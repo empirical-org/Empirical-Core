@@ -118,12 +118,20 @@ export default class extends React.Component {
 	}
 
 	updateAllOrNoneAssigned(classy, selectedCount) {
-		if (selectedCount === classy.students.length) {
+		if (selectedCount === 0) {
+			// if there are no students in this class, but there is a classroom activity,
+			// the teacher must have assigned the activity to an empty class,
+			// so we do want it to be checked
+			if (classy.students.length === 0 && classy.classroom_activity) {
+				classy.allSelected = true
+				classy.noneSelected = false
+			} else {
+				classy.noneSelected = true
+				classy.allSelected = false
+			}
+		} else if (selectedCount === classy.students.length) {
 			classy.allSelected = true
 			classy.noneSelected = false
-		} else if (selectedCount === 0) {
-			classy.noneSelected = true
-			classy.allSelected = false
 		} else {
 			classy.allSelected = false
 			classy.noneSelected = false
@@ -135,19 +143,28 @@ export default class extends React.Component {
 	getAssignedIds = classy => classy.students.filter((student) => student.isSelected).map((stud) => stud.id)
 
 	classroomUpdated(classy) {
-		// this method handles classrooms that have students in it
+		// this method relies on the comparison between the assigned students on the preexisting
+		// classroom activity on the classroom object in state,
+		// and the students that are tagged as selected.
+		// the latter changes as the user checks boxes, the former doesn't,
+		// so it is really comparing the original assigned students to the new ones
+		// to see what has changed
 		const assignedStudentIds = this.getAssignedIds(classy).sort()
 		let updated
 
 		if (classy.classroom_activity) {
-			// if there are no students in a class, it needs to be updated if it is unchecked
-			// if there are students in a class and they were previously all assigned (empty array), but no longer are
-			// it should be updated
+			// if there is a preexisting classroom activity with an empty array
+			// either the classroom has no students or all students were assigned
+			// either way, if they are no longer allSelected, it has been updated
 			if (classy.classroom_activity.assigned_student_ids.length === 0 ) {
 				updated = !classy.allSelected
+			// otherwise, it has been updated if the previously assigned students
+			// are not the same as the newly assigned students
 			} else {
 				updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort())
 			}
+			// if there is no preexisting classroom activity,
+			// any new students or checked classroom boxes represent an update
 		} else if (assignedStudentIds.length > 0 || classy.allSelected) {
 			updated = true
 		} else {
@@ -167,7 +184,9 @@ export default class extends React.Component {
 	}
 
 	enableSave() {
-		if (this.state.classrooms.find(classy => classy.noneSelected) {
+		// this method just needs to prevent saving a unit with no selected students
+		// studentsChanged will take care of the rest
+		if (this.state.classrooms.every(classy => classy.noneSelected)) {
 			return false
 		} else {
 			return this.state.studentsChanged
