@@ -67,6 +67,17 @@ describe User, type: :model do
       )
     end
 
+    describe '#archived_classrooms' do
+      it "returns an array of teachers archived classes if extant" do
+        classroom.update(visible: false)
+        expect(teacher.archived_classrooms).to eq([classroom])
+      end
+
+      it "returns an empty ActiveRecord association if the teacher has no archived classes" do
+        expect(teacher.archived_classrooms.empty?).to be true
+      end
+    end
+
     describe '#is_premium?' do
       let!(:teacher_premium_test) {FactoryGirl.create(:user, role: 'teacher')}
       let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}

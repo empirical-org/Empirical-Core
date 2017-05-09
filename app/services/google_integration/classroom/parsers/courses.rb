@@ -20,7 +20,7 @@ example JSON.parse(response.body) :
 
   def self.parse_courses_for_teacher(course_response, user)
     courses = []
-    if course_response[:courses].any?
+    if course_response[:courses] && course_response[:courses].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
       course_response[:courses].each do |course|
         alreadyImported = self.already_imported?(course, existing_google_classroom_ids)
@@ -43,7 +43,7 @@ example JSON.parse(response.body) :
 
   def self.parse_courses_for_student(course_response, user)
     course_ids = []
-    if course_response[:courses].any?
+    if course_response[:courses] && course_response[:courses].any?
       # checking to make sure student is not the owner (teacher) of the course
       course_response[:courses].select{ |c| !own_course(c, user) }.each do |course|
         course_ids << course[:id]
@@ -57,7 +57,11 @@ example JSON.parse(response.body) :
   end
 
   def self.valid?(course, user, existing_google_classroom_ids)
-    self.own_course(course, user) && (self.not_archived(course) || course[:alreadyImported])
+    # really we should be calling google classrooms api to see if this user is a teacher,
+    # but we are using an outdated method of calling the api elsewhere
+    # and need to do a more robust overhaul for this to make sense
+    # self.own_course(course, user) && (self.not_archived(course) || course[:alreadyImported])
+    self.not_archived(course) || course[:alreadyImported]
   end
 
   def self.own_course(course, user)

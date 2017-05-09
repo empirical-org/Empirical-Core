@@ -13,7 +13,6 @@ export default React.createClass({
       hasClassroomActivities: React.PropTypes.bool
     },
 
-
     componentDidMount: function() {
       this.getClassCode();
     },

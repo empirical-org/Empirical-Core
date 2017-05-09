@@ -12,7 +12,7 @@
 
 	render: function () {
 		return (
-			<section className="section-content-wrapper">
+			<section className="section-content-wrapper name-the-unit">
 				<div className="col-xs-12 col-md-9 col-sm-9 col-xl-9 no-pl">
 					<h3 className="section-header">Name the Activity Pack</h3>
 				</div>
@@ -32,7 +32,7 @@
 
 				</div>
 
-				<input id="unit_name" ref='name' onChange={this.updateName} value={this.props.unitName} type="text"  placeholder="e.g. Learning How to Use Nouns" />
+				<input className={this.props.nameError} id="unit_name" ref='name' onChange={this.updateName} value={this.props.unitName} type="text"  placeholder="e.g. Learning How to Use Nouns" />
 			</section>
 		);
 	}

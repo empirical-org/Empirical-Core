@@ -1,12 +1,13 @@
-"use strict";
+'use strict';
 import React from 'react'
+import cutOff from '../../../../modules/proficiency_cutoffs.js'
 export default React.createClass({
   propTypes: {
     score: React.PropTypes.number.isRequired
   },
 
   circleClass: function() {
-    if (this.props.score > 0.75) {
+    if (this.props.score > cutOff.proficient) {
       return 'circle proficient';
     } else {
       return 'circle not-proficient';
@@ -14,9 +15,9 @@ export default React.createClass({
   },
 
   text: function() {
-    if (this.props.score > 0.75) {
+    if (this.props.score > cutOff.proficient) {
       return 'Proficient';
-    } else if (this.props.score <= 0.75) {
+    } else {
       return 'Not Yet Proficient';
     }
   },

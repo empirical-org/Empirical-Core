@@ -5,14 +5,14 @@
  export default  [
          {
            field: 'section',
-           alias: 'Standard Level',
+           alias: 'Filter by Standard',
            options: [],
            selected: null
 
          },
          {
            field: 'topic_category',
-           alias: 'Concept',
+           alias: 'Filter by Concept',
            options: [],
            selected: null
          },
