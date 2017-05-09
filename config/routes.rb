@@ -208,7 +208,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :topics,                  only: [:index]
       resources :topic_categories,        only: [:index]
       resources :concepts,                only: [:index, :create]
-
+      resources :users,                   only: [:index]
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
