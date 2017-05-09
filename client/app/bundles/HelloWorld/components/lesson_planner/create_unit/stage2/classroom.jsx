@@ -28,16 +28,9 @@
   },
 
   determineCheckbox: function () {
-    var allSelected;
-    if (this.props.students.length > 0) {
-      var selected = _.where(this.props.students, {isSelected: true});
-      allSelected = (selected.length == this.props.students.length);
-    } else {
-      allSelected = false;
-    }
     return (
         <input type='checkbox'
-               checked={allSelected ? 'checked' : null}
+               checked={this.props.allSelected ? 'checked' : null}
                className='css-checkbox classroom_checkbox'
                id={'classroom_checkbox_' + this.props.classroom.id}
                onChange={this.handleClassroomSelection} />

@@ -64,12 +64,8 @@ export default class extends React.Component {
 		selectedStudent.isSelected = !selectedStudent.isSelected;
 		newState.classrooms[classIndex].edited = this.classroomUpdated(newState.classrooms[classIndex]);
 		newState.studentsChanged = this.studentsChanged();
-		// we check to see if something has changed because this method gets called when the page loads
-		// as well as when a student's checkbox is clicked
-		if (newState.studentsChanged) {
-			const selectedCount = this.countAssigned(classy)
-			this.updateAllOrNoneAssigned(classy, selectedCount)
-			}
+		const selectedCount = this.countAssigned(classy)
+		this.updateAllOrNoneAssigned(classy, selectedCount)
 		this.setState(newState)
 	}
 
@@ -139,14 +135,23 @@ export default class extends React.Component {
 	getAssignedIds = classy => classy.students.filter((student) => student.isSelected).map((stud) => stud.id)
 
 	classroomUpdated(classy) {
+		// this method handles classrooms that have students in it
 		const assignedStudentIds = this.getAssignedIds(classy).sort()
 		let updated
-		if (assignedStudentIds.length > 0 && classy.classroom_activity) {
-			updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort())
-		} else if (assignedStudentIds.length == 0) {
-			updated = false
-		} else {
+
+		if (classy.classroom_activity) {
+			// if there are no students in a class, it needs to be updated if it is unchecked
+			// if there are students in a class and they were previously all assigned (empty array), but no longer are
+			// it should be updated
+			if (classy.classroom_activity.assigned_student_ids.length === 0 ) {
+				updated = !classy.allSelected
+			} else {
+				updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort())
+			}
+		} else if (assignedStudentIds.length > 0 || classy.allSelected) {
 			updated = true
+		} else {
+			updated = false
 		}
 		return updated
 	}
@@ -162,10 +167,10 @@ export default class extends React.Component {
 	}
 
 	enableSave() {
-		if (this.state.classrooms.find((classy) => classy.students.length > 0)) {
+		if (this.state.classrooms.find(classy => classy.noneSelected) {
+			return false
+		} else {
 			return this.state.studentsChanged
-		} else if (this.state.classrooms.find((classy) => classy.allSelected)) {
-			return true
 		}
 	}
 
