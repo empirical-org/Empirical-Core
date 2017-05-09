@@ -21,7 +21,7 @@ const instructions = {
   'sentence-fragment-complete-vs-incomplete-button-choice-instructions': 'Is this a complete or an incomplete sentence?',
   'sentence-fragment-complete-vs-incomplete-typing-choice-instructions': 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.',
   'sentence-fragment-complete-vs-incomplete-completion-instructions': 'Add to the group of words to make a complete sentence. Add as few words as possible.',
-  'fill-in-the-blank-multiple-instructions': 'Fill in each blank with a word above. If no word is needed, leave the blank empty',
+  'fill-in-the-blank-multiple-instructions': 'Fill in each blank with a word above. If no word is needed, leave the blank empty.',
   'tense-question-instructions': 'Rewrite the sentence. Correct the verb in bold so it is in the right tense to match the rest of the sentence.',
   'fill-in-the-blank-single-instructions': 'Fill in the blank with one of the words above.',
   'combine-sentences-instructions': 'Combine the sentences into one sentence.',
