@@ -1,6 +1,6 @@
 const buttonText = {
-  'submit button text': 'Dệ trình',
-  'resume button text': 'Bắt đầu trở lại',
+  'submit button text': 'Gửi',
+  'resume button text': 'Hồ sơ Cá nhân',
   'begin button text': 'Bắt đầu',
   'continue button text': 'Tiếp tục',
   'sentence fragment complete button': 'Hoàn thành câu',
@@ -8,24 +8,24 @@ const buttonText = {
 };
 
 const titleCards = {
-  'fill in multiple blanks title card': '<h1>Điền vào ô trống: A, An, The</h1><p>Trong phần này, mỗi câu sẽ có hai hoặc ba khoảng trắng.</p><p>Bạn sẽ viết lại câu, điền vào chỗ trống bằng một trong những từ trong danh sách hoặc chọn không có từ nào cần thiết trong khoảng trắng.</p>',
-  'fill in single blanks title card': '<h1>Điền vào chỗ trống</h1><p>Bạn đang ở đâu đó! Trong phần này, bạn sẽ chọn từ tốt nhất để hoàn thành câu. Bạn sẽ viết lại một câu, điền vào chỗ trống bằng một trong những từ trong danh sách.</p>',
-  'sentence fragments title card': '<h1>Câu hoàn chỉnh</h1><p>Trong phần này, bạn sẽ thêm vào một nhóm từ để thực hiện một câu hoàn chỉnh. Thêm càng ít từ càng tốt.</p><h1><p>Hãy bắt đầu!</p>',
-  'tense title card': '<h1>Quá khứ, hiện tại và tương lai căng thẳng</h1><p>Trong phần này, bạn sẽ sửa các câu bằng cách đặt động từ đúng để khớp với phần còn lại của câu. Bạn đang làm tốt cho đến nay!</p>',
-  'sentence combining title card': '<h1>Kết hợp câu</h1><p>Trong phần này, bạn sẽ kết hợp các câu thành một câu</p><p>Đôi khi bạn sẽ được kết hợp từ để lựa chọn, và đôi khi bạn sẽ phải chọn cách riêng của bạn để kết hợp các câu.</p><p>Chỉ thêm hoặc thay đổi từ khi bạn cần, và cố gắng giữ ý nghĩa của các câu như nhau.</p><p>Bạn đã có điều này!</p>',
-  'diagnostic intro text': '<h1>Hoạt động Đặt Quill</h1><p>Bạn sắp trả lời 22 câu hỏi về viết câu. Đừng lo lắng, nó không phải là một thử nghiệm. Nó chỉ để tìm ra những gì bạn biết.</p><p>Một số câu hỏi có thể là về những điều bạn chưa học được - được rồi! Chỉ cần trả lời họ càng tốt càng tốt.</p><p>Một khi bạn đã hoàn thành, Quill sẽ tạo ra một kế hoạch học tập chỉ dành cho bạn!</p>',
-  'completion page': '<h1>Bạn đã hoàn thành Hoạt động Vị trí Quill!</h1></p>Kết quả của bạn đang được lưu lại. Bạn sẽ được tự động chuyển hướng khi chúng được lưu.</p>',
+  'fill in multiple blanks title card': '<h1>Điền vào chỗ trống: A, An, The</h1><p>Trong phần này, mỗi câu sẽ có hai hoặc ba chỗ trống.</p><p>Bạn sẽ điền vào chỗ trống bằng một trong những từ có trong danh sách, hoặc để trống nếu không cần từ nào.</p>',
+  'fill in single blanks title card': '<h1>Điền vào chỗ trống</h1><p>Bạn đã đi được nữa đường! Trong phần này, bạn sẽ chọn từ thích hợp nhất để hoàn thành câu. Bạn sẽ điền vào chỗ trống bằng một trong những từ có trong danh sách.</p>',
+  'sentence fragments title card': '<h1>Hoàn thành Câu</h1><p>Trong phần này, bạn sẽ thêm vào một nhóm từ để tạo thành một câu hoàn chỉnh. Thêm càng ít từ càng tốt.</p><p>Bắt đầu!</p>',
+  'tense title card': '<h1>Thì Quá khứ, Hiện tại và Tương lai</h1><p>Trong phần này, bạn sẽ sửa lại câu bằng cách đặt các động từ vào đúng thì để khớp với phần còn lại của câu. Bạn đang làm rất tốt cho đến lúc này!</p>',
+  'sentence combining title card': '<h1>Kết hợp câu</h1><p>Trong phần này, bạn sẽ kết hợp các câu thành một câu.</p><p>Đôi khi sẽ có các liên từ để bạn lựa chọn, nhưng đôi khi bạn sẽ phải chọn cách riêng của mình để kết hợp các câu lại với nhau.</p><p>Chỉ thêm hoặc thay đổi từ khi cần, và cố gắng không làm thay đổi ý nghĩa của các câu.</p><p>Bạn đã hoàn thành!</p>',
+  'diagnostic intro text': '<h1>Hoạt động Sắp xếp Quill</h1><p>Bạn chuẩn bị trả lời 22 câu hỏi về viết câu. Đừng lo lắng, đây không phải là một bài kiểm tra. Nó chỉ dùng để xem bạn biết những gì.</p><p>Một số câu hỏi có thể về những điều bạn chưa được học - không sao cả! Chỉ cần trả lời tốt nhất có thể.</p><p>Sau khi hoàn thành, Quill sẽ tạo ra một kế hoạch học tập dành cho riêng bạn!</p>',
+  'completion page': '<h1>Bạn đã Hoàn thành Hoạt động Sắp xếp Quill!</h1><p>Kết quả của bạn đang được lưu lại. Bạn sẽ được tự động chuyển hướng sau khi quá trình lưu hoàn tất</p>',
 };
 
 const instructions = {
   'sentence-fragment-complete-vs-incomplete-button-choice-instructions': '',
   'sentence-fragment-complete-vs-incomplete-choice-instructions': '',
-  'sentence-fragment-complete-vs-incomplete-completion-instructions': 'Thêm vào nhóm từ để thực hiện một câu hoàn chỉnh. Thêm càng ít từ càng tốt.',
-  'fill-in-the-blank-multiple-instructions': 'Điền vào chỗ trống với một trong các bài viết sau đây: a, an, the. Nếu không có bài viết là cần thiết, loại bỏ các trống.',
-  'fill-in-the-blank-single-instructions': 'Viết lại câu. Điền vào ô trống bằng một trong những từ sau: on, in, at, to',
-  'tense-question-instructions': 'Viết lại câu. Đúng động từ in đậm vì vậy nó có trong đúng thời gian để khớp với phần còn lại của câu.',
+  'sentence-fragment-complete-vs-incomplete-completion-instructions': 'Thêm nhóm từ để tạo thành một câu hoàn chỉnh. Thêm càng ít từ càng tốt.',
+  'fill-in-the-blank-multiple-instructions': 'Điền vào chỗ trống bằng một trong các từ bên trên. Nếu không cần từ nào, hãy để trống.',
+  'fill-in-the-blank-single-instructions': 'Điền vào chỗ trống bằng một trong các từ bên trên.',
+  'tense-question-instructions': 'Viết lại câu. Sửa các động từ in đậm theo đúng thì để khớp với phần còn lại của câu.',
   'combine-sentences-instructions': 'Kết hợp các câu thành một câu.',
-  'combine-sentences-with-joining-words-instructions': 'Kết hợp các câu thành một câu. Sử dụng một trong những từ ghép nối.',
+  'combine-sentences-with-joining-words-instructions': 'Kết hợp các câu thành một câu. Sử dụng một trong số các liên từ.',
 };
 
 const scaffolds = {
