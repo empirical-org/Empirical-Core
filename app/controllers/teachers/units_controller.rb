@@ -98,17 +98,22 @@ class Teachers::UnitsController < ApplicationController
 
       assigned_student_ids = []
 
+      completed_student_ids = []
+
       classroom_activities.each do |ca|
-        if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
-          y = ca.classroom.students.map(&:id)
+        if params[:report]
+          completed_student_ids << ca.activity_sessions.where(state: 'finished').map(&:user_id)
         else
-          y = ca.assigned_student_ids
+          if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
+            y = ca.classroom.students.map(&:id)
+          else
+            y = ca.assigned_student_ids
+          end
+          assigned_student_ids = assigned_student_ids.concat(y)
         end
-        assigned_student_ids = assigned_student_ids.concat(y)
       end
 
-      num_students_assigned = assigned_student_ids.uniq.length
-
+      num_students_assigned = params[:report] ? completed_student_ids.flatten.uniq.length : assigned_student_ids.uniq.length
       x1 = x1.uniq{|y| y[:activity_id] }
 
       unit = Unit.where(id: unit_id).first

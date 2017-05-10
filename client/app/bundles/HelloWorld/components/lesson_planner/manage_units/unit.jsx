@@ -40,8 +40,13 @@
       }
     })
 
-		return <div className="assigned-to">{`Assigned to ${studentCount} ${students} in
-    ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</div>
+    if (this.props.report) {
+      return <div className="assigned-to">{`Completed by ${studentCount} ${students} in
+        ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</div>
+    } else {
+      return <div className="assigned-to">{`Assigned to ${studentCount} ${students} in
+        ${this.props.data.classrooms.length} ${classrooms} (${classroomsString}).`}</div>
+    }
 	},
 
 	editUnit: function () {
