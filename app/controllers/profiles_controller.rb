@@ -28,6 +28,14 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def get_mobile_profile_data
+    if current_user.classrooms.any?
+      render json: get_student_profile_data(params[:current_classroom_id], params[:current_page].to_i)
+    else
+      render json: {error: 'Current user has no classrooms'}
+    end
+  end
+
   def students_classrooms_json
     render json: {classrooms: current_user.classrooms.includes(:teacher)
       .sort_by { |c|

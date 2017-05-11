@@ -60,6 +60,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
   get 'student_profile_data' => 'profiles#student_profile_data'
+  get 'student_mobile_profile_data/:current_classroom_id' => 'profiles#get_mobile_profile_data'
 
 
   resources :activities, only: [] do
@@ -212,6 +213,7 @@ EmpiricalGrammar::Application.routes.draw do
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
+      get 'users/profile', to: 'users#profile'
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
