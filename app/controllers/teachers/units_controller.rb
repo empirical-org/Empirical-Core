@@ -10,28 +10,12 @@ class Teachers::UnitsController < ApplicationController
     if params[:unit][:create]
       params[:unit][:classrooms] = JSON.parse(params[:unit][:classrooms])
       params[:unit][:activities] = JSON.parse(params[:unit][:activities])
-      params[:unit][:unit_template_id] = params[:unit][:unit_template_id]
     end
-
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
-
-    activities_array = params[:unit][:activities]
-
-    if params[:unit][:unit_template_id]
-      unit_template_id = params[:unit][:unit_template_id]
-    # check to see if diagnostic is only activity in unit bc otherwise it's a custom activity pack
-    elsif activities_array.length == 1
-      if activities_array.first[:id] == 413
-        unit_template_id = 20
-      elsif activities_array.first[:id] == 447
-        unit_template_id = 34
-      end
-    end
-
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first, params[:unit][:activities], params[:unit][:classrooms], unit_template_id)
+      Units::Updater.run(units_with_same_name.first, params[:unit][:activities], params[:unit][:classrooms])
     else
-      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], unit_template_id)
+      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
     render json: {id: Unit.where(user: current_user).last.id}
   end

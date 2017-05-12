@@ -52,14 +52,6 @@ class Teachers::UnitTemplatesController < ApplicationController
     }
   end
 
-  def activities_and_name
-    ut = UnitTemplate.find(params[:id])
-    render json: {
-      name: ut.name,
-      activity_ids: ut.activities.map(&:id)
-    }
-  end
-
   private
 
   def is_teacher?
