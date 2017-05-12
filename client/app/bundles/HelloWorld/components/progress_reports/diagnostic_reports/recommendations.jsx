@@ -236,7 +236,7 @@ export default React.createClass({
 
 			return (
 				<RecommendationsTableCell
-					key={recommendation.activity_pack_id}
+					key={student.id + '/' + recommendation.activity_pack_id}
 					previouslyAssigned={previouslyAssigned}
 					recommended={recommended}
 					selected={selected}
