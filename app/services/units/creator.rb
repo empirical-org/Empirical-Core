@@ -1,29 +1,30 @@
 module Units::Creator
 
 
-  def self.run(teacher, name, activities_data, classrooms_data)
-    self.create_helper(teacher, name, activities_data, classrooms_data)
+  def self.run(teacher, name, activities_data, classrooms_data, unit_template_id=nil)
+    self.create_helper(teacher, name, activities_data, classrooms_data, unit_template_id)
   end
 
-  def self.fast_assign_unit_template(teacher_id, unit_template_id)
+  def self.fast_assign_unit_template(teacher_id, unit_template)
     teacher = User.find(teacher_id)
-    unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
-    self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
+    self.create_helper(teacher, unit_template.name, activities_data, classrooms_data, unit_template.id)
   end
 
   def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom)
     teacher = User.find(teacher_id)
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
-    self.create_helper(teacher, unit_template.name, activities_data, classroom)
+    self.create_helper(teacher, unit_template.name, activities_data, classroom, unit_template_id)
   end
 
   private
 
-  def self.create_helper(teacher, name, activities_data, classrooms)
+  def self.create_helper(teacher, name, activities_data, classrooms, ut_id=nil)
     unit = Unit.create!(name: name, user: teacher)
+    # creates unit template unit join if there is a ut_id
+    unit.unit_template = UnitTemplate.find_by(id: ut_id)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms.each do |classroom|

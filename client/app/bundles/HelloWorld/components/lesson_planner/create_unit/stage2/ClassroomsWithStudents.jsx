@@ -8,10 +8,16 @@ export default class extends React.Component {
 		super()
 		this.ajaxData = this.ajaxData.bind(this)
 		this.classroomActivityUpdates = this.classroomActivityUpdates.bind(this)
+		this.sendToSuccess = this.sendToSuccess.bind(this)
+		this.resetPage = this.resetPage.bind(this)
 	}
 
 	resetPage() {
-		window.location = '/teachers/classrooms/lesson_planner'
+		window.location = `/teachers/classrooms/lesson_planner#${this.props.unitId}`
+	}
+
+	sendToSuccess() {
+		window.location = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.unitTemplateId}/assigned`
 	}
 
 	classroomActivityUpdates() {
@@ -55,7 +61,8 @@ export default class extends React.Component {
 		if (this.props.createOrEdit === 'create') {
 			data.create = true,
 			data.name = this.props.unitName,
-			data.activities = JSON.stringify(this.props.activityIds.split(',').map((actId)=>{return {id: actId, due_date: null}}))
+			data.activities = JSON.stringify(this.props.activityIds.map((actId)=>{return {id: actId, due_date: null}}))
+			data.unit_template_id = this.props.unitTemplateId
 		}
 		return data
 	}
@@ -67,7 +74,7 @@ export default class extends React.Component {
 												disabledText={'Add Students Before Assigning'}
 												requestType={'POST'}
 												url={'/teachers/units'}
-												successCallback={this.resetPage}
+												successCallback={this.sendToSuccess}
 												buttonText={'Assign Activity Pack'}
 												dataFunc={this.ajaxData}
 												/>

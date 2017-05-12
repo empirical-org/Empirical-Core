@@ -73,9 +73,10 @@ describe ClassroomActivity, type: :model do
         end
 
         it 'assigns a classroom activity through a featured activity pack' do
-            UnitTemplate.create(name: 'Adverbs')
+            ut = UnitTemplate.create(name: 'Adverbs')
             obj = Objective.create(name: 'Assign Featured Activity Pack')
             new_unit = Unit.create(name: 'Adverbs')
+            UnitTemplateUnit.create(unit_id: new_unit.id, unit_template_id: ut.id)
             classroom_activity.update!(unit: new_unit)
             expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
         end
