@@ -47,7 +47,8 @@ export default React.createClass({
 	},
 
 	buttonForRecommendations: function() {
-		if (this.props.data.activity_id === 413 && window.location.pathname.includes('diagnostic_reports')) {
+		const diagnosticIds = [413, 447]
+		if (diagnosticIds.includes(this.props.data.activity_id) && window.location.pathname.includes('diagnostic_reports')) {
 			return (
 				<div onClick={this.goToRecommendations} className="recommendations-button">
 					Recommendations

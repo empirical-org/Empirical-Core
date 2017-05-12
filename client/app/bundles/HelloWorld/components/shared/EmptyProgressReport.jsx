@@ -10,8 +10,8 @@
        link = '/teachers/classrooms/activity_planner/assign-new-activity'
        buttonText = 'Assign an Activity'
        content = <div>
-         <p>Welcome! This is where your student reports will be stored, but you haven't assigned any activities yet.</p>
-         <p>Let's add your first activity.</p>
+         <p>Welcome! This is where your student reports will be stored, but none of your students have completed an assignment yet.</p>
+         <p>Let's assign an activity.</p>
        </div>
      } else if (this.props.missing === 'students') {
        link = '/teachers/classrooms/invite_students'

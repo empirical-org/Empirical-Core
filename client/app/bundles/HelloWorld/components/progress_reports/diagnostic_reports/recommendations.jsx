@@ -21,6 +21,7 @@ export default React.createClass({
 
 	componentDidMount: function() {
 		this.getRecommendationData(this.props.params.classroomId, this.props.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(this.props.params.classroomId, this.props.params.activityId);
 	},
 
 	componentWillReceiveProps(nextProps) {
@@ -30,6 +31,7 @@ export default React.createClass({
 			assigned: false
 		});
 		this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
+		this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
 	},
 
 	getRecommendationData: function(classroomId, activityId){

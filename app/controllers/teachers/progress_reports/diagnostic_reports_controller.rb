@@ -42,6 +42,20 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         render json: act_sesh_report.to_json
     end
 
+    def diagnostic_status
+      diagnostic_activity_ids = [413, 447]
+      cas = current_user.classrooms_i_teach.includes(:students, :classroom_activities).where(classroom_activities: {activity_id: diagnostic_activity_ids}).map(&:classroom_activities).flatten
+      if cas.any? && cas.any?{|ca| ca.has_a_completed_session? && ca.from_valid_date_for_activity_analysis? }
+        diagnostic_status = 'completed'
+      elsif cas.any?
+        diagnostic_status = 'assigned'
+      else
+        diagnostic_status = 'unassigned'
+      end
+      render json: {diagnosticStatus: diagnostic_status}
+    end
+
+
     private
 
     def create_or_update_selected_packs

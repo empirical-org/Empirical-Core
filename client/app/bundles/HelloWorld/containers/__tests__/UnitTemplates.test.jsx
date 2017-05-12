@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import UnitTemplates from '../UnitTemplates.jsx';
-
 import Cms from '../Cms.jsx'
 
 describe('UnitTemplates container', () => {
