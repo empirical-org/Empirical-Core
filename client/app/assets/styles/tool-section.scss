@@ -56,9 +56,8 @@ $tool-grey: #f8f9f9;
 
   .summary {
     font-size: 18px;
-    line-height: 1.53;
+    line-height: 1.28;
     max-width: 420px;
-    font-weight: 400;
     margin-bottom: 48px;
   }
 
@@ -609,6 +608,19 @@ $tool-grey: #f8f9f9;
         .blurb {
             max-width: 457px;
             text-align: left;
+            h2 img{
+              margin-left: 12px;
+              height: 20px;
+            }
+            a {
+              color: #0d614d;
+              text-decoration: underline;
+            }
+            p img {
+              width: 20px;
+              margin-right: 3px;
+              margin-bottom: -3px;
+            }
         }
 
         .content-wrapper {
@@ -618,12 +630,25 @@ $tool-grey: #f8f9f9;
         }
 
         img {
-            max-width: 100%;
+          max-width: 100%;
         }
     }
 
     .negative-left-margin {
         margin-left: -90px;
+    }
+
+    #ell-diagnostic-img {
+      margin-left: -30px;
+      @media screen and (max-width: 1025px) and (min-width: 930px) {
+        margin-left: -20px;
+      }
+    }
+
+    &.desktop {
+        @media (max-width: 930px) {
+            display: none;
+        }
     }
 
     &.mobile {
@@ -803,7 +828,6 @@ $tool-grey: #f8f9f9;
             span {
               color: #b3b3b3;
             }
-
           }
           p {
             span {
@@ -877,4 +901,10 @@ $tool-grey: #f8f9f9;
     background-position: center;
     background-repeat: no-repeat;
   }
+}
+
+// TODO this classname is given to a tags on diagnostic tool page that currently go nowhere
+// should be removed when these links are up
+.need-links {
+  display: none;
 }
