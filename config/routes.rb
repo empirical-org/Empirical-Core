@@ -96,7 +96,6 @@ EmpiricalGrammar::Application.routes.draw do
         get :profile_info, controller: 'unit_templates', action: 'profile_info'
         get :assigned_info, controller: 'unit_templates', action: 'assigned_info'
         post :fast_assign, controller: 'unit_templates', action: 'fast_assign'
-        get :activities_and_name, controller: 'unit_templates', action: 'activities_and_name'
       end
     end
 
@@ -304,7 +303,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/activity_planner/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId/students' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'

@@ -14,7 +14,10 @@
   },
 
   goToEditStudents: function(){
-    window.location = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.data.id}/students`
+    const ut = this.props.data
+    const name = encodeURIComponent(ut.name);
+    const activityIds = encodeURIComponent(ut.activities.map((act)=>act.id).toString())
+    window.location = `/teachers/classrooms/activity_planner/new_unit/students/edit/name/${name}/activity_ids/${activityIds}`
   },
 
   fastAssign: function() {

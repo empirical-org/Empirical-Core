@@ -17,8 +17,6 @@ class Unit < ActiveRecord::Base
   has_many :classroom_activities, dependent: :destroy
   has_many :activities, through: :classroom_activities
   has_many :topics, through: :activities
-  has_one :unit_template_unit
-  has_one :unit_template, through: :unit_template_unit
   default_scope { where(visible: true)}
   after_save :hide_classroom_activities_if_visible_false
 
