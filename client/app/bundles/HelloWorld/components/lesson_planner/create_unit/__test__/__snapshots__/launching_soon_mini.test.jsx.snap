@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LaunchingSoonMini component should render 1`] = `
+<div
+  className="launching-soon-mini"
+>
+  <h3>
+    Launching Soon
+  </h3>
+  <div
+    className="titles"
+  >
+    <p>
+      Post Test Diagnostic
+    </p>
+    <p>
+      Elementary Level Diagnostic
+    </p>
+  </div>
+  <p>
+    We are launching a post test diagnostic and an elementary level diagnostic next year. Stay tuned!
+  </p>
+</div>
+`;

@@ -6,6 +6,7 @@ import ClassReport from '../components/progress_reports/diagnostic_reports/class
 import QuestionReport from '../components/progress_reports/diagnostic_reports/question_report.jsx'
 import Recommendations from '../components/progress_reports/diagnostic_reports/recommendations.jsx'
 import ActivityPacks from '../components/progress_reports/diagnostic_reports/activity_packs.jsx'
+import DiagnosticActivityPacks from '../components/progress_reports/diagnostic_reports/diagnostic_activity_packs.jsx'
 import NotCompleted from '../components/progress_reports/diagnostic_reports/not_completed.jsx'
 
 export default React.createClass({
@@ -19,6 +20,7 @@ export default React.createClass({
 					<Route path='u/:unitId/a/:activityId/c/:classroomId/questions' component={QuestionReport}/>
 					<Route path='u/:unitId/a/:activityId/c/:classroomId/students' component={ClassReport}/>
 					<Route path='activity_packs' component={ActivityPacks}/>
+					<Route path='diagnostics' component={DiagnosticActivityPacks}/>
 					<Route path='not_completed' component={NotCompleted}/>
 				</Route>
 			</Router>
