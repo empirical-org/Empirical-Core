@@ -18,8 +18,8 @@ const DiagnosticReports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		// /activity_packs and not /not_completed are the only report that doesn't require the classroom, unit, etc...
-		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) === -1) {
+		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
+		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData();
 		}
 		if (this.props.params.studentId) {
@@ -31,7 +31,7 @@ const DiagnosticReports = React.createClass({
 		if (nextProps.params && nextProps.params.studentId) {
 			this.setStudentId(nextProps.params.studentId);
 		}
-		if (['/activity_packs', '/not_completed'].indexOf(nextProps.location.pathname)) {
+		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData(nextProps.params);
 		}
 	},
@@ -122,8 +122,8 @@ const DiagnosticReports = React.createClass({
 	},
 
 	render: function() {
-		// we don't want to render a navbar for the activity packs or not_complted
-		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) !== -1) {
+		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
+		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1) {
 			return (
 				<div>{this.props.children}</div>
 			)

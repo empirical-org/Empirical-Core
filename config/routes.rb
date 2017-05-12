@@ -89,7 +89,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     get 'prohibited_unit_names' => 'units#prohibited_unit_names'
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
-
+    get 'diagnostic_units' => 'units#diagnostic_units'
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -120,6 +120,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :csv_exports, only: [:create]
       get 'report_from_activity_session/:activity_session' => 'diagnostic_reports#report_from_activity_session'
       get 'diagnostic_reports' => 'diagnostic_reports#show'
+      get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
       get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
@@ -314,9 +315,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
-  get 'diagnostic' =>'activities#diagnostic' # placeholder til we find where this goes
-  get 'diagnostic/stage/:stage' => 'activities#diagnostic'
-  get 'diagnostic/success' => 'activities#diagnostic'
+  get 'diagnostic/:activityId' =>'activities#diagnostic' # placeholder til we find where this goes
+  get 'diagnostic/:activityId/stage/:stage' => 'activities#diagnostic'
+  get 'diagnostic/:activityId/success' => 'activities#diagnostic'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 

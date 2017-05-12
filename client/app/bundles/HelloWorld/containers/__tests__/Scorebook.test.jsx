@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 
 import Scorebook from '../Scorebook.jsx'
-import EmptyProgressReport from '../../components/scorebook/EmptyProgressReport'
+import EmptyProgressReport from '../../components/shared/EmptyProgressReport'
 import LoadingIndicator from '../../components/shared/loading_indicator'
 import StudentScores from '../../components/scorebook/student_scores'
 import ScorebookFilters from '../../components/scorebook/scorebook_filters'

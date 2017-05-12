@@ -14,6 +14,8 @@ import Server from '../components/modules/server/server'
 import WindowPosition from '../components/modules/windowPosition'
 import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 import AssignANewActivity from '../components/lesson_planner/create_unit/assign_a_new_activity.jsx'
+import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.jsx'
+
 
 export default React.createClass({
 	propTypes: {
@@ -358,6 +360,8 @@ export default React.createClass({
 				}} analytics={this.analytics()}/>;
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
+		} else if ((tabParam === 'assign-a-diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
+			tabSpecificComponents = <AssignADiagnostic/>;
 		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
 			tabSpecificComponents = <ManageUnits actions={{
 			 toggleTab: this.toggleTab,

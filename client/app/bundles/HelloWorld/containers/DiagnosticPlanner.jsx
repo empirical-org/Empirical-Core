@@ -10,7 +10,7 @@ export default React.createClass({
 
       return (
         <Router history={browserHistory}>
-          <Route path="/diagnostic" component={App}>
+          <Route path="/diagnostic/:activityId/" component={App}>
             <Route path='success' component={SuccessView}/>
             <Route path='stage/:stage' component={Stages}/>
           </Route>
