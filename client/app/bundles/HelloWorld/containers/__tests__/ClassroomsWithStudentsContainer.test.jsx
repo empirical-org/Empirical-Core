@@ -45,7 +45,7 @@ const props = {
         }, {
             'path': ':tab'
         }, {
-            'path': 'featured-activity-packs/:activityPackId/students'
+            'path': 'new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray'
         }, {
             'path': 'units/:unitId/students/edit'
         }, {

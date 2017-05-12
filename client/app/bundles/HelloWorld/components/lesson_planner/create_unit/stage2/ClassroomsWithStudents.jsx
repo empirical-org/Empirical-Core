@@ -8,16 +8,10 @@ export default class extends React.Component {
 		super()
 		this.ajaxData = this.ajaxData.bind(this)
 		this.classroomActivityUpdates = this.classroomActivityUpdates.bind(this)
-		this.sendToSuccess = this.sendToSuccess.bind(this)
-		this.resetPage = this.resetPage.bind(this)
 	}
 
 	resetPage() {
-		window.location = `/teachers/classrooms/lesson_planner#${this.props.unitId}`
-	}
-
-	sendToSuccess() {
-		window.location = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.unitTemplateId}/assigned`
+		window.location = '/teachers/classrooms/lesson_planner'
 	}
 
 	classroomActivityUpdates() {
@@ -61,8 +55,7 @@ export default class extends React.Component {
 		if (this.props.createOrEdit === 'create') {
 			data.create = true,
 			data.name = this.props.unitName,
-			data.activities = JSON.stringify(this.props.activityIds.map((actId)=>{return {id: actId, due_date: null}}))
-			data.unit_template_id = this.props.unitTemplateId
+			data.activities = JSON.stringify(this.props.activityIds.split(',').map((actId)=>{return {id: actId, due_date: null}}))
 		}
 		return data
 	}
