@@ -20,9 +20,12 @@ export default React.createClass({
   },
 
   componentWillMount: function(){
-    if (window.location.hash.includes('/a/413')) {
-      $('.diagnostic-tab').addClass('active');
+    if (window.location.hash.includes('/a/413', '/a/447')) {
       $('.activity-analysis-tab').removeClass('active');
+      $('.diagnostic-tab').addClass('active');
+    } else {
+      $('.diagnostic-tab').removeClass('active');
+      $('.activity-analysis-tab').addClass('active');
     }
   },
 
@@ -57,12 +60,7 @@ export default React.createClass({
     return (
       <div className='diagnostic-nav-container'>
         <div id='reports-navbar'>
-          <h1>{this.props.selectedActivity.name}      <div className="how-we-grade">
-                  <p className="title title-not-started">
-                    <a href="http://support.quill.org/knowledgebase/articles/545071-how-we-grade">How We Grade</a>
-                    <a href=""><i className="fa fa-long-arrow-right" /></a>
-                  </p>
-                </div></h1>
+          <h1>{this.props.selectedActivity.name}</h1>
           <p>{this.props.selectedActivity.description}</p>
           <div className='nav-elements'>
             <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}

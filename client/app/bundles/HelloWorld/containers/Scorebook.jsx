@@ -9,7 +9,7 @@ import LoadingIndicator from '../components/shared/loading_indicator'
 import ScorebookFilters from '../components/scorebook/scorebook_filters'
 import ScoreLegend from '../components/scorebook/score_legend'
 import AppLegend from '../components/scorebook/app_legend.jsx'
-import EmptyProgressReport from '../components/scorebook/EmptyProgressReport'
+import EmptyProgressReport from '../components/shared/EmptyProgressReport'
 
 
 export default React.createClass({

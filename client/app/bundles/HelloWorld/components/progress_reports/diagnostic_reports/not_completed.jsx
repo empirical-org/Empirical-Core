@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   switchToDiagnosticAssign: function(){
-    window.location.href = '/diagnostic/stage/1'
+    window.location.href = '/teachers/classrooms/activity_planner/assign-a-diagnostic'
   },
 
 	render: function() {
