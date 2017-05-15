@@ -5,11 +5,23 @@ describe Subscription, type: :model do
     let(:user) { FactoryGirl.create(:user) }
     let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
 
-    it "updates the expirary to the later of one year from today or July 1, 2018" do
+    context "updates the expirary to the later of one year from today or July 1, 2018 if" do
+      it "is a trial user" do
+        subscription.update(account_type: 'trial')
         Subscription.start_premium(user.id)
         july_1_2017 = Date.new(2017, 7, 1)
         expected_date = [Date.today, july_1_2017].max + 365
         expect(subscription.reload.expiration).to eq(expected_date)
+      end
+      
+      it "is a paid user" do
+        subscription.update(account_type: 'paid')
+        Subscription.start_premium(user.id)
+        july_1_2017 = Date.new(2017, 7, 1)
+        expected_date = [Date.today, july_1_2017].max + 365
+        expect(subscription.reload.expiration).to eq(expected_date)
+      end
+
     end
   end
 
