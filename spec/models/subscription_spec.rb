@@ -14,7 +14,7 @@ describe Subscription, type: :model do
         expected_date = [Date.today, july_1_2017].max + 365
         expect(subscription.reload.expiration).to eq(expected_date)
       end
-      
+
       it "is a paid user" do
         subscription.update(account_type: 'paid')
         Subscription.start_premium(user.id)
@@ -44,18 +44,34 @@ describe Subscription, type: :model do
   end
 
   describe "update_or_create_with_user_join" do
+    let!(:user) { FactoryGirl.create(:user) }
     it "creates a subscription based off of the passed attributes" do
-      attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
-      new_sub = Subscription.update_or_create_with_user_join(12, attributes)
-      expect(new_sub.account_limit).to eq(1000)
+      attributes = {expiration: Date.yesterday, account_limit: 1002, account_type: 'paid'}
+      new_sub = Subscription.update_or_create_with_user_join(user.id, attributes)
+      expect(new_sub.account_limit).to eq(1002)
       expect(new_sub.account_type).to eq('paid')
+      expect(new_sub.expiration).to eq(Date.yesterday)
+    end
+
+    context "when the expiration is missing" do
+      it "adds 30 days to trial accounts" do
+        attributes = {account_limit: 1002, account_type: 'trial'}
+        new_sub = Subscription.update_or_create_with_user_join(user.id, attributes)
+        expect(new_sub.expiration).to eq(Date.today + 30)
+      end
+
+      it "adds at least a year (or more, depending on promotions) to other accounts" do
+        attributes = {account_limit: 1002, account_type: 'paid'}
+        new_sub = Subscription.update_or_create_with_user_join(user.id, attributes)
+        expect(new_sub.expiration).to be >= (Date.today + 365)
+      end
     end
 
     it "makes a matching UserSubscription join" do
       attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
-      new_sub = Subscription.update_or_create_with_user_join(12, attributes)
+      new_sub = Subscription.update_or_create_with_user_join(user.id, attributes)
       join = new_sub.user_subscriptions.first
-      expect([join.user_id, join.subscription_id]).to eq([12, new_sub.id])
+      expect([join.user_id, join.subscription_id]).to eq([user.id, new_sub.id])
     end
   end
 
@@ -67,6 +83,20 @@ describe Subscription, type: :model do
       new_sub = Subscription.update_or_create_with_school_join(queens_school.id, attributes)
       expect(new_sub.account_limit).to eq(1000)
       expect(new_sub.account_type).to eq('paid')
+    end
+
+    context "when the expiration is missing" do
+      it "adds 30 days to trial accounts" do
+        attributes = {account_limit: 1002, account_type: 'trial'}
+        new_sub = Subscription.update_or_create_with_school_join(queens_school.id, attributes)
+        expect(new_sub.expiration).to eq(Date.today + 30)
+      end
+
+      it "adds at least a year (or more, depending on promotions) to other accounts" do
+        attributes = {account_limit: 1002, account_type: 'paid'}
+        new_sub = Subscription.update_or_create_with_school_join(queens_school.id, attributes)
+        expect(new_sub.expiration).to be >= (Date.today + 365)
+      end
     end
 
     it "makes a matching SchoolSubscription join" do
