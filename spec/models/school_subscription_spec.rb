@@ -53,8 +53,8 @@ let!(:school_sub) {FactoryGirl.create(:school_subscription)}
     end
 
     it "connects a new premium account to school's users if they do have one" do
-      old_sub = Subscription.update_or_create_with_user_join(queens_teacher.id, {account_type: 'paid', account_limit: 1000})
-      expect(queens_teacher.reload.subscription).to eq(old_sub.id)
+      old_sub = Subscription.create_with_user_join(queens_teacher.id, {account_type: 'paid', account_limit: 1000})
+      expect(queens_teacher.reload.subscription).to eq(old_sub)
       school_sub.update_schools_users
       expect(queens_teacher.reload.subscription).to eq(school_sub.subscription)
     end
