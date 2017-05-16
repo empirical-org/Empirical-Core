@@ -5,7 +5,7 @@ class UserSubscription < ActiveRecord::Base
 
   def self.update_or_create(user_id, subscription_id)
     user_sub = self.find_or_initialize_by(user_id: user_id)
-    user_sub.update(subscription_id: subscription_id)
+    user_sub.update!(subscription_id: subscription_id)
     user_sub.save!
   end
 
