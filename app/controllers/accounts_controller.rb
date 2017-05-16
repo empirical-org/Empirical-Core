@@ -40,6 +40,7 @@ class AccountsController < ApplicationController
   end
 
   def select_school
+    # TODO: this should be in schools controller
     @js_file = 'session'
     #if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
     if School.find_by_id(params[:school_id_or_type])
@@ -50,6 +51,8 @@ class AccountsController < ApplicationController
     # TODO: schools should not have a many to many relationship. Each user should only have one school.
     # What is happening below is madness
     current_user.schools = [school]
+    # TODO: once the user has only one school, this should be a callback
+    current_user.updated_school(school.id)
     if current_user.schools.compact.any?
       find_or_create_checkbox('Add School', current_user)
     end
