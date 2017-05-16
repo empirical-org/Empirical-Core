@@ -32,12 +32,14 @@ class ProfilesController < ApplicationController
     render json: {classrooms: current_user.classrooms.includes(:teacher)
       .sort_by { |c|
         c.students_classrooms.find_by_student_id(current_user.id).created_at
-      }.reverse.map {|c| c.students_classrooms_json(current_user.id)}}
+      }.map {|c| c.students_classrooms_json(current_user.id)}}
   end
 
   def teacher
     if @user.classrooms_i_teach.any?
       redirect_to dashboard_teachers_classrooms_path
+    elsif @user.archived_classrooms.any?
+      redirect_to manage_archived_classrooms_teachers_classrooms_path
     else
       redirect_to new_teachers_classroom_path
     end

@@ -21,12 +21,31 @@
 							<h3 class="form-header col-xs-12"><%= "#{@student.name}'s Account" %></h1>
 
 							<%= form_for @student, url: teachers_classroom_student_path(@classroom, @student), class: 'edit-student-page' do |f| %>
+								<% if @teacher_created_student %>
+									<div class='row'>
+										<div class='form-label col-xs-2'>
+											Real Name
+										</div>
+										<div class='col-xs-4'>
+											<%= f.text_field :name, class: 'col-xs-4'%>
+										</div>
+									</div>
+									<div class='row'>
+										<div class='form-label col-xs-2'>
+											Username
+										</div>
+										<div class='col-xs-4'>
+												<%= f.text_field :username, class: 'col-xs-4'%>
+												<%= f.button "Save Changes", class: 'button-green' %>
+										</div>
+									</div>
+								<% else %>
 								<div class='row'>
 									<div class='form-label col-xs-2'>
 										Real Name
 									</div>
 									<div class='col-xs-4'>
-										<%= f.text_field :name, class: 'col-xs-4'%>
+										<%= f.text_field :name, class: 'inactive col-xs-4', disabled: true%>
 									</div>
 								</div>
 								<div class='row'>
@@ -34,10 +53,10 @@
 										Username
 									</div>
 									<div class='col-xs-4'>
-											<%= f.text_field :username, class: 'col-xs-4'%>
-											<%= f.button "Save Changes", class: 'button-green' %>
+											<%= f.text_field :username, class: 'inactive col-xs-4', disabled: true%>
 									</div>
 								</div>
+								<% end %>
 
 								<div class='row'>
 									<div class='form-label col-xs-2'>

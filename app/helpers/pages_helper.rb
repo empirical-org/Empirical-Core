@@ -126,7 +126,7 @@ module PagesHelper
 					desc: "Rhys Kidd is an experienced infrastructure and real assets fund manager at Macquarie Group. Alongside his experience in strategic management and capital growth initiatives, he has an avid and active interest in technology and education."
 					},
 					{
-					img: 'thumb-quill.png',
+					img: 'thumb-matthew.jpg',
 					name: 'Matthew Rodriguez',
 					title: 'Board Member',
 					desc: "Matt Rodriguez is a Managing Director at BlackRock where he focuses on absolute return mortgage strategies. He began his career as a financial modeler after earning masters degrees in mathematics and financial engineering. Matt also serves on the Mathematics Department Advisory Board at UIUC and supports scholarship programs."

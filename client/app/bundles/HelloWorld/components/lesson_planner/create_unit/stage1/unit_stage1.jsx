@@ -62,7 +62,8 @@
 
   nameComponent: function(){
     if (!this.props.hideNameTheUnit) {
-      return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} />
+      const nameError = this.state.prematureContinueAttempted && this.props.errorMessage && this.props.errorMessage.includes('name') ? 'name-error' : ''
+      return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} nameError={nameError}/>
     } else if (this.props.unitName) {
       return <h2 className='edit-activities-h2'>Activities In {this.props.unitName}</h2>
     }
@@ -71,6 +72,7 @@
 
 
   render: function() {
+    const error = this.props.errorMessage ? <span><i className="fa fa-exclamation-triangle"/>{this.props.errorMessage}</span> : ''
     return (
       <div className="container">
         {this.nameComponent()}
@@ -79,10 +81,9 @@
                                     clickContinue={this.props.clickContinue}
                                     errorMessage={this.props.errorMessage} />
         <div className='error-message-and-button'>
-          <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
+          <div className={this.determineErrorMessageClass()}>{error}</div>
           {this.ctaButton()}
         </div>
-        <div className="fake-border"></div>
       </div>
     );
   }

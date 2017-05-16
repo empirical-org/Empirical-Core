@@ -2,6 +2,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
+  max-width: 980px;
+  margin: auto;
+  position: relative;
 
   .section-header {
     line-height: 63px;
@@ -16,46 +19,107 @@
     padding-left: 13px;
   }
 
-  .classroom-box {
-    cursor: pointer;
-    text-align: center;
+  .dropdown-classrooms {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    height: 64px;
-    font-size: 14px;
-    line-height: 1.4;
-    width: 143px;
-    color: #626262;
-    border-left: solid 1px #cecece;
-    border-right: solid 1px #cecece;
-    text-overflow: ellipsis;
-    &.active {
-      color: black;
-      margin-top: auto;
-      div:first-of-type {
-        margin-top: auto;
-      }
-      &:after {
-        display: block;
-        content: '';
-        width: 118px;
-        height: 3px;
-        margin: 0 auto;
-        margin-top: auto;
-        background-color: #027360;
-      }
+    position: absolute;
+    right: -1px;
+    top: 65px;
+    z-index: 1;
+    background-color: white;
+    li {
+      padding: 0px;
     }
-    .classroom-box-classroom {
-      display: inline-block;
-      max-height: 40px;
-      text-overflow: ellipsis;
-      overflow: hidden;
+    .classroom-box {
+      border-left: solid 1px #cecece;
+      width: 162px;
+      border-bottom: solid 1px #cecece;
     }
   }
 
+    .classroom-box {
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      height: 64px;
+      font-size: 14px;
+      line-height: 1.4;
+      width: 161px;
+      border-right: solid 1px #cecece;
+      text-overflow: ellipsis;
+      color: black;
+      &:first-of-type {
+        border-left: solid 1px #cecece;
+      }
+      &.active {
+        font-weight: 600;
+        margin-top: auto;
+        div:first-of-type {
+          margin-top: auto;
+        }
+        &:after {
+          display: block;
+          content: '';
+          width: 118px;
+          height: 3px;
+          margin: 0 auto;
+          margin-top: auto;
+          background-color: #027360;
+        }
+      }
+      &.dropdown-tab {
+        color: #00c2a2;
+        position: relative;
+        i {
+          font-weight: bold;
+          font-size: 16px;
+          margin-left: 8px;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+      .classroom-box-classroom {
+        display: inline-block;
+        max-height: 40px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+
   .tab-subnavigation-wrapper {
     padding: 0px;
+    position: relative;
+    width: 100vw;
+    left: calc(-50vw + 50%);
+    @media only screen and (max-width: 980px) {
+      left: 0;
+    }
+  }
+
+  .student-profile-header {
+    .header {
+      display: flex;
+      justify-content: space-between;
+      max-width: 980;
+      margin: 41px auto 0;
+      padding-left: 16px;
+      span {
+        font-size: 24px;
+      	font-weight: 600;
+        color: #3b3b3b;
+      }
+    }
+    .dividing-line {
+      border-bottom: solid 1px #e9e9e9;
+      margin: 30px auto 0;
+      max-width: 980;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
   }
 
   .student-course-info {

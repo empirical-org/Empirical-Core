@@ -3,6 +3,7 @@
  import React from 'react'
  import $ from 'jquery'
  import Units from './units'
+ import ManageUnitsHeader from './manageUnitsHeader.jsx'
  import EmptyAssignedUnits from './EmptyAssignedUnits.jsx'
  import LoadingIndicator from '../../shared/loading_indicator'
 
@@ -110,6 +111,7 @@
           <div  className= "create-unit-button-container">
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
 				</div>*/}
+        <ManageUnitsHeader />
 				<Units
 					updateDueDate={this.updateDueDate}
 					editUnit={this.props.actions.editUnit}
