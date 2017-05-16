@@ -85,6 +85,10 @@ describe Subscription, type: :model do
       expect(new_sub.account_type).to eq('paid')
     end
 
+    it 'updates current subscription, if the school has one already' do
+      expect(queens_school.subscription).to eq(nil)
+    end
+
     context "when the expiration is missing" do
       it "adds 30 days to trial accounts" do
         attributes = {account_limit: 1002, account_type: 'trial'}
@@ -92,7 +96,7 @@ describe Subscription, type: :model do
         expect(new_sub.expiration).to eq(Date.today + 30)
       end
 
-      it "adds at least a year (or more, depending on promotions) to other accounts" do
+      it "adds at least a year (or more, depending on current promotions) to other accounts" do
         attributes = {account_limit: 1002, account_type: 'paid'}
         new_sub = Subscription.update_or_create_with_school_join(queens_school.id, attributes)
         expect(new_sub.expiration).to be >= (Date.today + 365)

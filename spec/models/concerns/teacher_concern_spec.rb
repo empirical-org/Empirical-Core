@@ -129,10 +129,24 @@ describe User, type: :model do
 
     describe '#updated_school' do
       let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
+      let!(:brooklyn_school) { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11237'}
       let!(:queens_teacher) { FactoryGirl.create(:teacher) }
       let!(:teacher_subscription) {FactoryGirl.create(:subscription)}
       let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: queens_teacher.id, subscription_id: teacher_subscription.id)}
       let!(:subscription) {FactoryGirl.create(:subscription)}
+
+      context 'when the teacher has pre-existing school subscription it always destroys the user_subscription' do
+        let!(:school_sub) {FactoryGirl.create(:school_subscription, subscription_id: subscription.id, school_id: brooklyn_school.id)}
+        before :each do
+          queens_teacher.updated_school(brooklyn_school)
+        end
+
+        it "even if the new school does not have one" do
+          expect(UserSubscription.where(user_id: queens_teacher.id, subscription_id: brooklyn_school.subscription.id).length).to eq(1)
+          queens_teacher.updated_school(queens_school)
+          expect(UserSubscription.where(user_id: queens_teacher.id, subscription_id: brooklyn_school.subscription.id).length).to eq(0)
+        end
+      end
 
       context "when the school has no subscription" do
 
