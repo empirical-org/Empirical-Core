@@ -43,35 +43,35 @@ describe Subscription, type: :model do
     end
   end
 
-  describe "create_with_user_join" do
+  describe "update_or_create_with_user_join" do
     it "creates a subscription based off of the passed attributes" do
       attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
-      new_sub = Subscription.create_with_user_join(12, attributes)
+      new_sub = Subscription.update_or_create_with_user_join(12, attributes)
       expect(new_sub.account_limit).to eq(1000)
       expect(new_sub.account_type).to eq('paid')
     end
 
     it "makes a matching UserSubscription join" do
       attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
-      new_sub = Subscription.create_with_user_join(12, attributes)
+      new_sub = Subscription.update_or_create_with_user_join(12, attributes)
       join = new_sub.user_subscriptions.first
       expect([join.user_id, join.subscription_id]).to eq([12, new_sub.id])
     end
   end
 
-  describe "create_with_school_join" do
+  describe "update_or_create_with_school_join" do
     let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
 
     it "creates a subscription based off of the passed attributes" do
       attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
-      new_sub = Subscription.create_with_school_join(queens_school.id, attributes)
+      new_sub = Subscription.update_or_create_with_school_join(queens_school.id, attributes)
       expect(new_sub.account_limit).to eq(1000)
       expect(new_sub.account_type).to eq('paid')
     end
 
     it "makes a matching SchoolSubscription join" do
       attributes = {expiration: Date.yesterday, account_limit: 1000, account_type: 'paid'}
-      new_sub = Subscription.create_with_school_join(queens_school.id, attributes)
+      new_sub = Subscription.update_or_create_with_school_join(queens_school.id, attributes)
       join = new_sub.school_subscriptions.first
       expect([join.school_id, join.subscription_id]).to eq([queens_school.id, new_sub.id])
     end

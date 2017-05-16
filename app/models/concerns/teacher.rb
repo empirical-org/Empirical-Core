@@ -121,10 +121,9 @@ module Teacher
   end
 
   def updated_school(school_id)
-    puts 'here is the school id'
-    puts 'id'
     joined_school_sub = SchoolSubscription.find_by_school_id school_id
     if joined_school_sub
+      # updates (or creates...) their school to the new school subscription
       UserSubscription.update_or_create(self.id, joined_school_sub.subscription_id)
     end
   end
