@@ -8,21 +8,21 @@ class Subscription < ActiveRecord::Base
     user_sub = UserSubscription.find_or_initialize_by(user_id: user_id)
     # if a subscription already exists, we just update it by adding an additional 365 days to the expiration
     if user_sub.new_record?
-      new_sub = Subscription.create!(expiration: self.set_expiration, account_limit: 1000, account_type: 'paid')
+      new_sub = Subscription.create!(expiration: self.set_premium_expiration, account_limit: 1000, account_type: 'paid')
       user_sub.update!(subscription_id: new_sub.id)
       user_sub.save!
     else
-      user_sub.subscription.update!(expiration: self.set_expiration(user_sub.subscription), account_limit: 1000, account_type: 'paid')
+      user_sub.subscription.update!(expiration: self.set_premium_expiration(user_sub.subscription), account_limit: 1000, account_type: 'paid')
     end
     PremiumAnalyticsWorker.perform_async(user_sub.user_id, 'paid')
   end
 
   def self.update_or_create_with_school_join school_id, attributes
-    self.create_with_school_or_user_join school_id, 'School', attributes
+    self.update_or_create_with_school_or_user_join school_id, 'School', attributes
   end
 
   def self.update_or_create_with_user_join user_id, attributes
-    self.create_with_school_or_user_join user_id, 'User', attributes
+    self.update_or_create_with_school_or_user_join user_id, 'User', attributes
   end
 
   def is_not_paid?
@@ -35,7 +35,7 @@ class Subscription < ActiveRecord::Base
 
   private
 
-  def self.set_expiration(sub = nil)
+  def self.set_premium_expiration(sub = nil)
     if sub
       [sub.expiration + 365, Date.new(2018, 7, 1)].max
     else
@@ -43,12 +43,29 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.create_with_school_or_user_join school_or_user_id, type, attributes
-    new_sub = Subscription.create(attributes)
-    if new_sub.persisted?
-      "#{type}Subscription".constantize.update_or_create(school_or_user_id, new_sub.id)
+  def self.set_trial_expiration
+    Date.today + 30
+  end
+
+  def self.update_or_create_with_school_or_user_join school_or_user_id, type, attributes
+    type.capitalize!
+    # since we're constantizing the type, need to make sure it is capitalized if not already
+    school_or_user = type.constantize.find school_or_user_id
+    # get school or user object
+    subscription = school_or_user.subscription
+    if !attributes[:expiration]
+      # if there is no expiration, either give them a trial one or a premium one
+      attributes[:expiration] = attributes[:account_type] == 'trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration(subscription) 
     end
-    new_sub
+    if subscription
+      subscription.update_attributes(attributes)
+    else
+      subscription = Subscription.create(attributes)
+    end
+    if subscription.persisted?
+      "#{type}Subscription".constantize.update_or_create(school_or_user_id, subscription.id)
+    end
+    subscription
   end
 
 
