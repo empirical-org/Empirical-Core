@@ -121,10 +121,16 @@ module Teacher
   end
 
   def updated_school(school_id)
+    # TODO: once school users is its own model, add this as a commit callback
     joined_school_sub = SchoolSubscription.find_by_school_id school_id
     if joined_school_sub
       # updates (or creates...) their school to the new school subscription
       UserSubscription.update_or_create(self.id, joined_school_sub.subscription_id)
+    else
+      # if there subscription is through a different school destroy it
+      if self.subscription.school_subscriptions.any?
+        UserSubscription.find_by_user_id(self.id).destroy
+      end
     end
   end
 
