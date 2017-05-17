@@ -78,7 +78,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def dashboard
-    if current_user.classrooms_i_teach.empty?
+    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none?
       redirect_to new_teachers_classroom_path
     end
     @firewall_test = true
