@@ -154,9 +154,7 @@ export default React.createClass({
   },
 
   joinOrAddClass() {
-    if (this.props.role === 'teacher') {
-      return (<a href="/teachers/classrooms/new" className="btn button-green">Add a Class</a>);
-    } else if (this.props.role === 'student') {
+    if (this.props.role === 'student') {
       return (<a href="/students_classrooms/add_classroom" className="btn button-green">Join a Class</a>);
     }
   },
@@ -198,10 +196,20 @@ export default React.createClass({
     }
   },
 
+  optionSection() {
+    return (
+      <div className="archive-options-container flex-row vertically-centered space-between">
+        <p>On this page, you can archive and unarchive classes and you can
+          reset students’ passwords below.</p>
+        <a href="/teachers/classrooms/new" className="q-button cta-button bg-white">Create a Class</a>
+      </div>);
+  },
+
   render() {
     return (
       <div id="archived_classrooms_manager">
         {this.archivedNotification()}
+        {this.optionSection()}
         {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
       </div>
