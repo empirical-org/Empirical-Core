@@ -7,6 +7,7 @@ import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import StudentCreatesAccountSection from '../components/invite_users/add_students/StudentCreatesAccountSection.jsx';
 import TeacherCreatesAccountSection from '../components/invite_users/add_students/TeacherCreatesAccountSection.jsx';
 import GoogleClassroomCreatesAccountSection from '../components/invite_users/add_students/GoogleClassroomCreatesAccountSection.jsx';
+import EmptyProgressReport from '../components/shared/EmptyProgressReport.jsx';
 require('../../../../../app/assets/stylesheets/pages/invite-students.scss');
 
 export default React.createClass({
@@ -33,7 +34,9 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.retrieveStudents(this.state.selectedClassroom.id);
+    if (this.props.classrooms && this.props.classrooms.length) {
+      this.retrieveStudents(this.state.selectedClassroom.id);
+    }
   },
 
   retrieveStudents(classroomId) {
@@ -121,8 +124,11 @@ export default React.createClass({
   },
 
   render() {
-    return (
-      <div className="invite-students">
+    let content;
+    if (this.props.classrooms && this.props.classrooms.length === 0) {
+      content = <EmptyProgressReport />;
+    } else {
+      content = (
         <div className="container">
           <div className="classroom-dropdown-row">Select Classroom: <ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom} /></div>
           <div className="option-boxes">
@@ -139,6 +145,11 @@ export default React.createClass({
           </div>
           <TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors} /> {this.stateSpecificComponent()}
         </div>
+      );
+    }
+    return (
+      <div className="invite-students">
+        {content}
       </div>
     );
   },
