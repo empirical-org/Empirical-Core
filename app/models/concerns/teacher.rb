@@ -127,9 +127,9 @@ module Teacher
       # updates (or creates...) their school to the new school subscription
       UserSubscription.update_or_create(self.id, joined_school_sub.subscription_id)
     else
-      # if their subscription is through a different school destroy it 
+      # if their subscription is through a different school set visible to false
       if self.subscription&.school_subscriptions&.any?
-        UserSubscription.find_by_user_id(self.id).destroy
+        UserSubscription.find_by_user_id(self.id).update(visible: false)
       end
     end
   end
