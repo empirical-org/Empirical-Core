@@ -2,6 +2,11 @@
   max-width: 990px;
   padding: 20px;
   margin: 0 auto;
+  .action-container {
+    img {
+      max-height: 20px;
+    }
+  }
   .btn {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -35,6 +40,15 @@
       color: #027360;
       cursor: pointer;
       padding-right: 13px;
+      min-width: 117px;
+      span {
+        float: right;
+      }
+      .spinner-container {
+        margin: 0;
+        margin-right: 5px;
+        padding: 0;
+      }
     }
   }
   .teacher {
