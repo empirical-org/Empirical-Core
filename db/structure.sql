@@ -1350,7 +1350,8 @@ CREATE TABLE user_subscriptions (
     user_id integer,
     subscription_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    visible boolean DEFAULT true NOT NULL
 );
 
 
@@ -2351,20 +2352,6 @@ CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_cate
 
 
 --
--- Name: index_unit_template_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (name);
-
-
---
--- Name: index_topics_on_topic_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
-
-
---
 -- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2390,6 +2377,20 @@ CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates
 --
 
 CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
+
+
+--
+-- Name: index_user_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_subscriptions_on_subscription_id ON user_subscriptions USING btree (subscription_id);
+
+
+--
+-- Name: index_user_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_subscriptions_on_user_id ON user_subscriptions USING btree (user_id);
 
 
 --
@@ -2924,5 +2925,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170412154159');
 
 INSERT INTO schema_migrations (version) VALUES ('20170502185232');
 
-INSERT INTO schema_migrations (version) VALUES ('20170502185232');
+INSERT INTO schema_migrations (version) VALUES ('20170505182334');
+
+INSERT INTO schema_migrations (version) VALUES ('20170505195744');
+
+INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 
