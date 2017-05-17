@@ -210,7 +210,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
       end
-      @classroom ||= current_user.classrooms_i_teach.first
+      @classroom ||= Classroom.unscoped.find_by(teacher_id: current_user.id)
       auth_failed unless @classroom.teacher == current_user
     end
   end
