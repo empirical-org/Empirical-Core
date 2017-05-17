@@ -17,7 +17,7 @@ export default function (priceInCents, description) {
             } else if (data.message) {
               alert(data.message);
             } else if (amount === 45000) {
-              alert('Premium has been activated for your account, and the accounts of any other teachers registered with your school on Quill.');
+              alert('Premium has been activated for your account, and the accounts of any other teachers registered with your school on Quill. We will send a follow up email shortly.');
             }
             window.location.assign('/profile');
           });
