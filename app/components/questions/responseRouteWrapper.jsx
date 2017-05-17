@@ -45,7 +45,7 @@ const ResponseComponentWrapper = React.createClass({
     const datasets = [this.props.fillInBlank, this.props.sentenceFragments, this.props.diagnosticQuestions];
     let theDatasetYouAreLookingFor = this.props.questions;
     datasets.forEach((dataset) => {
-      if(dataset.data[questionID]) {
+      if (dataset.data[questionID]) {
         theDatasetYouAreLookingFor = dataset;
       }
     });
@@ -53,7 +53,8 @@ const ResponseComponentWrapper = React.createClass({
   },
 
   render() {
-    const { data, states, } = this.returnAppropriateDataset();
+    const { data, } = this.returnAppropriateDataset();
+    const { states, } = this.props.questions;
     const { questionID, } = this.props.params;
     if (this.state.loadedResponses) {
       return (
