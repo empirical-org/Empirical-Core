@@ -8,7 +8,7 @@ const buttonText = {
 };
 
 const titleCards = {
-  'fill in multiple blanks title card': '<h3>Completa el Espacio en Blanco: A, An, The</h3><p>En esta sección, cada oración tendrá dos o tres espacios en blanco.</p><p>Usted llenará el espacio en blanco con una de las palabras de una lista, o dejará el espacio en blanco si no se necesita ninguna palabra.</p>',
+  'fill in multiple blanks title card': '<h3>Completa el Espacio en Blanco: A, An, The</h3><p>En esta sección, cada oración tendrá dos o tres espacios en blanco.</p><p>Completa el espacio en blanco con una de las palabras en la lista o deja el espacio en blanco si no es necesario insertar una palabra.</p>',
   'fill in single blanks title card': '<h3>Completa el Espacio en Blanco</h3><p>¡Ya estás en la mitad del camino! En esta sección, elige la palabra más adecuada para completar la oración. Posteriormente, llenarás el espacio en blanco con una de las palabras en la lista.</p>',
   'sentence fragments title card': '<h3>Oraciones Completas</h3><p>En esta sección, agregarás un grupo de palabras para formar una oración. Trata de agregar el menor número posible de palabras.</p><p>¡Comencemos!</p>',
   'tense title card': '<h3>Tiempo del Verbo: Pasado, Presente y Futuro</h3><p>En esta sección, corrige las oraciones conjugando el verbo en el tiempo que sea adecuado para que coincida con el resto de la oración.</p><p>¡Lo estas haciendo excelente!</p>',
