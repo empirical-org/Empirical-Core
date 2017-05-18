@@ -99,7 +99,7 @@ export default React.createClass({
           <td>{cl.teacherName}</td>
           <td>{cl.className}</td>
           <td>{cl.joinDate}</td>
-          <td>{final}</td>
+          <td>{this.finalContents(cl, action)}</td>
         </tr>
       );
     }

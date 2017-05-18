@@ -124,11 +124,11 @@ export default React.createClass({
   },
 
   render() {
-    let content;
     if (this.props.classrooms && this.props.classrooms.length === 0) {
-      content = <EmptyProgressReport />;
-    } else {
-      content = (
+      return <EmptyProgressReport />;
+    }
+    return (
+      <div className="invite-students">
         <div className="container">
           <div className="classroom-dropdown-row">Select Classroom: <ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom} /></div>
           <div className="option-boxes">
@@ -145,11 +145,6 @@ export default React.createClass({
           </div>
           <TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors} /> {this.stateSpecificComponent()}
         </div>
-      );
-    }
-    return (
-      <div className="invite-students">
-        {content}
       </div>
     );
   },
