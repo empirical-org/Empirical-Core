@@ -33,6 +33,12 @@
             .nav-language-selector-directions {
               display: none;
             }
+            .nav-language-selector-trigger, .nav-language-selector-dropdown {
+              width: 132px;
+              .language-button-img {
+                margin-right: 7px;
+              }
+            }
           }
         }
     }
