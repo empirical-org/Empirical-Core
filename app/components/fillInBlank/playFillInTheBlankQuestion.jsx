@@ -119,7 +119,15 @@ export class PlayFillInTheBlankQuestion extends Component {
     } else {
       newErrors.delete(i);
     }
-    this.setState({ inputErrors: newErrors, });
+
+    // following condition will return false if no new errors
+    if (newErrors.size) {
+      const newInputVals = this.state.inputVals
+      newInputVals[i] = ''
+      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
+    } else {
+      this.setState({ inputErrors: newErrors });
+    }
   }
 
   renderWarning(i) {
