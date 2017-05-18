@@ -15,7 +15,7 @@ import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const styles = {
   container: {
-    marginTop: 15,
+    marginTop: 35,
     marginBottom: 18,
     display: 'flex',
     alignItems: 'center',
@@ -276,7 +276,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   renderMedia() {
     if (this.getQuestion().mediaURL) {
       return (
-        <div style={{ marginTop: 15, minWidth: 200, }}>
+        <div className='ell-illustration' style={{ marginTop: 15, minWidth: 200 }}>
           <img src={this.getQuestion().mediaURL} />
         </div>
       );
@@ -302,15 +302,21 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   render() {
+    let fullPageFeedback
+    if (this.props.language === 'arabic' && !(this.getQuestion().mediaURL)) {
+      fullPageFeedback = { maxWidth: 800, width: '100%' }
+    } else {
+      fullPageFeedback = { display: 'block' }
+    }
     return (
       <div className="student-container-inner-diagnostic">
-        <div style={{ display: 'flex', }}>
-          <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={fullPageFeedback}>
             {this.renderPrompt()}
             <Cues getQuestion={this.getQuestion} customText={this.customText()} />
             <div className="feedback-row">
               <img src={icon} alt="icon" style={{ marginTop: 3, }} />
-              <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+              <div style={fullPageFeedback} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
             </div>
           </div>
           {this.renderMedia()}
