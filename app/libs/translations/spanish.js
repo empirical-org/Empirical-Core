@@ -12,8 +12,8 @@ const titleCards = {
   'fill in single blanks title card': '<h3>Completa el Espacio en Blanco</h3><p>¡Ya estás en la mitad del camino! En esta sección, elige la palabra más adecuada para completar la oración. Posteriormente, llenarás el espacio en blanco con una de las palabras en la lista.</p>',
   'sentence fragments title card': '<h3>Oraciones Completas</h3><p>En esta sección, agregarás un grupo de palabras para formar una oración. Trata de agregar el menor número posible de palabras.</p><p>¡Comencemos!</p>',
   'tense title card': '<h3>Tiempo del Verbo: Pasado, Presente y Futuro</h3><p>En esta sección, corrige las oraciones conjugando el verbo en el tiempo que sea adecuado para que coincida con el resto de la oración.</p><p>¡Lo estas haciendo excelente!</p>',
-  'sentence combining title card': '<h3>Combinación de Oraciones</h3><p>En esta sección, combina las oraciones para formar una sola oración.</p><p>En algunas ocasiones, podrás elegir de las conjunciones que se te presenten para combinar las oraciones. En otras ocasiones, combinarás las oraciones de la manera que tu consideres que sea mejor.</p><p>Agrega o cambia palabras únicamente si es necesario y trata de mantener el mismo significado de las oraciones.</p><p>¡Tu puedes hacerlo!</p>',
-  'diagnostic intro text': '<h1>Quill Placement Actividad</h1><p>Estas por responder 22 preguntas sobre oraciones. No te preocupes, esto no es un examen. Solo sirve para saber lo que ya sabes.</p><p className="second-p">Algunas de las preguntas no las vas a ver aprendido antes, esta bien! No te preocupes. Solo responde las preguntas con tu mayor esfuerzo. Una ves que terminaste estas preguntas, Quill va a diseñar un plan de estudio solo para vos!</p>',
+  'sentence combining title card': '<h3>Combinación de Oraciones</h3><p>En algunas ocasiones podrás elegir de las conjunciones que se te presenten para combinar las oraciones. En otras ocasiones, combinarás las oraciones de la manera que tu consideres que sea mejor.</p><p>Agrega o cambia palabras únicamente si es necesario y trata de mantener el mismo significado de las oraciones.</p><p>¡Tu puedes hacerlo!</p>',
+  'diagnostic intro text': '<h1>Actividad de Aptitud de Quill</h1><p>A continuación responderás 22 preguntas sobre escribir oraciones. No hay de qué preocuparse, ya que esto no es un examen. Es solo una actividad cuyo objetivo es descifrar tu conocimiento. </p><p className="second-p">Es posible que alguna de las preguntas no las hayas aprendido anteriormente.  Está bien, no te preocupes.  Solo trata de responder las preguntas con el mayor esfuerzo posible. Una vez que termines de responder estas preguntas, Quill diseñará un plan de estudio personalizado para ti.</p>',
   'completion page': '<h1>As terminado el ejercicio de Quill Placement</h1><p>Tus resultados están sido guardados ahora. Cuando se terminan de archivar te vamos a enviar a la próxima pagina.</p>',
 };
 
@@ -25,7 +25,7 @@ const instructions = {
   'tense-question-instructions': 'Vuelve a escribir la oración. Conjuga el verbo resaltado en negro al tiempo correcto para que coincida con el resto de la oración.',
   'fill-in-the-blank-single-instructions': 'Completa el espacio en blanco con una las palabras de arriba.',
   'combine-sentences-instructions': 'Combina las oraciones a una sola oración.',
-  'combine-sentences-with-joining-words-instructions': 'Combina las oraciones, usando una de las palabras sumarias.',
+  'combine-sentences-with-joining-words-instructions': 'Combina las oraciones a una sola oración, utilizando una de las conjunciones.',
 };
 
 const scaffolds = {
