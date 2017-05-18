@@ -23,7 +23,8 @@ export default class LanguagePage extends React.Component {
           <div className="language-button" onClick={() => this.props.setLanguage('hindi')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png" />हिंदी</div>
         </div>
         <div className="divider" />
-        <div className="no-language-button" onClick={() => this.props.setLanguage('english')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png" />Only show directions in English</div>
+        <div className="no-language-button fullsize" onClick={() => this.props.setLanguage('english')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png" />Only show directions in English</div>
+        <div className="no-language-button mobile" onClick={() => this.props.setLanguage('english')}><img className="language-button-img" src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png" />Only English</div>
       </div>
     );
   }
