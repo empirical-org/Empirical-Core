@@ -143,6 +143,9 @@
   position: relative;
   cursor: pointer;
   align-self: center;
+  &:focus {
+    outline: none;
+  }
   .nav-language-selector-trigger {
     background-color: white;
     height: 40px;
