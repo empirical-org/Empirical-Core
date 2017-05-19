@@ -302,21 +302,21 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   render() {
-    let fullPageFeedback
+    let fullPageInstructions
     if (this.props.language === 'arabic' && !(this.getQuestion().mediaURL)) {
-      fullPageFeedback = { maxWidth: 800, width: '100%' }
+      fullPageInstructions = { maxWidth: 800, width: '100%' }
     } else {
-      fullPageFeedback = { display: 'block' }
+      fullPageInstructions = { display: 'block' }
     }
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={fullPageFeedback}>
+          <div style={fullPageInstructions}>
             {this.renderPrompt()}
             <Cues getQuestion={this.getQuestion} customText={this.customText()} />
             <div className="feedback-row">
               <img src={icon} alt="icon" style={{ marginTop: 3, }} />
-              <div style={fullPageFeedback} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+              <div style={fullPageInstructions} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
             </div>
           </div>
           {this.renderMedia()}

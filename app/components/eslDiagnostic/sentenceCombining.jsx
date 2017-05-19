@@ -202,6 +202,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   render() {
     let button;
+    const fullPageInstructions = this.props.language === 'arabic' ? { maxWidth: 800, width: '100%' } : { display: 'block' }
     if (this.props.question.attempts.length > 0) {
       button = <button className="button student-submit" onClick={this.nextQuestion}>{this.getSubmitButtonText()}</button>;
     } else {
@@ -211,13 +212,13 @@ const PlayDiagnosticQuestion = React.createClass({
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
       return (
         <div className="student-container-inner-diagnostic">
-          <div style={{ display: 'flex', }}>
-            <div>
+          <div style={{ display: 'flex', justifyContent: 'spaceBetween'}}>
+            <div style={fullPageInstructions}>
               {this.renderSentenceFragments()}
               {this.renderCues()}
               <div className="feedback-row">
                 <img src={icon} style={{ marginTop: 3, }} />
-                <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+                <div style={fullPageInstructions} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
               </div>
             </div>
             {this.renderMedia()}
