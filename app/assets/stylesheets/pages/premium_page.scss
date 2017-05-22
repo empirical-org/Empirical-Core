@@ -94,9 +94,6 @@ li.premium-tab > a:hover {
   & > .row > div {
     margin-bottom: 2%;
   }
-  p {
-    font-size: 21px;
-  }
   .logo-tag  {
     padding: 25 0 90 0px;
     text-align: center;
@@ -106,6 +103,9 @@ li.premium-tab > a:hover {
     h1 {
       font-weight: 700;
       margin-bottom: 14px;
+    }
+    p {
+      font-size: 21px;
     }
   }
   .pricing-mini {
@@ -237,29 +237,6 @@ li.premium-tab > a:hover {
     .button-container {
       padding-left: 22px;
       padding-right: 22px;
-    }
-  }
-  .promo-info {
-    width: 100%;
-    background-color: #fcf2e1;
-    border: solid 1px rgba(245, 186, 90, 0.41);
-    min-height: 53px;
-    padding: 10px 10px;
-    padding-left: 22px;
-    margin-bottom: 51px;
-    i {
-      font-size: 24px;
-      color: #ea9a1a;
-      padding-right: 15px;
-      position: relative;
-      top: 2px;
-    }
-    p {
-      text-align: center;
-      font-size: 16px;
-      span {
-        font-weight: 600;
-      }
     }
   }
 }
