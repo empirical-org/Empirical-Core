@@ -62,4 +62,11 @@ EmpiricalGrammar::Application.configure do
     Bullet.add_footer = true
   end
 
+  if ENV['REDISTOGO_URL']
+    config.action_controller.perform_caching = true
+    config.cache_store = :redis_store, ENV["REDISTOGO_URL"]
+  else
+    config.action_controller.perform_caching = false
+  end
+
 end

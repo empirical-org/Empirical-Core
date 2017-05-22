@@ -16,6 +16,8 @@ module EmpiricalGrammar
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache'
+
     config.paperclip_defaults = {
       storage: :fog,
       fog_credentials: { provider: ENV.fetch('FOG_PROVIDER', 'AWS'), aws_access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID', ''),
