@@ -7,6 +7,7 @@ import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import StudentCreatesAccountSection from '../components/invite_users/add_students/StudentCreatesAccountSection.jsx';
 import TeacherCreatesAccountSection from '../components/invite_users/add_students/TeacherCreatesAccountSection.jsx';
 import GoogleClassroomCreatesAccountSection from '../components/invite_users/add_students/GoogleClassroomCreatesAccountSection.jsx';
+import EmptyProgressReport from '../components/shared/EmptyProgressReport.jsx';
 require('../../../../../app/assets/stylesheets/pages/invite-students.scss');
 
 export default React.createClass({
@@ -33,7 +34,9 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.retrieveStudents(this.state.selectedClassroom.id);
+    if (this.props.classrooms && this.props.classrooms.length) {
+      this.retrieveStudents(this.state.selectedClassroom.id);
+    }
   },
 
   retrieveStudents(classroomId) {
@@ -121,6 +124,9 @@ export default React.createClass({
   },
 
   render() {
+    if (this.props.classrooms && this.props.classrooms.length === 0) {
+      return <EmptyProgressReport />;
+    }
     return (
       <div className="invite-students">
         <div className="container">
