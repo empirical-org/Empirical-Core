@@ -5,7 +5,7 @@ class ActivitySearchWrapper
     @search_query = search_query
     @filters = process_filters(filters)
     @sort = sort
-    @activities = []
+    @activities = nil
     @activity_classifications = []
     @topics = []
     @topic_categories = []
@@ -13,31 +13,24 @@ class ActivitySearchWrapper
     @number_of_pages = nil
     @flag = flag
     @user_id = user_id
+    @default_search = empty_search_params
   end
 
   def search
     ActivitySearchAnalyticsWorker.perform_async(@user_id, @search_query)
-    @activities = ActivitySearch.search(@search_query, @filters, @sort, @flag)
-    @activity_classifications = @activities.map(&:classification).uniq.compact
-    @activity_classifications = @activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}
-
-    @topics = @activities.includes(topic: :topic_category).map(&:topic).uniq.compact
-    @topic_categories = @topics.map(&:topic_category).uniq.compact
-    @sections = @topics.map(&:section).uniq.compact
-
-    @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
-    @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
+    get_custom_search_results
   end
 
+
+
   def result
-    hash = {
+    {
       activities: @activities,
       activity_classifications: @activity_classifications,
       topic_categories: @topic_categories,
       sections: @sections,
       number_of_pages: @number_of_pages
     }
-    hash
   end
 
   private
@@ -55,6 +48,37 @@ class ActivitySearchWrapper
       end
       acc
     end
+  end
+
+  def get_custom_search_results
+    get_activity_search
+    get_activity_classifications
+    get_topics_topic_categories_and_sections
+    get_formatted_search_results
+  end
+
+  def get_activity_search
+    @activities = ActivitySearch.search(@search_query, @filters, @sort, @flag)
+  end
+
+  def get_formatted_search_results
+    @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
+    @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
+  end
+
+  def get_activity_classifications
+    activity_classifications = @activities.map(&:classification).uniq.compact
+    @activity_classifications = activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}
+  end
+
+  def get_topics_topic_categories_and_sections
+    @topics = @activities.includes(topic: :topic_category).map(&:topic).uniq.compact
+    @topic_categories = @topics.map(&:topic_category).uniq.compact
+    @sections = @topics.map(&:section).uniq.compact
+  end
+
+  def empty_search_params
+    @search_query == '' && @filters.empty? && @sort.nil? && @flag.nil?
   end
 
 end
