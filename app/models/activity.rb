@@ -124,6 +124,11 @@ class Activity < ActiveRecord::Base
     self.flags = [flag]
   end
 
+  def set_activity_search_cache
+    # can't call class methods from callback
+    self.class.set_activity_search_cache
+  end
+
   def self.set_activity_search_cache
     $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
   end
