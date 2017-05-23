@@ -102,7 +102,6 @@ export default React.createClass({
   },
 
   searchRequestSuccess(data) {
-    debugger;
     const hash = {
       activitySearchResults: data.activities,
       numberOfPages: data.number_of_pages,

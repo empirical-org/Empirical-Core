@@ -1,7 +1,7 @@
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
-  def initialize(search_query, filters, sort, flag, user_id=nil)
+  def initialize(search_query='', filters={}, sort=nil, flag=nil, user_id=nil)
     @search_query = search_query
     @filters = process_filters(filters)
     @sort = sort
@@ -13,17 +13,15 @@ class ActivitySearchWrapper
     @number_of_pages = nil
     @flag = flag
     @user_id = user_id
-    @default_search = empty_search_params
   end
 
   def search
     ActivitySearchAnalyticsWorker.perform_async(@user_id, @search_query)
     get_custom_search_results
+    search_result
   end
 
-
-
-  def result
+  def search_result
     {
       activities: @activities,
       activity_classifications: @activity_classifications,
@@ -75,10 +73,6 @@ class ActivitySearchWrapper
     @topics = @activities.includes(topic: :topic_category).map(&:topic).uniq.compact
     @topic_categories = @topics.map(&:topic_category).uniq.compact
     @sections = @topics.map(&:section).uniq.compact
-  end
-
-  def empty_search_params
-    @search_query == '' && @filters.empty? && @sort.nil? && @flag.nil?
   end
 
 end
