@@ -27,7 +27,8 @@ ActiveRecord::Schema.define(version: 20170523175919) do
     t.integer "first_attempt_count"
     t.integer "child_count"
     t.boolean "optimal"
-    t.json "concepts"
+    t.boolean "weak"
+    t.json "concept_results"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author"], name: "index_responses_on_author"

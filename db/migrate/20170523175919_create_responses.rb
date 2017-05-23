@@ -12,7 +12,8 @@ class CreateResponses < ActiveRecord::Migration[5.1]
       t.integer :first_attempt_count
       t.integer :child_count
       t.boolean :optimal
-      t.json :concepts
+      t.boolean :weak
+      t.json :concept_results
 
       t.timestamps
 
