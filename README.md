@@ -45,15 +45,17 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 9. Run Redis with ```redis-server```
 
+10. Run a second Redis (for caching) with ```redis-server --port 7654```
+
 11. Run npm installer with ```npm install && cd ./client && npm install```
 
-11. make sure to navigate back out of the "client" folder with `cd ..` 
+12. make sure to navigate back out of the "client" folder with `cd ..`
 
-10. Run the server with `foreman start -f Procfile.static`.
+13. Run the server with `foreman start -f Procfile.static`.
  - Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
  - When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
-11. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
+14. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
     specs when you save files.
 
 The installation comes with three users, though you can create as many more as you like:
