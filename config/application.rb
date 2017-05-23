@@ -16,7 +16,7 @@ module EmpiricalGrammar
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache'
+    config.cache_store = :redis_store, ENV["REDISCACHE_URL"]
 
     config.paperclip_defaults = {
       storage: :fog,

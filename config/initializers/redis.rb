@@ -1,10 +1,7 @@
-case
-when Rails.env.test?
+if Rails.env.test?
   namespace = 'test'
-when Rails.env.development?
-  namespace = 'development'
+else
+  namespace = ENV["REDISCACHE_NAMESPACE"]
 end
 
-
-
-$redis = Redis::Namespace.new(namespace, :redis => Redis.new(url: 'redis://localhost:7654'))
+$redis = Redis::Namespace.new(namespace, :redis => Redis.new(url: ENV["REDISCACHE_URL"]))
