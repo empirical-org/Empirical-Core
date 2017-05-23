@@ -55,10 +55,10 @@ protected
   end
 
   def custom_search
-    ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort], current_user.flag, current_user.id).search
     unless any_search_params
-      # Activity.set_activity_search_cache
+      Activity.set_activity_search_cache
     end
+    ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort], current_user.flag, current_user.id).search
   end
 
   def activity

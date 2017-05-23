@@ -133,9 +133,9 @@ class Activity < ActiveRecord::Base
     $redis.del('default_activity_search')
   end
 
-  # def self.set_activity_search_cache
-  #   $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
-  # end
+  def self.set_activity_search_cache
+    $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
+  end
 
   private
 

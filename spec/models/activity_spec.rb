@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Activity, type: :model do
+describe Activity, type: :model, redis: :true do
 
   let!(:activity){ FactoryGirl.build(:activity) }
 
@@ -173,6 +173,26 @@ describe Activity, type: :model do
     end
 
   end
+
+  describe "#clear_activity_search_cache" do
+    it 'deletes the default_activity_search from the cache' do
+      $redis.set('default_activity_search', {something: 'something'})
+      Activity.clear_activity_search_cache
+      expect($redis.get('default_activity_search')).to eq nil
+    end
+  end
+
+  describe "#set_activity_search_cache" do
+    let!(:cache_activity){ FactoryGirl.create(:activity) }
+
+    it 'sets the default_activity_search for the cache' do
+      $redis.del('default_activity_search')
+      cache_activity.update(flags: [])
+      Activity.set_activity_search_cache
+      expect(JSON.parse($redis.get('default_activity_search'))['activities'].first['uid']).to eq(cache_activity.uid)
+    end
+  end
+
 
 
 end
