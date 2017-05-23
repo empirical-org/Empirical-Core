@@ -5,6 +5,8 @@ import ButtonLoadingIndicator from '../../../../shared/button_loading_indicator'
 
 describe('EditStudentsButton component', () => {
   const dataFuncMock = jest.fn()
+  dataFuncMock.mockReturnValue = {classrooms_data: []}
+  dataFuncMock.mockReturnValueOnce = {classrooms_data: []}
 
   describe('if it is enabled and not loading', () => {
     const buttonText = "Update Students"
@@ -12,10 +14,11 @@ describe('EditStudentsButton component', () => {
       <EditStudentsButton
         enabled={true}
         buttonText={buttonText}
-        dataFunc = {() => {classrooms_data: []}}
+        dataFunc={dataFuncMock}
       />)
       wrapper.setState({loading: false})
-      wrapper.instance().handleClick = jest.fn()
+      const handleClickMock = jest.fn()
+      wrapper.instance().handleClick = handleClickMock
 
     it('renders one a-tag', () => {
       expect(wrapper.find('a')).toHaveLength(1)
