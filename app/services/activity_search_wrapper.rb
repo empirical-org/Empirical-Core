@@ -16,7 +16,9 @@ class ActivitySearchWrapper
   end
 
   def search
-    ActivitySearchAnalyticsWorker.perform_async(@user_id, @search_query)
+    if @user_id
+      ActivitySearchAnalyticsWorker.perform_async(@user_id, @search_query)
+    end
     get_custom_search_results
     search_result
   end
