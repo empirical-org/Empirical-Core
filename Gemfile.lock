@@ -635,6 +635,8 @@ GEM
       rspec-expectations (~> 3.5.0)
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
+    rspec-redis_helper (0.1.2)
+      redis
     rspec-retry (0.5.2)
       rspec-core (> 3.3, < 3.6)
     rspec-support (3.5.0)
@@ -834,6 +836,7 @@ DEPENDENCIES
   redis-rails
   responders
   rspec-rails
+  rspec-redis_helper
   rspec-retry
   sass
   sass-rails
