@@ -38,6 +38,7 @@ export default React.createClass({
       filters: ActivitySearchFilterConfig,
       sorts: ActivitySearchSortConfig,
       activeFilterOn: false,
+      error: null,
     };
   },
 
@@ -56,10 +57,7 @@ export default React.createClass({
       context: this,
       data: this.searchRequestData(),
       success: this.searchRequestSuccess,
-      dataType: 'json',
-      error() {
-        console.log('error searching activities');
-      },
+      error: this.errorState,
     });
   },
 
@@ -87,6 +85,11 @@ export default React.createClass({
       },
     };
   },
+
+  errorState(data) {
+    this.setState({ error: data.errorText, });
+  },
+
   clearFilters() {
     const clearedFilters = this.state.filters.map((filter) => {
       filter.selected = null;
@@ -242,6 +245,8 @@ export default React.createClass({
       pagination;
     if (this.state.loading) {
       loading = <LoadingIndicator />;
+    } else if (this.state.error) {
+      table = <span>We're experiencing the following error: {this.state.error}</span>;
     } else {
       pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} />;
       table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />;
