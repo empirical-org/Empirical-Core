@@ -169,6 +169,7 @@ group :test, :development do
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
   gem 'rspec-retry'
+  gem 'rspec-redis_helper'
 end
 
 group :test do
