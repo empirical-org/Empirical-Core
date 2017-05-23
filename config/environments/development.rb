@@ -62,9 +62,9 @@ EmpiricalGrammar::Application.configure do
     Bullet.add_footer = true
   end
 
-  if ENV['REDISCACHE_URL']
+  if ENV['REDISCLOUD_URL']
     config.action_controller.perform_caching = true
-    config.cache_store = :redis_store, ENV["REDISCACHE_URL"]
+    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
   else
     config.action_controller.perform_caching = false
   end
