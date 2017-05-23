@@ -1,7 +1,7 @@
 if Rails.env.test?
   namespace = 'test'
 else
-  namespace = ENV["REDISCACHE_NAMESPACE"]
+  namespace = ENV["REDISCLOUD_NAMESPACE"]
 end
 
-$redis = Redis::Namespace.new(namespace, :redis => Redis.new(url: ENV["REDISCACHE_URL"]))
+$redis = Redis::Namespace.new(namespace, :redis => Redis.new(url: ENV["REDISCLOUD_URL"]))
