@@ -1,1 +1,10 @@
-$redis = Redis::Namespace.new("site_point", :redis => Redis.new(url: 'redis://localhost:7654'))
+case
+when Rails.env.test?
+  namespace = 'test'
+when Rails.env.development?
+  namespace = 'development'
+end
+
+
+
+$redis = Redis::Namespace.new(namespace, :redis => Redis.new(url: 'redis://localhost:7654'))
