@@ -31,6 +31,7 @@ class Dashboard
               {header: 'Difficult Concepts', results: diff_con, placeholderImg: '/difficult_concepts_no_data.png'}]
   end
 
+  private
 
   def self.lowest_performing_students(sessions)
     averages = {}
@@ -71,21 +72,21 @@ class Dashboard
     ## Line below if for local testing where concept results aren't always accessible
     # diff_concepts = {"Commas in Addresses"=>56, "Future Tense Verbs"=>61, "Commas and Quotation Marks in Dialogue"=>66, "That"=>72, "Singular Possessive"=>72}
   end
-
-  private
-
   def self.set_cache_if_empty(strug_stud, diff_con, user)
     unless @@cached_strug_stud
-      $redis.set("user_id:#{user.id}_struggling_students", @@cached_strug_stud, {ex: 16.hours})
+      $redis.set("user_id:#{user.id}_struggling_students", strug_stud, {ex: 16.hours})
     end
     unless @@cached_diff_con
-      $redis.set("user_id:#{user.id}_difficult_concepts", @@cached_diff_con, {ex: 16.hours})
+      $redis.set("user_id:#{user.id}_difficult_concepts", diff_con, {ex: 16.hours})
     end
   end
 
   def self.get_redis_values(user)
-    @@cached_strug_stud = eval($redis.get("user_id:#{user.id}_struggling_students"))
-    @@cached_diff_con = eval($redis.get("user_id:#{user.id}_difficult_concepts"))
+    strug_stud = $redis.get("user_id:#{user.id}_struggling_students")
+    diff_con = $redis.get("user_id:#{user.id}_difficult_concepts")
+    # don't use cache if it doesn't exist or is blank
+    @@cached_strug_stud = strug_stud.nil? || strug_stud&.blank? ? nil : eval(strug_stud)
+    @@cached_diff_con = diff_con.nil? || diff_con&.blank? ? nil : eval(diff_con)
   end
 
 
