@@ -45,7 +45,7 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 9. Run Redis with ```redis-server```
 
-10. Run a second Redis (for caching) with ```redis-server --port 6379```
+10. Run a second Redis (for caching) with ```redis-server --port 7654
 
 10. Run a third Redis (for testing) with ```redis-server --port 6378```
 
