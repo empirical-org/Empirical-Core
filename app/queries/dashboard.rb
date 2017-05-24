@@ -73,10 +73,10 @@ class Dashboard
     # diff_concepts = {"Commas in Addresses"=>56, "Future Tense Verbs"=>61, "Commas and Quotation Marks in Dialogue"=>66, "That"=>72, "Singular Possessive"=>72}
   end
   def self.set_cache_if_empty(strug_stud, diff_con, user)
-    unless @@cached_strug_stud
+    unless @@cached_strug_stud || strug_stud == 'insufficient data'
       $redis.set("user_id:#{user.id}_struggling_students", strug_stud, {ex: 16.hours})
     end
-    unless @@cached_diff_con
+    unless @@cached_diff_con || diff_con == 'insufficient data'
       $redis.set("user_id:#{user.id}_difficult_concepts", diff_con, {ex: 16.hours})
     end
   end
