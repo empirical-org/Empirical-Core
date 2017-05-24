@@ -27,6 +27,8 @@ class ActivitySession < ActiveRecord::Base
 
   after_save    :determine_if_final_score
 
+  after_commit :invalidate_activity_session_count_if_completed
+
   around_save   :trigger_events
 
   # FIXME: do we need the below? if we omit it, may make things faster
@@ -208,7 +210,18 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
+  def invalidate_activity_session_count_if_completed
+    if self.state == 'not validated'
+    end
+    classroom_id = self.classroom_activity&.classroom_id
+    if self.state == 'finished' && classroom_id
+      $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
+    end
+  end
+
   private
+
+
 
   def correctly_assigned
     if self.classroom_activity && (classroom_activity.validate_assigned_student(self.user_id) == false)
