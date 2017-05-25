@@ -1,49 +1,41 @@
-'use strict'
+import React from 'react';
+import _ from 'underscore';
 
- import React from 'react'
- import _ from 'underscore'
-
- export default  React.createClass({
+export default React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
   },
 
-  getStandards: function () {
+  getStandards() {
     return _.chain(this.props.data.activities)
             .map(_.property('topic'))
             .uniq(_.property('name'))
-            .value()
+            .value();
   },
 
-  getConcepts: function () {
-    return _.uniq(_.map(this.getStandards(), function (standard) {
-      return standard.topic_category.name
-    }))
+  getConcepts() {
+    return _.uniq(_.map(this.getStandards(), standard => standard.topic_category.name));
   },
 
-  renderStandards: function (standards) {
-    return _.map(standards, function(standard){
-      return <dd key={standard.name}>{standard.name}</dd>
-    })
+  renderStandards(standards) {
+    return _.map(standards, standard => <dd key={standard.name}>{standard.name}</dd>);
   },
 
-  renderConcepts: function (concepts) {
-    return _.map(concepts, function(concept){
-      return <dd key={concept} className='concept'>{concept}</dd>
-    })
+  renderConcepts(concepts) {
+    return _.map(concepts, concept => <dd key={concept} className="concept">{concept}</dd>);
   },
 
-  render: function () {
+  render() {
     return (
-      <div className='standards-and-concepts light-gray-bordered-box'>
+      <div className="standards-and-concepts light-gray-bordered-box">
         <dl>
           <dt><strong>Standards</strong></dt>
           {this.renderStandards(this.getStandards())}
 
-          <dt className='concepts'><strong>Concepts</strong></dt>
+          <dt className="concepts"><strong>Concepts</strong></dt>
           {this.renderConcepts(this.getConcepts())}
         </dl>
       </div>
-    )
-  }
+    );
+  },
 });

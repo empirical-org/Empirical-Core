@@ -1,5 +1,6 @@
 if Rails.env.test?
   namespace = 'test'
+  ENV["REDISCLOUD_URL"] = 'redis://localhost:6378/0'
 else
   namespace = ENV["REDISCLOUD_NAMESPACE"]
 end
