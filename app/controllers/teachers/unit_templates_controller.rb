@@ -9,12 +9,8 @@ class Teachers::UnitTemplatesController < ApplicationController
       format.html do
         redirect_to "/teachers/classrooms/activity_planner/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
-      
       format.json do
-        render json: UnitTemplate.user_scope(current_user.try(:flag) || 'production')
-                      .includes(:author, :unit_template_category)
-                      .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
-                      .sort{ |ut| ut[:order_number] }.reverse
+        render json: get_formatted_unit_templates
       end
     end
   end
@@ -83,6 +79,15 @@ class Teachers::UnitTemplatesController < ApplicationController
       formatted_related_models << format_unit_template(rm)
     end
     formatted_related_models
+  end
+
+
+  private
+  def get_formatted_unit_templates
+    UnitTemplate.user_scope(current_user.try(:flag) || 'production')
+                  .includes(:author, :unit_template_category)
+                  .order(:order_number)
+                  .map{ |ut| ut.get_cached_serialized_unit_template }
   end
 
 end
