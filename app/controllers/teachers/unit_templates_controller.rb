@@ -84,10 +84,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   private
   def get_formatted_unit_templates
-    UnitTemplate.user_scope(current_user.try(:flag) || 'production')
-                  .includes(:author, :unit_template_category)
-                  .order(:order_number)
-                  .map{ |ut| ut.get_cached_serialized_unit_template }
+    UnitTemplate.user_scope(current_user.try(:flag) || 'production').includes(:author, :unit_template_category).order(:order_number).map{ |ut| ut.get_cached_serialized_unit_template }
   end
 
 end
