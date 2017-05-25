@@ -45,7 +45,6 @@ class UnitTemplatePseudoSerializer
   def author
     author = @unit_template.author
     {
-
       name: author.name,
       avatar_url: author.avatar.url(:thumb)
     }
@@ -58,11 +57,9 @@ class UnitTemplatePseudoSerializer
         id: act.id,
         name: act.name,
         flags: act.flags,
-        topic: topic(act)
-      }
-      if @flag
-        activity[:classification] = {key: act.classification.key}
-      end
+        topic: topic(act),
+        classification: {key: act.classification.key}
+        }
       activities.push(activity)
     end
     activities
@@ -75,7 +72,6 @@ class UnitTemplatePseudoSerializer
         name: topic.name,
         topic_category: topic_category(topic)
       }
-    end
   end
 
   def topic_category(topic)
