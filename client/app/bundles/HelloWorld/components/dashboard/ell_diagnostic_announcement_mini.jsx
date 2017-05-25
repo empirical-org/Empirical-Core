@@ -15,7 +15,7 @@ import React from 'react'
           <a href='/tools/diagnostic' style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px'}}><img src="/images/icon-diagnostic-black.svg" style={{height: '25px', marginRight: '10px', marginTop: '3px'}} /><p style={{fontWeight: 'bold', fontSize: '18px', margin: '8px 0 0'}}>ELL Diagnostic</p></a>
         </div>
           <p style={{padding: '0px 15px', marginTop: '16px', lineHeight: '1.57', fontFamily: 'lucida-grande, adelle-sans, helvetica'}}>Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners.</p>
-          <a href='/tools/diagnostic'><button style={{fontWeight: 'normal', maxWidth: '233px', width: '100%', paddingBottom: '13px'}} className="button button-white beta">Learn More</button></a>
+          <a target="_blank" href='https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692'><button style={{fontWeight: 'normal', maxWidth: '233px', width: '100%', paddingBottom: '13px'}} className="button button-white beta">Learn More</button></a>
       </div>
     );
   },

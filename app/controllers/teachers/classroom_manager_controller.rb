@@ -103,12 +103,12 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def classroom_mini
     current_user.classrooms_i_teach.includes(:students).each do |classroom|
-      obj = {
-        classroom: classroom,
-        students: classroom.students.count,
-        activities_completed: classroom.activity_sessions.where(state: "finished").count
-      }
-      ( @classrooms ||= [] ).push obj
+        classroom = {
+          classroom: classroom,
+          students: classroom.cached_student_count || classroom.students.count,
+          activities_completed: classroom.cached_completed_activity_count
+        }
+      ( @classrooms ||= [] ).push classroom
     end
     render json: {
       classes: @classrooms

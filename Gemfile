@@ -75,7 +75,10 @@ gem 'addressable'
 # QUEUE/CACHE
 gem 'sidekiq'
 gem 'sidekiq-retries'
+gem 'redis'
+gem 'redis-namespace'
 gem 'redis-rails'
+gem 'redis-rack-cache'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
 # JS/APP/UI
@@ -166,6 +169,7 @@ group :test, :development do
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
   gem 'rspec-retry'
+  gem 'rspec-redis_helper'
 end
 
 group :test do

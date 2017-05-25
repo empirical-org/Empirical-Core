@@ -18,6 +18,7 @@
 
 .drop-down-filters-and-search {
   margin-left: 15px;
+  margin-bottom: 10px;
 
   #search_activities_input {
     margin-top: 0px;
@@ -40,6 +41,9 @@
     margin-right: 15px;
     white-space: nowrap;
     text-overflow: ellipsis;
+    &:focus {
+      outline: none;
+    }
   }
   .activity-filter-button-wrapper.open {
     position: relative;
