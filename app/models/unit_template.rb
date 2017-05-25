@@ -29,7 +29,7 @@ class UnitTemplate < ActiveRecord::Base
 
   def get_cached_serialized_unit_template
     cached = $redis.get("unit_template_id:#{self.id}_serialized")
-    serialized_unit_template = cached.nil? || cached&.blank? ? nil : cached
+    serialized_unit_template = cached.nil? || cached&.blank? ? nil : eval(cached)
     unless serialized_unit_template
       serialized_unit_template = UnitTemplateSerializer.new(self).as_json(root: false)
       $redis.set("unit_template_id:#{self.id}_serialized", serialized_unit_template)
