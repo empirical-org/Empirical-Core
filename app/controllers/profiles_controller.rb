@@ -62,7 +62,7 @@ protected
     # this grabs the first unfinished session from the top level unit
     next_activity_session = current_user.next_activity_session(grouped_scores)
     {student: {name: current_user.name, classroom: {name: classroom.name, id: classroom.id, teacher: {name: classroom.teacher.name}}},
-     grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::ActivitySessionSerializer.new(next_activity_session, root: false)}
+     grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::StudentActivitySessionSerializer.new(next_activity_session, root: false)}
   end
 
   def current_classroom(classroom_id = nil)
