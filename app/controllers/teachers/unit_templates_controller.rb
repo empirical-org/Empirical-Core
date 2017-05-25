@@ -37,7 +37,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def profile_info
     ut = UnitTemplate.find(params[:id])
-    render json: {data: format_unit_template(ut), related_models: related_models(ut)}
+    render json: {data: format_unit_template(ut.id), related_models: related_models(ut)}
   end
 
   def assigned_info
@@ -62,12 +62,8 @@ class Teachers::UnitTemplatesController < ApplicationController
     end
   end
 
-  def format_unit_template(unit_template)
-    formatted_unit_template = UnitTemplate
-                  .includes(:author, :unit_template_category)
-                  .where(id: unit_template.id)
-                  .map{|ut| UnitTemplateSerializer.new(ut).as_json(root: false)}
-                  .first
+  def format_unit_template(ut_id)
+    formatted_unit_template = get_formatted_unit_template_for_profile(ut_id)
     formatted_unit_template[:non_authenticated] = !is_teacher?
     formatted_unit_template
   end
@@ -81,10 +77,24 @@ class Teachers::UnitTemplatesController < ApplicationController
     formatted_related_models
   end
 
-
-  private
   def get_formatted_unit_templates
-    UnitTemplate.user_scope(current_user.try(:flag) || 'production').includes(:author, :unit_template_category).order(:order_number).map{ |ut| ut.get_cached_serialized_unit_template }
+    UnitTemplate.user_scope(current_user.try(:flag) || 'production')
+    .includes(:author, :unit_template_category)
+    .order(:order_number)
+    .map{ |ut| ut.get_cached_serialized_unit_template }
   end
+  #
+  def get_formatted_unit_template_for_profile(id)
+    # TODO: remove this where and replace with find, and then figure out why there is a map
+    ut = UnitTemplate.includes(:author, :unit_template_category).find id
+    ut.get_cached_serialized_unit_template('profile')
+  end
+
+  # def get_formatted_unit_template_for_profile(id)
+  #   # TODO: remove this where and replace with find, and then figure out why there is a mpa
+  #   UnitTemplate.includes(:author, :unit_template_category)
+  #   .where(id: id)
+  #   .map{ |ut| ut.get_cached_serialized_unit_template('profile') }.first
+  # end
 
 end

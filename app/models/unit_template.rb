@@ -27,11 +27,12 @@ class UnitTemplate < ActiveRecord::Base
     end
   end
 
-  def get_cached_serialized_unit_template
+  def get_cached_serialized_unit_template(flag=nil)
     cached = $redis.get("unit_template_id:#{self.id}_serialized")
     serialized_unit_template = cached.nil? || cached&.blank? ? nil : eval(cached)
     unless serialized_unit_template
-      serialized_unit_template = UnitTemplateSerializer.new(self).as_json(root: false)
+      serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
+      serialized_unit_template = serializable_unit_template.get_data
       $redis.set("unit_template_id:#{self.id}_serialized", serialized_unit_template)
     end
     serialized_unit_template
