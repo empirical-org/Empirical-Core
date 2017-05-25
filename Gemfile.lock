@@ -594,8 +594,13 @@ GEM
     redis-activesupport (5.0.1)
       activesupport (>= 3, < 6)
       redis-store (~> 1.2.0)
+    redis-namespace (1.5.3)
+      redis (~> 3.0, >= 3.0.4)
     redis-rack (2.0.0.pre)
       rack (> 1.5, < 3)
+      redis-store (~> 1.2.0.pre)
+    redis-rack-cache (2.0.0)
+      rack-cache (~> 1.6.0)
       redis-store (~> 1.2.0.pre)
     redis-rails (5.0.1)
       redis-actionpack (~> 5.0.0)
@@ -630,6 +635,8 @@ GEM
       rspec-expectations (~> 3.5.0)
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
+    rspec-redis_helper (0.1.2)
+      redis
     rspec-retry (0.5.2)
       rspec-core (> 3.3, < 3.6)
     rspec-support (3.5.0)
@@ -823,9 +830,13 @@ DEPENDENCIES
   ransack
   react_on_rails (~> 6)
   redcarpet
+  redis
+  redis-namespace
+  redis-rack-cache
   redis-rails
   responders
   rspec-rails
+  rspec-redis_helper
   rspec-retry
   sass
   sass-rails
