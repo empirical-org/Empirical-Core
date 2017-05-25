@@ -3,7 +3,6 @@ class UnitTemplatePseudoSerializer
 
   def initialize(unit_template, flag=nil)
     @unit_template = unit_template
-    @flag = flag
   end
 
   def get_data
@@ -53,7 +52,6 @@ class UnitTemplatePseudoSerializer
   end
 
   def activities
-    puts 'blitzu light activities'
     activities = []
     @unit_template.activities.each do |act|
       activity = {
@@ -62,16 +60,15 @@ class UnitTemplatePseudoSerializer
         flags: act.flags,
         topic: topic(act)
       }
+      if @flag
+        activity[:classification] = {key: act.classification.key}
+      end
       activities.push(activity)
     end
     activities
   end
 
   def topic(act)
-    puts 'blitzu light topic'
-    puts @flag
-    if @flag
-      puts 'i am in the flag if'
       topic = act.topic
       {
         id: topic.id,
@@ -82,7 +79,6 @@ class UnitTemplatePseudoSerializer
   end
 
   def topic_category(topic)
-    puts 'blitzu light topic category'
     tc = topic.topic_category
     {
       id: tc.id,
