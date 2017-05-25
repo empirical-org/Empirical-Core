@@ -1,10 +1,6 @@
 class UnitTemplateSerializer < ActiveModel::Serializer
   attributes :id, :name, :problem, :summary, :teacher_review, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :topics
 
-  # def initialize(ut, flag=nil)
-  #   @@flag = flag
-  # end
-
   def number_of_standards
     section_ids = []
     object.activities.each do |act|
@@ -18,10 +14,11 @@ class UnitTemplateSerializer < ActiveModel::Serializer
 
   def unit_template_category
     cat = object.unit_template_category
-    {primary_color: cat.primary_color,
-    secondary_color: cat.secondary_color,
-    name: cat.name,
-    id: cat.id
+    {
+      primary_color: cat.primary_color,
+      secondary_color: cat.secondary_color,
+      name: cat.name,
+      id: cat.id
     }
   end
 
