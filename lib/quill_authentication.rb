@@ -26,7 +26,11 @@ module QuillAuthentication
 
   def sign_in user
     remote_ip = (request.present? ? request.remote_ip : nil)
-    UserLoginWorker.perform_async(user.id, remote_ip)
+    if !session[:staff_id] || session[:staff_id] == user.id
+      # only kick off login worker if there is no staff id,
+      # or if the user getting logged into is staff
+      UserLoginWorker.perform_async(user.id, remote_ip)
+    end
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
     @current_user = user
