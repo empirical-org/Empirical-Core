@@ -11,7 +11,7 @@ namespace :responses do
   end
 
   def import_from_firebase_json
-    file_name = "../data/gradedResponses.json"
+    file_name = "lib/data/gradedResponses.json"
     file = File.read(file_name);0
     data_hash = JSON.parse(file);0
 
