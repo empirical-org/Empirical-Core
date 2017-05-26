@@ -29,9 +29,6 @@ namespace :responses do
       vals["child_count"] = val["childCount"]
       vals["concept_results"] = val["conceptResults"]
       vals["created_at"] = val["createdAt"]
-      puts val
-      puts '######'
-      puts vals
       Response.create(vals)
     end
   end
