@@ -5,7 +5,7 @@ class UserLoginWorker
 
     @user = User.find(id)
 
-    @user.update_attributes(ip_address: ip_address)
+    @user.update_attributes(ip_address: ip_address, last_sign_in: Time.now)
     @user.save
 
     analytics = SigninAnalytics.new
