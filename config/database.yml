@@ -22,4 +22,8 @@ test:
 
 production:
   <<: *default
-  database: quill_cms_production
+  database: <%= ENV['RDS_DB_NAME'] %>
+  user: <%= ENV['RDS_DB_USERNAME'] %>
+  password: <%= ENV['RDS_DB_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
