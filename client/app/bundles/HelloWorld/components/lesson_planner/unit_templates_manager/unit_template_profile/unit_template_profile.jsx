@@ -24,15 +24,15 @@
    }
 
   componentDidMount() {
-    this.getProfileInfo()
+    this.getProfileInfo(this.props.params.activityPackId)
   }
 
-  getProfileInfo() {
+  getProfileInfo(id) {
     const that = this;
     $.ajax({
       type: 'get',
       datatype: 'json',
-      data: {id: this.props.params.activityPackId},
+      data: {id: id},
       url: '/teachers/unit_templates/profile_info',
       statusCode: {
         200: function(response) {
@@ -43,8 +43,9 @@
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.params.activityPackId !== nextProps.params.activityPackId) {
-      location.reload()
+    if (this.props.location !== nextProps.location) {
+      this.setState({loading: true})
+      this.getProfileInfo(nextProps.params.activityPackId)
     }
   }
 
