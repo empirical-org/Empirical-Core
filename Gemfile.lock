@@ -42,10 +42,26 @@ GEM
     builder (3.2.3)
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
+    elasticsearch (5.0.4)
+      elasticsearch-api (= 5.0.4)
+      elasticsearch-transport (= 5.0.4)
+    elasticsearch-api (5.0.4)
+      multi_json
+    elasticsearch-model (5.0.1)
+      activesupport (> 3)
+      elasticsearch (~> 5)
+      hashie
+    elasticsearch-rails (5.0.1)
+    elasticsearch-transport (5.0.4)
+      faraday
+      multi_json
     erubi (1.6.0)
+    faraday (0.12.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    hashie (3.5.5)
     i18n (0.8.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -61,6 +77,8 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.2)
+    multi_json (1.12.1)
+    multipart-post (2.0.0)
     nio4r (2.0.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
@@ -123,6 +141,8 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  elasticsearch-model
+  elasticsearch-rails
   listen (>= 3.0.5, < 3.2)
   pg
   puma (~> 3.7)
