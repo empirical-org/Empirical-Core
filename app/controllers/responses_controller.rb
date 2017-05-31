@@ -1,5 +1,5 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: [:show, :update, :destroy]
+  before_action :set_response, only: [:show, :update, :destroy, :increment_counts]
 
   # GET /responses
   def index
@@ -44,6 +44,12 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
+  def increment_counts
+    @response.increment!(:count)
+    increment_first_attempt_count
+    increment_child_count_of_parent
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
@@ -61,4 +67,19 @@ class ResponsesController < ApplicationController
     rescue ArgumentError
       Response.find_by_uid(string)
     end
+
+    def increment_first_attempt_count
+      params[:is_first_attempt] ? @response.increment!(:first_attempt_count) : nil
+    end
+
+    def increment_child_count_of_parent
+      parent_id = @response.parent_id
+      parent_uid = @response.parent_uid
+      if parent_id || parent_uid
+        id = parent_id ? parent_id : parent_uid
+        parent = find_by_id_or_uid(id)
+        parent.increment!(:child_count)
+      end
+    end
+
 end
