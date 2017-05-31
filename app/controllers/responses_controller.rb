@@ -41,7 +41,6 @@ class ResponsesController < ApplicationController
   # GET /questions/:question_uid/responses
   def responses_for_question
     @responses = Response.where(question_uid: params[:question_uid]).where.not(optimal: nil)
-
     render json: @responses
   end
 
@@ -53,7 +52,7 @@ class ResponsesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def response_params
-      params.fetch(:response, {})
+      params.require(:response).permit( :id, :uid, :parent_id, :parent_uid, :question_uid, :author, :text, :feedback, :count, :first_attempt_count, :child_count, :optimal, :weak, :concept_results, :created_at, :updated_at)
     end
 
     def find_by_id_or_uid(string)
