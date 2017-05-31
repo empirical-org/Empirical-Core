@@ -26,7 +26,7 @@ import {
   submitNewConceptResult,
   deleteConceptResult,
   removeLinkToParentID,
-  submitNewResponse
+  submitResponse
 } from '../../actions/responses';
 import activeComponent from 'react-router-active-component';
 
@@ -69,7 +69,7 @@ const Question = React.createClass({
     this.setState({ addingNewResponse: true, });
   },
 
-  submitNewResponse() {
+  submitResponse() {
     const newResp = {
       vals: {
         text: this.refs.newResponseText.value,
@@ -84,7 +84,7 @@ const Question = React.createClass({
     this.refs.newResponseFeedback.value = null;
     this.refs.newResponseOptimal.checked = false;
     // this.refs.boilerplate.value = null;
-    this.props.dispatch(submitNewResponse(newResp.vals));
+    this.props.dispatch(submitResponse(newResp.vals));
     this.setState({ addingNewResponse: false, });
   },
 
@@ -166,7 +166,7 @@ const Question = React.createClass({
                 Optimal?
               </label>
             </p>
-            <button className="button is-primary" onClick={this.submitNewResponse}>Add Response</button>
+            <button className="button is-primary" onClick={this.submitResponse}>Add Response</button>
           </div>
         </Modal>
       );

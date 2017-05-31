@@ -5,7 +5,7 @@ import ReactTransition from 'react-addons-css-transition-group';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
-  submitNewResponse,
+  submitResponse,
   incrementResponseCount,
   getResponsesWithCallback,
   getGradedResponsesWithCallback

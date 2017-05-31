@@ -77,7 +77,7 @@ module.exports = {
         } else {
           response.questionUID = newRef.key;
           response.gradeIndex = `human${newRef.key}`;
-          dispatch(submitNewResponse(response));
+          dispatch(submitResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           const action = push(`/admin/diagnosticQuestions/${newRef.key}`);
           dispatch(action);

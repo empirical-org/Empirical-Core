@@ -115,7 +115,7 @@ export function stopListeningToResponses(questionId) {
   };
 }
 
-export function submitNewResponse(content, prid, isFirstAttempt) {
+export function submitResponse(content, prid, isFirstAttempt) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
