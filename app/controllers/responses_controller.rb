@@ -1,6 +1,5 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: [:show, :update, :destroy, :increment_first_attempt_count]
-    # before_action :set_response, only: [:show, :update, :destroy]
+  before_action :set_response, only: [:show, :update, :destroy, :increment_counts]
 
   # GET /responses
   def index
@@ -46,17 +45,10 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
-  def increment_count
+  def increment_counts
     @response.increment!(:count)
-  end
-
-  def increment_first_attempt_count
-    @response.increment!(:first_attempt_count)
-    render json: @response
-  end
-
-  def increment_child_count
-    @response.increment!(:child_count)
+    increment_first_attempt_count
+    increment_child_count
   end
 
   private
@@ -76,4 +68,15 @@ class ResponsesController < ApplicationController
     rescue ArgumentError
       Response.find_by_uid(string)
     end
+
+    def increment_first_attempt_count
+      params[:is_first_attempt] ? @response.increment!(:first_attempt_count) : nil
+    end
+
+    def increment_child_count
+      # if {whatever condition makes you increase the child count}
+      @response.increment!(:child_count)
+      # end
+    end
+
 end
