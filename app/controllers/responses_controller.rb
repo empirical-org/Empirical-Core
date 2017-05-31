@@ -82,7 +82,7 @@ class ResponsesController < ApplicationController
     end
 
     def increment_first_attempt_count
-      params[:is_first_attempt] ? @response.increment!(:first_attempt_count) : nil
+      params[:response][:is_first_attempt] == "true" ? @response.increment!(:first_attempt_count) : nil
     end
 
     def increment_child_count_of_parent
