@@ -1,8 +1,6 @@
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';
-import Results from './components/results/results.jsx';
-import Review from './components/results/review.jsx';
 import Activities from './components/lessons/activities.jsx';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
@@ -50,10 +48,6 @@ render((
     <Router history={history}>
 
       {PlayRoutes}
-      <Route path="/results" component={Passthrough}>
-        <IndexRoute component={Results} />
-        <Route path="questions/:questionID" component={Review} />
-      </Route>
       {AdminRoutes}
       {/* </Route>*/}
 
