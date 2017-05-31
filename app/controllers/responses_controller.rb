@@ -48,7 +48,7 @@ class ResponsesController < ApplicationController
   def increment_counts
     @response.increment!(:count)
     increment_first_attempt_count
-    increment_child_count
+    increment_child_count_of_parent
   end
 
   private
@@ -73,10 +73,14 @@ class ResponsesController < ApplicationController
       params[:is_first_attempt] ? @response.increment!(:first_attempt_count) : nil
     end
 
-    def increment_child_count
-      # if {whatever condition makes you increase the child count}
-      @response.increment!(:child_count)
-      # end
+    def increment_child_count_of_parent
+      parent_id = @response.parent_id
+      parent_uid = @response.parent_uid
+      if parent_id || parent_uid
+        id = parent_id ? parent_id : parent_uid
+        parent = find_by_id_or_uid(id)
+        parent.increment!(:child_count)
+      end
     end
 
 end
