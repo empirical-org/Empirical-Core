@@ -24,6 +24,19 @@ class ResponsesController < ApplicationController
     end
   end
 
+  # POST /responses/create_or_increment
+  def create_or_increment
+    @response = Response.find_by_text_and_question_uid(response_params[:text], response_params[:question_uid])
+    if !@response
+      @response = Response.new(response_params)
+      if @response.save
+        render json: @response, status: :created, location: @response
+      end
+    else
+      increment_counts
+    end
+  end
+
   # PATCH/PUT /responses/1
   def update
     if @response.update(response_params)
