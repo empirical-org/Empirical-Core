@@ -3,6 +3,8 @@ import _ from 'underscore';
 import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
 import { hashToCollection } from '../libs/hashToCollection.js';
+import request from 'request';
+import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;
 const moment = require('moment');
@@ -114,22 +116,24 @@ export function stopListeningToResponses(questionId) {
 }
 
 export function submitNewResponse(content, prid, isFirstAttempt) {
-  const newResponse = Object.assign({}, content,
-    {
-      createdAt: moment().format('x'),
-      firstAttemptCount: isFirstAttempt ? 1 : 0
-    }
-  );
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  rubyConvertedResponse.created_at = moment().format('x');
+  rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
+  rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
-    // dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
-    const newRef = responsesRef.push(newResponse, (error) => {
-      // dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        dispatch(pathwaysActions.submitNewPathway(newRef.key, prid, newResponse.questionUID));
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      }
+    const cmsUrl = 'http://localhost:3100/';
+    request.post({
+      url: `${cmsUrl}responses/create_or_increment`,
+      form: { response: rubyConvertedResponse, },
+      function(error, httpStatus, body) {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus === 204 || httpStatus === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        } else {
+          console.log(body);
+        }
+      },
     });
   };
 }
@@ -186,8 +190,8 @@ export function incrementFirstAttemptCount(rid) {
       } else {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'first attempt count successfully incremented!', });
       }
-    })
-  }
+    });
+  };
 }
 
 export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
@@ -200,7 +204,7 @@ export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
         dispatch(pathwaysActions.submitNewPathway(rid, prid, qid));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully incremented!', });
         if (isFirstAttempt) {
-          dispatch(incrementFirstAttemptCount(rid))
+          dispatch(incrementFirstAttemptCount(rid));
         }
       }
     });
