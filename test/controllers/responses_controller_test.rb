@@ -35,4 +35,10 @@ class ResponsesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
+  test "should increment response count" do
+    put "/responses/#{@response.id}/count", params: {id: @response.uid, first_attempt_count: true}
+
+    assert_response 204
+  end
 end
