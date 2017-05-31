@@ -1,5 +1,6 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: [:show, :update, :destroy]
+  before_action :set_response, only: [:show, :update, :destroy, :increment_first_attempt_count]
+    # before_action :set_response, only: [:show, :update, :destroy]
 
   # GET /responses
   def index
@@ -43,6 +44,19 @@ class ResponsesController < ApplicationController
     @responses = Response.where(question_uid: params[:question_uid]).where.not(optimal: nil)
 
     render json: @responses
+  end
+
+  def increment_count
+    @response.increment!(:count)
+  end
+
+  def increment_first_attempt_count
+    @response.increment!(:first_attempt_count)
+    render json: @response
+  end
+
+  def increment_child_count
+    @response.increment!(:child_count)
   end
 
   private
