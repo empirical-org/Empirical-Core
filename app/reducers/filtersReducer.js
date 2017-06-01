@@ -33,7 +33,16 @@ const initialState = {
     ascending: false,
     visibleStatuses,
     expanded: {},  // this will contain response keys set to true or false;
-    formattedFilterData: {}
+    formattedFilterData: {
+      sort: {
+        column: 'count',
+        direction: 'desc'
+      },
+      filters: {
+        author: [],
+        status: []
+      }
+    }
   },
 }
 
@@ -114,10 +123,6 @@ export default function (currentState, action) {
       _.forIn(newState.visibleStatuses, (status, key) => {
         newState.visibleStatuses[key] = true;
       });
-      newState.formattedFilterData = getFormattedFilterData(newState)
-      return newState;
-    case C.GET_FORMATTED_SEARCH_DATA:
-      newState = _.cloneDeep(currentState);
       newState.formattedFilterData = getFormattedFilterData(newState)
       return newState;
     default:

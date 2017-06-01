@@ -473,14 +473,7 @@ const Responses = React.createClass({
     this.props.dispatch(filterActions.resetAllFields());
   },
 
-  getFormattedFilterData() {
-    if (Object.keys(this.props.filters.formattedFilterData).length === 0) {
-      this.props.dispatch(filterActions.getFormattedFilterData())
-    }
-  },
-
   getFormattedSearchData() {
-    this.getFormattedFilterData()
     const searchData = this.props.filters.formattedFilterData
     searchData.text = this.state.stringFilter
     searchData.pageNumber = this.state.responsePageNumber
