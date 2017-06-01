@@ -58,9 +58,11 @@ const Responses = React.createClass({
     }
     return {
       responses: [],
+      numberOfPages: 1,
+      responsePageNumber: 1,
+      numberOfResponses: 0,
       actions,
       viewingResponses: true,
-      responsePageNumber: 1,
       matcher,
       stringFilter: '',
       selectedResponses: [],
@@ -90,6 +92,8 @@ const Responses = React.createClass({
         console.log(parsedResponses);
         this.setState({
           responses: parsedResponses,
+          numberOfResponses: data.numberOfResults,
+          numberOfPages: data.numberOfPages,
         });
       }
     );
@@ -100,9 +104,7 @@ const Responses = React.createClass({
   },
 
   getResponseCount() {
-    if (this.props.responses) {
-      return hashToCollection(this.props.responses).length;
-    }
+    return this.state.numberOfResponses;
   },
 
   chooseMassEditBoilerplateCategory(e) {
@@ -421,11 +423,11 @@ const Responses = React.createClass({
     return responses;
   },
 
-  getBoundsForCurrentPage(responses) {
-    const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
-    const endIndex = startIndex + responsesPerPage > responses.length ? responses.length : startIndex + responsesPerPage;
-    return [startIndex, endIndex];
-  },
+  // getBoundsForCurrentPage(responses) {
+  //   const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
+  //   const endIndex = startIndex + responsesPerPage > responses.length ? responses.length : startIndex + responsesPerPage;
+  //   return [startIndex, endIndex];
+  // },
 
   renderResponses() {
     if (this.state.viewingResponses) {
@@ -679,13 +681,7 @@ const Responses = React.createClass({
   },
 
   getNumberOfPages() {
-    let array;
-    if (this.state.viewingResponses) {
-      array = this.gatherVisibleResponses();
-    } else {
-      array = hashToCollection(this.getPOSTagsList());
-    }
-    return Math.ceil(array.length / responsesPerPage);
+    return this.state.numberOfPages;
   },
 
   resetPageNumber() {
@@ -717,10 +713,7 @@ const Responses = React.createClass({
     //   array = this.getPOSTagsList()
     // }
 
-    const responses = this.gatherVisibleResponses();
-    const responsesPerPage = 20;
-    const numPages = Math.ceil(responses.length / responsesPerPage);
-    const pageNumbers = _.range(1, numPages + 1);
+    const pageNumbers = _.range(1, this.state.numberOfPages + 1);
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {
@@ -864,7 +857,7 @@ const Responses = React.createClass({
         </div>
         <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
         {/* {this.renderDisplayingMessage()} */}
-        {/* {this.renderPageNumbers()} */}
+        {this.renderPageNumbers()}
         {this.renderResponses()}
         {/* {this.renderPOSStrings()} */}
         {/* {this.renderPageNumbers()} */}
