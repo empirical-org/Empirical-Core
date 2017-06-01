@@ -7,7 +7,6 @@ module ResponseSearch
       sort: sort_values,
       query: query_values
     }
-    puts search_payload
     results = Response.__elasticsearch__.search(search_payload)
     page_number = query_filters[:pageNumber]
     {
@@ -50,8 +49,6 @@ module ResponseSearch
   end
 
   def add_not_filters(current_string, filters)
-    puts "Filters"
-    puts filters
     parsed_filters = filters.map do |key, value|
       key_value_to_not_string(key, value)
     end
