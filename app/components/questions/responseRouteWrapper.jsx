@@ -19,15 +19,15 @@ const ResponseComponentWrapper = React.createClass({
     const { questionID, } = this.props.params;
     console.log('PARAMS: ', this.props.params);
     // this.props.dispatch(loadResponseDataAndListen(questionID));
-    listenToResponsesWithCallback(
-      questionID,
-      (data) => {
-        this.setState({
-          responses: data,
-          loadedResponses: true,
-        });
-      }
-    );
+    // listenToResponsesWithCallback(
+    //   questionID,
+    //   (data) => {
+    //     this.setState({
+    //       responses: data,
+    //       loadedResponses: true,
+    //     });
+    //   }
+    // );
   },
 
   componentWillUnmount() {
@@ -56,22 +56,16 @@ const ResponseComponentWrapper = React.createClass({
     const { data, } = this.returnAppropriateDataset();
     const { states, } = this.props.questions;
     const { questionID, } = this.props.params;
-    if (this.state.loadedResponses) {
-      return (
-        <ResponseComponent
-          question={data[questionID]}
-          responses={this.getResponses()}
-          questionID={questionID}
-          states={states}
-          dispatch={this.props.dispatch}
-          admin
-        />
-      );
-    } else {
-      return (
-        <p>Loading</p>
-      );
-    }
+    return (
+      <ResponseComponent
+        question={data[questionID]}
+        responses={this.getResponses()}
+        questionID={questionID}
+        states={states}
+        dispatch={this.props.dispatch}
+        admin
+      />
+    );
   },
 });
 

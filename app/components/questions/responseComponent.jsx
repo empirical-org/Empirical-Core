@@ -29,6 +29,7 @@ import {
   removeLinkToParentID,
   setUpdatedResponse
 } from '../../actions/responses';
+import request from 'request';
 const C = require('../../constants').default;
 
 const labels = C.ERROR_AUTHORS;
@@ -56,6 +57,7 @@ const Responses = React.createClass({
       matcher = QuestionMatcher;
     }
     return {
+      responses: [],
       actions,
       viewingResponses: true,
       responsePageNumber: 1,
@@ -72,6 +74,23 @@ const Responses = React.createClass({
 
   componentWillUnmount() {
     this.clearResponsesFromMassEditArray();
+  },
+
+  componentDidMount() {
+    console.log('Mounting');
+    request(
+      {
+        url: `http://localhost:3100/questions/${this.props.questionID}/responses/search`,
+        method: 'POST',
+        json: { search: this.getFormattedSearchData(), },
+      },
+      (err, httpResponse, data) => {
+        console.log(data);
+        this.setState({
+          responses: data.results,
+        });
+      }
+    );
   },
 
   getTotalAttempts() {
@@ -190,18 +209,18 @@ const Responses = React.createClass({
   },
 
   renderMassEditSummaryList() {
-    const summaryResponses = this.props.massEdit.selectedResponses.map((response) => this.renderMassEditSummaryListResponse(response));
+    const summaryResponses = this.props.massEdit.selectedResponses.map(response => this.renderMassEditSummaryListResponse(response));
     return (<div key={response.key} className="content">{summaryResponses}</div>);
   },
 
   boilerplateCategoriesToOptions() {
-    return getBoilerplateFeedback().map((category) => (
+    return getBoilerplateFeedback().map(category => (
       <option key={category.key} className="boilerplate-feedback-dropdown-option">{category.description}</option>
       ));
   },
 
   boilerplateSpecificFeedbackToOptions(selectedCategory) {
-    return selectedCategory.children.map((childFeedback) => (
+    return selectedCategory.children.map(childFeedback => (
       <option key={childFeedback.key} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       ));
   },
@@ -427,7 +446,7 @@ const Responses = React.createClass({
   renderResponses() {
     if (this.state.viewingResponses) {
       const { questionID, } = this.props;
-      const responses = this.gatherVisibleResponses();
+      const responses = this.state.responses;
       const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
         responses={responsesListItems}
@@ -474,10 +493,10 @@ const Responses = React.createClass({
   },
 
   getFormattedSearchData() {
-    const searchData = this.props.filters.formattedFilterData
-    searchData.text = this.state.stringFilter
-    searchData.pageNumber = this.state.responsePageNumber
-    return searchData
+    const searchData = this.props.filters.formattedFilterData;
+    searchData.text = this.state.stringFilter;
+    searchData.pageNumber = this.state.responsePageNumber;
+    return searchData;
   },
 
   renderStatusToggleMenu() {
@@ -632,8 +651,6 @@ const Responses = React.createClass({
   handleStringFiltering() {
     this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, });
   },
-
-
 
   getFilteredResponses(responses) {
     if (this.state.stringFilter == '') {
@@ -837,7 +854,7 @@ const Responses = React.createClass({
   render() {
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
-        <QuestionBar data={_.values(this.formatForQuestionBar())} />{this.renderRematchAllButton()}
+        {/* <QuestionBar data={_.values(this.formatForQuestionBar())} />{this.renderRematchAllButton()} */}
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak reponses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
