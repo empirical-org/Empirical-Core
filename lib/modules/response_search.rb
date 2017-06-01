@@ -14,7 +14,7 @@ module ResponseSearch
       numberOfPages: results.page(page_number).total_pages,
       numberOfResults: results.total_count,
       numberOfResultsOnPage: results.page(page_number).size,
-      results: results.page(page_number)
+      results: results.page(page_number).records
     }
   end
 
