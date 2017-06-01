@@ -860,7 +860,7 @@ const Responses = React.createClass({
         {this.renderPageNumbers()}
         {this.renderResponses()}
         {/* {this.renderPOSStrings()} */}
-        {/* {this.renderPageNumbers()} */}
+        {this.renderPageNumbers()}
         {this.renderMassEditForm()}
       </div>
     );
