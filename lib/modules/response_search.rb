@@ -7,7 +7,15 @@ module ResponseSearch
       sort: sort_values,
       query: query_values
     }
-    Response.__elasticsearch__.search(search_payload)
+    puts search_payload
+    results = Response.__elasticsearch__.search(search_payload)
+    page_number = query_filters[:pageNumber]
+    {
+      numberOfPages: results.page(page_number).total_pages,
+      numberOfResults: results.total_count,
+      numberOfResultsOnPage: results.page(page_number).size,
+      results: results.page(page_number)
+    }
   end
 
   def get_sort_values(query_filters)
@@ -51,7 +59,11 @@ module ResponseSearch
   end
 
   def key_value_to_not_string(key, value)
-    vals = value.map {|val| "\"#{val}\"" }.join(" OR ")
-    " AND NOT #{key.to_s}:(#{vals})"
+    if value.empty?
+      return ""
+    else
+      vals = value.map {|val| "\"#{val}\"" }.join(" OR ")
+      " AND NOT #{key.to_s}:(#{vals})"
+    end
   end
 end
