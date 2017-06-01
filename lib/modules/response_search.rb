@@ -1,17 +1,21 @@
 module ResponseSearch
 
   def search_responses(question_uid, query_filters)
-    puts query_filters
     sort_values = get_sort_values(query_filters)
     query_values = get_query_values(question_uid, query_filters)
-    Response.__elasticsearch__.seach({
+    search_payload = {
       sort: sort_values,
       query: query_values
-    })
+    }
+    Response.__elasticsearch__.search(search_payload)
   end
 
   def get_sort_values(query_filters)
-
+    [
+      {
+        "#{query_filters[:sort][:column]&.underscore || 'count'}": "#{query_filters[:sort][:direction] || 'desc'}"
+      }
+    ]
   end
 
   def get_query_values(question_uid, query_filters)
@@ -31,13 +35,13 @@ module ResponseSearch
 
   def add_question_uid_filter(current_string, question_uid)
     if current_string.empty?
-      "question_uid:(#{question_uid})"
+      "question_uid:(\"#{question_uid}\")"
     else
-      current_string + " question_uid:(#{question_uid})"
+      current_string + " question_uid:(\"#{question_uid}\")"
     end
   end
 
-  def add_not_filters(string, filters)
+  def add_not_filters(current_string, filters)
     puts "Filters"
     puts filters
     parsed_filters = filters.map do |key, value|
