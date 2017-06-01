@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523175919) do
+ActiveRecord::Schema.define(version: 20170601140325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(version: 20170523175919) do
     t.string "author"
     t.text "text"
     t.text "feedback"
-    t.integer "count"
-    t.integer "first_attempt_count"
-    t.integer "child_count"
+    t.integer "count", default: 1
+    t.integer "first_attempt_count", default: 0
+    t.integer "child_count", default: 0
     t.boolean "optimal"
     t.boolean "weak"
     t.json "concept_results"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20170523175919) do
     t.index ["optimal"], name: "index_responses_on_optimal"
     t.index ["parent_uid"], name: "index_responses_on_parent_uid"
     t.index ["question_uid"], name: "index_responses_on_question_uid"
+    t.index ["text", "question_uid"], name: "index_responses_on_text_and_question_uid", unique: true
     t.index ["text"], name: "index_responses_on_text"
     t.index ["uid"], name: "index_responses_on_uid"
   end
