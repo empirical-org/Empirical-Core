@@ -1,4 +1,7 @@
+require 'modules/response_search'
+
 class ResponsesController < ApplicationController
+  include ResponseSearch
   before_action :set_response, only: [:show, :update, :destroy, :increment_counts]
 
   # GET /responses
@@ -57,10 +60,15 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
+
   def increment_counts
     @response.increment!(:count)
     increment_first_attempt_count
     increment_child_count_of_parent
+  end
+
+  def search
+    search_responses(params[:question_uid], params)
   end
 
   private
@@ -94,5 +102,4 @@ class ResponsesController < ApplicationController
         parent.increment!(:child_count)
       end
     end
-
 end
