@@ -86,8 +86,10 @@ const Responses = React.createClass({
       },
       (err, httpResponse, data) => {
         console.log(data);
+        const parsedResponses = _.indexBy(data.results, 'uid');
+        console.log(parsedResponses);
         this.setState({
-          responses: data.results,
+          responses: parsedResponses,
         });
       }
     );
@@ -285,7 +287,6 @@ const Responses = React.createClass({
     const unmatchedResponses = _.filter(responses, response =>
       // console.log(response)
        response.author === undefined && response.optimal === undefined && response.count > 1);
-    console.log(unmatchedResponses.length, responses.length);
     return ((unmatchedResponses.length / responses.length) * 100).toFixed(2);
   },
 
@@ -376,7 +377,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.props.responses));
+    return hashToCollection(respWithStatus(this.state.responses));
   },
 
   responsesGroupedByStatus() {
@@ -405,21 +406,6 @@ const Responses = React.createClass({
 
   gatherVisibleResponses() {
     const responses = this.responsesWithStatus();
-    const filtered = _.filter(responses, response => (
-        this.props.filters.visibleStatuses[qualityLabels[response.statusCode]] &&
-        (
-          this.props.filters.visibleStatuses[response.author] ||
-          (response.author === undefined && this.props.filters.visibleStatuses['No Hint'])
-        )
-      ));
-    const sorted = _.sortBy(filtered, resp =>
-        resp[this.props.filters.sorting] || 0
-    );
-    if (this.props.filters.ascending) {
-      return sorted;
-    } else {
-      return sorted.reverse();
-    }
   },
 
   getResponse(responseID) {
@@ -432,9 +418,7 @@ const Responses = React.createClass({
   },
 
   getResponsesForCurrentPage(responses) {
-    const bounds = this.getBoundsForCurrentPage(responses);
-    // go until responses.length because .slice ends at endIndex-1
-    return responses.slice(bounds[0], bounds[1]);
+    return responses;
   },
 
   getBoundsForCurrentPage(responses) {
@@ -446,10 +430,11 @@ const Responses = React.createClass({
   renderResponses() {
     if (this.state.viewingResponses) {
       const { questionID, } = this.props;
-      const responses = this.state.responses;
-      const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
+      const responses = this.responsesWithStatus();
+      console.log('Responses: ', responses);
+      // const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
-        responses={responsesListItems}
+        responses={responses}
         getResponse={this.getResponse}
         getChildResponses={this.getChildResponses}
         states={this.props.states}
@@ -878,11 +863,11 @@ const Responses = React.createClass({
           </div>
         </div>
         <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
-        {this.renderDisplayingMessage()}
-        {this.renderPageNumbers()}
+        {/* {this.renderDisplayingMessage()} */}
+        {/* {this.renderPageNumbers()} */}
         {this.renderResponses()}
-        {this.renderPOSStrings()}
-        {this.renderPageNumbers()}
+        {/* {this.renderPOSStrings()} */}
+        {/* {this.renderPageNumbers()} */}
         {this.renderMassEditForm()}
       </div>
     );
