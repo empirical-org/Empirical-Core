@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170601140325) do
     t.string "author"
     t.text "text"
     t.text "feedback"
-    t.integer "count", default: 0
+    t.integer "count", default: 1
     t.integer "first_attempt_count", default: 0
     t.integer "child_count", default: 0
     t.boolean "optimal"
