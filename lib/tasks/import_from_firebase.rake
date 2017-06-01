@@ -29,7 +29,12 @@ namespace :responses do
       vals["child_count"] = val["childCount"]
       vals["concept_results"] = val["conceptResults"]
       vals["created_at"] = val["createdAt"]
-      Response.create(vals)
+
+      begin
+        Response.create(vals)
+      rescue ActiveRecord::RecordNotUnique
+      end
+
     end
   end
 end
