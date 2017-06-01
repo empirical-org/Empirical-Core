@@ -18,5 +18,8 @@ module.exports = {
    },
    resetAllFields: function () {
      return {type: C.RESET_ALL_FIELDS}
+   },
+   getFormattedFilterData: function () {
+     return {type: C.GET_FORMATTED_FILTER_DATA}
    }
 };
