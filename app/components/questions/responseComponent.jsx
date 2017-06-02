@@ -82,6 +82,12 @@ const Responses = React.createClass({
     this.searchResponses();
   },
 
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
+      this.searchResponses();
+    }
+  },
+
   searchResponses() {
     request(
       {

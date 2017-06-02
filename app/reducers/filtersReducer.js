@@ -68,7 +68,7 @@ function getFilters(state) {
   const ignoredStatuses = []
   Object.entries(state.visibleStatuses).forEach(([key, value]) => {
     if (!value) {
-      if (mapStatus()[key]) {
+      if (mapStatus()[key] !== undefined) {
         ignoredStatuses.push(mapStatus()[key])
       } else {
         ignoredAuthors.push(key)
