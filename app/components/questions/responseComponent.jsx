@@ -643,7 +643,7 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, });
+    this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
   },
 
   getFilteredResponses(responses) {
