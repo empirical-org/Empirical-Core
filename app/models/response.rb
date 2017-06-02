@@ -2,6 +2,11 @@ require 'elasticsearch/model'
 
 class Response < ApplicationRecord
   include Elasticsearch::Model
+  after_create_commit :create_index_in_elastic_search
+  after_update_commit :update_index_in_elastic_search
+  after_destroy_commit :destroy_index_in_elastic_search
+
+
 
   def as_indexed_json(options={})
     {
@@ -17,6 +22,7 @@ class Response < ApplicationRecord
       first_attempt_count: first_attempt_count,
       author: author,
       status: grade_status,
+      created_at: created_at
     }
   end
 
@@ -28,6 +34,18 @@ class Response < ApplicationRecord
     else
       optimal ? 0 : 1
     end
+  end
+
+  def create_index_in_elastic_search
+    self.__elasticsearch__.index_document
+  end
+
+  def update_index_in_elastic_search
+    self.__elasticsearch__.update_document
+  end
+
+  def destroy_index_in_elastic_search
+    self.__elasticsearch__.delete_document
   end
 
 end
