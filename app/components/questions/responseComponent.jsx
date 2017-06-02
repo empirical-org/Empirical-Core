@@ -79,7 +79,10 @@ const Responses = React.createClass({
   },
 
   componentDidMount() {
-    console.log('Mounting');
+    this.searchResponses();
+  },
+
+  searchResponses() {
     request(
       {
         url: `http://localhost:3100/questions/${this.props.questionID}/responses/search`,
@@ -87,9 +90,7 @@ const Responses = React.createClass({
         json: { search: this.getFormattedSearchData(), },
       },
       (err, httpResponse, data) => {
-        console.log(data);
         const parsedResponses = _.indexBy(data.results, 'uid');
-        console.log(parsedResponses);
         this.setState({
           responses: parsedResponses,
           numberOfResponses: data.numberOfResults,
@@ -664,19 +665,19 @@ const Responses = React.createClass({
     return _.values(mapped);
   },
 
+  setPageNumber(pageNumber) {
+    this.setState({ responsePageNumber: pageNumber, }, () => this.searchResponses());
+  },
+
   incrementPageNumber() {
     if (this.state.responsePageNumber < this.getNumberOfPages()) {
-      this.setState({
-        responsePageNumber: this.state.responsePageNumber + 1,
-      });
+      this.setPageNumber(this.state.responsePageNumber + 1);
     }
   },
 
   decrementPageNumber() {
     if (this.state.responsePageNumber !== 1) {
-      this.setState({
-        responsePageNumber: this.state.responsePageNumber - 1,
-      });
+      this.setPageNumber(this.state.responsePageNumber - 1);
     }
   },
 
@@ -685,9 +686,7 @@ const Responses = React.createClass({
   },
 
   resetPageNumber() {
-    this.setState({
-      responsePageNumber: 1,
-    });
+    this.setPageNumber(1);
   },
 
   renderDisplayingMessage() {
@@ -726,7 +725,8 @@ const Responses = React.createClass({
       }
       return (
         <li key={i}>
-          <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a>
+          <a className="button" style={pageNumberStyle} onClick={() => this.setPageNumber(pageNumber)}>{pageNumber}</a>
+          {/* <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a> */}
         </li>
       );
     });
