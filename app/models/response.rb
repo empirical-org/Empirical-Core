@@ -2,6 +2,9 @@ require 'elasticsearch/model'
 
 class Response < ApplicationRecord
   include Elasticsearch::Model
+  after_create_commit :create_index_in_elastic_search
+  after_update_commit :update_index_in_elastic_search
+  after_destroy_commit :destroy_index_in_elastic_search
 
   settings index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
@@ -49,6 +52,18 @@ class Response < ApplicationRecord
     else
       optimal ? 0 : 1
     end
+  end
+
+  def create_index_in_elastic_search
+    self.__elasticsearch__.index_document
+  end
+
+  def update_index_in_elastic_search
+    self.__elasticsearch__.update_document
+  end
+
+  def destroy_index_in_elastic_search
+    self.__elasticsearch__.delete_document
   end
 
 end
