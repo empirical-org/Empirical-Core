@@ -18,11 +18,20 @@ module ResponseSearch
   end
 
   def get_sort_values(query_filters)
-    [
-      {
-        "#{query_filters[:sort][:column]&.underscore || 'count'}": "#{query_filters[:sort][:direction] || 'desc'}"
-      }
-    ]
+    if query_filters[:sort][:column] == 'text'
+      sort_value = [
+        {
+          "sortable_text": "#{query_filters[:sort][:direction] || 'desc'}"
+        }
+      ]
+    else
+      sort_value = [
+        {
+          "#{query_filters[:sort][:column]&.underscore || 'count'}": "#{query_filters[:sort][:direction] || 'desc'}"
+        }
+      ]
+    end
+    sort_value
   end
 
   def get_query_values(question_uid, query_filters)

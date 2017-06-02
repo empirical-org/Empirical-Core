@@ -5,7 +5,8 @@ class Response < ApplicationRecord
 
   settings index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
-      indexes :text, fielddata: true
+      indexes :text, type: 'string'
+      indexes :sortable_text, type: 'keyword'
       indexes :id, type: 'integer'
       indexes :uid, type: 'string'
       indexes :question_uid, type: 'string'
@@ -29,6 +30,7 @@ class Response < ApplicationRecord
       parent_id: parent_id,
       parent_uid: parent_uid,
       text: text,
+      sortable_text: text.downcase,
       feedback: feedback,
       count: count,
       child_count: child_count,
