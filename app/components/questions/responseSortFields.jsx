@@ -30,7 +30,7 @@ export default React.createClass({
         {this.renderSortField('First Attempts', 'firstAttemptCount')}
         {this.renderSortField('Text', 'text')}
         {this.renderSortField('Created At', 'createdAt')}
-        {this.renderSortField('Status', 'statusCode')}
+        {this.renderSortField('Status', 'status')}
       </ul>
     );
   },
