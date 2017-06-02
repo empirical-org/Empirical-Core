@@ -53,7 +53,7 @@ module ResponseSearch
     if current_string.empty?
       "question_uid:(\"#{question_uid}\")"
     else
-      current_string + " question_uid:(\"#{question_uid}\")"
+      current_string + " AND question_uid:(\"#{question_uid}\")"
     end
   end
 
