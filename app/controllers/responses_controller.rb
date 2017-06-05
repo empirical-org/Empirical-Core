@@ -1,4 +1,7 @@
+require 'modules/response_search'
+
 class ResponsesController < ApplicationController
+  include ResponseSearch
   before_action :set_response, only: [:show, :update, :destroy, :increment_counts]
 
   # GET /responses
@@ -39,7 +42,11 @@ class ResponsesController < ApplicationController
 
   # PATCH/PUT /responses/1
   def update
-    if @response.update(response_params)
+    new_vals = response_params
+    if new_vals[:concept_results]
+      new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+    end
+    if @response.update(new_vals)
       render json: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -57,10 +64,15 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
+
   def increment_counts
     @response.increment!(:count)
     increment_first_attempt_count
     increment_child_count_of_parent
+  end
+
+  def search
+    render json: search_responses(params[:question_uid], search_params)
   end
 
   private
@@ -69,9 +81,37 @@ class ResponsesController < ApplicationController
       @response = find_by_id_or_uid(params[:id])
     end
 
+    def search_params
+      params.require(:search).permit(
+        :pageNumber,
+        :text,
+        filters: {},
+        sort: {}
+
+      )
+    end
+
     # Only allow a trusted parameter "white list" through.
     def response_params
-      params.require(:response).permit( :id, :uid, :parent_id, :parent_uid, :question_uid, :author, :text, :feedback, :count, :first_attempt_count, :child_count, :optimal, :weak, :concept_results, :created_at, :updated_at)
+      params.require(:response).permit(
+        :id,
+        :uid,
+        :parent_id,
+        :parent_uid,
+        :question_uid,
+        :author,
+        :text,
+        :feedback,
+        :count,
+        :first_attempt_count,
+        :child_count,
+        :optimal,
+        :weak,
+        :created_at,
+        :updated_at,
+        :search,
+        concept_results: {}
+      )
     end
 
     def find_by_id_or_uid(string)
@@ -85,6 +125,12 @@ class ResponsesController < ApplicationController
       params[:response][:is_first_attempt] == "true" ? @response.increment!(:first_attempt_count) : nil
     end
 
+    def concept_results_to_boolean(concept_results)
+      concept_results.each do |key, val|
+        concept_results[key] = val == 'true'
+      end
+    end
+
     def increment_child_count_of_parent
       parent_id = @response.parent_id
       parent_uid = @response.parent_uid
@@ -94,5 +140,4 @@ class ResponsesController < ApplicationController
         parent.increment!(:child_count)
       end
     end
-
 end

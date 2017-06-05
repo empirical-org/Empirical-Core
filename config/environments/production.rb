@@ -86,7 +86,7 @@ Rails.application.configure do
   config.middleware.insert_before 0, Rack::Cors do
     allow do
       origins 'https://connect.quill.org'
-      resource '*quill.org', :headers => :any, :methods => [:get, :post, :options]
+      resource '*quill.org', :headers => :any, :methods => [:get, :post, :options, :delete]
     end
   end
 end
