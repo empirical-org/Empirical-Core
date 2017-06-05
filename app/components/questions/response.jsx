@@ -13,7 +13,6 @@ import massEdit from '../../actions/massEdit';
 import {
   deleteResponse,
   submitResponseEdit,
-  setUpdatedResponse,
   incrementResponseCount,
   removeLinkToParentID,
 } from '../../actions/responses';
@@ -197,14 +196,12 @@ export default React.createClass({
     });
   },
 
-  // FIXME CR
   saveNewConceptResult() {
     const conceptResults = this.props.response.concept_results || {};
     conceptResults[this.state.newConceptResult.conceptUID] = this.state.newConceptResult.correct;
     this.props.dispatch(submitResponseEdit(this.props.response.key, { conceptResults, }, this.props.questionID));
   },
 
-  // FIXME CR
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
       const conceptResults = Object.assign({}, this.props.response.concept_results || {});

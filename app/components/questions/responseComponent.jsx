@@ -272,7 +272,7 @@ const Responses = React.createClass({
   },
 
   updateRematchedResponse(rid, vals) {
-    this.props.dispatch(submitResponseEdit(rid, vals));
+    this.props.dispatch(submitResponseEdit(rid, vals, this.props.questionID));
   },
 
   getPercentageWeakResponses() {
@@ -349,13 +349,15 @@ const Responses = React.createClass({
       if (unmatched) {
         const newValues = {
           weak: false,
+          feedback: undefined,
+          parentID: undefined,
           text: response.text,
           count: response.count,
           questionUID: response.questionUID,
           gradeIndex: `unmatched${response.questionUID}`,
         };
         this.props.dispatch(
-            setUpdatedResponse(rid, newValues)
+            this.updateRematchedResponse(rid, newValues)
           );
       } else if (newMatchedResponse.response.parentID === undefined) {
         this.props.dispatch(
