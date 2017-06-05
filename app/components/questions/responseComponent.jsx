@@ -85,6 +85,9 @@ const Responses = React.createClass({
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
       this.searchResponses();
+    } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
+      this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
+      this.searchResponses();
     }
   },
 
@@ -440,7 +443,6 @@ const Responses = React.createClass({
     if (this.state.viewingResponses) {
       const { questionID, } = this.props;
       const responses = this.responsesWithStatus();
-      console.log('Responses: ', responses);
       // const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
         responses={responses}

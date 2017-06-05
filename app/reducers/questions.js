@@ -80,9 +80,12 @@ export default function (currentstate, action) {
       newstate.states[action.qid] = C.SUBMITTING_RESPONSE;
       return newstate;
     case C.SHOULD_RELOAD_RESPONSES:
-      console.log('Should reload');
       newstate = _.cloneDeep(currentstate);
       newstate.states[action.qid] = C.SHOULD_RELOAD_RESPONSES;
+      return newstate;
+    case C.CLEAR_QUESTION_STATE:
+      newstate = _.cloneDeep(currentstate);
+      delete newstate.states[action.qid];
       return newstate;
     default: return currentstate || initialState.questions;
   }

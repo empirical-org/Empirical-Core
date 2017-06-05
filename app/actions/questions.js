@@ -184,4 +184,7 @@ module.exports = {
   cancelToResponseView(qid, rid) {
     return { type: C.CANCEL_TO_RESPONSE_VIEW, qid, rid, };
   },
+  clearQuestionState(qid) {
+    return { type: C.CLEAR_QUESTION_STATE, qid, };
+  },
 };
