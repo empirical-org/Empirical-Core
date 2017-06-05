@@ -318,3 +318,9 @@ progress[value]::-webkit-progress-value {
     padding-left: 15px;
   }
 }
+
+.ell-illustration {
+  @media (max-width: 500px) {
+    display: none;
+  }
+}

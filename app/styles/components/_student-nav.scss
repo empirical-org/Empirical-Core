@@ -15,4 +15,32 @@
             padding: 0 4% 0 4%;
         }
     }
+  &.ell-nav {
+    .nav-toggle {
+      display: none;
+    }
+    .nav-right {
+      align-items: stretch;
+      display: flex;
+      flex-basis: 0;
+      flex-grow: 1;
+      flex-shrink: 0;
+      justify-content: flex-end;
+        .nav-language-selector-container {
+          display: flex;
+          align-items: center;
+          @media (max-width: 690px) {
+            .nav-language-selector-directions {
+              display: none;
+            }
+            .nav-language-selector-trigger, .nav-language-selector-dropdown {
+              width: 132px;
+              .language-button-img {
+                margin-right: 7px;
+              }
+            }
+          }
+        }
+    }
+  }
 }

@@ -33,8 +33,12 @@ const Navbar = React.createClass({
     }
   },
 
+  ellDiagnostic() {
+    return window.location.href.includes('play/diagnostic/ell')
+  },
+
   renderLanguageSelector() {
-    if (window.location.href.includes('play/diagnostic/ell')) {
+    if (this.ellDiagnostic()) {
       return (
         <LanguageSelector />
       );
@@ -42,8 +46,9 @@ const Navbar = React.createClass({
   },
 
   renderLinks() {
+    const navMenu = this.ellDiagnostic() ? '' : 'nav-menu'
     return (
-      <div className="nav-right nav-menu" style={this.navStyles()}>
+      <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
         {this.renderLanguageSelector()}
         <a onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
       </div>
@@ -51,8 +56,9 @@ const Navbar = React.createClass({
   },
 
   render() {
+    const ellNavClassName = this.ellDiagnostic() ? 'ell-nav' : ''
     return (
-      <header className="nav student-nav" style={{ height: '50px', }}>
+      <header className={`nav student-nav ${ellNavClassName}`} style={{ height: '50px', }}>
         <div className="container">
           <div className="nav-left">
             <a href={`${process.env.EMPIRICAL_BASE_URL}`} className="nav-item">

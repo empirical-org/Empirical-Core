@@ -7,7 +7,7 @@ class TitleCard extends Component {
   getContentHTML() {
     let html = translations.english[this.props.data.content];
     if (this.props.language !== 'english') {
-      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
+      const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
       html += `<br/><div class="${textClass}">${translations[this.props.language][this.props.data.content]}</div>`;
     }
     return html;

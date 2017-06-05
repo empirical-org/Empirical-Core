@@ -15,7 +15,7 @@ import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const styles = {
   container: {
-    marginTop: 15,
+    marginTop: 35,
     marginBottom: 18,
     display: 'flex',
     alignItems: 'center',
@@ -119,7 +119,15 @@ export class PlayFillInTheBlankQuestion extends Component {
     } else {
       newErrors.delete(i);
     }
-    this.setState({ inputErrors: newErrors, });
+
+    // following condition will return false if no new errors
+    if (newErrors.size) {
+      const newInputVals = this.state.inputVals
+      newInputVals[i] = ''
+      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
+    } else {
+      this.setState({ inputErrors: newErrors });
+    }
   }
 
   renderWarning(i) {
@@ -268,7 +276,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   renderMedia() {
     if (this.getQuestion().mediaURL) {
       return (
-        <div style={{ marginTop: 15, minWidth: 200, }}>
+        <div className='ell-illustration' style={{ marginTop: 15, minWidth: 200 }}>
           <img src={this.getQuestion().mediaURL} />
         </div>
       );
@@ -294,15 +302,21 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   render() {
+    let fullPageInstructions
+    if (this.props.language === 'arabic' && !(this.getQuestion().mediaURL)) {
+      fullPageInstructions = { maxWidth: 800, width: '100%' }
+    } else {
+      fullPageInstructions = { display: 'block' }
+    }
     return (
       <div className="student-container-inner-diagnostic">
-        <div style={{ display: 'flex', }}>
-          <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={fullPageInstructions}>
             {this.renderPrompt()}
             <Cues getQuestion={this.getQuestion} customText={this.customText()} />
             <div className="feedback-row">
               <img src={icon} alt="icon" style={{ marginTop: 3, }} />
-              <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
+              <div style={fullPageInstructions} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
             </div>
           </div>
           {this.renderMedia()}
