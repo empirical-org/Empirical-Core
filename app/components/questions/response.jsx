@@ -7,9 +7,7 @@ import ConceptSelector from '../shared/conceptSelector.jsx';
 import Modal from '../modal/modal.jsx';
 import ResponseList from './responseList.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
-import Textarea from 'react-textarea-autosize';
 import TextEditor from './textEditor.jsx';
-import feedbackActions from '../../actions/concepts-feedback.js';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import massEdit from '../../actions/massEdit';
 import {
@@ -18,13 +16,11 @@ import {
   setUpdatedResponse,
   incrementResponseCount,
   removeLinkToParentID,
-  submitNewConceptResult,
-  deleteConceptResult
 } from '../../actions/responses';
 
 const jsDiff = require('diff');
-const Markdown = require('react-remarkable');
 const C = require('../../constants').default;
+
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
 export default React.createClass({
@@ -134,26 +130,7 @@ export default React.createClass({
   },
 
   rematchResponse(rid) {
-    const newResponse = this.props.getMatchingResponse(rid);
-    // if (!newResponse.found) {
-    //   const newValues = {
-    //     text: this.props.response.text,
-    //     count: this.props.response.count,
-    //   };
-    //   this.props.dispatch(
-    //     setUpdatedResponse(rid, newValues)
-    //   );
-    //   return;
-    // }
-    // if (newResponse.response.key === this.props.response.parentID) {
-    //
-    // } else {
-    //   const newErrorResp = {
-    //     parentID: newResponse.response.key,
-    //     feedback: this.generateFeedbackString(newResponse),
-    //   };
-    //   this.updateRematchedResponse(rid, newErrorResp);
-    // }
+    this.props.getMatchingResponse(rid);
   },
 
   chooseConcept(e) {
@@ -170,9 +147,7 @@ export default React.createClass({
     this.props.dispatch(removeLinkToParentID(rid));
   },
 
-  applyDiff(answer, response) {
-    answer = answer || '';
-    response = response || '';
+  applyDiff(answer = '', response = '') {
     const diff = jsDiff.diffWords(response, answer);
     const spans = diff.map((part) => {
       const fontWeight = part.added ? 'bold' : 'normal';
@@ -222,25 +197,19 @@ export default React.createClass({
     });
   },
 
+  // FIXME CR
   saveNewConceptResult() {
-    const conceptResults = this.props.response.conceptResults || {};
-    const conceptResultUids = Object.keys(conceptResults).map(concept => conceptResults[concept].conceptUID);
-    if (conceptResultUids.includes(this.state.newConceptResult.conceptUID)) {
-      const conceptKey = _.compact(_.map(conceptResults, (concept, conceptValues) => {
-        if (concept.conceptUID == this.state.newConceptResult.conceptUID) {
-          return concept;
-        } else {
-          return null;
-        }
-      }))[0].key;
-      this.props.dispatch(deleteConceptResult(this.props.questionID, this.props.response.key, conceptKey));
-    }
-    this.props.dispatch(submitNewConceptResult(this.props.questionID, this.props.response.key, this.state.newConceptResult));
+    const conceptResults = this.props.response.concept_results || {};
+    conceptResults[this.state.newConceptResult.conceptUID] = this.state.newConceptResult.correct;
+    this.props.dispatch(submitResponseEdit(this.props.response.key, { conceptResults, }, this.props.questionID));
   },
 
+  // FIXME CR
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      this.props.dispatch(deleteConceptResult(this.props.questionID, this.props.response.key, crid));
+      const conceptResults = Object.assign({}, this.props.response.concept_results || {});
+      delete conceptResults[crid];
+      this.props.dispatch(submitResponseEdit(this.props.response.key, { conceptResults, }, this.props.questionID));
     }
   },
   chooseBoilerplateCategory(e) {
