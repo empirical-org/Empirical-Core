@@ -23,7 +23,8 @@ class Unit < ActiveRecord::Base
 
 
   def hide_if_no_visible_classroom_activities
-    if  ClassroomActivity.unscoped.where(unit_id: self.id, visible: false).length == self.classroom_activities.length
+    self.reload
+    if self.classroom_activities.empty?
       self.update(visible: false)
     end
   end

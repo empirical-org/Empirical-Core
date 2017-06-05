@@ -10,6 +10,9 @@ module EditUnits
                               where(classroom_id: c['id'], unit_id: unit.id).
                               limit(1)
       c[:classroom_activity] = classroom_activity.try(:first) || nil
+      if c[:classroom_activity] && c[:classroom_activity][:assigned_student_ids].empty?
+        c[:classroom_activity][:assigned_student_ids] = c[:students].map(&:id)
+      end
     end
     classrooms
   end

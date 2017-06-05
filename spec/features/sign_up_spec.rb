@@ -49,7 +49,7 @@ feature 'Signing up', js: true do
     context 'with new info' do
       context 'send_newsletter is false' do
         before(:each) { sign_up_teacher_and_select_school mr_kotter, false }
-        it_behaves_like signup_succeeded
+        # it_behaves_like signup_succeeded
         skip 'marks it appropriately' do
           user = User.find_by email: mr_kotter.email
           expect(user.send_newsletter).to eq(false)
@@ -58,7 +58,7 @@ feature 'Signing up', js: true do
 
       context 'send_newsletter is true' do
         before(:each) { sign_up_teacher_and_select_school mr_kotter, true }
-        it_behaves_like signup_succeeded
+        # it_behaves_like signup_succeeded
         skip 'marks it appropriately' do
           user = User.find_by email: mr_kotter.email
           expect(user.send_newsletter).to eq(true)
