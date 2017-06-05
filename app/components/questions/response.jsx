@@ -312,30 +312,34 @@ export default React.createClass({
   },
 
   renderConceptResults(mode) {
-    if (this.props.response.conceptResults) {
-      return hashToCollection(this.props.response.conceptResults).map((cr) => {
-        const concept = _.find(this.props.concepts.data['0'], { uid: cr.conceptUID, });
+    if (this.props.response.concept_results) {
+      // return hashToCollection(this.props.response.conceptResults).map((cr) => {
+      const cr = this.props.response.concept_results;
+      const results = [];
+      for (const uid in cr) {
+        const concept = _.find(this.props.concepts.data['0'], { uid, });
         let deleteIcon;
         if (mode === 'Editing') {
-          deleteIcon = <button onClick={this.deleteConceptResult.bind(null, cr.key)}>{'Delete'}</button>;
+          deleteIcon = <button onClick={this.deleteConceptResult.bind(null, uid)}>{'Delete'}</button>;
         } else {
           deleteIcon = <span />;
         }
 
         if (concept) {
-          return (
+          results.push((
             <li key={concept.id}>
-              {concept.displayName} {cr.correct ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+              {concept.displayName} {cr[uid] ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
               {'\t'}
               {deleteIcon}
             </li>
-          );
+          ));
         } else {
-          return (
+          results.push((
             <div />
-          );
+          ));
         }
-      });
+      }
+      return results;
     } else {
       const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
       if (concept) {
