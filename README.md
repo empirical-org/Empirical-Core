@@ -6,6 +6,7 @@
 1. - rake db:migrate
 1. - rake responses:import
 1. - brew install elasticsearch
+1. - brew services start elasticsearch
 1. - rails c
 1. - `Response.__elasticsearch__.create_index!`
 1. - `Response.__elasticsearch__.import`
