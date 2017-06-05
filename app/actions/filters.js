@@ -18,5 +18,5 @@ module.exports = {
    },
    resetAllFields: function () {
      return {type: C.RESET_ALL_FIELDS}
-   }
+   },
 };

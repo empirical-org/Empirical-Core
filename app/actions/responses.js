@@ -8,7 +8,7 @@ import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;
 const moment = require('moment');
-
+const cmsUrl = 'http://localhost:3100/';
 const responsesRef = rootRef.child('responses');
 
 export function deleteStatus(questionId) {
@@ -121,58 +121,60 @@ export function submitResponse(content, prid, isFirstAttempt) {
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
-    const cmsUrl = 'http://localhost:3100/';
     request.post({
       url: `${cmsUrl}responses/create_or_increment`,
-      form: { response: rubyConvertedResponse, },
-      function(error, httpStatus, body) {
+      form: { response: rubyConvertedResponse, }, },
+      (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else if (httpStatus === 204 || httpStatus === 200) {
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
         } else {
           console.log(body);
         }
       },
-    });
+    );
+  };
+}
+
+export function submitResponseEdit(rid, content, qid) {
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  return (dispatch) => {
+    request.put({
+      url: `${cmsUrl}responses/${rid}`,
+      form: { response: rubyConvertedResponse, }, },
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
+        } else {
+          console.log(body);
+        }
+      });
   };
 }
 
 export function deleteResponse(qid, rid) {
   return (dispatch) => {
-    responsesRef.child(rid).remove((error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-      } else {
-        responsesForQuestionRef(qid).on('value', (data) => {
-          const childResponseKeys = _.keys(data.val().responses).filter(
-            key => data.val().responses[key].parentID === rid
-          );
-          childResponseKeys.forEach((childKey) => {
-            dispatch(module.exports.deleteResponse(qid, childKey));
-          });
-        });
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Response successfully deleted!', });
-      }
-    });
+    request.delete(
+      `${cmsUrl}responses/${rid}`,
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
+        } else {
+          console.log(body);
+        }
+      },
+    );
   };
 }
 
 export function setUpdatedResponse(rid, content) {
   return (dispatch) => {
     responsesRef.child(rid).set(content, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
-    });
-  };
-}
-
-export function submitResponseEdit(rid, content) {
-  return (dispatch) => {
-    responsesRef.child(rid).update(content, (error) => {
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
       } else {
@@ -240,26 +242,6 @@ export function removeLinkToParentID(rid) {
   };
 }
 
-export function submitNewConceptResult(qid, rid, data) {
-  return () => {
-    responsesRef.child(`${rid}/conceptResults`).push(data, (error) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
-    });
-  };
-}
-
-export function deleteConceptResult(qid, rid, crid) {
-  return () => {
-    responsesRef.child(`${rid}/conceptResults/${crid}`).remove((error) => {
-      if (error) {
-        alert(`Delete failed! ${error}`);
-      }
-    });
-  };
-}
-
 function makeIterator(array) {
   let nextIndex = 0;
 
@@ -291,7 +273,6 @@ function gradedResponsesForQuestionRef(questionId) {
 }
 
 export function getGradedResponsesWithCallback(questionID, callback) {
-  const cmsUrl = 'http://localhost:3100/';
   request(`${cmsUrl}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
       console.log('error:', error); // Print the error if one occurred

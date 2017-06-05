@@ -29,6 +29,7 @@ import {
   removeLinkToParentID,
   setUpdatedResponse
 } from '../../actions/responses';
+import request from 'request';
 const C = require('../../constants').default;
 
 const labels = C.ERROR_AUTHORS;
@@ -56,9 +57,12 @@ const Responses = React.createClass({
       matcher = QuestionMatcher;
     }
     return {
+      responses: [],
+      numberOfPages: 1,
+      responsePageNumber: 1,
+      numberOfResponses: 0,
       actions,
       viewingResponses: true,
-      responsePageNumber: 1,
       matcher,
       stringFilter: '',
       selectedResponses: [],
@@ -74,14 +78,43 @@ const Responses = React.createClass({
     this.clearResponsesFromMassEditArray();
   },
 
+  componentDidMount() {
+    this.searchResponses();
+  },
+
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
+      this.searchResponses();
+    } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
+      this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
+      this.searchResponses();
+    }
+  },
+
+  searchResponses() {
+    request(
+      {
+        url: `http://localhost:3100/questions/${this.props.questionID}/responses/search`,
+        method: 'POST',
+        json: { search: this.getFormattedSearchData(), },
+      },
+      (err, httpResponse, data) => {
+        const parsedResponses = _.indexBy(data.results, 'uid');
+        this.setState({
+          responses: parsedResponses,
+          numberOfResponses: data.numberOfResults,
+          numberOfPages: data.numberOfPages,
+        });
+      }
+    );
+  },
+
   getTotalAttempts() {
     return _.reduce(this.props.responses, (memo, item) => memo + item.count, 0);
   },
 
   getResponseCount() {
-    if (this.props.responses) {
-      return hashToCollection(this.props.responses).length;
-    }
+    return this.state.numberOfResponses;
   },
 
   chooseMassEditBoilerplateCategory(e) {
@@ -190,18 +223,18 @@ const Responses = React.createClass({
   },
 
   renderMassEditSummaryList() {
-    const summaryResponses = this.props.massEdit.selectedResponses.map((response) => this.renderMassEditSummaryListResponse(response));
+    const summaryResponses = this.props.massEdit.selectedResponses.map(response => this.renderMassEditSummaryListResponse(response));
     return (<div key={response.key} className="content">{summaryResponses}</div>);
   },
 
   boilerplateCategoriesToOptions() {
-    return getBoilerplateFeedback().map((category) => (
+    return getBoilerplateFeedback().map(category => (
       <option key={category.key} className="boilerplate-feedback-dropdown-option">{category.description}</option>
       ));
   },
 
   boilerplateSpecificFeedbackToOptions(selectedCategory) {
-    return selectedCategory.children.map((childFeedback) => (
+    return selectedCategory.children.map(childFeedback => (
       <option key={childFeedback.key} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       ));
   },
@@ -239,7 +272,7 @@ const Responses = React.createClass({
   },
 
   updateRematchedResponse(rid, vals) {
-    this.props.dispatch(submitResponseEdit(rid, vals));
+    this.props.dispatch(submitResponseEdit(rid, vals, this.props.questionID));
   },
 
   getPercentageWeakResponses() {
@@ -266,7 +299,6 @@ const Responses = React.createClass({
     const unmatchedResponses = _.filter(responses, response =>
       // console.log(response)
        response.author === undefined && response.optimal === undefined && response.count > 1);
-    console.log(unmatchedResponses.length, responses.length);
     return ((unmatchedResponses.length / responses.length) * 100).toFixed(2);
   },
 
@@ -317,13 +349,15 @@ const Responses = React.createClass({
       if (unmatched) {
         const newValues = {
           weak: false,
+          feedback: undefined,
+          parentID: undefined,
           text: response.text,
           count: response.count,
           questionUID: response.questionUID,
           gradeIndex: `unmatched${response.questionUID}`,
         };
         this.props.dispatch(
-            setUpdatedResponse(rid, newValues)
+            this.updateRematchedResponse(rid, newValues)
           );
       } else if (newMatchedResponse.response.parentID === undefined) {
         this.props.dispatch(
@@ -357,7 +391,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.props.responses));
+    return hashToCollection(respWithStatus(this.state.responses));
   },
 
   responsesGroupedByStatus() {
@@ -386,21 +420,6 @@ const Responses = React.createClass({
 
   gatherVisibleResponses() {
     const responses = this.responsesWithStatus();
-    const filtered = _.filter(responses, response => (
-        this.props.filters.visibleStatuses[qualityLabels[response.statusCode]] &&
-        (
-          this.props.filters.visibleStatuses[response.author] ||
-          (response.author === undefined && this.props.filters.visibleStatuses['No Hint'])
-        )
-      ));
-    const sorted = _.sortBy(filtered, resp =>
-        resp[this.props.filters.sorting] || 0
-    );
-    if (this.props.filters.ascending) {
-      return sorted;
-    } else {
-      return sorted.reverse();
-    }
   },
 
   getResponse(responseID) {
@@ -413,24 +432,22 @@ const Responses = React.createClass({
   },
 
   getResponsesForCurrentPage(responses) {
-    const bounds = this.getBoundsForCurrentPage(responses);
-    // go until responses.length because .slice ends at endIndex-1
-    return responses.slice(bounds[0], bounds[1]);
+    return responses;
   },
 
-  getBoundsForCurrentPage(responses) {
-    const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
-    const endIndex = startIndex + responsesPerPage > responses.length ? responses.length : startIndex + responsesPerPage;
-    return [startIndex, endIndex];
-  },
+  // getBoundsForCurrentPage(responses) {
+  //   const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
+  //   const endIndex = startIndex + responsesPerPage > responses.length ? responses.length : startIndex + responsesPerPage;
+  //   return [startIndex, endIndex];
+  // },
 
   renderResponses() {
     if (this.state.viewingResponses) {
       const { questionID, } = this.props;
-      const responses = this.gatherVisibleResponses();
-      const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
+      const responses = this.responsesWithStatus();
+      // const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
-        responses={responsesListItems}
+        responses={responses}
         getResponse={this.getResponse}
         getChildResponses={this.getChildResponses}
         states={this.props.states}
@@ -471,6 +488,13 @@ const Responses = React.createClass({
 
   resetFields() {
     this.props.dispatch(filterActions.resetAllFields());
+  },
+
+  getFormattedSearchData() {
+    const searchData = this.props.filters.formattedFilterData;
+    searchData.text = this.state.stringFilter;
+    searchData.pageNumber = this.state.responsePageNumber;
+    return searchData;
   },
 
   renderStatusToggleMenu() {
@@ -623,7 +647,7 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, });
+    this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
   },
 
   getFilteredResponses(responses) {
@@ -651,36 +675,28 @@ const Responses = React.createClass({
     return _.values(mapped);
   },
 
+  setPageNumber(pageNumber) {
+    this.setState({ responsePageNumber: pageNumber, }, () => this.searchResponses());
+  },
+
   incrementPageNumber() {
     if (this.state.responsePageNumber < this.getNumberOfPages()) {
-      this.setState({
-        responsePageNumber: this.state.responsePageNumber + 1,
-      });
+      this.setPageNumber(this.state.responsePageNumber + 1);
     }
   },
 
   decrementPageNumber() {
     if (this.state.responsePageNumber !== 1) {
-      this.setState({
-        responsePageNumber: this.state.responsePageNumber - 1,
-      });
+      this.setPageNumber(this.state.responsePageNumber - 1);
     }
   },
 
   getNumberOfPages() {
-    let array;
-    if (this.state.viewingResponses) {
-      array = this.gatherVisibleResponses();
-    } else {
-      array = hashToCollection(this.getPOSTagsList());
-    }
-    return Math.ceil(array.length / responsesPerPage);
+    return this.state.numberOfPages;
   },
 
   resetPageNumber() {
-    this.setState({
-      responsePageNumber: 1,
-    });
+    this.setPageNumber(1);
   },
 
   renderDisplayingMessage() {
@@ -706,10 +722,7 @@ const Responses = React.createClass({
     //   array = this.getPOSTagsList()
     // }
 
-    const responses = this.gatherVisibleResponses();
-    const responsesPerPage = 20;
-    const numPages = Math.ceil(responses.length / responsesPerPage);
-    const pageNumbers = _.range(1, numPages + 1);
+    const pageNumbers = _.range(1, this.state.numberOfPages + 1);
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {
@@ -722,7 +735,8 @@ const Responses = React.createClass({
       }
       return (
         <li key={i}>
-          <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a>
+          <a className="button" style={pageNumberStyle} onClick={() => this.setPageNumber(pageNumber)}>{pageNumber}</a>
+          {/* <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a> */}
         </li>
       );
     });
@@ -828,7 +842,7 @@ const Responses = React.createClass({
   render() {
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
-        <QuestionBar data={_.values(this.formatForQuestionBar())} />{this.renderRematchAllButton()}
+        {/* <QuestionBar data={_.values(this.formatForQuestionBar())} />{this.renderRematchAllButton()} */}
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak reponses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
@@ -852,10 +866,10 @@ const Responses = React.createClass({
           </div>
         </div>
         <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
-        {this.renderDisplayingMessage()}
+        {/* {this.renderDisplayingMessage()} */}
         {this.renderPageNumbers()}
         {this.renderResponses()}
-        {this.renderPOSStrings()}
+        {/* {this.renderPOSStrings()} */}
         {this.renderPageNumbers()}
         {this.renderMassEditForm()}
       </div>

@@ -95,24 +95,6 @@ module.exports = {
       });
     };
   },
-  submitNewConceptResult(sfid, rid, data) {
-    return function (dispatch, getState) {
-      sentenceFragmentsRef.child(`${sfid}/responses/${rid}/conceptResults`).push(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
-  },
-  deleteConceptResult(sfid, rid, crid) {
-    return function (dispatch, getState) {
-      sentenceFragmentsRef.child(`${sfid}/responses/${rid}/conceptResults/${crid}`).remove((error) => {
-        if (error) {
-          alert(`Delete failed! ${error}`);
-        }
-      });
-    };
-  },
   startResponseEdit(sfid, rid) {
     return { type: C.START_RESPONSE_EDIT, sfid, rid, };
   },
