@@ -242,26 +242,6 @@ export function removeLinkToParentID(rid) {
   };
 }
 
-export function submitNewConceptResult(qid, rid, data) {
-  return () => {
-    responsesRef.child(`${rid}/conceptResults`).push(data, (error) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
-    });
-  };
-}
-
-export function deleteConceptResult(qid, rid, crid) {
-  return () => {
-    responsesRef.child(`${rid}/conceptResults/${crid}`).remove((error) => {
-      if (error) {
-        alert(`Delete failed! ${error}`);
-      }
-    });
-  };
-}
-
 function makeIterator(array) {
   let nextIndex = 0;
 

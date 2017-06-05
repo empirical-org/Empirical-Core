@@ -142,24 +142,6 @@ module.exports = {
       });
     };
   },
-  submitNewConceptResult(rid, data) {
-    return function (dispatch, getState) {
-      responsesRef.child(`${rid}/conceptResults`).push(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
-  },
-  deleteConceptResult(rid, crid) {
-    return function (dispatch, getState) {
-      responsesRef.child(`${rid}/conceptResults/${crid}`).remove((error) => {
-        if (error) {
-          alert(`Delete failed! ${error}`);
-        }
-      });
-    };
-  },
   startResponseEdit(qid, rid) {
     return { type: C.START_RESPONSE_EDIT, qid, rid, };
   },

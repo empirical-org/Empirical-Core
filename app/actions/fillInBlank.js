@@ -40,7 +40,7 @@ module.exports = {
           dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
         } else {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
-          const action = push(`/admin/fill-in-the-blanks`);
+          const action = push('/admin/fill-in-the-blanks');
           dispatch(action);
         }
       });
@@ -140,24 +140,6 @@ module.exports = {
   deleteIncorrectSequence(qid, seqid) {
     return function (dispatch, getState) {
       fillInBlankQuestionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
-        if (error) {
-          alert(`Delete failed! ${error}`);
-        }
-      });
-    };
-  },
-  submitNewConceptResult(rid, data) {
-    return function (dispatch, getState) {
-      responsesRef.child(`${rid}/conceptResults`).push(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
-  },
-  deleteConceptResult(rid, crid) {
-    return function (dispatch, getState) {
-      responsesRef.child(`${rid}/conceptResults/${crid}`).remove((error) => {
         if (error) {
           alert(`Delete failed! ${error}`);
         }
