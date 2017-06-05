@@ -1,4 +1,7 @@
+require 'modules/response_search'
+
 class ResponsesController < ApplicationController
+  include ResponseSearch
   before_action :set_response, only: [:show, :update, :destroy, :increment_counts]
 
   # GET /responses
@@ -57,10 +60,15 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
+
   def increment_counts
     @response.increment!(:count)
     increment_first_attempt_count
     increment_child_count_of_parent
+  end
+
+  def search
+    render json: search_responses(params[:question_uid], search_params)
   end
 
   private
@@ -69,9 +77,37 @@ class ResponsesController < ApplicationController
       @response = find_by_id_or_uid(params[:id])
     end
 
+    def search_params
+      params.require(:search).permit(
+        :pageNumber,
+        :text,
+        filters: {},
+        sort: {}
+
+      )
+    end
+
     # Only allow a trusted parameter "white list" through.
     def response_params
-      params.require(:response).permit( :id, :uid, :parent_id, :parent_uid, :question_uid, :author, :text, :feedback, :count, :first_attempt_count, :child_count, :optimal, :weak, :concept_results, :created_at, :updated_at)
+      params.require(:response).permit(
+        :id,
+        :uid,
+        :parent_id,
+        :parent_uid,
+        :question_uid,
+        :author,
+        :text,
+        :feedback,
+        :count,
+        :first_attempt_count,
+        :child_count,
+        :optimal,
+        :weak,
+        :concept_results,
+        :created_at,
+        :updated_at,
+        :search
+      )
     end
 
     def find_by_id_or_uid(string)
@@ -94,5 +130,4 @@ class ResponsesController < ApplicationController
         parent.increment!(:child_count)
       end
     end
-
 end
