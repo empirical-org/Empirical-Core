@@ -123,8 +123,8 @@ export function submitResponse(content, prid, isFirstAttempt) {
   return (dispatch) => {
     request.post({
       url: `${cmsUrl}responses/create_or_increment`,
-      form: { response: rubyConvertedResponse, },
-      function(error, httpStatus, body) {
+      form: { response: rubyConvertedResponse, }, },
+      (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
@@ -133,7 +133,25 @@ export function submitResponse(content, prid, isFirstAttempt) {
           console.log(body);
         }
       },
-    });
+    );
+  };
+}
+
+export function submitResponseEdit(rid, content, qid) {
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  return (dispatch) => {
+    request.put({
+      url: `${cmsUrl}responses/${rid}`,
+      form: { response: rubyConvertedResponse, }, },
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
+        } else {
+          console.log(body);
+        }
+      });
   };
 }
 
@@ -157,18 +175,6 @@ export function deleteResponse(qid, rid) {
 export function setUpdatedResponse(rid, content) {
   return (dispatch) => {
     responsesRef.child(rid).set(content, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
-    });
-  };
-}
-
-export function submitResponseEdit(rid, content) {
-  return (dispatch) => {
-    responsesRef.child(rid).update(content, (error) => {
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
       } else {

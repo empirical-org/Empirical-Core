@@ -97,11 +97,11 @@ export default React.createClass({
       optimal: this.refs.newResponseOptimal.checked,
       gradeIndex: `human${this.props.questionID}`,
     };
-    this.props.dispatch(submitResponseEdit(rid, newResp));
+    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
 
   updateRematchedResponse(rid, vals) {
-    this.props.dispatch(submitResponseEdit(rid, vals));
+    this.props.dispatch(submitResponseEdit(rid, vals, this.props.questionID));
   },
 
   getErrorsForAttempt(attempt) {
@@ -122,14 +122,14 @@ export default React.createClass({
   markAsWeak(rid) {
     const vals = { weak: true, };
     this.props.dispatch(
-      submitResponseEdit(rid, vals)
+      submitResponseEdit(rid, vals, this.props.questionID)
     );
   },
 
   unmarkAsWeak(rid) {
     const vals = { weak: false, };
     this.props.dispatch(
-      submitResponseEdit(rid, vals)
+      submitResponseEdit(rid, vals, this.props.questionID)
     );
   },
 
@@ -166,7 +166,7 @@ export default React.createClass({
   },
 
   removeLinkToParentID(rid) {
-    this.props.dispatch(submitResponseEdit(rid, { gradeIndex: `human${this.props.response.questionUID}`, }));
+    this.props.dispatch(submitResponseEdit(rid, { gradeIndex: `human${this.props.response.questionUID}`, }, this.props.questionID));
     this.props.dispatch(removeLinkToParentID(rid));
   },
 
