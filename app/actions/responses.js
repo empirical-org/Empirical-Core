@@ -3,6 +3,7 @@ import _ from 'underscore';
 import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
 import { hashToCollection } from '../libs/hashToCollection.js';
+import request from 'request';
 
 const C = require('../constants').default;
 const moment = require('moment');
@@ -287,9 +288,16 @@ function gradedResponsesForQuestionRef(questionId) {
 }
 
 export function getGradedResponsesWithCallback(questionID, callback) {
-  gradedResponsesForQuestionRef(questionID).once('value', (snapshot) => {
-    callback(snapshot.val());
-    console.log('Loaded responses for ', questionID);
+  const cmsUrl = 'http://localhost:3100/';
+  request(`${cmsUrl}/questions/${questionID}/responses`, (error, response, body) => {
+    if (error) {
+      console.log('error:', error); // Print the error if one occurred
+    }
+    const bodyToObj = {};
+    JSON.parse(body).forEach((resp) => {
+      bodyToObj[resp.key] = resp;
+    });
+    callback(bodyToObj);
   });
 }
 
