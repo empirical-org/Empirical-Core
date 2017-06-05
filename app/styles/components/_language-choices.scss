@@ -43,11 +43,10 @@
     height: 72px;
     border: solid 1px #c0c0c0;
     background-color: white;
-    padding: 0 34px;
+    padding: 0 33px;
     text-align: center;
     display: flex;
     align-items: center;
-    font-family: AdelleSans;
     font-size: 30px;
     line-height: 1.17;
     color: #000000;
@@ -61,6 +60,10 @@
     &.arabic {
       justify-content: space-between;
       padding-right: 56px;
+    }
+
+    @media (max-width: 580px) {
+      margin: 0px auto 20px;
     }
   }
 }
@@ -78,7 +81,8 @@
 
 .no-language-button {
   margin: 20 auto 0;
-  width: 580px;
+  max-width: 580px;
+  width: 100%;
   height: 72px;
   border: solid 1px #c0c0c0;
   background-color: white;
@@ -91,6 +95,19 @@
   font-size: 24px;
   line-height: 1.29;
   color: #000000;
+
+  @media(max-width: 580px) {
+    &.fullsize {
+      display: none;
+    }
+    width: 270px;
+  }
+
+  @media(min-width: 581px) {
+    &.mobile {
+      display: none;
+    }
+  }
 
   &:hover {
     cursor: pointer;
@@ -125,6 +142,9 @@
   position: relative;
   cursor: pointer;
   align-self: center;
+  &:focus {
+    outline: none;
+  }
   .nav-language-selector-trigger {
     background-color: white;
     height: 40px;
