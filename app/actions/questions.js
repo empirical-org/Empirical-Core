@@ -6,7 +6,7 @@ const moment = require('moment');
 import _ from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
-import { submitNewResponse } from './responses';
+import { submitResponse } from './responses';
 
 module.exports = {
 	// called when the app starts. this means we immediately download all questions, and
@@ -70,7 +70,7 @@ module.exports = {
         } else {
           response.questionUID = newRef.key;
           response.gradeIndex = `human${newRef.key}`;
-          dispatch(submitNewResponse(response));
+          dispatch(submitResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           const action = push(`/admin/questions/${newRef.key}`);
           dispatch(action);

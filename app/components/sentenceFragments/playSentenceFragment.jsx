@@ -77,7 +77,7 @@ const PlaySentenceFragment = React.createClass({
             );
         } else {
           this.props.dispatch(
-              submitNewResponse(matched.response)
+              submitResponse(matched.response)
             );
         }
         this.props.updateAttempts(matched);

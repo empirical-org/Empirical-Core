@@ -7,7 +7,7 @@ import ReactTransition from 'react-addons-css-transition-group';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import fragmentActions from '../../actions/sentenceFragments.js';
 import {
-  submitNewResponse,
+  submitResponse,
   incrementChildResponseCount,
   incrementResponseCount,
   getResponsesWithCallback,
