@@ -42,7 +42,11 @@ class ResponsesController < ApplicationController
 
   # PATCH/PUT /responses/1
   def update
-    if @response.update(response_params)
+    new_vals = response_params
+    if new_vals[:concept_results]
+      new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+    end
+    if @response.update(new_vals)
       render json: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -103,10 +107,10 @@ class ResponsesController < ApplicationController
         :child_count,
         :optimal,
         :weak,
-        :concept_results,
         :created_at,
         :updated_at,
-        :search
+        :search,
+        concept_results: {}
       )
     end
 
@@ -119,6 +123,12 @@ class ResponsesController < ApplicationController
 
     def increment_first_attempt_count
       params[:response][:is_first_attempt] == "true" ? @response.increment!(:first_attempt_count) : nil
+    end
+
+    def concept_results_to_boolean(concept_results)
+      concept_results.each do |key, val|
+        concept_results[key] = val == 'true'
+      end
     end
 
     def increment_child_count_of_parent
