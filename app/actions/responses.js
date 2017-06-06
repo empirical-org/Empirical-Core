@@ -280,7 +280,7 @@ export function getGradedResponsesWithCallback(questionID, callback) {
     }
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {
-      bodyToObj[resp.key] = resp;
+      bodyToObj[resp.uid] = resp;
       for (const cr in resp.concept_results) {
         const formatted_cr = {};
         formatted_cr.conceptUID = cr;
