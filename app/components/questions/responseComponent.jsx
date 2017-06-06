@@ -150,7 +150,7 @@ const Responses = React.createClass({
     selectedResponses.forEach((responseKey) => {
       const uniqVals = Object.assign({}, newResp, {
         gradeIndex: `human${responseKey}`,
-        conceptResults: this.state.responses[responseKey].conceptResults
+        conceptResults: this.state.responses[responseKey].concept_results
       });
       this.props.dispatch(submitResponseEdit(responseKey, uniqVals));
       this.props.dispatch(removeLinkToParentID(responseKey));
@@ -171,8 +171,9 @@ const Responses = React.createClass({
     const newResponses = Object.assign({}, this.state.responses)
 
     selectedResponses.forEach((responseKey) => {
-      const currentConceptResultsForResponse = this.state.responses[responseKey].conceptResults || {};
-      const conceptResultUidsArrayForResponse = Object.keys(currentConceptResultsForResponse).map(concept => this.props.responses[responseKey].conceptResults[concept].conceptUID);
+      const currentConceptResultsForResponse = this.state.responses[responseKey].concept_results || {};
+      console.log(currentConceptResultsForResponse)
+      const conceptResultUidsArrayForResponse = Object.keys(currentConceptResultsForResponse).map(concept => this.state.responses[responseKey].concept_results[concept].conceptUID);
       if (conceptResultUidsArrayForResponse.includes(newMassEditConceptResultConceptUID)) {
         // const conceptKey = _.compact(_.map(currentConceptResultsForResponse, (concept, conceptValues) => {
         //   if (concept.conceptUID == newMassEditConceptResultConceptUID) {
@@ -185,11 +186,9 @@ const Responses = React.createClass({
       }
 
       const newResponseConceptResults = Object.assign({}, currentConceptResultsForResponse)
-      newResponseConceptResults[newMassEditConceptResultConceptUID] = {
-        conceptUID: newMassEditConceptResultConceptUID,
-        correct: this.state.newMassEditConceptResultCorrect,
-      }
-      newResponses[responseKey].conceptResults = newResponseConceptResults
+      newResponseConceptResults[newMassEditConceptResultConceptUID] = {}
+      newResponseConceptResults[newMassEditConceptResultConceptUID][newMassEditConceptResultConceptUID] = this.state.newMassEditConceptResultCorrect
+      newResponses[responseKey].concept_results = newResponseConceptResults
 
 
       // this.props.dispatch(submitNewConceptResult(this.props.questionID, responseKey, {
