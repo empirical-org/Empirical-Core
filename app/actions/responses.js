@@ -116,6 +116,7 @@ export function stopListeningToResponses(questionId) {
 }
 
 export function submitResponse(content, prid, isFirstAttempt) {
+  delete content.gradeIndex;
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
