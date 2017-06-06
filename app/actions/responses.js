@@ -281,6 +281,12 @@ export function getGradedResponsesWithCallback(questionID, callback) {
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {
       bodyToObj[resp.key] = resp;
+      for (const cr in resp.concept_results) {
+        const formatted_cr = {};
+        formatted_cr.conceptUID = cr;
+        formatted_cr.correct = resp.concept_results[cr];
+        resp.concept_results[cr] = formatted_cr;
+      }
     });
     callback(bodyToObj);
   });
