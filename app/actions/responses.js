@@ -116,6 +116,7 @@ export function stopListeningToResponses(questionId) {
 }
 
 export function submitResponse(content, prid, isFirstAttempt) {
+  delete content.gradeIndex;
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
@@ -279,7 +280,13 @@ export function getGradedResponsesWithCallback(questionID, callback) {
     }
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {
-      bodyToObj[resp.key] = resp;
+      bodyToObj[resp.uid] = resp;
+      for (const cr in resp.concept_results) {
+        const formatted_cr = {};
+        formatted_cr.conceptUID = cr;
+        formatted_cr.correct = resp.concept_results[cr];
+        resp.concept_results[cr] = formatted_cr;
+      }
     });
     callback(bodyToObj);
   });
