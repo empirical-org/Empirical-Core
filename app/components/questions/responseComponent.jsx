@@ -218,13 +218,13 @@ const Responses = React.createClass({
 
   renderMassEditSummaryListResponse(response) {
     return (
-      <p><input type="checkbox" defaultChecked checked style={{ marginRight: '0.5em', }} onClick={() => this.removeResponseFromMassEditArray(response)} />{this.props.responses[response].text}</p>
+      <p><input type="checkbox" defaultChecked checked style={{ marginRight: '0.5em', }} onClick={() => this.removeResponseFromMassEditArray(response)} />{this.state.responses[response].text}</p>
     );
   },
 
   renderMassEditSummaryList() {
     const summaryResponses = this.props.massEdit.selectedResponses.map(response => this.renderMassEditSummaryListResponse(response));
-    return (<div key={response.key} className="content">{summaryResponses}</div>);
+    return (<div className="content">{summaryResponses}</div>);
   },
 
   boilerplateCategoriesToOptions() {
