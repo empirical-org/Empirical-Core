@@ -24,8 +24,6 @@ import {
   deleteResponse,
   incrementResponseCount,
   submitResponseEdit,
-  submitNewConceptResult,
-  deleteConceptResult,
   removeLinkToParentID,
   setUpdatedResponse
 } from '../../actions/responses';
@@ -152,6 +150,7 @@ const Responses = React.createClass({
     selectedResponses.forEach((responseKey) => {
       const uniqVals = Object.assign({}, newResp, {
         gradeIndex: `human${responseKey}`,
+        conceptResults: this.state.responses[responseKey].conceptResults
       });
       this.props.dispatch(submitResponseEdit(responseKey, uniqVals));
       this.props.dispatch(removeLinkToParentID(responseKey));
@@ -169,26 +168,36 @@ const Responses = React.createClass({
   addMassEditConceptResults() {
     const selectedResponses = this.props.massEdit.selectedResponses;
     const newMassEditConceptResultConceptUID = this.state.newMassEditConceptResultConceptUID;
+    const newResponses = Object.assign({}, this.state.responses)
 
     selectedResponses.forEach((responseKey) => {
-      const currentConceptResultsForResponse = this.props.responses[responseKey].conceptResults || {};
+      const currentConceptResultsForResponse = this.state.responses[responseKey].conceptResults || {};
       const conceptResultUidsArrayForResponse = Object.keys(currentConceptResultsForResponse).map(concept => this.props.responses[responseKey].conceptResults[concept].conceptUID);
       if (conceptResultUidsArrayForResponse.includes(newMassEditConceptResultConceptUID)) {
-        const conceptKey = _.compact(_.map(currentConceptResultsForResponse, (concept, conceptValues) => {
-          if (concept.conceptUID == newMassEditConceptResultConceptUID) {
-            return concept;
-          } else {
-            return null;
-          }
-        }))[0].key;
-        this.props.dispatch(deleteConceptResult(this.props.questionID, responseKey, conceptKey));
+        // const conceptKey = _.compact(_.map(currentConceptResultsForResponse, (concept, conceptValues) => {
+        //   if (concept.conceptUID == newMassEditConceptResultConceptUID) {
+        //     return concept;
+        //   } else {
+        //     return null;
+        //   }
+        // }))[0].key;
+        // this.props.dispatch(deleteConceptResult(this.props.questionID, responseKey, conceptKey));
       }
 
-      this.props.dispatch(submitNewConceptResult(this.props.questionID, responseKey, {
+      const newResponseConceptResults = Object.assign({}, currentConceptResultsForResponse)
+      newResponseConceptResults[newMassEditConceptResultConceptUID] = {
         conceptUID: newMassEditConceptResultConceptUID,
         correct: this.state.newMassEditConceptResultCorrect,
-      }));
+      }
+      newResponses[responseKey].conceptResults = newResponseConceptResults
+
+
+      // this.props.dispatch(submitNewConceptResult(this.props.questionID, responseKey, {
+      //   conceptUID: newMassEditConceptResultConceptUID,
+      //   correct: this.state.newMassEditConceptResultCorrect,
+      // }));
     });
+    this.setState({responses: newResponses}, () => this.updateAllResponsesInMassEditArray())
   },
 
   handleMassEditFeedbackTextChange(value) {
