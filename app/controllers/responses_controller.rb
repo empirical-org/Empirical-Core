@@ -87,6 +87,10 @@ class ResponsesController < ApplicationController
     Response.where(uid: params[:uids]).update_all(concept_results: params[:conceptResults])
   end
 
+  def mass_edit_delete
+    Response.where(uid: params[:uids]).delete_all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
