@@ -11,6 +11,7 @@ class UnitTemplate < ActiveRecord::Base
   scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}
   scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag IS null")}
   scope :alpha_user, -> { where("unit_templates.flag IN('production','beta','alpha') OR unit_templates.flag IS null")}
+  around_save :delete_relevant_caches
 
 
   def activity_ids= activity_ids
@@ -36,6 +37,14 @@ class UnitTemplate < ActiveRecord::Base
       $redis.set("unit_template_id:#{self.id}_serialized", serialized_unit_template)
     end
     serialized_unit_template
+  end
+
+  private
+
+  def delete_relevant_caches
+    $redis.del("unit_template_id:#{self.id}_serialized", "#{self.flag || 'production'}_unit_templates")
+    yield
+    $redis.del("unit_template_id:#{self.id}_serialized", "#{self.flag || 'production'}_unit_templates")
   end
 
 
