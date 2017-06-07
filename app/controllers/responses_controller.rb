@@ -83,6 +83,10 @@ class ResponsesController < ApplicationController
     Response.where(uid: params[:uids]).update_all(feedback: params[:feedback])
   end
 
+  def mass_edit_concept_results
+    Response.where(uid: params[:uids]).update_all(concept_results: params[:conceptResults])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
