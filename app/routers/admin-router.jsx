@@ -38,6 +38,7 @@ import NewFillInBlank from '../components/fillInBlank/newFillInBlank.jsx';
 import EditFillInBlank from '../components/fillInBlank/editFillInBlank.jsx';
 import FillInBlankQuestion from '../components/fillInBlank/fillInBlankQuestion.jsx';
 import TestFillInBlankQuestionContainer from '../components/fillInBlank/testFillInBlankQuestionContainer.jsx';
+import MassEditContainer from '../components/questions/MassEditContainer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -59,6 +60,7 @@ const AdminRoutes = (
       <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
       <Route path="test" component={TestQuestionContainer} />
       <Route path="visualize" component={AnswerVisualizer} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* fill in the blanks section*/}
