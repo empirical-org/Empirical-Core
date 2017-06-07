@@ -13,7 +13,8 @@ import {
   removeLinkToParentID,
   setUpdatedResponse,
   submitMassEditFeedback,
-  submitMassEditConceptResults
+  submitMassEditConceptResults,
+  massEditDeleteResponses
 } from '../../actions/responses';
 
 class MassEditContainer extends React.Component {
@@ -77,6 +78,7 @@ class MassEditContainer extends React.Component {
 
     clearResponsesFromMassEditArray() {
       this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
+      this.goBackToResponses()
     }
 
     removeResponseFromMassEditArray(responseKey) {
@@ -88,21 +90,8 @@ class MassEditContainer extends React.Component {
       selectedResponses.forEach(response => this.props.dispatch(incrementResponseCount(this.props.questionID, response)));
     }
 
-    updateAllResponsesInMassEditArray() {
-      const selectedResponses = this.props.massEdit.selectedResponses;
-      const newResp = {
-        weak: false,
-        feedback: this.state.massEditFeedback,
-        optimal: this.refs.massEditOptimal.checked,
-      };
-      selectedResponses.forEach((responseKey) => {
-        const uniqVals = Object.assign({}, newResp, {
-          gradeIndex: `human${responseKey}`,
-          conceptResults: this.state.responses[responseKey].concept_results
-        });
-        this.props.dispatch(submitResponseEdit(responseKey, uniqVals));
-        this.props.dispatch(removeLinkToParentID(responseKey));
-      });
+    goBackToResponses() {
+      window.location = `#/admin/questions/${this.props.params.questionID}/responses`;
     }
 
     updateResponseFeedbackInMassEditArray() {
@@ -122,34 +111,14 @@ class MassEditContainer extends React.Component {
 
     deleteAllResponsesInMassEditArray() {
       const selectedResponses = this.props.massEdit.selectedResponses;
+      const qid = this.props.params.questionID;
+
       if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
-        selectedResponses.forEach(response => this.props.dispatch(deleteResponse(this.props.questionID, response)));
+        this.props.dispatch(massEditDeleteResponses(selectedResponses, qid));
         this.clearResponsesFromMassEditArray();
       }
     }
 
-    addMassEditConceptResults() {
-      const selectedResponses = this.props.massEdit.selectedResponses;
-      const newMassEditConceptResultConceptUID = this.state.newMassEditConceptResultConceptUID;
-      const newResponses = Object.assign({}, this.state.responses)
-
-      selectedResponses.forEach((responseKey) => {
-        const currentConceptResultsForResponse = this.state.responses[responseKey].concept_results || {};
-
-        if (Object.keys(currentConceptResultsForResponse).includes(newMassEditConceptResultConceptUID)) {
-          const newResponseConceptResults = Object.assign({}, currentConceptResultsForResponse)
-          delete newResponseConceptResults[newMassEditConceptResultConceptUID];
-          newResponses[responseKey].concept_results = newResponseConceptResults;
-        } else {
-          const newResponseConceptResults = Object.assign({}, currentConceptResultsForResponse)
-          newResponseConceptResults[newMassEditConceptResultConceptUID] = {}
-          newResponseConceptResults[newMassEditConceptResultConceptUID][newMassEditConceptResultConceptUID] = this.state.newMassEditConceptResultCorrect
-          newResponses[responseKey].concept_results = newResponseConceptResults
-        }
-
-      });
-      this.setState({responses: newResponses}, () => this.updateAllResponsesInMassEditArray())
-    }
 
     handleMassEditFeedbackTextChange(value) {
       this.setState({ massEditFeedback: value, });

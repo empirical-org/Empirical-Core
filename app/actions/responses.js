@@ -172,6 +172,23 @@ export function submitMassEditConceptResults(uids, conceptResults, qid) {
     }
   }
 
+export function massEditDeleteResponses(uids, qid) {
+  return (dispatch) => {
+    request.post({
+      url: `${cmsUrl}responses/mass_edit/delete`,
+      json: { uids: uids }, },
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
+        } else {
+          console.log(body);
+        }
+      })
+    }
+  }
+
 export function submitResponseEdit(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch) => {
