@@ -11,7 +11,8 @@ import {
   incrementResponseCount,
   submitResponseEdit,
   removeLinkToParentID,
-  setUpdatedResponse
+  setUpdatedResponse,
+  submitMassEditFeedback
 } from '../../actions/responses';
 
 class MassEditContainer extends React.Component {
@@ -101,6 +102,13 @@ class MassEditContainer extends React.Component {
         this.props.dispatch(submitResponseEdit(responseKey, uniqVals));
         this.props.dispatch(removeLinkToParentID(responseKey));
       });
+    }
+
+    updateResponseFeedbackInMassEditArray() {
+      const selectedResponses = this.props.massEdit.selectedResponses;
+      const feedback = this.state.massEditFeedback;
+      const qid = this.props.params.questionID;
+      this.props.dispatch(submitMassEditFeedback(selectedResponses, feedback, qid));
     }
 
     deleteAllResponsesInMassEditArray() {
@@ -252,7 +260,7 @@ class MassEditContainer extends React.Component {
               </div>
               <footer className="card-footer">
                 {/* <a className="card-footer-item" onClick={() => this.incrementAllResponsesInMassEditArray()}>Increment</a> */}
-                <a className="card-footer-item" onClick={() => this.updateAllResponsesInMassEditArray()}>Update Feedback</a>
+                <a className="card-footer-item" onClick={() => this.updateResponseFeedbackInMassEditArray()}>Update Feedback</a>
                 {/* <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Rematch</a>  */}
               </footer>
             </div>

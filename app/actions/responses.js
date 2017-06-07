@@ -138,6 +138,23 @@ export function submitResponse(content, prid, isFirstAttempt) {
   };
 }
 
+export function submitMassEditFeedback(uids, feedback, qid) {
+  return (dispatch) => {
+    request.put({
+      url: `${cmsUrl}responses/mass_edit/feedback`,
+      json: { uids: uids, feedback: feedback }, },
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
+        } else {
+          console.log(body);
+        }
+      })
+    }
+  }
+
 export function submitResponseEdit(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch) => {
