@@ -18,6 +18,10 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].js',
     path: `${__dirname}/dist`,
   },
+  resolve: {
+  // changed from extensions: [".js", ".jsx"]
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
   plugins: [
     assetsPluginInstance,
     new ExtractTextPlugin('style.css'),
@@ -38,6 +42,12 @@ module.exports = {
     })
   ],
   module: {
+    rules: [
+      // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
+      { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader', }, },
+      // addition - add source-map support
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
+    ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     loaders: [
       {
@@ -81,5 +91,10 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
+  // addition - add source-map support
+  devtool: 'source-map',
 };
