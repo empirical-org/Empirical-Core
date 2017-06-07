@@ -85,7 +85,8 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def get_cached_formatted_unit_templates
-    ut_cache_name = "#{current_user.flag || 'production'}_unit_templates"
+    flag = current_user&.flag ? current_user.flag : 'production'
+    ut_cache_name = "#{flag}_unit_templates"
     cached = $redis.get(ut_cache_name)
     set_cache_if_necessary_and_return(cached, ut_cache_name)
   end
