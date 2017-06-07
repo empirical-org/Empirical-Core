@@ -8,7 +8,7 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
-module.exports = {
+const actions = {
 	// called when the app starts. this means we immediately download all questions, and
 	// then receive all questions again as soon as anyone changes anything.
   startListeningToQuestions() {
@@ -147,3 +147,5 @@ module.exports = {
     };
   },
 };
+
+export default actions;

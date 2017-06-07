@@ -18,10 +18,11 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].js',
     path: `${__dirname}/dist`,
   },
-  resolve: {
-  // changed from extensions: [".js", ".jsx"]
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  },
+
+  // resolve: {
+  // // changed from extensions: [".js", ".jsx"]
+  //   extensions: ['.ts', '.tsx', '.js', '.jsx', '.ejs'],
+  // },
   plugins: [
     assetsPluginInstance,
     new ExtractTextPlugin('style.css'),
@@ -51,9 +52,9 @@ module.exports = {
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel-loader'],
+        loaders: ['react-hot', 'awesome-typescript-loader'],
       },
       {
         test: /\.jsx?$/,

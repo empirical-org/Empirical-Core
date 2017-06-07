@@ -1,6 +1,11 @@
-export default function (camelObj: object) {
+function sample(arg1: string): string {
+  console.log(arg1);
+  return arg1
+}
+
+export default function (camelObj: object): object {
   const snakeObj = {};
-  sample(1);
+  // sample(10)
   for (const camelKey in camelObj) {
     if (camelObj.hasOwnProperty(camelKey)) {
       let snakeKey;
@@ -24,8 +29,4 @@ export default function (camelObj: object) {
     }
   }
   return snakeObj;
-}
-
-function sample(arg1: string) {
-  console.log(arg1);
 }

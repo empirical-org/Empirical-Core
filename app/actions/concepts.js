@@ -1,43 +1,42 @@
-var C = require("../constants").default
+const C = require('../constants').default;
 // import rootRef from "../libs/firebase"
-import request from 'request'
-import _ from 'underscore'
-var	conceptsEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/concepts.json`;
-import { push } from 'react-router-redux'
+import request from 'request';
+import _ from 'underscore';
+const	conceptsEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/concepts.json`;
+import { push } from 'react-router-redux';
 
-function splitInLevels (concepts) {
-	return _.groupBy(concepts, 'level');
+function splitInLevels(concepts) {
+  return _.groupBy(concepts, 'level');
 }
 
-function getParentName (concept, concepts) {
-	const parent = _.find(concepts["1"], {id: concept.parent_id})
-	const grandParent = _.find(concepts["2"], {id: parent.parent_id})
-	return grandParent.name + " | " + parent.name
+function getParentName(concept, concepts) {
+  const parent = _.find(concepts['1'], { id: concept.parent_id, });
+  const grandParent = _.find(concepts['2'], { id: parent.parent_id, });
+  return `${grandParent.name} | ${parent.name}`;
 }
 
-
-module.exports = {
+const actions = {
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
-	startListeningToConcepts: function(){
-		return function(dispatch,getState){
-			request(conceptsEndpoint, function (error, response, body) {
+  startListeningToConcepts() {
+    return function (dispatch, getState) {
+      request(conceptsEndpoint, (error, response, body) => {
 			  if (!error && response.statusCode == 200) {
 			    // // console.log(body) // Show the HTML for the Google homepage.
 					// // console.log(JSON.parse(body));
-					const concepts = splitInLevels(JSON.parse(body).concepts);
-					concepts["0"] = concepts["0"].map((concept) => {
-						concept.displayName = getParentName(concept, concepts) + " | " + concept.name
-						return concept
-					})
-					dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: concepts });
+    const concepts = splitInLevels(JSON.parse(body).concepts);
+    concepts['0'] = concepts['0'].map((concept) => {
+      concept.displayName = `${getParentName(concept, concepts)} | ${concept.name}`;
+      return concept;
+    });
+    dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: concepts, });
 			  }
-			})
+      });
 			// conceptsRef.on("value",function(snapshot){
 			// 	dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: snapshot.val() });
 			// });
-		}
-	},
+    };
+  },
 	// startConceptEdit: function(cid){
 	// 	return {type:C.START_CONCEPT_EDIT,cid};
 	// },
@@ -89,3 +88,5 @@ module.exports = {
 	// 	}
 	// }
 };
+
+export default actions;
