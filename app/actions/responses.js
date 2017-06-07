@@ -155,6 +155,23 @@ export function submitMassEditFeedback(uids, feedback, qid) {
     }
   }
 
+export function submitMassEditConceptResults(uids, conceptResults, qid) {
+  return (dispatch) => {
+    request.put({
+      url: `${cmsUrl}responses/mass_edit/concept_results`,
+      json: { uids: uids, conceptResults: conceptResults }, },
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
+        } else {
+          console.log(body);
+        }
+      })
+    }
+  }
+
 export function submitResponseEdit(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch) => {

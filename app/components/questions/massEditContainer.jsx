@@ -12,7 +12,8 @@ import {
   submitResponseEdit,
   removeLinkToParentID,
   setUpdatedResponse,
-  submitMassEditFeedback
+  submitMassEditFeedback,
+  submitMassEditConceptResults
 } from '../../actions/responses';
 
 class MassEditContainer extends React.Component {
@@ -111,6 +112,14 @@ class MassEditContainer extends React.Component {
       this.props.dispatch(submitMassEditFeedback(selectedResponses, feedback, qid));
     }
 
+    updateResponseConceptResultInMassEditArray() {
+      const selectedResponses = this.props.massEdit.selectedResponses;
+      const conceptResults = {};
+      conceptResults[this.state.newMassEditConceptResultConceptUID] = this.state.newMassEditConceptResultCorrect;
+      const qid = this.props.params.questionID;
+      this.props.dispatch(submitMassEditConceptResults(selectedResponses, conceptResults, qid));
+    }
+
     deleteAllResponsesInMassEditArray() {
       const selectedResponses = this.props.massEdit.selectedResponses;
       if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
@@ -126,6 +135,7 @@ class MassEditContainer extends React.Component {
 
       selectedResponses.forEach((responseKey) => {
         const currentConceptResultsForResponse = this.state.responses[responseKey].concept_results || {};
+
         if (Object.keys(currentConceptResultsForResponse).includes(newMassEditConceptResultConceptUID)) {
           const newResponseConceptResults = Object.assign({}, currentConceptResultsForResponse)
           delete newResponseConceptResults[newMassEditConceptResultConceptUID];
@@ -279,7 +289,7 @@ class MassEditContainer extends React.Component {
                 </div>
               </div>
               <footer className="card-footer">
-                <a className="card-footer-item" onClick={() => this.addMassEditConceptResults()}>Add Concept Result</a>
+                <a className="card-footer-item" onClick={() => this.updateResponseConceptResultInMassEditArray()}>Add Concept Result</a>
               </footer>
             </div>
           </div>
