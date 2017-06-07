@@ -79,6 +79,10 @@ class ResponsesController < ApplicationController
     render json: {responses: Response.where(uid: params[:responses])}
   end
 
+  def mass_edit_feedback
+    Response.where(uid: params[:uids]).update_all(feedback: params[:feedback])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'questions/:question_uid/responses' => 'responses#responses_for_question'
   post 'responses/create_or_increment'
   post 'responses/mass_edit'
+  put 'responses/mass_edit/feedback' => 'responses#mass_edit_feedback'
   post 'questions/:question_uid/responses/search' => 'responses#search'
 
 
