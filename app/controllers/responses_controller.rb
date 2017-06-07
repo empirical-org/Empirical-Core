@@ -75,6 +75,10 @@ class ResponsesController < ApplicationController
     render json: search_responses(params[:question_uid], search_params)
   end
 
+  def mass_edit
+    render json: {responses: Response.where(uid: params[:responses])}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
