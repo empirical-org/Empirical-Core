@@ -72,10 +72,6 @@ const Responses = React.createClass({
     };
   },
 
-  componentWillUnmount() {
-    this.clearResponsesFromMassEditArray();
-  },
-
   componentDidMount() {
     this.searchResponses();
   },
