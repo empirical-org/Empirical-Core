@@ -71,6 +71,7 @@ const AdminRoutes = (
       <Route path="responses" component={ResponseComponentWrapper} />
       <Route path="edit" component={EditFillInBlank} />
       <Route path="test" component={TestFillInBlankQuestionContainer} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* data section*/}
@@ -81,6 +82,7 @@ const AdminRoutes = (
     <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
       <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
       <Route path="responses" component={ResponseComponentWrapper} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* sentence Fragment sections*/}
@@ -89,6 +91,7 @@ const AdminRoutes = (
     <Route path="sentence-fragments/:questionID" component={SentenceFragment}>
       <IndexRedirect to="/admin/sentence-fragments/:questionID/responses" />
       <Route path="responses" component={ResponseComponentWrapper} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* lessons section*/}
