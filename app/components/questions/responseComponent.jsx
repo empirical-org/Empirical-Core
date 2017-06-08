@@ -18,7 +18,6 @@ import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 import QuestionBar from './questionBar.jsx';
 import {
   deleteResponse,

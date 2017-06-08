@@ -35,10 +35,9 @@ class ConceptSelector extends React.Component {
   }
 
   render() {
-    const disabled = this.props.currentConceptUID === 'null' ? false : true
     return (
       <Select
-        disabled={disabled}
+        disabled={this.props.selectorDisabled}
         options={this.conceptsToOptions()}
         placeholder={this.placeholder()}
         onChange={this.props.handleSelectorChange}

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 import ConceptResultList from './conceptResultList.jsx'
 import _ from 'underscore';
 import {
