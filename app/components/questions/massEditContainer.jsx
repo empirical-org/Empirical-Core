@@ -5,6 +5,7 @@ import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptSelector from '../shared/conceptSelector.jsx';
+import ConceptResultList from './conceptResultList.jsx'
 import _ from 'underscore';
 import {
   deleteResponse,
@@ -31,20 +32,11 @@ class MassEditContainer extends React.Component {
       };
 
       this.handleMassEditFeedbackTextChange = this.handleMassEditFeedbackTextChange.bind(this)
-      this.selectMassEditConceptForResult = this.selectMassEditConceptForResult.bind(this)
-      this.updateMassEditConceptResultCorrect = this.updateMassEditConceptResultCorrect.bind(this)
-    }
-
-    componentWillUnmount() {
-      // this.clearResponsesFromMassEditArray();
+      this.updateConceptResults = this.updateConceptResults.bind(this)
     }
 
     componentWillMount() {
       this.getResponses();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-      return true
     }
 
     getResponses() {
@@ -101,12 +93,14 @@ class MassEditContainer extends React.Component {
       this.props.dispatch(submitMassEditFeedback(selectedResponses, feedback, qid));
     }
 
+    updateConceptResults(conceptResults) {
+      this.setState({conceptResults})
+    }
+
     updateResponseConceptResultInMassEditArray() {
       const selectedResponses = this.props.massEdit.selectedResponses;
-      const conceptResults = {};
-      conceptResults[this.state.newMassEditConceptResultConceptUID] = this.state.newMassEditConceptResultCorrect;
       const qid = this.props.params.questionID;
-      this.props.dispatch(submitMassEditConceptResults(selectedResponses, conceptResults, qid));
+      this.props.dispatch(submitMassEditConceptResults(selectedResponses, this.state.conceptResults, qid));
     }
 
     deleteAllResponsesInMassEditArray() {
@@ -122,14 +116,6 @@ class MassEditContainer extends React.Component {
 
     handleMassEditFeedbackTextChange(value) {
       this.setState({ massEditFeedback: value, });
-    }
-
-    selectMassEditConceptForResult(e) {
-      this.setState({ newMassEditConceptResultConceptUID: e.value, });
-    }
-
-    updateMassEditConceptResultCorrect() {
-      this.setState({ newMassEditConceptResultCorrect: this.refs.massEditConceptResultsCorrect.checked, });
     }
 
     toggleMassEditSummaryList() {
@@ -247,16 +233,7 @@ class MassEditContainer extends React.Component {
               <header className="card-content expanded">
                 <h1 className="title is-3" style={{ display: 'inline-block', }}>Add Concept Results for <strong style={{ fontWeight: '700', }}>{selectedResponses.length}</strong> Responses</h1>
               </header>
-              <div className="card-content">
-                <div className="content">
-                  <h3>ADD CONCEPT RESULTS <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ This concept result will be added to all selected responses ⚠️️</span></h3>
-                  <ConceptSelector currentConceptUID={this.state.newMassEditConceptResultConceptUID} handleSelectorChange={this.selectMassEditConceptForResult} />
-                  <br />
-                  <label className="checkbox">
-                    <h3><input ref="massEditConceptResultsCorrect" defaultChecked={false} type="checkbox" onChange={() => this.updateMassEditConceptResultCorrect()} /> CORRECT</h3>
-                  </label>
-                </div>
-              </div>
+              <ConceptResultList updateConceptResults={this.updateConceptResults} />
               <footer className="card-footer">
                 <a className="card-footer-item" onClick={() => this.updateResponseConceptResultInMassEditArray()}>Add Concept Result</a>
               </footer>
