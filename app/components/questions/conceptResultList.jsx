@@ -1,28 +1,40 @@
 import React from 'react'
-import ConceptResult from './conceptResult.jsx'
-import _ from 'lodash'
+import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
+import _ from 'underscore'
 
 export default class conceptResultList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      numberOfConceptResults: 1,
       conceptResults: {}
     }
 
-    this.updateConceptResult = this.updateConceptResult.bind(this)
+    this.handleConceptChange = this.handleConceptChange.bind(this)
   }
 
-  updateConceptResult(conceptResultUID, conceptResultCorrect) {
+  handleConceptChange(e) {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
-    newConceptResults[conceptResultUID] = conceptResultCorrect
+    newConceptResults[e.value] ? null : newConceptResults[e.value] = false
+    this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
+  }
+
+  toggleConceptResultCorrect(key) {
+    const newConceptResults = Object.assign({}, this.state.conceptResults)
+    newConceptResults[key] = !newConceptResults[key]
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
   }
 
   renderConceptResults() {
-    return _.range(this.state.numberOfConceptResults).map((num) => {
-      return <ConceptResult updateConceptResult={this.updateConceptResult} key={num}/>
-    })
+    const mapped = Object.assign({}, this.state.conceptResults, { null: false })
+    const components = _.mapObject(mapped, (val, key) => (
+      <ConceptSelectorWithCheckbox
+        handleSelectorChange={this.handleConceptChange}
+        currentConceptUID={key}
+        checked={val}
+        onCheckboxChange={() => this.toggleConceptResultCorrect(key)}
+      />
+    ));
+    return _.values(components);
   }
 
   render() {
