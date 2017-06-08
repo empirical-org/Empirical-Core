@@ -15,6 +15,8 @@ class ConceptSelectorWithCheckbox extends React.Component {
         <label className="checkbox" style={{lineHeight: '32px'}}>
           <h3><input checked={this.props.checked} type="checkbox" onClick={this.props.onCheckboxChange} /> Correct?</h3>
         </label>
+
+        <p style={{paddingLeft: '10px', paddingTop: '6px'}} onClick={this.props.deleteConceptResult}>X</p>
       </div>
     );
   }

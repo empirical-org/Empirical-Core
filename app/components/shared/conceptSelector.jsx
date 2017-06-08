@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SelectSearch from 'react-select-search'
+// import Select from 'react-select-search'
 import _ from 'underscore'
+import Select from 'react-select';
 
 // TODO: delete everywhere else that we use conceptsToOptions
 
@@ -16,20 +17,13 @@ class ConceptSelector extends React.Component {
     }
     return _.map(concepts, (concept)=>{
       return (
-        {name: concept.displayName, value: concept.uid, shortenedName: concept.name}
+        {label: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
     })
   }
 
   currentConcept () {
     return _.find(this.props.concepts.data["0"], {uid: this.props.currentConceptUID})
-  }
-
-  fuse () {
-    return ({
-      keys: ['shortenedName', 'name'], //first search by specific concept, then by parent and grandparent
-      threshold: 0.4
-    })
   }
 
   placeholder () {
@@ -41,9 +35,15 @@ class ConceptSelector extends React.Component {
   }
 
   render() {
+    const disabled = this.props.currentConceptUID === 'null' ? false : true
     return (
-      <SelectSearch options={this.conceptsToOptions()} placeholder={this.placeholder()}
-                       onChange={this.props.handleSelectorChange} fuse={this.fuse()}/>
+      <Select
+        disabled={disabled}
+        options={this.conceptsToOptions()}
+        placeholder={this.placeholder()}
+        onChange={this.props.handleSelectorChange}
+        style={{display: 'block'}}
+      />
     )
   }
 }

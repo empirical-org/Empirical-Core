@@ -24,6 +24,12 @@ export default class conceptResultList extends React.Component {
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
   }
 
+  deleteConceptResult(key) {
+    const newConceptResults = Object.assign({}, this.state.conceptResults)
+    delete newConceptResults[key]
+    this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
+  }
+
   renderConceptResults() {
     const mapped = Object.assign({}, this.state.conceptResults, { null: false })
     const components = _.mapObject(mapped, (val, key) => (
@@ -32,6 +38,7 @@ export default class conceptResultList extends React.Component {
         currentConceptUID={key}
         checked={val}
         onCheckboxChange={() => this.toggleConceptResultCorrect(key)}
+        deleteConceptResult = {() => this.deleteConceptResult(key)}
       />
     ));
     return _.values(components);
