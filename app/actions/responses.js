@@ -138,11 +138,11 @@ export function submitResponse(content, prid, isFirstAttempt) {
   };
 }
 
-export function submitMassEditFeedback(uids, feedback, qid) {
+export function submitMassEditFeedback(ids, feedback, qid) {
   return (dispatch) => {
     request.put({
       url: `${cmsUrl}responses/mass_edit/feedback`,
-      json: { uids: uids, feedback: feedback }, },
+      json: { ids: ids, feedback: feedback }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
@@ -155,11 +155,11 @@ export function submitMassEditFeedback(uids, feedback, qid) {
     }
   }
 
-export function submitMassEditConceptResults(uids, conceptResults, qid) {
+export function submitMassEditConceptResults(ids, conceptResults, qid) {
   return (dispatch) => {
     request.put({
       url: `${cmsUrl}responses/mass_edit/concept_results`,
-      json: { uids: uids, conceptResults: conceptResults }, },
+      json: { ids: ids, conceptResults: conceptResults }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
@@ -172,11 +172,11 @@ export function submitMassEditConceptResults(uids, conceptResults, qid) {
     }
   }
 
-export function massEditDeleteResponses(uids, qid) {
+export function massEditDeleteResponses(ids, qid) {
   return (dispatch) => {
     request.post({
       url: `${cmsUrl}responses/mass_edit/delete`,
-      json: { uids: uids }, },
+      json: { ids: ids }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });

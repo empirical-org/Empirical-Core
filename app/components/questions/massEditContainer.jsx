@@ -46,7 +46,7 @@ class MassEditContainer extends React.Component {
           json: { responses: this.props.massEdit.selectedResponses },
         },
         (err, httpResponse, data) => {
-          const parsedResponses = _.indexBy(data.responses, 'uid');
+          const parsedResponses = _.indexBy(data.responses, 'id');
           this.setState({
             responses: parsedResponses,
           });
