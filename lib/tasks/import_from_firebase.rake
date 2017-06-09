@@ -254,8 +254,8 @@ namespace :responses do
               begin
 
                 Response.transaction do
-                  Response.import columns, rows, validate: false
-                end
+                  Response.import columns, rows, validate: false;0
+                end;0
 
               rescue ActiveRecord::RecordNotUnique
               end
