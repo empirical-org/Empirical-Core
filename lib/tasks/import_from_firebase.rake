@@ -238,11 +238,11 @@ namespace :responses do
       zip_file.each do |entry|
         # Extract to file/directory/symlink
         puts "Extracting #{entry.name}"
-        entry.extract("tmp.csv")
+        entry.extract("tmp/tmp.csv")
 
         # Read into memory
         # content = entry.get_input_stream.read
-        File.open('tmp.csv', 'r') do |file|
+        File.open('tmp/tmp.csv', 'r') do |file|
           csv = CSV.new(file)
           sum = 0
           rows = []
