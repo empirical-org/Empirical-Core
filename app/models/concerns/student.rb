@@ -113,9 +113,6 @@ module Student
           puts 'rescue from no method error in assign_classroom_activities'
         end
       end
-      finish = Time.now
-      puts 'here is the time'
-      puts finish - start
     end
 
 
