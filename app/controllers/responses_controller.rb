@@ -2,7 +2,7 @@ require 'modules/response_search'
 
 class ResponsesController < ApplicationController
   include ResponseSearch
-  before_action :set_response, only: [:show, :update, :destroy, :increment_counts]
+  before_action :set_response, only: [:show, :update, :destroy]
 
   # GET /responses
   def index
@@ -150,8 +150,11 @@ class ResponsesController < ApplicationController
     def increment_child_count_of_parent
       parent_id = @response.parent_id
       parent_uid = @response.parent_uid
-      if parent_id || parent_uid
-        id = parent_id ? parent_id : parent_uid
+      id = parent_id || parent_uid
+      # id will be the first extant value or false. somehow 0 is being
+      # used as when it shouldn't (possible JS remnant) so we verify that
+      # id is truthy and not 0
+      if id && id != 0
         parent = find_by_id_or_uid(id)
         parent.increment!(:child_count)
       end

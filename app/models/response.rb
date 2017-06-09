@@ -2,7 +2,7 @@ require 'elasticsearch/model'
 
 class Response < ApplicationRecord
   include Elasticsearch::Model
-  after_create_commit :create_index_in_elastic_search
+  # after_create_commit :create_index_in_elastic_search
   after_update_commit :update_index_in_elastic_search
   after_destroy_commit :destroy_index_in_elastic_search
 
@@ -33,7 +33,7 @@ class Response < ApplicationRecord
       parent_id: parent_id,
       parent_uid: parent_uid,
       text: text,
-      sortable_text: text.downcase,
+      sortable_text: text ? text.downcase : '',
       feedback: feedback,
       count: count,
       child_count: child_count,
