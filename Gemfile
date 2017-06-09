@@ -47,3 +47,10 @@ gem 'kaminari'
 # For searching via Elasticsearch
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+
+# for importing multiple db records at once.
+gem 'activerecord-import'
+gem 'bulk_insert'
+
+# for unzipping files
+gem 'rubyzip'
