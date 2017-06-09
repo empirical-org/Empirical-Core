@@ -82,7 +82,8 @@ class MassEditContainer extends React.Component {
     }
 
     goBackToResponses() {
-      window.location = `#/admin/questions/${this.props.params.questionID}/responses`;
+      const newLocation = window.location.hash.replace("mass-edit", "responses")
+      window.location = newLocation;
     }
 
     updateResponseFeedbackInMassEditArray() {
