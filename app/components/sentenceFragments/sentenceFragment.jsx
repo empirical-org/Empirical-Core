@@ -13,6 +13,8 @@ import {
   stopListeningToResponses,
   listenToResponsesWithCallback
 } from '../../actions/responses.js';
+import activeComponent from 'react-router-active-component';
+const NavLink = activeComponent('li');
 
 const SentenceFragment = React.createClass({
 
@@ -105,7 +107,9 @@ const SentenceFragment = React.createClass({
       );
     } else if (data[questionID]) {
       // console.log("conceptID: ", this.props.sentenceFragments.data[this.props.params.questionID].conceptID)
-
+      const activeLink = this.props.massEdit.numSelectedResponses > 1
+      ? <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
+      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
       return (
         <div>
           {this.renderEditForm()}
@@ -119,6 +123,13 @@ const SentenceFragment = React.createClass({
             <Link to={'admin/sentence-fragments'}>
               <button className="button is-danger" onClick={this.deleteSentenceFragment}>Delete Fragment</button>
             </Link>
+          </div>
+
+          <div className="tabs">
+            <ul>
+              <NavLink activeClassName="is-active" to={`admin/sentence-fragments/${questionID}/responses`}>Responses</NavLink>
+              {activeLink}
+            </ul>
           </div>
           <br />
           {this.props.children}
@@ -137,6 +148,7 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     concepts: state.concepts,
     routing: state.routing,
+    massEdit: state.massEdit,
     // responses: state.responses
   };
 }
