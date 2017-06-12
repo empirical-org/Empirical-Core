@@ -58,6 +58,7 @@ const Responses = React.createClass({
       numberOfPages: 1,
       responsePageNumber: 1,
       numberOfResponses: 0,
+      percentageOfWeakResponses: 0,
       actions,
       viewingResponses: true,
       matcher,
@@ -92,6 +93,7 @@ const Responses = React.createClass({
           responses: parsedResponses,
           numberOfResponses: data.numberOfResults,
           numberOfPages: data.numberOfPages,
+          percentageOfWeakResponses: data.percentageOfWeakResponses
         });
       }
     );
@@ -136,12 +138,7 @@ const Responses = React.createClass({
     // };
     // const question = new this.state.matcher(fields);
     // return question.getPercentageWeakResponses();
-
-    const responses = hashToCollection(this.props.responses);
-    const unmatchedResponses = _.filter(responses, response =>
-      // console.log(response)
-       response.author === undefined && response.optimal === undefined && response.count > 1);
-    return ((unmatchedResponses.length / responses.length) * 100).toFixed(2);
+    return this.state.percentageOfWeakResponses
   },
 
   // ryan Look here!!!
@@ -614,7 +611,7 @@ const Responses = React.createClass({
       <div style={{ marginTop: 0, paddingTop: 0, }}>
         {/* <QuestionBar data={_.values(this.formatForQuestionBar())} />{this.renderRematchAllButton()} */}
         <h4 className="title is-5" >
-          Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak reponses: <strong>{this.getPercentageWeakResponses()}%</strong>
+          Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak responses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
         <div className="tabs is-toggle is-fullwidth">
           {this.renderStatusToggleMenu()}
