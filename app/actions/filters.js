@@ -19,4 +19,7 @@ module.exports = {
    resetAllFields: function () {
      return {type: C.RESET_ALL_FIELDS}
    },
+   deselectAllFields: function() {
+     return {type: C.DESELECT_ALL_FIELDS}
+   },
 };

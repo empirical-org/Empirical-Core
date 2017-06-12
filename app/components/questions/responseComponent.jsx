@@ -332,6 +332,10 @@ const Responses = React.createClass({
     this.props.dispatch(filterActions.resetAllFields());
   },
 
+  deselectFields() {
+    this.props.dispatch(filterActions.deselectAllFields());
+  },
+
   getFormattedSearchData() {
     const searchData = this.props.filters.formattedFilterData;
     searchData.text = this.state.stringFilter;
@@ -348,6 +352,7 @@ const Responses = React.createClass({
         visibleStatuses={this.props.filters.visibleStatuses}
         resetPageNumber={this.resetPageNumber}
         resetFields={this.resetFields}
+        deselectFields={this.deselectFields}
       />
     );
   },
@@ -422,7 +427,15 @@ const Responses = React.createClass({
   renderResetAllFiltersButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Reset</button>
+        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Select All</button>
+      </div>
+    );
+  },
+
+  renderDeselectAllFiltersButton() {
+    return(
+      <div className="column">
+        <button className="button is-fullwidth is-outlined" onClick={this.deselectFields}>Deselect All</button>
       </div>
     );
   },
@@ -632,6 +645,7 @@ const Responses = React.createClass({
                 {this.renderExpandCollapseAll()}
               </div>
               {this.renderResetAllFiltersButton()}
+              {this.renderDeselectAllFiltersButton()}
               {this.renderViewResponsesOrPOSButton()}
             </div>
           </div>
