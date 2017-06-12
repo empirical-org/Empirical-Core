@@ -427,7 +427,7 @@ const Responses = React.createClass({
   renderResetAllFiltersButton() {
     return (
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Select All</button>
+        <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Select All Filters</button>
       </div>
     );
   },
@@ -435,7 +435,7 @@ const Responses = React.createClass({
   renderDeselectAllFiltersButton() {
     return(
       <div className="column">
-        <button className="button is-fullwidth is-outlined" onClick={this.deselectFields}>Deselect All</button>
+        <button className="button is-fullwidth is-outlined" onClick={this.deselectFields}>Deselect Filters</button>
       </div>
     );
   },
