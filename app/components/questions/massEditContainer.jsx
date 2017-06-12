@@ -17,6 +17,8 @@ import {
   massEditDeleteResponses
 } from '../../actions/responses';
 
+import {clearDisplayMessageAndError} from '../../actions/display';
+
 class MassEditContainer extends React.Component {
     constructor(props) {
       super(props)
@@ -36,6 +38,12 @@ class MassEditContainer extends React.Component {
 
     componentWillMount() {
       this.getResponses();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      if (this.props.display.message !== prevProps.display.message || this.props.display.error !== prevProps.display.error) {
+        this.displayMessage()
+      }
     }
 
     getResponses() {
@@ -82,14 +90,23 @@ class MassEditContainer extends React.Component {
     }
 
     goBackToResponses() {
-      window.location = `#/admin/questions/${this.props.params.questionID}/responses`;
+      const newLocation = window.location.hash.replace("mass-edit", "responses")
+      window.location = newLocation;
     }
 
     updateResponseFeedbackInMassEditArray() {
       const selectedResponses = this.props.massEdit.selectedResponses;
       const feedback = this.state.massEditFeedback;
       const qid = this.props.params.questionID;
-      this.props.dispatch(submitMassEditFeedback(selectedResponses, feedback, qid));
+      this.props.dispatch(submitMassEditFeedback(selectedResponses, feedback, qid))
+    }
+
+    displayMessage() {
+      if (this.props.display.message || this.props.display.error) {
+        const alert = this.props.display.message || this.props.display.error
+        window.alert(`${alert}`)
+        this.props.dispatch(clearDisplayMessageAndError())
+      }
     }
 
     updateConceptResults(conceptResults) {
@@ -232,7 +249,12 @@ class MassEditContainer extends React.Component {
               <header className="card-content expanded">
                 <h1 className="title is-3" style={{ display: 'inline-block', }}>Add Concept Results for <strong style={{ fontWeight: '700', }}>{selectedResponses.length}</strong> Responses</h1>
               </header>
-              <ConceptResultList updateConceptResults={this.updateConceptResults} />
+              <div className="card-content">
+                <div className="content">
+                  <h3>CONCEPT RESULTS <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other concept results associated with selected responses will be overwritten ⚠️️</span></h3>
+                  <ConceptResultList updateConceptResults={this.updateConceptResults} />
+                </div>
+              </div>
               <footer className="card-footer">
                 <a className="card-footer-item" onClick={() => this.updateResponseConceptResultInMassEditArray()}>Add Concept Result</a>
               </footer>
@@ -256,6 +278,7 @@ class MassEditContainer extends React.Component {
 function select(state) {
   return {
     massEdit: state.massEdit,
+    display: state.display
   };
 }
 

@@ -147,6 +147,7 @@ export function submitMassEditFeedback(ids, feedback, qid) {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
         } else {
           console.log(body);
@@ -164,6 +165,7 @@ export function submitMassEditConceptResults(ids, conceptResults, qid) {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
         } else {
           console.log(body);
@@ -181,6 +183,7 @@ export function massEditDeleteResponses(ids, qid) {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
         } else {
           console.log(body);
@@ -199,6 +202,7 @@ export function submitResponseEdit(rid, content, qid) {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
           console.log(body);
@@ -215,6 +219,7 @@ export function deleteResponse(qid, rid) {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
           console.log(body);
