@@ -38,6 +38,7 @@ import NewFillInBlank from '../components/fillInBlank/newFillInBlank.jsx';
 import EditFillInBlank from '../components/fillInBlank/editFillInBlank.jsx';
 import FillInBlankQuestion from '../components/fillInBlank/fillInBlankQuestion.jsx';
 import TestFillInBlankQuestionContainer from '../components/fillInBlank/testFillInBlankQuestionContainer.jsx';
+import MassEditContainer from '../components/questions/MassEditContainer.jsx';
 
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
@@ -59,6 +60,7 @@ const AdminRoutes = (
       <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
       <Route path="test" component={TestQuestionContainer} />
       <Route path="visualize" component={AnswerVisualizer} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* fill in the blanks section*/}
@@ -69,6 +71,7 @@ const AdminRoutes = (
       <Route path="responses" component={ResponseComponentWrapper} />
       <Route path="edit" component={EditFillInBlank} />
       <Route path="test" component={TestFillInBlankQuestionContainer} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* data section*/}
@@ -79,6 +82,7 @@ const AdminRoutes = (
     <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
       <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
       <Route path="responses" component={ResponseComponentWrapper} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* sentence Fragment sections*/}
@@ -87,6 +91,7 @@ const AdminRoutes = (
     <Route path="sentence-fragments/:questionID" component={SentenceFragment}>
       <IndexRedirect to="/admin/sentence-fragments/:questionID/responses" />
       <Route path="responses" component={ResponseComponentWrapper} />
+      <Route path="mass-edit" component={MassEditContainer} />
     </Route>
 
     {/* lessons section*/}

@@ -49,6 +49,7 @@ class ClassName extends Component {
             <ul>
               <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/responses`}>Responses</NavLink>
               <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit</NavLink>
             </ul>
           </div>
           {this.props.children}

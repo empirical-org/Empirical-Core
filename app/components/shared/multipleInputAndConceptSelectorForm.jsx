@@ -68,9 +68,17 @@ export default React.createClass({
         currentConceptUID={key}
         checked={val.correct}
         onCheckboxChange={() => this.toggleCheckboxCorrect(key)}
+        selectorDisabled={key === 'null' ? false : true}
+        deleteConceptResult={() => this.deleteConceptResult(key)}
       />
     ));
     return _.values(components);
+  },
+
+  deleteConceptResult(key) {
+    const newConceptResults = Object.assign({}, this.state.itemConcepts)
+    delete newConceptResults[key]
+    this.setState({itemConcepts: newConceptResults})
   },
 
   toggleCheckboxCorrect(key) {

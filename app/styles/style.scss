@@ -8,6 +8,8 @@
 @import "components/multiple-choice";
 @import "components/_language-choices";
 @import '../../node_modules/react-selectize/themes/index.css';
+@import '../../node_modules/react-select/dist/react-select.css';
+
 
 body {
   color: #3D3D3D
@@ -364,4 +366,7 @@ textarea.submission {
   padding: 15;
   height: calc(100vh - 30px);
   overflow-y: scroll;
+    .select {
+      display: block !important;
+    }
 }
