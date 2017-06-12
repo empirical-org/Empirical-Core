@@ -261,7 +261,7 @@ const Responses = React.createClass({
   },
 
   gatherVisibleResponses() {
-    const responses = this.responsesWithStatus();
+    return this.responsesWithStatus();
   },
 
   getResponse(responseID) {
@@ -277,11 +277,11 @@ const Responses = React.createClass({
     return responses;
   },
 
-  // getBoundsForCurrentPage(responses) {
-  //   const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
-  //   const endIndex = startIndex + responsesPerPage > responses.length ? responses.length : startIndex + responsesPerPage;
-  //   return [startIndex, endIndex];
-  // },
+  getBoundsForCurrentPage(length) {
+    const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
+    const endIndex = startIndex + responsesPerPage > length ? length : startIndex + responsesPerPage;
+    return [startIndex, endIndex];
+  },
 
   renderResponses() {
     if (this.state.viewingResponses) {
@@ -542,17 +542,17 @@ const Responses = React.createClass({
   },
 
   renderDisplayingMessage() {
-    let array,
-      endWord;
+    let endWord,
+      length;
     if (this.state.viewingResponses) {
-      array = this.gatherVisibleResponses();
+      length = this.state.numberOfResponses
       endWord = ' responses';
     } else {
-      array = hashToCollection(this.getPOSTagsList());
+      length = hashToCollection(this.getPOSTagsList()).length
       endWord = ' parts of speech strings';
     }
-    const bounds = this.getBoundsForCurrentPage(array);
-    const message = `Displaying ${bounds[0] + 1}-${bounds[1]} of ${array.length}${endWord}`;
+    const bounds = this.getBoundsForCurrentPage(length);
+    const message = `Displaying ${bounds[0] + 1}-${bounds[1]} of ${length}${endWord}`;
     return <p className="label">{message}</p>;
   },
 
@@ -611,9 +611,14 @@ const Responses = React.createClass({
   },
 
   render() {
+    const questionBar = Object.keys(this.state.responses).length > 0
+    ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
+    : <span />
+
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
-        {/* <QuestionBar data={_.values(this.formatForQuestionBar())} />{this.renderRematchAllButton()} */}
+        {questionBar}
+        {this.renderRematchAllButton()}
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak reponses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
@@ -637,7 +642,7 @@ const Responses = React.createClass({
           </div>
         </div>
         <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
-        {/* {this.renderDisplayingMessage()} */}
+        {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}
         {/* {this.renderPOSStrings()} */}
