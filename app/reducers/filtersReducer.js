@@ -127,11 +127,8 @@ export default function (currentState, action) {
       return newState;
     case C.DESELECT_ALL_FIELDS:
       newState = _.cloneDeep(currentState);
-      const statuses = mapStatus()
       _.forIn(newState.visibleStatuses, (status, key) => {
-        if (!(key in statuses)) {
-          newState.visibleStatuses[key] = false;
-        }
+        newState.visibleStatuses[key] = false;
       });
       newState.formattedFilterData = getFormattedFilterData(newState)
       return newState;
