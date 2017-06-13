@@ -93,13 +93,8 @@ class ResponsesController < ApplicationController
 
   def batch_responses_for_lesson
     question_uids = params[:question_uids]
-    all_responses_by_question = Response.where(question_uid: question_uids)
-    questions_with_responses = {}
-    question_uids.each do |quid|
-      responses = all_responses_by_question.select { |r| r.question_uid == quid }.map { |r| [r.id, r] }.to_h
-      questions_with_responses[:quid] = responses
-    end
-    render json: questions_with_responses.to_json
+    questions_with_responses = Response.where(question_uid: question_uids).group_by(&:question_uid)
+    render json: {questionsWithResponses: questions_with_responses}.to_json
   end
 
   private
