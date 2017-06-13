@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import Modal from '../modal/modal.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
 import EditLessonForm from './lessonForm.jsx';
+import LinkListItem from '../shared/linkListItem.jsx'
 
 const Lessons = React.createClass({
 
@@ -28,7 +29,15 @@ const Lessons = React.createClass({
     if (this.state.lessonFlags !== 'All Flags') {
       keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
     }
-    return keys.map(key => (<li key={key}><Link to={`/admin/lessons/${key}`} activeClassName="is-active">{data[key].name || 'No name'}</Link></li>));
+    return keys.map(key => (
+      <LinkListItem
+        key={key}
+        itemKey={key}
+        basePath='lessons'
+        activeClassName='is-active'
+        text={data[key].name || 'No name'}
+      />
+    ));
   },
 
   renderModal() {

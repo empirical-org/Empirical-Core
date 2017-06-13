@@ -17,6 +17,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import Error from '../shared/error.jsx'
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {
@@ -232,7 +233,7 @@ const PlayDiagnosticQuestion = React.createClass({
               hasError={this.state.error}
             />
             <div className="button-and-error-row">
-              <p className="error">{this.state.error}</p>
+              <Error text={this.state.error} />
               <div className="question-button-group button-group">
                 {button}
               </div>

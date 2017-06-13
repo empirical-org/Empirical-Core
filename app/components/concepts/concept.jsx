@@ -7,7 +7,7 @@ import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import TextEditor from '../questions/textEditor.jsx'
 
-const Concepts = React.createClass({
+const Concept = React.createClass({
   getInitialState: function (){
     return {
       prompt: ''
@@ -148,4 +148,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(Concepts)
+export default connect(select)(Concept)
