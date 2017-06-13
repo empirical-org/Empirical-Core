@@ -230,7 +230,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.state.responses));
+    return hashToCollection(respWithStatus(this.state.responses))
   },
 
   responsesGroupedByStatus() {
@@ -258,6 +258,7 @@ const Responses = React.createClass({
 
   gatherVisibleResponses() {
     const responses = this.responsesWithStatus();
+    return responses
   },
 
   getResponse(responseID) {
@@ -458,7 +459,6 @@ const Responses = React.createClass({
 
   getPOSTagsList() {
     const responses = this.gatherVisibleResponses();
-
     const responsesWithPOSTags = responses.map((response) => {
       response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')); // some text has html tags
       return response;
@@ -636,7 +636,7 @@ const Responses = React.createClass({
         {/* {this.renderDisplayingMessage()} */}
         {this.renderPageNumbers()}
         {this.renderResponses()}
-        {/* {this.renderPOSStrings()} */}
+        {this.renderPOSStrings()}
         {this.renderPageNumbers()}
       </div>
     );
