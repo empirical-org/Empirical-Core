@@ -91,6 +91,15 @@ class ResponsesController < ApplicationController
     Response.where(id: params[:ids]).delete_all
   end
 
+  def batch_responses_for_lesson
+    questions_with_responses = {}
+    params[:question_uids].each do |quid|
+      responses_with_keys = Response.where(question_uid: "-KV1Doh_oKTkjp2lzo82").index_by(&:id)
+      questions_with_responses[:quid] = responses_with_keys
+    end
+    render json: questions_with_responses.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
