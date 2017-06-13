@@ -82,7 +82,7 @@ const Responses = React.createClass({
   searchResponses() {
     request(
       {
-        url: `http://localhost:3100/questions/${this.props.questionID}/responses/search`,
+        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/responses/search`,
         method: 'POST',
         json: { search: this.getFormattedSearchData(), },
       },
@@ -252,12 +252,11 @@ const Responses = React.createClass({
         value: 1 / Object.keys(sortedResponses).length * 100,
         color: '#eeeeee',
       }));
-    } else {
-      return _.mapObject(sortedResponses, (val, key) => ({
-        value: val / totalResponseCount * 100,
-        color: colors[key],
-      }));
     }
+    return _.mapObject(sortedResponses, (val, key) => ({
+      value: val / totalResponseCount * 100,
+      color: colors[key],
+    }));
   },
 
   gatherVisibleResponses() {
