@@ -36,6 +36,8 @@ import submitPathway from '../renderForQuestions/submitPathway.js';
 import StateFinished from '../renderForQuestions/renderThankYou.jsx';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import Error from '../shared/error.jsx'
+
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
 const PlayDiagnosticQuestion = React.createClass({
@@ -221,7 +223,7 @@ const PlayDiagnosticQuestion = React.createClass({
               hasError={this.state.error}
             />
             <div className="button-and-error-row">
-              <p className="error">{this.state.error}</p>
+              <Error text={this.state.error} />
               <div className="question-button-group button-group">
                 {button}
               </div>

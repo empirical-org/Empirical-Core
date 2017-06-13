@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router';
+import LinkListItem from '../shared/linkListItem.jsx'
 export default React.createClass({
   renderFillInBlankListItems() {
     if (this.props.fillInTheBlanks.length !== 0) {
       return this.props.fillInTheBlanks.map(fillInBlank => (
-        <li key={fillInBlank.key}><Link to={`admin/fill-in-the-blanks/${fillInBlank.key}`}>{fillInBlank.prompt}</Link></li>
+        <LinkListItem
+          key={fillInBlank.key}
+          itemKey={fillInBlank.key}
+          text={fillInBlank.prompt}
+          basePath="fill-in-the-blanks"
+        />
       ));
     }
   },

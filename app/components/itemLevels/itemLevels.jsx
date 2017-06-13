@@ -4,6 +4,7 @@ import levelActions from '../../actions/item-levels.js'
 import {connect} from 'react-redux'
 import Modal from '../modal/modal.jsx'
 import {Link} from 'react-router'
+import LinkListItem from '../shared/linkListItem.jsx'
 
 const ItemLevels = React.createClass({
 
@@ -34,7 +35,13 @@ const ItemLevels = React.createClass({
 
     return levelKeys.map((key) => {
       return (
-        <li key={key}><Link to={'admin/item-levels/' + key} activeClassName="is-active">{levels[key].name}</Link></li>
+        <LinkListItem
+          key={key}
+          itemKey={key}
+          basePath='item-levels'
+          activeClassName="is-active"
+          text={levels[key].name}
+        />
       )
     })
   },
