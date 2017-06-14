@@ -14,6 +14,7 @@ const diagnosticQuestionForm = React.createClass({
         concept: '',
         instructions: '',
         prefilledText: '',
+        cues: '',
       }
     }
     return {
@@ -22,11 +23,11 @@ const diagnosticQuestionForm = React.createClass({
       concept: question.conceptID,
       instructions: question.instructions ? question.instructions : '',
       prefilledText: question.prefilledText? question.prefilledText : '',
+      cues: question.cues? question.cues : '',
     }
   },
 
   submit: function () {
-
     this.props.submit({
       prompt: this.state.prompt,
       prefilledText: this.refs.prefilledText.value,
@@ -94,7 +95,7 @@ const diagnosticQuestionForm = React.createClass({
             handleSelectorChange={this.handleSelectorChange}/>
         </div>
         <br/>
-        <button className="button is-primary" onClick={this.submit}>Update Question</button>
+        <button className="button is-primary" onClick={this.submit}>Save Question</button>
       </div>
     )
   }
