@@ -39,7 +39,7 @@ export default React.createClass({
     const concepts = this.state.itemConcepts;
     console.log(concepts);
     if (!concepts.hasOwnProperty(e.value)) {
-      concepts[e.value] = { correct: true, name: e.name, conceptUID: e.value, };
+      concepts[e.value] = { correct: true, name: e.label, conceptUID: e.value, };
       this.setState({
         itemConcepts: concepts,
       });

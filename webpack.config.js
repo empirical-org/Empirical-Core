@@ -24,6 +24,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env || 'development'),
       'process.env.EMPIRICAL_BASE_URL': JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
+      'process.env.QUILL_CMS': JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
     }),
     new CompressionPlugin({
       asset: '[path].gz[query]',

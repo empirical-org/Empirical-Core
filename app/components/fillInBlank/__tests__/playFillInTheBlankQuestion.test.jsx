@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion.jsx';
 import { fillInBlankQuestionBlankAllowed, fillInBlankQuestionBlankNotAllowed }
        from '../../../../test/data/jest_data.js';
@@ -9,7 +9,7 @@ function setup() {
   const question = fillInBlankQuestionBlankAllowed;
   const dispatch = () => 'i do nothing';
   const props = { question, dispatch, nextQuestion, };
-  const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+  const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
 
   return {
     props,
@@ -37,7 +37,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
     it('should call nextQuestion if there are no inputErrors in state', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
-      const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
       wrapper.instance().checkAnswer();
       expect(nextQuestion.mock.calls.length).toBe(1);
     });
@@ -47,7 +47,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       props.nextQuestion = nextQuestion;
       const inputErrors = new Set();
       inputErrors.add(1);
-      const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
       wrapper.setState({ inputErrors, });
       wrapper.instance().checkAnswer();
       expect(nextQuestion.mock.calls.length).toBe(0);
@@ -56,7 +56,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
     it('is triggered by clicking the submit button', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
-      const wrapper = shallow(<PlayFillInTheBlankQuestion {...props} />);
+      const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
       wrapper.find('.button').simulate('click');
       expect(nextQuestion.mock.calls.length).toBe(1);
     });

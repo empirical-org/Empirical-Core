@@ -1,6 +1,8 @@
 import React from 'react';
 import beginArrow from '../../img/begin_arrow.svg';
 
+import ResumeOrBeginButton from '../shared/resumeOrBeginButton.jsx'
+
 import translations from '../../libs/translations/index.js';
 export default React.createClass({
 
@@ -46,9 +48,7 @@ export default React.createClass({
       text = <span>{this.getBeginButtonText()}</span>;
     }
     return (
-      <button className="button student-begin" onClick={onClickFn}>
-        {text} <img className="begin-arrow" src={beginArrow} />
-      </button>
+      <ResumeOrBeginButton text={text} onClickFn={onClickFn} />
     );
   },
 

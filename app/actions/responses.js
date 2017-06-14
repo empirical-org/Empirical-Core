@@ -8,7 +8,6 @@ import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;
 const moment = require('moment');
-const cmsUrl = 'http://localhost:3100/';
 const responsesRef = rootRef.child('responses');
 
 export function deleteStatus(questionId) {
@@ -123,7 +122,7 @@ export function submitResponse(content, prid, isFirstAttempt) {
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
     request.post({
-      url: `${cmsUrl}responses/create_or_increment`,
+      url: `${process.env.QUILL_CMS}responses/create_or_increment`,
       form: { response: rubyConvertedResponse, }, },
       (error, httpStatus, body) => {
         if (error) {
@@ -141,62 +140,62 @@ export function submitResponse(content, prid, isFirstAttempt) {
 export function submitMassEditFeedback(ids, feedback, qid) {
   return (dispatch) => {
     request.put({
-      url: `${cmsUrl}responses/mass_edit/feedback`,
-      json: { ids: ids, feedback: feedback }, },
+      url: `${process.env.QUILL_CMS}responses/mass_edit/feedback`,
+      json: { ids, feedback, }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
           console.log(body);
         }
-      })
-    }
-  }
+      });
+  };
+}
 
 export function submitMassEditConceptResults(ids, conceptResults, qid) {
   return (dispatch) => {
     request.put({
-      url: `${cmsUrl}responses/mass_edit/concept_results`,
-      json: { ids: ids, conceptResults: conceptResults }, },
+      url: `${process.env.QUILL_CMS}responses/mass_edit/concept_results`,
+      json: { ids, conceptResults, }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
           console.log(body);
         }
-      })
-    }
-  }
+      });
+  };
+}
 
 export function massEditDeleteResponses(ids, qid) {
   return (dispatch) => {
     request.post({
-      url: `${cmsUrl}responses/mass_edit/delete`,
-      json: { ids: ids }, },
+      url: `${process.env.QUILL_CMS}responses/mass_edit/delete`,
+      json: { ids, }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid,});
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
           console.log(body);
         }
-      })
-    }
-  }
+      });
+  };
+}
 
 export function submitResponseEdit(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch) => {
     request.put({
-      url: `${cmsUrl}responses/${rid}`,
+      url: `${process.env.QUILL_CMS}responses/${rid}`,
       form: { response: rubyConvertedResponse, }, },
       (error, httpStatus, body) => {
         if (error) {
@@ -214,7 +213,7 @@ export function submitResponseEdit(rid, content, qid) {
 export function deleteResponse(qid, rid) {
   return (dispatch) => {
     request.delete(
-      `${cmsUrl}responses/${rid}`,
+      `${process.env.QUILL_CMS}responses/${rid}`,
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
@@ -330,13 +329,16 @@ function gradedResponsesForQuestionRef(questionId) {
 }
 
 export function getGradedResponsesWithCallback(questionID, callback) {
-  request(`${cmsUrl}/questions/${questionID}/responses`, (error, response, body) => {
+  request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
       console.log('error:', error); // Print the error if one occurred
     }
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {
-      bodyToObj[resp.uid || resp.id] = resp;
+      bodyToObj[resp.id] = resp;
+      if (typeof resp.concept_results === 'string') {
+        resp.concept_results = JSON.parse(resp.concept_results);
+      }
       for (const cr in resp.concept_results) {
         const formatted_cr = {};
         formatted_cr.conceptUID = cr;
