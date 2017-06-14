@@ -14,7 +14,7 @@ const DiagnosticQuestions = React.createClass({
       return (
         <section className="section">
           <div className="container">
-            <Link to={'admin/sentence-fragments/new'}>
+            <Link to={'admin/diagnostic-questions/new'}>
             <button className="button is-primary">Create a New Diagnostic Question</button>
             </Link>
             <p className="menu-label">Diagnostic Questions</p>

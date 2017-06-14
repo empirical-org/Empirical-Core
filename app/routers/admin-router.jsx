@@ -11,6 +11,7 @@ import Questions from '../components/questions/questions.jsx';
 import Question from '../components/questions/question.jsx';
 import ResponseComponentWrapper from '../components/questions/responseRouteWrapper.jsx';
 import DiagnosticQuestions from '../components/diagnosticQuestions/diagnosticQuestions.jsx';
+import NewDiagnosticQuestions from '../components/diagnosticQuestions/newDiagnosticQuestion.jsx'
 import DiagnosticQuestion from '../components/diagnosticQuestions/diagnosticQuestion.jsx';
 import SentenceFragments from '../components/sentenceFragments/sentenceFragments.jsx';
 import NewSentenceFragment from '../components/sentenceFragments/newSentenceFragment.jsx';
@@ -79,6 +80,7 @@ const AdminRoutes = (
 
     {/* questions section*/}
     <Route path="diagnostic-questions" component={DiagnosticQuestions} />
+    <Route path="diagnostic-questions/new" component={NewDiagnosticQuestions} />
     <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
       <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
       <Route path="responses" component={ResponseComponentWrapper} />

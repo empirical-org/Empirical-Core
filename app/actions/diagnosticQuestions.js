@@ -5,6 +5,7 @@ let	diagnosticQuestionsRef = rootRef.child('diagnosticQuestions'),
 import _ from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
+import { submitResponse } from './responses';
 
 module.exports = {
 	// called when the app starts. this means we immediately download all diagnosticQuestions, and
@@ -79,7 +80,7 @@ module.exports = {
           response.gradeIndex = `human${newRef.key}`;
           dispatch(submitResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          const action = push(`/admin/diagnosticQuestions/${newRef.key}`);
+          const action = push(`/admin/diagnostic-questions/${newRef.key}`);
           dispatch(action);
         }
       });
