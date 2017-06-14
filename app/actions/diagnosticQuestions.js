@@ -39,6 +39,8 @@ module.exports = {
           dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
         } else {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
+          const action = push('/admin/diagnostic-questions');
+          dispatch(action);
         }
       });
     };

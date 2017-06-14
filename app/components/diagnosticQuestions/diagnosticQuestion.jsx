@@ -65,6 +65,10 @@ const DiagnosticQuestion = React.createClass({
     return this.state.responses;
   },
 
+  deleteDiagnosticQuestion() {
+    this.props.dispatch(diagnosticQuestionActions.deleteQuestion(this.props.params.questionID));
+  },
+
   renderEditForm() {
     const { data, } = this.props.diagnosticQuestions,
       { questionID, } = this.props.params;
