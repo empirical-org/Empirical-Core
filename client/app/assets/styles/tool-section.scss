@@ -212,7 +212,6 @@ $tool-grey: #f8f9f9;
     }
 
     .boy-playing-quill {
-      display: none;
       background-color: gray;
       margin: 60px auto 2px;
       width: 819px;
@@ -228,6 +227,9 @@ $tool-grey: #f8f9f9;
       }
       .quote {
         font-size: 24px;
+        &#connect-testimonial-quote {
+          max-width: 848px !important;
+        }
       }
       .q-button {
         span {
