@@ -28,6 +28,7 @@ import {
 } from '../../actions/responses';
 import request from 'request';
 const C = require('../../constants').default;
+const ActionCable = require('actioncable')
 
 const labels = C.ERROR_AUTHORS;
 const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
@@ -69,6 +70,20 @@ const Responses = React.createClass({
 
   componentDidMount() {
     this.searchResponses();
+    this.initializeCable()
+  },
+
+  initializeCable() {
+    const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`)
+    cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: this.props.questionID}, {
+      received: (data) => this.handleNewData(data)
+    });
+  },
+
+  handleNewData(data) {
+    if (data.title === 'new response') {
+      location.reload()
+    }
   },
 
   componentDidUpdate(prevProps) {
