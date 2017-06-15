@@ -21,6 +21,7 @@ class ResponsesController < ApplicationController
     @response = Response.new(response_params)
 
     if @response.save
+      broadcast_creation_event
       render json: @response, status: :created, location: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -33,6 +34,7 @@ class ResponsesController < ApplicationController
     if !@response
       @response = Response.new(response_params)
       if @response.save
+        broadcast_creation_event
         render json: @response, status: :created, location: @response
       end
     else
@@ -158,5 +160,10 @@ class ResponsesController < ApplicationController
         parent = find_by_id_or_uid(id)
         parent.increment!(:child_count)
       end
+    end
+
+    def broadcast_creation_event
+      ActionCable.server.broadcast \
+      "admin_question_#{@response.question_uid}", { title: 'new response' }
     end
 end
