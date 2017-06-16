@@ -85,7 +85,7 @@ Rails.application.configure do
   # Allow cross site origin in the following contexts
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'https://connect.quill.org', 'localhost:8080'
+      origins 'https://connect.quill.org', 'https://quillconnect.firebaseapp.com', 'localhost:8080'
       resource '*', :headers => :any, :methods => [:get, :post, :options, :delete]
     end
   end
