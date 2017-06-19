@@ -39,25 +39,27 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 7. Install the bundle with `bundle install`.
 
-7. In the config folder, delete the ".example" extension from database.yml.example to read "database.yml"
+8. In the config folder, delete the ".example" extension from database.yml.example to read "database.yml"
 
-8. Set up your database with `rake empirical:setup`.
+9. Set up your database with `rake empirical:setup`.
 
-9. Run Redis with ```redis-server```
+10. Run Redis with ```redis-server```
 
-10. Run a second Redis (for caching) with ```redis-server --port 7654```
+11. Run a second Redis (for caching) with ```redis-server --port 7654```
 
-11. Run a third Redis (for testing) with ```redis-server --port 6378```
+12. Run a third Redis (for testing) with ```redis-server --port 6378```
 
-12. Run npm installer with ```npm install && cd ./client && npm install```
+13. Install npm with `brew install npm`.
 
-13. make sure to navigate back out of the "client" folder with `cd ..`
+14. Run npm installer with ```npm install && cd ./client && npm install```
 
-14. Run the server with `foreman start -f Procfile.static`.
+15. make sure to navigate back out of the "client" folder with `cd ..`
+
+16. Run the server with `foreman start -f Procfile.static`.
  - Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
  - When you're done with the server, use Ctrl-C to break it and return to your commandline.
 
-15. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
+17. Run `bin/guard` to have [Guard](https://github.com/guard/guard-rspec) run
     specs when you save files.
 
 The installation comes with three users, though you can create as many more as you like:
