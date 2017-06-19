@@ -29,3 +29,13 @@ export function registerPresence(classroom_activity_id, student_id) {
     }
   });
 }
+
+export function updateCurrentSlide(classroom_activity_id, question_id) {
+  const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
+  currentSlideRef.set(question_id);
+}
+
+export function saveStudentSubmission(classroom_activity_id, question_id, student_id, submission) {
+  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
+  const submissionRef.set(submission)
+}
