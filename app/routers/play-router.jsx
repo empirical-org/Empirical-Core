@@ -27,7 +27,7 @@ const PlayRoutes = (
     <IndexRoute component={Play} />
     <Route path="turk" component={Turk} />
     <Route path="turk/:lessonID" component={Turk} />
-    <Route path="class-lessons/" component={Passthrough}>
+    <Route path="class-lessons" component={Passthrough}>
       <IndexRoute
         component={Passthrough}
         onEnter={

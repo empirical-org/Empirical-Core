@@ -22,7 +22,7 @@ function getParameterByName(name, url) {
 
 const PlayRoutes = (
   <Route path="/teach" component={StudentRoot}>
-    <Route path="class-lessons/" component={Passthrough}>
+    <Route path="class-lessons" component={Passthrough}>
       <IndexRoute
         component={Passthrough}
         onEnter={
