@@ -4,10 +4,6 @@ import { Route, IndexRoute } from 'react-router';
 import Play from '../components/play/play.jsx';
 import PlayQuestion from '../components/play/playQuestion.jsx';
 import StudentRoot from '../components/studentRoot';
-// import StudentLesson from '../components/studentLessons/lesson.jsx';
-import GameLesson from '../components/gameLessons/lesson.jsx';
-// import StudentDiagnostic from '../components/diagnostics/studentDiagnostic.jsx';
-// import ESLDiagnostic from '../components/eslDiagnostic/studentDiagnostic.jsx';
 import PlaySentenceFragment from '../components/sentenceFragments/playSentenceFragment.jsx';
 import Turk from '../components/turk/sentenceFragmentsQuiz.jsx';
 import { getParameterByName } from '../libs/getParameterByName';
@@ -31,21 +27,6 @@ const PlayRoutes = (
     <IndexRoute component={Play} />
     <Route path="turk" component={Turk} />
     <Route path="turk/:lessonID" component={Turk} />
-    <Route path="game" component={Passthrough}>
-      <IndexRoute
-        component={Passthrough}
-        onEnter={
-            (nextState, replaceWith) => {
-              const lessonID = getParameterByName('uid');
-              const studentID = getParameterByName('student');
-              if (lessonID) {
-                document.location.href = `${document.location.origin + document.location.pathname}#/play/game/${lessonID}?student=${studentID}`;
-              }
-            }
-          }
-      />
-      <Route path=":lessonID" component={GameLesson} />
-    </Route>
     <Route path="lesson" component={Passthrough}>
       <IndexRoute
         component={Passthrough}
