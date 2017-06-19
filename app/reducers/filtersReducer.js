@@ -29,6 +29,9 @@ C.ERROR_AUTHORS.forEach(author =>
 
 const initialState = {
   filters: {
+    responses: [],
+    numberOfPages: 1,
+    numberOfResponses: 0,
     sorting: 'count',
     ascending: false,
     visibleStatuses,
@@ -131,6 +134,12 @@ export default function (currentState, action) {
         newState.visibleStatuses[key] = false;
       });
       newState.formattedFilterData = getFormattedFilterData(newState)
+      return newState;
+    case C.UPDATE_SEARCHED_RESPONSES:
+      newState = _.cloneDeep(currentState);
+      newState.responses = action.data.responses
+      newState.numberOfPages = action.data.numberOfPages
+      newState.numberOfResponses = action.data.numberOfResponses
       return newState;
     default:
       return currentState || initialState.filters;

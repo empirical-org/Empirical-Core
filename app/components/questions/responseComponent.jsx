@@ -55,10 +55,7 @@ const Responses = React.createClass({
       matcher = QuestionMatcher;
     }
     return {
-      responses: [],
-      numberOfPages: 1,
       responsePageNumber: 1,
-      numberOfResponses: 0,
       percentageOfWeakResponses: 0,
       actions,
       viewingResponses: true,
@@ -82,7 +79,7 @@ const Responses = React.createClass({
 
   handleNewData(data) {
     if (data.title === 'new response') {
-      location.reload()
+      this.searchResponses();
     }
   },
 
@@ -104,12 +101,12 @@ const Responses = React.createClass({
       },
       (err, httpResponse, data) => {
         const parsedResponses = _.indexBy(data.results, 'uid');
-        this.setState({
+        const responseData = {
           responses: parsedResponses,
           numberOfResponses: data.numberOfResults,
-          numberOfPages: data.numberOfPages,
-          percentageOfWeakResponses: data.percentageOfWeakResponses
-        });
+          numberOfPages: data.numberOfPages
+        }
+        this.props.dispatch(questionActions.updateResponses(responseData))
       }
     );
   },
@@ -119,7 +116,7 @@ const Responses = React.createClass({
   },
 
   getResponseCount() {
-    return this.state.numberOfResponses;
+    return this.props.filters.numberOfResponses;
   },
 
   removeResponseFromMassEditArray(responseKey) {
@@ -245,7 +242,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.state.responses))
+    return hashToCollection(respWithStatus(this.props.filters.responses))
   },
 
   responsesGroupedByStatus() {
@@ -557,7 +554,7 @@ const Responses = React.createClass({
   },
 
   getNumberOfPages() {
-    return this.state.numberOfPages;
+    return this.props.filters.numberOfPages;
   },
 
   resetPageNumber() {
@@ -568,7 +565,7 @@ const Responses = React.createClass({
     let endWord,
       length;
     if (this.state.viewingResponses) {
-      length = this.state.numberOfResponses
+      length = this.props.filters.numberOfResponses
       endWord = ' responses';
     } else {
       length = hashToCollection(this.getPOSTagsList()).length
@@ -587,7 +584,7 @@ const Responses = React.createClass({
     //   array = this.getPOSTagsList()
     // }
 
-    const pageNumbers = _.range(1, this.state.numberOfPages + 1);
+    const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {
@@ -634,7 +631,7 @@ const Responses = React.createClass({
   },
 
   render() {
-    const questionBar = Object.keys(this.state.responses).length > 0
+    const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
     ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
     : <span />
 

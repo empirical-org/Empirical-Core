@@ -169,4 +169,7 @@ module.exports = {
   clearQuestionState(qid) {
     return { type: C.CLEAR_QUESTION_STATE, qid, };
   },
+  updateResponses(data) {
+    return { type: C.UPDATE_SEARCHED_RESPONSES, data}
+  }
 };
