@@ -13,8 +13,6 @@ import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import levelActions from './actions/item-levels';
 import Passthrough from './components/shared/passthrough.jsx';
-// import AdminRoutes from './routers/admin-router.jsx';
-// import PlayRoutes from './routers/play-router.jsx';
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory';
@@ -43,6 +41,7 @@ const rootRoute = {
     childRoutes: [
       require('./routers/Admin/index').default,
       require('./routers/Play/index').default
+      require('./routers/Teach/index').default
     ],
   }],
 };
