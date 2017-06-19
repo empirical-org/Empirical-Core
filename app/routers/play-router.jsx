@@ -27,6 +27,22 @@ const PlayRoutes = (
     <IndexRoute component={Play} />
     <Route path="turk" component={Turk} />
     <Route path="turk/:lessonID" component={Turk} />
+    <Route path="class-lessons/" component={Passthrough}>
+      <IndexRoute
+        component={Passthrough}
+        onEnter={
+            (nextState, replaceWith) => {
+              const classroom_activity_id = getParameterByName('classroom_activity_id');
+              const lessonID = getParameterByName('uid');
+              const studentID = getParameterByName('student');
+              if (lessonID) {
+                document.location.href = `${document.location.origin + document.location.pathname}#/play/class-lessons/${lessonID}?student=${studentID}&classroom_activity_id=${classroom_activity_id}`;
+              }
+            }
+          }
+      />
+      <Route path=":lessonID" component={StudentLesson} />
+    </Route>
     <Route path="lesson" component={Passthrough}>
       <IndexRoute
         component={Passthrough}
