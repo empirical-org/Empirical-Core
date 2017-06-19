@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PlayLessonClassroomQuestion from './lessonClassroomQuestion.jsx';
+import { startListeningToSession } from '../../../actions/classroomSessions.js';
 
 class PlayLessonClassroomContainer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(startListeningToSession(this.props.location.query.classroom_activity_id));
   }
 
   render() {
@@ -23,7 +28,7 @@ class PlayLessonClassroomContainer extends Component {
 
 function select(props) {
   return {
-    // classroomSession: props.classroomSession,
+    classroomSessions: props.classroomSessions,
     // classroomLessons: props.classroomLessons,
   };
 }
