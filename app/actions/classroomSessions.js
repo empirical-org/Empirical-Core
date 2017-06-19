@@ -39,3 +39,13 @@ export function saveStudentSubmission(classroom_activity_id, question_id, studen
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
   const submissionRef.set(submission)
 }
+
+export function saveSelectedStudentSubmission(classroom_activity_id, question_id, student_id) {
+  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
+  const selectedSubmissionRef.set(true);
+}
+
+export function removeSelectedStudentSubmission(classroom_activity_id, question_id, student_id) {
+  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
+  selectedSubmissionRef.remove();
+}
