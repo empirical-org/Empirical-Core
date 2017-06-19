@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import StudentRoot from '../components/studentRoot';
-import StudentLesson from '../components/studentLessons/lesson.jsx';
+import TeachClassroomLessonContainer from '../components/classroomLessons/teach/container.jsx';
 
 const Passthrough = React.createClass({
   render() {
@@ -35,7 +35,7 @@ const PlayRoutes = (
             }
           }
       />
-      <Route path=":lessonID" component={StudentLesson} />
+      <Route path=":lessonID" component={TeachClassroomLessonContainer} />
     </Route>
   </Route>
 );
