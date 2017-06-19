@@ -122,7 +122,7 @@ export function submitResponse(content, prid, isFirstAttempt) {
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
     request.post({
-      url: `${process.env.QUILL_CMS}responses/create_or_increment`,
+      url: `${process.env.QUILL_CMS}/responses/create_or_increment`,
       form: { response: rubyConvertedResponse, }, },
       (error, httpStatus, body) => {
         if (error) {

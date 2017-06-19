@@ -26,9 +26,7 @@ import {
   removeLinkToParentID,
   setUpdatedResponse
 } from '../../actions/responses';
-import request from 'request';
 const C = require('../../constants').default;
-const ActionCable = require('actioncable')
 
 const labels = C.ERROR_AUTHORS;
 const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
@@ -55,32 +53,17 @@ const Responses = React.createClass({
       matcher = QuestionMatcher;
     }
     return {
-      responsePageNumber: 1,
       percentageOfWeakResponses: 0,
       actions,
       viewingResponses: true,
       matcher,
-      stringFilter: '',
       selectedResponses: [],
     };
   },
 
   componentDidMount() {
-    this.searchResponses();
-    this.initializeCable()
-  },
-
-  initializeCable() {
-    const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`)
-    cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: this.props.questionID}, {
-      received: (data) => this.handleNewData(data)
-    });
-  },
-
-  handleNewData(data) {
-    if (data.title === 'new response') {
-      this.searchResponses();
-    }
+    this.searchResponses()
+    this.props.dispatch(questionActions.initializeCable(this.props.questionID))
   },
 
   componentDidUpdate(prevProps) {
@@ -93,22 +76,7 @@ const Responses = React.createClass({
   },
 
   searchResponses() {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/responses/search`,
-        method: 'POST',
-        json: { search: this.getFormattedSearchData(), },
-      },
-      (err, httpResponse, data) => {
-        const parsedResponses = _.indexBy(data.results, 'uid');
-        const responseData = {
-          responses: parsedResponses,
-          numberOfResponses: data.numberOfResults,
-          numberOfPages: data.numberOfPages
-        }
-        this.props.dispatch(questionActions.updateResponses(responseData))
-      }
-    );
+    this.props.dispatch(questionActions.searchResponses(this.props.questionID))
   },
 
   getTotalAttempts() {
@@ -286,7 +254,7 @@ const Responses = React.createClass({
   },
 
   getBoundsForCurrentPage(length) {
-    const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
+    const startIndex = (this.props.filters.responsePageNumber - 1) * responsesPerPage;
     const endIndex = startIndex + responsesPerPage > length ? length : startIndex + responsesPerPage;
     return [startIndex, endIndex];
   },
@@ -342,13 +310,6 @@ const Responses = React.createClass({
 
   deselectFields() {
     this.props.dispatch(filterActions.deselectAllFields());
-  },
-
-  getFormattedSearchData() {
-    const searchData = this.props.filters.formattedFilterData;
-    searchData.text = this.state.stringFilter;
-    searchData.pageNumber = this.state.responsePageNumber;
-    return searchData;
   },
 
   renderStatusToggleMenu() {
@@ -424,8 +385,7 @@ const Responses = React.createClass({
           className="button is-fullwidth is-outlined" onClick={() => {
             this.setState({
               viewingResponses: !this.state.viewingResponses,
-              responsePageNumber: 1,
-            });
+            }, this.props.dispatch(questionActions.setPageNumber(1)));
           }}
         >Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
@@ -509,15 +469,16 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
+    this.props.dispatch(questionActions.setStringFilter(this.refs.stringFilter.value), () => this.searchResponses())
+    // this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
   },
 
   getFilteredResponses(responses) {
-    if (this.state.stringFilter == '') {
+    if (this.props.filters.stringFilter == '') {
       return responses;
     }
     const that = this;
-    return _.filter(responses, response => response.text.indexOf(that.state.stringFilter) >= 0);
+    return _.filter(responses, response => response.text.indexOf(that.props.filters.stringFilter) >= 0);
   },
 
   mapCountToResponse(rid) {
@@ -538,18 +499,18 @@ const Responses = React.createClass({
   },
 
   setPageNumber(pageNumber) {
-    this.setState({ responsePageNumber: pageNumber, }, () => this.searchResponses());
+    this.props.dispatch(questionActions.setPageNumber(pageNumber), () => this.searchResponses())
   },
 
   incrementPageNumber() {
-    if (this.state.responsePageNumber < this.getNumberOfPages()) {
-      this.setPageNumber(this.state.responsePageNumber + 1);
+    if (this.props.filters.responsePageNumber < this.getNumberOfPages()) {
+      this.setPageNumber(this.props.filters.responsePageNumber + 1);
     }
   },
 
   decrementPageNumber() {
-    if (this.state.responsePageNumber !== 1) {
-      this.setPageNumber(this.state.responsePageNumber - 1);
+    if (this.props.filters.responsePageNumber !== 1) {
+      this.setPageNumber(this.props.filters.responsePageNumber - 1);
     }
   },
 
@@ -588,7 +549,7 @@ const Responses = React.createClass({
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {
-      if (this.state.responsePageNumber === pageNumber) {
+      if (this.props.filters.responsePageNumber === pageNumber) {
         pageNumberStyle = {
           backgroundColor: 'lightblue',
         };
@@ -604,13 +565,13 @@ const Responses = React.createClass({
     });
 
     let nextButtonClassName = 'button pagination-extreme-button';
-    if (this.state.responsePageNumber === this.getNumberOfPages()) {
+    if (this.props.filters.responsePageNumber === this.getNumberOfPages()) {
       nextButtonClassName += ' is-disabled';
     }
     const nextButton = <a className={nextButtonClassName} onClick={this.incrementPageNumber}>Next</a>;
 
     let prevButtonClassName = 'button pagination-extreme-button';
-    if (this.state.responsePageNumber === 1) {
+    if (this.props.filters.responsePageNumber === 1) {
       prevButtonClassName += ' is-disabled';
     }
     const prevButton = <a className={prevButtonClassName} onClick={this.decrementPageNumber}>Prev</a>;
@@ -662,7 +623,7 @@ const Responses = React.createClass({
             </div>
           </div>
         </div>
-        <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
+        <input className="input" type="text" value={this.props.filters.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}

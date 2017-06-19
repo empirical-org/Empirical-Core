@@ -3,35 +3,40 @@ import rootRef from '../libs/firebase';
 const	questionsRef = rootRef.child('questions');
 const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
-import _ from 'lodash';
+import request from 'request';
+import _ from 'underscore';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
+const ActionCable = require('actioncable')
 
-module.exports = {
 	// called when the app starts. this means we immediately download all questions, and
 	// then receive all questions again as soon as anyone changes anything.
-  startListeningToQuestions() {
+  function startListeningToQuestions() {
     return function (dispatch, getState) {
       questionsRef.on('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
       });
     };
-  },
-  loadQuestions() {
+  }
+
+  function loadQuestions() {
     return function (dispatch, getState) {
       questionsRef.once('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
       });
     };
-  },
-  startQuestionEdit(qid) {
+  }
+
+  function startQuestionEdit(qid) {
     return { type: C.START_QUESTION_EDIT, qid, };
-  },
-  cancelQuestionEdit(qid) {
+  }
+
+  function cancelQuestionEdit(qid) {
     return { type: C.FINISH_QUESTION_EDIT, qid, };
-  },
-  deleteQuestion(qid) {
+  }
+
+  function deleteQuestion(qid) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
       questionsRef.child(qid).remove((error) => {
@@ -43,8 +48,8 @@ module.exports = {
         }
       });
     };
-  },
-  submitQuestionEdit(qid, content) {
+  }
+  function submitQuestionEdit(qid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
       questionsRef.child(qid).update(content, (error) => {
@@ -56,11 +61,11 @@ module.exports = {
         }
       });
     };
-  },
-  toggleNewQuestionModal() {
+  }
+  function toggleNewQuestionModal() {
     return { type: C.TOGGLE_NEW_QUESTION_MODAL, };
-  },
-  submitNewQuestion(content, response) {
+  }
+  function submitNewQuestion(content, response) {
     return (dispatch, getState) => {
       dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
       const newRef = questionsRef.push(content, (error) => {
@@ -77,9 +82,9 @@ module.exports = {
         }
       });
     };
-  },
+  }
 
-  submitNewFocusPoint(qid, data) {
+  function submitNewFocusPoint(qid, data) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
         if (error) {
@@ -87,8 +92,9 @@ module.exports = {
         }
       });
     };
-  },
-  submitEditedFocusPoint(qid, data, fpid) {
+  }
+
+  function submitEditedFocusPoint(qid, data, fpid) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
         if (error) {
@@ -96,8 +102,9 @@ module.exports = {
         }
       });
     };
-  },
-  submitBatchEditedFocusPoint(qid, data) {
+  }
+
+  function submitBatchEditedFocusPoint(qid, data) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/focusPoints/`).set(data, (error) => {
         if (error) {
@@ -105,8 +112,9 @@ module.exports = {
         }
       });
     };
-  },
-  deleteFocusPoint(qid, fpid) {
+  }
+
+  function deleteFocusPoint(qid, fpid) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
         if (error) {
@@ -114,8 +122,9 @@ module.exports = {
         }
       });
     };
-  },
-  submitNewIncorrectSequence(qid, data) {
+  }
+
+  function submitNewIncorrectSequence(qid, data) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
         if (error) {
@@ -123,8 +132,9 @@ module.exports = {
         }
       });
     };
-  },
-  submitEditedIncorrectSequence(qid, data, seqid) {
+  }
+
+  function submitEditedIncorrectSequence(qid, data, seqid) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
         if (error) {
@@ -132,8 +142,9 @@ module.exports = {
         }
       });
     };
-  },
-  deleteIncorrectSequence(qid, seqid) {
+  }
+
+  function deleteIncorrectSequence(qid, seqid) {
     return function (dispatch, getState) {
       questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
         if (error) {
@@ -141,35 +152,124 @@ module.exports = {
         }
       });
     };
-  },
-  startResponseEdit(qid, rid) {
+  }
+
+  function getFormattedSearchData(state) {
+    const searchData = state.filters.formattedFilterData;
+    searchData.text = state.filters.stringFilter;
+    searchData.pageNumber = state.filters.responsePageNumber;
+    return searchData
+  }
+
+  function searchResponses(qid) {
+    return function(dispatch, getState) {
+      request(
+        {
+          url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+          method: 'POST',
+          json: { search: getFormattedSearchData(getState())},
+        },
+        (err, httpResponse, data) => {
+          const parsedResponses = _.indexBy(data.results, 'uid');
+          const responseData = {
+            responses: parsedResponses,
+            numberOfResponses: data.numberOfResults,
+            numberOfPages: data.numberOfPages
+          }
+          dispatch(updateResponses(responseData))
+        }
+      );
+    }
+  }
+
+  function initializeCable(qid) {
+    return function(dispatch) {
+      const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`)
+      cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: qid}, {
+        received: (data) => data.title === 'new response'
+        ? dispatch(searchResponses(qid))
+        : null
+      });
+    }
+  }
+
+
+  function startResponseEdit(qid, rid) {
     return { type: C.START_RESPONSE_EDIT, qid, rid, };
-  },
-  cancelResponseEdit(qid, rid) {
+  }
+
+  function cancelResponseEdit(qid, rid) {
     return { type: C.FINISH_RESPONSE_EDIT, qid, rid, };
-  },
-  startChildResponseView(qid, rid) {
+  }
+
+  function startChildResponseView(qid, rid) {
     return { type: C.START_CHILD_RESPONSE_VIEW, qid, rid, };
-  },
-  cancelChildResponseView(qid, rid) {
+  }
+
+  function cancelChildResponseView(qid, rid) {
     return { type: C.CANCEL_CHILD_RESPONSE_VIEW, qid, rid, };
-  },
-  startFromResponseView(qid, rid) {
+  }
+
+  function startFromResponseView(qid, rid) {
     return { type: C.START_FROM_RESPONSE_VIEW, qid, rid, };
-  },
-  cancelFromResponseView(qid, rid) {
+  }
+
+  function cancelFromResponseView(qid, rid) {
     return { type: C.CANCEL_FROM_RESPONSE_VIEW, qid, rid, };
-  },
-  startToResponseView(qid, rid) {
+  }
+
+  function startToResponseView(qid, rid) {
     return { type: C.START_TO_RESPONSE_VIEW, qid, rid, };
-  },
-  cancelToResponseView(qid, rid) {
+  }
+
+  function cancelToResponseView(qid, rid) {
     return { type: C.CANCEL_TO_RESPONSE_VIEW, qid, rid, };
-  },
-  clearQuestionState(qid) {
+  }
+
+  function clearQuestionState(qid) {
     return { type: C.CLEAR_QUESTION_STATE, qid, };
-  },
-  updateResponses(data) {
+  }
+
+  function updateResponses(data) {
     return { type: C.UPDATE_SEARCHED_RESPONSES, data}
   }
-};
+
+  function setPageNumber(pageNumber) {
+    return {type: C.SET_RESPONSE_PAGE_NUMBER, pageNumber}
+  }
+
+  function setStringFilter(stringFilter) {
+    return {type: C.SET_RESPONSE_STRING_FILTER, stringFilter}
+  }
+
+  module.exports = {
+    startListeningToQuestions,
+    loadQuestions,
+    startQuestionEdit,
+    cancelQuestionEdit,
+    deleteQuestion,
+    submitQuestionEdit,
+    toggleNewQuestionModal,
+    submitNewQuestion,
+    submitNewFocusPoint,
+    submitEditedFocusPoint,
+    submitBatchEditedFocusPoint,
+    deleteFocusPoint,
+    submitNewIncorrectSequence,
+    submitEditedIncorrectSequence,
+    deleteIncorrectSequence,
+    searchResponses,
+    initializeCable,
+    startResponseEdit,
+    cancelResponseEdit,
+    startChildResponseView,
+    cancelChildResponseView,
+    startFromResponseView,
+    cancelFromResponseView,
+    startToResponseView,
+    cancelToResponseView,
+    clearQuestionState,
+    updateResponses,
+    setPageNumber,
+    setStringFilter,
+  };
