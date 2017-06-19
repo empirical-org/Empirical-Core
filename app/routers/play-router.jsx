@@ -7,6 +7,7 @@ import StudentRoot from '../components/studentRoot';
 import PlaySentenceFragment from '../components/sentenceFragments/playSentenceFragment.jsx';
 import Turk from '../components/turk/sentenceFragmentsQuiz.jsx';
 import { getParameterByName } from '../libs/getParameterByName';
+import PlayLessonClassroomContainer from '../components/classroomLessons/play/container.jsx';
 
 const Passthrough = React.createClass({
   render() {
@@ -41,7 +42,7 @@ const PlayRoutes = (
             }
           }
       />
-      <Route path=":lessonID" component={StudentLesson} />
+      <Route path=":lessonID" component={PlayLessonClassroomContainer} />
     </Route>
     <Route path="lesson" component={Passthrough}>
       <IndexRoute

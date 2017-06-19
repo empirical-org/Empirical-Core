@@ -9,7 +9,7 @@ class TeachClassroomLessonContainer extends Component {
   render() {
     return (
       <div>
-        New Component
+        Teacher Classroom
       </div>
     );
   }
@@ -18,6 +18,7 @@ class TeachClassroomLessonContainer extends Component {
 
 function select(props) {
   return {
+    // classroomSession: props.classroomSession,
     // classroomLessons: props.classroomLessons,
   };
 }
