@@ -23,10 +23,7 @@ class PlayLessonClassroomContainer extends Component {
 
 function select(props) {
   return {
-    // lessons: state.lessons,
-    // questions: state.questions,
-    // sentenceFragments: state.sentenceFragments,
-    // playLesson: props.playLesson,
+    // classroomSession: props.classroomSession,
     // classroomLessons: props.classroomLessons,
   };
 }
