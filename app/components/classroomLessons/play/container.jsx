@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PlayLessonClassroomQuestion from './lessonClassroomQuestion.jsx';
-import { startListeningToSession } from '../../../actions/classroomSessions.js';
+import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions.js';
 
 class PlayLessonClassroomContainer extends Component {
   constructor(props) {
@@ -9,7 +9,9 @@ class PlayLessonClassroomContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(startListeningToSession(this.props.location.query.classroom_activity_id));
+    const { classroom_activity_id, student, } = this.props.location.query;
+    this.props.dispatch(startListeningToSession(classroom_activity_id));
+    registerPresence(classroom_activity_id, student);
   }
 
   render() {
