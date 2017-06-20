@@ -4,16 +4,29 @@ import { startListeningToSession, registerPresence } from '../../../actions/clas
 import CLStudentLobby from './lobby.jsx';
 import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
+import { saveStudentSubmission } from '../../../actions/classroomSessions';
 
 class PlayLessonClassroomContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
   }
 
   componentDidMount() {
     const { classroom_activity_id, student, } = this.props.location.query;
     this.props.dispatch(startListeningToSession(classroom_activity_id));
     registerPresence(classroom_activity_id, student);
+  }
+
+  handleStudentSubmission(submission) {
+    const { classroom_activity_id, student, } = this.props.location.query;
+    const action = saveStudentSubmission(
+      classroom_activity_id,
+      this.props.classroomSessions.data.current_slide,
+      student,
+      submission
+    );
+    this.props.dispatch(action);
   }
 
   renderCurrentSlide(data) {
@@ -30,7 +43,7 @@ class PlayLessonClassroomContainer extends Component {
         );
       case 'CL-SA':
         return (
-          <CLStudentSingleAnswer data={current.data} />
+          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} />
         );
       default:
 

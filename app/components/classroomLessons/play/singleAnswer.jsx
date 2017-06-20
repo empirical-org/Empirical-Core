@@ -7,6 +7,20 @@ import TextEditor from '../../renderForQuestions/renderTextEditor.jsx';
 class SingleAnswer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      response: '',
+      editing: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.submitSubmission = this.submitSubmission.bind(this);
+  }
+
+  submitSubmission() {
+    this.props.handleStudentSubmission(this.state.response);
+  }
+
+  handleChange(e) {
+    this.setState({ editing: true, response: e, });
   }
 
   render() {
@@ -26,8 +40,9 @@ class SingleAnswer extends Component {
         </div>
         <TextEditor
           className={'textarea is-question is-disabled'} defaultValue={''}
-          disabled={false} checkAnswer={() => {}}
-          hasError={undefined} handleChange={() => {}}
+          value={this.state.response}
+          disabled={false} checkAnswer={this.submitSubmission}
+          hasError={undefined} handleChange={this.handleChange}
         />
       </div>
     );
