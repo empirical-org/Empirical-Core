@@ -6,32 +6,24 @@ class Lobby extends Component {
   }
 
   renderPresentStudents(presence, students) {
-    // const ids = presence.keys();
-
-    for (const id in presence) {
-      console.log(id);
-    }
-    const names = [];
-    for (const key in presence) {
-      names.push(students[key]);
-    }
-
-    return (
-      <ul>
-        {names.map(name => (
-          <li>
-            {name}
-          </li>
-          ))}
-      </ul>
-    );
+    return Object.keys(presence).map((key) => {
+      const name = students[key];
+      return (
+        <li>
+          {name}
+        </li>
+      );
+    });
   }
 
   render() {
     return (
       <div>
         Lobby
-        {this.renderPresentStudents(this.props.data.presence, this.props.data.students)}
+        <ul>
+          {this.renderPresentStudents(this.props.data.presence, this.props.data.students)}
+        </ul>
+        {/* {this.renderNextSlideButton()} */}
       </div>
     );
   }
