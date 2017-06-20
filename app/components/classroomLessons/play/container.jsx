@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PlayLessonClassroomQuestion from './lessonClassroomQuestion.jsx';
 import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions.js';
+import CLStudentLobby from './lobby.jsx';
 
 class PlayLessonClassroomContainer extends Component {
   constructor(props) {
@@ -14,14 +14,38 @@ class PlayLessonClassroomContainer extends Component {
     registerPresence(classroom_activity_id, student);
   }
 
+  renderCurrentSlide(data) {
+    const current = data.questions[data.current_slide];
+    console.log(current.type);
+    switch (current.type) {
+      case 'CL-LB':
+        return (
+          <CLStudentLobby data={data} goToNextSlide={this.goToNextSlide} />
+        );
+      // case 'CL-ST':
+      //   return (
+      //     <CLStudentStatic data={data} goToNextSlide={this.goToNextSlide} />
+      //   );
+      // case 'CL-SA':
+      //   return (
+      //     <CLStudentSingleAnswer data={data} goToNextSlide={this.goToNextSlide} />
+      //   );
+      default:
+
+    }
+  }
+
   render() {
-    const component = (<PlayLessonClassroomQuestion />);
+    const { data, hasreceiveddata, } = this.props.classroomSessions;
+    if (hasreceiveddata) {
+      const component = this.renderCurrentSlide(data);
+      return (
+        component
+      );
+    }
     return (
       <div>
-        <p>
-          New Student Play Component
-        </p>
-        {component}
+        Loading...
       </div>
     );
   }

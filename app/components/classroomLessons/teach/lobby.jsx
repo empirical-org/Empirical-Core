@@ -6,14 +6,19 @@ class Lobby extends Component {
   }
 
   renderPresentStudents(presence, students) {
-    return Object.keys(presence).map((key) => {
-      const name = students[key];
-      return (
-        <li>
-          {name}
-        </li>
-      );
-    });
+    if (presence !== undefined) {
+      return Object.keys(presence).map((key) => {
+        const name = students[key];
+        return (
+          <li>
+            {name}
+          </li>
+        );
+      });
+    } else {
+      return;
+    }
+    
   }
 
   renderNextSlideButton() {
@@ -22,10 +27,24 @@ class Lobby extends Component {
     );
   }
 
+  renderNumberPresentStudents(presence) {
+    // if (presence === undefined) {
+    //   const numPresent = 0;
+    // } else {
+    //   const numPresent = Object.keys(presence).length;
+    // }
+    return (
+      <p>
+        {Object.keys(presence).length} Student(s) Connected
+      </p>
+    )
+  }
+
   render() {
     return (
       <div>
         Lobby
+        {this.renderNumberPresentStudents(this.props.data.presence)}
         <ul>
           {this.renderPresentStudents(this.props.data.presence, this.props.data.students)}
         </ul>

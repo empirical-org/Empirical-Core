@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startListeningToSession, goToNextSlide } from '../../../actions/classroomSessions.js';
+import { startListeningToSession, goToNextSlide, updateCurrentSlide } from '../../../actions/classroomSessions.js';
 import CLLobby from './lobby.jsx';
+import CLStatic from './static.jsx';
+import CLSingleAnswer from './singleAnswer.jsx';
 
 class TeachClassroomLessonContainer extends Component {
   constructor(props) {
@@ -16,12 +18,20 @@ class TeachClassroomLessonContainer extends Component {
 
   renderCurrentSlide(data) {
     const current = data.questions[data.current_slide];
+    console.log(current.type);
     switch (current.type) {
       case 'CL-LB':
         return (
           <CLLobby data={data} goToNextSlide={this.goToNextSlide} />
         );
-        break;
+      case 'CL-ST':
+        return (
+          <CLStatic data={data} goToNextSlide={this.goToNextSlide} />
+        );
+      case 'CL-SA':
+        return (
+          <CLSingleAnswer data={data} goToNextSlide={this.goToNextSlide} />
+        );
       default:
 
     }
