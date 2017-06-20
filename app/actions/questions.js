@@ -9,11 +9,12 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 const ActionCable = require('actioncable')
+const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`)
 
 	// called when the app starts. this means we immediately download all questions, and
 	// then receive all questions again as soon as anyone changes anything.
   function startListeningToQuestions() {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.on('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
       });
@@ -21,7 +22,7 @@ const ActionCable = require('actioncable')
   }
 
   function loadQuestions() {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.once('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
       });
@@ -37,7 +38,7 @@ const ActionCable = require('actioncable')
   }
 
   function deleteQuestion(qid) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
       questionsRef.child(qid).remove((error) => {
         dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
@@ -50,7 +51,7 @@ const ActionCable = require('actioncable')
     };
   }
   function submitQuestionEdit(qid, content) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
       questionsRef.child(qid).update(content, (error) => {
         dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
@@ -85,7 +86,7 @@ const ActionCable = require('actioncable')
   }
 
   function submitNewFocusPoint(qid, data) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
@@ -95,7 +96,7 @@ const ActionCable = require('actioncable')
   }
 
   function submitEditedFocusPoint(qid, data, fpid) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
@@ -105,7 +106,7 @@ const ActionCable = require('actioncable')
   }
 
   function submitBatchEditedFocusPoint(qid, data) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.child(`${qid}/focusPoints/`).set(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
@@ -115,7 +116,7 @@ const ActionCable = require('actioncable')
   }
 
   function deleteFocusPoint(qid, fpid) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
         if (error) {
           alert(`Delete failed! ${error}`);
@@ -125,7 +126,7 @@ const ActionCable = require('actioncable')
   }
 
   function submitNewIncorrectSequence(qid, data) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
@@ -135,7 +136,7 @@ const ActionCable = require('actioncable')
   }
 
   function submitEditedIncorrectSequence(qid, data, seqid) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
@@ -145,7 +146,7 @@ const ActionCable = require('actioncable')
   }
 
   function deleteIncorrectSequence(qid, seqid) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
         if (error) {
           alert(`Delete failed! ${error}`);
@@ -156,13 +157,14 @@ const ActionCable = require('actioncable')
 
   function getFormattedSearchData(state) {
     const searchData = state.filters.formattedFilterData;
+    console.log('state', state)
     searchData.text = state.filters.stringFilter;
     searchData.pageNumber = state.filters.responsePageNumber;
     return searchData
   }
 
   function searchResponses(qid) {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
       request(
         {
           url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
@@ -182,10 +184,9 @@ const ActionCable = require('actioncable')
     }
   }
 
-  function initializeCable(qid) {
-    return function(dispatch) {
-      const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`)
-      cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: qid}, {
+  function initializeSubscription(qid) {
+    return (dispatch) => {
+      const sub = cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: qid}, {
         received: (data) => data.title === 'new response'
         ? dispatch(searchResponses(qid))
         : null
@@ -193,6 +194,26 @@ const ActionCable = require('actioncable')
     }
   }
 
+  function removeSubscription(qid) {
+    return (dispatch) => {
+      const sub = cable.subscriptions.subscriptions.find((sub) => JSON.parse(sub.identifier).question_uid === qid)
+      sub.unsubscribe()
+    }
+  }
+
+  function updatePageNumber(pageNumber, qid) {
+    return (dispatch) => {
+      dispatch(setPageNumber(pageNumber))
+      dispatch(searchResponses(qid))
+    }
+  }
+
+  function updateStringFilter(stringFilter, qid) {
+    return (dispatch) => {
+      dispatch(setStringFilter(stringFilter))
+      dispatch(searchResponses(qid))
+    }
+  }
 
   function startResponseEdit(qid, rid) {
     return { type: C.START_RESPONSE_EDIT, qid, rid, };
@@ -259,7 +280,10 @@ const ActionCable = require('actioncable')
     submitEditedIncorrectSequence,
     deleteIncorrectSequence,
     searchResponses,
-    initializeCable,
+    initializeSubscription,
+    removeSubscription,
+    updatePageNumber,
+    updateStringFilter,
     startResponseEdit,
     cancelResponseEdit,
     startChildResponseView,

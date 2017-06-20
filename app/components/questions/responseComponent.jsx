@@ -63,7 +63,7 @@ const Responses = React.createClass({
 
   componentDidMount() {
     this.searchResponses()
-    this.props.dispatch(questionActions.initializeCable(this.props.questionID))
+    this.props.dispatch(questionActions.initializeSubscription(this.props.questionID))
   },
 
   componentDidUpdate(prevProps) {
@@ -73,6 +73,10 @@ const Responses = React.createClass({
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
     }
+  },
+
+  componentWillUnmount() {
+    this.props.dispatch(questionActions.removeSubscription(this.props.questionID))
   },
 
   searchResponses() {
@@ -385,7 +389,7 @@ const Responses = React.createClass({
           className="button is-fullwidth is-outlined" onClick={() => {
             this.setState({
               viewingResponses: !this.state.viewingResponses,
-            }, this.props.dispatch(questionActions.setPageNumber(1)));
+            }, this.updatePageNumber(1));
           }}
         >Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
@@ -469,7 +473,7 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.props.dispatch(questionActions.setStringFilter(this.refs.stringFilter.value), () => this.searchResponses())
+    this.props.dispatch(questionActions.updateStringFilter(this.refs.stringFilter.value, this.props.questionID))
     // this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
   },
 
@@ -498,19 +502,19 @@ const Responses = React.createClass({
     return _.values(mapped);
   },
 
-  setPageNumber(pageNumber) {
-    this.props.dispatch(questionActions.setPageNumber(pageNumber), () => this.searchResponses())
+  updatePageNumber(pageNumber) {
+    this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID))
   },
 
   incrementPageNumber() {
     if (this.props.filters.responsePageNumber < this.getNumberOfPages()) {
-      this.setPageNumber(this.props.filters.responsePageNumber + 1);
+      this.updatePageNumber(this.props.filters.responsePageNumber + 1);
     }
   },
 
   decrementPageNumber() {
     if (this.props.filters.responsePageNumber !== 1) {
-      this.setPageNumber(this.props.filters.responsePageNumber - 1);
+      this.updatePageNumber(this.props.filters.responsePageNumber - 1);
     }
   },
 
@@ -519,7 +523,7 @@ const Responses = React.createClass({
   },
 
   resetPageNumber() {
-    this.setPageNumber(1);
+    this.updatePageNumber(1);
   },
 
   renderDisplayingMessage() {
@@ -558,7 +562,7 @@ const Responses = React.createClass({
       }
       return (
         <li key={i}>
-          <a className="button" style={pageNumberStyle} onClick={() => this.setPageNumber(pageNumber)}>{pageNumber}</a>
+          <a className="button" style={pageNumberStyle} onClick={() => this.updatePageNumber(pageNumber)}>{pageNumber}</a>
           {/* <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a> */}
         </li>
       );
