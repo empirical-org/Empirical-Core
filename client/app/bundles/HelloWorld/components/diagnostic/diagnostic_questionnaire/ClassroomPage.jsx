@@ -6,6 +6,7 @@ import {Router, Route, Link, hashHistory} from 'react-router'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 import Modal from 'react-bootstrap/lib/Modal';
 import CreateClass from '../../../containers/CreateClass.jsx'
+import Classroom from '../../lesson_planner/create_unit/stage2/classroom'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 
 export default React.createClass({
@@ -27,8 +28,8 @@ export default React.createClass({
 
 	getClassrooms: function() {
 		var that = this;
-		$.ajax('/teachers/classrooms/classrooms_i_teach').done(function(data) {
-			let classrooms = that.addCheckedProp(data.classrooms);
+		$.ajax('/teachers/classrooms_i_teach_with_students').done(function(data) {
+			let classrooms = that.addClassroomProps(data.classrooms);
 			that.setState({classrooms: classrooms})
 		}).fail(function() {
 			alert('error');
@@ -45,14 +46,61 @@ export default React.createClass({
 	},
 
 	updateSelectedClassrooms: function() {
+		const newState = Object.assign({}, this.state)
 		const classrooms = this.state.classrooms
 		let checkedClassrooms = [];
 		classrooms.forEach((c) => {
 			if (c.checked) {
 				checkedClassrooms.push({'id': c.id, 'student_ids': []})
+			} else if (c.selectedStudentIds.length > 0) {
+				checkedClassrooms.push({'id': c.id, 'student_ids': c.selectedStudentIds})
 			}
 		})
-		this.setState({selectedClassrooms: checkedClassrooms, hiddenButton: checkedClassrooms.length < 1});
+		newState.selectedClassrooms = checkedClassrooms
+		newState.hiddenButton = checkedClassrooms.length < 1
+		this.setState(newState);
+	},
+
+	toggleStudentSelection: function(studentIndex, classIndex) {
+		const newState = Object.assign({}, this.state);
+		const classy = newState.classrooms[classIndex]
+	  let selectedStudent = classy.students[studentIndex]
+		selectedStudent.isSelected = !selectedStudent.isSelected;
+		if (selectedStudent.isSelected) {
+			classy.selectedStudentIds.push(selectedStudent.id)
+		} else {
+			const index = classy.selectedStudentIds.indexOf(selectedStudent.id)
+			classy.selectedStudentIds.splice(index, 1)
+		}
+		this.setState(newState, () => this.updateSelectedClassrooms())
+	},
+
+	handleStudentCheckboxClick: function(studentId, classroomId) {
+		const classIndex = this.findTargetClassIndex(classroomId)
+		const studentIndex = this.findTargetStudentIndex(studentId, classIndex)
+		this.toggleStudentSelection(studentIndex, classIndex)
+	},
+
+	toggleClassroomSelection: function(classy) {
+		const newState = Object.assign({}, this.state);
+		const classIndex = this.findTargetClassIndex(classy.id);
+		const classroom = newState.classrooms[classIndex];
+		classroom.checked = !classroom.checked
+		classroom.students.forEach((stud)=>stud.isSelected=classroom.checked);
+		this.setState(newState, () => this.updateSelectedClassrooms());
+	},
+
+	findTargetClassIndex: function(classroomId) {
+		return this.state.classrooms.findIndex((classy)=>{
+			return classy.id === classroomId
+		})
+	},
+
+	findTargetStudentIndex: function(studentId, targetClassIndex) {
+		return this.state.classrooms[targetClassIndex].students.findIndex(
+			(stud)=>{
+				return stud.id===studentId
+		})
 	},
 
 	assignedClassData: function() {
@@ -101,17 +149,19 @@ export default React.createClass({
 		return grades
 	},
 
-	addCheckedProp: function(classrooms) {
+	addClassroomProps: function(classrooms) {
 		let updatedClassrooms
 		if (this.state.selectedClassrooms) {
 			const selectedClassroomIds = this.state.selectedClassrooms.map((classy) => classy.id)
 			updatedClassrooms = classrooms.map((classy) => {
 				classy.checked = selectedClassroomIds.includes(classy.id)
+				classy.selectedStudentIds = []
 				return classy
 			})
 		} else {
 			updatedClassrooms = classrooms.map((classy) => {
 					classy.checked = false
+					classy.selectedStudentIds = []
 					return classy
 			})
 		}
@@ -147,20 +197,13 @@ export default React.createClass({
 		// 		: that.readingLevelFormatter(input)
 		// }
 		return (
-			<div className='classroom-row' key={classy.id}>
-				<div className='pull-left'>
-					<input type='checkbox' className='css-checkbox' id={classy.id} onChange={() => this.handleChange(index)}/>
-					<label htmlFor={classy.id} className='css-label'>
-						<h3>{classy.name}</h3>
-					</label>
-				</div>
-				<div className={'is-checked-' + currClass.checked}>
-					{/*<DropdownButton bsStyle='default' title={readingLevel()} id='select-grade' onSelect={this.handleSelect.bind(null, index)}>
-						{this.grades()}
-					</DropdownButton>*/}
-					{/*<a href='/'>Preview</a>*/}
-				</div>
-			</div>
+			<Classroom
+				students={classy.students}
+				classroom={classy}
+				allSelected={classy.allSelected}
+				toggleClassroomSelection={this.toggleClassroomSelection}
+				handleStudentCheckboxClick={this.handleStudentCheckboxClick}
+			/>
 		)
 	},
 
@@ -171,7 +214,7 @@ export default React.createClass({
 			return <span></span>
 		} else {
 			let rows = this.state.classrooms.map((classy, index) => this.buildClassRow(classy, index));
-			return <div id='classroom-table-wrapper'>{rows}</div>
+			return <div className='edit-assigned-students-container'>{rows}</div>
 		}
 	},
 
