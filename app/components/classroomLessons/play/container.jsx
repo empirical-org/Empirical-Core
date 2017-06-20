@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions.js';
 import CLStudentLobby from './lobby.jsx';
+import CLStudentStatic from './static.jsx';
+import CLStudentSingleAnswer from './singleAnswer.jsx';
 
 class PlayLessonClassroomContainer extends Component {
   constructor(props) {
@@ -20,16 +22,16 @@ class PlayLessonClassroomContainer extends Component {
     switch (current.type) {
       case 'CL-LB':
         return (
-          <CLStudentLobby data={data} goToNextSlide={this.goToNextSlide} />
+          <CLStudentLobby data={data} />
         );
-      // case 'CL-ST':
-      //   return (
-      //     <CLStudentStatic data={data} goToNextSlide={this.goToNextSlide} />
-      //   );
-      // case 'CL-SA':
-      //   return (
-      //     <CLStudentSingleAnswer data={data} goToNextSlide={this.goToNextSlide} />
-      //   );
+      case 'CL-ST':
+        return (
+          <CLStudentStatic data={current.data} />
+        );
+      case 'CL-SA':
+        return (
+          <CLStudentSingleAnswer data={current.data} />
+        );
       default:
 
     }
