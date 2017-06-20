@@ -128,28 +128,28 @@ describe('UnitTemplateProfile component', () => {
   })
 
   describe('componentWillReceiveProps', () => {
-    Object.defineProperty(location, 'reload', {
-      value: jest.fn()
-    })
 
-    it('will not reload the page if the new activityPackId is the old activityPackId', () => {
+    it('will not change state to loading if the new activityPackId is the same as the old activityPackId', () => {
       const wrapper = shallow(
         <UnitTemplateProfile {...props} />
       );
-      const nextProps = {params: {activityPackId: props.params.activityPackId}}
+      wrapper.setState({ loading: false, data: {non_authenticated: false}});
+      const nextProps = {location: {...props.location}, params: {activityPackId: props.params.activityPackId}}
       wrapper.instance().componentWillReceiveProps(nextProps)
 
-      expect(location.reload.mock.calls.length).toBe(0)
+      expect(wrapper.state('loading')).toBe(false)
     })
-    it('will reload the page if the new activityPackId is not the old activityPackId', () => {
+
+    it('will change state to loading if the new activityPackId is not the same as the old activityPackIdill reload the page if the new activityPackId is not the old activityPackId', () => {
       const wrapper = shallow(
         <UnitTemplateProfile {...props} />
       );
 
-      const nextProps = {params: {activityPackId: props.params.activityPackId + 1}}
+      wrapper.setState({ loading: false, data: {non_authenticated: false}});
+      const nextProps = {location: {1: 'a'}, params: {activityPackId: 1}}
       wrapper.instance().componentWillReceiveProps(nextProps)
 
-      expect(location.reload.mock.calls.length).toBe(1)
+      expect(wrapper.state('loading')).toBe(true)
     })
 
   })

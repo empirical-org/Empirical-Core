@@ -3,6 +3,7 @@
  import React from 'react'
  import { Link } from 'react-router'
  import $ from 'jquery'
+ import _ from 'underscore'
 
  import LoadingIndicator from '../../../shared/loading_indicator'
  import ScrollToTop from '../../../shared/scroll_to_top'
@@ -43,7 +44,7 @@
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.location !== nextProps.location) {
+    if (!_.isEqual(this.props.location, nextProps.location)) {
       this.setState({loading: true})
       this.getProfileInfo(nextProps.params.activityPackId)
     }
