@@ -79,7 +79,9 @@ describe('UnitTemplateProfile component', () => {
       <UnitTemplateProfile {...props} />
     );
 
-    wrapper.instance().getProfileInfo()
+    const passedId = props.params.activityPackId
+
+    wrapper.instance().getProfileInfo(passedId)
 
     it('should make an ajax call', () => {
       expect($.ajax.mock.calls.length).toBe(1)
@@ -101,8 +103,8 @@ describe('UnitTemplateProfile component', () => {
       expect($.ajax.mock.calls[0][0]['datatype']).toBe('json');
     })
 
-    it('should make an ajax call with a data object with the id of the activity pack', () => {
-      expect($.ajax.mock.calls[0][0]['data']['id']).toBe(props.params.activityPackId);
+    it('should make an ajax call with a data object with the id it is passed', () => {
+      expect($.ajax.mock.calls[0][0]['data']['id']).toBe(passedId);
     })
 
     it('should make an ajax call with a statusCode that fires a function on 200 ', () => {
