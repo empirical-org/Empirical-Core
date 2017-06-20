@@ -16,6 +16,12 @@ class Lobby extends Component {
     });
   }
 
+  renderNextSlideButton() {
+    return (
+      <button onClick={this.props.goToNextSlide} >Next Slide</button>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -23,7 +29,7 @@ class Lobby extends Component {
         <ul>
           {this.renderPresentStudents(this.props.data.presence, this.props.data.students)}
         </ul>
-        {/* {this.renderNextSlideButton()} */}
+        {this.renderNextSlideButton()}
       </div>
     );
   }

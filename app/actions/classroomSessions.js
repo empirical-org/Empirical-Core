@@ -30,6 +30,19 @@ export function registerPresence(classroom_activity_id, student_id) {
   });
 }
 
+export function goToNextSlide(classroom_activity_id) {
+  return (dispatch, getState) => {
+    const state = getState().classroomSessions;
+    console.log(state);
+    const { current_slide, questions, } = state.data;
+    const slides = Object.keys(questions);
+    console.log(slides);
+    const current_slide_index = slides.indexOf(current_slide);
+    const nextSlide = slides[current_slide_index + 1];
+    return updateCurrentSlide(classroom_activity_id, nextSlide);
+  };
+}
+
 export function updateCurrentSlide(classroom_activity_id, question_id) {
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.set(question_id);

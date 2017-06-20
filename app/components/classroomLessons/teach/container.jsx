@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startListeningToSession } from '../../../actions/classroomSessions.js';
+import { startListeningToSession, goToNextSlide } from '../../../actions/classroomSessions.js';
 import CLLobby from './lobby.jsx';
 
 class TeachClassroomLessonContainer extends Component {
   constructor(props) {
     super(props);
     this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
+    this.goToNextSlide = this.goToNextSlide.bind(this);
   }
 
   componentDidMount() {
@@ -18,12 +19,16 @@ class TeachClassroomLessonContainer extends Component {
     switch (current.type) {
       case 'CL-LB':
         return (
-          <CLLobby data={data} />
+          <CLLobby data={data} goToNextSlide={this.goToNextSlide} />
         );
         break;
       default:
 
     }
+  }
+
+  goToNextSlide() {
+    this.props.dispatch(goToNextSlide(this.props.location.query.classroom_activity_id));
   }
 
   render() {
