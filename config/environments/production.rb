@@ -89,4 +89,7 @@ Rails.application.configure do
       resource '*quill.org', :headers => :any, :methods => [:get, :post, :options, :delete]
     end
   end
+
+  # Use Redis for caching
+  config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 end
