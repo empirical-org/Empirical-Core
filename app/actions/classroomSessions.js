@@ -37,12 +37,12 @@ export function updateCurrentSlide(classroom_activity_id, question_id) {
 
 export function saveStudentSubmission(classroom_activity_id, question_id, student_id, submission) {
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
-  const submissionRef.set(submission)
+  submissionRef.set(submission);
 }
 
 export function saveSelectedStudentSubmission(classroom_activity_id, question_id, student_id) {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
-  const selectedSubmissionRef.set(true);
+  selectedSubmissionRef.set(true);
 }
 
 export function removeSelectedStudentSubmission(classroom_activity_id, question_id, student_id) {
