@@ -4,6 +4,8 @@ class SingleAnswer extends Component {
   constructor(props) {
     super(props);
     this.toggleSelected = this.toggleSelected.bind(this);
+    this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
+    this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
   }
 
   renderNextSlideButton() {
@@ -14,6 +16,14 @@ class SingleAnswer extends Component {
 
   toggleSelected(event, current_slide, student) {
     this.props.toggleSelected(current_slide, student);
+  }
+
+  startDisplayingAnswers() {
+    this.props.startDisplayingAnswers();
+  }
+
+  stopDisplayingAnswers() {
+    this.props.stopDisplayingAnswers();
   }
 
   renderReview(item) {
@@ -31,15 +41,19 @@ class SingleAnswer extends Component {
       </li>
       ));
     return (
-      <ul
-        style={{
-          margin: 10,
-          padding: 10,
-          border: '1px solid magenta',
-        }}
-      >
-        {submissionComponents}
-      </ul>
+      <div>
+        <ul
+          style={{
+            margin: 10,
+            padding: 10,
+            border: '1px solid magenta',
+          }}
+        >
+          {submissionComponents}
+        </ul>
+        <button onClick={this.startDisplayingAnswers}>Display Selected Answers</button>
+        <button onClick={this.stopDisplayingAnswers}>Stop displaying student answers</button>
+      </div>
     );
   }
 

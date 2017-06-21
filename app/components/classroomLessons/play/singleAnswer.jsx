@@ -23,6 +23,21 @@ class SingleAnswer extends Component {
     this.setState({ editing: true, response: e, });
   }
 
+  modeAppropriateRender() {
+    if (this.props.mode === 'PROJECT') {
+      return <h1>Projecting</h1>;
+    } else {
+      return (
+        <TextEditor
+          className={'textarea is-question is-disabled'} defaultValue={''}
+          value={this.state.response}
+          disabled={false} checkAnswer={this.submitSubmission}
+          hasError={undefined} handleChange={this.handleChange}
+        />
+      );
+    }
+  }
+
   render() {
     console.log(this.props.data);
     return (
@@ -38,12 +53,8 @@ class SingleAnswer extends Component {
           <img src={icon} />
           <p>{this.props.data.play.instructions}</p>
         </div>
-        <TextEditor
-          className={'textarea is-question is-disabled'} defaultValue={''}
-          value={this.state.response}
-          disabled={false} checkAnswer={this.submitSubmission}
-          hasError={undefined} handleChange={this.handleChange}
-        />
+        {this.modeAppropriateRender()}
+
       </div>
     );
   }

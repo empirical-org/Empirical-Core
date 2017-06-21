@@ -63,3 +63,13 @@ export function removeSelectedStudentSubmission(classroom_activity_id, question_
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
   selectedSubmissionRef.remove();
 }
+
+export function setMode(classroom_activity_id, question_id, mode) {
+  const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
+  modeRef.set(mode);
+}
+
+export function removeMode(classroom_activity_id, question_id) {
+  const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
+  modeRef.remove();
+}

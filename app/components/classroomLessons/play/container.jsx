@@ -42,8 +42,12 @@ class PlayLessonClassroomContainer extends Component {
           <CLStudentStatic data={current.data} />
         );
       case 'CL-SA':
+        const mode = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : undefined;
+        const submissions = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : undefined;
+        const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : undefined;
+        const props = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} />
+          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
         );
       default:
 

@@ -5,7 +5,9 @@ import {
   goToNextSlide,
   updateCurrentSlide,
   saveSelectedStudentSubmission,
-  removeSelectedStudentSubmission
+  removeSelectedStudentSubmission,
+  setMode,
+  removeMode
 } from '../../../actions/classroomSessions.js';
 import CLLobby from './lobby.jsx';
 import CLStatic from './static.jsx';
@@ -17,6 +19,8 @@ class TeachClassroomLessonContainer extends Component {
     this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
     this.goToNextSlide = this.goToNextSlide.bind(this);
     this.toggleSelected = this.toggleSelected.bind(this);
+    this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
+    this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +41,7 @@ class TeachClassroomLessonContainer extends Component {
         );
       case 'CL-SA':
         return (
-          <CLSingleAnswer data={data} goToNextSlide={this.goToNextSlide} toggleSelected={this.toggleSelected} />
+          <CLSingleAnswer data={data} goToNextSlide={this.goToNextSlide} toggleSelected={this.toggleSelected} startDisplayingAnswers={this.startDisplayingAnswers} stopDisplayingAnswers={this.stopDisplayingAnswers} />
         );
       default:
 
@@ -59,6 +63,15 @@ class TeachClassroomLessonContainer extends Component {
     } else {
       removeSelectedStudentSubmission(this.props.location.query.classroom_activity_id, current_slide, student);
     }
+  }
+
+  startDisplayingAnswers() {
+    console.log('Starting');
+    setMode(this.props.location.query.classroom_activity_id, this.props.classroomSessions.data.current_slide, 'PROJECT');
+  }
+
+  stopDisplayingAnswers() {
+    removeMode(this.props.location.query.classroom_activity_id, this.props.classroomSessions.data.current_slide);
   }
 
   render() {
