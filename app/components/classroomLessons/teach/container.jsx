@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startListeningToSession, goToNextSlide, updateCurrentSlide } from '../../../actions/classroomSessions.js';
+import {
+  startListeningToSession,
+  goToNextSlide,
+  updateCurrentSlide,
+  saveSelectedStudentSubmission,
+  removeSelectedStudentSubmission
+} from '../../../actions/classroomSessions.js';
 import CLLobby from './lobby.jsx';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
@@ -10,6 +16,7 @@ class TeachClassroomLessonContainer extends Component {
     super(props);
     this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
     this.goToNextSlide = this.goToNextSlide.bind(this);
+    this.toggleSelected = this.toggleSelected.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +37,7 @@ class TeachClassroomLessonContainer extends Component {
         );
       case 'CL-SA':
         return (
-          <CLSingleAnswer data={data} goToNextSlide={this.goToNextSlide} />
+          <CLSingleAnswer data={data} goToNextSlide={this.goToNextSlide} toggleSelected={this.toggleSelected} />
         );
       default:
 
@@ -39,6 +46,19 @@ class TeachClassroomLessonContainer extends Component {
 
   goToNextSlide() {
     this.props.dispatch(goToNextSlide(this.props.location.query.classroom_activity_id));
+  }
+
+  toggleSelected(current_slide, student) {
+    console.log('toggling');
+    const submissions = this.props.classroomSessions.data.selected_submissions;
+    const currentSlide = submissions ? submissions[current_slide] : undefined;
+    const currentValue = currentSlide ? currentSlide[student] : undefined;
+    console.log(currentValue);
+    if (!currentValue) {
+      saveSelectedStudentSubmission(this.props.location.query.classroom_activity_id, current_slide, student);
+    } else {
+      removeSelectedStudentSubmission(this.props.location.query.classroom_activity_id, current_slide, student);
+    }
   }
 
   render() {

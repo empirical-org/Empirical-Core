@@ -16,9 +16,8 @@ class Lobby extends Component {
         );
       });
     } else {
-      return;
+
     }
-    
   }
 
   renderNextSlideButton() {
@@ -37,7 +36,7 @@ class Lobby extends Component {
       <p>
         {Object.keys(presence).length} Student(s) Connected
       </p>
-    )
+    );
   }
 
   render() {

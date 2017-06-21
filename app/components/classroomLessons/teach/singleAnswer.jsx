@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class SingleAnswer extends Component {
   constructor(props) {
     super(props);
+    this.toggleSelected = this.toggleSelected.bind(this);
   }
 
   renderNextSlideButton() {
@@ -11,8 +12,12 @@ class SingleAnswer extends Component {
     );
   }
 
+  toggleSelected(event, current_slide, student) {
+    this.props.toggleSelected(current_slide, student);
+  }
+
   renderReview(item) {
-    const { submissions, current_slide, students, } = this.props.data;
+    const { selected_submissions, submissions, current_slide, students, } = this.props.data;
     const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
       <li
         style={{
@@ -20,7 +25,9 @@ class SingleAnswer extends Component {
           borderBottom: '1px solid magenta',
         }}
       >
+        <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
         {submissions[current_slide][key]} - {students[key]}
+
       </li>
       ));
     return (
