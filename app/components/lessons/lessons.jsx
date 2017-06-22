@@ -11,7 +11,10 @@ import LinkListItem from '../shared/linkListItem.jsx'
 const Lessons = React.createClass({
 
   getInitialState() {
-    return { lessonFlags: 'All Flags', };
+    return { 
+      lessonFlags: 'All Flags',
+      showOnlyArchived: false,
+    };
   },
 
   createNew() {
@@ -23,11 +26,38 @@ const Lessons = React.createClass({
     // this.props.dispatch(actions.toggleNewLessonModal())
   },
 
+  toggleShowArchived() {
+    this.setState({
+      showOnlyArchived: !this.state.showOnlyArchived,
+    });
+  },
+
+  renderToggleArchived() {
+    let tagClass = 'tag';
+    if (this.state.showOnlyArchived) {
+      tagClass += ' is-info';
+    }
+    return (
+      <label className="panel-checkbox toggle">
+        <span className={tagClass} onClick={this.toggleShowArchived}>Lessons With Archived Questions</span>
+      </label>
+    )
+  },
+
   renderLessons() {
     const { data, } = this.props.lessons;
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
       keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
+    }
+    if (this.state.showOnlyArchived) {
+      const { questions } = this.props;
+      keys = _.filter(keys, key => (data[key].questions.filter((question) => {
+        const currentQuestion = questions.data[question.key];
+        if (currentQuestion && currentQuestion.flag === "Archive") {
+          return question;
+        }
+      })).length > 0);
     }
     return keys.map(key => (
       <LinkListItem
@@ -70,6 +100,8 @@ const Lessons = React.createClass({
               <option value="Archive">Archive</option>
             </select>
           </span>
+
+          {this.renderToggleArchived()}
           <div className="columns">
             <div className="column">
               <aside className="menu">
