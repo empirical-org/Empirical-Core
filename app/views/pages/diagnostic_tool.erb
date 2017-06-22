@@ -3,7 +3,7 @@
   <% @active_tab = 'Quill Diagnostic' %>
   <% @tool = 'diagnostic' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
-  <%# render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 <div class="tool-container diagnostic-tool-page">
 
@@ -86,7 +86,7 @@
             </div>
         </div>
     </section>
-    <section class="walk-thru-wrapper mobile">
+    <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
         <div class="walk-thru-step">
             <div class="content-wrapper">
                 <img src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
