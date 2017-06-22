@@ -8,6 +8,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import EditLessonForm from './lessonForm.jsx';
 import LinkListItem from '../shared/linkListItem.jsx';
 import ArchivedButton from '../shared/archivedButton.jsx';
+import FlagDropdown from '../shared/flagDropdown.jsx';
 
 const Lessons = React.createClass({
 
@@ -80,15 +81,7 @@ const Lessons = React.createClass({
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Lesson</button></h1>
           { this.renderModal() }
-          <span className="select">
-            <select defaultValue="All Flags" onChange={this.handleSelect}>
-              <option value="All Flags">All Flags</option>
-              <option value="Alpha">Alpha</option>
-              <option value="Beta">Beta</option>
-              <option value="Production">Production</option>
-              <option value="Archive">Archive</option>
-            </select>
-          </span>
+          <FlagDropdown flag={"All Flags"} handleFlagChange={this.handleSelect} isLessons={true}/> 
 
           <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} /> 
           <div className="columns">

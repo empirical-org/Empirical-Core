@@ -90,7 +90,7 @@ export default React.createClass({
               </select>
             </span>
           </p>
-          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange}/>
+          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
           <label className="label">Concept</label>
           <div>
             <ConceptSelector currentConceptUID={this.state.concept}
