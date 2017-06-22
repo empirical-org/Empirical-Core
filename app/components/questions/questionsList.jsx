@@ -23,7 +23,9 @@ const QuestionsList = React.createClass({
 	},
 
   renderQuestionLinks: function (questions) {
-    return questions.map((question) => {
+    return questions.filter((question) => 
+      question.flag !== "Archive"
+    ).map((question) => {
       if (question.prompt) {
         const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (

@@ -5,7 +5,9 @@ export default React.createClass({
     if (this.props.sentenceFragments.length === 0) {
       return;
     }
-    return this.props.sentenceFragments.map((sentenceFragment) => {
+    return this.props.sentenceFragments.filter((sentenceFragment) => 
+      sentenceFragment.flag !== "Archive"
+    ).map((sentenceFragment) => {
       return (
         <LinkListItem
           key={sentenceFragment.key}

@@ -10,7 +10,8 @@ export default React.createClass({
       prompt: "",
       itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
       concept: this.props.question.conceptID,
-      instructions: this.props.question.instructions ? this.props.question.instructions : ""
+      instructions: this.props.question.instructions ? this.props.question.instructions : "",
+      flag: this.props.question.flag ? this.props.question.flag : "Alpha",
     }
   },
 
@@ -22,7 +23,8 @@ export default React.createClass({
       cues: this.refs.cues.value.split(','),
       itemLevel: this.state.itemLevel,
       conceptID: this.state.concept,
-      instructions: this.state.instructions
+      instructions: this.state.instructions,
+      flag: this.state.flag
     })
   },
 
@@ -54,6 +56,10 @@ export default React.createClass({
     this.setState({concept: this.refs.concept.value})
   },
 
+  handleSelect: function(e) {
+    this.setState({ flag: e.target.value, });
+  },
+
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
       return (
@@ -73,6 +79,19 @@ export default React.createClass({
           <p className="control">
             <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText}></input>
           </p>
+
+          <p className="control">
+            <label className="label">Flag</label>
+            <span className="select">
+              <select defaultValue={this.state.flag} onChange={this.handleSelect}>
+                <option value="Alpha">Alpha</option>
+                <option value="Beta">Beta</option>
+                <option value="Production">Production</option>
+                <option value="Archive">Archive</option>
+              </select>
+            </span>
+          </p>
+
           <label className="label">Item level</label>
           <p className="control">
             <span className="select">
