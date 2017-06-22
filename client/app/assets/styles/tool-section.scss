@@ -212,7 +212,6 @@ $tool-grey: #f8f9f9;
     }
 
     .boy-playing-quill {
-      display: none;
       background-color: gray;
       margin: 60px auto 2px;
       width: 819px;
@@ -228,6 +227,9 @@ $tool-grey: #f8f9f9;
       }
       .quote {
         font-size: 24px;
+        &#connect-testimonial-quote {
+          max-width: 848px !important;
+        }
       }
       .q-button {
         span {
@@ -602,7 +604,7 @@ $tool-grey: #f8f9f9;
             font-size: 18px;
             line-height: 1.39;
             color: #414141;
-            max-width: 457px;
+            max-width: 480px;
         }
 
         .blurb {
@@ -771,20 +773,21 @@ $tool-grey: #f8f9f9;
         .arrow {
           position: absolute;
           &.arrow-1 {
-            left: -121px;
+            left: -130px;
             top: 161px;
           }
           &.arrow-2 {
-            left: 439px;
-            top: 186px;
+            left: 445px;
+            top: 170px;
           }
           &.arrow-3 {
             left: -121px;
-            top: 151px;
+            top: 145px;
           }
         }
         .prompt {
           text-align: left;
+          margin-left: -58px;
           .prompt-header {
             font-size: 12px;
             font-weight: bold;
@@ -793,7 +796,7 @@ $tool-grey: #f8f9f9;
             margin: 0px auto 10px;
           }
           .prompt-text {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 600;
             margin: 0px auto;
             padding-bottom: 8px;
@@ -849,10 +852,11 @@ $tool-grey: #f8f9f9;
     &.desktop {
       .walk-thru-step:first-of-type {
           background-image: url('../../../../public/images/tools/connect/background_pattern.png');
-          background-position: center;
+          background-position: 35%;
           background-repeat: no-repeat;
+          height: 255px;
         }
-      @media screen and (max-width: 1265px) {
+      @media screen and (max-width: 1376px) {
         display: none;
       }
 
@@ -884,7 +888,7 @@ $tool-grey: #f8f9f9;
           }
         }
       }
-      @media screen and (min-width: 1265px) {
+      @media screen and (min-width: 1377px) {
         display: none;
       }
     }
