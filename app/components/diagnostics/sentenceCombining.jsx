@@ -1,5 +1,4 @@
 import React from 'react';
-const Markdown = require('react-remarkable');
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Question from '../../libs/diagnosticQuestion';
@@ -36,7 +35,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js';
 import StateFinished from '../renderForQuestions/renderThankYou.jsx';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import Error from '../shared/error.jsx'
+import Error from '../shared/error.jsx';
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
