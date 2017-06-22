@@ -38,7 +38,7 @@ const Lessons = React.createClass({
       tagClass += ' is-info';
     }
     return (
-      <label className="panel-checkbox toggle">
+      <label className="panel-checkbox toggle" style={{display: "block"}}>
         <span className={tagClass} onClick={this.toggleShowArchived}>Lessons With Archived Questions</span>
       </label>
     )
