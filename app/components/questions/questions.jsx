@@ -12,6 +12,7 @@ import { push } from 'react-router-redux';
 import { loadAllResponseData } from '../../actions/responses';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
+import ArchivedButton from '../shared/archivedButton.jsx';
 
 function sleep(milliseconds) {
   const start = new Date().getTime();
@@ -26,6 +27,7 @@ const Questions = React.createClass({
   getInitialState() {
     return {
       displayNoConceptQuestions: false,
+      showOnlyArchived: false,
     };
   },
 
@@ -226,6 +228,13 @@ const Questions = React.createClass({
     });
   },
 
+  toggleShowArchived() {
+    this.setState({
+      showOnlyArchived: !this.state.showOnlyArchived,
+    });
+  },
+
+
   renderSearchBox() {
     const options = hashToCollection(this.props.questions.data);
     if (options.length > 0) {
@@ -258,9 +267,10 @@ const Questions = React.createClass({
               <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} />
               Display questions with no valid concept
             </label>
+            <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} /> 
             <br />
             <br />
-            <QuestionsList displayNoConceptQuestions={this.state.displayNoConceptQuestions} questions={questions} concepts={concepts} baseRoute={'admin'} />
+            <QuestionsList displayNoConceptQuestions={this.state.displayNoConceptQuestions} questions={questions} concepts={concepts} baseRoute={'admin'} showOnlyArchived={this.state.showOnlyArchived}/>
           </div>
         </section>
       );

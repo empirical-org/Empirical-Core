@@ -23,9 +23,17 @@ const QuestionsList = React.createClass({
 	},
 
   renderQuestionLinks: function (questions) {
-    return questions.filter((question) => 
-      question.flag !== "Archive"
-    ).map((question) => {
+    let filtered;
+    if (!this.props.showOnlyArchived) {
+      filtered = questions.filter((question) => 
+        question.flag !== "Archive"
+      )
+    } else {
+      filtered = questions.filter((question) => 
+        question.flag === "Archive"
+      )
+    }
+    return filtered.map((question) => {
       if (question.prompt) {
         const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
@@ -36,7 +44,7 @@ const QuestionsList = React.createClass({
             prompt={formattedPrompt}
             responseCount={this.renderResponseCount(question)}
           />
-  			);
+        );
       }
     });
   },

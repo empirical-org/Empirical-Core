@@ -6,7 +6,8 @@ import { Link } from 'react-router';
 import Modal from '../modal/modal.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
 import EditLessonForm from './lessonForm.jsx';
-import LinkListItem from '../shared/linkListItem.jsx'
+import LinkListItem from '../shared/linkListItem.jsx';
+import ArchivedButton from '../shared/archivedButton.jsx';
 
 const Lessons = React.createClass({
 
@@ -30,18 +31,6 @@ const Lessons = React.createClass({
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  },
-
-  renderToggleArchived() {
-    let tagClass = 'tag';
-    if (this.state.showOnlyArchived) {
-      tagClass += ' is-info';
-    }
-    return (
-      <label className="panel-checkbox toggle" style={{display: "block"}}>
-        <span className={tagClass} onClick={this.toggleShowArchived}>Lessons With Archived Questions</span>
-      </label>
-    )
   },
 
   renderLessons() {
@@ -101,7 +90,7 @@ const Lessons = React.createClass({
             </select>
           </span>
 
-          {this.renderToggleArchived()}
+          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} /> 
           <div className="columns">
             <div className="column">
               <aside className="menu">

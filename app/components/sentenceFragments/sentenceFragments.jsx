@@ -4,8 +4,21 @@ import { Link } from 'react-router'
 
 import SentenceFragmentsList from './sentenceFragmentsList.jsx'
 import {hashToCollection} from '../../libs/hashToCollection'
+import ArchivedButton from '../shared/archivedButton.jsx'
 
 const SentenceFragments = React.createClass({
+
+  getInitialState() {
+    return {
+      showOnlyArchived: false,
+    };
+  },
+
+  toggleShowArchived() {
+    this.setState({
+      showOnlyArchived: !this.state.showOnlyArchived,
+    });
+  },
 
   render() {
     const sentenceFragments = hashToCollection(this.props.sentenceFragments.data)
@@ -15,8 +28,10 @@ const SentenceFragments = React.createClass({
           <Link to={'admin/sentence-fragments/new'}>
             <button className="button is-primary">Create a New Sentence Fragment</button>
           </Link>
+          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} /> 
+
           <p className="menu-label">Sentence Fragments</p>
-          <SentenceFragmentsList sentenceFragments={sentenceFragments || []}/>
+          <SentenceFragmentsList sentenceFragments={sentenceFragments || []} showOnlyArchived={this.state.showOnlyArchived}/>
         </div>
       </section>
     )
