@@ -11,7 +11,7 @@ class ClassName extends Component {
   constructor() {
     super();
     this.getQuestion = this.getQuestion.bind(this);
-    this.deleteQuestion = this.deleteQuestion.bind(this);
+    //this.deleteQuestion = this.deleteQuestion.bind(this);
   }
 
   getQuestion() {
@@ -24,9 +24,9 @@ class ClassName extends Component {
     return loadingData;
   }
 
-  deleteQuestion() {
-    this.props.dispatch(fillInTheBlankActions.deleteQuestion(this.props.params.questionID));
-  }
+  // deleteQuestion() {
+  //   this.props.dispatch(fillInTheBlankActions.deleteQuestion(this.props.params.questionID));
+  // }
 
   render() {
     const { questionID, } = this.props.params;
@@ -46,7 +46,7 @@ class ClassName extends Component {
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
             {<Link to={`admin/fill-in-the-blanks/${questionID}/edit`} className="button is-outlined is-primary">Edit Question</Link>}
-            {<Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>}
+            {/* <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>} */}
           </p>
           <div className="tabs">
             <ul>

@@ -31,19 +31,19 @@ module.exports = {
   cancelQuestionEdit(qid) {
     return { type: C.FINISH_QUESTION_EDIT, qid, };
   },
-  deleteQuestion(qid) {
-    return function (dispatch, getState) {
-      dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-      questionsRef.child(qid).remove((error) => {
-        dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
-        }
-      });
-    };
-  },
+  // deleteQuestion(qid) {
+  //   return function (dispatch, getState) {
+  //     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
+  //     questionsRef.child(qid).remove((error) => {
+  //       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
+  //       if (error) {
+  //         dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
+  //       } else {
+  //         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
+  //       }
+  //     });
+  //   };
+  // },
   submitQuestionEdit(qid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
