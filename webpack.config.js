@@ -44,12 +44,12 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel-loader'],
+        loaders: ['react-hot-loader', 'babel-loader'],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query:
         {
           presets: ['es2015', 'react'],
@@ -57,20 +57,20 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
+        loader: 'file-loader?name=[name].[ext]',
       },
       {
         test: /\.scss$/,
-        loader: live ? ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap') : 'style!css?sourceMap!sass?sourceMap',
+        loader: live ? ExtractTextPlugin.extract('css-loader?sourceMap!sass-loader?sourceMap') : 'style-loader!css-loader?sourceMap!sass-loader?sourceMap',
       },
       {
         test: /\.svg$/,
-        loader: 'file',
+        loader: 'file-loader',
         include: /app\/img/,
       },
       {
         test: /\.(jpg|png)$/,
-        loader: 'url?limit=25000',
+        loader: 'url-loader?limit=25000',
         include: /app\/img/,
       },
       { test: /\.json$/, loader: 'json-loader', }
