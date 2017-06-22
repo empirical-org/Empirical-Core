@@ -41,7 +41,7 @@ module.exports = {
   //       }
   //     });
   //   };
-  },
+  // },
   submitQuestionEdit(qid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_DIAGNOSTIC_QUESTION_EDIT, qid, });
