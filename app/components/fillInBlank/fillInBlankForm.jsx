@@ -13,7 +13,8 @@ class FillInBlankForm extends Component {
       instructions: '',
       cues: '',
       newQuestionOptimalResponse: '',
-      itemLevel: 'Select Item Level'
+      itemLevel: 'Select Item Level',
+      flag: 'Alpha',
     };
     this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
     this.handlePromptChange = this.handlePromptChange.bind(this);
@@ -22,6 +23,7 @@ class FillInBlankForm extends Component {
     this.handleNewQuestionOptimalResponseChange = this.handleNewQuestionOptimalResponseChange.bind(this);
     this.handleItemLevelChange = this.handleItemLevelChange.bind(this);
     this.handleSelectorChange = this.handleSelectorChange.bind(this);
+    this.handleFlagChange = this.handleFlagChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
@@ -49,6 +51,10 @@ class FillInBlankForm extends Component {
     this.setState({conceptID: e.value});
   }
 
+  handleFlagChange(e) {
+    this.setState({ flag: e.target.value, });
+  }
+
   itemLevelToOptions() {
     return hashToCollection(this.props.itemLevels.data).map((level) => {
       return (
@@ -68,7 +74,8 @@ class FillInBlankForm extends Component {
       cues: this.state.cues.split(','),
       itemLevel: this.state.itemLevel === "Select Item Level" ? "" : this.state.itemLevel,
       instructions: this.state.instructions,
-      conceptID: this.state.conceptID
+      conceptID: this.state.conceptID,
+      flag: this.state.flag,
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
   }
@@ -80,7 +87,8 @@ class FillInBlankForm extends Component {
       newQuestionOptimalResponse: '',
       instructions: '',
       itemLevel: 'Select Item Level',
-      conceptID: null
+      conceptID: null,
+      flag: 'Alpha',
     });
   }
 
@@ -127,6 +135,19 @@ class FillInBlankForm extends Component {
         <p className="control">
           <input type="checkbox" checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed}></input>
         </p>
+
+        <p className="control">
+          <label className="label">Flag</label>
+          <span className="select">
+            <select defaultValue={this.state.flag} onChange={this.handleFlagChange}>
+              <option value="Alpha">Alpha</option>
+              <option value="Beta">Beta</option>
+              <option value="Production">Production</option>
+              <option value="Archive">Archive</option>
+            </select>
+          </span>
+        </p>
+
         <label className="label">Item level</label>
         <p className="control">
           <span className="select">

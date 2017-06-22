@@ -56,7 +56,7 @@ export default React.createClass({
     this.setState({concept: this.refs.concept.value})
   },
 
-  handleSelect: function(e) {
+  handleFlagChange: function(e) {
     this.setState({ flag: e.target.value, });
   },
 
@@ -83,7 +83,7 @@ export default React.createClass({
           <p className="control">
             <label className="label">Flag</label>
             <span className="select">
-              <select defaultValue={this.state.flag} onChange={this.handleSelect}>
+              <select defaultValue={this.state.flag} onChange={this.handleFlagChange}>
                 <option value="Alpha">Alpha</option>
                 <option value="Beta">Beta</option>
                 <option value="Production">Production</option>
