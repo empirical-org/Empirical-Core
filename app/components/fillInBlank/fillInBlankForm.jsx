@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {hashToCollection} from '../../libs/hashToCollection';
 import TextEditor from '../questions/textEditor.jsx';
-import ConceptSelector from '../shared/conceptSelector.jsx'
+import ConceptSelector from '../shared/conceptSelector.jsx';
+import FlagDropdown from '../shared/flagDropdown.jsx';
+
 
 class FillInBlankForm extends Component {
   constructor() {
@@ -70,12 +72,12 @@ class FillInBlankForm extends Component {
   submit() {
     const data = {
       prompt: this.state.prompt,
-      blankAllowed: this.state.blankAllowed,
+      blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
       cues: this.state.cues.split(','),
       itemLevel: this.state.itemLevel === "Select Item Level" ? "" : this.state.itemLevel,
       instructions: this.state.instructions,
       conceptID: this.state.conceptID,
-      flag: this.state.flag,
+      flag: this.state.flag ? this.state.flag : 'Alpha',
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
   }
@@ -136,18 +138,6 @@ class FillInBlankForm extends Component {
           <input type="checkbox" checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed}></input>
         </p>
 
-        <p className="control">
-          <label className="label">Flag</label>
-          <span className="select">
-            <select defaultValue={this.state.flag} onChange={this.handleFlagChange}>
-              <option value="Alpha">Alpha</option>
-              <option value="Beta">Beta</option>
-              <option value="Production">Production</option>
-              <option value="Archive">Archive</option>
-            </select>
-          </span>
-        </p>
-
         <label className="label">Item level</label>
         <p className="control">
           <span className="select">
@@ -157,6 +147,7 @@ class FillInBlankForm extends Component {
             </select>
           </span>
         </p>
+        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange}/>
         <label className="label">Concept</label>
         <ConceptSelector currentConceptUID={this.state.conceptID} handleSelectorChange={this.handleSelectorChange} />
         <br />

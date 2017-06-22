@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ConceptSelector from '../shared/conceptSelector.jsx';
+import FlagDropdown from '../shared/flagDropdown.jsx';
 
 const sentenceFragmentForm = React.createClass({
 
@@ -113,18 +114,6 @@ const sentenceFragmentForm = React.createClass({
         </p>
 
         <p className="control">
-          <label className="label">Flag</label>
-          <span className="select">
-            <select defaultValue={this.state.flag} onChange={this.handleChange.bind(null, 'flag')}>
-              <option value="Alpha">Alpha</option>
-              <option value="Beta">Beta</option>
-              <option value="Production">Production</option>
-              <option value="Archive">Archive</option>
-            </select>
-          </span>
-        </p>
-
-        <p className="control">
           <label className="checkbox">
             <input type="checkbox" checked={this.state.isFragment} onClick={this.handleChange.bind(null, 'isFragment')} />
             This is a fragment.
@@ -148,6 +137,7 @@ const sentenceFragmentForm = React.createClass({
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}
+        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleChange.bind(null, 'flag')}/>
         <p className="control">
           <label className="label">Associated Concept</label>
           <ConceptSelector

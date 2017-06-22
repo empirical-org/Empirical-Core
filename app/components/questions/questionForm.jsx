@@ -3,6 +3,7 @@ import TextEditor from './textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
+import FlagDropdown from '../shared/flagDropdown.jsx'
 
 export default React.createClass({
   getInitialState: function () {
@@ -80,18 +81,6 @@ export default React.createClass({
             <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText}></input>
           </p>
 
-          <p className="control">
-            <label className="label">Flag</label>
-            <span className="select">
-              <select defaultValue={this.state.flag} onChange={this.handleFlagChange}>
-                <option value="Alpha">Alpha</option>
-                <option value="Beta">Beta</option>
-                <option value="Production">Production</option>
-                <option value="Archive">Archive</option>
-              </select>
-            </span>
-          </p>
-
           <label className="label">Item level</label>
           <p className="control">
             <span className="select">
@@ -101,6 +90,7 @@ export default React.createClass({
               </select>
             </span>
           </p>
+          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange}/>
           <label className="label">Concept</label>
           <div>
             <ConceptSelector currentConceptUID={this.state.concept}
