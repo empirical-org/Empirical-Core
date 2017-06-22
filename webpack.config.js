@@ -40,28 +40,31 @@ module.exports = {
   ],
   module: {
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot-loader', 'babel-loader'],
+        use: [
+          'react-hot-loader',
+          'babel-loader'
+        ],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query:
+        options:
         {
           presets: ['es2015', 'react'],
         },
       },
       {
         test: /\.html$/,
-        loader: 'file-loader?name=[name].[ext]',
+        use: ['file-loader?name=[name].[ext]'],
       },
       {
         test: /\.scss$/,
-        loader: live ? ExtractTextPlugin.extract('css-loader?sourceMap!sass-loader?sourceMap') : 'style-loader!css-loader?sourceMap!sass-loader?sourceMap',
+        use: live ? [ExtractTextPlugin.extract('css-loader?sourceMap!sass-loader?sourceMap')] : ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
       },
       {
         test: /\.svg$/,
@@ -72,8 +75,7 @@ module.exports = {
         test: /\.(jpg|png)$/,
         loader: 'url-loader?limit=25000',
         include: /app\/img/,
-      },
-      { test: /\.json$/, loader: 'json-loader', }
+      }
     ],
   },
   node: {
