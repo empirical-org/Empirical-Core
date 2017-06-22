@@ -1,7 +1,9 @@
 <section class="tool-header">
   <%= render partial: 'pages/shared/home_navbar' %>
   <% @active_tab = 'Quill Connect' %>
+  <% @tool = 'connect' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 <div class="tool-container connect-tool-page">
 
@@ -15,7 +17,7 @@
       <a href='http://connect.quill.org/#/play/lesson/-Kbvv3WS6vGNkeW7d6dt' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
     </section>
 
-    <section class="tool-animation-section ">
+    <section class="tool-animation-section " id="overview">
           <video class='tool-animation' src="/videos/connect.mp4" autoplay loop/>
     </section>
 
@@ -90,7 +92,7 @@
             </div>
         </div>
     </section>
-    <section class="walk-thru-wrapper mobile">
+    <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
         <div class="walk-thru-step">
             <div class="content-wrapper">
               <div class="prompt">
@@ -160,7 +162,7 @@
     </section>
 
 
-  <section class="tool-carousel">
+  <section class="tool-carousel" id="walkthrough">
       <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
           <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
