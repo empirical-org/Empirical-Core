@@ -6,7 +6,7 @@ module Associators::StudentsToClassrooms
       sc = StudentsClassrooms.unscoped.find_or_create_by(student_id: student.id, classroom_id: classroom[:id])
       sc.update(visible: true)
       student.reload
-      student.assign_classroom_activities
+      student.assign_classroom_activities(classroom[:id])
     end
     student
   end

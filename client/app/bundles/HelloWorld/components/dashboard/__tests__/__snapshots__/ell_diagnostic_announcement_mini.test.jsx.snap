@@ -100,7 +100,8 @@ exports[`EllDiagnosticAnnouncementMini component should render 1`] = `
       Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners.
     </p>
     <a
-      href="/tools/diagnostic"
+      href="https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692"
+      target="_blank"
     >
       <button
         className="button button-white beta"
