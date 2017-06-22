@@ -11,9 +11,11 @@ const ArchivedButton = React.createClass({
     const text = this.props.lessons ? "Lessons With Archived Questions" : "Archived Questions";
     
     return (
-      <label className="panel-checkbox toggle" style={{display: "block"}}>
-        <span className={tagClass} onClick={this.props.toggleShowArchived}>{text}</span>
-      </label>
+      <div style={{display: 'inline-block', paddingLeft: '50px'}}>
+        <label className="panel-checkbox toggle">
+          <span className={tagClass} onClick={this.props.toggleShowArchived}>{text}</span>
+        </label>
+      </div>
     )
   }
 })
