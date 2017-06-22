@@ -23,9 +23,23 @@ class SingleAnswer extends Component {
     this.setState({ editing: true, response: e, });
   }
 
+  renderProject() {
+    const { selected_submissions, submissions, } = this.props;
+    const selected = Object.keys(selected_submissions).map(key => (
+      <li>
+        {submissions[key]}
+      </li>
+    ));
+    return (
+      <ul>
+        {selected}
+      </ul>
+    );
+  }
+
   modeAppropriateRender() {
     if (this.props.mode === 'PROJECT') {
-      return <h1>Projecting</h1>;
+      return this.renderProject();
     } else {
       return (
         <TextEditor
