@@ -279,9 +279,17 @@ namespace :responses do
   end
 
   def unstringify_concept_results
-    responses = Response.where.not(concept_results: nil);
-    responses.each do |response|
-      response.update({concept_results: JSON.parse(response.concept_results)})
+    Response.where.not(concept_results: nil, optimal: nil).in_batches do |batch|;
+      batch.each do |response|
+        if response.concept_results.class == String
+          begin
+            response.update({concept_results: JSON.parse(response.concept_results)})
+          rescue JSON::ParserError
+            puts response.id
+            response.update({concept_results: nil})
+          end
+        end
+      end
     end
   end
 
