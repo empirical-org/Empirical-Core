@@ -64,7 +64,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: live ? [ExtractTextPlugin.extract('css-loader?sourceMap!sass-loader?sourceMap')] : ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+        use: live ? ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          // resolve-url-loader may be chained before sass-loader if necessary
+          use: ['css-loader', 'sass-loader'],
+        }) : ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
       },
       {
         test: /\.svg$/,
