@@ -9,6 +9,12 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
+  resolve: {
+    modules: [
+      path.resolve(__dirname, 'app'),
+      'node_modules'
+    ],
+  },
   context: `${__dirname}/app`,
   entry: {
     javascript: './app.jsx',
