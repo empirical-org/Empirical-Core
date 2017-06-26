@@ -4,12 +4,13 @@ import { Route, IndexRoute } from 'react-router';
 import Play from '../components/play/play.jsx';
 import PlayQuestion from '../components/play/playQuestion.jsx';
 import StudentRoot from '../components/studentRoot';
-import StudentLesson from '../components/studentLessons/lesson.jsx';
+// import StudentLesson from '../components/studentLessons/lesson.jsx';
 import GameLesson from '../components/gameLessons/lesson.jsx';
-import StudentDiagnostic from '../components/diagnostics/studentDiagnostic.jsx';
-import ESLDiagnostic from '../components/eslDiagnostic/studentDiagnostic.jsx';
+// import StudentDiagnostic from '../components/diagnostics/studentDiagnostic.jsx';
+// import ESLDiagnostic from '../components/eslDiagnostic/studentDiagnostic.jsx';
 import PlaySentenceFragment from '../components/sentenceFragments/playSentenceFragment.jsx';
 import Turk from '../components/turk/sentenceFragmentsQuiz.jsx';
+import { getParameterByName } from '../libs/getParameterByName';
 
 const Passthrough = React.createClass({
   render() {
@@ -17,15 +18,13 @@ const Passthrough = React.createClass({
   },
 });
 
-function getParameterByName(name, url) {
-  if (!url) url = window.location.href;
-  name = name.replace(/[\[\]]/g, '\\$&');
-  let regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+// function getStudentComponent() {
+//   require.ensure([], (require) => {
+//     const StudentComponent = require('../components/studentLessons/lesson.jsx');
+//     console.log(StudentComponent);
+//     return cb(null, StudentComponent);
+//   });
+// }
 
 const PlayRoutes = (
   <Route path="/play" component={StudentRoot}>
@@ -60,7 +59,14 @@ const PlayRoutes = (
             }
           }
       />
-      <Route path=":lessonID" component={StudentLesson} />
+      <Route
+        path=":lessonID" getComponent={(location, callback) => {
+          System.import('../components/studentLessons/lesson.jsx')
+          .then((component) => {
+            callback(null, component.default);
+          });
+        }}
+      />
     </Route>
 
     <Route path="diagnostic" component={Passthrough}>
@@ -76,8 +82,23 @@ const PlayRoutes = (
             }
           }
       />
-      <Route path="ell" component={ESLDiagnostic} />
-      <Route path=":diagnosticID" component={StudentDiagnostic} />
+      <Route
+        path="ell" getComponent={(location, callback) => {
+          System.import('../components/eslDiagnostic/studentDiagnostic.jsx')
+          .then((component) => {
+            callback(null, component.default);
+          });
+        }}
+      />
+
+      <Route
+        path=":diagnosticID" getComponent={(location, callback) => {
+          System.import('../components/diagnostics/studentDiagnostic.jsx')
+          .then((component) => {
+            callback(null, component.default);
+          });
+        }}
+      />
     </Route>
     {/* <Route path="diagnostic/esl" component={ESLDiagnostic}/>
       <Route path="diagnostic/:diagnosticID" component={StudentDiagnostic}/>

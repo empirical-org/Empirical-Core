@@ -489,10 +489,10 @@ export default React.createClass({
     }
     const authorStyle = { marginLeft: '10px', };
     const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
-    const checked = this.props.massEdit.selectedResponses.includes(response.key) ? 'checked' : '';
+    const checked = this.props.massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
       <div style={{ display: 'flex', alignItems: 'center', }} className={bgColor}>
-        <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.key)} style={{ marginLeft: '15px', }} />
+        <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} />
         <header onClick={() => this.props.expand(response.key)} className={`card-content ${this.headerClasses()}`} style={{ flexGrow: '1', }}>
           <div className="content">
             <div className="media">

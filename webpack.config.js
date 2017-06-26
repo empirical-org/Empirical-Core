@@ -8,9 +8,17 @@ console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
+  resolve: {
+    modules: [
+      path.resolve(__dirname, 'app'),
+      'node_modules'
+    ],
+  },
   context: `${__dirname}/app`,
   entry: {
+    vendor: ['pos', 'draft-js'],
     javascript: './app.jsx',
   },
   output: {
@@ -29,7 +37,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env || 'development'),
       'process.env.EMPIRICAL_BASE_URL': JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
+      'process.env.QUILL_CMS': JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
     }),
+    // new BundleAnalyzerPlugin(), // For visualizing package size
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
@@ -50,40 +61,47 @@ module.exports = {
       { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
     ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
-    loaders: [
+    rules: [
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'awesome-typescript-loader'],
+        use: [
+          'react-hot-loader',
+          'babel-loader',
+          'awesome-typescript-loader'
+        ],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query:
+        loader: 'babel-loader',
+        options:
         {
           presets: ['es2015', 'react'],
         },
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
+        use: ['file-loader?name=[name].[ext]'],
       },
       {
         test: /\.scss$/,
-        loader: live ? ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap') : 'style!css?sourceMap!sass?sourceMap',
+        use: live ? ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          // resolve-url-loader may be chained before sass-loader if necessary
+          use: ['css-loader', 'sass-loader'],
+        }) : ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
       },
       {
         test: /\.svg$/,
-        loader: 'file',
+        loader: 'file-loader',
         include: /app\/img/,
       },
       {
         test: /\.(jpg|png)$/,
-        loader: 'url?limit=25000',
+        loader: 'url-loader?limit=25000',
         include: /app\/img/,
-      },
-      { test: /\.json$/, loader: 'json-loader', }
+      }
     ],
   },
   node: {

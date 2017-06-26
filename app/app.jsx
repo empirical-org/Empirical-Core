@@ -1,7 +1,6 @@
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';
-import Activities from './components/lessons/activities.jsx';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, } from 'react-router';
@@ -13,8 +12,9 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import levelActions from './actions/item-levels';
-import AdminRoutes from './routers/admin-router.jsx';
-import PlayRoutes from './routers/play-router.jsx';
+import Passthrough from './components/shared/passthrough.jsx';
+// import AdminRoutes from './routers/admin-router.jsx';
+// import PlayRoutes from './routers/play-router.jsx';
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory';
@@ -27,12 +27,6 @@ const history = syncHistoryWithStore(hashhistory, store);
 
 const root = document.getElementById('root');
 
-const Passthrough = React.createClass({
-  render() {
-    return this.props.children;
-  },
-});
-
 function getParameterByName(name, url) {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
@@ -43,15 +37,19 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+const rootRoute = {
+  childRoutes: [{
+    path: '/',
+    childRoutes: [
+      require('./routers/Admin/index').default,
+      require('./routers/Play/index').default
+    ],
+  }],
+};
+
 render((
   <Provider store={store}>
-    <Router history={history}>
-
-      {PlayRoutes}
-      {AdminRoutes}
-      {/* </Route>*/}
-
-    </Router>
+    <Router history={history} routes={rootRoute} />
   </Provider>),
   root
 );

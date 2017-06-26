@@ -197,6 +197,10 @@ const Question = React.createClass({
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
+      const activeLink = this.props.massEdit.numSelectedResponses > 1
+      ? <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
+      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
+
       return (
         <div>
           {this.renderEditForm()}
@@ -220,6 +224,7 @@ const Question = React.createClass({
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
+              {activeLink}
             </ul>
           </div>
           {this.props.children}
@@ -239,6 +244,7 @@ function select(state) {
     questions: state.questions,
     itemLevels: state.itemLevels,
     routing: state.routing,
+    massEdit: state.massEdit
   };
 }
 

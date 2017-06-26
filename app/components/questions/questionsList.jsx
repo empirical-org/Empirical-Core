@@ -5,6 +5,7 @@ import _ from 'underscore'
 import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
 import {hashToCollection} from '../../libs/hashToCollection'
+import QuestionListItem from './questionListItem.jsx'
 
 const QuestionsList = React.createClass({
   renderLabel: function (concept) {
@@ -24,20 +25,15 @@ const QuestionsList = React.createClass({
   renderQuestionLinks: function (questions) {
     return questions.map((question) => {
       if (question.prompt) {
+        const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
-  				<li key={question.key}>
-  					<Link to={'/' + this.props.baseRoute + '/questions/' + question.key} activeClassName="is-active">
-  	          <div className="columns">
-  							<div className="column">
-  	            	<span>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</span>
-  							</div>
-
-  							<div className="column is-1">
-  	              {this.renderResponseCount(question)}
-  							</div>
-  	          </div>
-  					</Link>
-  				</li>
+          <QuestionListItem
+            key={question.key}
+            questionKey={question.key}
+            baseRoute={this.props.baseRoute}
+            prompt={formattedPrompt}
+            responseCount={this.renderResponseCount(question)}
+          />
   			);
       }
     });

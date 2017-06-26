@@ -33,6 +33,9 @@ class ClassName extends Component {
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (this.getQuestion()) {
+      const activeLink = this.props.massEdit.numSelectedResponses > 1
+      ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
+      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
       return (
         <div>
           <h4 className="title" dangerouslySetInnerHTML={{ __html: this.getQuestion().prompt, }} style={{ marginBottom: 0, }} />
@@ -49,6 +52,7 @@ class ClassName extends Component {
             <ul>
               <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/responses`}>Responses</NavLink>
               <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/test`}>Play Question</NavLink>
+              {activeLink}
             </ul>
           </div>
           {this.props.children}
@@ -66,6 +70,7 @@ class ClassName extends Component {
 function select(props) {
   return {
     fillInBlank: props.fillInBlank,
+    massEdit: props.massEdit
   };
 }
 

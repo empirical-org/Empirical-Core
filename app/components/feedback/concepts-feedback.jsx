@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
-import { Link } from 'react-router'
 import Modal from '../modal/modal.jsx'
+import LinkListItem from '../shared/linkListItem.jsx'
 import {hashToCollection} from '../../libs/hashToCollection'
 
 const ConceptsFeedback = React.createClass({
@@ -23,7 +23,14 @@ const ConceptsFeedback = React.createClass({
     if (data && data["0"]) {
       return data["0"].map((concept) => {
         const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
-        return (<li key={concept.uid}><Link to={'/admin/concepts-feedback/' + concept.uid} className={hasFeedback ? "" : "no-feedback"} activeClassName="is-active">{concept.displayName}</Link></li>)
+        return <LinkListItem
+          key={concept.uid}
+          basePath='concepts-feedback'
+          itemKey={concept.uid}
+          className={hasFeedback ? "" : "no-feedback"}
+          activeClassName='is-active'
+          text={concept.displayName}
+        />
       })
     }
   },

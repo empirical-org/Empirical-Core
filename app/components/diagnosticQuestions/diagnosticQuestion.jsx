@@ -8,6 +8,8 @@ import C from '../../constants';
 import ResponseComponent from '../questions/responseComponent.jsx';
 import Cues from '../renderForQuestions/cues.jsx';
 import icon from '../../img/question_icon.svg';
+import activeComponent from 'react-router-active-component';
+const NavLink = activeComponent('li');
 
 import {
   loadResponseDataAndListen,
@@ -57,6 +59,9 @@ const DiagnosticQuestion = React.createClass({
         <h1>Loading...</h1>
       );
     } else if (data[questionID]) {
+      const activeLink = this.props.massEdit.numSelectedResponses > 1
+      ? <NavLink activeClassName="is-active" to={`/admin/diagnostic-questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
+      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
       return (
         <div>
           <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} style={{ marginBottom: 0, }} />
@@ -70,6 +75,13 @@ const DiagnosticQuestion = React.createClass({
             <Link to={'admin/sentence-fragments'}>
               <button className="button is-danger" onClick={this.deleteDiagnosticQuestion}>Delete Question</button>
             </Link>
+          </div>
+
+          <div className="tabs">
+            <ul>
+              <NavLink activeClassName="is-active" to={`admin/diagnostic-questions/${questionID}/responses`}>Responses</NavLink>
+              {activeLink}
+            </ul>
           </div>
           <br />
           {this.props.children}
@@ -90,6 +102,7 @@ function select(state) {
     diagnosticQuestions: state.diagnosticQuestions,
     itemLevels: state.itemLevels,
     routing: state.routing,
+    massEdit: state.massEdit
   };
 }
 

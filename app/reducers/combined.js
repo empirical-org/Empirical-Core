@@ -18,6 +18,7 @@ import sessions from './sessions';
 import filters from './filtersReducer';
 import massEdit from './massEdit';
 import fillInBlank from './fillInBlank';
+import display from './display'
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
@@ -39,6 +40,7 @@ const combinedReducers = combineReducers({
   scoreAnalysis,
   sessions,
   massEdit,
+  display,
   routing: routerReducer,
 });
 

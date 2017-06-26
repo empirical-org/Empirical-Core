@@ -125,6 +125,13 @@ export default function (currentState, action) {
       });
       newState.formattedFilterData = getFormattedFilterData(newState)
       return newState;
+    case C.DESELECT_ALL_FIELDS:
+      newState = _.cloneDeep(currentState);
+      _.forIn(newState.visibleStatuses, (status, key) => {
+        newState.visibleStatuses[key] = false;
+      });
+      newState.formattedFilterData = getFormattedFilterData(newState)
+      return newState;
     default:
       return currentState || initialState.filters;
   }
