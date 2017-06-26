@@ -1,16 +1,13 @@
 export default {
   path: 'play/',
   getChildRoutes: (partialNextState, cb) => {
-    System.import('./routes/Lessons/index.js')
-    .then((component) => {
-      cb(null, component.default);
-    });
-    // require.ensure([], (require) => {
-    //   cb(null, [
-    //     require('./routes/Lessons/index.js').default
-    //     // require('./routes/Diagnostics/index.js')
-    //   ], 'lessons-routes');
-    // });
+    Promise.all([
+      System.import('./routes/Lessons/index.js'),
+      System.import('./routes/Diagnostics/index.js'),
+      System.import('./routes/Turk/index.js')
+    ])
+    .then(modules => cb(null, modules.map(module => module.default)))
+    .catch(err => console.error('Dynamic page loading failed', err));
   },
   getComponent: (nextState, cb) => {
     require.ensure([], (require) => {
