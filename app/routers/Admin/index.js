@@ -2,7 +2,7 @@ export default {
   path: 'admin',
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
-      // System.import('./routes/ConceptFeedback/index.js'),
+      System.import('./routes/ConceptFeedback/index.js'),
       System.import('./routes/Concepts/index.js'),
       System.import('./routes/DataDash/index.js'),
       System.import('./routes/Lessons/index.js'),
