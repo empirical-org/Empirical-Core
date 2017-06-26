@@ -68,25 +68,36 @@ export default React.createClass({
   },
 
   updateKeyValue: function (key, value) {
-    var state = this.state;
-    state[key] = value;
-    this.setState(state);
+    const newState = Object.assign({}, this.state);
+    newState[key] = value;
+    this.setState(newState);
   },
 
   update: function (hash) {
-    var state = this.state;
-    state = _.merge(state, hash);
-    this.setState(state);
+    const stateCopy = Object.assign({}, this.state);
+    const newState = _.merge(stateCopy, hash);
+    this.setState(newState);
   },
 
   signUp: function () {
-    $.ajax({
-      type: 'POST',
-      url: '/account',
-      data: this.signUpData(),
-      success: this.uponSignUp,
-      error: this.signUpError
-    });
+    if (this.state.first_name && this.state.last_name) {
+      $.ajax({
+        type: 'POST',
+        url: '/account',
+        data: this.signUpData(),
+        success: this.uponSignUp,
+        error: this.signUpError
+      });
+    } else {
+      const errors = {}
+      if (!this.state.first_name) {
+        errors['first_name'] = "can't be blank"
+      }
+      if (!this.state.last_name) {
+        errors['last_name'] = "can't be blank"
+      }
+      this.setState({errors})
+    }
   },
 
   signUpError: function (xhr) {
@@ -95,9 +106,10 @@ export default React.createClass({
   },
 
   signUpData: function () {
-    var data = {
+    const name = this.state.first_name + ' ' + this.state.last_name
+    const data = {
       role: this.state.role,
-      name: this.determineNameInput(),
+      name,
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
@@ -106,27 +118,6 @@ export default React.createClass({
       data.send_newsletter = this.state.sendNewsletter;
     }
     return {user: data};
-  },
-
-  determineNameInput: function () {
-    var name;
-    var that = this;
-    name = _.reduce([this.state.first_name, this.state.last_name], function (memo, current) {
-      var nextMemo;
-      if (!that.existy(memo)) {
-        nextMemo = current;
-      } else if (!that.existy(current)) {
-        nextMemo = memo;
-      } else {
-        nextMemo = memo + ' ' + current;
-      }
-      return nextMemo;
-    }, null, this);
-    return name;
-  },
-
-  existy: function (item) {
-    return !( (item === null) || (item === undefined) || (item === '') );
   },
 
   uponSignUp: function (data) {
@@ -153,14 +144,14 @@ export default React.createClass({
     } else if (this.state.stage === 2) {
       if (this.state.role === 'student') {
         view = <NewStudent textInputGenerator={this.modules.textInputGenerator}
-                              update={this.update}
+                              updateKeyValue={this.updateKeyValue}
                               signUp={this.signUp}
                               errors={this.state.errors}/>;
       } else {
         view = <NewTeacher textInputGenerator={this.modules.textInputGenerator}
                               sendNewsletter={this.state.sendNewsletter}
                               stage={this.state.teacherStage}
-                              update={this.update}
+                              updateKeyValue={this.updateKeyValue}
                               signUp={this.signUp}
                               errors={this.state.errors}
                               analytics={this.state.analytics}
