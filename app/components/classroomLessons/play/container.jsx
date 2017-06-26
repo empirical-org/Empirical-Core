@@ -5,6 +5,7 @@ import CLStudentLobby from './lobby.jsx';
 import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
+import { getParameterByName } from 'libs/getParameterByName';
 
 class PlayLessonClassroomContainer extends Component {
   constructor(props) {
@@ -13,13 +14,15 @@ class PlayLessonClassroomContainer extends Component {
   }
 
   componentDidMount() {
-    const { classroom_activity_id, student, } = this.props.location.query;
+    const classroom_activity_id = getParameterByName('classroom_activity_id');
+    const student = getParameterByName('student');
     this.props.dispatch(startListeningToSession(classroom_activity_id));
     registerPresence(classroom_activity_id, student);
   }
 
   handleStudentSubmission(submission) {
-    const { classroom_activity_id, student, } = this.props.location.query;
+    const classroom_activity_id = getParameterByName('classroom_activity_id');
+    const student = getParameterByName('student');
     const action = saveStudentSubmission(
       classroom_activity_id,
       this.props.classroomSessions.data.current_slide,
