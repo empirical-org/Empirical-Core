@@ -14,8 +14,8 @@ describe('EmptyProgressReport component', () => {
     });
 
     it('should render paragraphs with the expected text', () => {
-      const expectedText = "Welcome! This is where your student reports will be stored, but none of your students have completed an assignment yet.Let's assign an activity.";
-      expect(wrapper.find('.col-xs-7').text()).toEqual(expectedText);
+      const expectedText = 'In order to access our different reports, you need to assign activities to your students.';
+      expect(wrapper.find('p').text()).toEqual(expectedText);
     });
   });
 
@@ -29,8 +29,8 @@ describe('EmptyProgressReport component', () => {
     });
 
     it('should render paragraphs with the expected text', () => {
-      const expectedText = "Welcome! This is where your student reports will be stored, but you haven't invited any students yet.Let's invite some students.";
-      expect(wrapper.find('.col-xs-7').text()).toEqual(expectedText);
+      const expectedText = 'In order to access our different reports, you need to invite your students and assign activities.';
+      expect(wrapper.find('p').text()).toEqual(expectedText);
     });
   });
 
@@ -44,8 +44,8 @@ describe('EmptyProgressReport component', () => {
     });
 
     it('should render paragraphs with the expected text', () => {
-      const expectedText = "Welcome! You'll need to add a classroom before you can see this.Let's add your first class.";
-      expect(wrapper.find('.col-xs-7').text()).toEqual(expectedText);
+      const expectedText = 'In order to access our different reports, you need to create a class and assign activities to your students.';
+      expect(wrapper.find('p').text()).toEqual(expectedText);
     });
   });
 });
