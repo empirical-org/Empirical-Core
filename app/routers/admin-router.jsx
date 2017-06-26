@@ -78,26 +78,26 @@ const AdminRoutes = (
     {/* <Route path="datadash" component={ScoreAnalysis} /> */}
 
     {/* questions section*/}
-    <Route path="diagnostic-questions" component={DiagnosticQuestions} />
-    <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
-      <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
-      <Route path="responses" component={ResponseComponentWrapper} />
-      <Route path="mass-edit" component={MassEditContainer} />
-    </Route>
+    // <Route path="diagnostic-questions" component={DiagnosticQuestions} />
+    // <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
+    //   <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
+    //   <Route path="responses" component={ResponseComponentWrapper} />
+    //   <Route path="mass-edit" component={MassEditContainer} />
+    // </Route>
 
     {/* sentence Fragment sections*/}
-    <Route path="sentence-fragments" component={SentenceFragments} />
-    <Route path="sentence-fragments/new" component={NewSentenceFragment} />
-    <Route path="sentence-fragments/:questionID" component={SentenceFragment}>
-      <IndexRedirect to="/admin/sentence-fragments/:questionID/responses" />
-      <Route path="responses" component={ResponseComponentWrapper} />
-      <Route path="mass-edit" component={MassEditContainer} />
-    </Route>
+    // <Route path="sentence-fragments" component={SentenceFragments} />
+    // <Route path="sentence-fragments/new" component={NewSentenceFragment} />
+    // <Route path="sentence-fragments/:questionID" component={SentenceFragment}>
+    //   <IndexRedirect to="/admin/sentence-fragments/:questionID/responses" />
+    //   <Route path="responses" component={ResponseComponentWrapper} />
+    //   <Route path="mass-edit" component={MassEditContainer} />
+    // </Route>
 
     {/* lessons section*/}
-    <Route path="lessons" component={Lessons} />
-    <Route path="lessons/:lessonID" component={Lesson} />
-    <Route path="lessons/:lessonID/results" component={LessonResults} />
+    // <Route path="lessons" component={Lessons} />
+    // <Route path="lessons/:lessonID" component={Lesson} />
+    // <Route path="lessons/:lessonID/results" component={LessonResults} />
 
     {/* diagnostics */}
     <Route path="diagnostics" component={Diagnostics} />
