@@ -7,8 +7,8 @@ export default {
       System.import('./routes/DataDash/index.js'),
       // System.import('./routes/Lessons/index.js'),
       // System.import('./routes/DiagnosticQuestions/index.js'),
-      System.import('./routes/Questions/index.js')
-      // System.import('./routes/FillInTheBlanks/index.js'),
+      System.import('./routes/Questions/index.js'),
+      System.import('./routes/FillInTheBlanks/index.js')
       // System.import('./routes/SentenceFragments/index.js'),
       // System.import('./routes/ItemLevels/index.js')
     ])

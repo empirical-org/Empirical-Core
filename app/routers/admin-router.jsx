@@ -64,15 +64,15 @@ const AdminRoutes = (
     </Route> */}
 
     {/* fill in the blanks section*/}
-    <Route path="fill-in-the-blanks" component={FillInBlankQuestions} />
-    <Route path="fill-in-the-blanks/new" component={NewFillInBlank} />
-    <Route path="fill-in-the-blanks/:questionID" component={FillInBlankQuestion}>
-      <IndexRedirect to="/admin/fill-in-the-blanks/:questionID/responses" />
-      <Route path="responses" component={ResponseComponentWrapper} />
-      <Route path="edit" component={EditFillInBlank} />
-      <Route path="test" component={TestFillInBlankQuestionContainer} />
-      <Route path="mass-edit" component={MassEditContainer} />
-    </Route>
+    // <Route path="fill-in-the-blanks" component={FillInBlankQuestions} />
+    // <Route path="fill-in-the-blanks/new" component={NewFillInBlank} />
+    // <Route path="fill-in-the-blanks/:questionID" component={FillInBlankQuestion}>
+    //   <IndexRedirect to="/admin/fill-in-the-blanks/:questionID/responses" />
+    //   <Route path="responses" component={ResponseComponentWrapper} />
+    //   <Route path="edit" component={EditFillInBlank} />
+    //   <Route path="test" component={TestFillInBlankQuestionContainer} />
+    //   <Route path="mass-edit" component={MassEditContainer} />
+    // </Route>
 
     {/* data section*/}
     {/* <Route path="datadash" component={ScoreAnalysis} /> */}
