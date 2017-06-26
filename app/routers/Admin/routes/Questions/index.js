@@ -1,15 +1,13 @@
 import Questions from 'components/questions/questions.jsx';
-import Question from 'components/questions/question.jsx';
 
 export default {
   path: 'questions',
   indexRoute: {
     component: Questions,
   },
-  childRoutes: [
-    {
-      path: ':questionID',
-      component: Question,
-    }
-  ],
+  getChildRoutes: (partialNextState, cb) => {
+    System.import('./question.js')
+    .then(module => cb(null, module.default))
+    .catch(err => console.error('Dynamic page loading failed', err));
+  },
 };

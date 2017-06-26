@@ -43,25 +43,25 @@ import MassEditContainer from '../components/questions/MassEditContainer.jsx';
 const AdminRoutes = (
   <Route path="/admin" component={Admin}>
     {/* concepts section*/}
-    <Route path="concepts" component={Concepts} />
-    <Route path="concepts/:conceptID" component={Concept} />
+    {/* <Route path="concepts" component={Concepts} />
+    <Route path="concepts/:conceptID" component={Concept} /> */}
 
     {/* questions section*/}
-    <Route path="questions" component={Questions} />
+    {/* <Route path="questions" component={Questions} />
     <Route path="questions/:questionID" component={Question}>
-      <IndexRedirect to="/admin/questions/:questionID/responses" />
-      <Route path="responses" component={ResponseComponentWrapper} />
-      <Route path="choose-model" component={ChooseModelContainer} />
-      <Route path="focus-points" component={FocusPointsContainer} />
+      {/* <IndexRedirect to="/admin/questions/:questionID/responses" /> */}
+      {/* <Route path="responses" component={ResponseComponentWrapper} /> */}
+      {/* <Route path="choose-model" component={ChooseModelContainer} /> */}
+      {/* <Route path="focus-points" component={FocusPointsContainer} />
       <Route path="focus-points/:focusPointID/edit" component={EditFocusPointsContainer} />
       <Route path="focus-points/new" component={NewFocusPointsContainer} />
       <Route path="incorrect-sequences" component={IncorrectSequenceContainer} />
       <Route path="incorrect-sequences/:incorrectSequenceID/edit" component={EditIncorrectSequenceContainer} />
       <Route path="incorrect-sequences/new" component={NewIncorrectSequenceContainer} />
-      <Route path="test" component={TestQuestionContainer} />
-      <Route path="visualize" component={AnswerVisualizer} />
-      <Route path="mass-edit" component={MassEditContainer} />
-    </Route>
+      <Route path="test" component={TestQuestionContainer} /> */}
+      {/* <Route path="visualize" component={AnswerVisualizer} /> */}
+      {/* <Route path="mass-edit" component={MassEditContainer} /> */}
+    </Route> */}
 
     {/* fill in the blanks section*/}
     <Route path="fill-in-the-blanks" component={FillInBlankQuestions} />
@@ -75,7 +75,7 @@ const AdminRoutes = (
     </Route>
 
     {/* data section*/}
-    <Route path="datadash" component={ScoreAnalysis} />
+    {/* <Route path="datadash" component={ScoreAnalysis} /> */}
 
     {/* questions section*/}
     <Route path="diagnostic-questions" component={DiagnosticQuestions} />
