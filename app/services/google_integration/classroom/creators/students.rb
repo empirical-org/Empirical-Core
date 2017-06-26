@@ -55,7 +55,7 @@ module GoogleIntegration::Classroom::Creators::Students
                        username: username,
                        signed_up_with_google: true)
         puts 'i just called it in students.rb'
-        StudentJoinedClassroomWorker.perform_async(classroom.teacher_id, stud.id)
+        StudentJoinedClassroomWorker.perform_async(classroom.teacher_id, student.id)
       end
       if student.errors.any?
         puts "Error: Could not save google classroom student."
