@@ -40,7 +40,7 @@ const rootRoute = {
     path: '/',
     childRoutes: [
       require('./routers/Admin/index').default,
-      require('./routers/Play/index').default
+      require('./routers/Play/index').default,
       require('./routers/Teach/index').default
     ],
   }],

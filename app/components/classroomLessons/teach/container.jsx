@@ -12,6 +12,7 @@ import {
 import CLLobby from './lobby.jsx';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
+import { getParameterByName } from 'libs/getParameterByName';
 
 class TeachClassroomLessonContainer extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class TeachClassroomLessonContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(startListeningToSession(this.props.location.query.classroom_activity_id));
+    this.props.dispatch(startListeningToSession(getParameterByName('classroom_activity_id')));
   }
 
   renderCurrentSlide(data) {
@@ -49,7 +50,7 @@ class TeachClassroomLessonContainer extends Component {
   }
 
   goToNextSlide() {
-    this.props.dispatch(goToNextSlide(this.props.location.query.classroom_activity_id));
+    this.props.dispatch(goToNextSlide(getParameterByName('classroom_activity_id')));
   }
 
   toggleSelected(current_slide, student) {
@@ -59,19 +60,19 @@ class TeachClassroomLessonContainer extends Component {
     const currentValue = currentSlide ? currentSlide[student] : undefined;
     console.log(currentValue);
     if (!currentValue) {
-      saveSelectedStudentSubmission(this.props.location.query.classroom_activity_id, current_slide, student);
+      saveSelectedStudentSubmission(getParameterByName('classroom_activity_id'), current_slide, student);
     } else {
-      removeSelectedStudentSubmission(this.props.location.query.classroom_activity_id, current_slide, student);
+      removeSelectedStudentSubmission(getParameterByName('classroom_activity_id'), current_slide, student);
     }
   }
 
   startDisplayingAnswers() {
     console.log('Starting');
-    setMode(this.props.location.query.classroom_activity_id, this.props.classroomSessions.data.current_slide, 'PROJECT');
+    setMode(getParameterByName('classroom_activity_id'), this.props.classroomSessions.data.current_slide, 'PROJECT');
   }
 
   stopDisplayingAnswers() {
-    removeMode(this.props.location.query.classroom_activity_id, this.props.classroomSessions.data.current_slide);
+    removeMode(getParameterByName('classroom_activity_id'), this.props.classroomSessions.data.current_slide);
   }
 
   render() {
