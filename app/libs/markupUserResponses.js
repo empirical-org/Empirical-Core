@@ -33,9 +33,8 @@ export function getErroneousWordLength(changeObjects, key) {
   }
   if (addedWord) {
     return addedWord.value.length || 0;
-  } else {
-    return 0;
   }
+  return 0;
 }
 
 export function getErroneousWordOffset(changeObjects, key, length = 0) {
@@ -56,9 +55,8 @@ export function getErroneousWordOffset(changeObjects, key, length = 0) {
   // however, if the last word was simply misspelled, we don't need to increase the offset - the preceding space already exists
   if (changeObjects.length >= 2 && changeObjects[changeObjects.length - 1].value === '.' && changeObjects[changeObjects.length - 2].added === undefined) {
     return offset + 1;
-  } else {
-    return offset;
   }
+  return offset;
 }
 
 export function punctuationLength(originalUserString, userString, offsetIndex) {
@@ -109,18 +107,16 @@ export function getErrorType(targetString, userString) {
     return ERROR_TYPES.ADDITIONAL_WORD;
   } else if (hasDeletions) {
     return ERROR_TYPES.MISSING_WORD;
-  } else {
-    return ERROR_TYPES.NO_ERROR;
   }
+  return ERROR_TYPES.NO_ERROR;
 }
 
 export function getMissingWordErrorString(changeObjects) {
   return changeObjects.map((changeObject) => {
     if (changeObject.removed) {
       return changeObject.value === ',' ? '' : _.repeat(' ', changeObject.value.length);
-    } else {
-      return changeObject.value;
     }
+    return changeObject.value;
   }).join('');
 }
 
@@ -165,7 +161,6 @@ export function generateStyleObjects(targetString, userString, important = false
           getInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ],
       };
-      break;
     case ERROR_TYPES.ADDITIONAL_WORD:
       return {
         text: userString,
@@ -173,13 +168,11 @@ export function generateStyleObjects(targetString, userString, important = false
           getAdditionalInlineStyleRangeObject(parsedTargetString, parsedUserString, originalUserString)
         ],
       };
-      break;
     case ERROR_TYPES.MISSING_WORD:
       return {
         text: userString,
         inlineStyleRanges: [],
       };
-      break;
     default:
       return {
         text: userString,
