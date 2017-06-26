@@ -10,6 +10,7 @@ export default {
       System.import('./routes/Questions/index.js'),
       System.import('./routes/FillInTheBlanks/index.js'),
       System.import('./routes/SentenceFragments/index.js'),
+      System.import('./routes/Diagnostics/index.js'),
       // System.import('./routes/ItemLevels/index.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))

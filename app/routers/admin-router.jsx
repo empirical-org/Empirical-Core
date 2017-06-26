@@ -95,9 +95,9 @@ const AdminRoutes = (
     // </Route>
 
     {/* lessons section*/}
-    <Route path="lessons" component={Lessons} />
-    <Route path="lessons/:lessonID" component={Lesson} />
-    <Route path="lessons/:lessonID/results" component={LessonResults} />
+    // <Route path="lessons" component={Lessons} />
+    // <Route path="lessons/:lessonID" component={Lesson} />
+    // <Route path="lessons/:lessonID/results" component={LessonResults} />
 
     {/* diagnostics */}
     <Route path="diagnostics" component={Diagnostics} />
