@@ -221,6 +221,7 @@ $tool-grey: #f8f9f9;
       .author {
         color: #606060;
         font-weight: bold;
+        font-size: 24px;
         span {
           color: #343434;
         }
@@ -852,13 +853,22 @@ $tool-grey: #f8f9f9;
     &.desktop {
       .walk-thru-step:first-of-type {
           background-image: url('../../../../public/images/tools/connect/background_pattern.png');
-          background-position: 35%;
           background-repeat: no-repeat;
           height: 255px;
+          @media screen and (min-width: 1540px) {
+            background-position: 43%;
+          }
+          @media screen and (max-width: 1540px) and (min-width: 1350px) {
+            background-position: 30%;
+          }
+          @media screen and (max-width: 1350px) and (min-width: 1290px) {
+            display: none;
+          }
+
         }
-      @media screen and (max-width: 1376px) {
-        display: none;
-      }
+      // @media screen and (max-width: 1376px) {
+      //   display: none;
+      // }
 
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         .arrow {
