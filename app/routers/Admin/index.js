@@ -11,7 +11,7 @@ export default {
       System.import('./routes/FillInTheBlanks/index.js'),
       System.import('./routes/SentenceFragments/index.js'),
       System.import('./routes/Diagnostics/index.js'),
-      // System.import('./routes/ItemLevels/index.js')
+      System.import('./routes/ItemLevels/index.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
     .catch(err => console.error('Dynamic page loading failed', err));

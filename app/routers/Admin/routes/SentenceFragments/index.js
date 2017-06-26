@@ -1,5 +1,4 @@
 import SentenceFragments from 'components/sentenceFragments/sentenceFragments.jsx';
-import NewSentenceFragment from 'components/sentenceFragments/newSentenceFragment.jsx';
 
 export default {
   path: 'sentence-fragments',
