@@ -110,10 +110,6 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
   // addition - add source-map support
   devtool: 'source-map',
 };
