@@ -4,7 +4,7 @@ import { getParameterByName } from 'libs/getParameterByName';
 const diagnosticRoute = {
   path: ':diagnosticID',
   getComponent: (nextState, cb) => {
-    System.import('components/diagnostics/studentDiagnostic.jsx')
+    System.import(/* webpackChunkName: "student-diagnostic" */ 'components/diagnostics/studentDiagnostic.jsx')
     .then((component) => {
       cb(null, component.default);
     });
@@ -14,7 +14,7 @@ const diagnosticRoute = {
 const ellRoute = {
   path: ':ell',
   getComponent: (nextState, cb) => {
-    System.import('components/eslDiagnostic/studentDiagnostic.jsx')
+    System.import(/* webpackChunkName: "student-ell-diagnostic" */ 'components/eslDiagnostic/studentDiagnostic.jsx')
     .then((component) => {
       cb(null, component.default);
     });

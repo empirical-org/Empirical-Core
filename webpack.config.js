@@ -8,6 +8,7 @@ console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
   resolve: {
     modules: [
@@ -17,6 +18,7 @@ module.exports = {
   },
   context: `${__dirname}/app`,
   entry: {
+    vendor: ['pos', 'draft-js'],
     javascript: './app.jsx',
   },
   output: {
@@ -32,6 +34,8 @@ module.exports = {
       'process.env.EMPIRICAL_BASE_URL': JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
       'process.env.QUILL_CMS': JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
     }),
+    // new BundleAnalyzerPlugin(), // For visualizing package size
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
