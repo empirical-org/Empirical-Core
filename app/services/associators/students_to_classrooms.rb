@@ -4,6 +4,7 @@ module Associators::StudentsToClassrooms
     @@classroom = classroom
     if self.legit_classroom && self.legit_teacher && (student.role == 'student')
       sc = StudentsClassrooms.unscoped.find_or_create_by(student_id: student.id, classroom_id: classroom[:id]) do |stud|
+        puts 'i just called it in students to classrooms'
         StudentJoinedClassroomWorker.perform_async(@@classroom.teacher_id, stud.id)
       end
       sc.update(visible: true)
