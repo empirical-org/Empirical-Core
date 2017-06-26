@@ -7,7 +7,6 @@ module Associators::StudentsToClassrooms
         puts 'i just called it in students to classrooms'
         puts 'here is the classroom ryan'
         puts @@classroom
-        binding.pry
         StudentJoinedClassroomWorker.perform_async(@@classroom.teacher_id, stud.id)
       end
       sc.update(visible: true)
