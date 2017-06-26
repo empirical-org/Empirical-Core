@@ -55,6 +55,8 @@ module GoogleIntegration::Classroom::Creators::Students
                        username: username,
                        signed_up_with_google: true)
         puts 'i just called it in students.rb'
+        puts 'here are student attributes'
+        puts student.attributes
         StudentJoinedClassroomWorker.perform_async(classroom.teacher_id, student.id)
       end
       if student.errors.any?
