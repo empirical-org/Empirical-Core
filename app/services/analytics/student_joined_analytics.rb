@@ -1,4 +1,4 @@
-class InviteStudentAnalytics
+class StudentJoinedAnalytics
   attr_accessor :analytics
 
   def initialize

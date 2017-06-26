@@ -11,7 +11,6 @@ class Teachers::StudentsController < ApplicationController
     else
       @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
       Associators::StudentsToClassrooms.run(@student, @classroom)
-      InviteStudentWorker.perform_async(current_user.id, @student.id)
       render json: @student
     end
   end
