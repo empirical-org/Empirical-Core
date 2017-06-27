@@ -136,7 +136,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scores
     classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [:unit])
-    units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact.sort_by { |unit| unit.created_at }
+    units = Unit.where(user: current_user).sort_by { |unit| unit.created_at }
     selected_classroom =  Classroom.find_by id: params[:classroom_id]
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, selected_classroom.try(:id), params[:unit_id], params[:begin_date], params[:end_date]
     render json: {
