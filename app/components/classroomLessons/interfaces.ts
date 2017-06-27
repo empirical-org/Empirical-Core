@@ -1,4 +1,4 @@
-export interface ClassroomSession {
+export interface ClassroomLessonSession {
   students: Students;
   presence: Presence;
   questions: Questions;
@@ -9,7 +9,7 @@ export interface ClassroomSession {
 }
 
 export interface ClassroomLessonSessions {
- [sessionUID:string]: ClassroomSession
+ [sessionUID:string]: ClassroomLessonSession
 }
 
 

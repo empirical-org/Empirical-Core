@@ -5,8 +5,12 @@ import CLStudentLobby from './lobby.jsx';
 import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
-import { getParameterByName } from '../../../libs/getParameterByName';
-import { ClassroomLessonSessions } from '../interfaces';
+import { getParameterByName } from 'libs/getParameterByName';
+import {
+  ClassroomLessonSessions,
+  ClassroomLessonSession,
+  QuestionSubmissionsList
+} from '../interfaces';
 
 class PlayLessonClassroomContainer extends React.Component<any, any> {
   constructor(props) {
@@ -25,22 +29,22 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     }
   }
 
-  handleStudentSubmission(submission) {
-    const classroom_activity_id = getParameterByName('classroom_activity_id');
-    const student = getParameterByName('student');
+  handleStudentSubmission(submission: string) {
+    const classroom_activity_id: string | null = getParameterByName('classroom_activity_id');
+    const student: string | null = getParameterByName('student');
+    const current_slide: string = this.props.classroomSessions.data.current_slide;
     if (classroom_activity_id && student) {
-      const action = saveStudentSubmission(
+      saveStudentSubmission(
         classroom_activity_id,
-        this.props.classroomSessions.data.current_slide,
+        current_slide,
         student,
         submission
       );
-      this.props.dispatch(action);
     }
 
   }
 
-  renderCurrentSlide(data) {
+  renderCurrentSlide(data: ClassroomLessonSession) {
     const current = data.questions[data.current_slide];
     console.log(current.type);
     switch (current.type) {
@@ -53,9 +57,9 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
           <CLStudentStatic data={current.data} />
         );
       case 'CL-SA':
-        const mode: string = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : undefined;
-        const submissions: string[] = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : undefined;
-        const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : undefined;
+        const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+        const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
+        const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
         const props = { mode, submissions, selected_submissions, };
         return (
           <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
@@ -66,7 +70,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   public render() {
-    const { data, hasreceiveddata }: { data: ClassroomLessonSessions, hasreceiveddata: boolean } = this.props.classroomSessions;
+    const { data, hasreceiveddata }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
     // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
     // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
     if (hasreceiveddata) {
