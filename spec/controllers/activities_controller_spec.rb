@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ActivitiesController, type: :controller do
+describe ActivitiesController, type: :controller, redis: true do
   render_views
 
   let(:student) { FactoryGirl.create(:student) }
@@ -41,8 +41,16 @@ describe ActivitiesController, type: :controller do
       session[:user_id] = student.id
     end
 
+
     it 'returns activities' do
-      get :search, ({search: {search_query: '', filters: [], sort: nil}})
+      get :search, ( {"search"=>
+              {"search_query"=>"",
+               "filters"=>
+                {"0"=>{"field"=>"section", "selected"=>""},
+                 "1"=>{"field"=>"topic_category", "selected"=>""},
+                 "2"=>{"field"=>"activity_classification", "selected"=>""}}},
+             "controller"=>"activities",
+             "action"=>"search"})
       expect(parsed_body['activities'].length).to eq(2)
     end
 

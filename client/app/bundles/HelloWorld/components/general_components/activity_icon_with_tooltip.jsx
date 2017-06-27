@@ -39,7 +39,7 @@ export default React.createClass({
   },
 
   tooltipClasses: function () {
-    return 'activate-tooltip icon-link icon-wrapper icon-' + gradeColor(this.props.data.percentage) + ' icon-' + activityFromClassificationId(this.props.data.activity.classification.id);
+    return 'activate-tooltip icon-link icon-wrapper icon-' + gradeColor(this.props.data.percentage) + ' icon-' + activityFromClassificationId(this.props.data.activity.activity_classification_id || this.props.data.activity.classification.id);
   },
 
   goToReport: function() {
