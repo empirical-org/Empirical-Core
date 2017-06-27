@@ -1,9 +1,15 @@
 import React from 'react'
+import ButtonLoadingIndicator from '../../shared/button_loading_indicator'
 
-export default React.createClass({
+export default class extends React.Component {
 
+  addStudentButton() {
+    return this.props.loading
+    ? <button className='button-green'><ButtonLoadingIndicator/></button>
+    : <button className='button-green' onClick={this.props.submitStudent}>Add Student</button>
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="teacher-creates-accounts">
         <div className="option-boxes">
@@ -32,7 +38,7 @@ export default React.createClass({
             <span className="group-together">
               <input className="name-input" placeholder='First Name' type="text" value={this.props.firstName} onChange={(e)=> this.props.nameChange(e, 'firstName')}/>
               <input className="name-input" placeholder='Last Name' type="text" value={this.props.lastName} onChange={(e)=> this.props.nameChange(e, 'lastName')}/>
-              <button className='button-green' onClick={this.props.submitStudent}>Add Student</button>
+              {this.addStudentButton()}
             </span>
             <a className="white-bg" href={'/teachers/classrooms/' + this.props.classID + '/student_logins.pdf'}>Download Login Sheet</a>
           </div>
@@ -41,4 +47,4 @@ export default React.createClass({
       </div>
     );
    }
- });
+ };
