@@ -31,19 +31,15 @@ describe('EditStudentsButton component', () => {
     it('renders the text passed to it in props.buttonText', () => {
       expect(wrapper.text()).toEqual(buttonText)
     })
-
-    it('calls handleClick if clicked', () => {
-      wrapper.find('a').simulate('click')
-      expect(wrapper.instance().handleClick.mock.calls).toHaveLength(1);
-    })
   })
+  
   describe('if it is not enabled and not loading', () => {
     const disabledText = "Edit Students Before Assigning"
     const wrapper = shallow(
       <EditStudentsButton
         enabled={false}
         disabledText={disabledText}
-        // dataFunc = {dataFunc}
+        dataFunc = {dataFuncMock}
       />)
       wrapper.setState({loading: false})
 
@@ -63,7 +59,7 @@ describe('EditStudentsButton component', () => {
   describe('if it is loading', () => {
     const wrapper = shallow(
       <EditStudentsButton
-        // dataFunc = {dataFunc}
+        dataFunc = {dataFuncMock}
       />)
       wrapper.setState({loading: true})
 
