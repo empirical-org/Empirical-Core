@@ -1,12 +1,24 @@
 'use strict'
 import React from 'react'
+
+import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js'
+
 export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired
   },
 
   objectiveTitle: function () {
-    return [this.props.data.activity.classification.alias, "Objective"].join(' ');
+    const activity = this.props.data.activity
+    const classification = this.props.data.activity.classification
+    if (activity.activity_classification_id) {
+      return [activityTypeFromClassificationId(activity.activity_classification_id), "Objective"].join(' ');
+    }
+    else if (classification) {
+      return [classification.alias, "Objective"].join(' ');
+    } else {
+      return "Objective"
+    }
   },
 
   getClassName: function () {

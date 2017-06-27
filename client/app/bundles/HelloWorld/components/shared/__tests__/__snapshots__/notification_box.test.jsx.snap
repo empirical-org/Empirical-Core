@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationBox component should render 1`] = `
+<div
+  className="notification-box flex-row vertically-centered"
+>
+  <p>
+    <i
+      aria-hidden="true"
+      className="fa fa-lightbulb-o"
+    />
+    hi
+  </p>
+</div>
+`;

@@ -3,7 +3,7 @@
   <% @active_tab = 'Quill Diagnostic' %>
   <% @tool = 'diagnostic' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
-  <%# render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 <div class="tool-container diagnostic-tool-page">
 
@@ -41,12 +41,12 @@
                     <p>
                         Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners. The diagnostic also offers directions in
                         <img src="/images/flags/spain.png">Spanish,
-                        <img src="/images/flags/china.png">Chinese,
+                        <img src="/images/flags/china.png">Mandarin,
                         <img src="/images/flags/france.png">French,<br/>
                         <img src="/images/flags/vietnam.png">Vietnamese,
                         <img src="/images/flags/egypt.png">Arabic, and
                         <img src="/images/flags/india.png">Hindi.
-                        <a class="need-links" href="/">Learn more here.</a>
+                        <a class="ell-press-announcement" target="_blank" href="https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692">Learn more here.</a>
                     </p>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             </div>
         </div>
     </section>
-    <section class="walk-thru-wrapper mobile">
+    <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
         <div class="walk-thru-step">
             <div class="content-wrapper">
                 <img src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
@@ -106,12 +106,12 @@
                     <p>
                         Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners. The diagnostic also offers directions in
                         <img src="/images/flags/spain.png">Spanish,
-                        <img src="/images/flags/china.png">Chinese,
+                        <img src="/images/flags/china.png">Mandarin,
                         <img src="/images/flags/france.png">French,
                         <img src="/images/flags/vietnam.png">Vietnamese,
                         <img src="/images/flags/egypt.png">Arabic, and
                         <img src="/images/flags/india.png">Hindi.
-                        <a class="need-links" href="/">Learn more here.</a>
+                        <a class="ell-press-announcement" target="_blank" href="https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692">Learn more here.</a>
                     </p>
                 </div>
             </div>
@@ -209,10 +209,6 @@
     <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern-magnifier">
         <h2 class='q-h1'>Try It Out for Yourself</h2>
         <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
-    </section>
-
-    <section>
-      <div class="boy-playing-quill" />
     </section>
 
     <section class="tool-testimonial" id="testimonial">
