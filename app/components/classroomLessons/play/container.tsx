@@ -5,10 +5,10 @@ import CLStudentLobby from './lobby.jsx';
 import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import { ClassroomLessonSessions } from '../interfaces';
 
-class PlayLessonClassroomContainer extends React.Component<ClassroomLessonSessions, any> {
+class PlayLessonClassroomContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
@@ -28,13 +28,16 @@ class PlayLessonClassroomContainer extends React.Component<ClassroomLessonSessio
   handleStudentSubmission(submission) {
     const classroom_activity_id = getParameterByName('classroom_activity_id');
     const student = getParameterByName('student');
-    const action = saveStudentSubmission(
-      classroom_activity_id,
-      this.props.classroomSessions.data.current_slide,
-      student,
-      submission
-    );
-    this.props.dispatch(action);
+    if (classroom_activity_id && student) {
+      const action = saveStudentSubmission(
+        classroom_activity_id,
+        this.props.classroomSessions.data.current_slide,
+        student,
+        submission
+      );
+      this.props.dispatch(action);
+    }
+
   }
 
   renderCurrentSlide(data) {
@@ -63,7 +66,9 @@ class PlayLessonClassroomContainer extends React.Component<ClassroomLessonSessio
   }
 
   public render() {
-    const { data, hasreceiveddata, } = this.props.classroomSessions;
+    const { data, hasreceiveddata }: { data: ClassroomLessonSessions, hasreceiveddata: boolean } = this.props.classroomSessions;
+    // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
+    // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
     if (hasreceiveddata) {
       const component = this.renderCurrentSlide(data);
       if (component) {
