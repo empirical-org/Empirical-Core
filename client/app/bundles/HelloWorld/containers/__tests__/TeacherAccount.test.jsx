@@ -8,6 +8,7 @@ import SelectSubscription from '../../components/accounts/subscriptions/select_s
 import StaticDisplaySubscription from '../../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../../components/accounts/school/select_school';
 import LoadingSpinner from '../../components/shared/loading_indicator.jsx'
+import ButtonLoadingIndicator from '../../components/shared/button_loading_indicator.jsx'
 
 describe('TeacherAccount container', () => {
   // Sadly, we have to mount here instead of using shallow
@@ -335,11 +336,22 @@ describe('TeacherAccount container', () => {
     });
 
     it('should have class button-grey if state.isSaving or button-green if not', () => {
-      wrapper.setState({isSaving: true});
-      expect(wrapper.find('button').filterWhere(e => e.text() == 'Save Changes').props().className).toBe('button-grey');
       wrapper.setState({isSaving: false});
       expect(wrapper.find('button').filterWhere(e => e.text() == 'Save Changes').props().className).toBe('button-green');
+      // we can no longer use a filterWhere on text to check for the button-grey class
+      // because the button no longer has text when it is loading
+      // as of 6/27/17, this is the only gray button that ever appears on the page
+      wrapper.setState({isSaving: true});
+      expect(wrapper.find('.button-grey')).toHaveLength(1)
     });
+
+    it('should render a ButtonLoadingIndicator if state.isSaving and not if not', () => {
+      wrapper.setState({isSaving: false});
+      expect(wrapper.find(ButtonLoadingIndicator)).toHaveLength(0)
+      wrapper.setState({isSaving: true});
+      expect(wrapper.find(ButtonLoadingIndicator)).toHaveLength(1)
+    });
+
   });
 
   describe('delete button', () => {
