@@ -6,8 +6,9 @@ import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getParameterByName } from 'libs/getParameterByName';
+import { ClassroomLessonSessions } from '../interfaces';
 
-class PlayLessonClassroomContainer extends React.Component<any, any> {
+class PlayLessonClassroomContainer extends React.Component<ClassroomLessonSessions, any> {
   constructor(props) {
     super(props);
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
@@ -22,12 +23,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         registerPresence(classroom_activity_id, student);
       }
     }
-
   }
 
   handleStudentSubmission(submission) {
-    const classroom_activity_id: string | null = getParameterByName('classroom_activity_id');
-    const student: string | null = getParameterByName('student');
+    const classroom_activity_id = getParameterByName('classroom_activity_id');
+    const student = getParameterByName('student');
     const action = saveStudentSubmission(
       classroom_activity_id,
       this.props.classroomSessions.data.current_slide,
@@ -66,9 +66,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const { data, hasreceiveddata, } = this.props.classroomSessions;
     if (hasreceiveddata) {
       const component = this.renderCurrentSlide(data);
-      return (
-        component
-      );
+      if (component) {
+        return (
+          component
+        );
+      }
     }
     return (
       <div>
