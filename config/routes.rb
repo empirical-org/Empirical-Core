@@ -208,10 +208,10 @@ EmpiricalGrammar::Application.routes.draw do
       resources :topics,                  only: [:index]
       resources :topic_categories,        only: [:index]
       resources :concepts,                only: [:index, :create]
-
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
+      get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
