@@ -701,6 +701,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sqreen (1.6.5)
+      execjs (>= 0.3.0)
+      therubyracer
     stripe (1.55.0)
       rest-client (>= 1.4, < 4.0)
     teaspoon (1.1.5)
@@ -851,6 +854,7 @@ DEPENDENCIES
   slim-rails
   spring
   spring-commands-rspec
+  sqreen
   stripe
   teaspoon-mocha
   terminal-notifier-guard
