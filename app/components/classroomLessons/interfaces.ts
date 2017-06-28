@@ -66,9 +66,9 @@ export interface QuestionSubmission {
 }
 
 export interface SelectedSubmissions {
-  [key:string]: SubmissionsForQuestion
+  [key:string]: SelectedSubmissionsForQuestion
 }
 
-export interface SubmissionsForQuestion {
+export interface SelectedSubmissionsForQuestion {
  [key:string]: boolean
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import {
   startListeningToSession,
@@ -13,10 +13,18 @@ import CLLobby from './lobby.jsx';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
+import {
+  ClassroomLessonSessions,
+  ClassroomLessonSession,
+  QuestionSubmissionsList,
+  SelectedSubmissions,
+  SelectedSubmissionsForQuestion
+} from '../interfaces';
 
-class TeachClassroomLessonContainer extends Component {
+class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
     this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
     this.goToNextSlide = this.goToNextSlide.bind(this);
     this.toggleSelected = this.toggleSelected.bind(this);
@@ -25,7 +33,10 @@ class TeachClassroomLessonContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(startListeningToSession(getParameterByName('classroom_activity_id')));
+    const ca_id: string|null = getParameterByName('classroom_activity_id')
+    if (ca_id) {
+      this.props.dispatch(startListeningToSession(ca_id));
+    }
   }
 
   renderCurrentSlide(data) {
@@ -50,38 +61,50 @@ class TeachClassroomLessonContainer extends Component {
   }
 
   goToNextSlide() {
-    this.props.dispatch(goToNextSlide(getParameterByName('classroom_activity_id')));
-  }
-
-  toggleSelected(current_slide, student) {
-    console.log('toggling');
-    const submissions = this.props.classroomSessions.data.selected_submissions;
-    const currentSlide = submissions ? submissions[current_slide] : undefined;
-    const currentValue = currentSlide ? currentSlide[student] : undefined;
-    console.log(currentValue);
-    if (!currentValue) {
-      saveSelectedStudentSubmission(getParameterByName('classroom_activity_id'), current_slide, student);
-    } else {
-      removeSelectedStudentSubmission(getParameterByName('classroom_activity_id'), current_slide, student);
+    const ca_id: string|null = getParameterByName('classroom_activity_id')
+    if (ca_id) {
+      this.props.dispatch(goToNextSlide(ca_id));
     }
   }
 
+  toggleSelected(current_slide: string, student: string) {
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    if (ca_id) {
+      const submissions: SelectedSubmissions | null = this.props.classroomSessions.data.selected_submissions;
+      const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[current_slide] : null;
+      const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
+      if (!currentValue) {
+        saveSelectedStudentSubmission(ca_id, current_slide, student);
+      } else {
+        removeSelectedStudentSubmission(ca_id, current_slide, student);
+      }
+    }
+
+  }
+
   startDisplayingAnswers() {
-    console.log('Starting');
-    setMode(getParameterByName('classroom_activity_id'), this.props.classroomSessions.data.current_slide, 'PROJECT');
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    if (ca_id) {
+      setMode(ca_id, this.props.classroomSessions.data.current_slide, 'PROJECT');
+    }
   }
 
   stopDisplayingAnswers() {
-    removeMode(getParameterByName('classroom_activity_id'), this.props.classroomSessions.data.current_slide);
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    if (ca_id) {
+      removeMode(ca_id, this.props.classroomSessions.data.current_slide);
+    }
   }
 
   render() {
     const { data, hasreceiveddata, } = this.props.classroomSessions;
     if (hasreceiveddata) {
       const component = this.renderCurrentSlide(data);
-      return (
-        component
-      );
+      if (component) {
+        return (
+          component
+        );
+      }
     }
     return (
       <div>

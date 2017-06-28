@@ -11,7 +11,7 @@ export function startListeningToSession(classroom_activity_id: string) {
   };
 }
 
-export function updateSession(data: object) {
+export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
     data,
@@ -44,7 +44,7 @@ export function goToNextSlide(classroom_activity_id: string) {
   };
 }
 
-export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
+export function updateCurrentSlide(classroom_activity_id: string, question_id: string): void {
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.set(question_id);
 }
@@ -54,22 +54,22 @@ export function saveStudentSubmission(classroom_activity_id: string, question_id
   submissionRef.set(submission);
 }
 
-export function saveSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string) {
+export function saveSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
   selectedSubmissionRef.set(true);
 }
 
-export function removeSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string) {
+export function removeSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
   selectedSubmissionRef.remove();
 }
 
-export function setMode(classroom_activity_id: string, question_id: string, mode) {
+export function setMode(classroom_activity_id: string, question_id: string, mode): void {
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.set(mode);
 }
 
-export function removeMode(classroom_activity_id: string, question_id: string) {
+export function removeMode(classroom_activity_id: string, question_id: string): void {
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.remove();
 }
