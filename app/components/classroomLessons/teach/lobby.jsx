@@ -27,14 +27,15 @@ class Lobby extends Component {
   }
 
   renderNumberPresentStudents(presence) {
-    // if (presence === undefined) {
-    //   const numPresent = 0;
-    // } else {
-    //   const numPresent = Object.keys(presence).length;
-    // }
+    let numPresent;
+    if (presence === undefined) {
+      numPresent = 0;
+    } else {
+      numPresent = Object.keys(presence).length;
+    }
     return (
       <p>
-        {Object.keys(presence).length} Student(s) Connected
+        {numPresent} Student(s) Connected
       </p>
     );
   }

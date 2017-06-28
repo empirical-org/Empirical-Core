@@ -67,6 +67,13 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
+  goToSlide(slide_id: string) {
+    const ca_id: string|null = getParameterByName('classroom_activity_id')
+    if (ca_id) {
+      this.props.dispatch(updateCurrentSlide(ca_id, slide_id));
+    }
+  }
+
   toggleSelected(current_slide: string, student: string) {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     if (ca_id) {
@@ -96,13 +103,41 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
+  renderSidebar(data: ClassroomLessonSession) {
+    const questions = data.questions;
+    const length = questions.length;
+    const current_slide = data.current_slide;
+    let components: JSX.Element[] = []
+    let counter = 0;
+    for (let slide in questions) {
+      counter += 1;
+      const activeClass = current_slide === slide ? "active" : ""
+      components.push((
+        <div onClick={() => this.goToSlide(slide)}>
+          <p className={"slide-number " + activeClass}>Slide {counter} / {length}</p>
+          <div className={"slide-preview " + activeClass}>
+            {questions[slide].type}
+          </div>
+        </div>
+      ))
+    }
+    return components
+  }
+
   render() {
     const { data, hasreceiveddata, } = this.props.classroomSessions;
-    if (hasreceiveddata) {
+    if (hasreceiveddata && data) {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          component
+          <div className="teach-lesson-container">
+            <div className="side-bar">
+              {this.renderSidebar(data)}
+            </div>
+            <div className="main-content">
+              {component}
+            </div>
+          </div>
         );
       }
     }
