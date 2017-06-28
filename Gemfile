@@ -183,3 +183,4 @@ end
 
 # Memory profiling
 gem 'puma_worker_killer'
+gem 'sqreen'
