@@ -5,13 +5,6 @@ class Static extends Component {
     super(props);
   }
 
-
-  renderNextSlideButton() {
-    return (
-      <button onClick={this.props.goToNextSlide} >Next Slide</button>
-    );
-  }
-
   renderScript(script) {
     return script.map((item) => {
       return (
@@ -31,7 +24,6 @@ class Static extends Component {
         <ul>
           {this.renderScript(this.props.data.questions[this.props.data.current_slide].data.teach.script)}
         </ul>
-        {this.renderNextSlideButton()}
       </div>
     );
   }

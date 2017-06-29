@@ -8,12 +8,6 @@ class SingleAnswer extends Component {
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
   }
 
-  renderNextSlideButton() {
-    return (
-      <button onClick={this.props.goToNextSlide} >Next Slide</button>
-    );
-  }
-
   toggleSelected(event, current_slide, student) {
     this.props.toggleSelected(current_slide, student);
   }
@@ -79,7 +73,6 @@ class SingleAnswer extends Component {
         <ul>
           {this.renderScript(this.props.data.questions[this.props.data.current_slide].data.teach.script)}
         </ul>
-        {this.renderNextSlideButton()}
       </div>
     );
   }
