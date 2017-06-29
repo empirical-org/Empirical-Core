@@ -8,7 +8,7 @@ import {
   removeSelectedStudentSubmission,
   setMode,
   removeMode
-} from '../../../actions/classroomSessions.js';
+} from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
@@ -63,14 +63,14 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   goToNextSlide() {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
-      this.props.dispatch(goToNextSlide(ca_id));
+      goToNextSlide(ca_id, this.props.classroomSessions.data);
     }
   }
 
   goToSlide(slide_id: string) {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
-      this.props.dispatch(updateCurrentSlide(ca_id, slide_id));
+      updateCurrentSlide(ca_id, slide_id);
     }
   }
 

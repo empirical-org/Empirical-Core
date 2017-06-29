@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions.js';
+import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby.jsx';
 import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
