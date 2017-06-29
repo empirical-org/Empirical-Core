@@ -1066,8 +1066,28 @@ ALTER SEQUENCE schools_id_seq OWNED BY schools.id;
 
 CREATE TABLE schools_users (
     school_id integer,
-    user_id integer
+    user_id integer,
+    id integer NOT NULL
 );
+
+
+--
+-- Name: schools_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE schools_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: schools_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE schools_users_id_seq OWNED BY schools_users.id;
 
 
 --
@@ -1612,6 +1632,13 @@ ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY schools_users ALTER COLUMN id SET DEFAULT nextval('schools_users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY sections ALTER COLUMN id SET DEFAULT nextval('sections_id_seq'::regclass);
 
 
@@ -1892,6 +1919,14 @@ ALTER TABLE ONLY school_subscriptions
 
 ALTER TABLE ONLY schools
     ADD CONSTRAINT schools_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schools_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_users
+    ADD CONSTRAINT schools_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -2935,4 +2970,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 INSERT INTO schema_migrations (version) VALUES ('20170519202522');
 
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170629160654');
 

@@ -41,7 +41,7 @@
             td= user.name
             td= user.email
             td class="role-#{user.role}"= user.role[0]
-            td= user.schools.any? ? user.schools.first.name : ''
+            td= user.school ? user.school.name : ''
             - if user.subscriptions.any?
               td= user.subscriptions.first.account_type
             - else

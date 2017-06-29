@@ -1,5 +1,5 @@
 class School < ActiveRecord::Base
-  has_many :schools_users
+  has_many :schools_users,  class_name: 'SchoolsUsers'
   has_many :users, through: :schools_users
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
