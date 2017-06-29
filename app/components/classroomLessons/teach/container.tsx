@@ -45,7 +45,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     switch (current.type) {
       case 'CL-LB':
         return (
-          <CLLobby data={data} goToNextSlide={this.goToNextSlide} />
+          <CLLobby data={data} slideData={current} goToNextSlide={this.goToNextSlide} />
         );
       case 'CL-ST':
         return (

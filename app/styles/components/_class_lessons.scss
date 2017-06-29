@@ -34,7 +34,107 @@
   }
 
   .main-content {
-    margin: 15px;
+    margin: 20px 30px 15px;
+  }
+}
+
+.teacher-lobby {
+
+  .lobby-header {
+    margin-bottom: 40px;
+    .unit-title {
+      font-size: 18px;
+      color: #969696;
+      margin-bottom: 15px;
+    }
+
+    .lesson-title {
+      font-size: 30px;
+      color: #3b3b3b;
+    }
+  }
+
+  .lobby-body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    .lobby-text {
+      padding: 25px;
+      max-width: 535px;
+      background-color: #fafafa;
+      font-size: 16px;
+      line-height: 1.63;
+      margin-right: 35px;
+      h4 {
+        font-weight: 600;
+        text-align: left;
+        color: #3b3b3b;
+        margin-bottom: 15px;
+      }
+
+      p {
+        color: #969696;
+        margin-bottom: 15px;
+        line-height: 26px;
+      }
+    }
+
+    .presence-container {
+      min-width: 253px;
+      border-radius: 3px;
+      border: solid 1px #e9e9e9;
+      .presence-header {
+        height: 54px;
+        border-bottom: solid 1px #e9e9e9;
+        background-color: #fafafa;
+        p {
+          font-size: 14px;
+          text-align: left;
+          color: #3b3b3b;
+          line-height: 54px;
+          margin-left: 15px;
+        }
+      }
+      .presence-list-container {
+        margin: 15px 15px 5px 15px;
+
+        .presence-list-titles {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          font-size: 12px;
+          font-weight: 600;
+          color: #969696;
+        }
+        ul {
+          li {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+            line-height: 44px;
+            border-bottom: solid 1px #e9e9e9;
+            font-size: 16px;
+            color: #3b3b3b;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            div.online {
+              height: 11px;
+              width: 11px;
+              border-radius: 11px;
+              background-color: #82bf3c;
+              margin: 0 15px;
+            }
+          }
+        }
+      }
+    }
+
+
   }
 
   .number-presence-box {

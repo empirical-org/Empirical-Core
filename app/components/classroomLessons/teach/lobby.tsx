@@ -27,7 +27,7 @@ class Lobby extends Component {
         const statusClass = presence[key] ? "online" : "offline";
         return (
           <li>
-            <span>{name}</span> <span className={statusClass + " presence-circle"}>&#9679;</span>
+            <p>{name}</p> <div className={statusClass}></div>
           </li>
         );
       });
@@ -51,7 +51,7 @@ class Lobby extends Component {
     }
     return (
       <p>
-        <div>{numPresent} Student(s) Connected</div>
+        <strong>{numPresent} student{numPresent === 1 ? '': 's'}</strong> joined this lesson.
       </p>
     );
   }
@@ -68,19 +68,19 @@ class Lobby extends Component {
 
   renderScript() {
     return (
-      <div className="lobby-text" dangerouslySetInnerHTML={{__html: this.props.data}} >
+      <div className="lobby-text" dangerouslySetInnerHTML={{__html: this.props.slideData.data}} >
       </div>
     )
   }
 
   renderPresence() {
     return (
-      <div>
-        <div className="number-presence-box">
+      <div className="presence-container">
+        <div className="presence-header">
           {this.renderNumberPresentStudents(this.props.data.presence)}
         </div>
-        <div className="student-presence-box">
-          <div><span>Student</span>  <span>Status</span></div>
+        <div className="presence-list-container">
+          <div className="presence-list-titles"><span>Student</span>  <span>Status</span></div>
           <ul>
             {this.renderPresentStudents(this.props.data.presence, this.props.data.students)}
           </ul>
@@ -91,9 +91,9 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div >
+      <div className="teacher-lobby">
         {this.renderHeader()}
-        <div className="lobby-content">
+        <div className="lobby-body">
           {this.renderScript()}
           {this.renderPresence()}
         </div>
