@@ -37,10 +37,12 @@
 
   .main-content {
     padding: 20px 30px 15px;
+    width: 100%;
+    max-width: 900px;
     overflow-y: scroll;
     .main-content-wrapper {
-      width: 100%;
-      max-width: 900px
+      // width: 100%;
+      // max-width: 900px;
     }
   }
 }
