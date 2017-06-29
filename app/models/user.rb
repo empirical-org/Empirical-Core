@@ -30,7 +30,8 @@ class User < ActiveRecord::Base
 
   has_many :checkboxes
   has_many :objectives, through: :checkboxes
-  has_and_belongs_to_many :schools
+  has_one :schools_users
+  has_one :school, through: :schools_users
   has_and_belongs_to_many :districts
   has_many :subscriptions
   has_one :ip_location
