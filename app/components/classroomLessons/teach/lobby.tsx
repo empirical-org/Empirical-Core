@@ -1,6 +1,15 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import {
+  ClassroomLessonSessions,
+  ClassroomLessonSession,
+  QuestionSubmissionsList,
+  SelectedSubmissions,
+  SelectedSubmissionsForQuestion,
+  Question
+} from '../interfaces';
 
-class Lobby extends Component {
+
+class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Question; }> {
   constructor(props) {
     super(props);
   }
@@ -61,8 +70,9 @@ class Lobby extends Component {
   }
 
   renderScript() {
+    const html:string =  this.props.slideData.data.teach.script[0].text || '';
     return (
-      <div className="lobby-text" dangerouslySetInnerHTML={{__html: this.props.slideData.data}} >
+      <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
       </div>
     )
   }

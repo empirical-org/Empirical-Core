@@ -9,7 +9,7 @@ import {
   setMode,
   removeMode
 } from '../../../actions/classroomSessions.js';
-import CLLobby from './lobby.tsx';
+import CLLobby from './lobby';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -45,15 +45,15 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     switch (current.type) {
       case 'CL-LB':
         return (
-          <CLLobby data={data} slideData={current} goToNextSlide={this.goToNextSlide} />
+          <CLLobby data={data} slideData={current} />
         );
       case 'CL-ST':
         return (
-          <CLStatic data={data} goToNextSlide={this.goToNextSlide} />
+          <CLStatic data={data}/>
         );
       case 'CL-SA':
         return (
-          <CLSingleAnswer data={data} goToNextSlide={this.goToNextSlide} toggleSelected={this.toggleSelected} startDisplayingAnswers={this.startDisplayingAnswers} stopDisplayingAnswers={this.stopDisplayingAnswers} />
+          <CLSingleAnswer data={data} toggleSelected={this.toggleSelected} startDisplayingAnswers={this.startDisplayingAnswers} stopDisplayingAnswers={this.stopDisplayingAnswers} />
         );
       default:
 

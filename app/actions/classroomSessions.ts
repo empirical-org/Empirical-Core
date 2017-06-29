@@ -1,4 +1,4 @@
-const C = require('../constants').default;
+import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 
