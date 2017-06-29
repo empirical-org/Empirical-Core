@@ -9,7 +9,7 @@ import {
   setMode,
   removeMode
 } from '../../../actions/classroomSessions.js';
-import CLLobby from './lobby.jsx';
+import CLLobby from './lobby.tsx';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
