@@ -36,12 +36,6 @@ class Lobby extends Component {
     }
   }
 
-  renderNextSlideButton() {
-    return (
-      <button onClick={this.props.goToNextSlide} >Next Slide</button>
-    );
-  }
-
   renderNumberPresentStudents(presence) {
     let numPresent;
     if (presence === undefined) {
@@ -97,8 +91,6 @@ class Lobby extends Component {
           {this.renderScript()}
           {this.renderPresence()}
         </div>
-
-        {this.renderNextSlideButton()}
       </div>
     );
   }

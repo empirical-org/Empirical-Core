@@ -124,6 +124,14 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     return components
   }
 
+  renderNextSlideButton() {
+    return (
+      <div className="next-slide-button-container">
+        <button onClick={this.goToNextSlide}>Next Slide</button>
+      </div>
+    );
+  }
+
   render() {
     const { data, hasreceiveddata, } = this.props.classroomSessions;
     if (hasreceiveddata && data) {
@@ -135,7 +143,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
               {this.renderSidebar(data)}
             </div>
             <div className="main-content">
-              {component}
+              <div className="main-content-wrapper">
+                {component}
+                {this.renderNextSlideButton()}
+              </div>
             </div>
           </div>
         );
