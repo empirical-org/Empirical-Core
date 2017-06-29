@@ -9,9 +9,22 @@ class Lobby extends Component {
     // Want to order students by last name alphabetically.
     // Then display if connected or recently disconnected
     if (presence !== undefined) {
-      return Object.keys(presence).map((key) => {
+
+      const sortedNames = Object.keys(presence).sort((key1, key2) => {
+        const last1 = students[key1].split(" ").slice(-1)[0];
+        const last2 = students[key2].split(" ").slice(-1)[0];
+        if (last1 < last2) {
+          return -1;
+        } else if (last1 > last2) {
+          return 1;
+        } else {
+          return 0
+        }
+      })
+
+      return sortedNames.map((key) => {
         const name = students[key];
-        const statusClass = "online"; // Tina Look Here! return offline if student has disconnected
+        const statusClass = presence[key] ? "online" : "offline";
         return (
           <li>
             <p>{name}</p> <div className={statusClass}></div>
