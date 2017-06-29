@@ -24,7 +24,7 @@ export function registerPresence(classroom_activity_id, student_id) {
     console.log('val', snapshot.val());
     if (snapshot.val() === true) {
       console.log('True');
-      presenceRef.onDisconnect().remove();
+      presenceRef.onDisconnect().set(false);
       presenceRef.set(true);
     }
   });

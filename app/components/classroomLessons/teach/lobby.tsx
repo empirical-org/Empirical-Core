@@ -11,10 +11,12 @@ class Lobby extends Component {
     if (presence !== undefined) {
       return Object.keys(presence).map((key) => {
         const name = students[key];
-        const statusClass = "online"; // Tina Look Here! return offline if student has disconnected
+        const statusClass = presence[key] ? "online" : "offline";
+
+        //const statusClass = "online"; // Tina Look Here! return offline if student has disconnected
         return (
           <li>
-            <span>{name}</span> <div className={status}></div>
+            <span>{name}</span> <span className={statusClass + " presence-circle"}>&#9679;</span>
           </li>
         );
       });
@@ -63,10 +65,10 @@ class Lobby extends Component {
   renderPresence() {
     return (
       <div>
-        <div>
+        <div className="number-presence-box">
           {this.renderNumberPresentStudents(this.props.data.presence)}
         </div>
-        <div>
+        <div className="student-presence-box">
           <div><span>Student</span>  <span>Status</span></div>
           <ul>
             {this.renderPresentStudents(this.props.data.presence, this.props.data.students)}
