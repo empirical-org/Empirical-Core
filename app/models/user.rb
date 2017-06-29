@@ -295,6 +295,7 @@ class User < ActiveRecord::Base
     user_attributes = attributes
     user_attributes[:subscription] = subscriptions.any? ? subscriptions.first.attributes : {}
     user_attributes[:subscription]['subscriptionType'] = premium_state
+    user_attributes[:school] = school
     user_attributes
   end
 
