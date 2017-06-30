@@ -1,0 +1,28 @@
+.student-static-page {
+  display: flex;
+  font-size: 36px;
+  background-color: white;
+  height: calc(100vh - 50px);
+  text-align: center;
+  .green-text {
+    font-weight: bold;
+    color: #00c2a2;
+  }
+  .objective {
+    max-width: 768px;
+    width: 100%;
+    margin: 100 auto;
+    blockquote {
+      margin-top: 80px;
+      border-radius: 3px;
+      padding: 21 57;
+      background-color: #fafafa;
+    }
+  }
+  .word-list {
+    margin: 30 auto;
+    ul {
+      margin-top: 55px;
+    }
+  }
+}
