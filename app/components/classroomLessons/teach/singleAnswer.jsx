@@ -68,7 +68,7 @@ class SingleAnswer extends Component {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, } = this.props.data;
+    const { selected_submissions, submissions, current_slide, students, presence} = this.props.data;
     return (
       <div>
         <h1>
@@ -83,6 +83,7 @@ class SingleAnswer extends Component {
           submissions={submissions}
           current_slide={current_slide}
           students={students}
+          presence={presence}
           startDisplayingAnswers={this.startDisplayingAnswers}
           stopDisplayingAnswers={this.stopDisplayingAnswers}
           toggleSelected={this.toggleSelected}

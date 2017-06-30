@@ -5,10 +5,15 @@
 
   .student-submission-item-header {
     height: 60px;
-    padding: 0 35px;
+    padding: 18px 35px;
     background-color: #fafafa;
-
+    font-size: 16px;
     border-bottom: solid 1px #e9e9e9;
+    .show-remaining-students-button {
+      font-size: 16px;
+      font-weight: 600;
+      color: #00c2a2;
+    }
   }
 
   .student-submission-item-table {
@@ -37,11 +42,47 @@
     }
   }
 
+
   .student-submission-item-footer {
     height: 60px;
-    padding: 0 35px;
+    padding: 10px 14px;
     background-color: #fafafa;
     border-top: solid 1px #e9e9e9;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .display-button {
+      font-size: 14px;
+      font-weight: bold;
+      text-align: left;
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 3px;
+      outline: 0;
+    }
+
+    .show-prompt-button {
+      font-size: 14px;
+      font-weight: bold;
+      text-align: left;
+      color: #00c2a2;
+      padding: 10px 60px;
+      outline: 0;
+      border: none;
+      border-radius: 3px;
+      background-color: #ffffff;
+      border: solid 1px #00c2a2;
+    }
+
+    .active {
+      background-color: #00c2a2;
+    }
+
+    .inactive {
+      background-color: #e9e9e9;
+    }
   }
 }
 

@@ -5,6 +5,14 @@ import {
 
 class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlyShowHeaders: boolean | null}> {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      projecting: false,
+    }
+    this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
+  }
+
   renderScript(script: Array<ScriptItem>) {
     return script.map((item) => {
       switch(item.type) {
@@ -18,21 +26,44 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     });
   }
 
-  renderReview() {
-    const { selected_submissions, submissions, current_slide, students, } = this.props;
-    let numAnswers = 0;
-    let buttonActive = true;
-    const numStudents = Object.keys(submissions[current_slide]).length;
-    // const numAnswers = Object.keys(selected_submissions[current_slide]).length;
-    // if (numAnswers === 0) {
-    //   buttonActive = "disabled";
-    // }
+  startDisplayingAnswers() {
+    this.setState({projecting: true})
+    this.props.startDisplayingAnswers();
+  }
 
-    if (selected_submissions) {
-      buttonActive = false;
-      numAnswers = Object.keys(selected_submissions[current_slide]).length;
-
+  renderDisplayButton() {
+    if (this.state.projecting) {
+      return (
+        <button className={"show-prompt-button "}>Show Prompt</button>
+      )
+    } else {
+      const { selected_submissions, current_slide } = this.props;
+      let buttonInactive = true;
+      let buttonClass = "inactive";
+      if (selected_submissions && selected_submissions[current_slide]) {
+        buttonInactive = false;
+        buttonClass = "active";
+      }
+      return (
+        <button className={"display-button " + buttonClass} disabled={buttonInactive} onClick={this.startDisplayingAnswers}>Display Selected Answers</button>
+      )
     }
+  }
+
+  renderShowRemainingStudents() {
+    const { submissions, current_slide } = this.props;
+    const numAnswers = Object.keys(submissions[current_slide]).length;
+    if (numAnswers > 0) {
+      return (
+        <span className="show-remaining-students-button"> Show Remaining Students</span>
+      )
+    }
+  }
+
+  renderReview() {
+    const { selected_submissions, submissions, current_slide, students, presence } = this.props;
+    const numAnswers = Object.keys(submissions[current_slide]).length;
+    const numStudents = Object.keys(presence).length;
     if (submissions) {
       const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
         <tr >
@@ -46,7 +77,8 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
       return (
         <li className="student-submission-item">
           <div className="student-submission-item-header">
-            {numAnswers} of {numStudents} Students have answered.
+            <strong>{numAnswers} of {numStudents}</strong> Students have answered.
+            {this.renderShowRemainingStudents()}
           </div>
           <div className="student-submission-item-table">
             <table >
@@ -66,8 +98,9 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
           </div>
 
           <div className="student-submission-item-footer">
-            <button disabled={buttonActive} onClick={this.props.startDisplayingAnswers}>Display Selected Answers</button>
             <button onClick={this.props.stopDisplayingAnswers}>Stop displaying student answers</button>
+            {this.renderDisplayButton()}
+
           </div>
 
         </li>
