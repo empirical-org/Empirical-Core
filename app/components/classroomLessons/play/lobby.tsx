@@ -1,15 +1,25 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import {
+  ClassroomLessonSessions,
+  ClassroomLessonSession,
+  QuestionSubmissionsList,
+  SelectedSubmissions,
+  SelectedSubmissionsForQuestion,
+  Question,
+  Presence,
+  Students
+} from '../interfaces';
 
-class Lobby extends Component {
+class Lobby extends React.Component<{data: ClassroomLessonSession}> {
   constructor(props) {
     super(props);
   }
 
-  renderPresentStudents(presence, students) {
+  renderPresentStudents(presence: Presence, students: Students) {
     if (presence !== undefined) {
-      const sortedNames = Object.keys(presence).sort((key1, key2) => {
-        const last1 = students[key1].split(" ").slice(-1)[0];
-        const last2 = students[key2].split(" ").slice(-1)[0];
+      const sortedNames: Array<string> = Object.keys(presence).sort((key1, key2) => {
+        const last1: string = students[key1].split(" ").slice(-1)[0];
+        const last2: string = students[key2].split(" ").slice(-1)[0];
         if (last1 < last2) {
           return -1;
         } else if (last1 > last2) {
@@ -19,8 +29,8 @@ class Lobby extends Component {
         }
       })
       return sortedNames.map((key) => {
-        const name = students[key];
-        const statusClass = presence[key] ? "online" : "offline";
+        const name: string = students[key];
+        const statusClass: string = presence[key] ? "online" : "offline";
         return (
           <div>
             <li>
