@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import createHashHistory from 'history/lib/createHashHistory';
 import localForage from 'localforage';
-const hashhistory = createHashHistory({ queryKey: false, });
+const hashhistory = createHashHistory();
 const middleware = routerMiddleware(hashhistory);
 
 const finalCreateStore = compose(
