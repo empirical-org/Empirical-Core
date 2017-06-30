@@ -4,15 +4,15 @@
   background-color: white;
   height: calc(100vh - 50px);
   text-align: center;
+  color: #000000;
   .student-static-page {
     width: 100%;
-    max-width: 768px;
+    max-width: 770px;
     margin:0 auto;
     blockquote {
-      max-width: 768px;
       margin-top: 80px;
       border-radius: 3px;
-      padding: 21 57;
+      padding: 20 55;
       background-color: #fafafa;
     }
     ul {
