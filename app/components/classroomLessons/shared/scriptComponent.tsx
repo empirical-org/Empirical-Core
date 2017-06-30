@@ -20,6 +20,19 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
 
   renderReview() {
     const { selected_submissions, submissions, current_slide, students, } = this.props;
+    let numAnswers = 0;
+    let buttonActive = true;
+    const numStudents = Object.keys(submissions[current_slide]).length;
+    // const numAnswers = Object.keys(selected_submissions[current_slide]).length;
+    // if (numAnswers === 0) {
+    //   buttonActive = "disabled";
+    // }
+
+    if (selected_submissions) {
+      buttonActive = false;
+      numAnswers = Object.keys(selected_submissions[current_slide]).length;
+
+    }
     if (submissions) {
       const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
         <tr >
@@ -33,7 +46,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
       return (
         <li className="student-submission-item">
           <div className="student-submission-item-header">
-            How many students did what?
+            {numAnswers} of {numStudents} Students have answered.
           </div>
           <div className="student-submission-item-table">
             <table >
@@ -53,7 +66,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
           </div>
 
           <div className="student-submission-item-footer">
-            <button onClick={this.props.startDisplayingAnswers}>Display Selected Answers</button>
+            <button disabled={buttonActive} onClick={this.props.startDisplayingAnswers}>Display Selected Answers</button>
             <button onClick={this.props.stopDisplayingAnswers}>Stop displaying student answers</button>
           </div>
 
