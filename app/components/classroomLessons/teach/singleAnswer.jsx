@@ -85,6 +85,7 @@ class SingleAnswer extends Component {
           students={students}
           startDisplayingAnswers={this.startDisplayingAnswers}
           stopDisplayingAnswers={this.stopDisplayingAnswers}
+          toggleSelected={this.toggleSelected}
         />
 
       </div>

@@ -22,31 +22,42 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     const { selected_submissions, submissions, current_slide, students, } = this.props;
     if (submissions) {
       const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
-        <li
-          style={{
-            marginTop: 10,
-            borderBottom: '1px solid magenta',
-          }}
-        >
-          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
-          {submissions[current_slide][key]} - {students[key]}
-
-        </li>
+        <tr >
+          <td>{students[key]}</td>
+          <td></td>
+          <td>{submissions[current_slide][key]}</td>
+          <td></td>
+          <td><input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }} /></td>
+        </tr>
         ));
       return (
-        <div>
-          <ul
-            style={{
-              margin: 10,
-              padding: 10,
-              border: '1px solid magenta',
-            }}
-          >
-            {submissionComponents}
-          </ul>
-          <button onClick={this.props.startDisplayingAnswers}>Display Selected Answers</button>
-          <button onClick={this.props.stopDisplayingAnswers}>Stop displaying student answers</button>
-        </div>
+        <li className="student-submission-item">
+          <div className="student-submission-item-header">
+            How many students did what?
+          </div>
+          <div className="student-submission-item-table">
+            <table >
+              <thead>
+                <tr>
+                  <th>Students</th>
+                  <th>Flag</th>
+                  <th>Answers</th>
+                  <th>Time</th>
+                  <th>Display?</th>
+                </tr>
+              </thead>
+              <tbody>
+                {submissionComponents}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="student-submission-item-footer">
+            <button onClick={this.props.startDisplayingAnswers}>Display Selected Answers</button>
+            <button onClick={this.props.stopDisplayingAnswers}>Stop displaying student answers</button>
+          </div>
+
+        </li>
       );
     }
   }
@@ -66,10 +77,9 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
   render() {
     return (
       <ul>
-      {this.renderScript(this.props.script)}
+        {this.renderScript(this.props.script)}
       </ul>
     )
-
   }
 }
 
