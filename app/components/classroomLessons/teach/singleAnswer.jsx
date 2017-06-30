@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ScriptComponent from '../shared/scriptComponent.tsx';
 
 class SingleAnswer extends Component {
   constructor(props) {
@@ -22,33 +23,35 @@ class SingleAnswer extends Component {
 
   renderReview(item) {
     const { selected_submissions, submissions, current_slide, students, } = this.props.data;
-    const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
-      <li
-        style={{
-          marginTop: 10,
-          borderBottom: '1px solid magenta',
-        }}
-      >
-        <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
-        {submissions[current_slide][key]} - {students[key]}
-
-      </li>
-      ));
-    return (
-      <div>
-        <ul
+    if (submissions) {
+      const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
+        <li
           style={{
-            margin: 10,
-            padding: 10,
-            border: '1px solid magenta',
+            marginTop: 10,
+            borderBottom: '1px solid magenta',
           }}
         >
-          {submissionComponents}
-        </ul>
-        <button onClick={this.startDisplayingAnswers}>Display Selected Answers</button>
-        <button onClick={this.stopDisplayingAnswers}>Stop displaying student answers</button>
-      </div>
-    );
+          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
+          {submissions[current_slide][key]} - {students[key]}
+
+        </li>
+        ));
+      return (
+        <div>
+          <ul
+            style={{
+              margin: 10,
+              padding: 10,
+              border: '1px solid magenta',
+            }}
+          >
+            {submissionComponents}
+          </ul>
+          <button onClick={this.startDisplayingAnswers}>Display Selected Answers</button>
+          <button onClick={this.stopDisplayingAnswers}>Stop displaying student answers</button>
+        </div>
+      );
+    }
   }
 
   renderScript(script) {
@@ -65,14 +68,25 @@ class SingleAnswer extends Component {
   }
 
   render() {
+    const { selected_submissions, submissions, current_slide, students, } = this.props.data;
     return (
       <div>
         <h1>
           Single Answer Page
         </h1>
-        <ul>
+        {/* <ul>
           {this.renderScript(this.props.data.questions[this.props.data.current_slide].data.teach.script)}
-        </ul>
+        </ul> */}
+        <ScriptComponent
+          script={this.props.data.questions[this.props.data.current_slide].data.teach.script}
+          selected_submissions={selected_submissions}
+          submissions={submissions}
+          current_slide={current_slide}
+          students={students}
+          startDisplayingAnswers={this.startDisplayingAnswers}
+          stopDisplayingAnswers={this.stopDisplayingAnswers}
+        />
+
       </div>
     );
   }

@@ -6,16 +6,6 @@ class Static extends Component {
     super(props);
   }
 
-  renderScript(script) {
-    return script.map(item => (
-      <li className="script-item">
-        <p>{item.data.heading}</p>
-        <hr />
-        <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
-      </li>
-      ));
-  }
-
   render() {
     return (
       <div>

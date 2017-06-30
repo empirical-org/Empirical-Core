@@ -19,9 +19,36 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
   }
 
   renderReview() {
-    return (
-      <li>Hi</li>
-    )
+    const { selected_submissions, submissions, current_slide, students, } = this.props;
+    if (submissions) {
+      const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
+        <li
+          style={{
+            marginTop: 10,
+            borderBottom: '1px solid magenta',
+          }}
+        >
+          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
+          {submissions[current_slide][key]} - {students[key]}
+
+        </li>
+        ));
+      return (
+        <div>
+          <ul
+            style={{
+              margin: 10,
+              padding: 10,
+              border: '1px solid magenta',
+            }}
+          >
+            {submissionComponents}
+          </ul>
+          <button onClick={this.props.startDisplayingAnswers}>Display Selected Answers</button>
+          <button onClick={this.props.stopDisplayingAnswers}>Stop displaying student answers</button>
+        </div>
+      );
+    }
   }
 
   renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean) {
