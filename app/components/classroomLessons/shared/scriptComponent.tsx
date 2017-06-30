@@ -76,7 +76,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
 
   render() {
     return (
-      <ul>
+      <ul className="script-container">
         {this.renderScript(this.props.script)}
       </ul>
     )
