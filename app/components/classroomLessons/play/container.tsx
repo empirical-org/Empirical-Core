@@ -77,7 +77,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          component
+          <div className="play-lesson-container">
+            <div className="main-content">
+              <div className="main-content-wrapper">
+                {component}
+              </div>
+            </div>
+          </div>
         );
       }
     }

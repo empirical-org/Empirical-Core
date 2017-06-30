@@ -40,8 +40,6 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
           </li>
         );
       });
-    } else {
-
     }
   }
 
