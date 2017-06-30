@@ -55,7 +55,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     const html = onlyShowHeaders
       ? <li className="script-item"><p>{item.data.heading}</p></li>
       : (<li className="script-item">
-        <p>{item.data.heading}</p>
+        <p className="script-item-heading">{item.data.heading}</p>
         <hr />
         <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
       </li>)
