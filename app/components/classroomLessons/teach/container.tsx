@@ -113,7 +113,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       counter += 1;
       const activeClass = current_slide === slide ? "active" : ""
       components.push((
-        <div onClick={() => this.goToSlide(slide)}>
+        <div key={`slide#${counter}`} onClick={() => this.goToSlide(slide)}>
           <p className={"slide-number " + activeClass}>Slide {counter} / {length}</p>
           <div className={"slide-preview " + activeClass}>
             {questions[slide].type}

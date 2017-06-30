@@ -24,6 +24,7 @@ class SingleAnswer extends Component {
     const { selected_submissions, submissions, current_slide, students, } = this.props.data;
     const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
       <li
+        key={key}
         style={{
           marginTop: 10,
           borderBottom: '1px solid magenta',
@@ -52,9 +53,9 @@ class SingleAnswer extends Component {
   }
 
   renderScript(script) {
-    return script.map((item) => {
+    return script.map((item, index) => {
       if (item.type === 'T-REVIEW') {
-        return <li>{this.renderReview(item)}</li>;
+        return <li key={`${item.type + index.toString()}`}>{this.renderReview(item)}</li>;
       }
       return (
         <li>
