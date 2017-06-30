@@ -13,6 +13,7 @@
       font-size: 16px;
       font-weight: 600;
       color: #00c2a2;
+      cursor: pointer;
     }
   }
 
@@ -37,7 +38,9 @@
       }
 
       tbody {
-
+        .no-student-response {
+          color: #c0c0c0;
+        }
       }
     }
   }

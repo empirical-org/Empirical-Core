@@ -9,8 +9,10 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     super(props);
     this.state = {
       projecting: false,
+      showAllStudents: false,
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
+    this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
   }
 
   renderScript(script: Array<ScriptItem>) {
@@ -29,6 +31,10 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
   startDisplayingAnswers() {
     this.setState({projecting: true})
     this.props.startDisplayingAnswers();
+  }
+
+  toggleShowAllStudents() {
+    this.setState({showAllStudents: !this.state.showAllStudents})
   }
 
   renderDisplayButton() {
@@ -55,7 +61,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     const numAnswers = Object.keys(submissions[current_slide]).length;
     if (numAnswers > 0) {
       return (
-        <span className="show-remaining-students-button"> Show Remaining Students</span>
+        <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> Show Remaining Students</span>
       )
     }
   }
@@ -65,6 +71,22 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     const numAnswers = Object.keys(submissions[current_slide]).length;
     const numStudents = Object.keys(presence).length;
     if (submissions) {
+      let remainingStudents;
+      if (this.state.showAllStudents) {
+        const submittedStudents = Object.keys(submissions[current_slide]);
+        const workingStudents = Object.keys(presence).filter((id) => {
+          return !submittedStudents.includes(id);
+        })
+        remainingStudents = workingStudents.map((key) => (
+          <tr>
+            <td>{students[key]}</td>
+            <td></td>
+            <td className="no-student-response">Waiting for the student's answer...</td>
+            <td></td>
+            <td></td>
+          </tr>
+        ))
+      }
       const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
         <tr >
           <td>{students[key]}</td>
@@ -93,6 +115,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
               </thead>
               <tbody>
                 {submissionComponents}
+                {remainingStudents}
               </tbody>
             </table>
           </div>
