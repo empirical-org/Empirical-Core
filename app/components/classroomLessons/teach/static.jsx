@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ScriptComponent from '../shared/scriptComponent.tsx';
 
 class Static extends Component {
   constructor(props) {
@@ -6,23 +7,23 @@ class Static extends Component {
   }
 
   renderScript(script) {
-    return script.map((item) => {
-      return (
-        <li>
-          {item.text}
-        </li>
-      )
-    })
+    return script.map(item => (
+      <li className="script-item">
+        <p>{item.data.heading}</p>
+        <hr />
+        <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
+      </li>
+      ));
   }
 
   render() {
     return (
       <div>
-        <h1>
-          Static Page
-        </h1>
+        <h4 className="title is-4">
+          Title goes here.
+        </h4>
         <ul>
-          {this.renderScript(this.props.data.questions[this.props.data.current_slide].data.teach.script)}
+          <ScriptComponent script={this.props.data.questions[this.props.data.current_slide].data.teach.script} />
         </ul>
       </div>
     );
