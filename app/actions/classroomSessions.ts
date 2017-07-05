@@ -94,6 +94,7 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string)
     fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`, {
       method: 'GET',
       mode: 'cors',
+      credentials: 'include',
       headers: {},
     }).then((response) => {
       if (!response.ok) {

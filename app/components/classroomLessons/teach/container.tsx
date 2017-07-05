@@ -45,6 +45,12 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     if (ca_id) {
       this.props.dispatch(startListeningToSession(ca_id));
     }
+    this.getStudentNames()
+  }
+
+  getStudentNames(){
+    const classroomActivityId = getParameterByName('classroom_activity_id') || ''
+    this.props.dispatch(loadStudentNames(classroomActivityId, process.env.EMPIRICAL_BASE_URL))
   }
 
   renderCurrentSlide(data) {
