@@ -82,3 +82,28 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.remove();
 }
+
+export function addStudentNames(classroom_activity_id: string, studentsNames: object): void {
+  const studentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students`);
+  studentsRef.set(studentsNames)
+}
+
+
+export function loadStudentNames(classroom_activity_id: string, baseUrl: string) {
+  return function (dispatch) {
+    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      addStudentNames(classroom_activity_id, response)
+    }).catch((error) => {
+      console.log('error retrieving students names ', error)
+    });
+  };
+}
