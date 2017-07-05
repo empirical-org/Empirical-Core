@@ -68,7 +68,7 @@ class SingleAnswer extends Component {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence} = this.props.data;
+    const { selected_submissions, submissions, current_slide, students, presence, modes} = this.props.data;
     return (
       <div>
         <h1>

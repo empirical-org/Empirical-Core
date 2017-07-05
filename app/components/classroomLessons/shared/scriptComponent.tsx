@@ -10,11 +10,12 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
   constructor(props) {
     super(props);
     this.state = {
-      projecting: false,
+      projecting: this.props.modes ? this.props.modes[this.props.current_slide] : false,
       showAllStudents: false,
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
+    this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
   }
 
   renderScript(script: Array<ScriptItem>) {
@@ -39,10 +40,15 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     this.setState({showAllStudents: !this.state.showAllStudents})
   }
 
+  stopDisplayingAnswers() {
+    this.setState({projecting: false})
+    this.props.stopDisplayingAnswers();
+  }
+
   renderDisplayButton() {
     if (this.state.projecting) {
       return (
-        <button className={"show-prompt-button "}>Show Prompt</button>
+        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Show Prompt</button>
       )
     } else {
       const { selected_submissions, current_slide } = this.props;
@@ -83,15 +89,18 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         const sortedWorkingStudents = workingStudents.sort((key1, key2) => {
           return sortByLastName(key1, key2, students);
         }
-        remainingStudents = sortedWorkingStudents.map((key) => (
-          <tr>
-            <td>{students[key]}</td>
-            <td></td>
-            <td className="no-student-response">Waiting for the student's answer...</td>
-            <td></td>
-            <td></td>
-          </tr>
-        ))
+        if (sortedWorkingStudents) {
+          remainingStudents = sortedWorkingStudents.map((key) => (
+            <tr>
+              <td>{students[key]}</td>
+              <td></td>
+              <td className="no-student-response">Waiting for the student's answer...</td>
+              <td></td>
+              <td></td>
+            </tr>
+          ))
+        }
+
       }
       const sortedNames: Array<string> = Object.keys(submissions[current_slide]).sort((key1, key2) => {
         return sortByLastName(key1, key2, students);
@@ -130,7 +139,6 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
           </div>
 
           <div className="student-submission-item-footer">
-            <button onClick={this.props.stopDisplayingAnswers}>Stop displaying student answers</button>
             {this.renderDisplayButton()}
 
           </div>
