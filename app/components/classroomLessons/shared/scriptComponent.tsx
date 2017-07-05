@@ -28,7 +28,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
             borderBottom: '1px solid magenta',
           }}
         >
-          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
+          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => ( this.props.toggleSelected(e, current_slide, key) )} />
           {submissions[current_slide][key]} - {students[key]}
 
         </li>
