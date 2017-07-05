@@ -3,6 +3,7 @@ import Cues from '../../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../../renderForQuestions/sentenceFragments.jsx';
 import icon from '../../../img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor.jsx';
+const moment = require('moment');
 
 class SingleAnswer extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class SingleAnswer extends Component {
   }
 
   submitSubmission() {
-    this.props.handleStudentSubmission(this.state.response);
+    this.props.handleStudentSubmission(this.state.response, moment().format());
     this.setState({submitted: true})
   }
 

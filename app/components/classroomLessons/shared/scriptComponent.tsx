@@ -21,19 +21,21 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
   renderReview() {
     const { selected_submissions, submissions, current_slide, students, } = this.props;
     if (submissions) {
-      const submissionComponents = Object.keys(submissions[current_slide]).map((key, index) => (
-        <li
+      const submissionComponents = Object.keys(submissions[current_slide]).map((key, index) => {
+        const text = submissions[current_slide][key].data ? submissions[current_slide][key].data : submissions[current_slide][key]
+        return <li
           key={index}
           style={{
             marginTop: 10,
             borderBottom: '1px solid magenta',
           }}
-        >
-          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => ( this.props.toggleSelected(e, current_slide, key) )} />
-          {submissions[current_slide][key]} - {students[key]}
+          >
+            <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? text : false} onClick={(e) => ( this.props.toggleSelected(e, current_slide, key) )} />
+            {text} - {students[key]}
 
-        </li>
-        ));
+          </li>
+      }
+        );
       return (
         <div>
           <ul
