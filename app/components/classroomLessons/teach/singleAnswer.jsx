@@ -22,19 +22,22 @@ class SingleAnswer extends Component {
 
   renderReview(item) {
     const { selected_submissions, submissions, current_slide, students, } = this.props.data;
-    const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
-      <li
-        key={key}
-        style={{
-          marginTop: 10,
-          borderBottom: '1px solid magenta',
-        }}
-      >
-        <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
-        {submissions[current_slide][key]} - {students[key]}
+    let submissionComponents;
+    if (submissions) {
+      submissionComponents = Object.keys(submissions[current_slide]).map(key => (
+        <li
+          key={key}
+          style={{
+            marginTop: 10,
+            borderBottom: '1px solid magenta',
+          }}
+        >
+          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
+          {submissions[current_slide][key]} - {students[key]}
 
-      </li>
-      ));
+        </li>
+        ));
+    }
     return (
       <div>
         <ul
