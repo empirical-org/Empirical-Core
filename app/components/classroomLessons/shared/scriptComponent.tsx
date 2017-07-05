@@ -2,6 +2,8 @@ import * as React from 'react'
 import {
   ScriptItem
 } from '../interfaces'
+import { sortByLastName } from './sortByLastName'
+
 
 class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlyShowHeaders: boolean | null}> {
 
@@ -56,28 +58,32 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     }
   }
 
-  renderShowRemainingStudents() {
+  renderShowRemainingStudentsButton() {
     const { submissions, current_slide } = this.props;
     const numAnswers = Object.keys(submissions[current_slide]).length;
+    const verb = this.state.showAllStudents ? "Hide" : "Show";
     if (numAnswers > 0) {
       return (
-        <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> Show Remaining Students</span>
+        <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> {verb} Remaining Students</span>
       )
     }
   }
 
   renderReview() {
     const { selected_submissions, submissions, current_slide, students, presence } = this.props;
-    const numAnswers = Object.keys(submissions[current_slide]).length;
-    const numStudents = Object.keys(presence).length;
     if (submissions) {
+      const numAnswers = Object.keys(submissions[current_slide]).length;
+      const numStudents = Object.keys(presence).length;
       let remainingStudents;
       if (this.state.showAllStudents) {
         const submittedStudents = Object.keys(submissions[current_slide]);
         const workingStudents = Object.keys(presence).filter((id) => {
           return !submittedStudents.includes(id);
         })
-        remainingStudents = workingStudents.map((key) => (
+        const sortedWorkingStudents = workingStudents.sort((key1, key2) => {
+          return sortByLastName(key1, key2, students);
+        }
+        remainingStudents = sortedWorkingStudents.map((key) => (
           <tr>
             <td>{students[key]}</td>
             <td></td>
@@ -87,7 +93,10 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
           </tr>
         ))
       }
-      const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
+      const sortedNames: Array<string> = Object.keys(submissions[current_slide]).sort((key1, key2) => {
+        return sortByLastName(key1, key2, students);
+      }
+      const submissionComponents = sortedNames.map(key => (
         <tr >
           <td>{students[key]}</td>
           <td></td>
@@ -100,7 +109,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         <li className="student-submission-item">
           <div className="student-submission-item-header">
             <strong>{numAnswers} of {numStudents}</strong> Students have answered.
-            {this.renderShowRemainingStudents()}
+            {this.renderShowRemainingStudentsButton()}
           </div>
           <div className="student-submission-item-table">
             <table >
