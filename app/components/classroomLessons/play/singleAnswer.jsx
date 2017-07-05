@@ -63,6 +63,7 @@ class SingleAnswer extends Component {
             cues: this.props.data.play.cues,
           })
         }
+          displayArrowAndText={false}
         />
         <div className="feedback-row">
           <img src={icon} />

@@ -103,7 +103,11 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderCues() {
-    return <RenderQuestionCues language={this.props.language} getQuestion={this.getQuestion} />;
+    return <RenderQuestionCues
+      language={this.props.language}
+      getQuestion={this.getQuestion}
+      displayArrowAndText={true}
+    />;
   },
 
   updateResponseResource(response) {
