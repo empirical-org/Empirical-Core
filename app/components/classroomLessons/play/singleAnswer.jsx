@@ -71,11 +71,9 @@ class SingleAnswer extends Component {
     }
   }
 
-  render() {
-    console.log(this.props.data);
-    return (
-      <div>
-        <RenderSentenceFragments prompt={this.props.data.play.prompt} />
+  renderCues() {
+    if (this.props.data.play.cues) {
+      return (
         <Cues
           getQuestion={() => ({
             cues: this.props.data.play.cues,
@@ -83,6 +81,22 @@ class SingleAnswer extends Component {
         }
           displayArrowAndText={false}
         />
+      )
+    } else {
+      return (
+        <span></span>
+      )
+    }
+
+
+  }
+
+  render() {
+    console.log(this.props.data);
+    return (
+      <div>
+        <RenderSentenceFragments prompt={this.props.data.play.prompt} />
+        {this.renderCues()}
         {this.renderInstructions()}
         {this.modeAppropriateRender()}
         <div className="question-button-group">
