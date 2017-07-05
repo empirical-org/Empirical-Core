@@ -47,6 +47,7 @@ class SingleAnswer extends Component {
           value={this.state.response}
           disabled={false} checkAnswer={this.submitSubmission}
           hasError={undefined} handleChange={this.handleChange}
+          placeholder="Type your answer here."
         />
       );
     }
