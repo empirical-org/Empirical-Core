@@ -58,3 +58,6 @@ gem 'bulk_insert'
 
 # for unzipping files
 gem 'rubyzip'
+
+# for server monitoring
+gem 'newrelic_rpm'
