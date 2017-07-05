@@ -70,6 +70,9 @@ class SingleAnswer extends Component {
           <p>{this.props.data.play.instructions}</p>
         </div>
         {this.modeAppropriateRender()}
+        <div className="question-button-group">
+          <button className="button student-submit">Submit</button>
+        </div>
 
       </div>
     );
