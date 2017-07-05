@@ -84,6 +84,7 @@ class SingleAnswer extends Component {
           current_slide={current_slide}
           students={students}
           presence={presence}
+          modes={modes}
           startDisplayingAnswers={this.startDisplayingAnswers}
           stopDisplayingAnswers={this.stopDisplayingAnswers}
           toggleSelected={this.toggleSelected}
