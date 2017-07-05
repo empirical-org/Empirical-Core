@@ -9,6 +9,13 @@ import {
   SelectedSubmissionsForQuestion
 } from 'components/classroomLessons/interfaces';
 
+declare var process : {
+  env: {
+    EMPIRICAL_BASE_URL: string,
+    NODE_ENV: string
+  }
+}
+
 
 export function startListeningToSession(classroom_activity_id: string) {
   return function (dispatch) {
