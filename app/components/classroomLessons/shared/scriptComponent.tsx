@@ -21,8 +21,9 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
   renderReview() {
     const { selected_submissions, submissions, current_slide, students, } = this.props;
     if (submissions) {
-      const submissionComponents = Object.keys(submissions[current_slide]).map(key => (
+      const submissionComponents = Object.keys(submissions[current_slide]).map((key, index) => (
         <li
+          key={index}
           style={{
             marginTop: 10,
             borderBottom: '1px solid magenta',
