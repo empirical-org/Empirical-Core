@@ -539,9 +539,8 @@ describe User, type: :model do
     context 'send_newsletter = false' do
       let(:newsletter) { false }
 
-      it 'does not call MailchimpConnection.subscribe_to_newsletter' do
-        expect(MailchimpConnection).not_to receive(:subscribe_to_newsletter)
-
+      it 'does not call the newsletter worker' do
+        expect(SubscribeToNewsletterWorker).not_to receive(:perform_async)
         user.subscribe_to_newsletter
       end
     end
@@ -549,10 +548,8 @@ describe User, type: :model do
     context 'send_newsletter = true' do
       let(:newsletter) { true }
 
-      it 'calls MailchimpConnection.subscribe_to_newsletter' do
-        expect(MailchimpConnection).to receive(:subscribe_to_newsletter)
-                                       .with(user.email)
-
+      it 'does call the newsletter worker' do
+        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
         user.subscribe_to_newsletter
       end
     end
