@@ -7,7 +7,8 @@ import {
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
-  removeMode
+  removeMode,
+  loadStudentNames,
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -20,6 +21,13 @@ import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion
 } from '../interfaces';
+
+declare var process : {
+  env: {
+    EMPIRICAL_BASE_URL: string,
+    NODE_ENV: string
+  }
+}
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
