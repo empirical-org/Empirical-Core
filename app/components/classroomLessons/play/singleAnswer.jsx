@@ -10,6 +10,7 @@ class SingleAnswer extends Component {
     this.state = {
       response: '',
       editing: false,
+      submitted: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.submitSubmission = this.submitSubmission.bind(this);
@@ -17,6 +18,7 @@ class SingleAnswer extends Component {
 
   submitSubmission() {
     this.props.handleStudentSubmission(this.state.response);
+    this.setState({submitted: true})
   }
 
   handleChange(e) {
@@ -53,6 +55,19 @@ class SingleAnswer extends Component {
     }
   }
 
+  renderInstructions() {
+    if (this.state.submitted) {
+      return <div className="feedback-row">
+          <p><i className="fa fa-check-circle" aria-hidden="true"></i>Great Work! Please wait as your teacher reviews your answer...</p>
+        </div>
+    } else if (this.props.data.play.instructions) {
+      return <div className="feedback-row">
+          <img src={icon} />
+          <p>{this.props.data.play.instructions}</p>
+        </div>
+    }
+  }
+
   render() {
     console.log(this.props.data);
     return (
@@ -65,13 +80,10 @@ class SingleAnswer extends Component {
         }
           displayArrowAndText={false}
         />
-        <div className="feedback-row">
-          <img src={icon} />
-          <p>{this.props.data.play.instructions}</p>
-        </div>
+        {this.renderInstructions()}
         {this.modeAppropriateRender()}
         <div className="question-button-group">
-          <button className="button student-submit">Submit</button>
+          <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
         </div>
 
       </div>
