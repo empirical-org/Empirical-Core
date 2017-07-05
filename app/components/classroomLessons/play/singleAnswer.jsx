@@ -25,15 +25,33 @@ class SingleAnswer extends Component {
     this.setState({ editing: true, response: e, });
   }
 
+  // this is the mode where the teacher has chosen to project some of the students'
+  // answers, NOT what is being projected on the board.
   renderProject() {
+    return (
+      <div className="display-mode">
+        <p className="answer-header"><i className="fa fa-user"></i>Your Answer:</p>
+        {this.renderYourAnswer()}
+        <p className="answer-header"><i className="fa fa-users"></i>Class Answers:</p>
+        {this.renderClassAnswersList()}
+      </div>
+    )
+  }
+
+  renderYourAnswer() {
+    return <p className="your-answer">{this.state.response}</p>
+  }
+
+  renderClassAnswersList() {
+    // this will not work yet because selected_submissions is not a thing
     const { selected_submissions, submissions, } = this.props;
-    const selected = Object.keys(selected_submissions).map(key => (
+    const selected = Object.keys(selected_submissions).map((key, index) => (
       <li>
-        {submissions[key]}
+        <span>{index + 1}</span>{submissions[key]}
       </li>
     ));
     return (
-      <ul>
+      <ul className="class-answer-list">
         {selected}
       </ul>
     );
@@ -59,26 +77,29 @@ class SingleAnswer extends Component {
   }
 
   renderInstructions() {
-    if (this.state.submitted) {
-      return <div className="feedback-row">
+    if (this.props.mode !== 'PROJECT') {
+      if (this.state.submitted) {
+        return <div className="feedback-row">
           <p><i className="fa fa-check-circle" aria-hidden="true"></i>Great Work! Please wait as your teacher reviews your answer...</p>
         </div>
-    } else if (this.props.data.play.instructions) {
-      return <div className="feedback-row">
+      } else if (this.props.data.play.instructions) {
+        return <div className="feedback-row">
           <img src={icon} />
           <p>{this.props.data.play.instructions}</p>
         </div>
+      }
     }
   }
 
   renderCues() {
-    if (this.props.data.play.cues) {
-      return (
-        <Cues
-          getQuestion={() => ({
-            cues: this.props.data.play.cues,
-          })
-        }
+    if (this.props.mode !== 'PROJECT') {
+      if (this.props.data.play.cues) {
+        return (
+          <Cues
+            getQuestion={() => ({
+              cues: this.props.data.play.cues,
+            })
+          }
           displayArrowAndText={false}
         />
       )
@@ -87,8 +108,15 @@ class SingleAnswer extends Component {
         <span></span>
       )
     }
+    }
+  }
 
-
+  renderSubmitButton() {
+    if (this.props.mode !== 'PROJECT') {
+      return <div className="question-button-group">
+        <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
+      </div>
+    }
   }
 
   render() {
@@ -99,10 +127,7 @@ class SingleAnswer extends Component {
         {this.renderCues()}
         {this.renderInstructions()}
         {this.modeAppropriateRender()}
-        <div className="question-button-group">
-          <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
-        </div>
-
+        {this.renderSubmitButton()}
       </div>
     );
   }
