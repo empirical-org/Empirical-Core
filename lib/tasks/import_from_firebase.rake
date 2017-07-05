@@ -252,7 +252,7 @@ namespace :responses do
           rows = []
           columns = ["uid", "parent_uid", "question_uid", "text", "feedback", "author", "optimal", "count", "first_attempt_count", "child_count", "concept_results"]
           while row = csv.shift
-            row.last = row.last.
+            row.last = parse_concept_results(row.last)
             rows.push row
 
             if rows.length == 1000
@@ -289,6 +289,16 @@ namespace :responses do
             response.update({concept_results: nil})
           end
         end
+      end
+    end
+  end
+
+  def parse_concept_results(concept_results)
+    if response.concept_results.class == String
+      begin
+        return JSON.parse(response.concept_results)
+      rescue JSON::ParserError
+        return nil
       end
     end
   end
