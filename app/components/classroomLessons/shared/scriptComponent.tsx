@@ -105,15 +105,19 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
       const sortedNames: Array<string> = Object.keys(submissions[current_slide]).sort((key1, key2) => {
         return sortByLastName(key1, key2, students);
       }
-      const submissionComponents = sortedNames.map(key => (
-        <tr >
-          <td>{students[key]}</td>
-          <td></td>
-          <td>{submissions[current_slide][key]}</td>
-          <td></td>
-          <td><input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }} /></td>
-        </tr>
-        ));
+      const submissionComponents = sortedNames.map((key, index) => {
+        // the following line will not be necessary
+        // when all submissions are stored as objects with a data prop
+        const text = submissions[current_slide][key].data ? submissions[current_slide][key].data : submissions[current_slide][key]
+          return <tr key={index}>
+            <td>{students[key]}</td>
+            <td></td>
+            <td>{text}</td>
+            <td></td>
+            <td><input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }} /></td>
+          </tr>
+        }
+        );
       return (
         <li className="student-submission-item">
           <div className="student-submission-item-header">
