@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
-import CLStudentLobby from './lobby.jsx';
+import CLStudentLobby from './lobby';
 import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
@@ -29,10 +29,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     }
   }
 
-  handleStudentSubmission(submission: string) {
+  handleStudentSubmission(data: string, timestamp: string) {
     const classroom_activity_id: string | null = getParameterByName('classroom_activity_id');
     const student: string | null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
+    const submission = {data, timestamp}
     if (classroom_activity_id && student) {
       saveStudentSubmission(
         classroom_activity_id,
@@ -77,7 +78,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          component
+          <div className="play-lesson-container">
+            <div className="main-content">
+              <div className="main-content-wrapper">
+                {component}
+              </div>
+            </div>
+          </div>
         );
       }
     }

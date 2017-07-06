@@ -24,7 +24,6 @@
   "private": true,
   "devDependencies": {
     "@kadira/storybook": "^2.34.0",
-    "@types/node": "^8.0.6",
     "@types/react": "^15.0.31",
     "@types/react-redux": "^4.4.45",
     "@types/redux": "^3.6.31",
@@ -93,6 +92,7 @@
     "draft-js-plugins-editor": "^2.0.0-beta1",
     "draft-js-richbuttons-plugin": "^1.1.0",
     "eslint-plugin-jsx-a11y": "^3.0.1",
+    "font-awesome": "^4.7.0",
     "fuse.js": "^3.0.5",
     "fuzzyset.js": "0.0.3",
     "immutable": "^3.8.1",

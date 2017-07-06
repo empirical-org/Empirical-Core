@@ -10,6 +10,9 @@ import {
   removeMode,
   getClassroomAndTeacherNameFromServer,
   loadStudentNames,
+  toggleOnlyShowHeaders,
+  clearAllSelectedSubmissions,
+  clearAllSubmissions
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -23,13 +26,6 @@ import {
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
 
-declare var process : {
-  env: {
-    EMPIRICAL_BASE_URL: string,
-    NODE_ENV: string
-  }
-}
-
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -39,6 +35,9 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
+    this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this);
+    this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this)
+    this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
   }
 
   componentDidMount() {
@@ -53,7 +52,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
-
   renderCurrentSlide(data) {
     const current = data.questions[data.current_slide];
     console.log(current.type);
@@ -64,11 +62,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         );
       case 'CL-ST':
         return (
-          <CLStatic data={data}/>
+          <CLStatic
+            data={data}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          />
         );
       case 'CL-SA':
         return (
-          <CLSingleAnswer data={data} toggleSelected={this.toggleSelected} startDisplayingAnswers={this.startDisplayingAnswers} stopDisplayingAnswers={this.stopDisplayingAnswers} />
+          <CLSingleAnswer
+            data={data}
+            toggleSelected={this.toggleSelected}
+            startDisplayingAnswers={this.startDisplayingAnswers}
+            stopDisplayingAnswers={this.stopDisplayingAnswers}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+            clearAllSubmissions={this.clearAllSubmissions}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          />
         );
       default:
 
@@ -104,6 +115,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
   }
 
+  clearAllSelectedSubmissions(current_slide: string) {
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    if (ca_id) {
+      clearAllSelectedSubmissions(ca_id, current_slide)
+    }
+  }
+
+  clearAllSubmissions(current_slide: string) {
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    if (ca_id) {
+      clearAllSubmissions(ca_id, current_slide)
+    }
+  }
+
+  toggleOnlyShowHeaders() {
+    this.props.dispatch(toggleOnlyShowHeaders())
+  }
+
   startDisplayingAnswers() {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     if (ca_id) {
@@ -128,7 +157,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       counter += 1;
       const activeClass = current_slide === slide ? "active" : ""
       components.push((
-        <div key={`slide#${counter}`} onClick={() => this.goToSlide(slide)}>
+        <div key={counter} onClick={() => this.goToSlide(slide)}>
           <p className={"slide-number " + activeClass}>Slide {counter} / {length}</p>
           <div className={"slide-preview " + activeClass}>
             {questions[slide].type}

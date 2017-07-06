@@ -6,6 +6,7 @@ export interface ClassroomLessonSession {
   modes: Modes;
   submissions: Submissions;
   selected_submissions: SelectedSubmissions;
+  timestamps: Timestamps
 }
 
 export interface ClassroomLessonSessions {
@@ -40,9 +41,17 @@ export interface Question {
   data: QuestionData;
 }
 
+// should not have text field
+// once dummy data structure is updated
 export interface ScriptItem {
   type: string;
-  text?: string;
+  text?: any;
+  data: ScriptText;
+}
+
+export interface ScriptText {
+  heading: string;
+  body: any;
 }
 
 export interface TeachData {
@@ -66,8 +75,8 @@ export interface QuestionSubmissionsList {
 }
 
 export interface QuestionSubmission {
-  timeSubmitted: number;
-  submission: any
+  timestamp: string;
+  data: any
 }
 
 export interface SelectedSubmissions {
@@ -76,4 +85,8 @@ export interface SelectedSubmissions {
 
 export interface SelectedSubmissionsForQuestion {
  [key:string]: boolean
+}
+
+export interface Timestamps {
+  [key:string]: string
 }

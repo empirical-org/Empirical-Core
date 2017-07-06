@@ -7,7 +7,7 @@ class Static extends Component {
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={{ __html: this.props.data.play.html, }} />
+      <div className="student-static-page-container"><div className="student-static-page" dangerouslySetInnerHTML={{ __html: this.props.data.play.html, }} /></div>
     );
   }
 

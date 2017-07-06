@@ -36,8 +36,8 @@ const route = {
   path: 'diagnostic',
   indexRoute,
   childRoutes: [
-    diagnosticRoute,
-    ellRoute
+    ellRoute,
+    diagnosticRoute
   ],
   component: Passthrough,
 };
