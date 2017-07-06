@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ScriptComponent from '../shared/scriptComponent.tsx';
+const moment = require('moment');
 
 class SingleAnswer extends Component {
   constructor(props) {
@@ -7,6 +8,13 @@ class SingleAnswer extends Component {
     this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
+    this.state = {
+      loadedTimestamp: ''
+    }
+  }
+
+  componentDidMount() {
+    this.setState({loadedTimestamp: moment().format()})
   }
 
   toggleSelected(event, current_slide, student) {
@@ -70,9 +78,9 @@ class SingleAnswer extends Component {
   render() {
     const { selected_submissions, submissions, current_slide, students, presence, modes} = this.props.data;
     return (
-      <div>
+      <div className="teacher-single-answer">
         <h1>
-          Single Answer Page
+          Slide Name Will Go Here
         </h1>
         {/* <ul>
           {this.renderScript(this.props.data.questions[this.props.data.current_slide].data.teach.script)}
@@ -88,6 +96,7 @@ class SingleAnswer extends Component {
           startDisplayingAnswers={this.startDisplayingAnswers}
           stopDisplayingAnswers={this.stopDisplayingAnswers}
           toggleSelected={this.toggleSelected}
+          loadedTimestamp={this.state.loadedTimestamp}
         />
 
       </div>

@@ -3,7 +3,7 @@ import {
   ScriptItem
 } from '../interfaces'
 import { sortByLastName } from './sortByLastName'
-
+const moment = require('moment');
 
 class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlyShowHeaders: boolean | null}> {
 
@@ -109,11 +109,13 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         // the following line will not be necessary
         // when all submissions are stored as objects with a data prop
         const text = submissions[current_slide][key].data ? submissions[current_slide][key].data : submissions[current_slide][key]
+        const submittedTimestamp = submissions[current_slide][key].timestamp ? submissions[current_slide][key].timestamp : false
+        const elapsedTime = submittedTimestamp ? this.formatElapsedTime(moment(submittedTimestamp)) : ''
           return <tr key={index}>
             <td>{students[key]}</td>
             <td></td>
             <td>{text}</td>
-            <td></td>
+            <td>{elapsedTime}</td>
             <td><input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }} /></td>
           </tr>
         }
@@ -150,6 +152,15 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         </li>
       );
     }
+  }
+
+  formatElapsedTime(submittedTimestamp: string) {
+    const elapsedMilliseconds = submittedTimestamp.diff(moment(this.props.loadedTimestamp))
+    const elapsedMinutes = moment.duration(elapsedMilliseconds).minutes()
+    const elapsedSeconds = moment.duration(elapsedMilliseconds).seconds()
+    const formattedMinutes = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
+    const formattedSeconds = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
+    return formattedMinutes + ':' + formattedSeconds
   }
 
   renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean) {
