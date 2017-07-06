@@ -75,14 +75,6 @@ class SingleAnswer extends Component {
         />
       );
     }
-    return (
-      <TextEditor
-        className={'textarea is-question is-disabled'} defaultValue={''}
-        value={this.state.response}
-        disabled={false} checkAnswer={this.submitSubmission}
-        hasError={undefined} handleChange={this.handleChange}
-      />
-    );
   }
 
   renderInstructions() {

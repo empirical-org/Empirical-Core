@@ -69,9 +69,9 @@ class SingleAnswer extends Component {
   }
 
   renderScript(script) {
-    return script.map((item, index) => {
+    return script.map((item) => {
       if (item.type === 'T-REVIEW') {
-        return <li key={`${item.type + index.toString()}`}>{this.renderReview(item)}</li>;
+        return <li>{this.renderReview(item)}</li>;
       }
       return (
         <li>
