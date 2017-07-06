@@ -8,7 +8,7 @@ import {
   removeSelectedStudentSubmission,
   setMode,
   removeMode,
-  getClassroomAndTeacherName
+  getClassroomAndTeacherName,
   loadStudentNames,
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
@@ -20,7 +20,7 @@ import {
   ClassroomLessonSession,
   QuestionSubmissionsList,
   SelectedSubmissions,
-  SelectedSubmissionsForQuestion
+  SelectedSubmissionsForQuestion,
 } from '../interfaces';
 
 declare var process : {
@@ -45,15 +45,14 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
       this.props.dispatch(startListeningToSession(ca_id));
-      this.props.dispatch(getClassroomAndTeacherName(ca_id, env.EMPIRICAL_BASE_URL))
+      this.props.dispatch(getClassroomAndTeacherName(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+      this.props.dispatch(loadStudentNames(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+      // below is for spoofing if you log in with Amber M. account
+      // this.props.dispatch(getClassroomAndTeacherName('341912', process.env.EMPIRICAL_BASE_URL))
+      // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
     }
-    this.getStudentNames()
   }
 
-  getStudentNames(){
-    const classroomActivityId = getParameterByName('classroom_activity_id') || ''
-    this.props.dispatch(loadStudentNames(classroomActivityId, process.env.EMPIRICAL_BASE_URL))
-  }
 
   renderCurrentSlide(data) {
     const current = data.questions[data.current_slide];
