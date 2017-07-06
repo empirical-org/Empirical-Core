@@ -104,19 +104,19 @@ export function getClassroomAndTeacherNameFromServer(classroom_activity_id: stri
   }
 }
 
-export function _setClassroomName(classroomName: string, classroom_activity_id: string) {
+function _setClassroomName(classroomName: string, classroom_activity_id: string) {
   const classroomNameRef = classroomSessionsRef.child(`${classroom_activity_id}/classroom_name`);
-  classroomNameRef.set(classroomName).then(()=>console.log('set classroom_name name'))
+  classroomNameRef.set(classroomName)
 }
 
-export function _setTeacherName(teacherName: string, classroom_activity_id: string) {
+function _setTeacherName(teacherName: string, classroom_activity_id: string) {
   const teacherNameRef = classroomSessionsRef.child(`${classroom_activity_id}/teacher_name`);
   teacherNameRef.set(teacherName)
 }
 
-export function _setClassroomAndTeacherName(TeacherAndClassroomName, classroom_activity_id: string): void {
-  _setClassroomName(TeacherAndClassroomName.classroom, classroom_activity_id)
-  _setTeacherName(TeacherAndClassroomName.teacher, classroom_activity_id)
+function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string): void {
+  _setClassroomName(names.classroom, classroom_activity_id)
+  _setTeacherName(names.teacher, classroom_activity_id)
 }
 
 export function addStudentNames(classroom_activity_id: string, studentsNames: object): void {
