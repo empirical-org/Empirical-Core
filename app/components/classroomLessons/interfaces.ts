@@ -35,9 +35,17 @@ export interface Question {
   data: QuestionData;
 }
 
+// should not have text field
+// once dummy data structure is updated
 export interface ScriptItem {
   type: string;
-  text?: string;
+  text?: any;
+  data: ScriptText;
+}
+
+export interface ScriptText {
+  heading: string;
+  body: any;
 }
 
 export interface TeachData {
@@ -61,8 +69,8 @@ export interface QuestionSubmissionsList {
 }
 
 export interface QuestionSubmission {
-  timeSubmitted: number;
-  submission: any
+  timestamp: string;
+  data: any
 }
 
 export interface SelectedSubmissions {

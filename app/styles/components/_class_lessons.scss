@@ -1,6 +1,8 @@
 @import 'classroom_lessons/student_static_page.scss';
-@import 'classroom_lessons/_script_items.scss';
 @import 'classroom_lessons/_student_lobby_page.scss';
+@import 'classroom_lessons/_play_lesson_container.scss';
+@import 'classroom_lessons/_script_items.scss';
+@import 'classroom_lessons/_teacher_slide_container.scss';
 
 .teach-lesson-container {
   display: flex;
@@ -157,19 +159,6 @@
           }
         }
       }
-    }
-  }
-}
-
-.play-lesson-container {
-  background-color: #ffffff;
-  .main-content {
-    padding: 77px 97px 15px 73px;
-    width: 100%;
-    overflow-y: scroll;
-    .main-content-wrapper {
-      // width: 100%;
-      // max-width: 900px;
     }
   }
 }

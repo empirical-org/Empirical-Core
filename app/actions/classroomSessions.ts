@@ -18,6 +18,12 @@ export function startListeningToSession(classroom_activity_id: string) {
   };
 }
 
+export function toggleOnlyShowHeaders() {
+  return function (dispatch) {
+    dispatch({type: C.TOGGLE_HEADERS})
+  }
+}
+
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
@@ -51,9 +57,14 @@ export function updateCurrentSlide(classroom_activity_id: string, question_id: s
   currentSlideRef.set(question_id);
 }
 
-export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: string): void {
+export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
   submissionRef.set(submission);
+}
+
+export function clearAllSubmissions(classroom_activity_id: string, question_id: string): void {
+  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`);
+  submissionRef.remove()
 }
 
 export function saveSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
@@ -64,6 +75,11 @@ export function saveSelectedStudentSubmission(classroom_activity_id: string, que
 export function removeSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
   selectedSubmissionRef.remove();
+}
+
+export function clearAllSelectedSubmissions(classroom_activity_id: string, question_id: string): void {
+  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}`);
+  selectedSubmissionRef.remove()
 }
 
 export function setMode(classroom_activity_id: string, question_id: string, mode): void {
