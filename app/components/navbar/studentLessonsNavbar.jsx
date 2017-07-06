@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default React.createClass({
+const Navbar = React.createClass({
   render() {
+    const data = this.props.classroomSessions.data;
+    const bothNames = data.teacher_name && data.classroom_name;
+    const teacherAndClassroom = bothNames ? `${data.teacher_name} - ${data.classroom_name}` : data.teacher_name || data.classroom_name;
     return (
       <header className={'nav student-nav'} style={{ height: '66px', }}>
         <nav className="student-lessons">
@@ -13,9 +17,17 @@ export default React.createClass({
             />
           </a>
           <div className="lesson-name" key="lesson-name">Lesson Name Placeholder</div>
-          <div className="teacher-name">Teacher Name - Classroom Name</div>
+          <div className="teacher-name">{teacherAndClassroom || ''}</div>
         </nav>
       </header>
     );
   },
 });
+
+function select(props) {
+  return {
+    classroomSessions: props.classroomSessions,
+  };
+}
+
+export default connect(select)(Navbar);
