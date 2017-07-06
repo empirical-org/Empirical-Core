@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import createHashHistory from 'history/lib/createHashHistory';
 import localForage from 'localforage';
-const hashhistory = createHashHistory({ queryKey: false, });
+const hashhistory = createHashHistory();
 const middleware = routerMiddleware(hashhistory);
 
 const finalCreateStore = compose(
@@ -29,9 +29,10 @@ export default function configureStore(initialState) {
   // console.log("creating store")
   const store = finalCreateStore(rootReducer, initialState);
   // console.log("persisting store")
-  persistStore(store, { storage: localForage, blacklist: ['routing', 'pathways', 'playLesson',
-    'playDiagnostic',
-    'question'], });
+  persistStore(store, { storage: localForage,
+    blacklist: ['routing', 'pathways', 'playLesson',
+      'playDiagnostic',
+      'question'], });
   // console.log("persisted store")
   // hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {

@@ -9,13 +9,12 @@ class Lobby extends Component {
     return Object.keys(presence).map((key) => {
       const name = students[key];
       return (
-        <li>
+        <li key={key}>
           {name}
         </li>
-        );
+      );
     });
   }
-
 
   render() {
     return (

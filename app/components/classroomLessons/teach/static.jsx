@@ -6,13 +6,11 @@ class Static extends Component {
   }
 
   renderScript(script) {
-    return script.map((item) => {
-      return (
-        <li>
-          {item.text}
-        </li>
-      )
-    })
+    return script.map((item, index) => (
+      <li key={`${item.type + index.toString()}`}>
+        {item.text}
+      </li>
+      ));
   }
 
   render() {
