@@ -12,7 +12,7 @@ class Static extends Component {
         <div className="teacher-static">
           <div className="header">
             <h1>
-              Slide Name Will Go Here
+              <span>Slide {this.props.data.current_slide}:</span> Name Will Go Here
             </h1>
             <p onClick={this.props.toggleOnlyShowHeaders}>
               {showHeaderText}

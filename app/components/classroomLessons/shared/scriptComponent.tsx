@@ -3,6 +3,12 @@ import {
   ScriptItem
 } from '../interfaces'
 import { sortByLastName } from './sortByLastName'
+import uncheckedGrayCheckbox from '../../../img/box_gray_unchecked.svg'
+import checkedGrayCheckbox from '../../../img/box_gray_checked.svg'
+import uncheckedGreenCheckbox from '../../../img/box_green_unchecked.svg'
+import checkedGreenCheckbox from '../../../img/box_green_checked.svg'
+
+
 const moment = require('moment');
 
 class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlyShowHeaders: boolean | null}> {
@@ -111,12 +117,25 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         const text = submissions[current_slide][key].data ? submissions[current_slide][key].data : submissions[current_slide][key]
         const submittedTimestamp = submissions[current_slide][key].timestamp ? submissions[current_slide][key].timestamp : false
         const elapsedTime = submittedTimestamp ? this.formatElapsedTime(moment(submittedTimestamp)) : ''
+        const checked = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false
+        const checkbox = this.determineCheckbox(checked)
+        const studentName = students[key]
           return <tr key={index}>
-            <td>{students[key]}</td>
+            <td>{studentName}</td>
             <td></td>
             <td>{text}</td>
             <td>{elapsedTime}</td>
-            <td><input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }} /></td>
+            <td>
+              <input
+                id={studentName}
+                name={studentName}
+                type="checkbox"
+                checked={checked}
+              />
+              <label for={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }}>
+                {checkbox}
+              </label>
+            </td>
           </tr>
         }
         );
@@ -134,7 +153,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
                   <th>Flag</th>
                   <th>Answers</th>
                   <th>Time</th>
-                  <th>Display?</th>
+                  <th>Select to Display</th>
                 </tr>
               </thead>
               <tbody>
@@ -164,7 +183,6 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
 
           <div className="student-submission-item-footer">
             {this.renderDisplayButton()}
-
           </div>
 
         </li>
@@ -179,6 +197,14 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     const formattedMinutes = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
     const formattedSeconds = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
     return formattedMinutes + ':' + formattedSeconds
+  }
+
+  determineCheckbox(checked) {
+    if (checked) {
+      return this.state.projecting ? <img src={checkedGreenCheckbox} /> : <img src={checkedGrayCheckbox} />
+    } else {
+      return this.state.projecting ? <img src={uncheckedGreenCheckbox} /> : <img src={uncheckedGrayCheckbox} />
+    }
   }
 
   renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean) {

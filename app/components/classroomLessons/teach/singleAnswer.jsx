@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ScriptComponent from '../shared/scriptComponent.tsx';
+
 const moment = require('moment');
 
 class SingleAnswer extends Component {
@@ -39,7 +40,12 @@ class SingleAnswer extends Component {
             borderBottom: '1px solid magenta',
           }}
         >
-          <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.toggleSelected(e, current_slide, key); }} />
+          <input
+            type="checkbox"
+            name="students[key]"
+            checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false}
+            onClick={(e) => { this.toggleSelected(e, current_slide, key); }}
+          />
           {submissions[current_slide][key]} - {students[key]}
 
         </li>
@@ -82,7 +88,7 @@ class SingleAnswer extends Component {
       <div className="teacher-single-answer">
         <div className="header">
           <h1>
-            Slide Name Will Go Here
+            <span>Slide {this.props.data.current_slide}:</span> Name Will Go Here
           </h1>
           <p onClick={this.props.toggleOnlyShowHeaders}>
             {showHeaderText}
