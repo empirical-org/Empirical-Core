@@ -35,6 +35,8 @@ export interface Question {
   data: QuestionData;
 }
 
+// should not have text field
+// once dummy data structure is updated
 export interface ScriptItem {
   type: string;
   text?: any;
