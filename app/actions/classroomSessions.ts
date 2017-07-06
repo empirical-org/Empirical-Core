@@ -18,6 +18,12 @@ export function startListeningToSession(classroom_activity_id: string) {
   };
 }
 
+export function toggleOnlyShowHeaders() {
+  return function (dispatch) {
+    dispatch({type: C.TOGGLE_HEADERS})
+  }
+}
+
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,

@@ -183,7 +183,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
 
   renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean) {
     const html = onlyShowHeaders
-      ? <li className="script-item"><p>{item.data.heading}</p></li>
+      ? <li className="script-item"><p className="script-item-heading">{item.data.heading}</p></li>
       : (<li className="script-item">
         <p className="script-item-heading">{item.data.heading}</p>
         <hr />

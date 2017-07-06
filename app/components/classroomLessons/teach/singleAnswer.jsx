@@ -77,11 +77,17 @@ class SingleAnswer extends Component {
 
   render() {
     const { selected_submissions, submissions, current_slide, students, presence, modes} = this.props.data;
+    const showHeaderText = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide'
     return (
       <div className="teacher-single-answer">
-        <h1>
-          Slide Name Will Go Here
-        </h1>
+        <div className="header">
+          <h1>
+            Slide Name Will Go Here
+          </h1>
+          <p onClick={this.props.toggleOnlyShowHeaders}>
+            {showHeaderText}
+          </p>
+        </div>
         {/* <ul>
           {this.renderScript(this.props.data.questions[this.props.data.current_slide].data.teach.script)}
         </ul> */}
@@ -97,6 +103,7 @@ class SingleAnswer extends Component {
           stopDisplayingAnswers={this.stopDisplayingAnswers}
           toggleSelected={this.toggleSelected}
           loadedTimestamp={this.state.loadedTimestamp}
+          onlyShowHeaders={this.props.onlyShowHeaders}
         />
 
       </div>

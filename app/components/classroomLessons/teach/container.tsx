@@ -7,7 +7,8 @@ import {
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
-  removeMode
+  removeMode,
+  toggleOnlyShowHeaders
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -30,6 +31,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
+    this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this)
   }
 
   componentDidMount() {
@@ -49,11 +51,22 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         );
       case 'CL-ST':
         return (
-          <CLStatic data={data}/>
+          <CLStatic
+            data={data}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          />
         );
       case 'CL-SA':
         return (
-          <CLSingleAnswer data={data} toggleSelected={this.toggleSelected} startDisplayingAnswers={this.startDisplayingAnswers} stopDisplayingAnswers={this.stopDisplayingAnswers} />
+          <CLSingleAnswer
+            data={data}
+            toggleSelected={this.toggleSelected}
+            startDisplayingAnswers={this.startDisplayingAnswers}
+            stopDisplayingAnswers={this.stopDisplayingAnswers}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          />
         );
       default:
 
@@ -87,6 +100,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       }
     }
 
+  }
+
+  toggleOnlyShowHeaders() {
+    this.props.dispatch(toggleOnlyShowHeaders())
   }
 
   startDisplayingAnswers() {

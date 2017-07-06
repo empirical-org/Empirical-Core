@@ -7,13 +7,22 @@ class Static extends Component {
   }
 
   render() {
+    const showHeaderText = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide'
     return (
-      <div>
-        <h4 className="title is-4">
-          Title goes here.
-        </h4>
+        <div className="teacher-static">
+          <div className="header">
+            <h1>
+              Slide Name Will Go Here
+            </h1>
+            <p onClick={this.props.toggleOnlyShowHeaders}>
+              {showHeaderText}
+            </p>
+          </div>
         <ul>
-          <ScriptComponent script={this.props.data.questions[this.props.data.current_slide].data.teach.script} />
+          <ScriptComponent
+            script={this.props.data.questions[this.props.data.current_slide].data.teach.script}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+          />
         </ul>
       </div>
     );
