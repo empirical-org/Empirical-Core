@@ -52,7 +52,6 @@ export function updateCurrentSlide(classroom_activity_id: string, question_id: s
 }
 
 export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
-  debugger;
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
   submissionRef.set(submission);
 }

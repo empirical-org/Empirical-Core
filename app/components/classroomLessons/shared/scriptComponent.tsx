@@ -22,6 +22,8 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     const { selected_submissions, submissions, current_slide, students, } = this.props;
     if (submissions) {
       const submissionComponents = Object.keys(submissions[current_slide]).map((key, index) => {
+        // the following line will not be necessary
+        // when all submissions are stored as objects with a data prop
         const text = submissions[current_slide][key].data ? submissions[current_slide][key].data : submissions[current_slide][key]
         return <li
           key={index}
