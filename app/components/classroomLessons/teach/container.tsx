@@ -8,8 +8,7 @@ import {
   removeSelectedStudentSubmission,
   setMode,
   removeMode,
-  toggleOnlyShowHeaders
-  loadStudentNames,
+  toggleOnlyShowHeaders,
   clearAllSelectedSubmissions
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
