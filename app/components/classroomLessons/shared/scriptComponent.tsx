@@ -114,9 +114,9 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
       const submissionComponents = sortedNames.map((key, index) => {
         // the following line will not be necessary
         // when all submissions are stored as objects with a data prop
-        const text = submissions[current_slide][key].data ? submissions[current_slide][key].data : submissions[current_slide][key]
-        const submittedTimestamp = submissions[current_slide][key].timestamp ? submissions[current_slide][key].timestamp : false
-        const elapsedTime = submittedTimestamp ? this.formatElapsedTime(moment(submittedTimestamp)) : ''
+        const text = submissions[current_slide][key].data
+        const submittedTimestamp = submissions[current_slide][key].timestamp
+        const elapsedTime = this.formatElapsedTime(moment(submittedTimestamp))
         const checked = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false
         const checkbox = this.determineCheckbox(checked)
         const studentName = students[key]

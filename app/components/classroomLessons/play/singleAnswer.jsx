@@ -46,9 +46,7 @@ class SingleAnswer extends Component {
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
-      // the following line will not be necessary
-      // when all submissions are stored as objects with a data prop
-      const text = submissions[key].data ? submissions[key].data : submissions[key]
+      const text = submissions[key].data
       return <li>
         <span>{index + 1}</span>{text}
       </li>
