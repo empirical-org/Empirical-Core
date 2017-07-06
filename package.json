@@ -24,6 +24,7 @@
   "private": true,
   "devDependencies": {
     "@kadira/storybook": "^2.34.0",
+    "@types/node": "^8.0.6",
     "@types/react": "^15.0.31",
     "@types/react-redux": "^4.4.45",
     "@types/redux": "^3.6.31",

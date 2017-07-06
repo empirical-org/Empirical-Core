@@ -24,17 +24,16 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
           return -1;
         } else if (last1 > last2) {
           return 1;
-        } else {
-          return 0
         }
-      })
+        return 0;
+      });
       return sortedNames.map((key) => {
         const name: string = students[key];
         const statusClass: string = presence[key] ? "online" : "offline";
         return (
-          <div>
+          <div key={key}>
             <li>
-              <p>{name}</p> <div className={statusClass}></div>
+              <p>{name}</p> <div className={statusClass} />
             </li>
             <hr />
           </div>
@@ -47,11 +46,11 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
   renderLessonTitle() {
     return (
       <div className="student-lesson-title-container">
-        <p className="student-lesson-title"> 
-          Conjunctions of Time 
+        <p className="student-lesson-title">
+          Conjunctions of Time
         </p>
       </div>
-    )
+    );
   }
 
   renderLessonInstructions() {
@@ -74,7 +73,7 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
           </li>
         </ol>
       </div>
-    )
+    );
   }
 
   renderStudentPresence() {
@@ -89,9 +88,8 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
           </ol>
         </div>
       </div>
-    )
+    );
   }
-
 
   render() {
     return (
