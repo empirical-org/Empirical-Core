@@ -33,17 +33,19 @@ class ScriptContainer extends React.Component<any, any> {
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
     this.clearSelectedSubmissions = this.clearSelectedSubmissions.bind(this)
+    this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
+    this.retryQuestion = this.retryQuestion.bind(this)
   }
 
   renderScript(script: Array<ScriptItem>) {
-    return script.map((item) => {
+    return script.map((item, index) => {
       switch(item.type) {
         case 'T-REVIEW':
-          return this.renderReview();
+          return this.renderReview(index);
         case 'STEP-HTML':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders);
+          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
         default:
-          return <li>Unsupported type</li>
+          return <li key={index}>Unsupported type</li>
       }
     });
   }
@@ -60,6 +62,16 @@ class ScriptContainer extends React.Component<any, any> {
   stopDisplayingAnswers() {
     this.setState({projecting: false})
     this.props.stopDisplayingAnswers();
+  }
+
+  renderRetryQuestionButton() {
+    return <p onClick={this.retryQuestion}><i className="fa fa-refresh"/>Retry Question</p>
+  }
+
+  retryQuestion() {
+    this.stopDisplayingAnswers()
+    this.clearSelectedSubmissions()
+    this.clearAllSubmissions()
   }
 
   renderDisplayButton() {
@@ -105,7 +117,11 @@ class ScriptContainer extends React.Component<any, any> {
     this.props.clearAllSelectedSubmissions(this.props.current_slide)
   }
 
-  renderReview() {
+  clearAllSubmissions() {
+    this.props.clearAllSubmissions(this.props.current_slide)
+  }
+
+  renderReview(index: number) {
     const { selected_submissions, submissions, current_slide, students, presence } = this.props;
     const numStudents: number = Object.keys(presence).length;
     if (submissions) {
@@ -164,7 +180,7 @@ class ScriptContainer extends React.Component<any, any> {
         }
         );
       return (
-        <li className="student-submission-item">
+        <li className="student-submission-item" key={index}>
           <div className="student-submission-item-header">
             <strong>{numAnswers} of {numStudents}</strong> Students have answered.
             {this.renderShowRemainingStudentsButton()}
@@ -188,6 +204,7 @@ class ScriptContainer extends React.Component<any, any> {
           </div>
 
           <div className="student-submission-item-footer">
+            {this.renderRetryQuestionButton()}
             {this.renderDisplayButton()}
 
           </div>
@@ -196,7 +213,7 @@ class ScriptContainer extends React.Component<any, any> {
       );
     } else {
       return (
-        <li className="student-submission-item">
+        <li className="student-submission-item" key={index}>
           <div className="student-submission-item-header">
             <strong>0 of {numStudents}</strong> Students have answered.
           </div>
@@ -230,10 +247,10 @@ class ScriptContainer extends React.Component<any, any> {
     }
   }
 
-  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null) {
+  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
     const html = onlyShowHeaders
-      ? <li className="script-item"><p className="script-item-heading">{item.data.heading}</p></li>
-      : (<li className="script-item">
+      ? <li className="script-item" key={index}><p className="script-item-heading">{item.data.heading}</p></li>
+      : (<li className="script-item" key={index}>
         <p className="script-item-heading">{item.data.heading}</p>
         <hr />
         <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />

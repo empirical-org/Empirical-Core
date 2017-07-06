@@ -3,6 +3,7 @@ import Cues from '../../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../../renderForQuestions/sentenceFragments.jsx';
 import icon from '../../../img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor.jsx';
+import { getParameterByName } from 'libs/getParameterByName';
 const moment = require('moment');
 
 class SingleAnswer extends Component {
@@ -15,6 +16,14 @@ class SingleAnswer extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.submitSubmission = this.submitSubmission.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const student = getParameterByName('student')
+    // this will reset the state when a teacher resets a question
+    if (this.state.submitted === true && nextProps.submissions === null) {
+      this.setState({submitted: false, editing: false, response: ''})
+    }
   }
 
   submitSubmission() {

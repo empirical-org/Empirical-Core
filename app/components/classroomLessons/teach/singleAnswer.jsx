@@ -111,6 +111,7 @@ class SingleAnswer extends Component {
           loadedTimestamp={this.state.loadedTimestamp}
           onlyShowHeaders={this.props.onlyShowHeaders}
           clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
+          clearAllSubmissions={this.props.clearAllSubmissions}
         />
 
       </div>
