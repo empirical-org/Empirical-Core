@@ -1,6 +1,7 @@
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
+const moment = require('moment');
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -55,6 +56,7 @@ export function goToNextSlide(classroom_activity_id: string, state: ClassroomLes
 export function updateCurrentSlide(classroom_activity_id: string, question_id: string): void {
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.set(question_id);
+  setSlideStartTime(classroom_activity_id, question_id)
 }
 
 export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
@@ -90,4 +92,15 @@ export function setMode(classroom_activity_id: string, question_id: string, mode
 export function removeMode(classroom_activity_id: string, question_id: string): void {
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.remove();
+}
+
+export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
+  const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
+  console.log('question_id', question_id)
+  timestampRef.on('value', (snapshot) => {
+    if (snapshot.val() === null) {
+      timestampRef.set(moment().format())
+    }
+  });
+
 }
