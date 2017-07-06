@@ -191,7 +191,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
   }
 
   formatElapsedTime(submittedTimestamp: string) {
-    const elapsedMilliseconds = submittedTimestamp.diff(moment(this.props.loadedTimestamp))
+    const elapsedMilliseconds = submittedTimestamp.diff(moment(this.props.timestamps[this.props.current_slide]))
     const elapsedMinutes = moment.duration(elapsedMilliseconds).minutes()
     const elapsedSeconds = moment.duration(elapsedMilliseconds).seconds()
     const formattedMinutes = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()

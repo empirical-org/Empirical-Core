@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import ScriptComponent from '../shared/scriptComponent.tsx';
 
-const moment = require('moment');
-
 class SingleAnswer extends Component {
   constructor(props) {
     super(props);
     this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
-    this.state = {
-      loadedTimestamp: ''
-    }
-  }
-
-  componentDidMount() {
-    this.setState({loadedTimestamp: moment().format()})
   }
 
   toggleSelected(event, current_slide, student) {
@@ -82,7 +73,7 @@ class SingleAnswer extends Component {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence, modes} = this.props.data;
+    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps} = this.props.data;
     const showHeaderText = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide'
     return (
       <div className="teacher-single-answer">
@@ -108,7 +99,7 @@ class SingleAnswer extends Component {
           startDisplayingAnswers={this.startDisplayingAnswers}
           stopDisplayingAnswers={this.stopDisplayingAnswers}
           toggleSelected={this.toggleSelected}
-          loadedTimestamp={this.state.loadedTimestamp}
+          timestamps={timestamps}
           onlyShowHeaders={this.props.onlyShowHeaders}
         />
 

@@ -39,14 +39,13 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
         );
       });
     }
-  }
 
   // Static for now
   renderLessonTitle() {
     return (
       <div className="student-lesson-title-container">
-        <p className="student-lesson-title"> 
-          Conjunctions of Time 
+        <p className="student-lesson-title">
+          Conjunctions of Time
         </p>
       </div>
     )
