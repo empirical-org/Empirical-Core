@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'underscore';
-import { deleteLesson, startLessonEdit, getStudentNames } from '../../actions/lessons.js';
+import { deleteLesson, startLessonEdit } from '../../actions/lessons.js';
 import lessonActions from '../../actions/lessons';
 import Modal from '../modal/modal.jsx';
 import C from '../../constants.js';

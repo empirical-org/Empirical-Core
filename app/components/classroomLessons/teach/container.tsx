@@ -7,8 +7,7 @@ import {
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
-  removeMode,
-  loadStudentNames,
+  removeMode
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -21,13 +20,6 @@ import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion
 } from '../interfaces';
-
-declare var process : {
-  env: {
-    EMPIRICAL_BASE_URL: string,
-    NODE_ENV: string
-  }
-}
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
@@ -45,12 +37,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     if (ca_id) {
       this.props.dispatch(startListeningToSession(ca_id));
     }
-    this.getStudentNames()
-  }
-
-  getStudentNames(){
-    const classroomActivityId = getParameterByName('classroom_activity_id') || ''
-    this.props.dispatch(loadStudentNames(classroomActivityId, process.env.EMPIRICAL_BASE_URL))
   }
 
   renderCurrentSlide(data) {
@@ -127,7 +113,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       counter += 1;
       const activeClass = current_slide === slide ? "active" : ""
       components.push((
-        <div key={`slide#${counter}`} onClick={() => this.goToSlide(slide)}>
+        <div onClick={() => this.goToSlide(slide)}>
           <p className={"slide-number " + activeClass}>Slide {counter} / {length}</p>
           <div className={"slide-preview " + activeClass}>
             {questions[slide].type}

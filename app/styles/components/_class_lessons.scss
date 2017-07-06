@@ -1,5 +1,5 @@
 @import 'classroom_lessons/student_static_page.scss';
-@import 'classroom_lessons/_script_item.scss';
+@import 'classroom_lessons/_script_items.scss';
 @import 'classroom_lessons/_student_lobby_page.scss';
 
 .teach-lesson-container {
@@ -180,7 +180,8 @@
   align-items: flex-start;
   justify-content: space-between;
   .student-title-instructions {
-    max-width: 559px;
+    max-width: 560px;
+    min-width: 530px;
     .student-lesson-title-container {
       background-color: #fafafa;
       .student-lesson-title {

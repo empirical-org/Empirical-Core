@@ -17,7 +17,7 @@ import Passthrough from './components/shared/passthrough.jsx';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory';
 BackOff();
-const hashhistory = createHashHistory();
+const hashhistory = createHashHistory({ queryKey: false, });
 const store = createStore();
 
 // create an enhanced history that syncs navigation events with the store
