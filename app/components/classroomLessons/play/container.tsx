@@ -29,10 +29,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     }
   }
 
-  handleStudentSubmission(submission: string) {
+  handleStudentSubmission(data: string, timestamp: string) {
     const classroom_activity_id: string | null = getParameterByName('classroom_activity_id');
     const student: string | null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
+    const submission = {data, timestamp}
     if (classroom_activity_id && student) {
       saveStudentSubmission(
         classroom_activity_id,

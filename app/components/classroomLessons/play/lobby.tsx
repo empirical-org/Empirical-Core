@@ -9,6 +9,7 @@ import {
   Presence,
   Students
 } from '../interfaces';
+import { sortByLastName } from '../shared/sortByLastName'
 
 class Lobby extends React.Component<{data: ClassroomLessonSession}> {
   constructor(props) {
@@ -18,10 +19,7 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
   renderPresentStudents(presence: Presence, students: Students) {
     if (presence !== undefined) {
       const sortedNames: Array<string> = Object.keys(presence).sort((key1, key2) => {
-        const last1: string = students[key1].split(" ").slice(-1)[0];
-        const last2: string = students[key2].split(" ").slice(-1)[0];
-        if (last1 < last2) {
-          return -1;
+        return sortByLastName(key1, key2, students);
         } else if (last1 > last2) {
           return 1;
         }

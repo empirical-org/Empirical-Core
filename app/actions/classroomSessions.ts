@@ -25,6 +25,12 @@ export function startListeningToSession(classroom_activity_id: string) {
   };
 }
 
+export function toggleOnlyShowHeaders() {
+  return function (dispatch) {
+    dispatch({type: C.TOGGLE_HEADERS})
+  }
+}
+
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
@@ -58,7 +64,7 @@ export function updateCurrentSlide(classroom_activity_id: string, question_id: s
   currentSlideRef.set(question_id);
 }
 
-export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: string): void {
+export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
   submissionRef.set(submission);
 }

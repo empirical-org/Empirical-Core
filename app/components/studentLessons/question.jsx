@@ -158,7 +158,10 @@ const playLessonQuestion = React.createClass({
   },
 
   renderCues() {
-    return <RenderQuestionCues getQuestion={this.getQuestion} />;
+    return <RenderQuestionCues
+      getQuestion={this.getQuestion}
+      displayArrowAndText={true}
+    />;
   },
 
   updateResponseResource(response) {
