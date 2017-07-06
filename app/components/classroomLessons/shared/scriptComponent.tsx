@@ -112,8 +112,6 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         return sortByLastName(key1, key2, students);
       }
       const submissionComponents = sortedNames.map((key, index) => {
-        // the following line will not be necessary
-        // when all submissions are stored as objects with a data prop
         const text = submissions[current_slide][key].data
         const submittedTimestamp = submissions[current_slide][key].timestamp
         const elapsedTime = this.formatElapsedTime(moment(submittedTimestamp))

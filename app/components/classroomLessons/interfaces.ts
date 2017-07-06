@@ -6,6 +6,7 @@ export interface ClassroomLessonSession {
   modes: Modes;
   submissions: Submissions;
   selected_submissions: SelectedSubmissions;
+  timestamps: Timestamps
 }
 
 export interface ClassroomLessonSessions {
@@ -71,4 +72,8 @@ export interface SelectedSubmissions {
 
 export interface SelectedSubmissionsForQuestion {
  [key:string]: boolean
+}
+
+export interface Timestamps {
+  [key:string]: string
 }
