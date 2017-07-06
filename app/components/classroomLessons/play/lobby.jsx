@@ -8,23 +8,22 @@ class Lobby extends Component {
   renderPresentStudents(presence, students) {
     if (presence !== undefined) {
       const sortedNames = Object.keys(presence).sort((key1, key2) => {
-        const last1 = students[key1].split(" ").slice(-1)[0];
-        const last2 = students[key2].split(" ").slice(-1)[0];
+        const last1 = students[key1].split(' ').slice(-1)[0];
+        const last2 = students[key2].split(' ').slice(-1)[0];
         if (last1 < last2) {
           return -1;
         } else if (last1 > last2) {
           return 1;
-        } else {
-          return 0
         }
-      })
+        return 0;
+      });
       return sortedNames.map((key) => {
         const name = students[key];
-        const statusClass = presence[key] ? "online" : "offline";
+        const statusClass = presence[key] ? 'online' : 'offline';
         return (
-          <div>
+          <div key={key}>
             <li>
-              <p>{name}</p> <div className={statusClass}></div>
+              <p>{name}</p> <div className={statusClass} />
             </li>
             <hr />
           </div>
@@ -37,11 +36,11 @@ class Lobby extends Component {
   renderLessonTitle() {
     return (
       <div className="student-lesson-title-container">
-        <p className="student-lesson-title"> 
-          Conjunctions of Time 
+        <p className="student-lesson-title">
+          Conjunctions of Time
         </p>
       </div>
-    )
+    );
   }
 
   renderLessonInstructions() {
@@ -64,7 +63,7 @@ class Lobby extends Component {
           </li>
         </ol>
       </div>
-    )
+    );
   }
 
   renderStudentPresence() {
@@ -79,9 +78,8 @@ class Lobby extends Component {
           </ol>
         </div>
       </div>
-    )
+    );
   }
-
 
   render() {
     return (

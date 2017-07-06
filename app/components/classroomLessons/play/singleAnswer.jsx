@@ -26,7 +26,7 @@ class SingleAnswer extends Component {
   renderProject() {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map(key => (
-      <li>
+      <li key={key}>
         {submissions[key]}
       </li>
     ));
@@ -40,16 +40,15 @@ class SingleAnswer extends Component {
   modeAppropriateRender() {
     if (this.props.mode === 'PROJECT') {
       return this.renderProject();
-    } else {
-      return (
-        <TextEditor
-          className={'textarea is-question is-disabled'} defaultValue={''}
-          value={this.state.response}
-          disabled={false} checkAnswer={this.submitSubmission}
-          hasError={undefined} handleChange={this.handleChange}
-        />
-      );
     }
+    return (
+      <TextEditor
+        className={'textarea is-question is-disabled'} defaultValue={''}
+        value={this.state.response}
+        disabled={false} checkAnswer={this.submitSubmission}
+        hasError={undefined} handleChange={this.handleChange}
+      />
+    );
   }
 
   render() {
