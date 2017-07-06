@@ -75,3 +75,14 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.remove();
 }
+
+export function toggleStudentFlag(classroomActivityId: string, activitySessionId: string): void {
+  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${activitySessionId}`)
+  flaggedStudentRef.on('value', (snapshot) => {
+    if(snapshot.val()){
+      flaggedStudentRef.remove()
+    } else {
+      flaggedStudentRef.set(true)
+    }
+  });
+}

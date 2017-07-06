@@ -7,7 +7,8 @@ import {
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
-  removeMode
+  removeMode,
+  toggleStudentFlag
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -24,7 +25,6 @@ import {
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
-
     this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
     this.goToNextSlide = this.goToNextSlide.bind(this);
     this.toggleSelected = this.toggleSelected.bind(this);
