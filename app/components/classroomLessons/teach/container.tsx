@@ -10,6 +10,7 @@ import {
   removeMode,
   toggleOnlyShowHeaders
   loadStudentNames,
+  clearAllSelectedSubmissions
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -32,7 +33,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
-    this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this)
+    this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this);
+    this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this)
   }
 
   componentDidMount() {
@@ -66,6 +68,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
             startDisplayingAnswers={this.startDisplayingAnswers}
             stopDisplayingAnswers={this.stopDisplayingAnswers}
             toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
           />
         );
@@ -101,6 +104,13 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       }
     }
 
+  }
+
+  clearAllSelectedSubmissions(current_slide: string) {
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    if (ca_id) {
+      clearAllSelectedSubmissions(ca_id, current_slide)
+    }
   }
 
   toggleOnlyShowHeaders() {

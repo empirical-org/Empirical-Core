@@ -22,6 +22,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
+    this.clearSelectedSubmissions = this.clearSelectedSubmissions.bind(this)
   }
 
   renderScript(script: Array<ScriptItem>) {
@@ -79,6 +80,19 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> {verb} Remaining Students</span>
       )
     }
+  }
+
+  renderUnselectAllButton() {
+    const { selected_submissions, current_slide } = this.props;
+    if (selected_submissions && selected_submissions[current_slide]) {
+      return <p onClick={this.clearSelectedSubmissions}>Unselect All</p>
+    } else {
+      return <p></p>
+    }
+  }
+
+  clearSelectedSubmissions() {
+    this.props.clearAllSelectedSubmissions(this.props.current_slide)
   }
 
   renderReview() {
@@ -153,7 +167,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
                   <th>Flag</th>
                   <th>Answers</th>
                   <th>Time</th>
-                  <th>Select to Display</th>
+                  <th>Select to Display {this.renderUnselectAllButton()}</th>
                 </tr>
               </thead>
               <tbody>

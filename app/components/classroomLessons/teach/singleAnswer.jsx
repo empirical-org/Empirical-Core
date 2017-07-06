@@ -110,6 +110,7 @@ class SingleAnswer extends Component {
           toggleSelected={this.toggleSelected}
           loadedTimestamp={this.state.loadedTimestamp}
           onlyShowHeaders={this.props.onlyShowHeaders}
+          clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
         />
 
       </div>

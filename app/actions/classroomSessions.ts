@@ -72,6 +72,11 @@ export function removeSelectedStudentSubmission(classroom_activity_id: string, q
   selectedSubmissionRef.remove();
 }
 
+export function clearAllSelectedSubmissions(classroom_activity_id: string, question_id: string): void {
+  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}`);
+  selectedSubmissionRef.remove()
+}
+
 export function setMode(classroom_activity_id: string, question_id: string, mode): void {
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.set(mode);
