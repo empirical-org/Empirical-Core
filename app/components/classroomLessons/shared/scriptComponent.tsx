@@ -1,12 +1,6 @@
+declare function require(name:string);
 import * as React from 'react'
-import {
-  ScriptItem
-} from '../interfaces'
 import { sortByLastName } from './sortByLastName'
-import uncheckedGrayCheckbox from '../../../img/box_gray_unchecked.svg'
-import checkedGrayCheckbox from '../../../img/box_gray_checked.svg'
-import uncheckedGreenCheckbox from '../../../img/box_green_unchecked.svg'
-import checkedGreenCheckbox from '../../../img/box_green_checked.svg'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -17,9 +11,13 @@ import {
   Presence,
   Students,
   Submissions,
-  Modes
+  Modes,
+  ScriptItem
 } from '../interfaces';
-
+const uncheckedGrayCheckbox = require('../../../img/box_gray_unchecked.svg')
+const checkedGrayCheckbox = require('../../../img/box_gray_checked.svg')
+const uncheckedGreenCheckbox = require('../../../img/box_green_unchecked.svg')
+const checkedGreenCheckbox = require('../../../img/box_green_checked.svg')
 
 const moment = require('moment');
 
@@ -69,9 +67,9 @@ class ScriptContainer extends React.Component<any, any> {
         <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Show Prompt</button>
       )
     } else {
-      const { selected_submissions, current_slide } = this.props;
-      let buttonInactive = true;
-      let buttonClass = "inactive";
+      const { selected_submissions, current_slide }: { selected_submissions: SelectedSubmissions, current_slide: string } = this.props;
+      let buttonInactive: boolean = true;
+      let buttonClass: string = "inactive";
       if (selected_submissions && selected_submissions[current_slide]) {
         buttonInactive = false;
         buttonClass = "active";
@@ -83,9 +81,9 @@ class ScriptContainer extends React.Component<any, any> {
   }
 
   renderShowRemainingStudentsButton() {
-    const { submissions, current_slide } = this.props;
-    const numAnswers = Object.keys(submissions[current_slide]).length;
-    const verb = this.state.showAllStudents ? "Hide" : "Show";
+    const { submissions, current_slide }: { submissions: Submissions, current_slide: string } = this.props;
+    const numAnswers: number = Object.keys(submissions[current_slide]).length;
+    const verb: string = this.state.showAllStudents ? "Hide" : "Show";
     if (numAnswers > 0) {
       return (
         <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> {verb} Remaining Students</span>
@@ -95,16 +93,16 @@ class ScriptContainer extends React.Component<any, any> {
 
   renderReview() {
     const { selected_submissions, submissions, current_slide, students, presence } = this.props;
+    const numStudents: number = Object.keys(presence).length;
     if (submissions) {
-      const numAnswers = Object.keys(submissions[current_slide]).length;
-      const numStudents = Object.keys(presence).length;
-      let remainingStudents;
+      const numAnswers: number = Object.keys(submissions[current_slide]).length;
+      let remainingStudents: Array<JSX.Element> | null = null;
       if (this.state.showAllStudents) {
-        const submittedStudents = Object.keys(submissions[current_slide]);
-        const workingStudents = Object.keys(presence).filter((id) => {
-          return !submittedStudents.includes(id);
+        const submittedStudents: Array<string> | null = Object.keys(submissions[current_slide]);
+        const workingStudents: Array<string> | null = Object.keys(presence).filter((id) => {
+          return submittedStudents.indexOf(id) === -1;
         })
-        const sortedWorkingStudents = workingStudents.sort((key1, key2) => {
+        const sortedWorkingStudents: Array<string> | null = workingStudents.sort((key1, key2) => {
           return sortByLastName(key1, key2, students);
         })
         if (sortedWorkingStudents) {
@@ -126,12 +124,12 @@ class ScriptContainer extends React.Component<any, any> {
       const submissionComponents = sortedNames.map((key, index) => {
         // the following line will not be necessary
         // when all submissions are stored as objects with a data prop
-        const text = submissions[current_slide][key].data
-        const submittedTimestamp = submissions[current_slide][key].timestamp
-        const elapsedTime = this.formatElapsedTime(moment(submittedTimestamp))
-        const checked = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false
+        const text: any = submissions[current_slide][key].data
+        const submittedTimestamp: string = submissions[current_slide][key].timestamp
+        const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
+        const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false
         const checkbox = this.determineCheckbox(checked)
-        const studentName = students[key]
+        const studentName: string = students[key]
           return <tr key={index}>
             <td>{studentName}</td>
             <td></td>
@@ -144,7 +142,7 @@ class ScriptContainer extends React.Component<any, any> {
                 type="checkbox"
                 checked={checked}
               />
-              <label for={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }}>
+              <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }}>
                 {checkbox}
               </label>
             </td>
@@ -183,7 +181,6 @@ class ScriptContainer extends React.Component<any, any> {
         </li>
       );
     } else {
-      const numStudents = Object.keys(presence).length;
       return (
         <li className="student-submission-item">
           <div className="student-submission-item-header">
@@ -202,16 +199,16 @@ class ScriptContainer extends React.Component<any, any> {
     }
   }
 
-  formatElapsedTime(submittedTimestamp: string) {
-    const elapsedMilliseconds = submittedTimestamp.diff(moment(this.props.loadedTimestamp))
-    const elapsedMinutes = moment.duration(elapsedMilliseconds).minutes()
-    const elapsedSeconds = moment.duration(elapsedMilliseconds).seconds()
-    const formattedMinutes = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
-    const formattedSeconds = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
+  formatElapsedTime(submittedTimestamp: any) {
+    const elapsedMilliseconds: number = submittedTimestamp.diff(moment(this.props.loadedTimestamp))
+    const elapsedMinutes: number = moment.duration(elapsedMilliseconds).minutes()
+    const elapsedSeconds: number = moment.duration(elapsedMilliseconds).seconds()
+    const formattedMinutes: string | number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
+    const formattedSeconds: string | number = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
     return formattedMinutes + ':' + formattedSeconds
   }
 
-  determineCheckbox(checked) {
+  determineCheckbox(checked: boolean) {
     if (checked) {
       return this.state.projecting ? <img src={checkedGreenCheckbox} /> : <img src={checkedGrayCheckbox} />
     } else {
