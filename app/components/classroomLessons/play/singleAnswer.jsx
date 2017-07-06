@@ -29,12 +29,17 @@ class SingleAnswer extends Component {
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
+    const classAnswers = this.props.selected_submissions
+    ? <div>
+        <p className="answer-header"><i className="fa fa-users"></i>Class Answers:</p>
+        {this.renderClassAnswersList()}
+      </div>
+    : <span/>
     return (
       <div className="display-mode">
         <p className="answer-header"><i className="fa fa-user"></i>Your Answer:</p>
         {this.renderYourAnswer()}
-        <p className="answer-header"><i className="fa fa-users"></i>Class Answers:</p>
-        {this.renderClassAnswersList()}
+        {classAnswers}
       </div>
     )
   }
