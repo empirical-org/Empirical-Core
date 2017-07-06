@@ -7,7 +7,8 @@ import {
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
-  removeMode
+  removeMode,
+  getClassroomAndTeacherName
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -20,6 +21,7 @@ import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion
 } from '../interfaces';
+
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
@@ -36,6 +38,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
       this.props.dispatch(startListeningToSession(ca_id));
+      this.props.dispatch(getClassroomAndTeacherName(ca_id, env.EMPIRICAL_BASE_URL))
     }
   }
 

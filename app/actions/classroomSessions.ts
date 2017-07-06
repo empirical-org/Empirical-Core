@@ -6,7 +6,8 @@ import {
   ClassroomLessonSession,
   QuestionSubmissionsList,
   SelectedSubmissions,
-  SelectedSubmissionsForQuestion
+  SelectedSubmissionsForQuestion,
+  TeacherAndClassroomName
 } from 'components/classroomLessons/interfaces';
 
 
@@ -74,4 +75,39 @@ export function setMode(classroom_activity_id: string, question_id: string, mode
 export function removeMode(classroom_activity_id: string, question_id: string): void {
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.remove();
+}
+
+export function getClassroomAndTeacherName(classroom_activity_id: string, baseUrl: string) {
+  return function (dispatch) {
+    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/teacher_and_classroom_name`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      _setClassroomAndTeacherName(response, classroom_activity_id)
+    }).catch((error) => {
+      console.log('error retrieving classroom and teacher name', error)
+    });
+  }
+}
+
+export function _setClassroomName(classroomName: string, classroom_activity_id: string) {
+  const classroomNameRef = classroomSessionsRef.child(`${classroom_activity_id}/classroom_name`);
+  classroomNameRef.set(classroomName).then(()=>console.log('set classroom_name name'))
+}
+
+export function _setTeacherName(teacherName: string, classroom_activity_id: string) {
+  const teacherNameRef = classroomSessionsRef.child(`${classroom_activity_id}/teacher_name`);
+  teacherNameRef.set(teacherName).then(()=>console.log('set teacher_name name'))
+}
+
+export function _setClassroomAndTeacherName(TeacherAndClassroomName, classroom_activity_id: string): void {
+  _setClassroomName(TeacherAndClassroomName.classroom, classroom_activity_id)
+  _setTeacherName(TeacherAndClassroomName.classroom, classroom_activity_id)
 }
