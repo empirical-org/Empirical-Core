@@ -16,7 +16,12 @@
       cursor: pointer;
     }
   }
-
+  .no-student-submissions {
+    text-align: center;
+    font-size: 16px;
+    color: #969696;
+    padding: 30px 90px;
+  }
   .student-submission-item-table {
     padding: 15px 35px;
 

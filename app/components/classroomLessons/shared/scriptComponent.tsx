@@ -151,6 +151,24 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
 
         </li>
       );
+    } else {
+      const numStudents = Object.keys(presence).length;
+      return (
+        <li className="student-submission-item">
+          <div className="student-submission-item-header">
+            <strong>0 of {numStudents}</strong> Students have answered.
+          </div>
+          <div className="no-student-submissions">
+            Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
+          </div>
+
+          <div className="student-submission-item-footer">
+            {this.renderDisplayButton()}
+
+          </div>
+
+        </li>
+      )
     }
   }
 
