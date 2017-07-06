@@ -34,7 +34,6 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
         );
       });
     }
-  }
 
   // Static for now
   renderLessonTitle() {
