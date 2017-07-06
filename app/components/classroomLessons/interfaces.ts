@@ -18,6 +18,11 @@ export interface Students {
  [key:string]: string
 }
 
+export interface TeacherAndClassroomName {
+  teacher: string,
+  classroom: string
+}
+
 export interface Presence {
  [key:string]: boolean
 }

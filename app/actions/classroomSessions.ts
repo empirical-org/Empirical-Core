@@ -7,7 +7,8 @@ import {
   ClassroomLessonSession,
   QuestionSubmissionsList,
   SelectedSubmissions,
-  SelectedSubmissionsForQuestion
+  SelectedSubmissionsForQuestion,
+  TeacherAndClassroomName
 } from 'components/classroomLessons/interfaces';
 
 
@@ -94,6 +95,46 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   modeRef.remove();
 }
 
+export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string, baseUrl: string) {
+  return function (dispatch) {
+    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/teacher_and_classroom_name`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      _setClassroomAndTeacherName(response, classroom_activity_id)
+    }).catch((error) => {
+      console.log('error retrieving classroom and teacher name', error)
+    });
+  }
+}
+
+function _setClassroomName(classroomName: string, classroom_activity_id: string) {
+  const classroomNameRef = classroomSessionsRef.child(`${classroom_activity_id}/classroom_name`);
+  classroomNameRef.set(classroomName)
+}
+
+function _setTeacherName(teacherName: string, classroom_activity_id: string) {
+  const teacherNameRef = classroomSessionsRef.child(`${classroom_activity_id}/teacher_name`);
+  teacherNameRef.set(teacherName)
+}
+
+function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string): void {
+  _setClassroomName(names.classroom, classroom_activity_id)
+  _setTeacherName(names.teacher, classroom_activity_id)
+}
+
+export function addStudentNames(classroom_activity_id: string, studentsNames: object): void {
+  const studentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students`);
+  studentsRef.set(studentsNames)
+}
+
 export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
   const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
   console.log('question_id', question_id)
@@ -102,5 +143,4 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
       timestampRef.set(moment().format())
     }
   });
-
 }

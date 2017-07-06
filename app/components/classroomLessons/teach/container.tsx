@@ -8,6 +8,8 @@ import {
   removeSelectedStudentSubmission,
   setMode,
   removeMode,
+  getClassroomAndTeacherNameFromServer,
+  loadStudentNames,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
   clearAllSubmissions
@@ -21,7 +23,7 @@ import {
   ClassroomLessonSession,
   QuestionSubmissionsList,
   SelectedSubmissions,
-  SelectedSubmissionsForQuestion
+  SelectedSubmissionsForQuestion,
 } from '../interfaces';
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
@@ -42,6 +44,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
       this.props.dispatch(startListeningToSession(ca_id));
+      this.props.dispatch(getClassroomAndTeacherNameFromServer(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+      this.props.dispatch(loadStudentNames(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+      // below is for spoofing if you log in with Amber M. account
+      // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
+      // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
     }
   }
 
