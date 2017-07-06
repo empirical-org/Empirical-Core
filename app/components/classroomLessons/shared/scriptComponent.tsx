@@ -7,11 +7,23 @@ import uncheckedGrayCheckbox from '../../../img/box_gray_unchecked.svg'
 import checkedGrayCheckbox from '../../../img/box_gray_checked.svg'
 import uncheckedGreenCheckbox from '../../../img/box_green_unchecked.svg'
 import checkedGreenCheckbox from '../../../img/box_green_checked.svg'
+import {
+  ClassroomLessonSessions,
+  ClassroomLessonSession,
+  QuestionSubmissionsList,
+  SelectedSubmissions,
+  SelectedSubmissionsForQuestion,
+  Question,
+  Presence,
+  Students,
+  Submissions,
+  Modes
+} from '../interfaces';
 
 
 const moment = require('moment');
 
-class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlyShowHeaders: boolean | null}> {
+class ScriptContainer extends React.Component<any, any> {
 
   constructor(props) {
     super(props);
@@ -28,7 +40,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     return script.map((item) => {
       switch(item.type) {
         case 'T-REVIEW':
-          return this.renderReview(item);
+          return this.renderReview();
         case 'STEP-HTML':
           return this.renderStepHTML(item, this.props.onlyShowHeaders);
         default:
@@ -94,7 +106,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
         })
         const sortedWorkingStudents = workingStudents.sort((key1, key2) => {
           return sortByLastName(key1, key2, students);
-        }
+        })
         if (sortedWorkingStudents) {
           remainingStudents = sortedWorkingStudents.map((key) => (
             <tr>
@@ -110,7 +122,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
       }
       const sortedNames: Array<string> = Object.keys(submissions[current_slide]).sort((key1, key2) => {
         return sortByLastName(key1, key2, students);
-      }
+      })
       const submissionComponents = sortedNames.map((key, index) => {
         // the following line will not be necessary
         // when all submissions are stored as objects with a data prop
@@ -207,7 +219,7 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     }
   }
 
-  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean) {
+  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null) {
     const html = onlyShowHeaders
       ? <li className="script-item"><p className="script-item-heading">{item.data.heading}</p></li>
       : (<li className="script-item">

@@ -9,7 +9,6 @@ import {
   setMode,
   removeMode,
   toggleOnlyShowHeaders
-  loadStudentNames,
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
