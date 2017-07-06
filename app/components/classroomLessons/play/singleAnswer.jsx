@@ -3,6 +3,7 @@ import Cues from '../../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../../renderForQuestions/sentenceFragments.jsx';
 import icon from '../../../img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor.jsx';
+import { getParameterByName } from 'libs/getParameterByName';
 const moment = require('moment');
 
 class SingleAnswer extends Component {
@@ -17,6 +18,14 @@ class SingleAnswer extends Component {
     this.submitSubmission = this.submitSubmission.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const student = getParameterByName('student')
+    // this will reset the state when a teacher resets a question
+    if (this.state.submitted === true && nextProps.submissions === null) {
+      this.setState({submitted: false, editing: false, response: ''})
+    }
+  }
+
   submitSubmission() {
     this.props.handleStudentSubmission(this.state.response, moment().format());
     this.setState({submitted: true})
@@ -29,12 +38,17 @@ class SingleAnswer extends Component {
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
+    const classAnswers = this.props.selected_submissions
+    ? <div>
+        <p className="answer-header"><i className="fa fa-users"></i>Class Answers:</p>
+        {this.renderClassAnswersList()}
+      </div>
+    : <span/>
     return (
       <div className="display-mode">
         <p className="answer-header"><i className="fa fa-user"></i>Your Answer:</p>
         {this.renderYourAnswer()}
-        <p className="answer-header"><i className="fa fa-users"></i>Class Answers:</p>
-        {this.renderClassAnswersList()}
+        {classAnswers}
       </div>
     )
   }

@@ -20,11 +20,6 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
     if (presence !== undefined) {
       const sortedNames: Array<string> = Object.keys(presence).sort((key1, key2) => {
         return sortByLastName(key1, key2, students);
-        } else if (last1 > last2) {
-          return 1;
-        } else {
-          return 0
-        }
       })
       return sortedNames.map((key) => {
         const name: string = students[key];

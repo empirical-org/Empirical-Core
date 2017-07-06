@@ -64,6 +64,11 @@ export function saveStudentSubmission(classroom_activity_id: string, question_id
   submissionRef.set(submission);
 }
 
+export function clearAllSubmissions(classroom_activity_id: string, question_id: string): void {
+  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`);
+  submissionRef.remove()
+}
+
 export function saveSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
   selectedSubmissionRef.set(true);
@@ -72,6 +77,11 @@ export function saveSelectedStudentSubmission(classroom_activity_id: string, que
 export function removeSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
   selectedSubmissionRef.remove();
+}
+
+export function clearAllSelectedSubmissions(classroom_activity_id: string, question_id: string): void {
+  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}`);
+  selectedSubmissionRef.remove()
 }
 
 export function setMode(classroom_activity_id: string, question_id: string, mode): void {
