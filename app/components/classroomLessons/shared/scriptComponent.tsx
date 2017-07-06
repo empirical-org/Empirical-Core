@@ -2,8 +2,21 @@ import * as React from 'react'
 import {
   ScriptItem
 } from '../interfaces'
+import { sortByLastName } from './sortByLastName'
+
 
 class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlyShowHeaders: boolean | null}> {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      projecting: this.props.modes ? this.props.modes[this.props.current_slide] : false,
+      showAllStudents: false,
+    }
+    this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
+    this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
+    this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
+  }
 
   renderScript(script: Array<ScriptItem>) {
     return script.map((item) => {
@@ -18,40 +31,119 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
     });
   }
 
-  renderReview() {
-    const { selected_submissions, submissions, current_slide, students, } = this.props;
-    if (submissions) {
-      const submissionComponents = Object.keys(submissions[current_slide]).map((key, index) => {
-        // the following line will not be necessary
-        // when all submissions are stored as objects with a data prop
-        const text = submissions[current_slide][key].data ? submissions[current_slide][key].data : submissions[current_slide][key]
-        return <li
-          key={index}
-          style={{
-            marginTop: 10,
-            borderBottom: '1px solid magenta',
-          }}
-          >
-            <input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? text : false} onClick={(e) => ( this.props.toggleSelected(e, current_slide, key) )} />
-            {text} - {students[key]}
+  startDisplayingAnswers() {
+    this.setState({projecting: true})
+    this.props.startDisplayingAnswers();
+  }
 
-          </li>
-      }
-        );
+  toggleShowAllStudents() {
+    this.setState({showAllStudents: !this.state.showAllStudents})
+  }
+
+  stopDisplayingAnswers() {
+    this.setState({projecting: false})
+    this.props.stopDisplayingAnswers();
+  }
+
+  renderDisplayButton() {
+    if (this.state.projecting) {
       return (
-        <div>
-          <ul
-            style={{
-              margin: 10,
-              padding: 10,
-              border: '1px solid magenta',
-            }}
-          >
-            {submissionComponents}
-          </ul>
-          <button onClick={this.props.startDisplayingAnswers}>Display Selected Answers</button>
-          <button onClick={this.props.stopDisplayingAnswers}>Stop displaying student answers</button>
-        </div>
+        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Show Prompt</button>
+      )
+    } else {
+      const { selected_submissions, current_slide } = this.props;
+      let buttonInactive = true;
+      let buttonClass = "inactive";
+      if (selected_submissions && selected_submissions[current_slide]) {
+        buttonInactive = false;
+        buttonClass = "active";
+      }
+      return (
+        <button className={"display-button " + buttonClass} disabled={buttonInactive} onClick={this.startDisplayingAnswers}>Display Selected Answers</button>
+      )
+    }
+  }
+
+  renderShowRemainingStudentsButton() {
+    const { submissions, current_slide } = this.props;
+    const numAnswers = Object.keys(submissions[current_slide]).length;
+    const verb = this.state.showAllStudents ? "Hide" : "Show";
+    if (numAnswers > 0) {
+      return (
+        <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> {verb} Remaining Students</span>
+      )
+    }
+  }
+
+  renderReview() {
+    const { selected_submissions, submissions, current_slide, students, presence } = this.props;
+    if (submissions) {
+      const numAnswers = Object.keys(submissions[current_slide]).length;
+      const numStudents = Object.keys(presence).length;
+      let remainingStudents;
+      if (this.state.showAllStudents) {
+        const submittedStudents = Object.keys(submissions[current_slide]);
+        const workingStudents = Object.keys(presence).filter((id) => {
+          return !submittedStudents.includes(id);
+        })
+        const sortedWorkingStudents = workingStudents.sort((key1, key2) => {
+          return sortByLastName(key1, key2, students);
+        }
+        if (sortedWorkingStudents) {
+          remainingStudents = sortedWorkingStudents.map((key) => (
+            <tr>
+              <td>{students[key]}</td>
+              <td></td>
+              <td className="no-student-response">Waiting for the student's answer...</td>
+              <td></td>
+              <td></td>
+            </tr>
+          ))
+        }
+
+      }
+      const sortedNames: Array<string> = Object.keys(submissions[current_slide]).sort((key1, key2) => {
+        return sortByLastName(key1, key2, students);
+      }
+      const submissionComponents = sortedNames.map(key => (
+        <tr >
+          <td>{students[key]}</td>
+          <td></td>
+          <td>{submissions[current_slide][key]}</td>
+          <td></td>
+          <td><input type="checkbox" name="students[key]" checked={selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }} /></td>
+        </tr>
+        ));
+      return (
+        <li className="student-submission-item">
+          <div className="student-submission-item-header">
+            <strong>{numAnswers} of {numStudents}</strong> Students have answered.
+            {this.renderShowRemainingStudentsButton()}
+          </div>
+          <div className="student-submission-item-table">
+            <table >
+              <thead>
+                <tr>
+                  <th>Students</th>
+                  <th>Flag</th>
+                  <th>Answers</th>
+                  <th>Time</th>
+                  <th>Display?</th>
+                </tr>
+              </thead>
+              <tbody>
+                {submissionComponents}
+                {remainingStudents}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="student-submission-item-footer">
+            {this.renderDisplayButton()}
+
+          </div>
+
+        </li>
       );
     }
   }
@@ -70,11 +162,10 @@ class ScriptContainer extends React.Component<{script: Array<ScriptItem>; onlySh
 
   render() {
     return (
-      <ul>
-      {this.renderScript(this.props.script)}
+      <ul className="script-container">
+        {this.renderScript(this.props.script)}
       </ul>
     )
-
   }
 }
 
