@@ -189,11 +189,11 @@ class ScriptContainer extends React.Component<any, any> {
             <table >
               <thead>
                 <tr>
-                  <th>Students</th>
-                  <th>Flag</th>
-                  <th>Answers</th>
-                  <th>Time</th>
-                  <th>Select to Display {this.renderUnselectAllButton()}</th>
+                  <th>Students<i className="fa fa-caret-down"/></th>
+                  <th>Flag<i className="fa fa-caret-down"/></th>
+                  <th>Answers<i className="fa fa-caret-down"/></th>
+                  <th>Time<i className="fa fa-caret-down"/></th>
+                  <th>Select to Display<i className="fa fa-caret-down"/> {this.renderUnselectAllButton()}</th>
                 </tr>
               </thead>
               <tbody>
