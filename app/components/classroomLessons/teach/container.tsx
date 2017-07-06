@@ -8,7 +8,6 @@ import {
   removeSelectedStudentSubmission,
   setMode,
   removeMode,
-  toggleStudentFlag
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -131,6 +130,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       </div>
     );
   }
+
 
   render() {
     const { data, hasreceiveddata, } = this.props.classroomSessions;
