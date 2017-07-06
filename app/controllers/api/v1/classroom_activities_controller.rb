@@ -7,6 +7,10 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     render json: @assigned_student_hash
   end
 
+  def teacher_and_classroom_name
+    render json: @classroom_activity.teacher_and_classroom_name
+  end
+
   private
 
   def authorize!
