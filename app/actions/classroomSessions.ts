@@ -36,7 +36,7 @@ export function registerPresence(classroom_activity_id: string, student_id: stri
   const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence/${student_id}`);
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
     if (snapshot.val() === true) {
-      presenceRef.onDisconnect().remove();
+      presenceRef.onDisconnect().set(false);
       presenceRef.set(true);
     }
   });
