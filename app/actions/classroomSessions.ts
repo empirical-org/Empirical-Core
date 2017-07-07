@@ -95,8 +95,8 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   modeRef.remove();
 }
 
-export function toggleStudentFlag(classroomActivityId: string, activitySessionId: string): void {
-  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${activitySessionId}`)
+export function toggleStudentFlag(classroomActivityId: string, student_id: string): void {
+  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
   flaggedStudentRef.once('value', (snapshot) => {
     if(snapshot.val()){
       flaggedStudentRef.remove()

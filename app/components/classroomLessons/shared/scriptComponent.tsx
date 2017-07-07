@@ -18,7 +18,8 @@ const uncheckedGrayCheckbox = require('../../../img/box_gray_unchecked.svg')
 const checkedGrayCheckbox = require('../../../img/box_gray_checked.svg')
 const uncheckedGreenCheckbox = require('../../../img/box_green_unchecked.svg')
 const checkedGreenCheckbox = require('../../../img/box_green_checked.svg')
-
+const grayFlag = require('../../../img/flag_gray.svg')
+const blueFlag = require('../../../img/flag_blue.svg')
 const moment = require('moment');
 
 class ScriptContainer extends React.Component<any, any> {
@@ -28,7 +29,7 @@ class ScriptContainer extends React.Component<any, any> {
     this.state = {
       projecting: this.props.modes ? this.props.modes[this.props.current_slide] : false,
       showAllStudents: false,
-      sort: 'lastName',
+      sort: 'time',
       sortDirection: 'desc'
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
@@ -133,27 +134,30 @@ class ScriptContainer extends React.Component<any, any> {
   }
 
   sortedRows(studentsToBeSorted: Array<string>) {
-    const {submissions, selected_submissions, current_slide, students} = this.props
-    const sortedRows = studentsToBeSorted.sort((name1, name2) => {
+    const {submissions, selected_submissions, current_slide, students, flaggedStudents} = this.props
+    const sortedRows = studentsToBeSorted.sort((studentKey1, studentKey2) => {
       switch(this.state.sort) {
         case 'flag':
+        if (flaggedStudents) {
+          const studentFlag1 = flaggedStudents[studentKey1] ? flaggedStudents[studentKey1] : false
+          const studentFlag2 = flaggedStudents[studentKey2] ? flaggedStudents[studentKey2] : false
+          return sortByFlag(studentFlag1, studentFlag2)
+        }
         case 'answers':
-          const answer1 = submissions[current_slide][name1].data
-          const answer2 = submissions[current_slide][name2].data
+          const answer1 = submissions[current_slide][studentKey1].data
+          const answer2 = submissions[current_slide][studentKey2].data
           return sortByAnswer(answer1, answer2)
         case 'time':
-          const time1 = this.elapsedMilliseconds(moment(submissions[current_slide][name1].timestamp))
-          const time2 = this.elapsedMilliseconds(moment(submissions[current_slide][name2].timestamp))
+          const time1 = this.elapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp))
+          const time2 = this.elapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp))
           return sortByTime(time1, time2)
         case 'displayed':
           if (selected_submissions && selected_submissions[current_slide]) {
-            return sortByDisplayed(selected_submissions[current_slide][name1], selected_submissions[current_slide][name2])
-          } else {
-            return sortByLastName(name1, name2, students)
+            return sortByDisplayed(selected_submissions[current_slide][studentKey1], selected_submissions[current_slide][studentKey2])
           }
         case 'lastName':
         default:
-        return sortByLastName(name1, name2, students)
+        return sortByLastName(studentKey1, studentKey2, students)
       }
     })
 
@@ -165,24 +169,6 @@ class ScriptContainer extends React.Component<any, any> {
     const numStudents: number = Object.keys(presence).length;
     if (submissions) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
-      let remainingStudents: Array<JSX.Element> | null = null;
-
-      if (this.state.showAllStudents) {
-        const submittedStudents: Array<string> | null = Object.keys(submissions[current_slide]);
-        const workingStudents: Array<string> | null = Object.keys(presence).filter((id) => {
-          return submittedStudents.indexOf(id) === -1;
-        })
-        const sortedWorkingStudents: Array<string> | null = workingStudents.sort((name1, name2) => {
-          return sortByLastName(name1, name2, students);
-        })
-        if (sortedWorkingStudents) {
-          remainingStudents = sortedWorkingStudents.map((name) => this.renderNoSubmissionRow(name))
-        }
-      }
-
-      const sortedNames: Array<string> = this.sortedRows(Object.keys(submissions[current_slide]))
-
-      const submissionComponents = sortedNames.map((name, index) => this.renderSubmissionRow(name, index));
 
       return (
         <li className="student-submission-item" key={index}>
@@ -194,8 +180,7 @@ class ScriptContainer extends React.Component<any, any> {
             <table >
               {this.renderTableHeaders()}
               <tbody>
-                {submissionComponents}
-                {remainingStudents}
+                {this.renderStudentRows()}
               </tbody>
             </table>
           </div>
@@ -226,7 +211,7 @@ class ScriptContainer extends React.Component<any, any> {
     const headers = []
     for (let key in fields) {
       let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
-      const header = key === 'display'
+      const header = key === 'displayed'
       ? <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/> {this.renderUnselectAllButton()}</th>
       : <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/></th>
       headers.push(header)
@@ -236,30 +221,70 @@ class ScriptContainer extends React.Component<any, any> {
         {headers}
       </tr>
     </thead>
-
   }
 
-  renderNoSubmissionRow(name: string) {
-    return <tr key={name}>
-      <td>{this.props.students[name]}</td>
-      <td></td>
+  renderStudentRows() {
+    const { submissions, current_slide, students, presence } = this.props;
+
+    let sortedRows
+
+    const submittedStudents: Array<string> = Object.keys(submissions[current_slide]);
+    const workingStudents: Array<string> | null = Object.keys(presence).filter((id) => submittedStudents.indexOf(id) === -1)
+
+    if (this.state.showAllStudents) {
+      // if there are no working students or if students are being sorted by lastname or flag,
+      // they should all be sorted together
+      if (this.state.sort === 'lastName' || this.state.sort === 'flag' || workingStudents.length < 1) {
+        const sortedStudents: Array<string> | null = this.sortedRows(Object.keys(presence))
+          sortedRows = sortedStudents.map((studentKey, index) => {
+            return submittedStudents.includes(studentKey)
+            ? this.renderSubmissionRow(studentKey, index)
+            : this.renderNoSubmissionRow(studentKey)
+          })
+      // otherwise they need to be sorted separately and then concatenated
+      } else {
+        const sortedSubmittedStudents: Array<string> = this.sortedRows(Object.keys(submissions[current_slide]))
+        const sortedSubmittedStudentRows = sortedSubmittedStudents.map((studentKey, index) => this.renderSubmissionRow(studentKey, index))
+        const sortedWorkingStudents: Array<string> = workingStudents.sort((studentKey1, studentKey2) => sortByLastName(studentKey1, studentKey2, students))
+        const sortedWorkingStudentRows = sortedWorkingStudents.map((studentKey) => this.renderNoSubmissionRow(studentKey))
+        sortedRows = sortedSubmittedStudentRows.concat(sortedWorkingStudentRows)
+      }
+    } else {
+      const sortedSubmittedStudents: Array<string> = this.sortedRows(Object.keys(submissions[current_slide]))
+      sortedRows = sortedSubmittedStudents.map((studentKey, index) => this.renderSubmissionRow(studentKey, index))
+    }
+    return sortedRows
+  }
+
+  renderFlag(studentKey: string) {
+    let flag = grayFlag
+    if (this.props.flaggedStudents && this.props.flaggedStudents[studentKey]) {
+      flag = blueFlag
+    }
+    return <img onClick={() => this.props.toggleStudentFlag(studentKey)} src={flag} />
+  }
+
+  renderNoSubmissionRow(studentKey: string) {
+    return <tr key={studentKey}>
+      <td>{this.props.students[studentKey]}</td>
+      <td>{this.renderFlag(studentKey)}</td>
       <td className="no-student-response">Waiting for the student's answer...</td>
       <td></td>
       <td></td>
     </tr>
   }
 
-  renderSubmissionRow(name: string, index: number) {
+  renderSubmissionRow(studentKey: string, index: number) {
     const { selected_submissions, submissions, current_slide, students } = this.props;
-    const text: any = submissions[current_slide][name].data
-    const submittedTimestamp: string = submissions[current_slide][name].timestamp
+    const text: any = submissions[current_slide][studentKey].data
+    const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
-    const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][name] : false
+    const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
     const checkbox = this.determineCheckbox(checked)
-    const studentName: string = students[name]
+    const studentName: string = students[studentKey]
       return <tr key={index}>
         <td>{studentName}</td>
-        <td></td>
+        <td>{this.renderFlag(studentKey)}</td>
         <td>{text}</td>
         <td>{elapsedTime}</td>
         <td>
@@ -269,7 +294,7 @@ class ScriptContainer extends React.Component<any, any> {
             type="checkbox"
             checked={checked}
           />
-          <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, name); }}>
+          <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, studentKey); }}>
             {checkbox}
           </label>
         </td>
@@ -279,9 +304,11 @@ class ScriptContainer extends React.Component<any, any> {
 
   renderNoSubmissionsTable(numStudents: number, index: number) {
     return <li className="student-submission-item" key={index}>
+
         <div className="student-submission-item-header">
           <strong>0 of {numStudents}</strong> Students have answered.
         </div>
+
         <div className="no-student-submissions">
           Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
         </div>

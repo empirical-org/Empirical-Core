@@ -12,7 +12,8 @@ import {
   loadStudentNames,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
-  clearAllSubmissions
+  clearAllSubmissions,
+  toggleStudentFlag
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -37,6 +38,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this);
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this)
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
+    this.toggleStudentFlag = this.toggleStudentFlag.bind(this)
   }
 
   componentDidMount() {
@@ -78,6 +80,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
             clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
             clearAllSubmissions={this.clearAllSubmissions}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            toggleStudentFlag={this.toggleStudentFlag}
           />
         );
       default:
@@ -130,6 +133,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
   toggleOnlyShowHeaders() {
     this.props.dispatch(toggleOnlyShowHeaders())
+  }
+
+  toggleStudentFlag(student_id: 'string') {
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    toggleStudentFlag(ca_id, student_id)
   }
 
   startDisplayingAnswers() {
