@@ -64,11 +64,14 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
   renderScript() {
     // should be changed to this.props.slideData.data.teach.script[0].data.body || '';
     // when the dummy data structure is updated
-    const html:string =  this.props.slideData.data.teach.script[0].data.body || '';
-    return (
-      <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
-      </div>
-    )
+    const scriptData = this.props.slideData.data.teach.script[0].data
+    if (scriptData) {
+      const html:string =  scriptData.body || '';
+      return (
+        <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
+        </div>
+      )
+    }
   }
 
   renderPresence() {
