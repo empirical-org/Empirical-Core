@@ -2,8 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import {
   startListeningToSession,
+  startListeningToSessionWithoutCurrentSlide,
+  startListeningToCurrentSlide,
   goToNextSlide,
   updateCurrentSlide,
+  updateCurrentSlideInStore,
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
@@ -47,18 +50,18 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentDidMount() {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
-      this.props.dispatch(startListeningToSession(ca_id));
       // this.props.dispatch(getClassroomAndTeacherNameFromServer(ca_id || '', process.env.EMPIRICAL_BASE_URL))
       // this.props.dispatch(loadStudentNames(ca_id || '', process.env.EMPIRICAL_BASE_URL))
       // below is for spoofing if you log in with Amber M. account
       // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
       // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
+      this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id));
+      this.props.dispatch(startListeningToCurrentSlide(ca_id));
     }
   }
 
   renderCurrentSlide(data) {
-    const current = data.questions[data.current_slide];
-    console.log(current.type);
+    const current = data.questions[data.current_slide || 0];
     switch (current.type) {
       case 'CL-LB':
         return (

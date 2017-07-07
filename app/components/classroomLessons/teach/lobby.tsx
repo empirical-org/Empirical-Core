@@ -29,7 +29,7 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
         const name = students[key];
         const statusClass = presence[key] ? "online" : "offline";
         return (
-          <li>
+          <li key={name}>
             <p>{name}</p> <div className={statusClass}></div>
           </li>
         );

@@ -26,6 +26,35 @@ export function toggleOnlyShowHeaders() {
   }
 }
 
+export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string) {
+  alert('started listening without current slide')
+  return function (dispatch) {
+    classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
+      const payload = snapshot.val()
+      delete payload.current_slide
+      dispatch(updateSession(payload));
+    });
+  };
+}
+
+export function startListeningToCurrentSlide(classroom_activity_id: string) {
+  alert('started listening to current slide')
+  return function (dispatch) {
+    classroomSessionsRef.child(`${classroom_activity_id}/current_slide`).on('value', (snapshot) => {
+      console.log('listening to current slide ', snapshot.val())
+      dispatch(updateCurrentSlideInStore(snapshot.val()));
+    });
+  };
+}
+
+export function updateCurrentSlideInStore(slideId: string) {
+  return{
+    type: C.UPDATE_SLIDE_IN_STORE,
+    data: slideId
+  }
+}
+
+
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
@@ -47,7 +76,6 @@ export function goToNextSlide(classroom_activity_id: string, state: ClassroomLes
   const { current_slide, questions, } = state;
   const slides = Object.keys(questions);
   const current_slide_index = slides.indexOf(current_slide.toString());
-  console.log(current_slide_index);
   const nextSlide = slides[current_slide_index + 1];
   if (nextSlide !== undefined) {
     updateCurrentSlide(classroom_activity_id, nextSlide);

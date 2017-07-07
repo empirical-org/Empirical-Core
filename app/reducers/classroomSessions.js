@@ -1,28 +1,39 @@
 import C from '../constants';
-import _ from 'lodash';
 
 const initialState = {
-  session: {
-    hasreceiveddata: false,
-    submittingnew: false,
-    onlyShowHeaders: false,
-    states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
-    data: {}, // this will contain firebase data
-  },
+  onlyShowHeaders: false,
+  hasreceiveddata: false,
+  submittingnew: false,
+  states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
+  data: { current_slide: 0, }, // this will contain firebase data
 };
 
-export default function (currentstate, action) {
-  let newstate;
+export default function (currentState = initialState, action) {
+  let newState;
   switch (action.type) {
     case C.UPDATE_CLASSROOM_SESSION_DATA:
-      return Object.assign({}, currentstate, {
+      newState = Object.assign({}, currentState, {
         hasreceiveddata: true,
         data: action.data,
       });
+      newState.data.current_slide = currentState.data.current_slide;
+      return newState;
+    case C.UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE:
+      newState = Object.assign({}, currentState, {
+        hasreceiveddata: true,
+        data: action.data,
+      });
+      newState.data.current_slide = currentState.data.current_slide;
+      return newState;
+    case C.UPDATE_SLIDE_IN_STORE:
+      newState = Object.assign({}, currentState);
+      newState.data.current_slide = action.data;
+      return newState;
     case C.TOGGLE_HEADERS:
-      return Object.assign({}, currentstate, {
-        onlyShowHeaders: !currentstate.onlyShowHeaders
-      })
-    default: return currentstate || initialState.session;
+      newState = Object.assign({}, currentState, {
+        onlyShowHeaders: !currentState.onlyShowHeaders,
+      });
+      return newState;
+    default: return currentState;
   }
 }
