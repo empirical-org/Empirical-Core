@@ -3,6 +3,7 @@
 @import 'classroom_lessons/_play_lesson_container.scss';
 @import 'classroom_lessons/_script_items.scss';
 @import 'classroom_lessons/_teacher_slide_container.scss';
+@import 'classroom_lessons/_scalers.scss';
 
 .teach-lesson-container {
   display: flex;
@@ -33,7 +34,7 @@
       .scaler {
         width: 960px;
         height: 900px;
-        transform: scale(0.4, 0.4);
+        transform: scale(0.45, 0.45);
         transform-origin: top left;
         padding: 25px;
         pointer-events: none;
