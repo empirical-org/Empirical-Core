@@ -7,6 +7,8 @@ import {
   SelectedSubmissionsForQuestion,
   Question
 } from '../interfaces';
+import { sortByLastName } from '../shared/studentSorts'
+
 
 
 class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Question; }> {
@@ -20,15 +22,7 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
     if (presence !== undefined) {
 
       const sortedNames = Object.keys(presence).sort((key1, key2) => {
-        const last1 = students[key1].split(" ").slice(-1)[0];
-        const last2 = students[key2].split(" ").slice(-1)[0];
-        if (last1 < last2) {
-          return -1;
-        } else if (last1 > last2) {
-          return 1;
-        } else {
-          return 0
-        }
+        return sortByLastName(key1, key2, students);
       })
 
       return sortedNames.map((key) => {
@@ -40,10 +34,8 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
           </li>
         );
       });
-    } else {
-
     }
-  }
+  };
 
   renderNumberPresentStudents(presence) {
     let numPresent;
@@ -70,6 +62,8 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
   }
 
   renderScript() {
+    // should be changed to this.props.slideData.data.teach.script[0].data.body || '';
+    // when the dummy data structure is updated
     const html:string =  this.props.slideData.data.teach.script[0].text || '';
     return (
       <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >

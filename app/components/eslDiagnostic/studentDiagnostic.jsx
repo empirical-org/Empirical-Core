@@ -18,6 +18,7 @@ import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diag
 import TitleCard from './titleCard.jsx';
 import SessionActions from '../../actions/sessions.js';
 import { getParameterByName } from '../../libs/getParameterByName';
+
 const request = require('request');
 
 const StudentDiagnostic = React.createClass({
@@ -274,15 +275,14 @@ const StudentDiagnostic = React.createClass({
         dispatch={this.props.dispatch}
         language={this.language()}
       />);
-    } else {
-      return (<PlaySentenceFragment
-        question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-        key={this.props.playDiagnostic.currentQuestion.data.key}
-        nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-        updateAttempts={this.submitResponse}
-        language={this.language()}
-      />);
     }
+    return (<PlaySentenceFragment
+      question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+      key={this.props.playDiagnostic.currentQuestion.data.key}
+      nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+      updateAttempts={this.submitResponse}
+      language={this.language()}
+    />);
   },
 
   render() {
