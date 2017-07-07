@@ -29,7 +29,6 @@ import {
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
-
     this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
     this.goToNextSlide = this.goToNextSlide.bind(this);
     this.toggleSelected = this.toggleSelected.bind(this);
@@ -175,6 +174,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       </div>
     );
   }
+
 
   render() {
     const { data, hasreceiveddata, } = this.props.classroomSessions;

@@ -95,6 +95,17 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   modeRef.remove();
 }
 
+export function toggleStudentFlag(classroomActivityId: string, activitySessionId: string): void {
+  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${activitySessionId}`)
+  flaggedStudentRef.once('value', (snapshot) => {
+    if(snapshot.val()){
+      flaggedStudentRef.remove()
+    } else {
+      flaggedStudentRef.set(true)
+    }
+  }
+}
+
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string, baseUrl: string) {
   return function (dispatch) {
     fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/teacher_and_classroom_name`, {
