@@ -9,7 +9,7 @@ import {
   Presence,
   Students
 } from '../interfaces';
-import { sortByLastName } from '../shared/sortByLastName'
+import { sortByLastName } from '../shared/studentSorts'
 
 class Lobby extends React.Component<{data: ClassroomLessonSession}> {
   constructor(props) {
