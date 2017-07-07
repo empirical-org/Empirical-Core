@@ -40,6 +40,17 @@ class ScriptContainer extends React.Component<any, any> {
     this.retryQuestion = this.retryQuestion.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.submissions) {
+      const numStudents: number = Object.keys(nextProps.presence).length;
+      const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length
+      const percentageOfClassAnswered = numAnswers/numStudents * 100
+      if (percentageOfClassAnswered > 66) {
+        this.setState({showAllStudents: true})
+      }
+    }
+  }
+
   renderScript(script: Array<ScriptItem>) {
     return script.map((item, index) => {
       switch(item.type) {
@@ -208,7 +219,7 @@ class ScriptContainer extends React.Component<any, any> {
       'time': 'Time',
       'displayed': 'Select to Display'
     }
-    const headers = []
+    const headers: Array<JSX.Element> = []
     for (let key in fields) {
       let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
       const header = key === 'displayed'
@@ -226,7 +237,7 @@ class ScriptContainer extends React.Component<any, any> {
   renderStudentRows() {
     const { submissions, current_slide, students, presence } = this.props;
 
-    let sortedRows
+    let sortedRows: Array<JSX.Element> | null
 
     const submittedStudents: Array<string> = Object.keys(submissions[current_slide]);
     const workingStudents: Array<string> | null = Object.keys(presence).filter((id) => submittedStudents.indexOf(id) === -1)
@@ -328,8 +339,8 @@ class ScriptContainer extends React.Component<any, any> {
     const elapsedMilliseconds : number  = this.elapsedMilliseconds(submittedTimestamp)
     const elapsedMinutes: number = moment.duration(elapsedMilliseconds).minutes()
     const elapsedSeconds: number = moment.duration(elapsedMilliseconds).seconds()
-    const formattedMinutes: string = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
-    const formattedSeconds: string = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
+    const formattedMinutes: string | number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
+    const formattedSeconds: string | number = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
     return formattedMinutes + ':' + formattedSeconds
   }
 

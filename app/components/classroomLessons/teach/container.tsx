@@ -136,7 +136,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   toggleStudentFlag(student_id: 'string') {
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    const ca_id: string | null = getParameterByName('classroom_activity_id');
     toggleStudentFlag(ca_id, student_id)
   }
 
