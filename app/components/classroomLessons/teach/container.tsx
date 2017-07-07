@@ -96,9 +96,13 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   goToNextSlide() {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
-      goToNextSlide(ca_id, this.props.classroomSessions.data);
-    }
-  }
+      const updateInStore = goToNextSlide(ca_id, this.props.classroomSessions.data);
+      if (updateInStore) {
+        console.log("func", updateInStore)
+          this.props.dispatch(updateInStore);
+      };
+    };
+  };
 
   goToSlide(slide_id: string) {
     const ca_id: string|null = getParameterByName('classroom_activity_id')

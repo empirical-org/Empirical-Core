@@ -27,18 +27,23 @@ export function toggleOnlyShowHeaders() {
 }
 
 export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string) {
-  alert('started listening without current slide')
   return function (dispatch) {
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
       const payload = snapshot.val()
       delete payload.current_slide
-      dispatch(updateSession(payload));
+      dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
     });
   };
 }
 
+export function updateClassroomSessionWithoutCurrentSlide(data) {
+  return {
+    type: C.UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE,
+    data
+  }
+}
+
 export function startListeningToCurrentSlide(classroom_activity_id: string) {
-  alert('started listening to current slide')
   return function (dispatch) {
     classroomSessionsRef.child(`${classroom_activity_id}/current_slide`).on('value', (snapshot) => {
       console.log('listening to current slide ', snapshot.val())
