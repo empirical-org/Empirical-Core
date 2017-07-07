@@ -18,6 +18,9 @@ import {
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
+import CLStudentLobby from '../play/lobby';
+import CLStudentStatic from '../play/static.jsx';
+import CLStudentSingleAnswer from '../play/singleAnswer.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
@@ -38,6 +41,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this);
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this)
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
+    this.renderSidebar = this.renderSidebar.bind(this)
     this.toggleStudentFlag = this.toggleStudentFlag.bind(this)
   }
 
@@ -163,11 +167,37 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     for (let slide in questions) {
       counter += 1;
       const activeClass = current_slide === slide ? "active" : ""
+      let thumb;
+      switch (questions[slide].type) {
+        case 'CL-LB':
+          thumb = (
+            <CLStudentLobby data={data} />
+          );
+          break
+        case 'CL-ST':
+          thumb = (
+            <CLStudentStatic data={questions[slide].data} />
+          );
+          break
+        case 'CL-SA':
+          const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+          const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
+          const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
+          const props = { mode, submissions, selected_submissions, };
+          thumb = (
+            <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+          );
+          break
+        default:
+          thumb = questions[slide].type
+      }
       components.push((
         <div key={counter} onClick={() => this.goToSlide(slide)}>
           <p className={"slide-number " + activeClass}>Slide {counter} / {length}</p>
           <div className={"slide-preview " + activeClass}>
-            {questions[slide].type}
+            <div className="scaler">
+            {thumb}
+            </div>
           </div>
         </div>
       ))

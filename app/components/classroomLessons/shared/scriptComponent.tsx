@@ -58,6 +58,8 @@ class ScriptContainer extends React.Component<any, any> {
           return this.renderReview(index);
         case 'STEP-HTML':
           return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+        case 'STEP-HTML-TIP':
+          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
         default:
           return <li key={index}>Unsupported type</li>
       }
