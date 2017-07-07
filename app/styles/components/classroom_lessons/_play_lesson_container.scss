@@ -5,8 +5,9 @@
   justify-content: center;
   .main-content {
     width: 100%;
-    max-width: 770px;
+    max-width: 960px;
     overflow-y: scroll;
+    padding-top: 30px;
     .main-content-wrapper {
       .sentence-fragments {
         font-size: 36px;
