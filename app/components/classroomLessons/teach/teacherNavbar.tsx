@@ -24,7 +24,7 @@ class TeacherNavbar extends Component {
     const presence = this.props.data.presence
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     const circleClassname = numPresent === 0 ? 'offline' : 'online'
-    return <p className="present-student-count"><div className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
+    return <p className="present-student-count"><span className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
     );
   }
 
@@ -45,29 +45,31 @@ class TeacherNavbar extends Component {
   }
 
   renderTooltip(icon:string) {
-    switch (icon) {
-      case 'projector':
+    if (this.state.showHelpDropdown === false) {
+      switch (icon) {
+        case 'projector':
         if (this.state.tooltip === 'projector') {
           return <Tooltip text="Launch Projector" className={icon}/>
         }
         break
-      case 'watchTeacher':
+        case 'watchTeacher':
         if (this.state.tooltip === 'watchTeacher') {
           return <Tooltip text="Watch Teacher (On)" className={icon}/>
-          }
+        }
         break
-      case 'exit':
+        case 'exit':
         if (this.state.tooltip === 'exit') {
           return <Tooltip text="Exit Lesson" className={icon}/>
         }
         break
-      case 'help':
-        if (this.state.tooltip === 'help' && !this.state.showHelpDropdown) {
+        case 'help':
+        if (this.state.tooltip === 'help') {
           return <Tooltip text="Help" className={icon}/>
         }
         break
-      default:
+        default:
         break
+      }
     }
 
   }
@@ -143,7 +145,7 @@ class TeacherNavbar extends Component {
             onMouseLeave={this.hideTooltip}
             onClick={this.toggleHelpDropdown}
             onBlur={this.hideHelpDropdown}
-            tabIndex="0"
+            tabIndex={0}
           >
             <img className={`help-icon ${helpClass}`} src={helpIcon}/>
             {this.renderTooltip('help')}
