@@ -16,7 +16,7 @@ import {
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
   clearAllSubmissions,
-  iHateThis
+  updateSlideInFirebase
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -65,7 +65,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     console.log(prevProps.classroomSessions.data.current_slide, this.props.classroomSessions.data.current_slide, prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)
     if (prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
-      iHateThis(ca_id, this.props.classroomSessions.data.current_slide)
+      updateSlideInFirebase(ca_id, this.props.classroomSessions.data.current_slide)
     }
   }
 

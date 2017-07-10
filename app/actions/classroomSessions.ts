@@ -85,11 +85,10 @@ export function goToNextSlide(classroom_activity_id: string, state: ClassroomLes
 export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
   return (dispatch) => {
     dispatch(updateSlideInStore(question_id))
-
   }
 }
 
-export function iHateThis(classroom_activity_id: string , question_id: string ) {
+export function updateSlideInFirebase(classroom_activity_id: string , question_id: string ) {
   console.log("Hi")
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.set(question_id);
