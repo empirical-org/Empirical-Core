@@ -55,8 +55,8 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
   renderHeader() {
     return (
       <div className="lobby-header">
-        <p className="unit-title">Unit: Complex Sencences</p>
-        <p className="lesson-title">Lesson 1: Conjunctions of Time</p>
+        <p className="unit-title">Unit: {this.props.slideData.data.teach.unit}</p>
+        <p className="lesson-title">Lesson {this.props.slideData.data.teach.lesson}: {this.props.slideData.data.teach.topic}</p>
       </div>
     )
   }
@@ -64,11 +64,14 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Qu
   renderScript() {
     // should be changed to this.props.slideData.data.teach.script[0].data.body || '';
     // when the dummy data structure is updated
-    const html:string =  this.props.slideData.data.teach.script[0].text || '';
-    return (
-      <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
-      </div>
-    )
+    const scriptData = this.props.slideData.data.teach.script[0].data
+    if (scriptData) {
+      const html:string =  scriptData.body || '';
+      return (
+        <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
+        </div>
+      )
+    }
   }
 
   renderPresence() {
