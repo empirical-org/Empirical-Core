@@ -15,7 +15,8 @@ import {
   loadStudentNames,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
-  clearAllSubmissions
+  clearAllSubmissions,
+  iHateThis
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -60,6 +61,14 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const ca_id: string|null = getParameterByName('classroom_activity_id')
+    console.log(prevProps.classroomSessions.data.current_slide, this.props.classroomSessions.data.current_slide, prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)
+    if (prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
+      iHateThis(ca_id, this.props.classroomSessions.data.current_slide)
+    }
+  }
+
   renderCurrentSlide(data) {
     const current = data.questions[data.current_slide || 0];
     switch (current.type) {
@@ -98,7 +107,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     if (ca_id) {
       const updateInStore = goToNextSlide(ca_id, this.props.classroomSessions.data);
       if (updateInStore) {
-        console.log("func", updateInStore)
           this.props.dispatch(updateInStore);
       };
     };
@@ -107,7 +115,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   goToSlide(slide_id: string) {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
-      updateCurrentSlide(ca_id, slide_id);
+      this.props.dispatch(updateCurrentSlide(ca_id, slide_id));
     }
   }
 

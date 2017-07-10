@@ -25,7 +25,7 @@ export default function (currentState = initialState, action) {
       newState.data.current_slide = currentState.data.current_slide;
       return newState;
     case C.UPDATE_SLIDE_IN_STORE:
-      newState = Object.assign({}, currentState);
+      newState = Object.assign({}, JSON.parse(JSON.stringify(currentState)));
       newState.data.current_slide = action.data;
       return newState;
     case C.TOGGLE_HEADERS:
