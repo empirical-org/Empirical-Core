@@ -1,19 +1,28 @@
 const env = process.env.NODE_ENV;
 const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
+
 const assetsPluginInstance = new AssetsPlugin();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+
 console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   resolve: {
     modules: [
       path.resolve(__dirname, 'app'),
       'node_modules'
+    ],
+    extensions: [
+      '.js',
+      '.jsx',
+      '.ts',
+      '.tsx'
     ],
   },
   context: `${__dirname}/app`,
@@ -54,12 +63,12 @@ module.exports = {
     })
   ],
   module: {
-    rules: [
-      // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-      { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader', }, },
-      // addition - add source-map support
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
-    ],
+    // rules: [
+    //   // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
+    //   { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader', }, },
+    //   // addition - add source-map support
+    //   { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
+    // ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     rules: [
       {
@@ -101,6 +110,11 @@ module.exports = {
         test: /\.(jpg|png)$/,
         loader: 'url-loader?limit=25000',
         include: /app\/img/,
+      },
+      {
+        test: /\.(eot|woff|woff2|ttf|png|jpe?g|gif|svg)(\?\S*)?$/,
+        loader: 'url-loader?limit=25000',
+        exclude: /app\/img/,
       }
     ],
   },
