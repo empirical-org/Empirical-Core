@@ -1,0 +1,50 @@
+.lessons-teacher-navbar {
+  padding: 0 30px;
+  height: 60px;
+  background-color: #00c2a2;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .lesson-title {
+    font-size: 20px;
+    span {
+      font-weight: bold;
+    }
+  }
+  .present-student-count {
+    font-size: 16px;
+    margin-right: 30px;
+    .online, .offline {
+      height: 11px;
+      width: 11px;
+      border-radius: 11px;
+      display: inline-block;
+      margin-right: 9px;
+    }
+    .offline {
+      background-color: #ff4441;
+    }
+    .online {
+      background-color: #a8e167;
+    }
+  }
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      margin: 3px;
+      padding: 5px;
+      height: 33px;
+      width: 33px;
+      &:hover {
+        background-color: #027360;
+      }
+    }
+    .help-icon {
+      margin-left: 15px;
+      padding: 5px 10px;
+    }
+  }
+}
