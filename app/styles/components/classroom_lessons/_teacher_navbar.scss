@@ -33,6 +33,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     img {
       margin: 3px;
       padding: 5px;
@@ -43,7 +44,6 @@
       }
     }
     .help-icon {
-      margin-left: 15px;
       padding: 5px 10px;
     }
   }
