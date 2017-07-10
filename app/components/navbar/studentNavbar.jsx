@@ -47,7 +47,7 @@ const Navbar = React.createClass({
     return (
       <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
         {this.renderLessonSpecificContent()}
-        <a key="a-tag-student-navabar" onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>]
+        <a key="a-tag-student-navabar" onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
       </div>
     );
   },

@@ -16,7 +16,7 @@ const Navbar = React.createClass({
               alt="quill-logo"
             />
           </a>
-          <div className="lesson-name" key="lesson-name">Lesson Name Placeholder</div>
+          <div className="lesson-name" key="lesson-name">Lesson {data.questions['0'].data.teach.lesson}: {data.questions['0'].data.play.topic}</div>
           <div className="teacher-name">{teacherAndClassroom || ''}</div>
         </nav>
       </header>
