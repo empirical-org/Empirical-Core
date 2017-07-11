@@ -146,7 +146,7 @@ export function toggleStudentFlag(classroomActivityId: string|null, student_id: 
     } else {
       flaggedStudentRef.set(true)
     }
-  }
+  })
 }
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string, baseUrl: string) {

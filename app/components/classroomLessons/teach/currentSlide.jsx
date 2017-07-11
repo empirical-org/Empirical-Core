@@ -31,16 +31,16 @@ class CurrentSlide extends React.Component<any, any> {
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
   }
 
-  toggleSelected(currentSlideString: string, student: string) {
+  toggleSelected(currentSlideId: string, student: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
       const submissions: SelectedSubmissions | null = this.props.classroomSessions.data.selected_submissions;
-      const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideString] : null;
+      const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideId] : null;
       const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
       if (!currentValue) {
-        saveSelectedStudentSubmission(caId, currentSlide, student);
+        saveSelectedStudentSubmission(caId, currentSlideId, student);
       } else {
-        removeSelectedStudentSubmission(caId, currentSlide, student);
+        removeSelectedStudentSubmission(caId, currentSlideId, student);
       }
     }
   }
@@ -81,6 +81,8 @@ class CurrentSlide extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     toggleStudentFlag(ca_id, student_id);
   }
+
+  toggel
 
   render() {
     const data = this.props.classroomSessions.data;
