@@ -125,7 +125,7 @@ class ScriptContainer extends React.Component<any, any> {
 
   renderReview(index: number) {
     const { selected_submissions, submissions, current_slide, students, presence } = this.props;
-    const numStudents: number = Object.keys(presence).length;
+    const numStudents: number = presence ? Object.keys(presence).length : 0;
     if (submissions) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
       let remainingStudents: Array<JSX.Element> | null = null;

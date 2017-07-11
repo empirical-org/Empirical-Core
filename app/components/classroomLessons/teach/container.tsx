@@ -23,6 +23,7 @@ import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
 import CLStudentLobby from '../play/lobby';
 import CLStudentStatic from '../play/static.jsx';
+import MainContentContainer from './mainContentContainer.jsx';
 import CLStudentSingleAnswer from '../play/singleAnswer.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
@@ -36,8 +37,6 @@ import {
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
-
-    this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
     this.goToNextSlide = this.goToNextSlide.bind(this);
     this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
@@ -66,39 +65,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     console.log(prevProps.classroomSessions.data.current_slide, this.props.classroomSessions.data.current_slide, prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)
     if (prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
       updateSlideInFirebase(ca_id, this.props.classroomSessions.data.current_slide)
-    }
-  }
-
-  renderCurrentSlide(data) {
-    const current = data.questions[data.current_slide || 0];
-    switch (current.type) {
-      case 'CL-LB':
-        return (
-          <CLLobby data={data} slideData={current} />
-        );
-      case 'CL-ST':
-        return (
-          <CLStatic
-            data={data}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-          />
-        );
-      case 'CL-SA':
-        return (
-          <CLSingleAnswer
-            data={data}
-            toggleSelected={this.toggleSelected}
-            startDisplayingAnswers={this.startDisplayingAnswers}
-            stopDisplayingAnswers={this.stopDisplayingAnswers}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
-            clearAllSubmissions={this.clearAllSubmissions}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-          />
-        );
-      default:
-
     }
   }
 
@@ -179,21 +145,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       switch (questions[slide].type) {
         case 'CL-LB':
           thumb = (
-            <CLStudentLobby data={data} />
+            <span/>
+            // <CLStudentLobby data={data} />
           );
           break
         case 'CL-ST':
           thumb = (
-            <CLStudentStatic data={questions[slide].data} />
+            <span/>
+            // <CLStudentStatic data={questions[slide].data} />
           );
           break
         case 'CL-SA':
-          const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
-          const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
-          const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
-          const props = { mode, submissions, selected_submissions, };
+          // const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+          // const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
+          // const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
+          // const props = { mode, submissions, selected_submissions, };
           thumb = (
-            <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+            <span/>
+            // <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
           );
           break
         default:
@@ -213,33 +182,19 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     return components
   }
 
-  renderNextSlideButton() {
-    return (
-      <div className="next-slide-button-container">
-        <button onClick={this.goToNextSlide}>Next Slide</button>
-      </div>
-    );
-  }
+
 
   render() {
     const { data, hasreceiveddata, } = this.props.classroomSessions;
     if (hasreceiveddata && data) {
-      const component = this.renderCurrentSlide(data);
-      if (component) {
         return (
           <div className="teach-lesson-container">
             <div className="side-bar">
               {this.renderSidebar(data)}
             </div>
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                {component}
-                {this.renderNextSlideButton()}
-              </div>
-            </div>
+            <MainContentContainer/>
           </div>
         );
-      }
     }
     return (
       <div>

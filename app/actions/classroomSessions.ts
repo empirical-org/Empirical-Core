@@ -89,10 +89,9 @@ export function updateCurrentSlide(classroom_activity_id: string, question_id: s
 }
 
 export function updateSlideInFirebase(classroom_activity_id: string , question_id: string ) {
-  console.log("Hi")
-  const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
-  currentSlideRef.set(question_id);
-  setSlideStartTime(classroom_activity_id, question_id)
+  // const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
+  // currentSlideRef.set(question_id);
+  // setSlideStartTime(classroom_activity_id, question_id)
 }
 
 export function updateSlideInStore(slideId: string) {
