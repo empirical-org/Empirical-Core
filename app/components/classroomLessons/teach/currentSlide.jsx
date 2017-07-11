@@ -88,34 +88,38 @@ class CurrentSlide extends React.Component<any, any> {
 
   render() {
     const data = this.props.classroomSessions.data;
-    const current = data.questions[data.current_slide || 0];
-    switch (current.type) {
-      case 'CL-LB':
-        return (
-          <CLLobby data={data} slideData={current} />
-        );
-      case 'CL-ST':
-        return (
-          <CLStatic
-            data={data}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-          />
-        );
-      case 'CL-SA':
-        return (
-          <CLSingleAnswer
-            data={data}
-            toggleSelected={this.toggleSelected}
-            startDisplayingAnswers={this.startDisplayingAnswers}
-            stopDisplayingAnswers={this.stopDisplayingAnswers}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
-            clearAllSubmissions={this.clearAllSubmissions}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-          />
-        );
-      default:
+    if (this.props.classroomSessions.hasreceiveddata) {
+      const current = data.questions[data.current_slide || '0'];
+      switch (current.type) {
+        case 'CL-LB':
+          return (
+            <CLLobby data={data} slideData={current} />
+          );
+        case 'CL-ST':
+          return (
+            <CLStatic
+              data={data}
+              toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            />
+          );
+        case 'CL-SA':
+          return (
+            <CLSingleAnswer
+              data={data}
+              toggleSelected={this.toggleSelected}
+              startDisplayingAnswers={this.startDisplayingAnswers}
+              stopDisplayingAnswers={this.stopDisplayingAnswers}
+              toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+              clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+              clearAllSubmissions={this.clearAllSubmissions}
+              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            />
+          );
+        default:
+      }
+    } else {
+      return <p>Hi</p>;
     }
   }
 

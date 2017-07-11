@@ -106,55 +106,62 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const data = this.props.classroomSessions.data;
-    const questions = data.questions;
-    const length = questions.length;
-    const currentSlide = data.current_slide;
-    const components: JSX.Element[] = [];
-    let counter = 0;
-    for (const slide in questions) {
-      counter += 1;
-      const activeClass = currentSlide === slide ? 'active' : '';
-      console.log(currentSlide, slide);
-      let thumb;
-      switch (questions[slide].type) {
-        case 'CL-LB':
-          thumb = (
-            <CLStudentLobby data={data} />
-          );
-          break;
-        case 'CL-ST':
-          thumb = (
-            <CLStudentStatic data={questions[slide].data} />
-          );
-          break;
-        case 'CL-SA':
-          const mode: string | null = data.modes && data.modes[data.currentSlide] ? data.modes[data.currentSlide] : null;
-          const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.currentSlide] ? data.submissions[data.currentSlide] : null;
-          const selected_submissions = data.selected_submissions && data.selected_submissions[data.currentSlide] ? data.selected_submissions[data.currentSlide] : null;
-          const props = { mode, submissions, selected_submissions, };
-          thumb = (
-            <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
-          );
-          break;
-        default:
-          thumb = questions[slide].type;
-      }
-      components.push((
-        <div key={counter} onClick={() => this.goToSlide(slide)}>
-          <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}</p>
-          <div className={`slide-preview ${activeClass}`}>
-            <div className="scaler">
-              {thumb}
+    const { data, hasreceiveddata, } = this.props.classroomSessions;
+    if (hasreceiveddata && data) {
+      const questions = data.questions;
+      const length = questions.length;
+      const currentSlide = data.current_slide;
+      const components: JSX.Element[] = [];
+      let counter = 0;
+      for (const slide in questions) {
+        counter += 1;
+        const activeClass = currentSlide === slide ? 'active' : '';
+        console.log(currentSlide, slide);
+        let thumb;
+        switch (questions[slide].type) {
+          case 'CL-LB':
+            thumb = (
+              <CLStudentLobby data={data} />
+            );
+            break;
+          case 'CL-ST':
+            thumb = (
+              <CLStudentStatic data={questions[slide].data} />
+            );
+            break;
+          case 'CL-SA':
+            const mode: string | null = data.modes && data.modes[data.currentSlide] ? data.modes[data.currentSlide] : null;
+            const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.currentSlide] ? data.submissions[data.currentSlide] : null;
+            const selected_submissions = data.selected_submissions && data.selected_submissions[data.currentSlide] ? data.selected_submissions[data.currentSlide] : null;
+            const props = { mode, submissions, selected_submissions, };
+            thumb = (
+              <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+            );
+            break;
+          default:
+            thumb = questions[slide].type;
+        }
+        components.push((
+          <div key={counter} onClick={() => this.goToSlide(slide)}>
+            <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}</p>
+            <div className={`slide-preview ${activeClass}`}>
+              <div className="scaler">
+                {thumb}
+              </div>
             </div>
           </div>
+        ));
+      }
+      return (
+        <div className="side-bar">
+          {components}
         </div>
-      ));
+      );
     }
     return (
       <div className="side-bar">
-        {components}
-      </div>
+          Loading...
+        </div>
     );
   }
 

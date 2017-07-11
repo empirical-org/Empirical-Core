@@ -55,29 +55,17 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
 
   render() {
-    const { data, hasreceiveddata, } = this.props.classroomSessions;
-    if (hasreceiveddata && data) {
         return (
           <div className="teach-lesson-container">
             <Sidebar/>
             <MainContentContainer/>
           </div>
         );
-    }
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
 
 }
 
 function select(props) {
-  return {
-    classroomSessions: props.classroomSessions,
-    // classroomLessons: props.classroomLessons,
-  };
+  return {};
 }
 
 export default connect(select)(TeachClassroomLessonContainer);
