@@ -180,9 +180,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
           );
           break
         case 'CL-SA':
-          const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
-          const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
-          const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
+          const thumbnailSlide = (counter - 1).toString();
+          const mode: string | null = data.modes && data.modes[thumbnailSlide] ? data.modes[thumbnailSlide] : null;
+          const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[thumbnailSlide] ? data.submissions[thumbnailSlide] : null;
+          const selected_submissions = data.selected_submissions && data.selected_submissions[thumbnailSlide] ? data.selected_submissions[thumbnailSlide] : null;
           const props = { mode, submissions, selected_submissions, };
           thumb = (
             <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
