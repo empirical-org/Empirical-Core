@@ -15,7 +15,7 @@ import {
   loadStudentNames,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
-  toggleStudentFlag
+  toggleStudentFlag,
   clearAllSubmissions,
   updateSlideInFirebase
 } from '../../../actions/classroomSessions';
@@ -54,15 +54,14 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
-
   render() {
-        return (
-          <div className="teach-lesson-container">
-            <Sidebar/>
-            <MainContentContainer/>
-          </div>
-        );
-
+    return (
+      <div className="teach-lesson-container">
+        <Sidebar/>
+        <MainContentContainer/>
+      </div>
+    );
+  }
 }
 
 function select(props) {

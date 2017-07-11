@@ -13,7 +13,7 @@ class NextSlideButton extends React.Component {
   goToNextSlide() {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     if (ca_id) {
-      const updateInStore = goToNextSlide(ca_id, this.props.classroomSessions.data);
+      const updateInStore = goToNextSlide(ca_id, this.props.classroomSessions.data, this.props.classroomLesson.data);
       if (updateInStore) {
         this.props.dispatch(updateInStore);
       }
@@ -30,6 +30,7 @@ class NextSlideButton extends React.Component {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
+    classroomLesson: props.classroomLesson,
   };
 }
 

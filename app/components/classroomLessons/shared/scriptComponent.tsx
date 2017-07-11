@@ -231,7 +231,7 @@ class ScriptContainer extends React.Component<any, any> {
       ? <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/> {this.renderUnselectAllButton()}</th>
       : <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/></th>
       headers.push(header)
-    })
+    }
     return <thead>
       <tr>
         {headers}
