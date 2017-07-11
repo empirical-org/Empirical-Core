@@ -73,8 +73,8 @@ class SingleAnswer extends Component {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps} = this.props.data;
-    const showHeaderText = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide'
+    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, } = this.props.data;
+    const showHeaderText = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
     return (
       <div className="teacher-single-answer">
         <div className="header">
@@ -85,9 +85,6 @@ class SingleAnswer extends Component {
             {showHeaderText}
           </p>
         </div>
-        {/* <ul>
-          {this.renderScript(this.props.data.questions[this.props.data.current_slide].data.teach.script)}
-        </ul> */}
         <ScriptComponent
           script={this.props.data.questions[this.props.data.current_slide].data.teach.script}
           selected_submissions={selected_submissions}

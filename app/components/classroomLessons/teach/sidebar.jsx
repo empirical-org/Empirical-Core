@@ -109,12 +109,13 @@ class Sidebar extends React.Component {
     const data = this.props.classroomSessions.data;
     const questions = data.questions;
     const length = questions.length;
-    const currentSlide = data.currentSlide;
+    const currentSlide = data.current_slide;
     const components: JSX.Element[] = [];
     let counter = 0;
     for (const slide in questions) {
       counter += 1;
       const activeClass = currentSlide === slide ? 'active' : '';
+      console.log(currentSlide, slide);
       let thumb;
       switch (questions[slide].type) {
         case 'CL-LB':
