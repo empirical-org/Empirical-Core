@@ -4,6 +4,8 @@
 @import 'classroom_lessons/_script_items.scss';
 @import 'classroom_lessons/_teacher_slide_container.scss';
 @import 'classroom_lessons/_scalers.scss';
+@import 'classroom_lessons/_teacher_navbar.scss';
+@import 'classroom_lessons/_tooltip.scss';
 
 .teach-lesson-container {
   display: flex;
@@ -290,7 +292,6 @@
   flex-direction: row;
   justify-content: flex-end;
   margin-top: 15px;
-
   button {
     height: 40px;
     font-size: 14px;
@@ -302,5 +303,8 @@
     border: none;
     box-shadow: none;
     font-weight: 800;
+    &:hover {
+      outline: none;
+    }
   }
 }

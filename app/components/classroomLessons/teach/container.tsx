@@ -12,7 +12,8 @@ import {
   loadStudentNames,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
-  clearAllSubmissions
+  clearAllSubmissions,
+  toggleStudentFlag
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -32,7 +33,6 @@ import {
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
-
     this.renderCurrentSlide = this.renderCurrentSlide.bind(this);
     this.goToNextSlide = this.goToNextSlide.bind(this);
     this.toggleSelected = this.toggleSelected.bind(this);
@@ -42,6 +42,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this)
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.renderSidebar = this.renderSidebar.bind(this)
+    this.toggleStudentFlag = this.toggleStudentFlag.bind(this)
   }
 
   componentDidMount() {
@@ -83,6 +84,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
             clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
             clearAllSubmissions={this.clearAllSubmissions}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            toggleStudentFlag={this.toggleStudentFlag}
           />
         );
       default:
@@ -137,6 +139,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     this.props.dispatch(toggleOnlyShowHeaders())
   }
 
+  toggleStudentFlag(student_id: 'string') {
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    toggleStudentFlag(ca_id, student_id)
+  }
+
   startDisplayingAnswers() {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     if (ca_id) {
@@ -173,7 +180,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
           );
           break
         case 'CL-SA':
-          const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+          const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
           const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
           const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
           const props = { mode, submissions, selected_submissions, };
@@ -206,23 +213,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     );
   }
 
+
   render() {
     const { data, hasreceiveddata, } = this.props.classroomSessions;
     if (hasreceiveddata && data) {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          <div className="teach-lesson-container">
-            <div className="side-bar">
-              {this.renderSidebar(data)}
-            </div>
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                {component}
-                {this.renderNextSlideButton()}
+            <div className="teach-lesson-container">
+              <div className="side-bar">
+                {this.renderSidebar(data)}
+              </div>
+              <div className="main-content">
+                <div className="main-content-wrapper">
+                  {component}
+                  {this.renderNextSlideButton()}
+                </div>
               </div>
             </div>
-          </div>
         );
       }
     }
