@@ -26,7 +26,7 @@ class ScriptContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      projecting: this.props.modes ? this.props.modes[this.props.current_slide] : false,
+      projecting: this.props.modes && this.props.modes[this.props.current_slide] ? true : false,
       showAllStudents: false,
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
@@ -35,6 +35,12 @@ class ScriptContainer extends React.Component<any, any> {
     this.clearSelectedSubmissions = this.clearSelectedSubmissions.bind(this)
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.retryQuestion = this.retryQuestion.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState( {
+      projecting: nextProps.modes && nextProps.modes[nextProps.current_slide] ? true : false
+    })
   }
 
   renderScript(script: Array<ScriptItem>) {
