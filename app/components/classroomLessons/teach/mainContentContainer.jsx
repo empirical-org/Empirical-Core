@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CurrentSlide from './currentSlide.jsx';
+import { connect } from 'react-redux';
 import { getParameterByName } from 'libs/getParameterByName';
+import NextSlideButton from './nextSlideButton.jsx';
 
 class MainContentContainer extends React.Component {
   constructor(props) {
@@ -15,30 +17,14 @@ class MainContentContainer extends React.Component {
     }
   }
 
-  goToNextSlide() {
-    // this should also prob be moved to action
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
-    if (ca_id) {
-      const updateInStore = goToNextSlide(ca_id, this.props.classroomSessions.data);
-      if (updateInStore) {
-        this.props.dispatch(updateInStore);
-      }
-    }
-  }
-
-  renderNextSlideButton() {
-    return (
-      <div className="next-slide-button-container">
-        <button onClick={this.goToNextSlide}>Next Slide</button>
-      </div>
-    );
-  }
-
   render() {
     return (
       <div className="main-content">
         <div className="main-content-wrapper">
           <CurrentSlide />
+          <div className="next-slide-button-container">
+            <NextSlideButton />
+          </div>
         </div>
       </div>
     );

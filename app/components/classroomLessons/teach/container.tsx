@@ -56,7 +56,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
       // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id));
-      this.props.dispatch(startListeningToCurrentSlide(ca_id));
+      // this.props.dispatch(startListeningToCurrentSlide(ca_id));
     }
   }
 

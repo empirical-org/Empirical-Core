@@ -40,8 +40,8 @@ class CurrentSlide extends React.Component<any, any> {
       // below is for spoofing if you log in with Amber M. account
       // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
       // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
-      this.props.dispatch(startListeningToSessionWithoutCurrentSlide(caId));
-      this.props.dispatch(startListeningToCurrentSlide(caId));
+      // this.props.dispatch(startListeningToSessionWithoutCurrentSlide(caId));
+      // this.props.dispatch(startListeningToCurrentSlide(caId));
     }
   }
 
