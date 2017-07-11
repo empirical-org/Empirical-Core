@@ -4,6 +4,7 @@ import { startListeningToSession, registerPresence } from '../../../actions/clas
 import CLStudentLobby from './lobby';
 import CLStudentStatic from './static.jsx';
 import CLStudentSingleAnswer from './singleAnswer.jsx';
+import CLWatchTeacher from './watchTeacher'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
@@ -74,14 +75,18 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const { data, hasreceiveddata }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
     // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
     // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
+    const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
     if (hasreceiveddata) {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          <div className="play-lesson-container">
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                {component}
+          <div>
+            {watchTeacher}
+            <div className="play-lesson-container">
+              <div className="main-content">
+                <div className="main-content-wrapper">
+                  {component}
+                </div>
               </div>
             </div>
           </div>

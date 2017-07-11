@@ -45,6 +45,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   toggleHelpDropdown() {
+    // helpDropdown should not be toggled if watchTeacherState is true 
     if (!this.props.classroomSessions.data.watchTeacherState) {
       this.setState({showHelpDropdown: !this.state.showHelpDropdown})
     }
@@ -56,6 +57,7 @@ class TeacherNavbar extends React.Component<any, any> {
 
   renderTooltip(icon:string) {
     const { watchTeacherState } = this.props.classroomSessions.data
+    // tooltips should not show if either watchTeacherState or showHelpDropdown is true
     if (watchTeacherState) {
       if (icon === 'watchTeacher') {
         return <Tooltip text={["Watch Teacher (", <strong>On</strong>,  ")"]} className={icon}/>
