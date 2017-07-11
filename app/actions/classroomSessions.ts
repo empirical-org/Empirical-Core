@@ -96,6 +96,17 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   modeRef.remove();
 }
 
+export function setWatchTeacherState(classroom_activity_id: string): void {
+  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
+  watchTeacherRef.set(true);
+}
+
+export function removeWatchTeacherState(classroom_activity_id: string): void {
+  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
+  watchTeacherRef.remove();
+}
+
+
 export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
   const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
   flaggedStudentRef.once('value', (snapshot) => {
