@@ -27,6 +27,35 @@ export function toggleOnlyShowHeaders() {
   }
 }
 
+export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string) {
+  return function (dispatch) {
+    classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
+      const payload = snapshot.val()
+      delete payload.current_slide
+      dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
+    });
+  };
+}
+
+export function updateClassroomSessionWithoutCurrentSlide(data) {
+  return {
+    type: C.UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE,
+    data
+  }
+}
+
+export function startListeningToCurrentSlide(classroom_activity_id: string) {
+  return function (dispatch) {
+    classroomSessionsRef.child(`${classroom_activity_id}/current_slide`).on('value', (snapshot) => {
+      console.log('listening to current slide ', snapshot.val())
+      dispatch(updateSlideInStore(snapshot.val()));
+    });
+  };
+}
+
+
+
+
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
@@ -48,17 +77,30 @@ export function goToNextSlide(classroom_activity_id: string, state: ClassroomLes
   const { current_slide, questions, } = state;
   const slides = Object.keys(questions);
   const current_slide_index = slides.indexOf(current_slide.toString());
-  console.log(current_slide_index);
   const nextSlide = slides[current_slide_index + 1];
   if (nextSlide !== undefined) {
-    updateCurrentSlide(classroom_activity_id, nextSlide);
+    return updateCurrentSlide(classroom_activity_id, nextSlide);
   }
 }
 
-export function updateCurrentSlide(classroom_activity_id: string, question_id: string): void {
+export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
+  return (dispatch) => {
+    dispatch(updateSlideInStore(question_id))
+    updateSlideInFirebase(classroom_activity_id, question_id)
+  }
+}
+
+export function updateSlideInFirebase(classroom_activity_id: string , question_id: string ) {
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.set(question_id);
   setSlideStartTime(classroom_activity_id, question_id)
+}
+
+export function updateSlideInStore(slideId: string) {
+  return{
+    type: C.UPDATE_SLIDE_IN_STORE,
+    data: slideId
+  }
 }
 
 export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
@@ -115,7 +157,7 @@ export function toggleStudentFlag(classroomActivityId: string|null, student_id: 
     } else {
       flaggedStudentRef.set(true)
     }
-  }
+  })
 }
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string, baseUrl: string) {
