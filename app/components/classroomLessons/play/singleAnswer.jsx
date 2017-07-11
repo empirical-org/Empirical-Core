@@ -12,23 +12,23 @@ class SingleAnswer extends Component {
     this.state = {
       response: '',
       editing: false,
-      submitted: false
+      submitted: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.submitSubmission = this.submitSubmission.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    const student = getParameterByName('student')
+    const student = getParameterByName('student');
     // this will reset the state when a teacher resets a question
     if (this.state.submitted === true && nextProps.submissions === null) {
-      this.setState({submitted: false, editing: false, response: ''})
+      this.setState({ submitted: false, editing: false, response: '', });
     }
   }
 
   submitSubmission() {
     this.props.handleStudentSubmission(this.state.response, moment().format());
-    this.setState({submitted: true})
+    this.setState({ submitted: true, });
   }
 
   handleChange(e) {
@@ -39,31 +39,31 @@ class SingleAnswer extends Component {
   // answers, NOT what is being projected on the board.
   renderProject() {
     const classAnswers = this.props.selected_submissions
-    ? <div>
-        <p className="answer-header"><i className="fa fa-users"></i>Class Answers:</p>
-        {this.renderClassAnswersList()}
-      </div>
-    : <span/>
+    ? (<div>
+      <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
+      {this.renderClassAnswersList()}
+    </div>)
+    : <span />;
     return (
       <div className="display-mode">
-        <p className="answer-header"><i className="fa fa-user"></i>Your Answer:</p>
+        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         {this.renderYourAnswer()}
         {classAnswers}
       </div>
-    )
+    );
   }
 
   renderYourAnswer() {
-    return <p className="your-answer">{this.state.response}</p>
+    return <p className="your-answer">{this.state.response}</p>;
   }
 
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text = submissions[key].data
-      return <li>
+      const text = submissions[key].data;
+      return (<li>
         <span>{index + 1}</span>{text}
-      </li>
+      </li>);
     });
     return (
       <ul className="class-answer-list">
@@ -75,33 +75,32 @@ class SingleAnswer extends Component {
   modeAppropriateRender() {
     if (this.props.mode === 'PROJECT') {
       return this.renderProject();
-    } else {
-      const textBoxDisabled = this.state.submitted ? true : false;
-      return (
-        <TextEditor
-          defaultValue={''}
-          value={this.state.response}
-          disabled={textBoxDisabled}
-          checkAnswer={this.submitSubmission}
-          hasError={undefined}
-          handleChange={this.handleChange}
-          placeholder="Type your answer here."
-        />
-      );
     }
+    const textBoxDisabled = !!this.state.submitted;
+    return (
+      <TextEditor
+        defaultValue={''}
+        value={this.state.response}
+        disabled={textBoxDisabled}
+        checkAnswer={this.submitSubmission}
+        hasError={undefined}
+        handleChange={this.handleChange}
+        placeholder="Type your answer here."
+      />
+    );
   }
 
   renderInstructions() {
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
-        return <div className="feedback-row">
-          <p><i className="fa fa-check-circle" aria-hidden="true"></i>Great Work! Please wait as your teacher reviews your answer...</p>
-        </div>
+        return (<div className="feedback-row">
+          <p><i className="fa fa-check-circle" aria-hidden="true" />Great Work! Please wait as your teacher reviews your answer...</p>
+        </div>);
       } else if (this.props.data.play.instructions) {
-        return <div className="feedback-row">
+        return (<div className="feedback-row">
           <img src={icon} />
           <p>{this.props.data.play.instructions}</p>
-        </div>
+        </div>);
       }
     }
   }
@@ -115,27 +114,25 @@ class SingleAnswer extends Component {
               cues: this.props.data.play.cues,
             })
           }
-          displayArrowAndText={false}
-        />
-      )
-    } else {
+            displayArrowAndText={false}
+          />
+        );
+      }
       return (
-        <span></span>
-      )
-    }
+        <span />
+      );
     }
   }
 
   renderSubmitButton() {
     if (this.props.mode !== 'PROJECT') {
-      return <div className="question-button-group">
+      return (<div className="question-button-group">
         <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
-      </div>
+      </div>);
     }
   }
 
   render() {
-    console.log(this.props.data);
     return (
       <div>
         <RenderSentenceFragments prompt={this.props.data.play.prompt} />
