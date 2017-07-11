@@ -1,6 +1,6 @@
 declare function require(name:string);
 import * as React from 'react'
-import { sortByLastName } from './sortByLastName'
+import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -18,7 +18,8 @@ const uncheckedGrayCheckbox = require('../../../img/box_gray_unchecked.svg')
 const checkedGrayCheckbox = require('../../../img/box_gray_checked.svg')
 const uncheckedGreenCheckbox = require('../../../img/box_green_unchecked.svg')
 const checkedGreenCheckbox = require('../../../img/box_green_checked.svg')
-
+const grayFlag = require('../../../img/flag_gray.svg')
+const blueFlag = require('../../../img/flag_blue.svg')
 const moment = require('moment');
 
 class ScriptContainer extends React.Component<any, any> {
@@ -28,6 +29,8 @@ class ScriptContainer extends React.Component<any, any> {
     this.state = {
       projecting: this.props.modes ? this.props.modes[this.props.current_slide] : false,
       showAllStudents: false,
+      sort: 'time',
+      sortDirection: 'desc'
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -35,6 +38,17 @@ class ScriptContainer extends React.Component<any, any> {
     this.clearSelectedSubmissions = this.clearSelectedSubmissions.bind(this)
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.retryQuestion = this.retryQuestion.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.submissions) {
+      const numStudents: number = Object.keys(nextProps.presence).length;
+      const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length
+      const percentageOfClassAnswered = numAnswers/numStudents * 100
+      if (percentageOfClassAnswered > 66) {
+        this.setState({showAllStudents: true})
+      }
+    }
   }
 
   renderScript(script: Array<ScriptItem>) {
@@ -123,64 +137,52 @@ class ScriptContainer extends React.Component<any, any> {
     this.props.clearAllSubmissions(this.props.current_slide)
   }
 
+  setSort(sort: string) {
+    if (this.state.sort !== sort) {
+      this.setState({sort, sortDirection: 'desc'})
+    } else {
+      const sortDirection = this.state.sortDirection === 'desc' ? 'asc' : 'desc'
+      this.setState({sortDirection})
+    }
+  }
+
+  sortedRows(studentsToBeSorted: Array<string>) {
+    const {submissions, selected_submissions, current_slide, students, flaggedStudents} = this.props
+    const sortedRows = studentsToBeSorted.sort((studentKey1, studentKey2) => {
+      switch(this.state.sort) {
+        case 'flag':
+        if (flaggedStudents) {
+          const studentFlag1 = flaggedStudents[studentKey1] ? flaggedStudents[studentKey1] : false
+          const studentFlag2 = flaggedStudents[studentKey2] ? flaggedStudents[studentKey2] : false
+          return sortByFlag(studentFlag1, studentFlag2)
+        }
+        case 'answers':
+          const answer1 = submissions[current_slide][studentKey1].data
+          const answer2 = submissions[current_slide][studentKey2].data
+          return sortByAnswer(answer1, answer2)
+        case 'time':
+          const time1 = this.elapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp))
+          const time2 = this.elapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp))
+          return sortByTime(time1, time2)
+        case 'displayed':
+          if (selected_submissions && selected_submissions[current_slide]) {
+            return sortByDisplayed(selected_submissions[current_slide][studentKey1], selected_submissions[current_slide][studentKey2])
+          }
+        case 'lastName':
+        default:
+        return sortByLastName(studentKey1, studentKey2, students)
+      }
+    })
+
+    return this.state.sortDirection === 'desc' ? sortedRows : sortedRows.reverse()
+  }
+
   renderReview(index: number) {
     const { selected_submissions, submissions, current_slide, students, presence } = this.props;
     const numStudents: number = Object.keys(presence).length;
     if (submissions) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
-      let remainingStudents: Array<JSX.Element> | null = null;
-      if (this.state.showAllStudents) {
-        const submittedStudents: Array<string> | null = Object.keys(submissions[current_slide]);
-        const workingStudents: Array<string> | null = Object.keys(presence).filter((id) => {
-          return submittedStudents.indexOf(id) === -1;
-        })
-        const sortedWorkingStudents: Array<string> | null = workingStudents.sort((key1, key2) => {
-          return sortByLastName(key1, key2, students);
-        })
-        if (sortedWorkingStudents) {
-          remainingStudents = sortedWorkingStudents.map((key) => (
-            <tr>
-              <td>{students[key]}</td>
-              <td></td>
-              <td className="no-student-response">Waiting for the student's answer...</td>
-              <td></td>
-              <td></td>
-            </tr>
-          ))
-        }
 
-      }
-      const sortedNames: Array<string> = Object.keys(submissions[current_slide]).sort((key1, key2) => {
-        return sortByLastName(key1, key2, students);
-      })
-      const submissionComponents = sortedNames.map((key, index) => {
-        // the following line will not be necessary
-        // when all submissions are stored as objects with a data prop
-        const text: any = submissions[current_slide][key].data
-        const submittedTimestamp: string = submissions[current_slide][key].timestamp
-        const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
-        const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][key] : false
-        const checkbox = this.determineCheckbox(checked)
-        const studentName: string = students[key]
-          return <tr key={index}>
-            <td>{studentName}</td>
-            <td></td>
-            <td>{text}</td>
-            <td>{elapsedTime}</td>
-            <td>
-              <input
-                id={studentName}
-                name={studentName}
-                type="checkbox"
-                checked={checked}
-              />
-              <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, key); }}>
-                {checkbox}
-              </label>
-            </td>
-          </tr>
-        }
-        );
       return (
         <li className="student-submission-item" key={index}>
           <div className="student-submission-item-header">
@@ -189,18 +191,9 @@ class ScriptContainer extends React.Component<any, any> {
           </div>
           <div className="student-submission-item-table">
             <table >
-              <thead>
-                <tr>
-                  <th>Students<i className="fa fa-caret-down"/></th>
-                  <th>Flag<i className="fa fa-caret-down"/></th>
-                  <th>Answers<i className="fa fa-caret-down"/></th>
-                  <th>Time<i className="fa fa-caret-down"/></th>
-                  <th>Select to Display<i className="fa fa-caret-down"/> {this.renderUnselectAllButton()}</th>
-                </tr>
-              </thead>
+              {this.renderTableHeaders()}
               <tbody>
-                {submissionComponents}
-                {remainingStudents}
+                {this.renderStudentRows()}
               </tbody>
             </table>
           </div>
@@ -214,26 +207,138 @@ class ScriptContainer extends React.Component<any, any> {
         </li>
       );
     } else {
-      return (
-        <li className="student-submission-item" key={index}>
-          <div className="student-submission-item-header">
-            <strong>0 of {numStudents}</strong> Students have answered.
-          </div>
-          <div className="no-student-submissions">
-            Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
-          </div>
-
-          <div className="student-submission-item-footer">
-            {this.renderDisplayButton()}
-          </div>
-
-        </li>
-      )
+      return this.renderNoSubmissionsTable(numStudents, index)
     }
   }
 
+  renderTableHeaders() {
+    const sort = this.state.sort
+    const dir = this.state.sortDirection
+    const fields = {
+      'lastName': 'Students',
+      'flag': 'Flag',
+      'answers': 'Answers',
+      'time': 'Time',
+      'displayed': 'Select to Display'
+    }
+    const headers: Array<JSX.Element> = []
+    for (let key in fields) {
+      let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
+      const header = key === 'displayed'
+      ? <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/> {this.renderUnselectAllButton()}</th>
+      : <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/></th>
+      headers.push(header)
+    })
+    return <thead>
+      <tr>
+        {headers}
+      </tr>
+    </thead>
+  }
+
+  renderStudentRows() {
+    const { submissions, current_slide, students, presence } = this.props;
+
+    let sortedRows: Array<JSX.Element> | null
+
+    const submittedStudents: Array<string> = Object.keys(submissions[current_slide]);
+    const workingStudents: Array<string> | null = Object.keys(presence).filter((id) => submittedStudents.indexOf(id) === -1)
+
+    if (this.state.showAllStudents) {
+      // if there are no working students or if students are being sorted by lastname or flag,
+      // they should all be sorted together
+      if (this.state.sort === 'lastName' || this.state.sort === 'flag' || workingStudents.length < 1) {
+        const sortedStudents: Array<string> | null = this.sortedRows(Object.keys(presence))
+          sortedRows = sortedStudents.map((studentKey, index) => {
+            return submittedStudents.includes(studentKey)
+            ? this.renderSubmissionRow(studentKey, index)
+            : this.renderNoSubmissionRow(studentKey)
+          })
+      // otherwise they need to be sorted separately and then concatenated
+      } else {
+        const sortedSubmittedStudents: Array<string> = this.sortedRows(Object.keys(submissions[current_slide]))
+        const sortedSubmittedStudentRows = sortedSubmittedStudents.map((studentKey, index) => this.renderSubmissionRow(studentKey, index))
+        const sortedWorkingStudents: Array<string> = workingStudents.sort((studentKey1, studentKey2) => sortByLastName(studentKey1, studentKey2, students))
+        const sortedWorkingStudentRows = sortedWorkingStudents.map((studentKey) => this.renderNoSubmissionRow(studentKey))
+        sortedRows = sortedSubmittedStudentRows.concat(sortedWorkingStudentRows)
+      }
+    } else {
+      const sortedSubmittedStudents: Array<string> = this.sortedRows(Object.keys(submissions[current_slide]))
+      sortedRows = sortedSubmittedStudents.map((studentKey, index) => this.renderSubmissionRow(studentKey, index))
+    }
+    return sortedRows
+  }
+
+  renderFlag(studentKey: string) {
+    let flag = grayFlag
+    if (this.props.flaggedStudents && this.props.flaggedStudents[studentKey]) {
+      flag = blueFlag
+    }
+    return <img onClick={() => this.props.toggleStudentFlag(studentKey)} src={flag} />
+  }
+
+  renderNoSubmissionRow(studentKey: string) {
+    return <tr key={studentKey}>
+      <td>{this.props.students[studentKey]}</td>
+      <td>{this.renderFlag(studentKey)}</td>
+      <td className="no-student-response">Waiting for the student's answer...</td>
+      <td></td>
+      <td></td>
+    </tr>
+  }
+
+  renderSubmissionRow(studentKey: string, index: number) {
+    const { selected_submissions, submissions, current_slide, students } = this.props;
+    const text: any = submissions[current_slide][studentKey].data
+    const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
+    const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
+    const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
+    const checkbox = this.determineCheckbox(checked)
+    const studentName: string = students[studentKey]
+      return <tr key={index}>
+        <td>{studentName}</td>
+        <td>{this.renderFlag(studentKey)}</td>
+        <td>{text}</td>
+        <td>{elapsedTime}</td>
+        <td>
+          <input
+            id={studentName}
+            name={studentName}
+            type="checkbox"
+            checked={checked}
+          />
+          <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, studentKey); }}>
+            {checkbox}
+          </label>
+        </td>
+      </tr>
+
+  }
+
+  renderNoSubmissionsTable(numStudents: number, index: number) {
+    return <li className="student-submission-item" key={index}>
+
+        <div className="student-submission-item-header">
+          <strong>0 of {numStudents}</strong> Students have answered.
+        </div>
+
+        <div className="no-student-submissions">
+          Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
+        </div>
+
+        <div className="student-submission-item-footer">
+          {this.renderDisplayButton()}
+        </div>
+
+      </li>
+  }
+
+  elapsedMilliseconds(submittedTimestamp: any) {
+    return submittedTimestamp.diff(moment(this.props.timestamps[this.props.current_slide]))
+  }
+
   formatElapsedTime(submittedTimestamp: any) {
-    const elapsedMilliseconds : number  = submittedTimestamp.diff(moment(this.props.timestamps[this.props.current_slide]))
+    const elapsedMilliseconds : number  = this.elapsedMilliseconds(submittedTimestamp)
     const elapsedMinutes: number = moment.duration(elapsedMilliseconds).minutes()
     const elapsedSeconds: number = moment.duration(elapsedMilliseconds).seconds()
     const formattedMinutes: string | number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()

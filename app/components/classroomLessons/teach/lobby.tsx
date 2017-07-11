@@ -7,7 +7,7 @@ import {
   SelectedSubmissionsForQuestion,
   Question
 } from '../interfaces';
-import { sortByLastName } from '../shared/sortByLastName'
+import { sortByLastName } from '../shared/studentSorts'
 
 
 

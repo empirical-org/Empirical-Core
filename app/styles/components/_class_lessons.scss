@@ -290,7 +290,6 @@
   flex-direction: row;
   justify-content: flex-end;
   margin-top: 15px;
-
   button {
     height: 40px;
     font-size: 14px;
@@ -302,5 +301,8 @@
     border: none;
     box-shadow: none;
     font-weight: 800;
+    &:hover {
+      outline: none;
+    }
   }
 }
