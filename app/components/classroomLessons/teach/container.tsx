@@ -21,7 +21,6 @@ import CLSingleAnswer from './singleAnswer.jsx';
 import CLStudentLobby from '../play/lobby';
 import CLStudentStatic from '../play/static.jsx';
 import CLStudentSingleAnswer from '../play/singleAnswer.jsx';
-import CLTeacherNavbar from './teacherNavbar'
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
@@ -141,7 +140,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   toggleStudentFlag(student_id: 'string') {
-    const ca_id: string | null = getParameterByName('classroom_activity_id');
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
     toggleStudentFlag(ca_id, student_id)
   }
 
@@ -181,7 +180,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
           );
           break
         case 'CL-SA':
-          const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+          const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
           const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
           const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
           const props = { mode, submissions, selected_submissions, };
@@ -221,8 +220,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          <div>
-            <CLTeacherNavbar data={data}/>
             <div className="teach-lesson-container">
               <div className="side-bar">
                 {this.renderSidebar(data)}
@@ -234,7 +231,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
                 </div>
               </div>
             </div>
-          </div>
         );
       }
     }

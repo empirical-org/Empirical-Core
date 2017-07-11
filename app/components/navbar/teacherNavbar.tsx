@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import Tooltip from '../shared/tooltip'
-const watchTeacherIcon = require('../../../img/watch_teacher_icon.svg')
-const exitIcon = require('../../../img/exit_icon.svg')
-const projectorIcon = require('../../../img/projector_icon.svg')
-const helpIcon = require('../../../img/help_icon.svg')
+declare function require(name:string);
+import * as React from 'react';
+import { connect } from 'react-redux';
+import Tooltip from '../classroomLessons/shared/tooltip'
+const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
+const exitIcon = require('../../img/exit_icon.svg')
+const projectorIcon = require('../../img/projector_icon.svg')
+const helpIcon = require('../../img/help_icon.svg')
 
-class TeacherNavbar extends Component {
+class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +15,7 @@ class TeacherNavbar extends Component {
       showHelpDropdown: false
     }
 
+    this.presentStudentCount = this.presentStudentCount.bind(this)
     this.showTooltip = this.showTooltip.bind(this)
     this.hideTooltip = this.hideTooltip.bind(this)
     this.renderTooltip = this.renderTooltip.bind(this)
@@ -21,18 +24,17 @@ class TeacherNavbar extends Component {
   }
 
   presentStudentCount() {
-    const presence = this.props.data.presence
+    const presence = this.props.classroomSessions.data.presence
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     const circleClassname = numPresent === 0 ? 'offline' : 'online'
     return <p className="present-student-count"><span className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
-    );
   }
 
-  showTooltip(icon:string) {
+  showTooltip(e, icon:string) {
     this.setState({tooltip: icon})
   }
 
-  hideTooltip(icon:string) {
+  hideTooltip(e) {
     this.setState({tooltip: ''})
   }
 
@@ -119,30 +121,30 @@ class TeacherNavbar extends Component {
         <span className="toolbar">
           {this.presentStudentCount()}
           <div
-            onMouseEnter={() => this.showTooltip('projector')}
-            onMouseLeave={this.hideTooltip}
+            onMouseEnter={(e) => this.showTooltip(e, 'projector')}
+            onMouseLeave={(e) => this.hideTooltip(e)}
           >
             <img src={projectorIcon} className={projectorClass}/>
             {this.renderTooltip('projector')}
           </div>
           <div
-            onMouseEnter={() => this.showTooltip('watchTeacher')}
-            onMouseLeave={this.hideTooltip}
+            onMouseEnter={(e) => this.showTooltip(e, 'watchTeacher')}
+            onMouseLeave={(e) => this.hideTooltip(e)}
           >
             <img src={watchTeacherIcon} className={watchTeacherClass}/>
             {this.renderTooltip('watchTeacher')}
           </div>
           <div
-            onMouseEnter={() => this.showTooltip('exit')}
-            onMouseLeave={this.hideTooltip}
+            onMouseEnter={(e) => this.showTooltip(e, 'exit')}
+            onMouseLeave={(e) => this.hideTooltip(e)}
             onClick={this.exitLesson}
           >
             <img src={exitIcon} className={exitClass}/>
             {this.renderTooltip('exit')}
           </div>
           <div
-            onMouseEnter={() => this.showTooltip('help')}
-            onMouseLeave={this.hideTooltip}
+            onMouseEnter={(e) => this.showTooltip(e, 'help')}
+            onMouseLeave={(e) => this.hideTooltip(e)}
             onClick={this.toggleHelpDropdown}
             onBlur={this.hideHelpDropdown}
             tabIndex={0}
@@ -158,4 +160,10 @@ class TeacherNavbar extends Component {
 
 }
 
-export default TeacherNavbar;
+function select(props) {
+  return {
+    classroomSessions: props.classroomSessions,
+  };
+}
+
+export default connect(select)(TeacherNavbar);

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-class Tooltip extends Component {
+class Tooltip extends React.Component<any, any> {
   constructor(props) {
     super(props);
   }
