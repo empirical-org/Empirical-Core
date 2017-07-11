@@ -79,7 +79,7 @@ class SingleAnswer extends Component {
       <div className="teacher-single-answer">
         <div className="header">
           <h1>
-            <span>Slide {this.props.data.current_slide}:</span> Name Will Go Here
+            <span>Slide {this.props.data.current_slide}:</span> {this.props.data.questions[this.props.data.current_slide].data.teach.title}
           </h1>
           <p onClick={this.props.toggleOnlyShowHeaders}>
             {showHeaderText}

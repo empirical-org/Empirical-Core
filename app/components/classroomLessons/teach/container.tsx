@@ -21,6 +21,7 @@ import CLSingleAnswer from './singleAnswer.jsx';
 import CLStudentLobby from '../play/lobby';
 import CLStudentStatic from '../play/static.jsx';
 import CLStudentSingleAnswer from '../play/singleAnswer.jsx';
+import CLTeacherNavbar from './teacherNavbar'
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
@@ -220,14 +221,17 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          <div className="teach-lesson-container">
-            <div className="side-bar">
-              {this.renderSidebar(data)}
-            </div>
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                {component}
-                {this.renderNextSlideButton()}
+          <div>
+            <CLTeacherNavbar data={data}/>
+            <div className="teach-lesson-container">
+              <div className="side-bar">
+                {this.renderSidebar(data)}
+              </div>
+              <div className="main-content">
+                <div className="main-content-wrapper">
+                  {component}
+                  {this.renderNextSlideButton()}
+                </div>
               </div>
             </div>
           </div>

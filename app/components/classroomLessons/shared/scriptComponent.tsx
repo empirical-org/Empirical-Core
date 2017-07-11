@@ -355,15 +355,16 @@ class ScriptContainer extends React.Component<any, any> {
   }
 
   renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
-    const html = onlyShowHeaders
-      ? <li className="script-item" key={index}><p className="script-item-heading">{item.data.heading}</p></li>
-      : (<li className="script-item" key={index}>
-        <p className="script-item-heading">{item.data.heading}</p>
-        <hr />
-        <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
-      </li>)
-
-    return html
+    if (item.data) {
+      const html = onlyShowHeaders
+        ? <li className="script-item" key={index}><p className="script-item-heading">{item.data.heading}</p></li>
+        : (<li className="script-item" key={index}>
+          <p className="script-item-heading">{item.data.heading}</p>
+          <hr />
+          <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
+        </li>)
+      return html
+    }
   }
 
   render() {
