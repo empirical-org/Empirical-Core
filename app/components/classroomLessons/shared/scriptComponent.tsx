@@ -344,8 +344,8 @@ class ScriptContainer extends React.Component<any, any> {
     const elapsedMilliseconds : number  = this.elapsedMilliseconds(submittedTimestamp)
     const elapsedMinutes: number = moment.duration(elapsedMilliseconds).minutes()
     const elapsedSeconds: number = moment.duration(elapsedMilliseconds).seconds()
-    const formattedMinutes: string | number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
-    const formattedSeconds: string | number = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
+    const formattedMinutes: string|number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
+    const formattedSeconds: string|number = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
     return formattedMinutes + ':' + formattedSeconds
   }
 

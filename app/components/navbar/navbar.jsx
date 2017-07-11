@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
+import TeacherLessonsNavbar from './teacherNavbar'
 
 const Navbar = React.createClass({
   getInitialState: function () {
@@ -30,6 +31,10 @@ const Navbar = React.createClass({
     return (window.location.href.indexOf('play/lesson') !== -1);
   },
 
+  quillLessons: function() {
+    return window.location.href.includes('teach/class-lessons');
+  },
+
   renderLinks: function () {
     if (this.inLesson()) {
       return (
@@ -49,14 +54,17 @@ const Navbar = React.createClass({
   },
 
   render: function () {
-    return (
-      <header className="nav" style={{height: '65px'}}>
-        <div className="container">
-          <div className="nav-left">
-            <a href="http://www.connect.quill.org" className="nav-item">
+    if (this.quillLessons()) {
+      return (<TeacherLessonsNavbar />);
+    } else {
+      return (
+        <header className="nav" style={{height: '65px'}}>
+          <div className="container">
+            <div className="nav-left">
+              <a href="http://www.connect.quill.org" className="nav-item">
               <img src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
-                alt=""
-                style={{height: "35px"}}/>
+              alt=""
+              style={{height: "35px"}}/>
             </a>
           </div>
           {this.renderLinks()}
@@ -68,6 +76,7 @@ const Navbar = React.createClass({
         </div>
       </header>
     )
+    }
   }
 })
 

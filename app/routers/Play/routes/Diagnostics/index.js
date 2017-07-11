@@ -12,7 +12,7 @@ const diagnosticRoute = {
 };
 
 const ellRoute = {
-  path: ':ell',
+  path: 'ell',
   getComponent: (nextState, cb) => {
     System.import(/* webpackChunkName: "student-ell-diagnostic" */ 'components/eslDiagnostic/studentDiagnostic.jsx')
     .then((component) => {

@@ -9,7 +9,7 @@ export default {
   },
   getComponent: (nextState, cb) => {
     require.ensure([], (require) => {
-      cb(null, require('components/studentRoot.js').default);
-    }, 'student-root');
+      cb(null, require('components/root.js').default);
+    }, 'root');
   },
 };

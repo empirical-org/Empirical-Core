@@ -6,6 +6,7 @@ const Navbar = React.createClass({
     const data = this.props.classroomSessions.data;
     const bothNames = data.teacher_name && data.classroom_name;
     const teacherAndClassroom = bothNames ? `${data.teacher_name} - ${data.classroom_name}` : data.teacher_name || data.classroom_name;
+    const lessonName = data.questions ? `${data.questions['0'].data.teach.lesson}: ${data.questions['0'].data.play.topic}` : ''
     return (
       <header className={'nav student-nav'} style={{ height: '66px', }}>
         <nav className="student-lessons">
@@ -16,7 +17,7 @@ const Navbar = React.createClass({
               alt="quill-logo"
             />
           </a>
-          <div className="lesson-name" key="lesson-name">Lesson {data.questions['0'].data.teach.lesson}: {data.questions['0'].data.play.topic}</div>
+          <div className="lesson-name" key="lesson-name">Lesson {lessonName}</div>
           <div className="teacher-name">{teacherAndClassroom || ''}</div>
         </nav>
       </header>

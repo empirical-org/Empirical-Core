@@ -30,8 +30,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   handleStudentSubmission(data: string, timestamp: string) {
-    const classroom_activity_id: string | null = getParameterByName('classroom_activity_id');
-    const student: string | null = getParameterByName('student');
+    const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
+    const student: string|null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
     const submission = {data, timestamp}
     if (classroom_activity_id && student) {
@@ -58,7 +58,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
           <CLStudentStatic data={current.data} />
         );
       case 'CL-SA':
-        const mode: string | null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+        const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
         const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
         const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
         const props = { mode, submissions, selected_submissions, };

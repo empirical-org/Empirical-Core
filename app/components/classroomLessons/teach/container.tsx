@@ -140,7 +140,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   toggleStudentFlag(student_id: 'string') {
-    const ca_id: string | null = getParameterByName('classroom_activity_id');
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
     toggleStudentFlag(ca_id, student_id)
   }
 
@@ -180,10 +180,9 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
           );
           break
         case 'CL-SA':
-          const thumbnailSlide = (counter - 1).toString();
-          const mode: string | null = data.modes && data.modes[thumbnailSlide] ? data.modes[thumbnailSlide] : null;
-          const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[thumbnailSlide] ? data.submissions[thumbnailSlide] : null;
-          const selected_submissions = data.selected_submissions && data.selected_submissions[thumbnailSlide] ? data.selected_submissions[thumbnailSlide] : null;
+          const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+          const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
+          const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
           const props = { mode, submissions, selected_submissions, };
           thumb = (
             <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
@@ -221,17 +220,17 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       const component = this.renderCurrentSlide(data);
       if (component) {
         return (
-          <div className="teach-lesson-container">
-            <div className="side-bar">
-              {this.renderSidebar(data)}
-            </div>
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                {component}
-                {this.renderNextSlideButton()}
+            <div className="teach-lesson-container">
+              <div className="side-bar">
+                {this.renderSidebar(data)}
+              </div>
+              <div className="main-content">
+                <div className="main-content-wrapper">
+                  {component}
+                  {this.renderNextSlideButton()}
+                </div>
               </div>
             </div>
-          </div>
         );
       }
     }
