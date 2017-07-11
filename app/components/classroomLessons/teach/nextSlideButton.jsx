@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CurrentSlide from './currentSlide.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import { goToNextSlide } from '../../../actions/classroomSessions';
 

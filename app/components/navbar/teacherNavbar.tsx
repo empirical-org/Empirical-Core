@@ -91,7 +91,7 @@ class TeacherNavbar extends React.Component<any, any> {
 
   exitLesson() {
     if (window.confirm('Are you sure you want to exit the lesson?')) {
-      document.location.href = process.env.EMPIRICAL_BASE_URL;
+      document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
   }
 

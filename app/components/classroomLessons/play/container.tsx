@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
 import CLStudentStatic from './static.jsx';
-import CLStudentSingleAnswer from './singleAnswer.jsx';
+import CLStudentSingleAnswer from './singleAnswer';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -79,9 +79,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   public render() {
     const { data, hasreceiveddata }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
     // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
-    if (hasreceiveddata) {
+    if (hasreceiveddata && lessonDataLoaded) {
       const component = this.renderCurrentSlide(data, lessonData);
       if (component) {
         return (

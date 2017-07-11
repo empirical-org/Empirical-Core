@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Cues from '../../renderForQuestions/cues.jsx';
-import RenderSentenceFragments from '../../renderForQuestions/sentenceFragments.jsx';
+import Cues from '../../renderForQuestions/cues';
+import RenderSentenceFragments from '../../renderForQuestions/sentenceFragments';
 import icon from '../../../img/question_icon.svg';
-import TextEditor from '../../renderForQuestions/renderTextEditor.jsx';
+import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from 'libs/getParameterByName';
 const moment = require('moment');
 

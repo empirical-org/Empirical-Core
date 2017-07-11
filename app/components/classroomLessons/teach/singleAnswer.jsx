@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ScriptComponent from '../shared/scriptComponent.tsx';
+import ScriptComponent from '../shared/scriptComponent';
 
 class SingleAnswer extends Component {
   constructor(props) {

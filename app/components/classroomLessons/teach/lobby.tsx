@@ -4,9 +4,11 @@ import {
   ClassroomLessonSession,
   QuestionSubmissionsList,
   SelectedSubmissions,
-  SelectedSubmissionsForQuestion,
-  Question
+  SelectedSubmissionsForQuestion
 } from '../interfaces';
+import {
+  Question
+} from 'interfaces/classroomLessons';
 import { sortByLastName } from '../shared/studentSorts'
 
 

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CurrentSlide from './currentSlide.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   updateCurrentSlide,
   updateSlideInFirebase
 } from '../../../actions/classroomSessions';
 import CLStudentLobby from '../play/lobby';
-import CLStudentStatic from '../play/static.jsx';
-import CLStudentSingleAnswer from '../play/singleAnswer.jsx';
+import CLStudentStatic from '../play/static';
+import CLStudentSingleAnswer from '../play/singleAnswer';
 
-class Sidebar extends React.Component {
+class Sidebar extends React.Component<any, any> {
 
   constructor(props) {
     super(props);

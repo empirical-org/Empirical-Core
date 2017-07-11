@@ -11,8 +11,8 @@ import {
   toggleStudentFlag
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
-import CLStatic from './static.jsx';
-import CLSingleAnswer from './singleAnswer.jsx';
+import CLStatic from './static';
+import CLSingleAnswer from './singleAnswer';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
