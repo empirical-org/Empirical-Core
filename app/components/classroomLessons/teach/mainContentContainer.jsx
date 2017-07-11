@@ -9,14 +9,6 @@ class MainContentContainer extends React.Component {
     super(props);
   }
 
-  goToSlide(slide_id: string) {
-    // this should be moved to an action
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
-    if (ca_id) {
-      this.props.dispatch(updateCurrentSlide(ca_id, slide_id));
-    }
-  }
-
   render() {
     return (
       <div className="main-content">

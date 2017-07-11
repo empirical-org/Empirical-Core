@@ -11,7 +11,6 @@ class NextSlideButton extends React.Component {
   }
 
   goToNextSlide() {
-    // this prob be moved to action
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     if (ca_id) {
       const updateInStore = goToNextSlide(ca_id, this.props.classroomSessions.data);

@@ -32,19 +32,6 @@ class CurrentSlide extends React.Component<any, any> {
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
   }
 
-  componentDidMount() {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      // this.props.dispatch(getClassroomAndTeacherNameFromServer(caId || '', process.env.EMPIRICAL_BASE_URL))
-      // this.props.dispatch(loadStudentNames(caId || '', process.env.EMPIRICAL_BASE_URL))
-      // below is for spoofing if you log in with Amber M. account
-      // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
-      // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
-      // this.props.dispatch(startListeningToSessionWithoutCurrentSlide(caId));
-      // this.props.dispatch(startListeningToCurrentSlide(caId));
-    }
-  }
-
   componentDidUpdate(prevProps) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     console.log(prevProps.classroomSessions.data.current_slide, this.props.classroomSessions.data.current_slide, prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide);
