@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-  startListeningToSessionWithoutCurrentSlide,
-  startListeningToCurrentSlide,
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
@@ -32,39 +30,31 @@ class CurrentSlide extends React.Component<any, any> {
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    console.log(prevProps.classroomSessions.data.current_slide, this.props.classroomSessions.data.current_slide, prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide);
-    if (prevProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
-      updateSlideInFirebase(caId, this.props.classroomSessions.data.current_slide);
-    }
-  }
-
-  toggleSelected(current_slide: string, student: string) {
+  toggleSelected(currentSlideString: string, student: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
       const submissions: SelectedSubmissions | null = this.props.classroomSessions.data.selected_submissions;
-      const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[current_slide] : null;
+      const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideString] : null;
       const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
       if (!currentValue) {
-        saveSelectedStudentSubmission(caId, current_slide, student);
+        saveSelectedStudentSubmission(caId, currentSlide, student);
       } else {
-        removeSelectedStudentSubmission(caId, current_slide, student);
+        removeSelectedStudentSubmission(caId, currentSlide, student);
       }
     }
   }
 
-  clearAllSelectedSubmissions(current_slide: string) {
+  clearAllSelectedSubmissions(currentSlide: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
-      clearAllSelectedSubmissions(caId, current_slide);
+      clearAllSelectedSubmissions(caId, currentSlide);
     }
   }
 
-  clearAllSubmissions(current_slide: string) {
+  clearAllSubmissions(currentSlide: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
-      clearAllSubmissions(caId, current_slide);
+      clearAllSubmissions(caId, currentSlide);
     }
   }
 
@@ -119,7 +109,7 @@ class CurrentSlide extends React.Component<any, any> {
         default:
       }
     } else {
-      return <p>Hi</p>;
+      return <p>Loading...</p>;
     }
   }
 

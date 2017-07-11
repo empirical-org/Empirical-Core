@@ -26,16 +26,12 @@ function getDebugSessionKey() {
 }
 
 export default function configureStore(initialState) {
-  // console.log("creating store")
   const store = finalCreateStore(rootReducer, initialState);
-  // console.log("persisting store")
   persistStore(store, { storage: localForage,
     blacklist: ['routing', 'pathways', 'playLesson',
       'playDiagnostic',
       'question',
       'classroomSessions'], });
-  // console.log("persisted store")
-  // hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {
     module.hot.accept('../reducers/combined', () =>
       store.replaceReducer(require('../reducers/combined')/* .default if you use Babel 6+ */)
