@@ -27,7 +27,7 @@ class ScriptContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      projecting: this.props.modes ? this.props.modes[this.props.current_slide] : false,
+      projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc'
@@ -41,6 +41,9 @@ class ScriptContainer extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState( {
+      projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
+    })
     if (nextProps.submissions) {
       const numStudents: number = Object.keys(nextProps.presence).length;
       const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length
