@@ -8,7 +8,7 @@ import {
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
   clearAllSubmissions,
-  updateSlideInFirebase
+  toggleStudentFlag
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
@@ -26,6 +26,7 @@ class CurrentSlide extends React.Component<any, any> {
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
     this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this);
+    this.toggleStudentFlag = this.toggleStudentFlag.bind(this);
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this);
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
   }
@@ -76,6 +77,11 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
+  toggleStudentFlag(student_id: 'string') {
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    toggleStudentFlag(ca_id, student_id);
+  }
+
   render() {
     const data = this.props.classroomSessions.data;
     if (this.props.classroomSessions.hasreceiveddata) {
@@ -97,6 +103,7 @@ class CurrentSlide extends React.Component<any, any> {
           return (
             <CLSingleAnswer
               data={data}
+              toggleStudentFlag={this.toggleStudentFlag}
               toggleSelected={this.toggleSelected}
               startDisplayingAnswers={this.startDisplayingAnswers}
               stopDisplayingAnswers={this.stopDisplayingAnswers}

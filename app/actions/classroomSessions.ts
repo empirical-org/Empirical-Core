@@ -1,3 +1,4 @@
+declare function require(name:string);
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
@@ -135,6 +136,17 @@ export function setMode(classroom_activity_id: string, question_id: string, mode
 export function removeMode(classroom_activity_id: string, question_id: string): void {
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.remove();
+}
+
+export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
+  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
+  flaggedStudentRef.once('value', (snapshot) => {
+    if(snapshot.val()){
+      flaggedStudentRef.remove()
+    } else {
+      flaggedStudentRef.set(true)
+    }
+  }
 }
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string, baseUrl: string) {

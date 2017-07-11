@@ -73,13 +73,13 @@ class SingleAnswer extends Component {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, } = this.props.data;
-    const showHeaderText = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
+    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents } = this.props.data;
+    const showHeaderText = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide'
     return (
       <div className="teacher-single-answer">
         <div className="header">
           <h1>
-            <span>Slide {this.props.data.current_slide}:</span> Name Will Go Here
+            <span>Slide {this.props.data.current_slide}:</span> {this.props.data.questions[this.props.data.current_slide].data.teach.title}
           </h1>
           <p onClick={this.props.toggleOnlyShowHeaders}>
             {showHeaderText}
@@ -93,6 +93,7 @@ class SingleAnswer extends Component {
           students={students}
           presence={presence}
           modes={modes}
+          flaggedStudents={flaggedStudents}
           startDisplayingAnswers={this.startDisplayingAnswers}
           stopDisplayingAnswers={this.stopDisplayingAnswers}
           toggleSelected={this.toggleSelected}
@@ -100,6 +101,7 @@ class SingleAnswer extends Component {
           onlyShowHeaders={this.props.onlyShowHeaders}
           clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
           clearAllSubmissions={this.props.clearAllSubmissions}
+          toggleStudentFlag={this.props.toggleStudentFlag}
         />
 
       </div>

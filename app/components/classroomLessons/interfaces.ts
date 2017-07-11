@@ -6,7 +6,8 @@ export interface ClassroomLessonSession {
   modes: Modes;
   submissions: Submissions;
   selected_submissions: SelectedSubmissions;
-  timestamps: Timestamps
+  timestamps: Timestamps;
+  flaggedStudents: FlaggedStudents;
 }
 
 export interface ClassroomLessonSessions {
@@ -45,20 +46,24 @@ export interface Question {
 // once dummy data structure is updated
 export interface ScriptItem {
   type: string;
-  text?: any;
-  data: ScriptText;
+  data?: ScriptText;
 }
 
 export interface ScriptText {
-  heading: string;
+  heading?: string;
   body: any;
 }
 
 export interface TeachData {
+  unit?: string;
+  topic?: string;
+  lesson?: number;
+  title?: string;
   script: Array<ScriptItem>
 }
 
 export interface PlayData {
+  topic?: string;
  [key:string]: any
 }
 
@@ -89,4 +94,8 @@ export interface SelectedSubmissionsForQuestion {
 
 export interface Timestamps {
   [key:string]: string
+}
+
+export interface FlaggedStudents {
+  [key:string]: boolean
 }

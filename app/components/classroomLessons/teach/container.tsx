@@ -15,6 +15,7 @@ import {
   loadStudentNames,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
+  toggleStudentFlag
   clearAllSubmissions,
   updateSlideInFirebase
 } from '../../../actions/classroomSessions';

@@ -9,7 +9,7 @@ import {
   Presence,
   Students
 } from '../interfaces';
-import { sortByLastName } from '../shared/sortByLastName'
+import { sortByLastName } from '../shared/studentSorts'
 
 class Lobby extends React.Component<{data: ClassroomLessonSession}> {
   constructor(props) {
@@ -38,10 +38,11 @@ class Lobby extends React.Component<{data: ClassroomLessonSession}> {
 
   // Static for now
   renderLessonTitle() {
+    const title = this.props.data.questions['0'].data.play.topic
     return (
       <div className="student-lesson-title-container">
         <p className="student-lesson-title">
-          Conjunctions of Time
+          {title}
         </p>
       </div>
     )
