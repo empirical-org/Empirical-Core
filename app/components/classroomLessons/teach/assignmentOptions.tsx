@@ -30,19 +30,23 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
       const row = (
         <div key={option}>
           <h3>{option}</h3>
-          <p>{optionObject[option]}</p>
-          <input
-            style={{display: 'none'}}
-            id={option}
-            value={option}
-            name='rad-button'
-            type="radio"
-            checked={isSelected}
-            onChange={() => this.props.updateSelectedOptionKey(option)}
-          />
-          <label htmlFor={option}>
-            <img src={imgSrc} alt="checkbox"/>
-          </label>
+          <p>
+            {optionObject[option]}
+            <span>
+              <input
+                style={{display: 'none'}}
+                id={option}
+                value={option}
+                name='rad-button'
+                type="radio"
+                checked={isSelected}
+                onChange={() => this.props.updateSelectedOptionKey(option)}
+              />
+              <label htmlFor={option}>
+                <img src={imgSrc} alt="checkbox"/>
+              </label>
+            </span>
+          </p>
         </div>
       )
       optionsList.push(row)
