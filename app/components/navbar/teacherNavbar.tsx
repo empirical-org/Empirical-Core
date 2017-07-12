@@ -6,13 +6,15 @@ const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = require('../../img/exit_icon.svg')
 const projectorIcon = require('../../img/projector_icon.svg')
 const helpIcon = require('../../img/help_icon.svg')
+const flagIcon = require('../../img/flag_icon.svg')
 
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
       tooltip: '',
-      showHelpDropdown: false
+      showHelpDropdown: false,
+      showFlagDropdown: false
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)
@@ -21,6 +23,9 @@ class TeacherNavbar extends React.Component<any, any> {
     this.renderTooltip = this.renderTooltip.bind(this)
     this.toggleHelpDropdown = this.toggleHelpDropdown.bind(this)
     this.hideHelpDropdown = this.hideHelpDropdown.bind(this)
+    this.toggleFlagDropdown = this.toggleFlagDropdown.bind(this)
+    this.hideFlagDropdown = this.hideFlagDropdown.bind(this)
+    this.flagDropdown = this.flagDropdown.bind(this)
   }
 
   presentStudentCount() {
@@ -46,9 +51,22 @@ class TeacherNavbar extends React.Component<any, any> {
     this.setState({showHelpDropdown: false})
   }
 
+  toggleFlagDropdown() {
+    this.setState({showFlagDropdown: !this.state.showFlagDropdown})
+  }
+
+  hideFlagDropdown() {
+    this.setState({showFlagDropdown: false})
+  }
+
   renderTooltip(icon:string) {
-    if (this.state.showHelpDropdown === false) {
+    if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
       switch (icon) {
+        case 'flag':
+        if (this.state.tooltip === 'flag') {
+          return this.flagDropdown()
+        }
+        break
         case 'projector':
         if (this.state.tooltip === 'projector') {
           return <Tooltip text="Launch Projector" className={icon}/>
@@ -66,7 +84,7 @@ class TeacherNavbar extends React.Component<any, any> {
         break
         case 'help':
         if (this.state.tooltip === 'help') {
-          return <Tooltip text="Help" className={icon}/>
+          return this.helpDropdown()
         }
         break
         default:
@@ -78,15 +96,52 @@ class TeacherNavbar extends React.Component<any, any> {
 
   renderHelpDropdown() {
     if (this.state.showHelpDropdown) {
-      return <div className='help-dropdown'>
-        <i className="fa fa-caret-up"/>
-        <p><a href="">Tutorial</a></p>
-        <hr/>
-        <p><a href="">How It Works</a></p>
-        <hr/>
-        <p><a href="">Teacher FAQ</a></p>
-      </div>
+      return this.helpDropdown()
     }
+  }
+
+  helpDropdown() {
+    return <div className='help-dropdown'>
+      <i className="fa fa-caret-up"/>
+      <p><a href="">Tutorial</a></p>
+      <p><a href="">How It Works</a></p>
+      <p><a href="">Teacher FAQ</a></p>
+    </div>
+  }
+
+  renderFlagDropdown() {
+    if (this.state.showFlagDropdown) {
+      return this.flagDropdown()
+    }
+  }
+
+  flagDropdown() {
+    const {flaggedStudents, students} = this.props.classroomSessions.data
+    let content
+    let oneRow
+    if (flaggedStudents) {
+      const flaggedStudentIds = Object.keys(flaggedStudents)
+      const numberOfStudents = flaggedStudentIds.length
+      numberOfStudents === 1 ? oneRow = true : null
+      content = flaggedStudentIds.map((studentId, index) => {
+        if (numberOfStudents - 1 === index) {
+          return <p>{students[studentId]}</p>
+        } else {
+          return <span>
+          <p>{students[studentId]}</p>
+          <hr/>
+          </span>
+        }
+      })
+    } else {
+      oneRow = true
+      content = <p className="no-flagged-students">No Flagged Students</p>
+    }
+    const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
+    return <div className={className}>
+      <i className="fa fa-caret-up"/>
+      {content}
+    </div>
   }
 
   exitLesson() {
@@ -96,7 +151,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   render() {
-    let projectorClass, watchTeacherClass, exitClass
+    let projectorClass, watchTeacherClass, exitClass, flagClass
     let helpClass = this.state.showHelpDropdown ? 'hover' : ''
     switch (this.state.tooltip) {
       case 'projector':
@@ -120,6 +175,17 @@ class TeacherNavbar extends React.Component<any, any> {
         <p className="lesson-title"><span>Lesson 1:</span> Conjunctions of Time</p>
         <span className="toolbar">
           {this.presentStudentCount()}
+          <div
+            onMouseEnter={(e) => this.showTooltip(e, 'flag')}
+            onMouseLeave={(e) => this.hideTooltip(e)}
+            onClick={this.toggleFlagDropdown}
+            onBlur={this.hideFlagDropdown}
+            tabIndex={0}
+          >
+            <img className={`flag-icon ${flagClass}`} src={flagIcon}/>
+            {this.renderTooltip('flag')}
+            {this.renderFlagDropdown()}
+          </div>
           <div
             onMouseEnter={(e) => this.showTooltip(e, 'projector')}
             onMouseLeave={(e) => this.hideTooltip(e)}
