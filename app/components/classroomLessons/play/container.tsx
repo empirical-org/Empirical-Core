@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
-import CLStudentStatic from './static.jsx';
+import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
