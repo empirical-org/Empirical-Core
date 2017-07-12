@@ -19,7 +19,6 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   updateSelectedOptionKey(selected) {
-    console.log(selected)
     this.setState({selectedOptionKey: selected})
   }
 

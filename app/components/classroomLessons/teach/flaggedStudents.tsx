@@ -52,8 +52,8 @@ class FlaggedStudents extends React.Component<{flaggedStudents: Object, students
     const studNames = this.props.students
     return (
       <li key={asId}>
-      {studNames[asId]}
-      {this.renderFlag(asId)}
+        <span className="student-name">{studNames[asId]}</span>
+        {this.renderFlag(asId)}
       </li>)
   }
 
@@ -70,7 +70,7 @@ class FlaggedStudents extends React.Component<{flaggedStudents: Object, students
             You have flagged
             <span className="stud-count">{' ' + studLength + ' '}</span>
             student{studSuffix}.
-            <span onClick={this.toggleShowUnflaggedStudents}>{unflaggedStudentText}</span>
+            <span className="toggle-unflagged-students" onClick={this.toggleShowUnflaggedStudents}> {unflaggedStudentText}</span>
           </span>
         </div>
         <ul>
