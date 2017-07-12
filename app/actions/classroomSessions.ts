@@ -11,6 +11,9 @@ import {
   SelectedSubmissionsForQuestion,
   TeacherAndClassroomName
 } from 'components/classroomLessons/interfaces';
+import {
+ ClassroomLesson
+} from 'interfaces/classroomLessons';
 
 
 export function startListeningToSession(classroom_activity_id: string) {
@@ -73,8 +76,9 @@ export function registerPresence(classroom_activity_id: string, student_id: stri
   });
 }
 
-export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession) {
-  const { current_slide, questions, } = state;
+export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson) {
+  const { current_slide } = state;
+  const { questions } = lesson;
   const slides = Object.keys(questions);
   const current_slide_index = slides.indexOf(current_slide.toString());
   const nextSlide = slides[current_slide_index + 1];
