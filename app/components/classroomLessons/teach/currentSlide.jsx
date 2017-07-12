@@ -13,6 +13,7 @@ import {
 import CLLobby from './lobby';
 import CLStatic from './static.jsx';
 import CLSingleAnswer from './singleAnswer.jsx';
+import CLExit from './exit.tsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -113,6 +114,14 @@ class CurrentSlide extends React.Component<any, any> {
               clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
               clearAllSubmissions={this.clearAllSubmissions}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            />
+          );
+        case 'CL-EX':
+          return (
+            <CLExit
+              teacherData={current.teach}
+              flaggedStudents={data.flaggedStudents}
+              students={data.students}
             />
           );
         default:
