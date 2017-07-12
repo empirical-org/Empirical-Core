@@ -5,6 +5,7 @@ import {
 import FlaggedStudents from './flaggedStudents'
 import AssignmentOptions from './assignmentOptions'
 import AssignButton from './assignButton'
+import ScriptComponent from '../shared/scriptComponent'
 
 
 
@@ -27,15 +28,20 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   render() {
+    const {script, flaggedStudents, students} = this.props
     return (
       <div className='teacher-exit'>
+        <ScriptComponent
+          script={script}
+          onlyShowHeaders={this.props.onlyShowHeaders}
+        />
         <FlaggedStudents
-          flaggedStudents={this.props.flaggedStudents}
-          students={this.props.students}
+          flaggedStudents={flaggedStudents}
+          students={students}
           toggleStudentFlag={this.props.toggleStudentFlag}
         />
         <AssignmentOptions
-          numberOfStudents={Object.keys(this.props.students).length}
+          numberOfStudents={Object.keys(students).length}
           updateSelectedOptionKey={this.updateSelectedOptionKey}
           selectedOptionKey={this.state.selectedOptionKey}
         />

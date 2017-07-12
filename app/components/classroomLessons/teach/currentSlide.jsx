@@ -117,7 +117,7 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-EX':
           return (
             <CLExit
-              teacherData={current.teach}
+              script={current.data.teach.script}
               flaggedStudents={data.flaggedStudents}
               students={data.students}
               toggleStudentFlag={this.toggleStudentFlag}
