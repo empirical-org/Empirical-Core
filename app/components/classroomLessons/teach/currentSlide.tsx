@@ -17,7 +17,11 @@ import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
+  ClassroomLessonSession
 } from '../interfaces';
+import {
+  ClassroomLesson
+} from 'interfaces/classroomLessons';
 
 class CurrentSlide extends React.Component<any, any> {
   constructor(props) {
@@ -85,9 +89,11 @@ class CurrentSlide extends React.Component<any, any> {
   toggel
 
   render() {
-    const data = this.props.classroomSessions.data;
-    if (this.props.classroomSessions.hasreceiveddata) {
-      const current = data.questions[data.current_slide || '0'];
+    const data: ClassroomLessonSession = this.props.classroomSessions.data;
+    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+    if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
+      const current = lessonData.questions[data.current_slide || '0'];
       switch (current.type) {
         case 'CL-LB':
           return (
@@ -116,6 +122,9 @@ class CurrentSlide extends React.Component<any, any> {
             />
           );
         default:
+          return (
+            <p>UNSUPPORTED QUESTION TYPE</p>
+          )
       }
     } else {
       return <p>Loading...</p>;
@@ -127,6 +136,7 @@ class CurrentSlide extends React.Component<any, any> {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
+    classroomLesson : props.classroomLesson,
   };
 }
 

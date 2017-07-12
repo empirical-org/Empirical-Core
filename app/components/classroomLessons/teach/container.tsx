@@ -16,7 +16,10 @@ import {
   toggleStudentFlag,
   clearAllSubmissions,
   updateSlideInFirebase
-} from '../../../actions/classroomSessions';
+} from 'actions/classroomSessions';
+import {
+  getClassLessonFromFirebase
+} from 'actions/classroomLesson';
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
