@@ -112,6 +112,7 @@ class CurrentSlide extends React.Component<any, any> {
           return (
             <CLSingleAnswer
               data={data}
+              lessonData={lessonData}
               toggleStudentFlag={this.toggleStudentFlag}
               toggleSelected={this.toggleSelected}
               startDisplayingAnswers={this.startDisplayingAnswers}
