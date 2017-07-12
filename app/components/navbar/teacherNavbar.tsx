@@ -11,13 +11,15 @@ const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = require('../../img/exit_icon.svg')
 const projectorIcon = require('../../img/projector_icon.svg')
 const helpIcon = require('../../img/help_icon.svg')
+const flagIcon = require('../../img/flag_icon.svg')
 
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
       tooltip: '',
-      showHelpDropdown: false
+      showHelpDropdown: false,
+      showFlagDropdown: false
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)
@@ -27,13 +29,18 @@ class TeacherNavbar extends React.Component<any, any> {
     this.toggleHelpDropdown = this.toggleHelpDropdown.bind(this)
     this.hideHelpDropdown = this.hideHelpDropdown.bind(this)
     this.toggleWatchTeacherMode = this.toggleWatchTeacherMode.bind(this)
+    this.toggleFlagDropdown = this.toggleFlagDropdown.bind(this)
+    this.hideFlagDropdown = this.hideFlagDropdown.bind(this)
+    this.flagDropdown = this.flagDropdown.bind(this)
   }
 
   presentStudentCount() {
     const presence = this.props.classroomSessions.data.presence
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     const circleClassname = numPresent === 0 ? 'offline' : 'online'
-    return <p className="present-student-count"><span className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
+    return (
+      <p className="present-student-count"><span className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
+    )
   }
 
   showTooltip(e, icon:string) {
@@ -55,28 +62,41 @@ class TeacherNavbar extends React.Component<any, any> {
     this.setState({showHelpDropdown: false})
   }
 
+  toggleFlagDropdown() {
+    this.setState({showFlagDropdown: !this.state.showFlagDropdown})
+  }
+
+  hideFlagDropdown() {
+    this.setState({showFlagDropdown: false})
+  }
+
   renderTooltip(icon:string) {
     const { watchTeacherState } = this.props.classroomSessions.data
     // tooltips should not show if either watchTeacherState or showHelpDropdown is true
     if (watchTeacherState) {
       if (icon === 'watchTeacher') {
-        return <Tooltip text={["Watch Teacher (", <strong>On</strong>,  ")"]} className={icon}/>
+        return (<Tooltip text={["Watch Teacher (", <strong>On</strong>,  ")"]} className={icon}/>)
       }
-    } else if (this.state.showHelpDropdown === false) {
+    } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
       switch (icon) {
+        case 'flag':
+        if (this.state.tooltip === 'flag') {
+          return (this.flagDropdown())
+        }
+        break
         case 'projector':
         if (this.state.tooltip === 'projector') {
-          return <Tooltip text="Launch Projector" className={icon}/>
+          return (<Tooltip text="Launch Projector" className={icon}/>)
         }
         break
         case 'watchTeacher':
         if (this.state.tooltip === 'watchTeacher') {
-          return <Tooltip text={["Watch Teacher (", <strong>Off</strong>,  ")"]} className={icon}/>
+          return (<Tooltip text={["Watch Teacher (", <strong>Off</strong>,  ")"]} className={icon}/>)
         }
         break
         case 'exit':
         if (this.state.tooltip === 'exit') {
-          return <Tooltip text="Exit Lesson" className={icon}/>
+          return (<Tooltip text="Exit Lesson" className={icon}/>)
         }
         break
         case 'help':
@@ -97,19 +117,54 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   helpDropdown() {
-    return <div className='help-dropdown'>
+    return (
+      <div className='help-dropdown'>
+        <i className="fa fa-caret-up"/>
+        <p><a href="">Tutorial</a></p>
+        <p><a href="">How It Works</a></p>
+        <p><a href="">Teacher FAQ</a></p>
+      </div>
+    )
+  }
+
+  renderFlagDropdown() {
+    if (this.state.showFlagDropdown) {
+      return this.flagDropdown()
+    }
+  }
+
+  flagDropdown() {
+    const {flaggedStudents, students} = this.props.classroomSessions.data
+    let content
+    let oneRow
+    if (flaggedStudents) {
+      const flaggedStudentIds = Object.keys(flaggedStudents)
+      const numberOfStudents = flaggedStudentIds.length
+      numberOfStudents === 1 ? oneRow = true : null
+      content = flaggedStudentIds.map((studentId, index) => {
+        if (numberOfStudents - 1 === index) {
+          return (<p>{students[studentId]}</p>)
+        } else {
+          return (<span>
+          <p>{students[studentId]}</p>
+          <hr/>
+          </span>)
+        }
+      })
+    } else {
+      oneRow = true
+      content = <p className="no-flagged-students">No Flagged Students</p>
+    }
+    const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
+    return <div className={className}>
       <i className="fa fa-caret-up"/>
-      <p>Tutorial</p>
-      <hr/>
-      <p>How It Works</p>
-      <hr/>
-      <p>Teacher FAQ</p>
+      {content}
     </div>
   }
 
   exitLesson() {
     if (window.confirm('Are you sure you want to exit the lesson?')) {
-      document.location.href = process.env.EMPIRICAL_BASE_URL;
+      document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
   }
 
@@ -127,7 +182,7 @@ class TeacherNavbar extends React.Component<any, any> {
 
   render() {
     const { watchTeacherState } = this.props.classroomSessions.data
-    let projectorClass, exitClass
+    let projectorClass, exitClass, flagClass;
     let helpClass = this.state.showHelpDropdown ? 'hover' : ''
     let watchTeacherClass = watchTeacherState ? 'hover' : ''
     if (!this.state.showHelpDropdown && !watchTeacherState )
@@ -153,6 +208,17 @@ class TeacherNavbar extends React.Component<any, any> {
         <p className="lesson-title"><span>Lesson 1:</span> Conjunctions of Time</p>
         <span className="toolbar">
           {this.presentStudentCount()}
+          <div
+            onMouseEnter={(e) => this.showTooltip(e, 'flag')}
+            onMouseLeave={(e) => this.hideTooltip(e)}
+            onClick={this.toggleFlagDropdown}
+            onBlur={this.hideFlagDropdown}
+            tabIndex={0}
+          >
+            <img className={`flag-icon ${flagClass}`} src={flagIcon}/>
+            {this.renderTooltip('flag')}
+            {this.renderFlagDropdown()}
+          </div>
           <div
             onMouseEnter={(e) => this.showTooltip(e, 'projector')}
             onMouseLeave={(e) => this.hideTooltip(e)}

@@ -1,7 +1,6 @@
 export interface ClassroomLessonSession {
   students: Students;
   presence: Presence;
-  questions: Questions;
   current_slide: string;
   modes: Modes;
   submissions: Submissions;
@@ -26,45 +25,6 @@ export interface TeacherAndClassroomName {
 
 export interface Presence {
  [key:string]: boolean
-}
-
-export interface Questions {
-  [key:string]: Question
-}
-
-export interface QuestionData {
-  play: PlayData
-  teach: TeachData
-}
-
-export interface Question {
-  type: string;
-  data: QuestionData;
-}
-
-// should not have text field
-// once dummy data structure is updated
-export interface ScriptItem {
-  type: string;
-  data?: ScriptText;
-}
-
-export interface ScriptText {
-  heading?: string;
-  body: any;
-}
-
-export interface TeachData {
-  unit?: string;
-  topic?: string;
-  lesson?: number;
-  title?: string;
-  script: Array<ScriptItem>
-}
-
-export interface PlayData {
-  topic?: string;
- [key:string]: any
 }
 
 export interface Modes {

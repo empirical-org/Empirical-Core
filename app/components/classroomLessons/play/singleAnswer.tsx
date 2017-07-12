@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Cues from '../../renderForQuestions/cues.jsx';
-import RenderSentenceFragments from '../../renderForQuestions/sentenceFragments.jsx';
-import icon from '../../../img/question_icon.svg';
-import TextEditor from '../../renderForQuestions/renderTextEditor.jsx';
+import Cues from 'components/renderForQuestions/cues';
+import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
+import icon from 'img/question_icon.svg';
+import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from 'libs/getParameterByName';
 const moment = require('moment');
 
-class SingleAnswer extends Component {
+class SingleAnswer extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {

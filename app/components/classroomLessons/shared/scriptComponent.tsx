@@ -7,13 +7,14 @@ import {
   QuestionSubmissionsList,
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
-  Question,
   Presence,
   Students,
   Submissions,
-  Modes,
-  ScriptItem
+  Modes
 } from '../interfaces';
+import {
+  ScriptItem
+} from 'interfaces/classroomLessons'
 const uncheckedGrayCheckbox = require('../../../img/box_gray_unchecked.svg')
 const checkedGrayCheckbox = require('../../../img/box_gray_checked.svg')
 const uncheckedGreenCheckbox = require('../../../img/box_green_unchecked.svg')
@@ -231,7 +232,7 @@ class ScriptContainer extends React.Component<any, any> {
       ? <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/> {this.renderUnselectAllButton()}</th>
       : <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/></th>
       headers.push(header)
-    })
+    }
     return <thead>
       <tr>
         {headers}
@@ -253,7 +254,7 @@ class ScriptContainer extends React.Component<any, any> {
       if (this.state.sort === 'lastName' || this.state.sort === 'flag' || workingStudents.length < 1) {
         const sortedStudents: Array<string> | null = this.sortedRows(Object.keys(presence))
           sortedRows = sortedStudents.map((studentKey, index) => {
-            return submittedStudents.includes(studentKey)
+            return submittedStudents.indexOf(studentKey) !== -1
             ? this.renderSubmissionRow(studentKey, index)
             : this.renderNoSubmissionRow(studentKey)
           })

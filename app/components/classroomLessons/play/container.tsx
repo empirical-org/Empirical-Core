@@ -2,16 +2,20 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
-import CLStudentStatic from './static.jsx';
-import CLStudentSingleAnswer from './singleAnswer.jsx';
 import CLWatchTeacher from './watchTeacher'
+import CLStudentStatic from './static';
+import CLStudentSingleAnswer from './singleAnswer';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
+import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
   QuestionSubmissionsList
 } from '../interfaces';
+import {
+  ClassroomLesson
+} from '../../../interfaces/classroomLessons'
 
 class PlayLessonClassroomContainer extends React.Component<any, any> {
   constructor(props) {
@@ -20,10 +24,12 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   componentDidMount() {
+    console.log(this.props)
     const classroom_activity_id = getParameterByName('classroom_activity_id');
     const student = getParameterByName('student');
     if (classroom_activity_id) {
       this.props.dispatch(startListeningToSession(classroom_activity_id));
+      this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
       if (student) {
         registerPresence(classroom_activity_id, student);
       }
@@ -46,13 +52,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   }
 
-  renderCurrentSlide(data: ClassroomLessonSession) {
-    const current = data.questions[data.current_slide];
+  renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
+    const current = lessonData.questions[data.current_slide];
     console.log(current.type);
     switch (current.type) {
       case 'CL-LB':
         return (
-          <CLStudentLobby data={data} />
+          <CLStudentLobby data={data} title={lessonData.title}/>
         );
       case 'CL-ST':
         return (
@@ -73,11 +79,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   public render() {
     const { data, hasreceiveddata }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
+    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
     // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
     const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
-    if (hasreceiveddata) {
-      const component = this.renderCurrentSlide(data);
+    if (hasreceiveddata && lessonDataLoaded) {
+      const component = this.renderCurrentSlide(data, lessonData);
       if (component) {
         return (
           <div>
@@ -105,7 +113,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
-    // classroomLessons: props.classroomLessons,
+    classroomLesson: props.classroomLesson,
   };
 }
 
