@@ -77,7 +77,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderHelpDropdown() {
-    // if (this.state.showHelpDropdown) {
+    if (this.state.showHelpDropdown) {
       return <div className='help-dropdown'>
         <i className="fa fa-caret-up"/>
         <p><a href="">Tutorial</a></p>
@@ -86,7 +86,7 @@ class TeacherNavbar extends React.Component<any, any> {
         <hr/>
         <p><a href="">Teacher FAQ</a></p>
       </div>
-    // }
+    }
   }
 
   exitLesson() {
