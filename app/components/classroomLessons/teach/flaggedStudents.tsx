@@ -59,7 +59,7 @@ class FlaggedStudents extends React.Component<{flaggedStudents: Object, students
 
   render() {
     const flaggedStudents = this.props.flaggedStudents
-    const studLength = Object.keys(flaggedStudents).length;
+    const studLength = flaggedStudents ? Object.keys(flaggedStudents).length : 0;
     const studSuffix = studLength === 1 ? '' : 's'
     const unflaggedStudentList = this.state.showUnflaggedStudents ? this.unflaggedStudentsList() : <span/>
     const unflaggedStudentText = this.state.showUnflaggedStudents ? 'Hide Unflagged Students' : 'Show Unflagged Students'
