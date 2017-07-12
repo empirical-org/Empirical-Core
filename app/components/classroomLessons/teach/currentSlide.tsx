@@ -103,6 +103,7 @@ class CurrentSlide extends React.Component<any, any> {
           return (
             <CLStatic
               data={data}
+              lessonData={lessonData}
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             />

@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import ScriptComponent from '../shared/scriptComponent';
+import {
+  ClassroomLessonSession
+} from '../interfaces'
+import {
+  ClassroomLesson
+} from 'interfaces/classroomLessons'
 
-class Static extends Component {
+class Static extends Component<{data: ClassroomLessonSession; lessonData: ClassroomLesson; [key:string]: any}> {
   constructor(props) {
     super(props);
   }
@@ -12,7 +18,7 @@ class Static extends Component {
       <div className="teacher-static">
         <div className="header">
           <h1>
-            <span>Slide {this.props.data.current_slide}:</span> {this.props.data.questions[this.props.data.current_slide].data.teach.title}
+            <span>Slide {this.props.data.current_slide}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
           </h1>
           <p onClick={this.props.toggleOnlyShowHeaders}>
             {showHeaderText}
@@ -20,7 +26,7 @@ class Static extends Component {
         </div>
         <ul>
           <ScriptComponent
-            script={this.props.data.questions[this.props.data.current_slide].data.teach.script}
+            script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
             onlyShowHeaders={this.props.onlyShowHeaders}
           />
         </ul>
