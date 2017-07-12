@@ -4,6 +4,7 @@ import {
 } from '../interfaces';
 import FlaggedStudents from './flaggedStudents'
 import AssignmentOptions from './assignmentOptions'
+import AssignButton from './assignButton'
 
 
 
@@ -20,6 +21,11 @@ class ExitSlide extends React.Component<any, any> {
     this.setState({selectedOptionKey: selected})
   }
 
+  assignAction(){
+    // do the thing to the server
+    console.log('doing something to the server')
+  }
+
   render() {
     return (
       <div className='teacher-exit'>
@@ -33,6 +39,7 @@ class ExitSlide extends React.Component<any, any> {
           updateSelectedOptionKey={this.updateSelectedOptionKey}
           selectedOptionKey={this.state.selectedOptionKey}
         />
+        <AssignButton selectedOptionKey={this.state.selectedOptionKey} assignAction={this.assignAction}/>
       </div>
     );
   }
