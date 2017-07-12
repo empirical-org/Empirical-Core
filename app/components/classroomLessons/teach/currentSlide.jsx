@@ -122,6 +122,7 @@ class CurrentSlide extends React.Component<any, any> {
               teacherData={current.teach}
               flaggedStudents={data.flaggedStudents}
               students={data.students}
+              toggleStudentFlag={this.toggleStudentFlag}
             />
           );
         default:

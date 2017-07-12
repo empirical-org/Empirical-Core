@@ -11,7 +11,7 @@ class ExitSlide extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOptionKey: null
+      selectedOptionKey: "Small Group Instruction and Independent Practice"
     }
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
   }
@@ -23,8 +23,16 @@ class ExitSlide extends React.Component<any, any> {
   render() {
     return (
       <div className='teacher-exit'>
-        <FlaggedStudents flaggedStudents={this.props.flaggedStudents} students={this.props.students}/>
-        <AssignmentOptions numberOfStudents={Object.keys(this.props.students).length} updateSelectedOptionKey={this.updateSelectedOptionKey} selectedOptionKey={this.state.selectedOptionKey} />
+        <FlaggedStudents
+          flaggedStudents={this.props.flaggedStudents}
+          students={this.props.students}
+          toggleStudentFlag={this.props.toggleStudentFlag}
+        />
+        <AssignmentOptions
+          numberOfStudents={Object.keys(this.props.students).length}
+          updateSelectedOptionKey={this.updateSelectedOptionKey}
+          selectedOptionKey={this.state.selectedOptionKey}
+        />
       </div>
     );
   }

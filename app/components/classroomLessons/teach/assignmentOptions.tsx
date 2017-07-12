@@ -1,6 +1,6 @@
 import * as React from 'React'
 
-class AssignmentOptions extends React.Component<{numberOfStudents: number, updateSelectedOptionKey: Function, selectedOptionKey: string|null}> {
+class AssignmentOptions extends React.Component<{numberOfStudents: number, updateSelectedOptionKey: Function, selectedOptionKey: string}> {
   constructor(props) {
     super(props)
   }
@@ -21,18 +21,17 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
     const optionObject = this.optionObj()
     const optionsList = [];
     for (let option in optionObject) {
-      const row = (<div key={option}>
+      const row = (
+        <div key={option}>
           <h3>{option}</h3>
           <p>{optionObject[option]}</p>
-        </div>)
+        </div>
+      )
       optionsList.push(row)
     }
     return optionsList
   }
 
-  selectOption() {
-
-  }
 
   render() {
     return (
