@@ -83,8 +83,6 @@ class CurrentSlide extends React.Component<any, any> {
     toggleStudentFlag(ca_id, student_id);
   }
 
-  toggel
-
   render() {
     const data = this.props.classroomSessions.data;
     if (this.props.classroomSessions.hasreceiveddata) {
