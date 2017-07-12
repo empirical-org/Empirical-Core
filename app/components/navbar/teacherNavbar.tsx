@@ -2,6 +2,11 @@ declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Tooltip from '../classroomLessons/shared/tooltip'
+import { getParameterByName } from '../../libs/getParameterByName';
+import {
+  setWatchTeacherState,
+  removeWatchTeacherState
+} from '../../actions/classroomSessions';
 const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = require('../../img/exit_icon.svg')
 const projectorIcon = require('../../img/projector_icon.svg')
@@ -23,6 +28,7 @@ class TeacherNavbar extends React.Component<any, any> {
     this.renderTooltip = this.renderTooltip.bind(this)
     this.toggleHelpDropdown = this.toggleHelpDropdown.bind(this)
     this.hideHelpDropdown = this.hideHelpDropdown.bind(this)
+    this.toggleWatchTeacherMode = this.toggleWatchTeacherMode.bind(this)
     this.toggleFlagDropdown = this.toggleFlagDropdown.bind(this)
     this.hideFlagDropdown = this.hideFlagDropdown.bind(this)
     this.flagDropdown = this.flagDropdown.bind(this)
@@ -32,7 +38,9 @@ class TeacherNavbar extends React.Component<any, any> {
     const presence = this.props.classroomSessions.data.presence
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     const circleClassname = numPresent === 0 ? 'offline' : 'online'
-    return <p className="present-student-count"><span className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
+    return (
+      <p className="present-student-count"><span className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
+    )
   }
 
   showTooltip(e, icon:string) {
@@ -44,7 +52,10 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   toggleHelpDropdown() {
-    this.setState({showHelpDropdown: !this.state.showHelpDropdown})
+    // helpDropdown should not be toggled if watchTeacherState is true 
+    if (!this.props.classroomSessions.data.watchTeacherState) {
+      this.setState({showHelpDropdown: !this.state.showHelpDropdown})
+    }
   }
 
   hideHelpDropdown() {
@@ -60,26 +71,32 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderTooltip(icon:string) {
-    if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
+    const { watchTeacherState } = this.props.classroomSessions.data
+    // tooltips should not show if either watchTeacherState or showHelpDropdown is true
+    if (watchTeacherState) {
+      if (icon === 'watchTeacher') {
+        return (<Tooltip text={["Watch Teacher (", <strong>On</strong>,  ")"]} className={icon}/>)
+      }
+    } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
       switch (icon) {
         case 'flag':
         if (this.state.tooltip === 'flag') {
-          return this.flagDropdown()
+          return (this.flagDropdown())
         }
         break
         case 'projector':
         if (this.state.tooltip === 'projector') {
-          return <Tooltip text="Launch Projector" className={icon}/>
+          return (<Tooltip text="Launch Projector" className={icon}/>)
         }
         break
         case 'watchTeacher':
         if (this.state.tooltip === 'watchTeacher') {
-          return <Tooltip text="Watch Teacher (On)" className={icon}/>
+          return (<Tooltip text={["Watch Teacher (", <strong>Off</strong>,  ")"]} className={icon}/>)
         }
         break
         case 'exit':
         if (this.state.tooltip === 'exit') {
-          return <Tooltip text="Exit Lesson" className={icon}/>
+          return (<Tooltip text="Exit Lesson" className={icon}/>)
         }
         break
         case 'help':
@@ -91,7 +108,6 @@ class TeacherNavbar extends React.Component<any, any> {
         break
       }
     }
-
   }
 
   renderHelpDropdown() {
@@ -101,12 +117,14 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   helpDropdown() {
-    return <div className='help-dropdown'>
-      <i className="fa fa-caret-up"/>
-      <p><a href="">Tutorial</a></p>
-      <p><a href="">How It Works</a></p>
-      <p><a href="">Teacher FAQ</a></p>
-    </div>
+    return (
+      <div className='help-dropdown'>
+        <i className="fa fa-caret-up"/>
+        <p><a href="">Tutorial</a></p>
+        <p><a href="">How It Works</a></p>
+        <p><a href="">Teacher FAQ</a></p>
+      </div>
+    )
   }
 
   renderFlagDropdown() {
@@ -125,12 +143,12 @@ class TeacherNavbar extends React.Component<any, any> {
       numberOfStudents === 1 ? oneRow = true : null
       content = flaggedStudentIds.map((studentId, index) => {
         if (numberOfStudents - 1 === index) {
-          return <p>{students[studentId]}</p>
+          return (<p>{students[studentId]}</p>)
         } else {
-          return <span>
+          return (<span>
           <p>{students[studentId]}</p>
           <hr/>
-          </span>
+          </span>)
         }
       })
     } else {
@@ -150,9 +168,24 @@ class TeacherNavbar extends React.Component<any, any> {
     }
   }
 
+  toggleWatchTeacherMode() {
+    const { watchTeacherState } = this.props.classroomSessions.data
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    if (watchTeacherState) {
+      if (ca_id) {
+        removeWatchTeacherState(ca_id);
+      }
+    } else {
+      setWatchTeacherState(ca_id);
+    }
+  }
+
   render() {
-    let projectorClass, watchTeacherClass, exitClass, flagClass
+    const { watchTeacherState } = this.props.classroomSessions.data
+    let projectorClass, exitClass, flagClass;
     let helpClass = this.state.showHelpDropdown ? 'hover' : ''
+    let watchTeacherClass = watchTeacherState ? 'hover' : ''
+    if (!this.state.showHelpDropdown && !watchTeacherState )
     switch (this.state.tooltip) {
       case 'projector':
         projectorClass = "hover"
@@ -196,6 +229,7 @@ class TeacherNavbar extends React.Component<any, any> {
           <div
             onMouseEnter={(e) => this.showTooltip(e, 'watchTeacher')}
             onMouseLeave={(e) => this.hideTooltip(e)}
+            onClick={this.toggleWatchTeacherMode}
           >
             <img src={watchTeacherIcon} className={watchTeacherClass}/>
             {this.renderTooltip('watchTeacher')}

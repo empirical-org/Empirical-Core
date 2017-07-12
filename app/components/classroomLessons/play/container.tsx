@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
+import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
@@ -82,14 +83,18 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
     // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
+    const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
     if (hasreceiveddata && lessonDataLoaded) {
       const component = this.renderCurrentSlide(data, lessonData);
       if (component) {
         return (
-          <div className="play-lesson-container">
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                {component}
+          <div>
+            {watchTeacher}
+            <div className="play-lesson-container">
+              <div className="main-content">
+                <div className="main-content-wrapper">
+                  {component}
+                </div>
               </div>
             </div>
           </div>
