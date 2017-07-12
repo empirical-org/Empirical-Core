@@ -19,12 +19,13 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   updateSelectedOptionKey(selected) {
+    console.log(selected)
     this.setState({selectedOptionKey: selected})
   }
 
-  assignAction(){
+  assignAction(e){
     // do the thing to the server
-    console.log('doing something to the server')
+    console.log(e)
   }
 
   render() {

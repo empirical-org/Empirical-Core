@@ -1,4 +1,8 @@
+declare function require(name:string);
 import * as React from 'React'
+const RadioButtonHover = require('../../../img/radioButtonHover.svg')
+const RadioButtonIcon = require('../../../img/radioButtonIcon.svg')
+const RadioButtonSelected = require('../../../img/radioButtonSelected.svg')
 
 class AssignmentOptions extends React.Component<{numberOfStudents: number, updateSelectedOptionKey: Function, selectedOptionKey: string}> {
   constructor(props) {
@@ -21,10 +25,24 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
     const optionObject = this.optionObj()
     const optionsList = [];
     for (let option in optionObject) {
+      const isSelected = option === this.props.selectedOptionKey
+      const imgSrc = isSelected ? RadioButtonSelected : RadioButtonIcon;
       const row = (
         <div key={option}>
           <h3>{option}</h3>
           <p>{optionObject[option]}</p>
+          <input
+            style={{display: 'none'}}
+            id={option}
+            value={option}
+            name='rad-button'
+            type="radio"
+            checked={isSelected}
+            onChange={() => this.props.updateSelectedOptionKey(option)}
+          />
+          <label htmlFor={option}>
+            <img src={imgSrc} alt="checkbox"/>
+          </label>
         </div>
       )
       optionsList.push(row)

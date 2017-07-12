@@ -72,7 +72,6 @@ class FlaggedStudents extends React.Component<{flaggedStudents: Object, students
             student{studSuffix}.
             <span onClick={this.toggleShowUnflaggedStudents}>{unflaggedStudentText}</span>
           </span>
-
         </div>
         <ul>
           {this.flaggedStudentsList()}
