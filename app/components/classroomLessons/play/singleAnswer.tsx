@@ -10,7 +10,7 @@ class SingleAnswer extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      response: this.props.submissions && this.props.submissions[getParameterByName('student')] ? this.props.submissions[getParameterByName('student')].data : '',
+      response: '',
       editing: false,
       submitted: false,
     };
@@ -23,9 +23,6 @@ class SingleAnswer extends Component<any, any> {
     // this will reset the state when a teacher resets a question
     if (this.state.submitted === true && nextProps.submissions === null) {
       this.setState({ submitted: false, editing: false, response: '', });
-    }
-    if (nextProps.submissions && nextProps.submissions[student] && (nextProps.submissions[student].data !== this.state.response)) {
-      this.setState({ response: nextProps.submissions[student].data })
     }
   }
 
