@@ -36,8 +36,9 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
-      document.getElementsByClassName("main-content")[0].scrollTop = 0;
+    const element = document.getElementsByClassName("main-content")[0];
+    if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
+      element.scrollTop = 0;
     }
   }
 
