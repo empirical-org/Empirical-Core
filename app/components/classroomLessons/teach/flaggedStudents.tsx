@@ -16,9 +16,6 @@ class FlaggedStudents extends React.Component<{flaggedStudents: Object, students
     this.state = {
       showUnflaggedStudents: false
     }
-    // this.flaggedStudentsList = this.flaggedStudentsList.bind(this)
-    // this.unflaggedStudentsList = this.unflaggedStudentsList.bind(this)
-    // this.renderStudentList = this.renderStudentList.bind(this)
     this.toggleShowUnflaggedStudents = this.toggleShowUnflaggedStudents.bind(this)
   }
 
@@ -71,7 +68,7 @@ class FlaggedStudents extends React.Component<{flaggedStudents: Object, students
         <div className='list-summary'>
           <span>
             You have flagged
-            <span className="stud-count">{studLength}</span>
+            <span className="stud-count">{' ' + studLength + ' '}</span>
             student{studSuffix}.
             <span onClick={this.toggleShowUnflaggedStudents}>{unflaggedStudentText}</span>
           </span>
