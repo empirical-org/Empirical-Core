@@ -5,6 +5,7 @@ import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
+import CLListBlanks from './listBlanks';
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -78,6 +79,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         const props = { mode, submissions, selected_submissions, };
         return (
           <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+        );
+      case 'CL-FL':
+        return (
+          <CLListBlanks data={current.data} handleStudentSubmission={this.handleStudentSubmission}/>
         );
       default:
 
