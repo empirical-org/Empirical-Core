@@ -101,8 +101,10 @@ class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentS
   }
 
   submitSubmission() {
-    this.props.handleStudentSubmission(this.zipInputsAndText(), moment().format());
-    this.setState({ submitted: true, });
+    if (this.state.inputErrors.size === 0) {
+      this.props.handleStudentSubmission(this.zipInputsAndText(), moment().format());
+      this.setState({ submitted: true, });
+    }
   }
 
   renderInstructions() {
@@ -139,9 +141,13 @@ class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentS
     }
   }
 
+  inputsEmpty() {
+    return this.state.inputVals.includes('')
+  }
+
   renderSubmitButton() {
     if (this.props.mode !== 'PROJECT') {
-      if (this.state.editing) {
+      if (this.state.editing && !this.inputsEmpty()) {
         return (<div className="question-button-group">
           <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
         </div>);
@@ -198,14 +204,7 @@ class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentS
       newErrors.delete(i);
     }
 
-    // following condition will return false if no new errors
-    if (newErrors.size) {
-      const newInputVals = this.state.inputVals
-      newInputVals[i] = ''
-      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
-    } else {
-      this.setState({ inputErrors: newErrors });
-    }
+    this.setState({ inputErrors: newErrors });
   }
 
   renderWarning(i) {
