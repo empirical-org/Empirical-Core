@@ -142,7 +142,7 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   modeRef.remove();
 }
 
-export function setWatchTeacherState(classroom_activity_id: string): void {
+export function setWatchTeacherState(classroom_activity_id: string | null): void {
   const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
   watchTeacherRef.set(true);
 }

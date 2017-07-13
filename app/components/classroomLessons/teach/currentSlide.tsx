@@ -35,6 +35,13 @@ class CurrentSlide extends React.Component<any, any> {
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const element = document.getElementsByClassName("main-content")[0];
+    if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
+      element.scrollTop = 0;
+    }
+  }
+
   toggleSelected(currentSlideId: string, student: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
