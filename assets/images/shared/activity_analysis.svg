@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="149px" height="65px" viewBox="0 0 149 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 9</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M141.765681,9.53101515 L148.972308,16.737642 L141.765681,23.9442689 L141.765681,33 L-9.09494702e-13,33 L-9.09494702e-13,0 L141.765681,0 L141.765681,9.53101515 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="148.972308" height="33" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Activity-Planner---landing-page" transform="translate(-587.000000, -331.000000)">
+            <g id="Group-9" transform="translate(587.000000, 331.000000)">
+                <g id="x-copy" transform="translate(8.000000, 57.000000)" stroke-width="2" stroke="#E8522C">
+                    <g id="Group">
+                        <path d="M6.68181818,0.318181818 L0.318181818,6.68181818" id="Shape"></path>
+                        <path d="M6.68181818,6.68181818 L0.318181818,0.318181818" id="Shape"></path>
+                    </g>
+                </g>
+                <g id="check-copy" transform="translate(8.000000, 41.000000)" stroke-width="2" stroke="#58B146">
+                    <g id="Group">
+                        <polyline id="Shape" points="0.371212121 3.5 2.8459596 6.68181818 7.79545455 0.318181818"></polyline>
+                    </g>
+                </g>
+                <use id="Combined-Shape" stroke="#CECECE" mask="url(#mask-2)" stroke-width="2" fill="#F7F5F5" xlink:href="#path-1"></use>
+                <g id="Group-8" transform="translate(8.000000, 10.000000)" stroke="#B4B4B4" stroke-width="1.2">
+                    <path d="M0,1 L121.525719,1" id="Shape"></path>
+                    <path d="M0,12 L90.5013809,12" id="Shape-Copy"></path>
+                </g>
+                <g id="Group-8-Copy" transform="translate(22.000000, 45.000000)" stroke="#B4B4B4" stroke-width="1.2">
+                    <path d="M0,1 L107.580144,1" id="Shape"></path>
+                </g>
+                <g id="Group-8-Copy-2" transform="translate(22.000000, 60.000000)" stroke="#B4B4B4" stroke-width="1.2">
+                    <path d="M0,1 L90.6462328,1" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
