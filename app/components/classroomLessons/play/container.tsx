@@ -57,7 +57,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         submission
       );
     }
-
   }
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
