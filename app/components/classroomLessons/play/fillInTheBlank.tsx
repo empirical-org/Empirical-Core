@@ -122,19 +122,26 @@ class FillInTheBlank extends React.Component<{data: QuestionData, handleStudentS
 
   renderSubmitButton() {
     if (this.props.mode !== 'PROJECT') {
-      return (<div className="question-button-group">
-        <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
-      </div>);
+      if (this.state.editing) {
+        return (<div className="question-button-group">
+          <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
+        </div>);
+      } else {
+        return (<div className="question-button-group">
+          <button disabled={true} className="button student-submit">Submit</button>
+        </div>);
+      }
+
     }
   }
 
   renderPrompt(elements) {
-    return <div>{elements}</div>
+    return <div className="prompt">{elements}</div>
   }
 
   render() {
     return(
-      <div>
+      <div className="fill-in-the-blank">
         {this.renderPrompt(this.getPromptElements())}
         {this.renderCues()}
         {this.renderInstructions()}
