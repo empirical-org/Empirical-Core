@@ -3,3 +3,12 @@
   text-align: center;
   margin: auto;
 }
+
+.question-button-group {
+  button {
+    &.disabled {
+      background-color: #f4f4f4;
+      border: none;
+    }
+  }
+}

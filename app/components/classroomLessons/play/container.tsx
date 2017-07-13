@@ -49,6 +49,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const student: string|null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
     const submission = {data, timestamp}
+    debugger;
     if (classroom_activity_id && student) {
       saveStudentSubmission(
         classroom_activity_id,

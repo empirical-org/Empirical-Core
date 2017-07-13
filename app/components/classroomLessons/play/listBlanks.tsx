@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const moment = require('moment');
 import _ from 'underscore'
 import {
 QuestionData
@@ -9,14 +10,15 @@ import SubmitButton from './submitButton.tsx'
 class ListBlanks extends Component<{data: QuestionData}> {
   constructor(props) {
     super(props);
-    this.state = {submittable: false, answers: {}}
+    this.state = {isSubmittable: false, answers: {}}
     this.customChangeEvent = this.customChangeEvent.bind(this)
+    this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
   }
 
   customChangeEvent(e, index){
     const newState = Object.assign({}, this.state)
     newState.answers[index] = e
-    newState.submittable = this.isSubmittable(newState.answers)
+    newState.isSubmittable = this.isSubmittable(newState.answers)
     this.setState(newState)
   }
 
@@ -65,7 +67,12 @@ class ListBlanks extends Component<{data: QuestionData}> {
   }
 
   handleStudentSubmission(){
-    console.log('will be handling student submission')
+    if (this.state.isSubmittable) {
+        this.props.handleStudentSubmission(this.state.answers, moment().format())
+    }
+    let text = this.state.isSubmittable ? 'student submission' : 'warning'
+    console.log(text)
+
   }
 
   render() {
@@ -75,7 +82,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
           {this.props.data.play.prompt}
         </h1>
         {this.listBlanks()}
-        <SubmitButton disabled={this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
+        <SubmitButton disabled={!this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
       </div>
     );
   }

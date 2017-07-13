@@ -8,7 +8,11 @@ class SubmitButton extends Component<{data: QuestionData}> {
   render() {
     return (
       <div className="question-button-group">
-        <button disabled={this.props.submittable} onClick={this.props.onclick} className="button student-submit">Submit</button>
+        <button
+          className={`button student-submit ${this.props.disabled ? 'disabled' : null}`}
+          onClick={this.props.onClick}>
+            Submit
+          </button>
       </div>);
     );
   }
