@@ -7,42 +7,16 @@ describe('NewStudent component', () => {
 
   it('renders a signup form', () => {
     const wrapper = shallow(
-        <NewStudent signUp={() => null} textInputGenerator={{generate: () => null}} />
+        <NewStudent signUp={() => null} errors={{}}/>
     );
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('applies textInputGenerator generate function to form fields', () => {
-
-    const formFields = [
-      {
-        name: 'first_name',
-        label: 'First Name',
-        errorLabel: 'Name'
-      },
-      {
-        name: 'last_name',
-        label: 'Last Name',
-        errorLabel: 'Name'
-      },
-      {
-        name: 'username'
-      },
-      {
-        name: 'email',
-        label: 'Email (optional)',
-        errorLabel: 'Email'
-      },
-      {
-        name: 'password'
-      }
-    ];
-
-    const mockGenerator = jest.fn();
+  it('renders an input field for each formField', () => {
     const wrapper = shallow(
-        <NewStudent signUp={() => null} textInputGenerator={{generate: mockGenerator}} />
+        <NewStudent signUp={() => null} errors={{}}/>
     );
-    expect(mockGenerator.mock.calls[0][0]).toEqual(formFields);
-  });
+    expect(wrapper.find('input')).toHaveLength(wrapper.instance().formFields.length);
+  })
 
-});
+})
