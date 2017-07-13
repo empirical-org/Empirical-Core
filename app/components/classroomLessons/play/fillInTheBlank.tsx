@@ -64,14 +64,17 @@ class FillInTheBlank extends React.Component<{data: QuestionData, handleStudentS
   }
 
   renderInput(i) {
+    const buttonClass = this.state.submitted ? "disabled-button" : "";
     return (
       <span key={`span${i}`}>
         <input
+          className={buttonClass}
           id={`input${i}`}
           key={i + 100}
           type="text"
           value={this.state.inputVals[i]}
           onChange={(e) => this.updateBlankValue(e, i)}
+          disabled={this.state.submitted}
         />
       </span>
     );
