@@ -5,6 +5,7 @@ import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from 'components/renderForQuestions/cues';
 import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
+import WarningDialogue from 'components/fillInBlank/warningDialogue'
 import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion
@@ -22,7 +23,8 @@ class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentS
       editing: false,
       submitted: false,
       splitPrompt: splitPrompt,
-      inputVals: this.generateInputs(splitPrompt)
+      inputVals: this.generateInputs(splitPrompt),
+      inputErrors: new Set()
     };
     this.submitSubmission = this.submitSubmission.bind(this);
     this.updateBlankValue = this.updateBlankValue.bind(this);
@@ -69,17 +71,26 @@ class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentS
   }
 
   renderInput(i) {
-    const buttonClass = this.state.submitted || this.props.mode === 'PROJECT' ? "disabled-button" : "";
+    let inputClass = this.state.submitted || this.props.mode === 'PROJECT' ? "disabled-button" : "";
+    let warning
+    if (this.state.inputErrors.has(i)) {
+      warning = this.renderWarning(i);
+      inputClass += 'bad-input'
+    }
     return (
       <span key={`span${i}`}>
+        <div className='warning'>
+          {warning}
+        </div>
         <input
-          className={buttonClass}
+          className={inputClass}
           id={`input${i}`}
           key={i + 100}
           type="text"
           value={this.state.inputVals[i]}
           onChange={(e) => this.updateBlankValue(e, i)}
           disabled={this.state.submitted}
+          onBlur={() => this.validateInput(i)}
         />
       </span>
     );
@@ -174,6 +185,42 @@ class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentS
       <ul className="class-answer-list" >
         {selected}
       </ul>
+    );
+  }
+
+  validateInput(i) {
+    const newErrors = new Set(this.state.inputErrors);
+    const inputVal = this.state.inputVals[i] || '';
+
+    if (inputVal && this.props.data.play.cues.indexOf(inputVal.toLowerCase()) === -1) {
+      newErrors.add(i);
+    } else {
+      newErrors.delete(i);
+    }
+
+    // following condition will return false if no new errors
+    if (newErrors.size) {
+      const newInputVals = this.state.inputVals
+      newInputVals[i] = ''
+      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
+    } else {
+      this.setState({ inputErrors: newErrors });
+    }
+  }
+
+  renderWarning(i) {
+    const warningStyle = {}
+    const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
+    const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
+    if (rectangle.left > (body.width / 2)) {
+      warningStyle.right = '-73px';
+    }
+    return (
+      <WarningDialogue
+        key={`warning${i}`}
+        style={warningStyle}
+        text={'Use one of the words below.'}
+      />
     );
   }
 
