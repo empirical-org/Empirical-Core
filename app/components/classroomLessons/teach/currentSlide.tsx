@@ -109,6 +109,7 @@ class CurrentSlide extends React.Component<any, any> {
             />
           );
         case 'CL-SA':
+        case 'CL-FB':
           return (
             <CLSingleAnswer
               data={data}
