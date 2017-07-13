@@ -68,7 +68,8 @@ class ListBlanks extends Component<{data: QuestionData}> {
 
   handleStudentSubmission(){
     if (this.state.isSubmittable) {
-        this.props.handleStudentSubmission(this.state.answers, moment().format())
+        const sortedAnswers = Object.values(this.state.answers).sort()
+        this.props.handleStudentSubmission(sortedAnswers, moment().format())
     }
     let text = this.state.isSubmittable ? 'student submission' : 'warning'
     console.log(text)
