@@ -1,26 +1,31 @@
+declare function require(name:string);
 import * as React from 'react'
+import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from 'components/renderForQuestions/cues';
 import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import {
-  Submissions,
-  SelectedSubmissions
+  QuestionSubmissionsList,
+  SelectedSubmissionsForQuestion
 } from '../interfaces';
+import {
+  scriptTagStrip
+} from '../shared/scriptTagStrip';
 const moment = require('moment');
 
-class FillInTheBlank extends React.Component<{data: QuestionData, handleStudentSubmission: Function, mode: string, submissions: Submissions, selected_submissions: SelectedSubmissions }> {
+class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentSubmission: Function; mode: string; submissions: QuestionSubmissionsList; selected_submissions: SelectedSubmissionsForQuestion}> {
   constructor(props) {
     super(props)
     const splitPrompt = props.data.play.prompt.split('___');
     this.state = {
       editing: false,
       submitted: false,
-      splitPrompt,
+      splitPrompt: splitPrompt,
       inputVals: this.generateInputs(splitPrompt)
     };
     this.submitSubmission = this.submitSubmission.bind(this);
-    this.updateBlankValue = this.updateBlankValue.bind(this)
+    this.updateBlankValue = this.updateBlankValue.bind(this);
   }
 
   generateInputs(promptArray) {
@@ -33,9 +38,9 @@ class FillInTheBlank extends React.Component<{data: QuestionData, handleStudentS
 
   getPromptElements() {
     if (this.state.splitPrompt) {
-      const { splitPrompt, } = this.state;
+      const { splitPrompt } = this.state;
       const l = splitPrompt.length;
-      const splitPromptWithInput = [];
+      const splitPromptWithInput: Array<JSX.Element> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
@@ -64,7 +69,7 @@ class FillInTheBlank extends React.Component<{data: QuestionData, handleStudentS
   }
 
   renderInput(i) {
-    const buttonClass = this.state.submitted ? "disabled-button" : "";
+    const buttonClass = this.state.submitted || this.props.mode === 'PROJECT' ? "disabled-button" : "";
     return (
       <span key={`span${i}`}>
         <input
@@ -142,13 +147,53 @@ class FillInTheBlank extends React.Component<{data: QuestionData, handleStudentS
     return <div className="prompt">{elements}</div>
   }
 
+  renderProject() {
+    const classAnswers = this.props.selected_submissions
+    ? (<div>
+      <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
+      {this.renderClassAnswersList()}
+    </div>)
+    : <span />;
+    return (
+      <div className="display-mode">
+        {this.renderPrompt(this.getPromptElements())}
+        {classAnswers}
+      </div>
+    );
+  }
+
+  renderClassAnswersList() {
+    const { selected_submissions, submissions, } = this.props;
+    const selected = Object.keys(selected_submissions).map((key, index) => {
+      const text: any = submissions[key].data;
+      return (<li key={index}>
+        <span className="answer-number">{index + 1}</span><span dangerouslySetInnerHTML={{ __html: text }} />
+      </li>);
+    });
+    return (
+      <ul className="class-answer-list" >
+        {selected}
+      </ul>
+    );
+  }
+
   render() {
+    let content
+    if (this.props.mode === 'PROJECT') {
+      content = this.renderProject()
+    } else {
+      content = (
+        <div>
+          {this.renderPrompt(this.getPromptElements())}
+          {this.renderCues()}
+          {this.renderInstructions()}
+          {this.renderSubmitButton()}
+        </div>
+        )
+    }
     return(
       <div className="fill-in-the-blank">
-        {this.renderPrompt(this.getPromptElements())}
-        {this.renderCues()}
-        {this.renderInstructions()}
-        {this.renderSubmitButton()}
+      {content}
       </div>
 
     )

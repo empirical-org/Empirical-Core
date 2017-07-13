@@ -62,6 +62,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
+    let passedProps
     console.log(current.type);
     switch (current.type) {
       case 'CL-LB':
@@ -73,14 +74,14 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
           <CLStudentStatic data={current.data} />
         );
       case 'CL-SA':
-        const props = { mode, submissions, selected_submissions, };
+        passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
         );
       case 'CL-FB':
-      const props = { mode, submissions, selected_submissions, };
+        passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+          <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
         );
       default:
 
