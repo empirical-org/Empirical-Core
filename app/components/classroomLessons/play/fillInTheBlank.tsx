@@ -209,18 +209,11 @@ class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentS
   }
 
   renderWarning(i) {
-    const warningStyle = {}
-    const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
-    const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
-    if (rectangle.left > (body.width / 2)) {
-      warningStyle.right = '-73px';
-    }
     return (
-      <WarningDialogue
-        key={`warning${i}`}
-        style={warningStyle}
-        text={'Use one of the words below.'}
-      />
+      <div className="warning-dialogue">
+        <span>Use one of the words below.</span>
+        <i className="fa fa-caret-down"/>
+    </div>
     );
   }
 
