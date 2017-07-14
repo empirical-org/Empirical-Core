@@ -56,6 +56,7 @@ class Sidebar extends React.Component<any, any> {
             );
             break;
           case 'CL-SA':
+          case 'CL-FB':
             const mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
             const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
             const selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
