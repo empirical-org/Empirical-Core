@@ -44,7 +44,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   generateInputs(promptArray) {
-    const inputs = [];
+    const inputs: Array<string> = [];
     for (let i = 0; i < promptArray.length - 2; i++) {
       inputs.push('');
     }
@@ -68,7 +68,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     }
   }
 
-  updateBlankValue(e, i) {
+  updateBlankValue(e: React.ChangeEvent<HTMLInputElement>, i: number) {
     const existing = [...this.state.inputVals];
     existing[i] = e.target.value.trim();
     this.setState({
@@ -83,11 +83,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     return _.flatten(zipped).join('');
   }
 
-  renderInput(i) {
+  renderInput(i: number) {
     let inputClass = this.state.submitted || this.props.mode === 'PROJECT' ? "disabled-button" : "";
     let warning
     if (this.state.inputErrors.has(i)) {
-      warning = this.renderWarning(i);
+      warning = this.renderWarning();
       inputClass += 'bad-input'
     }
     return (
@@ -102,14 +102,14 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
           type="text"
           value={this.state.inputVals[i]}
           onChange={(e) => this.updateBlankValue(e, i)}
-          disabled={this.state.submitted}
+          disabled={!!inputClass}
           onBlur={() => this.validateInput(i)}
         />
       </span>
     );
   }
 
-  renderText(text, i) {
+  renderText(text: string, i: number) {
     return <span key={i}>{text}</span>;
   }
 
@@ -173,7 +173,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     }
   }
 
-  renderPrompt(elements) {
+  renderPrompt(elements: Array<JSX.Element> | undefined) {
     return <div className="prompt">{elements}</div>
   }
 
@@ -207,7 +207,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     );
   }
 
-  validateInput(i) {
+  validateInput(i: number) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
 
@@ -220,7 +220,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     this.setState({ inputErrors: newErrors });
   }
 
-  renderWarning(i) {
+  renderWarning() {
     return (
       <div className="warning-dialogue">
         <span>Use one of the words below.</span>
