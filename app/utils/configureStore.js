@@ -11,7 +11,6 @@ const hashhistory = createHashHistory({ queryKey: false, });
 const middleware = routerMiddleware(hashhistory);
 
 const finalCreateStore = compose(
-  autoRehydrate(),
   // middleware you want to use in development:
   applyMiddleware(thunk, middleware),
   // required! Enable Redux DevTools with the monitors you chose
@@ -28,12 +27,6 @@ function getDebugSessionKey() {
 
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
-  persistStore(store, { storage: localForage,
-    blacklist: ['routing', 'pathways', 'playLesson',
-      'playDiagnostic',
-      'question',
-      'classroomSessions',
-      'classroomLesson'], });
   if (module.hot) {
     module.hot.accept('../reducers/combined', () =>
       store.replaceReducer(require('../reducers/combined')/* .default if you use Babel 6+ */)
