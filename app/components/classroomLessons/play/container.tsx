@@ -53,7 +53,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
       registerPresence(classroom_activity_id, student);
     } else {
-      if (!nextProps.classroomSessions.error) {
+      if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
         this.props.dispatch(updateNoStudentError(student))
       }
     }
