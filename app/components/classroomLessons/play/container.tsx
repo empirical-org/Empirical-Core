@@ -30,9 +30,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (classroom_activity_id) {
       this.props.dispatch(startListeningToSession(classroom_activity_id));
       this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
-      if (student) {
-        registerPresence(classroom_activity_id, student);
-      }
     }
   }
 
@@ -41,6 +38,16 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
       element.scrollTop = 0;
     }
+    const student = getParameterByName('student');
+    const classroom_activity_id = getParameterByName('classroom_activity_id')
+    const { data, hasreceiveddata } = this.props.classroomSessions;
+    if (student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+      registerPresence(classroom_activity_id, student);
+    }
+  }
+
+  studentEnrolledInClass(student: string) {
+    return !!this.props.classroomSessions.data.students[student]
   }
 
   handleStudentSubmission(data: string, timestamp: string) {
@@ -48,7 +55,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const student: string|null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
     const submission = {data, timestamp}
-    if (classroom_activity_id && student) {
+    if (classroom_activity_id && student && this.studentEnrolledInClass(student)) {
       saveStudentSubmission(
         classroom_activity_id,
         current_slide,
@@ -61,7 +68,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
     const current = lessonData.questions[data.current_slide];
-    console.log(current.type);
     switch (current.type) {
       case 'CL-LB':
         return (
