@@ -11,6 +11,12 @@
   }
 }
 
+.list-number {
+  font-family: RobotoMono;
+	font-size: 20px;
+	color: #969696;
+  margin-right: 33px;
+}
 
 .sentence-fragments {
   font-size: 36px;
@@ -31,6 +37,11 @@
     background-color: #e9e9e9;
   }
 }
+.list-component {
+  display: flex;
+  align-items: center;
+  // justify-content: space-around;
+}
 .feedback-row {
   .fa-check-circle {
     padding-top: 8px;
@@ -39,6 +50,24 @@
     font-size: 15px;
   }
 }
+
+.list-blanks {
+  max-width: 800px;
+  background-color: 'yellow';
+  .student.text-editor.card {
+    width: 250px;
+    height: 40px;
+    min-height: 0px;
+    .card-content {
+      padding: 9px;
+    }
+  }
+  .warning {
+    font-size: 20px;
+    color: #ff4542;
+  }
+}
+
 
 .display-mode {
   margin-top: 25px;

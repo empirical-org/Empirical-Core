@@ -9,6 +9,7 @@ import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
+import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank'
 import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
@@ -33,7 +34,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    console.log(this.props)
     const classroom_activity_id = getParameterByName('classroom_activity_id');
     const student = getParameterByName('student');
     if (classroom_activity_id) {
@@ -79,7 +79,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         submission
       );
     }
-
   }
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
@@ -87,6 +86,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
+    const props = { mode, submissions, selected_submissions, };
     let passedProps
     switch (current.type) {
       case 'CL-LB':
@@ -106,6 +106,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         passedProps = { mode, submissions, selected_submissions, };
         return (
           <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
+        );
+      case 'CL-FL':
+        return (
+          <CLListBlanks data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
         );
       default:
 

@@ -2,6 +2,7 @@ declare function require(name:string);
 import React, { Component } from 'react';
 import Cues from 'components/renderForQuestions/cues';
 import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
+import FeedbackRow from './feedbackRow'
 import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -115,9 +116,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   renderInstructions() {
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
-        return (<div className="feedback-row">
-          <p><i className="fa fa-check-circle" aria-hidden="true" />Great Work! Please wait as your teacher reviews your answer...</p>
-        </div>);
+        return (<FeedbackRow/>);
       } else if (this.props.data.play.instructions) {
         return (<div className="feedback-row">
           <img src={icon} />

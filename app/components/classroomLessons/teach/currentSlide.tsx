@@ -129,6 +129,30 @@ class CurrentSlide extends React.Component<any, any> {
               clearAllSubmissions={this.clearAllSubmissions}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             />
+          )
+        case 'CL-FL':
+        return (
+          <CLSingleAnswer
+            data={data}
+            lessonData={lessonData}
+            toggleStudentFlag={this.toggleStudentFlag}
+            toggleSelected={this.toggleSelected}
+            startDisplayingAnswers={this.startDisplayingAnswers}
+            stopDisplayingAnswers={this.stopDisplayingAnswers}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+            clearAllSubmissions={this.clearAllSubmissions}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          />
+        )
+        case 'CL-EX':
+          return (
+            <CLExit
+              script={current.data.teach.script}
+              flaggedStudents={data.flaggedStudents}
+              students={data.students}
+              toggleStudentFlag={this.toggleStudentFlag}
+            />
           );
         case 'CL-EX':
           return (
