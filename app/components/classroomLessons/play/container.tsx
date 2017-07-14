@@ -5,6 +5,7 @@ import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
+import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -91,35 +92,39 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   public render() {
-    const { data, hasreceiveddata }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
-    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
-    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
-    // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
-    // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
-    const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
-    if (hasreceiveddata && lessonDataLoaded) {
-      const component = this.renderCurrentSlide(data, lessonData);
-      if (component) {
-        return (
-          <div>
-            {watchTeacher}
-            <div className="play-lesson-container">
-              <div className="main-content">
-                <div className="main-content-wrapper">
-                  {component}
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      }
-    }
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
+    const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = this.props.classroomSessions;
+    if (error) {
+     return <ErrorPage text={error} />
+   } else {
+     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+     // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
+     // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
+     const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
+     if (hasreceiveddata && lessonDataLoaded) {
+       const component = this.renderCurrentSlide(data, lessonData);
+       if (component) {
+         return (
+           <div>
+           {watchTeacher}
+           <div className="play-lesson-container">
+           <div className="main-content">
+           <div className="main-content-wrapper">
+           {component}
+           </div>
+           </div>
+           </div>
+           </div>
+         );
+       }
+     }
+     return (
+       <div>
+       Loading...
+       </div>
+     );
+   }
+   }
 
 }
 

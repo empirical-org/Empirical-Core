@@ -5,7 +5,8 @@ const initialState = {
   hasreceiveddata: false,
   submittingnew: false,
   states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
-  data: { current_slide: 0, }, // this will contain firebase data
+  data: { current_slide: 0, }, // this will contain firebase data,
+  error: ''
 };
 
 export default function (currentState = initialState, action) {
@@ -31,6 +32,11 @@ export default function (currentState = initialState, action) {
     case C.TOGGLE_HEADERS:
       newState = Object.assign({}, currentState, {
         onlyShowHeaders: !currentState.onlyShowHeaders,
+      });
+      return newState;
+    case C.NO_CLASSROOM_ACTIVITY:
+      newState = Object.assign({}, currentState, {
+        error: 'No such classroom activity.',
       });
       return newState;
     default: return currentState;
