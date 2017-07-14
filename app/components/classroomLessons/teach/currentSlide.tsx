@@ -145,7 +145,6 @@ class CurrentSlide extends React.Component<any, any> {
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
           />
         )
-          );
         case 'CL-EX':
           return (
             <CLExit

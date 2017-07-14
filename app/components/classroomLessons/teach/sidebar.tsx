@@ -8,6 +8,8 @@ import {
 import CLStudentLobby from '../play/lobby';
 import CLStudentStatic from '../play/static';
 import CLStudentSingleAnswer from '../play/singleAnswer';
+import CLStudentListBlanks from '../play/listBlanks';
+import CLStudentFillInTheBlank from '../play/fillInTheBlank';
 import {
   ClassroomLessonSession,
   QuestionSubmissionsList
@@ -44,6 +46,10 @@ class Sidebar extends React.Component<any, any> {
         counter += 1;
         const activeClass = currentSlide === slide ? 'active' : '';
         let thumb;
+        let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
+        let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
+        let selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
+        let props = { mode, submissions, selected_submissions, };
         switch (questions[slide].type) {
           case 'CL-LB':
             thumb = (
@@ -56,13 +62,23 @@ class Sidebar extends React.Component<any, any> {
             );
             break;
           case 'CL-SA':
-          case 'CL-FB':
-            const mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
-            const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
-            const selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
-            const props = { mode, submissions, selected_submissions, };
             thumb = (
               <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            );
+          break
+          case 'CL-FB':
+            thumb = (
+              <CLStudentFillInTheBlank data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            );
+            break;
+          case 'CL-FL':
+            thumb = (
+              <CLStudentListBlanks data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            );
+            break;
+          case 'CL-EX':
+            thumb = (
+              <CLStudentStatic data={questions[slide].data} />
             );
             break;
           default:

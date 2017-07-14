@@ -71,7 +71,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderYourAnswer() {
-    return <p className="your-answer">bleh</p>;
+    return <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>;
   }
 
   renderClassAnswersList() {
@@ -79,7 +79,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     const selected = Object.keys(selected_submissions).map((key, index) => {
       const text = submissions ? submissions[key].data : null
       return (<li>
-        <span>{index + 1}</span>{text}
+        <span>{index + 1}</span> {text}
       </li>);
     });
     return (
@@ -142,17 +142,21 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   answerValues(){
     // TODO use Object.values once we figure out typescript ECMA-2017
     const answerArr : string[] = [];
-    const vals = this.state.answers
-    for (let key in vals) {
-      answerArr.push(key)
+    const answers = this.state.answers
+    for (let key in answers) {
+      answerArr.push(answers[key])
     }
     return answerArr
   }
 
+  sortedAndJoinedAnswers(){
+      const sortedAnswers = this.answerValues().sort()
+      return sortedAnswers.join(', ')
+  }
+
   handleStudentSubmission(){
     if (this.state.isSubmittable) {
-        const sortedAnswers = this.answerValues().sort()
-        this.props.handleStudentSubmission(sortedAnswers.join(', '), moment().format())
+        this.props.handleStudentSubmission(this.sortedAndJoinedAnswers(), moment().format())
         this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});
