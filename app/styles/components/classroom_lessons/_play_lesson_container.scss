@@ -52,6 +52,7 @@
 }
 
 .list-blanks {
+  max-width: 800px;
   background-color: 'yellow';
   .student.text-editor.card {
     width: 250px;
@@ -60,6 +61,10 @@
     .card-content {
       padding: 9px;
     }
+  }
+  .warning {
+    font-size: 20px;
+    color: #ff4542;
   }
 }
 

@@ -1,14 +1,35 @@
-import React, { Component } from 'react';
+declare function require(name:string);
+import * as React from 'react';
 const moment = require('moment');
 import {
-QuestionData
+QuestionData,
 } from 'interfaces/classroomLessons'
+import {
+ClassroomLessonSession,
+SelectedSubmissionsForQuestion,
+QuestionSubmissionsList
+} from '../interfaces'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
 
-class ListBlanks extends Component<{data: QuestionData}> {
+interface ListBlankProps {
+  data: QuestionData;
+  mode: null|string;
+  handleStudentSubmission: Function;
+  selected_submissions: SelectedSubmissionsForQuestion|null;
+  submissions: QuestionSubmissionsList|null;
+}
+interface ListBlankState {
+  isSubmittable: Boolean;
+  answers: { [key:string]: string|null };
+  errors: Boolean;
+  answerCount: number;
+  submitted: Boolean;
+}
+
+class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   constructor(props) {
     super(props);
     this.state = {isSubmittable: false, answers: {}, errors: false, answerCount: 0, submitted: false}
@@ -17,7 +38,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
   }
 
   customChangeEvent(e, index){
-    const newState = Object.assign({}, this.state)
+    const newState = {...this.state}
     newState.answers[index] = e
     const initialBlankCount = this.props.data.play.nBlanks;
     const answerCount = this.answerCount(newState.answers)
@@ -56,7 +77,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text = submissions[key].data;
+      const text = submissions ? submissions[key].data : null
       return (<li>
         <span>{index + 1}</span>{text}
       </li>);
@@ -103,8 +124,9 @@ class ListBlanks extends Component<{data: QuestionData}> {
   }
 
   listBlanks() {
+    // let { a, b }: { a: string, b: number } = o;
     const nBlanks = this.props.data.play.nBlanks;
-    const textEditorArr = [];
+    const textEditorArr : JSX.Element[]  = [];
     for (let i = 0; i < nBlanks; i++) {
         textEditorArr.push(
         this.textEditListComponents(i)
@@ -117,9 +139,19 @@ class ListBlanks extends Component<{data: QuestionData}> {
     )
   }
 
+  answerValues(){
+    // TODO use Object.values once we figure out typescript ECMA-2017
+    const answerArr : string[] = [];
+    const vals = this.state.answers
+    for (let key in vals) {
+      answerArr.push(key)
+    }
+    return answerArr
+  }
+
   handleStudentSubmission(){
     if (this.state.isSubmittable) {
-        const sortedAnswers = Object.values(this.state.answers).sort()
+        const sortedAnswers = this.answerValues().sort()
         this.props.handleStudentSubmission(sortedAnswers.join(', '), moment().format())
         this.setState({isSubmittable: false, submitted: true})
     } else {
@@ -129,7 +161,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
 
   renderWarning(){
     const count = numberToWord(this.props.data.play.nBlanks - this.state.answerCount);
-    const suffix = count === 1 ? '' : 's';
+    const suffix = count === 'one' ? '' : 's';
     return (
       <span className="warning">
         {`You missed ${count} blank${suffix}! Please fill in all blanks, then submit your answer.`}
@@ -150,9 +182,11 @@ class ListBlanks extends Component<{data: QuestionData}> {
         </h1>
         {this.listBlanks()}
         <div>
-          {errorArea}
-          {feedbackRow}
-          <SubmitButton key={this.state.submitted} disabled={!this.state.isSubmittable && this.state.submitted} onClick={this.handleStudentSubmission}/>
+          <div className='feedback-and-button-container'>
+            {errorArea}
+            {feedbackRow}
+            <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
+          </div>
         </div>
         </div>
       )
@@ -161,7 +195,6 @@ class ListBlanks extends Component<{data: QuestionData}> {
 
 
   render() {
-    console.log(this.props)
     return (
       <div className="list-blanks">
         {this.renderModeSpecificContent()}
