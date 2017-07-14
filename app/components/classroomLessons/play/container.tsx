@@ -43,18 +43,20 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    const element = document.getElementsByClassName("main-content")[0];
-    if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
-      element.scrollTop = 0;
-    }
-    const student = getParameterByName('student');
-    const classroom_activity_id = getParameterByName('classroom_activity_id')
-    const { data, hasreceiveddata } = this.props.classroomSessions;
-    if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
-      registerPresence(classroom_activity_id, student);
-    } else {
-      if (!nextProps.classroomSessions.error) {
-        this.props.dispatch(updateNoStudentError(student))
+    if (!nextProps.classroomSessions.error && !nextProps.classroomLesson.error) {
+      const element = document.getElementsByClassName("main-content")[0];
+      if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
+        element.scrollTop = 0;
+      }
+      const student = getParameterByName('student');
+      const classroom_activity_id = getParameterByName('classroom_activity_id')
+      const { data, hasreceiveddata } = this.props.classroomSessions;
+      if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+        registerPresence(classroom_activity_id, student);
+      } else {
+        if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
+          this.props.dispatch(updateNoStudentError(student))
+        }
       }
     }
   }

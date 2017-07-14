@@ -99,7 +99,7 @@ class CurrentSlide extends React.Component<any, any> {
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
-      const current = lessonData.questions[data.current_slide || '0'];
+      const current = lessonData.questions[parseInt(data.current_slide) || 0];
       switch (current.type) {
         case 'CL-LB':
           return (
