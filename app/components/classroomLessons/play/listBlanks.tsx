@@ -7,7 +7,7 @@ import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 
-class ListBlanks extends Component<{data: QuestionData}> {
+class ListBlanks extends Component<{data: QuestionData}, > {
   constructor(props) {
     super(props);
     this.state = {isSubmittable: false, answers: {}, errors: false, answerCount: 0, submitted: false}
@@ -95,6 +95,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
           editorIndex={i}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
+          disabled={!this.state.isSubmittable && this.state.submitted}
           />
       </div>
     )
