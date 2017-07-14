@@ -60,7 +60,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
-    if (nextProps.submissions) {
+    if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
       const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length
       const percentageOfClassAnswered = numAnswers/numStudents * 100
@@ -201,7 +201,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderReview(index: number) {
     const { selected_submissions, submissions, current_slide, students, presence } = this.props;
     const numStudents: number = presence ? Object.keys(presence).length : 0;
-    if (submissions) {
+    if (submissions && submissions[current_slide]) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
 
       return (
