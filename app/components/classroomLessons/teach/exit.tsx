@@ -28,7 +28,6 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   render() {
-    console.log('props', this.props)
     const {script, flaggedStudents, students} = this.props
     return (
       <div className='teacher-exit'>

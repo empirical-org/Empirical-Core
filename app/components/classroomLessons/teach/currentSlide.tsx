@@ -154,6 +154,15 @@ class CurrentSlide extends React.Component<any, any> {
               toggleStudentFlag={this.toggleStudentFlag}
             />
           );
+        case 'CL-EX':
+          return (
+            <CLExit
+              script={current.data.teach.script}
+              flaggedStudents={data.flaggedStudents}
+              students={data.students}
+              toggleStudentFlag={this.toggleStudentFlag}
+            />
+          );
         default:
           return (
             <p>UNSUPPORTED QUESTION TYPE</p>
