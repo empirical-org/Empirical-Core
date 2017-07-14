@@ -294,6 +294,7 @@ class ScriptContainer extends React.Component<any, any> {
   renderSubmissionRow(studentKey: string, index: number) {
     const { selected_submissions, submissions, current_slide, students } = this.props;
     const text: any = submissions[current_slide][studentKey].data
+    const html: any = <span dangerouslySetInnerHTML={{__html: text}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
@@ -302,7 +303,7 @@ class ScriptContainer extends React.Component<any, any> {
       return <tr key={index}>
         <td>{studentName}</td>
         <td>{this.renderFlag(studentKey)}</td>
-        <td>{text}</td>
+        <td>{html}</td>
         <td>{elapsedTime}</td>
         <td>
           <input
