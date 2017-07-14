@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 const moment = require('moment');
-import _ from 'underscore'
 import {
 QuestionData
 } from 'interfaces/classroomLessons'
@@ -10,7 +9,7 @@ import SubmitButton from './submitButton.tsx'
 class ListBlanks extends Component<{data: QuestionData}> {
   constructor(props) {
     super(props);
-    this.state = {isSubmittable: false, answers: {}, errors: false, answerCount: 0}
+    this.state = {isSubmittable: false, answers: {}, errors: false, answerCount: 0, submitted: false}
     this.customChangeEvent = this.customChangeEvent.bind(this)
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
   }
@@ -87,6 +86,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
     if (this.state.isSubmittable) {
         const sortedAnswers = Object.values(this.state.answers).sort()
         this.props.handleStudentSubmission(sortedAnswers, moment().format())
+        this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});
     }
@@ -102,8 +102,14 @@ class ListBlanks extends Component<{data: QuestionData}> {
     );
   }
 
+  renderConfirmation() {
+    return <h3 className='confirmation-text'>Great Work! Please wait as your teacher reviews your answer...</h3>
+  }
+
+
   render() {
     let errorArea = this.state.errors ? this.renderWarning() : null;
+    let confirmation = this.state.submitted ? this.renderConfirmation() : null
     return (
       <div className="fill-in-blank">
         <h1 className="prompt">
@@ -112,7 +118,8 @@ class ListBlanks extends Component<{data: QuestionData}> {
         {this.listBlanks()}
         <div>
           {errorArea}
-          <SubmitButton disabled={!this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
+          {confirmation}
+          <SubmitButton key={this.state.submitted} disabled={!this.state.isSubmittable && this.state.submitted} onClick={this.handleStudentSubmission}/>
         </div>
 
       </div>
