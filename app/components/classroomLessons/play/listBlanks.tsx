@@ -18,11 +18,21 @@ class ListBlanks extends Component<{data: QuestionData}> {
   customChangeEvent(e, index){
     const newState = Object.assign({}, this.state)
     newState.answers[index] = e
-    newState.isSubmittable = this.isSubmittable(newState.answers)
+    const initialBlankCount = this.props.data.play.nBlanks;
+    const answerCount = this.answerCount(newState.answers)
+    newState.answerCount = answerCount
+    if (initialBlankCount === answerCount) {
+        // if this is the case then all answers are filled and we are good
+        newState.isSubmittable = true
+        newState.errors = false
+    } else {
+      // otherwise it is not submittable
+      newState.isSubmittable = false
+    }
     this.setState(newState)
   }
 
-  isSubmittable(answers) {
+  answerCount(answers) {
     let nonBlankAnswers = 0;
     let errorCount = 0;
     if (answers) {
@@ -31,9 +41,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
           answers[key] ? nonBlankAnswers++ : null
         }
     }
-    // verifies that the number of truthy answers is the same as number of blanks
-    this.setState({nonBlankAnswers}, ()=> console.log(this.state))
-    return nonBlankAnswers === this.props.data.play.nBlanks
+    return nonBlankAnswers
   }
 
   itemHasError(i){
@@ -55,7 +63,6 @@ class ListBlanks extends Component<{data: QuestionData}> {
       </div>
     )
   }
-
 
   listBlanks() {
     return (
@@ -86,7 +93,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
   }
 
   renderWarning(){
-    const count = (this.props.data.play.nBlanks - 1) - this.state.answerCount;
+    const count = this.props.data.play.nBlanks - this.state.answerCount;
     const suffix = count === 1 ? '' : 's';
     return (
       <span className="warning">
