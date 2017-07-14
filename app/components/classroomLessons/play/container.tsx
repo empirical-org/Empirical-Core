@@ -5,6 +5,7 @@ import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
+import CLStudentFillInTheBlank from './fillInTheBlank'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -15,7 +16,10 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons';
+import {
+  scriptTagStrip
+} from '../shared/scriptTagStrip';
 
 class PlayLessonClassroomContainer extends React.Component<any, any> {
   constructor(props) {
@@ -47,7 +51,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
     const student: string|null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
-    const submission = {data, timestamp}
+    const safeData = scriptTagStrip(data)
+    const submission = {data: safeData, timestamp}
     if (classroom_activity_id && student) {
       saveStudentSubmission(
         classroom_activity_id,
@@ -61,6 +66,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
     const current = lessonData.questions[data.current_slide];
+    const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
+    const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
+    const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
+    let passedProps
     console.log(current.type);
     switch (current.type) {
       case 'CL-LB':
@@ -72,12 +81,14 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
           <CLStudentStatic data={current.data} />
         );
       case 'CL-SA':
-        const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
-        const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
-        const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
-        const props = { mode, submissions, selected_submissions, };
+        passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
+        );
+      case 'CL-FB':
+        passedProps = { mode, submissions, selected_submissions, };
+        return (
+          <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
         );
       default:
 
