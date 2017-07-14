@@ -34,7 +34,7 @@ class SingleAnswer extends Component<{data: ClassroomLessonSession; lessonData: 
       <div className="teacher-single-answer">
         <div className="header">
           <h1>
-            <span>Slide {this.props.data.current_slide}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+            <span>Slide {parseInt(this.props.data.current_slide) + 1}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
           </h1>
           <p onClick={this.props.toggleOnlyShowHeaders}>
             {showHeaderText}

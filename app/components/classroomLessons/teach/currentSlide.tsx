@@ -93,8 +93,6 @@ class CurrentSlide extends React.Component<any, any> {
     toggleStudentFlag(ca_id, student_id);
   }
 
-  toggel
-
   render() {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
@@ -129,7 +127,22 @@ class CurrentSlide extends React.Component<any, any> {
               clearAllSubmissions={this.clearAllSubmissions}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             />
-          );
+          )
+        case 'CL-FL':
+        return (
+          <CLSingleAnswer
+            data={data}
+            lessonData={lessonData}
+            toggleStudentFlag={this.toggleStudentFlag}
+            toggleSelected={this.toggleSelected}
+            startDisplayingAnswers={this.startDisplayingAnswers}
+            stopDisplayingAnswers={this.stopDisplayingAnswers}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+            clearAllSubmissions={this.clearAllSubmissions}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+          />
+        )
         default:
           return (
             <p>UNSUPPORTED QUESTION TYPE</p>

@@ -31,6 +31,42 @@ class ListBlanks extends Component<{data: QuestionData}> {
     this.setState(newState)
   }
 
+  renderProject() {
+    const classAnswers = this.props.selected_submissions
+    ? (<div>
+      <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
+      {this.renderClassAnswersList()}
+    </div>)
+    : <span />;
+    return (
+      <div className="display-mode">
+        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
+        {this.renderYourAnswer()}
+        {classAnswers}
+      </div>
+    );
+  }
+
+  renderYourAnswer() {
+    return <p className="your-answer">bleh</p>;
+  }
+
+  renderClassAnswersList() {
+    const { selected_submissions, submissions, } = this.props;
+    const selected = Object.keys(selected_submissions).map((key, index) => {
+      const text = submissions[key].data;
+      return (<li>
+        <span>{index + 1}</span>{text}
+      </li>);
+    });
+    return (
+      <ul className="class-answer-list">
+        {selected}
+      </ul>
+    );
+  }
+
+
   answerCount(answers) {
     let nonBlankAnswers = 0;
     let errorCount = 0;
@@ -85,7 +121,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
   handleStudentSubmission(){
     if (this.state.isSubmittable) {
         const sortedAnswers = Object.values(this.state.answers).sort()
-        this.props.handleStudentSubmission(sortedAnswers, moment().format())
+        this.props.handleStudentSubmission(sortedAnswers.join(', '), moment().format())
         this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});
@@ -106,12 +142,14 @@ class ListBlanks extends Component<{data: QuestionData}> {
     return <h3 className='confirmation-text'>Great Work! Please wait as your teacher reviews your answer...</h3>
   }
 
-
-  render() {
-    let errorArea = this.state.errors ? this.renderWarning() : null;
-    let confirmation = this.state.submitted ? this.renderConfirmation() : null
-    return (
-      <div className="fill-in-blank">
+  renderModeSpecificContent(){
+    if (this.props.mode==='PROJECT') {
+      return this.renderProject()
+    } else {
+      let errorArea = this.state.errors ? this.renderWarning() : null;
+      let confirmation = this.state.submitted ? this.renderConfirmation() : null
+      return (
+        <div>
         <h1 className="prompt">
           {this.props.data.play.prompt}
         </h1>
@@ -121,7 +159,17 @@ class ListBlanks extends Component<{data: QuestionData}> {
           {confirmation}
           <SubmitButton key={this.state.submitted} disabled={!this.state.isSubmittable && this.state.submitted} onClick={this.handleStudentSubmission}/>
         </div>
+        </div>
+      )
+    }
+  }
 
+
+  render() {
+    console.log(this.props)
+    return (
+      <div className="fill-in-blank">
+        {this.renderModeSpecificContent()}
       </div>
     );
   }
