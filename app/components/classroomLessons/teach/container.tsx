@@ -58,10 +58,13 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   render() {
-    const { error } = this.props.classroomSessions;
-    if (error) {
-      return <ErrorPage text={error} />
-    } else {
+    const classroomActivityError = this.props.classroomSessions.error;
+    const lessonError = this.props.classroomLesson.error;
+    if (classroomActivityError) {
+      return <ErrorPage text={classroomActivityError} />
+    } else if (lessonError) {
+      return <ErrorPage text={lessonError} />
+    }  else {
       return (
         <div className="teach-lesson-container">
           <Sidebar/>
@@ -75,6 +78,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
+    classroomLesson: props.classroomLesson,
   };
 }
 

@@ -22,7 +22,7 @@ export function startListeningToSession(classroom_activity_id: string) {
       if (snapshot.val()) {
         dispatch(updateSession(snapshot.val()));
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY})
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
     });
   };
@@ -42,7 +42,7 @@ export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id
         delete payload.current_slide
         dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY})
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
     });
   };

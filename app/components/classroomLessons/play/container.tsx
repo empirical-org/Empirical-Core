@@ -93,8 +93,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   public render() {
     const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = this.props.classroomSessions;
+    const lessonError = this.props.classroomLesson.error;
     if (error) {
      return <ErrorPage text={error} />
+   } else if (lessonError) {
+     return <ErrorPage text={lessonError} />
    } else {
      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
      const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;

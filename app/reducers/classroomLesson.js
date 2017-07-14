@@ -7,6 +7,7 @@ const initialState = {
     submittingnew: false,
     states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
     data: {}, // this will contain firebase data
+    error: '',
   },
 };
 
@@ -23,6 +24,11 @@ export default function (currentstate, action) {
       return Object.assign({}, currentstate, {
         onlyShowHeaders: !currentstate.onlyShowHeaders,
       });
+    case C.NO_LESSON_ID:
+      newstate = Object.assign({}, currentstate, {
+        error: `No such lesson. Lesson with id '${action.data}' does not exist.`,
+      });
+      return newstate;
     default: return currentstate || initialState.lesson;
   }
 }
