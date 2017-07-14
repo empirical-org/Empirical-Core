@@ -28,6 +28,11 @@ class NextSlideButton extends Component<any, any> {
   }
 
   render() {
+    const data = this.props.classroomSessions.data;
+    // don't render if last slide
+    if (data.questions && Number(data.current_slide) === data.questions.length - 1) {
+      return <span />;
+    }
     return (
       <button onClick={this.goToNextSlide}>Next Slide</button>
     );
