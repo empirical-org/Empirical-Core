@@ -4,7 +4,8 @@ import {
 QuestionData
 } from 'interfaces/classroomLessons'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
-import SubmitButton from './submitButton.tsx'
+import SubmitButton from './submitButton'
+import FeedbackRow from './feedbackRow'
 
 class ListBlanks extends Component<{data: QuestionData}> {
   constructor(props) {
@@ -138,16 +139,12 @@ class ListBlanks extends Component<{data: QuestionData}> {
     );
   }
 
-  renderConfirmation() {
-    return <h3 className='confirmation-text'>Great Work! Please wait as your teacher reviews your answer...</h3>
-  }
-
   renderModeSpecificContent(){
     if (this.props.mode==='PROJECT') {
       return this.renderProject()
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
-      let confirmation = this.state.submitted ? this.renderConfirmation() : null
+      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null
       return (
         <div>
         <h1 className="prompt">
@@ -156,7 +153,7 @@ class ListBlanks extends Component<{data: QuestionData}> {
         {this.listBlanks()}
         <div>
           {errorArea}
-          {confirmation}
+          {feedbackRow}
           <SubmitButton key={this.state.submitted} disabled={!this.state.isSubmittable && this.state.submitted} onClick={this.handleStudentSubmission}/>
         </div>
         </div>
