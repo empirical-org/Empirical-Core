@@ -8,6 +8,7 @@ import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;
 const moment = require('moment');
+
 const responsesRef = rootRef.child('responses');
 
 export function deleteStatus(questionId) {
@@ -345,6 +346,8 @@ export function getGradedResponsesWithCallback(questionID, callback) {
         formatted_cr.correct = resp.concept_results[cr];
         resp.concept_results[cr] = formatted_cr;
       }
+      resp.conceptResults = resp.concept_results;
+      delete resp.concept_results;
     });
     callback(bodyToObj);
   });
