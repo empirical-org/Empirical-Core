@@ -10,7 +10,9 @@ import {
   Presence,
   Students,
   Submissions,
-  Modes
+  Modes,
+  FlaggedStudents,
+  Timestamps,
 } from '../interfaces';
 import {
   ScriptItem
@@ -23,7 +25,20 @@ const grayFlag = require('../../../img/flag_gray.svg')
 const blueFlag = require('../../../img/flag_blue.svg')
 const moment = require('moment');
 
-class ScriptContainer extends React.Component<any, any> {
+interface ScriptContainerProps {
+  script: Array<ScriptItem>,
+  onlyShowHeaders: boolean,
+  [key: string]: any,
+}
+
+interface ScriptContainerState {
+  projecting: boolean,
+  showAllStudents: boolean,
+  sort: string,
+  sortDirection: string
+}
+
+class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
 
   constructor(props) {
     super(props);
@@ -100,7 +115,8 @@ class ScriptContainer extends React.Component<any, any> {
         <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Show Prompt</button>
       )
     } else {
-      const { selected_submissions, current_slide }: { selected_submissions: SelectedSubmissions, current_slide: string } = this.props;
+      const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
+      const current_slide: string = this.props.current_slide;
       let buttonInactive: boolean = true;
       let buttonClass: string = "inactive";
       if (selected_submissions && selected_submissions[current_slide]) {
@@ -114,7 +130,8 @@ class ScriptContainer extends React.Component<any, any> {
   }
 
   renderShowRemainingStudentsButton() {
-    const { submissions, current_slide }: { submissions: Submissions, current_slide: string } = this.props;
+    const submissions: Submissions = this.props.submissions;
+    const current_slide: string = this.props.current_slide;
     const numAnswers: number = Object.keys(submissions[current_slide]).length;
     const verb: string = this.state.showAllStudents ? "Hide" : "Show";
     if (numAnswers > 0) {

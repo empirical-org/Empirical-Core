@@ -7,7 +7,22 @@ import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
 
-class SingleAnswer extends Component<{data: ClassroomLessonSession; lessonData: ClassroomLesson; [key:string]: any}> {
+interface SingleAnswerProps {
+  data: ClassroomLessonSession,
+  lessonData: ClassroomLesson,
+  toggleStudentFlag: Function,
+  toggleSelected: Function,
+  startDisplayingAnswers: Function,
+  stopDisplayingAnswers: Function,
+  toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
+  clearAllSubmissions: Function,
+  clearAllSelectedSubmissions: Function,
+  onlyShowHeaders: boolean
+}
+
+interface SingleAnswerState {}
+
+class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
     this.toggleSelected = this.toggleSelected.bind(this);

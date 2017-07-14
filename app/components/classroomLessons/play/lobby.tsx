@@ -10,7 +10,14 @@ import {
 } from '../interfaces';
 import { sortByLastName } from '../shared/studentSorts'
 
-class Lobby extends React.Component<{data: ClassroomLessonSession; title: string}> {
+interface LobbyProps {
+  data: ClassroomLessonSession,
+  title: string
+}
+
+interface LobbyState {}
+
+class Lobby extends React.Component<LobbyProps, LobbyState> {
   constructor(props) {
     super(props);
   }
@@ -24,7 +31,7 @@ class Lobby extends React.Component<{data: ClassroomLessonSession; title: string
         const name: string = students[key];
         const statusClass: string = presence[key] ? "online" : "offline";
         return (
-          <div>
+          <div key={key}>
             <li>
               <p>{name}</p> <div className={statusClass}></div>
             </li>

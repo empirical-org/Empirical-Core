@@ -7,7 +7,16 @@ import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
 
-class Static extends Component<{data: ClassroomLessonSession; lessonData: ClassroomLesson; [key:string]: any}> {
+interface StaticProps {
+  data: ClassroomLessonSession,
+  lessonData: ClassroomLesson,
+  toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
+  onlyShowHeaders: boolean,
+}
+
+interface StaticState {}
+
+class Static extends Component<StaticProps, StaticState> {
   constructor(props) {
     super(props);
   }
