@@ -10,12 +10,9 @@ import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion
 } from '../interfaces';
-import {
-  scriptTagStrip
-} from '../shared/scriptTagStrip';
 const moment = require('moment');
 
-class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentSubmission: Function; mode: string; submissions: QuestionSubmissionsList; selected_submissions: SelectedSubmissionsForQuestion}> {
+class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentSubmission: Function; mode: string; submissions: QuestionSubmissionsList; selected_submissions: SelectedSubmissionsForQuestion}, {editing: boolean, submitted: boolean, splitPrompt: Array<string>, inputVals: Array<string>, inputErrors: any}> {
   constructor(props) {
     super(props)
     const splitPrompt = props.data.play.prompt.split('___');
