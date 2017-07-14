@@ -13,6 +13,7 @@ import {
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
+import CLExit from './exit';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -93,8 +94,6 @@ class CurrentSlide extends React.Component<any, any> {
     toggleStudentFlag(ca_id, student_id);
   }
 
-  toggel
-
   render() {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
@@ -116,6 +115,7 @@ class CurrentSlide extends React.Component<any, any> {
             />
           );
         case 'CL-SA':
+        case 'CL-FB':
           return (
             <CLSingleAnswer
               data={data}
@@ -128,6 +128,15 @@ class CurrentSlide extends React.Component<any, any> {
               clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
               clearAllSubmissions={this.clearAllSubmissions}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            />
+          );
+        case 'CL-EX':
+          return (
+            <CLExit
+              script={current.data.teach.script}
+              flaggedStudents={data.flaggedStudents}
+              students={data.students}
+              toggleStudentFlag={this.toggleStudentFlag}
             />
           );
         default:

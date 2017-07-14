@@ -6,8 +6,27 @@ import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from 'libs/getParameterByName';
 const moment = require('moment');
+import {
+  QuestionSubmissionsList,
+  SelectedSubmissionsForQuestion,
+} from '../interfaces';
+import { QuestionData } from '../../../interfaces/classroomLessons'
 
-class SingleAnswer extends Component<any, any> {
+interface SingleAnswerProps {
+  data: QuestionData,
+  handleStudentSubmission: Function,
+  mode: string|null,
+  submissions: QuestionSubmissionsList|null,
+  selected_submissions: SelectedSubmissionsForQuestion|null,
+}
+
+interface SingleAnswerState {
+  response: string,
+  editing: boolean,
+  submitted: boolean,
+}
+
+class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,10 +80,12 @@ class SingleAnswer extends Component<any, any> {
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text = submissions[key].data;
-      return (<li>
-        <span>{index + 1}</span>{text}
-      </li>);
+      const text = submissions && submissions[key] ? submissions[key].data : "";
+      return (
+        <li key={index}>
+          <span className="answer-number">{index + 1}</span>{text}
+        </li>
+      );
     });
     return (
       <ul className="class-answer-list">
