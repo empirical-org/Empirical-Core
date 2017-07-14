@@ -6,8 +6,9 @@ QuestionData
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
+import numberToWord from '../../../libs/numberToWord'
 
-class ListBlanks extends Component<{data: QuestionData}, > {
+class ListBlanks extends Component<{data: QuestionData}> {
   constructor(props) {
     super(props);
     this.state = {isSubmittable: false, answers: {}, errors: false, answerCount: 0, submitted: false}
@@ -102,14 +103,6 @@ class ListBlanks extends Component<{data: QuestionData}, > {
   }
 
   listBlanks() {
-    return (
-      <div className="list-blanks">
-        {this.textEditorPerBlank()}
-      </div>
-    )
-  }
-
-  textEditorPerBlank(){
     const nBlanks = this.props.data.play.nBlanks;
     const textEditorArr = [];
     for (let i = 0; i < nBlanks; i++) {
@@ -117,7 +110,11 @@ class ListBlanks extends Component<{data: QuestionData}, > {
         this.textEditListComponents(i)
       )
     }
-    return textEditorArr
+    return (
+      <div className="list-blanks">
+        {textEditorArr}
+      </div>
+    )
   }
 
   handleStudentSubmission(){
@@ -131,7 +128,7 @@ class ListBlanks extends Component<{data: QuestionData}, > {
   }
 
   renderWarning(){
-    const count = this.props.data.play.nBlanks - this.state.answerCount;
+    const count = numberToWord(this.props.data.play.nBlanks - this.state.answerCount);
     const suffix = count === 1 ? '' : 's';
     return (
       <span className="warning">
@@ -166,7 +163,7 @@ class ListBlanks extends Component<{data: QuestionData}, > {
   render() {
     console.log(this.props)
     return (
-      <div className="fill-in-blank">
+      <div className="list-blanks">
         {this.renderModeSpecificContent()}
       </div>
     );
