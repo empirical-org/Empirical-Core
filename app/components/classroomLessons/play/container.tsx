@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
+import {
+  startListeningToSession,
+  registerPresence,
+  updateNoStudentError,
+} from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
 import CLStudentFillInTheBlank from './fillInTheBlank'
+import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
-  QuestionSubmissionsList
+  QuestionSubmissionsList,
 } from '../interfaces';
 import {
   ClassroomLesson
@@ -34,9 +39,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (classroom_activity_id) {
       this.props.dispatch(startListeningToSession(classroom_activity_id));
       this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
-      if (student) {
-        registerPresence(classroom_activity_id, student);
-      }
     }
   }
 
@@ -45,6 +47,20 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
       element.scrollTop = 0;
     }
+    const student = getParameterByName('student');
+    const classroom_activity_id = getParameterByName('classroom_activity_id')
+    const { data, hasreceiveddata } = this.props.classroomSessions;
+    if (student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+      registerPresence(classroom_activity_id, student);
+    } else {
+      if (!nextProps.classroomSessions.error) {
+        this.props.dispatch(updateNoStudentError(student))
+      }
+    }
+  }
+
+  studentEnrolledInClass(student: string) {
+    return !!this.props.classroomSessions.data.students[student]
   }
 
   handleStudentSubmission(data: string, timestamp: string) {
@@ -53,7 +69,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const current_slide: string = this.props.classroomSessions.data.current_slide;
     const safeData = scriptTagStrip(data)
     const submission = {data: safeData, timestamp}
-    if (classroom_activity_id && student) {
+    if (classroom_activity_id && student && this.studentEnrolledInClass(student)) {
       saveStudentSubmission(
         classroom_activity_id,
         current_slide,
@@ -70,7 +86,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     let passedProps
-    console.log(current.type);
     switch (current.type) {
       case 'CL-LB':
         return (
@@ -96,35 +111,42 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   public render() {
-    const { data, hasreceiveddata }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
-    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
-    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
-    // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
-    // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
-    const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
-    if (hasreceiveddata && lessonDataLoaded) {
-      const component = this.renderCurrentSlide(data, lessonData);
-      if (component) {
-        return (
-          <div>
-            {watchTeacher}
-            <div className="play-lesson-container">
-              <div className="main-content">
-                <div className="main-content-wrapper">
-                  {component}
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      }
-    }
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
+    const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = this.props.classroomSessions;
+    const lessonError = this.props.classroomLesson.error;
+    if (error) {
+     return <ErrorPage text={error} />
+   } else if (lessonError) {
+     return <ErrorPage text={lessonError} />
+   } else {
+     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+     // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
+     // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
+     const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
+     if (hasreceiveddata && lessonDataLoaded) {
+       const component = this.renderCurrentSlide(data, lessonData);
+       if (component) {
+         return (
+           <div>
+           {watchTeacher}
+           <div className="play-lesson-container">
+           <div className="main-content">
+           <div className="main-content-wrapper">
+           {component}
+           </div>
+           </div>
+           </div>
+           </div>
+         );
+       }
+     }
+     return (
+       <div>
+       Loading...
+       </div>
+     );
+   }
+   }
 
 }
 
