@@ -12,7 +12,23 @@ import {
 } from '../interfaces';
 const moment = require('moment');
 
-class FillInTheBlank extends React.Component<{data: QuestionData; handleStudentSubmission: Function; mode: string; submissions: QuestionSubmissionsList; selected_submissions: SelectedSubmissionsForQuestion}, {editing: boolean, submitted: boolean, splitPrompt: Array<string>, inputVals: Array<string>, inputErrors: any}> {
+interface fillInTheBlankProps {
+  data: QuestionData,
+  handleStudentSubmission: Function,
+  mode: string,
+  submissions: QuestionSubmissionsList,
+  selected_submissions: SelectedSubmissionsForQuestion
+}
+
+interface fillInTheBlankState {
+  editing: boolean,
+  submitted: boolean,
+  splitPrompt: Array<string>,
+  inputVals: Array<string>,
+  inputErrors: any // TODO: this should be Set
+}
+
+class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlankState> {
   constructor(props) {
     super(props)
     const splitPrompt = props.data.play.prompt.split('___');
