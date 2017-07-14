@@ -52,7 +52,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   toggleHelpDropdown() {
-    // helpDropdown should not be toggled if watchTeacherState is true 
+    // helpDropdown should not be toggled if watchTeacherState is true
     if (!this.props.classroomSessions.data.watchTeacherState) {
       this.setState({showHelpDropdown: !this.state.showHelpDropdown})
     }
@@ -75,7 +75,7 @@ class TeacherNavbar extends React.Component<any, any> {
     // tooltips should not show if either watchTeacherState or showHelpDropdown is true
     if (watchTeacherState) {
       if (icon === 'watchTeacher') {
-        return (<Tooltip text={["Watch Teacher (", <strong>On</strong>,  ")"]} className={icon}/>)
+        return (<Tooltip text={["Watch Teacher (", <strong key="watch-teacher-on">On</strong>,  ")"]} className={icon}/>)
       }
     } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
       switch (icon) {
@@ -91,7 +91,7 @@ class TeacherNavbar extends React.Component<any, any> {
         break
         case 'watchTeacher':
         if (this.state.tooltip === 'watchTeacher') {
-          return (<Tooltip text={["Watch Teacher (", <strong>Off</strong>,  ")"]} className={icon}/>)
+          return (<Tooltip text={["Watch Teacher (", <strong key="watch-teacher-on">Off</strong>,  ")"]} className={icon}/>)
         }
         break
         case 'exit':
@@ -143,9 +143,9 @@ class TeacherNavbar extends React.Component<any, any> {
       numberOfStudents === 1 ? oneRow = true : null
       content = flaggedStudentIds.map((studentId, index) => {
         if (numberOfStudents - 1 === index) {
-          return (<p>{students[studentId]}</p>)
+          return (<p key={index}>{students[studentId]}</p>)
         } else {
-          return (<span>
+          return (<span key={index}>
           <p>{students[studentId]}</p>
           <hr/>
           </span>)
@@ -153,7 +153,7 @@ class TeacherNavbar extends React.Component<any, any> {
       })
     } else {
       oneRow = true
-      content = <p className="no-flagged-students">No Flagged Students</p>
+      content = <p key='no-flagged-students' className="no-flagged-students">No Flagged Students</p>
     }
     const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
     return <div className={className}>
@@ -182,10 +182,11 @@ class TeacherNavbar extends React.Component<any, any> {
 
   render() {
     const { watchTeacherState } = this.props.classroomSessions.data
-    let projectorClass, exitClass, flagClass;
+    let projectorClass, exitClass;
     let helpClass = this.state.showHelpDropdown ? 'hover' : ''
+    let flagClass = this.state.showFlagDropdown ? 'hover' : ''
     let watchTeacherClass = watchTeacherState ? 'hover' : ''
-    if (!this.state.showHelpDropdown && !watchTeacherState )
+    if (!this.state.showHelpDropdown && !watchTeacherState && !this.state.showFlagDropdown)
     switch (this.state.tooltip) {
       case 'projector':
         projectorClass = "hover"
@@ -198,6 +199,9 @@ class TeacherNavbar extends React.Component<any, any> {
         break
       case 'help':
         helpClass = "hover"
+        break
+      case 'flag':
+        flagClass = "hover"
         break
       default:
         break

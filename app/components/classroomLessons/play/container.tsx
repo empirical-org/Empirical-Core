@@ -40,6 +40,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const element = document.getElementsByClassName("main-content")[0];
+    if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
+      element.scrollTop = 0;
+    }
+  }
+
   handleStudentSubmission(data: string, timestamp: string) {
     const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
     const student: string|null = getParameterByName('student');
