@@ -13,6 +13,7 @@ import {
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
+import CLExit from './exit';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -98,7 +99,7 @@ class CurrentSlide extends React.Component<any, any> {
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
-      const current = lessonData.questions[data.current_slide || '0'];
+      const current = lessonData.questions[parseInt(data.current_slide) || 0];
       switch (current.type) {
         case 'CL-LB':
           return (
@@ -114,6 +115,7 @@ class CurrentSlide extends React.Component<any, any> {
             />
           );
         case 'CL-SA':
+        case 'CL-FB':
           return (
             <CLSingleAnswer
               data={data}
@@ -143,6 +145,16 @@ class CurrentSlide extends React.Component<any, any> {
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
           />
         )
+          );
+        case 'CL-EX':
+          return (
+            <CLExit
+              script={current.data.teach.script}
+              flaggedStudents={data.flaggedStudents}
+              students={data.students}
+              toggleStudentFlag={this.toggleStudentFlag}
+            />
+          );
         default:
           return (
             <p>UNSUPPORTED QUESTION TYPE</p>

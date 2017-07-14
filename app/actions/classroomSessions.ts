@@ -1,5 +1,5 @@
 declare function require(name:string);
-import  C from '../constants';
+import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const moment = require('moment');
@@ -19,7 +19,11 @@ import {
 export function startListeningToSession(classroom_activity_id: string) {
   return function (dispatch) {
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      dispatch(updateSession(snapshot.val()));
+      if (snapshot.val()) {
+        dispatch(updateSession(snapshot.val()));
+      } else {
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+      }
     });
   };
 }
@@ -33,9 +37,13 @@ export function toggleOnlyShowHeaders() {
 export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string) {
   return function (dispatch) {
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      const payload = snapshot.val()
-      delete payload.current_slide
-      dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
+      if (snapshot.val()) {
+        const payload = snapshot.val()
+        delete payload.current_slide
+        dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
+      } else {
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+      }
     });
   };
 }
@@ -212,4 +220,10 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
       timestampRef.set(moment().format())
     }
   });
+}
+
+export function updateNoStudentError(student: string | null) {
+  return function (dispatch) {
+    dispatch({type: C.NO_STUDENT_ID, data: student})
+  };
 }

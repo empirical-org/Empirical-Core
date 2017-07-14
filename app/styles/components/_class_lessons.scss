@@ -1,6 +1,7 @@
 @import 'classroom_lessons/student_static_page.scss';
 @import 'classroom_lessons/_student_lobby_page.scss';
 @import 'classroom_lessons/_play_lesson_container.scss';
+@import 'classroom_lessons/_flagged_student_list.scss';
 @import 'classroom_lessons/_script_items.scss';
 @import 'classroom_lessons/_teacher_slide_container.scss';
 @import 'classroom_lessons/_scalers.scss';
@@ -8,6 +9,7 @@
 @import 'classroom_lessons/_tooltip.scss';
 @import 'classroom_lessons/_watch_teacher.scss';
 @import 'classroom_lessons/_generic_student.scss';
+@import 'classroom_lessons/_fill_in_the_blank.scss';
 
 .teach-lesson-container {
   display: flex;
@@ -289,7 +291,7 @@
   }
 }
 
-.next-slide-button-container {
+.next-slide-button-container, .assign-button-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
