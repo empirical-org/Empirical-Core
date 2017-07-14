@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { startListeningToSession, registerPresence } from '../../../actions/classroomSessions';
+import {
+  startListeningToSession,
+  registerPresence,
+  updateNoStudentError,
+} from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
@@ -12,7 +16,7 @@ import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
-  QuestionSubmissionsList
+  QuestionSubmissionsList,
 } from '../interfaces';
 import {
   ClassroomLesson
@@ -44,6 +48,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const { data, hasreceiveddata } = this.props.classroomSessions;
     if (student && hasreceiveddata && this.studentEnrolledInClass(student)) {
       registerPresence(classroom_activity_id, student);
+    } else {
+      if (!nextProps.classroomSessions.error) {
+        this.props.dispatch(updateNoStudentError(student))
+      }
     }
   }
 

@@ -39,6 +39,11 @@ export default function (currentState = initialState, action) {
         error: `No such classroom activity. Classroom activity with id '${action.data}' does not exist.`,
       });
       return newState;
+    case C.NO_STUDENT_ID:
+      newState = Object.assign({}, currentState, {
+        error: `No such student. Student with id '${action.data}' does not exist.`,
+      });
+      return newState;
     default: return currentState;
   }
 }

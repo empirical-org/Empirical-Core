@@ -221,3 +221,9 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
     }
   });
 }
+
+export function updateNoStudentError(student: string) {
+  return function (dispatch) {
+    dispatch({type: C.NO_STUDENT_ID, data: student})
+  };
+}
