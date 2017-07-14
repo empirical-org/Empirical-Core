@@ -4,14 +4,21 @@ import {
   ClassroomLessonSession,
   QuestionSubmissionsList,
   SelectedSubmissions,
-  SelectedSubmissionsForQuestion,
-  Question
+  SelectedSubmissionsForQuestion
 } from '../interfaces';
+import {
+  Question
+} from 'interfaces/classroomLessons';
 import { sortByLastName } from '../shared/studentSorts'
 
+interface LobbyProps {
+  data: ClassroomLessonSession,
+  slideData: Question,
+}
 
+interface LobbyState {}
 
-class Lobby extends React.Component<{data: ClassroomLessonSession; slideData: Question; }> {
+class Lobby extends React.Component<LobbyProps, LobbyState> {
   constructor(props) {
     super(props);
   }

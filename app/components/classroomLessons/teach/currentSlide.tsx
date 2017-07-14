@@ -18,7 +18,11 @@ import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
+  ClassroomLessonSession
 } from '../interfaces';
+import {
+  ClassroomLesson
+} from 'interfaces/classroomLessons';
 
 class CurrentSlide extends React.Component<any, any> {
   constructor(props) {
@@ -30,6 +34,13 @@ class CurrentSlide extends React.Component<any, any> {
     this.toggleStudentFlag = this.toggleStudentFlag.bind(this);
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this);
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const element = document.getElementsByClassName("main-content")[0];
+    if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
+      element.scrollTop = 0;
+    }
   }
 
   toggleSelected(currentSlideId: string, student: string) {
@@ -84,9 +95,11 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   render() {
-    const data = this.props.classroomSessions.data;
-    if (this.props.classroomSessions.hasreceiveddata) {
-      const current = data.questions[data.current_slide || '0'];
+    const data: ClassroomLessonSession = this.props.classroomSessions.data;
+    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+    if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
+      const current = lessonData.questions[data.current_slide || '0'];
       switch (current.type) {
         case 'CL-LB':
           return (
@@ -96,14 +109,17 @@ class CurrentSlide extends React.Component<any, any> {
           return (
             <CLStatic
               data={data}
+              lessonData={lessonData}
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             />
           );
         case 'CL-SA':
+        case 'CL-FB':
           return (
             <CLSingleAnswer
               data={data}
+              lessonData={lessonData}
               toggleStudentFlag={this.toggleStudentFlag}
               toggleSelected={this.toggleSelected}
               startDisplayingAnswers={this.startDisplayingAnswers}
@@ -124,6 +140,9 @@ class CurrentSlide extends React.Component<any, any> {
             />
           );
         default:
+          return (
+            <p>UNSUPPORTED QUESTION TYPE</p>
+          )
       }
     } else {
       return <p>Loading...</p>;
@@ -135,6 +154,7 @@ class CurrentSlide extends React.Component<any, any> {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
+    classroomLesson : props.classroomLesson,
   };
 }
 

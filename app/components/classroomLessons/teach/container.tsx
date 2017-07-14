@@ -6,28 +6,29 @@ import {
   startListeningToCurrentSlide,
   goToNextSlide,
   updateCurrentSlide,
-  updateCurrentSlideInStore,
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
   removeMode,
   getClassroomAndTeacherNameFromServer,
-  loadStudentNames,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
-  toggleStudentFlag
+  toggleStudentFlag,
   clearAllSubmissions,
   updateSlideInFirebase
-} from '../../../actions/classroomSessions';
+} from 'actions/classroomSessions';
+import {
+  getClassLessonFromFirebase
+} from 'actions/classroomLesson';
 import CLLobby from './lobby';
-import CLStatic from './static.jsx';
-import CLSingleAnswer from './singleAnswer.jsx';
+import CLStatic from './static';
+import CLSingleAnswer from './singleAnswer';
 import CLStudentLobby from '../play/lobby';
-import CLStudentStatic from '../play/static.jsx';
-import MainContentContainer from './mainContentContainer.jsx';
-import CLStudentSingleAnswer from '../play/singleAnswer.jsx';
+import CLStudentStatic from '../play/static';
+import MainContentContainer from './mainContentContainer';
+import CLStudentSingleAnswer from '../play/singleAnswer';
 import { getParameterByName } from 'libs/getParameterByName';
-import Sidebar from './sidebar.jsx'
+import Sidebar from './sidebar'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -49,20 +50,20 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       // below is for spoofing if you log in with Amber M. account
       // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
       // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
+      this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
     }
   }
 
-
   render() {
-        return (
-          <div className="teach-lesson-container">
-            <Sidebar/>
-            <MainContentContainer/>
-          </div>
-        );
-
+    return (
+      <div className="teach-lesson-container">
+        <Sidebar/>
+        <MainContentContainer/>
+      </div>
+    );
+  }
 }
 
 function select(props) {

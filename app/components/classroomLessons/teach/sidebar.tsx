@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CurrentSlide from './currentSlide.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   updateCurrentSlide,
   updateSlideInFirebase
 } from '../../../actions/classroomSessions';
 import CLStudentLobby from '../play/lobby';
-import CLStudentStatic from '../play/static.jsx';
-import CLStudentSingleAnswer from '../play/singleAnswer.jsx';
+import CLStudentStatic from '../play/static';
+import CLStudentSingleAnswer from '../play/singleAnswer';
+import {
+  ClassroomLessonSession,
+  QuestionSubmissionsList
+} from '../interfaces';
+import {
+  ClassroomLesson
+} from 'interfaces/classroomLessons';
 
-class Sidebar extends React.Component {
+
+class Sidebar extends React.Component<any, any> {
 
   constructor(props) {
     super(props);
@@ -24,9 +31,11 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const { data, hasreceiveddata, } = this.props.classroomSessions;
-    if (hasreceiveddata && data) {
-      const questions = data.questions;
+    const { data, hasreceiveddata, }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
+    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+    if (hasreceiveddata && data && lessonDataLoaded) {
+      const questions = lessonData.questions;
       const length = questions.length;
       const currentSlide = data.current_slide;
       const components: JSX.Element[] = [];
@@ -38,7 +47,7 @@ class Sidebar extends React.Component {
         switch (questions[slide].type) {
           case 'CL-LB':
             thumb = (
-              <CLStudentLobby data={data} />
+              <CLStudentLobby data={data} title={lessonData.title}/>
             );
             break;
           case 'CL-ST':
@@ -47,12 +56,12 @@ class Sidebar extends React.Component {
             );
             break;
           case 'CL-SA':
-            const mode: string | null = data.modes && data.modes[data.currentSlide] ? data.modes[data.currentSlide] : null;
-            const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.currentSlide] ? data.submissions[data.currentSlide] : null;
-            const selected_submissions = data.selected_submissions && data.selected_submissions[data.currentSlide] ? data.selected_submissions[data.currentSlide] : null;
+            const mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
+            const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
+            const selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
             const props = { mode, submissions, selected_submissions, };
             thumb = (
-              <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+              <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
             );
             break;
           default:
@@ -87,6 +96,7 @@ class Sidebar extends React.Component {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
+    classroomLesson: props.classroomLesson
   };
 }
 

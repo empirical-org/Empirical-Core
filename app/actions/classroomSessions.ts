@@ -11,6 +11,9 @@ import {
   SelectedSubmissionsForQuestion,
   TeacherAndClassroomName
 } from 'components/classroomLessons/interfaces';
+import {
+ ClassroomLesson
+} from 'interfaces/classroomLessons';
 
 
 export function startListeningToSession(classroom_activity_id: string) {
@@ -73,8 +76,9 @@ export function registerPresence(classroom_activity_id: string, student_id: stri
   });
 }
 
-export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession) {
-  const { current_slide, questions, } = state;
+export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson) {
+  const { current_slide } = state;
+  const { questions } = lesson;
   const slides = Object.keys(questions);
   const current_slide_index = slides.indexOf(current_slide.toString());
   const nextSlide = slides[current_slide_index + 1];
@@ -137,6 +141,17 @@ export function removeMode(classroom_activity_id: string, question_id: string): 
   const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
   modeRef.remove();
 }
+
+export function setWatchTeacherState(classroom_activity_id: string | null): void {
+  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
+  watchTeacherRef.set(true);
+}
+
+export function removeWatchTeacherState(classroom_activity_id: string): void {
+  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
+  watchTeacherRef.remove();
+}
+
 
 export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
   const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)

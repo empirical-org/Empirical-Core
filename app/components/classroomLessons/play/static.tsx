@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import {
+QuestionData
+} from 'interfaces/classroomLessons'
 
-class Static extends Component {
+interface StaticProps {
+  data: QuestionData
+}
+
+interface StaticState {}
+
+class Static extends Component<StaticProps, StaticState> {
   constructor(props) {
     super(props);
   }

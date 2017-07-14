@@ -1,6 +1,6 @@
 import React from 'react';
-import CurrentSlide from './currentSlide.jsx';
-import NextSlideButton from './nextSlideButton.jsx';
+import CurrentSlide from './currentSlide';
+import NextSlideButton from './nextSlideButton';
 
 const MainContentContainer = () =>
   (<div className="main-content">

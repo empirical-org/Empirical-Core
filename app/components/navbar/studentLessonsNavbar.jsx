@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 const Navbar = React.createClass({
   render() {
     const data = this.props.classroomSessions.data;
+    const lessonData = this.props.classroomLesson.data;
     const bothNames = data.teacher_name && data.classroom_name;
     const teacherAndClassroom = bothNames ? `${data.teacher_name} - ${data.classroom_name}` : data.teacher_name || data.classroom_name;
-    const lessonName = data.questions ? `${data.questions['0'].data.teach.lesson}: ${data.questions['0'].data.play.topic}` : ''
+    const lessonName = lessonData ? `: ${lessonData.title}` : ''
     return (
       <header className={'nav student-nav'} style={{ height: '66px', }}>
         <nav className="student-lessons">
@@ -28,6 +29,7 @@ const Navbar = React.createClass({
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
+    classroomLesson: props.classroomLesson,
   };
 }
 
