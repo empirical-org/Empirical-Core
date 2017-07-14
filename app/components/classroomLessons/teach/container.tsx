@@ -28,7 +28,8 @@ import CLStudentStatic from '../play/static';
 import MainContentContainer from './mainContentContainer';
 import CLStudentSingleAnswer from '../play/singleAnswer';
 import { getParameterByName } from 'libs/getParameterByName';
-import Sidebar from './sidebar'
+import Sidebar from './sidebar';
+import ErrorPage from '../shared/errorPage';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -57,17 +58,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   render() {
-    return (
-      <div className="teach-lesson-container">
-        <Sidebar/>
-        <MainContentContainer/>
-      </div>
-    );
+    const { error } = this.props.classroomSessions;
+    if (error) {
+      return <ErrorPage text={error} />
+    } else {
+      return (
+        <div className="teach-lesson-container">
+          <Sidebar/>
+          <MainContentContainer/>
+        </div>
+      );
+    }
   }
 }
 
 function select(props) {
-  return {};
+  return {
+    classroomSessions: props.classroomSessions,
+  };
 }
 
 export default connect(select)(TeachClassroomLessonContainer);
