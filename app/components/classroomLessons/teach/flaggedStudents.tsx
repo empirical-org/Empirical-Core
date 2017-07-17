@@ -1,16 +1,20 @@
 declare function require(name:string);
 
 import * as React from 'react';
-import {
-
-} from '../interfaces';
 const grayFlag = require('../../../img/flag_gray.svg')
 const blueFlag = require('../../../img/flag_blue.svg')
 
+interface flaggedStudentsProps {
+  flaggedStudents: Object,
+  students: Object,
+  toggleStudentFlag: Function
+}
 
+interface flaggedStudentsState {
+  showUnflaggedStudents: boolean
+}
 
-// TODO: build interface for flagged students if it doesn't exist
-class FlaggedStudents extends React.Component<{flaggedStudents: Object, students: Object, toggleStudentFlag: Function}> {
+class FlaggedStudents extends React.Component<flaggedStudentsProps, flaggedStudentsState> {
   constructor(props) {
     super(props);
     this.state = {
