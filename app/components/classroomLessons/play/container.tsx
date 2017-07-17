@@ -61,8 +61,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     }
   }
 
-  studentEnrolledInClass(student: string) {
-    return !!this.props.classroomSessions.data.students[student]
+  studentEnrolledInClass(student: string|null) {
+    return student ? !!this.props.classroomSessions.data.students[student] : false
   }
 
   handleStudentSubmission(data: string, timestamp: string) {

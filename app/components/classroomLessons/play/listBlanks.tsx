@@ -164,7 +164,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   answerValues(){
     // TODO use Object.values once we figure out typescript ECMA-2017
-    const answerArr : string[] = [];
+    const answerArr : Array<string|null> = [];
     const answers = this.state.answers
     for (let key in answers) {
       answerArr.push(answers[key])
