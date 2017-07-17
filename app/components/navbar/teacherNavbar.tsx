@@ -96,7 +96,7 @@ class TeacherNavbar extends React.Component<any, any> {
         break
         case 'exit':
         if (this.state.tooltip === 'exit') {
-          return (<Tooltip text="Exit Lesson" className={icon}/>)
+          return (<Tooltip text="Save and Exit Lesson" className={icon}/>)
         }
         break
         case 'help':
