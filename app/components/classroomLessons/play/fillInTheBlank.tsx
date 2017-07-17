@@ -6,6 +6,7 @@ import Cues from 'components/renderForQuestions/cues';
 import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import WarningDialogue from 'components/fillInBlank/warningDialogue'
+import { getParameterByName } from 'libs/getParameterByName';
 import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion
@@ -41,6 +42,15 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     };
     this.submitSubmission = this.submitSubmission.bind(this);
     this.updateBlankValue = this.updateBlankValue.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const student = getParameterByName('student');
+    // this will reset the state when a teacher resets a question
+    if (this.state.submitted === true && nextProps.submissions === null) {
+      const splitPrompt = nextProps.data.play.prompt.split('___');
+      this.setState({ submitted: false, editing: false, inputVals: this.generateInputs(splitPrompt) });
+    }
   }
 
   generateInputs(promptArray) {
@@ -90,6 +100,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       warning = this.renderWarning();
       inputClass += 'bad-input'
     }
+    const value = this.state.inputVals[i] ? this.state.inputVals[i] : ''
     return (
       <span key={`span${i}`}>
         <div className='warning'>
@@ -100,7 +111,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
           id={`input${i}`}
           key={i + 100}
           type="text"
-          value={this.state.inputVals[i]}
+          value={value}
           onChange={(e) => this.updateBlankValue(e, i)}
           disabled={!!inputClass}
           onBlur={() => this.validateInput(i)}
