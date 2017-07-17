@@ -101,7 +101,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       const text = submissions ? submissions[key].data : null
       return (
       <li key={`li-${index}`}>
-        <span>{index + 1}</span> {text}
+        <span className='li-number'>{index + 1}</span> {text}
       </li>);
     });
     return (
