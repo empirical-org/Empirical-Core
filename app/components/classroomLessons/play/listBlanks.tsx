@@ -13,7 +13,7 @@ import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
-
+import { getParameterByName } from 'libs/getParameterByName';
 interface ListBlankProps {
   data: QuestionData;
   mode: null|string;
@@ -35,6 +35,27 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     this.state = {isSubmittable: false, answers: {}, errors: false, answerCount: 0, submitted: false}
     this.customChangeEvent = this.customChangeEvent.bind(this)
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
+  }
+
+  toObject(answers) {
+    const arr = answers.split(',')
+    const objectifiedArr = {};
+    for (var i = 0; i < arr.length; ++i) {
+      objectifiedArr[i] = arr[i];
+    }
+    return objectifiedArr;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const student = getParameterByName('student')
+    if (this.state.submitted) {
+      if (!nextProps.submissions) {
+        // this will  reset the state when a teacher resets a question
+        this.setState({ submitted: false, answers: {}, });
+      } else {
+        this.setState({answers: this.toObject(nextProps.submissions[student].data)})
+      }
+    }
   }
 
   customChangeEvent(e, index){
@@ -78,7 +99,8 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
       const text = submissions ? submissions[key].data : null
-      return (<li>
+      return (
+      <li key={`li-${index}`}>
         <span>{index + 1}</span> {text}
       </li>);
     });
@@ -111,10 +133,11 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   textEditListComponents(i){
     return (
-      <div className={`list-component`} key={`list-component-${i}`}>
+      <div className={`list-component`} key={`${i}${this.state.answers[i]}`}>
         <span className="list-number">{`Word ${i + 1}:`}</span>
         <TextEditor
           editorIndex={i}
+          value={this.state.answers[i]}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
           disabled={!this.state.isSubmittable && this.state.submitted}

@@ -82,6 +82,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
+    let passedProps
     const current = lessonData.questions[data.current_slide];
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
