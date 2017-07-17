@@ -88,6 +88,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const props = { mode, submissions, selected_submissions, };
+    let passedProps
     switch (current.type) {
       case 'CL-LB':
         return (
