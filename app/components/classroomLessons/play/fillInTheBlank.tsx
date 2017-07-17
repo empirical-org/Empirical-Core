@@ -102,7 +102,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
           type="text"
           value={this.state.inputVals[i]}
           onChange={(e) => this.updateBlankValue(e, i)}
-          disabled={!!inputClass}
+          disabled={inputClass === "disabled-button"}
           onBlur={() => this.validateInput(i)}
         />
       </span>
@@ -210,13 +210,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   validateInput(i: number) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
-
     if (inputVal && this.props.data.play.cues.indexOf(inputVal.toLowerCase()) === -1) {
       newErrors.add(i);
     } else {
       newErrors.delete(i);
     }
-
     this.setState({ inputErrors: newErrors });
   }
 
