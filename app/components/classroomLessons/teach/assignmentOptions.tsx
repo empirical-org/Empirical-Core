@@ -23,7 +23,7 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
 
   renderOptions() {
     const optionObject = this.optionObj()
-    const optionsList = [];
+    const optionsList: Array<JSX.Element> = [];
     for (let option in optionObject) {
       const isSelected = option === this.props.selectedOptionKey
       const imgSrc = isSelected ? RadioButtonSelected : RadioButtonIcon;

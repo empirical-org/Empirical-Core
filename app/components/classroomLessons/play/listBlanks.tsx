@@ -78,7 +78,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
       const text = submissions ? submissions[key].data : null
-      return (<li>
+      return (<li key={key}>
         <span>{index + 1}</span> {text}
       </li>);
     });
@@ -141,7 +141,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   answerValues(){
     // TODO use Object.values once we figure out typescript ECMA-2017
-    const answerArr : string[] = [];
+    const answerArr : Array<string|null> = [];
     const answers = this.state.answers
     for (let key in answers) {
       answerArr.push(answers[key])

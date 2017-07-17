@@ -16,9 +16,9 @@ const moment = require('moment');
 interface fillInTheBlankProps {
   data: QuestionData,
   handleStudentSubmission: Function,
-  mode: string,
-  submissions: QuestionSubmissionsList,
-  selected_submissions: SelectedSubmissionsForQuestion
+  mode: string | null,
+  submissions: QuestionSubmissionsList | null,
+  selected_submissions: SelectedSubmissionsForQuestion | null
 }
 
 interface fillInTheBlankState {
@@ -206,7 +206,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text: any = submissions[key].data;
+      const text: any = submissions ? submissions[key].data : null;
       return (<li key={index}>
         <span className="answer-number">{index + 1}</span><span dangerouslySetInnerHTML={{ __html: text }} />
       </li>);
