@@ -24,7 +24,7 @@
     const ut = this.props.data
     const name = encodeURIComponent(ut.name);
     const activityIds = encodeURIComponent(ut.activities.map((act)=>act.id).toString())
-    window.location = `/teachers/classrooms/activity_planner/new_unit/students/edit/name/${name}/activity_ids/${activityIds}`
+    window.location = `/teachers/classrooms/assign_activities/new_unit/students/edit/name/${name}/activity_ids/${activityIds}`
   },
 
   fastAssign: function() {
@@ -45,7 +45,7 @@
 
   onFastAssignSuccess: function() {
     this.analytics().track('click Create Unit', {});
-    window.location = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.data.id}/assigned`
+    window.location = `/teachers/classrooms/assign_activities/featured-activity-packs/${this.props.data.id}/assigned`
   },
 
 

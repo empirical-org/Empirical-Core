@@ -68,7 +68,7 @@
       }
     } else {
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
-        link = `/teachers/classrooms/activity_planner/featured-activity-packs/${this.props.data.id}`;
+        link = `/teachers/classrooms/assign_activities/featured-activity-packs/${this.props.data.id}`;
       } else {
         link = `/activities/packs/${this.props.data.id}`
       }

@@ -10,7 +10,7 @@ export default React.createClass({
   minis: function(){
     let minis =
       [
-        <a href='/teachers/classrooms/activity_planner/assign-a-diagnostic'
+        <a href='/teachers/classrooms/assign_activities/assign-a-diagnostic'
             key={1}>
           <AssignmentTypeMini
             toggleTab={this.props.toggleTab}
@@ -23,7 +23,7 @@ export default React.createClass({
             timeDuration={'~20 Min.'}
             />
           </a>,
-          <a key={2} href='/teachers/classrooms/activity_planner/featured-activity-packs'>
+          <a key={2} href='/teachers/classrooms/assign_activities/featured-activity-packs'>
             <AssignmentTypeMini
               toggleTab={this.props.toggleTab}
               toggleTarget={'exploreActivityPacks'}

@@ -159,6 +159,7 @@ EmpiricalGrammar::Application.routes.draw do
           "#{Rails.application.routes.url_helpers.lesson_planner_teachers_classrooms_path}?#{request.params.to_query}"
         }
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        get :assign_activities, controller: "classroom_manager", action: 'assign_activities', path: 'assign_activities'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
@@ -303,14 +304,16 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/packs/grade/:grade' => 'teachers/unit_templates#index'
 
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/category/:category' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'
+
+  get 'teachers/classrooms/assign_activities/:tab' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#assign_activities'
 
   # Count route to get quantities
   get 'count/featured_packs' => 'teachers/unit_templates#count'
