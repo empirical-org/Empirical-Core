@@ -82,13 +82,12 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
-    let passedProps
     const current = lessonData.questions[data.current_slide];
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const props = { mode, submissions, selected_submissions, };
-    let passedProps
+    let passedProps;
     switch (current.type) {
       case 'CL-LB':
         return (
