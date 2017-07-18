@@ -62,7 +62,7 @@
     let link
     if (this.props.data.id == 'createYourOwn') {
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
-        link = '/teachers/classrooms/activity_planner/create-unit'
+        link = '/teachers/classrooms/assign_activities/create-unit'
       } else {
         link = '/account/new'
       }

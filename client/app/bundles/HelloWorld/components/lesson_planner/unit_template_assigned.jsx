@@ -10,7 +10,6 @@ export default  React.createClass({
   getInitialState: function() {
     return {
       loading: true,
-      actions: this.unitTemplateAssignedActions,
       data: null,
       lastUnitId: ''
     }
