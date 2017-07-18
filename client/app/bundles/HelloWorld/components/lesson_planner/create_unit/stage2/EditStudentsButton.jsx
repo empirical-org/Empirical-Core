@@ -1,6 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
-import AssigningIndicator from '../../../shared/button_loading_indicator'
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
 
 class UpdateUnitButton extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class UpdateUnitButton extends React.Component {
       color = 'quillgreen';
       clickHandler = this.handleClick
     } else {
-      text = this.state.loading ? <span>Saving <AssigningIndicator /></span>: this.props.disabledText;
+      text = this.state.loading ? <span>Saving <ButtonLoadingIndicator /></span>: this.props.disabledText;
       color = 'lightgray';
       clickHandler = null
     }
