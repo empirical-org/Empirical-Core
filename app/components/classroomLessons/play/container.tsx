@@ -10,7 +10,8 @@ import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
-import CLStudentFillInTheBlank from './fillInTheBlank'
+import CLStudentFillInTheBlank from './fillInTheBlank';
+import CLStudentModelQuestion from './modelQuestion';
 import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
@@ -44,7 +45,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   componentWillUnmount() {
-    console.log("should unmount");
     document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
   }
 
@@ -89,6 +89,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
     const current = lessonData.questions[data.current_slide];
+    const model: string|null = data.models && data.models[data.current_slide] ? data.models[data.current_slide] : null;
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
@@ -102,6 +103,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       case 'CL-ST':
         return (
           <CLStudentStatic data={current.data} />
+        );
+      case 'CL-MD':
+        return (
+          <CLStudentModelQuestion data={current.data} model={model}/>
         );
       case 'CL-SA':
         passedProps = { mode, submissions, selected_submissions, };

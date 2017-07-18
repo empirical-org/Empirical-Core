@@ -227,3 +227,8 @@ export function updateNoStudentError(student: string | null) {
     dispatch({type: C.NO_STUDENT_ID, data: student})
   };
 }
+
+export function setModel(classroom_activity_id: string, question_id: string, model): void {
+  const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
+  modelRef.set(model);
+}

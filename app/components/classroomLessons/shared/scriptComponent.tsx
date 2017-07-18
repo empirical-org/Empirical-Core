@@ -1,6 +1,7 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
+import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
@@ -36,7 +37,8 @@ interface ScriptContainerState {
   projecting: boolean,
   showAllStudents: boolean,
   sort: string,
-  sortDirection: string
+  sortDirection: string,
+  model: string,
 }
 
 class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
@@ -47,14 +49,16 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
-      sortDirection: 'desc'
+      sortDirection: 'desc',
+      model: '',
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
     this.clearSelectedSubmissions = this.clearSelectedSubmissions.bind(this)
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
-    this.retryQuestion = this.retryQuestion.bind(this)
+    this.retryQuestion = this.retryQuestion.bind(this);
+    this.handleModelChange = this.handleModelChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,6 +84,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
         case 'STEP-HTML-TIP':
           return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+        case 'T-MODEL':
+          return this.renderTeacherModel(item, index);
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -379,6 +385,23 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     } else {
       return this.state.projecting ? <img src={uncheckedGreenCheckbox} /> : <img src={uncheckedGrayCheckbox} />
     }
+  }
+
+  handleModelChange(e) {
+    this.setState({ model: e, });
+    this.props.saveModel(this.state.model);
+  }
+
+  renderTeacherModel(index: number) {
+    return (
+      <TextEditor
+        defaultValue={''}
+        value={this.state.model}
+        handleChange={this.handleModelChange}
+        placeholder="Type your model for the students here."
+      />
+    );
+
   }
 
   renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {

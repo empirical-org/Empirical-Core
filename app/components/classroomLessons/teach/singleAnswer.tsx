@@ -17,7 +17,8 @@ interface SingleAnswerProps {
   toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
   clearAllSubmissions: Function,
   clearAllSelectedSubmissions: Function,
-  onlyShowHeaders: boolean
+  onlyShowHeaders: boolean,
+  saveModel: Function,
 }
 
 interface SingleAnswerState {}
@@ -73,6 +74,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
           clearAllSubmissions={this.props.clearAllSubmissions}
           toggleStudentFlag={this.props.toggleStudentFlag}
+          saveModel={this.props.saveModel}
         />
 
       </div>
