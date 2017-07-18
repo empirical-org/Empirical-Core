@@ -389,7 +389,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   handleModelChange(e) {
     this.setState({ model: e, });
-    this.props.saveModel(this.state.model);
+    this.props.saveModel(e);
   }
 
   renderTeacherModel(index: number) {
