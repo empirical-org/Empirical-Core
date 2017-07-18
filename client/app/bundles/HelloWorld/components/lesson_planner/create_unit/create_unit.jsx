@@ -7,24 +7,29 @@ import UnitTemplatesAssigned from '../unit_template_assigned'
 import ProgressBar from './progress_bar'
 import _ from 'underscore'
 import $ from 'jquery'
+import AnalyticsWrapper from '../../shared/analytics_wrapper'
 
 export default React.createClass({
-	propTypes: {
-		data: React.PropTypes.object.isRequired,
-		actions: React.PropTypes.object.isRequired,
-		analytics: React.PropTypes.object.isRequired
-	},
 
 	getInitialState () {
 		return {
 			prohibitedUnitNames: [],
-			newUnitId: null
+			newUnitId: null,
+			stage: 1,
+			selectedActivities: [],
+			name: '',
+			options: {classrooms: []},
+			assignSuccess: false,
+			model: {dueDates: {}}
 		}
 	},
 
 	componentDidMount: function(){
 		this.getProhibitedUnitNames()
+	},
 
+	analytics: function() {
+		return new AnalyticsWrapper();
 	},
 
 	getProhibitedUnitNames: function() {
@@ -40,28 +45,27 @@ export default React.createClass({
 	},
 
 	getStage: function() {
-		return this.props.data.createUnitData.stage;
+		return this.state.stage;
 	},
 
 	getSelectedActivities: function() {
-		return this.props.data.createUnitData.model.selectedActivities;
+		return this.state.selectedActivities;
 	},
 
 	getClassrooms: function() {
-		if (this.props.data.createUnitData.options) {
-			return this.props.data.createUnitData.options.classrooms || [];
+		if (this.state.options) {
+			return this.state.options.classrooms;
 		} else {
 			return undefined
 		}
-
 	},
 
 	getUnitName: function() {
-		return this.props.data.createUnitData.model.name || '';
+		return this.state.name;
 	},
 
 	getId: function() {
-		return this.props.data.createUnitData.model.id;
+		return this.state.model.id;
 	},
 
 	toggleClassroomSelection: function(classroom) {
@@ -113,13 +117,35 @@ export default React.createClass({
 
 	updateUnitName: function(unitName) {
 		this.isUnitNameValid();
-		this.props.actions.update({name: unitName})
+		this.setState({name: unitName})
 	},
 
 	clickContinue: function() {
-		this.props.analytics.track('click Continue in lesson planner');
-		this.props.actions.toggleStage(2);
+		this.analytics().track('click Continue in lesson planner');
+		this.toggleStage(2);
 		this.resetWindowPosition();
+	},
+
+	toggleStage: function(stage) {
+		this.setState({stage: stage})
+		if (!this.state.options.classrooms.length) {
+			this.fetchClassrooms();
+		}
+	},
+
+	fetchClassrooms: function() {
+		 const that = this;
+		$.ajax({
+			url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
+			context: this,
+			success: function(data) {
+				that.setState({
+					options: {
+						classrooms: data.classrooms_and_their_students
+					}
+				})
+			}
+		});
 	},
 
 	resetWindowPosition: function() {
@@ -185,7 +211,7 @@ export default React.createClass({
 
 	onCreateSuccess: function(response) {
 		this.setState({newUnitId: response.id})
-		this.props.actions.toggleStage(3);
+		this.toggleStage(3);
 	},
 
 	isUnitNameValid: function() {
@@ -259,14 +285,31 @@ export default React.createClass({
 	},
 
 	dueDate: function(id) {
-		if (this.props.data.createUnitData.model.dueDates && this.props.data.createUnitData.model.dueDates[id]) {
-			return this.props.data.createUnitData.model.dueDates[id];
+		if (this.state.model.dueDates && this.state.model.dueDates[id]) {
+			return this.state.model.dueDates[id];
 		}
+	},
+
+	toggleActivitySelection: function(activity) {
+		const indexOfActivity = this.state.selectedActivities.findIndex(act => act.id === data.id)
+		const newActivityArray = this.state.selectedActivities.slice()
+		if (indexOfActivity === -1) {
+			newActivityArray.push(activity)
+		} else {
+			newActivityArray.splice(indexOfActivity, 1)
+		}
+		this.setState({selectedActivities: newActivityArray})
+	},
+
+	assignActivityDueDate: function(activity, dueDate) {
+		const model = Object.assign({}, this.state.model)
+		model.dueDates[activity.id] = dueDate;
+		this.setState({model: model})
 	},
 
 	stage1SpecificComponents: function() {
 		return (<UnitStage1
-												toggleActivitySelection={this.props.actions.toggleActivitySelection}
+												toggleActivitySelection={this.toggleActivitySelection}
 												unitName={this.getUnitName()} updateUnitName={this.updateUnitName}
 												selectedActivities={this.getSelectedActivities()}
 												determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
@@ -276,23 +319,22 @@ export default React.createClass({
 
 	stage2SpecificComponents: function () {
 			return (<Stage2 selectedActivities={this.getSelectedActivities()}
-								 data={this.props.data.assignSuccessData}
-								 dueDates={this.props.data.createUnitData.model.dueDates}
-								 actions={this.props.actions.assignSuccessActions}
+								 data={this.assignSuccess}
+								 dueDates={this.state.model.dueDates}
 								 classrooms={this.getClassrooms()}
-								 toggleActivitySelection={this.props.actions.toggleActivitySelection}
+								 toggleActivitySelection={this.toggleActivitySelection}
 								 toggleClassroomSelection={this.toggleClassroomSelection}
 								 toggleStudentSelection={this.toggleStudentSelection}
 								 finish={this.finish}
 								 unitName={this.getUnitName()}
-								 assignActivityDueDate={this.props.actions.assignActivityDueDate}
+								 assignActivityDueDate={this.assignActivityDueDate}
 								 areAnyStudentsSelected={this.areAnyStudentsSelected()}
 								 errorMessage={this.determineStage2ErrorMessage()}/>);
 	},
 
 	stage3specificComponents: function() {
-		if ((!!this.props.actions.assignSuccessActions) && (!!this.props.data.assignSuccessData)) {
-			return (<UnitTemplatesAssigned actions={this.props.actions.assignSuccessActions} data={this.props.data.assignSuccessData}/>);
+		if ((!!this.state.assignSuccess)) {
+			return (<UnitTemplatesAssigned data={this.state.assignSuccess}/>);
 		} else {
 			window.location.href = `/teachers/classrooms/activity_planner#${this.state.newUnitId}`;
 		}
@@ -311,7 +353,7 @@ export default React.createClass({
 		return (
 			<span>
 				<ProgressBar stage={this.getStage()}/>
-				<div className='container'>
+				<div className='container' id='activity-planner'>
 					{stageSpecificComponents}
 				</div>
 			</span>
