@@ -53,7 +53,6 @@ gem 'time_difference'
 # OTHERS
 gem 'global'
 gem 'google-api-client', '0.8.6'
-gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
 gem 'newrelic_rpm'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
