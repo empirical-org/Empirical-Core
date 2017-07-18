@@ -7,6 +7,7 @@ export interface ClassroomLessonSession {
   selected_submissions: SelectedSubmissions;
   timestamps: Timestamps;
   flaggedStudents: FlaggedStudents;
+  public: Boolean | null;
 }
 
 export interface ClassroomLessonSessions {
