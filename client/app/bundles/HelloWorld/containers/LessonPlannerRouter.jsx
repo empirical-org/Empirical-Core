@@ -9,7 +9,7 @@ import EmptyAssignedUnits from '../components/lesson_planner/manage_units/EmptyA
 import UnitTemplateAssigned from '../components/lesson_planner/unit_template_assigned'
 import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
 import UnitTemplateProfile from '../components/lesson_planner/unit_templates_manager/unit_template_profile/unit_template_profile'
-
+import ClassroomLessonsPlanner from '../components/lesson_planner/classroom_lessons'
 
 export default React.createClass({
 	render: function() {
@@ -17,10 +17,7 @@ export default React.createClass({
 			<Router Router history={browserHistory}>
         <Route path="/teachers/classrooms/activity_planner" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
-					{/* <Route path="featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
-					<Route path="featured-activity-packs(/grade/:grade)" component={UnitTemplatesManager}/>
-					<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
-					<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/> */}
+					<Route path="lessons" component={ClassroomLessonsPlanner}/>
 					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>

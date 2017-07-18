@@ -19,6 +19,12 @@ class TeachersController < ApplicationController
     render json: {classrooms: current_user.classrooms_i_teach_with_students}
   end
 
+  def classrooms_i_teach_with_lessons
+    lesson_activity_ids = Activity.where(activity_classification_id: 6).map(&:id)
+    classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [{activity: :classification}]).where(classroom_activities: {activity_id: lesson_activity_ids})
+    render json: {classrooms: classrooms}
+  end
+
   def update_current_user
     if current_user.update(teacher_params)
       render json: current_user

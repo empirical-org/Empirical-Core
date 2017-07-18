@@ -77,6 +77,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
+  get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
 
@@ -91,6 +92,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'prohibited_unit_names' => 'units#prohibited_unit_names'
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
     get 'diagnostic_units' => 'units#diagnostic_units'
+    get 'lesson_units' => 'units#lesson_units'
 
     resources :unit_templates, only: [:index] do
       collection do
