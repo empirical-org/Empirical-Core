@@ -58,6 +58,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
 
+  componentWillUnmount() {
+    document.getElementsByTagName("html")[0].style.overflowY = "scroll";
+  }
+
   render() {
     const classroomActivityError = this.props.classroomSessions.error;
     const lessonError = this.props.classroomLesson.error;

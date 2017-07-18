@@ -40,6 +40,12 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       this.props.dispatch(startListeningToSession(classroom_activity_id));
       this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
     }
+    document.getElementsByTagName("html")[0].style.backgroundColor = "white";
+  }
+
+  componentWillUnmount() {
+    console.log("should unmount");
+    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
   }
 
   componentWillReceiveProps(nextProps) {
