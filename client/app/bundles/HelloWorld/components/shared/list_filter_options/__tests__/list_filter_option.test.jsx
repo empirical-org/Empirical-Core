@@ -43,7 +43,7 @@ describe('ListFilterOption component', () => {
         userLoggedIn={true}
       />
     );
-    expect(wrapper.find(Link).prop('to')).toBe('/teachers/classrooms/activity_planner/featured-activity-packs');
+    expect(wrapper.find(Link).prop('to')).toBe('/teachers/classrooms/assign_activities/featured-activity-packs');
   });
 
   it('<Link /> should have certain to prop if user is logged in and name of pack is not all', () => {
@@ -53,7 +53,7 @@ describe('ListFilterOption component', () => {
         userLoggedIn={true}
       />
     );
-    expect(wrapper.find(Link).prop('to')).toBe('/teachers/classrooms/activity_planner/featured-activity-packs/category/not-all');
+    expect(wrapper.find(Link).prop('to')).toBe('/teachers/classrooms/assign_activities/featured-activity-packs/category/not-all');
   });
 
   it('<Link /> should have certain to prop if user is not logged in and name of pack is all', () => {
