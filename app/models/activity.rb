@@ -104,6 +104,7 @@ class Activity < ActiveRecord::Base
   end
 
   def module_url(activity_session)
+    @activity_session = activity_session
     initial_params = {student: activity_session.uid}
     module_url_helper(initial_params)
   end
@@ -143,13 +144,24 @@ class Activity < ActiveRecord::Base
     flag 'beta'
   end
 
+  def lesson_url_helper
+    # replace non-alphanumeric characters with underscore
+    @url += name.gsub(/(\W|\d)/, "_").downcase + '?'
+    @url.query_values = {classroom_activity_id: @activity_session.classroom_activity.id, student: @activity_session.id}
+    @url
+  end
+
   def module_url_helper(initial_params)
-    url = Addressable::URI.parse(classification.module_url)
-    params = (url.query_values || {})
-    params.merge!(initial_params)
-    params[:uid] = uid if uid.present?
-    url.query_values = params
-    fix_angular_fragment!(url)
+    @url = Addressable::URI.parse(classification.module_url)
+    if classification.key == 'lessons'
+      lesson_url_helper
+    else
+      params = (@url.query_values || {})
+      params.merge!(initial_params)
+      params[:uid] = uid if uid.present?
+      @url.query_values = params
+      fix_angular_fragment!
+    end
   end
 
   def homepage_path(path, classification)
@@ -161,14 +173,14 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def fix_angular_fragment!(url)
+  def fix_angular_fragment!
 
-    unless url.fragment.blank?
-      url.path = "/##{url.fragment}"
-      url.fragment = nil
+    unless @url.fragment.blank?
+      @url.path = "/##{url.fragment}"
+      @url.fragment = nil
     end
 
-    return url
+    return @url
   end
 
 
