@@ -291,7 +291,7 @@ export default React.createClass({
 	},
 
 	toggleActivitySelection: function(activity) {
-		const indexOfActivity = this.state.selectedActivities.findIndex(act => act.id === data.id)
+		const indexOfActivity = this.state.selectedActivities.findIndex(act => act.id === activity.id)
 		const newActivityArray = this.state.selectedActivities.slice()
 		if (indexOfActivity === -1) {
 			newActivityArray.push(activity)
