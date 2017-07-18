@@ -209,7 +209,7 @@ class TeacherNavbar extends React.Component<any, any> {
 
     return (
       <div className="lessons-teacher-navbar">
-        <p className="lesson-title"><span>Lesson :</span> {this.props.classroomLesson.data.title}</p>
+        <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p>
         <span className="toolbar">
           {this.presentStudentCount()}
           <div
