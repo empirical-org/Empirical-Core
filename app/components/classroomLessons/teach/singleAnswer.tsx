@@ -57,6 +57,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         </div>
         <ScriptComponent
           script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
+          prompt={this.props.lessonData.questions[this.props.data.current_slide].data.play.prompt}
           selected_submissions={selected_submissions}
           submissions={submissions}
           current_slide={current_slide}

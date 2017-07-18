@@ -1,6 +1,7 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
+import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -311,7 +312,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderSubmissionRow(studentKey: string, index: number) {
     const { selected_submissions, submissions, current_slide, students } = this.props;
     const text: any = submissions[current_slide][studentKey].data
-    const html: any = <span dangerouslySetInnerHTML={{__html: text}}/>
+
+    const boldedText = findDifferences(text, this.props.prompt);
+
+    const html: any = <span dangerouslySetInnerHTML={{__html: boldedText}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
