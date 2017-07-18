@@ -16,7 +16,7 @@ exports[`ManageUnitsHeader component renders 1`] = `
     <Link
       onlyActiveOnIndex={false}
       style={Object {}}
-      to="/teachers/classrooms/activity_planner/assign-new-activity"
+      to="/teachers/classrooms/assign_activities"
     >
       <button
         className="button-green create-unit featured-button"
