@@ -36,7 +36,7 @@
     let link
     const name = this.getName().toLowerCase()
     if (this.props.userLoggedIn) {
-      link = '/teachers/classrooms/activity_planner'
+      link = '/teachers/classrooms/assign_activities'
       if (name === 'all') {
         link += '/featured-activity-packs'
       } else {
