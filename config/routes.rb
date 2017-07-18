@@ -214,6 +214,7 @@ EmpiricalGrammar::Application.routes.draw do
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
+      get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'users/profile', to: 'users#profile'
     end
 
