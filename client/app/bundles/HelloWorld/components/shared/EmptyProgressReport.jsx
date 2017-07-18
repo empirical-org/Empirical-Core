@@ -26,14 +26,6 @@ export default React.createClass({
      <p>{content}</p>
      <button onClick={() => { window.location = link; }} className="button-green create-unit featured-button">{buttonText}</button>
      <a href="/teacher_resources">Teacher Resources</a>
-     {/* <div className="row empty-state-manager">
-       <div className="col-xs-7">
-         {content}
-       </div>
-       <div className="col-xs-4">
-         <button onClick={() => { window.location = link; }} className="button-green create-unit featured-button">{buttonText}</button>
-       </div>
-     </div> */}
    </div>
  );
   },
