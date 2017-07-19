@@ -7,7 +7,7 @@ describe('BasicTeacherInfo component', () => {
 
   it('renders a signup form', () => {
     const wrapper = shallow(
-        <BasicTeacherInfo signUp={() => null} update={() => null} textInputGenerator={{generate: () => null}} />
+        <BasicTeacherInfo signUp={() => null} update={() => null} errors={{}}/>
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -34,9 +34,8 @@ describe('BasicTeacherInfo component', () => {
 
     const mockGenerator = jest.fn();
     const wrapper = shallow(
-        <BasicTeacherInfo signUp={() => null} update={() => null} textInputGenerator={{generate: mockGenerator}} />
+        <BasicTeacherInfo signUp={() => null} update={() => null}  errors={{}} />
     );
-    expect(mockGenerator.mock.calls[0][0]).toEqual(formFields);
   });
 
 });

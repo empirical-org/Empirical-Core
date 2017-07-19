@@ -80,6 +80,10 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def teacher_and_classroom_name
+    {teacher: classroom&.teacher&.name, classroom: classroom&.name}
+  end
+
   def formatted_due_date
     if due_date.present?
       due_date.month.to_s + "-" + due_date.day.to_s + "-" + due_date.year.to_s

@@ -7,8 +7,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       skip_jwt: true,
       scope: ['email',
               'profile',
-              'classroom.courses',
-              'classroom.rosters',
+              'classroom.courses.readonly',
+              'classroom.rosters.readonly',
               'classroom.profile.emails'],
       access_type: 'offline'
     }

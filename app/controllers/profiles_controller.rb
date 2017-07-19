@@ -28,6 +28,15 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def get_mobile_profile_data
+    if current_user.classrooms.any?
+      grouped_scores = get_parsed_mobile_profile_data(params[:current_classroom_id])
+      render json: {grouped_scores: grouped_scores}
+    else
+      render json: {error: 'Current user has no classrooms'}
+    end
+  end
+
   def students_classrooms_json
     render json: {classrooms: current_user.classrooms.includes(:teacher)
       .sort_by { |c|
@@ -63,6 +72,11 @@ protected
     next_activity_session = current_user.next_activity_session(grouped_scores)
     {student: {name: current_user.name, classroom: {name: classroom.name, id: classroom.id, teacher: {name: classroom.teacher.name}}},
      grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::StudentActivitySessionSerializer.new(next_activity_session, root: false)}
+  end
+
+  def get_parsed_mobile_profile_data(classroom_id)
+    # classroom = current_classroom(classroom_id)
+    Profile::Mobile::ActivitySessionsByUnit.new.query(current_user, classroom_id)
   end
 
   def current_classroom(classroom_id = nil)
