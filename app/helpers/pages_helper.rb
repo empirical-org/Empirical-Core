@@ -168,7 +168,7 @@ module PagesHelper
 					{team: 'Technical Advisory Board',
 					members: [
 						{
-							img: 'thumb-alex.png',
+							img: 'thumb-alex.jpg',
 							name: "Alex Redmon",
 							title: "Open Source Developer",
 							desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
