@@ -13,7 +13,7 @@ class ClassroomActivity < ActiveRecord::Base
 
   validate :not_duplicate, :on => :create
 
-  after_create :assign_to_students
+  after_create :assign_to_students,:update_lessons_cache
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions
 
   def assigned_students
@@ -200,6 +200,14 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   private
+
+  def update_lessons_cache
+    if ActivityClassification.find(activity.activity_classification_id)&.key == 'lessons'
+      lessons_cache =  JSON.parse($redis.get("user_id:#{self.classroom.teacher.id}_lessons_array") || '[]')
+      lessons_cache.push({classroom_activity_id: self.id, activity_id: activity.id, activity_name: activity.name})
+      $redis.set("user_id:#{self.classroom.teacher.id}_lessons_array", lessons_cache.to_json)
+    end
+  end
 
   def not_duplicate
     if ClassroomActivity.find_by(classroom_id: self.classroom_id, activity_id: self.activity_id, unit_id: self.unit_id, visible: self.visible)
