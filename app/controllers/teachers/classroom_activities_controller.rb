@@ -24,6 +24,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
+  def unlock_lesson
+    unlocked = @classroom_activity.update(locked: false)
+    render json: {unlocked: unlocked}
+  end
+
 private
 
   def authorize!
