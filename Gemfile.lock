@@ -389,9 +389,6 @@ GEM
     lumberjack (1.0.10)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    mailchimp-api (2.0.6)
-      excon (>= 0.16.0)
-      json (>= 1.7.7)
     memoist (0.15.0)
     method_source (0.8.2)
     mime-types (1.25.1)
@@ -798,7 +795,6 @@ DEPENDENCIES
   letter_opener
   livingstyleguide
   lograge
-  mailchimp-api
   newrelic_rpm
   nokogiri
   omniauth

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 9</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polyline id="path-1" points="4.07407407 3.34449827 17.4451162 3.34449827 17.4451162 18.3333333 4.07407407 18.3333333"></polyline>
+    </defs>
+    <g id="05-Student-Onboarding" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05_01-Sign-Up-Form" transform="translate(-675.000000, -198.000000)">
+            <g id="Group-8" transform="translate(667.000000, 189.000000)">
+                <g id="Group-3" transform="translate(8.000000, 9.000000)">
+                    <g id="Group-9">
+                        <rect id="Rectangle-281" fill="#2F67AB" x="0" y="0" width="22" height="22" rx="5"></rect>
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Clip-2"></g>
+                        <path d="M11.5047535,18.3333333 C7.24091296,18.3333333 4.07409576,15.041546 4.07409576,10.8803424 L4.07409576,10.8389158 C4.07409576,6.71903038 7.17889504,3.34449827 11.6290062,3.34449827 C14.3611558,3.34449827 15.9962821,4.25544951 17.3417024,5.58044977 L15.3132176,7.91985931 C14.1954855,6.90545004 13.0571531,6.2843765 11.6082974,6.2843765 C9.16585382,6.2843765 7.40647479,8.31319504 7.40647479,10.7974892 L7.40647479,10.8389158 C7.40647479,13.32321 9.12443626,15.3935635 11.6082974,15.3935635 C13.2641325,15.3935635 14.2783207,14.7310634 15.4167615,13.6959408 L17.4451379,15.7454727 C15.9548646,17.3396374 14.2990295,18.3333333 11.5047535,18.3333333" id="Fill-1" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

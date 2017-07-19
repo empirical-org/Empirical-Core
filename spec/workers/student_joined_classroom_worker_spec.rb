@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe InviteStudentWorker, type: :worker do
-  let(:worker) { InviteStudentWorker.new }
+describe StudentJoinedClassroomWorker, type: :worker do
+  let(:worker) { StudentJoinedClassroomWorker.new }
   let(:analytics) { SegmentAnalytics.new }
   let(:student) { FactoryGirl.create(:student) }
   let(:teacher) { FactoryGirl.create(:teacher) }

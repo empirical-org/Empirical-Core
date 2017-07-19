@@ -7,11 +7,16 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     render json: @assigned_student_hash
   end
 
+  def teacher_and_classroom_name
+    render json: @classroom_activity.teacher_and_classroom_name
+  end
+
   private
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
-    if @classroom_activity.classroom.teacher != current_user then auth_failed end
+    class_act_teacher = @classroom_activity&.classroom&.teacher
+    if !class_act_teacher || class_act_teacher != current_user then auth_failed end
   end
 
   def get_assigned_student_hash

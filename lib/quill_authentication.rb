@@ -13,6 +13,8 @@ module QuillAuthentication
     begin
       if session[:user_id]
         return @current_user ||= User.find(session[:user_id])
+      elsif doorkeeper_token
+        return User.find_by_id(doorkeeper_token.resource_owner_id) if doorkeeper_token
       else
         authenticate_with_http_basic do |username, password|
           return @current_user ||= User.find_by_token!(username) if username.present?
@@ -82,5 +84,11 @@ module QuillAuthentication
 
   def signed_out_path
     root_path
+  end
+
+  def doorkeeper_token
+    return @token if instance_variable_defined?(:@token)
+    methods = Doorkeeper.configuration.access_token_methods
+    @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
   end
 end

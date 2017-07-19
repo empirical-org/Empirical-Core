@@ -6,7 +6,7 @@ import CreateClass from '../CreateClass.jsx';
 import $ from 'jquery'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import LoadingSpinner from '../../components/shared/loading_indicator.jsx'
+import ButtonLoadingIndicator from '../../components/shared/button_loading_indicator.jsx'
 import GoogleClassroomModal from '../../components/dashboard/google_classroom_modal'
 
 jest.mock('jquery', () => {
@@ -22,10 +22,10 @@ jest.mock('jquery', () => {
 
 describe('CreateClass container', () => {
 
-  it('should display a LoadingSpinner component if loading', () => {
+  it('should display a ButtonLoadingIndicator component if loading', () => {
     const wrapper = shallow(<CreateClass />);
     wrapper.setState({loading: true});
-    expect(wrapper.find(LoadingSpinner).exists()).toBe(true);
+    expect(wrapper.find(ButtonLoadingIndicator).exists()).toBe(true);
   });
 
   it('should render a blank create class form if no class exists in state', () => {

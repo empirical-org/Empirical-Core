@@ -167,21 +167,22 @@ module PagesHelper
 					}]},
 					{team: 'Technical Advisory Board',
 					members: [
-				{
+						{
+							img: 'thumb-alex.png',
+							name: "Alex Redmon",
+							title: "Open Source Developer",
+							desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
+						},
+						{
 	    				img: "thumb-oliver.jpg",
 	      				name: "Oliver Hurst Hiller",
 	      				title: "Advisory Board Member",
 	      				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
-					}]},
+					}
+				]},
 
 				{team: 'Interns and Volunteers',
 					members: [
-				{
-					img: 'thumb-alex.png',
-					name: "Alex Redmon",
-					title: "Open Source Developer",
-					desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
-				},
 				{
 					img: 'thumb-matt-coleman.png',
 					name: "Matt Coleman",

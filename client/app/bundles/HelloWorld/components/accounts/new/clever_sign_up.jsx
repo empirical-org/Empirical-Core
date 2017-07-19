@@ -52,9 +52,10 @@ export default React.createClass({
     if (this.state.notAvailable) {
       result = <span></span>;
     } else {
-      result = (<a href={this.buildLink()}>
-                  <img className='google-sign-up' src='/images/sign_up_with_clever.png'/>
-                </a>);
+      result = (<button className='clever-sign-up' onClick={() => window.location = this.buildLink()}>
+        <img src='/images/clever_icon.svg'/>
+        <span>Sign up with Clever</span>
+      </button>)
     }
     return result;
   }

@@ -2,26 +2,33 @@
   <div class="sign-in-header text-center">
   <h3>Welcome Back to Quill</h3>
     <div class="text-center">
-      <a href='/auth/google_oauth2' className='google-sign-in''><img src='/images/login_with_google.png'></a>
-      <a href=<%="https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }"%>>
-        <img src='/images/login_with_clever.png' alt="Login with Clever" data-pin-nopin="true">
-      </a>
-      <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-          <br /><br />
-          <% if flash[:error] %>
-            <div class="error"><%= flash[:error] %></div>
-          <% end %>
-          <%= form_for @user, url: session_path(redirect: params[:redirect]) do |f| %>
-            <%= f.label :email_or_username, placeholder: 'Email or Username' %>
-            <%= f.text_field :email, placeholder: 'Email or Username' %>
-            <%= f.label :password %>
-            <%= f.password_field :password, placeholder: 'Password', class: 'Password' %>
-            <%= f.submit 'Login' %>
-          <% end %>
-                    <br /><br />
-          <%= link_to 'Forgot your password?', password_reset_index_path, class: 'newline' %>
-        </div>
+      <div class="auth-section">
+        <a href='/auth/google_oauth2'>
+          <button class="google-login">
+            <img src='/images/google_icon.svg'/>
+            <span>Login with Google</span>
+          </button>
+        </a>
+        <a href=<%="https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }"%>>
+          <button class="clever-login">
+            <img src='/images/clever_icon.svg'/>
+            <span>Login with Clever</span>
+          </button>
+        </a>
+      </div>
+      <div class='need-a-border'></div>
+      <div class="login-form">
+        <% if flash[:error] %>
+          <div class="error"><%= flash[:error] %></div>
+        <% end %>
+        <%= form_for @user, url: session_path(redirect: params[:redirect]) do |f| %>
+          <%= f.label :email_or_username, placeholder: 'Email or Username' %>
+          <%= f.text_field :email, placeholder: 'Email or Username' %>
+          <%= f.label :password %>
+          <%= f.password_field :password, placeholder: 'Password', class: 'Password' %>
+          <%= f.submit 'Login', class: 'login-button' %>
+        <% end %>
+        <%= link_to 'Forgot your password?', password_reset_index_path, class: 'newline' %>
       </div>
     </div>
   </div>
