@@ -15,6 +15,12 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		maxWidth: '220px'
+	},
+	lessonEndRow: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		maxWidth: '220px'
 	}
 }
 
@@ -65,14 +71,24 @@ export default React.createClass({
 	finalCell: function() {
 		const startDate = this.state.startDate;
 		if (this.props.report) {
-			return [<a key='this.props.data.activity.anonymous_path' href={this.props.data.activity.anonymous_path} target="_blank">Preview Activity</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>]
+			return [<a key='this.props.data.activity.anonymous_path' href={this.props.data.activity.anonymous_path} target="_blank">Preview</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>]
+		} else if (this.props.lesson) {
+			return this.lessonCompletedOrLaunch()
 		} else {
 			return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'}/>
 		}
 	},
 
-  deleteRow:function(){
-    if (!this.props.report) {
+	lessonCompletedOrLaunch: function() {
+		if (this.props.data.completed) {
+			return <p className="lesson-completed">Lesson Completed</p>
+		} else {
+			return <a href={this.props.data.activity.anonymous_path} target="_blank" className="launch-lesson">Launch Lesson</a>
+		}
+	},
+
+  deleteRow: function() {
+    if (!this.props.report && !this.props.lesson) {
       return <div className="pull-right"><img className='delete-classroom-activity h-pointer' onClick={this.hideClassroomActivity} src="/images/x.svg"/></div>
     }
   },
@@ -83,7 +99,7 @@ export default React.createClass({
 			<div className='row' style={styles.row}>
 				<div className='starting-row'>
 					<div className='cell col-md-1'>
-						<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}></div>
+						<div className={'pull-left icon-wrapper ' + this.props.data.activity.classification.image_class}></div>
 					</div>
 					<div className='cell col-md-8' id='activity-analysis-activity-name'>
 						<a href={url} target='_new'>
@@ -92,7 +108,7 @@ export default React.createClass({
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
-				<div className='cell col-md-3' style={styles.endRow}>
+				<div className='cell col-md-3' style={this.props.lesson ? styles.lessonEndRow : styles.endRow}>
 						{this.finalCell()}
 						{this.deleteRow()}
 				</div>

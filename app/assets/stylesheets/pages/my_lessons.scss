@@ -15,4 +15,23 @@
       color: #ea9a1a;
     }
   }
+  .launch-lesson {
+    margin-left: 10px;
+    width: 155px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #00c2a2;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    justify-content: center;
+    color: white !important;
+    padding-left: 0px !important;
+  }
+  .lesson-completed {
+    color: #82bf3c;
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
