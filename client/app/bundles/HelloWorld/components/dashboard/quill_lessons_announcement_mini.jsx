@@ -11,7 +11,7 @@
             <h3 style={{ fontWeight: 'normal', }}>New In-Class Collaborative Tool</h3>
           </div>
           <div>
-            <a href="/tools/diagnostic" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px', }}><img src="/images/lesson_icons_black.svg" style={{ height: '25px', marginRight: '10px', marginTop: '3px', }} /><p style={{ fontWeight: 'bold', fontSize: '18px', margin: '8px 0 0', }}>ELL Diagnostic</p></a>
+            <a href="/tools/diagnostic" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px', }}><img src="/images/lesson_icons_black.svg" style={{ height: '25px', marginRight: '10px', marginTop: '3px', }} /><p style={{ fontWeight: 'bold', fontSize: '18px', margin: '8px 0 0', }}>Quill Lessons</p></a>
           </div>
           <p style={{ padding: '0px 15px', marginTop: '16px', minHeight: '86px', lineHeight: '1.57', fontFamily: 'lucida-grande, adelle-sans, helvetica', }}>
           Use our new tools to assess your<br />
