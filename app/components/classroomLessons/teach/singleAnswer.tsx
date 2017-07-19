@@ -44,7 +44,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, } = this.props.data;
+    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models} = this.props.data;
     const showHeaderText: string = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
     return (
       <div className="teacher-single-answer">
@@ -65,6 +65,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           students={students}
           presence={presence}
           modes={modes}
+          models={models}
           flaggedStudents={flaggedStudents}
           startDisplayingAnswers={this.startDisplayingAnswers}
           stopDisplayingAnswers={this.stopDisplayingAnswers}

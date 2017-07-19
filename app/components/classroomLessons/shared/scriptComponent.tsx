@@ -65,6 +65,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
+    if (this.props.current_slide !== nextProps.current_slide) {
+      this.setState({ model: nextProps.models && nextProps.models[nextProps.current_slide] ? nextProps.models[nextProps.current_slide] : ''})
+    }
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
       const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length
