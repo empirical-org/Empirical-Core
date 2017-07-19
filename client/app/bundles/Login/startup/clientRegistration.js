@@ -1,4 +1,4 @@
 import ReactOnRails from 'react-on-rails';
-import LoginFormApp2 from './LoginFormAppClient.jsx'
+import LoginFormApp from './LoginFormAppClient.jsx'
 
-ReactOnRails.register({ LoginFormApp2 });
+ReactOnRails.register({ LoginFormApp });
