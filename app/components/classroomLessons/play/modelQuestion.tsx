@@ -2,9 +2,22 @@ import React, { Component } from 'react';
 import Cues from 'components/renderForQuestions/cues';
 import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
 import icon from 'img/question_icon.svg';
+import {
+  QuestionData
+} from '../../../interfaces/classroomLessons';
 
+interface ModelQuestionProps {
+  data: QuestionData,
+  model: string|null
+}
 
-class ModelQuestion extends Component<any, any> {
+interface ModelQuestionState {}
+
+class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
+  constructor(props) {
+    super(props)
+  }
+
   renderInstructions() {
     if (this.props.data.play.instructions) {
       return (<div className="feedback-row">

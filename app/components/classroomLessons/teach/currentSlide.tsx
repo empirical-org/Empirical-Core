@@ -91,7 +91,7 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
-  toggleStudentFlag(student_id: 'string') {
+  toggleStudentFlag(student_id: string) {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     toggleStudentFlag(ca_id, student_id);
   }
@@ -140,7 +140,7 @@ class CurrentSlide extends React.Component<any, any> {
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               saveModel={this.saveModel}
             />
-          )
+          );
         case 'CL-FL':
         return (
           <CLSingleAnswer
@@ -154,6 +154,7 @@ class CurrentSlide extends React.Component<any, any> {
             clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
             clearAllSubmissions={this.clearAllSubmissions}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            saveModel={this.saveModel}
           />
         )
         case 'CL-EX':

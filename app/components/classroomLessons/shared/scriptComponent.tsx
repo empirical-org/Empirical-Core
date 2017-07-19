@@ -85,7 +85,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'STEP-HTML-TIP':
           return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
         case 'T-MODEL':
-          return this.renderTeacherModel(item, index);
+          return this.renderTeacherModel();
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -392,7 +392,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.props.saveModel(e);
   }
 
-  renderTeacherModel(index: number) {
+  renderTeacherModel() {
     return (
       <TextEditor
         defaultValue={''}
