@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory, Redirect } from 'react-router'
 import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
@@ -11,8 +11,28 @@ import UnitTemplatesManager from '../components/lesson_planner/unit_templates_ma
 import UnitTemplateProfile from '../components/lesson_planner/unit_templates_manager/unit_template_profile/unit_template_profile'
 import ClassroomLessonsPlanner from '../components/lesson_planner/classroom_lessons'
 
-export default React.createClass({
-	render: function() {
+export default class LessonPlannerRouter extends React.Component{
+	constructor(props) {
+		super(props)
+
+		this.redirectToAssignActivities()
+	}
+
+	redirectToAssignActivities() {
+		const locationArray = window.location.href.split('/activity_planner/')
+		const pathEnd = locationArray[1] === 'assign-new-activity' ? '' : locationArray[1]
+		if (
+			!(pathEnd === undefined ||
+			pathEnd === 'lessons' ||
+			pathEnd === 'no_units' ||
+			pathEnd.slice(0, 5) === 'units' ||
+			pathEnd.slice(0, 8) === 'new_unit')
+		) {
+			window.location = locationArray[0] + '/assign_activities/' + pathEnd
+		}
+	}
+
+	render() {
 		return (
 			<Router Router history={browserHistory}>
         <Route path="/teachers/classrooms/activity_planner" component={LessonPlannerContainer}>
@@ -26,4 +46,4 @@ export default React.createClass({
 			</Router>
 		);
 	}
-});
+};
