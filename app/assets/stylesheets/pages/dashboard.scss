@@ -348,7 +348,12 @@
   }
   height: 270px;
   margin-bottom: 40px;
-  border: 1px solid #cecece;
+  .inner-container {
+    padding: 0 20 8 20px;
+    border: 1px solid #cecece;
+    max-width: 638px;
+    margin: auto;
+  }
   .header-container {
     font-weight: 600;
     height: 46px;

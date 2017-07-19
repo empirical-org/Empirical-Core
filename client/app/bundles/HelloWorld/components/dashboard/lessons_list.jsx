@@ -18,7 +18,7 @@ export default class extends React.Component {
     // const lessons = this.state.assignedLessons
     const lessons = [{ id: '1', name: 'Comound Objects and Predicates', }, { id: '1', name: 'Compound Subjects', }, { id: '1', name: 'Compound Subjects, Objects, and Predicates', }, { id: '1', name: 'Compound Subjects', }];
     const lessonsList = lessons.map(l => (
-      <div>
+      <div className>
         <div className="flex-row space-between vertically-centered lesson-item">
           <div className="flex-row vertically-centered">
             <div className="image-container flex-row space-around vertically-centered">
@@ -40,13 +40,15 @@ export default class extends React.Component {
   render() {
     return (
       <div className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center lessons-list">
-        <div className="header-container flex-row space-between vertically-centered lesson-item">
-          <h3 >
-            List of Recently Assigned Quill Lessons
-          </h3>
-          <a href="/" >View All Assigned Lessons </a>
+        <div className="inner-container">
+          <div className="header-container flex-row space-between vertically-centered lesson-item">
+            <h3 >
+              List of Recently Assigned Quill Lessons
+            </h3>
+            <a href="/" >View All Assigned Lessons </a>
+          </div>
+          {this.renderAssignedLessons()}
         </div>
-        {this.renderAssignedLessons()}
       </div>);
   }
 }
