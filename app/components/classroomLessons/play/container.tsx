@@ -155,7 +155,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = this.props.classroomSessions;
     const lessonError = this.props.classroomLesson.error;
     if (this.state.shouldEnterName) {
-      debugger;
       return (
         <div>
         <div className="play-lesson-container">

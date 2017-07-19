@@ -18,14 +18,21 @@
         p, input, button {
           float: left;
           margin-bottom: 20px;
+          font-size: 14px;
+        }
+        p {
+          font-weight: bold;
         }
         input, button {
           width: 300px;
           display: block;
-          font-size: 14px;
           padding: 9px 12px;
           border-radius: 5px;
           border: 1px solid rgb(206, 206, 206);
+          outline: none;
+        }
+        input:focus {
+          border: 1px solid #5bc1a9;
         }
         button {
           background-color: #00c2a2;
