@@ -14,6 +14,8 @@ export default class ClassroomLessons extends React.Component {
       loaded: false
     }
 
+    this.switchClassrooms = this.switchClassrooms.bind(this)
+
   }
 
   getClassrooms() {
@@ -41,7 +43,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   switchClassrooms(classroom) {
-    this.setState({selectedClassroomId: classroom.id})
+    this.setState({selectedClassroomId: classroom.id}, () => this.getLessons())
   }
 
   render() {
@@ -58,7 +60,9 @@ export default class ClassroomLessons extends React.Component {
               // editUnit={this.props.actions.editUnit}
               // hideClassroomActivity={this.hideClassroomActivity}
               // hideUnit={this.hideUnit}
-              data={this.state.lessons} />
+              data={this.state.lessons}
+              lesson={true}
+            />
             </div>
           </div>)
     } else {
