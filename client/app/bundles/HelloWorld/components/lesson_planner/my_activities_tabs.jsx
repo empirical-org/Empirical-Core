@@ -4,16 +4,16 @@
  export default  React.createClass({
 
   getInitialState: function(){
-    if ((this.props.pathname === '/teachers/classrooms/activity_planner')) {
+    if ((window.location.pathname === '/teachers/classrooms/activity_planner')) {
       return {allActivityPacks: 'active'}
-    } else if (this.props.pathname.includes('/lessons/')) {
+    } else if (window.location.pathname.includes('/lessons')) {
       return {lessons: 'active'}
     } else {
       return {}
     }
   },
 
-	render: function () {
+	render: function() {
 		return (
 			<div className="unit-tabs tab-subnavigation-wrapper">
 				<div className="container">
