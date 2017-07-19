@@ -51,7 +51,9 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
           <p className="answer-header">
             Teacher Answer:
           </p>
-          <p className="teacher-model" dangerouslySetInnerHTML={{__html: this.props.model}} />
+          <p className="teacher-model">
+            {this.props.model}
+          </p>
         </div>
       )
     } else {

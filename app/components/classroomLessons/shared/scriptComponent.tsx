@@ -1,8 +1,7 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
-//import TextEditor from '../../renderForQuestions/renderTextEditor';
-import TextEditor from '../../questions/textEditor'
+import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
@@ -395,13 +394,12 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   renderTeacherModel() {
     return (
-      <TextEditor text={this.state.model} handleTextChange={this.handleModelChange}/>
-      {/*<TextEditor
+      <TextEditor
         defaultValue={''}
         value={this.state.model}
         handleChange={this.handleModelChange}
         placeholder="Type your model for the students here."
-      />*/}
+      />
     );
 
   }
