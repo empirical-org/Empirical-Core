@@ -13,12 +13,14 @@ class ClassroomActivity < ActiveRecord::Base
 
   validate :not_duplicate, :on => :create
 
-  after_create :assign_to_students
+  after_create :assign_to_students, :lock_if_lesson
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions
 
   def assigned_students
     User.where(id: assigned_student_ids)
   end
+
+
 
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
@@ -196,6 +198,12 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   private
+
+  def lock_if_lesson
+    if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
+      self.update(locked: true)
+    end
+  end
 
   def not_duplicate
     if ClassroomActivity.find_by(classroom_id: self.classroom_id, activity_id: self.activity_id, unit_id: self.unit_id, visible: self.visible)
