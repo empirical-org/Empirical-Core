@@ -26,7 +26,7 @@ export default class extends React.Component {
             </div>
             <span className="">{l.name}</span>
           </div>
-          <a className="q-button bg-quillgreen text-white">Launch Lesson</a>
+          <a href={`/activity_sessions/anonymous?activity_id=${l.id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
         </div>
       </div>
       ));
