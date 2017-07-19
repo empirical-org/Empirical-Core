@@ -3,12 +3,16 @@ require 'rails_helper'
 describe ClassroomActivity, type: :model do
     let!(:activity_classification_3) { FactoryGirl.create(:activity_classification, id: 3)}
     let!(:activity_classification_2) { FactoryGirl.create(:activity_classification, id: 2)}
+    let!(:activity_classification_6) { FactoryGirl.create(:activity_classification, id: 6, key: 'lessons')}
     let!(:activity) { FactoryGirl.create(:activity) }
     let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
     let!(:student) { FactoryGirl.create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
     let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
     let!(:unit) { FactoryGirl.create(:unit) }
     let!(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
+    let(:lessons_activity) { FactoryGirl.create(:activity, activity_classification_id: 6) }
+    let(:lessons_classroom_activity) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom, unit: unit) }
+    let(:lessons_classroom_activity_2) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom_2, unit: unit) }
 
     describe '#assigned_students' do
         it 'must be empty if none assigned' do
@@ -160,6 +164,16 @@ describe ClassroomActivity, type: :model do
         classroom_activity.update(visible: false)
         new_ca = ClassroomActivity.create(activity: classroom_activity.activity, classroom: classroom_activity.classroom, unit: classroom_activity.unit)
         expect(new_ca.persisted?).to be true
+      end
+    end
+
+    describe 'locked column' do
+      it "exists by default for lessons classroom activities" do
+        expect(lessons_classroom_activity.locked).to be(true)
+      end
+
+      it "does not exist by default for other classroom activities" do
+        expect(classroom_activity.locked).to be(false)
       end
     end
 end
