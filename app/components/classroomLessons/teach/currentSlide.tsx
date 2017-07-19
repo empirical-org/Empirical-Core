@@ -24,6 +24,7 @@ import {
 import {
   ClassroomLesson
 } from 'interfaces/classroomLessons';
+import { scriptTagStrip } from '../shared/scriptTagStrip'
 
 class CurrentSlide extends React.Component<any, any> {
   constructor(props) {
@@ -98,8 +99,9 @@ class CurrentSlide extends React.Component<any, any> {
 
   saveModel(model: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
+    const safeModel = scriptTagStrip(model);
     if (caId) {
-      setModel(caId, this.props.classroomSessions.data.current_slide, model);
+      setModel(caId, this.props.classroomSessions.data.current_slide, safeModel);
     }
   }
 
