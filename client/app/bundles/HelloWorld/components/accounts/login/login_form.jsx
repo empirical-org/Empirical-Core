@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
+import ReactOnRails from 'react-on-rails';
 import $ from 'jquery';
 
 class LoginFormApp extends Component {
   constructor() {
+
     super();
 
     this.state = {
-      showPass: false
+      showPass: false,
+      authToken: ReactOnRails.authenticityToken()
     }
 
   }
 
   loginAttempt(user, password) {
-    console.log(user, password);
+    const csrfToken = ReactOnRails.authenticityToken();
     $.ajax({
         type: 'POST',
         url: '/session',
@@ -53,6 +56,8 @@ class LoginFormApp extends Component {
   render() {
     return (
         <form id='new_user' className='new_user' action='/session' accept-charset="UTF-8" method="post">
+          <input name="utf8" type="hidden" value="✓"/>
+          <input value={this.state.authToken} type='hidden' name='authenticity_token'/>
           <label>Email or username</label>
           <input
             name="user[email]"
