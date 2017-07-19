@@ -17,8 +17,10 @@ class LoginFormApp extends Component {
         type: 'POST',
         url: '/session',
         data: {
-          user: user,
+          user: {
+          username: user,
           password: password
+          }
         },
         error: this.signUpError
       });
@@ -50,9 +52,10 @@ class LoginFormApp extends Component {
 
   render() {
     return (
-        <form onSubmit={(e) => {this.handleSubmit(e)}} id='new_user' className='new_user'>
+        <form id='new_user' className='new_user' action='/session' accept-charset="UTF-8" method="post">
           <label>Email or username</label>
           <input
+            name="user[email]"
             ref={(input) => {
               this.user = input;
               }
@@ -61,6 +64,7 @@ class LoginFormApp extends Component {
           <label>Password</label>
           <div className='login-password'>
             <input
+              name="user[password]"
               ref={(input) => {
                 this.password = input;
                 }
@@ -68,7 +72,7 @@ class LoginFormApp extends Component {
               type={this.togglePass()}/>
             <button style={{backgroundColor: '#00c2a2', color: 'white'}} onClick={() => {this.clickHandler()}}>{this.toggleButtonText()}</button>
           </div>
-          <input type='submit' value='Login'/>
+          <input type='submit' name="commit" value='Login'/>
         </form>
     );
   }
