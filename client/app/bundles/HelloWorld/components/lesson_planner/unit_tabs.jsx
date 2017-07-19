@@ -4,10 +4,12 @@
  export default  React.createClass({
 
   getInitialState: function(){
-    if ((this.props.pathname === '/teachers/classrooms/activity_planner' || this.props.pathname.includes('/lessons/'))) {
+    if ((this.props.pathname === '/teachers/classrooms/activity_planner')) {
       return {allActivityPacks: 'active'}
-    } else {
+    } else if (this.props.pathname.includes('/lessons/')) {
       return {lessons: 'active'}
+    } else {
+      return {}
     }
   },
 
