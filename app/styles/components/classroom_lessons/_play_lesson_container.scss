@@ -8,6 +8,31 @@
     max-width: 960px;
     // overflow-y: scroll;
     padding-top: 30px;
+
+    .easy-join-name-form-wrapper {
+      text-align: center;
+      .easy-join-name-form {
+        margin: auto;
+        width: 300px;
+
+        p, input, button {
+          float: left;
+          margin-bottom: 20px;
+        }
+        input, button {
+          width: 300px;
+          display: block;
+          font-size: 14px;
+          padding: 9px 12px;
+          border-radius: 5px;
+          border: 1px solid rgb(206, 206, 206);
+        }
+        button {
+          background-color: #00c2a2;
+          color: #fff;
+        }
+      }
+    }
   }
 }
 
