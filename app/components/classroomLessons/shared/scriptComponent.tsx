@@ -395,7 +395,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   renderTeacherModel() {
     return (
-      <TextEditor text={this.state.model} handleTextChange={this.handleModelChange}/>
+      <div>
+        <p><em>Type your model answer here; as you type, it will be displayed on your students' screens.</em></p><br />
+        <TextEditor text={this.state.model} handleTextChange={this.handleModelChange}/>
+      </div>
       {/*<TextEditor
         defaultValue={''}
         value={this.state.model}
