@@ -29,14 +29,14 @@ class ResponsesController < ApplicationController
 
   # POST /responses/create_or_increment
   def create_or_increment
-    @response = Response.find_by_text_and_question_uid(response_params[:text], response_params[:question_uid])
-    if !@response
-      @response = Response.new(response_params)
-      if @response.save
-        render json: @response, status: :created, location: @response
+    response = Response.where(text: response_params[:text], question_uid: response_params[:question_uid])[0]
+    if !response
+      response = Response.new(params_for_create)
+      if response.save
+        render json: response, status: :created, location: response
       end
     else
-      increment_counts
+      increment_counts(response)
     end
   end
 
@@ -65,10 +65,10 @@ class ResponsesController < ApplicationController
   end
 
 
-  def increment_counts
-    @response.increment!(:count)
-    increment_first_attempt_count
-    increment_child_count_of_parent
+  def increment_counts(response)
+    response.increment!(:count)
+    increment_first_attempt_count(response)
+    increment_child_count_of_parent(response)
   end
 
   def search
@@ -126,12 +126,32 @@ class ResponsesController < ApplicationController
         :feedback,
         :count,
         :first_attempt_count,
+        :is_first_attempt,
         :child_count,
         :optimal,
         :weak,
         :created_at,
         :updated_at,
         :search,
+        concept_results: {}
+      )
+    end
+
+    def params_for_create
+      params.require(:response).permit(
+        :id,
+        :uid,
+        :parent_id,
+        :parent_uid,
+        :question_uid,
+        :author,
+        :text,
+        :feedback,
+        :count,
+        :first_attempt_count,
+        :child_count,
+        :optimal,
+        :weak,
         concept_results: {}
       )
     end
@@ -143,8 +163,8 @@ class ResponsesController < ApplicationController
       Response.find_by_uid(string)
     end
 
-    def increment_first_attempt_count
-      params[:response][:is_first_attempt] == "true" ? @response.increment!(:first_attempt_count) : nil
+    def increment_first_attempt_count(response)
+      params[:response][:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
     end
 
     def concept_results_to_boolean(concept_results)
@@ -153,16 +173,16 @@ class ResponsesController < ApplicationController
       end
     end
 
-    def increment_child_count_of_parent
-      parent_id = @response.parent_id
-      parent_uid = @response.parent_uid
+    def increment_child_count_of_parent(response)
+      parent_id = response.parent_id
+      parent_uid = response.parent_uid
       id = parent_id || parent_uid
       # id will be the first extant value or false. somehow 0 is being
       # used as when it shouldn't (possible JS remnant) so we verify that
       # id is truthy and not 0
       if id && id != 0
         parent = find_by_id_or_uid(id)
-        parent.increment!(:child_count)
+        parent.increment!(:child_count) unless parent.nil?
       end
     end
 end
