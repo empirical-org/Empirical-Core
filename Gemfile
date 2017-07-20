@@ -25,10 +25,14 @@ gem 'puma', '~> 3.7'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
 
+# For serializing js responses
+gem 'active_model_serializers', '~> 0.10.0'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry'
 end
 
 group :development do
@@ -47,3 +51,13 @@ gem 'kaminari'
 # For searching via Elasticsearch
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+
+# for importing multiple db records at once.
+gem 'activerecord-import'
+gem 'bulk_insert'
+
+# for unzipping files
+gem 'rubyzip'
+
+# for server monitoring
+gem 'newrelic_rpm'

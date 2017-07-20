@@ -1,6 +1,7 @@
 # README
 
 1. - clone the repo
+1. - gem install bundler
 1. - bundle install
 1. - rake db:create
 1. - rake db:migrate

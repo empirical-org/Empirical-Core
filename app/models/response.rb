@@ -33,7 +33,7 @@ class Response < ApplicationRecord
       parent_id: parent_id,
       parent_uid: parent_uid,
       text: text,
-      sortable_text: text.downcase,
+      sortable_text: text ? text.downcase : '',
       feedback: feedback,
       count: count,
       child_count: child_count,
