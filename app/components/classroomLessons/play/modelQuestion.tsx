@@ -73,7 +73,9 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
       )
     } else {
       return (
-        <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}}></p>
+        <div className="student-model-question">
+          <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}}></p>
+        </div>
       )
     }
   }
