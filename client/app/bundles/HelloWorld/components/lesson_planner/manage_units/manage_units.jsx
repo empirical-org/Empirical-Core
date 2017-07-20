@@ -116,7 +116,8 @@
 					updateDueDate={this.updateDueDate}
 					editUnit={this.props.actions.editUnit}
 					hideClassroomActivity={this.hideClassroomActivity}
-					hideUnit={this.hideUnit} data={this.state.units} />
+					hideUnit={this.hideUnit}
+          data={this.state.units} />
 				</span>
 			);
 		}
