@@ -3,7 +3,9 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   respond_to :json
 
   before_filter :teacher!
-  before_filter :authorize!
+  # skip_before_filter :lessons_activities_cache
+  before_filter :authorize!, :except => ["lessons_activities_cache"]
+
 
   def update
     cas = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
@@ -22,6 +24,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     @classroom_activity.update(visible: false)
     @classroom_activity.unit.hide_if_no_visible_classroom_activities
     render json: {}
+  end
+
+  def lessons_activities_cache
+    data = JSON.parse($redis.get("user_id:#{current_user.id}_lessons_array") || '[]')
+    render json: {data: data}
   end
 
 private

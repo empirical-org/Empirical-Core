@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ClassroomActivity, type: :model do
+describe ClassroomActivity, type: :model, redis: :true do
     let!(:activity_classification_3) { FactoryGirl.create(:activity_classification, id: 3)}
     let!(:activity_classification_2) { FactoryGirl.create(:activity_classification, id: 2)}
     let!(:activity_classification_6) { FactoryGirl.create(:activity_classification, id: 6, key: 'lessons')}
@@ -8,8 +8,9 @@ describe ClassroomActivity, type: :model do
     let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
     let!(:student) { FactoryGirl.create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
     let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
+    let!(:classroom_2) { FactoryGirl.create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
     let!(:unit) { FactoryGirl.create(:unit) }
-    let!(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
+    let(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
     let(:lessons_activity) { FactoryGirl.create(:activity, activity_classification_id: 6) }
     let(:lessons_classroom_activity) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom, unit: unit) }
     let(:lessons_classroom_activity_2) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom_2, unit: unit) }
@@ -174,6 +175,28 @@ describe ClassroomActivity, type: :model do
 
       it "does not exist by default for other classroom activities" do
         expect(classroom_activity.locked).to be(false)
+      end
+    end
+  
+    describe 'caching lessons upon assignemnt' do
+      before(:each) do
+        $redis.flushdb
+      end
+
+      it "creates a redis key for the user if there isn't one" do
+        lessons_classroom_activity
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher.id}_lessons_array")).to be
+      end
+
+      it "caches data about the assignment" do
+        lesson_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name}
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher.id}_lessons_array")).to eq([lesson_data].to_json)
+      end
+
+      it "caches data about subsequent assignment" do
+        lesson_1_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name}
+        lesson_2_data = {"classroom_activity_id": lessons_classroom_activity_2.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name}
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher.id}_lessons_array")).to eq([lesson_1_data, lesson_2_data].to_json)
       end
     end
 end

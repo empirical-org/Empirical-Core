@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe "InviteStudentAnalytics" do
+describe "StudentJoinedAnalytics" do
 
-  let(:analytics) { InviteStudentAnalytics.new }
+  let(:analytics) { StudentJoinedAnalytics.new }
   let(:segment_analytics) { SegmentAnalytics.new }
   let(:track_calls) { segment_analytics.backend.track_calls }
   let(:identify_calls) { segment_analytics.backend.identify_calls }

@@ -7,7 +7,7 @@ import StaticDisplaySubscription from '../components/accounts/subscriptions/stat
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx'
-
+import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
 
 export default React.createClass({
 	propTypes: {
@@ -105,15 +105,6 @@ export default React.createClass({
 	},
 	updateEmail: function(event) {
 		this.setState({email: event.target.value});
-	},
-	determineSaveButtonClass: function() {
-		var className;
-		if (this.state.isSaving) {
-			className = 'button-grey';
-		} else {
-			className = 'button-green';
-		}
-		return className;
 	},
 	clickSave: function() {
 		this.setState({isSaving: true});
@@ -259,9 +250,17 @@ export default React.createClass({
 	updatePassword: function(e) {
 		this.setState({password: e.target.value});
 	},
+
 	updateRole: function(role) {
 		this.setState({role: role});
 	},
+
+	saveButton: function() {
+		return this.state.isSaving
+		? <button className='button-grey'><ButtonLoadingIndicator/></button>
+		: <button onClick={this.clickSave} className='button-green'>Save Changes</button>
+	},
+
 	render: function() {
 		if (this.state.loading) {
 			return <LoadingSpinner/>
@@ -371,7 +370,7 @@ export default React.createClass({
 						<div className='row'>
 							<div className='col-xs-2'></div>
 							<div className='col-xs-4'>
-								<button onClick={this.clickSave} className={this.determineSaveButtonClass()}>Save Changes</button>
+								{this.saveButton()}
 							</div>
 						</div>
 
