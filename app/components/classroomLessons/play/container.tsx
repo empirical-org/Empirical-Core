@@ -110,29 +110,29 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     switch (current.type) {
       case 'CL-LB':
         return (
-          <CLStudentLobby data={data} title={lessonData.title}/>
+          <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title}/>
         );
       case 'CL-ST':
         return (
-          <CLStudentStatic data={current.data} />
+          <CLStudentStatic key={data.current_slide} data={current.data} />
         );
       case 'CL-MD':
         return (
-          <CLStudentModelQuestion data={current.data} model={model}/>
+          <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model}/>
         );
       case 'CL-SA':
         passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
+          <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
         );
       case 'CL-FB':
         passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
+          <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
         );
       case 'CL-FL':
         return (
-          <CLListBlanks data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+          <CLListBlanks key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
         );
       default:
 
