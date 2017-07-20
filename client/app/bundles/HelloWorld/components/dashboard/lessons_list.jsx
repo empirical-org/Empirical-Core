@@ -1,8 +1,14 @@
 import React from 'react';
+import request from 'request';
+import LoadingIndicator from '../shared/loading_indicator.jsx';
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: true,
+      lessons: null,
+    };
   }
 
   componentDidMount() {
@@ -10,31 +16,35 @@ export default class extends React.Component {
   }
 
   getListOfAssignedLessons() {
-    // make ajax call to get all assigned lessons
-    this.setState({ assignedLessons: data, });
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/lessons_activities_cache`,
+    },
+    (e, r, lessons) => that.setState({ lessons: JSON.parse(lessons).data, loading: false, }));
   }
 
   renderAssignedLessons() {
-    // const lessons = this.state.assignedLessons
-    const lessons = [{ id: '1', name: 'Comound Objects and Predicates', }, { id: '1', name: 'Compound Subjects', }, { id: '1', name: 'Compound Subjects, Objects, and Predicates', }, { id: '1', name: 'Compound Subjects', }];
-    const lessonsList = lessons.map(l => (
-      <div className>
-        <div className="flex-row space-between vertically-centered lesson-item">
-          <div className="flex-row vertically-centered">
-            <div className="image-container flex-row space-around vertically-centered">
-              <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
+    const lessons = this.state.lessons;
+    let returnEl = <LoadingIndicator />;
+    if (lessons && !this.state.loading) {
+      returnEl = lessons.map(l => (
+        <div className>
+          <div className="flex-row space-between vertically-centered lesson-item">
+            <div className="flex-row vertically-centered">
+              <div className="image-container flex-row space-around vertically-centered">
+                <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
+              </div>
+              <span className="">{l.activity_name}</span>
             </div>
-            <span className="">{l.name}</span>
+            <a href={`/activity_sessions/anonymous?activity_id=${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
           </div>
-          <a href={`/activity_sessions/anonymous?activity_id=${l.id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
         </div>
-      </div>
-      ));
+        ));
+    }
     return (
       <div>
-        {lessonsList}
-      </div>
-    );
+        {returnEl}
+      </div>);
   }
 
   render() {
