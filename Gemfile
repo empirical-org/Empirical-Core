@@ -22,8 +22,18 @@ gem 'puma', '~> 3.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+
+# Use Redis for caching
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'redis-rack-cache'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
+
+# For serializing js responses
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
@@ -55,3 +65,6 @@ gem 'bulk_insert'
 
 # for unzipping files
 gem 'rubyzip'
+
+# for server monitoring
+gem 'newrelic_rpm'

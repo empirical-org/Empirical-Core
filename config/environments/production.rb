@@ -85,8 +85,11 @@ Rails.application.configure do
   # Allow cross site origin in the following contexts
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'https://connect.quill.org', 'localhost:8080'
-      resource '*', :headers => :any, :methods => [:get, :post, :options, :delete]
+      origins 'https://connect.quill.org', 'https://quillconnect.firebaseapp.com', 'localhost:8080'
+      resource '*', :headers => :any, :methods => [:get, :post, :put, :options, :delete]
     end
   end
+
+  # Use Redis for caching
+  config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 end
