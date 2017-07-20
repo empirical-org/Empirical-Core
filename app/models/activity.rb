@@ -145,17 +145,19 @@ class Activity < ActiveRecord::Base
   end
 
   def lesson_url_helper
-    # replace non-alphanumeric characters with underscore
-    @url += name.gsub(/(\W|\d)/, "_").downcase + '?'
-    @url.query_values = {classroom_activity_id: @activity_session.classroom_activity.id, student: @activity_session.id}
-    @url
+    base = classification.module_url
+    lesson = name.gsub(/(\W|\d)/, "_").downcase + '?&'
+    classroom_activity_id = @activity_session.classroom_activity.id.to_s
+    student_id = @activity_session.id.to_s
+    url = base + lesson + 'classroom_activity_id=' + classroom_activity_id + '&student=' + student_id
+    @url = Addressable::URI.parse(url)
   end
 
   def module_url_helper(initial_params)
-    @url = Addressable::URI.parse(classification.module_url)
     if classification.key == 'lessons'
       lesson_url_helper
     else
+      @url = Addressable::URI.parse(classification.module_url)
       params = (@url.query_values || {})
       params.merge!(initial_params)
       params[:uid] = uid if uid.present?
