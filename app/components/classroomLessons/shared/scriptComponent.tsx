@@ -45,12 +45,15 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   constructor(props) {
     super(props);
+    const current = this.props.current_slide;
+    const models = this.props.models;
+    const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
     this.state = {
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
-      model: this.props.models && this.props.models[this.props.current_slide] ? this.props.models[this.props.current_slide] : '',
+      model: modelNotEmpty ? models[current] : '',
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -66,7 +69,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
     if (this.props.current_slide !== nextProps.current_slide) {
-      this.setState({ model: nextProps.models && nextProps.models[nextProps.current_slide] ? nextProps.models[nextProps.current_slide] : ''})
+      const models = nextProps.models;
+      const current = nextProps.current_slide;
+      const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
+      this.setState({ model: modelNotEmpty ? models[current] : ''})
     }
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
