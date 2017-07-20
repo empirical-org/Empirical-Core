@@ -10,6 +10,7 @@ import {
   clearAllSubmissions,
   toggleStudentFlag,
   setModel,
+  setPrompt,
 } from '../../../actions/classroomSessions';
 import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
@@ -37,6 +38,7 @@ class CurrentSlide extends React.Component<any, any> {
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this);
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
     this.saveModel = this.saveModel.bind(this);
+    this.savePrompt = this.savePrompt.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -101,6 +103,13 @@ class CurrentSlide extends React.Component<any, any> {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
       setModel(caId, this.props.classroomSessions.data.current_slide, model);
+    }
+  }
+
+  savePrompt(prompt: string) {
+    const lessonUid = this.props.classroomLesson.lessonUid;
+    if (lessonUid) {
+      setPrompt(lessonUid, this.props.classroomSessions.data.current_slide, prompt);
     }
   }
 

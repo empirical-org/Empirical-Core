@@ -9,7 +9,7 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
     classroomSessionsRef.child(classroomLessonUid).once('value', (snapshot) => {
       console.log("Fetched")
       if (snapshot.val()) {
-        dispatch(updateClassroomLesson(snapshot.val()));
+        dispatch(updateClassroomLesson(snapshot.val(), classroomLessonUid));
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
       }
@@ -17,9 +17,10 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
   };
 }
 
-export function updateClassroomLesson(data) {
+export function updateClassroomLesson(data, lessonUid) {
   return {
     type: C.UPDATE_CLASSROOM_LESSON_DATA,
     data,
+    lessonUid
   }
 }

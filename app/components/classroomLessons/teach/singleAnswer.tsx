@@ -76,6 +76,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           clearAllSubmissions={this.props.clearAllSubmissions}
           toggleStudentFlag={this.props.toggleStudentFlag}
           saveModel={this.props.saveModel}
+          savePrompt={this.props.savePrompt}
         />
 
       </div>

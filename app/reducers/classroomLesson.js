@@ -8,6 +8,7 @@ const initialState = {
     states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
     data: {}, // this will contain firebase data
     error: '',
+    lessonUid: '',
   },
 };
 
@@ -19,6 +20,7 @@ export default function (currentstate, action) {
       return Object.assign({}, currentstate, {
         hasreceiveddata: true,
         data: action.data,
+        lessonUid: action.lessonUid,
       });
     case C.TOGGLE_HEADERS:
       return Object.assign({}, currentstate, {

@@ -39,6 +39,7 @@ interface ScriptContainerState {
   sort: string,
   sortDirection: string,
   model: string,
+  prompt: string,
 }
 
 class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
@@ -54,6 +55,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sort: 'time',
       sortDirection: 'desc',
       model: modelNotEmpty ? models[current] : '',
+      prompt: this.props.prompt ? this.props.prompt : ''
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -62,6 +64,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.retryQuestion = this.retryQuestion.bind(this);
     this.handleModelChange = this.handleModelChange.bind(this);
+    this.handlePromptChange = this.handlePromptChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -401,9 +404,18 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.props.saveModel(e);
   }
 
+  handlePromptChange(e) {
+    this.state({ prompt: e });
+    this.props.savePrompt(e);
+  }
+
   renderTeacherModel() {
     return (
       <div>
+        <TextEditor
+          text={this.state.prompt}
+          handleTextChange={this.handlePromptChange}
+        />
         <p><em>Type your model answer here; it will be displayed on your students' screens as you type.</em></p><br />
         <TextEditor
           text={this.state.model}
