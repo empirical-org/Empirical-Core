@@ -62,12 +62,26 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   }
 
+  renderQuestionOrHTML() {
+    if (this.props.data.play.prompt) {
+      return (
+        <div>
+          <RenderSentenceFragments prompt={this.props.data.play.prompt} />
+          {this.renderCues()}
+          {this.renderInstructions()}
+        </div>
+      )
+    } else {
+      return (
+        <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}}></p>
+      )
+    }
+  }
+
   render() {
     return (
-      <div>
-        <RenderSentenceFragments prompt={this.props.data.play.prompt} />
-        {this.renderCues()}
-        {this.renderInstructions()}
+      <div className="student-model-wrapper">
+        {this.renderQuestionOrHTML()}
         {this.renderTeacherModel()}
       </div>
     );
