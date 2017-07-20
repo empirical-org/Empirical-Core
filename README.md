@@ -11,5 +11,6 @@
 1. - rails c
 1. - `Response.__elasticsearch__.create_index!`
 1. - `Response.__elasticsearch__.import`
-1. - rails s 
+1. - set up redis with ```redis-server --port 6400```
+1. - rails s
 1. - go to [localhost:3100](http://localhost:3100)

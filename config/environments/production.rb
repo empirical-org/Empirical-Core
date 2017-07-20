@@ -89,4 +89,7 @@ Rails.application.configure do
       resource '*', :headers => :any, :methods => [:get, :post, :put, :options, :delete]
     end
   end
+
+  # Use Redis for caching
+  config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 end

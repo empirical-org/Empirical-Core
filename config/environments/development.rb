@@ -44,6 +44,14 @@ Rails.application.configure do
     end
   end
 
+  # Redis for caching
+  if ENV['REDISCLOUD_URL']
+    config.action_controller.perform_caching = true
+    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
+  else
+    config.action_controller.perform_caching = false
+  end
+
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
