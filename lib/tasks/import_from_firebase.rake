@@ -39,6 +39,10 @@ namespace :responses do
     remove_parent_uid_from_orphans
   end
 
+  task :unstringify_concept_results => :environment do
+    unstringify_concept_results
+  end
+
   def import_from_firebase_json
     file_name = "lib/data/responses.json"
     file = File.read(file_name);0
@@ -248,6 +252,7 @@ namespace :responses do
           rows = []
           columns = ["uid", "parent_uid", "question_uid", "text", "feedback", "author", "optimal", "count", "first_attempt_count", "child_count", "concept_results"]
           while row = csv.shift
+            row.last = parse_concept_results(row.last)
             rows.push row
 
             if rows.length == 1000
@@ -270,6 +275,31 @@ namespace :responses do
       # Find specific entry
       # entry = zip_file.glob('*.csv').first
       # puts entry.get_input_stream.read
+    end
+  end
+
+  def unstringify_concept_results
+    Response.where.not(concept_results: nil, optimal: nil).in_batches do |batch|;
+      batch.each do |response|
+        if response.concept_results.class == String
+          begin
+            response.update({concept_results: JSON.parse(response.concept_results)})
+          rescue JSON::ParserError
+            puts response.id
+            response.update({concept_results: nil})
+          end
+        end
+      end
+    end
+  end
+
+  def parse_concept_results(concept_results)
+    if response.concept_results.class == String
+      begin
+        return JSON.parse(response.concept_results)
+      rescue JSON::ParserError
+        return nil
+      end
     end
   end
 
