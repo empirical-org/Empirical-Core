@@ -1,7 +1,7 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
-import TextEditor from '../../renderForQuestions/renderTextEditor';
+import TextEditor from '../../questions/textEditor'
 import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
@@ -50,7 +50,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
-      model: '',
+      model: this.props.models && this.props.models[this.props.current_slide] ? this.props.models[this.props.current_slide] : '',
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -397,12 +397,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   renderTeacherModel() {
     return (
-      <TextEditor
-        defaultValue={''}
-        value={this.state.model}
-        handleChange={this.handleModelChange}
-        placeholder="Type your model for the students here."
-      />
+      <div>
+        <p><em>Type your model answer here; it will be displayed on your students' screens as you type.</em></p><br />
+        <TextEditor
+          text={this.state.model}
+          handleTextChange={this.handleModelChange}
+        />
+      </div>
     );
 
   }
