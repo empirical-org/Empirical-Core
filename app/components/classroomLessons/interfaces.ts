@@ -8,6 +8,7 @@ export interface ClassroomLessonSession {
   timestamps: Timestamps;
   flaggedStudents: FlaggedStudents;
   public: Boolean | null;
+  models: Models;
 }
 
 export interface ClassroomLessonSessions {
@@ -59,4 +60,8 @@ export interface Timestamps {
 
 export interface FlaggedStudents {
   [key:string]: boolean
+}
+
+export interface Models {
+  [key: string]: string
 }

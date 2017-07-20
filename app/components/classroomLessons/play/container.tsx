@@ -11,7 +11,8 @@ import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
-import CLStudentFillInTheBlank from './fillInTheBlank'
+import CLStudentFillInTheBlank from './fillInTheBlank';
+import CLStudentModelQuestion from './modelQuestion';
 import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
@@ -46,6 +47,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       this.props.dispatch(startListeningToSession(classroom_activity_id));
       this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
     }
+    document.getElementsByTagName("html")[0].style.backgroundColor = "white";
+  }
+
+  componentWillUnmount() {
+    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
   }
 
   componentWillReceiveProps(nextProps) {
@@ -93,12 +99,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
-    let passedProps
     const current = lessonData.questions[data.current_slide];
+    const model: string|null = data.models && data.models[data.current_slide] ? data.models[data.current_slide] : null;
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const props = { mode, submissions, selected_submissions, };
+    let passedProps;
     switch (current.type) {
       case 'CL-LB':
         return (
@@ -107,6 +114,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       case 'CL-ST':
         return (
           <CLStudentStatic data={current.data} />
+        );
+      case 'CL-MD':
+        return (
+          <CLStudentModelQuestion data={current.data} model={model}/>
         );
       case 'CL-SA':
         passedProps = { mode, submissions, selected_submissions, };
@@ -149,9 +160,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         <div className="play-lesson-container">
         <div className="main-content">
         <div className="main-content-wrapper">
+        <div className="easy-join-name-form-wrapper">
+        <div className="easy-join-name-form">
         <p>Please enter your full name:</p>
         <input value={this.state.easyDemoName} onChange={this.handleChange}/>
         <button onClick={this.easyJoinDemo}>Join</button>
+        </div>
+        </div>
         </div>
         </div>
         </div>

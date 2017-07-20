@@ -11,6 +11,7 @@ import CLStudentStatic from '../play/static';
 import CLStudentSingleAnswer from '../play/singleAnswer';
 import CLStudentListBlanks from '../play/listBlanks';
 import CLStudentFillInTheBlank from '../play/fillInTheBlank';
+import CLStudentModelQuestion from '../play/modelQuestion';
 import {
   ClassroomLessonSession,
   QuestionSubmissionsList
@@ -55,6 +56,7 @@ class Sidebar extends React.Component<any, any> {
         counter += 1;
         const activeClass = currentSlide === slide ? 'active' : '';
         let thumb;
+        let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
         let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
         let selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
@@ -68,6 +70,11 @@ class Sidebar extends React.Component<any, any> {
           case 'CL-ST':
             thumb = (
               <CLStudentStatic data={questions[slide].data} />
+            );
+            break;
+          case 'CL-MD':
+            thumb = (
+              <CLStudentModelQuestion data={questions[slide].data} model={model}/>
             );
             break;
           case 'CL-SA':

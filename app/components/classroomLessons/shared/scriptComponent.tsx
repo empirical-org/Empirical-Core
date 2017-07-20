@@ -1,6 +1,8 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
+import TextEditor from '../../renderForQuestions/renderTextEditor';
+import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -35,7 +37,8 @@ interface ScriptContainerState {
   projecting: boolean,
   showAllStudents: boolean,
   sort: string,
-  sortDirection: string
+  sortDirection: string,
+  model: string,
 }
 
 class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
@@ -46,20 +49,25 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
-      sortDirection: 'desc'
+      sortDirection: 'desc',
+      model: '',
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
     this.clearSelectedSubmissions = this.clearSelectedSubmissions.bind(this)
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
-    this.retryQuestion = this.retryQuestion.bind(this)
+    this.retryQuestion = this.retryQuestion.bind(this);
+    this.handleModelChange = this.handleModelChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
+    if (this.props.current_slide !== nextProps.current_slide) {
+      this.setState({ model: nextProps.models && nextProps.models[nextProps.current_slide] ? nextProps.models[nextProps.current_slide] : ''})
+    }
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
       const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length
@@ -79,6 +87,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
         case 'STEP-HTML-TIP':
           return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+        case 'T-MODEL':
+          return this.renderTeacherModel();
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -246,8 +256,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     for (let key in fields) {
       let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
       const header = key === 'displayed'
-      ? <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/> {this.renderUnselectAllButton()}</th>
-      : <th onClick={() => this.setSort(key)} key={key}>{fields[key]}<i className={`fa ${caret}`}/></th>
+      ? <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/> {this.renderUnselectAllButton()}</th>
+      : <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/></th>
       headers.push(header)
     }
     return <thead>
@@ -311,7 +321,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderSubmissionRow(studentKey: string, index: number) {
     const { selected_submissions, submissions, current_slide, students } = this.props;
     const text: any = submissions[current_slide][studentKey].data
-    const html: any = <span dangerouslySetInnerHTML={{__html: text}}/>
+
+    const boldedText = findDifferences(text, this.props.prompt);
+
+    const html: any = <span dangerouslySetInnerHTML={{__html: boldedText}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
@@ -375,6 +388,23 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     } else {
       return this.state.projecting ? <img src={uncheckedGreenCheckbox} /> : <img src={uncheckedGrayCheckbox} />
     }
+  }
+
+  handleModelChange(e) {
+    this.setState({ model: e, });
+    this.props.saveModel(e);
+  }
+
+  renderTeacherModel() {
+    return (
+      <TextEditor
+        defaultValue={''}
+        value={this.state.model}
+        handleChange={this.handleModelChange}
+        placeholder="Type your model for the students here."
+      />
+    );
+
   }
 
   renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {

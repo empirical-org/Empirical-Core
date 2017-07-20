@@ -228,16 +228,20 @@ export function updateNoStudentError(student: string | null) {
   };
 }
 
+export function setModel(classroom_activity_id: string, question_id: string, model): void {
+  const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
+  modelRef.set(model);
+}
+
 export function easyJoinLessonAddName(classroom_activity_id: string, studentName: string): void {
   const nameRef: string = studentName.replace(/\s/g, '').toLowerCase()
   const newStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students/${nameRef}`);
   newStudentsRef.set(studentName, (error) => {
-  if (error) {
-    console.log("Data could not be saved." + error);
-  } else {
-    window.location.replace(window.location.href + `&student=${nameRef}`)
-    window.location.reload()
-  }
-})
-
+    if (error) {
+      console.log("Data could not be saved." + error);
+    } else {
+      window.location.replace(window.location.href + `&student=${nameRef}`)
+      window.location.reload()
+    }
+  })
 }

@@ -8,7 +8,8 @@ import {
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
   clearAllSubmissions,
-  toggleStudentFlag
+  toggleStudentFlag,
+  setModel,
 } from '../../../actions/classroomSessions';
 import CLLobby from './lobby';
 import CLStatic from './static';
@@ -34,6 +35,7 @@ class CurrentSlide extends React.Component<any, any> {
     this.toggleStudentFlag = this.toggleStudentFlag.bind(this);
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this);
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
+    this.saveModel = this.saveModel.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,9 +91,16 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
-  toggleStudentFlag(student_id: 'string') {
+  toggleStudentFlag(student_id: string) {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     toggleStudentFlag(ca_id, student_id);
+  }
+
+  saveModel(model: string) {
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    if (caId) {
+      setModel(caId, this.props.classroomSessions.data.current_slide, model);
+    }
   }
 
   render() {
@@ -114,6 +123,7 @@ class CurrentSlide extends React.Component<any, any> {
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             />
           );
+        case 'CL-MD':
         case 'CL-SA':
         case 'CL-FB':
           return (
@@ -128,8 +138,9 @@ class CurrentSlide extends React.Component<any, any> {
               clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
               clearAllSubmissions={this.clearAllSubmissions}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+              saveModel={this.saveModel}
             />
-          )
+          );
         case 'CL-FL':
         return (
           <CLSingleAnswer
@@ -143,6 +154,7 @@ class CurrentSlide extends React.Component<any, any> {
             clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
             clearAllSubmissions={this.clearAllSubmissions}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            saveModel={this.saveModel}
           />
         )
         case 'CL-EX':

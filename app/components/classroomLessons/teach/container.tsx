@@ -55,6 +55,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
     }
+    document.getElementsByTagName("html")[0].style.overflowY = "hidden";
+  }
+
+  componentWillUnmount() {
+    document.getElementsByTagName("html")[0].style.overflowY = "scroll";
   }
 
   render() {
