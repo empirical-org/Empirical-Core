@@ -4,7 +4,6 @@ import TeacherTestimonial from '../components/premium/teacher_testimonial.jsx';
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import DistrictPricingBox from '../components/premium/district_pricing_box.jsx';
 import PremiumFlyer from '../components/premium/premium_flyer';
-import NotificationBox from '../components/shared/notification_box.jsx';
 
 export default React.createClass({
 
@@ -36,10 +35,6 @@ export default React.createClass({
           <h1>Pricing Guide</h1>
           <p>Save time grading and gain actionable insights with Quill Premium.</p>
         </div>
-        <NotificationBox>
-          <span>Upgrade now and get the rest of the school year free.</span> New subscriptions
-          will be extended through July 1st, 2018.
-        </NotificationBox>
         <PremiumPricingMinisRow />
         <DistrictPricingBox />
         <PremiumFlyer />
