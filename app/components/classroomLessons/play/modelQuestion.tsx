@@ -45,7 +45,9 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
   }
 
   renderTeacherModel() {
-    if (this.props.model) {
+    const model = this.props.model;
+    const modelNotEmpty = model && (model.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (model.replace(/[\n\r]/g, '') !== "<p><br></p>");
+    if (modelNotEmpty) {
       return (
         <div className="teacher-model-container">
           <p className="answer-header">
