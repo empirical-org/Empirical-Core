@@ -46,16 +46,35 @@
         pointer-events: none;
       }
     }
-    .slide-number {
+    .sidebar-header {
       font-family: $family-sans-serif;
-      color: #c0c0c0;
-      font-size: 14px;
-      line-height: 20px;
-      margin-bottom: 9px;
-      font-weight: 600;
-      &.active {
-        color: $green;
+      display: flex;
+      justify-content: space-between;
+      .present-students {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 127px;
+        height: 20px;
+        border-radius: 100px;
+        background-color: #00c2a2;
+        font-size: 11px;
+        font-weight: bold;
+        color: #ffffff;
+        img {
+          margin-right: 4px;
+        }
       }
+      .slide-number {
+        color: #c0c0c0;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 9px;
+        font-weight: 600;
+        &.active {
+          color: $green;
+        }
+    }
     }
   }
 

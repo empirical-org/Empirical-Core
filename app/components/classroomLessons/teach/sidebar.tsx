@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+declare function require(name:string);
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
@@ -17,7 +18,7 @@ import {
 import {
   ClassroomLesson
 } from 'interfaces/classroomLessons';
-
+const studentIcon = require('../../../img/student_icon.svg')
 
 class Sidebar extends React.Component<any, any> {
 
@@ -30,6 +31,14 @@ class Sidebar extends React.Component<any, any> {
     if (caId) {
       this.props.dispatch(updateCurrentSlide(caId, slide_id));
     }
+  }
+
+  presentStudents() {
+    const presence = this.props.classroomSessions.data.presence
+    const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
+    return (
+      <div className="present-students"><img src={studentIcon}/> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</div>
+    )
   }
 
   render() {
@@ -86,7 +95,10 @@ class Sidebar extends React.Component<any, any> {
         }
         components.push((
           <div key={counter} onClick={() => this.goToSlide(slide)}>
+            <div className="sidebar-header">
             <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}</p>
+            {counter === 1 ? this.presentStudents() : null}
+            </div>
             <div className={`slide-preview ${activeClass}`}>
               <div className="scaler">
                 {thumb}
