@@ -3,10 +3,17 @@
  import React from 'react'
  import $ from 'jquery'
  import AnalyticsWrapper from '../../../shared/analytics_wrapper'
+ import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
 
  export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
+  },
+
+  getInitialState: function() {
+    return {
+      fastAssignDisabled: false
+    }
   },
 
   analytics: function() {
@@ -21,6 +28,7 @@
   },
 
   fastAssign: function() {
+    this.setState({fastAssignDisabled: true})
     $.ajax({
       url: '/teachers/unit_templates/fast_assign',
       data: {
@@ -44,10 +52,13 @@
   propsSpecificComponent: function () {
     if (this.props.data.non_authenticated) {
       return <a href="/account/new"><button className='button-green full-width'>Sign Up to Assign This Activity Pack</button></a>
-    // } else if (!this.props.data.firstAssignButtonClicked && ($('.tab-pane').data().students === true)) {
-    //   return <button className='button-green full-width' onClick={this.props.actions.clickAssignButton}>Assign to Your Class</button>
-    // } else if (!this.props.data.firstAssignButtonClicked && ($('.tab-pane').data().students === false)) {
-    //   return <button className='button-green full-width' onClick={this.props.actions.fastAssign}>Assign to Your Class</button>
+    } else if (this.state.fastAssignDisabled) {
+      return (
+        <span>
+          <button className='button-green full-width' disabled>Assign to All Students <ButtonLoadingIndicator /></button>
+          <button className='button-green full-width' disabled>Customize Students</button>
+        </span>
+      )
     } else {
       return (<span>
         <button className='button-green full-width' onClick={this.fastAssign}>Assign to All Students</button>

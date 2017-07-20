@@ -12,13 +12,15 @@
     return {
       classroomsAndTheirStudents: [],
       buttonDisabled: false,
-      prematureAssignAttempted: false
+      prematureAssignAttempted: false,
+      loading: false
     };
   },
 
   finish: function () {
     if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
       // this.setState({buttonDisabled: true});
+      this.setState({loading: true})
       this.props.finish();
     } else if (!this.state.buttonDisabled) {
       this.setState({prematureAssignAttempted: true});
@@ -41,52 +43,51 @@
     }
   },
 
-  determineButtonText: function () {
-    if (!this.state.buttonDisabled) {
-      return <span>Assign</span>;
-    } else {
-      return <span>Assigning... <AssigningIndicator /></span>;
-    }
-  },
-
   dueDate: function(activityId){
     if (this.props.dueDates && this.props.dueDates[activityId]) {
       return this.props.dueDates[activityId];
     }
   },
 
-
-
-  render: function() {
-    var classroomList;
+  classroomList: function() {
     if (this.props.classrooms) {
       let that = this;
-      classroomList = this.props.classrooms.map((el)=> {
+      return this.props.classrooms.map((el)=> {
         return <Classroom    key = {el.classroom.id}
                              classroom={el.classroom}
                              students={el.students}
                              allSelected={el.allSelected}
                              toggleClassroomSelection={that.props.toggleClassroomSelection}
                              toggleStudentSelection={that.props.toggleStudentSelection} />;
-
       })
     } else {
-      classroomList = []
+      return []
     }
+  },
 
-    var dueDateList = this.props.selectedActivities.map(function(activity) {
+  dueDateList: function() {
+    const that = this
+    return this.props.selectedActivities.map(function(activity) {
       return <ActivityDueDate activity={activity}
                                  key={activity.id}
-                                 dueDate={this.dueDate()}
-                                 toggleActivitySelection={this.props.toggleActivitySelection}
-                                 assignActivityDueDate={this.props.assignActivityDueDate}/>;
-    }, this);
+                                 dueDate={that.dueDate()}
+                                 toggleActivitySelection={that.props.toggleActivitySelection}
+                                 assignActivityDueDate={that.props.assignActivityDueDate}/>;
+    });
+  },
 
+  assignButton: function() {
+    return this.state.loading
+      ? <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'}>Assigning... <AssigningIndicator /></button>
+      : <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'} onClick={this.finish}>Assign</button>
+  },
+
+  render: function() {
     return (
       <span>
         <section className='select-students'>
           <h1 className='section-header'>Select Students</h1>
-          {classroomList}
+          {this.classroomList()}
         </section>
         <section className='assign-dates'>
           <h1 className='section-header'>
@@ -94,12 +95,12 @@
           </h1>
           <table className='table activity-table'>
             <tbody>
-              {dueDateList}
+              {this.dueDateList()}
             </tbody>
           </table>
           <div className='error-message-and-button'>
             <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-            <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'} onClick={this.finish}>{this.determineButtonText()} </button>
+            {this.assignButton()}
           </div>
         </section>
       </span>

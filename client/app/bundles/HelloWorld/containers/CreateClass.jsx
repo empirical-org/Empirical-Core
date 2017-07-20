@@ -3,9 +3,8 @@ import $ from 'jquery';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NumberSuffix from '../components/modules/numberSuffixBuilder.js';
-import LoadingSpinner from '../components/shared/loading_indicator.jsx';
+import ButtonLoadingIndicator from '../components/shared/button_loading_indicator.jsx';
 import GoogleClassroomModal from '../components/dashboard/google_classroom_modal';
-require('../../../assets/styles/app-variables.scss');
 
 export default React.createClass({
 
@@ -24,7 +23,7 @@ export default React.createClass({
         grade: null,
         code: null,
       },
-      loading: true,
+      loading: false,
       errors: '',
       showModal: false,
     };
@@ -117,53 +116,54 @@ export default React.createClass({
     this.setState({ showModal: false, });
   },
 
+  createButton() {
+    return this.state.loading
+    ? <button className="button-grey submit-button"><ButtonLoadingIndicator/></button>
+    : <button className="button-green submit-button" onClick={this.clickCreateAClass}>Create a Class</button>
+  },
+
+  formatTitle() {
+    const classroom = this.state.classroom;
+    if (classroom.grade) {
+      return classroom.grade == 'University' ? classroom.grade : NumberSuffix(classroom.grade);
+    }
+    return 'Select Grade';
+  },
+
   render() {
     const classroom = this.state.classroom;
-    function formatTitle() {
-      if (classroom.grade) {
-        return classroom.grade == 'University' ? classroom.grade : NumberSuffix(classroom.grade);
-      }
-      return 'Select Grade';
-    }
-    let contents;
-    if (this.state.loading) {
-      contents = <LoadingSpinner />;
-    } else {
-      contents =
-              (<div>
-                <div id="new-classroom">
-                  <h1>Create Your Class</h1>
-                  <p>After you create a class, you can create students’ accounts or have your students sign up with a class code.</p>
-                  <div className="input-row">
-                    <label htmlFor="class-name">Class Name:</label>
-                    <input type="text" id="class-name" placeholder="e.g. 6th Period ELA" value={classroom.name} onChange={this.handleChange} />
-                  </div>
-                  <div className="input-row">
-                    <label htmlFor="">Grade:</label>
-                    <DropdownButton className={classroom.grade ? 'has-grade' : null} bsStyle="default" id="select-grade" title={formatTitle()} onSelect={this.handleSelect}>
-                      {this.grades()}
-                    </DropdownButton>
-                  </div>
-                  <div className="input-row">
-                    <label htmlFor="classroom_code">Class Code:</label>
-                    <input className="inactive class-code text-center" disabled="true" type="text" value={classroom.code} name="classroom[code]" id="classroom_code" />
-                  </div>
-                  <div id="regenerate-class-code" onClick={this.getClassCode}><span><i className="fa fa-refresh" />Regenerate Class Code</span></div>
-                  <button className="button-green submit-button" onClick={this.clickCreateAClass}>Create a Class</button>
-                  <h4 className="errors">{this.state.errors}</h4>
-                </div>
-                <div id="new-google-classroom">
-                  <h1>Google Classroom User? <img src="/images/google_classroom_icon.png" data-pin-nopin="true" /></h1>
-                  <p>If you have an account with Google Classroom, you can import all your classes and students to Quill.</p>
-                  <button className="button-green" onClick={this.syncOrModal}>Import From Google Classroom</button>
-                  <GoogleClassroomModal syncClassrooms={this.syncClassrooms} user={this.props.user} show={this.state.showModal} hideModal={this.hideModal} />
-                </div>
-              </div>);
-    }
     return (
       <div className="create-a-class-page">
         <div className="create-a-class">
-          {contents}
+          <div>
+            <div id="new-classroom">
+              <h1>Create Your Class</h1>
+              <p>After you create a class, you can create students’ accounts or have your students sign up with a class code.</p>
+              <div className="input-row">
+                <label htmlFor="class-name">Class Name:</label>
+                <input type="text" id="class-name" placeholder="e.g. 6th Period ELA" value={classroom.name} onChange={this.handleChange} />
+              </div>
+              <div className="input-row">
+                <label htmlFor="">Grade:</label>
+                <DropdownButton className={classroom.grade ? 'has-grade' : null} bsStyle="default" id="select-grade" title={this.formatTitle()} onSelect={this.handleSelect}>
+                  {this.grades()}
+                </DropdownButton>
+              </div>
+              <div className="input-row">
+                <label htmlFor="classroom_code">Class Code:</label>
+                <input className="inactive class-code text-center" disabled="true" type="text" value={classroom.code} name="classroom[code]" id="classroom_code" />
+              </div>
+              <div id="regenerate-class-code" onClick={this.getClassCode}><span><i className="fa fa-refresh" />Regenerate Class Code</span></div>
+              {this.createButton()}
+              <h4 className="errors">{this.state.errors}</h4>
+            </div>
+            <div id="new-google-classroom">
+              <h1>Google Classroom User? <img src="/images/google_classroom_icon.png" data-pin-nopin="true" /></h1>
+              <p>If you have an account with Google Classroom, you can import all your classes and students to Quill.</p>
+              <button className="button-green" onClick={this.syncOrModal}>Import From Google Classroom</button>
+              <GoogleClassroomModal syncClassrooms={this.syncClassrooms} user={this.props.user} show={this.state.showModal} hideModal={this.hideModal} />
+            </div>
+          </div>
         </div>
       </div>);
   },
