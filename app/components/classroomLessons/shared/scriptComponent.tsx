@@ -84,9 +84,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+          return this.renderStepHTML(item, this.props.onlyShowHeaders, index, false);
         case 'STEP-HTML-TIP':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+          return this.renderStepHTML(item, this.props.onlyShowHeaders, index, true);
         case 'T-MODEL':
           return this.renderTeacherModel();
         default:
@@ -408,11 +408,12 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   }
 
-  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
+  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number, tip: boolean) {
+    const tipClass = tip ? "script-item example-discussion" : "script-item";
     if (item.data) {
       const html = onlyShowHeaders
-        ? <li className="script-item" key={index}><p className="script-item-heading">{item.data.heading}</p></li>
-        : (<li className="script-item" key={index}>
+        ? <li className={tipClass} key={index}><p className="script-item-heading">{item.data.heading}</p></li>
+        : (<li className={tipClass} key={index}>
           <p className="script-item-heading">{item.data.heading}</p>
           <hr />
           <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
