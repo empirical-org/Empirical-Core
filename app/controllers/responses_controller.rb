@@ -75,19 +75,15 @@ class ResponsesController < ApplicationController
     render json: search_responses(params[:question_uid], search_params)
   end
 
-  def mass_edit
+  def show_many
     render json: {responses: Response.where(id: params[:responses])}
   end
 
-  def mass_edit_feedback
-    Response.where(id: params[:ids]).update_all(feedback: params[:feedback])
+  def edit_many
+    Response.where(id: params[:ids]).update_all(params[:updated_attribute].permit!.to_h)
   end
 
-  def mass_edit_concept_results
-    Response.where(id: params[:ids]).update_all(concept_results: params[:conceptResults])
-  end
-
-  def mass_edit_delete
+  def delete_many
     Response.where(id: params[:ids]).delete_all
   end
 
