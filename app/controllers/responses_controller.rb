@@ -60,7 +60,7 @@ class ResponsesController < ApplicationController
 
   # GET /questions/:question_uid/responses
   def responses_for_question
-    @responses = Response.where(question_uid: params[:question_uid]).where.not(optimal: nil)
+    @responses = Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil)
     render json: @responses
   end
 
@@ -89,6 +89,12 @@ class ResponsesController < ApplicationController
 
   def mass_edit_delete
     Response.where(id: params[:ids]).delete_all
+  end
+
+  def batch_responses_for_lesson
+    question_uids = params[:question_uids]
+    questions_with_responses = Response.where(question_uid: question_uids).where.not(optimal: nil).where(parent_id: nil).group_by(&:question_uid)
+    render json: {questionsWithResponses: questions_with_responses}.to_json
   end
 
   private
