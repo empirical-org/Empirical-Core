@@ -168,6 +168,16 @@ describe ClassroomActivity, type: :model, redis: :true do
       end
     end
 
+    describe 'locked column' do
+      it "exists by default for lessons classroom activities" do
+        expect(lessons_classroom_activity.locked).to be(true)
+      end
+
+      it "does not exist by default for other classroom activities" do
+        expect(classroom_activity.locked).to be(false)
+      end
+    end
+  
     describe 'caching lessons upon assignemnt' do
       before(:each) do
         $redis.flushdb
