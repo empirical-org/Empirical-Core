@@ -3,17 +3,12 @@ import React from 'react'
 import AssignmentTypeMini from './assignment_type_mini.jsx'
 
 export default React.createClass({
-  propTypes: {
-    toggleTab: React.PropTypes.func.isRequired
-  },
-
   minis: function(){
     let minis =
       [
-        <a href='/teachers/classrooms/activity_planner/assign-a-diagnostic'
+        <a href='/teachers/classrooms/assign_activities/assign-a-diagnostic'
             key={1}>
           <AssignmentTypeMini
-            toggleTab={this.props.toggleTab}
             title={'Entry Diagnostics'}
             img={'/images/diagnostic_icon.svg'}
             bodyText={'Find your students’ writing abilities with a 22 question diagnostic.'}
@@ -23,9 +18,8 @@ export default React.createClass({
             timeDuration={'~20 Min.'}
             />
           </a>,
-          <a key={2} href='/teachers/classrooms/activity_planner/featured-activity-packs'>
+          <a key={2} href='/teachers/classrooms/assign_activities/featured-activity-packs'>
             <AssignmentTypeMini
-              toggleTab={this.props.toggleTab}
               toggleTarget={'exploreActivityPacks'}
               title={'Featured Activity Packs'}
               img={'/images/featured_activity_pack_icon.png'}
@@ -36,9 +30,8 @@ export default React.createClass({
               timeDuration={'~1 Hour'}
             />
           </a>,
-          <a key={3} href='/teachers/classrooms/activity_planner/create-unit'>
+          <a key={3} href='/teachers/classrooms/assign_activities/create-unit'>
             <AssignmentTypeMini
-              toggleTab={this.props.toggleTab}
               toggleTarget={'createUnit'}
               title={'Custom Activity Packs'}
               img={'/images/custom_activity_pack_icon.svg'}
