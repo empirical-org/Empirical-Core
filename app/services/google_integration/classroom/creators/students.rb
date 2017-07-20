@@ -47,12 +47,14 @@ module GoogleIntegration::Classroom::Creators::Students
     if data[:email]
       student = User.find_or_initialize_by(email: data[:email].downcase)
       if student.new_record?
-        username = UsernameGenerator.run(data[:first_name], data[:last_name], Classroom.unscoped.find(data[:classrooms].first).code)
+        classroom = Classroom.unscoped.find(data[:classrooms].first)
+        username = UsernameGenerator.run(data[:first_name], data[:last_name], classroom.code)
         student.update(name: data[:name],
                        role: 'student',
                        password: data[:last_name],
                        username: username,
                        signed_up_with_google: true)
+        StudentJoinedClassroomWorker.perform_async(classroom.teacher_id, student.id)
       end
       if student.errors.any?
         puts "Error: Could not save google classroom student."
