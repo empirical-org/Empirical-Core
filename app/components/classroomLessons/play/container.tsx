@@ -28,6 +28,7 @@ import {
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
+import Spinner from 'components/shared/spinner'
 
 class PlayLessonClassroomContainer extends React.Component<any, any> {
   constructor(props) {
@@ -201,7 +202,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
        }
        return (
          <div>
-         Loading...
+         <Spinner/>
          </div>
        );
      }

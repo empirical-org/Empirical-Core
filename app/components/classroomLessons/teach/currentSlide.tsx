@@ -11,6 +11,7 @@ import {
   toggleStudentFlag,
   setModel,
 } from '../../../actions/classroomSessions';
+import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
@@ -181,7 +182,11 @@ class CurrentSlide extends React.Component<any, any> {
           )
       }
     } else {
-      return <p>Loading...</p>;
+      return (
+        <div>
+          <Spinner/>
+        </div>
+      );
     }
   }
 
