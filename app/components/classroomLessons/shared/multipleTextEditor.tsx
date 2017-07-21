@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { EditorState, ContentState, convertFromHTML, convertToRaw } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
@@ -12,8 +12,15 @@ import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 //   BlockquoteButton, ULButton,
 // } = richButtonsPlugin;
 
-export default React.createClass({
-  getInitialState() {
+interface MultipleTextEditorProps {
+  text: string,
+  handleTextChange: Function,
+  boilerplate?: any,
+}
+
+class MultipleTextEditor extends React.Component<MultipleTextEditorProps, any>{
+  constructor(props) {
+    super(props)
     const richButtonsPlugin = createRichButtonsPlugin();
     const {
       // inline buttons
@@ -21,12 +28,12 @@ export default React.createClass({
       // block buttons
       BlockquoteButton, ULButton,
     } = richButtonsPlugin;
-    this.components = { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, ULButton }
-    this.plugins = richButtonsPlugin;
-    return {
+    this.state = {
       text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || ''))),
+      components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, ULButton },
+      plugins: richButtonsPlugin,
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.boilerplate !== this.props.boilerplate) {
@@ -36,20 +43,20 @@ export default React.createClass({
       }
     );
     }
-  },
+  }
 
   getState() {
     return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || '')));
-  },
+  }
 
   handleTextChange(e) {
     this.setState({ text: e, }, () => {
       this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()));
     });
-  },
+  }
 
   render() {
-    const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, ULButton } = this.components;
+    const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, ULButton } = this.state.components;
     return (
       <div className="card is-fullwidth">
         <header className="card-header">
@@ -63,11 +70,13 @@ export default React.createClass({
         </header>
         <div className="card-content">
           <div className="content">
-            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[this.plugins]} />
+            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[this.state.plugins]} />
           </div>
         </div>
       </div>
     );
-  },
+  }
 
-});
+};
+
+export default MultipleTextEditor;

@@ -8,7 +8,8 @@ import {
 
 interface ModelQuestionProps {
   data: QuestionData,
-  model: string|null
+  model: string|null,
+  prompt: string|null,
 }
 
 interface ModelQuestionState {}
@@ -47,7 +48,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
   renderTeacherModel() {
     const model = this.props.model;
     const modelNotEmpty = model && (model.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (model.replace(/[\n\r]/g, '') !== "<p><br></p>");
-    if (modelNotEmpty) {
+    if (modelNotEmpty && this.props.model) {
       return (
         <div className="teacher-model-container">
           <p className="answer-header">

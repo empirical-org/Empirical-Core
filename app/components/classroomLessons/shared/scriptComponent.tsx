@@ -2,7 +2,7 @@ declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 //import TextEditor from '../../questions/textEditor'
-import TextEditor from './multipleTextEditor'
+import MultipleTextEditor from './multipleTextEditor'
 import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
@@ -418,7 +418,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     let promptEditor = <span />;
     if (this.state.prompt) {
       promptEditor = (
-        <TextEditor
+        <MultipleTextEditor
           text={this.state.prompt}
           handleTextChange={this.handlePromptChange}
         />
@@ -428,7 +428,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       <div>
         {promptEditor}
         <p><em>Type your model answer here; it will be displayed on your students' screens as you type.</em></p><br />
-        <TextEditor
+        <MultipleTextEditor
           text={this.state.model}
           handleTextChange={this.handleModelChange}
         />
