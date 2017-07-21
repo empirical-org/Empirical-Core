@@ -48,7 +48,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
-    if (this.state.submitted) {
+    if (student && this.state.submitted) {
       if (!nextProps.submissions) {
         // this will  reset the state when a teacher resets a question
         this.setState({ submitted: false, answers: {}, });

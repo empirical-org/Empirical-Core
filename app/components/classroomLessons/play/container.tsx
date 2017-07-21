@@ -150,7 +150,9 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   easyJoinDemo() {
     console.log("Joining", this.state)
     const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
-    easyJoinLessonAddName(classroom_activity_id, this.state.easyDemoName)
+    if (classroom_activity_id) {
+      easyJoinLessonAddName(classroom_activity_id, this.state.easyDemoName)
+    }
   }
 
   public render() {
