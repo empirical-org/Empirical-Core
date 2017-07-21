@@ -263,6 +263,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     return <thead>
       <tr>
         {headers}
+        <th></th>
       </tr>
     </thead>
   }
@@ -329,6 +330,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
     const checkbox = this.determineCheckbox(checked)
+    const studentNumber: number | null = checked === true ? Object.keys(selected_submissions[current_slide]).indexOf(studentKey) + 1 : null
+    const studentNumberClassName: string = checked === true ? 'answer-number' : ''
     const studentName: string = students[studentKey]
       return <tr key={index}>
         <td>{studentName}</td>
@@ -346,6 +349,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             {checkbox}
           </label>
         </td>
+        <td><span className={studentNumberClassName}>{studentNumber}</span></td>
       </tr>
 
   }

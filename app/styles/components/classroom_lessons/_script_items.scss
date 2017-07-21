@@ -25,6 +25,19 @@
   .student-submission-item-table {
     padding: 15px 20px;
 
+    .answer-number {
+      width: 23px;
+      height: 23px;
+      background-color: #3adfbb;
+      display: block;
+      text-align: center;
+      border-radius: 20px;
+      padding-top: 2px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
     table {
       thead {
         tr th {
@@ -60,7 +73,8 @@
           i {
             margin-left: 4px;
             font-size: 14px;
-            color: #d8d8d8;          }
+            color: #d8d8d8;
+          }
         }
       }
 
