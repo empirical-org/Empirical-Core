@@ -2,6 +2,7 @@ declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
+import StepHtml from './stepHtml'
 import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
@@ -84,11 +85,16 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+          return <StepHtml onlyShowHeaders={this.props.onlyShowHeaders} item={item}/>
         case 'STEP-HTML-TIP':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+          return <StepHtml onlyShowHeaders={this.props.onlyShowHeaders} item={item}/>
         case 'T-MODEL':
-          return this.renderTeacherModel();
+          return <TextEditor
+            defaultValue={''}
+            value={this.state.model}
+            handleChange={this.handleModelChange}
+            placeholder="Type your model for the students here."
+          />
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -393,31 +399,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   handleModelChange(e) {
     this.setState({ model: e, });
     this.props.saveModel(e);
-  }
-
-  renderTeacherModel() {
-    return (
-      <TextEditor
-        defaultValue={''}
-        value={this.state.model}
-        handleChange={this.handleModelChange}
-        placeholder="Type your model for the students here."
-      />
-    );
-
-  }
-
-  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
-    if (item.data) {
-      const html = onlyShowHeaders
-        ? <li className="script-item" key={index}><p className="script-item-heading">{item.data.heading}</p></li>
-        : (<li className="script-item" key={index}>
-          <p className="script-item-heading">{item.data.heading}</p>
-          <hr />
-          <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
-        </li>)
-      return html
-    }
   }
 
   render() {

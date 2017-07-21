@@ -19,6 +19,7 @@
   height: calc(100vh - 50px);
   .side-bar {
     width: 33%;
+    min-width: 480px;
     height: 100%;
     background-color: whitesmoke;
     display: flex;
