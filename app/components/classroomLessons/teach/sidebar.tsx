@@ -56,6 +56,7 @@ class Sidebar extends React.Component<any, any> {
         counter += 1;
         const activeClass = currentSlide === slide ? 'active' : '';
         let thumb;
+        let prompt = data.prompts && data.prompts[slide] ? data.prompts[slide] : null;
         let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
         let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;

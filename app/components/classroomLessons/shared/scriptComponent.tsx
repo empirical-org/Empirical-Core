@@ -50,13 +50,15 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const current = this.props.current_slide;
     const models = this.props.models;
     const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
+    const prompt = this.props.prompt;
+    const promptNotEmpty = prompt && (prompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (prompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
     this.state = {
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
       model: modelNotEmpty ? models[current] : '',
-      prompt: this.props.prompt ? this.props.prompt : ''
+      prompt: promptNotEmpty ? prompt : ''
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -76,7 +78,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       const models = nextProps.models;
       const current = nextProps.current_slide;
       const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
+      const prompt = nextProps.prompt;
+      const promptNotEmpty = prompt && prompt && (prompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (prompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
       this.setState({ model: modelNotEmpty ? models[current] : ''})
+      this.setState({ prompt: promptNotEmpty ? prompt : '' })
     }
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
@@ -411,12 +416,18 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderTeacherModel() {
-    return (
-      <div>
+    let promptEditor = <span />;
+    if (this.state.prompt) {
+      promptEditor = (
         <TextEditor
           text={this.state.prompt}
           handleTextChange={this.handlePromptChange}
         />
+      )
+    }
+    return (
+      <div>
+        {promptEditor}
         <p><em>Type your model answer here; it will be displayed on your students' screens as you type.</em></p><br />
         <TextEditor
           text={this.state.model}

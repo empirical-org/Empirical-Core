@@ -234,8 +234,8 @@ export function setModel(classroom_activity_id: string, question_id: string, mod
   modelRef.set(model);
 }
 
-export function setPrompt(lesson_id: string, question_id: string, prompt): void {
-  const promptRef = classroomLessonsRef.child(`${lesson_id}/questions/${question_id}/data/play/prompt`);
+export function setPrompt(classroom_activity_id: string, question_id: string, prompt): void {
+  const promptRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts/${question_id}`);
   promptRef.set(prompt);
 }
 

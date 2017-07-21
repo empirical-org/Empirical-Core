@@ -107,9 +107,9 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   savePrompt(prompt: string) {
-    const lessonUid = this.props.classroomLesson.lessonUid;
-    if (lessonUid) {
-      setPrompt(lessonUid, this.props.classroomSessions.data.current_slide, prompt);
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    if (caId) {
+      setPrompt(caId, this.props.classroomSessions.data.current_slide, prompt);
     }
   }
 

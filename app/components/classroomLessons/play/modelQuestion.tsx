@@ -66,9 +66,10 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   renderQuestionOrHTML() {
     if (this.props.data.play.prompt) {
+      const prompt = this.props.prompt ? this.props.prompt : this.props.data.play.prompt;
       return (
         <div>
-          <RenderSentenceFragments prompt={this.props.data.play.prompt} />
+          <RenderSentenceFragments prompt={prompt} />
           {this.renderCues()}
           {this.renderInstructions()}
         </div>

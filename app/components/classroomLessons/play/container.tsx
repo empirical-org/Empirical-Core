@@ -101,6 +101,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
     const current = lessonData.questions[data.current_slide];
+    const prompt = data.prompts && data.prompts[data.current_slide] ? data.prompts[data.current_slide] : null;
     const model: string|null = data.models && data.models[data.current_slide] ? data.models[data.current_slide] : null;
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
@@ -118,7 +119,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         );
       case 'CL-MD':
         return (
-          <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model}/>
+          <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt}/>
         );
       case 'CL-SA':
         passedProps = { mode, submissions, selected_submissions, };
