@@ -82,6 +82,7 @@
     "webpack-error-notification": "^0.1.6"
   },
   "dependencies": {
+    "actioncable": "^5.1.1",
     "caniuse-db": "^1.0.30000693",
     "diff": "^3.2.0",
     "draft-js": "^0.9.1",
