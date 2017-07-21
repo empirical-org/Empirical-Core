@@ -149,6 +149,7 @@ class CurrentSlide extends React.Component<any, any> {
               clearAllSubmissions={this.clearAllSubmissions}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               saveModel={this.saveModel}
+              savePrompt={this.savePrompt}
             />
           );
         case 'CL-FL':
@@ -165,6 +166,7 @@ class CurrentSlide extends React.Component<any, any> {
             clearAllSubmissions={this.clearAllSubmissions}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             saveModel={this.saveModel}
+            savePrompt={this.savePrompt}
           />
         )
         case 'CL-EX':

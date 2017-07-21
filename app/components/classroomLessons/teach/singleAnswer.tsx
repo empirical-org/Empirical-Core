@@ -19,6 +19,7 @@ interface SingleAnswerProps {
   clearAllSelectedSubmissions: Function,
   onlyShowHeaders: boolean,
   saveModel: Function,
+  savePrompt: Function,
 }
 
 interface SingleAnswerState {}

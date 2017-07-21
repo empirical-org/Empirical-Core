@@ -1,7 +1,8 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
-import TextEditor from '../../questions/textEditor'
+//import TextEditor from '../../questions/textEditor'
+import TextEditor from './multipleTextEditor'
 import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
@@ -405,7 +406,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   handlePromptChange(e) {
-    this.state({ prompt: e });
+    this.setState({ prompt: e });
     this.props.savePrompt(e);
   }
 
