@@ -11,245 +11,244 @@ import { submitResponse } from './responses';
 const ActionCable = require('actioncable')
 const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`)
 
-	// called when the app starts. this means we immediately download all questions, and
-	// then receive all questions again as soon as anyone changes anything.
-  function startListeningToQuestions() {
-    return (dispatch, getState) => {
-      questionsRef.on('value', (snapshot) => {
-        dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
-      });
-    };
-  }
+// called when the app starts. this means we immediately download all questions, and
+// then receive all questions again as soon as anyone changes anything.
+function startListeningToQuestions() {
+  return (dispatch, getState) => {
+    questionsRef.on('value', (snapshot) => {
+      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
+    });
+  };
+}
 
-  function loadQuestions() {
-    return (dispatch, getState) => {
-      questionsRef.once('value', (snapshot) => {
-        dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
-      });
-    };
-  }
+function loadQuestions() {
+  return (dispatch, getState) => {
+    questionsRef.once('value', (snapshot) => {
+      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
+    });
+  };
+}
 
-  function startQuestionEdit(qid) {
-    return { type: C.START_QUESTION_EDIT, qid, };
-  }
+function startQuestionEdit(qid) {
+  return { type: C.START_QUESTION_EDIT, qid, };
+}
 
-  function cancelQuestionEdit(qid) {
-    return { type: C.FINISH_QUESTION_EDIT, qid, };
-  }
+function cancelQuestionEdit(qid) {
+  return { type: C.FINISH_QUESTION_EDIT, qid, };
+}
 
-  function deleteQuestion(qid) {
-    return (dispatch, getState) => {
-      dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-      questionsRef.child(qid).remove((error) => {
-        dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
+function deleteQuestion(qid) {
+  return (dispatch, getState) => {
+    dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
+    questionsRef.child(qid).remove((error) => {
+      dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
+      if (error) {
+        dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
+      } else {
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
+      }
+    });
+  };
+}
+function submitQuestionEdit(qid, content) {
+  return (dispatch, getState) => {
+    dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
+    questionsRef.child(qid).update(content, (error) => {
+      dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
+      if (error) {
+        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+      } else {
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      }
+    });
+  };
+}
+function toggleNewQuestionModal() {
+  return { type: C.TOGGLE_NEW_QUESTION_MODAL, };
+}
+function submitNewQuestion(content, response) {
+  return (dispatch, getState) => {
+    dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
+    const newRef = questionsRef.push(content, (error) => {
+      dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
+      if (error) {
+        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else {
+        response.questionUID = newRef.key;
+        response.gradeIndex = `human${newRef.key}`;
+        dispatch(submitResponse(response));
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        const action = push(`/admin/questions/${newRef.key}`);
+        dispatch(action);
+      }
+    });
+  };
+}
+
+function submitNewFocusPoint(qid, data) {
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+function submitEditedFocusPoint(qid, data, fpid) {
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+function submitBatchEditedFocusPoint(qid, data) {
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/focusPoints/`).set(data, (error) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+function deleteFocusPoint(qid, fpid) {
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
+      if (error) {
+        alert(`Delete failed! ${error}`);
+      }
+    });
+  };
+}
+
+function submitNewIncorrectSequence(qid, data) {
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+function submitEditedIncorrectSequence(qid, data, seqid) {
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+function deleteIncorrectSequence(qid, seqid) {
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
+      if (error) {
+        alert(`Delete failed! ${error}`);
+      }
+    });
+  };
+}
+
+function getFormattedSearchData(state) {
+  const searchData = state.filters.formattedFilterData;
+  console.log('state', state)
+  searchData.text = state.filters.stringFilter;
+  searchData.pageNumber = state.filters.responsePageNumber;
+  return searchData
+}
+
+function searchResponses(qid) {
+  return (dispatch, getState) => {
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+        method: 'POST',
+        json: { search: getFormattedSearchData(getState())},
+      },
+      (err, httpResponse, data) => {
+        const parsedResponses = _.indexBy(data.results, 'uid');
+        const responseData = {
+          responses: parsedResponses,
+          numberOfResponses: data.numberOfResults,
+          numberOfPages: data.numberOfPages
         }
-      });
-    };
+        dispatch(updateResponses(responseData))
+      }
+    );
   }
-  function submitQuestionEdit(qid, content) {
-    return (dispatch, getState) => {
-      dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-      questionsRef.child(qid).update(content, (error) => {
-        dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-        }
-      });
-    };
-  }
-  function toggleNewQuestionModal() {
-    return { type: C.TOGGLE_NEW_QUESTION_MODAL, };
-  }
-  function submitNewQuestion(content, response) {
-    return (dispatch, getState) => {
-      dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
-      const newRef = questionsRef.push(content, (error) => {
-        dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else {
-          response.questionUID = newRef.key;
-          response.gradeIndex = `human${newRef.key}`;
-          dispatch(submitResponse(response));
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          const action = push(`/admin/questions/${newRef.key}`);
-          dispatch(action);
-        }
-      });
-    };
-  }
+}
 
-  function submitNewFocusPoint(qid, data) {
-    return (dispatch, getState) => {
-      questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
+function initializeSubscription(qid) {
+  return (dispatch) => {
+    const sub = cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: qid}, {
+      received: (data) => data.title === 'new response'
+      ? dispatch(searchResponses(qid))
+      : null
+    });
   }
+}
 
-  function submitEditedFocusPoint(qid, data, fpid) {
-    return (dispatch, getState) => {
-      questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
+function removeSubscription(qid) {
+  return (dispatch) => {
+    const sub = cable.subscriptions.subscriptions.find((sub) => JSON.parse(sub.identifier).question_uid === qid)
+    sub.unsubscribe()
   }
+}
 
-  function submitBatchEditedFocusPoint(qid, data) {
-    return (dispatch, getState) => {
-      questionsRef.child(`${qid}/focusPoints/`).set(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
+function updatePageNumber(pageNumber, qid) {
+  return (dispatch) => {
+    dispatch(setPageNumber(pageNumber))
+    dispatch(searchResponses(qid))
   }
+}
 
-  function deleteFocusPoint(qid, fpid) {
-    return (dispatch, getState) => {
-      questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
-        if (error) {
-          alert(`Delete failed! ${error}`);
-        }
-      });
-    };
+function updateStringFilter(stringFilter, qid) {
+  return (dispatch) => {
+    dispatch(setStringFilter(stringFilter))
+    dispatch(searchResponses(qid))
   }
+}
 
-  function submitNewIncorrectSequence(qid, data) {
-    return (dispatch, getState) => {
-      questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
-  }
+function startResponseEdit(qid, rid) {
+  return { type: C.START_RESPONSE_EDIT, qid, rid, };
+}
 
-  function submitEditedIncorrectSequence(qid, data, seqid) {
-    return (dispatch, getState) => {
-      questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
-  }
+function cancelResponseEdit(qid, rid) {
+  return { type: C.FINISH_RESPONSE_EDIT, qid, rid, };
+}
 
-  function deleteIncorrectSequence(qid, seqid) {
-    return (dispatch, getState) => {
-      questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
-        if (error) {
-          alert(`Delete failed! ${error}`);
-        }
-      });
-    };
-  }
+function startChildResponseView(qid, rid) {
+  return { type: C.START_CHILD_RESPONSE_VIEW, qid, rid, };
+}
 
-  function getFormattedSearchData(state) {
-    const searchData = state.filters.formattedFilterData;
-    console.log('state', state)
-    searchData.text = state.filters.stringFilter;
-    searchData.pageNumber = state.filters.responsePageNumber;
-    return searchData
-  }
+function cancelChildResponseView(qid, rid) {
+  return { type: C.CANCEL_CHILD_RESPONSE_VIEW, qid, rid, };
+}
 
-  function searchResponses(qid) {
-    return (dispatch, getState) => {
-      request(
-        {
-          url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
-          method: 'POST',
-          json: { search: getFormattedSearchData(getState())},
-        },
-        (err, httpResponse, data) => {
-          const parsedResponses = _.indexBy(data.results, 'uid');
-          const responseData = {
-            responses: parsedResponses,
-            numberOfResponses: data.numberOfResults,
-            numberOfPages: data.numberOfPages
-          }
-          dispatch(updateResponses(responseData))
-        }
-      );
-    }
-  }
+function startFromResponseView(qid, rid) {
+  return { type: C.START_FROM_RESPONSE_VIEW, qid, rid, };
+}
 
-  function initializeSubscription(qid) {
-    return (dispatch) => {
-      const sub = cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: qid}, {
-        received: (data) => data.title === 'new response'
-        ? dispatch(searchResponses(qid))
-        : null
-      });
-    }
-  }
+function cancelFromResponseView(qid, rid) {
+  return { type: C.CANCEL_FROM_RESPONSE_VIEW, qid, rid, };
+}
 
-  function removeSubscription(qid) {
-    return (dispatch) => {
-      const sub = cable.subscriptions.subscriptions.find((sub) => JSON.parse(sub.identifier).question_uid === qid)
-      sub.unsubscribe()
-    }
-  }
+function startToResponseView(qid, rid) {
+  return { type: C.START_TO_RESPONSE_VIEW, qid, rid, };
+}
 
-  function updatePageNumber(pageNumber, qid) {
-    return (dispatch) => {
-      dispatch(setPageNumber(pageNumber))
-      dispatch(searchResponses(qid))
-    }
-  }
+function cancelToResponseView(qid, rid) {
+  return { type: C.CANCEL_TO_RESPONSE_VIEW, qid, rid, };
+}
 
-  function updateStringFilter(stringFilter, qid) {
-    return (dispatch) => {
-      dispatch(setStringFilter(stringFilter))
-      dispatch(searchResponses(qid))
-    }
-  }
-
-  function startResponseEdit(qid, rid) {
-    return { type: C.START_RESPONSE_EDIT, qid, rid, };
-  }
-
-  function cancelResponseEdit(qid, rid) {
-    return { type: C.FINISH_RESPONSE_EDIT, qid, rid, };
-  }
-
-  function startChildResponseView(qid, rid) {
-    return { type: C.START_CHILD_RESPONSE_VIEW, qid, rid, };
-  }
-
-  function cancelChildResponseView(qid, rid) {
-    return { type: C.CANCEL_CHILD_RESPONSE_VIEW, qid, rid, };
-  }
-
-  function startFromResponseView(qid, rid) {
-    return { type: C.START_FROM_RESPONSE_VIEW, qid, rid, };
-  }
-
-  function cancelFromResponseView(qid, rid) {
-    return { type: C.CANCEL_FROM_RESPONSE_VIEW, qid, rid, };
-  }
-
-  function startToResponseView(qid, rid) {
-    return { type: C.START_TO_RESPONSE_VIEW, qid, rid, };
-  }
-
-  function cancelToResponseView(qid, rid) {
-    return { type: C.CANCEL_TO_RESPONSE_VIEW, qid, rid, };
-  }
-
-  function clearQuestionState(qid) {
-    return { type: C.CLEAR_QUESTION_STATE, qid, };
-  }
+function clearQuestionState(qid) {
+  return { type: C.CLEAR_QUESTION_STATE, qid, };
 
   function updateResponses(data) {
     return { type: C.UPDATE_SEARCHED_RESPONSES, data}
