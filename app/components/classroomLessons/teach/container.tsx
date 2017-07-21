@@ -65,7 +65,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   handleKeyDown(event) {
-    if (event.keyCode === 39 || event.keyCode === 37) {
+    const tag = event.target.tagName.toLowerCase()
+    if (tag !== 'input' && tag !== 'textarea' && (event.keyCode === 39 || event.keyCode === 37)) {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const lessonData: ClassroomLesson = this.props.classroomLesson.data;
