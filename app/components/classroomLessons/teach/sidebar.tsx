@@ -75,7 +75,7 @@ class Sidebar extends React.Component<any, any> {
             break;
           case 'CL-MD':
             thumb = (
-              <CLStudentModelQuestion data={questions[slide].data} model={model}/>
+              <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt}/>
             );
             break;
           case 'CL-SA':
