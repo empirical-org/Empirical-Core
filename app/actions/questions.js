@@ -1,15 +1,20 @@
 const C = require('../constants').default;
+
 import rootRef from '../libs/firebase';
+
 const	questionsRef = rootRef.child('questions');
 const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
+
 import request from 'request';
 import _ from 'underscore';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
-const ActionCable = require('actioncable')
-const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`)
+
+const ActionCable = require('actioncable');
+
+const cable = ActionCable.createConsumer(`${process.env.QUILL_CMS}/admin_question`);
 
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.
@@ -157,10 +162,10 @@ function deleteIncorrectSequence(qid, seqid) {
 
 function getFormattedSearchData(state) {
   const searchData = state.filters.formattedFilterData;
-  console.log('state', state)
+  console.log('state', state);
   searchData.text = state.filters.stringFilter;
   searchData.pageNumber = state.filters.responsePageNumber;
-  return searchData
+  return searchData;
 }
 
 function searchResponses(qid) {
@@ -169,50 +174,50 @@ function searchResponses(qid) {
       {
         url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
         method: 'POST',
-        json: { search: getFormattedSearchData(getState())},
+        json: { search: getFormattedSearchData(getState()), },
       },
       (err, httpResponse, data) => {
         const parsedResponses = _.indexBy(data.results, 'uid');
         const responseData = {
           responses: parsedResponses,
           numberOfResponses: data.numberOfResults,
-          numberOfPages: data.numberOfPages
-        }
-        dispatch(updateResponses(responseData))
+          numberOfPages: data.numberOfPages,
+        };
+        dispatch(updateResponses(responseData));
       }
     );
-  }
+  };
 }
 
 function initializeSubscription(qid) {
   return (dispatch) => {
-    const sub = cable.subscriptions.create({channel: 'AdminQuestionChannel', question_uid: qid}, {
-      received: (data) => data.title === 'new response'
+    const sub = cable.subscriptions.create({ channel: 'AdminQuestionChannel', question_uid: qid, }, {
+      received: data => data.title === 'new response'
       ? dispatch(searchResponses(qid))
-      : null
+      : null,
     });
-  }
+  };
 }
 
 function removeSubscription(qid) {
   return (dispatch) => {
-    const sub = cable.subscriptions.subscriptions.find((sub) => JSON.parse(sub.identifier).question_uid === qid)
-    sub.unsubscribe()
-  }
+    const sub = cable.subscriptions.subscriptions.find(sub => JSON.parse(sub.identifier).question_uid === qid);
+    sub.unsubscribe();
+  };
 }
 
 function updatePageNumber(pageNumber, qid) {
   return (dispatch) => {
-    dispatch(setPageNumber(pageNumber))
-    dispatch(searchResponses(qid))
-  }
+    dispatch(setPageNumber(pageNumber));
+    dispatch(searchResponses(qid));
+  };
 }
 
 function updateStringFilter(stringFilter, qid) {
   return (dispatch) => {
-    dispatch(setStringFilter(stringFilter))
-    dispatch(searchResponses(qid))
-  }
+    dispatch(setStringFilter(stringFilter));
+    dispatch(searchResponses(qid));
+  };
 }
 
 function startResponseEdit(qid, rid) {
@@ -249,50 +254,51 @@ function cancelToResponseView(qid, rid) {
 
 function clearQuestionState(qid) {
   return { type: C.CLEAR_QUESTION_STATE, qid, };
+}
 
-  function updateResponses(data) {
-    return { type: C.UPDATE_SEARCHED_RESPONSES, data}
-  }
+function updateResponses(data) {
+  return { type: C.UPDATE_SEARCHED_RESPONSES, data, };
+}
 
-  function setPageNumber(pageNumber) {
-    return {type: C.SET_RESPONSE_PAGE_NUMBER, pageNumber}
-  }
+function setPageNumber(pageNumber) {
+  return { type: C.SET_RESPONSE_PAGE_NUMBER, pageNumber, };
+}
 
-  function setStringFilter(stringFilter) {
-    return {type: C.SET_RESPONSE_STRING_FILTER, stringFilter}
-  }
+function setStringFilter(stringFilter) {
+  return { type: C.SET_RESPONSE_STRING_FILTER, stringFilter, };
+}
 
-  module.exports = {
-    startListeningToQuestions,
-    loadQuestions,
-    startQuestionEdit,
-    cancelQuestionEdit,
-    deleteQuestion,
-    submitQuestionEdit,
-    toggleNewQuestionModal,
-    submitNewQuestion,
-    submitNewFocusPoint,
-    submitEditedFocusPoint,
-    submitBatchEditedFocusPoint,
-    deleteFocusPoint,
-    submitNewIncorrectSequence,
-    submitEditedIncorrectSequence,
-    deleteIncorrectSequence,
-    searchResponses,
-    initializeSubscription,
-    removeSubscription,
-    updatePageNumber,
-    updateStringFilter,
-    startResponseEdit,
-    cancelResponseEdit,
-    startChildResponseView,
-    cancelChildResponseView,
-    startFromResponseView,
-    cancelFromResponseView,
-    startToResponseView,
-    cancelToResponseView,
-    clearQuestionState,
-    updateResponses,
-    setPageNumber,
-    setStringFilter,
-  };
+module.exports = {
+  startListeningToQuestions,
+  loadQuestions,
+  startQuestionEdit,
+  cancelQuestionEdit,
+  deleteQuestion,
+  submitQuestionEdit,
+  toggleNewQuestionModal,
+  submitNewQuestion,
+  submitNewFocusPoint,
+  submitEditedFocusPoint,
+  submitBatchEditedFocusPoint,
+  deleteFocusPoint,
+  submitNewIncorrectSequence,
+  submitEditedIncorrectSequence,
+  deleteIncorrectSequence,
+  searchResponses,
+  initializeSubscription,
+  removeSubscription,
+  updatePageNumber,
+  updateStringFilter,
+  startResponseEdit,
+  cancelResponseEdit,
+  startChildResponseView,
+  cancelChildResponseView,
+  startFromResponseView,
+  cancelFromResponseView,
+  startToResponseView,
+  cancelToResponseView,
+  clearQuestionState,
+  updateResponses,
+  setPageNumber,
+  setStringFilter,
+};
