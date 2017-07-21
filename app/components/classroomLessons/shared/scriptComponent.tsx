@@ -416,7 +416,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   renderTeacherModel() {
     let promptEditor = <span />;
-    if (this.state.prompt) {
+    if (this.props.lessonPrompt) {
       promptEditor = (
         <div>
           <p className="teacher-model-instructions"><em>Modify the prompt here; it will be displayed on your students' screens as you type.</em></p><br />
