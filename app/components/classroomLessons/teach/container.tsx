@@ -15,7 +15,8 @@ import {
   clearAllSelectedSubmissions,
   toggleStudentFlag,
   clearAllSubmissions,
-  updateSlideInFirebase
+  updateSlideInFirebase,
+  registerTeacherPresence
 } from 'actions/classroomSessions';
 import {
   getClassLessonFromFirebase
@@ -54,6 +55,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
+      registerTeacherPresence(ca_id)
+
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }

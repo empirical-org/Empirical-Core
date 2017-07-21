@@ -160,6 +160,15 @@ export function removeWatchTeacherState(classroom_activity_id: string): void {
   watchTeacherRef.remove();
 }
 
+export function registerTeacherPresence(classroom_activity_id: string | null): void {
+  const absentTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/absentTeacherState`);
+  firebase.database().ref('.info/connected').on('value', (snapshot) => {
+    if (snapshot.val() === true) {
+      absentTeacherRef.onDisconnect().set(true);
+      absentTeacherRef.set(false);
+    }
+  });
+}
 
 export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
   const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
