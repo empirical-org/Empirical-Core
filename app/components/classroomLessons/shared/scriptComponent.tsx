@@ -418,16 +418,19 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     let promptEditor = <span />;
     if (this.state.prompt) {
       promptEditor = (
-        <MultipleTextEditor
-          text={this.state.prompt}
-          handleTextChange={this.handlePromptChange}
-        />
+        <div>
+          <p className="teacher-model-instructions"><em>Modify the prompt here; it will be displayed on your students' screens as you type.</em></p><br />
+          <MultipleTextEditor
+            text={this.state.prompt}
+            handleTextChange={this.handlePromptChange}
+          />
+        </div>
       )
     }
     return (
       <div>
         {promptEditor}
-        <p><em>Type your model answer here; it will be displayed on your students' screens as you type.</em></p><br />
+        <p className="teacher-model-instructions"><em>Type your model answer here; it will be displayed on your students' screens as you type.</em></p><br />
         <MultipleTextEditor
           text={this.state.model}
           handleTextChange={this.handleModelChange}

@@ -33,6 +33,7 @@ class MultipleTextEditor extends React.Component<MultipleTextEditorProps, any>{
       components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, ULButton },
       plugins: richButtonsPlugin,
     };
+    this.handleTextChange = this.handleTextChange.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
