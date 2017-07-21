@@ -41,7 +41,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student');
-    if (nextProps.submissions[student] && !this.state.submitted) {
+    if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
       this.setState({ submitted: true })
       this.setState({ response: nextProps.submissions[student].data })
     }
