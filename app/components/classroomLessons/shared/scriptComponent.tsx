@@ -122,7 +122,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderDisplayButton() {
     if (this.state.projecting) {
       return (
-        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Show Prompt</button>
+        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
       )
     } else {
       const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
