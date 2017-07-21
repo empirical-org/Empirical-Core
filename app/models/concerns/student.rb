@@ -105,10 +105,10 @@ module Student
       assignable = students_classrooms.map do |classroom|
         get_assignable_classroom_activities_for_classroom(classroom)
       end
-      start = Time.now
       if assignable.any?
         begin
-          ActivitySession.bulk_insert values: assignable.flatten
+          # binding.pry
+          ActivitySession.bulk_insert values: assignable.flatten.compact
         rescue NoMethodError
           puts 'rescue from no method error in assign_classroom_activities'
         end
