@@ -1,7 +1,6 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
-//import TextEditor from '../../questions/textEditor'
 import MultipleTextEditor from './multipleTextEditor'
 import { findDifferences } from './findDifferences'
 import {

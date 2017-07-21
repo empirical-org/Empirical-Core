@@ -4,13 +4,6 @@ import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
-// const richButtonsPlugin = createRichButtonsPlugin();
-// const {
-//   // inline buttons
-//   ItalicButton, BoldButton, UnderlineButton,
-//   // block buttons
-//   BlockquoteButton, ULButton,
-// } = richButtonsPlugin;
 
 interface MultipleTextEditorProps {
   text: string,
