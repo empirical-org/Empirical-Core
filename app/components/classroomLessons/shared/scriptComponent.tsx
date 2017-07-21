@@ -85,11 +85,12 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return <StepHtml onlyShowHeaders={this.props.onlyShowHeaders} item={item}/>
+          return <StepHtml key={index} onlyShowHeaders={this.props.onlyShowHeaders} item={item}/>
         case 'STEP-HTML-TIP':
-          return <StepHtml onlyShowHeaders={this.props.onlyShowHeaders} item={item}/>
+          return <StepHtml key={index} onlyShowHeaders={this.props.onlyShowHeaders} item={item}/>
         case 'T-MODEL':
           return <TextEditor
+            key={index}
             defaultValue={''}
             value={this.state.model}
             handleChange={this.handleModelChange}
