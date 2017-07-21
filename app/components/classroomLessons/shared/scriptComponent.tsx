@@ -58,7 +58,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sort: 'time',
       sortDirection: 'desc',
       model: modelNotEmpty ? models[current] : '',
-      prompt: promptNotEmpty ? prompt : ''
+      prompt: promptNotEmpty ? prompt.replace("&nbsp;", "<br>").replace(/\\n|<br>\s+/g, "<br>").replace(/<\/p>\s*<p>/g, "<br>") : ''
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -74,15 +74,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
-    if (this.props.current_slide !== nextProps.current_slide) {
-      const models = nextProps.models;
-      const current = nextProps.current_slide;
-      const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
-      const prompt = nextProps.prompt;
-      const promptNotEmpty = prompt && prompt && (prompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (prompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
-      this.setState({ model: modelNotEmpty ? models[current] : ''})
-      this.setState({ prompt: promptNotEmpty ? prompt : '' })
-    }
+    const models = nextProps.models;
+    const current = nextProps.current_slide;
+    const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
+    const prompt = nextProps.prompt;
+    const promptNotEmpty = prompt && prompt && (prompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (prompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
+    this.setState({ model: modelNotEmpty ? models[current] : ''})
+    this.setState({ prompt: promptNotEmpty ? prompt.replace("&nbsp;", "<br>").replace(/\\n|<br>\s+/g, "<br>").replace(/<\/p>\s*<p>/g, "<br>") : '' })
+
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
       const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length

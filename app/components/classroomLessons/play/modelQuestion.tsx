@@ -66,7 +66,9 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   renderQuestionOrHTML() {
     if (this.props.data.play.prompt) {
-      const prompt = this.props.prompt ? this.props.prompt : this.props.data.play.prompt;
+      const editedPrompt = this.props.prompt;
+      const promptNotEmpty = editedPrompt && (editedPrompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (editedPrompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
+      const prompt = promptNotEmpty ? editedPrompt : this.props.data.play.prompt;
       return (
         <div>
           <RenderSentenceFragments prompt={prompt} />
