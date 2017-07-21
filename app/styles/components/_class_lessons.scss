@@ -80,7 +80,7 @@
   }
 
   .main-content {
-    padding: 20px 30px 0px;
+    padding: 20px 30px 10px;
     width: 66%;
     overflow-y: scroll;
     .main-content-wrapper {
@@ -329,5 +329,14 @@
     &:hover {
       outline: none;
     }
+  }
+}
+
+.next-slide-button-container span {
+  font-size: 13px;
+  font-style: italic;
+  color: #c0c0c0;
+  button {
+    margin-left: 15px;
   }
 }

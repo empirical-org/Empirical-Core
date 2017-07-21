@@ -37,10 +37,15 @@ import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
+import {
+  ClassroomLesson
+} from 'interfaces/classroomLessons'
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   componentDidMount() {
@@ -58,8 +63,23 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
 
+  handleKeyDown(event) {
+    if (event.keyCode === 39) {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
+      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+      if (ca_id) {
+        const updateInStore = goToNextSlide(ca_id, sessionData, lessonData);
+        if (updateInStore) {
+          this.props.dispatch(updateInStore);
+        }
+      }
+    }
+  }
+
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.overflowY = "scroll";
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   render() {
