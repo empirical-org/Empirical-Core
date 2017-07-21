@@ -335,7 +335,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students } = this.props;
     const text: any = submissions[current_slide][studentKey].data
 
-    const boldedText = findDifferences(text, this.props.prompt);
+    const boldedText = findDifferences(text, this.props.lessonPrompt);
 
     const html: any = <span dangerouslySetInnerHTML={{__html: boldedText}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
