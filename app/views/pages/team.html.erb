@@ -10,7 +10,7 @@
           <div class="row">
             <% people.each do |person| %>
               <% if person %>
-                <div class="col-md-4 col-xs-1 team_section">
+                <div class="col-md-4 col-xs-12 team_section">
                   <%= image_tag person[:img] %>
                   <h4> <%= person[:name] %> </h4>
                   <p> <%= person[:title] %> </p>
