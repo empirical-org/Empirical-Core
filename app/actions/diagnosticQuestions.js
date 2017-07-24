@@ -5,6 +5,7 @@ let	diagnosticQuestionsRef = rootRef.child('diagnosticQuestions'),
 import _ from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
+import { submitResponse } from './responses';
 
 const actions = {
 	// called when the app starts. this means we immediately download all diagnosticQuestions, and
@@ -38,6 +39,8 @@ const actions = {
           dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
         } else {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
+          const action = push('/admin/diagnostic-questions');
+          dispatch(action);
         }
       });
     };
@@ -79,7 +82,7 @@ const actions = {
           response.gradeIndex = `human${newRef.key}`;
           dispatch(submitResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          const action = push(`/admin/diagnosticQuestions/${newRef.key}`);
+          const action = push(`/admin/diagnostic-questions/${newRef.key}`);
           dispatch(action);
         }
       });
