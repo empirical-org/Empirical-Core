@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Cues from 'components/renderForQuestions/cues';
 import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
 import FeedbackRow from './feedbackRow'
-import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from 'libs/getParameterByName';
 const moment = require('moment');

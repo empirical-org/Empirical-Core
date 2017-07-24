@@ -3,7 +3,6 @@ import * as React from 'react'
 import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from 'components/renderForQuestions/cues';
-import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import WarningDialogue from 'components/fillInBlank/warningDialogue'
 import { getParameterByName } from 'libs/getParameterByName';
@@ -12,6 +11,7 @@ import {
   SelectedSubmissionsForQuestion
 } from '../interfaces';
 const moment = require('moment');
+const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
   data: QuestionData,

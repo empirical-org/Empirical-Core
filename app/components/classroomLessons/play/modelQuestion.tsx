@@ -1,10 +1,11 @@
+declare function require(name:string);
 import React, { Component } from 'react';
 import Cues from 'components/renderForQuestions/cues';
 import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
-import icon from 'img/question_icon.svg';
 import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
+const icon = require('../../../img/question_icon.svg')
 
 interface ModelQuestionProps {
   data: QuestionData,

@@ -89,6 +89,7 @@
     "webpack-error-notification": "^0.1.6"
   },
   "dependencies": {
+    "@types/draft-js": "^0.9.1",
     "@types/underscore": "^1.8.1",
     "caniuse-db": "^1.0.30000693",
     "diff": "^3.2.0",
