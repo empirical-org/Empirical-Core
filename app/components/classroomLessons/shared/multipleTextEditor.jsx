@@ -5,13 +5,7 @@ import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 
-interface MultipleTextEditorProps {
-  text: string,
-  handleTextChange: Function,
-  boilerplate?: any,
-}
-
-class MultipleTextEditor extends React.Component<MultipleTextEditorProps, any>{
+class MultipleTextEditor extends React.Component {
   constructor(props) {
     super(props)
     const richButtonsPlugin = createRichButtonsPlugin();
