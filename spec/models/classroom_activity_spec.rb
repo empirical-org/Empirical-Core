@@ -11,6 +11,7 @@ describe ClassroomActivity, type: :model, redis: :true do
     let!(:classroom_2) { FactoryGirl.create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
     let!(:unit) { FactoryGirl.create(:unit) }
     let(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
+    let(:activity_session) {FactoryGirl.create(:activity_session, classroom_activity_id: classroom_activity.id)}
     let(:lessons_activity) { FactoryGirl.create(:activity, activity_classification_id: 6) }
     let(:lessons_classroom_activity) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom, unit: unit) }
     let(:lessons_classroom_activity_2) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom_2, unit: unit) }
@@ -32,6 +33,14 @@ describe ClassroomActivity, type: :model, redis: :true do
                 expect(classroom_activity.assigned_students.first).to eq(@student)
             end
         end
+    end
+
+    describe '#mark_all_activity_sessions_complete' do
+      it 'marks all of a classroom activities activity sessions finished' do
+        expect(activity_session.state).not_to eq('finished')
+        classroom_activity.mark_all_activity_sessions_complete
+        expect(activity_session.reload.state).to eq('finished')
+      end
     end
 
     describe '#has_a_completed_session?' do
@@ -177,7 +186,9 @@ describe ClassroomActivity, type: :model, redis: :true do
         expect(classroom_activity.locked).to be(false)
       end
     end
-  
+
+
+
     describe 'caching lessons upon assignemnt' do
       before(:each) do
         $redis.flushdb
