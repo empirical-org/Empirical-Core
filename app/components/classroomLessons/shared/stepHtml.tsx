@@ -7,7 +7,8 @@ import {
 
 interface StepHtmlProps {
   onlyShowHeaders: boolean,
-  item: ScriptItem
+  item: ScriptItem,
+  updateToggledHeaderCount: Function
 }
 
 interface StepHtmlState {
@@ -38,7 +39,11 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
   }
 
   toggleHideBody() {
-    this.setState({hideBody: !this.state.hideBody})
+    this.setState({hideBody: !this.state.hideBody}, () => {this.updateToggledHeaderCount()})
+  }
+
+  updateToggledHeaderCount() {
+    this.state.hideBody !== this.props.onlyShowHeaders ? this.props.updateToggledHeaderCount(1) : this.props.updateToggledHeaderCount(-1)
   }
 
   render() {
