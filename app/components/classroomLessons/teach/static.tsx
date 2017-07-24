@@ -11,6 +11,7 @@ interface StaticProps {
   data: ClassroomLessonSession,
   lessonData: ClassroomLesson,
   toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
+  updateToggledHeaderCount: Function,
   onlyShowHeaders: boolean
 }
 
@@ -37,7 +38,7 @@ class Static extends Component<StaticProps, StaticState> {
           <ScriptComponent
             script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
             onlyShowHeaders={this.props.onlyShowHeaders}
-            toggleOnlyShowHeaders={this.props.toggleOnlyShowHeaders}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
           />
         </ul>
       </div>

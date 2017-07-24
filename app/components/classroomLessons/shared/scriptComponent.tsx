@@ -31,7 +31,7 @@ const moment = require('moment');
 interface ScriptContainerProps {
   script: Array<ScriptItem>,
   onlyShowHeaders: boolean,
-  toggleOnlyShowHeaders: Function,
+  updateToggledHeaderCount: Function,
   [key: string]: any,
 }
 
@@ -41,8 +41,6 @@ interface ScriptContainerState {
   sort: string,
   sortDirection: string,
   model: string,
-  numberOfHeaders: number,
-  numberOfToggledHeaders: number
 }
 
 class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
@@ -56,8 +54,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sort: 'time',
       sortDirection: 'desc',
       model: '',
-      numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
-      numberOfToggledHeaders: 0
+      // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
+      // numberOfToggledHeaders: 0
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -66,7 +64,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.retryQuestion = this.retryQuestion.bind(this);
     this.handleModelChange = this.handleModelChange.bind(this);
-    this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -92,9 +89,19 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return <StepHtml key={index} onlyShowHeaders={this.props.onlyShowHeaders} item={item} updateToggledHeaderCount={this.updateToggledHeaderCount}/>
+          return <StepHtml
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            item={item}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+          />
         case 'STEP-HTML-TIP':
-          return <StepHtml key={index} onlyShowHeaders={this.props.onlyShowHeaders} item={item} updateToggledHeaderCount={this.updateToggledHeaderCount}/>
+            return <StepHtml
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            item={item}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+          />
         case 'T-MODEL':
           return <TextEditor
             key={index}
@@ -407,14 +414,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   handleModelChange(e) {
     this.setState({ model: e, });
     this.props.saveModel(e);
-  }
-
-  updateToggledHeaderCount(change: number) {
-    this.setState({numberOfToggledHeaders: this.state.numberOfToggledHeaders + change}, () => {
-      if (this.state.numberOfHeaders === this.state.numberOfToggledHeaders) {
-        this.props.toggleOnlyShowHeaders()
-      }
-    })
   }
 
   render() {

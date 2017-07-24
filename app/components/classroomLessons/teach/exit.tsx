@@ -34,6 +34,7 @@ class ExitSlide extends React.Component<any, any> {
         <ScriptComponent
           script={script}
           onlyShowHeaders={this.props.onlyShowHeaders}
+          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
         />
         <FlaggedStudents
           flaggedStudents={flaggedStudents}

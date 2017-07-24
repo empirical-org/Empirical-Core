@@ -15,6 +15,7 @@ interface SingleAnswerProps {
   startDisplayingAnswers: Function,
   stopDisplayingAnswers: Function,
   toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
+  updateToggledHeaderCount: Function,
   clearAllSubmissions: Function,
   clearAllSelectedSubmissions: Function,
   onlyShowHeaders: boolean,
@@ -74,7 +75,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           toggleSelected={this.toggleSelected}
           timestamps={timestamps}
           onlyShowHeaders={this.props.onlyShowHeaders}
-          toggleOnlyShowHeaders={this.props.toggleOnlyShowHeaders}
+          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
           clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
           clearAllSubmissions={this.props.clearAllSubmissions}
           toggleStudentFlag={this.props.toggleStudentFlag}
