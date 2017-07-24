@@ -7,7 +7,7 @@ let	sentenceFragmentsRef = rootRef.child('sentenceFragments'),
   moment = require('moment');
 import _ from 'lodash';
 
-module.exports = {
+const actions = {
 	// called when the app starts. this means we immediately download all sentenceFragments, and
 	// then receive all sentenceFragments again as soon as anyone changes anything.
   startListeningToSentenceFragments() {
@@ -120,3 +120,5 @@ module.exports = {
     return { type: C.CANCEL_TO_RESPONSE_VIEW, sfid, rid, };
   },
 };
+
+export default actions;

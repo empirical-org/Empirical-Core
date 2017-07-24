@@ -72,7 +72,7 @@ export class FocusPointsContainer extends Component {
               </p>
             </header>
             <div className="card-content">
-              <p className="control title is-4"><strong>Feedback</strong>: {fp.feedback}</p>
+              <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + fp.feedback, }} />
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">

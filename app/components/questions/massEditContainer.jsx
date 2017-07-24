@@ -49,7 +49,7 @@ class MassEditContainer extends React.Component {
   getResponses() {
     request(
       {
-        url: `${process.env.QUILL_CMS}/responses/mass_edit`,
+        url: `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
         method: 'POST',
         json: { responses: this.props.massEdit.selectedResponses, },
       },

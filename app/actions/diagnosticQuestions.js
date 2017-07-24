@@ -5,8 +5,9 @@ let	diagnosticQuestionsRef = rootRef.child('diagnosticQuestions'),
 import _ from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
+import { submitResponse } from './responses';
 
-module.exports = {
+const actions = {
 	// called when the app starts. this means we immediately download all diagnosticQuestions, and
 	// then receive all diagnosticQuestions again as soon as anyone changes anything.
   startListeningToDiagnosticQuestions() {
@@ -66,7 +67,7 @@ module.exports = {
           response.gradeIndex = `human${newRef.key}`;
           dispatch(submitResponse(response));
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          const action = push(`/admin/diagnosticQuestions/${newRef.key}`);
+          const action = push(`/admin/diagnostic-questions/${newRef.key}`);
           dispatch(action);
         }
       });
@@ -106,3 +107,5 @@ module.exports = {
     return { type: C.CANCEL_TO_DIAGNOSTIC_RESPONSE_VIEW, qid, rid, };
   },
 };
+
+export default actions;
