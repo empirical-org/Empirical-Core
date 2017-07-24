@@ -9,7 +9,7 @@ class AssignButton extends React.Component<{selectedOptionKey: string, assignAct
   render(){
     return(
       <div className='assign-button-container'>
-        <button onClick={()=>this.props.assignAction()}>
+        <button onClick={()=>this.props.assignAction(this.props.selectedOptionKey)}>
             {this.props.selectedOptionKey}
          </button>
       </div>

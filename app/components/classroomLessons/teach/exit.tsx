@@ -1,12 +1,10 @@
 import * as React from 'react';
-import {
-
-} from '../interfaces';
+import request from 'request'
 import FlaggedStudents from './flaggedStudents'
 import AssignmentOptions from './assignmentOptions'
 import AssignButton from './assignButton'
 import ScriptComponent from '../shared/scriptComponent'
-
+import { getParameterByName } from '../../../libs/getParameterByName';
 
 
 class ExitSlide extends React.Component<any, any> {
@@ -23,8 +21,22 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   assignAction(e){
-    // do the thing to the server
-    console.log(e)
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
+      method: 'PUT',
+      mode: 'cors',
+      credentials: 'include',
+      form: {assignAction: e}},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log('error', error)
+    })
   }
 
   render() {
