@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 export default function (camelObj) {
   const snakeObj = {};
   for (const camelKey in camelObj) {
@@ -21,6 +23,16 @@ export default function (camelObj) {
       }
       snakeObj[snakeKey] = camelObj[camelKey];
     }
+  }
+  if (snakeObj.concept_results) {
+    const crs = _.values(snakeObj.concept_results);
+    const newHash = {};
+    _.each(crs, (val) => {
+      if (val.conceptUID.length > 0) {
+        newHash[val.conceptUID] = val.correct;
+      }
+    });
+    snakeObj.concept_results = newHash;
   }
   return snakeObj;
 }

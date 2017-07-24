@@ -13,10 +13,12 @@ import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestio
 import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx'
+import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import TitleCard from './titleCard.jsx';
 import SessionActions from '../../actions/sessions.js';
+import { getParameterByName } from '../../libs/getParameterByName';
+
 const request = require('request');
 
 const StudentDiagnostic = React.createClass({
@@ -30,7 +32,7 @@ const StudentDiagnostic = React.createClass({
   },
 
   getSessionId() {
-    let sessionID = this.props.location.query.student;
+    let sessionID = getParameterByName('student');
     if (sessionID === 'null') {
       sessionID = undefined;
     }
@@ -230,20 +232,20 @@ const StudentDiagnostic = React.createClass({
   },
 
   getProgressPercent() {
-    let percent
-    const playDiagnostic = this.props.playDiagnostic
+    let percent;
+    const playDiagnostic = this.props.playDiagnostic;
     if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
-      const questionSetCount = playDiagnostic.questionSet.length
-      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length
+      const questionSetCount = playDiagnostic.questionSet.length;
+      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length;
       if (this.props.playDiagnostic.currentQuestion) {
         percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
       } else {
-        percent = ((answeredQuestionCount) / questionSetCount) * 100
+        percent = ((answeredQuestionCount) / questionSetCount) * 100;
       }
     } else {
       percent = 0;
     }
-    return percent
+    return percent;
   },
 
   renderQuestionComponent() {
@@ -273,15 +275,14 @@ const StudentDiagnostic = React.createClass({
         dispatch={this.props.dispatch}
         language={this.language()}
       />);
-    } else {
-      return (<PlaySentenceFragment
-        question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-        key={this.props.playDiagnostic.currentQuestion.data.key}
-        nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-        updateAttempts={this.submitResponse}
-        language={this.language()}
-      />);
     }
+    return (<PlaySentenceFragment
+      question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+      key={this.props.playDiagnostic.currentQuestion.data.key}
+      nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+      updateAttempts={this.submitResponse}
+      language={this.language()}
+    />);
   },
 
   render() {

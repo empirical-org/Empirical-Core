@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
-module.exports = {
+const actions = {
 	// called when the app starts. this means we immediately download all diagnosticQuestions, and
 	// then receive all diagnosticQuestions again as soon as anyone changes anything.
   startListeningToDiagnosticQuestions() {
@@ -122,3 +122,5 @@ module.exports = {
     return { type: C.CANCEL_TO_DIAGNOSTIC_RESPONSE_VIEW, qid, rid, };
   },
 };
+
+export default actions;

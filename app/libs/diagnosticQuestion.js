@@ -8,6 +8,7 @@ import {
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 
 import { sortByLevenshteinAndOptimal } from './responseTools.js';
+
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -224,7 +225,5 @@ const getErrorType = (targetString, userString) => {
     return ERROR_TYPES.ADDITIONAL_WORD;
   } else if (hasDeletions) {
     return ERROR_TYPES.MISSING_WORD;
-  } else {
-
   }
 };

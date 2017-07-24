@@ -1,24 +1,10 @@
 import React from 'react';
-const Markdown = require('react-remarkable');
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import Question from '../../libs/diagnosticQuestion';
-import Textarea from 'react-textarea-autosize';
 import icon from '../../img/question_icon.svg';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
-import questionActions from '../../actions/questions';
-import pathwayActions from '../../actions/pathways';
 const C = require('../../constants').default;
-import rootRef from '../../libs/firebase';
-const sessionsRef = rootRef.child('sessions');
-import ResponseComponent from '../questions/responseComponent.jsx';
 import {
-  loadResponseDataAndListen,
-  stopListeningToResponses,
-  getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 
@@ -26,19 +12,12 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
 import RenderFeedback from '../renderForQuestions/feedback.jsx';
-import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
 import getResponse from '../renderForQuestions/checkAnswer.js';
-import handleFocus from '../renderForQuestions/handleFocus.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
-
-import StateFinished from '../renderForQuestions/renderThankYou.jsx';
-import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import Error from '../shared/error.jsx'
-
-const feedbackStrings = C.FEEDBACK_STRINGS;
+import Error from '../shared/error.jsx';
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {

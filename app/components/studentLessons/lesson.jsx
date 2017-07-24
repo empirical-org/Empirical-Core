@@ -11,6 +11,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
 import Register from './register.jsx';
 import Finished from './finished.jsx';
+import { getParameterByName } from '../../libs/getParameterByName';
 
 import Spinner from '../shared/spinner.jsx';
 const request = require('request');
@@ -54,7 +55,7 @@ const Lesson = React.createClass({
   },
 
   saveSessionIdToState() {
-    let sessionID = this.props.location.query.student;
+    let sessionID = getParameterByName('student');
     if (sessionID === 'null') {
       sessionID = undefined;
     }
