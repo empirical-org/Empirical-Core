@@ -32,7 +32,7 @@ class NextSlideButton extends Component<any, any> {
     if (data.questions && Number(data.current_slide) === data.questions.length - 1) {
       return <span />;
     } else if (Number(data.current_slide) === 0){
-      return <span>Press right arrow to continue to next slide.<button onClick={this.goToNextSlide}>Next Slide</button></span>
+      return <span>Press the <span>right arrow key</span> to continue to the next slide.<button onClick={this.goToNextSlide}>Next Slide</button></span>
     }
     return (
       <button onClick={this.goToNextSlide}>Next Slide</button>
