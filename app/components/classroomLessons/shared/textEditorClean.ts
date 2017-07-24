@@ -3,5 +3,5 @@ export function textEditorInputNotEmpty(textInput) {
 }
 
 export function textEditorInputClean(prompt) {
-  return prompt.replace("&nbsp;", "<br>").replace(/\\n|<br>\s+/g, "<br>").replace(/<\/p>\s*<p>/g, "<br>");
+  return prompt.replace("&nbsp;", "<br>").replace(/\\n|<br>\s+/g, "<br>").replace(/<\/p>\s*<p>/g, "<br>").replace("\n", "<br>");
 }

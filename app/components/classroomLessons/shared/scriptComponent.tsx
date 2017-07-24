@@ -405,13 +405,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   handleModelChange(e) {
-    this.setState({ model: e, });
-    this.props.saveModel(e);
+    this.setState({ model: textEditorInputClean(e) });
+    this.props.saveModel(textEditorInputClean(e));
   }
 
   handlePromptChange(e) {
-    this.setState({ prompt: e });
-    this.props.savePrompt(e);
+    this.setState({ prompt: textEditorInputClean(e) });
+    this.props.savePrompt(textEditorInputClean(e));
   }
 
   renderTeacherModel() {
