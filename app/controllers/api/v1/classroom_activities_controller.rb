@@ -12,6 +12,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
   end
 
   def finish_lesson
+    @classroom_activity.update(locked: true)
     @classroom_activity.mark_all_activity_sessions_complete
     render json: {message: 'activities marked complete'}
   end
