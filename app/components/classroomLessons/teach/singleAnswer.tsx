@@ -6,6 +6,7 @@ import {
 import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
+import { textEditorInputNotEmpty } from '../shared/textEditorClean'
 
 interface SingleAnswerProps {
   data: ClassroomLessonSession,
@@ -46,7 +47,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   render() {
     const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models, prompts} = this.props.data;
-    const promptNotEmpty = prompts && prompts[current_slide] && (prompts[current_slide].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (prompts[current_slide].replace(/[\n\r]/g, '') !== "<p><br></p>");
+    const promptNotEmpty = prompts && textEditorInputNotEmpty(prompts[current_slide]);
     const showHeaderText: string = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
     return (
       <div className="teacher-single-answer">

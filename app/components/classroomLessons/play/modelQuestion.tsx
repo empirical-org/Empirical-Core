@@ -5,6 +5,7 @@ import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragm
 import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
+import { textEditorInputNotEmpty } from '../shared/textEditorClean'
 const icon = require('../../../img/question_icon.svg')
 
 interface ModelQuestionProps {
@@ -48,7 +49,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   renderTeacherModel() {
     const model = this.props.model;
-    const modelNotEmpty = model && (model.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (model.replace(/[\n\r]/g, '') !== "<p><br></p>");
+    const modelNotEmpty = textEditorInputNotEmpty(model);
     if (modelNotEmpty && this.props.model) {
       return (
         <div className="teacher-model-container">
@@ -69,7 +70,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
   renderQuestionOrHTML() {
     if (this.props.data.play.prompt) {
       const editedPrompt = this.props.prompt;
-      const promptNotEmpty = editedPrompt && (editedPrompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (editedPrompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
+      const promptNotEmpty = textEditorInputNotEmpty(editedPrompt);
       const prompt = promptNotEmpty ? editedPrompt : this.props.data.play.prompt;
       return (
         <div>

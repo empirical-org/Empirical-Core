@@ -3,6 +3,7 @@ import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
 import { findDifferences } from './findDifferences'
+import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -48,16 +49,16 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     super(props);
     const current = this.props.current_slide;
     const models = this.props.models;
-    const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
+    const modelNotEmpty = models && textEditorInputNotEmpty(models[current]);
     const prompt = this.props.prompt;
-    const promptNotEmpty = prompt && (prompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (prompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
+    const promptNotEmpty = textEditorInputNotEmpty(prompt);
     this.state = {
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
-      model: modelNotEmpty ? models[current] : '',
-      prompt: promptNotEmpty ? prompt.replace("&nbsp;", "<br>").replace(/\\n|<br>\s+/g, "<br>").replace(/<\/p>\s*<p>/g, "<br>") : ''
+      model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
+      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : ''
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -75,11 +76,11 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     })
     const models = nextProps.models;
     const current = nextProps.current_slide;
-    const modelNotEmpty = models && models[current] && (models[current].replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (models[current].replace(/[\n\r]/g, '') !== "<p><br></p>");
+    const modelNotEmpty = models && textEditorInputNotEmpty(models[current]);
     const prompt = nextProps.prompt;
-    const promptNotEmpty = prompt && prompt && (prompt.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (prompt.replace(/[\n\r]/g, '') !== "<p><br></p>");
-    this.setState({ model: modelNotEmpty ? models[current] : ''})
-    this.setState({ prompt: promptNotEmpty ? prompt.replace("&nbsp;", "<br>").replace(/\\n|<br>\s+/g, "<br>").replace(/<\/p>\s*<p>/g, "<br>") : '' })
+    const promptNotEmpty = textEditorInputNotEmpty(prompt);
+    this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : ''})
+    this.setState({ prompt: promptNotEmpty ? textEditorInputClean(prompt) : '' })
 
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
