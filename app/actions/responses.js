@@ -8,6 +8,7 @@ import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;
 const moment = require('moment');
+
 const responsesRef = rootRef.child('responses');
 
 export function deleteStatus(questionId) {
@@ -122,7 +123,7 @@ export function submitResponse(content, prid, isFirstAttempt) {
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
     request.post({
-      url: `${process.env.QUILL_CMS}responses/create_or_increment`,
+      url: `${process.env.QUILL_CMS}/responses/create_or_increment`,
       form: { response: rubyConvertedResponse, }, },
       (error, httpStatus, body) => {
         if (error) {
@@ -349,6 +350,8 @@ export function getGradedResponsesWithCallback(questionID, callback) {
         formatted_cr.correct = resp.concept_results[cr];
         resp.concept_results[cr] = formatted_cr;
       }
+      resp.conceptResults = resp.concept_results;
+      delete resp.concept_results;
     });
     callback(bodyToObj);
   });
