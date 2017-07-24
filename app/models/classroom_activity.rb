@@ -30,6 +30,10 @@ class ClassroomActivity < ActiveRecord::Base
     due_date.try(:to_formatted_s, :quill_default)
   end
 
+  def mark_all_activity_sessions_complete
+    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished')
+  end
+
   def session_for user
     ass = ActivitySession.unscoped.where(classroom_activity: self, user: user, activity: activity).includes(:activity).order(created_at: :asc)
     if ass.any?
@@ -208,7 +212,7 @@ class ClassroomActivity < ActiveRecord::Base
       self.update(locked: true)
     end
   end
-  
+
   def update_lessons_cache
     if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
       lessons_cache =  JSON.parse($redis.get("user_id:#{self.classroom.teacher.id}_lessons_array") || '[]')
