@@ -10,6 +10,7 @@ import {
   clearAllSubmissions,
   toggleStudentFlag,
   setModel,
+  updateStudentSubmissionOrder
 } from '../../../actions/classroomSessions';
 import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
@@ -52,6 +53,7 @@ class CurrentSlide extends React.Component<any, any> {
       const submissions: SelectedSubmissions | null = this.props.classroomSessions.data.selected_submissions;
       const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideId] : null;
       const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
+      updateStudentSubmissionOrder(caId, currentSlideId, student)
       if (!currentValue) {
         saveSelectedStudentSubmission(caId, currentSlideId, student);
       } else {

@@ -105,7 +105,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
-    const props = { mode, submissions, selected_submissions, };
+    const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
+    const props = { mode, submissions, selected_submissions, selected_submission_order};
     let passedProps;
     switch (current.type) {
       case 'CL-LB':
@@ -121,14 +122,12 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
           <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model}/>
         );
       case 'CL-SA':
-        passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
+          <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
         );
       case 'CL-FB':
-        passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
+          <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
         );
       case 'CL-FL':
         return (

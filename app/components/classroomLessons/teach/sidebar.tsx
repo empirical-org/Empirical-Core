@@ -60,7 +60,8 @@ class Sidebar extends React.Component<any, any> {
         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
         let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
         let selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
-        let props = { mode, submissions, selected_submissions, };
+        let selected_submission_order = data.selected_submission_order && data.selected_submission_order[slide] ? data.selected_submission_order[slide] : null;
+        let props = { mode, submissions, selected_submissions, selected_submission_order};
         switch (questions[slide].type) {
           case 'CL-LB':
             thumb = (
