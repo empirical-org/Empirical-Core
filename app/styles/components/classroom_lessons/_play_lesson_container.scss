@@ -88,9 +88,9 @@
   max-width: 800px;
   background-color: 'yellow';
   .student.text-editor.card {
-    width: 250px;
-    height: 40px;
-    min-height: 0px;
+    min-width: 250px;
+    max-width: 500px;
+    min-height: 40px;
     .card-content {
       padding: 9px;
     }

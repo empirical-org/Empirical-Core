@@ -31,7 +31,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
     this.state = {
-      response: '',
+      response: props.data.play.prefilledText || '',
       editing: false,
       submitted: false,
     };
