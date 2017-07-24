@@ -104,9 +104,6 @@ const DiagnosticQuestion = React.createClass({
           </div>
           <div className="button-group" style={{ marginTop: 10, }}>
             <button className="button is-info" onClick={this.startEditingDiagnosticQuestion}>Edit Question</button>
-            <Link to={'admin/sentence-fragments'}>
-              <button className="button is-danger" onClick={this.deleteDiagnosticQuestion}>Delete Question</button>
-            </Link>
           </div>
 
           <div className="tabs">

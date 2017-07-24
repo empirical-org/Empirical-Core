@@ -2,10 +2,21 @@ import React from 'react';
 import LinkListItem from '../shared/linkListItem.jsx'
 export default React.createClass({
   renderSentenceFragmentListItems: function () {
-    if (this.props.sentenceFragments.length === 0) {
+    const questions = this.props.sentenceFragments;
+    if (questions.length === 0) {
       return;
     }
-    return this.props.sentenceFragments.map((sentenceFragment) => {
+    let filtered;
+    if (!this.props.showOnlyArchived) {
+      filtered = questions.filter((question) => 
+        question.flag !== "Archive"
+      )
+    } else {
+      filtered = questions.filter((question) => 
+        question.flag === "Archive"
+      )
+    }
+    return filtered.map((sentenceFragment) => {
       return (
         <LinkListItem
           key={sentenceFragment.key}

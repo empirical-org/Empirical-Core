@@ -6,12 +6,17 @@ import { Link } from 'react-router';
 import Modal from '../modal/modal.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
 import EditLessonForm from './lessonForm.jsx';
-import LinkListItem from '../shared/linkListItem.jsx'
+import LinkListItem from '../shared/linkListItem.jsx';
+import ArchivedButton from '../shared/archivedButton.jsx';
+import FlagDropdown from '../shared/flagDropdown.jsx';
 
 const Lessons = React.createClass({
 
   getInitialState() {
-    return { lessonFlags: 'All Flags', };
+    return { 
+      lessonFlags: 'All Flags',
+      showOnlyArchived: false,
+    };
   },
 
   createNew() {
@@ -23,11 +28,26 @@ const Lessons = React.createClass({
     // this.props.dispatch(actions.toggleNewLessonModal())
   },
 
+  toggleShowArchived() {
+    this.setState({
+      showOnlyArchived: !this.state.showOnlyArchived,
+    });
+  },
+
   renderLessons() {
     const { data, } = this.props.lessons;
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
       keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
+    }
+    if (this.state.showOnlyArchived) {
+      const { questions } = this.props;
+      keys = _.filter(keys, key => (data[key].questions.filter((question) => {
+        const currentQuestion = questions.data[question.key];
+        if (currentQuestion && currentQuestion.flag === "Archive") {
+          return question;
+        }
+      })).length > 0);
     }
     return keys.map(key => (
       <LinkListItem
@@ -61,15 +81,10 @@ const Lessons = React.createClass({
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Lesson</button></h1>
           { this.renderModal() }
-          <span className="select">
-            <select defaultValue="All Flags" onChange={this.handleSelect}>
-              <option value="All Flags">All Flags</option>
-              <option value="Alpha">Alpha</option>
-              <option value="Beta">Beta</option>
-              <option value="Production">Production</option>
-              <option value="Archive">Archive</option>
-            </select>
-          </span>
+          <div style={{display: 'inline-block'}}>
+            <FlagDropdown flag={"All Flags"} handleFlagChange={this.handleSelect} isLessons={true}/> 
+          </div>
+          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} /> 
           <div className="columns">
             <div className="column">
               <aside className="menu">

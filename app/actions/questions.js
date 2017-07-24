@@ -42,19 +42,6 @@ function cancelQuestionEdit(qid) {
   return { type: C.FINISH_QUESTION_EDIT, qid, };
 }
 
-function deleteQuestion(qid) {
-  return (dispatch, getState) => {
-    dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    questionsRef.child(qid).remove((error) => {
-      dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
-      }
-    });
-  };
-}
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
@@ -273,7 +260,6 @@ module.exports = {
   loadQuestions,
   startQuestionEdit,
   cancelQuestionEdit,
-  deleteQuestion,
   submitQuestionEdit,
   toggleNewQuestionModal,
   submitNewQuestion,
@@ -300,5 +286,5 @@ module.exports = {
   clearQuestionState,
   updateResponses,
   setPageNumber,
-  setStringFilter,
+  setStringFilter
 };
