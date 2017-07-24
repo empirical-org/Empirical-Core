@@ -269,8 +269,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     for (let key in fields) {
       let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
       const header = key === 'displayed'
-      ? <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/> {this.renderUnselectAllButton()}</th>
-      : <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/></th>
+      ? <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span>{this.renderUnselectAllButton()}</th>
+      : <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span></th>
       headers.push(header)
     }
     return <thead>
