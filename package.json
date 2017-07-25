@@ -84,7 +84,7 @@
     "typescript": "^2.4.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.0.0",
-    "webpack-bundle-analyzer": "^2.8.2",
+    "webpack-bundle-analyzer": "^2.8.3",
     "webpack-dev-server": "^1.14.0",
     "webpack-error-notification": "^0.1.6"
   },
@@ -120,6 +120,7 @@
     "react-selectize": "^2.1.0",
     "react-simple-pie-chart": "^0.4.1",
     "react-sortable": "^1.2.0",
+    "react-wakelock": "0.0.4",
     "redux-persist": "^4.8.1",
     "request": "^2.72.0",
     "underscore": "^1.8.3",

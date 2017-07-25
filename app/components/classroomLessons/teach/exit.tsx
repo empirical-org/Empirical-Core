@@ -26,7 +26,7 @@ class ExitSlide extends React.Component<any, any> {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
-      form: {assignAction: e}},
+      form: {assignAction: e},
     }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);

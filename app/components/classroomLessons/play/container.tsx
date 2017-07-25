@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import WakeLock from 'react-wakelock';
 import {
   startListeningToSession,
   registerPresence,
@@ -193,14 +194,15 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
          if (component) {
            return (
              <div>
-             {absentTeacher || watchTeacher}
-             <div className="play-lesson-container">
-             <div className="main-content">
-             <div className="main-content-wrapper">
-             {component}
-             </div>
-             </div>
-             </div>
+             <WakeLock />
+              {absentTeacher || watchTeacher}
+                <div className="play-lesson-container">
+                  <div className="main-content">
+                   <div className="main-content-wrapper">
+                     {component}
+                   </div>
+                 </div>
+               </div>
              </div>
            );
          }
