@@ -140,7 +140,7 @@ export function submitResponse(content, prid, isFirstAttempt) {
 
 export function submitMassEditFeedback(ids, feedback, qid) {
   return (dispatch) => {
-    const updated_attribute = { feedback }
+    const updated_attribute = { feedback, };
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       json: { ids, updated_attribute, }, },
@@ -160,8 +160,8 @@ export function submitMassEditFeedback(ids, feedback, qid) {
 export function submitMassEditConceptResults(ids, conceptResults, qid) {
   return (dispatch) => {
     const updated_attribute = {
-      concept_results: conceptResults
-    }
+      concept_results: conceptResults,
+    };
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       json: { ids, updated_attribute, }, },
@@ -354,6 +354,30 @@ export function getGradedResponsesWithCallback(questionID, callback) {
       delete resp.concept_results;
     });
     callback(bodyToObj);
+  });
+}
+
+export function getGradedResponsesWithoutCallback(questionID) {
+  request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
+    if (error) {
+      console.log('error:', error); // Print the error if one occurred
+    }
+    const bodyToObj = {};
+    JSON.parse(body).forEach((resp) => {
+      bodyToObj[resp.id] = resp;
+      if (typeof resp.concept_results === 'string') {
+        resp.concept_results = JSON.parse(resp.concept_results);
+      }
+      for (const cr in resp.concept_results) {
+        const formatted_cr = {};
+        formatted_cr.conceptUID = cr;
+        formatted_cr.correct = resp.concept_results[cr];
+        resp.concept_results[cr] = formatted_cr;
+      }
+      resp.conceptResults = resp.concept_results;
+      delete resp.concept_results;
+    });
+    return bodyToObj;
   });
 }
 
