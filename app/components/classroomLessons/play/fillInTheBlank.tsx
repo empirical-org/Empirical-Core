@@ -46,6 +46,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student');
+    if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
+      const submissionVals = nextProps.submissions[student].data.match(/<strong>(.*?)<\/strong>/g).map((term) => term.replace(/<strong>|<\/strong>/g, ''))
+      this.setState({ submitted: true })
+      this.setState({ inputVals: submissionVals })
+    }
     // this will reset the state when a teacher resets a question
     if (this.state.submitted === true && nextProps.submissions === null) {
       const splitPrompt = nextProps.data.play.prompt.split('___');

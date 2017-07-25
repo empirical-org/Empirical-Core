@@ -27,7 +27,7 @@ class ExitSlide extends React.Component<any, any> {
       mode: 'cors',
       credentials: 'include',
       form: {assignAction: e}},
-    }).then((response) => {
+    ).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
