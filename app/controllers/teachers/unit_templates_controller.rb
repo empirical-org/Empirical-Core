@@ -7,7 +7,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        redirect_to "/teachers/classrooms/activity_planner/featured-activity-packs/#{params[:id]}" if @is_teacher
+        redirect_to "/teachers/classrooms/assign_activities/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
       format.json do
         render json: get_cached_formatted_unit_templates

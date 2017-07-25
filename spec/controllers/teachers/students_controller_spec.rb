@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rails_helper'
 
 describe Teachers::StudentsController, type: :controller do
   describe 'creating a student' do
