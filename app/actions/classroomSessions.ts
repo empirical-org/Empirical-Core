@@ -146,6 +146,25 @@ export function removeSelectedStudentSubmission(classroom_activity_id: string, q
   selectedSubmissionRef.remove();
 }
 
+export function updateStudentSubmissionOrder(classroom_activity_id: string, question_id: string, student_id: string): void {
+  const selectedSubmissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
+  selectedSubmissionOrderRef.once('value', (snapshot) => {
+    const currentArray = snapshot.val()
+    if (currentArray) {
+      if (currentArray.includes(student_id)) {
+        const index = currentArray.indexOf(student_id)
+        currentArray.splice(index, 1)
+        selectedSubmissionOrderRef.set(currentArray)
+      } else {
+        currentArray.push(student_id)
+        selectedSubmissionOrderRef.set(currentArray)
+      }
+    } else {
+      selectedSubmissionOrderRef.set([student_id])
+    }
+  })
+}
+
 export function clearAllSelectedSubmissions(classroom_activity_id: string, question_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}`);
   selectedSubmissionRef.remove()

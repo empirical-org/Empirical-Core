@@ -284,6 +284,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     return <thead>
       <tr>
         {headers}
+        <th></th>
       </tr>
     </thead>
   }
@@ -340,7 +341,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderSubmissionRow(studentKey: string, index: number) {
-    const { selected_submissions, submissions, current_slide, students } = this.props;
+    const { selected_submissions, submissions, current_slide, students, selected_submission_order } = this.props;
     const text: any = submissions[current_slide][studentKey].data
 
     const boldedText = findDifferences(text, this.props.prompt);
@@ -350,6 +351,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
     const checkbox = this.determineCheckbox(checked)
+    const studentNumber: number | null = checked === true ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
+    const studentNumberClassName: string = checked === true ? 'answer-number' : ''
     const studentName: string = students[studentKey]
       return <tr key={index}>
         <td>{studentName}</td>
@@ -367,6 +370,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             {checkbox}
           </label>
         </td>
+        <td><span className={studentNumberClassName}>{studentNumber}</span></td>
       </tr>
 
   }

@@ -19,6 +19,7 @@ interface SingleAnswerProps {
   mode: string|null,
   submissions: QuestionSubmissionsList|null,
   selected_submissions: SelectedSubmissionsForQuestion|null,
+  selected_submission_order: Array<string>|null
 }
 
 interface SingleAnswerState {
@@ -59,7 +60,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
-    const classAnswers = this.props.selected_submissions
+    const classAnswers = this.props.selected_submission_order
     ? (<div>
       <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
       {this.renderClassAnswersList()}
@@ -79,15 +80,15 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderClassAnswersList() {
-    const { selected_submissions, submissions, } = this.props;
-    const selected = Object.keys(selected_submissions).map((key, index) => {
+    const { selected_submissions, submissions, selected_submission_order} = this.props;
+    const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
       const text = submissions && submissions[key] ? submissions[key].data : "";
       return (
         <li key={index}>
           <span className="answer-number">{index + 1}</span>{text}
         </li>
       );
-    });
+    }) : null;
     return (
       <ul className="class-answer-list">
         {selected}

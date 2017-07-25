@@ -47,7 +47,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models} = this.props.data;
+    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models, selected_submission_order} = this.props.data;
     const showHeaderText: string = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
     return (
       <div className="teacher-single-answer">
@@ -62,6 +62,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         <ScriptComponent
           script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
           prompt={this.props.lessonData.questions[this.props.data.current_slide].data.play.prompt}
+          selected_submission_order={selected_submission_order}
           selected_submissions={selected_submissions}
           submissions={submissions}
           current_slide={current_slide}
