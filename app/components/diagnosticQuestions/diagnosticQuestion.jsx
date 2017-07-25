@@ -9,6 +9,8 @@ import ResponseComponent from '../questions/responseComponent.jsx';
 import Cues from '../renderForQuestions/cues.jsx';
 import icon from '../../img/question_icon.svg';
 import activeComponent from 'react-router-active-component';
+import EditForm from './diagnosticQuestionForm.jsx';
+import Modal from '../modal/modal.jsx';
 const NavLink = activeComponent('li');
 
 import {
@@ -47,8 +49,37 @@ const DiagnosticQuestion = React.createClass({
     this.props.dispatch(stopListeningToResponses(questionID));
   },
 
+  startEditingDiagnosticQuestion() {
+    this.props.dispatch(diagnosticQuestionActions.startQuestionEdit(this.props.params.questionID));
+  },
+
+  saveQuestionEdits(vals) {
+    this.props.dispatch(diagnosticQuestionActions.submitQuestionEdit(this.props.params.questionID, vals));
+  },
+
+  cancelEditingQuestion() {
+    this.props.dispatch(diagnosticQuestionActions.cancelQuestionEdit(this.props.params.questionID));
+  },
+
   getResponses() {
     return this.state.responses;
+  },
+
+  deleteDiagnosticQuestion() {
+    this.props.dispatch(diagnosticQuestionActions.deleteQuestion(this.props.params.questionID));
+  },
+
+  renderEditForm() {
+    const { data, } = this.props.diagnosticQuestions,
+      { questionID, } = this.props.params;
+    const question = (data[questionID]);
+    if (this.props.diagnosticQuestions.states[questionID] === C.EDITING_QUESTION) {
+      return (
+        <Modal close={this.cancelEditingQuestion}>
+          <EditForm question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels} concepts={this.props.concepts} />
+        </Modal>
+      );
+    }
   },
 
   render() {
@@ -64,6 +95,7 @@ const DiagnosticQuestion = React.createClass({
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
       return (
         <div>
+          {this.renderEditForm()}
           <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} style={{ marginBottom: 0, }} />
           <Cues
             getQuestion={() => data[questionID]}
@@ -75,9 +107,6 @@ const DiagnosticQuestion = React.createClass({
           </div>
           <div className="button-group" style={{ marginTop: 10, }}>
             <button className="button is-info" onClick={this.startEditingDiagnosticQuestion}>Edit Question</button>
-            <Link to={'admin/sentence-fragments'}>
-              <button className="button is-danger" onClick={this.deleteDiagnosticQuestion}>Delete Question</button>
-            </Link>
           </div>
 
           <div className="tabs">

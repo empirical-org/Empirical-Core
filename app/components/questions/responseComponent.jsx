@@ -24,9 +24,10 @@ import {
   incrementResponseCount,
   submitResponseEdit,
   removeLinkToParentID,
-  setUpdatedResponse
+  setUpdatedResponse,
+  getGradedResponsesWithCallback
 } from '../../actions/responses';
-import request from 'request';
+
 const C = require('../../constants').default;
 
 const labels = C.ERROR_AUTHORS;
@@ -54,21 +55,17 @@ const Responses = React.createClass({
       matcher = QuestionMatcher;
     }
     return {
-      responses: [],
-      numberOfPages: 1,
-      responsePageNumber: 1,
-      numberOfResponses: 0,
       percentageOfWeakResponses: 0,
       actions,
       viewingResponses: true,
       matcher,
-      stringFilter: '',
       selectedResponses: [],
     };
   },
 
   componentDidMount() {
     this.searchResponses();
+    this.props.dispatch(questionActions.initializeSubscription(this.props.questionID));
   },
 
   componentDidUpdate(prevProps) {
@@ -80,23 +77,17 @@ const Responses = React.createClass({
     }
   },
 
+  componentWillUnmount() {
+    this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
+    this.clearResponses();
+  },
+
+  clearResponses() {
+    this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
+  },
+
   searchResponses() {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/responses/search`,
-        method: 'POST',
-        json: { search: this.getFormattedSearchData(), },
-      },
-      (err, httpResponse, data) => {
-        const parsedResponses = _.indexBy(data.results, 'uid');
-        this.setState({
-          responses: parsedResponses,
-          numberOfResponses: data.numberOfResults,
-          numberOfPages: data.numberOfPages,
-          percentageOfWeakResponses: data.percentageOfWeakResponses
-        });
-      }
-    );
+    this.props.dispatch(questionActions.searchResponses(this.props.questionID));
   },
 
   getTotalAttempts() {
@@ -104,7 +95,7 @@ const Responses = React.createClass({
   },
 
   getResponseCount() {
-    return this.state.numberOfResponses;
+    return this.props.filters.numberOfResponses;
   },
 
   removeResponseFromMassEditArray(responseKey) {
@@ -138,25 +129,68 @@ const Responses = React.createClass({
     // };
     // const question = new this.state.matcher(fields);
     // return question.getPercentageWeakResponses();
-    return this.state.percentageOfWeakResponses
+    return this.state.percentageOfWeakResponses;
   },
 
   // ryan Look here!!!
   getMatchingResponse(rid) {
-    const item = this.props.question;
     // pass all possible fields regardless of matcher as the matchers will filter it out.
-    const fields = {
-      wordCountChange: item.wordCountChange,
-      questionUID: this.props.questionID,
-      sentences: item.sentences,
-      prompt: item.prompt,
-      responses: _.filter(this.responsesWithStatus(), resp => resp.statusCode < 2),
-      focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
-      incorrectSequences: item.incorrectSequences ? hashToCollection(item.incorrectSequences) : [],
-      ignoreCaseAndPunc: item.ignoreCaseAndPunc,
+    const callback = (data) => {
+      const item = this.props.question;
+      const fields = {
+        wordCountChange: item.wordCountChange,
+        questionUID: this.props.questionID,
+        sentences: item.sentences,
+        prompt: item.prompt,
+        responses: hashToCollection(data),
+        focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
+        incorrectSequences: item.incorrectSequences ? hashToCollection(item.incorrectSequences) : [],
+        ignoreCaseAndPunc: item.ignoreCaseAndPunc,
+      };
+      const markingObject = new this.state.matcher(fields);
+      const newMatchedResponse = markingObject.checkMatch(this.getResponse(rid).text);
+      const response = this.getResponse(rid);
+
+      const changed =
+        (newMatchedResponse.response.parentID !== response.parentID) ||
+        (newMatchedResponse.response.author !== response.author) ||
+        (newMatchedResponse.response.feedback !== response.feedback) ||
+        (newMatchedResponse.response.conceptResults !== response.conceptResults);
+      const unmatched = (newMatchedResponse.found === false);
+      console.log('Rematched: t, u, o, n: ', changed, unmatched);
+      if (changed) {
+        if (unmatched) {
+          const newValues = {
+            weak: false,
+            feedback: undefined,
+            parentID: undefined,
+            text: response.text,
+            count: response.count,
+            questionUID: response.questionUID,
+            gradeIndex: `unmatched${response.questionUID}`,
+          };
+          this.updateRematchedResponse(rid, newValues);
+        } else if (newMatchedResponse.response.parentID === undefined) {
+          this.props.dispatch(
+            deleteResponse(this.props.questionID, rid)
+          );
+        } else {
+          const newValues = {
+            weak: false,
+            parentID: newMatchedResponse.response.parentID,
+            author: newMatchedResponse.response.author,
+            feedback: newMatchedResponse.response.feedback,
+            gradeIndex: `nonhuman${response.questionUID}`,
+          };
+          if (newMatchedResponse.response.conceptResults) {
+            newValues.conceptResults = newMatchedResponse.response.conceptResults;
+          }
+          this.updateRematchedResponse(rid, newValues);
+        }
+      }
     };
-    const markingObject = new this.state.matcher(fields);
-    return markingObject.checkMatch(this.getResponse(rid).text);
+
+    return getGradedResponsesWithCallback(this.props.questionID, callback);
   },
 
   getErrorsForAttempt(attempt) {
@@ -176,46 +210,6 @@ const Responses = React.createClass({
 
   rematchResponse(rid) {
     const newMatchedResponse = this.getMatchingResponse(rid);
-    const response = this.getResponse(rid);
-    const changed =
-      (newMatchedResponse.response.parentID !== response.parentID) ||
-      (newMatchedResponse.response.author !== response.author) ||
-      (newMatchedResponse.response.feedback !== response.feedback) ||
-      (newMatchedResponse.response.conceptResults !== response.conceptResults);
-    const unmatched = (newMatchedResponse.found === false);
-    console.log('Rematched: t, u, o, n: ', changed, unmatched);
-    if (changed) {
-      if (unmatched) {
-        const newValues = {
-          weak: false,
-          feedback: undefined,
-          parentID: undefined,
-          text: response.text,
-          count: response.count,
-          questionUID: response.questionUID,
-          gradeIndex: `unmatched${response.questionUID}`,
-        };
-        this.props.dispatch(
-            this.updateRematchedResponse(rid, newValues)
-          );
-      } else if (newMatchedResponse.response.parentID === undefined) {
-        this.props.dispatch(
-          deleteResponse(this.props.questionID, rid)
-        );
-      } else {
-        const newValues = {
-          weak: false,
-          parentID: newMatchedResponse.response.parentID,
-          author: newMatchedResponse.response.author,
-          feedback: newMatchedResponse.response.feedback,
-          gradeIndex: `nonhuman${response.questionUID}`,
-        };
-        if (newMatchedResponse.response.conceptResults) {
-          newValues.conceptResults = newMatchedResponse.response.conceptResults;
-        }
-        this.updateRematchedResponse(rid, newValues);
-      }
-    }
   },
 
   rematchAllResponses() {
@@ -230,7 +224,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.state.responses))
+    return hashToCollection(respWithStatus(this.props.filters.responses));
   },
 
   responsesGroupedByStatus() {
@@ -261,7 +255,7 @@ const Responses = React.createClass({
   },
 
   getResponse(responseID) {
-    return this.props.responses[responseID];
+    return this.props.filters.responses[responseID];
   },
 
   getChildResponses(responseID) {
@@ -274,7 +268,7 @@ const Responses = React.createClass({
   },
 
   getBoundsForCurrentPage(length) {
-    const startIndex = (this.state.responsePageNumber - 1) * responsesPerPage;
+    const startIndex = (this.props.filters.responsePageNumber - 1) * responsesPerPage;
     const endIndex = startIndex + responsesPerPage > length ? length : startIndex + responsesPerPage;
     return [startIndex, endIndex];
   },
@@ -282,7 +276,8 @@ const Responses = React.createClass({
   renderResponses() {
     if (this.state.viewingResponses) {
       const { questionID, } = this.props;
-      const responses = this.responsesWithStatus();
+      const responsesWStatus = this.responsesWithStatus();
+      const responses = _.sortBy(responsesWStatus, 'sortOrder');
       // const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
         responses={responses}
@@ -330,13 +325,6 @@ const Responses = React.createClass({
 
   deselectFields() {
     this.props.dispatch(filterActions.deselectAllFields());
-  },
-
-  getFormattedSearchData() {
-    const searchData = this.props.filters.formattedFilterData;
-    searchData.text = this.state.stringFilter;
-    searchData.pageNumber = this.state.responsePageNumber;
-    return searchData;
   },
 
   renderStatusToggleMenu() {
@@ -412,8 +400,7 @@ const Responses = React.createClass({
           className="button is-fullwidth is-outlined" onClick={() => {
             this.setState({
               viewingResponses: !this.state.viewingResponses,
-              responsePageNumber: 1,
-            });
+            }, this.updatePageNumber(1));
           }}
         >Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
@@ -429,7 +416,7 @@ const Responses = React.createClass({
   },
 
   renderDeselectAllFiltersButton() {
-    return(
+    return (
       <div className="column">
         <button className="button is-fullwidth is-outlined" onClick={this.deselectFields}>Deselect All Filters</button>
       </div>
@@ -497,15 +484,16 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
+    this.props.dispatch(questionActions.updateStringFilter(this.refs.stringFilter.value, this.props.questionID));
+    // this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
   },
 
   getFilteredResponses(responses) {
-    if (this.state.stringFilter == '') {
+    if (this.props.filters.stringFilter == '') {
       return responses;
     }
     const that = this;
-    return _.filter(responses, response => response.text.indexOf(that.state.stringFilter) >= 0);
+    return _.filter(responses, response => response.text.indexOf(that.props.filters.stringFilter) >= 0);
   },
 
   mapCountToResponse(rid) {
@@ -525,38 +513,38 @@ const Responses = React.createClass({
     return _.values(mapped);
   },
 
-  setPageNumber(pageNumber) {
-    this.setState({ responsePageNumber: pageNumber, }, () => this.searchResponses());
+  updatePageNumber(pageNumber) {
+    this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID));
   },
 
   incrementPageNumber() {
-    if (this.state.responsePageNumber < this.getNumberOfPages()) {
-      this.setPageNumber(this.state.responsePageNumber + 1);
+    if (this.props.filters.responsePageNumber < this.getNumberOfPages()) {
+      this.updatePageNumber(this.props.filters.responsePageNumber + 1);
     }
   },
 
   decrementPageNumber() {
-    if (this.state.responsePageNumber !== 1) {
-      this.setPageNumber(this.state.responsePageNumber - 1);
+    if (this.props.filters.responsePageNumber !== 1) {
+      this.updatePageNumber(this.props.filters.responsePageNumber - 1);
     }
   },
 
   getNumberOfPages() {
-    return this.state.numberOfPages;
+    return this.props.filters.numberOfPages;
   },
 
   resetPageNumber() {
-    this.setPageNumber(1);
+    this.updatePageNumber(1);
   },
 
   renderDisplayingMessage() {
     let endWord,
       length;
     if (this.state.viewingResponses) {
-      length = this.state.numberOfResponses
+      length = this.props.filters.numberOfResponses;
       endWord = ' responses';
     } else {
-      length = hashToCollection(this.getPOSTagsList()).length
+      length = hashToCollection(this.getPOSTagsList()).length;
       endWord = ' parts of speech strings';
     }
     const bounds = this.getBoundsForCurrentPage(length);
@@ -572,11 +560,11 @@ const Responses = React.createClass({
     //   array = this.getPOSTagsList()
     // }
 
-    const pageNumbers = _.range(1, this.state.numberOfPages + 1);
+    const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {
-      if (this.state.responsePageNumber === pageNumber) {
+      if (this.props.filters.responsePageNumber === pageNumber) {
         pageNumberStyle = {
           backgroundColor: 'lightblue',
         };
@@ -585,20 +573,20 @@ const Responses = React.createClass({
       }
       return (
         <li key={i}>
-          <a className="button" style={pageNumberStyle} onClick={() => this.setPageNumber(pageNumber)}>{pageNumber}</a>
+          <a className="button" style={pageNumberStyle} onClick={() => this.updatePageNumber(pageNumber)}>{pageNumber}</a>
           {/* <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a> */}
         </li>
       );
     });
 
     let nextButtonClassName = 'button pagination-extreme-button';
-    if (this.state.responsePageNumber === this.getNumberOfPages()) {
+    if (this.props.filters.responsePageNumber === this.getNumberOfPages()) {
       nextButtonClassName += ' is-disabled';
     }
     const nextButton = <a className={nextButtonClassName} onClick={this.incrementPageNumber}>Next</a>;
 
     let prevButtonClassName = 'button pagination-extreme-button';
-    if (this.state.responsePageNumber === 1) {
+    if (this.props.filters.responsePageNumber === 1) {
       prevButtonClassName += ' is-disabled';
     }
     const prevButton = <a className={prevButtonClassName} onClick={this.decrementPageNumber}>Prev</a>;
@@ -619,9 +607,9 @@ const Responses = React.createClass({
   },
 
   render() {
-    const questionBar = Object.keys(this.state.responses).length > 0
+    const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
     ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
-    : <span />
+    : <span />;
 
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
@@ -650,7 +638,7 @@ const Responses = React.createClass({
             </div>
           </div>
         </div>
-        <input className="input" type="text" value={this.state.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
+        <input className="input" type="text" value={this.props.filters.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}
