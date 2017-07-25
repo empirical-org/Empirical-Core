@@ -39,10 +39,10 @@ class ExitSlide extends React.Component<any, any> {
     }
   }
 
-  redirectAssignedStudents(){
+  redirectAssignedStudents(followUpUrl: string){
     const assignedStudents = this.getAssignedStudents()
     const caId: string|null = getParameterByName('classroom_activity_id');
-    this.props.redirectAssignedStudents(caId, assignedStudents)
+    this.props.redirectAssignedStudents(caId, assignedStudents, followUpUrl)
   }
 
   assignAction(e){
@@ -59,8 +59,7 @@ class ExitSlide extends React.Component<any, any> {
       }
       return response.json();
     }).then((response) => {
-      redirectAssignedStudents()
-      console.log(response)
+      redirectAssignedStudents(response.follow_up_url)
     }).catch((error) => {
       console.log('error', error)
     })

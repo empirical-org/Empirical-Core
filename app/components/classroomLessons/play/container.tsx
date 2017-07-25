@@ -56,6 +56,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
+    const student = getParameterByName('student');
+    const npCSData = nextProps.classroomSessions.data
+    if (npCSData.assignedStudents && npCSData.assignedStudents.includes(student) && npCSData.followUpUrl) {
+      window.location = npCSData.followUpUrl.url
+    }
     if (!nextProps.classroomSessions.error && !nextProps.classroomLesson.error) {
       const element = document.getElementsByClassName("main-content")[0];
       if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {

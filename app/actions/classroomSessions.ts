@@ -74,9 +74,11 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
-export function redirectAssignedStudents(classroom_activity_id: string, student_ids: Array<string>) {
+export function redirectAssignedStudents(classroom_activity_id: string, studentIds: Array<string>, followUpUrl: string) {
   const assignedStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/assignedStudents`)
-  assignedStudentsRef.set(student_ids)
+  const followUpUrlRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpUrl`)
+  assignedStudentsRef.set(studentIds)
+  followUpUrlRef.set(followUpUrl)
 }
 
 export function registerPresence(classroom_activity_id: string, student_id: string): void {
