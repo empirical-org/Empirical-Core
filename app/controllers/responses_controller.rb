@@ -19,9 +19,8 @@ class ResponsesController < ApplicationController
   # POST /responses
   def create
     @response = Response.new(response_params)
-
     if @response.save
-      broadcast_creation_event
+      broadcast_creation_event(@response)
       render json: @response, status: :created, location: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -34,7 +33,7 @@ class ResponsesController < ApplicationController
     if !response
       response = Response.new(params_for_create)
       if response.save
-        broadcast_creation_event
+        broadcast_creation_event(response)
         render json: response, status: :created, location: response
       end
     else
@@ -82,11 +81,16 @@ class ResponsesController < ApplicationController
   end
 
   def edit_many
-    Response.where(id: params[:ids]).update_all(params[:updated_attribute].permit!.to_h)
+    responses = Response.where(id: params[:ids])
+    responses.update_all(params[:updated_attribute].permit!.to_h)
+    # update index
+    responses.each do |response|
+      response.update_index_in_elastic_search
+    end
   end
 
   def delete_many
-    Response.where(id: params[:ids]).delete_all
+    Response.where(id: params[:ids]).destroy_all
   end
 
   def batch_responses_for_lesson
@@ -184,8 +188,8 @@ class ResponsesController < ApplicationController
       end
     end
 
-    def broadcast_creation_event
+    def broadcast_creation_event(response)
       ActionCable.server.broadcast \
-      "admin_question_#{@response.question_uid}", { title: 'new response' }
+      "admin_question_#{response.question_uid}", { title: 'new response' }
     end
 end
