@@ -26,6 +26,12 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
+
+  def unlock_lesson
+    unlocked = @classroom_activity.update(locked: false, pinned: true)
+    render json: {unlocked: unlocked}
+  end
+
   def lessons_activities_cache
     data = JSON.parse($redis.get("user_id:#{current_user.id}_lessons_array") || '[]')
     render json: {data: data}
