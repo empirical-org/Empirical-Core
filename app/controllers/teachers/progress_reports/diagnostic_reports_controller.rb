@@ -69,7 +69,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
               last = (number_of_selections - 1) == index
               # this only accommodates one classroom at a time
               classroom = value["classrooms"][0]
-              AssignRecommendationsWorker.perform_async(value["id"], classroom["id"], classroom["student_ids"], last)
+              AssignRecommendationsWorker.perform_async(value["id"], classroom["id"], classroom["student_ids"].compact, last)
           end
         end
     end
