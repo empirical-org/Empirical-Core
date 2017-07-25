@@ -68,3 +68,6 @@ gem 'rubyzip'
 
 # for server monitoring
 gem 'newrelic_rpm'
+
+# WEBSOCKETS
+gem 'pusher'

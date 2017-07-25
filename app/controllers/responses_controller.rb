@@ -20,7 +20,7 @@ class ResponsesController < ApplicationController
   def create
     @response = Response.new(response_params)
     if @response.save
-      broadcast_creation_event(@response)
+      AdminUpdates.run(@response.question_uid)
       render json: @response, status: :created, location: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -33,7 +33,7 @@ class ResponsesController < ApplicationController
     if !response
       response = Response.new(params_for_create)
       if response.save
-        broadcast_creation_event(response)
+        AdminUpdates.run(response.question_uid)
         render json: response, status: :created, location: response
       end
     else
