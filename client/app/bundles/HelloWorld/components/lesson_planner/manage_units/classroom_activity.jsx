@@ -115,11 +115,16 @@ export default React.createClass({
 		this.setState({showModal: true})
 	},
 
+	closeModal: function() {
+		this.setState({showModal: false})
+	},
+
 	renderModal: function() {
 		if (this.state.showModal) {
 			return <PreviewOrLaunchModal
 				lessonUID={this.props.data.activity.uid}
-				classroomActivityUID={this.props.data.id}
+				classroomActivityID={this.props.data.id}
+				closeModal={this.closeModal}
 			/>
 		}
 	},
