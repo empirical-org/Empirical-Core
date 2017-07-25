@@ -13,6 +13,10 @@ class ClassroomActivity < ActiveRecord::Base
 
   validate :not_duplicate, :on => :create
 
+  validates_uniqueness_of :pinned, scope: :classroom_id,
+    if: Proc.new { |ca| ca.pinned == true }
+
+  before_validation :check_pinned
   after_create :assign_to_students, :lock_if_lesson, :update_lessons_cache
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions
 
@@ -176,6 +180,19 @@ class ClassroomActivity < ActiveRecord::Base
   def hide_all_activity_sessions
     self.activity_sessions.each do |as|
       as.update(visible: false)
+    end
+  end
+
+  def check_pinned
+    if self.pinned == true
+      if self.visible == false
+        # unpin ca before archiving
+        self.update!(pinned: false)
+      else
+        # unpin any other pinned ca before pinning new one
+        pinned_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id, pinned: true)
+        pinned_ca.update(pinned: false) if pinned_ca
+      end
     end
   end
 
