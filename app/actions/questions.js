@@ -164,7 +164,11 @@ function searchResponses(qid) {
         json: { search: getFormattedSearchData(getState()), },
       },
       (err, httpResponse, data) => {
-        const parsedResponses = _.indexBy(data.results, 'id');
+        const embeddedOrder = _.map(data.results, (response, i) => {
+          response.sortOrder = i;
+          return response;
+        });
+        const parsedResponses = _.indexBy(embeddedOrder, 'id');
         const responseData = {
           responses: parsedResponses,
           numberOfResponses: data.numberOfResults,

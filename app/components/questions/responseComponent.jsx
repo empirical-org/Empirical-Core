@@ -26,6 +26,7 @@ import {
   removeLinkToParentID,
   setUpdatedResponse
 } from '../../actions/responses';
+
 const C = require('../../constants').default;
 
 const labels = C.ERROR_AUTHORS;
@@ -62,8 +63,8 @@ const Responses = React.createClass({
   },
 
   componentDidMount() {
-    this.searchResponses()
-    this.props.dispatch(questionActions.initializeSubscription(this.props.questionID))
+    this.searchResponses();
+    this.props.dispatch(questionActions.initializeSubscription(this.props.questionID));
   },
 
   componentDidUpdate(prevProps) {
@@ -76,11 +77,16 @@ const Responses = React.createClass({
   },
 
   componentWillUnmount() {
-    this.props.dispatch(questionActions.removeSubscription(this.props.questionID))
+    this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
+    this.clearResponses();
+  },
+
+  clearResponses() {
+    this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   },
 
   searchResponses() {
-    this.props.dispatch(questionActions.searchResponses(this.props.questionID))
+    this.props.dispatch(questionActions.searchResponses(this.props.questionID));
   },
 
   getTotalAttempts() {
@@ -122,7 +128,7 @@ const Responses = React.createClass({
     // };
     // const question = new this.state.matcher(fields);
     // return question.getPercentageWeakResponses();
-    return this.state.percentageOfWeakResponses
+    return this.state.percentageOfWeakResponses;
   },
 
   // ryan Look here!!!
@@ -214,7 +220,7 @@ const Responses = React.createClass({
   },
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.props.filters.responses))
+    return hashToCollection(respWithStatus(this.props.filters.responses));
   },
 
   responsesGroupedByStatus() {
@@ -266,7 +272,8 @@ const Responses = React.createClass({
   renderResponses() {
     if (this.state.viewingResponses) {
       const { questionID, } = this.props;
-      const responses = this.responsesWithStatus();
+      const responsesWStatus = this.responsesWithStatus();
+      const responses = _.sortBy(responsesWStatus, 'sortOrder');
       // const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
         responses={responses}
@@ -405,7 +412,7 @@ const Responses = React.createClass({
   },
 
   renderDeselectAllFiltersButton() {
-    return(
+    return (
       <div className="column">
         <button className="button is-fullwidth is-outlined" onClick={this.deselectFields}>Deselect All Filters</button>
       </div>
@@ -473,7 +480,7 @@ const Responses = React.createClass({
   },
 
   handleStringFiltering() {
-    this.props.dispatch(questionActions.updateStringFilter(this.refs.stringFilter.value, this.props.questionID))
+    this.props.dispatch(questionActions.updateStringFilter(this.refs.stringFilter.value, this.props.questionID));
     // this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
   },
 
@@ -503,7 +510,7 @@ const Responses = React.createClass({
   },
 
   updatePageNumber(pageNumber) {
-    this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID))
+    this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID));
   },
 
   incrementPageNumber() {
@@ -530,10 +537,10 @@ const Responses = React.createClass({
     let endWord,
       length;
     if (this.state.viewingResponses) {
-      length = this.props.filters.numberOfResponses
+      length = this.props.filters.numberOfResponses;
       endWord = ' responses';
     } else {
-      length = hashToCollection(this.getPOSTagsList()).length
+      length = hashToCollection(this.getPOSTagsList()).length;
       endWord = ' parts of speech strings';
     }
     const bounds = this.getBoundsForCurrentPage(length);
@@ -598,7 +605,7 @@ const Responses = React.createClass({
   render() {
     const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
     ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
-    : <span />
+    : <span />;
 
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
