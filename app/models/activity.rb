@@ -8,6 +8,8 @@ class Activity < ActiveRecord::Base
 
   has_one :section, through: :topic
 
+  belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
+
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
   has_many :units, through: :classroom_activities
