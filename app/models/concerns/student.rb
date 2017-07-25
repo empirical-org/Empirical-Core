@@ -41,7 +41,12 @@ module Student
       else
         first_unit = grouped_scores[grouped_scores.keys[0]]
         if first_unit && first_unit[:not_finished] && first_unit[:not_finished].any?
-          ActivitySession.find(first_unit[:not_finished].first.object.id)
+          activity_session = first_unit[:not_finished].first.object
+          if activity_session.classroom_activity.locked
+            return nil
+          else
+            return activity_session
+          end
         else
           return nil
         end
