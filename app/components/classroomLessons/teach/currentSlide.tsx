@@ -10,6 +10,7 @@ import {
   clearAllSubmissions,
   toggleStudentFlag,
   setModel,
+  redirectAssignedStudents,
 } from '../../../actions/classroomSessions';
 import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
@@ -161,15 +162,8 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-EX':
           return (
             <CLExit
-              script={current.data.teach.script}
-              flaggedStudents={data.flaggedStudents}
-              students={data.students}
-              toggleStudentFlag={this.toggleStudentFlag}
-            />
-          );
-        case 'CL-EX':
-          return (
-            <CLExit
+              redirectAssignedStudents={redirectAssignedStudents}
+              lessonData={lessonData}
               script={current.data.teach.script}
               flaggedStudents={data.flaggedStudents}
               students={data.students}

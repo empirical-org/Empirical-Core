@@ -74,6 +74,11 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
+export function redirectAssignedStudents(classroom_activity_id: string, student_ids: Array<string>) {
+  const assignedStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/assignedStudents`)
+  assignedStudentsRef.set(student_ids)
+}
+
 export function registerPresence(classroom_activity_id: string, student_id: string): void {
   const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence/${student_id}`);
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
