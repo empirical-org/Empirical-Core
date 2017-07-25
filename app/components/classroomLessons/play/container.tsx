@@ -116,6 +116,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         return (
           <CLStudentStatic key={data.current_slide} data={current.data} />
         );
+      case 'CL-EX':
+        return (
+          <CLStudentStatic key={data.current_slide} data={current.data} />
+        );
       case 'CL-MD':
         return (
           <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model}/>
