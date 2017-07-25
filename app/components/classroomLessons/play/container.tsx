@@ -8,6 +8,7 @@ import {
 } from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
+import CLAbsentTeacher from './absentTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
@@ -186,13 +187,14 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
        const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
        // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
        // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
+       const absentTeacher = this.props.classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
        const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
        if (hasreceiveddata && lessonDataLoaded) {
          const component = this.renderCurrentSlide(data, lessonData);
          if (component) {
            return (
              <div>
-             {watchTeacher}
+             {absentTeacher || watchTeacher}
              <div className="play-lesson-container">
              <div className="main-content">
              <div className="main-content-wrapper">
