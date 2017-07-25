@@ -101,7 +101,7 @@ export default React.createClass({
 
   handleTextChange(e) {
     if (!this.props.disabled) {
-      this.props.handleChange(e.target.value);
+      this.props.handleChange(e.target.value, this.props.editorIndex);
     } else {
       console.log("I'm disable RN");
     }
@@ -128,7 +128,7 @@ export default React.createClass({
               value={this.props.value}
               onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
-              placeholder="Type your answer here. Remember, your answer should be just one sentence."
+              placeholder={this.props.placeholder}
               ref="answerBox"
               className="connect-text-area"
               autoFocus

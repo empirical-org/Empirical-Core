@@ -24,6 +24,11 @@
   "private": true,
   "devDependencies": {
     "@kadira/storybook": "^2.34.0",
+    "@types/jest": "^20.0.2",
+    "@types/node": "^8.0.8",
+    "@types/react": "^15.0.31",
+    "@types/react-redux": "^4.4.45",
+    "@types/redux": "^3.6.31",
     "assets-webpack-plugin": "^3.5.0",
     "awesome-typescript-loader": "^3.1.3",
     "babel-core": "^6.25.0",
@@ -64,17 +69,19 @@
     "react-radio-group": "^3.0.1",
     "react-remarkable": "^1.1.1",
     "react-sortable": "^1.2.0",
+    "react-test-renderer": "^15.6.1",
     "react-textarea-autosize": "^4.0.3",
-    "redux": "^3.7.0",
+    "redux": "^3.6.31",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
     "redux-slider-monitor": "^1.0.0",
-    "typescript": "^2.3.4",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.2",
+    "ts-jest": "^20.0.7",
+    "typescript": "^2.4.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.0.0",
     "webpack-bundle-analyzer": "^2.8.2",
@@ -90,6 +97,7 @@
     "draft-js-plugins-editor": "^2.0.0-beta1",
     "draft-js-richbuttons-plugin": "^1.1.0",
     "eslint-plugin-jsx-a11y": "^3.0.1",
+    "font-awesome": "^4.7.0",
     "fuse.js": "^3.0.5",
     "fuzzyset.js": "0.0.3",
     "immutable": "^3.8.1",
@@ -100,7 +108,6 @@
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
-    "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.1",
     "react-onclickout": "^2.0.4",
     "react-redux": "^5.0.5",
@@ -119,6 +126,15 @@
     "warning": "^3.0.0"
   },
   "jest": {
+    "transform": {
+      ".*": "./test/jest.preprocessor.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx"
+    ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],

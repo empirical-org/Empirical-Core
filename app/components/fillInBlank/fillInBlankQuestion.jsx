@@ -34,7 +34,10 @@ class ClassName extends Component {
       return (
         <div>
           <h4 className="title" dangerouslySetInnerHTML={{ __html: this.getQuestion().prompt, }} style={{ marginBottom: 0, }} />
-          <Cues getQuestion={this.getQuestion} />
+          <Cues
+            getQuestion={this.getQuestion}
+            displayArrowAndText={true}
+          />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
             <p>{this.getQuestion().instructions || 'Combine the sentences into one sentence.'}</p>

@@ -18,11 +18,15 @@ import sessions from './sessions';
 import filters from './filtersReducer';
 import massEdit from './massEdit';
 import fillInBlank from './fillInBlank';
-import display from './display'
+import display from './display';
+import classroomSessions from './classroomSessions';
+import classroomLesson from './classroomLesson';
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
   question,
+  classroomLesson,
+  classroomSessions,
   concepts,
   conceptsFeedback,
   itemLevels,

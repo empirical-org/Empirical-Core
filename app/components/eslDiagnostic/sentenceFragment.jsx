@@ -182,7 +182,13 @@ const PlaySentenceFragment = React.createClass({
             transitionLeaveTimeout={300}
           >
             {component}
-            <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+            <TextEditor
+              value={this.state.response}
+              handleChange={this.handleChange}
+              disabled={this.showNextQuestionButton()}
+              checkAnswer={this.checkAnswer}
+              placeholder="Type your answer here. Remember, your answer should be just one sentence."
+            />
             <div className="question-button-group">
               {button}
             </div>

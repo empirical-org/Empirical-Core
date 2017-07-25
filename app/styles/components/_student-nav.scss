@@ -1,4 +1,21 @@
 .nav.student-nav {
+  .student-lessons {
+    height: 66px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    .quill-logo {
+      height: 40px;
+    }
+  }
+    .lesson-name, .teacher-name {
+      height: 28px;
+      font-size: 18px;
+      font-weight: 600;
+    	font-family: $family-sans-serif;
+      color: $white;
+    }
     height: 50px;
     background-color: $green;
 

@@ -1,0 +1,18 @@
+.teacher-single-answer, .teacher-static {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    h1 {
+      font-size: 30px;
+      margin-bottom: 20px;
+      span {
+        font-weight: 600;
+      }
+    }
+    p {
+      color: #00c2a2;
+      cursor: pointer;
+      padding-top: 13px;
+    }
+  }
+}

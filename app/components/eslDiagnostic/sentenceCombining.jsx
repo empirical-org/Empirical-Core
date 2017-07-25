@@ -103,7 +103,11 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderCues() {
-    return <RenderQuestionCues language={this.props.language} getQuestion={this.getQuestion} />;
+    return <RenderQuestionCues
+      language={this.props.language}
+      getQuestion={this.getQuestion}
+      displayArrowAndText={true}
+    />;
   },
 
   updateResponseResource(response) {
@@ -231,6 +235,7 @@ const PlayDiagnosticQuestion = React.createClass({
               handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
               disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
               hasError={this.state.error}
+              placeholder="Type your answer here. Remember, your answer should be just one sentence."
             />
             <div className="button-and-error-row">
               <Error text={this.state.error} />

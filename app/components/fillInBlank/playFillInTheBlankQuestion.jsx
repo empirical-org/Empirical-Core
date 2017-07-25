@@ -309,7 +309,11 @@ export class PlayFillInTheBlankQuestion extends Component {
           <div style={fullPageInstructions}>
             <div>
               <Prompt style={styles.container} elements={this.getPromptElements()} />
-              <Cues getQuestion={this.getQuestion} customText={this.customText()} />
+              <Cues
+                getQuestion={this.getQuestion}
+                customText={this.customText()}
+                displayArrowAndText={true}
+              />
               <Instructions html={this.getInstructionText()} />
             </div>
           </div>

@@ -163,7 +163,13 @@ const PlaySentenceFragment = React.createClass({
           <img className="info" src={icon} />
           <p>{instructions}</p>
         </div>
-        <TextEditor value={this.state.response} handleChange={this.handleChange} disabled={this.showNextQuestionButton()} checkAnswer={this.checkAnswer} />
+        <TextEditor
+          value={this.state.response}
+          handleChange={this.handleChange}
+          disabled={this.showNextQuestionButton()}
+          checkAnswer={this.checkAnswer}
+          placeholder="Type your answer here. Remember, your answer should be just one sentence."
+        />
         <div className="question-button-group">
           {this.renderButton()}
         </div>

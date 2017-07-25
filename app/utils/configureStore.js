@@ -6,11 +6,11 @@ import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import createHashHistory from 'history/lib/createHashHistory';
 import localForage from 'localforage';
+
 const hashhistory = createHashHistory({ queryKey: false, });
 const middleware = routerMiddleware(hashhistory);
 
 const finalCreateStore = compose(
-  autoRehydrate(),
   // middleware you want to use in development:
   applyMiddleware(thunk, middleware),
   // required! Enable Redux DevTools with the monitors you chose
@@ -26,14 +26,7 @@ function getDebugSessionKey() {
 }
 
 export default function configureStore(initialState) {
-  // console.log("creating store")
   const store = finalCreateStore(rootReducer, initialState);
-  // console.log("persisting store")
-  persistStore(store, { storage: localForage, blacklist: ['routing', 'pathways', 'playLesson',
-    'playDiagnostic',
-    'question'], });
-  // console.log("persisted store")
-  // hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {
     module.hot.accept('../reducers/combined', () =>
       store.replaceReducer(require('../reducers/combined')/* .default if you use Babel 6+ */)

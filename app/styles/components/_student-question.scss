@@ -1,6 +1,6 @@
 .feedback-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 33px;
   img {
     max-width: 22px;
@@ -26,6 +26,14 @@
     margin-top: 5px;
     margin-bottom: 5px;
   }
+}
+
+.li-number {
+  font-family: AdelleSans;
+  font-size: 30px;
+  color: #00c2a2;
+  font-weight: 600;
+  padding-right: 10px;
 }
 
 .student.text-editor.card {

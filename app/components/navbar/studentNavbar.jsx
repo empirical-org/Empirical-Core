@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import LanguageSelector from './languageSelector.jsx';
+import StudentLessonsNavBar from './studentLessonsNavbar.jsx';
 
 const Navbar = React.createClass({
   getInitialState() {
@@ -34,29 +35,36 @@ const Navbar = React.createClass({
   },
 
   ellDiagnostic() {
-    return window.location.href.includes('play/diagnostic/ell')
+    return window.location.href.includes('play/diagnostic/ell');
   },
 
-  renderLanguageSelector() {
-    if (this.ellDiagnostic()) {
-      return (
-        <LanguageSelector />
-      );
-    }
+  quillLessons() {
+    return window.location.href.includes('play/class-lessons');
   },
 
   renderLinks() {
-    const navMenu = this.ellDiagnostic() ? '' : 'nav-menu'
+    const navMenu = this.ellDiagnostic() ? '' : 'nav-menu';
     return (
       <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
-        {this.renderLanguageSelector()}
-        <a onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
+        {this.renderLessonSpecificContent()}
+        <a key="a-tag-student-navabar" onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
       </div>
     );
   },
 
+  renderLessonSpecificContent() {
+    if (this.ellDiagnostic()) {
+      return (
+        <LanguageSelector key="language-selector" />
+      );
+    }
+  },
+
   render() {
-    const ellNavClassName = this.ellDiagnostic() ? 'ell-nav' : ''
+    if (this.quillLessons()) {
+      return (<StudentLessonsNavBar />);
+    }
+    const ellNavClassName = this.ellDiagnostic() ? 'ell-nav' : '';
     return (
       <header className={`nav student-nav ${ellNavClassName}`} style={{ height: '50px', }}>
         <div className="container">

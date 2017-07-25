@@ -202,7 +202,10 @@ const Question = React.createClass({
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
           <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} style={{ marginBottom: 0, }} />
-          <Cues getQuestion={this.getQuestion} />
+          <Cues
+            getQuestion={this.getQuestion}
+            displayArrowAndText={true}
+          />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>

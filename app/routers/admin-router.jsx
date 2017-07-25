@@ -79,22 +79,12 @@ const AdminRoutes = (
     {/* <Route path="datadash" component={ScoreAnalysis} /> */}
 
     {/* questions section*/}
-<<<<<<< HEAD
-    <Route path="diagnostic-questions" component={DiagnosticQuestions} />
-    <Route path="diagnostic-questions/new" component={NewDiagnosticQuestions} />
-    <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
-      <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
-      <Route path="responses" component={ResponseComponentWrapper} />
-      <Route path="mass-edit" component={MassEditContainer} />
-    </Route>
-=======
     // <Route path="diagnostic-questions" component={DiagnosticQuestions} />
     // <Route path="diagnostic-questions/:questionID" component={DiagnosticQuestion} >
     //   <IndexRedirect to="/admin/diagnostic-questions/:questionID/responses" />
     //   <Route path="responses" component={ResponseComponentWrapper} />
     //   <Route path="mass-edit" component={MassEditContainer} />
     // </Route>
->>>>>>> develop
 
     {/* sentence Fragment sections*/}
     // <Route path="sentence-fragments" component={SentenceFragments} />
