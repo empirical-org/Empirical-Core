@@ -164,7 +164,7 @@ function searchResponses(qid) {
         json: { search: getFormattedSearchData(getState()), },
       },
       (err, httpResponse, data) => {
-        const parsedResponses = _.indexBy(data.results, 'uid');
+        const parsedResponses = _.indexBy(data.results, 'id');
         const responseData = {
           responses: parsedResponses,
           numberOfResponses: data.numberOfResults,
@@ -180,7 +180,7 @@ function initializeSubscription(qid) {
   return (dispatch) => {
     const sub = cable.subscriptions.create({ channel: 'AdminQuestionChannel', question_uid: qid, }, {
       received: data => data.title === 'new response'
-      ? dispatch(searchResponses(qid))
+      ? setTimeout(() => dispatch(searchResponses(qid)), 1000)
       : null,
     });
   };
@@ -286,5 +286,5 @@ module.exports = {
   clearQuestionState,
   updateResponses,
   setPageNumber,
-  setStringFilter
+  setStringFilter,
 };
