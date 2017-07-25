@@ -23,12 +23,23 @@ import {
   ClassroomLessonSession
 } from '../interfaces';
 import {
-  ClassroomLesson
+  ClassroomLesson,
+  ScriptItem
 } from 'interfaces/classroomLessons';
 
 class CurrentSlide extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    const data: ClassroomLessonSession = props.classroomSessions.data;
+    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const script: Array<ScriptItem> = lessonData && lessonData.questions ? lessonData.questions[data.current_slide].data.teach.script : []
+
+    this.state = {
+      numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
+      numberOfToggledHeaders: 0
+    }
+
     this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
@@ -37,12 +48,21 @@ class CurrentSlide extends React.Component<any, any> {
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this);
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
     this.saveModel = this.saveModel.bind(this);
+    this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     const element = document.getElementsByClassName("main-content")[0];
     if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
       element.scrollTop = 0;
+    }
+    if (nextProps.classroomSessions.hasreceiveddata && nextProps.classroomLesson.hasreceiveddata) {
+      const data: ClassroomLessonSession = nextProps.classroomSessions.data;
+      const lessonData: ClassroomLesson = nextProps.classroomLesson.data;
+      const script: Array<ScriptItem> = lessonData && lessonData.questions ? lessonData.questions[data.current_slide].data.teach.script : []
+      this.setState({
+        numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
+      })
     }
   }
 
@@ -104,6 +124,15 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
+  updateToggledHeaderCount(change: number) {
+    this.setState({numberOfToggledHeaders: this.state.numberOfToggledHeaders + change}, () => {
+      if (this.state.numberOfHeaders === this.state.numberOfToggledHeaders) {
+        this.setState({numberOfToggledHeaders: 0})
+        this.toggleOnlyShowHeaders()
+      }
+    })
+  }
+
   render() {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
@@ -122,6 +151,7 @@ class CurrentSlide extends React.Component<any, any> {
               lessonData={lessonData}
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+              updateToggledHeaderCount={this.updateToggledHeaderCount}
             />
           );
         case 'CL-MD':
@@ -139,6 +169,7 @@ class CurrentSlide extends React.Component<any, any> {
               clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
               clearAllSubmissions={this.clearAllSubmissions}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+              updateToggledHeaderCount={this.updateToggledHeaderCount}
               saveModel={this.saveModel}
             />
           );
@@ -155,6 +186,7 @@ class CurrentSlide extends React.Component<any, any> {
             clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
             clearAllSubmissions={this.clearAllSubmissions}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            updateToggledHeaderCount={this.updateToggledHeaderCount}
             saveModel={this.saveModel}
           />
         )

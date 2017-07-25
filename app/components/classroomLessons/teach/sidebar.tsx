@@ -104,7 +104,7 @@ class Sidebar extends React.Component<any, any> {
           <div key={counter} onClick={() => this.goToSlide(slide)}>
             <div className="sidebar-header">
             <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}</p>
-            {counter === 1 ? this.presentStudents() : null}
+            {currentSlide === slide ? this.presentStudents() : null}
             </div>
             <div className={`slide-preview ${activeClass}`}>
               <div className="scaler">

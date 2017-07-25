@@ -2,6 +2,7 @@ declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
+import StepHtml from './stepHtml'
 import { findDifferences } from './findDifferences'
 import {
   ClassroomLessonSessions,
@@ -30,6 +31,7 @@ const moment = require('moment');
 interface ScriptContainerProps {
   script: Array<ScriptItem>,
   onlyShowHeaders: boolean,
+  updateToggledHeaderCount: Function,
   [key: string]: any,
 }
 
@@ -45,12 +47,15 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   constructor(props) {
     super(props);
+
     this.state = {
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
       model: '',
+      // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
+      // numberOfToggledHeaders: 0
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -84,11 +89,27 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+          return <StepHtml
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            item={item}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+          />
         case 'STEP-HTML-TIP':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index);
+            return <StepHtml
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            item={item}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+          />
         case 'T-MODEL':
-          return this.renderTeacherModel();
+          return <TextEditor
+            key={index}
+            defaultValue={''}
+            value={this.state.model}
+            handleChange={this.handleModelChange}
+            placeholder="Type your model for the students here."
+          />
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -122,7 +143,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderDisplayButton() {
     if (this.state.projecting) {
       return (
-        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Show Prompt</button>
+        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
       )
     } else {
       const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
@@ -393,31 +414,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   handleModelChange(e) {
     this.setState({ model: e, });
     this.props.saveModel(e);
-  }
-
-  renderTeacherModel() {
-    return (
-      <TextEditor
-        defaultValue={''}
-        value={this.state.model}
-        handleChange={this.handleModelChange}
-        placeholder="Type your model for the students here."
-      />
-    );
-
-  }
-
-  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
-    if (item.data) {
-      const html = onlyShowHeaders
-        ? <li className="script-item" key={index}><p className="script-item-heading">{item.data.heading}</p></li>
-        : (<li className="script-item" key={index}>
-          <p className="script-item-heading">{item.data.heading}</p>
-          <hr />
-          <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
-        </li>)
-      return html
-    }
   }
 
   render() {

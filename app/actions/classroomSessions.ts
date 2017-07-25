@@ -95,6 +95,17 @@ export function goToNextSlide(classroom_activity_id: string, state: ClassroomLes
   }
 }
 
+export function goToPreviousSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson) {
+  const { current_slide } = state;
+  const { questions } = lesson;
+  const slides = Object.keys(questions);
+  const current_slide_index = slides.indexOf(current_slide.toString());
+  const previousSlide = slides[current_slide_index - 1];
+  if (previousSlide !== undefined) {
+    return updateCurrentSlide(classroom_activity_id, previousSlide);
+  }
+}
+
 export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
   return (dispatch) => {
     dispatch(updateSlideInStore(question_id))
