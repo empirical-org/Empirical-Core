@@ -12,6 +12,7 @@ export default class extends React.Component {
     };
 
     this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
 
   componentDidMount() {
@@ -30,16 +31,20 @@ export default class extends React.Component {
     this.setState({showModal: true})
   }
 
+  closeModal() {
+    this.setState({showModal: false})
+  }
+
   renderAssignedLessons() {
     return this.state.lessons.map(l =>
       <div key={l.classroom_activity_id}>
-        {this.renderModal(l.classroom_activity_id, l.activity_id)}
+        {this.renderModal(l.classroom_activity_id, l.activity_uid)}
         <div className="flex-row space-between vertically-centered lesson-item">
           <div className="flex-row vertically-centered">
             <div className="image-container flex-row space-around vertically-centered">
               <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
             </div>
-            <span onClick={this.openModal} className="">{l.activity_name}</span>
+            <span onClick={this.openModal} className="lesson-name">{l.activity_name}</span>
           </div>
           <a href={`/activity_sessions/anonymous?activity_id=${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
         </div>
@@ -47,9 +52,9 @@ export default class extends React.Component {
       );
   }
 
-  renderModal(classroomActivityUID, lessonUID) {
+  renderModal(classroomActivityID, lessonUID) {
     if (this.state.showModal) {
-      return <PreviewOrLaunchModal lessonUID classroomActivityUID />
+      return <PreviewOrLaunchModal lessonUID={lessonUID} classroomActivityID={classroomActivityID} closeModal={this.closeModal}/>
     }
   }
 
