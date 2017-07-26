@@ -41,6 +41,7 @@ interface ScriptContainerState {
   sort: string,
   sortDirection: string,
   model: string,
+  showDifferences: boolean,
 }
 
 class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
@@ -54,6 +55,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sort: 'time',
       sortDirection: 'desc',
       model: '',
+      showDifferences: false,
       // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       // numberOfToggledHeaders: 0
     }
@@ -64,6 +66,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.retryQuestion = this.retryQuestion.bind(this);
     this.handleModelChange = this.handleModelChange.bind(this);
+    this.toggleShowDifferences = this.toggleShowDifferences.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,6 +128,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.setState({showAllStudents: !this.state.showAllStudents})
   }
 
+  toggleShowDifferences() {
+    this.setState({showDifferences: !this.state.showDifferences})
+  }
+
   stopDisplayingAnswers() {
     this.setState({projecting: false})
     this.props.stopDisplayingAnswers();
@@ -168,6 +175,15 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (numAnswers > 0) {
       return (
         <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> {verb} Remaining Students</span>
+      )
+    }
+  }
+
+  renderShowDifferencesButton() {
+    if (this.props.prompt) {
+      const verb: string = this.state.showDifferences ? "Hide" : "Show";
+      return (
+        <span className="show-differences-button" onClick={this.toggleShowDifferences}> {verb} Differences From Prompt</span>
       )
     }
   }
@@ -240,6 +256,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           <div className="student-submission-item-header">
             <strong>{numAnswers} of {numStudents}</strong> Students have answered.
             {this.renderShowRemainingStudentsButton()}
+            {this.renderShowDifferencesButton()}
           </div>
           <div className="student-submission-item-table">
             <table >
@@ -344,9 +361,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, selected_submission_order } = this.props;
     const text: any = submissions[current_slide][studentKey].data
 
-    const boldedText = findDifferences(text, this.props.prompt);
+    const submissionText = this.state.showDifferences ? findDifferences(text, this.props.prompt) : text;
 
-    const html: any = <span dangerouslySetInnerHTML={{__html: boldedText}}/>
+    const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
