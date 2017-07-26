@@ -131,6 +131,11 @@ export function saveStudentSubmission(classroom_activity_id: string, question_id
   submissionRef.set(submission);
 }
 
+export function removeStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
+  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
+  submissionRef.remove();
+}
+
 export function clearAllSubmissions(classroom_activity_id: string, question_id: string): void {
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`);
   submissionRef.remove()

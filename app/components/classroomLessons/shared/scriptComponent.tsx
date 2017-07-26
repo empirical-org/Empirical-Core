@@ -64,6 +64,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.retryQuestion = this.retryQuestion.bind(this);
     this.handleModelChange = this.handleModelChange.bind(this);
+    this.retryQuestionForStudent = this.retryQuestionForStudent.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -138,6 +139,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.stopDisplayingAnswers()
     this.clearSelectedSubmissions()
     this.clearAllSubmissions()
+  }
+
+  retryQuestionForStudent(student) {
+    const submissions: Submissions = this.props.submissions;
+    const current_slide: string = this.props.current_slide;
+    if (submissions && submissions[current_slide] && submissions[current_slide][student]) {
+      this.props.clearStudentSubmission(current_slide, student)
+    }
   }
 
   renderDisplayButton() {
@@ -271,15 +280,24 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       'flag': 'Flag',
       'answers': 'Answers',
       'time': 'Time',
-      'displayed': 'Select to Display'
+      'displayed': 'Select to Display',
+      'order': 1,
+      'retry': 'Have Student Retry',
     }
     const headers: Array<JSX.Element> = []
     for (let key in fields) {
-      let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
-      const header = key === 'displayed'
-      ? <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/> {this.renderUnselectAllButton()}</th>
-      : <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/></th>
-      headers.push(header)
+      if (key === 'retry') {
+        headers.push(<th key={key}>{fields[key]}</th>)
+      } else if (key === 'order') {
+        headers.push(<th key={key} className="hidden-order">{fields[key]}</th>)
+      } else {
+        let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
+        const header = key === 'displayed'
+        ? <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/> {this.renderUnselectAllButton()}</th>
+        : <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/></th>
+        headers.push(header)
+      }
+
     }
     return <thead>
       <tr>
@@ -371,6 +389,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           </label>
         </td>
         <td><span className={studentNumberClassName}>{studentNumber}</span></td>
+        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
       </tr>
 
   }

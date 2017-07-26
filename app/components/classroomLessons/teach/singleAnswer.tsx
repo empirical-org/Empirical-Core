@@ -20,6 +20,7 @@ interface SingleAnswerProps {
   clearAllSelectedSubmissions: Function,
   onlyShowHeaders: boolean,
   saveModel: Function,
+  clearStudentSubmission: Function,
 }
 
 interface SingleAnswerState {
@@ -81,6 +82,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           clearAllSubmissions={this.props.clearAllSubmissions}
           toggleStudentFlag={this.props.toggleStudentFlag}
           saveModel={this.props.saveModel}
+          clearStudentSubmission={this.props.clearStudentSubmission}
         />
 
       </div>

@@ -10,7 +10,8 @@ import {
   clearAllSubmissions,
   toggleStudentFlag,
   setModel,
-  updateStudentSubmissionOrder
+  updateStudentSubmissionOrder,
+  removeStudentSubmission,
 } from '../../../actions/classroomSessions';
 import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
@@ -82,6 +83,7 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
+
   clearAllSelectedSubmissions(currentSlide: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
@@ -93,6 +95,13 @@ class CurrentSlide extends React.Component<any, any> {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
       clearAllSubmissions(caId, currentSlide);
+    }
+  }
+
+  clearStudentSubmission(currentSlideId: string, student: string) {
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    if (caId) {
+      removeStudentSubmission(caId, currentSlideId, student);
     }
   }
 
@@ -173,6 +182,7 @@ class CurrentSlide extends React.Component<any, any> {
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
               saveModel={this.saveModel}
+              clearStudentSubmission={this.clearStudentSubmission}
             />
           );
         case 'CL-FL':
@@ -190,6 +200,7 @@ class CurrentSlide extends React.Component<any, any> {
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             updateToggledHeaderCount={this.updateToggledHeaderCount}
             saveModel={this.saveModel}
+            clearStudentSubmission={this.clearStudentSubmission}
           />
         )
         case 'CL-EX':
