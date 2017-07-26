@@ -43,7 +43,8 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student');
     // this will reset the state when a teacher resets a question
-    if (this.state.submitted === true && nextProps.submissions === null) {
+    const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
+    if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {
       this.setState({ submitted: false, editing: false, response: '', });
     }
   }
