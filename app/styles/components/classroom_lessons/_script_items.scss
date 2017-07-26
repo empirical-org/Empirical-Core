@@ -5,7 +5,7 @@
 
   .student-submission-item-header {
     height: 60px;
-    padding: 18px 35px;
+    padding: 18px 20px;
     background-color: #fafafa;
     font-size: 16px;
     border-bottom: solid 1px #e9e9e9;
@@ -23,7 +23,20 @@
     padding: 30px 90px;
   }
   .student-submission-item-table {
-    padding: 15px 35px;
+    padding: 15px 20px;
+
+    .answer-number {
+      width: 23px;
+      height: 23px;
+      background-color: #3adfbb;
+      display: block;
+      text-align: center;
+      border-radius: 20px;
+      padding-top: 2px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+    }
 
     table {
       thead {
@@ -60,7 +73,8 @@
           i {
             margin-left: 4px;
             font-size: 14px;
-            color: #d8d8d8;          }
+            color: #d8d8d8;
+          }
         }
       }
 
@@ -78,7 +92,8 @@
         tr {
           border-bottom: 1px solid #e9e9e9;
           td {
-            padding: 5px 0px;
+            vertical-align: middle;
+            padding: 10px 0px;
             &:nth-of-type(4), &:nth-of-type(5) {
               text-align: center;
             }
@@ -170,6 +185,7 @@
     width: 100%;
     margin-bottom: 20px;
     .script-item-heading {
+      cursor: pointer;
       font-weight: bold;
     }
     hr {

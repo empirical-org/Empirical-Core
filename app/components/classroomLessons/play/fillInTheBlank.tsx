@@ -18,7 +18,8 @@ interface fillInTheBlankProps {
   handleStudentSubmission: Function,
   mode: string | null,
   submissions: QuestionSubmissionsList | null,
-  selected_submissions: SelectedSubmissionsForQuestion | null
+  selected_submissions: SelectedSubmissionsForQuestion | null,
+  selected_submission_order: Array<string> | null
 }
 
 interface fillInTheBlankState {
@@ -204,15 +205,17 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   renderClassAnswersList() {
-    const { selected_submissions, submissions, } = this.props;
-    const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text: any = submissions ? submissions[key].data : null;
-      return (<li key={index}>
-        <span className="answer-number">{index + 1}</span><span dangerouslySetInnerHTML={{ __html: text }} />
-      </li>);
-    });
+    const { selected_submissions, submissions, selected_submission_order} = this.props;
+    const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
+      const text = submissions && submissions[key] ? submissions[key].data : "";
+      return (
+        <li key={index}>
+          <span className="answer-number">{index + 1}</span>{text}
+        </li>
+      );
+    }) : null;
     return (
-      <ul className="class-answer-list" >
+      <ul className="class-answer-list">
         {selected}
       </ul>
     );

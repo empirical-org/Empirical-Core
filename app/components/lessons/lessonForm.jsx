@@ -82,7 +82,7 @@ const LessonForm = React.createClass({
     const concepts = this.props.concepts.data[0];
     console.log('Options: ', options);
     if (options.length > 0) {
-      options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, })); // filter out questions with no valid concept
+      options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, }) && (option.flag !== "Archive")); // filter out questions with no valid concept
       const formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (<QuestionSelector
         key={questionType} options={formatted} placeholder="Search for a question"

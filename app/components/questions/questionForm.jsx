@@ -3,6 +3,7 @@ import TextEditor from './textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
+import FlagDropdown from '../shared/flagDropdown.jsx'
 
 export default React.createClass({
   getInitialState: function () {
@@ -10,7 +11,8 @@ export default React.createClass({
       prompt: "",
       itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
       concept: this.props.question.conceptID,
-      instructions: this.props.question.instructions ? this.props.question.instructions : ""
+      instructions: this.props.question.instructions ? this.props.question.instructions : "",
+      flag: this.props.question.flag ? this.props.question.flag : "Alpha",
     }
   },
 
@@ -22,7 +24,8 @@ export default React.createClass({
       cues: this.refs.cues.value.split(','),
       itemLevel: this.state.itemLevel,
       conceptID: this.state.concept,
-      instructions: this.state.instructions
+      instructions: this.state.instructions,
+      flag: this.state.flag
     })
   },
 
@@ -54,6 +57,10 @@ export default React.createClass({
     this.setState({concept: this.refs.concept.value})
   },
 
+  handleFlagChange: function(e) {
+    this.setState({ flag: e.target.value, });
+  },
+
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
       return (
@@ -73,6 +80,7 @@ export default React.createClass({
           <p className="control">
             <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText}></input>
           </p>
+
           <label className="label">Item level</label>
           <p className="control">
             <span className="select">
@@ -82,6 +90,7 @@ export default React.createClass({
               </select>
             </span>
           </p>
+          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
           <label className="label">Concept</label>
           <div>
             <ConceptSelector currentConceptUID={this.state.concept}

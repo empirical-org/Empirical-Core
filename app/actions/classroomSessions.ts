@@ -102,6 +102,17 @@ export function goToNextSlide(classroom_activity_id: string, state: ClassroomLes
   }
 }
 
+export function goToPreviousSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson) {
+  const { current_slide } = state;
+  const { questions } = lesson;
+  const slides = Object.keys(questions);
+  const current_slide_index = slides.indexOf(current_slide.toString());
+  const previousSlide = slides[current_slide_index - 1];
+  if (previousSlide !== undefined) {
+    return updateCurrentSlide(classroom_activity_id, previousSlide);
+  }
+}
+
 export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
   return (dispatch) => {
     dispatch(updateSlideInStore(question_id))
@@ -142,6 +153,25 @@ export function removeSelectedStudentSubmission(classroom_activity_id: string, q
   selectedSubmissionRef.remove();
 }
 
+export function updateStudentSubmissionOrder(classroom_activity_id: string, question_id: string, student_id: string): void {
+  const selectedSubmissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
+  selectedSubmissionOrderRef.once('value', (snapshot) => {
+    const currentArray = snapshot.val()
+    if (currentArray) {
+      if (currentArray.includes(student_id)) {
+        const index = currentArray.indexOf(student_id)
+        currentArray.splice(index, 1)
+        selectedSubmissionOrderRef.set(currentArray)
+      } else {
+        currentArray.push(student_id)
+        selectedSubmissionOrderRef.set(currentArray)
+      }
+    } else {
+      selectedSubmissionOrderRef.set([student_id])
+    }
+  })
+}
+
 export function clearAllSelectedSubmissions(classroom_activity_id: string, question_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}`);
   selectedSubmissionRef.remove()
@@ -167,6 +197,15 @@ export function removeWatchTeacherState(classroom_activity_id: string): void {
   watchTeacherRef.remove();
 }
 
+export function registerTeacherPresence(classroom_activity_id: string | null): void {
+  const absentTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/absentTeacherState`);
+  firebase.database().ref('.info/connected').on('value', (snapshot) => {
+    if (snapshot.val() === true) {
+      absentTeacherRef.onDisconnect().set(true);
+      absentTeacherRef.set(false);
+    }
+  });
+}
 
 export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
   const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)

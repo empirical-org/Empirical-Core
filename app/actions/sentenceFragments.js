@@ -30,19 +30,19 @@ const actions = {
   cancelSentenceFragmentEdit(sfid) {
     return { type: C.FINISH_SENTENCE_FRAGMENT_EDIT, sfid, };
   },
-  deleteSentenceFragment(sfid) {
-    return function (dispatch, getState) {
-      dispatch({ type: C.SUBMIT_SENTENCE_FRAGMENT_EDIT, sfid, });
-      sentenceFragmentsRef.child(sfid).remove((error) => {
-        dispatch({ type: C.FINISH_SENTENCE_FRAGMENT_EDIT, sfid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'SentenceFeedback successfully deleted!', });
-        }
-      });
-    };
-  },
+  // deleteSentenceFragment(sfid) {
+  //   return function (dispatch, getState) {
+  //     dispatch({ type: C.SUBMIT_SENTENCE_FRAGMENT_EDIT, sfid, });
+  //     sentenceFragmentsRef.child(sfid).remove((error) => {
+  //       dispatch({ type: C.FINISH_SENTENCE_FRAGMENT_EDIT, sfid, });
+  //       if (error) {
+  //         dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
+  //       } else {
+  //         dispatch({ type: C.DISPLAY_MESSAGE, message: 'SentenceFeedback successfully deleted!', });
+  //       }
+  //     });
+  //   };
+  // },
   submitSentenceFragmentEdit(sfid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_SENTENCE_FRAGMENT_EDIT, sfid, });

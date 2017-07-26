@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import _ from 'underscore';
 import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
+import TextEditor from '../questions/textEditor.jsx';
 
 export default React.createClass({
 
@@ -44,6 +45,10 @@ export default React.createClass({
         itemConcepts: concepts,
       });
     }
+  },
+
+  handleFeedbackChange(e) {
+    this.setState({itemFeedback: e})
   },
 
   submit(focusPoint) {
@@ -95,7 +100,7 @@ export default React.createClass({
           <label className="label">{this.props.itemLabel} Text</label>
           {this.renderTextInputFields()}
           <label className="label" style={{ marginTop: 10, }}>Feedback</label>
-          <input className="input" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemFeedback')} type="text" value={this.state.itemFeedback || ''} />
+          <TextEditor text={this.state.itemFeedback || ""} handleTextChange={this.handleFeedbackChange} key={"feedback"}/>
           <label className="label" style={{ marginTop: 10, }}>Concepts</label>
           {this.renderConceptSelectorFields()}
         </div>

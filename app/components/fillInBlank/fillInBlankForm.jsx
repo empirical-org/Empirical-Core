@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {hashToCollection} from '../../libs/hashToCollection';
 import TextEditor from '../questions/textEditor.jsx';
-import ConceptSelector from '../shared/conceptSelector.jsx'
+import ConceptSelector from '../shared/conceptSelector.jsx';
+import FlagDropdown from '../shared/flagDropdown.jsx';
+
 
 class FillInBlankForm extends Component {
   constructor() {
@@ -13,7 +15,8 @@ class FillInBlankForm extends Component {
       instructions: '',
       cues: '',
       newQuestionOptimalResponse: '',
-      itemLevel: 'Select Item Level'
+      itemLevel: 'Select Item Level',
+      flag: 'Alpha',
     };
     this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
     this.handlePromptChange = this.handlePromptChange.bind(this);
@@ -22,6 +25,7 @@ class FillInBlankForm extends Component {
     this.handleNewQuestionOptimalResponseChange = this.handleNewQuestionOptimalResponseChange.bind(this);
     this.handleItemLevelChange = this.handleItemLevelChange.bind(this);
     this.handleSelectorChange = this.handleSelectorChange.bind(this);
+    this.handleFlagChange = this.handleFlagChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
@@ -49,6 +53,10 @@ class FillInBlankForm extends Component {
     this.setState({conceptID: e.value});
   }
 
+  handleFlagChange(e) {
+    this.setState({ flag: e.target.value, });
+  }
+
   itemLevelToOptions() {
     return hashToCollection(this.props.itemLevels.data).map((level) => {
       return (
@@ -64,11 +72,12 @@ class FillInBlankForm extends Component {
   submit() {
     const data = {
       prompt: this.state.prompt,
-      blankAllowed: this.state.blankAllowed,
+      blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
       cues: this.state.cues.split(','),
       itemLevel: this.state.itemLevel === "Select Item Level" ? "" : this.state.itemLevel,
       instructions: this.state.instructions,
-      conceptID: this.state.conceptID
+      conceptID: this.state.conceptID,
+      flag: this.state.flag ? this.state.flag : 'Alpha',
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
   }
@@ -80,7 +89,8 @@ class FillInBlankForm extends Component {
       newQuestionOptimalResponse: '',
       instructions: '',
       itemLevel: 'Select Item Level',
-      conceptID: null
+      conceptID: null,
+      flag: 'Alpha',
     });
   }
 
@@ -127,6 +137,7 @@ class FillInBlankForm extends Component {
         <p className="control">
           <input type="checkbox" checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed}></input>
         </p>
+
         <label className="label">Item level</label>
         <p className="control">
           <span className="select">
@@ -136,6 +147,7 @@ class FillInBlankForm extends Component {
             </select>
           </span>
         </p>
+        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
         <label className="label">Concept</label>
         <ConceptSelector currentConceptUID={this.state.conceptID} handleSelectorChange={this.handleSelectorChange} />
         <br />

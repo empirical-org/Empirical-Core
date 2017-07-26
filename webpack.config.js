@@ -47,6 +47,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(env || 'development'),
       'process.env.EMPIRICAL_BASE_URL': JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
       'process.env.QUILL_CMS': JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
+      'process.env.PUSHER_KEY': JSON.stringify(process.env.PUSHER_KEY || 'a253169073ce7474f0ce'),
     }),
     // new BundleAnalyzerPlugin(), // For visualizing package size
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),

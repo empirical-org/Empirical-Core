@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ConceptSelector from '../shared/conceptSelector.jsx';
+import FlagDropdown from '../shared/flagDropdown.jsx';
 
 const sentenceFragmentForm = React.createClass({
 
@@ -15,6 +16,7 @@ const sentenceFragmentForm = React.createClass({
         instructions: '',
         conceptID: '',
         wordCountChange: {},
+        flag: 'Alpha'
       };
     } else {
       return {
@@ -25,6 +27,7 @@ const sentenceFragmentForm = React.createClass({
         instructions: fragment.instructions ? fragment.instructions : '',
         conceptID: fragment.conceptID,
         wordCountChange: fragment.wordCountChange || {},
+        flag: fragment.flag ? fragment.flag : 'Alpha',
       };
     }
   },
@@ -57,6 +60,9 @@ const sentenceFragmentForm = React.createClass({
         newWordCountChange = Object.assign({}, this.state.wordCountChange);
         newWordCountChange.min = e.target.valueAsNumber;
         this.setState({ wordCountChange: newWordCountChange, });
+        break;
+      case 'flag':
+        this.setState({ flag: e.target.value, });
         break;
       default:
     }
@@ -106,6 +112,7 @@ const sentenceFragmentForm = React.createClass({
         <p className="control">
           <textarea className="input" value={this.state.instructions} onChange={this.handleChange.bind(null, 'instructions')} />
         </p>
+
         <p className="control">
           <label className="checkbox">
             <input type="checkbox" checked={this.state.isFragment} onClick={this.handleChange.bind(null, 'isFragment')} />
@@ -130,6 +137,7 @@ const sentenceFragmentForm = React.createClass({
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}
+        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleChange.bind(null, 'flag')} isLessons={false}/>
         <p className="control">
           <label className="label">Associated Concept</label>
           <ConceptSelector

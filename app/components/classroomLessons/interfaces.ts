@@ -5,6 +5,7 @@ export interface ClassroomLessonSession {
   modes: Modes;
   submissions: Submissions;
   selected_submissions: SelectedSubmissions;
+  selected_submission_order: Array<string>;
   timestamps: Timestamps;
   flaggedStudents: FlaggedStudents;
   public: Boolean | null;
@@ -51,7 +52,7 @@ export interface SelectedSubmissions {
 }
 
 export interface SelectedSubmissionsForQuestion {
- [key:string]: boolean
+  [key:string]: boolean
 }
 
 export interface Timestamps {

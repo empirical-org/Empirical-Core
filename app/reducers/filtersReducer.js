@@ -29,8 +29,13 @@ C.ERROR_AUTHORS.forEach(author =>
 
 const initialState = {
   filters: {
+    responses: [],
+    numberOfPages: 1,
+    numberOfResponses: 0,
     sorting: 'count',
     ascending: false,
+    stringFilter: '',
+    responsePageNumber: 1,
     visibleStatuses,
     expanded: {},  // this will contain response keys set to true or false;
     formattedFilterData: {
@@ -131,6 +136,21 @@ export default function (currentState, action) {
         newState.visibleStatuses[key] = false;
       });
       newState.formattedFilterData = getFormattedFilterData(newState)
+      return newState;
+    case C.UPDATE_SEARCHED_RESPONSES:
+      newState = _.cloneDeep(currentState);
+      newState.responses = action.data.responses
+      newState.numberOfPages = action.data.numberOfPages
+      newState.numberOfResponses = action.data.numberOfResponses
+      return newState;
+    case C.SET_RESPONSE_PAGE_NUMBER:
+      newState = _.cloneDeep(currentState);
+      newState.responsePageNumber = action.pageNumber
+      return newState;
+    case C.SET_RESPONSE_STRING_FILTER:
+      newState = _.cloneDeep(currentState);
+      newState.stringFilter = action.stringFilter
+      newState.responsePageNumber = 1
       return newState;
     default:
       return currentState || initialState.filters;

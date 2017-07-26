@@ -5,6 +5,7 @@ import {
   startListeningToSessionWithoutCurrentSlide,
   startListeningToCurrentSlide,
   goToNextSlide,
+  goToPreviousSlide,
   updateCurrentSlide,
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
@@ -15,7 +16,8 @@ import {
   clearAllSelectedSubmissions,
   toggleStudentFlag,
   clearAllSubmissions,
-  updateSlideInFirebase
+  updateSlideInFirebase,
+  registerTeacherPresence
 } from 'actions/classroomSessions';
 import {
   getClassLessonFromFirebase
@@ -37,10 +39,15 @@ import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
+import {
+  ClassroomLesson
+} from 'interfaces/classroomLessons'
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   componentDidMount() {
@@ -54,12 +61,32 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
+      registerTeacherPresence(ca_id)
+
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
 
+  handleKeyDown(event) {
+    const tag = event.target.tagName.toLowerCase()
+    if (tag !== 'input' && tag !== 'textarea' && (event.keyCode === 39 || event.keyCode === 37)) {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
+      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+      if (ca_id) {
+        const updateInStore = event.keyCode === 39
+          ? goToNextSlide(ca_id, sessionData, lessonData)
+          : goToPreviousSlide(ca_id, sessionData, lessonData)
+        if (updateInStore) {
+          this.props.dispatch(updateInStore);
+        }
+      }
+    }
+  }
+
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.overflowY = "scroll";
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   render() {

@@ -11,6 +11,7 @@
 @import 'classroom_lessons/_generic_student.scss';
 @import 'classroom_lessons/_fill_in_the_blank.scss';
 @import 'classroom_lessons/_teacher_model.scss';
+@import 'classroom_lessons/_absent_teacher.scss';
 
 .teach-lesson-container {
   display: flex;
@@ -18,14 +19,15 @@
   background-color: white;
   height: calc(100vh - 50px);
   .side-bar {
-    width: 460px;
+    width: 33%;
+    min-width: 480px;
     height: 100%;
     background-color: whitesmoke;
     display: flex;
     flex-direction: column;
     padding: 15px;
     overflow-y: scroll;
-
+    border-right: solid 1px #e9e9e9;
     .slide-preview {
       background-color: white;
       height: 250px;
@@ -67,6 +69,7 @@
         }
       }
       .slide-number {
+        cursor: pointer;
         color: #c0c0c0;
         font-size: 14px;
         line-height: 20px;
@@ -80,9 +83,8 @@
   }
 
   .main-content {
-    padding: 20px 30px 15px;
-    width: 100%;
-    max-width: 900px;
+    padding: 20px 30px 10px;
+    width: 66%;
     overflow-y: scroll;
     .main-content-wrapper {
       // width: 100%;
@@ -330,5 +332,17 @@
     &:hover {
       outline: none;
     }
+  }
+}
+
+.next-slide-button-container span {
+  font-size: 13px;
+  font-style: italic;
+  color: #c0c0c0;
+  span {
+    font-weight: 600;
+  }
+  button {
+    margin-left: 15px;
   }
 }
