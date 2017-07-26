@@ -106,6 +106,7 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get 'lessons_activities_cache'
         put ':id/hide' => 'classroom_activities#hide'
+        get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         put ':id/unlock_lesson' => 'classroom_activities#unlock_lesson'
       end
     end
