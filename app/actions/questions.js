@@ -6,6 +6,7 @@ const	questionsRef = rootRef.child('questions');
 const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
 
+import Pusher from 'pusher-js';
 import request from 'request';
 import _ from 'underscore';
 import { push } from 'react-router-redux';
@@ -182,18 +183,24 @@ function searchResponses(qid) {
 
 function initializeSubscription(qid) {
   return (dispatch) => {
-    const sub = cable.subscriptions.create({ channel: 'AdminQuestionChannel', question_uid: qid, }, {
-      received: data => data.title === 'new response'
-      ? setTimeout(() => dispatch(searchResponses(qid)), 1000)
-      : null,
+    if (process.env.NODE_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    if (!window.pusher) {
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    }
+    const channel = window.pusher.subscribe(`admin-${qid}`);
+    channel.bind('new-response', (data) => {
+      setTimeout(() => dispatch(searchResponses(qid)), 1000);
     });
   };
 }
 
 function removeSubscription(qid) {
   return (dispatch) => {
-    const sub = cable.subscriptions.subscriptions.find(sub => JSON.parse(sub.identifier).question_uid === qid);
-    sub.unsubscribe();
+    if (window.pusher) {
+      window.pusher.unsubscribe(`admin-${qid}`);
+    }
   };
 }
 
