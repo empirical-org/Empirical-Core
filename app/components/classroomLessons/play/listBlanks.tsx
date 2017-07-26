@@ -21,6 +21,7 @@ interface ListBlankProps {
   handleStudentSubmission: Function;
   selected_submissions: SelectedSubmissionsForQuestion|null;
   submissions: QuestionSubmissionsList|null;
+  projector: boolean|null
 }
 interface ListBlankState {
   isSubmittable: Boolean;
@@ -85,7 +86,6 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     : <span />;
     return (
       <div className="display-mode">
-        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         {this.renderYourAnswer()}
         {classAnswers}
       </div>
@@ -93,7 +93,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderYourAnswer() {
-    return <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>;
+    if (!this.props.projector) {
+      return <div>
+        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
+        <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>;
+      </div>
+    }
   }
 
   renderClassAnswersList() {

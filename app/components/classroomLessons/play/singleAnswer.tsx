@@ -19,7 +19,8 @@ interface SingleAnswerProps {
   mode: string|null,
   submissions: QuestionSubmissionsList|null,
   selected_submissions: SelectedSubmissionsForQuestion|null,
-  selected_submission_order: Array<string>|null
+  selected_submission_order: Array<string>|null,
+  projector: boolean|null
 }
 
 interface SingleAnswerState {
@@ -68,7 +69,6 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     : <span />;
     return (
       <div className="display-mode">
-        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         {this.renderYourAnswer()}
         {classAnswers}
       </div>
@@ -76,7 +76,12 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderYourAnswer() {
-    return <p className="your-answer">{this.state.response}</p>;
+    if (!this.props.projector) {
+      return <div>
+        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
+        <p className="your-answer">{this.state.response}</p>;
+      </div>
+    }
   }
 
   renderClassAnswersList() {
