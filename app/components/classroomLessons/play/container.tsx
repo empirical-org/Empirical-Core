@@ -64,15 +64,16 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       }
       const student = getParameterByName('student');
       const classroom_activity_id = getParameterByName('classroom_activity_id')
+      const projector = getParameterByName('projector')
       const { data, hasreceiveddata } = this.props.classroomSessions;
-      if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+      if (projector === "true") {
+        this.setState({projector: true})
+      } else if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
         registerPresence(classroom_activity_id, student);
       } else {
         if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
           if (nextProps.classroomSessions.data.public) {
             this.setState({shouldEnterName: true})
-          } else if (student === null) {
-            this.setState({projector: true})
           } else {
             this.props.dispatch(updateNoStudentError(student))
           }
