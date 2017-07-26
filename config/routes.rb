@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount ActionCable.server => '/admin_question'
 
   resources :responses
   get 'questions/:question_uid/responses' => 'responses#responses_for_question'

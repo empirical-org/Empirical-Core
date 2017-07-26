@@ -187,9 +187,4 @@ class ResponsesController < ApplicationController
         parent.increment!(:child_count) unless parent.nil?
       end
     end
-
-    def broadcast_creation_event(response)
-      ActionCable.server.broadcast \
-      "admin_question_#{response.question_uid}", { title: 'new response' }
-    end
 end
