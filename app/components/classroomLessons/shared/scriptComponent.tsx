@@ -184,7 +184,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (shouldShowDifferences) {
       const verb: string = this.state.showDifferences ? "Hide" : "Show";
       return (
-        <span className="show-differences-button" onClick={this.toggleShowDifferences}> {verb} Differences From Prompt</span>
+        <span className="show-differences-button" onClick={this.toggleShowDifferences}> {verb} Differences</span>
       )
     }
   }
