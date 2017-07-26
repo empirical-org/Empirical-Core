@@ -142,12 +142,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         );
       case 'CL-EX':
         return (
-          <CLExit
-            script={current.data.teach.script}
-            flaggedStudents={data.flaggedStudents}
-            students={data.students}
-            toggleStudentFlag={this.toggleStudentFlag}
-          />
+          <CLStudentStatic key={data.current_slide} data={current.data} />
         );
       default:
 
