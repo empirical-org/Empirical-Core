@@ -59,7 +59,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const student = getParameterByName('student');
     const npCSData = nextProps.classroomSessions.data
     if (npCSData.assignedStudents && npCSData.assignedStudents.includes(student) && npCSData.followUpUrl) {
-      window.location = npCSData.followUpUrl.url
+      window.location.href = npCSData.followUpUrl
     }
     if (!nextProps.classroomSessions.error && !nextProps.classroomLesson.error) {
       const element = document.getElementsByClassName("main-content")[0];
@@ -138,6 +138,15 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       case 'CL-FL':
         return (
           <CLListBlanks key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+        );
+      case 'CL-EX':
+        return (
+          <CLExit
+            script={current.data.teach.script}
+            flaggedStudents={data.flaggedStudents}
+            students={data.students}
+            toggleStudentFlag={this.toggleStudentFlag}
+          />
         );
       default:
 

@@ -11,7 +11,7 @@ class ExitSlide extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOptionKey: "Small Group Instruction and Independent Practice"
+      selectedOptionKey: "Small Group Instruction and Independent Practice",
     }
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
     this.assignAction = this.assignAction.bind(this)
@@ -47,12 +47,15 @@ class ExitSlide extends React.Component<any, any> {
 
   assignAction(e){
     const caId: string|null = getParameterByName('classroom_activity_id');
+    const follow_up = this.state.selectedOptionKey !== 'No Follow Up Practice'
+    const data = new FormData();
+    data.append( "json", JSON.stringify( {follow_up} ) );
     let redirectAssignedStudents=this.redirectAssignedStudents
     fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${'1299436'}/finish_lesson`, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
-      body: JSON.stringify({assigned_students: 'dud'})
+      body: data
     }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
