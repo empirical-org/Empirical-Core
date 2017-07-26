@@ -72,6 +72,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
           console.log("props", nextProps.classroomSessions)
           if (nextProps.classroomSessions.data.public) {
             this.setState({shouldEnterName: true})
+          } else if (student === null) {
+            this.setState({projector: true})
           } else {
             this.props.dispatch(updateNoStudentError(student))
           }
