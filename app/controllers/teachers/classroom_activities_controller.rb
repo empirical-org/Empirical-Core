@@ -1,10 +1,9 @@
 class Teachers::ClassroomActivitiesController < ApplicationController
   include QuillAuthentication
   respond_to :json
-
-  before_filter :teacher!
+  before_filter :teacher!, :except => ['activity_from_classroom_activity']
   # skip_before_filter :lessons_activities_cache
-  before_filter :authorize!, :except => ["lessons_activities_cache"]
+  before_filter :authorize!, :except => ["lessons_activities_cache", 'activity_from_classroom_activity']
 
 
   def update
@@ -32,6 +31,12 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {unlocked: unlocked}
   end
 
+  def activity_from_classroom_activity
+    authorize_student
+    act_sesh_id = @classroom_activity.session_for(current_user).id
+    redirect_to "/activity_sessions/#{act_sesh_id}/play"
+  end
+
   def lessons_activities_cache
     data = JSON.parse($redis.get("user_id:#{current_user.id}_lessons_array") || '[]')
     render json: {data: data}
@@ -42,6 +47,11 @@ private
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
     if @classroom_activity.classroom.teacher != current_user then auth_failed end
+  end
+
+  def authorize_student
+    @classroom_activity = ClassroomActivity.find params[:id]
+    if current_user.classrooms.exclude?(@classroom_activity.classroom) then auth_failed end
   end
 
   def classroom_activity_params
