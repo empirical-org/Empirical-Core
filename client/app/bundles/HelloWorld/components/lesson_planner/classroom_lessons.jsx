@@ -11,7 +11,8 @@ export default class ClassroomLessons extends React.Component {
     this.state = {
       lessons: [],
       classrooms: this.getClassrooms(),
-      loaded: false
+      loaded: false,
+      selectedClassroomId: props.routeParams.classroomId
     }
 
     this.switchClassrooms = this.switchClassrooms.bind(this)
@@ -21,7 +22,7 @@ export default class ClassroomLessons extends React.Component {
   getClassrooms() {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms
-      this.setState({classrooms: classrooms, selectedClassroomId: classrooms[0].id}, () => this.getLessons())
+      this.setState({classrooms: classrooms, selectedClassroomId: this.props.routeParams.classroomId || classrooms[0].id}, () => this.getLessons())
     })
   }
 
@@ -43,10 +44,12 @@ export default class ClassroomLessons extends React.Component {
   }
 
   switchClassrooms(classroom) {
+    this.props.history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`)
     this.setState({selectedClassroomId: classroom.id}, () => this.getLessons())
   }
 
   render() {
+    console.log('state', this.state)
     if (this.state.loaded) {
       return(
         <div id="lesson_planner">
@@ -54,12 +57,9 @@ export default class ClassroomLessons extends React.Component {
             {this.renderHeader()}
             <ClassroomDropdown classrooms={this.state.classrooms}
                                callback={this.switchClassrooms}
-                               selectedClassroom={this.state.classrooms.find((classy) => classy.id === this.state.selectedClassroomId)}/>
+                               selectedClassroom={this.state.classrooms.find((classy) => classy.id === Number(this.state.selectedClassroomId))}
+            />
             <Units
-              // updateDueDate={this.updateDueDate}
-              // editUnit={this.props.actions.editUnit}
-              // hideClassroomActivity={this.hideClassroomActivity}
-              // hideUnit={this.hideUnit}
               data={this.state.lessons}
               lesson={true}
             />
