@@ -1,6 +1,6 @@
 class Teachers::UnitsController < ApplicationController
   include Units
-  include EditUnits
+  include UnitQueries
 
   respond_to :json
   before_filter :teacher!
@@ -73,7 +73,18 @@ class Teachers::UnitsController < ApplicationController
     else
       render json: {errors: 'Unit not found'}, status: 422
     end
+  end
 
+  def lesson_info_for_unit_and_activity
+    unit = Unit.find_by(id: params[:unit_id])
+    activity = Activity.find_by(id: params[:activity_id])
+    if unit && activity
+      render json: {classroom_activities: get_classroom_activities_for_activity(unit, params[:activity_id]), activity_name: activity.name}
+    elsif !activity
+      render json: {errors: 'Activity not found'}, status: 422
+    else
+      render json: {errors: 'Unit not found'}, status: 422
+    end
   end
 
   def index
