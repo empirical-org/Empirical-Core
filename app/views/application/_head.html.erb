@@ -37,6 +37,7 @@
                                 hot: 'application_non_webpack',
                                 'data-turbolinks-track' => true) %>
   <%= csrf_meta_tags %>
+  <meta id='current-user-flag' property="flag" content=<%= current_user&.flag%> />
   <% unless Rails.env.test? %>
     <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
   <% end %>

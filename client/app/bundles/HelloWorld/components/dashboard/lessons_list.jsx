@@ -1,18 +1,18 @@
 import React from 'react';
 import request from 'request';
 
-import PreviewOrLaunchModal from '../shared/preview_or_launch_modal'
+import PreviewOrLaunchModal from '../shared/preview_or_launch_modal';
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       lessons: null,
-      showModal: false
+      showModal: false,
     };
 
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -30,11 +30,11 @@ export default class extends React.Component {
   }
 
   openModal() {
-    this.setState({showModal: true})
+    this.setState({ showModal: true, });
   }
 
   closeModal() {
-    this.setState({showModal: false})
+    this.setState({ showModal: false, });
   }
 
   renderAssignedLessons() {
@@ -50,7 +50,7 @@ export default class extends React.Component {
               <div className="image-container flex-row space-around vertically-centered">
                 <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
               </div>
-              <span onClick={this.openModal} className="lesson-name">{l.activity_name}</span>
+              <span onClick={this.openModal} className="lesson-name">{l.name}</span>
             </div>
             <a href={`/teachers/classrooms/activity_planner/lessons/${l.activity_id}/unit/${l.unit_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
           </div>
@@ -62,7 +62,7 @@ export default class extends React.Component {
 
   renderModal(classroomActivityID, lessonUID) {
     if (this.state.showModal) {
-      return <PreviewOrLaunchModal lessonUID={lessonUID} classroomActivityID={classroomActivityID} closeModal={this.closeModal}/>
+      return <PreviewOrLaunchModal lessonUID={lessonUID} classroomActivityID={classroomActivityID} closeModal={this.closeModal} />;
     }
   }
 
