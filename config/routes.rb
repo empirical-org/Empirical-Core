@@ -93,6 +93,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
     get 'diagnostic_units' => 'units#diagnostic_units'
     get 'lesson_units' => 'units#lesson_units'
+    get 'units/:unit_id/activity/:activity_id' => 'units#lesson_info_for_unit_and_activity'
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -311,6 +312,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/lessons/:classroom_id' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/lessons/:activity_id/unit/:unit_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'

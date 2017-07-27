@@ -10,6 +10,7 @@ import UnitTemplateAssigned from '../components/lesson_planner/unit_template_ass
 import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
 import UnitTemplateProfile from '../components/lesson_planner/unit_templates_manager/unit_template_profile/unit_template_profile'
 import ClassroomLessonsPlanner from '../components/lesson_planner/classroom_lessons'
+import ChooseClassroomLesson from '../components/lesson_planner/choose_classroom_lesson'
 
 export default class LessonPlannerRouter extends React.Component{
 	constructor(props) {
@@ -39,6 +40,7 @@ export default class LessonPlannerRouter extends React.Component{
 					<IndexRoute component={LessonPlanner}/>
 					<Route path="lessons" component={ClassroomLessonsPlanner}/>
 					<Route path="lessons/:classroomId" component={ClassroomLessonsPlanner}/>
+					<Route path="lessons/:activityId/unit/:unitId" component={ChooseClassroomLesson}/>
 					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>
