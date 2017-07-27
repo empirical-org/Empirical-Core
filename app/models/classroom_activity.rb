@@ -251,7 +251,7 @@ class ClassroomActivity < ActiveRecord::Base
   def update_lessons_cache
     if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
       lessons_cache =  JSON.parse($redis.get("user_id:#{self.classroom.teacher.id}_lessons_array") || '[]')
-      lessons_cache.push({classroom_activity_id: self.id, activity_id: activity.id, activity_name: activity.name})
+      lessons_cache.push({classroom_activity_id: self.id, activity_id: self.activity.id, activity_uid: self.activity.uid, activity_name: self.activity.name})
       $redis.set("user_id:#{self.classroom.teacher.id}_lessons_array", lessons_cache.to_json)
     end
   end
