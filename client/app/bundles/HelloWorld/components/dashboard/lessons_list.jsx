@@ -22,7 +22,10 @@ export default class extends React.Component {
   }
 
   renderAssignedLessons() {
-    return this.state.lessons.map(l =>
+    const le = this.state.lessons;
+    console.log(JSON.stringify(le));
+    const newArr = le.length > 5 ? le.slice(0, 4) : le.slice(0, le.length - 1);
+    return newArr.map(l =>
       <div key={l.classroom_activity_id}>
         <div className="flex-row space-between vertically-centered lesson-item">
           <div className="flex-row vertically-centered">
