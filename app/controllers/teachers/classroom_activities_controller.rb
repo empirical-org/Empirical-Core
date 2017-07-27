@@ -2,9 +2,8 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   include QuillAuthentication
   require 'pusher'
   respond_to :json
-  before_filter :teacher!, :except => ['activity_from_classroom_activity']
-  # skip_before_filter :lessons_activities_cache
-  before_filter :authorize!, :except => ["lessons_activities_cache", 'activity_from_classroom_activity']
+  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities"]
+  before_filter :teacher!
 
 
   def update
@@ -40,8 +39,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def lessons_activities_cache
-    data = JSON.parse($redis.get("user_id:#{current_user.id}_lessons_array") || '[]')
-    render json: {data: data}
+    render json: {data: lesson_cache}
+  end
+
+  def lessons_units_and_activities
+    render json: {data: get_lessons_units_and_activities}
   end
 
 private
@@ -54,6 +56,15 @@ private
   def authorize_student
     @classroom_activity = ClassroomActivity.find params[:id]
     if current_user.classrooms.exclude?(@classroom_activity.classroom) then auth_failed end
+  end
+
+  def get_lessons_units_and_activities
+    # collapses lessons cache into unique array of unit and activity ids
+    lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], unit_id: ca['unit_id'], name: ca['activity_name']}}.keys
+  end
+
+  def lessons_cache
+    JSON.parse($redis.get("user_id:#{current_user.id}_lessons_array") || '[]')
   end
 
   def classroom_activity_params
