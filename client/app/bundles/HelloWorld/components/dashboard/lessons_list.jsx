@@ -16,28 +16,33 @@ export default class extends React.Component {
   getListOfAssignedLessons() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/lessons_activities_cache`,
+      url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/lessons_units_and_activities`,
     },
-    (e, r, lessons) => that.setState({ lessons: JSON.parse(lessons).data, }));
+    (e, r, lessons) => {
+      that.setState({ lessons: JSON.parse(lessons).data, });
+    });
   }
 
   renderAssignedLessons() {
-    const le = this.state.lessons;
-    console.log(JSON.stringify(le));
-    const newArr = le.length > 5 ? le.slice(0, 4) : le.slice(0, le.length - 1);
-    return newArr.map(l =>
-      <div key={l.classroom_activity_id}>
-        <div className="flex-row space-between vertically-centered lesson-item">
-          <div className="flex-row vertically-centered">
-            <div className="image-container flex-row space-around vertically-centered">
-              <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
+    const lessons = this.state.lessons;
+    const rows = [];
+    for (let i = 0; i < Math.min(4, lessons.length); i++) {
+      const l = lessons[i];
+      rows.push(
+        <div key={JSON.stringify(l)}>
+          <div className="flex-row space-between vertically-centered lesson-item">
+            <div className="flex-row vertically-centered">
+              <div className="image-container flex-row space-around vertically-centered">
+                <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
+              </div>
+              <span className="">{l.name}</span>
             </div>
-            <span className="">{l.activity_name}</span>
+            <a href={`/teachers/classrooms/activity_planner/lessons/${l.activity_id}/unit/${l.unit_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
           </div>
-          <a href={`/activity_sessions/anonymous?activity_id=${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
         </div>
-      </div>
       );
+    }
+    return rows;
   }
 
   render() {

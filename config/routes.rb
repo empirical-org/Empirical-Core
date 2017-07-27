@@ -105,6 +105,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path' do
       collection do
         get 'lessons_activities_cache'
+        get 'lessons_units_and_activities'
         put ':id/hide' => 'classroom_activities#hide'
         put ':id/unlock_lesson' => 'classroom_activities#unlock_lesson'
       end

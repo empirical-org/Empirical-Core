@@ -24,8 +24,6 @@ class ClassroomActivity < ActiveRecord::Base
     User.where(id: assigned_student_ids)
   end
 
-
-
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
@@ -223,7 +221,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def lessons_cache_info_formatter
-    {classroom_activity_id: self.id, activity_id: activity.id, activity_name: activity.name, unit_id: self.unit.id}
+    {classroom_activity_id: self.id, activity_id: activity.id, activity_name: activity.name, unit_id: self.unit_id}
   end
 
   private
