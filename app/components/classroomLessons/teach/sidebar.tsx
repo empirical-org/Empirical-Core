@@ -71,6 +71,8 @@ class Sidebar extends React.Component<any, any> {
         counter += 1;
         const activeClass = currentSlide === slide ? 'active' : '';
         let thumb;
+        let title = lessonData.questions[slide].data.teach.title
+        let titleSection = title ? <span> - {title}</span> : <span/>
         let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
         let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
@@ -119,7 +121,7 @@ class Sidebar extends React.Component<any, any> {
         components.push((
           <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
             <div className="sidebar-header">
-            <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}</p>
+            <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}{titleSection}</p>
             {currentSlide === slide ? this.presentStudents() : null}
             </div>
             <div className={`slide-preview ${activeClass}`}>
