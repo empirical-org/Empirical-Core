@@ -414,7 +414,8 @@ CREATE TABLE classroom_activities (
     updated_at timestamp without time zone,
     assigned_student_ids integer[],
     visible boolean DEFAULT true NOT NULL,
-    locked boolean DEFAULT false
+    locked boolean DEFAULT false,
+    pinned boolean DEFAULT false
 );
 
 
@@ -2133,6 +2134,13 @@ CREATE INDEX index_classroom_activities_on_classroom_id ON classroom_activities 
 
 
 --
+-- Name: index_classroom_activities_on_classroom_id_and_pinned; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
+
+
+--
 -- Name: index_classroom_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2935,6 +2943,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170526220204');
 INSERT INTO schema_migrations (version) VALUES ('20170718160133');
 
 INSERT INTO schema_migrations (version) VALUES ('20170719192243');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720140557');
 
 INSERT INTO schema_migrations (version) VALUES ('20170720195450');
 

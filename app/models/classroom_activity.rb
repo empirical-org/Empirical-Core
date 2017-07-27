@@ -24,6 +24,24 @@ class ClassroomActivity < ActiveRecord::Base
     User.where(id: assigned_student_ids)
   end
 
+  def assign_follow_up_lesson(locked=true)
+    extant_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id,
+                                          activity_id: self.activity.follow_up_activity.id,
+                                          unit_id: self.unit_id)
+    if !self.activity.follow_up_activity
+      return
+    elsif extant_ca
+      extant_ca.update(locked: false)
+      return extant_ca
+    end
+    follow_up = ClassroomActivity.create(classroom_id: self.classroom_id,
+                             activity_id: self.activity.follow_up_activity.id,
+                             unit_id: self.unit_id,
+                             visible: true,
+                             locked: locked,
+                             assigned_student_ids: self.assigned_student_ids )
+    follow_up
+  end
 
 
   def due_date_string= val
