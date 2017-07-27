@@ -39,7 +39,9 @@
         border: solid 1px #00c2a2;
         box-shadow: 0 0 4px 3px rgba(58, 223, 187, 0.19);
       }
-
+      &:hover {
+        box-shadow: 0 1px 6px 2px #cdcdcd;
+      }
       .scaler {
         width: 960px;
         height: 900px;
