@@ -1,5 +1,6 @@
 class Teachers::ClassroomActivitiesController < ApplicationController
   include QuillAuthentication
+  require 'pusher'
   respond_to :json
   before_filter :teacher!, :except => ['activity_from_classroom_activity']
   # skip_before_filter :lessons_activities_cache
@@ -28,6 +29,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 
   def unlock_lesson
     unlocked = @classroom_activity.update(locked: false, pinned: true)
+    PusherLessonLaunched.run(@classroom_activity.classroom)
     render json: {unlocked: unlocked}
   end
 
