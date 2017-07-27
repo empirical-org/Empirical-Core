@@ -55,8 +55,11 @@ export default React.createClass({
   },
 
   announcementMini() {
-    // return <NewTools key='new-tools'/>
-    return [<EllDiagnosticAnnouncement key="ell-diagnostic-announcement" />, <QuillLessonsAnnouncement key="lessons-announcement" />];
+    const announcements = [<EllDiagnosticAnnouncement key="ell-diagnostic-announcement" />];
+    if (this.props.flag === 'beta') {
+      announcements.push(<QuillLessonsAnnouncement key="lessons-announcement" />);
+    }
+    return announcements;
   },
 
   lessonsList() {
