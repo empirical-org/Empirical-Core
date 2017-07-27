@@ -12,12 +12,10 @@ class MultipleTextEditor extends React.Component {
     const {
       // inline buttons
       ItalicButton, BoldButton, UnderlineButton,
-      // block buttons
-      BlockquoteButton, ULButton,
     } = richButtonsPlugin;
     this.state = {
       text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || ''))),
-      components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, ULButton },
+      components: { ItalicButton, BoldButton, UnderlineButton },
       plugins: richButtonsPlugin,
     };
     this.handleTextChange = this.handleTextChange.bind(this)
@@ -44,7 +42,7 @@ class MultipleTextEditor extends React.Component {
   }
 
   render() {
-    const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, ULButton } = this.state.components;
+    const { ItalicButton, BoldButton, UnderlineButton } = this.state.components;
     return (
       <div className="card is-fullwidth">
         <header className="card-header">
@@ -52,8 +50,6 @@ class MultipleTextEditor extends React.Component {
             <BoldButton />
             <ItalicButton />
             <UnderlineButton />
-            <BlockquoteButton />
-            <ULButton />
           </div>
         </header>
         <div className="card-content">
