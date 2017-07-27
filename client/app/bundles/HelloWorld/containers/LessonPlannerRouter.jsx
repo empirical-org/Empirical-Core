@@ -23,8 +23,8 @@ export default class LessonPlannerRouter extends React.Component{
 		const pathEnd = locationArray[1] === 'assign-new-activity' ? '' : locationArray[1]
 		if (
 			!(pathEnd === undefined ||
-			pathEnd === 'lessons' ||
 			pathEnd === 'no_units' ||
+			pathEnd.slice(0, 7) === 'lessons' ||
 			pathEnd.slice(0, 5) === 'units' ||
 			pathEnd.slice(0, 8) === 'new_unit')
 		) {
@@ -38,6 +38,7 @@ export default class LessonPlannerRouter extends React.Component{
         <Route path="/teachers/classrooms/activity_planner" component={LessonPlannerContainer}>
 					<IndexRoute component={LessonPlanner}/>
 					<Route path="lessons" component={ClassroomLessonsPlanner}/>
+					<Route path="lessons/:classroomId" component={ClassroomLessonsPlanner}/>
 					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>
