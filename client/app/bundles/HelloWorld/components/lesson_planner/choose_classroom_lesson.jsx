@@ -11,10 +11,10 @@ export default class ChooseClassroomLesson extends React.Component {
   getClassroomLessonInfo() {
     request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activities/${this.props.params.activityId}`, (error, httpStatus, body) => {
       debugger;
-    }
+    })
   }
 
-  render(){
+  render() {
     return(<div/>)
   }
 }
