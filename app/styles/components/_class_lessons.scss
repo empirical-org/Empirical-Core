@@ -25,7 +25,7 @@
     background-color: whitesmoke;
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 5 15 15;
     overflow-y: scroll;
     border-right: solid 1px #e9e9e9;
     .slide-preview {
@@ -50,7 +50,7 @@
       }
     }
     .sidebar-header {
-      padding-top: 7px;
+      padding-top: 10px;
       font-family: $family-sans-serif;
       display: flex;
       justify-content: space-between;
@@ -74,7 +74,7 @@
         color: #c0c0c0;
         font-size: 14px;
         line-height: 20px;
-        margin-bottom: 9px;
+        margin-bottom: 10px;
         font-weight: 600;
         &.active {
           color: $green;
