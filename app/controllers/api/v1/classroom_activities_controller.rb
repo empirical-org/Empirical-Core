@@ -11,6 +11,11 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     render json: @classroom_activity.teacher_and_classroom_name
   end
 
+  def finish_lesson
+    @classroom_activity.mark_all_activity_sessions_complete
+    render json: {message: 'activities marked complete'}
+  end
+
   private
 
   def authorize!
