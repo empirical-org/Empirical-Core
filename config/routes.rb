@@ -106,6 +106,7 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get 'lessons_activities_cache'
         put ':id/hide' => 'classroom_activities#hide'
+        get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         put ':id/unlock_lesson' => 'classroom_activities#unlock_lesson'
       end
     end
@@ -309,6 +310,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/packs/grade/:grade' => 'teachers/unit_templates#index'
 
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/lessons/:classroom_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'
