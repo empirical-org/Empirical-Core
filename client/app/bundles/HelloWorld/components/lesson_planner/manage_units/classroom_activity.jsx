@@ -6,6 +6,8 @@ import DatePicker from 'react-datepicker'
 import request from 'request'
 import $ from 'jquery'
 
+import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal'
+
 const styles = {
 	row: {
 		display: 'flex',
@@ -31,6 +33,7 @@ export default React.createClass({
 	getInitialState: function() {
 		return {
 			startDate: this.props.data.due_date ? moment(this.props.data.due_date) : undefined,
+			showModal: false
 		}
 	},
 
@@ -108,25 +111,42 @@ export default React.createClass({
     }
   },
 
+	openModal: function() {
+		this.setState({showModal: true})
+	},
+
+	closeModal: function() {
+		this.setState({showModal: false})
+	},
+
+	renderModal: function() {
+		if (this.state.showModal) {
+			return <PreviewOrLaunchModal
+				lessonUID={this.props.data.activity.uid}
+				classroomActivityID={this.props.data.id}
+				closeModal={this.closeModal}
+			/>
+		}
+	},
+
 	render: function() {
-		let url
+		let link
 		if (this.props.report) {
-			url =  this.urlForReport()
+			link = <a href={this.urlForReport()} target='_new'>{this.props.data.activity.name}</a>
 		} else if (this.props.lesson) {
-			url = `http://connect.quill.org/#/teach/class-lessons/${this.props.data.activity.uid}?&classroom_activity_id=${this.props.data.id}`
+			link = <span onClick={this.openModal}>{this.props.data.activity.name}</span>
 		} else {
-			url = this.props.data.activity.anonymous_path;
+			link = <a href={this.props.data.activity.anonymous_path} target='_new'>{this.props.data.activity.name}</a>
 		}
 		return (
 			<div className='row' style={styles.row}>
+				{this.renderModal()}
 				<div className='starting-row'>
 					<div className='cell col-md-1'>
 						<div className={'pull-left icon-wrapper ' + this.props.data.activity.classification.image_class}></div>
 					</div>
 					<div className='cell col-md-8' id='activity-analysis-activity-name'>
-						<a href={url} target='_new'>
-							{this.props.data.activity.name}
-						</a>
+						{link}
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
