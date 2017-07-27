@@ -27,6 +27,21 @@ class Sidebar extends React.Component<any, any> {
     super(props);
   }
 
+  componentDidMount() {
+    this.scrollToSlide(this.props.classroomSessions.data.current_slide)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
+      this.scrollToSlide(nextProps.classroomSessions.data.current_slide)
+    }
+  }
+
+  scrollToSlide(slide_id: string) {
+    const el = document.getElementById(slide_id)
+    el ? el.scrollIntoView(true) : null
+  }
+
   goToSlide(slide_id: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
@@ -102,7 +117,7 @@ class Sidebar extends React.Component<any, any> {
             thumb = questions[slide].type;
         }
         components.push((
-          <div key={counter} onClick={() => this.goToSlide(slide)}>
+          <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
             <div className="sidebar-header">
             <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}</p>
             {currentSlide === slide ? this.presentStudents() : null}
