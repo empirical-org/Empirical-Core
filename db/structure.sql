@@ -90,7 +90,8 @@ CREATE TABLE activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
-    repeatable boolean DEFAULT true
+    repeatable boolean DEFAULT true,
+    follow_up_activity_id integer
 );
 
 
@@ -137,7 +138,9 @@ CREATE TABLE activity_classifications (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     app_name character varying(255),
-    order_number integer DEFAULT 999999999
+    order_number integer DEFAULT 999999999,
+    instructor_mode boolean DEFAULT false,
+    locked_by_default boolean DEFAULT false
 );
 
 
@@ -410,7 +413,8 @@ CREATE TABLE classroom_activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     assigned_student_ids integer[],
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    locked boolean DEFAULT false
 );
 
 
@@ -2926,13 +2930,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170412154159');
 
 INSERT INTO schema_migrations (version) VALUES ('20170502185232');
 
-INSERT INTO schema_migrations (version) VALUES ('20170505182334');
-
-INSERT INTO schema_migrations (version) VALUES ('20170505195744');
-
-INSERT INTO schema_migrations (version) VALUES ('20170517152031');
-
-INSERT INTO schema_migrations (version) VALUES ('20170519202522');
-
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170718160133');
+
+INSERT INTO schema_migrations (version) VALUES ('20170719192243');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720195450');
 

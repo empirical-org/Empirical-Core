@@ -87,6 +87,12 @@ class Teachers::UnitsController < ApplicationController
     render json: units(cas).to_json
   end
 
+  def lesson_units
+    lesson_activity_ids = Activity.where(activity_classification_id: 6).map(&:id)
+    cas = Classroom.where(id: params[:classroom_id]).includes(:students, classroom_activities: [{activity: :classification}, :topic]).where(classroom_activities: {activity_id: lesson_activity_ids}).map(&:classroom_activities).flatten
+    render json: units(cas).to_json
+  end
+
   def hide
     unit = Unit.find(params[:id])
     unit.update(visible: false)

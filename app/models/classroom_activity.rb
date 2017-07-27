@@ -13,7 +13,11 @@ class ClassroomActivity < ActiveRecord::Base
 
   validate :not_duplicate, :on => :create
 
-  after_create :assign_to_students
+  validates_uniqueness_of :pinned, scope: :classroom_id,
+    if: Proc.new { |ca| ca.pinned == true }
+
+  before_validation :check_pinned
+  after_create :assign_to_students, :lock_if_lesson, :update_lessons_cache
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions
 
   def assigned_students
@@ -26,6 +30,10 @@ class ClassroomActivity < ActiveRecord::Base
 
   def due_date_string
     due_date.try(:to_formatted_s, :quill_default)
+  end
+
+  def mark_all_activity_sessions_complete
+    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished')
   end
 
   def session_for user
@@ -173,6 +181,19 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def check_pinned
+    if self.pinned == true
+      if self.visible == false
+        # unpin ca before archiving
+        self.update!(pinned: false)
+      else
+        # unpin any other pinned ca before pinning new one
+        pinned_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id, pinned: true)
+        pinned_ca.update(pinned: false) if pinned_ca
+      end
+    end
+  end
+
   class << self
     def create_session(activity, options = {})
       classroom_activity = where(activity_id: activity.id, classroom_id: options[:user].classrooms.last.id).first_or_create
@@ -199,7 +220,35 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def lessons_cache_info_formatter
+    {classroom_activity_id: self.id, activity_id: activity.id, activity_name: activity.name, unit_id: self.unit_id}
+  end
+
   private
+
+  def lock_if_lesson
+    if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
+      self.update(locked: true)
+    end
+  end
+
+  def format_initial_lessons_cache
+    # grab all classroom activities from the current ones's teacher, filter the lessons, then parse them
+    self.classroom.teacher.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
+  end
+
+  def update_lessons_cache
+    if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
+      lessons_cache = $redis.get("user_id:#{self.classroom.teacher.id}_lessons_array")
+      if lessons_cache
+        lessons_cache = JSON.parse(lessons_cache)
+        lessons_cache.push(lessons_cache_info_formatter)
+      else
+        lessons_cache = format_initial_lessons_cache
+      end
+        $redis.set("user_id:#{self.classroom.teacher.id}_lessons_array", lessons_cache.to_json)
+    end
+  end
 
   def not_duplicate
     if ClassroomActivity.find_by(classroom_id: self.classroom_id, activity_id: self.activity_id, unit_id: self.unit_id, visible: self.visible)

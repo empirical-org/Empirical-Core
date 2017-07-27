@@ -3,7 +3,8 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   respond_to :json
 
   before_filter :teacher!
-  before_filter :authorize!
+  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities"]
+
 
   def update
     cas = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
@@ -24,11 +25,34 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
+
+  def unlock_lesson
+    unlocked = @classroom_activity.update(locked: false, pinned: true)
+    render json: {unlocked: unlocked}
+  end
+
+  def lessons_activities_cache
+    render json: {data: lesson_cache}
+  end
+
+  def lessons_units_and_activities
+    render json: {data: get_lessons_units_and_activities}
+  end
+
 private
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
     if @classroom_activity.classroom.teacher != current_user then auth_failed end
+  end
+
+  def get_lessons_units_and_activities
+    # collapses lessons cache into unique array of unit and activity ids
+    lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], unit_id: ca['unit_id'], name: ca['activity_name']}}.keys
+  end
+
+  def lessons_cache
+    JSON.parse($redis.get("user_id:#{current_user.id}_lessons_array") || '[]')
   end
 
   def classroom_activity_params
