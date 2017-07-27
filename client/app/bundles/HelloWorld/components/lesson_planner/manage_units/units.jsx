@@ -13,6 +13,7 @@
                 hideClassroomActivity={this.props.hideClassroomActivity}
                 hideUnit={this.props.hideUnit}
                 report={this.props.report}
+                lesson={this.props.lesson}
                 updateDueDate={this.props.updateDueDate}
   							data={data}
                 />);

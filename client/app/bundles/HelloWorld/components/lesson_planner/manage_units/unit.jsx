@@ -49,7 +49,7 @@
 	},
 
   delete: function(){
-    if (!this.props.report) {
+    if (!this.props.report && !this.props.lesson) {
       return <span className='delete-unit' onClick={this.hideUnit}>Delete</span>
     }
   },
@@ -77,7 +77,7 @@
   },
 
   dueDate: function(){
-    if (!this.props.report) {
+    if (!this.props.report && !this.props.lesson) {
       return <span className='due-date-header'>Due Date</span>
     }
   },
@@ -95,7 +95,7 @@
   },
 
   editStudentsLink: function(){
-    return this.props.report ? null : <a className='edit-unit edit-students' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Students</a>
+    return this.props.report || this.props.lesson ? null : <a className='edit-unit edit-students' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Students</a>
   },
 
   handleSubmit: function(){
@@ -131,7 +131,7 @@
   nameActionLink: function(){
     if (this.state.edit) {
       return this.submitName()
-    } else if (this.props.report) {
+    } else if (this.props.report || this.props.lesson) {
       return null
     } else {
       return this.editName()
@@ -140,7 +140,7 @@
   },
 
   addClassroomActivityRow: function(){
-    return this.props.report ? null : <AddClassroomActivityRow unitId={this.props.data.unit.id} unitName={this.props.data.unit.name}/>
+    return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.props.data.unit.id} unitName={this.props.data.unit.name}/>
   },
 
 	render: function () {
@@ -148,6 +148,7 @@
 			return (<ClassroomActivity
 							key={ca.id}
               report={this.props.report}
+              lesson={this.props.lesson}
 							updateDueDate={this.props.updateDueDate}
 							hideClassroomActivity={this.props.hideClassroomActivity}
 							data={ca} />);
