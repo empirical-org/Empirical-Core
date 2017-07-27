@@ -2,6 +2,7 @@ declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
+import StepHtml from './stepHtml'
 import { findDifferences } from './findDifferences'
 import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
@@ -31,6 +32,7 @@ const moment = require('moment');
 interface ScriptContainerProps {
   script: Array<ScriptItem>,
   onlyShowHeaders: boolean,
+  updateToggledHeaderCount: Function,
   [key: string]: any,
 }
 
@@ -59,6 +61,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sortDirection: 'desc',
       model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
       prompt: promptNotEmpty ?  textEditorInputClean(prompt) : ''
+      // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
+      // numberOfToggledHeaders: 0
     }
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
@@ -98,11 +102,23 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index, false);
+          return <StepHtml
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            item={item}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+            isTip={false}
+          />
         case 'STEP-HTML-TIP':
-          return this.renderStepHTML(item, this.props.onlyShowHeaders, index, true);
+            return <StepHtml
+            key={index}
+            onlyShowHeaders={this.props.onlyShowHeaders}
+            item={item}
+            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+            isTip={true}
+          />
         case 'T-MODEL':
-          return this.renderTeacherModel();
+          return this.renderTeacherModel()
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -136,7 +152,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderDisplayButton() {
     if (this.state.projecting) {
       return (
-        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Show Prompt</button>
+        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
       )
     } else {
       const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
@@ -277,6 +293,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     return <thead>
       <tr>
         {headers}
+        <th></th>
       </tr>
     </thead>
   }
@@ -333,7 +350,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderSubmissionRow(studentKey: string, index: number) {
-    const { selected_submissions, submissions, current_slide, students } = this.props;
+    const { selected_submissions, submissions, current_slide, students, selected_submission_order } = this.props;
     const text: any = submissions[current_slide][studentKey].data
 
     const boldedText = findDifferences(text, this.props.lessonPrompt);
@@ -343,6 +360,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
     const checkbox = this.determineCheckbox(checked)
+    const studentNumber: number | null = checked === true ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
+    const studentNumberClassName: string = checked === true ? 'answer-number' : ''
     const studentName: string = students[studentKey]
       return <tr key={index}>
         <td>{studentName}</td>
@@ -360,6 +379,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             {checkbox}
           </label>
         </td>
+        <td><span className={studentNumberClassName}>{studentNumber}</span></td>
       </tr>
 
   }
@@ -437,21 +457,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         />
       </div>
     );
-
-  }
-
-  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number, tip: boolean) {
-    const tipClass = tip ? "script-item example-discussion" : "script-item";
-    if (item.data) {
-      const html = onlyShowHeaders
-        ? <li className={tipClass} key={index}><p className="script-item-heading">{item.data.heading}</p></li>
-        : (<li className={tipClass} key={index}>
-          <p className="script-item-heading">{item.data.heading}</p>
-          <hr />
-          <div dangerouslySetInnerHTML={{ __html: item.data.body, }} />
-        </li>)
-      return html
-    }
   }
 
   render() {

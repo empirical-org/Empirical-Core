@@ -13,6 +13,7 @@ import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
+import icon from 'img/question_icon.svg';
 import { getParameterByName } from 'libs/getParameterByName';
 interface ListBlankProps {
   data: QuestionData;
@@ -143,7 +144,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   textEditListComponents(i){
     return (
       <div className={`list-component`} key={`${i}${this.state.answers[i]}`}>
-        <span className="list-number">{`Word ${i + 1}:`}</span>
+        <span className="list-number">{`${i + 1}:`}</span>
         <TextEditor
           editorIndex={i}
           value={this.state.answers[i]}
@@ -182,7 +183,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   sortedAndJoinedAnswers(){
-      const sortedAnswers = this.answerValues().sort()
+      const sortedAnswers = this.answerValues()
       return sortedAnswers.join(', ')
   }
 
@@ -210,12 +211,16 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       return this.renderProject()
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
-      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null
+      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
+      let instructionsRow = this.props.data.play.instructions ? (<div style={{marginTop: -20}} className="feedback-row">
+        <p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>
+      </div>) : null;
       return (
         <div>
         <h1 className="prompt">
           {this.props.data.play.prompt}
         </h1>
+        {instructionsRow}
         {this.listBlanks()}
         <div>
           <div className='feedback-and-button-container'>

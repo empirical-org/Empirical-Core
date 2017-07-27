@@ -16,6 +16,7 @@ interface SingleAnswerProps {
   startDisplayingAnswers: Function,
   stopDisplayingAnswers: Function,
   toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
+  updateToggledHeaderCount: Function,
   clearAllSubmissions: Function,
   clearAllSelectedSubmissions: Function,
   onlyShowHeaders: boolean,
@@ -23,7 +24,9 @@ interface SingleAnswerProps {
   savePrompt: Function,
 }
 
-interface SingleAnswerState {}
+interface SingleAnswerState {
+
+}
 
 class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
@@ -46,7 +49,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models, prompts} = this.props.data;
+    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models, selected_submission_order, prompts} = this.props.data;
     const promptNotEmpty = prompts && textEditorInputNotEmpty(prompts[current_slide]);
     const showHeaderText: string = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
     return (
@@ -63,6 +66,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
           prompt={promptNotEmpty ? prompts[current_slide] : this.props.lessonData.questions[current_slide].data.play.prompt}
           lessonPrompt={this.props.lessonData.questions[current_slide].data.play.prompt}
+          selected_submission_order={selected_submission_order}
           selected_submissions={selected_submissions}
           submissions={submissions}
           current_slide={current_slide}
@@ -76,6 +80,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           toggleSelected={this.toggleSelected}
           timestamps={timestamps}
           onlyShowHeaders={this.props.onlyShowHeaders}
+          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
           clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
           clearAllSubmissions={this.props.clearAllSubmissions}
           toggleStudentFlag={this.props.toggleStudentFlag}

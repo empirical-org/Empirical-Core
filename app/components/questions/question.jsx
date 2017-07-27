@@ -43,10 +43,6 @@ const Question = React.createClass({
     };
   },
 
-  deleteQuestion() {
-    this.props.dispatch(questionActions.deleteQuestion(this.props.params.questionID));
-  },
-
   startEditingQuestion() {
     this.props.dispatch(questionActions.startQuestionEdit(this.props.params.questionID));
   },
@@ -218,7 +214,6 @@ const Question = React.createClass({
 
             <a className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</a>
             <a className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</a>
-            <Link to={'admin/questions'} className="button is-outlined is-danger" onClick={this.deleteQuestion}>Delete Question</Link>
           </p>
           <div className="tabs">
             <ul>

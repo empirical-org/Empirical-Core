@@ -58,10 +58,6 @@ const SentenceFragment = React.createClass({
     this.props.dispatch(fragmentActions.startSentenceFragmentEdit(this.props.params.questionID));
   },
 
-  deleteSentenceFragment() {
-    this.props.dispatch(fragmentActions.deleteSentenceFragment(this.props.params.questionID));
-  },
-
   saveSentenceFragmentEdits(data) {
     this.props.dispatch(fragmentActions.submitSentenceFragmentEdit(this.props.params.questionID, data));
   },
@@ -120,9 +116,6 @@ const SentenceFragment = React.createClass({
           </div>
           <div className="button-group" style={{ marginTop: 10, }}>
             <button className="button is-info" onClick={this.startEditingSentenceFragment}>Edit Fragment</button>
-            <Link to={'admin/sentence-fragments'}>
-              <button className="button is-danger" onClick={this.deleteSentenceFragment}>Delete Fragment</button>
-            </Link>
           </div>
 
           <div className="tabs">

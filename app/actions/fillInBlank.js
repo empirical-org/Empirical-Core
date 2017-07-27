@@ -31,21 +31,6 @@ const actions = {
   cancelQuestionEdit(qid) {
     return { type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, };
   },
-  deleteQuestion(qid) {
-    return function (dispatch, getState) {
-      dispatch({ type: C.SUBMIT_FILL_IN_BLANK_QUESTION_EDIT, qid, });
-      fillInBlankQuestionsRef.child(qid).remove((error) => {
-        dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully deleted!', });
-          const action = push('/admin/fill-in-the-blanks');
-          dispatch(action);
-        }
-      });
-    };
-  },
   submitQuestionEdit(qid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_FILL_IN_BLANK_QUESTION_EDIT, qid, });

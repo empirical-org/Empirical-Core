@@ -2,8 +2,19 @@ import React from 'react';
 import LinkListItem from '../shared/linkListItem.jsx'
 export default React.createClass({
   renderFillInBlankListItems() {
-    if (this.props.fillInTheBlanks.length !== 0) {
-      return this.props.fillInTheBlanks.map(fillInBlank => (
+    const questions = this.props.fillInTheBlanks;
+    if (questions.length !== 0) {
+      let filtered;
+      if (!this.props.showOnlyArchived) {
+        filtered = questions.filter((question) => 
+          question.flag !== "Archive"
+        )
+      } else {
+        filtered = questions.filter((question) => 
+          question.flag === "Archive"
+        )
+      }
+      return filtered.map(fillInBlank => (
         <LinkListItem
           key={fillInBlank.key}
           itemKey={fillInBlank.key}

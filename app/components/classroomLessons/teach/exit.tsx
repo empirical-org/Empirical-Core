@@ -26,8 +26,8 @@ class ExitSlide extends React.Component<any, any> {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
-      form: {assignAction: e}},
-    ).then((response) => {
+      form: {assignAction: e},
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -46,6 +46,7 @@ class ExitSlide extends React.Component<any, any> {
         <ScriptComponent
           script={script}
           onlyShowHeaders={this.props.onlyShowHeaders}
+          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
         />
         <FlaggedStudents
           flaggedStudents={flaggedStudents}
