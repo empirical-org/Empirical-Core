@@ -203,6 +203,10 @@ $tool-grey: #f8f9f9;
       }
     }
 
+    .bg-lessons-purple {
+      background-color: #bd0c7e;
+    }
+
     .bg-connect-yellow {
         background-color: #ea9a1a;
     }
@@ -918,6 +922,32 @@ $tool-grey: #f8f9f9;
     background-image: url('../../../../public/images/landing_page_grammar_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
+  }
+}
+
+.lessons-tool-page {
+  .walk-thru-wrapper.mobile {
+    @media (min-width: 930px) {
+        display: none;
+    }
+  }
+  .walk-thru-wrapper.desktop {
+    @media (max-width: 930px) {
+        display: none;
+    }
+    .walk-thru-step {
+      height: 360px;
+      &:nth-child(2), &:nth-child(3) {
+        img {
+          margin-left: -65px;
+        }
+      }
+      &:nth-child(4) {
+        img {
+          margin-left: -50px;
+        }
+      }
+    }
   }
 }
 

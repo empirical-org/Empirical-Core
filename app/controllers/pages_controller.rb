@@ -94,6 +94,11 @@ class PagesController < ApplicationController
     @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
   end
 
+  def lessons_tool
+    @title = 'Quill Connect - Free Sentence Structure Activities'
+    @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
+  end
+
   def activities
     @body_class = 'full-width-page white-page'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
@@ -110,7 +115,7 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool'
+    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
     end
   end
