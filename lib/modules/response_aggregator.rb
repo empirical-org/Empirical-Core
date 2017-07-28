@@ -14,11 +14,11 @@ module ResponseAggregator
   end
 
   def optimality_counts_of_question(question_uid)
-    human_optimal = Response.where(question_uid: question_uid, optimal: true, parent_id: nil).count
-    human_suboptimal = Response.where(question_uid: question_uid, optimal: false, parent_id: nil).count
-    algo_optimal = Response.where(question_uid: question_uid, optimal: true).where.not(parent_id: nil).count
-    algo_suboptimal = Response.where(question_uid: question_uid, optimal: nil).where.not(parent_id: nil).count
-    unmatched = Response.where(question_uid: question_uid, optimal: nil, parent_id: nil).count
+    human_optimal = Response.where(question_uid: question_uid, optimal: true, parent_id: nil).sum('count')
+    human_suboptimal = Response.where(question_uid: question_uid, optimal: false, parent_id: nil).sum('count')
+    algo_optimal = Response.where(question_uid: question_uid, optimal: true).where.not(parent_id: nil).sum('count')
+    algo_suboptimal = Response.where(question_uid: question_uid, optimal: nil).where.not(parent_id: nil).sum('count')
+    unmatched = Response.where(question_uid: question_uid, optimal: nil, parent_id: nil).sum('count')
 
     return {
       "Human Optimal": human_optimal,
