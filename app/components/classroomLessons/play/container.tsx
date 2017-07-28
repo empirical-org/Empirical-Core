@@ -65,12 +65,14 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       }
       const student = getParameterByName('student');
       const classroom_activity_id = getParameterByName('classroom_activity_id')
+      const projector = getParameterByName('projector')
       const { data, hasreceiveddata } = this.props.classroomSessions;
-      if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+      if (projector === "true") {
+        this.setState({projector: true})
+      } else if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
         registerPresence(classroom_activity_id, student);
       } else {
         if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
-          console.log("props", nextProps.classroomSessions)
           if (nextProps.classroomSessions.data.public) {
             this.setState({shouldEnterName: true})
           } else {
@@ -109,7 +111,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
-    const props = { mode, submissions, selected_submissions, selected_submission_order};
+    const projector = this.state.projector
+    const props = { mode, submissions, selected_submissions, selected_submission_order, projector};
     let passedProps;
     switch (current.type) {
       case 'CL-LB':
@@ -191,7 +194,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
        // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
        // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
        const absentTeacher = this.props.classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
-       const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
+       const watchTeacher = this.props.classroomSessions.data.watchTeacherState && !this.state.projector ? <CLWatchTeacher /> : null
        if (hasreceiveddata && lessonDataLoaded) {
          const component = this.renderCurrentSlide(data, lessonData);
          if (component) {

@@ -19,7 +19,8 @@ interface fillInTheBlankProps {
   mode: string | null,
   submissions: QuestionSubmissionsList | null,
   selected_submissions: SelectedSubmissionsForQuestion | null,
-  selected_submission_order: Array<string> | null
+  selected_submission_order: Array<string> | null,
+  projector: boolean|null
 }
 
 interface fillInTheBlankState {

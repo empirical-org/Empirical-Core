@@ -5,7 +5,7 @@ import Tooltip from '../classroomLessons/shared/tooltip'
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
   setWatchTeacherState,
-  removeWatchTeacherState
+  removeWatchTeacherState,
 } from '../../actions/classroomSessions';
 const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = require('../../img/exit_icon.svg')
@@ -32,6 +32,7 @@ class TeacherNavbar extends React.Component<any, any> {
     this.toggleFlagDropdown = this.toggleFlagDropdown.bind(this)
     this.hideFlagDropdown = this.hideFlagDropdown.bind(this)
     this.flagDropdown = this.flagDropdown.bind(this)
+    this.launchProjector = this.launchProjector.bind(this)
   }
 
   presentStudentCount() {
@@ -68,6 +69,10 @@ class TeacherNavbar extends React.Component<any, any> {
 
   hideFlagDropdown() {
     this.setState({showFlagDropdown: false})
+  }
+
+  launchProjector() {
+    window.open(window.location.href.replace('teach', 'play').concat('&projector=true'), '_blank')
   }
 
   renderTooltip(icon:string) {
@@ -226,6 +231,7 @@ class TeacherNavbar extends React.Component<any, any> {
           <div
             onMouseEnter={(e) => this.showTooltip(e, 'projector')}
             onMouseLeave={(e) => this.hideTooltip(e)}
+            onClick={this.launchProjector}
           >
             <img src={projectorIcon} className={projectorClass}/>
             {this.renderTooltip('projector')}
