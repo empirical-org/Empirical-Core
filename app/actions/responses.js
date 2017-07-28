@@ -138,9 +138,10 @@ export function submitResponse(content, prid, isFirstAttempt) {
   };
 }
 
-export function submitMassEditFeedback(ids, feedback, qid) {
+export function submitMassEditFeedback(ids, properties, qid) {
   return (dispatch) => {
-    const updated_attribute = { feedback, };
+    const updated_attribute = properties;
+    console.log(updated_attribute);
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       json: { ids, updated_attribute, }, },

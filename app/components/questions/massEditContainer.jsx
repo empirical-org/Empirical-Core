@@ -96,8 +96,17 @@ class MassEditContainer extends React.Component {
   updateResponseFeedbackInMassEditArray() {
     const selectedResponses = this.props.massEdit.selectedResponses;
     const feedback = this.state.massEditFeedback;
+    const optimal = this.refs.massEditOptimal.checked || false;
+    const parent_id = null;
+    const author = null;
+    const payload = {
+      feedback,
+      optimal,
+      parent_id,
+      author,
+    };
     const qid = this.props.params.questionID;
-    this.props.dispatch(submitMassEditFeedback(selectedResponses, feedback, qid));
+    this.props.dispatch(submitMassEditFeedback(selectedResponses, payload, qid));
   }
 
   displayMessage() {
