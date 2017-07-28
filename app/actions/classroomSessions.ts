@@ -2,6 +2,7 @@ declare function require(name:string);
 import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
+const classroomLessonsRef = rootRef.child('classroom_lessons');
 const moment = require('moment');
 import {
   ClassroomLessonSessions,
@@ -74,6 +75,13 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
+export function redirectAssignedStudents(classroom_activity_id: string, studentIds: Array<string>, followUpUrl: string) {
+  const assignedStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/assignedStudents`)
+  const followUpUrlRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpUrl`)
+  assignedStudentsRef.set(studentIds)
+  followUpUrlRef.set(followUpUrl)
+}
+
 export function registerPresence(classroom_activity_id: string, student_id: string): void {
   const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence/${student_id}`);
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
@@ -129,6 +137,11 @@ export function updateSlideInStore(slideId: string) {
 export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
   submissionRef.set(submission);
+}
+
+export function removeStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
+  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
+  submissionRef.remove();
 }
 
 export function clearAllSubmissions(classroom_activity_id: string, question_id: string): void {
@@ -270,6 +283,11 @@ export function updateNoStudentError(student: string | null) {
 export function setModel(classroom_activity_id: string, question_id: string, model): void {
   const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
   modelRef.set(model);
+}
+
+export function setPrompt(classroom_activity_id: string, question_id: string, prompt): void {
+  const promptRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts/${question_id}`);
+  promptRef.set(prompt);
 }
 
 export function easyJoinLessonAddName(classroom_activity_id: string, studentName: string): void {

@@ -1,9 +1,10 @@
 declare function require(name:string);
 import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
-import TextEditor from '../../renderForQuestions/renderTextEditor';
+import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
 import { findDifferences } from './findDifferences'
+import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -41,19 +42,27 @@ interface ScriptContainerState {
   sort: string,
   sortDirection: string,
   model: string,
+  showDifferences: boolean,
+  prompt: string,
 }
 
 class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
 
   constructor(props) {
     super(props);
-
+    const current = this.props.current_slide;
+    const models = this.props.models;
+    const modelNotEmpty = models && textEditorInputNotEmpty(models[current]);
+    const prompt = this.props.prompt;
+    const promptNotEmpty = textEditorInputNotEmpty(prompt);
     this.state = {
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
-      model: '',
+      showDifferences: false,
+      model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
+      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : '',
       // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       // numberOfToggledHeaders: 0
     }
@@ -64,15 +73,28 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
     this.retryQuestion = this.retryQuestion.bind(this);
     this.handleModelChange = this.handleModelChange.bind(this);
+    this.retryQuestionForStudent = this.retryQuestionForStudent.bind(this);
+    this.toggleShowDifferences = this.toggleShowDifferences.bind(this);
+    this.handlePromptChange = this.handlePromptChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
+
     if (this.props.current_slide !== nextProps.current_slide) {
-      this.setState({ model: nextProps.models && nextProps.models[nextProps.current_slide] ? nextProps.models[nextProps.current_slide] : ''})
+      const models = nextProps.models;
+      const current = nextProps.current_slide;
+      const modelNotEmpty = models && textEditorInputNotEmpty(models[current]);
+      const prompt = nextProps.prompt;
+      const promptNotEmpty = textEditorInputNotEmpty(prompt);
+      this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : '', 
+                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : '', 
+                      showDifferences: false
+                    })
     }
+
     if (nextProps.submissions && nextProps.submissions[nextProps.current_slide]) {
       const numStudents: number = Object.keys(nextProps.presence).length;
       const numAnswers: number = Object.keys(nextProps.submissions[nextProps.current_slide]).length
@@ -94,6 +116,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             onlyShowHeaders={this.props.onlyShowHeaders}
             item={item}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+            isTip={false}
           />
         case 'STEP-HTML-TIP':
             return <StepHtml
@@ -101,15 +124,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             onlyShowHeaders={this.props.onlyShowHeaders}
             item={item}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+            isTip={true}
           />
         case 'T-MODEL':
-          return <TextEditor
-            key={index}
-            defaultValue={''}
-            value={this.state.model}
-            handleChange={this.handleModelChange}
-            placeholder="Type your model for the students here."
-          />
+          return this.renderTeacherModel()
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -125,6 +143,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.setState({showAllStudents: !this.state.showAllStudents})
   }
 
+  toggleShowDifferences() {
+    this.setState({showDifferences: !this.state.showDifferences})
+  }
+
   stopDisplayingAnswers() {
     this.setState({projecting: false})
     this.props.stopDisplayingAnswers();
@@ -138,6 +160,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.stopDisplayingAnswers()
     this.clearSelectedSubmissions()
     this.clearAllSubmissions()
+  }
+
+  retryQuestionForStudent(student) {
+    const submissions: Submissions = this.props.submissions;
+    const current_slide: string = this.props.current_slide;
+    if (submissions && submissions[current_slide] && submissions[current_slide][student]) {
+      this.props.clearStudentSubmission(current_slide, student)
+    }
   }
 
   renderDisplayButton() {
@@ -168,6 +198,16 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (numAnswers > 0) {
       return (
         <span className="show-remaining-students-button" onClick={this.toggleShowAllStudents}> {verb} Remaining Students</span>
+      )
+    }
+  }
+
+  renderShowDifferencesButton() {
+    const shouldShowDifferences = this.props.prompt && (this.props.slideType === "CL-SA")
+    if (shouldShowDifferences) {
+      const verb: string = this.state.showDifferences ? "Hide" : "Show";
+      return (
+        <span className="show-differences-button" onClick={this.toggleShowDifferences}> {verb} Differences</span>
       )
     }
   }
@@ -240,6 +280,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           <div className="student-submission-item-header">
             <strong>{numAnswers} of {numStudents}</strong> Students have answered.
             {this.renderShowRemainingStudentsButton()}
+            {this.renderShowDifferencesButton()}
           </div>
           <div className="student-submission-item-table">
             <table >
@@ -271,15 +312,23 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       'flag': 'Flag',
       'answers': 'Answers',
       'time': 'Time',
-      'displayed': 'Select to Display'
+      'displayed': 'Select to Display',
+      'order': 1,
+      'retry': 'Have Student Retry',
     }
     const headers: Array<JSX.Element> = []
     for (let key in fields) {
-      let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
-      const header = key === 'displayed'
-      ? <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/> {this.renderUnselectAllButton()}</th>
-      : <th key={key}>{fields[key]}<i className={`fa ${caret}`} onClick={() => this.setSort(key)}/></th>
-      headers.push(header)
+      if (key === 'retry') {
+        headers.push(<th key={key}>{fields[key]}</th>)
+      } else if (key === 'order') {
+        headers.push(<th key={key} className="hidden-order">{fields[key]}</th>)
+      } else {
+        let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
+        const header = key === 'displayed'
+        ? <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span>{this.renderUnselectAllButton()}</th>
+        : <th key={key}><span onClick={() => this.setSort(key)}>{fields[key]}<i className={`fa ${caret}`} /></span></th>
+        headers.push(header)
+      }
     }
     return <thead>
       <tr>
@@ -344,14 +393,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, selected_submission_order } = this.props;
     const text: any = submissions[current_slide][studentKey].data
 
-    const boldedText = findDifferences(text, this.props.prompt);
+    const submissionText = this.state.showDifferences ? findDifferences(text, this.props.prompt) : text;
 
-    const html: any = <span dangerouslySetInnerHTML={{__html: boldedText}}/>
+    const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
     const checkbox = this.determineCheckbox(checked)
-    const studentNumber: number | null = checked === true && selected_submission_order.length > 0 ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
+    const studentNumber: number | null = checked === true && selected_submission_order ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
     const studentName: string = students[studentKey]
       return <tr key={index}>
@@ -371,6 +420,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           </label>
         </td>
         <td><span className={studentNumberClassName}>{studentNumber}</span></td>
+        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
       </tr>
 
   }
@@ -416,8 +466,38 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   handleModelChange(e) {
-    this.setState({ model: e, });
-    this.props.saveModel(e);
+    this.setState({ model: textEditorInputClean(e) });
+    this.props.saveModel(textEditorInputClean(e));
+  }
+
+  handlePromptChange(e) {
+    this.setState({ prompt: textEditorInputClean(e) });
+    this.props.savePrompt(textEditorInputClean(e));
+  }
+
+  renderTeacherModel() {
+    let promptEditor = <span />;
+    if (this.props.lessonPrompt) {
+      promptEditor = (
+        <div>
+          <p className="teacher-model-instructions"><em>Modify the prompt here; it will be displayed on your students' screens as you type.</em></p><br />
+          <MultipleTextEditor
+            text={this.state.prompt}
+            handleTextChange={this.handlePromptChange}
+          />
+        </div>
+      )
+    }
+    return (
+      <div>
+        {promptEditor}
+        <p className="teacher-model-instructions"><em>Type your model answer here; it will be displayed on your students' screens as you type.</em></p><br />
+        <MultipleTextEditor
+          text={this.state.model}
+          handleTextChange={this.handleModelChange}
+        />
+      </div>
+    );
   }
 
   render() {

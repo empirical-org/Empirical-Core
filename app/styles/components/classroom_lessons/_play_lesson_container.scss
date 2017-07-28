@@ -4,7 +4,8 @@
   display: flex;
   justify-content: center;
   .main-content {
-    width: 90%;
+    width: 100%;
+    margin: 0 35;
     // overflow-y: scroll;
 
     .easy-join-name-form-wrapper {
@@ -114,7 +115,6 @@
   .your-answer {
     margin-top: 20px;
     margin-bottom: 35px;
-    width: 800px;
     min-height: 66px;
     border-radius: 3px;
     background-color: #fafafa;
