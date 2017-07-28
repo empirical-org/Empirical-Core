@@ -299,7 +299,7 @@ EmpiricalGrammar::Application.routes.draw do
     get page => "pages##{page}", as: "#{page}"
   end
 
-  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool)
+  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
   tools.each do |tool|
     get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
   end

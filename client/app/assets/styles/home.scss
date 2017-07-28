@@ -103,7 +103,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple);
+$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
 
 @each $name, $color in $list {
   .text-#{$name} {
@@ -198,6 +198,13 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
     background-position-y: -10px;
   }
 }
+
+.bg-image-lessons-pattern {
+  background-image: url("http://localhost:45537/images/background_images/lessons-pattern.svg");
+  background-repeat: repeat;
+  background-position-y: -10px;
+}
+
 
 section.q-hero {
   width: 100%;
