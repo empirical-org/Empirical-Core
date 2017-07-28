@@ -3,6 +3,7 @@ import TextEditor from '../questions/textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
+import FlagDropdown from '../shared/flagDropdown.jsx';
 
 const diagnosticQuestionForm = React.createClass({
   getInitialState: function () {
@@ -15,6 +16,7 @@ const diagnosticQuestionForm = React.createClass({
         instructions: '',
         prefilledText: '',
         cues: '',
+        flag: 'Alpha',
       }
     }
     return {
@@ -24,6 +26,7 @@ const diagnosticQuestionForm = React.createClass({
       instructions: question.instructions ? question.instructions : '',
       prefilledText: question.prefilledText? question.prefilledText : '',
       cues: question.cues? question.cues : '',
+      flag: question.flag ? question.flag : 'Alpha',
     }
   },
 
@@ -34,7 +37,8 @@ const diagnosticQuestionForm = React.createClass({
       cues: this.refs.cues.value.split(','),
       itemLevel: this.state.itemLevel,
       conceptID: this.state.concept,
-      instructions: this.state.instructions
+      instructions: this.state.instructions,
+      flag: this.state.flag,
     })
   },
 
@@ -60,6 +64,10 @@ const diagnosticQuestionForm = React.createClass({
 
   handleSelectorChange: function(e) {
     this.setState({concept: e.value})
+  },
+
+  handleFlagChange(e) {
+    this.setState({ flag: e.target.value, });
   },
 
   render: function () {
@@ -89,6 +97,7 @@ const diagnosticQuestionForm = React.createClass({
             </select>
           </span>
         </p>
+        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
         <label className="label">Concept</label>
         <div>
           <ConceptSelector currentConceptUID={this.state.concept}
@@ -102,4 +111,3 @@ const diagnosticQuestionForm = React.createClass({
 });
 
 export default diagnosticQuestionForm;
-
