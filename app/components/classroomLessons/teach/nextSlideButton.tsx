@@ -29,9 +29,10 @@ class NextSlideButton extends Component<any, any> {
 
   render() {
     const data = this.props.classroomSessions.data;
-    if (data.questions && Number(data.current_slide) === data.questions.length - 1) {
+    const lessonsData = this.props.classroomLesson.data
+    if (lessonsData.questions && Number(data.current_slide) === lessonsData.questions.length - 1) {
       return <span />;
-    } else if (Number(data.current_slide) === 0){
+    } else if (Number(data.current_slide) === 0) {
       return <span>Press the <span>right arrow key</span> to continue to the next slide.<button onClick={this.goToNextSlide}>Next Slide</button></span>
     }
     return (
