@@ -27,6 +27,21 @@ class Sidebar extends React.Component<any, any> {
     super(props);
   }
 
+  componentDidMount() {
+    this.scrollToSlide(this.props.classroomSessions.data.current_slide)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
+      this.scrollToSlide(nextProps.classroomSessions.data.current_slide)
+    }
+  }
+
+  scrollToSlide(slide_id: string) {
+    const el = document.getElementById(slide_id)
+    el ? el.scrollIntoView(true) : null
+  }
+
   goToSlide(slide_id: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
@@ -56,6 +71,8 @@ class Sidebar extends React.Component<any, any> {
         counter += 1;
         const activeClass = currentSlide === slide ? 'active' : '';
         let thumb;
+        let title = lessonData.questions[slide].data.teach.title
+        let titleSection = title ? <span> - {title}</span> : <span/>
         let prompt = data.prompts && data.prompts[slide] ? data.prompts[slide] : null;
         let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
@@ -103,9 +120,9 @@ class Sidebar extends React.Component<any, any> {
             thumb = questions[slide].type;
         }
         components.push((
-          <div key={counter} onClick={() => this.goToSlide(slide)}>
+          <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
             <div className="sidebar-header">
-            <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}</p>
+            <p className={`slide-number ${activeClass}`}>Slide {counter} / {length}{titleSection}</p>
             {currentSlide === slide ? this.presentStudents() : null}
             </div>
             <div className={`slide-preview ${activeClass}`}>
