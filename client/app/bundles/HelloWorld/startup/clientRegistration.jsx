@@ -31,4 +31,4 @@ ReactOnRails.register({  TeacherGuideApp, DashboardApp,
   ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
   AdminsEditorApp, PublicActivityPacksApp, AddStudentApp,
   DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp,
-  GoogleSyncApp, GoogleMismatchApp});
+  GoogleSyncApp, GoogleMismatchApp });
