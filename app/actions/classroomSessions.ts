@@ -2,6 +2,7 @@ declare function require(name:string);
 import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
+const classroomLessonsRef = rootRef.child('classroom_lessons');
 const moment = require('moment');
 import {
   ClassroomLessonSessions,
@@ -270,6 +271,11 @@ export function updateNoStudentError(student: string | null) {
 export function setModel(classroom_activity_id: string, question_id: string, model): void {
   const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
   modelRef.set(model);
+}
+
+export function setPrompt(classroom_activity_id: string, question_id: string, prompt): void {
+  const promptRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts/${question_id}`);
+  promptRef.set(prompt);
 }
 
 export function easyJoinLessonAddName(classroom_activity_id: string, studentName: string): void {
