@@ -90,7 +90,8 @@ export default React.createClass({
       weak: false,
       feedback: this.state.feedback,
       optimal: this.refs.newResponseOptimal.checked,
-      gradeIndex: `human${this.props.questionID}`,
+      author: null,
+      parent_id: null,
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
@@ -142,8 +143,7 @@ export default React.createClass({
   },
 
   removeLinkToParentID(rid) {
-    this.props.dispatch(submitResponseEdit(rid, { gradeIndex: `human${this.props.response.questionUID}`, }, this.props.questionID));
-    this.props.dispatch(removeLinkToParentID(rid));
+    this.props.dispatch(submitResponseEdit(rid, { optimal: false, author: null, }, this.props.questionID));
   },
 
   applyDiff(answer = '', response = '') {
@@ -272,9 +272,8 @@ export default React.createClass({
           </select>
         </span>
       );
-    } else {
-      return (<span />);
     }
+    return (<span />);
   },
 
   renderConceptResults(mode) {
@@ -306,20 +305,18 @@ export default React.createClass({
         }
       }
       return results;
-    } else {
-      const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
-      if (concept) {
-        return (
-          <li key={concept.id}>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
-            <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
-          </li>
-        );
-      } else {
-        return (
-          <div />
-        );
-      }
     }
+    const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
+    if (concept) {
+      return (
+        <li key={concept.id}>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+          <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
+        </li>
+      );
+    }
+    return (
+      <div />
+    );
   },
 
   renderResponseContent(isEditing, response) {
@@ -525,9 +522,8 @@ export default React.createClass({
   headerClasses() {
     if (!this.props.expanded) {
       return 'unexpanded';
-    } else {
-      return 'expanded';
     }
+    return 'expanded';
   },
 
   renderChildResponses(isViewingChildResponses, key) {

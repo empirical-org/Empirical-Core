@@ -21,6 +21,7 @@ interface ListBlankProps {
   handleStudentSubmission: Function;
   selected_submissions: SelectedSubmissionsForQuestion|null;
   submissions: QuestionSubmissionsList|null;
+  projector: boolean|null
 }
 interface ListBlankState {
   isSubmittable: Boolean;
@@ -49,7 +50,16 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
-    if (this.state.submitted) {
+    if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
+      const submittedAnswers = {};
+      const splitAnswers = nextProps.submissions[student].data.split(", ");
+      for (let i = 0; i < splitAnswers.length; i++) {
+        submittedAnswers[i] = splitAnswers[i]
+      }
+      this.setState({ submitted: true })
+      this.setState({ answers: submittedAnswers })
+    }
+    if (student && this.state.submitted) {
       if (!nextProps.submissions) {
         // this will  reset the state when a teacher resets a question
         this.setState({ submitted: false, answers: {}, });
@@ -85,7 +95,6 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     : <span />;
     return (
       <div className="display-mode">
-        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         {this.renderYourAnswer()}
         {classAnswers}
       </div>
@@ -93,7 +102,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderYourAnswer() {
-    return <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>;
+    if (!this.props.projector) {
+      return <div>
+        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
+        <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>;
+      </div>
+    }
   }
 
   renderClassAnswersList() {

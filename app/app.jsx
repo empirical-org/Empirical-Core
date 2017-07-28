@@ -16,6 +16,8 @@ import Passthrough from './components/shared/passthrough.jsx';
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory';
+import 'styles/style.scss';
+
 BackOff();
 const hashhistory = createHashHistory({ queryKey: false, });
 const store = createStore();

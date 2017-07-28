@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Cues from 'components/renderForQuestions/cues';
 import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
 import FeedbackRow from './feedbackRow'
-import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from 'libs/getParameterByName';
 const moment = require('moment');
@@ -12,6 +11,7 @@ import {
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
 import { QuestionData } from '../../../interfaces/classroomLessons'
+const icon = require('../../../img/question_icon.svg');
 
 interface SingleAnswerProps {
   data: QuestionData,
@@ -19,7 +19,8 @@ interface SingleAnswerProps {
   mode: string|null,
   submissions: QuestionSubmissionsList|null,
   selected_submissions: SelectedSubmissionsForQuestion|null,
-  selected_submission_order: Array<string>|null
+  selected_submission_order: Array<string>|null,
+  projector: boolean|null
 }
 
 interface SingleAnswerState {
@@ -42,6 +43,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student');
+    if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
+      this.setState({ submitted: true })
+      this.setState({ response: nextProps.submissions[student].data })
+    }
     // this will reset the state when a teacher resets a question
     if (this.state.submitted === true && nextProps.submissions === null) {
       this.setState({ submitted: false, editing: false, response: '', });
@@ -68,7 +73,6 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     : <span />;
     return (
       <div className="display-mode">
-        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         {this.renderYourAnswer()}
         {classAnswers}
       </div>
@@ -76,7 +80,12 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderYourAnswer() {
-    return <p className="your-answer">{this.state.response}</p>;
+    if (!this.props.projector) {
+      return <div>
+        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
+        <p className="your-answer">{this.state.response}</p>;
+      </div>
+    }
   }
 
   renderClassAnswersList() {

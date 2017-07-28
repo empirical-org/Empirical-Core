@@ -3,10 +3,21 @@ import LinkListItem from '../shared/linkListItem.jsx'
 
 export default React.createClass({
   renderListItems: function () {
-    if (this.props.diagnosticQuestions.length === 0) {
+    const questions = this.props.diagnosticQuestions;
+    if (questions.length === 0) {
       return;
     }
-    return this.props.diagnosticQuestions.map((diagnosticQuestion) => {
+    let filtered;
+    if (!this.props.showOnlyArchived) {
+      filtered = questions.filter((question) =>
+        question.flag !== "Archive"
+      )
+    } else {
+      filtered = questions.filter((question) =>
+        question.flag === "Archive"
+      )
+    }
+    return filtered.map((diagnosticQuestion) => {
       return (
         <LinkListItem
           key={diagnosticQuestion.key}

@@ -1,15 +1,14 @@
 import 'babel-polyfill';
-import React, { Component, PropTypes } from "react";
+import React, { Component, PropTypes } from 'react';
 import NavBar from './navbar/studentNavbar.jsx';
-import "../styles/style.scss";
 
 export default React.createClass({
-  render(){
+  render() {
     return (
       <div>
-        <NavBar/>
+        <NavBar />
         {this.props.children}
       </div>
-    )
-  }
+    );
+  },
 });
