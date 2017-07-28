@@ -44,7 +44,7 @@ module ResponseSearch
   end
 
   def build_query_string(question_uid, query_filters)
-    string = query_filters["text"] || ""
+    string = "\"#{query_filters["text"]}\"" || ""
     string = add_question_uid_filter(string, question_uid)
     string = add_not_filters(string, query_filters[:filters].to_h)
   end

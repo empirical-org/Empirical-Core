@@ -173,10 +173,10 @@ namespace :responses do
   end
 
   def convert_to_csv
-    graded_file_name = "lib/data/gradedResponses.json"
+    graded_file_name = "tmp/data/gradedResponses.json"
     graded_file = File.read(graded_file_name);0
     graded_data_hash = JSON.parse(graded_file);0
-    file_name = "lib/data/responses.json"
+    file_name = "tmp/data/responses.json"
     file = File.read(file_name);0
     data_hash = JSON.parse(file);0
     dupes_hash = Hash.new(0)
