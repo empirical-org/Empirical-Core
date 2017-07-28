@@ -66,7 +66,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
-    const classAnswers = this.props.selected_submission_order
+    const classAnswers = this.props.selected_submissions && this.props.selected_submission_order
     ? (<div>
       <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
       {this.renderClassAnswersList()}
