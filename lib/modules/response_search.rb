@@ -11,7 +11,7 @@ module ResponseSearch
     page_number = query_filters[:pageNumber]
     {
       numberOfPages: results.page(page_number).total_pages,
-      numberOfResults: results.total_count,
+      numberOfResults: results.results.total,
       numberOfResultsOnPage: results.page(page_number).size,
       results: results.page(page_number).records
     }

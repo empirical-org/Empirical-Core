@@ -1,7 +1,9 @@
 require 'modules/response_search'
+require 'modules/response_aggregator'
 
 class ResponsesController < ApplicationController
   include ResponseSearch
+  include ResponseAggregator
   before_action :set_response, only: [:show, :update, :destroy]
 
   # GET /responses
@@ -65,6 +67,13 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
+  def get_health_of_question
+    render json: health_of_question(params[:question_uid])
+  end
+
+  def get_grade_breakdown
+    render json: optimality_counts_of_question(params[:question_uid])
+  end
 
   def increment_counts(response)
     response.increment!(:count)
