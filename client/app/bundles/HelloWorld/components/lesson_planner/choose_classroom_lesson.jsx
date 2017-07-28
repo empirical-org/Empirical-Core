@@ -14,6 +14,7 @@ export default class ChooseClassroomLesson extends React.Component {
     this.getClassroomLessonInfo()
 
     this.launchLesson = this.launchLesson.bind(this)
+    this.goBack = this.goBack.bind(this)
   }
 
   getClassroomLessonInfo() {
@@ -37,16 +38,22 @@ export default class ChooseClassroomLesson extends React.Component {
   renderClassroomRow(ca, i) {
     const numberOfStudents = `${ca.number_of_assigned_students} student${ca.number_of_assigned_students === 1 ? '' : 's'}`
     const selectedClassName = ca.id === this.state.selectedClassroomActivityId ? 'selected' : null
-    let completionText, completionClass
+    let completionText, completionClass, imgName, clickFunction
     if (ca.completed) {
       completionText = <span className="completed-text"><i className="fa fa-check-circle" /> Lesson Completed*</span>
       completionClass = 'completed'
+      imgName = "radio_button_light_gray"
     } else {
       completionText = <span/>
       completionClass = 'incomplete'
+      imgName = selectedClassName ? "radio_button_selected" : "radio_button_empty"
+      clickFunction = () => {this.setSelectedClassroomActivityId(ca.id)}
     }
-    return <div key={i} onClick={() => {this.setSelectedClassroomActivityId(ca.id)}} className={`classroom-row ${selectedClassName}`}>
-      <div><span className={completionClass}>{ca.classroom_name}</span> ({numberOfStudents})</div>
+    return <div key={i} onClick={clickFunction} className={`classroom-row ${selectedClassName} ${completionClass}`}>
+      <div>
+        <img src={`http://localhost:45537/images/shared/${imgName}.svg`}/>
+        <span>{ca.classroom_name}</span> ({numberOfStudents})
+      </div>
       {completionText}
     </div>
   }
@@ -68,14 +75,20 @@ export default class ChooseClassroomLesson extends React.Component {
     })
   }
 
+  goBack() {
+    this.props.history.goBack()
+  }
+
   render() {
+    const buttonClass = this.state.selectedClassroomActivityId ? 'bg-quillgreen' : ''
     return(
     <div className='choose-classroom-lessons container'>
       <div className='lesson-section'>
         <p>You've selected this lesson to launch:</p>
         <div className="lesson-row">
+          <img src="http://localhost:45537/images/shared/icon-lesson-box.svg"/>
           <p>{this.state.activityName}</p>
-          <span>Undo Selection</span>
+          <span onClick={this.goBack}>Undo Selection</span>
         </div>
       </div>
 
@@ -84,8 +97,10 @@ export default class ChooseClassroomLesson extends React.Component {
         {this.renderClasses()}
       </div>
       <div className="bottom-section">
-        <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it. To re-assign a lesson, you can click here.</p>
-        <button onClick={this.launchLesson} className="q-button bg-quillgreen text-white">Launch Lesson</button>
+        {/* we will use the text below when we have a lessons page to send teachers to */}
+        {/* <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it. To re-assign a lesson, you can click here.</p> */}
+        <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it.</p>
+        <button onClick={this.launchLesson} className={`q-button text-white ${buttonClass}`}>Launch Lesson</button>
       </div>
     </div>)
   }
