@@ -89,8 +89,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       const modelNotEmpty = models && textEditorInputNotEmpty(models[current]);
       const prompt = nextProps.prompt;
       const promptNotEmpty = textEditorInputNotEmpty(prompt);
-      this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : '', 
-                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : '', 
+      this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
+                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : '',
                       showDifferences: false
                     })
     }
@@ -393,14 +393,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, selected_submission_order } = this.props;
     const text: any = submissions[current_slide][studentKey].data
 
-    const submissionText = this.state.showDifferences ? findDifferences(text, this.props.prompt) : text;
+    const submissionText = this.state.showDifferences ? findDifferences(text, this.props.lessonPrompt) : text;
 
     const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
     const checkbox = this.determineCheckbox(checked)
-    const studentNumber: number | null = checked === true && selected_submission_order ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
+    const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
     const studentName: string = students[studentKey]
       return <tr key={index}>

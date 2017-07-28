@@ -56,9 +56,9 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       for (let i = 0; i < splitAnswers.length; i++) {
         submittedAnswers[i] = splitAnswers[i]
       }
-      this.setState({ 
+      this.setState({
         submitted: true,
-        answers: submittedAnswers 
+        answers: submittedAnswers
       })
     }
     if (student && this.state.submitted) {
@@ -108,7 +108,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     if (!this.props.projector) {
       return <div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
-        <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>;
+        <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>
       </div>
     }
   }

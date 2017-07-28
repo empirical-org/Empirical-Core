@@ -84,7 +84,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     if (!this.props.projector) {
       return <div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
-        <p className="your-answer">{this.state.response}</p>;
+        <p className="your-answer">{this.state.response}</p>
       </div>
     }
   }
