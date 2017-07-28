@@ -4,7 +4,8 @@
   display: flex;
   justify-content: center;
   .main-content {
-    width: 90%;
+    width: 100%;
+    margin: 0 35;
     // overflow-y: scroll;
 
     .easy-join-name-form-wrapper {
@@ -83,11 +84,10 @@
 }
 
 .list-blanks {
-  max-width: 800px;
+  margin-top: 30px;
   background-color: 'yellow';
   .student.text-editor.card {
     min-width: 250px;
-    max-width: 500px;
     min-height: 40px;
     .card-content {
       padding: 9px;
@@ -115,7 +115,6 @@
   .your-answer {
     margin-top: 20px;
     margin-bottom: 35px;
-    width: 800px;
     min-height: 66px;
     border-radius: 3px;
     background-color: #fafafa;

@@ -10,6 +10,7 @@ export interface ClassroomLessonSession {
   flaggedStudents: FlaggedStudents;
   public: Boolean | null;
   models: Models;
+  prompts: Prompts;
 }
 
 export interface ClassroomLessonSessions {
@@ -64,5 +65,9 @@ export interface FlaggedStudents {
 }
 
 export interface Models {
+  [key: string]: string
+}
+
+export interface Prompts {
   [key: string]: string
 }

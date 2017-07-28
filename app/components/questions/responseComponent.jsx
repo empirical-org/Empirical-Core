@@ -19,6 +19,7 @@ import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import QuestionBar from './questionBar.jsx';
+import request from 'request';
 import {
   deleteResponse,
   incrementResponseCount,
@@ -60,11 +61,15 @@ const Responses = React.createClass({
       viewingResponses: true,
       matcher,
       selectedResponses: [],
+      health: {},
+      gradeBreakdown: {},
     };
   },
 
   componentDidMount() {
     this.searchResponses();
+    this.getHealth();
+    this.getGradeBreakdown();
     this.props.dispatch(questionActions.initializeSubscription(this.props.questionID));
   },
 
@@ -82,6 +87,34 @@ const Responses = React.createClass({
     this.clearResponses();
   },
 
+  getHealth() {
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
+        method: 'GET',
+      },
+        (err, httpResponse, data) => {
+          this.setState({
+            health: JSON.parse(data),
+          });
+        }
+      );
+  },
+
+  getGradeBreakdown() {
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
+        method: 'GET',
+      },
+        (err, httpResponse, data) => {
+          this.setState({
+            gradeBreakdown: JSON.parse(data),
+          });
+        }
+      );
+  },
+
   clearResponses() {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   },
@@ -91,11 +124,12 @@ const Responses = React.createClass({
   },
 
   getTotalAttempts() {
-    return _.reduce(this.props.responses, (memo, item) => memo + item.count, 0);
+    return this.state.health.total_number_of_attempts;
+    // return _.reduce(this.props.responses, (memo, item) => memo + item.count, 0);
   },
 
   getResponseCount() {
-    return this.props.filters.numberOfResponses;
+    return this.state.health.total_number_of_responses;
   },
 
   removeResponseFromMassEditArray(responseKey) {
@@ -129,7 +163,7 @@ const Responses = React.createClass({
     // };
     // const question = new this.state.matcher(fields);
     // return question.getPercentageWeakResponses();
-    return this.state.percentageOfWeakResponses;
+    return this.state.health.common_matched_attempts > 0 ? ((this.state.health.common_unmatched_attempts || 0) / this.state.health.common_matched_attempts * 100).toFixed(2) : 0.0;
   },
 
   // ryan Look here!!!
@@ -183,7 +217,14 @@ const Responses = React.createClass({
             gradeIndex: `nonhuman${response.questionUID}`,
           };
           if (newMatchedResponse.response.conceptResults) {
-            newValues.conceptResults = newMatchedResponse.response.conceptResults;
+            const crs = _.values(newMatchedResponse.response.conceptResults);
+            const newHash = {};
+            _.each(crs, (val) => {
+              if (val.conceptUID.length > 0) {
+                newHash[val.conceptUID] = val.correct;
+              }
+            });
+            newValues.conceptResults = newHash;
           }
           this.updateRematchedResponse(rid, newValues);
         }
@@ -236,17 +277,17 @@ const Responses = React.createClass({
   },
 
   formatForQuestionBar() {
-    const sortedResponses = this.responsesByStatusCodeAndResponseCount();
-    const totalResponseCount = Object.values(sortedResponses).reduce((a, b) => a + b);
+    // {"human_optimal":153,"human_suboptimal":140,"algo_optimal":0,"algo_suboptimal":8780,"unmatched":28820}
+    const totalResponseCount = this.state.health.total_number_of_attempts;
     if (totalResponseCount == 0) {
-      return _.mapObject(sortedResponses, (val, key) => ({
-        value: 1 / Object.keys(sortedResponses).length * 100,
+      return [{
+        value: 100,
         color: '#eeeeee',
-      }));
+      }];
     }
-    return _.mapObject(sortedResponses, (val, key) => ({
+    return _.mapObject(this.state.gradeBreakdown, (val, key) => ({
       value: val / totalResponseCount * 100,
-      color: colors[key],
+      color: colors[qualityLabels.indexOf(key)],
     }));
   },
 

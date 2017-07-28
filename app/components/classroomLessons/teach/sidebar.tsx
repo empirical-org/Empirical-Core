@@ -73,6 +73,7 @@ class Sidebar extends React.Component<any, any> {
         let thumb;
         let title = lessonData.questions[slide].data.teach.title
         let titleSection = title ? <span> - {title}</span> : <span/>
+        let prompt = data.prompts && data.prompts[slide] ? data.prompts[slide] : null;
         let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
         let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
@@ -92,7 +93,7 @@ class Sidebar extends React.Component<any, any> {
             break;
           case 'CL-MD':
             thumb = (
-              <CLStudentModelQuestion data={questions[slide].data} model={model}/>
+              <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt}/>
             );
             break;
           case 'CL-SA':

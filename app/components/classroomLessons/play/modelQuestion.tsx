@@ -1,14 +1,17 @@
+declare function require(name:string);
 import React, { Component } from 'react';
 import Cues from 'components/renderForQuestions/cues';
 import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
-import icon from 'img/question_icon.svg';
 import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
+import { textEditorInputNotEmpty } from '../shared/textEditorClean'
+const icon = require('../../../img/question_icon.svg')
 
 interface ModelQuestionProps {
   data: QuestionData,
-  model: string|null
+  model: string|null,
+  prompt: string|null,
 }
 
 interface ModelQuestionState {}
@@ -45,15 +48,15 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
   }
 
   renderTeacherModel() {
-    if (this.props.model) {
+    const model = this.props.model;
+    const modelNotEmpty = textEditorInputNotEmpty(model);
+    if (modelNotEmpty && this.props.model) {
       return (
         <div className="teacher-model-container">
           <p className="answer-header">
             Teacher Answer:
           </p>
-          <p className="teacher-model">
-            {this.props.model}
-          </p>
+          <p className="teacher-model" dangerouslySetInnerHTML={{__html: this.props.model}}></p>
         </div>
       )
     } else {
@@ -64,12 +67,31 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   }
 
+  renderQuestionOrHTML() {
+    if (this.props.data.play.prompt) {
+      const editedPrompt = this.props.prompt;
+      const promptNotEmpty = textEditorInputNotEmpty(editedPrompt);
+      const prompt = promptNotEmpty ? editedPrompt : this.props.data.play.prompt;
+      return (
+        <div>
+          <RenderSentenceFragments prompt={prompt} />
+          {this.renderCues()}
+          {this.renderInstructions()}
+        </div>
+      )
+    } else {
+      return (
+        <div className="student-model-question">
+          <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}}></p>
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
-      <div>
-        <RenderSentenceFragments prompt={this.props.data.play.prompt} />
-        {this.renderCues()}
-        {this.renderInstructions()}
+      <div className="student-model-wrapper">
+        {this.renderQuestionOrHTML()}
         {this.renderTeacherModel()}
       </div>
     );
