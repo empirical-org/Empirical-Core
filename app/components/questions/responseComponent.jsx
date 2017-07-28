@@ -183,7 +183,14 @@ const Responses = React.createClass({
             gradeIndex: `nonhuman${response.questionUID}`,
           };
           if (newMatchedResponse.response.conceptResults) {
-            newValues.conceptResults = newMatchedResponse.response.conceptResults;
+            const crs = _.values(newMatchedResponse.response.conceptResults);
+            const newHash = {};
+            _.each(crs, (val) => {
+              if (val.conceptUID.length > 0) {
+                newHash[val.conceptUID] = val.correct;
+              }
+            });
+            newValues.conceptResults = newHash;
           }
           this.updateRematchedResponse(rid, newValues);
         }

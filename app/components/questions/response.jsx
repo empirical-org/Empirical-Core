@@ -205,9 +205,7 @@ export default React.createClass({
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
       const conceptResults = Object.assign({}, this.props.response.concept_results || {});
-      console.log(conceptResults);
       delete conceptResults[crid];
-      console.log(conceptResults);
       this.props.dispatch(submitResponseEdit(this.props.response.key, { conceptResults, }, this.props.questionID));
     }
   },
