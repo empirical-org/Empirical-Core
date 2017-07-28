@@ -90,7 +90,8 @@ export default React.createClass({
       weak: false,
       feedback: this.state.feedback,
       optimal: this.refs.newResponseOptimal.checked,
-      gradeIndex: `human${this.props.questionID}`,
+      author: null,
+      parent_id: null,
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
@@ -142,8 +143,7 @@ export default React.createClass({
   },
 
   removeLinkToParentID(rid) {
-    this.props.dispatch(submitResponseEdit(rid, { gradeIndex: `human${this.props.response.questionUID}`, }, this.props.questionID));
-    this.props.dispatch(removeLinkToParentID(rid));
+    this.props.dispatch(submitResponseEdit(rid, { optimal: false, author: null, }, this.props.questionID));
   },
 
   applyDiff(answer = '', response = '') {
