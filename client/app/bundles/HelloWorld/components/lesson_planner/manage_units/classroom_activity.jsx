@@ -88,7 +88,7 @@ export default React.createClass({
 		if (this.props.data.completed) {
 			return <p className="lesson-completed">Lesson Completed</p>
 		} else {
-			return <div onClick={this.launchLesson} className="launch-lesson">Launch Lesson</div>
+			return <button onClick={this.launchLesson} className="q-button bg-quillgreen" id="launch-lesson">Launch Lesson</button>
 		}
 	},
 
