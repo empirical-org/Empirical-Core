@@ -51,7 +51,7 @@ export default class ChooseClassroomLesson extends React.Component {
     }
     return <div key={i} onClick={clickFunction} className={`classroom-row ${selectedClassName} ${completionClass}`}>
       <div>
-        <img src={`http://localhost:45537/images/shared/${imgName}.svg`}/>
+        <img src={`http://assets.quill.org/images/shared/${imgName}.svg`}/>
         <span>{ca.classroom_name}</span> ({numberOfStudents})
       </div>
       {completionText}
@@ -86,7 +86,7 @@ export default class ChooseClassroomLesson extends React.Component {
       <div className='lesson-section'>
         <p>You've selected this lesson to launch:</p>
         <div className="lesson-row">
-          <img src="http://localhost:45537/images/shared/icon-lesson-box.svg"/>
+          <img src="http://assets.quill.org/images/shared/icon-lesson-box.svg"/>
           <p>{this.state.activityName}</p>
           <span onClick={this.goBack}>Undo Selection</span>
         </div>
