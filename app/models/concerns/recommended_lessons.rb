@@ -3,8 +3,9 @@ include PublicProgressReports
 module LessonsRecommendations
     extend ActiveSupport::Concern
 
-    def get_recommended_lessons classroom_activity_id
-      @classroom_activity = ClassroomActivity.find(classroom_activity_id)
+    def get_recommended_lessons unit_id, classroom_id, activity_id
+      @activity_id = activity_id
+      @classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
       @activity_sessions_with_counted_concepts = act_sesh_with_counted_concepts
       get_recommendations
     end
@@ -20,7 +21,7 @@ module LessonsRecommendations
     end
 
     def get_recommendations
-      LessonRecommendations.new.send("recs_for_#{@classroom_activity.activity_id}").map do |lessons_rec|
+      LessonRecommendations.new.send("recs_for_#{@activity_id}").map do |lessons_rec|
         fail_count = 0
         @activity_sessions_with_counted_concepts.each do |activity_session|
           lessons_rec[:requirements].each do |req|
