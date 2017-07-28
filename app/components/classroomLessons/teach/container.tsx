@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import WakeLock from 'react-wakelock';
 import {
   startListeningToSession,
   startListeningToSessionWithoutCurrentSlide,
@@ -99,6 +100,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }  else {
       return (
         <div className="teach-lesson-container">
+          <WakeLock />
           <Sidebar/>
           <MainContentContainer/>
         </div>
