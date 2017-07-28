@@ -9,11 +9,14 @@
     background-color: #fafafa;
     font-size: 16px;
     border-bottom: solid 1px #e9e9e9;
-    .show-remaining-students-button {
+    .show-remaining-students-button, .show-differences-button {
       font-size: 16px;
       font-weight: 600;
       color: #00c2a2;
       cursor: pointer;
+    }
+    .show-differences-button {
+      float: right;
     }
   }
   .no-student-submissions {
@@ -210,6 +213,15 @@
     div ul {
       list-style-type: disc;
     }
+  }
+  .example-discussion {
+    background-color: #fff8ed;
+    hr {
+      border: solid 1px rgba(245, 186, 91, 0.39);
+    }
+  }
+  .card.is-fullwidth {
+    margin-bottom: 20px;
   }
 
 }

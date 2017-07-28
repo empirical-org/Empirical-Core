@@ -3,18 +3,29 @@
     height: 66px;
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    position: relative;
     align-items: center;
     .quill-logo {
+      position: relative;
+      left: 35;
       height: 40px;
     }
   }
-    .lesson-name, .teacher-name {
+    .slide-name, .lesson-name {
       height: 28px;
       font-size: 18px;
-      font-weight: 600;
     	font-family: $family-sans-serif;
       color: $white;
+      position: absolute;
+      font-weight: bold;
+    }
+    .slide-name {
+      margin: auto;
+      left: 0;
+      right: 0;
+    }
+    .lesson-name {
+      right: 35;
     }
     height: 50px;
     background-color: $green;

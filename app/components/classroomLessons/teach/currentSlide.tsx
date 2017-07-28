@@ -10,8 +10,10 @@ import {
   clearAllSubmissions,
   toggleStudentFlag,
   setModel,
-  updateStudentSubmissionOrder,
   removeStudentSubmission,
+  redirectAssignedStudents,
+  updateStudentSubmissionOrder,
+  setPrompt,
 } from '../../../actions/classroomSessions';
 import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
@@ -50,6 +52,7 @@ class CurrentSlide extends React.Component<any, any> {
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this);
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
     this.saveModel = this.saveModel.bind(this);
+    this.savePrompt = this.savePrompt.bind(this);
     this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
   }
 
@@ -144,6 +147,13 @@ class CurrentSlide extends React.Component<any, any> {
     })
   }
 
+  savePrompt(prompt: string) {
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    if (caId) {
+      setPrompt(caId, this.props.classroomSessions.data.current_slide, prompt);
+    }
+  }
+
   render() {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
@@ -183,6 +193,7 @@ class CurrentSlide extends React.Component<any, any> {
               updateToggledHeaderCount={this.updateToggledHeaderCount}
               saveModel={this.saveModel}
               clearStudentSubmission={this.clearStudentSubmission}
+              savePrompt={this.savePrompt}
             />
           );
         case 'CL-FL':
@@ -201,20 +212,14 @@ class CurrentSlide extends React.Component<any, any> {
             updateToggledHeaderCount={this.updateToggledHeaderCount}
             saveModel={this.saveModel}
             clearStudentSubmission={this.clearStudentSubmission}
+            savePrompt={this.savePrompt}
           />
         )
         case 'CL-EX':
           return (
             <CLExit
-              script={current.data.teach.script}
-              flaggedStudents={data.flaggedStudents}
-              students={data.students}
-              toggleStudentFlag={this.toggleStudentFlag}
-            />
-          );
-        case 'CL-EX':
-          return (
-            <CLExit
+              redirectAssignedStudents={redirectAssignedStudents}
+              lessonData={lessonData}
               script={current.data.teach.script}
               flaggedStudents={data.flaggedStudents}
               students={data.students}

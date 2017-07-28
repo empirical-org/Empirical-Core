@@ -3,7 +3,6 @@ import * as React from 'react'
 import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from 'components/renderForQuestions/cues';
-import icon from 'img/question_icon.svg';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import WarningDialogue from 'components/fillInBlank/warningDialogue'
 import { getParameterByName } from 'libs/getParameterByName';
@@ -12,6 +11,7 @@ import {
   SelectedSubmissionsForQuestion
 } from '../interfaces';
 const moment = require('moment');
+const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
   data: QuestionData,
@@ -19,7 +19,8 @@ interface fillInTheBlankProps {
   mode: string | null,
   submissions: QuestionSubmissionsList | null,
   selected_submissions: SelectedSubmissionsForQuestion | null,
-  selected_submission_order: Array<string> | null
+  selected_submission_order: Array<string> | null,
+  projector: boolean|null
 }
 
 interface fillInTheBlankState {
@@ -47,6 +48,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student');
+    if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
+      const submissionVals = nextProps.submissions[student].data.match(/<strong>(.*?)<\/strong>/g).map((term) => term.replace(/<strong>|<\/strong>/g, ''))
+      this.setState({ submitted: true })
+      this.setState({ inputVals: submissionVals })
+    }
     // this will reset the state when a teacher resets a question
     const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
     if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {

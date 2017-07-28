@@ -9,6 +9,7 @@ interface StepHtmlProps {
   onlyShowHeaders: boolean,
   item: ScriptItem,
   updateToggledHeaderCount: Function
+  isTip: boolean,
 }
 
 interface StepHtmlState {
@@ -48,9 +49,10 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
 
   render() {
     if (this.props.item.data) {
+      const tipClass = this.props.isTip ? "script-item example-discussion" : "script-item";
       const html = this.state.hideBody
-        ? <li className="script-item">{this.header()}</li>
-        : (<li className="script-item">
+        ? <li className={tipClass}>{this.header()}</li>
+        : (<li className={tipClass}>
           {this.header()}
           <hr />
           <div dangerouslySetInnerHTML={{ __html: this.props.item.data.body, }} />

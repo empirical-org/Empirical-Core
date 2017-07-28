@@ -1,4 +1,5 @@
 .student-lobby {
+  margin-top: 75px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -52,8 +53,8 @@
       }
     }
   }
-  
-    
+
+
   .presence-container {
     min-width: 333px;
     .presence-header {

@@ -2,6 +2,7 @@ declare function require(name:string);
 import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
+const classroomLessonsRef = rootRef.child('classroom_lessons');
 const moment = require('moment');
 import {
   ClassroomLessonSessions,
@@ -72,6 +73,13 @@ export function updateSession(data: object): {type: string; data: any;} {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
     data,
   };
+}
+
+export function redirectAssignedStudents(classroom_activity_id: string, studentIds: Array<string>, followUpUrl: string) {
+  const assignedStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/assignedStudents`)
+  const followUpUrlRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpUrl`)
+  assignedStudentsRef.set(studentIds)
+  followUpUrlRef.set(followUpUrl)
 }
 
 export function registerPresence(classroom_activity_id: string, student_id: string): void {
@@ -275,6 +283,11 @@ export function updateNoStudentError(student: string | null) {
 export function setModel(classroom_activity_id: string, question_id: string, model): void {
   const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
   modelRef.set(model);
+}
+
+export function setPrompt(classroom_activity_id: string, question_id: string, prompt): void {
+  const promptRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts/${question_id}`);
+  promptRef.set(prompt);
 }
 
 export function easyJoinLessonAddName(classroom_activity_id: string, studentName: string): void {

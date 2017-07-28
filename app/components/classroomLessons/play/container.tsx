@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import WakeLock from 'react-wakelock';
 import {
   startListeningToSession,
   registerPresence,
@@ -8,12 +9,12 @@ import {
 } from '../../../actions/classroomSessions';
 import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
-import CLAbsentTeacher from './absentTeacher'
 import CLStudentStatic from './static';
 import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
+import CLExit from './exit';
 import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
@@ -57,6 +58,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
+    const student = getParameterByName('student');
+    const npCSData = nextProps.classroomSessions.data
+    if (npCSData.assignedStudents && npCSData.assignedStudents.includes(student) && npCSData.followUpUrl) {
+      window.location.href = npCSData.followUpUrl
+    }
     if (!nextProps.classroomSessions.error && !nextProps.classroomLesson.error) {
       const element = document.getElementsByClassName("main-content")[0];
       if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
@@ -64,12 +70,14 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       }
       const student = getParameterByName('student');
       const classroom_activity_id = getParameterByName('classroom_activity_id')
+      const projector = getParameterByName('projector')
       const { data, hasreceiveddata } = this.props.classroomSessions;
-      if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+      if (projector === "true") {
+        this.setState({projector: true})
+      } else if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
         registerPresence(classroom_activity_id, student);
       } else {
         if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
-          console.log("props", nextProps.classroomSessions)
           if (nextProps.classroomSessions.data.public) {
             this.setState({shouldEnterName: true})
           } else {
@@ -102,12 +110,14 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
     const current = lessonData.questions[data.current_slide];
+    const prompt = data.prompts && data.prompts[data.current_slide] ? data.prompts[data.current_slide] : null;
     const model: string|null = data.models && data.models[data.current_slide] ? data.models[data.current_slide] : null;
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
-    const props = { mode, submissions, selected_submissions, selected_submission_order};
+    const projector = this.state.projector
+    const props = { mode, submissions, selected_submissions, selected_submission_order, projector};
     let passedProps;
     switch (current.type) {
       case 'CL-LB':
@@ -118,25 +128,27 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         return (
           <CLStudentStatic key={data.current_slide} data={current.data} />
         );
-      case 'CL-EX':
-        return (
-          <CLStudentStatic key={data.current_slide} data={current.data} />
-        );
       case 'CL-MD':
         return (
-          <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model}/>
+          <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt}/>
         );
       case 'CL-SA':
+        passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+          <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
         );
       case 'CL-FB':
+        passedProps = { mode, submissions, selected_submissions, };
         return (
-          <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+          <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...passedProps} />
         );
       case 'CL-FL':
         return (
           <CLListBlanks key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+        );
+      case 'CL-EX':
+        return (
+          <CLStudentStatic key={data.current_slide} data={current.data} />
         );
       default:
 
@@ -153,7 +165,9 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   easyJoinDemo() {
     console.log("Joining", this.state)
     const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
-    easyJoinLessonAddName(classroom_activity_id, this.state.easyDemoName)
+    if (classroom_activity_id) {
+      easyJoinLessonAddName(classroom_activity_id, this.state.easyDemoName)
+    }
   }
 
   public render() {
@@ -187,20 +201,22 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
        // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
        // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
        const absentTeacher = this.props.classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
-       const watchTeacher = this.props.classroomSessions.data.watchTeacherState ? <CLWatchTeacher /> : null
+       const watchTeacher = this.props.classroomSessions.data.watchTeacherState && !this.state.projector ? <CLWatchTeacher /> : null
+
        if (hasreceiveddata && lessonDataLoaded) {
          const component = this.renderCurrentSlide(data, lessonData);
          if (component) {
            return (
              <div>
-             {absentTeacher || watchTeacher}
-             <div className="play-lesson-container">
-             <div className="main-content">
-             <div className="main-content-wrapper">
-             {component}
-             </div>
-             </div>
-             </div>
+              <WakeLock />
+              {absentTeacher || watchTeacher}
+                <div className="play-lesson-container">
+                  <div className="main-content">
+                   <div className="main-content-wrapper">
+                     {component}
+                   </div>
+                 </div>
+               </div>
              </div>
            );
          }
