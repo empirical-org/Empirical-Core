@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :responses
   get 'questions/:question_uid/responses' => 'responses#responses_for_question'
+  get 'questions/:question_uid/health' => 'responses#get_health_of_question'
+  get 'questions/:question_uid/grade_breakdown' => 'responses#get_grade_breakdown'
   post 'responses/create_or_increment'
   post 'responses/mass_edit/show_many' => 'responses#show_many'
   put 'responses/mass_edit/edit_many' => 'responses#edit_many'
