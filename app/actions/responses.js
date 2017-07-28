@@ -198,7 +198,7 @@ export function massEditDeleteResponses(ids, qid) {
 }
 
 export function submitResponseEdit(rid, content, qid) {
-  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     request.put({
       url: `${process.env.QUILL_CMS}/responses/${rid}`,

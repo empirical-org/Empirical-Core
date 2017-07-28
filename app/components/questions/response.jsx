@@ -205,7 +205,9 @@ export default React.createClass({
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
       const conceptResults = Object.assign({}, this.props.response.concept_results || {});
+      console.log(conceptResults);
       delete conceptResults[crid];
+      console.log(conceptResults);
       this.props.dispatch(submitResponseEdit(this.props.response.key, { conceptResults, }, this.props.questionID));
     }
   },
@@ -272,9 +274,8 @@ export default React.createClass({
           </select>
         </span>
       );
-    } else {
-      return (<span />);
     }
+    return (<span />);
   },
 
   renderConceptResults(mode) {
@@ -306,20 +307,18 @@ export default React.createClass({
         }
       }
       return results;
-    } else {
-      const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
-      if (concept) {
-        return (
-          <li key={concept.id}>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
-            <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
-          </li>
-        );
-      } else {
-        return (
-          <div />
-        );
-      }
     }
+    const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
+    if (concept) {
+      return (
+        <li key={concept.id}>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+          <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
+        </li>
+      );
+    }
+    return (
+      <div />
+    );
   },
 
   renderResponseContent(isEditing, response) {
@@ -525,9 +524,8 @@ export default React.createClass({
   headerClasses() {
     if (!this.props.expanded) {
       return 'unexpanded';
-    } else {
-      return 'expanded';
     }
+    return 'expanded';
   },
 
   renderChildResponses(isViewingChildResponses, key) {
