@@ -8,10 +8,15 @@
       display: flex;
       align-items: center;
       span {
+        margin-top: 3px;
         font-size: 14px;
         font-weight: 600;
         color: #027360;
         margin-left: 15px;
+        cursor: pointer;
+      }
+      img {
+        padding-right: 15px;
       }
     }
   }
@@ -31,13 +36,19 @@
       padding: 0px 30px;
       color: #969696;
       margin-bottom: 15px;
-      cursor: pointer;
-      &.selected {
-        border: solid 1px #00c2a2;
+      img {
+        margin-right: 30px;
       }
-      .incomplete {
-        font-weight: 600;
-      	color: #3b3b3b;
+      &.incomplete {
+        cursor: pointer;
+        border: solid 1px #c0c0c0;
+        &.selected {
+          border: solid 1px #00c2a2;
+        }
+        span {
+          font-weight: 600;
+          color: #3b3b3b;
+        }
       }
       .completed-text {
         font-size: 16px;
@@ -56,6 +67,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
+    align-items: center;
     p {
       font-size: 16px;
       max-width: 750px;
