@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-export default function (camelObj) {
+export default function (camelObj, convertCR = true) {
   const snakeObj = {};
   for (const camelKey in camelObj) {
     if (camelObj.hasOwnProperty(camelKey)) {
@@ -24,7 +24,7 @@ export default function (camelObj) {
       snakeObj[snakeKey] = camelObj[camelKey];
     }
   }
-  if (snakeObj.concept_results) {
+  if (convertCR && snakeObj.concept_results) {
     const crs = _.values(snakeObj.concept_results);
     const newHash = {};
     _.each(crs, (val) => {
