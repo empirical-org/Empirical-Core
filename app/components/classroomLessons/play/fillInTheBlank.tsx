@@ -54,7 +54,8 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       this.setState({ inputVals: submissionVals })
     }
     // this will reset the state when a teacher resets a question
-    if (this.state.submitted === true && nextProps.submissions === null) {
+    const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
+    if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {
       const splitPrompt = nextProps.data.play.prompt.split('___');
       this.setState({ submitted: false, editing: false, inputVals: this.generateInputs(splitPrompt) });
     }

@@ -21,6 +21,7 @@ interface SingleAnswerProps {
   clearAllSelectedSubmissions: Function,
   onlyShowHeaders: boolean,
   saveModel: Function,
+  clearStudentSubmission: Function,
   savePrompt: Function,
 }
 
@@ -85,6 +86,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           clearAllSubmissions={this.props.clearAllSubmissions}
           toggleStudentFlag={this.props.toggleStudentFlag}
           saveModel={this.props.saveModel}
+          clearStudentSubmission={this.props.clearStudentSubmission}
           slideType={this.props.lessonData.questions[this.props.data.current_slide].type}
           savePrompt={this.props.savePrompt}
         />
