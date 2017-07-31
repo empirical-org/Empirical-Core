@@ -14,6 +14,7 @@ import {
   redirectAssignedStudents,
   updateStudentSubmissionOrder,
   setPrompt,
+  removeSelectedSubmissionOrder,
 } from '../../../actions/classroomSessions';
 import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
@@ -108,6 +109,13 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
+  clearSelectedSubmissionOrder(currentSlideId: string) {
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    if (caId) {
+      removeSelectedSubmissionOrder(caId, currentSlideId);
+    }
+  }
+
   toggleOnlyShowHeaders() {
     this.props.dispatch(toggleOnlyShowHeaders());
   }
@@ -194,6 +202,7 @@ class CurrentSlide extends React.Component<any, any> {
               saveModel={this.saveModel}
               clearStudentSubmission={this.clearStudentSubmission}
               savePrompt={this.savePrompt}
+              clearSelectedSubmissionOrder={this.clearSelectedSubmissionOrder}
             />
           );
         case 'CL-FL':
@@ -213,6 +222,7 @@ class CurrentSlide extends React.Component<any, any> {
             saveModel={this.saveModel}
             clearStudentSubmission={this.clearStudentSubmission}
             savePrompt={this.savePrompt}
+            clearSelectedSubmissionOrder={this.clearSelectedSubmissionOrder}
           />
         )
         case 'CL-EX':

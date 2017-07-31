@@ -149,6 +149,11 @@ export function clearAllSubmissions(classroom_activity_id: string, question_id: 
   submissionRef.remove()
 }
 
+export function removeSelectedSubmissionOrder(classroom_activity_id: string, question_id: string): void {
+  const submissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
+  submissionOrderRef.remove()
+}
+
 export function saveSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
   const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
   selectedSubmissionRef.set(true);
