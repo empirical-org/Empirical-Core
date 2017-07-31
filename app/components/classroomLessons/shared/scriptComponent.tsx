@@ -62,7 +62,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sortDirection: 'desc',
       showDifferences: false,
       model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
-      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : '',
+      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : this.props.lessonPrompt,
       // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       // numberOfToggledHeaders: 0
     }

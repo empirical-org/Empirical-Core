@@ -71,7 +71,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
     if (this.props.data.play.prompt) {
       const editedPrompt = this.props.prompt;
       const promptNotEmpty = textEditorInputNotEmpty(editedPrompt);
-      const prompt = editedPrompt;
+      const prompt = promptNotEmpty ? editedPrompt : this.props.data.play.prompt;
       return (
         <div>
           <RenderSentenceFragments prompt={prompt} />
