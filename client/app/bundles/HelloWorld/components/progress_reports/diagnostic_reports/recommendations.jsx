@@ -4,6 +4,7 @@ import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import _ from 'underscore';
 import Pusher from 'pusher-js';
 import RecommendationsTableCell from './recommendations_table_cell';
+import LessonsRecommendations from './lessons_recommendations';
 
 export default React.createClass({
 
@@ -42,6 +43,9 @@ export default React.createClass({
         students: data.students,
         loading: false,
       }, that.getPreviouslyAssignedRecommendationData(classroomId, activityId));
+    });
+    $.get(`/teachers/progress_reports/lesson_recommendations_for_classroom/u/${that.props.params.unitId}/c/${classroomId}/a/${activityId}`, (data) => {
+      that.setState({ lessonsRecommendations: data.lessonsRecommendations, });
     });
   },
 
@@ -264,6 +268,7 @@ export default React.createClass({
           <div className="recommendations-table-row-wrapper">
             {this.renderTableRows()}
           </div>
+          <LessonsRecommendations recommendations={this.state.lessonsRecommendations} />
           {this.renderBottomBar()}
         </div>
       </div>

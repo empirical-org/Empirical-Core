@@ -1,4 +1,7 @@
 class LessonRecommendations
+    def rec_activities(rec_id)
+      UnitTemplate.find(rec_id).activities.map {|act| {name: act.name, url: 'placeholder_url'}}
+    end
     def recs_for_413
         [
             # {
@@ -23,6 +26,7 @@ class LessonRecommendations
             {
                 recommendation: 'Compound Subjects, Objects, and Predicates',
                 activityPackId: 24,
+                activities: rec_activities(24),
                 requirements: [
                     {
                         concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
@@ -38,6 +42,7 @@ class LessonRecommendations
             {
                 recommendation: 'Adjectives',
                 activityPackId: 23,
+                activities: rec_activities(24),
                 requirements: [
                     {
                         concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
@@ -49,6 +54,7 @@ class LessonRecommendations
             {
                 recommendation: 'Adverbs of Manner',
                 activityPackId: 25,
+                activities: rec_activities(24),
                 requirements: [
                     {
                         concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
@@ -60,6 +66,7 @@ class LessonRecommendations
             {
                 recommendation: 'Compound Sentences',
                 activityPackId: 22,
+                activities: rec_activities(24),
                 requirements: [
                     {
                         concept_id: 'GiUZ6KPkH958AT8S413nJg',
@@ -83,6 +90,7 @@ class LessonRecommendations
             {
                 recommendation: 'Complex Sentences',
                 activityPackId: 21,
+                activities: rec_activities(24),
                 requirements: [
                     {
                         concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
@@ -106,6 +114,7 @@ class LessonRecommendations
             {
                 recommendation: 'Appositives and Modifying Phrases',
                 activityPackId: 27,
+                activities: rec_activities(24),
                 requirements: [
                     {
                         concept_id: 'InfGdB6Plr2M930kqsn63g',
@@ -121,6 +130,7 @@ class LessonRecommendations
             {
                 recommendation: 'Parallel Structure',
                 activityPackId: 29,
+                activities: rec_activities(24),
                 requirements: [
                     {
                         concept_id: '1ohLyApTz7lZ3JszrA98Xg',
@@ -136,6 +146,7 @@ class LessonRecommendations
         # {
         #     recommendation: 'Fragments',
         #     activityPackId: 28,
+        # activities: rec_activities(24),
         #     requirements: [
         #         {
         #             concept_id: 'KfA8-dg8FvlJz4eY0PkekA',
@@ -147,6 +158,7 @@ class LessonRecommendations
         {
             recommendation: 'Articles',
             activityPackId: 2,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: 'fJXVAoYCC8S9kByua0kXXA',
@@ -173,6 +185,7 @@ class LessonRecommendations
         {
             recommendation: 'Verb Tense',
             activityPackId: 10,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: 'TE-ElKaRWWumTrmVE4-m6g',
@@ -209,6 +222,7 @@ class LessonRecommendations
         {
             recommendation: 'Prepositions',
             activityPackId: 7,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: "LPMBB_M5hooC263qXFc_Yg",
@@ -240,6 +254,7 @@ class LessonRecommendations
         {
             recommendation: 'Adjectives',
             activityPackId: 23,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
@@ -251,6 +266,7 @@ class LessonRecommendations
         {
             recommendation: 'Adverbs',
             activityPackId: 25,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
@@ -267,6 +283,7 @@ class LessonRecommendations
         {
             recommendation: 'Subject Verb Agreement',
             activityPackId: 24,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
@@ -283,6 +300,7 @@ class LessonRecommendations
         {
             recommendation: 'Compound Sentences',
             activityPackId: 22,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: 'tSSLMHqX0q-9mKTJHSyung',
@@ -304,6 +322,7 @@ class LessonRecommendations
         {
             recommendation: 'Complex Sentences',
             activityPackId: 21,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
@@ -330,6 +349,7 @@ class LessonRecommendations
         {
             recommendation: 'Capitalization',
             activityPackId: 33,
+            activities: rec_activities(24),
             requirements: [
                 {
                     concept_id: '66upe3S5uvqxuHoHOt4PcQ',
