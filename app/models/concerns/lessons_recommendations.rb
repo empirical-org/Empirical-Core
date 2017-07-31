@@ -43,7 +43,8 @@ module LessonsRecommendations
       {
         activity_pack_id: lessons_rec[:activityPackId],
         name: lessons_rec[:recommendation],
-        percentage_needing_instruction: percentage_needing_instruction(fail_count)
+        percentage_needing_instruction: percentage_needing_instruction(fail_count),
+        activities: lessons_rec[:activities]
       }
     end
 
