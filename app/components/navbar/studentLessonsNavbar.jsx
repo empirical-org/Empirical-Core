@@ -12,7 +12,6 @@ const Navbar = React.createClass({
     const data = this.props.classroomSessions.data;
     const lessonData = this.props.classroomLesson.data;
     const slideName = lessonData && lessonData.questions && data ? [<span>Slide {parseInt(data.current_slide) + 1}</span>, `: ${lessonData.questions[data.current_slide].data.teach.title || "Lobby"}`] : ''
-    const lessonName = lessonData ? [<span>Lesson {lessonData.lesson}</span>, `: ${lessonData.title}`] : '';
     return (
       <header className={'nav student-nav'} style={{ height: '66px', }}>
         <nav className="student-lessons">
@@ -24,7 +23,7 @@ const Navbar = React.createClass({
             />
           </a>
           <div className="slide-name" key="slide-name">{slideName}</div>
-          <div className="lesson-name">{lessonName}</div>
+          <div className="lesson-name">{lessonData.title}</div>
         </nav>
       </header>
     );
