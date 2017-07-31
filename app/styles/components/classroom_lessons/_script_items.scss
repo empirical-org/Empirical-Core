@@ -222,5 +222,12 @@
   .card.is-fullwidth {
     margin-bottom: 20px;
   }
-
+  .teacher-model-instructions {
+    .reset-prompt-button {
+      padding-left: 5px;
+      color: #00c2a2;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
 }

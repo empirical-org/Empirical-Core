@@ -487,7 +487,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         <div>
           <p className="teacher-model-instructions">
             <em>Modify the prompt here; it will be displayed on your students' screens as you type.</em>
-            <span onClick={this.resetPrompt}>
+            <span className="reset-prompt-button" onClick={this.resetPrompt}>
               Reset Prompt
             </span>
           </p>
