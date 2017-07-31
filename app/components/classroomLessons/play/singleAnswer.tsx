@@ -32,8 +32,10 @@ interface SingleAnswerState {
 class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
+    const student = getParameterByName('student');
+    const studentSubmissionExists = student && this.props.submissions && this.props.submissions[student]
     this.state = {
-      response: props.data.play.prefilledText || '',
+      response: studentSubmissionExists ? this.props.submissions[student].data : props.data.play.prefilledText ,
       editing: false,
       submitted: false,
     };
