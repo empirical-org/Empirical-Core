@@ -22,7 +22,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def recommendations_for_classroom
-        render json: get_recommendations_for_classroom(params[:classroom_id], params[:activity_id])
+        render json: get_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
     def lesson_recommendations_for_classroom
@@ -63,7 +63,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     private
 
-    def create_or_update_selected_packs
+    def create_or_update_selected_packs(whole_class=false)
         teacher_id = current_user.id
         selections_with_students = params["selections"].select do |ut|
           ut["classrooms"][0]["student_ids"].any?
