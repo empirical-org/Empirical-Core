@@ -22,6 +22,11 @@ class MultipleTextEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.text !== this.props.text && nextProps.text === nextProps.lessonPrompt) {
+      this.setState({
+        text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || '')))
+      })
+    }
     if (nextProps.boilerplate !== this.props.boilerplate) {
       this.setState({ text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate))), },
       () => {

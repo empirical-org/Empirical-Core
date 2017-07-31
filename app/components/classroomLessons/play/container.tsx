@@ -7,6 +7,7 @@ import {
   updateNoStudentError,
   easyJoinLessonAddName,
 } from '../../../actions/classroomSessions';
+import CLAbsentTeacher from './absentTeacher';
 import CLStudentLobby from './lobby';
 import CLWatchTeacher from './watchTeacher'
 import CLStudentStatic from './static';

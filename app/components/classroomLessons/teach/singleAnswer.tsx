@@ -23,6 +23,7 @@ interface SingleAnswerProps {
   saveModel: Function,
   clearStudentSubmission: Function,
   savePrompt: Function,
+  clearSelectedSubmissionOrder: Function,
 }
 
 interface SingleAnswerState {
@@ -65,7 +66,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         </div>
         <ScriptComponent
           script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
-          prompt={promptNotEmpty ? prompts[current_slide] : this.props.lessonData.questions[current_slide].data.play.prompt}
+          prompt={promptNotEmpty ? prompts[current_slide] : ''}
           lessonPrompt={this.props.lessonData.questions[current_slide].data.play.prompt}
           selected_submission_order={selected_submission_order}
           selected_submissions={selected_submissions}
@@ -89,6 +90,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           clearStudentSubmission={this.props.clearStudentSubmission}
           slideType={this.props.lessonData.questions[this.props.data.current_slide].type}
           savePrompt={this.props.savePrompt}
+          clearSelectedSubmissionOrder={this.props.clearSelectedSubmissionOrder}
         />
 
       </div>

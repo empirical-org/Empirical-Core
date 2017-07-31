@@ -11,7 +11,7 @@ const Navbar = React.createClass({
   render() {
     const data = this.props.classroomSessions.data;
     const lessonData = this.props.classroomLesson.data;
-    const slideName = lessonData && lessonData.questions && data ? [<span>Slide {data.current_slide}</span>, `: ${lessonData.questions[data.current_slide].data.teach.title}`] : ''
+    const slideName = lessonData && lessonData.questions && data ? [<span>Slide {parseInt(data.current_slide) + 1}</span>, `: ${lessonData.questions[data.current_slide].data.teach.title || "Lobby"}`] : ''
     return (
       <header className={'nav student-nav'} style={{ height: '66px', }}>
         <nav className="student-lessons">

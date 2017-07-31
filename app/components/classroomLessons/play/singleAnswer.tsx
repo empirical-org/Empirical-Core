@@ -32,8 +32,10 @@ interface SingleAnswerState {
 class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
+    const student = getParameterByName('student');
+    const studentSubmissionExists = student && this.props.submissions && this.props.submissions[student]
     this.state = {
-      response: props.data.play.prefilledText || '',
+      response: studentSubmissionExists ? this.props.submissions[student].data : props.data.play.prefilledText ,
       editing: false,
       submitted: false,
     };
@@ -66,7 +68,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
-    const classAnswers = this.props.selected_submission_order
+    const classAnswers = this.props.selected_submissions && this.props.selected_submission_order
     ? (<div>
       <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
       {this.renderClassAnswersList()}
