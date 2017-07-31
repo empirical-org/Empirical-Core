@@ -1,0 +1,82 @@
+.tutorial-slides {
+  background: white;
+  height: 100vw;
+  .text {
+    width: 555px;
+    margin: auto;
+    text-align: center;
+    h1 {
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    p {
+      color: #7f7f7f;
+      line-height: 1.67;
+      height: 160px;
+      font-size: 18px;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+  .slide-controls {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    width: 200px;
+    align-items: center;
+    .next-button, .previous-button {
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    .next-button {
+      width: 120px;
+      height: 40px;
+    }
+    .circles {
+      margin-top: 5px;
+    }
+    .circle {
+      width: 10px;
+      height: 10px;
+      border: solid 1px $quillgreen;
+      margin: 0 10px;
+      &.current {
+        background-color: $quillgreen;
+      }
+    }
+  }
+}
+
+.lessons-slide-one {
+  .image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 1000;
+    width: 100%;
+    margin: auto;
+    padding-top: 65px;
+    padding-bottom: 70px;
+    @media (max-width: 1150px) {
+      .caption {
+        display: none;
+      }
+      .illustration {
+        left: initial !important;
+      }
+    }
+    .illustration {
+      max-width: 500px;
+      width: 100%;
+      left: 160px;
+      position: relative;
+      height: 356px;
+    }
+    .caption {
+      top: -24px;
+      left: 100px;
+      position: relative;
+    }
+  }
+}
