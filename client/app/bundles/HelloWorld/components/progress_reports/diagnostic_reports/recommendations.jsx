@@ -37,7 +37,7 @@ export default React.createClass({
 
   getRecommendationData(classroomId, activityId) {
     const that = this;
-    $.get(`/teachers/progress_reports/recommendations_for_classroom/${classroomId}/activity/${activityId}`, (data) => {
+    $.get(`/teachers/progress_reports/recommendations_for_classroom/${that.props.params.unitId}/${classroomId}/activity/${activityId}`, (data) => {
       that.setState({
         recommendations: JSON.parse(JSON.stringify(data.recommendations)),
         students: data.students,
