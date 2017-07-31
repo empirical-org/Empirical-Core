@@ -1,20 +1,28 @@
+.lesson-recommendations-wrapper {
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3b3b3b;
+  }
+}
+
 .lesson-recommendation-row {
   background-color: #eafcff;
   border-radius: 3px;
 	border: solid 1px #cecece;
   margin-bottom: 10px;
+  .assign {
+    font-size: 16px;
+    font-weight: 600;
+  }
   .top-row {
     padding: 0 18px;
     height: 65px;
-    .assign {
-      font-size: 16px;
-      font-weight: 600;
-    }
   }
   h3 {
     display: inline;
   }
-  &.expanded {
+  &:not(.recommended) {
     height: auto;
     background-color: white;
     .left-side h3 {
@@ -37,7 +45,7 @@
     }
   }
   .right-side {
-    max-width: 45%;
+    max-width: 40%;
     width: 100%;
     a {
       margin-top: 0;
