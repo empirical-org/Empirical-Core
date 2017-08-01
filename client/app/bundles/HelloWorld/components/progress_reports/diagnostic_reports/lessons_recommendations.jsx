@@ -9,7 +9,7 @@ export default class LessonsRecommendations extends React.Component {
   }
 
   recommendationRows() {
-    return this.props.recommendations.map(r => <LessonRecommendationRow key={r.activity_pack_id} recommendation={r} />);
+    return this.props.recommendations.map(r => <LessonRecommendationRow key={r.activity_pack_id} activityPackId={r.activity_pack_id} assignToWholeClass={this.props.assignToWholeClass} recommendation={r} />);
   }
 
   render() {

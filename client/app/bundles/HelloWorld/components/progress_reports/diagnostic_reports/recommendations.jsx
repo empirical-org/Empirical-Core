@@ -1,7 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
+import request from 'request';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import _ from 'underscore';
+import authToken from '../../modules/get_auth_token.js';
 import Pusher from 'pusher-js';
 import RecommendationsTableCell from './recommendations_table_cell';
 import LessonsRecommendations from './lessons_recommendations';
@@ -122,6 +124,22 @@ export default React.createClass({
   alert('We had trouble processing your request. Please check your network connection and try again.');
   this.setState({ assigning: false, });
 });
+    });
+  },
+
+  assignToWholeClass(unitTemplateId) {
+    const that = this;
+    $.ajax({
+      type: 'POST',
+      url: '/teachers/progress_reports/assign_selected_packs/',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
+    })
+    .done(() => { this.initializePusher(); })
+    .fail(() => {
+      alert('We had trouble processing your request. Please check your network connection and try again.');
+      // this.setState({ assigning: false, });
     });
   },
 
@@ -268,7 +286,7 @@ export default React.createClass({
           <div className="recommendations-table-row-wrapper">
             {this.renderTableRows()}
           </div>
-          <LessonsRecommendations recommendations={this.state.lessonsRecommendations} />
+          <LessonsRecommendations assignToWholeClass={this.assignToWholeClass} recommendations={this.state.lessonsRecommendations} />
           {this.renderBottomBar()}
         </div>
       </div>
