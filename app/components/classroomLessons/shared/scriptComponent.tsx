@@ -62,7 +62,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sortDirection: 'desc',
       showDifferences: false,
       model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
-      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : this.props.lessonPrompt,
+      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : textEditorInputClean(this.props.lessonPrompt),
       // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       // numberOfToggledHeaders: 0
     }
@@ -83,7 +83,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
-    if (!nextProps.selected_submissions) {
+    if (this.props.clearSelectedSubmissionOrder && !nextProps.selected_submissions) {
       this.props.clearSelectedSubmissionOrder(this.props.current_slide)
     }
     if (this.props.current_slide !== nextProps.current_slide) {
@@ -93,7 +93,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       const prompt = nextProps.prompt;
       const promptNotEmpty = textEditorInputNotEmpty(prompt);
       this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
-                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : '',
+                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : textEditorInputClean(nextProps.lessonPrompt),
                       showDifferences: false
                     })
     }
@@ -497,7 +497,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           </p>
           <br />
           <MultipleTextEditor
-            text={textEditorInputClean(this.state.prompt)}
+            text={this.state.prompt}
             handleTextChange={this.handlePromptChange}
             lessonPrompt={textEditorInputClean(this.props.lessonPrompt)}
           />

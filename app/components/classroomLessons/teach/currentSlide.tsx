@@ -55,6 +55,7 @@ class CurrentSlide extends React.Component<any, any> {
     this.saveModel = this.saveModel.bind(this);
     this.savePrompt = this.savePrompt.bind(this);
     this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
+    this.clearSelectedSubmissionOrder = this.clearSelectedSubmissionOrder.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
