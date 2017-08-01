@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="591px" height="388px" viewBox="0 0 591 388" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 14</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M45,3.00471263 C45,1.34525567 46.3361633,0 47.9915587,0 L546.008441,0 C547.660634,0 549,1.33868981 549,3.00471263 L549,214 L45,214 L45,3.00471263 Z" id="path-1"></path>
+        <filter x="-2.3%" y="-4.4%" width="104.6%" height="110.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.91372549   0 0 0 0 0.91372549   0 0 0 0 0.91372549  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="18.021978" height="18.0596026" rx="2"></rect>
+        <rect id="path-4" x="0" y="0" width="18.021978" height="18.0596026" rx="2"></rect>
+        <linearGradient x1="50%" y1="-33.1442967%" x2="50%" y2="63.4646223%" id="linearGradient-5">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="35.6008021%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.958192313" offset="45.6612723%"></stop>
+            <stop stop-color="#FEFEFE" stop-opacity="0.965664175" offset="64.2079879%"></stop>
+            <stop stop-color="#FEFEFE" offset="100%"></stop>
+        </linearGradient>
+        <path d="M135,0 L188.26087,0 L188.26087,1.65 C188.26087,2.56126984 187.528226,3.3 186.608474,3.3 L136.652396,3.3 C135.739803,3.3 135,2.56762304 135,1.65 L135,0 Z" id="path-6"></path>
+    </defs>
+    <g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="12_00-Guide-3" transform="translate(-385.000000, -125.000000)">
+            <g id="Group-14" transform="translate(385.000000, 130.000000)">
+                <g id="Rectangle-14-Copy-2">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FAFAFA" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <path stroke="#E9E9E9" stroke-width="1" d="M548.5,213.5 L45.5,213.5 L45.5,3.00471263 C45.5,1.61971382 46.6139875,0.5 47.9915587,0.5 L546.008441,0.5 C547.38643,0.5 548.5,1.61677836 548.5,3.00471263 L548.5,213.5 Z"></path>
+                </g>
+                <rect id="Rectangle" fill="#FFFFFF" x="61" y="15" width="472" height="186"></rect>
+                <g id="Group-8" transform="translate(81.000000, 29.000000)">
+                    <rect id="Rectangle-4" fill="#E8FCF8" x="0" y="26" width="429" height="60"></rect>
+                    <rect id="Rectangle-4-Copy" fill="#E8FCF8" x="0" y="89" width="429" height="62"></rect>
+                    <text id="Before-a-tsunami-is" font-family="AdelleSans-Bold, Adelle Sans" font-size="14" font-weight="bold" fill="#3B3B3B">
+                        <tspan x="14" y="52">Before</tspan>
+                        <tspan x="57.078" y="52" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal"> a tsunami is over and coastal towns can </tspan>
+                        <tspan x="14" y="72" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">remain flooded for weeks.</tspan>
+                    </text>
+                    <text id="Answers" font-family="AdelleSans-SemiBold, Adelle Sans" font-size="12" font-weight="500" fill="#969696">
+                        <tspan x="14" y="14">Answers</tspan>
+                    </text>
+                    <text id="Select-to-Display" font-family="AdelleSans-SemiBold, Adelle Sans" font-size="12" font-weight="500" fill="#969696">
+                        <tspan x="322" y="14">Select to Display</tspan>
+                    </text>
+                    <polygon id="Path-4-Copy" fill="#C0C0C0" points="419 9 426.477446 9 422.738723 13.0519701"></polygon>
+                    <polygon id="Path-4-Copy-2" fill="#C0C0C0" points="68 9 75.4774464 9 71.7387232 13.0519701"></polygon>
+                    <text id="A-tsunami-is-over-bu" font-family="AdelleSans-Regular, Adelle Sans" font-size="14" font-weight="normal" fill="#3B3B3B">
+                        <tspan x="14" y="114">A tsunami is over </tspan>
+                        <tspan x="125.454" y="114" font-family="AdelleSans-Bold, Adelle Sans" font-weight="bold">but</tspan>
+                        <tspan x="147.602" y="114"> coastal towns can </tspan>
+                        <tspan x="14" y="134">remain flooded for weeks.</tspan>
+                    </text>
+                    <g id="Group-6" transform="translate(364.000000, 48.000000)">
+                        <g id="Rectangle-36-Copy-15">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                            <rect stroke="#00C2A2" stroke-width="1" x="0.5" y="0.5" width="17.021978" height="17.0596026" rx="2"></rect>
+                        </g>
+                        <polyline id="Path-2-Copy-6" stroke="#00C2A2" points="4 9.09818898 7.37711559 12.4864871 13.8421951 6"></polyline>
+                    </g>
+                    <g id="Group-7" transform="translate(365.000000, 110.000000)">
+                        <g id="Rectangle-36-Copy-18">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                            <rect stroke="#00C2A2" stroke-width="1" x="0.5" y="0.5" width="17.021978" height="17.0596026" rx="2"></rect>
+                        </g>
+                        <polyline id="Path-2-Copy-7" stroke="#00C2A2" points="4 9.09818898 7.37711559 12.4864871 13.8421951 6"></polyline>
+                    </g>
+                </g>
+                <rect id="Rectangle-50" fill="#FFFFFF" x="0" y="186" width="591" height="197"></rect>
+                <rect id="Rectangle-50" fill="url(#linearGradient-5)" x="20" y="169" width="555" height="140"></rect>
+                <g id="Group-11" transform="translate(136.000000, 183.000000)">
+                    <g id="Group-2-Copy" transform="translate(32.000000, 0.000000)">
+                        <g id="Group-4">
+                            <g id="Group-10">
+                                <g id="Group-9">
+                                    <g id="Group-5">
+                                        <path d="M0,2.99121102 C0,1.33921079 1.33690391,0 3.00983619,0 L256.990164,0 C258.65245,0 260,1.34363502 260,3.00470415 L260,166.995296 C260,168.654748 258.658351,170 257.007744,170 L231.790007,170 L2.99415555,170 C1.3405291,170 0,168.657649 0,166.995722 L0,136.806141 L0,100.861203 L0,2.99121102 Z" id="Rectangle" fill="#E9E9E9"></path>
+                                        <path d="M126,4 L135,4" id="Line" stroke="#C0C0C0" stroke-linecap="round"></path>
+                                        <rect id="Rectangle-Copy-7" fill="#FFFFFF" x="6.52282158" y="6.62420382" width="246.780083" height="157.929936"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                            <text id="Before-a-tsunami-is-Copy" font-family="AdelleSans-Bold, Adelle Sans" font-size="12" font-weight="bold" line-spacing="14" fill="#027360">
+                                <tspan x="18" y="87">Before</tspan>
+                                <tspan x="55.032" y="87.264" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal"> a tsunami is over and coastal </tspan>
+                                <tspan x="18.108" y="101.264" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">towns can remain flooded for weeks.</tspan>
+                            </text>
+                            <text id="A-tsunami-is-over-bu" font-family="AdelleSans-Regular, Adelle Sans" font-size="12" font-weight="normal" line-spacing="14" fill="#027360">
+                                <tspan x="18" y="133.264">A tsunami is over </tspan>
+                                <tspan x="113.424" y="133" font-family="AdelleSans-Bold, Adelle Sans" font-weight="bold">but</tspan>
+                                <tspan x="132.516" y="133.264"> coastal towns </tspan>
+                                <tspan x="18" y="147.264">can remain flooded for weeks.</tspan>
+                            </text>
+                            <polygon id="Rectangle-2" fill="#DFFCF7" points="6.52282158 6.62420382 253.297484 6.66833136 253.297484 14.5222956 6.52282158 14.5222956"></polygon>
+                        </g>
+                        <text id="A-tsunami-is-over.-C" font-family="AdelleSans-Regular, Adelle Sans" font-size="11" font-weight="normal" line-spacing="13" fill="#3B3B3B">
+                            <tspan x="18" y="40">A tsunami is over.</tspan>
+                            <tspan x="18" y="53">Coastal towns can remain flooded for weeks.</tspan>
+                        </text>
+                        <path d="M18.5435685,64.272293 L234.191641,64.272293" id="Line" stroke="#E9E9E9" stroke-width="0.5" stroke-linecap="square"></path>
+                        <path d="M18.5435685,109.272293 L234.191641,109.272293" id="Line-Copy" stroke="#E9E9E9" stroke-width="0.5" stroke-linecap="square"></path>
+                    </g>
+                    <g id="Group-2" transform="translate(0.000000, 174.000000)">
+                        <path d="M0,0 L325,0 L325,9.00798298 C325,10.1081436 324.096295,11 323.00885,11 L1.99114964,11 C0.891468061,11 0,10.0998238 0,9.00798298 L0,0 Z" id="Rectangle-32" fill="#E9E9E9"></path>
+                        <path d="M0,9 L325,9 L324.616318,10.2038887 C324.423386,10.8092543 323.742562,11.3 323.112409,11.3 L2.14320891,11.3 C1.50555427,11.3 0.788568395,10.8345607 0.5348255,10.2442419 L0,9 Z" id="Rectangle-3-Copy" fill="#C0C0C0"></path>
+                        <g id="Rectangle-38">
+                            <use fill="#C0C0C0" fill-rule="evenodd" xlink:href="#path-6"></use>
+                            <path d=""></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(461.000000, 240.000000)" stroke="#3ADFBB" stroke-width="8">
+                    <path d="M0.413043478,54.5869565 L18.1787152,36.8212848" id="Line" stroke-linecap="square"></path>
+                    <path d="M0.413043478,72.5869565 L18.1787152,54.8212848" id="Line" stroke-linecap="square" transform="translate(9.500000, 63.500000) scale(1, -1) translate(-9.500000, -63.500000) "></path>
+                    <polyline id="Path-13" points="0 55 57 55 57 0"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
