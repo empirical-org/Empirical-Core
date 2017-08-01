@@ -7,6 +7,7 @@ import authToken from '../../modules/get_auth_token.js';
 import Pusher from 'pusher-js';
 import RecommendationsTableCell from './recommendations_table_cell';
 import LessonsRecommendations from './lessons_recommendations';
+import RecommendationOverview from './recommendation_overview';
 
 export default React.createClass({
 
@@ -279,8 +280,12 @@ export default React.createClass({
     }
     return (
       <div>
+        <RecommendationOverview />
+        <h3 style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}>
+            Personalized Independent Practice Recommendations
+          </h3>
         {this.renderExplanation()}
-        <div className="recommendations-container">
+        <div id="recommendations-container" className="recommendations-container">
           {this.renderTopBar()}
           {this.renderTableHeader()}
           <div className="recommendations-table-row-wrapper">

@@ -1,0 +1,30 @@
+import React from 'react';
+require('../../../../../assets/styles/lesson-recommendations.scss');
+
+export default class RecommendationsOverview extends React.Component {
+  constructor(props) {
+    super();
+    this.scrollToLessons = this.scrollToLessons.bind(this);
+    this.scrollToIndependent = this.scrollToIndependent.bind(this);
+  }
+
+  scrollToLessons() {
+    document.getElementById('lessons-recommendations-wrapper').scrollIntoView();
+  }
+
+  scrollToIndependent() {
+    document.getElementById('recommendations-container').scrollIntoView();
+  }
+
+  render() {
+    return (
+      <div className="recommendations-overview center-text">
+        <h3>Quill now provides both <strong>Group Lessons</strong> and <strong>Independent Practice</strong></h3>
+        <p>In the new Quill Lessons tool, you can teach writing skills to your class through a set of teacher-led slides.</p>
+        <div className="flex-row space-between button-group">
+          <a onClick={this.scrollToLessons} className="q-button text-quillblue bg-white">View Group Lessons</a>
+          <a onClick={this.scrollToIndependent} className="q-button text-quillblue bg-white">View Independent Practice</a>
+        </div>
+      </div>);
+  }
+}
