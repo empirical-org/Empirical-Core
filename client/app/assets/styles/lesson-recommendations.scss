@@ -17,13 +17,16 @@
   }
   .button-group {
     margin: auto;
-    width: 56%;
+    width: 62%;
     margin-top: 20px;
+  }
+  img {
+    margin-right: 13px;
   }
   .q-button {
     border-radius: 22px;
   	font-size: 16px;
-    width: 246px;
+    min-width: 246px;
     font-weight: 600;
     border-color: #348fdf;
     color: #348fdf;
@@ -37,6 +40,11 @@
     font-weight: bold;
     color: #3b3b3b;
     margin-bottom: 25px;
+    img {
+      position: relative;
+      top: -3px;
+      margin-right: 15px;
+    }
   }
   p {
     margin-bottom: 45px;

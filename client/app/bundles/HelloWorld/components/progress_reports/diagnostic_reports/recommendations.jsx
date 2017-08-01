@@ -292,7 +292,14 @@ export default React.createClass({
       <div>
         <RecommendationOverview />
         <h3 style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}>
-            Personalized Independent Practice Recommendations
+          <img
+            style={{
+              position: 'relative',
+              top: '-3px',
+              marginRight: '15px',
+            }}
+            src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
+          />Personalized Independent Practice Recommendations
           </h3>
         {this.renderExplanation()}
         <div id="recommendations-container" className="recommendations-container">
