@@ -5,12 +5,12 @@ export default class LessonsRecommendationRow extends React.Component {
   constructor(props) {
     super();
     this.state = { expanded: false, };
-    this.assignLessonPack = this.assignLessonPack.bind(this);
+    this.assignActivityPack = this.assignActivityPack.bind(this);
     this.toggleExpand = this.toggleExpand.bind(this);
   }
 
-  assignLessonPack() {
-    this.props.assignLessonPack(this.props.activity_pack_id);
+  assignActivityPack() {
+    this.props.assignToWholeClass(this.props.activityPackId);
   }
 
   toggleExpand() {
@@ -53,7 +53,7 @@ export default class LessonsRecommendationRow extends React.Component {
             <span>
               {`${rec.percentage_needing_instruction}% of students need instruction`}
             </span>
-            <a onClick={this.assignLessonPack} className="assign q-button bg-quillgreen text-white">Assign Pack</a>
+            <a onClick={this.assignActivityPack} className="assign q-button bg-quillgreen text-white">Assign Pack</a>
           </div>
         </div>
         {expandedSection}
