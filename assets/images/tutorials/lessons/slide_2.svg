@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="627px" height="342px" viewBox="0 0 627 342" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 12</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="361.063291" height="297"></rect>
+        <rect id="path-2" x="1" y="0" width="216.494072" height="139.925373"></rect>
+        <filter x="-2.8%" y="-4.3%" width="105.5%" height="108.6%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.22745098   0 0 0 0 0.874509804   0 0 0 0 0.733333333  0 0 0 0.185971467 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-4" x="0.944443529" y="150" width="216.494072" height="139.925373"></rect>
+        <filter x="-3.7%" y="-5.0%" width="107.4%" height="111.4%" filterUnits="objectBoundingBox" id="filter-5">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.91372549   0 0 0 0 0.91372549   0 0 0 0 0.91372549  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="49.9959528%" y1="-68.0492341%" x2="50%" y2="120.386848%" id="linearGradient-6">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="35.6008021%"></stop>
+            <stop stop-color="#FFFFFF" offset="45.6612723%"></stop>
+            <stop stop-color="#FEFEFE" offset="65.1905293%"></stop>
+            <stop stop-color="#FEFEFE" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="12_00-Guide-2" transform="translate(-367.000000, -150.000000)">
+            <g id="Group-12" transform="translate(367.000000, 154.000000)">
+                <g id="Group-3" transform="translate(25.000000, 0.000000)">
+                    <g id="Group-4" transform="translate(224.000000, 0.000000)">
+                        <g id="Rectangle-14-Copy-2">
+                            <use fill="#FAFAFA" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            <rect stroke="#E9E9E9" stroke-width="0.81" x="0.405" y="0.405" width="360.253291" height="296.19"></rect>
+                        </g>
+                        <text id="Say:-Here-are-some-c" font-family="AdelleSans-Bold, Adelle Sans" font-size="12.96" font-weight="bold" fill="#3B3B3B">
+                            <tspan x="22" y="79">Say:</tspan>
+                            <tspan x="47.22016" y="79" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">  Here are some common joining words that </tspan>
+                            <tspan x="22" y="98" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">writers can use to show the order things happen. </tspan>
+                            <tspan x="22" y="117" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">Let’s read the list aloud together.</tspan>
+                            <tspan x="22" y="136" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal"></tspan>
+                        </text>
+                        <text id="Review-Time-Order-Jo" font-family="AdelleSans-Bold, Adelle Sans" font-size="14.58" font-weight="bold" fill="#3B3B3B">
+                            <tspan x="22" y="34">Review Time Order Joining Words</tspan>
+                        </text>
+                        <text id="Say:-You-probably-al" font-family="AdelleSans-Bold, Adelle Sans" font-size="12.96" font-weight="bold" fill="#3B3B3B">
+                            <tspan x="22" y="203">Say: </tspan>
+                            <tspan x="49.4752" y="203" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">You probably already use these words when </tspan>
+                            <tspan x="22" y="222" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">you’re talking, so today we’re going to focus on how to </tspan>
+                            <tspan x="22" y="241" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal">correctly use them in your writing.</tspan>
+                        </text>
+                        <text id="Read-the-list-as-a-w" font-family="AdelleSans-Italic, Adelle Sans" font-size="12.96" font-style="italic" font-weight="normal" fill="#3B3B3B">
+                            <tspan x="22" y="159">Read the list as a whole class.</tspan>
+                        </text>
+                        <path d="M21.8734177,52.1904762 L341.001027,52.1904762" id="Line" stroke="#E9E9E9" stroke-width="0.81" stroke-linecap="square"></path>
+                    </g>
+                    <g id="Group">
+                        <g id="Rectangle-23-Copy-3">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                            <rect stroke="#00C2A2" stroke-width="0.56" x="1.28" y="0.28" width="215.934072" height="139.365373"></rect>
+                        </g>
+                        <text id="Time-Order-Joining-W" font-family="AdelleSans-SemiBold, Adelle Sans" font-size="9" font-weight="500" line-spacing="12.32" fill="#3B3B3B">
+                            <tspan x="56" y="24">Time Order Joining Words</tspan>
+                        </text>
+                        <text id="After-Before-As-soon" font-family="AdelleSans-Bold, Adelle Sans" font-size="9" font-weight="bold" line-spacing="12.32" fill="#00C2A2">
+                            <tspan x="98.196" y="44">After</tspan>
+                            <tspan x="95.091" y="56.32">Before</tspan>
+                            <tspan x="87" y="68.64">As soon as</tspan>
+                            <tspan x="98.862" y="80.96">Until</tspan>
+                            <tspan x="96.891" y="93.28">When</tspan>
+                            <tspan x="87.7875" y="105.6">Whenever</tspan>
+                            <tspan x="97.1025" y="117.92">While</tspan>
+                        </text>
+                        <g id="Rectangle-23-Copy-3">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        </g>
+                        <g id="Group-9" transform="translate(16.000000, 170.000000)">
+                            <text id="A-1906-earthquake-sh" font-family="AdelleSans-Regular, Adelle Sans" font-size="9" font-weight="normal" line-spacing="12.32" fill="#3B3B3B">
+                                <tspan x="0" y="10">A 1906 earthquake shook California.</tspan>
+                                <tspan x="0" y="22.32">San Francisco burned for three days</tspan>
+                            </text>
+                            <rect id="Rectangle-4-Copy" fill="#FAFAFA" x="0" y="43" width="184" height="37.5"></rect>
+                            <text id="After-a-1906-earthqu" font-family="AdelleSans-Bold, Adelle Sans" font-size="9" font-weight="bold" line-spacing="12.32">
+                                <tspan x="8" y="60" fill="#00C2A2">After </tspan>
+                                <tspan x="31.13" y="60.198" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal" fill="#3B3B3B">a 1906 earthquake shook California, </tspan>
+                                <tspan x="8.081" y="72.518" font-family="AdelleSans-Regular, Adelle Sans" font-weight="normal" fill="#3B3B3B">San Francisco burned for three days.</tspan>
+                            </text>
+                        </g>
+                    </g>
+                </g>
+                <rect id="Rectangle-50" fill="url(#linearGradient-6)" x="0" y="283" width="627" height="55"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

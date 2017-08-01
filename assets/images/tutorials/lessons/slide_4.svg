@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="631px" height="404px" viewBox="0 0 631 404" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 14</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0,2.99842243 C0,1.34243945 1.33431682,0 2.99059273,0 L572.009407,0 C573.661066,0 575,1.34975187 575,2.99842243 L575,335 L0,335 L0,2.99842243 Z" id="path-1"></path>
+        <filter x="-2.0%" y="-2.8%" width="104.0%" height="106.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.91372549   0 0 0 0 0.91372549   0 0 0 0 0.91372549  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M208.251526,55 L207,55 L207,75.7024713 L208.430316,75.7024713 L208.430316,65.2320595 L221.875283,65.2320595 L216.32574,60.1160298 L221.875283,55 L208.251526,55 Z" id="path-3"></path>
+        <filter x="-6.7%" y="-4.8%" width="113.4%" height="109.7%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="0.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.752941176   0 0 0 0 0.752941176   0 0 0 0 0.752941176  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="-33.1442967%" x2="50%" y2="63.4646223%" id="linearGradient-5">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="35.6008021%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.958192313" offset="45.6612723%"></stop>
+            <stop stop-color="#FEFEFE" stop-opacity="0.965664175" offset="64.2079879%"></stop>
+            <stop stop-color="#FEFEFE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="12_00-Guide-4" transform="translate(-368.000000, -109.000000)">
+            <g id="Group-14" transform="translate(368.000000, 114.000000)">
+                <g id="Group" transform="translate(26.000000, 0.000000)">
+                    <g id="Rectangle-14-Copy-2">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#FAFAFA" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <path stroke="#E9E9E9" stroke-width="1" d="M574.5,334.5 L0.5,334.5 L0.5,2.99842243 C0.5,1.61657006 1.61246675,0.5 2.99059273,0.5 L572.009407,0.5 C573.381927,0.5 574.5,1.62288884 574.5,2.99842243 L574.5,334.5 Z"></path>
+                    </g>
+                    <rect id="Rectangle" fill="#FFFFFF" x="18" y="17" width="538" height="318"></rect>
+                    <g id="Group-7" transform="translate(47.000000, 88.000000)">
+                        <g id="Group-4">
+                            <path d="M0,90.2804878 L476.275387,90.2804878" id="Line-Copy-23" stroke="#E9E9E9" stroke-linecap="square"></path>
+                            <path d="M0,138.426829 L476.275387,138.426829" id="Line-Copy-24" stroke="#E9E9E9" stroke-linecap="square"></path>
+                            <text id="Enid-Blyton" font-family="AdelleSans-Regular, Adelle Sans" font-size="18" font-weight="normal" fill="#3B3B3B">
+                                <tspan x="1" y="119">Enid Blyton</tspan>
+                            </text>
+                            <path d="M208.25,101 L207,101 L207,121.702471 L208.428571,121.702471 L208.428571,111.23206 L221.857143,111.23206 L216.314367,106.11603 L221.857143,101 L208.25,101 Z" id="Combined-Shape-Copy-24" fill="#5AAEF6"></path>
+                            <text id="Margaret-Atwood" font-family="AdelleSans-Regular, Adelle Sans" font-size="18" font-weight="normal" fill="#3B3B3B">
+                                <tspan x="1" y="21">Margaret Atwood</tspan>
+                            </text>
+                            <text id="Jane-Austen" font-family="AdelleSans-Regular, Adelle Sans" font-size="18" font-weight="normal" fill="#3B3B3B">
+                                <tspan x="1" y="72">Jane Austen</tspan>
+                            </text>
+                            <g id="Combined-Shape-Copy-18">
+                                <use fill="#E9E9E9" fill-rule="evenodd" xlink:href="#path-3"></use>
+                                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                            </g>
+                            <path d="M208.251526,4 L207,4 L207,24.7024713 L208.430316,24.7024713 L208.430316,14.2320595 L221.875283,14.2320595 L216.32574,9.11602977 L221.875283,4 L208.251526,4 Z" id="Combined-Shape-Copy-21" fill="#5AAEF6"></path>
+                            <path d="M1.43712575,40.9878049 L478.571532,40.9878049" id="Line-Copy-20" stroke="#E9E9E9" stroke-linecap="square"></path>
+                        </g>
+                    </g>
+                    <text id="Students-Copy" font-family="AdelleSans-SemiBold, Adelle Sans" font-size="12" font-weight="500" fill="#C0C0C0">
+                        <tspan x="47" y="59">Students</tspan>
+                    </text>
+                    <text id="Answers-Copy" font-family="AdelleSans-SemiBold, Adelle Sans" font-size="12" font-weight="500" fill="#C0C0C0">
+                        <tspan x="318" y="59">Answers</tspan>
+                    </text>
+                    <text id="Flag-Copy" font-family="AdelleSans-SemiBold, Adelle Sans" font-size="12" font-weight="500" fill="#C0C0C0">
+                        <tspan x="247" y="59">Flag</tspan>
+                    </text>
+                    <polygon id="Path-4" fill="#D8D8D8" points="381 56 390 56 385.5 61"></polygon>
+                    <polygon id="Path-4" fill="#D8D8D8" points="111 56 120 56 115.5 61"></polygon>
+                    <polygon id="Path-4-Copy" fill="#D8D8D8" points="280 56 289 56 284.5 61"></polygon>
+                    <text id="Before-a-tsunami-is" font-family="AdelleSans-Regular, Adelle Sans" font-size="12" font-weight="normal" line-spacing="16" fill="#3B3B3B">
+                        <tspan x="318" y="100">Before a tsunami is over and coastal </tspan>
+                        <tspan x="318" y="116">towns can remain flooded for weeks.</tspan>
+                    </text>
+                    <text id="A-tsunami-is-over-an" font-family="AdelleSans-Regular, Adelle Sans" font-size="12" font-weight="normal" line-spacing="16" fill="#3B3B3B">
+                        <tspan x="318" y="198">A tsunami is over and coastal towns </tspan>
+                        <tspan x="318" y="214">can remain flooded for weeks.</tspan>
+                    </text>
+                    <text id="A-tsunami-is-over-an" font-family="AdelleSans-Regular, Adelle Sans" font-size="12" font-weight="normal" line-spacing="15" fill="#3B3B3B">
+                        <tspan x="318" y="152">A tsunami is over and coastal towns </tspan>
+                        <tspan x="318" y="167">can remain flooded for weeks.</tspan>
+                    </text>
+                </g>
+                <rect id="Rectangle-50" fill="url(#linearGradient-5)" x="0" y="209" width="631" height="140"></rect>
+                <g id="Group-10" transform="translate(129.000000, 251.000000)">
+                    <g id="Group-9">
+                        <polyline id="Rectangle-39" fill="#E9E9E9" points="278.538531 88.8 282.584959 89.0473423 277.869062 148 275.68897 147.866739 273.822635 147.752658"></polyline>
+                        <path d="M278.835695,117.851852 L326.876599,117.851852" id="Line" stroke="#E9E9E9" stroke-linecap="square"></path>
+                        <polyline id="Rectangle-39-Copy" fill="#E9E9E9" points="322.015418 89.1709907 325.199706 88.8 330.777743 147.629009 329.258629 147.805996 327.593455 148"></polyline>
+                        <path d="M277.573335,5.18246931 C277.75923,3.53120599 279.237956,1.97595989 280.879293,1.73000008 C280.879293,1.73000008 290.174963,0.0362363446 302.849116,0.0362363446 C315.523269,0.0362363446 324.51636,1.7246954 324.51636,1.7246954 C326.135976,1.98310789 327.605872,3.52589628 327.799554,5.17137586 L335.227848,68.280476 C335.42149,69.9256126 334.235832,71.1677293 332.58461,71.0624786 C332.58461,71.0624786 319.13854,70.0675857 302.849116,70.0675857 C286.559692,70.0675857 273.125977,71.0624786 273.125977,71.0624786 C271.473865,71.1711576 270.284664,69.9259556 270.471157,68.2693825 L277.573335,5.18246931 Z" id="Rectangle-41" fill="#E9E9E9"></path>
+                        <rect id="Rectangle-2" fill="#E9E9E9" x="262.869729" y="57.0074074" width="2.19058108" height="26.3111111"></rect>
+                        <polygon id="Path-17-Copy" fill="#C0C0C0" points="259.583858 57.0074074 259.583858 54.8148148 339.540067 54.8148148 339.540067 57.0074074"></polygon>
+                        <path d="M284.227895,66.247619 L284.227895,85.0412698" id="Line" stroke="#E9E9E9" stroke-linecap="square"></path>
+                        <path d="M320.372483,66.247619 L320.372483,85.0412698" id="Line" stroke="#E9E9E9" stroke-linecap="square"></path>
+                        <g id="Group-5" transform="translate(257.261639, 84.414815)">
+                            <g id="Group-9-Copy" transform="translate(43.064299, 3.000000) scale(-1, 1) translate(-43.064299, -3.000000) translate(0.564299, 0.000000)">
+                                <polygon id="Path-17" fill="#E9E9E9" points="0 2.74074074 0 1.8189894e-12 84.5992573 1.8189894e-12 84.5992573 2.74074074"></polygon>
+                                <path d="M0,2.74074074 L84.5500491,2.74074074 L84.5500491,4.11111111 C84.5500491,4.86794577 83.941759,5.48148148 83.1877241,5.48148148 L1.36232502,5.48148148 C0.609933686,5.48148148 0,4.87322228 0,4.11111111 L0,2.74074074 Z" id="Rectangle-40" fill="#C0C0C0"></path>
+                            </g>
+                        </g>
+                        <polyline id="Rectangle-39" fill="#E9E9E9" points="150.389538 88.8 154.435966 89.0473423 149.720069 148 147.539977 147.866739 145.673642 147.752658"></polyline>
+                        <path d="M149.591412,117.851852 L197.632315,117.851852" id="Line" stroke="#E9E9E9" stroke-linecap="square"></path>
+                        <polyline id="Rectangle-39-Copy" fill="#E9E9E9" points="193.866425 89.1709907 197.050713 88.8 202.62875 147.629009 201.109636 147.805996 199.444461 148"></polyline>
+                        <path d="M148.329051,5.18246931 C148.514947,3.53120599 149.989452,2.00116767 151.630701,1.78187714 C151.630701,1.78187714 161.304567,0.233378621 173.604757,0.233378621 C185.904946,0.233378621 195.256121,1.77469514 195.256121,1.77469514 C196.884549,2.00549353 198.361588,3.52589628 198.55527,5.17137586 L205.983564,68.280476 C206.177206,69.9256126 204.993655,71.0827059 203.358644,70.8805546 C203.358644,70.8805546 189.501404,68.9103045 173.604786,68.9103045 C157.708169,68.9103045 143.852575,70.881859 143.852575,70.881859 C142.216545,71.0902914 141.04038,69.9259556 141.226873,68.2693825 L148.329051,5.18246931 Z" id="Rectangle-41" fill="#E9E9E9"></path>
+                        <rect id="Rectangle-2" fill="#E9E9E9" x="133.625446" y="57.0074074" width="2.19058108" height="26.3111111"></rect>
+                        <polygon id="Path-17-Copy" fill="#C0C0C0" points="131.434865 57.0074074 131.434865 54.8148148 211.391074 54.8148148 211.391074 57.0074074"></polygon>
+                        <path d="M156.078902,66.247619 L156.078902,85.0412698" id="Line" stroke="#E9E9E9" stroke-linecap="square"></path>
+                        <path d="M191.128199,66.247619 L191.128199,85.0412698" id="Line" stroke="#E9E9E9" stroke-linecap="square"></path>
+                        <g id="Group-5" transform="translate(128.017356, 84.414815)">
+                            <g id="Group-9-Copy" transform="translate(43.064299, 3.000000) scale(-1, 1) translate(-43.064299, -3.000000) translate(0.564299, 0.000000)">
+                                <polygon id="Path-17" fill="#E9E9E9" points="0 2.74074074 0 1.8189894e-12 84.5992573 1.8189894e-12 84.5992573 2.74074074"></polygon>
+                                <path d="M0,2.74074074 L84.5500491,2.74074074 L84.5500491,4.11111111 C84.5500491,4.86794577 83.941759,5.48148148 83.1877241,5.48148148 L1.36232502,5.48148148 C0.609933686,5.48148148 0,4.87322228 0,4.11111111 L0,2.74074074 Z" id="Rectangle-40" fill="#C0C0C0"></path>
+                            </g>
+                        </g>
+                        <g id="Group-2">
+                            <polyline id="Rectangle-39-Copy-2" fill="#E9E9E9" points="22.1010911 88.2664045 26.2061628 88.5133398 21.4219199 147.369005 19.210232 147.235964 17.3168483 147.12207"></polyline>
+                            <path d="M21.7615055,118.133202 L70.0344907,118.133202" id="Line-Copy" stroke="#E9E9E9" stroke-linecap="square"></path>
+                            <polyline id="Rectangle-39-Copy-3" fill="#E9E9E9" points="65.5731271 88.6364314 68.8035643 88.2664045 74.4624416 146.942584 72.9213118 147.119111 71.2320043 147.312611"></polyline>
+                            <path d="M20.5367531,5.16884679 C20.7210222,3.52510699 22.190062,2.00152097 23.845168,1.78025015 C23.845168,1.78025015 33.4661618,0.236994621 45.7760555,0.236994621 C58.0859492,0.236994621 67.3849551,1.77306776 67.3849551,1.77306776 C69.018559,2.00476493 70.4995831,3.52973569 70.6917032,5.16884679 L78.1126216,68.4818907 C78.3052843,70.1256305 77.1403597,71.2399956 75.5031294,70.98727 C75.5031294,70.98727 62.1113292,68.5871296 45.7760313,68.5871296 C29.4407334,68.5871296 16.0613799,70.98727 16.0613799,70.98727 C14.4288831,71.247327 13.2553815,70.1210018 13.4391318,68.4818907 L20.5367531,5.16884679 Z" id="Rectangle-41-Copy" fill="#E9E9E9"></path>
+                            <rect id="Rectangle-2-Copy" fill="#E9E9E9" x="5.88772961" y="57.0171091" width="2.53980415" height="26.6894789"></rect>
+                            <polygon id="Path-17-Copy-2" fill="#C0C0C0" points="3.34792546 57.0171091 3.34792546 54.475254 83.3517561 54.475254 83.3517561 57.0171091"></polygon>
+                            <path d="M27.9299087,66.4254701 L27.9299087,85.5743668" id="Line-Copy-2" stroke="#E9E9E9" stroke-linecap="square"></path>
+                            <path d="M62.979206,66.4254701 L62.979206,85.5743668" id="Line-Copy-3" stroke="#E9E9E9" stroke-linecap="square"></path>
+                            <g id="Group-5-Copy" transform="translate(0.808121, 84.802884)">
+                                <g id="Group-9-Copy" transform="translate(42.583439, 3.000000) scale(-1, 1) translate(-42.583439, -3.000000) translate(0.083439, 0.000000)">
+                                    <polygon id="Path-17" fill="#E9E9E9" points="0 2.54185513 0 1.8189894e-12 84.2534409 1.8189894e-12 84.2534409 2.54185513"></polygon>
+                                    <path d="M0,2.54185513 L84.2044339,2.54185513 L84.2044339,3.81278269 C84.2044339,4.51469661 83.6444595,5.08371026 82.9321722,5.08371026 L1.27226169,5.08371026 C0.569610963,5.08371026 0,4.51959022 0,3.81278269 L0,2.54185513 Z" id="Rectangle-40" fill="#C0C0C0"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                    <path d="M268,49 L296,49 C296,49 295.095316,50.5 295.095316,52 C295.095316,53.5 296,55 296,55 L268,55 L268,49 Z" id="Rectangle-43" fill="#A8E167"></path>
+                    <path d="M8,49 L36,49 C36,49 35.0953161,50.5 35.0953161,52 C35.0953161,53.5 36,55 36,55 L8,55 L8,49 Z" id="Rectangle-43-Copy" fill="#F5BA5B"></path>
+                    <path d="M10,44 L38,44 C38,44 37.0953161,45.5 37.0953161,47 C37.0953161,48.5 38,50 38,50 L10,50 L10,44 Z" id="Rectangle-43-Copy-2" fill="#F8A724"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
