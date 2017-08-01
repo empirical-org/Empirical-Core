@@ -19,6 +19,12 @@ export default class TutorialIndex extends React.Component {
       slides: slides,
       slideNumber: props.params.slideNumber ? Number(props.params.slideNumber) : 1
     }
+
+    document.addEventListener("keydown", this.handleKeyDown.bind(this));
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   circles () {
@@ -36,6 +42,14 @@ export default class TutorialIndex extends React.Component {
     } else if (location.search.includes('url')){
       const url = location.search.split('?url=')[1]
       window.location = url
+    }
+  }
+
+  handleKeyDown(event) {
+    if (event.keyCode === 39 && this.state.slideNumber !== this.state.slides.length) {
+      this.goToSlide(this.state.slideNumber + 1)
+    } else if (event.keyCode === 37 && this.state.slideNumber !== 1) {
+      this.goToSlide(this.state.slideNumber - 1)
     }
   }
 
