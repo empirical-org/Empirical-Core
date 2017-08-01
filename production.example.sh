@@ -1,1 +1,1 @@
-aws s3 sync ./assets/ s3://quill-cdn --profile donaldmckendrick
+aws s3 sync ./assets/ s3://BUCKET_NAME --profile PROFILENAMEHERE
