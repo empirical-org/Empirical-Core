@@ -17,7 +17,7 @@ export default class TutorialIndex extends React.Component {
 
     this.state = {
       slides: slides,
-      slideNumber: props.params.slideNumber || 1
+      slideNumber: props.params.slideNumber ? Number(props.params.slideNumber) : 1
     }
   }
 
@@ -30,8 +30,23 @@ export default class TutorialIndex extends React.Component {
     return <div className="circles">{circles}</div>
   }
 
+  nextButton() {
+    if (this.state.slideNumber !== this.state.slides.length) {
+      return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>
+    } else if (location.search.includes('url')){
+      const url = location.search.split('?url=')[1]
+      window.location = url
+    }
+  }
+
+  previousButton() {
+    if (this.state.slideNumber !== 1) {
+      return <p className="text-quillgreen previous-button" onClick={() => this.goToSlide(this.state.slideNumber - 1)}>Back</p>
+    }
+  }
+
   goToSlide(slideNumber) {
-    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}`)
+    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${location.search}`)
     this.setState({slideNumber: slideNumber})
   }
 
@@ -40,8 +55,8 @@ export default class TutorialIndex extends React.Component {
         <div className="tutorial-slides">
           {this.state.slides[this.state.slideNumber - 1]}
           <div className="slide-controls">
-            <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(Number(this.state.slideNumber) + 1)}>Next</button>
-            <p className="text-quillgreen previous-button" onClick={() => this.goToSlide(Number(this.state.slideNumber) - 1)}>Back</p>
+            {this.nextButton()}
+            {this.previousButton()}
             {this.circles()}
           </div>
         </div>
