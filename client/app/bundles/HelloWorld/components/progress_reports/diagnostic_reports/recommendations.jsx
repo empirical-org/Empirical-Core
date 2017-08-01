@@ -129,18 +129,28 @@ export default React.createClass({
   },
 
   assignToWholeClass(unitTemplateId) {
-    const that = this;
-    $.ajax({
-      type: 'POST',
-      url: '/teachers/progress_reports/assign_selected_packs/',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
-    })
-    .done(() => { this.initializePusher(); })
-    .fail(() => {
-      alert('We had trouble processing your request. Please check your network connection and try again.');
-      // this.setState({ assigning: false, });
+    let newObj = Object.assign({}, this.state);
+    newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
+    this.setState(newObj, () => {
+      const that = this;
+      that.state.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId);
+      $.ajax({
+        type: 'POST',
+        url: '/teachers/progress_reports/assign_selected_packs/',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
+      })
+      .done(() => {
+        newObj = Object.assign({}, that.state);
+        newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
+        that.setState(newObj);
+        this.initializePusher();
+      })
+      .fail(() => {
+        alert('We had trouble processing your request. Please check your network connection and try again.');
+        // this.setState({ assigning: false, });
+      });
     });
   },
 

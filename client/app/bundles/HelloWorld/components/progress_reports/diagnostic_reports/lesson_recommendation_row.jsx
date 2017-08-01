@@ -3,7 +3,7 @@ import LoadingIndicator from '../../shared/loading_indicator.jsx';
 
 export default class LessonsRecommendationRow extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = { expanded: false, };
     this.assignActivityPack = this.assignActivityPack.bind(this);
     this.toggleExpand = this.toggleExpand.bind(this);
@@ -20,7 +20,7 @@ export default class LessonsRecommendationRow extends React.Component {
   renderExpandedSection() {
     const rec = this.props.recommendation;
     const activities = rec.activities.map((act, index) => (
-      <div key={rec.url} className="activity-row flex-row vertically-centered">
+      <div key={rec.url + index} className="activity-row flex-row vertically-centered">
         <span>{`Lesson ${index + 1}: ` + ' '}</span>
         <span>{` ${rec.name}`}</span>
         <a href={rec.url}>Preview Lesson</a>
@@ -30,6 +30,15 @@ export default class LessonsRecommendationRow extends React.Component {
         {activities}
       </div>
     );
+  }
+
+  statusSpecificComponent() {
+    if (this.props.status === 'loading') {
+      return (<LoadingIndicator />);
+    } else if (this.props.status === 'assigned') {
+      return <span className="assigned-lesson-pack vertically-centered centered"><i className="fa fa-check-circle" />Pack Assigned</span>;
+    }
+    return (<a onClick={this.assignActivityPack} className="assign q-button bg-quillgreen text-white">Assign Pack</a>);
   }
 
   render() {
@@ -53,7 +62,7 @@ export default class LessonsRecommendationRow extends React.Component {
             <span>
               {`${rec.percentage_needing_instruction}% of students need instruction`}
             </span>
-            <a onClick={this.assignActivityPack} className="assign q-button bg-quillgreen text-white">Assign Pack</a>
+            {this.statusSpecificComponent()}
           </div>
         </div>
         {expandedSection}

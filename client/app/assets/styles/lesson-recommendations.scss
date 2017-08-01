@@ -48,7 +48,20 @@
   border-radius: 3px;
 	border: solid 1px #cecece;
   margin-bottom: 10px;
-
+  .assigned-lesson-pack {
+    font-size: 16px;
+    color: #82bf3c;
+    position: relative;
+    font-weight: bold;
+    .fa {
+      position: absolute;
+      left: -24px;
+      top: 1px;
+    }
+    .fa-check-circle:before {
+      font-size: 20px;
+    }
+  }
   .assign {
     font-size: 16px;
     font-weight: 600;
