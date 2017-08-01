@@ -1,8 +1,45 @@
+.recommendations-overview {
+  margin: auto;
+  text-align: center;
+  max-width: 950px;
+  width: 100%;
+  border-radius: 3px;
+  border: solid 1px #dddddd;
+  padding: 25px;
+  margin-top: 27px;
+  margin-bottom: 27px;
+  h3 {
+    font-size: 20px;
+  }
+  p {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .button-group {
+    margin: auto;
+    width: 56%;
+    margin-top: 20px;
+  }
+  .q-button {
+    border-radius: 22px;
+  	font-size: 16px;
+    width: 246px;
+    font-weight: 600;
+    border-color: #348fdf;
+    color: #348fdf;
+  }
+}
+
 .lesson-recommendations-wrapper {
   h2 {
+    margin-top: 62px;
     font-size: 24px;
     font-weight: bold;
     color: #3b3b3b;
+    margin-bottom: 25px;
+  }
+  p {
+    margin-bottom: 45px;
   }
 }
 
@@ -11,6 +48,7 @@
   border-radius: 3px;
 	border: solid 1px #cecece;
   margin-bottom: 10px;
+
   .assign {
     font-size: 16px;
     font-weight: 600;

@@ -15,7 +15,7 @@ export default class LessonsRecommendations extends React.Component {
   render() {
     if (this.props.recommendations && this.props.recommendations.length) {
       return (
-        <div className="lesson-recommendations-wrapper">
+        <div className="lesson-recommendations-wrapper" id="lessons-recommendations-wrapper">
           <h2>
             LOGO: Collaborative Class Lessons Recommendations
           </h2>
