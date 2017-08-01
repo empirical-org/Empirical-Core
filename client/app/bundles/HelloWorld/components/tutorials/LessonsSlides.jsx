@@ -67,8 +67,8 @@ const SlideSix =() => {
       <img className="caption" src="http://localhost:45537/images/tutorials/lessons/slide_6_text.svg" />
     </div>
     <div className="text">
-      <h1>Class-Wide Interactive Activities</h1>
-      <p><span>Quill Lessons</span> provides a series of interactive slides that enable you to introduce new writing concepts to your students. Each slide contains a step-by-step guide to help you present each concept.</p>
+      <h1>Navigation Bar Links</h1>
+      <p>During the lesson, you will be able to flag students, open a new window to project, freeze students’ screen, exit lesson and view this guide.</p>
     </div>
   </div>
 }
