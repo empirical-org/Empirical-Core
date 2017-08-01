@@ -31,16 +31,17 @@ export default class TutorialIndex extends React.Component {
   }
 
   goToSlide(slideNumber) {
+    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}`)
     this.setState({slideNumber: slideNumber})
   }
 
     render() {
       return (
         <div className="tutorial-slides">
-          {this.state.slides[this.state.slideNumber - 1]()}
+          {this.state.slides[this.state.slideNumber - 1]}
           <div className="slide-controls">
-            <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>
-            <p className="text-quillgreen previous-button" onClick={() => this.goToSlide(this.state.slideNumber - 1)}>Back</p>
+            <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(Number(this.state.slideNumber) + 1)}>Next</button>
+            <p className="text-quillgreen previous-button" onClick={() => this.goToSlide(Number(this.state.slideNumber) - 1)}>Back</p>
             {this.circles()}
           </div>
         </div>
