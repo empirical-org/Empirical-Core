@@ -91,6 +91,9 @@
 }
 
 .lessons-slide-one {
+  .text {
+    width: 570px;
+  }
   @media (max-width: 1150px) {
     .caption {
       display: none;
