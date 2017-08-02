@@ -1,5 +1,6 @@
 .tutorial-slides {
   background: white;
+  min-height: 800px;
   height: 100%;
   .text {
     width: 555px;
@@ -29,13 +30,17 @@
     left: 0;
     right: 0;
     top: 750px;
-    .next-button, .previous-button {
+    .next-button, .previous-button, .try-button {
       margin-bottom: 15px;
       font-size: 16px;
       cursor: pointer;
     }
     .next-button {
       width: 120px;
+      height: 40px;
+    }
+    .try-button {
+      width: 200px;
       height: 40px;
     }
     .circles {
