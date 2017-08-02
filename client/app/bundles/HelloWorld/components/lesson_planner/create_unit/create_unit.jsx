@@ -295,7 +295,6 @@ export default React.createClass({
       data={this.assignSuccess}
       dueDates={this.state.model.dueDates}
       classrooms={this.getClassrooms()}
-      updateUnitName={this.updateUnitName}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
       toggleStudentSelection={this.toggleStudentSelection}
@@ -314,10 +313,6 @@ export default React.createClass({
     window.location.href = `/teachers/classrooms/activity_planner#${this.state.newUnitId}`;
   },
 
-  isUnitNameValid() {
-    return ((this.getUnitName() != null) && (this.getUnitName() !== ''));
-  },
-
   render() {
     let stageSpecificComponents;
 
@@ -329,9 +324,12 @@ export default React.createClass({
       stageSpecificComponents = this.stage3specificComponents();
     }
     return (
-      <div className="assign-activity-container container">
-        {stageSpecificComponents}
-      </div>
+      <span>
+        <div className="container" id="activity-planner">
+          {stageSpecificComponents}
+        </div>
+      </span>
+
     );
   },
 });
