@@ -77,7 +77,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.retryQuestionForStudent = this.retryQuestionForStudent.bind(this);
     this.toggleShowDifferences = this.toggleShowDifferences.bind(this);
     this.handlePromptChange = this.handlePromptChange.bind(this);
-    this.resetPrompt = this.resetPrompt.bind(this);
+    this.resetSlide = this.resetSlide.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -480,9 +480,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.props.savePrompt(textEditorInputClean(e));
   }
 
-  resetPrompt() {
-    this.setState({ prompt: this.props.lessonPrompt });
-    this.props.savePrompt(this.props.lessonPrompt);
+  resetSlide() {
+    const lessonPrompt = this.props.lessonPrompt
+    this.setState({ prompt: lessonPrompt ? textEditorInputClean(lessonPrompt) : '' });
+    this.props.savePrompt(lessonPrompt ? textEditorInputClean(lessonPrompt) : '');
+    this.setState({ model: ''})
+    this.props.saveModel('');
+
   }
 
   renderCues() {
@@ -522,7 +526,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           <p className="model-header">
             Model Your Answer
           </p>
-          <p className="reset-prompt-button" onClick={this.resetPrompt}>
+          <p className="reset-prompt-button" onClick={this.resetSlide}>
             Reset Slide
           </p>
         </div>
