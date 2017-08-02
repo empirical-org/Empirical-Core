@@ -24,10 +24,15 @@
     margin-top: 0px;
     margin-bottom: 20px;
     width: 280px;
-    margin-right: 15px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
   #search_activities_button {
     margin-right: 15px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    width: 36px;
+    background-color: #00c2a2;
   }
 }
 
