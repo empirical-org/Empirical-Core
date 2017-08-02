@@ -267,7 +267,7 @@ const Questions = React.createClass({
               <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} />
               Display questions with no valid concept
             </label>
-            <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} /> 
+            <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
             <br />
             <br />
             <QuestionsList displayNoConceptQuestions={this.state.displayNoConceptQuestions} questions={questions} concepts={concepts} baseRoute={'admin'} showOnlyArchived={this.state.showOnlyArchived}/>
