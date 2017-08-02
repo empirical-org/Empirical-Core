@@ -185,12 +185,6 @@ export default React.createClass({
   },
 
   determineIfInputProvidedAndValid() {
-		// TODO: pull this into stage 2 or delete
-    // const validUnitName = this.isUnitNameValid();
-    // let isUnique;
-    // if (validUnitName) {
-    //   isUnique = this.isUnitNameUnique();
-    // }
     return (this.getSelectedActivities().length > 0);
   },
 
@@ -254,7 +248,8 @@ export default React.createClass({
     return (<Stage2
       selectedActivities={this.getSelectedActivities()}
       data={this.props.data.assignSuccessData}
-      unitName={this.getUnitName()} updateUnitName={this.updateUnitName}
+      unitName={this.getUnitName()}
+      updateUnitName={this.updateUnitName}
       dueDates={this.props.data.createUnitData.model.dueDates}
       actions={this.props.actions.assignSuccessActions}
       classrooms={this.getClassrooms()}
@@ -262,7 +257,6 @@ export default React.createClass({
       toggleClassroomSelection={this.toggleClassroomSelection}
       toggleStudentSelection={this.toggleStudentSelection}
       finish={this.finish}
-      unitName={this.getUnitName()}
       assignActivityDueDate={this.props.actions.assignActivityDueDate}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       errorMessage={this.determineStage2ErrorMessage()}
