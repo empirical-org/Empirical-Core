@@ -21,7 +21,7 @@ module LessonsRecommendations
     end
 
     def get_recommendations
-      LessonRecommendations.new.send("recs_for_#{@activity_id}").map do |lessons_rec|
+      LessonRecommendations.new.send("recs_for_activity", @activity_id, @classroom_activity.classroom_id).map do |lessons_rec|
         fail_count = 0
         @activity_sessions_with_counted_concepts.each do |activity_session|
           lessons_rec[:requirements].each do |req|
@@ -44,7 +44,8 @@ module LessonsRecommendations
         activity_pack_id: lessons_rec[:activityPackId],
         name: lessons_rec[:recommendation],
         percentage_needing_instruction: percentage_needing_instruction(fail_count),
-        activities: lessons_rec[:activities]
+        activities: lessons_rec[:activities],
+        previously_assigned: lessons_rec[:previously_assigned]
       }
     end
 

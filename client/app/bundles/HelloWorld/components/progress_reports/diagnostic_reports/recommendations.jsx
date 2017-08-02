@@ -276,14 +276,6 @@ export default React.createClass({
     });
   },
 
-  renderBottomBar() {
-    return (
-      <div className="recommendations-bottom-bar">
-        {this.renderAssignButton()}
-      </div>
-    );
-  },
-
   render() {
     if (this.state.loading) {
       return <LoadingSpinner />;
@@ -291,7 +283,10 @@ export default React.createClass({
     return (
       <div>
         <RecommendationOverview />
-        <h3 style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}>
+        <h3
+          id="recommendations-scroll-to"
+          style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
+        >
           <img
             style={{
               position: 'relative',
@@ -299,17 +294,17 @@ export default React.createClass({
               marginRight: '15px',
             }}
             src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
-          />Personalized Independent Practice Recommendations
+          />
+          Personalized Independent Practice Recommendations
           </h3>
         {this.renderExplanation()}
-        <div id="recommendations-container" className="recommendations-container">
+        <div className="recommendations-container">
           {this.renderTopBar()}
           {this.renderTableHeader()}
           <div className="recommendations-table-row-wrapper">
             {this.renderTableRows()}
           </div>
           <LessonsRecommendations assignToWholeClass={this.assignToWholeClass} recommendations={this.state.lessonsRecommendations} />
-          {this.renderBottomBar()}
         </div>
       </div>
     );
