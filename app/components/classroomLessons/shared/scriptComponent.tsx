@@ -3,6 +3,7 @@ import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
+import Cues from 'components/renderForQuestions/cues';
 import { findDifferences } from './findDifferences'
 import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
@@ -484,37 +485,56 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.props.savePrompt(this.props.lessonPrompt);
   }
 
+  renderCues() {
+    if (this.props.cues) {
+      return (
+        <Cues
+          getQuestion={() => ({
+            cues: this.props.cues,
+          })
+        }
+          displayArrowAndText={false}
+        />
+      );
+    }
+    return (
+      <span />
+    );
+  }
+
   renderTeacherModel() {
     let promptEditor = <span />;
     if (this.props.lessonPrompt) {
       promptEditor = (
-        <div>
-          <p className="teacher-model-instructions">
-            <em>Modify the prompt here; it will be displayed on your students' screens as you type.</em>
-            <span className="reset-prompt-button" onClick={this.resetPrompt}>
-              Reset Prompt
-            </span>
-          </p>
-          <br />
+        <div className="prompt-component-wrapper">
           <MultipleTextEditor
             text={this.state.prompt}
             handleTextChange={this.handlePromptChange}
             lessonPrompt={textEditorInputClean(this.props.lessonPrompt)}
+            title={"Prompt:"}
           />
         </div>
       )
     }
     return (
-      <div>
+      <div className="model-wrapper">
+        <div className="model-header-wrapper">
+          <p className="model-header">
+            Model Your Answer
+          </p>
+          <p className="reset-prompt-button" onClick={this.resetPrompt}>
+            Reset Slide
+          </p>
+        </div>
         {promptEditor}
-        <p className="teacher-model-instructions">
-          <em>Type your model answer here; it will be displayed on your students' screens as you type.</em>
-        </p>
-        <br />
-        <MultipleTextEditor
-          text={this.state.model}
-          handleTextChange={this.handleModelChange}
-        />
+        {this.renderCues()}
+        <div className="model-component-wrapper">
+          <MultipleTextEditor
+            text={this.state.model}
+            handleTextChange={this.handleModelChange}
+            title={"Your Model:"}
+          />
+        </div>
       </div>
     );
   }

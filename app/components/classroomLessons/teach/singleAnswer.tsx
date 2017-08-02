@@ -67,6 +67,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         <ScriptComponent
           script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
           prompt={promptNotEmpty ? prompts[current_slide] : ''}
+          cues={this.props.lessonData.questions[current_slide].data.play.cues || undefined}
           lessonPrompt={this.props.lessonData.questions[current_slide].data.play.prompt}
           selected_submission_order={selected_submission_order}
           selected_submissions={selected_submissions}
