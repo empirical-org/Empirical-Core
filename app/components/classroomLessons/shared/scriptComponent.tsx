@@ -95,6 +95,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       const promptNotEmpty = textEditorInputNotEmpty(prompt);
       this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
                       prompt: promptNotEmpty ? textEditorInputClean(prompt) : textEditorInputClean(nextProps.lessonPrompt),
+                      cues: nextProps.cues,
                       showDifferences: false
                     })
     }
