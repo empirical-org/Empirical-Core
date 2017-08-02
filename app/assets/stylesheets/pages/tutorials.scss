@@ -1,6 +1,6 @@
 .tutorial-slides {
   background: white;
-  height: 100vw;
+  height: 100%;
   .text {
     width: 555px;
     margin: auto;
@@ -8,11 +8,11 @@
     h1 {
       margin-bottom: 15px;
       font-weight: bold;
+      font-size: 32px;
     }
     p {
       color: #7f7f7f;
       line-height: 1.67;
-      height: 160px;
       font-size: 18px;
       span {
         font-weight: bold;
@@ -25,6 +25,10 @@
     flex-direction: column;
     width: 200px;
     align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 750px;
     .next-button, .previous-button {
       margin-bottom: 15px;
       font-size: 16px;
@@ -58,8 +62,6 @@
     max-width: 1500;
     width: 100%;
     margin: auto;
-    padding-top: 65px;
-    padding-bottom: 70px;
     .illustration {
       width: 100%;
       position: relative;
@@ -70,6 +72,13 @@
   }
 }
 
+.lessons-slide-one, .lessons-slide-two {
+  .media {
+    padding-top: 65px;
+    padding-bottom: 70px;
+  }
+}
+
 .lessons-slide-one, .lessons-slide-two, .lessons-slide-three {
   .illustration {
     left: 160;
@@ -77,24 +86,21 @@
 }
 
 .lessons-slide-one {
-  .media {
-        @media (max-width: 1150px) {
-          .caption {
-            display: none;
-          }
-          .illustration {
-            left: initial !important;
-          }
-        }
-
-    .illustration {
-      max-width: 500px;
-      height: 356px;
-    }
+  @media (max-width: 1150px) {
     .caption {
-      top: -24px;
-      left: 100px;
+      display: none;
     }
+    .illustration {
+      left: initial !important;
+    }
+  }
+  .illustration {
+    max-width: 500px;
+    height: 356px;
+  }
+  .caption {
+    top: -24px;
+    left: 100px;
   }
 }
 
@@ -117,28 +123,35 @@
   }
 
   .lessons-slide-three {
-    .illustration {
-      max-width: 600px;
-    }
+    .media {
+      padding-bottom: 35px;
+      padding-top: 65px;
+      .illustration {
+        max-width: 600px;
+      }
       .caption {
         left: 95px;
         top: -40px;
       }
-      @media (max-width: 1150px) {
-        .caption {
-          display: none;
-        }
-        .illustration {
-          left: initial !important;
+        @media (max-width: 1150px) {
+          .caption {
+            display: none;
+          }
+          .illustration {
+            left: initial !important;
+          }
         }
       }
     }
 
     .lessons-slide-four {
-      .illustration {
-        max-width: 650px;
-        left: 300px;
-      }
+      .media {
+        padding-top: 55px;
+        padding-bottom: 30px;
+        .illustration {
+          max-width: 650px;
+          left: 300px;
+        }
         .caption {
           left: -40px;
           top: -53px;
@@ -152,18 +165,24 @@
           }
         }
       }
+      }
 
       .lessons-slide-five {
-        video {
-          width: 869px;
-          height: 568px;
-          border: solid 5px black;
+        .media {
+          padding-top: 60px;
+          padding-bottom: 70px;
+          video {
+            width: 869px;
+            height: 568px;
+            border: solid 5px black;
+          }
         }
       }
 
       .lessons-slide-six {
         .media {
-          margin-bottom: 60px;
+          padding-bottom: 130px;
+          padding-top: 130px;
           .illustration {
             max-width: 560px;
             left: 155px;
