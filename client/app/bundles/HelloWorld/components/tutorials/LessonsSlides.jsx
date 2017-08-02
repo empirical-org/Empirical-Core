@@ -8,7 +8,7 @@ const SlideOne =() => {
       </div>
       <div className="text">
         <h1>Class-Wide Interactive Activities</h1>
-        <p><span>Quill Lessons</span> provides a series of interactive slides that enable you to introduce new writing concepts to your students. Each slide contains a step-by-step guide to help you present each concept.</p>
+        <p>Quill Lessons provides a series of interactive slides that allows the entire class to work on the activities with their teacher. Your students will answer the questions on their devices and you will be able to project the answers back to the class and lead a class discussion.</p>
       </div>
   </div>
 }
@@ -21,7 +21,7 @@ const SlideTwo =() => {
     </div>
     <div className="text">
       <h1>Lead The Lesson</h1>
-      <p>You control the pacing - all of the students see the slide you project, and you can select another slide on the left panel.</p>
+      <p>Each slide contains a step-by-step guide to help you introduce grammar concepts. The step-by-step guide also includes suggestions on how to discuss students’ answers and how to model strong writing skills to the students.</p>
     </div>
   </div>
 }
@@ -34,7 +34,7 @@ const SlideThree =() => {
     </div>
     <div className="text">
       <h1>Discuss Student Answers</h1>
-      <p> See your student answers in real-time, and facilitate a conversation by selecting both strong and weak answers to project to the class. The students can then discuss as pairs and as a class why certain sentences are stronger than others.</p>
+      <p>See your student answers in real-time, and facilitate a conversation by selecting both strong and weak answers to project to the class. As a class, students can discuss why certain sentences are stronger than others.</p>
     </div>
   </div>
 }
@@ -47,7 +47,7 @@ const SlideFour =() => {
     </div>
     <div className="text">
       <h1>Identify Students For Small Group</h1>
-      <p>When the students respond, you can click on the “flag” button to select students who would benefit from follow up small group instruction. At the end of the lesson, you can pull aside the flagged students for small group instruction.</p>
+      <p>When the students respond, you can click on the “flag” button to select students who may need extra support. At the end of the lesson, you can pull aside the flagged students for small group instruction.</p>
     </div>
   </div>
 }
@@ -68,7 +68,7 @@ const SlideSix =() => {
     </div>
     <div className="text">
       <h1>Navigation Bar Links</h1>
-      <p>During the lesson, you will be able to flag students, open a new window to project, freeze students’ screen, exit lesson and view this guide.</p>
+      <p>The icons at the top of the page allow you to see flagged students, open a new window to project lesson, freeze students’ screen, exit the lesson, and view this guide.</p>
     </div>
   </div>
 }
