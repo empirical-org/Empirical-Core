@@ -17,11 +17,11 @@ export default React.createClass({
   },
 
   finish() {
-    if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
+    if (!this.state.buttonDisabled && !this.props.errorMessage) {
       // this.setState({buttonDisabled: true});
       this.setState({ loading: true, });
       this.props.finish();
-    } else if (!this.state.buttonDisabled) {
+    } else {
       this.setState({ prematureAssignAttempted: true, });
     }
   },
@@ -34,6 +34,7 @@ export default React.createClass({
   },
 
   determineErrorMessageClass() {
+    // && !this.props.unitName || this.props.errorMessage
     if (this.state.prematureAssignAttempted) {
       return 'error-message visible-error-message';
     }
@@ -73,12 +74,8 @@ export default React.createClass({
   },
 
   nameComponent() {
-    if (!this.props.hideNameTheUnit) {
-      const nameError = this.state.prematureContinueAttempted && this.props.errorMessage && this.props.errorMessage.includes('name') ? 'name-error' : '';
-      return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} nameError={nameError} />;
-    } else if (this.props.unitName) {
-      return <h2 className="edit-activities-h2">Activities In {this.props.unitName}</h2>;
-    }
+    const nameError = this.state.prematureContinueAttempted && this.props.errorMessage && this.props.errorMessage.includes('name') ? 'name-error' : '';
+    return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} nameError={nameError} />;
   },
 
   assignButton() {
