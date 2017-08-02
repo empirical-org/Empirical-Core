@@ -41,7 +41,9 @@ export default class TutorialIndex extends React.Component {
       return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>
     } else if (location.search.includes('url')){
       const url = location.search.split('?url=')[1]
-      window.location = url
+      return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = url}>Next</button>
+    } else {
+      return <button className="text-white bg-quillgreen try-button" onClick={() => {}}>Try Sample Activity</button>
     }
   }
 
