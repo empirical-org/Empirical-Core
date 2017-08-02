@@ -26,7 +26,7 @@
   .q-button {
     border-radius: 22px;
   	font-size: 16px;
-    min-width: 246px;
+    min-width: 235px;
     font-weight: 600;
     border-color: #348fdf;
     color: #348fdf;
@@ -34,8 +34,10 @@
 }
 
 .lesson-recommendations-wrapper {
+  margin-top: 30px;
+  border-top: solid 1px #e9e9e9;
+  padding-top: 30px;
   h2 {
-    margin-top: 62px;
     font-size: 24px;
     font-weight: bold;
     color: #3b3b3b;

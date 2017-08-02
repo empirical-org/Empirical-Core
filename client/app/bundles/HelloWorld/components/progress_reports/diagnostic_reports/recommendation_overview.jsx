@@ -13,7 +13,7 @@ export default class RecommendationsOverview extends React.Component {
   }
 
   scrollToIndependent() {
-    document.getElementById('recommendations-container').scrollIntoView();
+    document.getElementById('recommendations-scroll-to').scrollIntoView();
   }
 
   render() {
@@ -24,7 +24,7 @@ export default class RecommendationsOverview extends React.Component {
         <div className="flex-row space-between button-group">
           <a onClick={this.scrollToLessons} className="q-button text-quillblue bg-white">
             <img src="https://assets.quill.org/images/icons/group-lesson-icon-blue.svg" alt="group-lesson-logo" />
-            View Group Lessons
+            View Class Lessons
           </a>
           <a onClick={this.scrollToIndependent} className="q-button text-quillblue bg-white">
             <img src="https://assets.quill.org/images/icons/independent-lesson-black.svg" alt="independent-lesson-logo" />

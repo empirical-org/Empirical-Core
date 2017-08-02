@@ -2,143 +2,168 @@ class LessonRecommendations
     def rec_activities(rec_id)
       UnitTemplate.find(rec_id).activities.map {|act| {name: act.name, url: 'placeholder_url'}}
     end
-    def recs_for_413
-        [
-            # {
-            #     recommendation: 'Fragments',
-            #     activityPackId: 28,
-            #     requirements: [
-            #         {
-            #             concept_id: 'j89kdRGDVjG8j37A12p37Q',
-            #             count: 3
-            #         },
-            #         {
-            #             concept_id: 'KfA8-dg8FvlJz4eY0PkekA',
-            #             count: 6
-            #         },
-            #         {
-            #             concept_id: 'LH3szu784pXA5k2N9lxgdA',
-            #             count: 3
-            #         }
-            #     ]
-            # },
 
-            {
-                recommendation: 'Compound Subjects, Objects, and Predicates',
-                activityPackId: 24,
-                activities: rec_activities(24),
-                requirements: [
-                    {
-                        concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
-                        count: 1
-                    },
-                    {
-                        concept_id: 'QNkNRs8zbCXU7nLBeo4mgA',
-                        count: 1
-                    }
-                ]
-            },
+    def previous_unit_names(classroom_id)
+      Unit.joins(:classroom_activities)
+      .where("classroom_activities.classroom_id = ?", classroom_id )
+      .pluck(:name)
+    end
 
-            {
-                recommendation: 'Adjectives',
-                activityPackId: 23,
-                activities: rec_activities(24),
-                requirements: [
-                    {
-                        concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
-                        count: 1
-                    }
-                ]
-            },
+    def mark_previously_assigned(recs, classroom_id)
+      # TODO: this needs to be able to handle when we have made the name
+      # end in " | BETA"
+      prev_names = previous_unit_names(classroom_id)
+      recs.each {|r| r[:previouly_assigned] = prev_names.include?(r["name"])}
+      recs
+    end
 
-            {
-                recommendation: 'Adverbs of Manner',
-                activityPackId: 25,
-                activities: rec_activities(24),
-                requirements: [
-                    {
-                        concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
-                        count: 1
-                    }
-                ]
-            },
+    def recs_for_activity(activity, classroom_id=nil)
+        recs = send("recs_#{activity}_data")
+        if classroom_id
+          mark_previously_assigned(recs, classroom_id)
+        else
+          recs
+        end
+    end
 
-            {
-                recommendation: 'Compound Sentences',
-                activityPackId: 22,
-                activities: rec_activities(24),
-                requirements: [
-                    {
-                        concept_id: 'GiUZ6KPkH958AT8S413nJg',
-                        count: 2
-                    },
-                    {
-                        concept_id: 'Qqn6Td-zR6NIAX43NOHoCg',
-                        count: 1
-                    },
-                    {
-                        concept_id: 'hJKqVOkQQQgfEsmzOWC1xw',
-                        count: 1
-                    },
-                    {
-                        concept_id: 'tSSLMHqX0q-9mKTJHSyung',
-                        count: 1
-                    }
-                ]
-            },
+    def recs_413_data
+      [
+          # {
+          #     recommendation: 'Fragments',
+          #     activityPackId: 28,
+          #     requirements: [
+          #         {
+          #             concept_id: 'j89kdRGDVjG8j37A12p37Q',
+          #             count: 3
+          #         },
+          #         {
+          #             concept_id: 'KfA8-dg8FvlJz4eY0PkekA',
+          #             count: 6
+          #         },
+          #         {
+          #             concept_id: 'LH3szu784pXA5k2N9lxgdA',
+          #             count: 3
+          #         }
+          #     ]
+          # },
 
-            {
-                recommendation: 'Complex Sentences',
-                activityPackId: 21,
-                activities: rec_activities(24),
-                requirements: [
-                    {
-                        concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
-                        count: 2
-                    },
-                    {
-                        concept_id: 'Q8FfGSv4Z9L2r1CYOfvO9A',
-                        count: 2
-                    },
-                    {
-                        concept_id: 'S8b-N3ZrB50CWgxD5yg8yQ',
-                        count: 1
-                    },
-                    {
-                        concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
-                        count: 1
-                    }
-                ]
-            },
+          {
+              recommendation: 'Compound Subjects, Objects, and Predicates',
+              activityPackId: 24,
+              activities: rec_activities(24),
+              requirements: [
+                  {
+                      concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
+                      count: 1
+                  },
+                  {
+                      concept_id: 'QNkNRs8zbCXU7nLBeo4mgA',
+                      count: 1
+                  }
+              ]
+          },
 
-            {
-                recommendation: 'Appositives and Modifying Phrases',
-                activityPackId: 27,
-                activities: rec_activities(24),
-                requirements: [
-                    {
-                        concept_id: 'InfGdB6Plr2M930kqsn63g',
-                        count: 1
-                    },
-                    {
-                        concept_id: 'GLjAExmqZShBTZ7DQGvVLw',
-                        count: 1
-                    }
-                ]
-            },
+          {
+              recommendation: 'Adjectives',
+              activityPackId: 23,
+              activities: rec_activities(24),
+              requirements: [
+                  {
+                      concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
+                      count: 1
+                  }
+              ]
+          },
 
-            {
-                recommendation: 'Parallel Structure',
-                activityPackId: 29,
-                activities: rec_activities(24),
-                requirements: [
-                    {
-                        concept_id: '1ohLyApTz7lZ3JszrA98Xg',
-                        count: 1
-                    }
-                ]
-            }
-        ]
+          {
+              recommendation: 'Adverbs of Manner',
+              activityPackId: 25,
+              activities: rec_activities(24),
+              requirements: [
+                  {
+                      concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
+                      count: 1
+                  }
+              ]
+          },
+
+          {
+              recommendation: 'Compound Sentences',
+              activityPackId: 22,
+              activities: rec_activities(24),
+              requirements: [
+                  {
+                      concept_id: 'GiUZ6KPkH958AT8S413nJg',
+                      count: 2
+                  },
+                  {
+                      concept_id: 'Qqn6Td-zR6NIAX43NOHoCg',
+                      count: 1
+                  },
+                  {
+                      concept_id: 'hJKqVOkQQQgfEsmzOWC1xw',
+                      count: 1
+                  },
+                  {
+                      concept_id: 'tSSLMHqX0q-9mKTJHSyung',
+                      count: 1
+                  }
+              ]
+          },
+
+          {
+              recommendation: 'Complex Sentences',
+              activityPackId: 21,
+              activities: rec_activities(24),
+              requirements: [
+                  {
+                      concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
+                      count: 2
+                  },
+                  {
+                      concept_id: 'Q8FfGSv4Z9L2r1CYOfvO9A',
+                      count: 2
+                  },
+                  {
+                      concept_id: 'S8b-N3ZrB50CWgxD5yg8yQ',
+                      count: 1
+                  },
+                  {
+                      concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
+                      count: 1
+                  }
+              ]
+          },
+
+          {
+              recommendation: 'Appositives and Modifying Phrases',
+              activityPackId: 27,
+              activities: rec_activities(24),
+              requirements: [
+                  {
+                      concept_id: 'InfGdB6Plr2M930kqsn63g',
+                      count: 1
+                  },
+                  {
+                      concept_id: 'GLjAExmqZShBTZ7DQGvVLw',
+                      count: 1
+                  }
+              ]
+          },
+
+          {
+              recommendation: 'Parallel Structure',
+              activityPackId: 29,
+              activities: rec_activities(24),
+              requirements: [
+                  {
+                      concept_id: '1ohLyApTz7lZ3JszrA98Xg',
+                      count: 1
+                  }
+              ]
+          }
+      ]
+
     end
 
     def recs_for_447
