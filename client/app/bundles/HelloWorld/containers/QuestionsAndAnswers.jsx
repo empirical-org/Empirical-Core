@@ -18,7 +18,7 @@ export default class QuestionsAndAnswers extends React.Component {
         answer: <p>Each Quill Lesson provides a follow up independent practice activity. If you feel that a group of your students are ready to advance to the independent practice, at any point during the lesson you can click on the “start practice mode” button to send those students to independent practice on Quill. You can then work with the rest of the students as a smaller group.</p>
       },
       {
-        question: 'Does Quill Lessons support smart boards??',
+        question: 'Does Quill Lessons support smart boards?',
         answer: [<p>Yes, you can use Quill Lessons with a smart board. To do so, log into Quill on the smartboard to  open up the projector view. Once you have that open, log into Quill on a computer, laptop, or tablet, and control the slides through the teacher view. You can be logged into Quill on multiple devices.</p>,
                 <p>You will soon be able to use your smartphone to control the slides while you walk around the room! Smartphone support is in testing now, and it will be supported by January 2018.</p>]
       },
@@ -54,7 +54,7 @@ export default class QuestionsAndAnswers extends React.Component {
       <div className="q-and-a">
         <h1>Questions and Answers</h1>
         {this.renderQuestionsAndAnswers()}
-        <a href="http://support.quill.org">View All Questions and Answers<i className="fa fa-arrow-right" aria-hidden="true"></i></a>
+        <a className="support-link" href="http://support.quill.org">View All Questions and Answers<i className="fa fa-arrow-right" aria-hidden="true"></i></a>
       </div>
     )
   }
