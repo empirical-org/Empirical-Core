@@ -2,8 +2,8 @@ import Tabslet from 'tabslet';
 import $ from 'jquery'
 require('../../assets/styles/home.scss')
 require('./bootstrap_carousel.js')
+require('./startup/clientRegistration.jsx')
 
-console.log('Hi from home bundle!');
 
 document.onreadystatechange = function () {
   var state = document.readyState;
