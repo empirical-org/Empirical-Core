@@ -281,12 +281,9 @@ export default React.createClass({
       stageSpecificComponents = this.stage3specificComponents();
     }
     return (
-      <span>
-        <div className="container">
-          {stageSpecificComponents}
-        </div>
-      </span>
-
+      <div className="assign-activity-container container">
+        {stageSpecificComponents}
+      </div>
     );
   },
 });
