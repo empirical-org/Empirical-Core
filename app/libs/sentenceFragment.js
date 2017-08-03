@@ -21,6 +21,10 @@ function sortbyCount(responses) {
   return _.sortBy(responses, r => r.count).reverse();
 }
 
+function removePunctuation(string) {
+  return string.replace(/[^A-Za-z0-9\s]/g, '');
+}
+
 export default class POSMatcher {
 
   constructor(data) {
@@ -89,6 +93,12 @@ export default class POSMatcher {
     const optimalCapitalizationMatch = this.checkOptimalCapitalizationMatch(userSubmission);
     if (optimalCapitalizationMatch !== undefined) {
       returnValue.response = Object.assign({}, res, optimalCapitalizationMatch);
+      return returnValue;
+    }
+
+    const optimalPunctuationMatch = this.checkOptimalPunctuationMatch(userSubmission);
+    if (optimalPunctuationMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, optimalPunctuationMatch);
       return returnValue;
     }
 
@@ -187,6 +197,30 @@ export default class POSMatcher {
       }
     }
   }
+
+  checkOptimalPunctuationMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    const optimals = this.getOptimalResponses();
+    for (let i = 0; i < optimals.length; i++) {
+      const optimal = optimals[i]
+      if (removePunctuation(userSubmission) === removePunctuation(optimal.text)) {
+        if (userSubmission !== optimal) {
+          return {
+            optimal: false,
+            parentID: optimal.key,
+            author: 'Punctuation Hint',
+            feedback: 'Proofread your sentence for correct punctuation.',
+            conceptResults: [
+              conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+            ],
+          };
+        }
+      }
+    }
+  }
+
 
   checkPOSMatch(userSubmission) {
     // get graded responses and convert to POS strings
