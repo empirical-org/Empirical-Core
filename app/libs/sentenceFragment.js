@@ -86,12 +86,6 @@ export default class POSMatcher {
       return returnValue;
     }
 
-    const optimalCapitalizationMatch = this.checkOptimalCapitalizationMatch(userSubmission);
-    if (optimalCapitalizationMatch !== undefined) {
-      returnValue.response = Object.assign({}, res, optimalCapitalizationMatch);
-      return returnValue;
-    }
-
     const posMatch = this.checkPOSMatch(userSubmission);
     if (posMatch !== undefined) {
       returnValue.response = Object.assign({}, res, posMatch);
@@ -162,26 +156,6 @@ export default class POSMatcher {
           conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
         ],
       };
-    }
-  }
-
-  checkOptimalCapitalizationMatch(userSubmission) {
-    const optimals = this.getOptimalResponses();
-    for (let i = 0; i < optimals.length; i++) {
-      const optimal = optimals[i]
-      if (userSubmission.toLowerCase().indexOf(optimal.text.toLowerCase()) !== -1) {
-        if (userSubmission.indexOf(optimal) === -1) {
-          return {
-            optimal: false,
-            parentID: optimal.key,
-            author: 'Capitalization Hint',
-            feedback: 'Proofread your sentence for correct capitalization.',
-            conceptResults: [
-              conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ')
-            ],
-          };
-        }
-      }
     }
   }
 
