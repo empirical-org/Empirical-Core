@@ -32,6 +32,8 @@ export default React.createClass({
         return 'Fix Errors in Passages';
       case 'diagnostic':
         return 'Identify Learning Gaps';
+      case 'lessons':
+        return 'Shared Group Lessons';
     }
   },
 
