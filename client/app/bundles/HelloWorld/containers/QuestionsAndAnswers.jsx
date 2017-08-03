@@ -51,7 +51,7 @@ export default class QuestionsAndAnswers extends React.Component {
 
   render() {
     return(
-      <div className="q-and-a">
+      <div id="q-and-a">
         <h1>Questions and Answers</h1>
         {this.renderQuestionsAndAnswers()}
         <a className="support-link" href="http://support.quill.org">View All Questions and Answers<i className="fa fa-arrow-right" aria-hidden="true"></i></a>
