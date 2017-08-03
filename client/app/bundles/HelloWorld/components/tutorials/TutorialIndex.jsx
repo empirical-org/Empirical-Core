@@ -43,6 +43,7 @@ export default class TutorialIndex extends React.Component {
       const url = location.search.split('?url=')[1]
       return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = url}>Next</button>
     } else {
+      // TODO: get link for sample activity
       return <button className="text-white bg-quillgreen try-button" onClick={() => {}}>Try Sample Activity</button>
     }
   }

@@ -1,10 +1,10 @@
 import React from 'react'
 
-const SlideOne =() => {
+const SlideOne = () => {
   return <div className='slide lessons-slide-one'>
       <div className="media">
-        <img className="illustration" src="http://localhost:45537/images/tutorials/lessons/slide_1.svg" />
-        <img className="caption" src="http://localhost:45537/images/tutorials/lessons/slide_1_text.svg" />
+        <img className="illustration" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_1.svg`} />
+        <img className="caption" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_1_text.svg`} />
       </div>
       <div className="text">
         <h1>Class-Wide Interactive Activities</h1>
@@ -16,8 +16,8 @@ const SlideOne =() => {
 const SlideTwo =() => {
   return <div className='slide lessons-slide-two'>
     <div className="media">
-      <img className="illustration" src="http://localhost:45537/images/tutorials/lessons/slide_2.svg" />
-      <img className="caption" src="http://localhost:45537/images/tutorials/lessons/slide_2_text.svg" />
+      <img className="illustration" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_2.svg`} />
+      <img className="caption" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_2_text.svg`} />
     </div>
     <div className="text">
       <h1>Lead The Lesson</h1>
@@ -29,8 +29,8 @@ const SlideTwo =() => {
 const SlideThree =() => {
   return <div className='slide lessons-slide-three'>
     <div className="media">
-      <img className="illustration" src="http://localhost:45537/images/tutorials/lessons/slide_3.svg" />
-      <img className="caption" src="http://localhost:45537/images/tutorials/lessons/slide_3_text.svg" />
+      <img className="illustration" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_3.svg`} />
+      <img className="caption" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_3_text.svg`} />
     </div>
     <div className="text">
       <h1>Discuss Student Answers</h1>
@@ -42,8 +42,8 @@ const SlideThree =() => {
 const SlideFour =() => {
   return <div className='slide lessons-slide-four'>
     <div className="media">
-      <img className="illustration" src="http://localhost:45537/images/tutorials/lessons/slide_4.svg" />
-      <img className="caption" src="http://localhost:45537/images/tutorials/lessons/slide_4_text.svg" />
+      <img className="illustration" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_4.svg`} />
+      <img className="caption" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_4_text.svg`} />
     </div>
     <div className="text">
       <h1>Identify Students For Small Group</h1>
@@ -63,8 +63,8 @@ const SlideFive =() => {
 const SlideSix =() => {
   return <div className='slide lessons-slide-six'>
     <div className="media">
-      <img className="illustration" src="http://localhost:45537/images/tutorials/lessons/slide_6.svg" />
-      <img className="caption" src="http://localhost:45537/images/tutorials/lessons/slide_6_text.svg" />
+      <img className="illustration" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_6.svg`} />
+      <img className="caption" src={`${process.env.CDN_URL}/assets/images/tutorials/lessons/slide_6_text.svg`} />
     </div>
     <div className="text">
       <h1>Navigation Bar Links</h1>
