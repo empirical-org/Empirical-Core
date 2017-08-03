@@ -32,7 +32,12 @@
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     width: 36px;
+    height: 40px;
+    padding: 0;
     background-color: #00c2a2;
+    .fa-search {
+      font-size: 18px;
+    }
   }
 }
 
