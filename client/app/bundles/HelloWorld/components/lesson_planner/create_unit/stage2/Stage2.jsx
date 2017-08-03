@@ -89,12 +89,12 @@ export default React.createClass({
       <div>
         {this.nameComponent()}
         <section className="select-students">
-          <h1 className="section-header">Select Students</h1>
+          <h1 className="section-header">Select Students To Assign Activity Pack To:</h1>
           {this.classroomList()}
         </section>
         <section className="assign-dates">
           <h1 className="section-header">
-            Assign Dates for {this.props.unitName} (optional)
+            Optional - <span>Assign Due Dates For Your Activities:</span>
           </h1>
           <table className="table activity-table">
             <tbody>
