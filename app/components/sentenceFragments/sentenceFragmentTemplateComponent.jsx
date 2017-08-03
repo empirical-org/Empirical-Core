@@ -149,7 +149,8 @@ const PlaySentenceFragment = React.createClass({
     let instructions;
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt) {
-      instructions = latestAttempt.response.feedback ||
+      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}}/>
+      instructions = latestAttempt.response.feedback ? component :
       'Good work. A complete sentence always has a person or thing completing an action.';
     } else if (fragment.instructions && fragment.instructions !== '') {
       instructions = this.props.question.instructions;
