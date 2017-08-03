@@ -166,14 +166,11 @@ export default class POSMatcher {
   }
 
   checkOptimalCapitalizationMatch(userSubmission) {
-    if (this.ignoreCaseAndPunc) {
-      return;
-    }
     const optimals = this.getOptimalResponses();
     for (let i = 0; i < optimals.length; i++) {
       const optimal = optimals[i]
-      if (userSubmission.toLowerCase() === optimal.text.toLowerCase()) {
-        if (userSubmission !== optimal) {
+      if (userSubmission.toLowerCase().indexOf(optimal.text.toLowerCase()) !== -1) {
+        if (userSubmission.indexOf(optimal) === -1) {
           return {
             optimal: false,
             parentID: optimal.key,
