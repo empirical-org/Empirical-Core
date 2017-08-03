@@ -180,7 +180,6 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-
   def checkbox_type
     if self.activity_id == 413 || self.activity_id == 447
       checkbox_name = 'Assign Entry Diagnostic'
