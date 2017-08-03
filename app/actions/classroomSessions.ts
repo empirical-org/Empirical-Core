@@ -229,7 +229,7 @@ export function toggleStudentFlag(classroomActivityId: string|null, student_id: 
   })
 }
 
-export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string, baseUrl: string) {
+export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string|null, baseUrl: string|undefined) {
   return function (dispatch) {
     fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/teacher_and_classroom_name`, {
       method: 'GET',
@@ -249,17 +249,17 @@ export function getClassroomAndTeacherNameFromServer(classroom_activity_id: stri
   }
 }
 
-function _setClassroomName(classroomName: string, classroom_activity_id: string) {
+function _setClassroomName(classroomName: string, classroom_activity_id: string|null) {
   const classroomNameRef = classroomSessionsRef.child(`${classroom_activity_id}/classroom_name`);
   classroomNameRef.set(classroomName)
 }
 
-function _setTeacherName(teacherName: string, classroom_activity_id: string) {
+function _setTeacherName(teacherName: string, classroom_activity_id: string|null) {
   const teacherNameRef = classroomSessionsRef.child(`${classroom_activity_id}/teacher_name`);
   teacherNameRef.set(teacherName)
 }
 
-function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string): void {
+function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string|null): void {
   _setClassroomName(names.classroom, classroom_activity_id)
   _setTeacherName(names.teacher, classroom_activity_id)
 }

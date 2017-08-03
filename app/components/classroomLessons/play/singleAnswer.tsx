@@ -20,11 +20,11 @@ interface SingleAnswerProps {
   submissions: QuestionSubmissionsList|null,
   selected_submissions: SelectedSubmissionsForQuestion|null,
   selected_submission_order: Array<string>|null,
-  projector: boolean|null
+  projector?: boolean|null
 }
 
 interface SingleAnswerState {
-  response: string,
+  response: string|null,
   editing: boolean,
   submitted: boolean,
 }
@@ -33,9 +33,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
     const student = getParameterByName('student');
-    const studentSubmissionExists = student && this.props.submissions && this.props.submissions[student]
     this.state = {
-      response: studentSubmissionExists ? this.props.submissions[student].data : props.data.play.prefilledText ,
+      response: student && this.props.submissions && this.props.submissions[student] ? 
+                this.props.submissions[student].data : 
+                props.data.play.prefilledText,
       editing: false,
       submitted: false,
     };

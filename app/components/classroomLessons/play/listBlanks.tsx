@@ -13,15 +13,16 @@ import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
-import icon from 'img/question_icon.svg';
 import { getParameterByName } from 'libs/getParameterByName';
+const icon = require('../../../img/question_icon.svg')
+
 interface ListBlankProps {
   data: QuestionData;
   mode: null|string;
   handleStudentSubmission: Function;
   selected_submissions: SelectedSubmissionsForQuestion|null;
   submissions: QuestionSubmissionsList|null;
-  projector: boolean|null
+  projector?: boolean|null
 }
 interface ListBlankState {
   isSubmittable: Boolean;
