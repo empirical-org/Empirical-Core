@@ -2,6 +2,7 @@ import _ from 'underscore';
 import * as qpos from './partsOfSpeechTagging';
 import validEndingPunctuation from '../libs/validEndingPunctuation.js';
 import constants from '../constants';
+import { checkForMissingWords } from './requiredWords';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
@@ -99,6 +100,12 @@ export default class POSMatcher {
     const optimalPunctuationMatch = this.checkOptimalPunctuationMatch(userSubmission);
     if (optimalPunctuationMatch !== undefined) {
       returnValue.response = Object.assign({}, res, optimalPunctuationMatch);
+      return returnValue;
+    }
+
+    const requiredWordsMatch = this.checkRequiredWordsMatch(userSubmission);
+    if (requiredWordsMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, requiredWordsMatch);
       return returnValue;
     }
 
@@ -219,6 +226,10 @@ export default class POSMatcher {
         }
       }
     }
+  }
+
+  checkRequiredWordsMatch(userSubmission) {
+    return checkForMissingWords(userSubmission, this.getOptimalResponses());
   }
 
 
