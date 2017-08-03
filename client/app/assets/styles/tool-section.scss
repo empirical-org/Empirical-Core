@@ -364,7 +364,7 @@ $tool-grey: #f8f9f9;
 }
 
 .tool-animation-section {
-    margin: 15px;
+    padding: 15px;
     max-height: 488px;
     .tool-animation {
         margin: 60px auto;
@@ -926,6 +926,11 @@ $tool-grey: #f8f9f9;
 }
 
 .lessons-tool-page {
+  .tool-animation-section {
+    background-image: url('http://localhost:8000/assets/images/tools/lessons/lessons_tool_pattern.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   .walk-thru-wrapper.mobile {
     @media (min-width: 930px) {
         display: none;
@@ -949,6 +954,9 @@ $tool-grey: #f8f9f9;
       }
     }
   }
+  .tool-carousel {
+    background-color: #f1f2f2;
+  }
 }
 
 // TODO this classname is given to a tags on diagnostic tool page that currently go nowhere
@@ -957,7 +965,7 @@ $tool-grey: #f8f9f9;
   display: none;
 }
 
-.q-and-a {
+#q-and-a {
   background-color: #5aaef6;
   color: white;
   padding: 50px 86px;
