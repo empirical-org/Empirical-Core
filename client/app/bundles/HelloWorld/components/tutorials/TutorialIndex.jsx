@@ -2,6 +2,9 @@
 
 import React from 'react'
 import LessonsSlides from './LessonsSlides'
+import getParameterByName from '../modules/get_parameter_by_name'
+import request from 'request'
+import $ from 'jquery'
 
 export default class TutorialIndex extends React.Component {
   constructor(props) {
@@ -27,6 +30,20 @@ export default class TutorialIndex extends React.Component {
     document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (Number(nextProps.params.slideNumber) === this.state.slides.length) {
+      this.finishTutorial()
+    }
+  }
+
+  finishTutorial() {
+    if (this.props.params.tool === 'lessons') {
+      request.post(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`, {
+        json: {authenticity_token: $('meta[name=csrf-token]').attr('content')}
+      })
+    }
+  }
+
   circles () {
     const circles = this.state.slides.map((el, index)=>{
       let currSlide = this.state.slideNumber - 1;
@@ -39,9 +56,9 @@ export default class TutorialIndex extends React.Component {
   nextButton() {
     if (this.state.slideNumber !== this.state.slides.length) {
       return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>
-    } else if (location.search.includes('url')){
-      const url = location.search.split('?url=')[1]
-      return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = url}>Next</button>
+    } else if (getParameterByName('url')){
+      const url = getParameterByName('url')
+      return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = decodeURIComponent(url)}>Next</button>
     } else {
       // TODO: get link for sample activity
       return <button className="text-white bg-quillgreen try-button" onClick={() => {}}>Try Sample Activity</button>
@@ -63,7 +80,8 @@ export default class TutorialIndex extends React.Component {
   }
 
   goToSlide(slideNumber) {
-    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${location.search}`)
+    const qs = `?url=${encodeURIComponent(getParameterByName('url'))}`
+    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${qs}`)
     this.setState({slideNumber: slideNumber})
   }
 

@@ -12,7 +12,8 @@ export default class ClassroomLessons extends React.Component {
       lessons: [],
       classrooms: this.getClassrooms(),
       loaded: false,
-      selectedClassroomId: props.routeParams.classroomId
+      selectedClassroomId: props.routeParams.classroomId,
+      hasViewedLessonTutorial: this.hasViewedLessonTutorial()
     }
 
     this.switchClassrooms = this.switchClassrooms.bind(this)
@@ -26,12 +27,20 @@ export default class ClassroomLessons extends React.Component {
     })
   }
 
+
   getLessons() {
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/lesson_units`,
       qs: {classroom_id: this.state.selectedClassroomId}
     }, (error, httpStatus, body) => {
       this.setState({lessons: JSON.parse(body).units, loaded: true})
+    })
+  }
+
+  hasViewedLessonTutorial() {
+    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
+      const completed = JSON.parse(body).completed
+      this.setState({hasViewedLessonTutorial: completed})
     })
   }
 
@@ -62,6 +71,7 @@ export default class ClassroomLessons extends React.Component {
             <Units
               data={this.state.lessons}
               lesson={true}
+              hasViewedLessonTutorial={this.state.hasViewedLessonTutorial}
             />
             </div>
           </div>)
