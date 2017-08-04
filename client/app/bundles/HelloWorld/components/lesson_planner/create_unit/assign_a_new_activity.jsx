@@ -71,14 +71,14 @@ tools: function() {
   />,
   <LessonTypeMini
     key={'grammmar'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=diagnostic'
+    link='/teachers/classrooms/assign_activities/create-unit?tool=sentence'
     name='Quill Grammar'
     description='Practice Basic Grammar'
     imgSrc={`${process.env.CDN_URL}/assets/images/icons/grammar-light-gray.svg`}
   />,
   <LessonTypeMini
     key={'proofreader'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=proofreader'
+    link='/teachers/classrooms/assign_activities/create-unit?tool=passage'
     name='Quill Proofreader'
     description='Find and Fix Errors in Passages'
     imgSrc={`${process.env.CDN_URL}/assets/images/icons/proofreader-light-gray.svg`}
