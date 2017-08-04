@@ -12,8 +12,6 @@ class ClassificationSerializer < ActiveModel::Serializer
       'Quill Diagnostic'
     when 5
       'Quill Connect'
-    when 6
-      'Quill Diagnostic'
   	end
   end
 
