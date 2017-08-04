@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :districts
   has_many :subscriptions
   has_one :ip_location
+  has_many :user_milestones
+  has_many :milestones, through: :user_milestones
 
 
 
