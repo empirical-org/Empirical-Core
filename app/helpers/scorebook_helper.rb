@@ -50,21 +50,6 @@ module ScorebookHelper
     end
   end
 
-  def image_for_activity_classification_by_id(activity_classification_id)
-    case activity_classification_id
-    when 1
-      'scorebook/icon-flag-gray.png'
-    when 2
-      'scorebook/icon-puzzle-gray.png'
-    when 4
-      'scorebook/icon-diagnostic-gray.png'
-    when 5
-      'scorebook/icon-connect-gray.png'
-    else
-      ''
-    end
-  end
-
   def scorebook_path(teacher)
     if teacher.has_classrooms?
       scorebook_teachers_classrooms_path
@@ -83,6 +68,8 @@ module ScorebookHelper
       'Quill Diagnostic'
     when 5
       'Quill Connect'
+    when 6
+      'Quill Lessons'
     end
   end
 
