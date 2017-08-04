@@ -16,7 +16,7 @@ class ActivityClassification < ActiveRecord::Base
     # TODO: figure out how to do another level of joins and
     # so that we can start this with the teacher id and only
     # do one db hit.
-    classroom_ids = Classroom.where(teacher_id: current_user.id).ids
+    classroom_ids = Classroom.where(teacher_id: teacher_id).ids
     ActivityClassification.distinct.joins(activities: :classroom_activities).where('classroom_activities.classroom_id IN (?)', classroom_ids).ids
   end
 
