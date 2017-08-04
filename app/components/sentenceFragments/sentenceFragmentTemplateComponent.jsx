@@ -106,7 +106,6 @@ const PlaySentenceFragment = React.createClass({
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
-        debugger;
         const fields = {
           prompt,
           responses: hashToCollection(this.getResponses()),
