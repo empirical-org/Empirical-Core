@@ -1,31 +1,32 @@
-'use strict';
-import React from 'react'
-import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx'
+import React from 'react';
+import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
 
 export default React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
   },
 
-  renderStartButton: function () {
-    let linkText
+  renderStartButtonOrLockMessage() {
+    let linkText;
     if (!this.props.data.activity.repeatable && this.props.finished) {
-      return (<p className="title-v-centered text-right">Completed</p>)
+      return (<p className="title-v-centered text-right">Completed</p>);
+    } else if (this.props.data.locked) {
+      return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
     } else if (this.props.finished) {
-      linkText = 'Replay Activity'
-    } else if (this.props.data.state == 'started'){
-      linkText = 'Resume Activity'
+      linkText = 'Replay Activity';
+    } else if (this.props.data.state == 'started') {
+      linkText = 'Resume Activity';
     } else {
-      linkText = 'Start Activity'
+      linkText = 'Start Activity';
     }
-    return <a href={this.props.data.link}>{linkText}</a>
+    return <a href={this.props.data.link}>{linkText}</a>;
   },
 
-  renderDueDate: function() {
-    return this.props.data.due_date ? <span className="due-date">{this.props.data.due_date}</span> : <span/>
+  renderDueDate() {
+    return this.props.data.due_date ? <span className="due-date">{this.props.data.due_date}</span> : <span />;
   },
 
-  render: function () {
+  render() {
     return (
       <div className="line">
         <div className="row">
@@ -37,10 +38,10 @@ export default React.createClass({
           </div>
           <span className="row-list-end">
             {this.renderDueDate()}
-            {this.renderStartButton()}
+            {this.renderStartButtonOrLockMessage()}
           </span>
         </div>
       </div>
     );
-  }
-})
+  },
+});

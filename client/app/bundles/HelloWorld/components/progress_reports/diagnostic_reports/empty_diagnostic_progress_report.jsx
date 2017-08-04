@@ -17,7 +17,7 @@
        </div>
        image = <img src="/images/pages/diagnostic_reports/diagnostic_colored.svg"/>
      } else if (this.props.status === 'unassigned') {
-       linkOne = '/teachers/classrooms/activity_planner/assign-a-diagnostic'
+       linkOne = '/teachers/classrooms/assign_activities/assign-a-diagnostic'
        linkTwo = '/tools/diagnostic'
        buttonTextOne = 'Assign Entry Diagnostic'
        buttonTextTwo = 'Learn More'

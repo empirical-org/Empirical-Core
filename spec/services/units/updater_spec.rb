@@ -135,7 +135,7 @@ describe Units::Updater do
 
       it 'with a new activity if it does not already exist' do
         expect(ClassroomActivity.where(activity_id: activity1).count).to eq(0)
-        classroom_data = classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
+        classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
         activities_data = [{id: activity1.id, due_date: nil}]
         Units::Updater.run(unit, activities_data, classrooms_data)
         expect(ClassroomActivity.where(activity_id: activity1).count).to eq(1)
@@ -205,14 +205,14 @@ describe Units::Updater do
 
         it "creates new activity sessions with new activity for assigned students" do
           expect(student.activity_sessions.map(&:activity_id)).to eq([activity.id])
-          classroom_data = classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
+          classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
           activities_data = [{id: activity1.id, due_date: nil}]
           Units::Updater.run(unit, activities_data, classrooms_data)
           expect(student.reload.activity_sessions.map(&:activity_id).sort).to eq([activity.id, activity1.id].sort)
         end
 
         it "does not creates new activity sessions with new activity for non-assigned students" do
-          classroom_data = classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
+          classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
           activities_data = [{id: activity1.id, due_date: nil}]
           Units::Updater.run(unit, activities_data, classrooms_data)
           expect(student1.activity_sessions.count).to eq(0)
