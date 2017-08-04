@@ -36,13 +36,13 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
-  scope :started_or_better, -> { where("state != 'unstarted'") }
-
-  scope :current_session, -> {
-    complete_session   = completed.first
-    incomplete_session = incomplete.first
-    (complete_session || incomplete_session)
-  }
+  # scope :started_or_better, -> { where("state != 'unstarted'") }
+  #
+  # scope :current_session, -> {
+  #   complete_session   = completed.first
+  #   incomplete_session = incomplete.first
+  #   (complete_session || incomplete_session)
+  # }
 
   RESULTS_PER_PAGE = 25
 
