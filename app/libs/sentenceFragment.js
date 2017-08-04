@@ -134,15 +134,30 @@ export default class POSMatcher {
       parentID: this.getTopOptimalResponse().key,
     };
     if (this.wordCountChange.min && (userWordCount < minWordCount)) {
-      return Object.assign({}, templateResponse, {
-        feedback: 'Too Short',
-        author: 'Too Short Hint',
-      });
+      if (this.wordCountChange.min === 1) {
+        return Object.assign({}, templateResponse, {
+          feedback: 'Revise your work. Add one word to make the the sentence complete.',
+          author: 'Too Short Hint',
+        });
+      } else {
+        return Object.assign({}, templateResponse, {
+          feedback: `Revise your work. Add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} words to make the the sentence complete.`,
+          author: 'Too Short Hint',
+        });
+      }
+      
     } else if (this.wordCountChange.max && (userWordCount > maxWordCount)) {
-      return Object.assign({}, templateResponse, {
-        feedback: 'Too Long',
-        author: 'Too Long Hint',
-      });
+      if (this.wordCountChange.max === 1) {
+        return Object.assign({}, templateResponse, {
+          feedback: 'Revise your work. Only add one word to make the sentence complete.',
+          author: 'Too Long Hint',
+        });
+      } else {
+        return Object.assign({}, templateResponse, {
+          feedback: `Revise your work. Only add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} to ${constants.NUMBERS_AS_WORDS[this.wordCountChange.max]} words to make the sentence complete.`,
+          author: 'Too Long Hint',
+        });
+      }
     }
   }
 
