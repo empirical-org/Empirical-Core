@@ -1,112 +1,109 @@
-import React from 'react';
-import Classroom from './classroom';
-import ActivityDueDate from './activity_due_date';
-import ClassroomsWithStudents from './ClassroomsWithStudents.jsx';
-import AssigningIndicator from '../../../shared/button_loading_indicator';
-import NameTheUnit from './name_the_unit.jsx';
+'use strict'
 
-export default React.createClass({
+ import React from 'react'
+ import Classroom from './classroom'
+ import ActivityDueDate from './activity_due_date'
+ import ClassroomsWithStudents  from './ClassroomsWithStudents.jsx'
+ import AssigningIndicator from '../../../shared/button_loading_indicator'
 
-  getInitialState() {
+ export default  React.createClass({
+
+  getInitialState: function() {
     return {
       classroomsAndTheirStudents: [],
       buttonDisabled: false,
       prematureAssignAttempted: false,
-      loading: false,
+      loading: false
     };
   },
 
-  finish() {
-    if (!this.state.buttonDisabled && !this.props.errorMessage) {
+  finish: function () {
+    if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
       // this.setState({buttonDisabled: true});
-      this.setState({ loading: true, });
+      this.setState({loading: true})
       this.props.finish();
-    } else {
-      this.setState({ prematureAssignAttempted: true, });
+    } else if (!this.state.buttonDisabled) {
+      this.setState({prematureAssignAttempted: true});
     }
   },
 
-  determineAssignButtonClass() {
+  determineAssignButtonClass: function () {
     if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
       return 'button-green';
+    } else {
+      return 'button-grey';
     }
-    return 'button-grey';
   },
 
-  determineErrorMessageClass() {
-    // && !this.props.unitName || this.props.errorMessage
+  determineErrorMessageClass: function () {
     if (this.state.prematureAssignAttempted) {
       return 'error-message visible-error-message';
+    } else {
+      return 'error-message hidden-error-message';
     }
-    return 'error-message hidden-error-message';
   },
 
-  dueDate(activityId) {
+  dueDate: function(activityId){
     if (this.props.dueDates && this.props.dueDates[activityId]) {
       return this.props.dueDates[activityId];
     }
   },
 
-  classroomList() {
+  classroomList: function() {
     if (this.props.classrooms) {
-      const that = this;
-      return this.props.classrooms.map(el => <Classroom
-        key={el.classroom.id}
-        classroom={el.classroom}
-        students={el.students}
-        allSelected={el.allSelected}
-        toggleClassroomSelection={that.props.toggleClassroomSelection}
-        toggleStudentSelection={that.props.toggleStudentSelection}
-      />);
+      let that = this;
+      return this.props.classrooms.map((el)=> {
+        return <Classroom    key = {el.classroom.id}
+                             classroom={el.classroom}
+                             students={el.students}
+                             allSelected={el.allSelected}
+                             toggleClassroomSelection={that.props.toggleClassroomSelection}
+                             toggleStudentSelection={that.props.toggleStudentSelection} />;
+      })
+    } else {
+      return []
     }
-    return [];
   },
 
-  dueDateList() {
-    const that = this;
-    return this.props.selectedActivities.map(activity => (<ActivityDueDate
-      activity={activity}
-      key={activity.id}
-      dueDate={that.dueDate()}
-      toggleActivitySelection={that.props.toggleActivitySelection}
-      assignActivityDueDate={that.props.assignActivityDueDate}
-    />));
+  dueDateList: function() {
+    const that = this
+    return this.props.selectedActivities.map(function(activity) {
+      return <ActivityDueDate activity={activity}
+                                 key={activity.id}
+                                 dueDate={that.dueDate()}
+                                 toggleActivitySelection={that.props.toggleActivitySelection}
+                                 assignActivityDueDate={that.props.assignActivityDueDate}/>;
+    });
   },
 
-  nameComponent() {
-    const nameError = this.state.prematureContinueAttempted && this.props.errorMessage && this.props.errorMessage.includes('name') ? 'name-error' : '';
-    return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} nameError={nameError} />;
-  },
-
-  assignButton() {
+  assignButton: function() {
     return this.state.loading
-      ? <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <AssigningIndicator /></button>
-      : <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign</button>;
+      ? <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'}>Assigning... <AssigningIndicator /></button>
+      : <button ref='button' id='assign' className={this.determineAssignButtonClass() + ' pull-right'} onClick={this.finish}>Assign</button>
   },
 
-  render() {
+  render: function() {
     return (
-      <div>
-        {this.nameComponent()}
-        <section className="select-students">
-          <h1 className="section-header">Select Students To Assign Activity Pack To:</h1>
+      <span>
+        <section className='select-students'>
+          <h1 className='section-header'>Select Students</h1>
           {this.classroomList()}
         </section>
-        <section className="assign-dates">
-          <h1 className="section-header">
-            Optional - <span>Assign Due Dates For Your Activities:</span>
+        <section className='assign-dates'>
+          <h1 className='section-header'>
+            Assign Dates for {this.props.unitName} (optional)
           </h1>
-          <table className="table activity-table">
+          <table className='table activity-table'>
             <tbody>
               {this.dueDateList()}
             </tbody>
           </table>
-          <div className="error-message-and-button">
+          <div className='error-message-and-button'>
             <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
             {this.assignButton()}
           </div>
         </section>
-      </div>
+      </span>
     );
-  },
+  }
 });

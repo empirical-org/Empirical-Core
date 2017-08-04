@@ -1,32 +1,32 @@
-import React from 'react';
+'use strict'
 
-export default React.createClass({
+ import React from 'react'
 
-  getInitialState() {
-    return { value: this.props.searchQuery, };
-  },
+ export default  React.createClass({
 
-  handleChange(e) {
-    this.setState({ value: e.target.value, });
-  },
+   getInitialState: function() {
+     return {value: this.props.searchQuery};
+   },
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.searchQuery, });
+   handleChange: function(e){
+     this.setState({value: e.target.value});
+   },
+
+  componentWillReceiveProps: function(nextProps){
+    this.setState({value: nextProps.searchQuery})
  	},
 
-  newSearchQuery() {
-    this.props.updateSearchQuery(this.state.value);
-  },
+	newSearchQuery: function () {
+		this.props.updateSearchQuery(this.state.value);
+	},
 
-  render() {
-    return (
-      <div className="flex-row">
-        <input id="search_activities_input" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Search Concepts and Activities" />
-        <button onClick={this.newSearchQuery} id="search_activities_button" className="button-gray">
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </div>
-    );
-  },
+	render: function () {
+		return (
+			<span>
+				<input id="search_activities_input" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Search Concepts and Activities" />
+				<button onClick={this.newSearchQuery} id="search_activities_button" className="button-gray">Search</button>
+			</span>
+		);
+	}
 
 });
