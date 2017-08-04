@@ -229,7 +229,7 @@ export default class POSMatcher {
   }
 
   checkRequiredWordsMatch(userSubmission) {
-    return checkForMissingWords(userSubmission, this.getOptimalResponses());
+    return checkForMissingWords(userSubmission, this.getOptimalResponses(), true);
   }
 
 

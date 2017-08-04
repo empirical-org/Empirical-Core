@@ -106,6 +106,7 @@ const PlaySentenceFragment = React.createClass({
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
+        debugger;
         const fields = {
           prompt,
           responses: hashToCollection(this.getResponses()),
@@ -160,7 +161,7 @@ const PlaySentenceFragment = React.createClass({
     if (latestAttempt) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}}/>
       instructions = latestAttempt.response.feedback ? component :
-      'Good work. A complete sentence always has a person or thing completing an action.';
+      'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
     } else if (fragment.instructions && fragment.instructions !== '') {
       instructions = this.props.question.instructions;
     } else {
