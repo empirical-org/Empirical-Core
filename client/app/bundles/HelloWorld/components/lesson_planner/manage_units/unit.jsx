@@ -151,7 +151,9 @@
               lesson={this.props.lesson}
 							updateDueDate={this.props.updateDueDate}
 							hideClassroomActivity={this.props.hideClassroomActivity}
-							data={ca} />);
+							data={ca}
+              hasViewedLessonTutorial={this.props.hasViewedLessonTutorial}
+            />);
 		}, this);
 		return (
 			<section>
