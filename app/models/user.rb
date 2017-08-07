@@ -91,6 +91,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def incomplete_objectives
+    Objective.where.not(id: self.checkboxes.pluck(:objective_id)).pluck(:name)
+  end
+
   def self.sorting_name_sql
     <<-SQL
       substring(
