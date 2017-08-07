@@ -16,6 +16,7 @@ import {
   incrementResponseCount,
   removeLinkToParentID,
   addNewConceptResult,
+  deleteConceptResult,
 } from '../../actions/responses';
 
 const jsDiff = require('diff');
@@ -207,7 +208,7 @@ export default React.createClass({
     if (confirm('Are you sure?')) {
       const conceptResults = Object.assign({}, this.props.response.concept_results || {});
       delete conceptResults[crid];
-      this.props.dispatch(submitResponseEdit(this.props.response.key, { conceptResults, }, this.props.questionID));
+      this.props.dispatch(deleteConceptResult(this.props.response.key, { conceptResults, }, this.props.questionID));
     }
   },
   chooseBoilerplateCategory(e) {

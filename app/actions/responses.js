@@ -234,6 +234,26 @@ export function addNewConceptResult(rid, content, qid) {
   };
 }
 
+export function deleteConceptResult(rid, content, qid) {
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
+  return (dispatch) => {
+    request.put({
+      url: `${process.env.QUILL_CMS}/responses/${rid}`,
+      form: { response: rubyConvertedResponse, }, },
+      (error, httpStatus, body) => {
+        if (error) {
+          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+        } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+          dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
+          dispatch({ type: C.START_RESPONSE_EDIT, qid, rid, });
+        } else {
+          console.log(body);
+        }
+      });
+  };
+}
+
 export function deleteResponse(qid, rid) {
   return (dispatch) => {
     request.delete(
