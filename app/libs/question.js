@@ -148,7 +148,17 @@ export default class Question {
     if (spacingBeforePunctuationMatch !== undefined) {
       res.feedback = spacingBeforePunctuationMatch.feedback;
       res.author = 'Punctuation Hint';
-      res.parentID = getTopOptimalResponse(this.responses).key;
+      res.parentID = getTopOptimalResponse(this.responses)? getTopOptimalResponse(this.responses).key : undefined;
+      res.conceptResults = [
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ];
+      return returnValue;
+    }
+    const spacingAfterCommaMatch = this.checkSpacingAfterCommaMatch(response);
+    if (spacingAfterCommaMatch !== undefined) {
+      res.feedback = spacingAfterCommaMatch.feedback;
+      res.author = 'Punctuation Hint';
+      res.parentID = getTopOptimalResponse(this.responses)? getTopOptimalResponse(this.responses).key : undefined;
       res.conceptResults = [
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ];
