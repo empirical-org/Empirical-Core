@@ -79,9 +79,14 @@ class User < ActiveRecord::Base
 
   after_save :check_for_school
 
+  def self.amber
+    User.find(46978)
+  end
+
   def validate_username?
     validate_username.present? ? validate_username : false
   end
+
 
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
