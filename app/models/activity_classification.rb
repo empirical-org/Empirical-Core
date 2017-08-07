@@ -17,7 +17,19 @@ class ActivityClassification < ActiveRecord::Base
     # so that we can start this with the teacher id and only
     # do one db hit.
     classroom_ids = Classroom.where(teacher_id: teacher_id).ids
-    ActivityClassification.distinct.joins(activities: :classroom_activities).where('classroom_activities.classroom_id IN (?)', classroom_ids).ids
+    ActivityClassification.distinct
+      .joins(activities: :classroom_activities)
+      .where('classroom_activities.classroom_id IN (?)', classroom_ids).ids
+  end
+
+  def self.teacher_has_assigned_type?(teacher_id, act_class_key)
+    # TODO: figure out how to do another level of joins and
+    # so that we can start this with the teacher id and only
+    # do one db hit.
+    classroom_ids = Classroom.where(teacher_id: teacher_id).ids
+    ActivityClassification.joins(activities: :classroom_activities)
+      .where("classroom_activities.classroom_id IN (?) AND activity_classifications.key LIKE ?", classroom_ids, act_class_key)
+      .limit(1).ids.any?
   end
 
 end
