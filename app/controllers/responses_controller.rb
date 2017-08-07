@@ -46,8 +46,10 @@ class ResponsesController < ApplicationController
   # PATCH/PUT /responses/1
   def update
     new_vals = response_params
-    if new_vals[:concept_results]
+    if new_vals[:concept_results] && !new_vals[:concept_results].empty?
       new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+    else
+      new_vals[:concept_results] = nil
     end
     if @response.update(new_vals)
       render json: @response
@@ -144,6 +146,7 @@ class ResponsesController < ApplicationController
         :created_at,
         :updated_at,
         :search,
+        :concept_results,
         concept_results: {}
       )
     end
