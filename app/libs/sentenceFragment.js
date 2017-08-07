@@ -3,6 +3,9 @@ import * as qpos from './partsOfSpeechTagging';
 import validEndingPunctuation from '../libs/validEndingPunctuation.js';
 import constants from '../constants';
 import { checkForMissingWords } from './requiredWords';
+import {
+  spacingBeforePunctuation
+} from './algorithms/spacingBeforePunctuation';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
@@ -100,6 +103,18 @@ export default class POSMatcher {
     const optimalPunctuationMatch = this.checkOptimalPunctuationMatch(userSubmission);
     if (optimalPunctuationMatch !== undefined) {
       returnValue.response = Object.assign({}, res, optimalPunctuationMatch);
+      return returnValue;
+    }
+
+    const spacingBeforePunctuationMatch = this.checkSpacingBeforePunctuationMatch(userSubmission);
+    if (spacingBeforePunctuationMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, spacingBeforePunctuationMatch);
+      return returnValue;
+    }
+
+    const spacingAfterCommaMatch = this.checkSpacingAfterCommaMatch(userSubmission);
+    if (spacingAfterCommaMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, spacingAfterCommaMatch);
       return returnValue;
     }
 
@@ -238,6 +253,45 @@ export default class POSMatcher {
               conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
             ],
           };
+        }
+      }
+    }
+  }
+
+  checkSpacingBeforePunctuationMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    const spacingBeforePunctuationMatch = spacingBeforePunctuation(userSubmission)
+    if (spacingBeforePunctuationMatch) {
+      return {
+        optimal: false,
+        feedback: spacingBeforePunctuationMatch.feedback,
+        author: 'Punctuation Hint',
+        parentID: this.getTopOptimalResponse().key,
+        conceptResults: [
+          conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+        ],
+      }
+    }
+  }
+
+  checkSpacingAfterCommaMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    for (let i = 0; i < userSubmission.length; i++) {
+      if (userSubmission[i] === "," && (i + 1 < userSubmission.length)) {
+        if (userSubmission[i + 1] !== " ") {
+          return {
+            optimal: false,
+            feedback: "<p>Revise your work. Always put a space after a <em>comma</em>.</p>",
+            author: 'Punctuation Hint',
+            parentID: this.getTopOptimalResponse().key,
+            conceptResults: [
+              conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+            ],
+          }
         }
       }
     }
