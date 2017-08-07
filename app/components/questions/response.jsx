@@ -15,6 +15,7 @@ import {
   submitResponseEdit,
   incrementResponseCount,
   removeLinkToParentID,
+  addNewConceptResult,
 } from '../../actions/responses';
 
 const jsDiff = require('diff');
@@ -199,7 +200,7 @@ export default React.createClass({
   saveNewConceptResult() {
     const conceptResults = this.props.response.concept_results || {};
     conceptResults[this.state.newConceptResult.conceptUID] = this.state.newConceptResult.correct;
-    this.props.dispatch(submitResponseEdit(this.props.response.key, { conceptResults, }, this.props.questionID));
+    this.props.dispatch(addNewConceptResult(this.props.response.key, { conceptResults, }, this.props.questionID));
   },
 
   deleteConceptResult(crid) {
