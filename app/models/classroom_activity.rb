@@ -137,9 +137,8 @@ class ClassroomActivity < ActiveRecord::Base
   def teacher_checkbox
     if self.classroom && self.classroom.teacher
       teacher = self.classroom.teacher
-      checkbox_name = checkbox_type
       if teacher && self.unit && self.unit.name
-        find_or_create_checkbox(checkbox_name, teacher)
+        checkbox_names.each{|name| find_or_create_checkbox(name, teacher)}
       end
     end
   end
@@ -180,14 +179,18 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-  def checkbox_type
+  def checkbox_names
+    names = []
+    names.push("Assign #{self&.activity&.classification&.name} Activity")
     if self.activity_id == 413 || self.activity_id == 447
-      checkbox_name = 'Assign Entry Diagnostic'
-    elsif self.unit && UnitTemplate.find_by_name(self.unit.name)
-      checkbox_name = 'Assign Featured Activity Pack'
+      names.push 'Assign Entry Diagnostic'
+    end
+    if self.unit && UnitTemplate.find_by_name(self.unit.name)
+      names.push('Assign Featured Activity Pack')
     else
       checkbox_name = 'Build Your Own Activity Pack'
     end
+    names
   end
 
   def validate_assigned_student(student_id)
