@@ -23,10 +23,16 @@ module Teacher
     end
   end
 
-  # Occasionally teachers are populated in the view with
-  # a single blank classroom.
   def has_classrooms?
-    classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
+    !!Classroom.find_by_teacher_id(self.id)
+  end
+
+  def has_student?
+    !!StudentsClassrooms.joins(:classroom).where('classrooms.teacher_id = ?', self.id).limit(1).ids
+  end
+
+  def total_activity_count
+    self.classrooms_i_teach.reduce{|sum, classroom| classroom.cached_completed_activity_count}
   end
 
   def archived_classrooms
