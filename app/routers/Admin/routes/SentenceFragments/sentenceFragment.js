@@ -1,6 +1,18 @@
 import SentenceFragment from 'components/sentenceFragments/sentenceFragment.jsx';
 import ResponsesRoute from 'routers/Admin/routes/Shared/responses';
 import MassEditRoute from 'routers/Admin/routes/Shared/massEdit';
+import TestSentenceFragmentContainer from 'components/sentenceFragments/testSentenceFragmentContainer.jsx';
+import ChooseModelContainer from 'components/sentenceFragments/chooseModelContainer.jsx';
+
+const testSentenceFragment = {
+  path: 'test',
+  component: TestSentenceFragmentContainer,
+};
+
+const chooseModel = {
+  path: 'choose-model',
+  component: ChooseModelContainer,
+};
 
 export default {
   path: ':questionID',
@@ -10,6 +22,8 @@ export default {
   },
   childRoutes: [
     ResponsesRoute,
-    MassEditRoute
+    MassEditRoute,
+    testSentenceFragment,
+    chooseModel
   ],
 };
