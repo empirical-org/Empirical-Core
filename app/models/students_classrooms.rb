@@ -1,5 +1,5 @@
 class StudentsClassrooms < ActiveRecord::Base
-  include CheckboxCallback
+  
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
@@ -20,7 +20,7 @@ class StudentsClassrooms < ActiveRecord::Base
 
   def checkbox
     if self.classroom
-      find_or_create_checkbox('Add Students', self.classroom.teacher)
+      Checkbox.find_or_create_checkbox('Add Students', self.classroom.teacher)
     end
   end
 

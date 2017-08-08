@@ -1,7 +1,7 @@
 module Teacher
   extend ActiveSupport::Concern
 
-  include CheckboxCallback
+  
 
 
   TRIAL_LIMIT = 250
@@ -32,7 +32,7 @@ module Teacher
   end
 
   def total_activity_count
-    self.classrooms_i_teach.reduce{|sum, classroom| classroom.cached_completed_activity_count}
+    self.classrooms_i_teach.reduce{|sum, classroom| classroom.cached_completed_activity_count.to_i}
   end
 
   def archived_classrooms
@@ -95,7 +95,7 @@ module Teacher
         end
         unless self.schools.where(id: params[:school_id]).any?
           (self.schools << School.find(params[:school_id]))
-          find_or_create_checkbox('Add School', self)
+          Checkbox.find_or_create_checkbox('Add School', self)
         end
       end
     end

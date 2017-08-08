@@ -1,5 +1,5 @@
 class ClassroomActivity < ActiveRecord::Base
-  include CheckboxCallback
+  
   include ::NewRelic::Agent
 
   belongs_to :classroom
@@ -138,7 +138,7 @@ class ClassroomActivity < ActiveRecord::Base
     if self.classroom && self.classroom.teacher
       teacher = self.classroom.teacher
       if teacher && self.unit && self.unit.name
-        checkbox_names.each{|name| find_or_create_checkbox(name, teacher)}
+        checkbox_names.each{|name| Checkbox.find_or_create_checkbox(name, teacher)}
       end
     end
   end

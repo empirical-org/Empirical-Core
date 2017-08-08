@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include Student, Teacher, CheckboxCallback
+  include Student, Teacher
 
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
@@ -340,7 +340,7 @@ private
 
   def check_for_school
     if self.school
-      find_or_create_checkbox('Add School', self)
+      Checkbox.find_or_create_checkbox('Add School', self)
     end
   end
 

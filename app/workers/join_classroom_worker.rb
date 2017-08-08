@@ -1,6 +1,6 @@
 class JoinClassroomWorker
   include Sidekiq::Worker
-  include CheckboxCallback
+  
 
   def perform(id)
     @user = User.find(id)
