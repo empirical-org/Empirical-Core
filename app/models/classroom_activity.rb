@@ -168,9 +168,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def hide_all_activity_sessions
-    self.activity_sessions.each do |as|
-      as.update(visible: false)
-    end
+    self.activity_sessions.update_all(visible: false)
   end
 
   class << self
