@@ -14,15 +14,15 @@ class Objective < ActiveRecord::Base
     when "Add School"
       Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.schools.any?)
     when 'Complete 10 Activities'
-      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activity_count > 10)
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activities_count > 10)
     when 'Complete 100 Activities'
-      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activity_count > 100)
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activities_count > 100)
     when 'Complete 250 Activities'
-      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activity_count > 250)
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activities_count > 250)
     when 'Complete 500 Activities'
-      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activity_count > 500)
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activities_count > 500)
     when 'Complete 1000 Activities'
-      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activity_count > 1000)
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.total_activities_count > 1000)
     when 'Assign Quill Diagnostic Activity'
       Checkbox.find_or_create_checkbox(objective_name, user, flag) if (ActivityClassification.teacher_has_assigned_type?(user_id, 'diagnostic'))
     when 'Assign Quill Connect Activity'

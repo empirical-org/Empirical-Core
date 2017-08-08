@@ -31,7 +31,7 @@ module Teacher
     !!StudentsClassrooms.joins(:classroom).where('classrooms.teacher_id = ?', self.id).limit(1).ids
   end
 
-  def total_activity_count
+  def total_activities_count
     self.classrooms_i_teach.map{|c| c.cached_completed_activity_count.to_i}.reduce(:+)
   end
 
