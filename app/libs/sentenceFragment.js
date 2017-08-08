@@ -148,26 +148,32 @@ export default class POSMatcher {
       optimal: false,
       parentID: this.getTopOptimalResponse().key,
     };
+    const feedback = getMinMaxFeedback(this.wordCountChange.min, this.wordCountChange.max);
     if (this.wordCountChange.min && (userWordCount < minWordCount)) {
       if (this.wordCountChange.min === 1) {
         return Object.assign({}, templateResponse, {
-          feedback: 'Revise your work. Add one word to make the the sentence complete.',
+          feedback,
+          author: 'Too Short Hint',
+        });
+      } else if (this.wordCountChange.min === this.wordCountChange.max) {
+        return Object.assign({}, templateResponse, {
+          feedback,
           author: 'Too Short Hint',
         });
       }
       return Object.assign({}, templateResponse, {
-        feedback: `Revise your work. Add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} words to make the the sentence complete.`,
+        feedback,
         author: 'Too Short Hint',
       });
     } else if (this.wordCountChange.max && (userWordCount > maxWordCount)) {
       if (this.wordCountChange.max === 1) {
         return Object.assign({}, templateResponse, {
-          feedback: 'Revise your work. Only add one word to make the sentence complete.',
+          feedback,
           author: 'Too Long Hint',
         });
       }
       return Object.assign({}, templateResponse, {
-        feedback: `Revise your work. Only add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} to ${constants.NUMBERS_AS_WORDS[this.wordCountChange.max]} words to make the sentence complete.`,
+        feedback,
         author: 'Too Long Hint',
       });
     }
@@ -297,6 +303,8 @@ export default class POSMatcher {
   checkRequiredWordsMatch(userSubmission) {
     if (this.ignoreCaseAndPunc) {
       return;
+    } else if (this.getOptimalResponses().length < 3) {
+      return;
     }
     return checkForMissingWords(userSubmission, this.getOptimalResponses(), true);
   }
@@ -334,4 +342,14 @@ export default class POSMatcher {
       }
     }
   }
+}
+
+function getMinMaxFeedback(min, max) {
+  if (min === max) {
+    if (min === 1) {
+      return 'Revise your work. Add one word to the prompt to make the the sentence complete.';
+    }
+    return `Revise your work. Add ${constants.NUMBERS_AS_WORDS[min]} words to the prompt to make the sentence complete.`;
+  }
+  return `Revise your work. Add ${constants.NUMBERS_AS_WORDS[min]} to ${constants.NUMBERS_AS_WORDS[max]} words to the prompt to make the sentence complete.`;
 }
