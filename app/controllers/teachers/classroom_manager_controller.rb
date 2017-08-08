@@ -123,6 +123,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def teacher_guide
+    Checkbox.check_for_earned_checkboxes(current_user.id)
     @checkbox_data = {
       completed: current_user.checkboxes.map(&:objective_id),
       potential: Objective.all
