@@ -40,7 +40,7 @@ class Auth::GoogleController < ApplicationController
     if user.present?
       user.google_id ? nil : user.update(google_id: google_id)
       sign_in(user)
-      TestForEarnedCheckboxesWorker.perform_async(user.id)
+      TestForEarnedCheckboxesWorker.perform_async(user.id, true)
       GoogleStudentImporterWorker.perform_async(current_user.id, session[:google_access_token])
       redirect_to profile_path
     else
