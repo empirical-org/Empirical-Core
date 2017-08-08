@@ -155,6 +155,13 @@ export default {
     flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
   },
 
+  NUMBERS_AS_WORDS: [
+    "zero", "one", "two", "three", "four", "five",
+    "six", "seven", "eight", "nine", "ten",
+    "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+    "sixteen", "seventeen", "eighteen", "nineteen", "twenty"
+  ],
+
   INSTRUCTIONS: {
     sentenceFragments: 'Add/change as few words as you can to change this fragment into a sentence.',
   },

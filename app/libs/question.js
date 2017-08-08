@@ -148,7 +148,17 @@ export default class Question {
     if (spacingBeforePunctuationMatch !== undefined) {
       res.feedback = spacingBeforePunctuationMatch.feedback;
       res.author = 'Punctuation Hint';
-      res.parentID = getTopOptimalResponse(this.responses).key;
+      res.parentID = getTopOptimalResponse(this.responses)? getTopOptimalResponse(this.responses).key : undefined;
+      res.conceptResults = [
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ];
+      return returnValue;
+    }
+    const spacingAfterCommaMatch = this.checkSpacingAfterCommaMatch(response);
+    if (spacingAfterCommaMatch !== undefined) {
+      res.feedback = spacingAfterCommaMatch.feedback;
+      res.author = 'Punctuation Hint';
+      res.parentID = getTopOptimalResponse(this.responses)? getTopOptimalResponse(this.responses).key : undefined;
       res.conceptResults = [
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ];
@@ -420,4 +430,16 @@ export default class Question {
     return spacingBeforePunctuation(response);
   }
 
+  checkSpacingAfterCommaMatch(response) {
+    for (let i = 0; i < response.length; i++) {
+      if (response[i] === "," && (i + 1 < response.length)) {
+        if (response[i + 1] !== " ") {
+          return { 
+            feedback: "<p>Revise your work. Always put a space after a <em>comma</em>.</p>",
+          }
+        }
+      }
+    }
+    return undefined;
+  }
 }

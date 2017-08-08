@@ -2,6 +2,10 @@ import _ from 'underscore';
 import * as qpos from './partsOfSpeechTagging';
 import validEndingPunctuation from '../libs/validEndingPunctuation.js';
 import constants from '../constants';
+import { checkForMissingWords } from './requiredWords';
+import {
+  spacingBeforePunctuation
+} from './algorithms/spacingBeforePunctuation';
 
 String.prototype.normalize = function () {
   return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
@@ -19,6 +23,10 @@ export function wordLengthCount(str) {
 
 function sortbyCount(responses) {
   return _.sortBy(responses, r => r.count).reverse();
+}
+
+function removePunctuation(string) {
+  return string.replace(/[^A-Za-z0-9\s]/g, '');
 }
 
 export default class POSMatcher {
@@ -86,6 +94,36 @@ export default class POSMatcher {
       return returnValue;
     }
 
+    const optimalCapitalizationMatch = this.checkOptimalCapitalizationMatch(userSubmission);
+    if (optimalCapitalizationMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, optimalCapitalizationMatch);
+      return returnValue;
+    }
+
+    const optimalPunctuationMatch = this.checkOptimalPunctuationMatch(userSubmission);
+    if (optimalPunctuationMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, optimalPunctuationMatch);
+      return returnValue;
+    }
+
+    const spacingBeforePunctuationMatch = this.checkSpacingBeforePunctuationMatch(userSubmission);
+    if (spacingBeforePunctuationMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, spacingBeforePunctuationMatch);
+      return returnValue;
+    }
+
+    const spacingAfterCommaMatch = this.checkSpacingAfterCommaMatch(userSubmission);
+    if (spacingAfterCommaMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, spacingAfterCommaMatch);
+      return returnValue;
+    }
+
+    const requiredWordsMatch = this.checkRequiredWordsMatch(userSubmission);
+    if (requiredWordsMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, requiredWordsMatch);
+      return returnValue;
+    }
+
     const posMatch = this.checkPOSMatch(userSubmission);
     if (posMatch !== undefined) {
       returnValue.response = Object.assign({}, res, posMatch);
@@ -111,13 +149,25 @@ export default class POSMatcher {
       parentID: this.getTopOptimalResponse().key,
     };
     if (this.wordCountChange.min && (userWordCount < minWordCount)) {
+      if (this.wordCountChange.min === 1) {
+        return Object.assign({}, templateResponse, {
+          feedback: 'Revise your work. Add one word to make the the sentence complete.',
+          author: 'Too Short Hint',
+        });
+      }
       return Object.assign({}, templateResponse, {
-        feedback: 'Too Short',
+        feedback: `Revise your work. Add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} words to make the the sentence complete.`,
         author: 'Too Short Hint',
       });
     } else if (this.wordCountChange.max && (userWordCount > maxWordCount)) {
+      if (this.wordCountChange.max === 1) {
+        return Object.assign({}, templateResponse, {
+          feedback: 'Revise your work. Only add one word to make the sentence complete.',
+          author: 'Too Long Hint',
+        });
+      }
       return Object.assign({}, templateResponse, {
-        feedback: 'Too Long',
+        feedback: `Revise your work. Only add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} to ${constants.NUMBERS_AS_WORDS[this.wordCountChange.max]} words to make the sentence complete.`,
         author: 'Too Long Hint',
       });
     }
@@ -157,6 +207,98 @@ export default class POSMatcher {
         ],
       };
     }
+  }
+
+  checkOptimalCapitalizationMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    const optimals = this.getOptimalResponses();
+    for (let i = 0; i < optimals.length; i++) {
+      const optimal = optimals[i];
+      if (userSubmission.toLowerCase() === optimal.text.toLowerCase()) {
+        if (userSubmission !== optimal) {
+          return {
+            optimal: false,
+            parentID: optimal.key,
+            author: 'Capitalization Hint',
+            feedback: 'Proofread your sentence for correct capitalization.',
+            conceptResults: [
+              conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ')
+            ],
+          };
+        }
+      }
+    }
+  }
+
+  checkOptimalPunctuationMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    const optimals = this.getOptimalResponses();
+    for (let i = 0; i < optimals.length; i++) {
+      const optimal = optimals[i];
+      if (removePunctuation(userSubmission) === removePunctuation(optimal.text)) {
+        if (userSubmission !== optimal) {
+          return {
+            optimal: false,
+            parentID: optimal.key,
+            author: 'Punctuation Hint',
+            feedback: 'Proofread your sentence for correct punctuation.',
+            conceptResults: [
+              conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+            ],
+          };
+        }
+      }
+    }
+  }
+
+  checkSpacingBeforePunctuationMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    const spacingBeforePunctuationMatch = spacingBeforePunctuation(userSubmission);
+    if (spacingBeforePunctuationMatch) {
+      return {
+        optimal: false,
+        feedback: spacingBeforePunctuationMatch.feedback,
+        author: 'Punctuation Hint',
+        parentID: this.getTopOptimalResponse().key,
+        conceptResults: [
+          conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+        ],
+      };
+    }
+  }
+
+  checkSpacingAfterCommaMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    for (let i = 0; i < userSubmission.length; i++) {
+      if (userSubmission[i] === ',' && (i + 1 < userSubmission.length)) {
+        if (userSubmission[i + 1] !== ' ') {
+          return {
+            optimal: false,
+            feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
+            author: 'Punctuation Hint',
+            parentID: this.getTopOptimalResponse().key,
+            conceptResults: [
+              conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+            ],
+          };
+        }
+      }
+    }
+  }
+
+  checkRequiredWordsMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    return checkForMissingWords(userSubmission, this.getOptimalResponses(), true);
   }
 
   checkPOSMatch(userSubmission) {

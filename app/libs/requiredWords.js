@@ -84,8 +84,11 @@ function _getCaseSensitiveWord(word, optimalSentence) {
   return normalizedString.substring(startIndex, word.length + startIndex);
 }
 
-export function getFeedbackForWord(word, sentences) {
+export function getFeedbackForWord(word, sentences, isSentenceFragment) {
   // const tag = getPOSForWord(word).toLowerCase();
+  if (isSentenceFragment) {
+    return `<p>Revise your work. Use all the words from the prompt, and make it complete by adding to it.</p>`;
+  }
   const caseSensitiveWord = _getCaseSensitiveWord(word, sentences[0]);
   return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>. You may have misspelled it.</p>`;
 }
@@ -99,11 +102,11 @@ export function getMissingWordsFromResponses(userString, sentences) {
   return _.sortBy(missingWords, word => word.length).reverse();
 }
 
-export function checkForMissingWords(userString, responses) {
+export function checkForMissingWords(userString, responses, isSentenceFragment = false) {
   const sentences = extractSentencesFromResponses(responses);
   const missingWords = getMissingWordsFromResponses(userString, sentences);
   if (missingWords.length > 0) {
-    return { feedback: getFeedbackForWord(missingWords[0], sentences), };
+    return { feedback: getFeedbackForWord(missingWords[0], sentences, isSentenceFragment), };
   }
 }
 
