@@ -5,7 +5,6 @@ class Objective < ActiveRecord::Base
   has_many :users, through: :checkboxes
 
   def self.handle_different_objectives(objective_name, user_id, flag=nil)
-    binding.pry
     # TODO: finish this!
     puts 'ryan here is the objective_name'
     puts objective_name
@@ -14,7 +13,7 @@ class Objective < ActiveRecord::Base
     when "Create a Classroom"
       Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.has_classrooms?)
     when "Add Students"
-      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.has_students?)
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.has_student?)
     when "Add School"
       Checkbox.find_or_create_checkbox(objective_name, user, flag) if (user.schools.any?)
     when 'Complete 10 Activities'
@@ -37,8 +36,12 @@ class Objective < ActiveRecord::Base
       Checkbox.find_or_create_checkbox(objective_name, user, flag) if (ActivityClassification.teacher_has_assigned_type?(user_id, 'passage'))
     when 'Assign Quill Grammar Activity'
       Checkbox.find_or_create_checkbox(objective_name, user, flag) if (ActivityClassification.teacher_has_assigned_type?(user_id, 'sentence'))
+    when 'Start Trial'
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (Subscription.unscoped.find_by_user_id(user_id).present?)
+    when 'Activate Premium'
+      Checkbox.find_or_create_checkbox(objective_name, user, flag) if (Subscription.unscoped.where(user_id: user_id).where.not(account_type: 'trial').limit(1).ids.any?)
     else
-      puts "You're just making it up!"
+      puts "unable to find objective with name: #{objective_name}"
     end
   end
 
