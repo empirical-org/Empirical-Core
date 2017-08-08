@@ -1,5 +1,6 @@
 class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::ProgressReportsController
   def index
+    Checkbox.find_or_create_checkbox('View Standard Reports', current_user)
     respond_to do |format|
       format.html do
         AccessProgressReportWorker.perform_async(current_user.id)

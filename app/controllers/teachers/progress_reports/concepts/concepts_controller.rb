@@ -1,5 +1,6 @@
 class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::ProgressReportsController
   def index
+    Checkbox.find_or_create_checkbox('View Concept Reports', current_user)
     respond_to do |format|
       format.html do
         @student = student

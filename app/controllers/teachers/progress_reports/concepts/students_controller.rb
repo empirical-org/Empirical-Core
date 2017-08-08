@@ -1,5 +1,6 @@
 class Teachers::ProgressReports::Concepts::StudentsController < Teachers::ProgressReportsController
   def index
+    Checkbox.find_or_create_checkbox('View Concept Reports', current_user)
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
       return

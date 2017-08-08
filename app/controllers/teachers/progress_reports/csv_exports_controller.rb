@@ -2,6 +2,7 @@ class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReport
   require 'pusher'
 
   def create
+    Checkbox.find_or_create_checkbox('Download CSV of Report', current_user)
     csv_export = CsvExport.new(export_params)
     csv_export.teacher_id = current_user.id
     csv_export.filters ||= {}
