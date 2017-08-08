@@ -81,6 +81,7 @@ class ResponsesController < ApplicationController
     response.increment!(:count)
     increment_first_attempt_count(response)
     increment_child_count_of_parent(response)
+    response.update_index_in_elastic_search
   end
 
   def search
