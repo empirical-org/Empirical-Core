@@ -12,7 +12,7 @@ class Response < ApplicationRecord
       indexes :sortable_text, type: 'keyword'
       indexes :id, type: 'integer'
       indexes :uid, type: 'string'
-      indexes :question_uid, type: 'string'
+      indexes :question_uid, type: 'string', index: "not_analyzed"
       indexes :parent_id, type: 'integer'
       indexes :parent_uid, type: 'string'
       indexes :feedback, type: 'text'
