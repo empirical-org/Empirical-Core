@@ -55,6 +55,7 @@ gem 'global'
 gem 'google-api-client', '0.8.6'
 gem 'faraday_middleware'
 gem 'newrelic_rpm'
+gem 'skylight'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 gem 'stripe'
 gem 'prawn'
