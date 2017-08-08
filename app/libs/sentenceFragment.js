@@ -154,25 +154,22 @@ export default class POSMatcher {
           feedback: 'Revise your work. Add one word to make the the sentence complete.',
           author: 'Too Short Hint',
         });
-      } else {
-        return Object.assign({}, templateResponse, {
-          feedback: `Revise your work. Add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} words to make the the sentence complete.`,
-          author: 'Too Short Hint',
-        });
       }
-      
+      return Object.assign({}, templateResponse, {
+        feedback: `Revise your work. Add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} words to make the the sentence complete.`,
+        author: 'Too Short Hint',
+      });
     } else if (this.wordCountChange.max && (userWordCount > maxWordCount)) {
       if (this.wordCountChange.max === 1) {
         return Object.assign({}, templateResponse, {
           feedback: 'Revise your work. Only add one word to make the sentence complete.',
           author: 'Too Long Hint',
         });
-      } else {
-        return Object.assign({}, templateResponse, {
-          feedback: `Revise your work. Only add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} to ${constants.NUMBERS_AS_WORDS[this.wordCountChange.max]} words to make the sentence complete.`,
-          author: 'Too Long Hint',
-        });
       }
+      return Object.assign({}, templateResponse, {
+        feedback: `Revise your work. Only add ${constants.NUMBERS_AS_WORDS[this.wordCountChange.min]} to ${constants.NUMBERS_AS_WORDS[this.wordCountChange.max]} words to make the sentence complete.`,
+        author: 'Too Long Hint',
+      });
     }
   }
 
@@ -218,7 +215,7 @@ export default class POSMatcher {
     }
     const optimals = this.getOptimalResponses();
     for (let i = 0; i < optimals.length; i++) {
-      const optimal = optimals[i]
+      const optimal = optimals[i];
       if (userSubmission.toLowerCase() === optimal.text.toLowerCase()) {
         if (userSubmission !== optimal) {
           return {
@@ -241,7 +238,7 @@ export default class POSMatcher {
     }
     const optimals = this.getOptimalResponses();
     for (let i = 0; i < optimals.length; i++) {
-      const optimal = optimals[i]
+      const optimal = optimals[i];
       if (removePunctuation(userSubmission) === removePunctuation(optimal.text)) {
         if (userSubmission !== optimal) {
           return {
@@ -262,7 +259,7 @@ export default class POSMatcher {
     if (this.ignoreCaseAndPunc) {
       return;
     }
-    const spacingBeforePunctuationMatch = spacingBeforePunctuation(userSubmission)
+    const spacingBeforePunctuationMatch = spacingBeforePunctuation(userSubmission);
     if (spacingBeforePunctuationMatch) {
       return {
         optimal: false,
@@ -272,7 +269,7 @@ export default class POSMatcher {
         conceptResults: [
           conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
         ],
-      }
+      };
     }
   }
 
@@ -281,26 +278,28 @@ export default class POSMatcher {
       return;
     }
     for (let i = 0; i < userSubmission.length; i++) {
-      if (userSubmission[i] === "," && (i + 1 < userSubmission.length)) {
-        if (userSubmission[i + 1] !== " ") {
+      if (userSubmission[i] === ',' && (i + 1 < userSubmission.length)) {
+        if (userSubmission[i + 1] !== ' ') {
           return {
             optimal: false,
-            feedback: "<p>Revise your work. Always put a space after a <em>comma</em>.</p>",
+            feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
             author: 'Punctuation Hint',
             parentID: this.getTopOptimalResponse().key,
             conceptResults: [
               conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
             ],
-          }
+          };
         }
       }
     }
   }
 
   checkRequiredWordsMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
     return checkForMissingWords(userSubmission, this.getOptimalResponses(), true);
   }
-
 
   checkPOSMatch(userSubmission) {
     // get graded responses and convert to POS strings
