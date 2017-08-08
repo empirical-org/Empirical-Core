@@ -111,11 +111,14 @@ class Classroom < ActiveRecord::Base
 
   def hide_all_classroom_activities
     ActivitySession.where(classroom_activity: self.classroom_activities).update_all(visible: false)
-    unit_ids = self.classroom_activities.map(&:unit_id).uniq
     self.classroom_activities.update_all(visible: false)
-    # this finds units
-    unit_ids_to_hide = Unit.where(id: unit_ids).joins("LEFT OUTER JOIN unit ON unit.id = classroom_activity.unit_id").where("classroom_activity.id IS NULL").ids
-    Unit.where(id: unit_ids_to_hide).update_all(visible: false)
+    ids = Unit.find_by_sql("
+      SELECT unit.id FROM units unit
+      LEFT JOIN classroom_activities as ca ON ca.unit_id = unit.id AND ca.visible = true
+      WHERE unit.visible = true
+      AND ca.id IS null
+      AND unit.user_id = #{self.teacher_id}")
+    Unit.where(id: ids).update_all(visible: false)
   end
 
   def cached_student_count
