@@ -1,7 +1,7 @@
 module Teacher
   extend ActiveSupport::Concern
 
-  
+
 
 
   TRIAL_LIMIT = 250
@@ -32,7 +32,7 @@ module Teacher
   end
 
   def total_activity_count
-    self.classrooms_i_teach.reduce{|sum, classroom| classroom.cached_completed_activity_count.to_i}
+    self.classrooms_i_teach.map{|c| c.cached_completed_activity_count.to_i}.reduce(:+)
   end
 
   def archived_classrooms
