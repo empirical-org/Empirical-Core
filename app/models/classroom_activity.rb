@@ -1,5 +1,5 @@
 class ClassroomActivity < ActiveRecord::Base
-  
+
   include ::NewRelic::Agent
 
   belongs_to :classroom
@@ -188,7 +188,7 @@ class ClassroomActivity < ActiveRecord::Base
     if self.unit && UnitTemplate.find_by_name(self.unit.name)
       names.push('Assign Featured Activity Pack')
     else
-      checkbox_name = 'Build Your Own Activity Pack'
+      names.push('Build Your Own Activity Pack')
     end
     names
   end
