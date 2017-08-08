@@ -5,9 +5,6 @@ class Objective < ActiveRecord::Base
   has_many :users, through: :checkboxes
 
   def self.handle_different_objectives(objective_name, user_id, flag=nil)
-    # TODO: finish this!
-    puts 'ryan here is the objective_name'
-    puts objective_name
     user = User.find(user_id)
     case objective_name
     when "Create a Classroom"
