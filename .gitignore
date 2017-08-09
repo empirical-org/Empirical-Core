@@ -42,3 +42,5 @@ data.tsv
 
 # webpack files
 webpack-assets.json
+
+\.DS_Store

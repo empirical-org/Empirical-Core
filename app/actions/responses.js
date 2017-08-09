@@ -237,13 +237,7 @@ export function addNewConceptResult(rid, content, qid) {
 }
 
 export function deleteConceptResult(rid, content, qid) {
-  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
-  let updatedResponse;
-  if (Object.keys(rubyConvertedResponse.concept_results).length === 0) {
-    updatedResponse = Object.assign({}, rubyConvertedResponse, {concept_results: null})
-  } else {
-    updatedResponse = rubyConvertedResponse;
-  }
+  const updatedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     request.put({
       url: `${process.env.QUILL_CMS}/responses/${rid}`,
