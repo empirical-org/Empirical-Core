@@ -47,7 +47,11 @@ class ResponsesController < ApplicationController
   def update
     new_vals = response_params
     if new_vals[:concept_results]
-      new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+      if new_vals[:concept_results].empty?
+        new_vals[:concept_results] = nil
+      else
+        new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+      end
     end
     if @response.update(new_vals)
       render json: @response
