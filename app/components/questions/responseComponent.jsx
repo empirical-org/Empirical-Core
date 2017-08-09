@@ -45,10 +45,10 @@ const Responses = React.createClass({
   getInitialState() {
     let actions;
     let matcher;
-    if (this.props.mode === 'sentenceFragment') {
+    if (this.props.mode === 'sentenceFragments') {
       actions = sentenceFragmentActions;
       matcher = POSMatcher;
-    } else if (this.props.mode === 'diagnosticQuestion') {
+    } else if (this.props.mode === 'diagnosticQuestions') {
       actions = diagnosticQuestionActions;
       matcher = DiagnosticQuestionMatcher;
     } else {
