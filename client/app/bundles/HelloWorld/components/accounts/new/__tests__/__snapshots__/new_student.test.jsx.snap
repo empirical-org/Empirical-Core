@@ -1,87 +1,133 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NewStudent component renders a signup form 1`] = `
-<div>
+<div
+  className="new-student-account"
+>
   <div
     className="text-center"
   >
     <div>
-      <div>
-        <div>
-          <h3
-            className="sign-up-header"
-          >
-            Sign up for a Student Account
-          </h3>
-        </div>
-      </div>
+      <h3
+        className="sign-up-header"
+      >
+        Sign up for a Student Account
+      </h3>
+      <p
+        className="text-center support-p"
+      >
+        We now support Google Classroom!
+      </p>
       <auth_sign_up />
     </div>
-    <p
-      className="text-center support-p"
-    >
-      We now support Google Classroom!
-    </p>
   </div>
   <div
-    className="row"
+    className="need-a-border"
+  />
+  <div
+    className="text-input-row"
   >
     <div
-      className="col-xs-offset-3 col-xs-9"
+      className="form-label"
     >
-      <div
-        className="col-xs-8 need-a-border"
-      />
-      <div
-        className="row"
-      >
-        <div
-          className="col-xs-12"
-        />
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-xs-12"
-        >
-          <button
-            className="button-green col-xs-8"
-            id="sign_up"
-            onClick={[Function]}
-          >
-            Sign Up
-          </button>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-xs-8"
-        >
-          <div
-            className="text-align-center"
-          >
-            By signing up, you agree to our
-            <a
-              href="/tos"
-              target="_blank"
-            >
-               terms of service 
-            </a>
-             and 
-            <a
-              href="/privacy"
-              target="_blank"
-            >
-               privacy policy
-            </a>
-            .
-          </div>
-        </div>
-      </div>
+      First Name
     </div>
+    <input
+      id="first_name"
+      onChange={[Function]}
+      placeholder="First Name"
+      type="text"
+    />
+    <span />
+  </div>
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      Last Name
+    </div>
+    <input
+      id="last_name"
+      onChange={[Function]}
+      placeholder="Last Name"
+      type="text"
+    />
+    <span />
+  </div>
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      Username
+    </div>
+    <input
+      id="username"
+      onChange={[Function]}
+      placeholder="Username"
+      type="text"
+    />
+    <span />
+  </div>
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      Email (optional)
+    </div>
+    <input
+      id="email"
+      onChange={[Function]}
+      placeholder="Email (optional)"
+      type="text"
+    />
+    <span />
+  </div>
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      Password
+    </div>
+    <input
+      id="password"
+      onChange={[Function]}
+      placeholder="Password"
+      type="password"
+    />
+    <span />
+  </div>
+  <button
+    className="sign-up-button button-green"
+    onClick={[Function]}
+  >
+    Sign Up
+  </button>
+  <div
+    className="text-align-center"
+  >
+    By signing up, you agree to our
+    <a
+      href="/tos"
+      target="_blank"
+    >
+       terms of service 
+    </a>
+     and 
+    <a
+      href="/privacy"
+      target="_blank"
+    >
+       privacy policy
+    </a>
+    .
   </div>
 </div>
 `;

@@ -13,6 +13,8 @@ module QuillAuthentication
     begin
       if session[:user_id]
         return @current_user ||= User.find(session[:user_id])
+      elsif doorkeeper_token
+        return User.find_by_id(doorkeeper_token.resource_owner_id) if doorkeeper_token
       else
         authenticate_with_http_basic do |username, password|
           return @current_user ||= User.find_by_token!(username) if username.present?
@@ -26,7 +28,11 @@ module QuillAuthentication
 
   def sign_in user
     remote_ip = (request.present? ? request.remote_ip : nil)
-    UserLoginWorker.perform_async(user.id, remote_ip)
+    if !session[:staff_id] || session[:staff_id] == user.id
+      # only kick off login worker if there is no staff id,
+      # or if the user getting logged into is staff
+      UserLoginWorker.perform_async(user.id, remote_ip)
+    end
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
     @current_user = user
@@ -78,5 +84,11 @@ module QuillAuthentication
 
   def signed_out_path
     root_path
+  end
+
+  def doorkeeper_token
+    return @token if instance_variable_defined?(:@token)
+    methods = Doorkeeper.configuration.access_token_methods
+    @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
   end
 end

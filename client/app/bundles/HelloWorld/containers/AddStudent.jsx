@@ -7,6 +7,7 @@ import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import StudentCreatesAccountSection from '../components/invite_users/add_students/StudentCreatesAccountSection.jsx';
 import TeacherCreatesAccountSection from '../components/invite_users/add_students/TeacherCreatesAccountSection.jsx';
 import GoogleClassroomCreatesAccountSection from '../components/invite_users/add_students/GoogleClassroomCreatesAccountSection.jsx';
+import EmptyProgressReport from '../components/shared/EmptyProgressReport.jsx';
 require('../../../../../app/assets/stylesheets/pages/invite-students.scss');
 
 export default React.createClass({
@@ -28,12 +29,14 @@ export default React.createClass({
       loading: true,
       errors: null,
       disabled: false,
-      showModal: false,
+      showModal: false
     });
   },
 
   componentDidMount() {
-    this.retrieveStudents(this.state.selectedClassroom.id);
+    if (this.props.classrooms && this.props.classrooms.length) {
+      this.retrieveStudents(this.state.selectedClassroom.id);
+    }
   },
 
   retrieveStudents(classroomId) {
@@ -121,6 +124,9 @@ export default React.createClass({
   },
 
   render() {
+    if (this.props.classrooms && this.props.classrooms.length === 0) {
+      return <EmptyProgressReport />;
+    }
     return (
       <div className="invite-students">
         <div className="container">
@@ -137,7 +143,7 @@ export default React.createClass({
             />
             </div>
           </div>
-          <TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors} /> {this.stateSpecificComponent()}
+          <TeacherCreatesAccountSection key="teacher-create-account" classID={this.state.selectedClassroom.id} firstName={this.state.firstName} lastName={this.state.lastName} nameChange={this.nameChange} disabled={this.state.disabled} submitStudent={this.submitStudent} errors={this.state.errors} loading={this.state.loading}/> {this.stateSpecificComponent()}
         </div>
       </div>
     );

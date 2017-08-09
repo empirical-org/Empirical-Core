@@ -12,6 +12,7 @@ class Activity < ActiveRecord::Base
   has_many :classrooms, through: :classroom_activities
   has_many :units, through: :classroom_activities
   before_create :flag_as_beta, unless: :flags?
+  after_commit :clear_activity_search_cache
 
   scope :production, -> {
     where(<<-SQL, :production)
@@ -123,6 +124,18 @@ class Activity < ActiveRecord::Base
     self.flags = [flag]
   end
 
+  def clear_activity_search_cache
+    # can't call class methods from callback
+    self.class.clear_activity_search_cache
+  end
+
+  def self.clear_activity_search_cache
+    $redis.del('default_activity_search')
+  end
+
+  def self.set_activity_search_cache
+    $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
+  end
 
   private
 
@@ -138,7 +151,6 @@ class Activity < ActiveRecord::Base
     url.query_values = params
     fix_angular_fragment!(url)
   end
-
 
   def homepage_path(path, classification)
     case classification.app_name.to_sym
@@ -158,4 +170,7 @@ class Activity < ActiveRecord::Base
 
     return url
   end
+
+
+
 end

@@ -1,29 +1,26 @@
-'use strict'
+import React from 'react';
+import _ from 'underscore';
+import $ from 'jquery';
 
- import React from 'react'
- import _ from 'underscore'
- import $ from 'jquery'
+import ActivitySearchAndFilters from './activity_search_filters/activity_search_filters';
+import ActivitySearchFilterConfig from './activity_search_filters/activity_search_filter_config';
+import ActivitySearchSort from './activity_search_sort/activity_search_sort';
+import ActivitySearchSortConfig from './activity_search_sort/activity_search_sort_config';
+import ActivitySearchSorts from './activity_search_sort/activity_search_sorts';
+import ActivitySearchResults from './activity_search_results/activity_search_results';
+import Pagination from './pagination/pagination';
+import SelectedActivities from './selected_activities/selected_activities';
+import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 
- import ActivitySearchAndFilters from './activity_search_filters/activity_search_filters'
- import ActivitySearchFilterConfig from './activity_search_filters/activity_search_filter_config'
- import ActivitySearchSort from './activity_search_sort/activity_search_sort'
- import ActivitySearchSortConfig from './activity_search_sort/activity_search_sort_config'
- import ActivitySearchSorts from './activity_search_sort/activity_search_sorts'
- import ActivitySearchResults from './activity_search_results/activity_search_results'
- import Pagination from './pagination/pagination'
- import SelectedActivities from './selected_activities/selected_activities'
- import LoadingIndicator from '../../../shared/loading_indicator.jsx'
-
-
- export default  React.createClass({
+export default React.createClass({
   propTypes: {
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,
     clickContinue: React.PropTypes.func,
-    errorMessage: React.PropTypes.string
+    errorMessage: React.PropTypes.string,
   },
 
-  defaultState: function() {
+  defaultState() {
     return {
       loading: true,
       activitySearchResults: [],
@@ -34,117 +31,115 @@
       resultsPerPage: 12,
       maxPageNumber: 4,
       allFilterOptions: {
-        'section': [],
-        'topic_category': [],
-        'activity_classification': [],
+        section: [],
+        topic_category: [],
+        activity_classification: [],
       },
       filters: ActivitySearchFilterConfig,
       sorts: ActivitySearchSortConfig,
-      activeFilterOn: false
-    }
+      activeFilterOn: false,
+      error: null,
+    };
   },
 
-  getInitialState: function() {
+  getInitialState() {
     return this.defaultState();
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.searchRequest();
   },
 
-  searchRequest: function () {
-    this.setState({loading: true});
+  searchRequest() {
+    this.setState({ loading: true, });
     $.ajax({
       url: '/activities/search',
       context: this,
       data: this.searchRequestData(),
       success: this.searchRequestSuccess,
-      dataType: 'json',
-      error: function () {
-        console.log('error searching activities');
-      }
+      error: this.errorState,
     });
   },
 
-  searchRequestData: function() {
-    var filters = this.state.filters.map(function(filter) {
-      return {
-        field: filter['field'],
-        selected: filter['selected']
-      }
-    });
+  searchRequestData() {
+    const filters = this.state.filters.map(filter => ({
+      field: filter.field,
+      selected: filter.selected,
+    }));
 
-    var currentSort;
-    _.each(this.state.sorts, function(sort) {
+    let currentSort;
+    _.each(this.state.sorts, (sort) => {
       if (sort.selected) {
         currentSort = {
-          field: sort['field'],
-          asc_or_desc: sort['asc_or_desc']
+          field: sort.field,
+          asc_or_desc: sort.asc_or_desc,
         };
       }
     });
 
-
     return {
-        search: {
-          search_query: this.state.searchQuery,
-          filters: filters,
-          sort: currentSort,
-        }
-      }
+      search: {
+        search_query: this.state.searchQuery,
+        filters,
+        sort: currentSort,
+      },
+    };
   },
-  clearFilters: function() {
-    let clearedFilters = this.state.filters.map((filter)=>{
+
+  errorState(data) {
+    this.setState({ error: data.errorText, });
+  },
+
+  clearFilters() {
+    const clearedFilters = this.state.filters.map((filter) => {
       filter.selected = null;
       return filter;
     });
-    let that = this;
+    const that = this;
     this.setState({
       filters: clearedFilters,
-      activeFilterOn: false
+      activeFilterOn: false,
     },
-    function(){that.searchRequest();});
-    this.updateSearchQuery('')
+    () => { that.searchRequest(); });
+    this.updateSearchQuery('');
   },
 
-  searchRequestSuccess: function (data) {
-    var hash = {
+  searchRequestSuccess(data) {
+    const hash = {
       activitySearchResults: data.activities,
       numberOfPages: data.number_of_pages,
       currentPage: 1,
-      loading: false
+      loading: false,
     };
     this.setInitialFilterOptions(data);
     this.setState(hash, this.updateFilterOptionsAfterRequest);
   },
 
-  setInitialFilterOptions: function(data) {
+  setInitialFilterOptions(data) {
     // If the filter options have set already, do not override them.
 
-    var allEmpty = _.all(this.state.allFilterOptions, function(options, field) {
-      return options.length === 0;
-    });
+    const allEmpty = _.all(this.state.allFilterOptions, (options, field) => options.length === 0);
     if (!allEmpty) {
       return;
     }
-    var newOptions = {};
+    const newOptions = {};
 
-    _.each(this.state.allFilterOptions, function(options, field) {
-      var key = this.pluralize(field);
+    _.each(this.state.allFilterOptions, function (options, field) {
+      const key = this.pluralize(field);
       newOptions[field] = data[key];
     }, this);
-    this.setState({allFilterOptions: newOptions});
+    this.setState({ allFilterOptions: newOptions, });
   },
 
-  updateFilterOptionsAfterRequest: function() {
+  updateFilterOptionsAfterRequest() {
     // Go through all the filters,
     // For each filter that is not currently selected,
     // only display the options that are available based on the set
     // of activity results that have been returned from the server.
     // Otherwise, selected filters will display all available options.
-    var availableOptions = this._findFilterOptionsBasedOnActivities();
+    const availableOptions = this._findFilterOptionsBasedOnActivities();
 
-    var newFilters = this.state.filters;
+    const newFilters = this.state.filters;
     newFilters.forEach(function (filter) {
       if (filter.selected) {
         filter.options = this.state.allFilterOptions[filter.field];
@@ -152,12 +147,12 @@
         filter.options = availableOptions[filter.field];
       }
     }, this);
-    this.setState({filters: newFilters});
+    this.setState({ filters: newFilters, });
   },
 
   // Return a hash of the filter options that are available based on the activities
   // that were returned in the search results.
-  _findFilterOptionsBasedOnActivities: function() {
+  _findFilterOptionsBasedOnActivities() {
     // This function works like so:
     // Gather all the IDs for properties of the activity that can be filtered.
     // Create a unique set of those IDs (optimization).
@@ -166,8 +161,10 @@
     // by any of the activities.
     // Return the remaining list.
 
-    var activityClassificationIds = [], topicCategoryIds = [], sectionIds = [];
-    _.each(this.state.activitySearchResults, function(activity) {
+    let activityClassificationIds = [],
+      topicCategoryIds = [],
+      sectionIds = [];
+    _.each(this.state.activitySearchResults, (activity) => {
       activityClassificationIds.push(activity.classification.id);
       topicCategoryIds.push(activity.topic.topic_category.id);
       if (activity.topic.section) {
@@ -178,83 +175,81 @@
     topicCategoryIds = _.uniq(topicCategoryIds);
     sectionIds = _.uniq(sectionIds);
 
-    var availableOptions = {};
-    availableOptions['topic_category'] = _.reject(this.state.allFilterOptions['topic_category'],
-      function(option) {
-        return !_.contains(topicCategoryIds, option.id);
-    });
-    availableOptions['section'] = _.reject(this.state.allFilterOptions['section'],
-      function(option) {
-        return !_.contains(sectionIds, option.id);
-    });
-    availableOptions['activity_classification'] = _.reject(this.state.allFilterOptions['activity_classification'],
-      function(option) {
-        return !_.contains(activityClassificationIds, option.id);
-    });
+    const availableOptions = {};
+    availableOptions.topic_category = _.reject(this.state.allFilterOptions.topic_category,
+      option => !_.contains(topicCategoryIds, option.id));
+    availableOptions.section = _.reject(this.state.allFilterOptions.section,
+      option => !_.contains(sectionIds, option.id));
+    availableOptions.activity_classification = _.reject(this.state.allFilterOptions.activity_classification,
+      option => !_.contains(activityClassificationIds, option.id));
 
     return availableOptions;
   },
 
   // Super bad pluralize function.
-  pluralize: function(str) {
+  pluralize(str) {
     if (str === 'topic_category') {
       return 'topic_categories';
-    } else {
-      return str + 's';
     }
+    return `${str}s`;
   },
 
-  determineCurrentPageSearchResults: function () {
-    var start, end, currentPageSearchResults;
-    start = (this.state.currentPage - 1)*this.state.resultsPerPage;
-    end = this.state.currentPage*this.state.resultsPerPage;
+  determineCurrentPageSearchResults() {
+    let start,
+      end,
+      currentPageSearchResults;
+    start = (this.state.currentPage - 1) * this.state.resultsPerPage;
+    end = this.state.currentPage * this.state.resultsPerPage;
     currentPageSearchResults = this.state.activitySearchResults.slice(start, end);
     return currentPageSearchResults;
   },
 
-  updateSearchQuery: function (newQuery) {
-    this.setState({searchQuery: newQuery}, this.searchRequest);
+  updateSearchQuery(newQuery) {
+    this.setState({ searchQuery: newQuery, }, this.searchRequest);
   },
 
-  selectFilterOption: function (field, optionId) {
-    var filters = _.map(this.state.filters, function (filter) {
+  selectFilterOption(field, optionId) {
+    const filters = _.map(this.state.filters, (filter) => {
       if (filter.field == field) {
         filter.selected = optionId;
       }
       return filter;
     }, this);
-    this.setState({filters: filters, activeFilterOn: true });
+    this.setState({ filters, activeFilterOn: true, });
     this.searchRequest();
   },
 
-  updateSort: function (field, asc_or_desc) {
-    var sorts = _.map(this.state.sorts, function (sort) {
+  updateSort(field, asc_or_desc) {
+    const sorts = _.map(this.state.sorts, (sort) => {
       if (sort.field == field) {
         sort.selected = true;
         sort.asc_or_desc = asc_or_desc;
       } else {
         sort.selected = false;
-        sort.asc_or_desc = 'asc'
+        sort.asc_or_desc = 'asc';
       }
       return sort;
     }, this);
-    this.setState({sorts: sorts});
+    this.setState({ sorts, });
     this.searchRequest();
   },
 
-  selectPageNumber: function (number) {
-    this.setState({currentPage: number});
+  selectPageNumber(number) {
+    this.setState({ currentPage: number, });
   },
 
-  render: function() {
-    var currentPageSearchResults = this.determineCurrentPageSearchResults();
-    let table, loading, pagination;
+  render() {
+    const currentPageSearchResults = this.determineCurrentPageSearchResults();
+    let table,
+      loading,
+      pagination;
     if (this.state.loading) {
-      setBottomBorder:
-      loading = <LoadingIndicator/>;
+      loading = <LoadingIndicator />;
+    } else if (this.state.error) {
+      table = <span>We're experiencing the following error: {this.state.error}</span>;
     } else {
-      pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages}  />;
-      table = <ActivitySearchResults selectedActivities = {this.props.selectedActivities} currentPageSearchResults ={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />;
+      pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} />;
+      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />;
     }
     return (
       <section>
@@ -269,7 +264,7 @@
           activeFilterOn={this.state.activeFilterOn}
         />
 
-        <table className='table activity-table search-and-select'>
+        <table className="table activity-table search-and-select">
           <thead>
             <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
           </thead>
@@ -279,11 +274,13 @@
 
         {pagination}
 
-        <SelectedActivities clickContinue={this.props.clickContinue}
-                               errorMessage={this.props.errorMessage || ''}
-                               selectedActivities = {this.props.selectedActivities}
-                               toggleActivitySelection={this.props.toggleActivitySelection} />
+        <SelectedActivities
+          clickContinue={this.props.clickContinue}
+          errorMessage={this.props.errorMessage || ''}
+          selectedActivities={this.props.selectedActivities}
+          toggleActivitySelection={this.props.toggleActivitySelection}
+        />
       </section>
     );
-  }
+  },
 });

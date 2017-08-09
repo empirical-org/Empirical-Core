@@ -1,7 +1,44 @@
 require 'rails_helper'
 
-describe UnitTemplate, type: :model do
+describe UnitTemplate, redis: :true, type: :model do
   let!(:unit_template) {FactoryGirl.create(:unit_template)}
+
+  describe '#around_save callback' do
+
+    before(:each) do
+      $redis.flushdb
+      $redis.multi{
+        $redis.set('beta_unit_templates', 'a')
+        $redis.set('production_unit_templates', 'a')
+        $redis.set('alpha_unit_templates', 'a')
+      }
+    end
+
+    def exist_count
+      flag_types = ['beta_unit_templates', 'production_unit_templates', 'alpha_unit_templates']
+      exist_count = 0
+      flag_types.each do |flag|
+        exist_count += $redis.exists(flag) ? 1 : 0
+      end
+      return exist_count
+    end
+
+    it "deletes the cache of the saved unit" do
+      $redis.set("unit_template_id:#{unit_template.id}_serialized", 'something')
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to be
+      unit_template.update(name: 'something else')
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).not_to be
+    end
+
+    it "deletes the cache of the saved unit's flag, or production before and after save" do
+      expect(exist_count).to eq(3)
+      unit_template.update(flag: 'beta')
+      expect(exist_count).to eq(2)
+      expect($redis.exists('alpha_unit_templates')).to be
+      unit_template.update(flag: 'alpha')
+      expect(exist_count).to eq(1)
+    end
+  end
 
 
   describe 'flag validations' do

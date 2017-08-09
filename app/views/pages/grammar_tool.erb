@@ -1,7 +1,9 @@
 <section class="tool-header">
   <%= render partial: 'pages/shared/home_navbar' %>
   <% @active_tab = 'Quill Grammar' %>
+  <% @tool = 'grammar' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 <div class="tool-container grammar-tool-page">
 
@@ -15,11 +17,11 @@
       <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Try Quill Grammar Now</a>
     </section>
 
-    <section class="tool-animation-section ">
+    <section class="tool-animation-section " id="overview">
           <video class='tool-animation' src="/videos/grammar.mp4" autoplay loop/>
     </section>
 
-  <section class="tool-carousel">
+  <section class="tool-carousel" id="walkthrough">
       <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
           <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
@@ -88,10 +90,6 @@
   <section class="tool-try-it bg-purple bg-image-grammar-pattern-puzzle">
     <h2 class='q-h1'>Try It Out for Yourself</h2>
     <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Preview Quill Grammar</a>
-  </section>
-
-  <section>
-    <div class="boy-playing-quill" />
   </section>
 
   <!-- <section class="tool-testimonial" id="testimonial"> -->

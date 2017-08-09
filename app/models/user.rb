@@ -238,9 +238,9 @@ class User < ActiveRecord::Base
     UserMailer.welcome_email(self).deliver_now! if email.present?
   end
 
+
   def subscribe_to_newsletter
-    ## FIXME this class should just get replaced with the mailchimp-api gem
-    MailchimpConnection.subscribe_to_newsletter(email) if newsletter?
+    self.send_newsletter ? SubscribeToNewsletterWorker.perform_async(self.id) : nil
   end
 
   def imported_from_clever?

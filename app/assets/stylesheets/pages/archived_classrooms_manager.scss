@@ -2,6 +2,30 @@
   max-width: 990px;
   padding: 20px;
   margin: 0 auto;
+  .archive-options-container {
+    margin-bottom: 31px;
+    p {
+      max-width: 400px;
+      margin-right: 10px;
+    }
+    a {
+      height: 40px;
+      border: solid 1px #979797;
+      font-size: 16px;
+      width: 180px;
+      &.q-button.cta-button {
+        padding: 9px 33px 8px
+      }
+    }
+  }
+  .notification-bar {
+    margin-bottom: 40px;
+  }
+  .action-container {
+    img {
+      max-height: 20px;
+    }
+  }
   .btn {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -9,14 +33,6 @@
   h1 {
     position: relative;
     font-size: 24px;
-    margin-bottom: 30px;
-  }
-  h1:before {
-    content: '';
-    display: block;
-    background: #cecece;
-    height: 1px;
-    width: 100%;
     margin-bottom: 30px;
   }
   .table {
@@ -35,6 +51,15 @@
       color: #027360;
       cursor: pointer;
       padding-right: 13px;
+      min-width: 117px;
+      span {
+        float: right;
+      }
+      .spinner-container {
+        margin: 0;
+        margin-right: 5px;
+        padding: 0;
+      }
     }
   }
   .teacher {

@@ -42,13 +42,13 @@ export default React.createClass({
         return (
             <div id='intro-page'>
                 <div>
-                    <h2>Would you like to preview the {diagnosticName} diagnostic?</h2>
+                    <h2>Would you like to preview the {diagnosticName} Diagnostic?</h2>
                       {/*<span>
                       <DropdownButton bsStyle='default' title={this.state.selectedGrade || 'st'} id='select-grade' onSelect={this.handleSelect}>
                         {this.grades()}
                       </DropdownButton>
                         </span>grade */}
-                      <span id='subtext'>You'll be previewing the diagnostic as a student and will be able to assign at any time.</span>
+                      <span id='subtext'>You'll be previewing the diagnostic as a student and will be able to assign it at any time.</span>
                 </div>
                 <a href={`/activity_sessions/anonymous?activity_id=${activityId}`} target='_blank'><button id='preview' className='button-green'>Preview the Diagnostic</button></a>
                 <br/>

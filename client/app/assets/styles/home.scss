@@ -143,11 +143,8 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
     }
     .ell-section {
       height: 66px;
-      width: 490px;
+      max-width: 490px;
       margin-top: 35px;
-      span {
-        display: block;
-      }
       .header {
         line-height: 28px;
         border-top-left-radius: 4px;
@@ -157,6 +154,10 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
         font-size: 12px;
         padding-left: 9px;
         border-bottom: solid 1px #ff4441;
+        width: 465px;
+        @media (max-width: 1150px) {
+          width: 276px;
+        }
       }
       .flags {
         border-bottom-left-radius: 4px;
@@ -166,6 +167,14 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
         font-size: 14px;
         line-height: 38px;
         text-align: center;
+        width: 474px;
+        @media (max-width: 1150px) {
+          width: 285px;
+          line-height: 24px;
+          span {
+            display: block;
+          }
+        }
         img {
           width: 16px;
           margin-left: 5px;

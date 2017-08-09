@@ -1,7 +1,9 @@
 <section class="tool-header">
   <%= render partial: 'pages/shared/home_navbar' %>
   <% @active_tab = 'Quill Connect' %>
+  <% @tool = 'connect' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 <div class="tool-container connect-tool-page">
 
@@ -12,10 +14,10 @@
       <p class='description'>
         Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect. Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve the clarity and precision of their sentences.
       </p>
-      <a href='http://connect.quill.org/#/play/lesson/-Kbvv3WS6vGNkeW7d6dt' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
+      <a href='http://connect.quill.org/#/play/lesson/-KnBeexyhssSWcrSEfpr' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
     </section>
 
-    <section class="tool-animation-section ">
+    <section class="tool-animation-section " id="overview">
           <video class='tool-animation' src="/videos/connect.mp4" autoplay loop/>
     </section>
 
@@ -26,15 +28,13 @@
                 <p class="prompt-header">
                   PROMPT
                 </p>
-                <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
-                <p class="prompt-text">He gave a speech.</p>
-                <p class="prompt-text">The speech was powerful.</p>
-                <p class="prompt-text">The speech was to inspire the colonists.</p>
+                <p class="prompt-text">The British taxed tea.</p>
+                <p class="prompt-text">The colonists decided to boycott the tea.</p>
               </div>
               <div class="blurb introduction">
                   <h2>How Quill Connect Gives Feedback</h2>
                   <p>
-                    In the prompt, students have to join together four ideas. There are many different ways of joining these ideas together, and Quill serves feedback on hundreds of potential answers. Here is a student’s progression from the first attempt to a strong sentence.
+                    In the prompt, students have to join two ideas. Quill Connect serves feedback on hundreds of potential answers. Here is a student’s progression from the first attempt to a strong sentence.
                   </p>
               </div>
           </div>
@@ -44,10 +44,8 @@
                 <img class="arrow arrow-1" src="/images/tools/connect/arrow_1.png">
                 <img class="negative-left-margin" src="/images/tools/connect/attempt_1.png" alt="connect image">
                 <div class="blurb blurb-attempt-1">
-                    <h2><span>1st Attempt:</span> Write Concisely</h2>
-                    <p>
-                        The student used <span>and</span> to join the sentences together. This is a very common pattern for emerging writers. Quill breaks this pattern by challenging students to revise their work.
-                    </p>
+                    <h2><span>1st Attempt:</span> Show Relationships</h2>
+                    <p>Using <span>and</span> is a very common pattern for emerging writers. Quill challenges the student to revise the sentence to express a causal relationship, which is an important step towards conveying complex ideas.</p>
                 </div>
             </div>
         </div>
@@ -55,9 +53,9 @@
             <div class="content-wrapper flex-row space-between vertically-centered">
               <img class="negative-left-margin" src="/images/tools/connect/attempt_2.png" alt="connect image">
                 <div class="blurb blurb-attempt-2">
-                    <h2><span>2nd Attempt:</span> Show Relationships</h2>
+                    <h2><span>2nd Attempt:</span> Use Pronouns</h2>
                     <p>
-                      While using <span>and</span> is grammatically correct, it is not the strongest way of conveying the relationship between the ideas. Students must express the causal relationship here, an important step towards conveying complex ideas.
+                      The student showed the correct relationship but unnecessarily repeated a noun. Quill guides the student towards using a pronoun to make the sentence more fluid.
                     </p>
                 </div>
                 <img class="arrow arrow-2" src="/images/tools/connect/arrow_2.png">
@@ -70,8 +68,8 @@
                 <div class="blurb blurb-attempt-3">
                     <h2><span>3rd Attempt:</span> Use Punctuation</h2>
                     <p>
-                      The student showed the correct relationship but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
-                    </p>
+                      The student used a pronoun effectively but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
+                     </p>
                 </div>
             </div>
         </div>
@@ -90,17 +88,15 @@
             </div>
         </div>
     </section>
-    <section class="walk-thru-wrapper mobile">
+    <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
         <div class="walk-thru-step">
             <div class="content-wrapper">
               <div class="prompt">
                 <p class="prompt-header">
                   PROMPT
                 </p>
-                <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
-                <p class="prompt-text">He gave a speech.</p>
-                <p class="prompt-text">The speech was powerful.</p>
-                <p class="prompt-text">The speech was to inspire the colonists.</p>
+                <p class="prompt-text">The British taxed tea.</p>
+                <p class="prompt-text">The colonists decided to boycott the tea.</p>
               </div>
               <div class="blurb">
                   <h2>How Quill Connect Gives Feedback</h2>
@@ -114,10 +110,8 @@
             <div class="content-wrapper">
               <img src="/images/tools/connect/attempt_1.png" alt="connect image">
               <div class="blurb">
-                  <h2><span>1st Attempt:</span> Write Concisely</h2>
-                  <p>
-                      The student used <span>and</span> to join the sentences together. This is a very common pattern for emerging writers. Quill breaks this pattern by challenging students to revise their work.
-                  </p>
+                <h2><span>1st Attempt:</span> Show Relationships</h2>
+                <p>Using <span>and</span> is a very common pattern for emerging writers. Quill challenges the student to revise the sentence to express a causal relationship, which is an important step towards conveying complex ideas.</p>
               </div>
             </div>
         </div>
@@ -125,10 +119,10 @@
             <div class="content-wrapper">
               <img src="/images/tools/connect/attempt_2.png" alt="connect image">
                 <div class="blurb">
-                    <h2><span>2nd Attempt:</span> Show Relationships</h2>
-                    <p>
-                      While using <span>and</span> is grammatically correct, it is not the strongest way of conveying the relationship between the ideas. Students must express the causal relationship here, an important step towards conveying complex ideas.
-                    </p>
+                  <h2><span>2nd Attempt:</span> Use Pronouns</h2>
+                  <p>
+                    The student showed the correct relationship but unnecessarily repeated a noun. Quill guides the student towards using a pronoun to make the sentence more fluid.
+                  </p>
                 </div>
             </div>
         </div>
@@ -136,10 +130,10 @@
           <div class="content-wrapper">
             <img class="img-attempt-3" src="/images/tools/connect/attempt_3.png" alt="connect image">
               <div class="blurb">
-                  <h2><span>3rd Attempt:</span> Use Punctuation</h2>
-                  <p>
-                    The student showed the correct relationship but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
-                  </p>
+                <h2><span>3rd Attempt:</span> Use Punctuation</h2>
+                <p>
+                  The student used a pronoun effectively but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
+                 </p>
               </div>
           </div>
         </div>
@@ -160,7 +154,7 @@
     </section>
 
 
-  <section class="tool-carousel">
+  <section class="tool-carousel" id="walkthrough">
       <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
           <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
@@ -211,24 +205,25 @@
 
   <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern-bullseye">
     <h2 class='q-h1'>Try It Out for Yourself</h2>
-    <a href='https://quillconnect.firebaseapp.com/#/play/lesson/-KVM6RkkDWkWEcUM0As9' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
+    <a href='http://connect.quill.org/#/play/lesson/-KnBeexyhssSWcrSEfpr' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
   </section>
 
   <section>
-    <div class="boy-playing-quill" />
+    <div class="boy-playing-quill">
+      <img src="/images/tools/connect/laura_marshall_student.png" alt="boy playing quill">
+    </div>
   </section>
 
   <section class="tool-testimonial" id="testimonial">
-    <!-- <img class='q-headshot' src="/images/randall_90.jpg" alt="Randal Carswell"> -->
-    <p class='quote'>
-      "I appreciate the fact that students are required to slow down and check spelling, punctuation, and the grammar lesson at hand in order to score 'GREEN!'"
+    <p class='quote' id="connect-testimonial-quote">
+      "Quill has been a wonderful tool for my third graders, many of whom are second language learners. We especially love the immediate feedback provided after each practice; it has definitely made us pay closer attention to detail. Quill has greatly contributed to our growth mindsets this year!"
     </p>
     <h4 class="q-h4 author">
-      <span>Randall L. Carswell,</span> South Charlotte Middle School
+      <span>Laura Marshall,</span> Caswell Elementary School
     </h4>
-    <a href="/activities/packs/21" class='q-button text-black'>
+    <!-- <a href="/activities/packs/21" class='q-button text-black'>
       <span>View My Story</span>
-    </a>
+    </a> -->
   </section>
 
   <!-- Only show if user is not logged in  -->

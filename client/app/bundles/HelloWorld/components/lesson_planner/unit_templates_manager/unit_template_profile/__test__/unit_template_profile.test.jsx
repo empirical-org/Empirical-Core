@@ -79,7 +79,9 @@ describe('UnitTemplateProfile component', () => {
       <UnitTemplateProfile {...props} />
     );
 
-    wrapper.instance().getProfileInfo()
+    const passedId = props.params.activityPackId
+
+    wrapper.instance().getProfileInfo(passedId)
 
     it('should make an ajax call', () => {
       expect($.ajax.mock.calls.length).toBe(1)
@@ -101,8 +103,8 @@ describe('UnitTemplateProfile component', () => {
       expect($.ajax.mock.calls[0][0]['datatype']).toBe('json');
     })
 
-    it('should make an ajax call with a data object with the id of the activity pack', () => {
-      expect($.ajax.mock.calls[0][0]['data']['id']).toBe(props.params.activityPackId);
+    it('should make an ajax call with a data object with the id it is passed', () => {
+      expect($.ajax.mock.calls[0][0]['data']['id']).toBe(passedId);
     })
 
     it('should make an ajax call with a statusCode that fires a function on 200 ', () => {
@@ -128,28 +130,28 @@ describe('UnitTemplateProfile component', () => {
   })
 
   describe('componentWillReceiveProps', () => {
-    Object.defineProperty(location, 'reload', {
-      value: jest.fn()
-    })
 
-    it('will not reload the page if the new activityPackId is the old activityPackId', () => {
+    it('will not change state to loading if the new activityPackId is the same as the old activityPackId', () => {
       const wrapper = shallow(
         <UnitTemplateProfile {...props} />
       );
-      const nextProps = {params: {activityPackId: props.params.activityPackId}}
+      wrapper.setState({ loading: false, data: {non_authenticated: false}});
+      const nextProps = {location: {...props.location}, params: {activityPackId: props.params.activityPackId}}
       wrapper.instance().componentWillReceiveProps(nextProps)
 
-      expect(location.reload.mock.calls.length).toBe(0)
+      expect(wrapper.state('loading')).toBe(false)
     })
-    it('will reload the page if the new activityPackId is not the old activityPackId', () => {
+
+    it('will change state to loading if the new activityPackId is not the same as the old activityPackIdill reload the page if the new activityPackId is not the old activityPackId', () => {
       const wrapper = shallow(
         <UnitTemplateProfile {...props} />
       );
 
-      const nextProps = {params: {activityPackId: props.params.activityPackId + 1}}
+      wrapper.setState({ loading: false, data: {non_authenticated: false}});
+      const nextProps = {location: {1: 'a'}, params: {activityPackId: 1}}
       wrapper.instance().componentWillReceiveProps(nextProps)
 
-      expect(location.reload.mock.calls.length).toBe(1)
+      expect(wrapper.state('loading')).toBe(true)
     })
 
   })
