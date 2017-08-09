@@ -33,6 +33,10 @@ export default React.createClass({
     }
   },
 
+  classroomSpecificReportLink: function() {
+    return "/teachers/classrooms/scorebook?classroom_id=" + this.props.classObj.classroom.id
+  },
+
   classroomSpecificButton: function() {
     if (!this.studentCount()) {
       return (
@@ -48,7 +52,7 @@ export default React.createClass({
       );
     } else {
       return (
-         <a href={"/teachers/classrooms/scorebook?classroom_id=" + this.props.classObj.classroom.id}>
+         <a href={this.classroomSpecificReportLink()}>
           <button className='button-white class-mini-btn'>View Results</button>
         </a>
       );
@@ -60,7 +64,7 @@ export default React.createClass({
       <div>
         {this.manageClassGear()}
         <img className='class_icon' src='/class_icon.png'></img>
-        <a href="/teachers/classrooms/scorebook"><h3 className='classroom_name'>
+        <a href={this.classroomSpecificReportLink()}><h3 className='classroom_name'>
           {this.props.classObj.classroom.name}</h3></a>
         <div className='classMetaData text-center'>
           <p>

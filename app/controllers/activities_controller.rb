@@ -16,9 +16,12 @@ class ActivitiesController < ApplicationController
   end
 
   def search
-    asw = ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort], current_user.flag, current_user.id)
-    asw.search
-    render json: asw.result
+    if any_search_params
+      search_result = custom_search
+    else
+      search_result = $redis.get('default_activity_search') || custom_search
+    end
+    render json: search_result
   end
 
   def count
@@ -31,6 +34,32 @@ class ActivitiesController < ApplicationController
   end
 
 protected
+
+  def any_search_params
+    case
+    when search_params["search_query"] != ''
+      return true
+    when search_params["filters"]["0"]["selected"] != ''
+      return true
+    when search_params["filters"]["1"]["selected"] != ''
+      return true
+    when search_params["filters"]["2"]["selected"] != ''
+      return true
+    when search_params["sort"].present?
+      return true
+    when current_user.flag.present?
+      return true
+    else
+      return false
+    end
+  end
+
+  def custom_search
+    unless any_search_params
+      Activity.set_activity_search_cache
+    end
+    ActivitySearchWrapper.new(search_params[:search_query], search_params[:filters], search_params[:sort], current_user.flag, current_user.id).search
+  end
 
   def activity
     @activity ||= Activity.find(params[:id])

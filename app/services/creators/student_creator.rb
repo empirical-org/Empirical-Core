@@ -19,7 +19,11 @@ module Creators::StudentCreator
   end
 
   def self.buildClassroomRelation(classroom_id)
-    sc  = StudentsClassrooms.unscoped.find_or_create_by(student_id: @student.id, classroom_id: classroom_id)
+    sc  = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: @student.id, classroom_id: classroom_id)
+    if sc.new_record?
+      sc.save!
+      StudentJoinedClassroomWorker.perform_async(Classroom.find(classroom_id).teacher.id, @student.id)
+    end
     sc.update(visible: true)
     sc
   end

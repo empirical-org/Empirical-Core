@@ -78,7 +78,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def dashboard
-    if current_user.classrooms_i_teach.empty?
+    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none?
       redirect_to new_teachers_classroom_path
     end
     @firewall_test = true
@@ -103,12 +103,12 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def classroom_mini
     current_user.classrooms_i_teach.includes(:students).each do |classroom|
-      obj = {
-        classroom: classroom,
-        students: classroom.students.count,
-        activities_completed: classroom.activity_sessions.where(state: "finished").count
-      }
-      ( @classrooms ||= [] ).push obj
+        classroom = {
+          classroom: classroom,
+          students: classroom.cached_student_count || classroom.students.count,
+          activities_completed: classroom.cached_completed_activity_count
+        }
+      ( @classrooms ||= [] ).push classroom
     end
     render json: {
       classes: @classrooms
@@ -136,7 +136,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scores
     classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [:unit])
-    units = classrooms.map(&:classroom_activities).flatten.map(&:unit).uniq.compact.sort_by { |unit| unit.created_at }
+    units = Unit.where(user: current_user).sort_by { |unit| unit.created_at }
     selected_classroom =  Classroom.find_by id: params[:classroom_id]
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, selected_classroom.try(:id), params[:unit_id], params[:begin_date], params[:end_date]
     render json: {
@@ -210,7 +210,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       if params[:classroom_id].present? and params[:classroom_id].length > 0
         @classroom = Classroom.find(params[:classroom_id])
       end
-      @classroom ||= current_user.classrooms_i_teach.first
+      @classroom ||= Classroom.unscoped.find_by(teacher_id: current_user.id)
       auth_failed unless @classroom.teacher == current_user
     end
   end

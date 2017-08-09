@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 describe Cms::UnitTemplatesController, type: :controller do
-  let!(:unit_template1) { FactoryGirl.create(:unit_template) }
-  let!(:unit_template2) { FactoryGirl.create(:unit_template) }
+  let!(:author) {FactoryGirl.create(:author)}
+  let!(:unit_template1) { FactoryGirl.create(:unit_template, author_id: author.id) }
+  let!(:unit_template2) { FactoryGirl.create(:unit_template, author_id: author.id) }
   let!(:staff) { FactoryGirl.create(:user, role: 'staff')}
 
   let(:parsed_body) { JSON.parse(response.body) }

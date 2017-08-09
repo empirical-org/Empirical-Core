@@ -16,6 +16,7 @@ gem 'ransack'
 gem 'ranked-model'
 gem 'postgres_ext'
 gem 'rails_admin', '0.8.1'
+gem 'bulk_insert'
 
 # USER AUTH, ETC
 gem 'bcrypt'
@@ -52,9 +53,9 @@ gem 'time_difference'
 # OTHERS
 gem 'global'
 gem 'google-api-client', '0.8.6'
-gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
 gem 'newrelic_rpm'
+gem 'skylight'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 gem 'stripe'
 gem 'prawn'
@@ -75,7 +76,10 @@ gem 'addressable'
 # QUEUE/CACHE
 gem 'sidekiq'
 gem 'sidekiq-retries'
+gem 'redis'
+gem 'redis-namespace'
 gem 'redis-rails'
+gem 'redis-rack-cache'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
 # JS/APP/UI
@@ -166,6 +170,7 @@ group :test, :development do
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
   gem 'rspec-retry'
+  gem 'rspec-redis_helper'
 end
 
 group :test do
@@ -178,3 +183,4 @@ end
 
 # Memory profiling
 gem 'puma_worker_killer'
+gem 'sqreen'

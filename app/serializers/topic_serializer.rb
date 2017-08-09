@@ -3,5 +3,4 @@ class TopicSerializer < ActiveModel::Serializer
 
   has_one :section
   has_one :topic_category
-
 end
