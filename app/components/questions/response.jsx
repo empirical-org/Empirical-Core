@@ -17,6 +17,7 @@ import {
   removeLinkToParentID,
   addNewConceptResult,
   deleteConceptResult,
+  getGradedResponsesWithCallback,
 } from '../../actions/responses';
 
 const jsDiff = require('diff');
@@ -41,6 +42,7 @@ export default React.createClass({
       selectedBoilerplateCategory: this.props.response.selectedBoilerplateCategory || '',
       selectedConcept: this.props.response.concept || '',
       actions,
+      parent: null,
       newConceptResult: {
         conceptUID: '',
         correct: true,
@@ -145,7 +147,7 @@ export default React.createClass({
   },
 
   removeLinkToParentID(rid) {
-    this.props.dispatch(submitResponseEdit(rid, { optimal: false, author: null, }, this.props.questionID));
+    this.props.dispatch(submitResponseEdit(rid, { optimal: false, author: null, parent_id: null }, this.props.questionID));
   },
 
   applyDiff(answer = '', response = '') {
@@ -254,6 +256,15 @@ export default React.createClass({
     }
   },
 
+  getParentResponse(parent_id) {
+    const callback = (responses) => {
+      this.setState({
+        parent: _.filter(responses, (resp) => resp.id === parent_id)[0]
+      })
+    }
+    return getGradedResponsesWithCallback(this.props.questionID, callback);
+  },
+
   renderBoilerplateCategoryDropdown() {
     const style = { marginRight: '20px', };
     return (
@@ -333,34 +344,33 @@ export default React.createClass({
     if (!this.props.expanded) {
       return;
     }
-    if (!response.parentID) {
+    if (!response.parentID && !response.parent_id) {
       childDetails = (
         <a className="button is-outlined has-top-margin" onClick={this.viewChildResponses.bind(null, response.key)} key="view" >View Children</a>
       );
     }
-
-    if (response.parentID) {
-      const parent = this.props.getResponse(response.parentID);
-      const diffText = this.applyDiff(parent.text, response.text);
-      if (isEditing) {
+    if (response.parentID || response.parent_id) {
+      const parent = this.state.parent;
+      if (!parent) {
+        this.getParentResponse(response.parentID || response.parent_id)
         parentDetails = [
+          (<p>Loading...</p>),
+          (<br />)
+        ]
+      } else {
+        const diffText = this.applyDiff(parent.text, response.text);
+        parentDetails = [
+          (<span><strong>Parent Text:</strong> {parent.text}</span>),
+          (<br />),
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
           (<br />),
           (<button className="button is-danger" onClick={this.removeLinkToParentID.bind(null, response.key)}>Remove Link to Parent </button>),
           (<br />),
           (<span><strong>Differences:</strong> {diffText}</span>),
-          (<br />)];
-      } else {
-        parentDetails = [
-          (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
           (<br />),
-          (<span><strong>Parent Text:</strong> {parent.text}</span>),
-          (<br />),
-          (<span><strong>Differences:</strong> {diffText}</span>),
-          (<br />)];
-        authorDetails = [(<span><strong>Author:</strong> {response.author}</span>),
-          (<br />)];
-      }
+          (<br />)
+          ];
+      }  
     }
 
     if (this.props.showPathways) {
