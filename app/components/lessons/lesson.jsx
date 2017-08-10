@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'underscore';
-import { deleteLesson, startLessonEdit } from '../../actions/lessons.js';
 import lessonActions from '../../actions/lessons';
 import Modal from '../modal/modal.jsx';
 import C from '../../constants.js';
@@ -37,17 +36,16 @@ const Lesson = React.createClass({
       return (
         <ul>{listItems}</ul>
       );
-    } else {
-      return (
-        <ul>No questions</ul>
-      );
     }
+    return (
+      <ul>No questions</ul>
+    );
   },
 
   deleteLesson() {
     const { lessonID, } = this.props.params;
     if (confirm('do you want to do this?')) {
-      this.props.dispatch(deleteLesson(lessonID));
+      this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
   },
 
@@ -61,7 +59,7 @@ const Lesson = React.createClass({
 
   editLesson() {
     const { lessonID, } = this.props.params;
-    this.props.dispatch(startLessonEdit(lessonID));
+    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
     // // console.log("Edit button clicked");
   },
 
@@ -100,11 +98,10 @@ const Lesson = React.createClass({
       );
     } else if (this.props.lessons.hasreceiveddata === false) {
       return (<p>Loading...</p>);
-    } else {
-      return (
-        <p>404: No Concept Found</p>
-      );
     }
+    return (
+      <p>404: No Concept Found</p>
+    );
   },
 
 });
