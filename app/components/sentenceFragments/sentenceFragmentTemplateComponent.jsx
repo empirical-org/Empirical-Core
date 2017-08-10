@@ -136,25 +136,27 @@ const PlaySentenceFragment = React.createClass({
   },
 
   renderConceptExplanation() {
-    const latestAttempt = getLatestAttempt(this.props.question.attempts);
-    if (latestAttempt) {
-      if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-        if (conceptID) {
-          const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+    if (!this.showNextQuestionButton()) {
+      const latestAttempt = getLatestAttempt(this.props.question.attempts);
+      if (latestAttempt) {
+        if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+        } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+          const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+          if (dataF) {
+            return <ConceptExplanation {...dataF} />;
+          }
+        } else if (this.getQuestion().conceptID) {
+          const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
           if (data) {
             return <ConceptExplanation {...data} />;
           }
-        }
-      } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-        const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
-        if (dataF) {
-          return <ConceptExplanation {...dataF} />;
-        }
-      } else if (this.getQuestion().conceptID) {
-        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
-        if (data) {
-          return <ConceptExplanation {...data} />;
         }
       }
     }
