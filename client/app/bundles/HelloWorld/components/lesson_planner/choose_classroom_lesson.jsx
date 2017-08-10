@@ -1,10 +1,9 @@
-import React from 'react'
-import request from 'request'
+import React from 'react';
+import request from 'request';
 
 export default class ChooseClassroomLesson extends React.Component {
   constructor(props) {
-    super(props)
-
+    super(props);
     this.state = {
       loading: true,
       activityName: '',
@@ -12,13 +11,14 @@ export default class ChooseClassroomLesson extends React.Component {
     }
 
     this.getClassroomLessonInfo()
+    this.getHasViewedLessonTutorialInfo()
 
     this.launchLesson = this.launchLesson.bind(this)
     this.goBack = this.goBack.bind(this)
   }
 
   getClassroomLessonInfo() {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activities/${this.props.params.activityId}`, (error, httpStatus, body) => {
       const data = JSON.parse(body)
       this.setState({
         classroomActivities: data.classroom_activities,
@@ -27,6 +27,14 @@ export default class ChooseClassroomLesson extends React.Component {
       })
     })
   }
+
+  getHasViewedLessonTutorialInfo() {
+    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
+      const completed = JSON.parse(body).completed
+      this.setState({hasViewedLessonTutorial: completed})
+    })
+  }
+
 
   renderClasses() {
     const classrooms = this.state.classroomActivities.map((ca, i) =>
@@ -51,7 +59,7 @@ export default class ChooseClassroomLesson extends React.Component {
     }
     return <div key={i} onClick={clickFunction} className={`classroom-row ${selectedClassName} ${completionClass}`}>
       <div>
-        <img src={`http://assets.quill.org/images/shared/${imgName}.svg`}/>
+        <img src={`${process.env.CDN_URL}/images/shared/${imgName}.svg`}/>
         <span>{ca.classroom_name}</span> ({numberOfStudents})
       </div>
       {completionText}
@@ -68,10 +76,15 @@ export default class ChooseClassroomLesson extends React.Component {
     request.put({
       url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/unlock_lesson`,
       json: {authenticity_token: $('meta[name=csrf-token]').attr('content')}
-    }, (error, httpStatus, body) => {
+     }, (error, httpStatus, body) => {
       if (body.unlocked) {
-        window.location = `http://connect.quill.org/#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`
-      }
+				const lessonUrl = `http://connect.quill.org/#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`
+				if (this.state.hasViewedLessonTutorial) {
+					window.location = lessonUrl
+				} else {
+					window.location = `${process.env.DEFAULT_URL}/tutorials/lessons?url=${encodeURIComponent(lessonUrl)}`
+				}
+			}
     })
   }
 
@@ -86,7 +99,7 @@ export default class ChooseClassroomLesson extends React.Component {
       <div className='lesson-section'>
         <p>You've selected this lesson to launch:</p>
         <div className="lesson-row">
-          <img src="http://assets.quill.org/images/shared/icon-lesson-box.svg"/>
+          <img src={`${process.env.CDN_URL}/images/shared/icon-lesson-box.svg`}/>
           <p>{this.state.activityName}</p>
           <span onClick={this.goBack}>Undo Selection</span>
         </div>
