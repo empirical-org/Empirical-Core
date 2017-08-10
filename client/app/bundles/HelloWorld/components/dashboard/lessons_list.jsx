@@ -19,6 +19,12 @@ export default class extends React.Component {
     this.getListOfAssignedLessons();
   }
 
+  hasViewedLessonTutorial() {
+    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
+      this.setState({hasViewedLessonTutorial: body.completed})
+    })
+  }
+
   getListOfAssignedLessons() {
     const that = this;
     request.get({
@@ -66,7 +72,12 @@ export default class extends React.Component {
       // for when we might be able to pass these
       // and launch the lesson straight from the dashboard
       // return <PreviewOrLaunchModal lessonUID={lessonUID} lessonID={lessonID} unitID={unitID} classroomActivityID={classroomActivityID} closeModal={this.closeModal} />;
-      return <PreviewOrLaunchModal lessonID={lessonID} unitID={unitID}closeModal={this.closeModal} />;
+      return <PreviewOrLaunchModal
+        lessonID={lessonID}
+        unitID={unitID}
+        closeModal={this.closeModal}
+        hasViewedLessonTutorial={this.state.hasViewedLessonTutorial}
+      />;
     }
   }
 
@@ -79,7 +90,7 @@ export default class extends React.Component {
               <h3 >
                 List of Recently Assigned Quill Lessons
               </h3>
-              <a href="/teachers/classrooms/activity_planner">View All Assigned Lessons </a>
+              <a href="/teachers/classrooms/activity_planner/lessons">View All Assigned Lessons </a>
             </div>
             {this.renderAssignedLessons()}
           </div>

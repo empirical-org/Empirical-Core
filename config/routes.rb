@@ -68,6 +68,11 @@ EmpiricalGrammar::Application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :milestones, only: [] do
+    get :has_viewed_lesson_tutorial, on: :collection
+    post :complete_view_lesson_tutorial, on: :collection
+  end
+
   resources :grades, only: [:index]
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
