@@ -106,6 +106,12 @@ export default class POSMatcher {
       return returnValue;
     }
 
+    const punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(userSubmission);
+    if (punctuationAndCaseMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, punctuationAndCaseMatch);
+      return returnValue;
+    }
+
     const spacingBeforePunctuationMatch = this.checkSpacingBeforePunctuationMatch(userSubmission);
     if (spacingBeforePunctuationMatch !== undefined) {
       returnValue.response = Object.assign({}, res, spacingBeforePunctuationMatch);
@@ -253,6 +259,30 @@ export default class POSMatcher {
             author: 'Punctuation Hint',
             feedback: 'Proofread your sentence for correct punctuation.',
             conceptResults: [
+              conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+            ],
+          };
+        }
+      }
+    }
+  }
+
+  checkPunctuationAndCaseInsensitiveMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
+    const optimals = this.getOptimalResponses();
+    for (let i = 0; i < optimals.length; i++) {
+      const optimal = optimals[i];
+      if (removePunctuation(userSubmission).toLowerCase() === removePunctuation(optimal.text).toLowerCase()) {
+        if (userSubmission !== optimal) {
+          return {
+            optimal: false,
+            parentID: optimal.key,
+            author: 'Punctuation and Case Hint',
+            feedback: 'Proofread your sentence for correct capitalization and punctuation.',
+            conceptResults: [
+              conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ'),
               conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
             ],
           };
