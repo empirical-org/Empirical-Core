@@ -6,6 +6,7 @@ import NextActivity from '../components/student_profile/next_activity.jsx'
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx'
 import StudentProfileHeader from '../components/student_profile/student_profile_header'
 import Setter from '../components/modules/setter.jsx'
+import Pusher from 'pusher-js'
 
 export default React.createClass({
   getInitialState: function () {
@@ -43,8 +44,22 @@ export default React.createClass({
     // var mergeArrays, merged;
     // mergeArrays = true;
     // merged = this.modules.setter.setOrExtend(this.state, null, data, mergeArrays)
-    this.setState(_.extend(data, {ajaxReturned: true, loading: false, firstBatchLoaded: true}))
+    this.setState(_.extend(data, {ajaxReturned: true, loading: false, firstBatchLoaded: true}), () => this.initializePusher())
   },
+
+  initializePusher: function(){
+    const classroomId = this.state.student.classroom.id
+    if (process.env.NODE_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+    const channel = pusher.subscribe(classroomId.toString());
+    const that = this;
+    channel.bind('lesson-launched', function(data) {
+      that.fetchData(classroomId)
+    });
+  },
+
 
   render: function () {
     if (this.state.firstBatchLoaded) {
