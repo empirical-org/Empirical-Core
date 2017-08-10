@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="316px" height="149px" viewBox="0 0 316 149" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="319px" height="149px" viewBox="0 0 319 149" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
     <title>Group 12</title>
     <desc>Created with Sketch.</desc>
@@ -11,7 +11,8 @@
                     <tspan x="78" y="60">Click on the checkboxes to </tspan>
                     <tspan x="78" y="88">select the answers you would </tspan>
                     <tspan x="78" y="116">like to display, and then click </tspan>
-                    <tspan x="78" y="144">Display to show the students. </tspan>
+                    <tspan x="78" y="144" font-family="AdelleSans-BoldItalic, Adelle Sans" font-weight="bold">Display</tspan>
+                    <tspan x="140.748" y="144"> to show the students. </tspan>
                 </text>
                 <g id="Group-5" stroke="#F5BA5B" stroke-width="2">
                     <path d="M1,10.0108452 C1,10.0108452 27.5288124,9.56702119 47.3275176,14.3577851 C67.1262228,19.148549 82.1908893,30.5074053 82.1908893,30.5074053" id="Line" stroke-linecap="square"></path>
