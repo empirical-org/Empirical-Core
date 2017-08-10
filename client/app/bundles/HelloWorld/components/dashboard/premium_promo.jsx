@@ -19,10 +19,10 @@
     return (
       <div className="mini_content premium-promo">
         <div className="gray-underline" style={{position: 'relative'}}>
-          <h3>Premium Bonus: <strong>{this.freeMonths()} Months Free</strong></h3>
+          <h3>Get Quill Premium Now</h3>
         </div>
         <p>
-          Upgrade now for next school year and get the rest of this year for free.
+          Upgrade now and cover all of the students in your classes or school.
         </p>
         <div className='flex-row space-around'>
           <div className='pricing'>
