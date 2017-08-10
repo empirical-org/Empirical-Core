@@ -3,6 +3,7 @@ import ResponsesRoute from 'routers/Admin/routes/Shared/responses';
 import MassEditRoute from 'routers/Admin/routes/Shared/massEdit';
 import TestSentenceFragmentContainer from 'components/sentenceFragments/testSentenceFragmentContainer.jsx';
 import ChooseModelContainer from 'components/sentenceFragments/chooseModelContainer.jsx';
+import SentenceFragmentIncorrectSequenceRoute from 'routers/Admin/routes/Shared/sentenceFragmentIncorrectSequences';
 
 const testSentenceFragment = {
   path: 'test',
@@ -24,6 +25,7 @@ export default {
     ResponsesRoute,
     MassEditRoute,
     testSentenceFragment,
-    chooseModel
+    chooseModel,
+    SentenceFragmentIncorrectSequenceRoute
   ],
 };
