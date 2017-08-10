@@ -9,6 +9,7 @@ const firebaseApiKey = process.env.FIREBASE_API_KEY
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL
 const pusherKey = process.env.PUSHER_KEY
 const defaultUrl = process.env.DEFAULT_URL
+const cdnUrl = process.env.CDN_URL
 
 const nodeEnv = devBuild ? 'development' : 'production';
 
@@ -68,7 +69,8 @@ module.exports = {
         FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
         FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
         PUSHER_KEY: JSON.stringify(pusherKey),
-        DEFAULT_URL: JSON.stringify(defaultUrl)
+        DEFAULT_URL: JSON.stringify(defaultUrl),
+        CDN_URL: JSON.stringify(cdnUrl)
       },
       TRACE_TURBOLINKS: devBuild,
     }),

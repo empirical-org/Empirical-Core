@@ -104,6 +104,9 @@ class PagesController < ApplicationController
   def premium
   end
 
+  def tutorials
+  end
+
   private
 
   def determine_layout
