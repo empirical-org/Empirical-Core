@@ -170,14 +170,13 @@ module PublicProgressReports
       (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
     end
 
-    def get_recommendations_for_classroom classroom_id, activity_id
+    def get_recommendations_for_classroom unit_id, classroom_id, activity_id
+      classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
       classroom = Classroom.find(classroom_id)
       diagnostic = Activity.find(activity_id)
       students = classroom.students
-      activity_sessions = students.map do |student|
-        student.activity_sessions.includes(concept_results: :concept).find_by(activity_id: diagnostic.id, is_final_score: true)
-      end
-      activity_sessions.compact!
+      activity_sessions = ActivitySession.includes(concept_results: :concept)
+                      .where(classroom_activity_id: classroom_activity.id, is_final_score: true)
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
                                          .sort_by {|stud| stud[:name].split()[1]}

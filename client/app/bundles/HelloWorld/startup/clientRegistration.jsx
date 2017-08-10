@@ -21,6 +21,7 @@ import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx'
 import GoogleSyncApp from './GoogleSyncAppClient.jsx'
 import GoogleMismatchApp from './GoogleMismatchAppClient.jsx'
 import AssignActivitiesApp from './AssignActivitiesAppClient'
+import TutorialsApp from './TutorialsAppClient'
 
 require('../../../assets/styles/home.scss')
 
@@ -32,4 +33,4 @@ ReactOnRails.register({  TeacherGuideApp, DashboardApp,
   ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
   AdminsEditorApp, PublicActivityPacksApp, AddStudentApp,
   DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp,
-  GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp});
+  GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp, TutorialsApp});
