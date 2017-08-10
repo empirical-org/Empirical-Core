@@ -305,6 +305,12 @@ EmpiricalGrammar::Application.routes.draw do
     get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
   end
 
+  tutorials = %w(lessons)
+  tutorials.each do |tool|
+    get "tutorials/#{tool}" => "pages#tutorials"
+    get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
+  end
+
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/diagnostic', to: redirect('/tools/diagnostic')
