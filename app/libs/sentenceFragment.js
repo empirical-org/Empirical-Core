@@ -370,7 +370,7 @@ export default class POSMatcher {
 function getMinMaxFeedback(min, max) {
   if (min === max) {
     if (min === 1) {
-      return 'Revise your work. Add one word to the prompt to make the the sentence complete.';
+      return 'Revise your work. Add one word to the prompt to make the sentence complete.';
     }
     return `Revise your work. Add ${constants.NUMBERS_AS_WORDS[min]} words to the prompt to make the sentence complete.`;
   }
