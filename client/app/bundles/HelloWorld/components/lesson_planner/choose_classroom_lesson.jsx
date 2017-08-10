@@ -1,10 +1,9 @@
-import React from 'react'
-import request from 'request'
+import React from 'react';
+import request from 'request';
 
 export default class ChooseClassroomLesson extends React.Component {
   constructor(props) {
-    super(props)
-
+    super(props);
     this.state = {
       loading: true,
       activityName: '',
@@ -18,7 +17,7 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   getClassroomLessonInfo() {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activities/${this.props.params.activityId}`, (error, httpStatus, body) => {
       const data = JSON.parse(body)
       this.setState({
         classroomActivities: data.classroom_activities,
@@ -68,7 +67,7 @@ export default class ChooseClassroomLesson extends React.Component {
     request.put({
       url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/unlock_lesson`,
       json: {authenticity_token: $('meta[name=csrf-token]').attr('content')}
-    }, (error, httpStatus, body) => {
+     }, (error, httpStatus, body) => {
       if (body.unlocked) {
         window.location = `http://connect.quill.org/#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`
       }
