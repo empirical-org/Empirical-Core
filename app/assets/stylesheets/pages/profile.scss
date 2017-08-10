@@ -15,8 +15,34 @@
     border-bottom: none;
   }
 
-  section.next-activity {
-    padding-left: 13px;
+  .next-activity {
+    width: 951px;
+    height: 76px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px 1px #b7fff0;
+    border: solid 1px #3adfbb;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 15px;
+    @media (min-width: 768px) and (max-width: 991px) {
+      width: 715px;
+      margin: auto;
+    }
+    @media (min-width: 992px) {
+      width: 950px;
+    }
+    .next-activity-name {
+      display: flex;
+      align-items: center;
+      p {
+        font-size: 20px;
+        margin-left: 10px;
+        font-weight: 600;
+      }
+    }
   }
 
   .dropdown-classrooms {
