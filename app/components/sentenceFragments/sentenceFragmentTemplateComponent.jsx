@@ -18,6 +18,7 @@ const PlaySentenceFragment = React.createClass({
     return {
       response: this.props.question.prompt,
       checkAnswerEnabled: true,
+      editing: false,
     };
   },
 
@@ -41,17 +42,17 @@ const PlaySentenceFragment = React.createClass({
     return false;
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.question.attempts.length !== this.props.question.attempts.length) {
+      this.setState({editing: false})
+    }
+  },
+
   showNextQuestionButton() {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
     const readyForNext =
-      question.attempts.length > 2 ||
-      (
-        latestAttempt && (
-          latestAttempt.response.optimal ||
-          latestAttempt.found === false
-        )
-      );
+      question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
     if (readyForNext) {
       return true;
     } else {
@@ -93,7 +94,10 @@ const PlaySentenceFragment = React.createClass({
   },
 
   handleChange(e) {
-    this.setState({ response: e, });
+    this.setState({ 
+      response: e,
+      editing: true,
+    });
   },
 
   checkAnswer() {
@@ -137,7 +141,12 @@ const PlaySentenceFragment = React.createClass({
         <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
       );
     } else if (this.state.responses) {
-      return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+      if (this.props.question.attempts.length > 0) {
+        const buttonClass = this.state.editing ? "button student-recheck" : "button student-recheck is-disabled";
+        return <button className={buttonClass} onClick={this.checkAnswer}>Recheck Your Answer</button>;
+      } else {
+        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+      }
     } else {
       <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
     }
@@ -149,8 +158,9 @@ const PlaySentenceFragment = React.createClass({
     let instructions;
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt) {
-      instructions = latestAttempt.response.feedback ||
-      'Good work. A complete sentence always has a person or thing completing an action.';
+      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}}/>
+      instructions = latestAttempt.response.feedback ? component :
+      'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
     } else if (fragment.instructions && fragment.instructions !== '') {
       instructions = this.props.question.instructions;
     } else {

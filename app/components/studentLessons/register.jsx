@@ -6,6 +6,7 @@ export default React.createClass({
     return {
       showIntro: false,
       name: '',
+      hasSentenceFragment: this.hasSentenceFragment(),
     };
   },
 
@@ -42,6 +43,16 @@ export default React.createClass({
 
   resume() {
     this.props.resumeActivity(this.props.session);
+  },
+
+  hasSentenceFragment() {
+    const { questions } = this.props.lesson;
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].questionType === "sentenceFragments") {
+        return true;
+      }
+    }
+    return false;
   },
 
   // renderResume: function () {
@@ -84,6 +95,24 @@ export default React.createClass({
         <div className="container">
           <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.props.lesson.landingPageHtml, }} />
           <button className="button student-begin is-fullwidth" onClick={this.leaveIntro}>Start Lesson</button>
+        </div>
+      );
+    } else if (this.state.hasSentenceFragment) {
+      return (
+        <div className="container">
+          <h2 className="title is-3 register">
+            Welcome to Quill Connect Fragments!
+          </h2>
+          <div className="register-container">
+            <ul className="register-list">
+              <li>Add to the group of words to make a complete sentence.</li>
+              <li>Add the number of words shown in the directions.</li>
+              <li>There is often more than one correct answer.</li>
+              <li>Remember to use correct spelling, capitalization, and punctuation!</li>
+            </ul>
+            {this.renderButton()}
+            <br />
+          </div>
         </div>
       );
     } else {
