@@ -295,6 +295,7 @@ export default React.createClass({
       data={this.assignSuccess}
       dueDates={this.state.model.dueDates}
       classrooms={this.getClassrooms()}
+      updateUnitName={this.updateUnitName}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
       toggleStudentSelection={this.toggleStudentSelection}
@@ -311,6 +312,10 @@ export default React.createClass({
       return (<UnitTemplatesAssigned data={this.state.assignSuccess} />);
     }
     window.location.href = `/teachers/classrooms/activity_planner#${this.state.newUnitId}`;
+  },
+
+  isUnitNameValid() {
+    return ((this.getUnitName() != null) && (this.getUnitName() !== ''));
   },
 
   render() {
