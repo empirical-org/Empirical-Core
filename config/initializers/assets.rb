@@ -38,6 +38,8 @@ Rails.application.config.assets.precompile +=
     "public.js",
     "home.css",
     "home.js",
+    "login-bundle.js",
+    "login.js",
     "cookie_warning.js",
     "application_#{type}.css",
     "styleguide.html"
