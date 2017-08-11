@@ -71,3 +71,6 @@ gem 'newrelic_rpm'
 
 # WEBSOCKETS
 gem 'pusher'
+
+# HTTP
+gem 'httparty'
