@@ -47,12 +47,15 @@ class Sidebar extends React.Component<any, any> {
       this.setState({
         currentSlide: el,
       })
-      this.scrollToPosition(sidebar, el.offsetTop - 65)
+      this.scrollToPosition(sidebar, el.offsetTop - 65, 0)
     }
   }
 
   // borrowed from https://stackoverflow.com/questions/12102118/scrollintoview-animation/32484034
-  scrollToPosition(elem, pos) {
+  scrollToPosition(elem, pos, count) {
+    if (count > 15) {
+      return;
+    }
     var y = elem.scrollTop;
     y += Math.round( ( pos - y ) * 0.3 );
     if (Math.abs(y-pos) <= 2) {
@@ -60,7 +63,7 @@ class Sidebar extends React.Component<any, any> {
       return;
     }
     elem.scrollTop = y;
-    setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 65)}, 40);
+    setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 65, count+1)}, 40);
   }
 
   goToSlide(slide_id: string) {
