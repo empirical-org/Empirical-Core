@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
@@ -11,6 +12,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import ConceptExplanation from '../feedback/conceptExplanation.jsx';
 import icon from '../../img/question_icon.svg';
 
 const PlaySentenceFragment = React.createClass({
@@ -105,13 +107,14 @@ const PlaySentenceFragment = React.createClass({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences } = this.getQuestion();
         const fields = {
           prompt,
           responses: hashToCollection(this.getResponses()),
           questionUID: key,
           wordCountChange,
           ignoreCaseAndPunc,
+          incorrectSequences,
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
@@ -120,6 +123,42 @@ const PlaySentenceFragment = React.createClass({
         this.setState({ checkAnswerEnabled: true, });
         this.props.handleAttemptSubmission();
       });
+    }
+  },
+
+  getNegativeConceptResultsForResponse(conceptResults) {
+    return _.reject(hashToCollection(conceptResults), cr => cr.correct);
+  },
+
+  getNegativeConceptResultForResponse(conceptResults) {
+    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
+    return negCRs.length > 0 ? negCRs[0] : undefined;
+  },
+
+  renderConceptExplanation() {
+    if (!this.showNextQuestionButton()) {
+      const latestAttempt = getLatestAttempt(this.props.question.attempts);
+      if (latestAttempt) {
+        if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+        } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+          const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+          if (dataF) {
+            return <ConceptExplanation {...dataF} />;
+          }
+        } else if (this.getQuestion().conceptID) {
+          const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
+        }
+      }
     }
   },
 
@@ -183,6 +222,7 @@ const PlaySentenceFragment = React.createClass({
         <div className="question-button-group">
           {this.renderButton()}
         </div>
+        {this.renderConceptExplanation()}
       </div>
     );
   },
@@ -211,4 +251,15 @@ const PlaySentenceFragment = React.createClass({
   },
 });
 
-export default PlaySentenceFragment;
+const getLatestAttempt = function (attempts = []) {
+  const lastIndex = attempts.length - 1;
+  return attempts[lastIndex];
+};
+
+function select(state) {
+  return {
+    conceptsFeedback: state.conceptsFeedback,
+  };
+}
+
+export default connect(select)(PlaySentenceFragment);

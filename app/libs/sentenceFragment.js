@@ -37,6 +37,7 @@ export default class POSMatcher {
     this.questionUID = data.questionUID;
     this.wordCountChange = data.wordCountChange || {};
     this.ignoreCaseAndPunc = data.ignoreCaseAndPunc;
+    this.incorrectSequences = data.incorrectSequences || [];
   }
 
   getOptimalResponses() {
@@ -74,6 +75,11 @@ export default class POSMatcher {
     const exactMatch = this.checkExactMatch(userSubmission);
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch;
+      return returnValue;
+    }
+    const incorrectSequenceMatch = this.checkIncorrectSequenceMatch(userSubmission);
+    if (incorrectSequenceMatch !== undefined) {
+      returnValue.response = Object.assign({}, res, incorrectSequenceMatch);
       return returnValue;
     }
     const lengthMatch = this.checkLengthMatch(userSubmission);
@@ -143,6 +149,23 @@ export default class POSMatcher {
 
   checkExactMatch(userSubmission) {
     return _.find(this.responses, response => response.text === userSubmission);
+  }
+
+  checkIncorrectSequenceMatch(userSubmission) {
+    const match = _.find(this.incorrectSequences, (incSeq) => {
+      const options = incSeq.text.split('|||');
+      const anyMatches = _.any(options, opt => userSubmission.toLowerCase().indexOf(opt) !== -1);
+      return anyMatches;
+    });
+    if (match !== undefined) {
+      return {
+        optimal: false,
+        parentID: this.getTopOptimalResponse().key,
+        author: 'Incorrect Sequence Hint',
+        feedback: match.feedback,
+        conceptResults: match.conceptResults ? match.conceptResults : undefined,
+      };
+    }
   }
 
   checkLengthMatch(userSubmission) {
@@ -377,7 +400,7 @@ export default class POSMatcher {
 function getMinMaxFeedback(min, max) {
   if (min === max) {
     if (min === 1) {
-      return 'Revise your work. Add one word to the prompt to make the the sentence complete.';
+      return 'Revise your work. Add one word to the prompt to make the sentence complete.';
     }
     return `Revise your work. Add ${constants.NUMBERS_AS_WORDS[min]} words to the prompt to make the sentence complete.`;
   }

@@ -4,7 +4,7 @@ import rootRef from '../libs/firebase';
 import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
 let	sentenceFragmentsRef = rootRef.child('sentenceFragments'),
-  moment = require('moment');
+moment = require('moment');
 import _ from 'lodash';
 
 const actions = {
@@ -61,6 +61,33 @@ const actions = {
       sentenceFragmentsRef.child(`${sfid}/focusPoints/${fpid}`).update(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  submitNewIncorrectSequence(sfid, data) {
+    return (dispatch, getState) => {
+      sentenceFragmentsRef.child(`${sfid}/incorrectSequences`).push(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  submitEditedIncorrectSequence(sfid, data, seqid) {
+    return (dispatch, getState) => {
+      sentenceFragmentsRef.child(`${sfid}/incorrectSequences/${seqid}`).update(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+  deleteIncorrectSequence(sfid, seqid) {
+    return (dispatch, getState) => {
+      sentenceFragmentsRef.child(`${sfid}/incorrectSequences/${seqid}`).remove((error) => {
+        if (error) {
+          alert(`Delete failed! ${error}`);
         }
       });
     };
