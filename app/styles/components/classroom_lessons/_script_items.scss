@@ -212,6 +212,11 @@
     div ul {
       list-style-type: disc;
     }
+    div {
+      p {
+        padding-bottom: 30px;
+      }
+    }
   }
   .example-discussion {
     background-color: #fff8ed;
@@ -219,15 +224,89 @@
       border: solid 1px rgba(245, 186, 91, 0.39);
     }
   }
-  .card.is-fullwidth {
-    margin-bottom: 20px;
-  }
-  .teacher-model-instructions {
-    .reset-prompt-button {
-      padding-left: 5px;
-      color: #00c2a2;
-      font-weight: bold;
-      cursor: pointer;
+  .model-wrapper {
+    border: 1px solid #e9e9e9;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    .model-header-wrapper {
+      border-bottom: solid 1px #e9e9e9;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .model-header {
+        padding: 14px 24px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .reset-prompt-button {
+        color: #027360;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        padding-right: 26px;
+      }
+    }
+    .cues {
+      margin: 20px 24px 5px;
+      .cue {
+        font-size: 14px;
+      }
+    }
+    .prompt-component-wrapper, .model-component-wrapper {
+      width: 100%;
+      padding: 20px 26px 26px 24px;
+
+      .card {
+        box-shadow: none;
+        .card-header {
+          box-shadow: none;
+          padding-bottom: 10px;
+          min-height: 0px;
+          .myToolbar {
+            margin: 0em;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            .teacher-model-instructions {
+              color: #969696;
+              font-size: 14px;
+              font-weight: bold;
+              display: inline-block;
+            }
+            .buttons-wrapper {
+              display: inline-block;
+              span {
+                margin-right: 0em !important;
+                margin-left: 15px;
+                &:nth-of-type(1) {
+                  font-weight: bold;
+                }
+                &:nth-of-type(2) {
+                  font-style: italic;
+                }
+                &:nth-of-type(3) {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+
+        }
+        .card-content {
+          box-shadow: inset -2px 2px 2px 0 #e9e9e9;
+          border: solid 1px #e9e9e9;
+          border-radius: 3px;
+          font-size: 16px;
+          padding: 10px 15px;
+        }
+        .hasFocus {
+          border: solid 1px #00c2a2;
+        }
+      }
+    }
+    .prompt-component-wrapper {
+      padding-bottom: 0px !important;
     }
   }
 }

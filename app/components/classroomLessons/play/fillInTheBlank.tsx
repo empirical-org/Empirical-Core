@@ -20,7 +20,7 @@ interface fillInTheBlankProps {
   submissions: QuestionSubmissionsList | null,
   selected_submissions: SelectedSubmissionsForQuestion | null,
   selected_submission_order: Array<string> | null,
-  projector: boolean|null
+  projector?: boolean|null
 }
 
 interface fillInTheBlankState {

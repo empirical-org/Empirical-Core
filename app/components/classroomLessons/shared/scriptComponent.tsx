@@ -3,6 +3,7 @@ import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
+import Cues from 'components/renderForQuestions/cues';
 import { findDifferences } from './findDifferences'
 import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
@@ -62,7 +63,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       sortDirection: 'desc',
       showDifferences: false,
       model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
-      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : this.props.lessonPrompt,
+      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : textEditorInputClean(this.props.lessonPrompt),
       // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       // numberOfToggledHeaders: 0
     }
@@ -76,14 +77,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.retryQuestionForStudent = this.retryQuestionForStudent.bind(this);
     this.toggleShowDifferences = this.toggleShowDifferences.bind(this);
     this.handlePromptChange = this.handlePromptChange.bind(this);
-    this.resetPrompt = this.resetPrompt.bind(this);
+    this.resetSlide = this.resetSlide.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
-    if (!nextProps.selected_submissions) {
+    if (this.props.clearSelectedSubmissionOrder && !nextProps.selected_submissions) {
       this.props.clearSelectedSubmissionOrder(this.props.current_slide)
     }
     if (this.props.current_slide !== nextProps.current_slide) {
@@ -93,7 +94,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       const prompt = nextProps.prompt;
       const promptNotEmpty = textEditorInputNotEmpty(prompt);
       this.setState({ model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
-                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : '',
+                      prompt: promptNotEmpty ? textEditorInputClean(prompt) : textEditorInputClean(nextProps.lessonPrompt),
                       showDifferences: false
                     })
     }
@@ -206,7 +207,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderShowDifferencesButton() {
-    const shouldShowDifferences = this.props.prompt && (this.props.slideType === "CL-SA")
+    const shouldShowDifferences = this.props.lessonPrompt && (this.props.slideType === "CL-SA")
     if (shouldShowDifferences) {
       const verb: string = this.state.showDifferences ? "Hide" : "Show";
       return (
@@ -479,42 +480,65 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.props.savePrompt(textEditorInputClean(e));
   }
 
-  resetPrompt() {
-    this.setState({ prompt: this.props.lessonPrompt });
-    this.props.savePrompt(this.props.lessonPrompt);
+  resetSlide() {
+    const lessonPrompt = this.props.lessonPrompt
+    this.setState({ prompt: lessonPrompt ? textEditorInputClean(lessonPrompt) : '' });
+    this.props.savePrompt(lessonPrompt ? textEditorInputClean(lessonPrompt) : '');
+    this.setState({ model: ''})
+    this.props.saveModel('');
+
+  }
+
+  renderCues() {
+    if (this.props.cues) {
+      return (
+        <Cues
+          getQuestion={() => ({
+            cues: this.props.cues,
+          })
+        }
+          displayArrowAndText={false}
+        />
+      );
+    }
+    return (
+      <span />
+    );
   }
 
   renderTeacherModel() {
     let promptEditor = <span />;
     if (this.props.lessonPrompt) {
       promptEditor = (
-        <div>
-          <p className="teacher-model-instructions">
-            <em>Modify the prompt here; it will be displayed on your students' screens as you type.</em>
-            <span className="reset-prompt-button" onClick={this.resetPrompt}>
-              Reset Prompt
-            </span>
-          </p>
-          <br />
+        <div className="prompt-component-wrapper">
           <MultipleTextEditor
-            text={textEditorInputClean(this.state.prompt)}
+            text={this.state.prompt}
             handleTextChange={this.handlePromptChange}
             lessonPrompt={textEditorInputClean(this.props.lessonPrompt)}
+            title={"Prompt:"}
           />
         </div>
       )
     }
     return (
-      <div>
+      <div className="model-wrapper">
+        <div className="model-header-wrapper">
+          <p className="model-header">
+            Model Your Answer
+          </p>
+          <p className="reset-prompt-button" onClick={this.resetSlide}>
+            Reset Slide
+          </p>
+        </div>
         {promptEditor}
-        <p className="teacher-model-instructions">
-          <em>Type your model answer here; it will be displayed on your students' screens as you type.</em>
-        </p>
-        <br />
-        <MultipleTextEditor
-          text={this.state.model}
-          handleTextChange={this.handleModelChange}
-        />
+        {this.renderCues()}
+        <div className="model-component-wrapper">
+          <MultipleTextEditor
+            text={this.state.model}
+            handleTextChange={this.handleModelChange}
+            title={"Your Model:"}
+          />
+        </div>
       </div>
     );
   }
