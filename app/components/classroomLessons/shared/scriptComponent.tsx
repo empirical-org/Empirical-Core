@@ -207,7 +207,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderShowDifferencesButton() {
-    const shouldShowDifferences = this.props.prompt && (this.props.slideType === "CL-SA")
+    const shouldShowDifferences = this.props.lessonPrompt && (this.props.slideType === "CL-SA")
     if (shouldShowDifferences) {
       const verb: string = this.state.showDifferences ? "Hide" : "Show";
       return (
