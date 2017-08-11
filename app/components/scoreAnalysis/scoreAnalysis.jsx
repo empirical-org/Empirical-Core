@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import scoreActions from '../../actions/scoreAnalysis.js';
+import {
+  loadScoreData,
+  checkTimeout
+} from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
-import QuestionRow from './questionRow.jsx'
+import QuestionRow from './questionRow.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import _ from 'underscore';
 
@@ -17,7 +20,8 @@ class ScoreAnalysis extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(scoreActions.loadScoreData());
+    checkTimeout();
+    this.props.dispatch(loadScoreData());
   }
 
   clickSort(sort) {
@@ -35,18 +39,18 @@ class ScoreAnalysis extends Component {
     const validConcepts = _.map(concepts.data[0], con => con.uid);
     const formatted = _.map(hashToCollection(questions.data).filter(e => validConcepts.includes(e.conceptID)), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
-      if (scoreData && scoreData.totalAttempts >= this.state.minResponses) {
+      if (scoreData && scoreData.total_attempts >= this.state.minResponses) {
         return {
           key: question.key,
           prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
           responses: scoreData.responses || 0,
-          attempts: scoreData.totalAttempts || 0,
-          unmatched: scoreData.unmatchedResponses || 0,
-          commonUnmatched: scoreData.commonUnmatchedResponses || 0,
-          percentWeak: scoreData.commonMatchedAttempts > 0 ? ((scoreData.commonUnmatchedAttempts || 0) / scoreData.commonMatchedAttempts * 100).toFixed(2) : 0.0,
+          attempts: scoreData.total_attempts || 0,
+          unmatched: scoreData.unmatched_responses || 0,
+          commonUnmatched: scoreData.common_unmatched_attempts || 0,
+          percentWeak: scoreData.common_matched_attempts > 0 ? ((scoreData.common_unmatched_attempts || 0) / scoreData.common_matched_attempts * 100).toFixed(2) : 0.0,
           hasModelConcept: !!question.modelConceptUID,
           focusPoints: question.focusPoints ? Object.keys(question.focusPoints).length : 0,
-          incorrectSequences: question.incorrectSequences ? Object.keys(question.incorrectSequences).length : 0
+          incorrectSequences: question.incorrectSequences ? Object.keys(question.incorrectSequences).length : 0,
         };
       }
     });
@@ -66,9 +70,9 @@ class ScoreAnalysis extends Component {
     if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <div>
-          <p style={{fontSize: '1.5em', textAlign: 'center', margin: '0.75em 0'}}><label htmlFor="minResponses">Show questions with a minimum of </label>
-          <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({minResponses: this.refs.minResponses.value})} style={{fontSize: '1.25em', width: '100px'}}/>
-          <label htmlFor="minResponses"> total responses.</label></p>
+          <p style={{ fontSize: '1.5em', textAlign: 'center', margin: '0.75em 0', }}><label htmlFor="minResponses">Show questions with a minimum of </label>
+            <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({ minResponses: this.refs.minResponses.value, })} style={{ fontSize: '1.25em', width: '100px', }} />
+            <label htmlFor="minResponses"> total responses.</label></p>
           <table className="table is-striped is-bordered">
             <thead>
               <tr>
@@ -89,9 +93,8 @@ class ScoreAnalysis extends Component {
           </table>
         </div>
       );
-    } else {
-      return (<LoadingSpinner />);
     }
+    return (<LoadingSpinner />);
   }
 
 }
