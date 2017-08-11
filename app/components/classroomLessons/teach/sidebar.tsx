@@ -39,7 +39,22 @@ class Sidebar extends React.Component<any, any> {
 
   scrollToSlide(slide_id: string) {
     const el = document.getElementById(slide_id)
-    el ? el.scrollIntoView(true) : null
+    const sidebar = document.getElementsByClassName("side-bar")[0];
+    if (el && sidebar) {
+      this.scrollToPosition(sidebar, el.offsetTop - 65)
+    }
+  }
+
+  // borrowed from https://stackoverflow.com/questions/12102118/scrollintoview-animation/32484034
+  scrollToPosition(elem, pos) {
+    var y = elem.scrollTop;
+    y += Math.round( ( pos - y ) * 0.3 );
+    if (Math.abs(y-pos) <= 2) {
+      elem.scrollTop = pos;
+      return;
+    }
+    elem.scrollTop = y;
+    setTimeout(() => {this.scrollToPosition(elem, pos)}, 40);
   }
 
   goToSlide(slide_id: string) {

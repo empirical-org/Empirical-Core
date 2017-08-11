@@ -212,6 +212,11 @@
     div ul {
       list-style-type: disc;
     }
+    div {
+      p {
+        padding-bottom: 30px;
+      }
+    }
   }
   .example-discussion {
     background-color: #fff8ed;
