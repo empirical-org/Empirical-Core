@@ -22,7 +22,7 @@ class SubscriptionsController < ApplicationController
       @subscription = current_user.subscription
       @subscription.update attributes
     else
-      @subscription = Subscription.create_with_user_join(attributes[:user_id], attributes)
+      @subscription = Subscription.create_or_update_with_user_join(attributes[:user_id], attributes)
     end
     render json: @subscription
   end
