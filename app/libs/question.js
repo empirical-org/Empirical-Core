@@ -317,7 +317,7 @@ export default class Question {
   }
 
   checkCaseStartMatch(response) {
-    if (response[0] && response[0].toLowerCase() === response[0]) {
+    if ((/^[a-z]/).test(response)) {
       return getTopOptimalResponse(this.responses);
     }
   }
