@@ -25,6 +25,9 @@ class Sidebar extends React.Component<any, any> {
 
   constructor(props) {
     super(props);
+    this.state = {
+      currentSlide: null,
+    }
   }
 
   componentDidMount() {
@@ -41,6 +44,9 @@ class Sidebar extends React.Component<any, any> {
     const el = document.getElementById(slide_id)
     const sidebar = document.getElementsByClassName("side-bar")[0];
     if (el && sidebar) {
+      this.setState({
+        currentSlide: el,
+      })
       this.scrollToPosition(sidebar, el.offsetTop - 65)
     }
   }
@@ -54,7 +60,7 @@ class Sidebar extends React.Component<any, any> {
       return;
     }
     elem.scrollTop = y;
-    setTimeout(() => {this.scrollToPosition(elem, pos)}, 40);
+    setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 65)}, 40);
   }
 
   goToSlide(slide_id: string) {
