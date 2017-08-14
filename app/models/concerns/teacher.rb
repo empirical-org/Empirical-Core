@@ -84,16 +84,8 @@ module Teacher
       if params[:school_id].nil? or params[:school_id].length == 0
         are_there_school_related_errors = true
       else
-        if !(params[:original_selected_school_id].nil? or params[:original_selected_school_id].length == 0)
-          if params[:original_selected_school_id] != params[:school_id]
-            self.schools.delete(School.find(params[:school_id])) # this will not destroy the school, just the assocation to this user
-          end
-        end
-        unless self.schools.where(id: params[:school_id]).any?
-          self.updated_school(params[:school_id])
-          (self.schools << School.find(params[:school_id]))
-          find_or_create_checkbox('Add School', self)
-        end
+        self.school = School.find(params[:school_id])
+        find_or_create_checkbox('Add School', self)
       end
     end
 

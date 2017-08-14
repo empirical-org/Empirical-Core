@@ -33,6 +33,6 @@ describe 'CleverIntegration::Importers::School' do
   end
 
   it 'associates school to teacher' do
-    expect(subject).to eq(teacher.schools.first)
+    expect(subject).to eq(teacher.reload.school)
   end
 end

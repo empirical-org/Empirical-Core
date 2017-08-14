@@ -21,12 +21,6 @@ describe User, type: :model do
     end
   end
 
-  # it 'gets a checkbox for adding a school' do
-  #   obj = Objective.new(name: 'Add School')
-  #   user.schools.push(school)
-  #   user.save
-  #   expect(user.checkboxes.objective).to eq(obj)
-  # end
 
   describe "default scope" do
     let(:user1) { FactoryGirl.create(:user) }

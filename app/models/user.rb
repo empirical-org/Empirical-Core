@@ -30,7 +30,8 @@ class User < ActiveRecord::Base
 
   has_many :checkboxes
   has_many :objectives, through: :checkboxes
-  has_and_belongs_to_many :schools
+  has_one :schools_users
+  has_one :school, through: :schools_users
   has_and_belongs_to_many :districts
   has_one :ip_location
 
@@ -247,10 +248,6 @@ class User < ActiveRecord::Base
     self.token
   end
 
-  def school
-    self.schools.first
-  end
-
   ransacker :created_at_date, type: :date do |parent|
     Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
@@ -295,9 +292,10 @@ class User < ActiveRecord::Base
 
   def generate_teacher_account_info
     user_attributes = attributes
-    user_attributes[:schools] = schools.reverse
+    user_attributes[:subscription] = subscriptions.any? ? subscriptions.first.attributes : {}
     user_attributes[:subscription] = subscription ? subscription.attributes : {}
     user_attributes[:subscription]['subscriptionType'] = premium_state
+    user_attributes[:school] = school
     user_attributes
   end
 

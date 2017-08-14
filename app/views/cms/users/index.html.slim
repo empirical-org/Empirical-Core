@@ -11,14 +11,13 @@
       = f.search_field :email_cont
       = f.label :ip_address_eq
       = f.search_field :ip_address_eq
-      = f.label :schools_name_cont
-      = f.search_field :schools_name_cont
-      = f.label :schools_city_cont
-      = f.search_field :schools_city_cont
+
       = f.label :role_eq
       = f.search_field :role_eq
 
+      p To search users by school, please ask a dev.
       = f.submit class: 'btn btn-primary btn-mid'
+
     br
     br
     table.table.table-stripe.table-hover-row.cms-user-index-table
@@ -26,7 +25,6 @@
         th Name
         th Email
         th Role
-        th School
         th Premium
         th
         th
@@ -41,7 +39,7 @@
             td= user.name
             td= user.email
             td class="role-#{user.role}"= user.role[0]
-            td= user.schools.any? ? user.schools.first.name : ''
+            td= user.school ? user.school.name : ''
             - if user.subscription
               td= user.subscription.account_type
             - else
