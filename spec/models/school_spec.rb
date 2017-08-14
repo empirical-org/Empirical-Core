@@ -3,9 +3,9 @@ require 'rails_helper'
 describe School, type: :model do
   let!(:bk_school) { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11206'}
   let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
-  let!(:bk_teacher) { FactoryGirl.create(:teacher, schools: [bk_school]) }
-  let!(:bk_teacher_colleague) { FactoryGirl.create(:teacher, schools: [bk_school]) }
-  let!(:queens_teacher) { FactoryGirl.create(:teacher, schools: [queens_school]) }
+  let!(:bk_teacher) { FactoryGirl.create(:teacher, school: bk_school) }
+  let!(:bk_teacher_colleague) { FactoryGirl.create(:teacher, school: bk_school) }
+  let!(:queens_teacher) { FactoryGirl.create(:teacher, school: queens_school) }
 
   describe 'validations' do
     before do

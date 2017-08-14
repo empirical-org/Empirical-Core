@@ -48,14 +48,11 @@ class AccountsController < ApplicationController
     else
       school = School.find_or_create_by(name: params[:school_id_or_type])
     end
-    # TODO: schools should not have a many to many relationship. Each user should only have one school.
-    # What is happening below is madness
-    current_user.schools = [school]
-    # TODO: once the user has only one school, this should be a callback
-    current_user.updated_school(school.id)
-    if current_user.schools.compact.any?
-      find_or_create_checkbox('Add School', current_user)
-    end
+    su = SchoolsUsers.find_or_create_by(user_id: current_user.id)
+    su.update!(school_id: school.id)
+    puts 'here is su ryan'
+    puts su.attributes
+    find_or_create_checkbox('Add School', current_user)
     render json: {}
   end
 

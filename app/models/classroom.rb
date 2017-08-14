@@ -139,6 +139,24 @@ class Classroom < ActiveRecord::Base
     completed_activity_count
   end
 
+  def cached_student_count
+    student_count = $redis.get("classroom_id:#{self.id}_student_count")
+    unless student_count
+      student_count = self.students.count
+      $redis.set("classroom_id:#{self.id}_student_count", student_count, {ex: 7.days})
+    end
+    student_count
+  end
+
+  def cached_completed_activity_count
+    completed_activity_count = $redis.get("classroom_id:#{self.id}_completed_activity_count")
+    unless completed_activity_count
+      completed_activity_count = self.activity_sessions.where(state: "finished").count
+      $redis.set("classroom_id:#{self.id}_completed_activity_count", completed_activity_count, {ex: 7.days})
+    end
+    completed_activity_count
+  end
+
   private
 
   # Clever integration
