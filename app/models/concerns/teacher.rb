@@ -121,18 +121,33 @@ module Teacher
   end
 
   def updated_school(school_id)
-    # TODO: once school users is its own model, add this as a commit callback
-    joined_school_sub = SchoolSubscription.find_by_school_id school_id
-    if joined_school_sub
-      # updates (or creates...) their school to the new school subscription
-      UserSubscription.update_or_create(self.id, joined_school_sub.subscription_id)
-    else
-      # if their subscription is through a different school set visible to false
-      if self.subscription&.school_subscriptions&.any?
-        UserSubscription.find_by_user_id(self.id).update(visible: false)
+    new_school_sub = SchoolSubscription.find_by_school_id(school_id)
+    current_sub = self.subscription
+    if current_sub&.school_subscriptions&.any?
+      # then they already belonged to a subscription through a school, which we destroy
+      self.user_subscription.destroy
+    end
+    if new_school_sub
+      if current_sub
+        current_is_school = current_sub&.school_subscriptions.any?
+        if current_is_school
+          # we don't care about their old school -- give them the new school sub
+          new_sub_id = new_school_sub.subscription.id
+        else
+          # give them the better of their personal sub or the school sub
+          new_sub_id = later_expiration_date(new_school_sub.subscription, current_sub).id
+        end
+      else
+        # they get the new sub by default
+        new_sub_id = new_school_sub.subscription.id
       end
     end
+    if new_sub_id
+      UserSubscription.update_or_create(self.id, new_sub_id)
+    end
   end
+
+
 
   def part_of_admin_account?
     admin_accounts_i_am_part_of.any?
@@ -206,6 +221,10 @@ module Teacher
 
   def is_beta_period_over?
     Date.today >= TRIAL_START_DATE
+  end
+
+  def later_expiration_date(sub_1, sub_2)
+    sub_1.expiration > sub_2.expiration ? sub_1 : sub_2
   end
 
 end
