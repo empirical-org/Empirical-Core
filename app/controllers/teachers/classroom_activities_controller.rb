@@ -63,14 +63,7 @@ private
   def get_lessons_units_and_activities
     # collapses lessons cache into unique array of unit and activity ids
     grouped_lessons_cache = lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], unit_id: ca['unit_id'], name: ca['activity_name'], completed: ca['completed']}}
-    lessons_array = []
-    grouped_lessons_cache.each do |k,v|
-      unless k[:completed] == true
-        k['first_classroom_activity_id'] = v.first['classroom_activity_id']
-        lessons_array.push(k)
-      end
-    end
-    lessons_array
+    grouped_lessons_cache.keys.select { |lesson| lesson[:completed] == false }
   end
 
   def lessons_cache
