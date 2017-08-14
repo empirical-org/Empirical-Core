@@ -2,6 +2,7 @@ import React from 'react';
 import request from 'request';
 
 import PreviewOrLaunchModal from '../shared/preview_or_launch_modal';
+import goToTutorialOrLesson from '../shared/goToTutorialOrLesson.js'
 
 export default class extends React.Component {
   constructor(props) {
@@ -19,12 +20,12 @@ export default class extends React.Component {
     this.getListOfAssignedLessons();
   }
 
-  hasViewedLessonTutorial() {
-    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
-      this.setState({hasViewedLessonTutorial: body.completed})
-    })
-  }
-
+  // hasViewedLessonTutorial() {
+  //   request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
+  //     this.setState({hasViewedLessonTutorial: body.completed})
+  //   })
+  // }
+  //
   getListOfAssignedLessons() {
     const that = this;
     request.get({
@@ -76,7 +77,6 @@ export default class extends React.Component {
         lessonID={lessonID}
         unitID={unitID}
         closeModal={this.closeModal}
-        hasViewedLessonTutorial={this.state.hasViewedLessonTutorial}
       />;
     }
   }
