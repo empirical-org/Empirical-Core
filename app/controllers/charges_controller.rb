@@ -78,13 +78,13 @@ class ChargesController < ApplicationController
     if @charge.amount == 45000
       if current_user.schools&.first && ['home school', 'us higher ed', 'international', 'other'].exclude?(current_user.schools.first.name)
         # if the user has a school, and it is not one of the aforementioned defaults, create or update the premium subscription for it
-        Subscription.create_with_school_or_user_join(current_user.schools.first.id, 'school', attributes)
+        Subscription.create_or_update_with_school_or_user_join(current_user.schools.first.id, 'school', attributes)
       else
         @message = 'You do not seem to be registered with a school. Your account has been upgraded, and we will reach out to you shortly to upgrade the rest of your school to premium.'
-        Subscription.create_with_school_or_user_join(current_user.id, 'user', attributes)
+        Subscription.create_or_update_with_school_or_user_join(current_user.id, 'user', attributes)
       end
     else
-      Subscription.create_with_school_or_user_join(current_user.id, 'user', attributes)
+      Subscription.create_or_update_with_school_or_user_join(current_user.id, 'user', attributes)
     end
   end
 
