@@ -19,7 +19,9 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def hide
-    @classroom_activity.update(visible: false)
+    cas = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
+    # cannot use update_all here bc we need the callbacks to run
+    cas.each { |ca| ca.try(:update_attributes, {visible: false}) }
     @classroom_activity.unit.hide_if_no_visible_classroom_activities
     render json: {}
   end
