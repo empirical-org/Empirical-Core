@@ -76,6 +76,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def lesson_info_for_unit_and_activity
+    console.log('we hit this route')
     unit = Unit.find_by(id: params[:unit_id])
     activity = Activity.find_by(id: params[:activity_id])
     if unit && activity
