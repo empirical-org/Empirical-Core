@@ -1,6 +1,8 @@
 import React from 'react'
 import request from 'request'
 
+import goToTutorialOrLesson from './goToTutorialOrLesson.js'
+
 export default class PreviewOrLaunchModal extends React.Component {
 
   constructor(props) {
@@ -19,11 +21,7 @@ export default class PreviewOrLaunchModal extends React.Component {
       }, (error, httpStatus, body) => {
         if (body.unlocked) {
           const lessonUrl = `http://connect.quill.org/#/teach/class-lessons/${lessonUID}?&classroom_activity_id=${classroomActivityID}`
-          if (this.props.hasViewedLessonTutorial) {
-            window.location = lessonUrl
-          } else {
-            window.location = `${process.env.DEFAULT_URL}/tutorials/lessons?url=${encodeURIComponent(lessonUrl)}`
-          }
+          goToTutorialOrLesson(lessonUrl)
         }
       })
     } else if (lessonID && unitID) {
@@ -35,11 +33,7 @@ export default class PreviewOrLaunchModal extends React.Component {
     const {classroomActivityID, lessonUID, lessonID, unitID} = this.props
     // TODO get real preview link
     const lessonUrl = `http://connect.quill.org/#/teach/class-lessons/${lessonUID}?&classroom_activity_id=${classroomActivityID}`
-    if (this.props.hasViewedLessonTutorial) {
-      window.location = lessonUrl
-    } else {
-      window.location = `${process.env.DEFAULT_URL}/tutorials/lessons?url=${encodeURIComponent(lessonUrl)}`
-    }
+    goToTutorialOrLesson(lessonUrl)
   }
 
   render() {

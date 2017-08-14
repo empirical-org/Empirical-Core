@@ -1,6 +1,8 @@
 import React from 'react';
 import request from 'request';
 
+import goToTutorialOrLesson from '../shared/goToTutorialOrLesson.js'
+
 export default class ChooseClassroomLesson extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,6 @@ export default class ChooseClassroomLesson extends React.Component {
     }
 
     this.getClassroomLessonInfo()
-    this.getHasViewedLessonTutorialInfo()
 
     this.launchLesson = this.launchLesson.bind(this)
     this.goBack = this.goBack.bind(this)
@@ -27,14 +28,6 @@ export default class ChooseClassroomLesson extends React.Component {
       })
     })
   }
-
-  getHasViewedLessonTutorialInfo() {
-    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
-      const completed = JSON.parse(body).completed
-      this.setState({hasViewedLessonTutorial: completed})
-    })
-  }
-
 
   renderClasses() {
     const classrooms = this.state.classroomActivities.map((ca, i) =>
@@ -79,11 +72,7 @@ export default class ChooseClassroomLesson extends React.Component {
      }, (error, httpStatus, body) => {
       if (body.unlocked) {
 				const lessonUrl = `http://connect.quill.org/#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`
-				if (this.state.hasViewedLessonTutorial) {
-					window.location = lessonUrl
-				} else {
-					window.location = `${process.env.DEFAULT_URL}/tutorials/lessons?url=${encodeURIComponent(lessonUrl)}`
-				}
+        goToTutorialOrLesson(lessonUrl)
 			}
     })
   }
