@@ -8,6 +8,29 @@ describe User, type: :model do
       let!(:teacher1) {FactoryGirl.create(:user, role: 'teacher')}
       let!(:student1) {FactoryGirl.create(:user, role: 'student')}
       let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
+
+    # describe '#updated_school' do
+    #   let!(:new_school_id) {1}
+    #   let!(:old_school_id) {2}
+    #
+    #   let!(:expired_subscription) {Subscription.create(expiration: Date.yesterday, account_limit: 1000)}
+    #   let!(:non_expired_subscription) {Subscription.create(expiration: Date.tomorrow, account_limit: 1000)}
+    #
+    #   let!(:new_school_subscription) {SchoolSubscription.create(school_id: new_school_id, subscription: non_expired_subscription )}
+    #   let!(:old_school_subscription) {SchoolSubscription.create(school_id: old_school_id, subscription: non_expired_subscription )}
+    #
+    #   context 'when the user does not have a subscription' do
+    #     it "gives them the new school subscription if it exists" do
+    #       teacher.updated_school(new_school_id)
+    #       expect(teacher.subscription).to eq(new_school_subscription.subscription)
+    #     end
+    #
+    #   end
+    #
+    #
+    # end
+
+
     describe '#scorebook_scores' do
 
       let!(:section) {FactoryGirl.create(:section)}
@@ -128,49 +151,71 @@ describe User, type: :model do
     end
 
     describe '#updated_school' do
+      let!(:queens_teacher_2) { FactoryGirl.create(:teacher) }
+      let!(:queens_subscription) {FactoryGirl.create(:subscription)}
       let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
+      let!(:queens_school_sub) {FactoryGirl.create(:school_subscription, subscription_id: queens_subscription.id, school_id: queens_school.id)}
       let!(:brooklyn_school) { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11237'}
+      let!(:school_with_no_subscription) { FactoryGirl.create :school, name: "Staten Island School", zipcode: '10000'}
       let!(:queens_teacher) { FactoryGirl.create(:teacher) }
       let!(:teacher_subscription) {FactoryGirl.create(:subscription)}
       let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: queens_teacher.id, subscription_id: teacher_subscription.id)}
       let!(:subscription) {FactoryGirl.create(:subscription)}
-
-      context 'when the teacher has pre-existing school subscription it always hides the user_subscription' do
-        let!(:school_sub) {FactoryGirl.create(:school_subscription, subscription_id: subscription.id, school_id: brooklyn_school.id)}
-        before :each do
-          queens_teacher.updated_school(brooklyn_school)
-        end
-
-        it "even if the new school does not have one" do
-          expect(UserSubscription.where(user_id: queens_teacher.id, subscription_id: brooklyn_school.subscription.id).length).to eq(1)
-          queens_teacher.updated_school(queens_school)
-          expect(UserSubscription.where(user_id: queens_teacher.id, subscription_id: brooklyn_school.subscription.id).length).to eq(0)
-          expect(UserSubscription.unscoped.where(user_id: queens_teacher.id, subscription_id: brooklyn_school.subscription.id).length).to eq(1)
-        end
-      end
+      let!(:brooklyn_subscription) {FactoryGirl.create(:subscription)}
+      let!(:brooklyn_school_sub) {FactoryGirl.create(:school_subscription, subscription_id: brooklyn_subscription.id, school_id: brooklyn_school.id)}
+      let!(:queens_teacher_2_user_sub) {FactoryGirl.create(:user_subscription, user_id: queens_teacher_2.id, subscription_id: queens_subscription.id)}
 
       context "when the school has no subscription" do
 
-        it 'does nothing to the teachers subscription' do
+        it 'does nothing to the teachers personal subscription' do
           expect(queens_teacher.subscription).to eq(teacher_subscription)
           queens_teacher.updated_school(queens_school)
           expect(queens_teacher.subscription).to eq(teacher_subscription)
         end
+
       end
 
       context "when the school has a subscription" do
-        let!(:school_sub) {FactoryGirl.create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
-        it "overwrites the teacher's if the teacher has a subscription too" do
-          expect(queens_teacher.subscription).to eq(teacher_subscription)
-          queens_teacher.updated_school(queens_school)
-          expect(queens_teacher.reload.subscription).to eq(subscription)
+
+
+        describe 'and the teacher has a subscription' do
+
+          it "overwrites the teacher's if the teacher's is from a different school" do
+            expect(queens_teacher_2.subscription).to eq(queens_subscription)
+            queens_teacher_2.updated_school(brooklyn_school)
+            expect(queens_teacher_2.reload.subscription).to eq(brooklyn_subscription)
+          end
+
+
+          context "that is their own subscription" do
+
+            it "lets the teacher keep their subscription if it has a later expiration date" do
+              teacher_subscription.update(expiration: Date.tomorrow)
+              brooklyn_subscription.update(expiration: Date.yesterday)
+              queens_teacher.updated_school(brooklyn_school)
+              expect(queens_teacher.subscription).to eq(teacher_subscription)
+            end
+
+            it 'gives them the new school subscription if has a later expiration date' do
+              teacher_subscription.update(expiration: Date.yesterday)
+              brooklyn_subscription.update(expiration: Date.tomorrow)
+              queens_teacher.updated_school(brooklyn_school)
+              expect(queens_teacher.subscription).to eq(teacher_subscription)
+            end
+
+          end
+
+
         end
 
-        it "creates the teacher's if the teacher does not have a subscription too" do
-          user_subscription.destroy
-          queens_teacher.updated_school(queens_school)
-          expect(queens_teacher.reload.subscription).to eq(subscription)
+        describe 'and the user does not have a subscription' do
+          it "the user gets the school subscription" do
+            queens_teacher_2.user_subscription.destroy
+            queens_teacher_2.updated_school(brooklyn_school)
+            expect(queens_teacher_2.reload.subscription).to eq(brooklyn_school.subscription)
+          end
         end
+
 
       end
 
