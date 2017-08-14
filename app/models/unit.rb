@@ -20,10 +20,8 @@ class Unit < ActiveRecord::Base
   default_scope { where(visible: true)}
   after_save :hide_classroom_activities_if_visible_false
 
-
-
   def hide_if_no_visible_classroom_activities
-    if  ClassroomActivity.unscoped.where(unit_id: self.id, visible: false).length == self.classroom_activities.length
+    if self.classroom_activities.length == 0
       self.update(visible: false)
     end
   end
