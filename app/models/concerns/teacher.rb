@@ -85,10 +85,10 @@ module Teacher
         are_there_school_related_errors = true
       else
         self.school = School.find(params[:school_id])
+        self.updated_school params[:school_id]
         find_or_create_checkbox('Add School', self)
       end
     end
-
     if !are_there_school_related_errors
       if self.update_attributes(username: params[:username] || self.username,
                                         email: params[:email] || self.email,
