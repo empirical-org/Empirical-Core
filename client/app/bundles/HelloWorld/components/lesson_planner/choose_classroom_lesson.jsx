@@ -19,7 +19,7 @@ export default class ChooseClassroomLesson extends React.Component {
 
   getClassroomLessonInfo() {
     console.log('default url', process.env.DEFAULT_URL)
-    request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activities/${this.props.params.activityId}`, (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
       console.log('error', error)
       console.log('httpStatus', httpStatus)
       console.log('body', body)
