@@ -51,6 +51,9 @@ module.exports = {
     ],
     public: [
       './app/bundles/Public/public.js'
+    ],
+    tools: [
+      './app/bundles/Tools/tools.js'
     ]
 
   },
