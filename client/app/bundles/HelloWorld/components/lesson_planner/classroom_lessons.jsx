@@ -13,7 +13,6 @@ export default class ClassroomLessons extends React.Component {
       classrooms: this.getClassrooms(),
       loaded: false,
       selectedClassroomId: props.routeParams.classroomId,
-      hasViewedLessonTutorial: this.hasViewedLessonTutorial()
     }
 
     this.switchClassrooms = this.switchClassrooms.bind(this)
@@ -37,13 +36,6 @@ export default class ClassroomLessons extends React.Component {
     })
   }
 
-  hasViewedLessonTutorial() {
-    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
-      const completed = JSON.parse(body).completed
-      this.setState({hasViewedLessonTutorial: completed})
-    })
-  }
-
   renderHeader() {
     return <div className="my-lessons-header">
       <h1>My Lessons</h1>
@@ -58,7 +50,6 @@ export default class ClassroomLessons extends React.Component {
   }
 
   render() {
-    console.log('state', this.state)
     if (this.state.loaded) {
       return(
         <div id="lesson_planner">
@@ -71,7 +62,6 @@ export default class ClassroomLessons extends React.Component {
             <Units
               data={this.state.lessons}
               lesson={true}
-              hasViewedLessonTutorial={this.state.hasViewedLessonTutorial}
             />
             </div>
           </div>)

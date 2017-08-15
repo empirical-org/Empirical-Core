@@ -1,8 +1,6 @@
 import React from 'react';
 import request from 'request';
 
-import goToTutorialOrLesson from '../shared/goToTutorialOrLesson.js'
-
 export default class ChooseClassroomLesson extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +12,6 @@ export default class ChooseClassroomLesson extends React.Component {
 
     this.getClassroomLessonInfo()
 
-    this.launchLesson = this.launchLesson.bind(this)
     this.goBack = this.goBack.bind(this)
   }
 
@@ -63,18 +60,10 @@ export default class ChooseClassroomLesson extends React.Component {
     this.setState({selectedClassroomActivityId: id})
   }
 
-  launchLesson() {
+  launchLessonLink() {
     const classroomActivityId = this.state.selectedClassroomActivityId
     const lessonId = this.props.routeParams.activityId
-    request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/unlock_lesson`,
-      json: {authenticity_token: $('meta[name=csrf-token]').attr('content')}
-     }, (error, httpStatus, body) => {
-      if (body.unlocked) {
-				const lessonUrl = `http://connect.quill.org/#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`
-        goToTutorialOrLesson(lessonUrl)
-			}
-    })
+    return `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`
   }
 
   goBack() {
@@ -102,7 +91,7 @@ export default class ChooseClassroomLesson extends React.Component {
         {/* we will use the text below when we have a lessons page to send teachers to */}
         {/* <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it. To re-assign a lesson, you can click here.</p> */}
         <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it.</p>
-        <button onClick={this.launchLesson} className={`q-button text-white ${buttonClass}`}>Launch Lesson</button>
+        <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>Launch Lesson</a>
       </div>
     </div>)
   }
