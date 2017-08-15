@@ -28,7 +28,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def launch_lesson
-    completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.find(current_user.id)
+    completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
     lesson_uid = params['lesson_uid']
     lesson_url = "https://connect.quill.org/#/teach/class-lessons/#{lesson_uid}?&classroom_activity_id=#{@classroom_activity.id}"
     if completed
