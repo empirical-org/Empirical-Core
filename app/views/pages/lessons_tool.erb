@@ -5,6 +5,7 @@
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
+
 <div class="tool-container lessons-tool-page">
 
     <section class='tool-hero text-center bg-lessons-purple'>
@@ -14,6 +15,7 @@
         <p class='description'>
           Lead whole-class direct instruction with interactive lesson plans. Quill Lessons provides teachers with lesson plans that include whole-class Quill activities and prompts for teacher modeling. Teachers can lead class-wide discussions by displaying students’ answers in real-time.
         </p>
+        <!-- TODO get a real link here -->
         <a href='https://quillconnect.firebaseapp.com/#/play/lessons/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-lessonspurple">Try Quill Lessons Now</a>
     </section>
 
@@ -190,6 +192,7 @@
         </h4>
     </section>
 
+    <!-- TODO make sure all of these questions have answers (currently missing two) -->
     <%= react_component('LessonsQuestionsAndAnswersApp', props: {})%>
 
     <!-- Only show if user is not logged in  -->
@@ -206,7 +209,7 @@
           <h1 class='q-h1'>
               Get started now! Assign Quill Lessons.
           </h1>
-          <a href='/teachers/classrooms/assign_activities/assign-a-lessons' class="q-button cta-button bg-quillgreen text-white">Assign</a>
+          <a href='/teachers/classrooms/assign_activities/create-unit?tool=lessons' class="q-button cta-button bg-quillgreen text-white">Assign</a>
       </section>
       <% end %>
 
