@@ -1,9 +1,13 @@
 import React from 'react';
 import $ from 'jquery';
+import request from 'request';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import _ from 'underscore';
+import authToken from '../../modules/get_auth_token.js';
 import Pusher from 'pusher-js';
 import RecommendationsTableCell from './recommendations_table_cell';
+import LessonsRecommendations from './lessons_recommendations';
+import RecommendationOverview from './recommendation_overview';
 
 export default React.createClass({
 
@@ -36,12 +40,15 @@ export default React.createClass({
 
   getRecommendationData(classroomId, activityId) {
     const that = this;
-    $.get(`/teachers/progress_reports/recommendations_for_classroom/${classroomId}/activity/${activityId}`, (data) => {
+    $.get(`/teachers/progress_reports/recommendations_for_classroom/${that.props.params.unitId}/${classroomId}/activity/${activityId}`, (data) => {
       that.setState({
         recommendations: JSON.parse(JSON.stringify(data.recommendations)),
         students: data.students,
         loading: false,
       }, that.getPreviouslyAssignedRecommendationData(classroomId, activityId));
+    });
+    $.get(`/teachers/progress_reports/lesson_recommendations_for_classroom/u/${that.props.params.unitId}/c/${classroomId}/a/${activityId}`, (data) => {
+      that.setState({ lessonsRecommendations: data.lessonsRecommendations, });
     });
   },
 
@@ -118,6 +125,32 @@ export default React.createClass({
   alert('We had trouble processing your request. Please check your network connection and try again.');
   this.setState({ assigning: false, });
 });
+    });
+  },
+
+  assignToWholeClass(unitTemplateId) {
+    let newObj = Object.assign({}, this.state);
+    newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
+    this.setState(newObj, () => {
+      const that = this;
+      that.state.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId);
+      $.ajax({
+        type: 'POST',
+        url: '/teachers/progress_reports/assign_selected_packs/',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
+      })
+      .done(() => {
+        newObj = Object.assign({}, that.state);
+        newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
+        that.setState(newObj);
+        this.initializePusher();
+      })
+      .fail(() => {
+        alert('We had trouble processing your request. Please check your network connection and try again.');
+        // this.setState({ assigning: false, });
+      });
     });
   },
 
@@ -243,20 +276,27 @@ export default React.createClass({
     });
   },
 
-  renderBottomBar() {
-    return (
-      <div className="recommendations-bottom-bar">
-        {this.renderAssignButton()}
-      </div>
-    );
-  },
-
   render() {
     if (this.state.loading) {
       return <LoadingSpinner />;
     }
     return (
       <div>
+        <RecommendationOverview />
+        <h3
+          id="recommendations-scroll-to"
+          style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
+        >
+          <img
+            style={{
+              position: 'relative',
+              top: '-3px',
+              marginRight: '15px',
+            }}
+            src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
+          />
+          Personalized Independent Practice Recommendations
+          </h3>
         {this.renderExplanation()}
         <div className="recommendations-container">
           {this.renderTopBar()}
@@ -264,7 +304,7 @@ export default React.createClass({
           <div className="recommendations-table-row-wrapper">
             {this.renderTableRows()}
           </div>
-          {this.renderBottomBar()}
+          <LessonsRecommendations assignToWholeClass={this.assignToWholeClass} recommendations={this.state.lessonsRecommendations} />
         </div>
       </div>
     );

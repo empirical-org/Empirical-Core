@@ -50,6 +50,7 @@ class SessionsController < ApplicationController
   end
 
   def new
+    @js_file = 'login'
     @user = User.new
     session[:role] = nil
   end
