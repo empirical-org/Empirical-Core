@@ -1,7 +1,6 @@
 import React from 'react';
 import LoadingIndicator from '../../shared/loading_indicator.jsx';
 import LessonRecommendationRow from './lesson_recommendation_row';
-require('../../../../../assets/styles/lesson-recommendations.scss');
 
 export default class LessonsRecommendations extends React.Component {
   constructor(props) {
