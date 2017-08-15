@@ -94,24 +94,6 @@ export default React.createClass({
 		}
 	},
 
-	launchLesson: function() {
-		const classroomActivityId = this.props.data.id
-		const lessonId = this.props.data.activity.uid
-		request.put({
-			url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`,
-			json: {authenticity_token: $('meta[name=csrf-token]').attr('content')}
-		// }, (error, httpStatus, body) => {
-		// 	if (body.unlocked) {
-		// 		const lessonUrl = `http://connect.quill.org/#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`
-		// 		if (this.props.hasViewedLessonTutorial) {
-		// 			window.location = lessonUrl
-		// 		} else {
-		// 			window.location = `${process.env.DEFAULT_URL}/tutorials/lessons?url=${encodeURIComponent(lessonUrl)}`
-		// 		}
-		// 	}
-		})
-	},
-
   deleteRow: function() {
     if (!this.props.report && !this.props.lesson) {
       return <div className="pull-right"><img className='delete-classroom-activity h-pointer' onClick={this.hideClassroomActivity} src="/images/x.svg"/></div>
@@ -132,7 +114,6 @@ export default React.createClass({
 				lessonUID={this.props.data.activity.uid}
 				classroomActivityID={this.props.data.id}
 				closeModal={this.closeModal}
-				hasViewedLessonTutorial={this.props.hasViewedLessonTutorial}
 			/>
 		}
 	},
