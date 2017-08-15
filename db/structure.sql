@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -757,6 +757,37 @@ ALTER SEQUENCE ip_locations_id_seq OWNED BY ip_locations.id;
 
 
 --
+-- Name: milestones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE milestones (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE milestones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
+
+
+--
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -973,38 +1004,6 @@ ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
 CREATE TABLE schema_migrations (
     version character varying(255) NOT NULL
 );
-
-
---
--- Name: school_subscriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE school_subscriptions (
-    id integer NOT NULL,
-    school_id integer,
-    subscription_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: school_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE school_subscriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: school_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE school_subscriptions_id_seq OWNED BY school_subscriptions.id;
 
 
 --
@@ -1273,6 +1272,36 @@ ALTER SEQUENCE unit_template_categories_id_seq OWNED BY unit_template_categories
 
 
 --
+-- Name: unit_template_units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE unit_template_units (
+    id integer NOT NULL,
+    unit_id integer,
+    unit_template_id integer
+);
+
+
+--
+-- Name: unit_template_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE unit_template_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unit_template_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE unit_template_units_id_seq OWNED BY unit_template_units.id;
+
+
+--
 -- Name: unit_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1347,24 +1376,23 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
--- Name: user_subscriptions; Type: TABLE; Schema: public; Owner: -
+-- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE user_subscriptions (
+CREATE TABLE user_milestones (
     id integer NOT NULL,
-    user_id integer,
-    subscription_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    visible boolean DEFAULT true NOT NULL
+    user_id integer NOT NULL,
+    milestone_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
 --
--- Name: user_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: user_milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE user_subscriptions_id_seq
+CREATE SEQUENCE user_milestones_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1373,10 +1401,10 @@ CREATE SEQUENCE user_subscriptions_id_seq
 
 
 --
--- Name: user_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: user_milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
+ALTER SEQUENCE user_milestones_id_seq OWNED BY user_milestones.id;
 
 
 --
@@ -1561,6 +1589,13 @@ ALTER TABLE ONLY ip_locations ALTER COLUMN id SET DEFAULT nextval('ip_locations_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY oauth_access_grants ALTER COLUMN id SET DEFAULT nextval('oauth_access_grants_id_seq'::regclass);
 
 
@@ -1597,13 +1632,6 @@ ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_s
 --
 
 ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_misseds_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY school_subscriptions ALTER COLUMN id SET DEFAULT nextval('school_subscriptions_id_seq'::regclass);
 
 
 --
@@ -1659,6 +1687,13 @@ ALTER TABLE ONLY unit_template_categories ALTER COLUMN id SET DEFAULT nextval('u
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY unit_template_units ALTER COLUMN id SET DEFAULT nextval('unit_template_units_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY unit_templates ALTER COLUMN id SET DEFAULT nextval('unit_templates_id_seq'::regclass);
 
 
@@ -1673,7 +1708,7 @@ ALTER TABLE ONLY units ALTER COLUMN id SET DEFAULT nextval('units_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY user_subscriptions ALTER COLUMN id SET DEFAULT nextval('user_subscriptions_id_seq'::regclass);
+ALTER TABLE ONLY user_milestones ALTER COLUMN id SET DEFAULT nextval('user_milestones_id_seq'::regclass);
 
 
 --
@@ -1836,6 +1871,14 @@ ALTER TABLE ONLY ip_locations
 
 
 --
+-- Name: milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY milestones
+    ADD CONSTRAINT milestones_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1881,14 +1924,6 @@ ALTER TABLE ONLY page_areas
 
 ALTER TABLE ONLY rules_misseds
     ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
-
-
---
--- Name: school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY school_subscriptions
-    ADD CONSTRAINT school_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1948,6 +1983,14 @@ ALTER TABLE ONLY unit_template_categories
 
 
 --
+-- Name: unit_template_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY unit_template_units
+    ADD CONSTRAINT unit_template_units_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: unit_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1964,11 +2007,11 @@ ALTER TABLE ONLY units
 
 
 --
--- Name: user_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: user_milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY user_subscriptions
-    ADD CONSTRAINT user_subscriptions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY user_milestones
+    ADD CONSTRAINT user_milestones_pkey PRIMARY KEY (id);
 
 
 --
@@ -2232,6 +2275,13 @@ CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
 
 
 --
+-- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_milestones_on_name ON milestones USING btree (name);
+
+
+--
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2264,20 +2314,6 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
-
-
---
--- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_school_subscriptions_on_school_id ON school_subscriptions USING btree (school_id);
-
-
---
--- Name: index_school_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_school_subscriptions_on_subscription_id ON school_subscriptions USING btree (subscription_id);
 
 
 --
@@ -2365,6 +2401,20 @@ CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_cate
 
 
 --
+-- Name: index_unit_template_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unit_template_units_on_unit_id ON unit_template_units USING btree (unit_id);
+
+
+--
+-- Name: index_unit_template_units_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unit_template_units_on_unit_template_id ON unit_template_units USING btree (unit_template_id);
+
+
+--
 -- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2393,17 +2443,24 @@ CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
 
 
 --
--- Name: index_user_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_subscriptions_on_subscription_id ON user_subscriptions USING btree (subscription_id);
+CREATE INDEX index_user_milestones_on_milestone_id ON user_milestones USING btree (milestone_id);
 
 
 --
--- Name: index_user_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_user_milestones_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_user_subscriptions_on_user_id ON user_subscriptions USING btree (user_id);
+CREATE INDEX index_user_milestones_on_user_id ON user_milestones USING btree (user_id);
+
+
+--
+-- Name: index_user_milestones_on_user_id_and_milestone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON user_milestones USING btree (user_id, milestone_id);
 
 
 --
@@ -2947,4 +3004,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170719192243');
 INSERT INTO schema_migrations (version) VALUES ('20170720140557');
 
 INSERT INTO schema_migrations (version) VALUES ('20170720195450');
+
+INSERT INTO schema_migrations (version) VALUES ('20170804154221');
+
+INSERT INTO schema_migrations (version) VALUES ('20170804154740');
 
