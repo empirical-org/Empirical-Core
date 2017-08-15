@@ -1,5 +1,4 @@
 import React from 'react'
-import request from 'request'
 
 export default class PreviewOrLaunchModal extends React.Component {
 
