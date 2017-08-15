@@ -27,11 +27,22 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
-
-  def unlock_lesson
-    unlocked = @classroom_activity.update(locked: false, pinned: true)
-    PusherLessonLaunched.run(@classroom_activity.classroom)
-    render json: {unlocked: unlocked}
+  def launch_lesson
+    completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.find(current_user.id)
+    lesson_uid = params['lesson_uid']
+    lesson_url = "https://connect.quill.org/#/teach/class-lessons/#{lesson_uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    if completed
+      unlocked = @classroom_activity.update(locked: false, pinned: true)
+      if unlocked
+        PusherLessonLaunched.run(@classroom_activity.classroom)
+        redirect_to lesson_url
+      else
+        flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+      end
+    else
+      launch_lesson_url = "/teachers/classroom_activities/#{@classroom_activity.id}/launch_lesson/#{lesson_uid}"
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}"
+    end
   end
 
   def activity_from_classroom_activity
