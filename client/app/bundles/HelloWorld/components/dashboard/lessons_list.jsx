@@ -52,7 +52,7 @@ export default class extends React.Component {
               </div>
               <span onClick={() => this.openModal(l.unit_id)} className="lesson-name">{l.name}</span>
             </div>
-            <a href={`/teachers/classrooms/activity_planner/lessons/${l.activity_id}/unit/${l.unit_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
+            <a href={`/teachers/units/${l.unit_id}/launch_lesson/${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
           </div>
         </div>
       );

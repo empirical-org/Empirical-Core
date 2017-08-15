@@ -12,9 +12,9 @@ export default class PreviewOrLaunchModal extends React.Component {
   launchLessonLink() {
     const {classroomActivityID, lessonUID, lessonID, unitID} = this.props
     if (classroomActivityID && lessonUID) {
-      return `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityID}/launch_lesson/${lessonUID}`
+      return `/teachers/classroom_activities/${classroomActivityID}/launch_lesson/${lessonUID}`
     } else if (lessonID && unitID) {
-      return `/teachers/classrooms/activity_planner/lessons/${lessonID}/unit/${unitID}`
+      return `/teachers/units/${unitID}/launch_lesson/${lessonID}`
     }
   }
 
