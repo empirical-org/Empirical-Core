@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_filter :resolve_body_class, :determine_js_file
+  before_filter :resolve_body_class, :determine_js_file, :determine_flag
   layout :determine_layout
 
   def home
@@ -137,6 +137,13 @@ class PagesController < ApplicationController
     case action_name
     when 'learning', 'story'
       @body_class = 'auxiliary'
+    end
+  end
+
+  def determine_flag
+    case action_name
+    when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
+      @beta_flag = current_user.flag == 'beta'
     end
   end
 end
