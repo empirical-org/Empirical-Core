@@ -16,6 +16,8 @@ class Teachers::ProgressReportsController < ApplicationController
     sign_in @user
     if params[:name] == 'demoaccount'
       redirect_to teachers_progress_reports_concepts_students_path
+    elsif params[:name] == 'admin_demo'
+      redirect_to profile_path
     else
       redirect_to scorebook_teachers_classrooms_path
     end
