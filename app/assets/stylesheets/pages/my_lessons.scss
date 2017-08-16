@@ -29,3 +29,60 @@
     text-align: center;
   }
 }
+
+.empty-lessons {
+  margin: 45px auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 980px;
+  width: 100%;
+  padding: 0px 80px 0px 20px;
+  @media (max-width: 900px) {
+    justify-content: center;
+    padding: 0px;
+    img {
+      display: none;
+    }
+  }
+  .content {
+    width: 430px;
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      color: #3b3b3b;
+    }
+    p {
+      line-height: 1.62;
+      font-size: 16px;
+      &:first-of-type {
+        margin: 15px 0px;
+        color: #969696;
+      }
+      &:nth-of-type(2) {
+        color: #515151;
+      }
+    }
+    .buttons {
+      display: flex;
+      margin-top: 30px;
+      a {
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        &:first-of-type {
+          border-radius: 6px;
+          width: 168px;
+        }
+        &:nth-of-type(2) {
+          border: solid 1px #00c2a2;
+          border-radius: 3px;
+          width: 140px;
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}

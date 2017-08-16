@@ -98,6 +98,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
     get 'diagnostic_units' => 'units#diagnostic_units'
     get 'lesson_units' => 'units#lesson_units'
+    get 'units/:unit_id/launch_lesson/:activity_id' => 'units#launch_lesson_with_activity_id'
     get 'units/:unit_id/activity/:activity_id' => 'units#lesson_info_for_unit_and_activity'
 
     resources :unit_templates, only: [:index] do
@@ -114,7 +115,7 @@ EmpiricalGrammar::Application.routes.draw do
         get 'lessons_units_and_activities'
         put ':id/hide' => 'classroom_activities#hide'
         get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
-        put ':id/unlock_lesson' => 'classroom_activities#unlock_lesson'
+        get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
       end
     end
 
@@ -305,7 +306,7 @@ EmpiricalGrammar::Application.routes.draw do
     get page => "pages##{page}", as: "#{page}"
   end
 
-  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool)
+  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
   tools.each do |tool|
     get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
   end

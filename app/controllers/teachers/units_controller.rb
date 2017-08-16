@@ -87,6 +87,19 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
+  def launch_lesson_with_activity_id
+    unit = Unit.find_by(id: params[:unit_id])
+    activity_id = params[:activity_id]
+    classroom_activities = unit.classroom_activities.where(activity_id: activity_id)
+    if classroom_activities.length == 1
+      ca_id = classroom_activities.first.id
+      lesson_uid = Activity.find(activity_id).uid
+      redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
+    else
+      redirect_to "/teachers/classrooms/activity_planner/lessons/#{activity_id}/unit/#{unit.id}"
+    end
+  end
+
   def index
     cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
     render json: units(cas).to_json

@@ -19,12 +19,6 @@ export default class extends React.Component {
     this.getListOfAssignedLessons();
   }
 
-  hasViewedLessonTutorial() {
-    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
-      this.setState({hasViewedLessonTutorial: body.completed})
-    })
-  }
-
   getListOfAssignedLessons() {
     const that = this;
     request.get({
@@ -58,7 +52,7 @@ export default class extends React.Component {
               </div>
               <span onClick={() => this.openModal(l.unit_id)} className="lesson-name">{l.name}</span>
             </div>
-            <a href={`/teachers/classrooms/activity_planner/lessons/${l.activity_id}/unit/${l.unit_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
+            <a href={`/teachers/units/${l.unit_id}/launch_lesson/${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
           </div>
         </div>
       );
@@ -68,15 +62,10 @@ export default class extends React.Component {
 
   renderModal(lessonID, unitID) {
     if (this.state.showModal === unitID) {
-      // leaving classroomActivityID and lessonUID in here as props
-      // for when we might be able to pass these
-      // and launch the lesson straight from the dashboard
-      // return <PreviewOrLaunchModal lessonUID={lessonUID} lessonID={lessonID} unitID={unitID} classroomActivityID={classroomActivityID} closeModal={this.closeModal} />;
       return <PreviewOrLaunchModal
         lessonID={lessonID}
         unitID={unitID}
         closeModal={this.closeModal}
-        hasViewedLessonTutorial={this.state.hasViewedLessonTutorial}
       />;
     }
   }
