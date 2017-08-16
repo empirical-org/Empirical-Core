@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'request';
+import LoadingSpinner from '../shared/loading_indicator'
 
 export default class ChooseClassroomLesson extends React.Component {
   constructor(props) {
@@ -72,16 +73,19 @@ export default class ChooseClassroomLesson extends React.Component {
 
   render() {
     const buttonClass = this.state.selectedClassroomActivityId ? 'bg-quillgreen' : ''
-    return(
-    <div className='choose-classroom-lessons container'>
-      <div className='lesson-section'>
-        <p>You've selected this lesson to launch:</p>
-        <div className="lesson-row">
-          <img src={`${process.env.CDN_URL}/images/shared/icon-lesson-box.svg`}/>
-          <p>{this.state.activityName}</p>
-          <span onClick={this.goBack}>Undo Selection</span>
-        </div>
-      </div>
+    if (this.state.loading) {
+      return <LoadingSpinner />
+    } else {
+      return(
+        <div className='choose-classroom-lessons container'>
+          <div className='lesson-section'>
+            <p>You've selected this lesson to launch:</p>
+            <div className="lesson-row">
+              <img src={`${process.env.CDN_URL}/images/shared/icon-lesson-box.svg`}/>
+              <p>{this.state.activityName}</p>
+              <span onClick={this.goBack}>Undo Selection</span>
+            </div>
+          </div>
 
       <div className='class-section'>
         <h3>Now, choose a class to launch this lesson:</h3>
