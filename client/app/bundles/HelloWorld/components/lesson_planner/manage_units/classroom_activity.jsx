@@ -88,26 +88,10 @@ export default React.createClass({
 		if (this.props.data.completed) {
 			return <p className="lesson-completed">Lesson Completed</p>
 		} else {
-			return <button onClick={this.launchLesson} className="q-button bg-quillgreen" id="launch-lesson">Launch Lesson</button>
+			const classroomActivityId = this.props.data.id
+			const lessonId = this.props.data.activity.uid
+			return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`} className="q-button bg-quillgreen" id="launch-lesson">Launch Lesson</a>
 		}
-	},
-
-	launchLesson: function() {
-		const classroomActivityId = this.props.data.id
-		const lessonId = this.props.data.activity.uid
-		request.put({
-			url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/unlock_lesson`,
-			json: {authenticity_token: $('meta[name=csrf-token]').attr('content')}
-		}, (error, httpStatus, body) => {
-			if (body.unlocked) {
-				const lessonUrl = `http://connect.quill.org/#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`
-				if (this.props.hasViewedLessonTutorial) {
-					window.location = lessonUrl
-				} else {
-					window.location = `${process.env.DEFAULT_URL}/tutorials/lessons?url=${encodeURIComponent(lessonUrl)}`
-				}
-			}
-		})
 	},
 
   deleteRow: function() {
@@ -130,7 +114,6 @@ export default React.createClass({
 				lessonUID={this.props.data.activity.uid}
 				classroomActivityID={this.props.data.id}
 				closeModal={this.closeModal}
-				hasViewedLessonTutorial={this.props.hasViewedLessonTutorial}
 			/>
 		}
 	},

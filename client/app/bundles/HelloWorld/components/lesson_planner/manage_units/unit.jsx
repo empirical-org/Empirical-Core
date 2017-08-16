@@ -152,7 +152,6 @@
 							updateDueDate={this.props.updateDueDate}
 							hideClassroomActivity={this.props.hideClassroomActivity}
 							data={ca}
-              hasViewedLessonTutorial={this.props.hasViewedLessonTutorial}
             />);
 		}, this);
 		return (

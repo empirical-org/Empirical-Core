@@ -28,6 +28,40 @@
     </div>
 
   </div>
+<% elsif @tool == 'lessons' %>
+<div class="tools-tabs tools-anchor-nav">
+  <% @tabs = [
+    {name: 'Overview', url: "tools/#{@tool}#overview"},
+    {name: 'How It Works', url: "tools/#{@tool}#how-it-works"},
+    {name: 'Walkthrough', url: "tools/#{@tool}#walkthrough"},
+    {name: 'Testimonial', url: "tools/#{@tool}#testimonial"},
+    {name: 'Best Practices', url: "tools/#{@tool}#q-and-a"}
+    ]
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+  <%
+    @tabs = [
+    {name: 'Overview', url: "tools/#{@tool}#overview"},
+    {name: 'How It Works', url: "tools/#{@tool}#how-it-works-mobile"},
+    {name: 'Walkthrough', url: "tools/#{@tool}#walkthrough"},
+    {name: 'Testimonial', url: "tools/#{@tool}#testimonial"},
+    {name: 'Best Practices', url: "tools/#{@tool}#q-and-a"}
+    ]
+    @active_tab = @active_tab.split.last
+    @mobile = true
+  %>
+
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+  </div>
+
+</div>
+
 <% else %>
 <div class="tools-tabs tools-anchor-nav">
   <% @tabs = [

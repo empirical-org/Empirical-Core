@@ -17,8 +17,8 @@ class ClassroomActivity < ActiveRecord::Base
     if: Proc.new { |ca| ca.pinned == true }
 
   before_validation :check_pinned
-  after_create :assign_to_students, :lock_if_lesson, :update_lessons_cache
-  after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions
+  after_create :assign_to_students, :lock_if_lesson
+  after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions, :update_lessons_cache
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -241,7 +241,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def lessons_cache_info_formatter
-    {classroom_activity_id: self.id, activity_id: activity.id, activity_name: activity.name, unit_id: self.unit_id}
+    {"classroom_activity_id" => self.id, "activity_id" => activity.id, "activity_name" => activity.name, "unit_id" => self.unit_id, "completed" => self.has_a_completed_session?}
   end
 
   private
@@ -262,7 +262,15 @@ class ClassroomActivity < ActiveRecord::Base
       lessons_cache = $redis.get("user_id:#{self.classroom.teacher.id}_lessons_array")
       if lessons_cache
         lessons_cache = JSON.parse(lessons_cache)
-        lessons_cache.push(lessons_cache_info_formatter)
+        formatted_lesson = lessons_cache_info_formatter
+        lesson_index_in_cache = lessons_cache.find_index { |l| l['classroom_activity_id'] == formatted_lesson['classrom_activity_id']}
+        if self.visible == true && !lesson_index_in_cache
+          lessons_cache.push(formatted_lesson)
+        elsif self.visible == false && lesson_index_in_cache
+          lessons_cache.delete(formatted_lesson)
+        elsif self.has_a_completed_session? && lesson_index_in_cache
+          lessons_cache[lesson_index_in_cache] = formatted_lesson
+        end
       else
         lessons_cache = format_initial_lessons_cache
       end
