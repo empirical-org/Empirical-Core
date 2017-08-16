@@ -20,16 +20,29 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def hide
-    @classroom_activity.update(visible: false)
+    cas = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
+    # cannot use update_all here bc we need the callbacks to run
+    cas.each { |ca| ca.try(:update_attributes, {visible: false}) }
     @classroom_activity.unit.hide_if_no_visible_classroom_activities
     render json: {}
   end
 
-
-  def unlock_lesson
-    unlocked = @classroom_activity.update(locked: false, pinned: true)
-    PusherLessonLaunched.run(@classroom_activity.classroom)
-    render json: {unlocked: unlocked}
+  def launch_lesson
+    completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
+    lesson_uid = params['lesson_uid']
+    lesson_url = "https://connect.quill.org/#/teach/class-lessons/#{lesson_uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    if completed
+      unlocked = @classroom_activity.update(locked: false, pinned: true)
+      if unlocked
+        PusherLessonLaunched.run(@classroom_activity.classroom)
+        redirect_to lesson_url
+      else
+        flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+      end
+    else
+      launch_lesson_url = "/teachers/classroom_activities/#{@classroom_activity.id}/launch_lesson/#{lesson_uid}"
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}"
+    end
   end
 
   def activity_from_classroom_activity
@@ -60,7 +73,8 @@ private
 
   def get_lessons_units_and_activities
     # collapses lessons cache into unique array of unit and activity ids
-    lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], unit_id: ca['unit_id'], name: ca['activity_name']}}.keys
+    grouped_lessons_cache = lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], unit_id: ca['unit_id'], name: ca['activity_name'], completed: ca['completed']}}
+    grouped_lessons_cache.keys.select { |lesson| lesson[:completed] == false }
   end
 
   def lessons_cache

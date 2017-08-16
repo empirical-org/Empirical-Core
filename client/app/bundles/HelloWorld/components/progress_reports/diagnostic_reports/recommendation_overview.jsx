@@ -1,5 +1,4 @@
 import React from 'react';
-require('../../../../../assets/styles/lesson-recommendations.scss');
 
 export default class RecommendationsOverview extends React.Component {
   constructor(props) {
