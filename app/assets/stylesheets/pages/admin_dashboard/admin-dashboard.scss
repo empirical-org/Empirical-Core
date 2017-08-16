@@ -1,9 +1,11 @@
 #admin-dashboard {
 
   .sub-container {
-    margin: 0px -100px;
+    max-width: 950px;
+    margin: 0 auto;
   }
   input {
+    max-width: 150px;
     margin-right: 10px;
   }
   .add-user {
