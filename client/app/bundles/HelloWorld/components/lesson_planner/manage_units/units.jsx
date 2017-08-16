@@ -16,7 +16,6 @@
                 lesson={this.props.lesson}
                 updateDueDate={this.props.updateDueDate}
   							data={data}
-                hasViewedLessonTutorial={this.props.hasViewedLessonTutorial}
                 />);
       }}, this);
 		return (
