@@ -16,7 +16,7 @@
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
 		<ul class="home-navbar-list">
 			<% if !current_user || current_user.role != "student" %>
-				<% if current_user.flag == 'beta' %>
+				<% if current_user && current_user.flag == 'beta' %>
 					<li><%= link_to "Tools", "/tools/lessons"%></li>
 				<% else %>
 					<li><%= link_to "Tools", "/tools/connect"%></li>
