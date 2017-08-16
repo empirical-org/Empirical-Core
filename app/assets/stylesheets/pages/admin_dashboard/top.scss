@@ -1,12 +1,15 @@
 .admin-dashboard-top {
   margin-top: 60px;
-  margin-bottom: 120px;
+  margin-bottom: 40px;
 
   .representative {
-    height: 110px;
     .representative-header {
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+    }
+
+    .rep-info {
+      margin-bottom: 60px;
     }
 
     .representative-contact {
