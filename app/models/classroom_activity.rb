@@ -263,7 +263,7 @@ class ClassroomActivity < ActiveRecord::Base
       if lessons_cache
         lessons_cache = JSON.parse(lessons_cache)
         formatted_lesson = lessons_cache_info_formatter
-        lesson_index_in_cache = lessons_cache.find_index { |l| l['classroom_activity_id'] == formatted_lesson['classrom_activity_id']}
+        lesson_index_in_cache = lessons_cache.find_index { |l| l['classroom_activity_id'] == formatted_lesson['classroom_activity_id']}
         if self.visible == true && !lesson_index_in_cache
           lessons_cache.push(formatted_lesson)
         elsif self.visible == false && lesson_index_in_cache
