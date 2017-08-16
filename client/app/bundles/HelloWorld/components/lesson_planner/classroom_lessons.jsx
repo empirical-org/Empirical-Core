@@ -36,7 +36,6 @@ export default class ClassroomLessons extends React.Component {
       url: `${process.env.DEFAULT_URL}/teachers/lesson_units`,
       qs: {classroom_id: this.state.selectedClassroomId}
     }, (error, httpStatus, body) => {
-      debugger;
       this.setState({lessons: JSON.parse(body).units, loaded: true})
     })
   }
