@@ -98,5 +98,6 @@ export default class ChooseClassroomLesson extends React.Component {
         <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>Launch Lesson</a>
       </div>
     </div>)
+    }
   }
 }
