@@ -47,6 +47,7 @@ export default React.createClass({
 },
 
 tools: function() {
+  const userFlag = document.getElementById('current-user-flag').getAttribute('content');
   return [
   <LessonTypeMini
     key={'diagnostic'}
@@ -55,13 +56,15 @@ tools: function() {
     description='Identify Learning Gaps'
     imgSrc={`${process.env.CDN_URL}/assets/images/icons/diagnostic-light-gray.svg`}
   />,
-  <LessonTypeMini
+  userFlag === 'beta'
+  ? <LessonTypeMini
     key={'lessons'}
     link='/teachers/classrooms/assign_activities/create-unit?tool=lessons'
     name='Quill Lessons'
     description='Shared Group Lessons'
     imgSrc={`${process.env.CDN_URL}/assets/images/icons/lessons-light-gray.svg`}
-  />,
+  />
+  : null,
   <LessonTypeMini
     key={'connect'}
     link='/teachers/classrooms/assign_activities/create-unit?tool=connect'
