@@ -239,6 +239,8 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
+  get '/admin', to: redirect('/demo?name=admin_demo')
+
   namespace :auth do
     get "/google_email_mismatch" => 'google#google_email_mismatch'
     get "/google_oauth2/callback" => 'google#google'
