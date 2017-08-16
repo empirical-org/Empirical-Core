@@ -29,6 +29,16 @@ export function startListeningToSession(classroom_activity_id: string) {
   };
 }
 
+export function startLesson(classroom_activity_id: string) {
+  const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
+  currentSlideRef.once('value', (snapshot) => {
+    const currentSlide = snapshot.val()
+    if (!currentSlide) {
+      currentSlideRef.set('0')
+    }
+  })
+}
+
 export function toggleOnlyShowHeaders() {
   return function (dispatch) {
     dispatch({type: C.TOGGLE_HEADERS})
@@ -269,13 +279,6 @@ export function addStudentNames(classroom_activity_id: string, studentsNames: ob
   studentsRef.set(studentsNames)
 }
 
-export function addStudentPresence(classroom_activity_id: string, studentKeys: Array<string>): void {
-  const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence`);
-  const studentPresence = {}
-  studentKeys.forEach(key => studentPresence[key] = false)
-  presenceRef.set(studentPresence)
-}
-
 export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
   const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
   console.log('question_id', question_id)
@@ -329,7 +332,6 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string)
       return response.json();
     }).then((response) => {
       addStudentNames(classroom_activity_id, response)
-      addStudentPresence(classroom_activity_id, Object.keys(response))
     }).catch((error) => {
       console.log('error retrieving students names ', error)
     });

@@ -23,7 +23,7 @@ export default function (currentState = initialState, action) {
         hasreceiveddata: true,
         data: action.data,
       });
-      newState.data.current_slide = currentState.data.current_slide || 0;
+      newState.data.current_slide = currentState.data.current_slide;
       return newState;
     case C.UPDATE_SLIDE_IN_STORE:
       newState = Object.assign({}, JSON.parse(JSON.stringify(currentState)));
