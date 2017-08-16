@@ -148,7 +148,7 @@ class Activity < ActiveRecord::Base
 
   def lesson_url_helper
     base = classification.module_url
-    lesson = name.gsub(/(\W|\d)/, "_").downcase + '?&'
+    lesson = uid + '?'
     classroom_activity_id = @activity_session.classroom_activity.id.to_s
     student_id = @activity_session.id.to_s
     url = base + lesson + 'classroom_activity_id=' + classroom_activity_id + '&student=' + student_id
