@@ -50,8 +50,6 @@ class AccountsController < ApplicationController
     end
     su = SchoolsUsers.find_or_create_by(user_id: current_user.id)
     su.update!(school_id: school.id)
-    puts 'here is su ryan'
-    puts su.attributes
     find_or_create_checkbox('Add School', current_user)
     render json: {}
   end
