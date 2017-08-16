@@ -13,7 +13,6 @@ export default class ClassroomLessons extends React.Component {
       classrooms: this.getClassrooms(),
       loaded: false,
       selectedClassroomId: props.routeParams.classroomId,
-      hasViewedLessonTutorial: this.hasViewedLessonTutorial()
     }
 
     this.switchClassrooms = this.switchClassrooms.bind(this)
@@ -23,7 +22,11 @@ export default class ClassroomLessons extends React.Component {
   getClassrooms() {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms
-      this.setState({classrooms: classrooms, selectedClassroomId: this.props.routeParams.classroomId || classrooms[0].id}, () => this.getLessons())
+      if (classrooms.length > 0) {
+        this.setState({classrooms: classrooms, selectedClassroomId: this.props.routeParams.classroomId || classrooms[0].id}, () => this.getLessons())
+      } else {
+        this.setState({empty: true, loaded: true})
+      }
     })
   }
 
@@ -33,14 +36,8 @@ export default class ClassroomLessons extends React.Component {
       url: `${process.env.DEFAULT_URL}/teachers/lesson_units`,
       qs: {classroom_id: this.state.selectedClassroomId}
     }, (error, httpStatus, body) => {
+      debugger;
       this.setState({lessons: JSON.parse(body).units, loaded: true})
-    })
-  }
-
-  hasViewedLessonTutorial() {
-    request.get(`${process.env.DEFAULT_URL}/milestones/has_viewed_lesson_tutorial`, (error, httpStatus, body) => {
-      const completed = JSON.parse(body).completed
-      this.setState({hasViewedLessonTutorial: completed})
     })
   }
 
@@ -52,14 +49,30 @@ export default class ClassroomLessons extends React.Component {
     </div>
   }
 
+  renderEmptyState() {
+    return <div className="empty-lessons manage-units">
+      <div className="content">
+        <h1>You have no lessons assigned!</h1>
+        <p>In order to launch a lesson with your class, you need to first assign to a class and then launch.</p>
+        <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and see and display student responses in real-time.</p>
+        <div className="buttons">
+          <a href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
+          <a href="/tool/lessons" className="bg-white text-quillgreen">Learn More</a>
+        </div>
+      </div>
+      <img src={`${process.env.CDN_URL}/assets/images/illustrations/empty_state_illustration_lessons.svg`} />
+    </div>
+  }
+
   switchClassrooms(classroom) {
     this.props.history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`)
     this.setState({selectedClassroomId: classroom.id}, () => this.getLessons())
   }
 
   render() {
-    console.log('state', this.state)
-    if (this.state.loaded) {
+    if (this.state.empty) {
+      return this.renderEmptyState()
+    } else if (this.state.loaded) {
       return(
         <div id="lesson_planner">
           <div className="container my-lessons manage-units">
@@ -71,7 +84,6 @@ export default class ClassroomLessons extends React.Component {
             <Units
               data={this.state.lessons}
               lesson={true}
-              hasViewedLessonTutorial={this.state.hasViewedLessonTutorial}
             />
             </div>
           </div>)
