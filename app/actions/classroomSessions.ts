@@ -269,6 +269,13 @@ export function addStudentNames(classroom_activity_id: string, studentsNames: ob
   studentsRef.set(studentsNames)
 }
 
+export function addStudentPresence(classroom_activity_id: string, studentKeys: Array<string>): void {
+  const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence`);
+  const studentPresence = {}
+  studentKeys.forEach(key => studentPresence[key] = false)
+  presenceRef.set(studentPresence)
+}
+
 export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
   const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
   console.log('question_id', question_id)
@@ -306,4 +313,25 @@ export function easyJoinLessonAddName(classroom_activity_id: string, studentName
       window.location.reload()
     }
   })
+}
+
+export function loadStudentNames(classroom_activity_id: string, baseUrl: string) {
+  return function (dispatch) {
+    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      addStudentNames(classroom_activity_id, response)
+      addStudentPresence(classroom_activity_id, Object.keys(response))
+    }).catch((error) => {
+      console.log('error retrieving students names ', error)
+    });
+  };
 }
