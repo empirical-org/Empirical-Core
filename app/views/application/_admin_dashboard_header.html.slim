@@ -1,12 +1,10 @@
 - if session[:admin_id].present?
   #admin-dashboard-header class=(current_user.admin? ? '' : 'teacher-dashboard')
-    .container
-      .row
-        .col-xs-12
-          h4
-            = current_user.admin? ? "Administrator Dashboard" : link_to("Administrator Dashboard", "/session")
-            - if not current_user.admin?
-              i.fa.fa-chevron-right
-              = "#{current_user.name}'s Dashboard"
+    .admin-nav-bar
+      h4
+        = current_user.admin? ? "Administrator Dashboard" : link_to("Administrator Dashboard", "/session")
+        - if not current_user.admin?
+          i.fa.fa-chevron-right
+          = "#{current_user.name}'s Dashboard"
     -if not current_user.admin?
       hr
