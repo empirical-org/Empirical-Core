@@ -146,7 +146,6 @@ function deleteIncorrectSequence(qid, seqid) {
 
 function getFormattedSearchData(state) {
   const searchData = state.filters.formattedFilterData;
-  console.log('state', state);
   searchData.text = state.filters.stringFilter;
   searchData.pageNumber = state.filters.responsePageNumber;
   return searchData;

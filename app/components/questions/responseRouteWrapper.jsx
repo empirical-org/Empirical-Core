@@ -43,15 +43,15 @@ const ResponseComponentWrapper = React.createClass({
   returnAppropriateDataset() {
     const { questionID, } = this.props.params;
     const datasets = ['fillInBlank', 'sentenceFragments', 'diagnosticQuestions'];
-    let theDatasetYouAreLookingFor = this.props.questions;
+    let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {
       if (this.props[dataset].data[questionID]) {
         theDatasetYouAreLookingFor = this.props[dataset].data[questionID];
-        mode = dataset
+        mode = dataset;
       }
     });
-    return {dataset: theDatasetYouAreLookingFor, mode}; // "These are not the datasets you're looking for."
+    return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
   },
 
   render() {

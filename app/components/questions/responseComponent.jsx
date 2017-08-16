@@ -14,6 +14,9 @@ import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
+import {
+  rematchAll
+} from '../../libs/grading/rematching';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
@@ -145,24 +148,6 @@ const Responses = React.createClass({
   },
 
   getPercentageWeakResponses() {
-    // const item = this.props.question;
-    // // pass all possible fields regardless of matcher as the matchers will filter it out.
-    // const fields = {
-    //   wordCountChange: item.wordCountChange,
-    //   questionUID: this.props.questionID,
-    //   sentences: item.sentences,
-    //   prompt: item.prompt,
-    //   focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
-    //   // ignoreCaseAndPunc: item.ignoreCaseAndPunc,
-    // };
-    // const markingObject = new this.state.matcher(fields);
-
-    // const fields = {
-    //   responses: this.responsesWithStatus(),
-    //   focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
-    // };
-    // const question = new this.state.matcher(fields);
-    // return question.getPercentageWeakResponses();
     return this.state.health.common_matched_attempts > 0 ? ((this.state.health.common_unmatched_attempts || 0) / this.state.health.common_matched_attempts * 100).toFixed(2) : 0.0;
   },
 
@@ -255,13 +240,13 @@ const Responses = React.createClass({
 
   rematchAllResponses() {
     console.log('Rematching All Responses');
-    const weak = _.filter(this.responsesWithStatus(), resp => resp.statusCode > 1);
-    weak.forEach((resp, index) => {
-      const percentage = index / weak.length * 100;
-      console.log('Rematching: ', resp.key, percentage, '% complete');
-      this.rematchResponse(resp.key);
-    });
-    console.log('Finished Rematching All Responses');
+    const pageNumber = 1;
+    const weak = rematchAll(this.props.mode, this.props.question, this.props.questionID);
+    // weak.forEach((resp, index) => {
+    //   const percentage = index / weak.length * 100;
+    //   console.log('Rematching: ', resp.key, percentage, '% complete');
+    //   this.rematchResponse(resp.key);
+    // });
   },
 
   responsesWithStatus() {
