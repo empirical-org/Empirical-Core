@@ -18,7 +18,12 @@ class SubscriptionsController < ApplicationController
     attributes = subscription_params
     attributes.delete(:authenticity_token)
     attributes[:user_id] ||= current_user.id
-    @subscription = Subscription.create attributes
+    if current_user.subscription
+      @subscription = current_user.subscription
+      @subscription.update attributes
+    else
+      @subscription = Subscription.create_or_update_with_user_join(attributes[:user_id], attributes)
+    end
     render json: @subscription
   end
 

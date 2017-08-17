@@ -5,9 +5,7 @@ class ChargesController < ApplicationController
 
   def create
     err = nil
-
-
-
+    @message = nil
     begin
       if params['source']['email'] != current_user.email
         raise 'Email is different from the user that is currently logged into Quill'
@@ -16,7 +14,7 @@ class ChargesController < ApplicationController
         :description => "premium",
         :source  => params[:source][:id]
       )
-      charge = Stripe::Charge.create(
+      @charge = Stripe::Charge.create(
         :customer    => customer.id,
         :amount      => params['amount'].to_i,
         :description => 'Teacher Premium',
@@ -58,19 +56,38 @@ class ChargesController < ApplicationController
         err = e
       # Something else happened, completely unrelated to Stripe
       end
+      # then it is a teacher premium
+      if @charge
+        handle_subscription
+      end
 
-      Subscription.start_premium(current_user.id) if charge
 
       respond_to  do |format|
         puts 'here is the error'
         puts err
-        format.json { render :json => {route: premium_redirect, err: err}}
+        format.json { render :json => {route: premium_redirect, err: err, message: @message}}
       end
     end
 
 
 
   private
+
+  def handle_subscription
+    attributes = {account_type: 'paid', account_limit: 1000}
+    if @charge.amount == 45000
+      if current_user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user.school.name)
+        # if the user has a school, and it is not one of the aforementioned defaults, create or update the premium subscription for it
+        Subscription.create_or_update_with_school_or_user_join(current_user.school.id, 'school', attributes)
+      else
+        @message = 'You do not seem to be registered with a school. Your account has been upgraded, and we will reach out to you shortly to upgrade the rest of your school to premium.'
+        attributes[:account_type] = 'missing school'
+        Subscription.create_or_update_with_school_or_user_join(current_user.id, 'user', attributes)
+      end
+    else
+      Subscription.create_or_update_with_school_or_user_join(current_user.id, 'user', attributes)
+    end
+  end
 
   def premium_redirect
     if current_user

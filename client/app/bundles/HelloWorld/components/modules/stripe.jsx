@@ -14,9 +14,10 @@ export default function (priceInCents, description) {
               // but better error is passing weirdness back
               const initialMessage = data.err.message ? data.err.message : 'Please ensure you are providing the same email used to login to Quill, and try again';
               alert(`Your card was not charged. ${initialMessage}. If the issue persists, please contact ryan@quill.org for help.`);
-              return;
+            } else if (data.message) {
+              alert(data.message);
             } else if (amount === 45000) {
-              alert('Premium has been activated for your account. You will receive follow-up communication within a business day.');
+              alert('Premium has been activated for your account, and the accounts of any other teachers registered with your school on Quill. We will send a follow up email shortly.');
             }
             window.location.assign('/profile');
           });
