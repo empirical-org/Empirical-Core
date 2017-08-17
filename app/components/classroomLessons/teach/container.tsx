@@ -18,7 +18,9 @@ import {
   toggleStudentFlag,
   clearAllSubmissions,
   updateSlideInFirebase,
-  registerTeacherPresence
+  registerTeacherPresence,
+  loadStudentNames,
+  startLesson
 } from 'actions/classroomSessions';
 import {
   getClassLessonFromFirebase
@@ -54,8 +56,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentDidMount() {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     if (ca_id) {
-      this.props.dispatch(getClassroomAndTeacherNameFromServer(ca_id || '', process.env.EMPIRICAL_BASE_URL))
-      // this.props.dispatch(loadStudentNames(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+      startLesson(ca_id)
       // below is for spoofing if you log in with Amber M. account
       // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
       // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))

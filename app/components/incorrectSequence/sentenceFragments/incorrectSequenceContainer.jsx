@@ -24,7 +24,6 @@ class IncorrectSequencesContainer extends Component {
 
   submitSequenceForm(data, sequence) {
     console.log("inside submitsequenceform");
-    debugger;
     delete data.conceptResults.null;
     if (sequence) {
       this.props.dispatch(sentenceFragmentActions.submitEditedIncorrectSequence(this.props.params.questionID, data, sequence));
