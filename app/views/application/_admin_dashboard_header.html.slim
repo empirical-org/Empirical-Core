@@ -1,4 +1,4 @@
-- if session[:admin_id].present?
+- if session[:admin_id].present? && session[:viewing_as_admin]
   #admin-dashboard-header class=(current_user.admin? ? '' : 'teacher-dashboard')
     .admin-nav-bar
       h4

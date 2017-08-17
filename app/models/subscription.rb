@@ -33,6 +33,10 @@ class Subscription < ActiveRecord::Base
     is_not_paid? ? 'trial' : 'paid'
   end
 
+  def school_premium?
+    SchoolSubscription.where(subscription_id: self.id).limit(1).exists?
+  end
+
   private
 
   def self.set_premium_expiration(sub = nil)

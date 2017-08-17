@@ -74,7 +74,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
-
+  get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
@@ -91,6 +91,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'prohibited_unit_names' => 'units#prohibited_unit_names'
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
     get 'diagnostic_units' => 'units#diagnostic_units'
+
 
     resources :unit_templates, only: [:index] do
       collection do

@@ -1,16 +1,11 @@
 class AdminsController < ApplicationController
   before_action :admin!
-  before_action :set_teacher, only: [:sign_in_classroom_manager,
+  before_action :set_teacher, :admin_of_this_teacher!, :sign_in,
+                only: [:sign_in_classroom_manager,
                                      :sign_in_progress_reports,
                                      :sign_in_account_settings]
 
-  before_action :admin_of_this_teacher!, only: [:sign_in_classroom_manager,
-                                                :sign_in_progress_reports,
-                                                :sign_in_account_settings]
 
-  before_action :sign_in, only: [:sign_in_classroom_manager,
-                                 :sign_in_progress_reports,
-                                 :sign_in_account_settings]
 
   def show
     render json: Admin::AdminSerializer.new(current_user, root: false)
@@ -30,6 +25,10 @@ class AdminsController < ApplicationController
 
   private
 
+  def use_admin_dashboard
+    @use_admin_dashboard = true
+  end
+
   def set_teacher
     @teacher = User.find(params[:id])
   end
@@ -41,6 +40,7 @@ class AdminsController < ApplicationController
 
   def sign_in
     session[:admin_id] = current_user.id
+    session[:viewing_as_admin] = true
     super(@teacher)
   end
 
