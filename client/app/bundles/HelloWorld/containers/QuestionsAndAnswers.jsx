@@ -9,38 +9,48 @@ export default class QuestionsAndAnswers extends React.Component {
   questionsAndAnswers() {
     return [
       {
-        question: 'How long does a lesson last?',
-        answer: [<p>Lessons are intended to take about 20-30 minutes to complete. The length of time depends on how long you choose to spend discussing each answer. We suggest that teachers spend no more than five minutes discussing a particular answer, but you may want to facilitate a longer conversation.</p>,
-                <p>If you would like to end a lesson early, you can press the “Start Practice Mode” button or “End Session” button in the toolbar at any to stop the lesson. If you would like to use the lesson with a group of your students, you can assign a group of students to start independent practice while the rest of the class continues the lesson.</p>]
+        question: 'How much time should I allot for a Quill lesson?',
+        answer: [<p>Lessons are intended to take <strong>about 20-30 minutes to complete</strong>. The length of time depends on how long you choose to spend discussing each answer. While in most cases five minutes is enough, teachers may want to facilitate a longer conversation.</p>,
+                <p>To end a lesson early, press the “Start Practice Mode” button or “End Session” button in the toolbar at any time. To continue a lesson with a selected group of students, you can assign other students to start independent practice while keeping the lesson open for your group.</p>,
+                <p>If you need to abbreviate your time on Quill, you can complete a lesson at any point, and wait to assign the follow up activity until another time.</p>
+              ]
       },
       {
-        question: 'How can I best support both struggling students and advanced learners?',
-        answer: <p>Each Quill Lesson provides a follow up independent practice activity. If you feel that a group of your students are ready to advance to the independent practice, at any point during the lesson you can click on the “start practice mode” button to send those students to independent practice on Quill. You can then work with the rest of the students as a smaller group.</p>
-      },
-      {
-        question: 'Does Quill Lessons support smart boards?',
-        answer: [<p>Yes, you can use Quill Lessons with a smart board. To do so, log into Quill on the smartboard to  open up the projector view. Once you have that open, log into Quill on a computer, laptop, or tablet, and control the slides through the teacher view. You can be logged into Quill on multiple devices.</p>,
-                <p>You will soon be able to use your smartphone to control the slides while you walk around the room! Smartphone support is in testing now, and it will be supported by January 2018.</p>]
-      },
-      {
-        question: 'How can I draw & write on a Quill Lesson using my smartboard?',
-        answer: <p>If your smartboard does not support writing in a browser, you can download the chrome extension <a href="https://chrome.google.com/webstore/detail/web-paint/emeokgokialpjadjaoeiplmnkjoaegng?hl=en-US">Web Paint.</a></p>
+        question: 'How can I best support both struggling students and advanced learners in lessons mode?',
+        answer: <p>You can also use the flagging features to privately select students for extra support. If a student’s response requires intervention, you can click on the flag next to their answer, and they will show up in a list for you at the end of the lesson. At this point all other students can begin the independent practice while you work with a small group.</p>
       },
       {
         question: 'Can I skip slides?',
-        answer: <p>Yes, all of the slides and the step-by-step guide are optional. We have provided it as a starting point to think about how you can introduce each concept, but it’s important that you set customize it to your students. You can edit all of the prompts and questions to best suit your students, and you will soon be able to create your own Quill Lessons. Within each lesson, you can also skip slides by selecting a new slide from the preview section.</p>
+        answer: [<p>Yes, the slides and the step-by-step guide are a starting point to introduce these concepts to your learners. You can customize the lessons for your learners by editing all of the prompts and questions. Within each lesson, you can also skip slides by selecting a new slide from the preview section.</p>,
+                <p><em>Coming soon:</em> You will soon be able to create your own Lessons using the Quill interface! Keep an eye out for updates about this release.</p>
+        ]
       },
       {
-        question: 'How long should students spend on each lesson?',
-        answer: ''
+        question: 'How do I project Quill Lesson?',
+        answer: [<p>After you have launched a lesson, click on the “Launch Projector” icon in the navigation bar at the top. This will open a new window with student facing slides only. In order to ensure that the projector does NOT mirror your screen or show students the teacher notes:</p>,
+                <p>For PC:</p>,
+                <ol>
+                  <li>Go to <strong>Control Panel</strong> or <strong>right-click on your desktop.</strong></li>
+                  <li>Choose <strong>Display Settings.</strong></li>
+                  <li>In the Multiple Display dropdown, select <strong>Extend Desktop to This Display.</strong></li>
+                </ol>,
+                <p>For Mac:</p>,
+                <ol>
+                  <li>Go to <strong>System Preferences.</strong></li>
+                  <li>Go to <strong>Displays.</strong></li>
+                  <li>Next, select the <strong>Arrangement</strong> tab.</li>
+                  <li>Uncheck <strong>Mirror Displays.</strong></li>
+                </ol>,
+                <p>Once you have unmirrored your screen from the projector, you can move the student slide window to the projector so the class could see it. You will be able to control what the students see and the projector slide from your teacher view.</p>
+              ]
       },
       {
-        question: 'How do I use Quill Lessons with a projector?',
-        answer: ''
+        question: 'How can I draw & write on a Quill Lesson using my SMARTboard?',
+        answer: <p>We know that every interactive projector works in different ways. If your setup does not support writing in a browser, you can download the chrome extension <a href="https://chrome.google.com/webstore/detail/web-paint/emeokgokialpjadjaoeiplmnkjoaegng?hl=en-US">Web Paint</a>, and use that to interact with a Quill lesson.</p>
       },
       {
         question: 'How many answers should I display at a time?',
-        answer: <p>We suggest that you project 2-3 answers to the students so that the students can discuss these answers. We do not suggest that you show more than four at a time, as they might not all fit on the screen and it can be difficult for the students to see and read all of these answers. If you want to show more than four answers, we suggest showing the answers in groups. Project one group of answers, and once you have discussed them, deselect those answers and select another set.</p>
+        answer: <p>We suggest that you project 2-3 student responses to allow for discussion. More than four responses might not all fit on the screen, and will require scrolling on the part of the students. If you want to discuss more than four answers, try projecting 2-3 options to start. Then deselect those answers and choose another set to continue the conversation.</p>
       }
     ]
   }
