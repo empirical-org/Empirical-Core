@@ -235,9 +235,19 @@ export function registerTeacherPresence(classroom_activity_id: string | null): v
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
     if (snapshot.val() === true) {
       absentTeacherRef.onDisconnect().set(true);
+      clearPreviewSessionOnDisconnect(classroom_activity_id)
       absentTeacherRef.set(false);
     }
   });
+}
+
+export function clearPreviewSessionOnDisconnect(classroom_activity_id) {
+  const previewRef = classroomSessionsRef.child(`${classroom_activity_id}/preview/`)
+  previewRef.once('value', (snapshot) => {
+    if (snapshot.val() === true) {
+      classroomSessionsRef.child(`${classroom_activity_id}`).onDisconnect().remove()
+    }
+  })
 }
 
 export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
@@ -351,6 +361,6 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string)
 }
 
 export function createPreviewSession() {
-  const previewSession = classroomSessionsRef.push({ 'students': [{'student': 'James Joyce'}], 'current_slide': '0', 'public': true, 'preview': true })
+  const previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
   return previewSession.key
 }
