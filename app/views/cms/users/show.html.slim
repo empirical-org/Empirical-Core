@@ -25,9 +25,9 @@ article.simple-rounded-box.cms
     dd= "#{@user.school_mail_city}, #{@user.school_mail_state}" if @user.school
     - if @user.teacher?
       dt Premium Status
-      dd= @user.subscriptions.last&.account_type
+      dd= @user.subscription.try(:account_type)
       dt Premium Expires
-      dd= @user.subscriptions.last&.expiration
+      dd= @user.subscription.try(:expiration)
       dt Grades
       dd= @user.classrooms_i_teach.collect {|c| "#{c.name} - #{c.grade}"}.join('<br />').html_safe
     dt User Location
