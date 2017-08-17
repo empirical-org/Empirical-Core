@@ -15,6 +15,14 @@ export function rematchAll(mode, question, questionID) {
   });
 }
 
+export function rematchOne(response, mode, question, questionID) {
+  const MarkerGenerator = getMatcher(mode);
+  getGradedResponses(questionID).then((data) => {
+    const markingObject = new MarkerGenerator(getMatcherFields(question, formatGradedResponses(data)));
+    rematchResponse(markingObject, response);
+  });
+}
+
 export function paginatedNonHumanResponses(matcher, qid, page) {
   request(
     {

@@ -15,7 +15,8 @@ import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import {
-  rematchAll
+  rematchAll,
+  rematchOne
 } from '../../libs/grading/rematching';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
@@ -151,74 +152,6 @@ const Responses = React.createClass({
     return this.state.health.common_matched_attempts > 0 ? ((this.state.health.common_unmatched_attempts || 0) / this.state.health.common_matched_attempts * 100).toFixed(2) : 0.0;
   },
 
-  // ryan Look here!!!
-  getMatchingResponse(rid) {
-    // pass all possible fields regardless of matcher as the matchers will filter it out.
-    const callback = (data) => {
-      const item = this.props.question;
-      const fields = {
-        wordCountChange: item.wordCountChange,
-        questionUID: this.props.questionID,
-        sentences: item.sentences,
-        prompt: item.prompt,
-        responses: hashToCollection(data),
-        focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
-        incorrectSequences: item.incorrectSequences ? hashToCollection(item.incorrectSequences) : [],
-        ignoreCaseAndPunc: item.ignoreCaseAndPunc,
-      };
-      const markingObject = new this.state.matcher(fields);
-      const newMatchedResponse = markingObject.checkMatch(this.getResponse(rid).text);
-      const response = this.getResponse(rid);
-
-      const changed =
-        (newMatchedResponse.response.parentID !== response.parentID) ||
-        (newMatchedResponse.response.author !== response.author) ||
-        (newMatchedResponse.response.feedback !== response.feedback) ||
-        (newMatchedResponse.response.conceptResults !== response.conceptResults);
-      const unmatched = (newMatchedResponse.found === false);
-      console.log('Rematched: t, u, o, n: ', changed, unmatched);
-      if (changed) {
-        if (unmatched) {
-          const newValues = {
-            weak: false,
-            feedback: undefined,
-            parentID: undefined,
-            text: response.text,
-            count: response.count,
-            questionUID: response.questionUID,
-            gradeIndex: `unmatched${response.questionUID}`,
-          };
-          this.updateRematchedResponse(rid, newValues);
-        } else if (newMatchedResponse.response.parentID === undefined) {
-          this.props.dispatch(
-            deleteResponse(this.props.questionID, rid)
-          );
-        } else {
-          const newValues = {
-            weak: false,
-            parentID: newMatchedResponse.response.parentID,
-            author: newMatchedResponse.response.author,
-            feedback: newMatchedResponse.response.feedback,
-            gradeIndex: `nonhuman${response.questionUID}`,
-          };
-          if (newMatchedResponse.response.conceptResults) {
-            const crs = _.values(newMatchedResponse.response.conceptResults);
-            const newHash = {};
-            _.each(crs, (val) => {
-              if (val.conceptUID.length > 0) {
-                newHash[val.conceptUID] = val.correct;
-              }
-            });
-            newValues.conceptResults = newHash;
-          }
-          this.updateRematchedResponse(rid, newValues);
-        }
-      }
-    };
-
-    return getGradedResponsesWithCallback(this.props.questionID, callback);
-  },
-
   getErrorsForAttempt(attempt) {
     return attempt.feedback;
   },
@@ -235,7 +168,8 @@ const Responses = React.createClass({
   },
 
   rematchResponse(rid) {
-    const newMatchedResponse = this.getMatchingResponse(rid);
+    const response = this.props.filters.responses[rid];
+    rematchOne(response, this.props.mode, this.props.question, this.props.questionID);
   },
 
   rematchAllResponses() {
