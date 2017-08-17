@@ -29,6 +29,16 @@ export function startListeningToSession(classroom_activity_id: string) {
   };
 }
 
+export function startLesson(classroom_activity_id: string) {
+  const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
+  currentSlideRef.once('value', (snapshot) => {
+    const currentSlide = snapshot.val()
+    if (!currentSlide) {
+      currentSlideRef.set('0')
+    }
+  })
+}
+
 export function toggleOnlyShowHeaders() {
   return function (dispatch) {
     dispatch({type: C.TOGGLE_HEADERS})
@@ -306,4 +316,24 @@ export function easyJoinLessonAddName(classroom_activity_id: string, studentName
       window.location.reload()
     }
   })
+}
+
+export function loadStudentNames(classroom_activity_id: string, baseUrl: string) {
+  return function (dispatch) {
+    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      addStudentNames(classroom_activity_id, response)
+    }).catch((error) => {
+      console.log('error retrieving students names ', error)
+    });
+  };
 }
