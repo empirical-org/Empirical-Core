@@ -185,6 +185,14 @@ class TeacherNavbar extends React.Component<any, any> {
     }
   }
 
+  beStudentButton() {
+    const { preview } = this.props.classroomSessions.data
+    if (preview === true) {
+      const link = window.location.href.replace('teach', 'play').concat('&student=student')
+      return <a style={{color: 'white', marginRight: '10px'}} href={link} target="_blank">Be A Student</a>
+    }
+  }
+
   render() {
     const { watchTeacherState } = this.props.classroomSessions.data
     let projectorClass, exitClass;
@@ -216,6 +224,7 @@ class TeacherNavbar extends React.Component<any, any> {
       <div className="lessons-teacher-navbar">
         <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p>
         <span className="toolbar">
+          {this.beStudentButton()}
           {this.presentStudentCount()}
           <div
             onMouseEnter={(e) => this.showTooltip(e, 'flag')}
