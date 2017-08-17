@@ -8,7 +8,7 @@ class AdminsController < ApplicationController
 
 
   def show
-    render json: Admin::AdminSerializer.new(current_user, root: false)
+    render json: UserAdminSerializer.new(current_user, root: false)
   end
 
   def sign_in_classroom_manager
@@ -24,10 +24,6 @@ class AdminsController < ApplicationController
   end
 
   private
-
-  def use_admin_dashboard
-    @use_admin_dashboard = true
-  end
 
   def set_teacher
     @teacher = User.find(params[:id])

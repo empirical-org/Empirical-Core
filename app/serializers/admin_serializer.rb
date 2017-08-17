@@ -1,3 +1,0 @@
-class StaffSerializer < UserSerializer
-
-end
