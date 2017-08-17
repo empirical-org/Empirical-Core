@@ -98,3 +98,39 @@
     color: #00c2a2;
   }
 }
+
+.lessons-teacher-preview-bar {
+  display: flex;
+  justify-content: space-between;
+  height: 53px;
+  background-color: #348fdf;
+  align-items: center;
+  padding: 0 30px;
+  color: white;
+  i {
+    margin: 1px 10px;
+    font-size: 15px;
+  }
+  p {
+    span {
+      font-weight: bold;
+    }
+    a {
+      color: white;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+  .student-link {
+    color: white;
+    font-size: 14px;
+    width: 185px;
+    height: 35px;
+    border-radius: 3px;
+    border: solid 1px #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+}

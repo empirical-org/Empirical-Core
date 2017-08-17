@@ -185,11 +185,15 @@ class TeacherNavbar extends React.Component<any, any> {
     }
   }
 
-  beStudentButton() {
+  previewBar() {
     const { preview } = this.props.classroomSessions.data
     if (preview === true) {
-      const link = window.location.href.replace('teach', 'play').concat('&student=student')
-      return <a style={{color: 'white', marginRight: '10px'}} href={link} target="_blank">Be A Student</a>
+      const assignLink = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/assign_activities/create-unit?tool=lessons`
+      const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
+      return <div className="lessons-teacher-preview-bar">
+        <p><i className="fa fa-eye" />You are <span>previewing</span> the teacher's view of Quill Lessons. <a href={assignLink}>Assign Quill Lessons</a> from your dashboard.</p>
+        <a href={studentLink} target="_blank" className="student-link">Open Student View<i className="fa fa-external-link"/></a>
+      </div>
     }
   }
 
@@ -221,58 +225,60 @@ class TeacherNavbar extends React.Component<any, any> {
     }
 
     return (
-      <div className="lessons-teacher-navbar">
-        <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p>
-        <span className="toolbar">
-          {this.beStudentButton()}
-          {this.presentStudentCount()}
-          <div
-            onMouseEnter={(e) => this.showTooltip(e, 'flag')}
-            onMouseLeave={(e) => this.hideTooltip(e)}
-            onClick={this.toggleFlagDropdown}
-            onBlur={this.hideFlagDropdown}
-            tabIndex={0}
-          >
-            <img className={`flag-icon ${flagClass}`} src={flagIcon}/>
-            {this.renderTooltip('flag')}
-            {this.renderFlagDropdown()}
-          </div>
-          <div
-            onMouseEnter={(e) => this.showTooltip(e, 'projector')}
-            onMouseLeave={(e) => this.hideTooltip(e)}
-            onClick={this.launchProjector}
-          >
-            <img src={projectorIcon} className={projectorClass}/>
-            {this.renderTooltip('projector')}
-          </div>
-          <div
-            onMouseEnter={(e) => this.showTooltip(e, 'watchTeacher')}
-            onMouseLeave={(e) => this.hideTooltip(e)}
-            onClick={this.toggleWatchTeacherMode}
-          >
-            <img src={watchTeacherIcon} className={watchTeacherClass}/>
-            {this.renderTooltip('watchTeacher')}
-          </div>
-          <div
-            onMouseEnter={(e) => this.showTooltip(e, 'exit')}
-            onMouseLeave={(e) => this.hideTooltip(e)}
-            onClick={this.exitLesson}
-          >
-            <img src={exitIcon} className={exitClass}/>
-            {this.renderTooltip('exit')}
-          </div>
-          <div
-            onMouseEnter={(e) => this.showTooltip(e, 'help')}
-            onMouseLeave={(e) => this.hideTooltip(e)}
-            onClick={this.toggleHelpDropdown}
-            onBlur={this.hideHelpDropdown}
-            tabIndex={0}
-          >
-            <img className={`help-icon ${helpClass}`} src={helpIcon}/>
-            {this.renderTooltip('help')}
-            {this.renderHelpDropdown()}
-          </div>
-        </span>
+      <div>
+        {this.previewBar()}
+        <div className="lessons-teacher-navbar">
+          <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p>
+          <span className="toolbar">
+            {this.presentStudentCount()}
+            <div
+              onMouseEnter={(e) => this.showTooltip(e, 'flag')}
+              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.toggleFlagDropdown}
+              onBlur={this.hideFlagDropdown}
+              tabIndex={0}
+            >
+              <img className={`flag-icon ${flagClass}`} src={flagIcon}/>
+              {this.renderTooltip('flag')}
+              {this.renderFlagDropdown()}
+            </div>
+            <div
+              onMouseEnter={(e) => this.showTooltip(e, 'projector')}
+              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.launchProjector}
+            >
+              <img src={projectorIcon} className={projectorClass}/>
+              {this.renderTooltip('projector')}
+            </div>
+            <div
+              onMouseEnter={(e) => this.showTooltip(e, 'watchTeacher')}
+              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.toggleWatchTeacherMode}
+            >
+              <img src={watchTeacherIcon} className={watchTeacherClass}/>
+              {this.renderTooltip('watchTeacher')}
+            </div>
+            <div
+              onMouseEnter={(e) => this.showTooltip(e, 'exit')}
+              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.exitLesson}
+            >
+              <img src={exitIcon} className={exitClass}/>
+              {this.renderTooltip('exit')}
+            </div>
+            <div
+              onMouseEnter={(e) => this.showTooltip(e, 'help')}
+              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.toggleHelpDropdown}
+              onBlur={this.hideHelpDropdown}
+              tabIndex={0}
+            >
+              <img className={`help-icon ${helpClass}`} src={helpIcon}/>
+              {this.renderTooltip('help')}
+              {this.renderHelpDropdown()}
+            </div>
+          </span>
+        </div>
       </div>
     );
   }
