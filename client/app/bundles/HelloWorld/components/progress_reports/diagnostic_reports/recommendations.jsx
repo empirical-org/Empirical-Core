@@ -74,7 +74,9 @@ export default React.createClass({
 	},
 
 	studentIsSelected: function(student, selection) {
-		return selection.students.includes(student.id)
+    if (student && selection && selection.students && selection.students.length) {
+      return selection.students.includes(student.id);
+    }
 	},
 
 	studentIsRecommended: function(student, recommendation) {
