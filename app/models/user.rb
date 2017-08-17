@@ -132,6 +132,10 @@ class User < ActiveRecord::Base
     self.name = result
   end
 
+  def admin?
+    SchoolsAdmins.find_by_user_id(self.id).present?
+  end
+
   def self.find_by_username_or_email(login_name)
     login_name.downcase!
     User.where("email = ? OR username = ?", login_name, login_name).first
@@ -175,10 +179,6 @@ class User < ActiveRecord::Base
 
   def teacher?
     role.teacher?
-  end
-
-  def admin?
-    role.admin?
   end
 
   def staff?
