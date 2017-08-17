@@ -1,6 +1,17 @@
 import Passthrough from 'components/shared/passthrough.jsx';
 
 import { getParameterByName } from 'libs/getParameterByName';
+import { createPreviewSession } from '../../../../actions/classroomSessions'
+
+const previewRoute = {
+  path: ':lessonID/preview',
+  onEnter: (nextState, replaceWith) => {
+    const classroomActivityId = createPreviewSession()
+    if (classroomActivityId) {
+      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${nextState.params.lessonID}?&classroom_activity_id=${classroomActivityId}`;
+    }
+  }
+};
 
 const teachRoute = {
   path: ':lessonID',
@@ -11,6 +22,7 @@ const teachRoute = {
     });
   },
 };
+
 
 const indexRoute = {
   component: Passthrough,
@@ -27,6 +39,7 @@ const route = {
   path: 'class-lessons',
   indexRoute,
   childRoutes: [
+    previewRoute,
     teachRoute
   ],
   component: Passthrough,

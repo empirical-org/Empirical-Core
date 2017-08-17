@@ -33,7 +33,7 @@ export function startLesson(classroom_activity_id: string) {
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.once('value', (snapshot) => {
     const currentSlide = snapshot.val()
-    if (!currentSlide) {
+    if (currentSlide !== '0' || !currentSlide) {
       currentSlideRef.set('0')
     }
   })
@@ -47,11 +47,14 @@ export function toggleOnlyShowHeaders() {
 
 export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string) {
   return function (dispatch) {
+    let initialized = false
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
       if (snapshot.val()) {
         const payload = snapshot.val()
         delete payload.current_slide
         dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
+        dispatch(getInitialData(classroom_activity_id, initialized, payload.preview))
+        initialized = true
       } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
@@ -63,6 +66,15 @@ export function updateClassroomSessionWithoutCurrentSlide(data) {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE,
     data
+  }
+}
+
+export function getInitialData(ca_id, initialized, preview) {
+  return function(dispatch) {
+    if (!initialized && !preview) {
+      dispatch(getClassroomAndTeacherNameFromServer(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+      dispatch(loadStudentNames(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+    }
   }
 }
 
@@ -223,9 +235,19 @@ export function registerTeacherPresence(classroom_activity_id: string | null): v
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
     if (snapshot.val() === true) {
       absentTeacherRef.onDisconnect().set(true);
+      clearPreviewSessionOnDisconnect(classroom_activity_id)
       absentTeacherRef.set(false);
     }
   });
+}
+
+export function clearPreviewSessionOnDisconnect(classroom_activity_id) {
+  const previewRef = classroomSessionsRef.child(`${classroom_activity_id}/preview/`)
+  previewRef.once('value', (snapshot) => {
+    if (snapshot.val() === true) {
+      classroomSessionsRef.child(`${classroom_activity_id}`).onDisconnect().remove()
+    }
+  })
 }
 
 export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
@@ -336,4 +358,9 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string)
       console.log('error retrieving students names ', error)
     });
   };
+}
+
+export function createPreviewSession() {
+  const previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
+  return previewSession.key
 }
