@@ -91,7 +91,8 @@ CREATE TABLE activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
-    repeatable boolean DEFAULT true
+    repeatable boolean DEFAULT true,
+    follow_up_activity_id integer
 );
 
 
@@ -138,7 +139,9 @@ CREATE TABLE activity_classifications (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     app_name character varying(255),
-    order_number integer DEFAULT 999999999
+    order_number integer DEFAULT 999999999,
+    instructor_mode boolean DEFAULT false,
+    locked_by_default boolean DEFAULT false
 );
 
 
@@ -411,7 +414,9 @@ CREATE TABLE classroom_activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     assigned_student_ids integer[],
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    locked boolean DEFAULT false,
+    pinned boolean DEFAULT false
 );
 
 
@@ -1035,8 +1040,28 @@ ALTER SEQUENCE schools_id_seq OWNED BY schools.id;
 
 CREATE TABLE schools_users (
     school_id integer,
-    user_id integer
+    user_id integer,
+    id integer NOT NULL
 );
+
+
+--
+-- Name: schools_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE schools_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: schools_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE schools_users_id_seq OWNED BY schools_users.id;
 
 
 --
@@ -1541,6 +1566,13 @@ ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::r
 -- Name: sections id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY schools_users ALTER COLUMN id SET DEFAULT nextval('schools_users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY sections ALTER COLUMN id SET DEFAULT nextval('sections_id_seq'::regclass);
 
 
@@ -1809,7 +1841,19 @@ ALTER TABLE ONLY schools
 
 
 --
+<<<<<<< HEAD
+-- Name: schools_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_users
+    ADD CONSTRAINT schools_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+=======
 -- Name: sections sections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+>>>>>>> c51eb5e87eac5be116c5b1d1cbabad5736c21a22
 --
 
 ALTER TABLE ONLY sections
@@ -2035,6 +2079,13 @@ CREATE INDEX index_classroom_activities_on_classroom_id ON classroom_activities 
 
 
 --
+-- Name: index_classroom_activities_on_classroom_id_and_pinned; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
+
+
+--
 -- Name: index_classroom_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2206,7 +2257,7 @@ CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING
 -- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
+CREATE UNIQUE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
 
 
 --
@@ -2710,5 +2761,26 @@ INSERT INTO schema_migrations (version) VALUES ('20170412154159');
 
 INSERT INTO schema_migrations (version) VALUES ('20170502185232');
 
+<<<<<<< HEAD
+INSERT INTO schema_migrations (version) VALUES ('20170505182334');
+
+INSERT INTO schema_migrations (version) VALUES ('20170505195744');
+
+INSERT INTO schema_migrations (version) VALUES ('20170517152031');
+
+=======
+>>>>>>> c51eb5e87eac5be116c5b1d1cbabad5736c21a22
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170718160133');
+
+INSERT INTO schema_migrations (version) VALUES ('20170719192243');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720140557');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720195450');
+
+INSERT INTO schema_migrations (version) VALUES ('20170809151404');
+
+INSERT INTO schema_migrations (version) VALUES ('20170809202510');
 

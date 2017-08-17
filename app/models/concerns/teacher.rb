@@ -13,6 +13,8 @@ module Teacher
     has_many :admin_accounts_teachers,  foreign_key: 'teacher_id', class_name: "AdminAccountsTeachers"
     has_many :admin_accounts_i_am_part_of, through: :admin_accounts_teachers, class_name: "AdminAccount", source: :admin_account
     has_many :units
+    has_one :user_subscription
+    has_one :subscription, through: :user_subscription
   end
 
   class << self
@@ -82,18 +84,11 @@ module Teacher
       if params[:school_id].nil? or params[:school_id].length == 0
         are_there_school_related_errors = true
       else
-        if !(params[:original_selected_school_id].nil? or params[:original_selected_school_id].length == 0)
-          if params[:original_selected_school_id] != params[:school_id]
-            self.schools.delete(School.find(params[:school_id])) # this will not destroy the school, just the assocation to this user
-          end
-        end
-        unless self.schools.where(id: params[:school_id]).any?
-          (self.schools << School.find(params[:school_id]))
-          find_or_create_checkbox('Add School', self)
-        end
+        self.school = School.find(params[:school_id])
+        self.updated_school params[:school_id]
+        find_or_create_checkbox('Add School', self)
       end
     end
-
     if !are_there_school_related_errors
       if self.update_attributes(username: params[:username] || self.username,
                                         email: params[:email] || self.email,
@@ -117,6 +112,35 @@ module Teacher
     response
   end
 
+  def updated_school(school_id)
+    new_school_sub = SchoolSubscription.find_by_school_id(school_id)
+    current_sub = self.subscription
+    if current_sub&.school_subscriptions&.any?
+      # then they already belonged to a subscription through a school, which we destroy
+      self.user_subscription.destroy
+    end
+    if new_school_sub
+      if current_sub
+        current_is_school = current_sub&.school_subscriptions.any?
+        if current_is_school
+          # we don't care about their old school -- give them the new school sub
+          new_sub_id = new_school_sub.subscription.id
+        else
+          # give them the better of their personal sub or the school sub
+          new_sub_id = later_expiration_date(new_school_sub.subscription, current_sub).id
+        end
+      else
+        # they get the new sub by default
+        new_sub_id = new_school_sub.subscription.id
+      end
+    end
+    if new_sub_id
+      UserSubscription.update_or_create(self.id, new_sub_id)
+    end
+  end
+
+
+
   def part_of_admin_account?
     admin_accounts_i_am_part_of.any?
   end
@@ -125,9 +149,7 @@ module Teacher
     if part_of_admin_account?
       true
     else
-      subscriptions
-        .where("subscriptions.expiration >= ?", Date.today)
-        .any?
+      !!(subscription && subscription.expiration >= Date.today)
     end
   end
 
@@ -144,9 +166,7 @@ module Teacher
   end
 
   def is_trial_expired?
-    subscriptions
-      .where("subscriptions.expiration < ?", Date.today)
-      .any?
+    subscription && subscription.expiration < Date.today
   end
 
   def teachers_activity_sessions_since_trial_start_date
@@ -159,29 +179,33 @@ module Teacher
   end
 
   def trial_days_remaining
-    valid_subscription = subscriptions.where("subscriptions.expiration >= ?", Date.today).first
-    if valid_subscription && (valid_subscription.is_not_paid?)
-      (valid_subscription.expiration - Date.today).to_i
+    valid_subscription =   subscription && subscription.expiration > Date.today
+    if valid_subscription && (subscription.is_not_paid?)
+      (subscription.expiration - Date.today).to_i
     else
       nil
     end
   end
 
   def premium_updated_or_created_today?
-    subscriptions.where("created_at >= ? OR updated_at >= ?", Time.zone.now.beginning_of_day, Time.zone.now.beginning_of_day).any?
+    if subscription
+      [subscription.created_at, subscription.updated_at].max == Time.zone.now.beginning_of_day
+    end
   end
 
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
-    if !is_beta_period_over?
-      "beta"
-    elsif part_of_admin_account?
-      'school'
-    elsif is_premium?
-      ## returns 'trial' or 'paid'
-      subscriptions.where("subscriptions.expiration >= ?", Date.today).first.trial_or_paid
-    elsif is_trial_expired?
-      "locked"
+    if part_of_admin_account?
+        'school'
+    elsif subscription
+      if !is_beta_period_over?
+        "beta"
+      elsif is_premium?
+        ## returns 'trial' or 'paid'
+        subscription.trial_or_paid
+      elsif is_trial_expired?
+        "locked"
+      end
     else
       'none'
     end
@@ -189,6 +213,10 @@ module Teacher
 
   def is_beta_period_over?
     Date.today >= TRIAL_START_DATE
+  end
+
+  def later_expiration_date(sub_1, sub_2)
+    sub_1.expiration > sub_2.expiration ? sub_1 : sub_2
   end
 
 end
