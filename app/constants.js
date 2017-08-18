@@ -40,6 +40,9 @@ export default {
   SUBMIT_LESSON_EDIT: 'SUBMIT_LESSON_EDIT',
   TOGGLE_NEW_LESSON_MODAL: 'TOGGLE_NEW_LESSON_MODAL',
 
+  // CLASSROOM_LESSON ACTIONS
+  RECEIVE_CLASSROOM_LESSONS_DATA: 'RECEIVE_CLASSROOM_LESSONS_DATA',
+
 	// lESSON STATES
   EDITING_LESSON: 'EDITING_LESSON',
   SUBMITTING_LESSON: 'SUBMITTING_LESSON',
@@ -156,10 +159,10 @@ export default {
   },
 
   NUMBERS_AS_WORDS: [
-    "zero", "one", "two", "three", "four", "five",
-    "six", "seven", "eight", "nine", "ten",
-    "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-    "sixteen", "seventeen", "eighteen", "nineteen", "twenty"
+    'zero', 'one', 'two', 'three', 'four', 'five',
+    'six', 'seven', 'eight', 'nine', 'ten',
+    'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
+    'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'
   ],
 
   INSTRUCTIONS: {

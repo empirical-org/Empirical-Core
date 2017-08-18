@@ -21,6 +21,7 @@ import fillInBlank from './fillInBlank';
 import display from './display';
 import classroomSessions from './classroomSessions';
 import classroomLesson from './classroomLesson';
+import classroomLessons from './classroomLessons'; // this is the admin one
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({

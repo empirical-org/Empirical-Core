@@ -43,6 +43,7 @@ const adminContainer = React.createClass({
             <ul className="menu-list">
               <TabLink to={'/admin/datadash'} activeClassName="is-active">Score Analysis</TabLink>
               <TabLink to={'/admin/lessons'} activeClassName="is-active">Lessons</TabLink>
+              <TabLink to={'/admin/classroom-lessons'} activeClassName="is-active">Classroom Lessons</TabLink>
             </ul>
             <p className="menu-label">
               Questions
