@@ -15,7 +15,7 @@ gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'
 gem 'postgres_ext'
-gem 'rails_admin', '0.8.1'
+gem 'rails_admin', '1.2.0'
 gem 'bulk_insert'
 
 # USER AUTH, ETC
