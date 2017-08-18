@@ -189,6 +189,13 @@ class User < ActiveRecord::Base
     !role.temporary?
   end
 
+  def admins_teachers
+    schools = self.admin_rights.includes(:users)
+    if schools.any?
+      schools.map{|school| school.users.ids}.flatten
+    end
+  end
+
   def refresh_token!
     update_attributes token: SecureRandom.urlsafe_base64
     save validate: false

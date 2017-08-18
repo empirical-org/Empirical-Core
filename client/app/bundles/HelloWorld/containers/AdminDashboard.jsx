@@ -146,6 +146,7 @@ export default React.createClass({
             </a>
           </div>
           <AdminsTeachers
+            isValid={!!this.state.model.valid_subscription}
             currentSort={this.state.currentSort}
             loading={this.state.loading}
             sortHandler={this.sortHandler()}
