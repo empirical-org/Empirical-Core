@@ -10,11 +10,24 @@ export default React.createClass({
     columns: React.PropTypes.array.isRequired,
     loading: React.PropTypes.bool.isRequired,
   },
+  //
+  // handleClick(e) {
+  //   // e.stopPropagation();
+  //   // e.nativeEvent.stopImmediatePropagation();
+  // },
+
+  linkGenerator(link) {
+    if (this.props.isValid) {
+      return <a className="green-link" href={link.path}>{link.name}</a>;
+    }
+    return <a className="green-link" onClick={() => alert('Your Premium Subscription Has Expired. Please visit Quill.org/premium to access this feature.')}>{link.name}</a>;
+  },
 
   rows() {
+    const that = this;
     return _.map(this.props.data, function (teacher) {
       let result;
-      const links = _.map(teacher.links, link => <div key={link.name}><a className="green-link" href={link.path}>{link.name}</a></div>, this);
+      const links = _.map(teacher.links, link => <div key={link.name}>{that.linkGenerator(link)}</div>, this);
       result = <span>{links}</span>;
       teacher.link_components = result;
       return teacher;
@@ -24,7 +37,7 @@ export default React.createClass({
   render() {
     const teachers = _.map(this.props.data, teacher => <AdminsTeacher key={teacher.id} data={teacher} />, this);
     return (
-      <div className="admins-teachers">
+      <div className={`admins-teachers ${this.props.isValid ? '' : 'blur'}`}>
         <SortableTable
           columns={this.props.columns}
           rows={this.rows()}

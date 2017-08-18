@@ -30,13 +30,12 @@ class AdminsController < ApplicationController
   end
 
   def admin_of_this_teacher!
-    return if current_user.admin_accounts.first.teachers.include?(@teacher)
+    return if SchoolsAdmins.where(user_id: current_user.id, school_id: @teacher.school.id).limit(1).exists?
     auth_failed
   end
 
   def sign_in
     session[:admin_id] = current_user.id
-    session[:viewing_as_admin] = true
     super(@teacher)
   end
 
