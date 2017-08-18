@@ -7,7 +7,7 @@ export default {
   },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
-      // System.import('./lesson.js'),
+      System.import('./show.js')
       // System.import('./lessonResults.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))

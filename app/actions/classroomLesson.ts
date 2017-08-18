@@ -36,6 +36,6 @@ export function listenForClassroomLessonsFromFirebase() {
   }
 }
 
-export function updateClassroomLessons(data) => {
-  dispatch({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
+export function updateClassroomLessons(data) {
+  return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
 }

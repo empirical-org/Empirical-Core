@@ -11,6 +11,9 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
+import {
+  listenForClassroomLessonsFromFirebase
+} from '../../actions/classroomLesson';
 
 const TabLink = props => (
   <li>
@@ -30,6 +33,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(lessonActions.startListeningToLessons());
     this.props.dispatch(levelActions.startListeningToItemLevels());
+    this.props.dispatch(listenForClassroomLessonsFromFirebase());
   },
 
   render() {

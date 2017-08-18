@@ -27,6 +27,7 @@ import { routerReducer } from 'react-router-redux';
 const combinedReducers = combineReducers({
   question,
   classroomLesson,
+  classroomLessons,
   classroomSessions,
   concepts,
   conceptsFeedback,
