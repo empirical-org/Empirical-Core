@@ -107,7 +107,6 @@ export default class Question {
       res.feedback = incorrectSequenceMatch.feedback;
       res.author = 'Incorrect Sequence Hint';
       res.parentID = getTopOptimalResponse(this.responses).key;
-      console.log('Concept Results: ', incorrectSequenceMatch, incorrectSequenceMatch.conceptResults);
       if (incorrectSequenceMatch.conceptResults) {
         res.conceptResults = incorrectSequenceMatch.conceptResults;
       }
@@ -148,7 +147,7 @@ export default class Question {
     if (spacingBeforePunctuationMatch !== undefined) {
       res.feedback = spacingBeforePunctuationMatch.feedback;
       res.author = 'Punctuation Hint';
-      res.parentID = getTopOptimalResponse(this.responses)? getTopOptimalResponse(this.responses).key : undefined;
+      res.parentID = getTopOptimalResponse(this.responses) ? getTopOptimalResponse(this.responses).key : undefined;
       res.conceptResults = [
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ];
@@ -158,7 +157,7 @@ export default class Question {
     if (spacingAfterCommaMatch !== undefined) {
       res.feedback = spacingAfterCommaMatch.feedback;
       res.author = 'Punctuation Hint';
-      res.parentID = getTopOptimalResponse(this.responses)? getTopOptimalResponse(this.responses).key : undefined;
+      res.parentID = getTopOptimalResponse(this.responses) ? getTopOptimalResponse(this.responses).key : undefined;
       res.conceptResults = [
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ];
@@ -421,7 +420,7 @@ export default class Question {
   checkIncorrectSequenceMatch(response) {
     return _.find(this.incorrectSequences, (incSeq) => {
       const options = incSeq.text.split('|||');
-      const anyMatches = _.any(options, opt => response.toLowerCase().indexOf(opt) !== -1);
+      const anyMatches = _.any(options, opt => response.indexOf(opt) !== -1);
       return anyMatches;
     });
   }
@@ -432,11 +431,11 @@ export default class Question {
 
   checkSpacingAfterCommaMatch(response) {
     for (let i = 0; i < response.length; i++) {
-      if (response[i] === "," && (i + 1 < response.length)) {
-        if (response[i + 1] !== " ") {
-          return { 
-            feedback: "<p>Revise your work. Always put a space after a <em>comma</em>.</p>",
-          }
+      if (response[i] === ',' && (i + 1 < response.length)) {
+        if (response[i + 1] !== ' ') {
+          return {
+            feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
+          };
         }
       }
     }

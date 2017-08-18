@@ -126,6 +126,7 @@
     "react-wakelock": "0.0.4",
     "redux-persist": "^4.8.1",
     "request": "^2.72.0",
+    "request-promise": "^4.2.1",
     "underscore": "^1.8.3",
     "warning": "^3.0.0"
   },

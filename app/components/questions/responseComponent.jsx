@@ -14,6 +14,10 @@ import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
+import {
+  rematchAll,
+  rematchOne
+} from '../../libs/grading/rematching';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
@@ -145,93 +149,7 @@ const Responses = React.createClass({
   },
 
   getPercentageWeakResponses() {
-    // const item = this.props.question;
-    // // pass all possible fields regardless of matcher as the matchers will filter it out.
-    // const fields = {
-    //   wordCountChange: item.wordCountChange,
-    //   questionUID: this.props.questionID,
-    //   sentences: item.sentences,
-    //   prompt: item.prompt,
-    //   focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
-    //   // ignoreCaseAndPunc: item.ignoreCaseAndPunc,
-    // };
-    // const markingObject = new this.state.matcher(fields);
-
-    // const fields = {
-    //   responses: this.responsesWithStatus(),
-    //   focusPoints: this.props.question.focusPoints ? hashToCollection(this.props.question.focusPoints) : [],
-    // };
-    // const question = new this.state.matcher(fields);
-    // return question.getPercentageWeakResponses();
     return this.state.health.common_matched_attempts > 0 ? ((this.state.health.common_unmatched_attempts || 0) / this.state.health.common_matched_attempts * 100).toFixed(2) : 0.0;
-  },
-
-  // ryan Look here!!!
-  getMatchingResponse(rid) {
-    // pass all possible fields regardless of matcher as the matchers will filter it out.
-    const callback = (data) => {
-      const item = this.props.question;
-      const fields = {
-        wordCountChange: item.wordCountChange,
-        questionUID: this.props.questionID,
-        sentences: item.sentences,
-        prompt: item.prompt,
-        responses: hashToCollection(data),
-        focusPoints: item.focusPoints ? hashToCollection(item.focusPoints) : [],
-        incorrectSequences: item.incorrectSequences ? hashToCollection(item.incorrectSequences) : [],
-        ignoreCaseAndPunc: item.ignoreCaseAndPunc,
-      };
-      const markingObject = new this.state.matcher(fields);
-      const newMatchedResponse = markingObject.checkMatch(this.getResponse(rid).text);
-      const response = this.getResponse(rid);
-
-      const changed =
-        (newMatchedResponse.response.parentID !== response.parentID) ||
-        (newMatchedResponse.response.author !== response.author) ||
-        (newMatchedResponse.response.feedback !== response.feedback) ||
-        (newMatchedResponse.response.conceptResults !== response.conceptResults);
-      const unmatched = (newMatchedResponse.found === false);
-      console.log('Rematched: t, u, o, n: ', changed, unmatched);
-      if (changed) {
-        if (unmatched) {
-          const newValues = {
-            weak: false,
-            feedback: undefined,
-            parentID: undefined,
-            text: response.text,
-            count: response.count,
-            questionUID: response.questionUID,
-            gradeIndex: `unmatched${response.questionUID}`,
-          };
-          this.updateRematchedResponse(rid, newValues);
-        } else if (newMatchedResponse.response.parentID === undefined) {
-          this.props.dispatch(
-            deleteResponse(this.props.questionID, rid)
-          );
-        } else {
-          const newValues = {
-            weak: false,
-            parentID: newMatchedResponse.response.parentID,
-            author: newMatchedResponse.response.author,
-            feedback: newMatchedResponse.response.feedback,
-            gradeIndex: `nonhuman${response.questionUID}`,
-          };
-          if (newMatchedResponse.response.conceptResults) {
-            const crs = _.values(newMatchedResponse.response.conceptResults);
-            const newHash = {};
-            _.each(crs, (val) => {
-              if (val.conceptUID.length > 0) {
-                newHash[val.conceptUID] = val.correct;
-              }
-            });
-            newValues.conceptResults = newHash;
-          }
-          this.updateRematchedResponse(rid, newValues);
-        }
-      }
-    };
-
-    return getGradedResponsesWithCallback(this.props.questionID, callback);
   },
 
   getErrorsForAttempt(attempt) {
@@ -250,18 +168,28 @@ const Responses = React.createClass({
   },
 
   rematchResponse(rid) {
-    const newMatchedResponse = this.getMatchingResponse(rid);
+    const response = this.props.filters.responses[rid];
+    const callback = this.searchResponses;
+    rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
   },
 
   rematchAllResponses() {
     console.log('Rematching All Responses');
-    const weak = _.filter(this.responsesWithStatus(), resp => resp.statusCode > 1);
-    weak.forEach((resp, index) => {
-      const percentage = index / weak.length * 100;
-      console.log('Rematching: ', resp.key, percentage, '% complete');
-      this.rematchResponse(resp.key);
-    });
-    console.log('Finished Rematching All Responses');
+    const pageNumber = 1;
+    const callback = (args, done) => {
+      this.setState(args);
+      if (done) {
+        this.searchResponses();
+        this.getHealth();
+        this.getGradeBreakdown();
+      }
+    };
+    const weak = rematchAll(this.props.mode, this.props.question, this.props.questionID, callback);
+    // weak.forEach((resp, index) => {
+    //   const percentage = index / weak.length * 100;
+    //   console.log('Rematching: ', resp.key, percentage, '% complete');
+    //   this.rematchResponse(resp.key);
+    // });
   },
 
   responsesWithStatus() {
@@ -419,7 +347,9 @@ const Responses = React.createClass({
 
   renderRematchAllButton() {
     if (this.props.admin) {
-      return (<button className="button is-outlined is-danger" style={{ float: 'right', }} onClick={this.rematchAllResponses}>Rematch Responses</button>);
+      const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
+
+      return (<button disabled={!!this.state.progress} className="button is-outlined is-danger" style={{ float: 'right', }} onClick={this.rematchAllResponses}>{text}</button>);
     }
   },
 
