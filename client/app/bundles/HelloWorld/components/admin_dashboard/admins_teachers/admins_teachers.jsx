@@ -10,11 +10,6 @@ export default React.createClass({
     columns: React.PropTypes.array.isRequired,
     loading: React.PropTypes.bool.isRequired,
   },
-  //
-  // handleClick(e) {
-  //   // e.stopPropagation();
-  //   // e.nativeEvent.stopImmediatePropagation();
-  // },
 
   linkGenerator(link) {
     if (this.props.isValid) {
