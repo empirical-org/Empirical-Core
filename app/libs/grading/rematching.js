@@ -15,11 +15,14 @@ export function rematchAll(mode, question, questionID) {
   });
 }
 
-export function rematchOne(response, mode, question, questionID) {
+export function rematchOne(response, mode, question, questionID, callback) {
   const MarkerGenerator = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     const markingObject = new MarkerGenerator(getMatcherFields(question, formatGradedResponses(data)));
-    rematchResponse(markingObject, response);
+    const promise = rematchResponse(markingObject, response);
+    if (promise) {
+      promise.then(() => { callback(); });
+    }
   });
 }
 

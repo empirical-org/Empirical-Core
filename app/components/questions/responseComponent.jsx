@@ -169,7 +169,8 @@ const Responses = React.createClass({
 
   rematchResponse(rid) {
     const response = this.props.filters.responses[rid];
-    rematchOne(response, this.props.mode, this.props.question, this.props.questionID);
+    const callback = this.searchResponses;
+    rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
   },
 
   rematchAllResponses() {
