@@ -7,9 +7,10 @@ class ShowClassroomLesson extends Component {
   }
 
   render() {
+    const title = this.props.classroomLessons.hasreceiveddata ? this.props.classroomLessons.data[this.props.routeParams.classroomLessonID].title : 'Loading'
     return (
       <div>
-        New Component
+        <h1>{title}</h1>
       </div>
     )
   }
