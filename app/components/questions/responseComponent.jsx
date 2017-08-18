@@ -176,7 +176,15 @@ const Responses = React.createClass({
   rematchAllResponses() {
     console.log('Rematching All Responses');
     const pageNumber = 1;
-    const weak = rematchAll(this.props.mode, this.props.question, this.props.questionID);
+    const callback = (args, done) => {
+      this.setState(args);
+      if (done) {
+        this.searchResponses();
+        this.getHealth();
+        this.getGradeBreakdown();
+      }
+    };
+    const weak = rematchAll(this.props.mode, this.props.question, this.props.questionID, callback);
     // weak.forEach((resp, index) => {
     //   const percentage = index / weak.length * 100;
     //   console.log('Rematching: ', resp.key, percentage, '% complete');
@@ -339,7 +347,9 @@ const Responses = React.createClass({
 
   renderRematchAllButton() {
     if (this.props.admin) {
-      return (<button className="button is-outlined is-danger" style={{ float: 'right', }} onClick={this.rematchAllResponses}>Rematch Responses</button>);
+      const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
+
+      return (<button disabled={!!this.state.progress} className="button is-outlined is-danger" style={{ float: 'right', }} onClick={this.rematchAllResponses}>{text}</button>);
     }
   },
 

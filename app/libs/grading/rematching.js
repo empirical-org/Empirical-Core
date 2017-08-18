@@ -7,11 +7,11 @@ import QuestionMatcher from '../question';
 import DiagnosticQuestionMatcher from '../diagnosticQuestion.js';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
-export function rematchAll(mode, question, questionID) {
+export function rematchAll(mode, question, questionID, callback) {
   const MarkerGenerator = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     const markingObject = new MarkerGenerator(getMatcherFields(question, formatGradedResponses(data)));
-    paginatedNonHumanResponses(markingObject, questionID, 1);
+    paginatedNonHumanResponses(markingObject, questionID, 1, callback);
   });
 }
 
@@ -26,8 +26,8 @@ export function rematchOne(response, mode, question, questionID, callback) {
   });
 }
 
-export function paginatedNonHumanResponses(matcher, qid, page) {
-  request(
+export function paginatedNonHumanResponses(matcher, qid, page, callback) {
+  return request(
     {
       uri: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
       method: 'POST',
@@ -43,8 +43,10 @@ export function paginatedNonHumanResponses(matcher, qid, page) {
     };
     const rematchedResponses = rematchResponses(matcher, responseData.responses);
     if (page < data.numberOfPages) {
-      return paginatedNonHumanResponses(matcher, qid, page + 1);
+      callback({ progress: Math.round(page / data.numberOfPages * 100), });
+      return paginatedNonHumanResponses(matcher, qid, page + 1, callback);
     }
+    callback({ progress: undefined, }, true);
   }).catch((err) => {
     console.log(err);
   });
