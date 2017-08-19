@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
+import {
+  getComponentDisplayName
+} from './helpers'
 
 class ShowClassroomLesson extends Component {
   constructor(props){
@@ -15,7 +18,7 @@ class ShowClassroomLesson extends Component {
       const questions = this.classroomLesson().questions
       const classroomLessonID = this.props.params.classroomLessonID
       const slides = Object.keys(questions).map(key => {
-        return <li key={key}><a href={`/#/admin/classroom-lessons/${classroomLessonID}/slide/${key}`}>Type: {questions[key].type}, Title: {questions[key].data.teach.title}</a></li>
+        return <li key={key}><a href={`/#/admin/classroom-lessons/${classroomLessonID}/slide/${key}`}><strong>{getComponentDisplayName(questions[key].type)}:</strong> {questions[key].data.teach.title}</a></li>
       })
       return <ul>{slides}</ul>
     }
