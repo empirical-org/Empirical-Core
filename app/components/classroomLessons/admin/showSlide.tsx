@@ -4,6 +4,7 @@ import {
   getComponentDisplayName,
   getComponent
 } from './helpers'
+import Script from './script'
 
 class ShowClassroomLessonSlide extends Component {
   constructor(props){
@@ -31,6 +32,7 @@ class ShowClassroomLessonSlide extends Component {
           </h5>
           <p>{getComponentDisplayName(this.currentSlide().type)}</p>
           <Component />
+          <Script script={this.currentSlide().data.teach.script}/>
         </div>
       )
     } else {
