@@ -32,7 +32,11 @@ class ShowClassroomLessonSlide extends Component {
           </h5>
           <p>{getComponentDisplayName(this.currentSlide().type)}</p>
           <Component />
-          <Script script={this.currentSlide().data.teach.script}/>
+          <Script
+            script={this.currentSlide().data.teach.script}
+            lesson={this.props.params.classroomLessonID}
+            slide={this.props.params.slideID}
+          />
         </div>
       )
     } else {
