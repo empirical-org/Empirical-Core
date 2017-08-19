@@ -18,14 +18,9 @@ class ShowClassroomLessonSlide extends Component {
     return this.classroomLesson().questions[this.props.params.slideID]
   }
 
-  getComponent(type: string) {
-
-  }
-
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const Component = getComponent(this.currentSlide().type)
-      console.log(Component)
       return (
         <div>
           <h4 className="title is-4">
