@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class AdminExit extends Component {
+class AdminExit extends Component<any, any> {
   constructor(props){
     super(props);
   }

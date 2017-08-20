@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class ClassLessonsIndex extends Component {
+class ClassLessonsIndex extends Component<any, any> {
   constructor(props) {
     super(props);
   }

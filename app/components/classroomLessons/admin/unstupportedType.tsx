@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class AdminStatic extends Component<any, any> {
+class AdminUnsupported extends Component<any, any> {
   constructor(props){
     super(props);
   }
@@ -8,11 +8,11 @@ class AdminStatic extends Component<any, any> {
   render() {
     return (
       <div>
-        AdminStatic
+        Unsupported
       </div>
     )
   }
 
 }
 
-export default AdminStatic
+export default AdminUnsupported

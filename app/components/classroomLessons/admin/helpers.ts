@@ -6,6 +6,7 @@ import AdminSingleAnswer from './singleAnswer';
 import AdminFillInTheBlanks from './fillInTheBlanks';
 import AdminFillInTheList from './fillInTheList';
 import AdminExit from './exit';
+import AdminUnsupported from './unstupportedType';
 
 export function getComponent(type: string) {
   switch (type) {
@@ -24,7 +25,7 @@ export function getComponent(type: string) {
     case 'CL-EX':
       return AdminExit
     default:
-      return "NOT SUPPORTED"
+      return AdminUnsupported
   }
 }
 

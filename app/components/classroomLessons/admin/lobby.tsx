@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class AdminLobby extends Component {
+class AdminLobby extends Component<any, any> {
   constructor(props){
     super(props);
   }

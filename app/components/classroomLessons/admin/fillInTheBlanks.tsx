@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class AdminFillInTheBlanks extends Component {
+class AdminFillInTheBlanks extends Component<any, any> {
   constructor(props){
     super(props);
   }

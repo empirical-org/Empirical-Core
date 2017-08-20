@@ -29,7 +29,7 @@ class ExitSlide extends React.Component<any, any> {
     case "Small Group Instruction and Independent Practice":
         const fs = this.props.flaggedStudents ? Object.keys(this.props.flaggedStudents) : null
         if (fs && fs.length) {
-          return studs.filter(stud => !fs.includes(stud));
+          return studs.filter(stud => fs.indexOf(stud) !== -1);
         }
         return studs
     case 'All Students Practice Now':

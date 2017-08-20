@@ -1,14 +1,19 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 
-class Script extends Component {
+class Script extends React.Component<any, any> {
   constructor(props){
     super(props);
   }
 
-  renderScriptItems(): [JSX.Element] {
+  renderScriptItems(): Array<JSX.Element> {
     return Object.keys(this.props.script).map((scriptItem) => {
       const item = this.props.script[scriptItem]
-      return (<li style={styles.box}>{item.type} {item.data ? item.data.heading : ''} <a href={`/#/admin/classroom-lessons/${this.props.lesson}/slide/${this.props.slide}/scriptItem/${scriptItem}`}> edit</a></li>)
+      return (
+        <li style={styles.box}>
+          {item.type} {item.data ? item.data.heading : ''}
+          <a href={`/#/admin/classroom-lessons/${this.props.lesson}/slide/${this.props.slide}/scriptItem/${scriptItem}`}> edit</a>
+        </li>
+      );
     })
   }
 

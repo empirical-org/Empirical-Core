@@ -4,7 +4,7 @@ import {
   getComponentDisplayName
 } from './helpers'
 
-class ShowClassroomLesson extends Component {
+class ShowClassroomLesson extends Component<any, any> {
   constructor(props){
     super(props);
   }

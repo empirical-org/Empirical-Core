@@ -8,7 +8,7 @@ import {
 import * as IntF from '../interfaces';
 import Script from './script'
 
-class ShowClassroomLessonSlide extends Component {
+class ShowClassroomLessonSlide extends Component<any, any> {
   constructor(props){
     super(props);
   }

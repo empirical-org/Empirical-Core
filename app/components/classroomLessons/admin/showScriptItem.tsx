@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 
-class showScriptItem extends Component {
+class showScriptItem extends Component<any, any> {
   constructor(props){
     super(props);
   }

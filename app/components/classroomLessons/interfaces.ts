@@ -97,7 +97,7 @@ export interface Question {
 export interface Play {
   html: string | null;
   prompt: string | null;
-  cues: {[key: string]} | null;
+  cues: {[key: string]: string} | null;
   instructions: string | null;
 }
 
