@@ -8,7 +8,6 @@ export default {
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
       System.import('./show.js')
-      // System.import('./lessonResults.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
     .catch(err => console.error('Dynamic page loading failed', err));
