@@ -6,7 +6,7 @@ import AdminSingleAnswer from './singleAnswer';
 import AdminFillInTheBlanks from './fillInTheBlanks';
 import AdminFillInTheList from './fillInTheList';
 import AdminExit from './exit';
-import AdminUnsupported from './unstupportedType';
+import AdminUnsupported from './unsupportedType';
 
 export function getComponent(type: string) {
   switch (type) {
