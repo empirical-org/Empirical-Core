@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import {
   getComponentDisplayName,
-  getComponent
+  getComponent,
+  getClassroomLesson
 } from './helpers'
+import * as IntF from '../interfaces';
 import Script from './script'
 
 class ShowClassroomLessonSlide extends Component {
@@ -11,8 +13,8 @@ class ShowClassroomLessonSlide extends Component {
     super(props);
   }
 
-  classroomLesson() {
-    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
+  classroomLesson(): IntF.ClassroomLesson {
+    return getClassroomLesson(this.props.classroomLessons.data, this.props.params.classroomLessonID)
   }
 
   currentSlide() {

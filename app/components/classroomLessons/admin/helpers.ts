@@ -1,3 +1,4 @@
+import * as IntF from '../interfaces';
 import AdminLobby from './lobby';
 import AdminStatic from './static';
 import AdminModel from './model';
@@ -46,4 +47,16 @@ export function getComponentDisplayName(type: string): string {
     default:
       return "NOT SUPPORTED"
   }
+}
+
+export function getClassroomLesson(props: IntF.ClassroomLessons, classroomLessonID: string): IntF.ClassroomLesson {
+  return props[classroomLessonID]
+}
+
+export function getClassroomLessonSlide(props: IntF.ClassroomLessons, classroomLessonID: string, slideID: string): IntF.Question {
+  return getClassroomLesson(props, classroomLessonID).questions[slideID]
+}
+
+export function getClassroomLessonScriptItem(props: IntF.ClassroomLessons, classroomLessonID: string, slideID: string, scriptItemID: string): IntF.ScriptItem {
+  return getClassroomLessonSlide(props, classroomLessonID, slideID).data.teach.script[scriptItemID]
 }
