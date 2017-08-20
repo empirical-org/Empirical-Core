@@ -71,3 +71,49 @@ export interface Models {
 export interface Prompts {
   [key: string]: string
 }
+
+export interface ClassroomLessons {
+  [key: string]: ClassroomLesson
+}
+
+export interface ClassroomLesson {
+  lesson: number;
+  title: string;
+  questions: Questions
+}
+
+export interface Questions {
+  [key: string]: Question
+}
+
+export interface Question {
+  type: string;
+  data: {
+    play: Play;
+    teach: Teach;
+  };
+}
+
+export interface Play {
+  html: string | null;
+  prompt: string | null;
+  cues: {[key: string]} | null;
+  instructions: string | null;
+}
+
+export interface Teach {
+  title: string | null;
+  script: Script;
+}
+
+export interface Script {
+  [key: string]: ScriptItem
+}
+
+export interface ScriptItem {
+  type: string;
+  data: {
+    heading: string,
+    body: string
+  } | null
+}
