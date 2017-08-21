@@ -19,3 +19,5 @@ const scriptItemTypes = {
     type: 'T-REVIEW'
   }
 }
+
+export default scriptItemTypes

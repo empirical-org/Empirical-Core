@@ -47,6 +47,18 @@ const lessonSlideTypes = {
       }
     }
   },
+  'CL-FB': {
+    type: 'CL-FB',
+    data: {
+      play: {data: {}},
+      teach: {script: [
+        SIT['STEP-HTML'],
+        SIT['T-REVIEW']
+      ],
+        title: 'CHANGE ME'
+      }
+    }
+  },
   'CL-SA': {
     type: 'CL-SA',
     data: {

@@ -2,6 +2,9 @@ declare function require(name:string);
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
+import _ from 'lodash'
+
+import lessonSlideTypes from '../components/classroomLessons/shared/lessonSlideTypes'
 
 export function getClassLessonFromFirebase(classroomLessonUid: string) {
   return function (dispatch) {
@@ -38,4 +41,17 @@ export function listenForClassroomLessonsFromFirebase() {
 
 export function updateClassroomLessons(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
+}
+
+export function addSlide(classroomLessonUid: string, slideType: string) {
+  const lessonRef = classroomLessonsRef.child(classroomLessonUid)
+  lessonRef.once('value', (snapshot) => {
+    const lesson = snapshot.val()
+    if (lesson) {
+      const newLesson = _.merge({}, lesson)
+      newLesson.questions.splice(-1, 0, lessonSlideTypes[slideType])
+      lessonRef.set(newLesson)
+    }
+  });
+
 }
