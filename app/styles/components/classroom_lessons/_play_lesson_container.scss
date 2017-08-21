@@ -75,6 +75,9 @@
   // justify-content: space-around;
 }
 .feedback-row {
+  .info {
+    align-self: flex-start;
+  }
   .fa-check-circle {
     padding-top: 8px;
     margin-right: 13px;

@@ -4,7 +4,9 @@ import icon from '../../img/question_icon.svg';
 import _ from 'underscore';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
+
 const C = require('../../constants').default;
+
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
@@ -17,7 +19,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import Error from '../shared/error.jsx'
+import Error from '../shared/error.jsx';
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {
@@ -103,11 +105,11 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderCues() {
-    return <RenderQuestionCues
+    return (<RenderQuestionCues
       language={this.props.language}
       getQuestion={this.getQuestion}
-      displayArrowAndText={true}
-    />;
+      displayArrowAndText
+    />);
   },
 
   updateResponseResource(response) {
@@ -182,9 +184,8 @@ const PlayDiagnosticQuestion = React.createClass({
   renderNextQuestionButton(correct) {
     if (correct) {
       return (<button className="button is-outlined is-success" onClick={this.nextQuestion}>Siguiente</button>);
-    } else {
-      return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Siguiente</button>);
     }
+    return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Siguiente</button>);
   },
 
   renderMedia() {
@@ -207,7 +208,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   render() {
     let button;
-    const fullPageInstructions = this.props.language === 'arabic' ? { maxWidth: 800, width: '100%' } : { display: 'block' }
+    const fullPageInstructions = this.props.language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };
     if (this.props.question.attempts.length > 0) {
       button = <button className="button student-submit" onClick={this.nextQuestion}>{this.getSubmitButtonText()}</button>;
     } else {
@@ -217,12 +218,12 @@ const PlayDiagnosticQuestion = React.createClass({
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
       return (
         <div className="student-container-inner-diagnostic">
-          <div style={{ display: 'flex', justifyContent: 'spaceBetween'}}>
+          <div style={{ display: 'flex', justifyContent: 'spaceBetween', }}>
             <div style={fullPageInstructions}>
               {this.renderSentenceFragments()}
               {this.renderCues()}
               <div className="feedback-row">
-                <img src={icon} style={{ marginTop: 3, }} />
+                <img src={icon} style={{ marginTop: 3, alignSelf: 'flex-start', }} />
                 <div style={fullPageInstructions} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
               </div>
             </div>
@@ -246,9 +247,8 @@ const PlayDiagnosticQuestion = React.createClass({
           </ReactTransition>
         </div>
       );
-    } else {
-      return (<p>Loading / Cargando...</p>);
     }
+    return (<p>Loading / Cargando...</p>);
   },
 });
 
