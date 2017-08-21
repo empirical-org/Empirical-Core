@@ -4,23 +4,18 @@ import _ from 'lodash';
 import {
   getClassroomLessonScriptItem
 } from './helpers';
+import {
+  saveClassroomLessonScriptItem
+} from 'actions/classroomLesson'
+
 import * as IntF from '../interfaces';
 
-import ScriptComponent from '../shared/scriptComponent'
-import MultipleTextEditor from '../shared/multipleTextEditor'
-import { textEditorInputNotEmpty, textEditorInputClean } from '../shared/textEditorClean'
+import EditScriptItem from './editScriptItem';
 
 class showScriptItem extends Component<any, any> {
   constructor(props){
     super(props);
-
-    this.state = {}
-  }
-
-  componentDidUpdate() {
-    if (this.props.classroomLessons.hasreceiveddata && !this.state.scriptItem) {
-      this.setState({scriptItem: this.getCurrentScriptItem()})
-    }
+    this.save = this.save.bind(this)
   }
 
   getCurrentScriptItem(): IntF.ScriptItem {
@@ -28,45 +23,16 @@ class showScriptItem extends Component<any, any> {
     return getClassroomLessonScriptItem(this.props.classroomLessons.data, classroomLessonID, slideID, scriptItemID)
   }
 
-  updateValue(e, value) {
-    const newScriptItem = _.merge({}, this.state.scriptItem)
-    newScriptItem.data[value] = e.target.value
-    this.setState({scriptItem: newScriptItem})
-  }
-
-  updateBody(e) {
-    const newScriptItem = _.merge({}, this.state.scriptItem)
-    newScriptItem.data.body = e;
-    this.setState({scriptItem: newScriptItem})
-  }
-
-  renderForm() {
-    switch (this.state.scriptItem.type) {
-      case 'STEP-HTML':
-        return (<div className="admin-show-script-item">
-          <textarea onChange={(e) => this.updateValue(e, 'heading')} value={this.state.scriptItem.data.heading}></textarea>
-          <MultipleTextEditor
-            text={this.state.scriptItem.data.body}
-            handleTextChange={(e) => this.updateBody(e)}
-            title={"Body Copy:"}
-          />
-        </div>)
-    }
+  save(scriptItem: IntF.ScriptItem) {
+    const {classroomLessonID, slideID, scriptItemID} = this.props.params;
+    saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem)
   }
 
   render() {
-    if (this.state.scriptItem) {
+    if (this.props.classroomLessons.hasreceiveddata) {
       return (
-        <div>
-          <ScriptComponent script={[this.state.scriptItem]} />
-          {this.renderForm()}
-        </div>
+        <EditScriptItem scriptItem={this.getCurrentScriptItem()} save={this.save}/>
       )
-      // return (
-      //   <div>
-      //     {this.getCurrentScriptItem().data.heading}
-      //   </div>
-      // )
     } else {
       return (
         <p>Loading...</p>

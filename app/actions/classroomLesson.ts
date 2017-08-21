@@ -39,3 +39,9 @@ export function listenForClassroomLessonsFromFirebase() {
 export function updateClassroomLessons(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
 }
+
+export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem) {
+  classroomLessonsRef
+    .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
+    .set(scriptItem)
+}
