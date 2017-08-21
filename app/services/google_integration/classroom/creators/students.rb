@@ -54,12 +54,14 @@ module GoogleIntegration::Classroom::Creators::Students
                        password: data[:last_name],
                        username: username,
                        signed_up_with_google: true)
-        StudentJoinedClassroomWorker.perform_async(classroom.teacher_id, student.id)
       end
       if student.errors.any?
         puts "Error: Could not save google classroom student."
         puts data[:email]
+        puts username
         puts student.errors.full_messages
+        puts 'classroom of errored students'
+        puts classroom.attributes
       else
         data[:classrooms].each do |id|
           classroom = Classroom.find(id)
