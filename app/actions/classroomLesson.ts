@@ -4,8 +4,9 @@ import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 import _ from 'lodash'
 
-import lessonSlideTypes from '../components/classroomLessons/shared/lessonSlideTypes'
-import scriptItemTypes from '../components/classroomLessons/shared/scriptItemTypes'
+import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
+import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
+import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
 
 export function getClassLessonFromFirebase(classroomLessonUid: string) {
   return function (dispatch) {
@@ -50,7 +51,7 @@ export function addSlide(classroomLessonUid: string, slideType: string) {
     const lesson = snapshot.val()
     if (lesson) {
       const newLesson = _.merge({}, lesson)
-      newLesson.questions.splice(-1, 0, lessonSlideTypes[slideType])
+      newLesson.questions.splice(-1, 0, lessonSlideBoilerplates[slideType])
       lessonRef.set(newLesson)
     }
   });
@@ -62,8 +63,15 @@ export function addScriptItem(classroomLessonUid: string, slideID: string, scrip
     const slide = snapshot.val()
     if (slide) {
       const newSlide = _.merge({}, slide)
-      newSlide.data.teach.script.push(scriptItemTypes[scriptItemType])
+      newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
       slideRef.set(newSlide)
     }
   });
+}
+
+export function addLesson(lessonName) {
+  const newLesson = lessonBoilerplate(lessonName)
+  const newLessonKey = classroomLessonsRef.push().key
+  classroomLessonsRef.child(newLessonKey).set(newLesson)
+
 }

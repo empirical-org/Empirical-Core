@@ -45,7 +45,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
       const options = scriptItemTypeKeys.map(key => <option key={key} value={key}>{key}</option>)
       return <div>
         <select value={this.state.newScriptItem} onChange={this.selectNewScriptItemType}>{options}</select>
-        <button onClick={this.addScriptItem}>Add ScriptItem</button>
+        <button onClick={this.addScriptItem}>Add Script Item</button>
       </div>
     }
   }

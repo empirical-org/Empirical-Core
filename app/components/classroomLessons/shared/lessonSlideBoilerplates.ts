@@ -1,4 +1,4 @@
-import SIT from './scriptItemTypes'
+import SIB from './scriptItemBoilerplates'
 
 const lessonSlideTypes = {
   'CL-LB': {
@@ -6,7 +6,7 @@ const lessonSlideTypes = {
     data: {
       play: {data: {}},
       teach: {script: [
-        SIT['Overview']
+        SIB['Overview']
       ],
         title: 'CHANGE ME'
       }
@@ -17,7 +17,7 @@ const lessonSlideTypes = {
     data: {
       play: {data: {}},
       teach: {script: [
-        SIT['STEP-HTML']
+        SIB['STEP-HTML']
       ],
         title: 'CHANGE ME'
       }
@@ -28,8 +28,8 @@ const lessonSlideTypes = {
     data: {
       play: {data: {}},
       teach: {script: [
-        SIT['STEP-HTML'],
-        SIT['T-MODEL']
+        SIB['STEP-HTML'],
+        SIB['T-MODEL']
       ],
         title: 'CHANGE ME'
       }
@@ -40,8 +40,8 @@ const lessonSlideTypes = {
     data: {
       play: {data: {}},
       teach: {script: [
-        SIT['STEP-HTML'],
-        SIT['T-REVIEW']
+        SIB['STEP-HTML'],
+        SIB['T-REVIEW']
       ],
         title: 'CHANGE ME'
       }
@@ -52,8 +52,8 @@ const lessonSlideTypes = {
     data: {
       play: {data: {}},
       teach: {script: [
-        SIT['STEP-HTML'],
-        SIT['T-REVIEW']
+        SIB['STEP-HTML'],
+        SIB['T-REVIEW']
       ],
         title: 'CHANGE ME'
       }
@@ -65,8 +65,8 @@ const lessonSlideTypes = {
       play: {data: {}},
       teach: {
         script: [
-        SIT['STEP-HTML'],
-        SIT['T-REVIEW']
+        SIB['STEP-HTML'],
+        SIB['T-REVIEW']
       ],
         title: 'CHANGE ME'
       }
@@ -78,7 +78,7 @@ const lessonSlideTypes = {
       play: {data: {}},
       teach: {
         script: [
-        SIT['STEP-HTML']
+        SIB['STEP-HTML']
       ],
         title: 'Wrap-up'
       }
