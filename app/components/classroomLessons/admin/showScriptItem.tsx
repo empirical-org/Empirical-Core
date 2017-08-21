@@ -1,17 +1,33 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
+import {
+  getClassroomLessonScriptItem
+} from './helpers';
+import * as IntF from '../interfaces';
 
 class showScriptItem extends Component<any, any> {
   constructor(props){
     super(props);
   }
 
+  getCurrentScriptItem(): IntF.ScriptItem {
+    const {classroomLessonID, slideID, scriptItemID} = this.props.params;
+    return getClassroomLessonScriptItem(this.props.classroomLessons.data, classroomLessonID, slideID, scriptItemID)
+  }
+
   render() {
-    return (
-      <div>
-        Script Item
-      </div>
-    )
+    if (this.props.classroomLessons.hasreceiveddata) {
+      return (
+        <div>
+          {this.getCurrentScriptItem().data.heading}
+        </div>
+      )
+    } else {
+      return (
+        <p>Loading...</p>
+      )
+    }
+
   }
 
 }
