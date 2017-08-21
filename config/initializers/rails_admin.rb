@@ -94,9 +94,9 @@ RailsAdmin.config do |config|
       field :zipcode do
         searchable true
       end
-      field :name do
-        searchable true
-      end
+      # field :name do
+      #   searchable true
+      # end
     end
   end
 
