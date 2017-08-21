@@ -7,6 +7,8 @@ import {
 import * as IntF from '../interfaces';
 
 import ScriptComponent from '../shared/scriptComponent'
+import MultipleTextEditor from '../shared/multipleTextEditor'
+import { textEditorInputNotEmpty, textEditorInputClean } from '../shared/textEditorClean'
 
 class showScriptItem extends Component<any, any> {
   constructor(props){
@@ -32,18 +34,22 @@ class showScriptItem extends Component<any, any> {
     this.setState({scriptItem: newScriptItem})
   }
 
-  // updateBody(e) {
-  //   const newScriptItem = _.merge({}, this.state.scriptItem)
-  //   newScriptItem.data.body = e.target.value
-  //   this.setState({scriptItem: newScriptItem})
-  // }
-  //
+  updateBody(e) {
+    const newScriptItem = _.merge({}, this.state.scriptItem)
+    newScriptItem.data.body = e;
+    this.setState({scriptItem: newScriptItem})
+  }
+
   renderForm() {
     switch (this.state.scriptItem.type) {
       case 'STEP-HTML':
-        return (<div>
+        return (<div className="admin-show-script-item">
           <textarea onChange={(e) => this.updateValue(e, 'heading')} value={this.state.scriptItem.data.heading}></textarea>
-          <textarea onChange={this.updateBody} value={this.state.scriptItem.data.body}></textarea>
+          <MultipleTextEditor
+            text={this.state.scriptItem.data.body}
+            handleTextChange={(e) => this.updateBody(e)}
+            title={"Body Copy:"}
+          />
         </div>)
     }
   }

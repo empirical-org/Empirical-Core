@@ -7,7 +7,7 @@ import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 
 class MultipleTextEditor extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     const richButtonsPlugin = createRichButtonsPlugin();
     const {
       // inline buttons
@@ -15,19 +15,19 @@ class MultipleTextEditor extends React.Component {
     } = richButtonsPlugin;
     this.state = {
       text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || ''))),
-      components: { ItalicButton, BoldButton, UnderlineButton },
-      plugins: richButtonsPlugin,
+      components: { ItalicButton, BoldButton, UnderlineButton, },
+      plugins: [richButtonsPlugin],
       hasFocus: false,
     };
-    this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.text !== this.props.text) {
       if (nextProps.text === nextProps.lessonPrompt || nextProps.text === '') {
         this.setState({
-          text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || '')))
-        })
+          text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || ''))),
+        });
       }
     }
     if (nextProps.boilerplate !== this.props.boilerplate) {
@@ -50,8 +50,8 @@ class MultipleTextEditor extends React.Component {
   }
 
   render() {
-    const { ItalicButton, BoldButton, UnderlineButton } = this.state.components;
-    const textBoxClass = this.state.hasFocus ? "card-content hasFocus" : "card-content";
+    const { ItalicButton, BoldButton, UnderlineButton, } = this.state.components;
+    const textBoxClass = this.state.hasFocus ? 'card-content hasFocus' : 'card-content';
     return (
       <div className="card is-fullwidth">
         <header className="card-header">
@@ -72,8 +72,8 @@ class MultipleTextEditor extends React.Component {
               editorState={this.state.text}
               onChange={this.handleTextChange}
               plugins={[this.state.plugins]}
-              onFocus={() => this.setState({ hasFocus: true })}
-              onBlur={() => this.setState({ hasFocus: false })}
+              onFocus={() => this.setState({ hasFocus: true, })}
+              onBlur={() => this.setState({ hasFocus: false, })}
             />
           </div>
         </div>
@@ -81,6 +81,6 @@ class MultipleTextEditor extends React.Component {
     );
   }
 
-};
+}
 
 export default MultipleTextEditor;
