@@ -12,6 +12,14 @@ const scriptItemTypes = {
     },
     type: 'STEP-HTML'
   },
+  'STEP-HTML-TIP': {
+    data: {
+      body: '<p><strong>Say:</strong> CHANGE ME</p>',
+      heading: "CHANGE ME"
+    },
+    type: 'STEP-HTML-TIP'
+  },
+
   'T-MODEL': {
     type: 'T-MODEL'
   },

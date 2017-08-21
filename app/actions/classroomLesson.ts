@@ -5,6 +5,7 @@ const classroomLessonsRef = rootRef.child('classroom_lessons');
 import _ from 'lodash'
 
 import lessonSlideTypes from '../components/classroomLessons/shared/lessonSlideTypes'
+import scriptItemTypes from '../components/classroomLessons/shared/scriptItemTypes'
 
 export function getClassLessonFromFirebase(classroomLessonUid: string) {
   return function (dispatch) {
@@ -53,5 +54,16 @@ export function addSlide(classroomLessonUid: string, slideType: string) {
       lessonRef.set(newLesson)
     }
   });
+}
 
+export function addScriptItem(classroomLessonUid: string, slideID: string, scriptItemType: string) {
+  const slideRef = classroomLessonsRef.child(`${classroomLessonUid}/questions/${slideID}`)
+  slideRef.once('value', (snapshot) => {
+    const slide = snapshot.val()
+    if (slide) {
+      const newSlide = _.merge({}, slide)
+      newSlide.data.teach.script.push(scriptItemTypes[scriptItemType])
+      slideRef.set(newSlide)
+    }
+  });
 }
