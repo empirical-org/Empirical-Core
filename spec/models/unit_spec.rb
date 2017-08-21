@@ -65,6 +65,7 @@ describe Unit, type: :model do
   describe '#hide_if_no_visible_classroom_activities' do
     it 'updates the unit to visible == false if all of its classroom activities are visible == false' do
       unit.classroom_activities.each{|ca| ca.update(visible: false)}
+      unit.reload
       unit.hide_if_no_visible_classroom_activities
       expect(unit.visible).to eq(false)
     end
