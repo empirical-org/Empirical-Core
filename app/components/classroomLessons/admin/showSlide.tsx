@@ -11,10 +11,15 @@ import {
 } from '../../../actions/classroomLesson'
 import * as IntF from '../interfaces';
 import Script from './script'
+import {
+  saveClassroomLessonSlide
+} from 'actions/classroomLesson'
 
 class ShowClassroomLessonSlide extends Component<any, any> {
   constructor(props){
     super(props);
+
+    this.save = this.save.bind(this)
 
     this.state = {
       newScriptItemType: 'STEP-HTML'
@@ -30,6 +35,11 @@ class ShowClassroomLessonSlide extends Component<any, any> {
 
   currentSlide() {
     return this.classroomLesson().questions[this.props.params.slideID]
+  }
+
+  save(newValues) {
+    const {classroomLessonID, slideID} = this.props.params;
+    saveClassroomLessonSlide(classroomLessonID, slideID, newValues)
   }
 
   addScriptItem() {
@@ -62,7 +72,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
             {this.currentSlide().data.teach.title}
           </h5>
           <p>{getComponentDisplayName(this.currentSlide().type)}</p>
-          <Component />
+          <Component question={this.currentSlide().data} save={this.save}/>
           <Script
             script={this.currentSlide().data.teach.script}
             lesson={this.props.params.classroomLessonID}

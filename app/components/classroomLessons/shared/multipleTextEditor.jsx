@@ -71,7 +71,7 @@ class MultipleTextEditor extends React.Component {
             <Editor
               editorState={this.state.text}
               onChange={this.handleTextChange}
-              plugins={[this.state.plugins]}
+              plugins={this.state.plugins}
               onFocus={() => this.setState({ hasFocus: true, })}
               onBlur={() => this.setState({ hasFocus: false, })}
             />

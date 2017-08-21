@@ -88,10 +88,12 @@ export interface Questions {
 
 export interface Question {
   type: string;
-  data: {
-    play: Play;
-    teach: Teach;
-  };
+  data: QuestionData;
+}
+
+export interface QuestionData {
+  play: Play;
+  teach: Teach;
 }
 
 export interface Play {

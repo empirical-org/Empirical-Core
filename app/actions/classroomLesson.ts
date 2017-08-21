@@ -75,3 +75,15 @@ export function addLesson(lessonName) {
   classroomLessonsRef.child(newLessonKey).set(newLesson)
 
 }
+
+export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData) {
+  classroomLessonsRef
+    .child(`${classroomLessonID}/questions/${slideID}/data`)
+    .set(slideData)
+}
+
+export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem) {
+  classroomLessonsRef
+    .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
+    .set(scriptItem)
+}
