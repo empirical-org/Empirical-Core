@@ -40,6 +40,12 @@ export function updateClassroomLessons(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
 }
 
+export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData) {
+  classroomLessonsRef
+    .child(`${classroomLessonID}/questions/${slideID}/data`)
+    .set(slideData)
+}
+
 export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem) {
   classroomLessonsRef
     .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)

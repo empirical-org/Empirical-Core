@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import ScriptComponent from '../shared/scriptComponent'
 import MultipleTextEditor from '../shared/multipleTextEditor'
-import { textEditorInputNotEmpty, textEditorInputClean } from '../shared/textEditorClean'
 
 import * as IntF from '../interfaces';
 

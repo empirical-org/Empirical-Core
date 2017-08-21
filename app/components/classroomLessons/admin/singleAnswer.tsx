@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import * as IntF from '../interfaces';
 import _ from 'lodash'
+import MultipleTextEditor from '../shared/multipleTextEditor'
+
 interface SingleAnswerProps {
   question: IntF.QuestionData,
 
@@ -15,6 +17,10 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
+    this.handlePromptChange = this.handlePromptChange.bind(this)
+    this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
+    this.handleCuesChange = this.handleCuesChange.bind(this)
+    this.save = this.save.bind(this)
   }
 
   handleTitleChange(e) {
@@ -31,7 +37,7 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e.target.value)
+    _.set(newVals, 'play.prompt', e)
     this.setState({question: newVals})
   }
 
@@ -49,8 +55,13 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.cues', e.target.value)
+    const formattedCues = Object.assign({}, e.target.value.split(','));
+    _.set(newVals, 'play.cues', formattedCues)
     this.setState({question: newVals})
+  }
+
+  save() {
+    this.props.save(this.state.question)
   }
 
   render() {
@@ -65,7 +76,10 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
         <div className="field">
           <label className="label">Prompt</label>
           <div className="control">
-            <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
+            <MultipleTextEditor
+              text={this.state.question.play.prompt}
+              handleTextChange={(e) => this.handlePromptChange(e)}
+            />
           </div>
         </div>
         <div className="field">
@@ -75,12 +89,12 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">Cues (Optional)</label>
+          <label className="label">Cues comma seperated (Optional)</label>
           <div className="control">
-            <input value={this.state.question.play.cues} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
+            <input value={Object.values(this.state.question.play.cues).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
-
+        <button onClick={this.save}>Save Changes</button>
       </div>
     )
   }
