@@ -68,9 +68,8 @@ const PlaySentenceFragment = React.createClass({
     const attempted = question.attempts.length > 0;
     if (attempted) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   },
 
   getQuestion() {
@@ -143,16 +142,15 @@ const PlaySentenceFragment = React.createClass({
         <div className="container">
           <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
             <div className="feedback-row">
-              <img className="info" src={icon} style={{ marginTop: 3, }} />
+              <img className="info" src={icon} style={{ marginTop: 3, alignSelf: 'flex-start', }} />
               <p dangerouslySetInnerHTML={{ __html: this.getChoiceHTML(), }} />
             </div>
             {this.getSentenceOrFragmentButtons()}
           </ReactTransition>
         </div>
       );
-    } else {
-      return (<div />);
     }
+    return (<div />);
   },
 
   getSubmitButtonText() {
