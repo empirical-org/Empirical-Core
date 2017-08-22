@@ -25,7 +25,7 @@ class ShowClassroomLesson extends Component<any, any> {
   }
 
   addSlide() {
-    addSlide(this.props.params.classroomLessonID, this.state.newSlideType)
+    addSlide(this.props.params.classroomLessonID, this.classroomLesson(), this.state.newSlideType)
   }
 
   selectNewSlideType(e) {

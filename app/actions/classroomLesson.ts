@@ -4,6 +4,8 @@ import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 import _ from 'lodash'
 
+import * as IntF from 'components/classroomLessons/interfaces';
+
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
@@ -45,17 +47,14 @@ export function updateClassroomLessons(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
 }
 
-export function addSlide(classroomLessonUid: string, slideType: string) {
-  const lessonRef = classroomLessonsRef.child(classroomLessonUid)
-  lessonRef.once('value', (snapshot) => {
-    const lesson = snapshot.val()
-    if (lesson) {
-      const newLesson = _.merge({}, lesson)
-      newLesson.questions.splice(-1, 0, lessonSlideBoilerplates[slideType])
-      lessonRef.set(newLesson)
-    }
-  });
+export function addSlide(classroomLessonUid: string, classroomLesson: IntF.ClassroomLesson, slideType: string) {
+  const lessonRef = classroomLessonsRef.child(classroomLessonUid);
+  const newLesson: IntF.ClassroomLesson = _.merge({}, classroomLesson)
+  newLesson.questions.splice(-1, 0, lessonSlideBoilerplates[slideType])
+  lessonRef.set(newLesson);
 }
+
+
 
 export function addScriptItem(classroomLessonUid: string, slideID: string, scriptItemType: string) {
   const slideRef = classroomLessonsRef.child(`${classroomLessonUid}/questions/${slideID}`)
