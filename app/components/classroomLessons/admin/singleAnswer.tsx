@@ -91,7 +91,7 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
         <div className="field">
           <label className="label">Cues comma seperated (Optional)</label>
           <div className="control">
-            <input value={Object.values(this.state.question.play.cues).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
+            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <button onClick={this.save}>Save Changes</button>

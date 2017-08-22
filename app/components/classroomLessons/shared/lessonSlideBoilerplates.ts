@@ -4,7 +4,9 @@ const lessonSlideTypes = {
   'CL-LB': {
     type: 'CL-LB',
     data: {
-      play: {data: {}},
+      play: {
+        html: "CHANGE ME"
+      },
       teach: {script: [
         SIB['Overview']
       ],
@@ -15,7 +17,9 @@ const lessonSlideTypes = {
   'CL-ST': {
     type: 'CL-ST',
     data: {
-      play: {data: {}},
+      play: {
+        html: "CHANGE ME"
+      },
       teach: {script: [
         SIB['STEP-HTML']
       ],
@@ -26,7 +30,12 @@ const lessonSlideTypes = {
   'CL-MD': {
     type: 'CL-MD',
     data: {
-      play: {data: {}},
+      play: {
+        prompt: "CHANGE ME",
+        cues: ["CHANGE", "ME"],
+        instructions: "CHANGE ME",
+        html: "CHANGE ME"
+      },
       teach: {script: [
         SIB['STEP-HTML'],
         SIB['T-MODEL']
@@ -38,7 +47,13 @@ const lessonSlideTypes = {
   'CL-FL': {
     type: 'CL-FL',
     data: {
-      play: {data: {}},
+      play: {
+        prompt: "CHANGE ME",
+        cues: ["CHANGE", "ME"],
+        blankLabel: "",
+        nBlanks: 3,
+        instructions: "CHANGE ME"
+      },
       teach: {script: [
         SIB['STEP-HTML'],
         SIB['T-REVIEW']
@@ -50,7 +65,11 @@ const lessonSlideTypes = {
   'CL-FB': {
     type: 'CL-FB',
     data: {
-      play: {data: {}},
+      play: {
+        prompt: "CHANGE ME ___",
+        cues: ["CHANGE", "ME"],
+        instructions: "CHANGE ME"
+      },
       teach: {script: [
         SIB['STEP-HTML'],
         SIB['T-REVIEW']
@@ -62,7 +81,11 @@ const lessonSlideTypes = {
   'CL-SA': {
     type: 'CL-SA',
     data: {
-      play: {data: {}},
+      play: {
+        prompt: "CHANGE ME",
+        cues: ["CHANGE", "ME"],
+        instructions: "CHANGE ME"
+      },
       teach: {
         script: [
         SIB['STEP-HTML'],
@@ -75,7 +98,9 @@ const lessonSlideTypes = {
   'CL-EX': {
     type: 'CL-EX',
     data: {
-      play: {data: {}},
+      play: {
+        html: "Time to go!"
+      },
       teach: {
         script: [
         SIB['STEP-HTML']
