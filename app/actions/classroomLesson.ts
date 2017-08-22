@@ -56,23 +56,17 @@ export function addSlide(classroomLessonUid: string, classroomLesson: IntF.Class
 
 
 
-export function addScriptItem(classroomLessonUid: string, slideID: string, scriptItemType: string) {
+export function addScriptItem(classroomLessonUid: string, slideID: string, slide: IntF.Question, scriptItemType: string) {
+  const newSlide = _.merge({}, slide)
+  newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
   const slideRef = classroomLessonsRef.child(`${classroomLessonUid}/questions/${slideID}`)
-  slideRef.once('value', (snapshot) => {
-    const slide = snapshot.val()
-    if (slide) {
-      const newSlide = _.merge({}, slide)
-      newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
-      slideRef.set(newSlide)
-    }
-  });
+  slideRef.set(newSlide)
 }
 
 export function addLesson(lessonName) {
   const newLesson = lessonBoilerplate(lessonName)
   const newLessonKey = classroomLessonsRef.push().key
   classroomLessonsRef.child(newLessonKey).set(newLesson)
-
 }
 
 export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData) {

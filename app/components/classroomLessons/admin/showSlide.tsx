@@ -43,7 +43,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   }
 
   addScriptItem() {
-    addScriptItem(this.props.params.classroomLessonID, this.props.params.slideID, this.state.newScriptItemType)
+    addScriptItem(this.props.params.classroomLessonID, this.props.params.slideID, this.currentSlide(), this.state.newScriptItemType)
   }
 
   selectNewScriptItemType(e) {
