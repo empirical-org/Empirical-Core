@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import {
   getComponentDisplayName,
   getComponent,
-  getClassroomLesson
+  getClassroomLesson,
+  scriptItemTypeKeys
 } from './helpers'
+import {
+  addScriptItem
+} from '../../../actions/classroomLesson'
 import * as IntF from '../interfaces';
 import Script from './script'
 import {
@@ -16,6 +20,13 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     super(props);
 
     this.save = this.save.bind(this)
+
+    this.state = {
+      newScriptItemType: 'STEP-HTML'
+    }
+
+    this.addScriptItem = this.addScriptItem.bind(this)
+    this.selectNewScriptItemType = this.selectNewScriptItemType.bind(this)
   }
 
   classroomLesson(): IntF.ClassroomLesson {
@@ -29,6 +40,24 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   save(newValues) {
     const {classroomLessonID, slideID} = this.props.params;
     saveClassroomLessonSlide(classroomLessonID, slideID, newValues)
+  }
+
+  addScriptItem() {
+    addScriptItem(this.props.params.classroomLessonID, this.props.params.slideID, this.state.newScriptItemType)
+  }
+
+  selectNewScriptItemType(e) {
+    this.setState({newScriptItemType: e.target.value})
+  }
+
+  renderAddScriptItem() {
+    if (this.props.classroomLessons.hasreceiveddata) {
+      const options = scriptItemTypeKeys.map(key => <option key={key} value={key}>{key}</option>)
+      return <div>
+        <select value={this.state.newScriptItem} onChange={this.selectNewScriptItemType}>{options}</select>
+        <button onClick={this.addScriptItem}>Add Script Item</button>
+      </div>
+    }
   }
 
   render() {
@@ -49,6 +78,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
             lesson={this.props.params.classroomLessonID}
             slide={this.props.params.slideID}
           />
+          {this.renderAddScriptItem()}
         </div>
       )
     } else {

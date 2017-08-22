@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  addLesson
+} from '../../../actions/classroomLesson'
 
 class ClassLessonsIndex extends Component<any, any> {
   constructor(props) {
     super(props);
+
+    this.state = {newLessonName: ''}
+
+    this.addLesson = this.addLesson.bind(this)
+    this.changeNewLessonName = this.changeNewLessonName.bind(this)
   }
 
   renderClassroomLessonList() {
@@ -19,7 +27,24 @@ class ClassLessonsIndex extends Component<any, any> {
         {components}
       </ul>
     )
+  }
+}
+
+  renderAddClassroomLesson() {
+    if (this.props.classroomLessons.hasreceiveddata) {
+      return <div>
+        <input value={this.state.newLessonName} onChange={this.changeNewLessonName}/>
+        <button onClick={this.addLesson}>Add New Lesson</button>
+      </div>
     }
+  }
+
+  addLesson() {
+    addLesson(this.state.newLessonName)
+  }
+
+  changeNewLessonName(e) {
+    this.setState({newLessonName: e.target.value})
   }
 
   render() {
@@ -28,6 +53,7 @@ class ClassLessonsIndex extends Component<any, any> {
       <div>
         Lesson Index
         {this.renderClassroomLessonList()}
+        {this.renderAddClassroomLesson()}
       </div>
     );
   }
