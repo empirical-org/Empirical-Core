@@ -9,7 +9,7 @@ class Script extends React.Component<any, any> {
     return Object.keys(this.props.script).map((scriptItem) => {
       const item = this.props.script[scriptItem]
       return (
-        <li style={styles.box}>
+        <li style={styles.box} key={scriptItem}>
           {item.type} {item.data ? item.data.heading : ''}
           <a href={`/#/admin/classroom-lessons/${this.props.lesson}/slide/${this.props.slide}/scriptItem/${scriptItem}`}> edit</a>
         </li>
