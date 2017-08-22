@@ -33,10 +33,11 @@ class ClassLessonsIndex extends Component<any, any> {
   renderAddClassroomLesson() {
     if (this.props.classroomLessons.hasreceiveddata) {
       return (
-        <div>
+        <div className="add-new-lesson-form">
+          <h5 className="title is-5">Create a new lesson</h5>
           <p className="control has-addons">
             <input
-              className="input"
+              className="input is-expanded"
               type="text"
               placeholder="Algebra 101"
               value={this.state.newLessonName}
@@ -62,7 +63,7 @@ class ClassLessonsIndex extends Component<any, any> {
   render() {
 
     return (
-      <div>
+      <div className="admin-classroom-lessons-container">
         {this.renderAddClassroomLesson()}
         {this.renderClassroomLessonList()}
       </div>
