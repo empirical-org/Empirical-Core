@@ -54,7 +54,15 @@ export function addSlide(classroomLessonUid: string, classroomLesson: IntF.Class
   lessonRef.set(newLesson);
 }
 
-
+export function deleteClassroomLessonSlide(classroomLessonID, slideID, slides) {
+  const slidesRef = classroomLessonsRef.child(`${classroomLessonID}/questions/`)
+  const newArray = _.compact(Object.keys(slides).map(slideKey => {
+    if (slideKey != slideID ) {
+      return slides[slideKey]
+    }
+  }))
+  slidesRef.set(newArray);
+}
 
 export function addScriptItem(classroomLessonUid: string, slideID: string, slide: IntF.Question, scriptItemType: string) {
   const newSlide = _.merge({}, slide)

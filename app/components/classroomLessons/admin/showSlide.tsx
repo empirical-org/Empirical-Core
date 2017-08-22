@@ -12,7 +12,8 @@ import {
 import * as IntF from '../interfaces';
 import Script from './script'
 import {
-  saveClassroomLessonSlide
+  saveClassroomLessonSlide,
+  deleteClassroomLessonSlide
 } from 'actions/classroomLesson'
 
 class ShowClassroomLessonSlide extends Component<any, any> {
@@ -27,6 +28,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
 
     this.addScriptItem = this.addScriptItem.bind(this)
     this.selectNewScriptItemType = this.selectNewScriptItemType.bind(this)
+    this.deleteSlide = this.deleteSlide.bind(this)
   }
 
   classroomLesson(): IntF.ClassroomLesson {
@@ -40,6 +42,13 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   save(newValues) {
     const {classroomLessonID, slideID} = this.props.params;
     saveClassroomLessonSlide(classroomLessonID, slideID, newValues)
+  }
+
+  deleteSlide() {
+    const {classroomLessonID, slideID} = this.props.params;
+    const slides = this.classroomLesson().questions
+    deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
+    window.location = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
   }
 
   addScriptItem() {
@@ -71,6 +80,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
           <h5 className="title is-5">
             {this.currentSlide().data.teach.title}
           </h5>
+          <button onClick={this.deleteSlide}>Delete Slide</button>
           <p>{getComponentDisplayName(this.currentSlide().type)}</p>
           <Component question={this.currentSlide().data} save={this.save}/>
           <Script
