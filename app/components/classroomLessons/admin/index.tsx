@@ -32,10 +32,22 @@ class ClassLessonsIndex extends Component<any, any> {
 
   renderAddClassroomLesson() {
     if (this.props.classroomLessons.hasreceiveddata) {
-      return <div>
-        <input value={this.state.newLessonName} onChange={this.changeNewLessonName}/>
-        <button onClick={this.addLesson}>Add New Lesson</button>
-      </div>
+      return (
+        <div>
+          <p className="control has-addons">
+            <input
+              className="input"
+              type="text"
+              placeholder="Algebra 101"
+              value={this.state.newLessonName}
+              onChange={this.changeNewLessonName}
+            />
+            <a className="button is-info" onClick={this.addLesson}>
+              Add New Lesson
+            </a>
+          </p>
+        </div>
+      )
     }
   }
 
@@ -51,9 +63,8 @@ class ClassLessonsIndex extends Component<any, any> {
 
     return (
       <div>
-        Lesson Index
-        {this.renderClassroomLessonList()}
         {this.renderAddClassroomLesson()}
+        {this.renderClassroomLessonList()}
       </div>
     );
   }
