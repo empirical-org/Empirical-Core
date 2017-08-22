@@ -35,7 +35,7 @@ class showScriptItem extends Component<any, any> {
     const {classroomLessonID, slideID, scriptItemID} = this.props.params;
     const script = getClassroomLessonSlide(this.props.classroomLessons.data, classroomLessonID, slideID).data.teach.script;
     deleteScriptItem(classroomLessonID, slideID, scriptItemID, script)
-    window.location = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/slide/${slideID}`
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/slide/${slideID}`
   }
 
   render() {
