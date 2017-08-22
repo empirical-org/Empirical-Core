@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import {
-  getClassroomLessonScriptItem
+  getClassroomLessonScriptItem,
+  getClassroomLessonSlide
 } from './helpers';
 import {
-  saveClassroomLessonScriptItem
+  saveClassroomLessonScriptItem,
+  deleteScriptItem
 } from 'actions/classroomLesson'
 
 import * as IntF from '../interfaces';
@@ -16,6 +18,7 @@ class showScriptItem extends Component<any, any> {
   constructor(props){
     super(props);
     this.save = this.save.bind(this)
+    this.delete = this.delete.bind(this)
   }
 
   getCurrentScriptItem(): IntF.ScriptItem {
@@ -28,10 +31,17 @@ class showScriptItem extends Component<any, any> {
     saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem)
   }
 
+  delete() {
+    const {classroomLessonID, slideID, scriptItemID} = this.props.params;
+    const script = getClassroomLessonSlide(this.props.classroomLessons.data, classroomLessonID, slideID).data.teach.script;
+    deleteScriptItem(classroomLessonID, slideID, scriptItemID, script)
+    window.location = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/slide/${slideID}`
+  }
+
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
       return (
-        <EditScriptItem scriptItem={this.getCurrentScriptItem()} save={this.save}/>
+        <EditScriptItem scriptItem={this.getCurrentScriptItem()} save={this.save} delete={this.delete}/>
       )
     } else {
       return (

@@ -63,6 +63,16 @@ export function addScriptItem(classroomLessonUid: string, slideID: string, slide
   slideRef.set(newSlide)
 }
 
+export function deleteScriptItem(classroomLessonID, slideID, scriptItemID, script) {
+  const scriptRef = classroomLessonsRef.child(`${classroomLessonID}/questions/${slideID}/data/teach/script`)
+  const newArray = _.compact(Object.keys(script).map(scriptKey => {
+    if (scriptKey != scriptItemID ) {
+      return script[scriptKey]
+    }
+  }))
+  scriptRef.set(newArray);
+}
+
 export function addLesson(lessonName) {
   const newLesson = lessonBoilerplate(lessonName)
   const newLessonKey = classroomLessonsRef.push().key

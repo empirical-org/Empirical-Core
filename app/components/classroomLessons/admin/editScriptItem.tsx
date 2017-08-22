@@ -12,6 +12,7 @@ class EditScriptItem extends Component<any, any> {
       scriptItem: this.props.scriptItem;
     }
     this.saveChanges = this.saveChanges.bind(this)
+    this.deleteScriptItem = this.deleteScriptItem.bind(this)
   }
 
   updateValue(e, value) {
@@ -30,6 +31,10 @@ class EditScriptItem extends Component<any, any> {
     this.props.save(this.state.scriptItem)
   }
 
+  deleteScriptItem() {
+    this.props.delete()
+  }
+
   renderForm() {
     switch (this.props.scriptItem.type) {
       case 'STEP-HTML':
@@ -40,6 +45,8 @@ class EditScriptItem extends Component<any, any> {
             handleTextChange={(e) => this.updateBody(e)}
             title={"Body Copy:"}
           />
+          <button onClick={this.saveChanges}>Save Changes</button>
+          <button onClick={this.deleteScriptItem}>Delete</button>
         </div>)
     }
   }
@@ -49,7 +56,7 @@ class EditScriptItem extends Component<any, any> {
       <div>
         <ScriptComponent script={[this.state.scriptItem]} />
         {this.renderForm()}
-        <button onClick={this.saveChanges}>Save Changes</button>
+
       </div>
     )
   }
