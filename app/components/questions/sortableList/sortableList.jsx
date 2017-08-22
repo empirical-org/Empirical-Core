@@ -17,6 +17,12 @@ export default React.createClass({
 		};
 	},
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.data !== this.state.data.items) {
+			this.setState({data: {items: nextProps.data}})
+		}
+	},
+
 	updateState: function(obj) {
 		this.setState(obj, this.props.sortCallback(this.state));
 	},

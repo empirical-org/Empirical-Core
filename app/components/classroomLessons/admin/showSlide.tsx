@@ -13,7 +13,8 @@ import * as IntF from '../interfaces';
 import Script from './script'
 import {
   saveClassroomLessonSlide,
-  deleteClassroomLessonSlide
+  deleteClassroomLessonSlide,
+  updateSlideScriptItems
 } from 'actions/classroomLesson'
 
 class ShowClassroomLessonSlide extends Component<any, any> {
@@ -29,6 +30,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     this.addScriptItem = this.addScriptItem.bind(this)
     this.selectNewScriptItemType = this.selectNewScriptItemType.bind(this)
     this.deleteSlide = this.deleteSlide.bind(this)
+    this.updateScriptItemOrder = this.updateScriptItemOrder.bind(this)
   }
 
   classroomLesson(): IntF.ClassroomLesson {
@@ -69,6 +71,13 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     }
   }
 
+  updateScriptItemOrder(sortInfo) {
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newScriptItems = newOrder.map((key) => this.currentSlide().data.teach.script[key])
+    const {classroomLessonID, slideID} = this.props.params;
+    updateSlideScriptItems(classroomLessonID, slideID, newScriptItems)
+  }
+
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const Component = getComponent(this.currentSlide().type)
@@ -87,6 +96,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
             script={this.currentSlide().data.teach.script}
             lesson={this.props.params.classroomLessonID}
             slide={this.props.params.slideID}
+            updateScriptItemOrder={this.updateScriptItemOrder}
           />
           {this.renderAddScriptItem()}
         </div>
