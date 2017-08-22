@@ -45,10 +45,13 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   }
 
   deleteSlide() {
-    const {classroomLessonID, slideID} = this.props.params;
-    const slides = this.classroomLesson().questions
-    deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
-    window.location = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
+    const confirmation = window.confirm('Are you sure you want to delete this slide?')
+    if (confirmation) {
+      const {classroomLessonID, slideID} = this.props.params;
+      const slides = this.classroomLesson().questions
+      deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
+      window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
+    }
   }
 
   addScriptItem() {
