@@ -118,30 +118,6 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    .lobby-text {
-      padding: 25px;
-      max-width: 535px;
-      background-color: #fafafa;
-      font-size: 16px;
-      line-height: 1.63;
-      margin-right: 35px;
-      h4 {
-        font-weight: 600;
-        text-align: left;
-        color: #3b3b3b;
-        margin-bottom: 15px;
-      }
-
-      p {
-        color: #969696;
-        margin-bottom: 15px;
-        line-height: 26px;
-      }
-
-      hr {
-       background-color: #e9e9e9;
-      }
-    }
 
     .presence-container {
       min-width: 253px;
@@ -349,5 +325,30 @@
   }
   button {
     margin-left: 15px;
+  }
+}
+
+.lobby-text {
+  padding: 25px;
+  max-width: 535px;
+  background-color: #fafafa;
+  font-size: 16px;
+  line-height: 1.63;
+  margin-right: 35px;
+  h4 {
+    font-weight: 600;
+    text-align: left;
+    color: #3b3b3b;
+    margin-bottom: 15px;
+  }
+
+  p {
+    color: #969696;
+    margin-bottom: 15px;
+    line-height: 26px;
+  }
+
+  hr {
+   background-color: #e9e9e9;
   }
 }
