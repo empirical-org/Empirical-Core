@@ -21,6 +21,12 @@ class AdminStatic extends Component<SingleAnswerProps, any>{
     this.save = this.save.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(this.state.question, nextProps.question)) {
+      this.setState({question: nextProps.question})
+    }
+  }
+
   handleTitleChange(e) {
     const newVals = Object.assign(
       {},
