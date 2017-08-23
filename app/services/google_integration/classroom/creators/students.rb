@@ -66,7 +66,7 @@ module GoogleIntegration::Classroom::Creators::Students
         puts student.errors.full_messages
         puts 'classroom of errored students'
         puts classroom.attributes
-        student = self.create_student(data, counter++)
+        student = self.create_student(data, counter += 1)
       else
         data[:classrooms].each do |id|
           classroom = Classroom.find(id)
