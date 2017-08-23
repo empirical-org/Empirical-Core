@@ -101,9 +101,9 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
 
       # this is no longer the case, as results should not be saved with nonexistent concept tag
-      pending 'raises a 422 (Unprocessable Entity) status code' do
+      it 'does not save the concept result' do
         response = subject
-        expect(response.status).to eq(422)
+        expect(@activity_session.concept_results).to eq([])
       end
     end
   end
