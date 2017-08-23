@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import * as IntF from '../interfaces';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
+import StudentLobby from '../play/lobby'
 
 interface SingleAnswerProps {
   question: IntF.QuestionData,
@@ -45,6 +46,11 @@ class AdminLobby extends Component<SingleAnswerProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+        <div className="admin-slide-preview">
+          <div className="scaler">
+            <StudentLobby title={this.state.question.teach.title} data={{presence: {}, students: {}}} />
+          </div>
+        </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
