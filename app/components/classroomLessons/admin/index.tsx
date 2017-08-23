@@ -36,6 +36,7 @@ class ClassLessonsIndex extends Component<any, any> {
         <div className="add-new-lesson-form">
           <h5 className="title is-5">Create a new lesson</h5>
           <p className="control has-addons">
+            <form onSubmit={this.addLesson}>
             <input
               className="input is-expanded"
               type="text"
@@ -46,6 +47,7 @@ class ClassLessonsIndex extends Component<any, any> {
             <a className="button is-info" onClick={this.addLesson}>
               Add New Lesson
             </a>
+            </form>
           </p>
         </div>
       )

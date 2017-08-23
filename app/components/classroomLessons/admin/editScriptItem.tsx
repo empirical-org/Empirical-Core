@@ -37,6 +37,7 @@ class EditScriptItem extends Component<any, any> {
 
   renderForm() {
     switch (this.props.scriptItem.type) {
+      case 'STEP-HTML-TIP':
       case 'STEP-HTML':
         return (<div className="admin-show-script-item">
           <textarea onChange={(e) => this.updateValue(e, 'heading')} value={this.state.scriptItem.data.heading}></textarea>
@@ -48,15 +49,36 @@ class EditScriptItem extends Component<any, any> {
           <button onClick={this.saveChanges}>Save Changes</button>
           <button onClick={this.deleteScriptItem}>Delete</button>
         </div>)
+      case 'Overview':
+      return (<div className="admin-show-script-item">
+        <MultipleTextEditor
+          text={this.state.scriptItem.data.body}
+          handleTextChange={(e) => this.updateBody(e)}
+          title={"Body Copy:"}
+        />
+        <button onClick={this.saveChanges}>Save Changes</button>
+      </div>)
+    }
+  }
+
+  renderPreview() {
+    if (this.props.scriptItem.type === 'Overview') {
+      const scriptData = this.state.scriptItem.data
+      if (scriptData) {
+        const html:string =  scriptData.body || '';
+        return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
+        </div>
+      }
+    } else {
+      <ScriptComponent script={[this.state.scriptItem]} />
     }
   }
 
   render() {
     return (
       <div>
-        <ScriptComponent script={[this.state.scriptItem]} />
+        {this.renderPreview()}
         {this.renderForm()}
-
       </div>
     )
   }
