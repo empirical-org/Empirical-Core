@@ -70,7 +70,7 @@ class EditScriptItem extends Component<any, any> {
         </div>
       }
     } else {
-      <ScriptComponent script={[this.state.scriptItem]} />
+      return <ScriptComponent script={[this.state.scriptItem]} />
     }
   }
 
