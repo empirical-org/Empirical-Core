@@ -98,3 +98,15 @@ export function saveClassroomLessonScriptItem(classroomLessonID, slideID, script
     .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
     .set(scriptItem)
 }
+
+export function updateSlideScriptItems(classroomLessonID, slideID, scriptItems) {
+  classroomLessonsRef
+    .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/`)
+    .set(scriptItems)
+}
+
+export function updateClassroomLessonSlides(classroomLessonID, slides) {
+  classroomLessonsRef
+    .child(`${classroomLessonID}/questions/`)
+    .set(slides)
+}
