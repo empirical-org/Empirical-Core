@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import * as IntF from '../interfaces';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
+import StudentModel from '../play/modelQuestion'
 
 interface SingleAnswerProps {
   question: IntF.QuestionData,
@@ -67,6 +68,11 @@ class AdminModel extends Component<SingleAnswerProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+      <div className="admin-slide-preview">
+        <div className="scaler">
+          <StudentModel data={this.state.question} />
+        </div>
+      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
