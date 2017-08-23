@@ -34,8 +34,8 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     super(props);
     const student = getParameterByName('student');
     this.state = {
-      response: student && this.props.submissions && this.props.submissions[student] ? 
-                this.props.submissions[student].data : 
+      response: student && this.props.submissions && this.props.submissions[student] ?
+                this.props.submissions[student].data :
                 props.data.play.prefilledText,
       editing: false,
       submitted: false,
@@ -161,8 +161,9 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   renderSubmitButton() {
     if (this.props.mode !== 'PROJECT') {
+      const disabled = !this.state.response || this.state.response.length === 0 ? 'is-disabled' : null
       return (<div className="question-button-group">
-        <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
+        <button disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission} className={`button student-submit ${disabled}`}>Submit</button>
       </div>);
     }
   }
