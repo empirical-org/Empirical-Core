@@ -32,10 +32,25 @@ class ClassLessonsIndex extends Component<any, any> {
 
   renderAddClassroomLesson() {
     if (this.props.classroomLessons.hasreceiveddata) {
-      return <form onSubmit={this.addLesson}>
-        <input value={this.state.newLessonName} onChange={this.changeNewLessonName}/>
-        <button>Add New Lesson</button>
-      </form>
+      return (
+        <div className="add-new-lesson-form">
+          <h5 className="title is-5">Create a new lesson</h5>
+          <p className="control has-addons">
+            <form onSubmit={this.addLesson}>
+            <input
+              className="input is-expanded"
+              type="text"
+              placeholder="Algebra 101"
+              value={this.state.newLessonName}
+              onChange={this.changeNewLessonName}
+            />
+            <a className="button is-info" onClick={this.addLesson}>
+              Add New Lesson
+            </a>
+            </form>
+          </p>
+        </div>
+      )
     }
   }
 
@@ -50,10 +65,9 @@ class ClassLessonsIndex extends Component<any, any> {
   render() {
 
     return (
-      <div>
-        Lesson Index
-        {this.renderClassroomLessonList()}
+      <div className="admin-classroom-lessons-container">
         {this.renderAddClassroomLesson()}
+        {this.renderClassroomLessonList()}
       </div>
     );
   }
