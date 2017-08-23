@@ -115,8 +115,7 @@ class ShowClassroomLesson extends Component<any, any> {
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
             <h5 className="title is-5">{this.classroomLesson().title}</h5>
-            <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} />
-            <button className="button is-danger" onClick={this.deleteLesson}>Delete Lesson</button>
+            <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} deleteLesson={this.deleteLesson} />
           </div>
           <h5 className="title is-5">{questions.length} Slides</h5>
           {this.renderSlide(questions, classroomLessonID, 0)}

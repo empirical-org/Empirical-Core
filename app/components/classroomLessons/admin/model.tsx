@@ -94,7 +94,7 @@ class AdminModel extends Component<SingleAnswerProps, any>{
             <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
-        <button onClick={this.save}>Save Changes</button>
+        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
     )
   }

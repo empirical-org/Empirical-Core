@@ -55,7 +55,14 @@ export default class EditLessonDetails extends Component<any, any> {
         <input value={this.state.classroomLesson.unit} onChange={(e) => this.handleLessonDetailsChange(e, 'unit')} className="input" type="text" placeholder="Unit Name"/>
         </div>
       </div>
-      <button onClick={() => this.props.save(this.state.classroomLesson)}>Save Changes</button>
+      <div className="control is-grouped" style={{marginTop: 10}}>
+        <p className="control">
+          <button className="button is-primary" onClick={() => this.props.save(this.state.classroomLesson)}>Save Changes</button>
+        </p>
+        <p className="control">
+          <button className="button is-danger" onClick={this.props.deleteLesson}>Delete Lesson</button>
+        </p>
+      </div>
     </div>
   }
 }

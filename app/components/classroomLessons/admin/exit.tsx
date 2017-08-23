@@ -60,7 +60,7 @@ class AdminExit extends Component<SingleAnswerProps, any>{
             />
           </div>
         </div>
-        <button onClick={this.save}>Save Changes</button>
+        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
     )
   }
