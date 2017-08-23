@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as IntF from '../interfaces';
 import _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
+import MultipleTextEditor from './slideHTMLEditor'
 
 interface SingleAnswerProps {
   question: IntF.QuestionData,
@@ -52,7 +52,7 @@ class AdminLobby extends Component<SingleAnswerProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">Prompt</label>
+          <label className="label">HTML</label>
           <div className="control">
             <MultipleTextEditor
               text={this.state.question.play.html}
