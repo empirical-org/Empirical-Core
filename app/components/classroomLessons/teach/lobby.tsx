@@ -7,7 +7,8 @@ import {
   SelectedSubmissionsForQuestion
 } from '../interfaces';
 import {
-  Question
+  Question,
+  ClassroomLesson
 } from 'interfaces/classroomLessons';
 import ScriptComponent from '../shared/scriptComponent'
 import { sortByLastName } from '../shared/studentSorts'
@@ -15,6 +16,7 @@ import { sortByLastName } from '../shared/studentSorts'
 interface LobbyProps {
   data: ClassroomLessonSession,
   slideData: Question,
+  lessonData: ClassroomLesson
 }
 
 interface LobbyState {}
@@ -63,8 +65,8 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   renderHeader() {
     return (
       <div className="lobby-header">
-        <p className="unit-title">Unit: {this.props.slideData.data.teach.unit}</p>
-        <p className="lesson-title">Lesson {this.props.slideData.data.teach.lesson}: {this.props.slideData.data.teach.topic}</p>
+        <p className="unit-title">Unit: {this.props.lessonData.unit}</p>
+        <p className="lesson-title">Lesson {this.props.lessonData.lesson}: {this.props.lessonData.topic}</p>
       </div>
     )
   }
