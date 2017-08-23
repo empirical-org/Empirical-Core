@@ -132,6 +132,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           />
         case 'T-MODEL':
           return this.renderTeacherModel()
+        case 'Overview':
+          return <div className="lobby-text" dangerouslySetInnerHTML={{__html: item.data.body}} ></div>
         default:
           return <li key={index}>Unsupported type</li>
       }

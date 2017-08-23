@@ -172,7 +172,7 @@ class CurrentSlide extends React.Component<any, any> {
       switch (current.type) {
         case 'CL-LB':
           return (
-            <CLLobby data={data} slideData={current} />
+            <CLLobby data={data} lessonData={lessonData} slideData={current} />
           );
         case 'CL-ST':
           return (

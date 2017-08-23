@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ScriptComponent from '../shared/scriptComponent'
-import MultipleTextEditor from '../shared/multipleTextEditor'
+import SlideHTMLEditor from './slideHTMLEditor'
 
 import * as IntF from '../interfaces';
 
@@ -13,6 +13,12 @@ class EditScriptItem extends Component<any, any> {
     }
     this.saveChanges = this.saveChanges.bind(this)
     this.deleteScriptItem = this.deleteScriptItem.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(this.state.scriptItem, nextProps.scriptItem)) {
+      this.setState({scriptItem: nextProps.scriptItem})
+    }
   }
 
   updateValue(e, value) {
@@ -41,7 +47,7 @@ class EditScriptItem extends Component<any, any> {
       case 'STEP-HTML':
         return (<div className="admin-show-script-item">
           <textarea onChange={(e) => this.updateValue(e, 'heading')} value={this.state.scriptItem.data.heading}></textarea>
-          <MultipleTextEditor
+          <SlideHTMLEditor
             text={this.state.scriptItem.data.body}
             handleTextChange={(e) => this.updateBody(e)}
             title={"Body Copy:"}
@@ -51,7 +57,7 @@ class EditScriptItem extends Component<any, any> {
         </div>)
       case 'Overview':
       return (<div className="admin-show-script-item">
-        <MultipleTextEditor
+        <SlideHTMLEditor
           text={this.state.scriptItem.data.body}
           handleTextChange={(e) => this.updateBody(e)}
           title={"Body Copy:"}

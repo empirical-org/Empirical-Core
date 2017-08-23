@@ -20,7 +20,7 @@ class ClassLessonsIndex extends Component<any, any> {
       const data = this.props.classroomLessons.data
       const components = Object.keys(data).map((classroomLessonId) => {
         return (
-          <li key={classroomLessonId} ><span>{data[classroomLessonId].title}</span><span><a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a> <a href={`/#/teach/class-lessons/${classroomLessonId}/preview`}>Preview</a></span></li>
+          <li key={classroomLessonId} ><span>{data[classroomLessonId].title}</span><span><a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a> <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonId}/preview`}>Preview</a></span></li>
         )
       })
       return (

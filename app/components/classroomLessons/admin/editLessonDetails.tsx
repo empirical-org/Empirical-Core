@@ -18,7 +18,7 @@ export default class EditLessonDetails extends Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.classroomLesson !== this.state.classroomLesson) {
+    if (!_.isEqual(nextProps.classroomLesson, this.state.classroomLesson)) {
       this.setState({classroomLesson: nextProps.classroomLesson})
     }
   }
