@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as IntF from '../interfaces';
 import _ from 'lodash'
-import StudentLobby from '../play/lobby
+import StudentLobby from '../play/lobby'
 import MultipleTextEditor from './slideHTMLEditor'
 
 interface SingleAnswerProps {
