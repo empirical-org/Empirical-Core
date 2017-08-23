@@ -6,6 +6,7 @@ import {
 } from './helpers'
 import {
   addSlide,
+  deleteLesson,
   updateClassroomLessonSlides
 } from '../../../actions/classroomLesson'
 import SortableList from '../../questions/sortableList/sortableList.jsx';
@@ -19,6 +20,7 @@ class ShowClassroomLesson extends Component<any, any> {
     }
 
     this.addSlide = this.addSlide.bind(this)
+    this.deleteLesson = this.deleteLesson.bind(this)
     this.updateSlideOrder = this.updateSlideOrder.bind(this)
     this.selectNewSlideType = this.selectNewSlideType.bind(this)
   }
@@ -29,6 +31,14 @@ class ShowClassroomLesson extends Component<any, any> {
 
   addSlide() {
     addSlide(this.props.params.classroomLessonID, this.classroomLesson(), this.state.newSlideType)
+  }
+
+  deleteLesson() {
+    const confirmation = window.confirm('Are you sure you want to delete this lesson?')
+    if (confirmation) {
+      deleteLesson(this.props.params.classroomLessonID)
+      window.location.href = `${window.location.origin}/#/admin/classroom-lessons/`
+    }
   }
 
   selectNewSlideType(e) {
@@ -73,6 +83,7 @@ class ShowClassroomLesson extends Component<any, any> {
       return (
         <div>
           <h1>{this.classroomLesson().title}</h1>
+          <button onClick={this.deleteLesson}>Delete Lesson</button>
           {this.renderSlide(questions, classroomLessonID, 0)}
           {this.renderSortableMiddleSlides()}
           {this.renderSlide(questions, classroomLessonID, questions.length - 1)}

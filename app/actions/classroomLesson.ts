@@ -99,6 +99,9 @@ export function saveClassroomLessonScriptItem(classroomLessonID, slideID, script
     .set(scriptItem)
 }
 
+export function deleteLesson(classroomLessonID) {
+  classroomLessonsRef.child(classroomLessonID).remove();
+}
 export function updateSlideScriptItems(classroomLessonID, slideID, scriptItems) {
   classroomLessonsRef
     .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/`)

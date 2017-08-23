@@ -32,10 +32,10 @@ class ClassLessonsIndex extends Component<any, any> {
 
   renderAddClassroomLesson() {
     if (this.props.classroomLessons.hasreceiveddata) {
-      return <div>
+      return <form onSubmit={this.addLesson}>
         <input value={this.state.newLessonName} onChange={this.changeNewLessonName}/>
-        <button onClick={this.addLesson}>Add New Lesson</button>
-      </div>
+        <button>Add New Lesson</button>
+      </form>
     }
   }
 

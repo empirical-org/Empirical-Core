@@ -47,10 +47,13 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   }
 
   deleteSlide() {
-    const {classroomLessonID, slideID} = this.props.params;
-    const slides = this.classroomLesson().questions
-    deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
-    window.location = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
+    const confirmation = window.confirm('Are you sure you want to delete this slide?')
+    if (confirmation) {
+      const {classroomLessonID, slideID} = this.props.params;
+      const slides = this.classroomLesson().questions
+      deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
+      window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
+    }
   }
 
   addScriptItem() {
@@ -81,6 +84,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const Component = getComponent(this.currentSlide().type)
+      const deleteButton = this.currentSlide().type === 'CL-LB' || this.currentSlide().type === 'CL-EX' ? <span /> : <button onClick={this.deleteSlide}>Delete Slide</button>
       return (
         <div>
           <h4 className="title is-4">
@@ -89,7 +93,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
           <h5 className="title is-5">
             {this.currentSlide().data.teach.title}
           </h5>
-          <button onClick={this.deleteSlide}>Delete Slide</button>
+          {deleteButton}
           <p>{getComponentDisplayName(this.currentSlide().type)}</p>
           <Component question={this.currentSlide().data} save={this.save}/>
           <Script
