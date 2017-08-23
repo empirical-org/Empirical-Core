@@ -113,3 +113,7 @@ export function updateClassroomLessonSlides(classroomLessonID, slides) {
     .child(`${classroomLessonID}/questions/`)
     .set(slides)
 }
+
+export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
+  classroomLessonsRef.child(classroomLessonID).set(classroomLesson)
+}
