@@ -19,13 +19,16 @@ class ClassLessonsIndex extends Component<any, any> {
       const data = this.props.classroomLessons.data
       const components = Object.keys(data).map((classroomLessonId) => {
         return (
-          <li key={classroomLessonId}><a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>{data[classroomLessonId].title}</a></li>
+          <li key={classroomLessonId} ><span>{data[classroomLessonId].title}</span><span><a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a> <a href={`/#/teach/class-lessons/${classroomLessonId}/preview`}>Preview</a></span></li>
         )
       })
       return (
-      <ul>
-        {components}
-      </ul>
+        <div>
+          <h5 className="title is-5">All lessons</h5>
+          <ul className="classroom-lessons-index">
+            {components}
+          </ul>
+        </div>
     )
   }
 }
@@ -36,7 +39,6 @@ class ClassLessonsIndex extends Component<any, any> {
         <div className="add-new-lesson-form">
           <h5 className="title is-5">Create a new lesson</h5>
           <p className="control has-addons">
-            <form onSubmit={this.addLesson}>
             <input
               className="input is-expanded"
               type="text"
@@ -47,7 +49,6 @@ class ClassLessonsIndex extends Component<any, any> {
             <a className="button is-info" onClick={this.addLesson}>
               Add New Lesson
             </a>
-            </form>
           </p>
         </div>
       )

@@ -11,4 +11,20 @@
     margin-bottom: 30px;
     border-bottom: 1px solid #e3e3e3;
   }
+
+  ul.classroom-lessons-index {
+    width: 650px;
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      padding: 5 0;
+      border-bottom: 1px solid #e3e3e3;
+      a {
+        font-weight: bold;
+        margin-left: 5px;
+      }
+    }
+  }
 }
