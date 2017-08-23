@@ -12,12 +12,12 @@ namespace :objectives do
 
   module ObjectiveCreator
     def self.data
-       [{name: 'Create a Classroom', section: 'Getting Started', help_info: 'http://support.quill.org/knowledgebase/articles/369605', action_url: '/teachers/classrooms/new', section_placement: 1 },
-        {name: 'Add Students', section: 'Getting Started', help_info: 'http://support.quill.org/knowledgebase/articles/369608', action_url: '/teachers/add_students', section_placement: 2 },
-        {name: 'Assign Featured Activity Pack', section: 'Getting Started', help_info: 'http://support.quill.org/knowledgebase/articles/843639', action_url: '/activities/packs', section_placement: 3 },
-        {name: 'Assign Entry Diagnostic', section: 'Getting Started', help_info: 'http://support.quill.org/knowledgebase/articles/1144849', action_url: '/teachers/classrooms/activity_planner/assign-a-diagnostic', section_placement: 4 },
-        {name: 'Add School', section: 'Getting Started', help_info: 'http://support.quill.org/knowledgebase/articles/897621-add-your-school',  action_url: '/teachers/my_account', section_placement: 5},
-        {name: 'Build Your Own Activity Pack', section: 'Other', help_info: 'http://support.quill.org/knowledgebase/articles/369614', action_url: '/teachers/classrooms/lesson_planner', section_placement: 6}]
+       [{name: 'Create a Classroom', section: 'Getting Started', help_info: 'https://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-create-classes', action_url: '/teachers/classrooms/new', section_placement: 1 },
+        {name: 'Add Students', section: 'Getting Started', help_info: 'https://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-invite-students-to-my-classes', action_url: '/teachers/add_students', section_placement: 2 },
+        {name: 'Assign Featured Activity Pack', section: 'Getting Started', help_info: 'https://intercom.help/quill-org/getting-started-for-teachers/assigning-activities/how-can-i-assign-a-featured-activity-pack', action_url: '/activities/packs', section_placement: 3 },
+        {name: 'Assign Entry Diagnostic', section: 'Getting Started', help_info: 'https://support.quill.org/getting-started-for-teachers/assigning-activities/how-can-i-assign-a-quill-diagnostic', action_url: '/teachers/classrooms/activity_planner/assign-a-diagnostic', section_placement: 4 },
+        {name: 'Add School', section: 'Getting Started', help_info: 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-add-my-school',  action_url: '/teachers/my_account', section_placement: 5},
+        {name: 'Build Your Own Activity Pack', section: 'Other', help_info: 'http://support.quill.org/getting-started-for-teachers/assigning-activities/create-and-assign-your-own-activity-pack', action_url: '/teachers/classrooms/lesson_planner', section_placement: 6}]
     end
 
     def self.find_or_create_objectives
