@@ -12,6 +12,7 @@ class ClassLessonsIndex extends Component<any, any> {
 
     this.addLesson = this.addLesson.bind(this)
     this.changeNewLessonName = this.changeNewLessonName.bind(this)
+    this.goToNewLesson = this.goToNewLesson.bind(this)
   }
 
   renderClassroomLessonList() {
@@ -56,7 +57,11 @@ class ClassLessonsIndex extends Component<any, any> {
   }
 
   addLesson() {
-    addLesson(this.state.newLessonName)
+    addLesson(this.state.newLessonName, this.goToNewLesson)
+  }
+
+  goToNewLesson(lessonUID) {
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${lessonUID}`
   }
 
   changeNewLessonName(e) {

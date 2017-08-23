@@ -15,7 +15,7 @@ const icon = require('../../../img/question_icon.svg');
 
 interface SingleAnswerProps {
   data: QuestionData,
-  handleStudentSubmission: Function,
+  handleStudentSubmission: Function|null,
   mode: string|null,
   submissions: QuestionSubmissionsList|null,
   selected_submissions: SelectedSubmissionsForQuestion|null,
@@ -34,8 +34,8 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     super(props);
     const student = getParameterByName('student');
     this.state = {
-      response: student && this.props.submissions && this.props.submissions[student] ? 
-                this.props.submissions[student].data : 
+      response: student && this.props.submissions && this.props.submissions[student] ?
+                this.props.submissions[student].data :
                 props.data.play.prefilledText,
       editing: false,
       submitted: false,

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import * as IntF from '../interfaces';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
+import StudentFillInTheList from '../play/listBlanks'
 
 interface SingleAnswerProps {
   question: IntF.QuestionData,
@@ -20,6 +21,7 @@ class AdminFillInTheList extends Component<SingleAnswerProps, any>{
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
+    this.handleNBlanks = this.handleNBlanks.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -37,7 +39,7 @@ class AdminFillInTheList extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e)
+    _.set(newVals, 'play.prompt', e.target.value)
     this.setState({question: newVals})
   }
 
@@ -70,16 +72,14 @@ class AdminFillInTheList extends Component<SingleAnswerProps, any>{
   }
 
   handleNBlanks(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
-    const nBlanks = Object.assign({}, Number(e.target.value));
-    _.set(newVals, 'play.nBlanks', nBlanks)
-    this.setState({question: newVals})
+      const newVals = Object.assign(
+        {},
+        this.state.question
+      );
+      const nBlanks = e.target.value.length > 0 ? Number(e.target.value) : e.target.value;
+      _.set(newVals, 'play.nBlanks', nBlanks)
+      this.setState({question: newVals})
   }
-
-
 
   save() {
     this.props.save(this.state.question)
@@ -88,6 +88,11 @@ class AdminFillInTheList extends Component<SingleAnswerProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+      <div className="admin-slide-preview">
+        <div className="scaler">
+          <StudentFillInTheList data={this.state.question} />
+        </div>
+      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
@@ -97,10 +102,7 @@ class AdminFillInTheList extends Component<SingleAnswerProps, any>{
         <div className="field">
           <label className="label">Prompt</label>
           <div className="control">
-            <MultipleTextEditor
-              text={this.state.question.play.prompt}
-              handleTextChange={(e) => this.handlePromptChange(e)}
-            />
+            <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <div className="field">
