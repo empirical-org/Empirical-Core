@@ -11,9 +11,10 @@ class Script extends React.Component<any, any> {
   renderScriptItem(scriptItem) {
     const item = this.props.script[scriptItem]
     return (
-      <div style={styles.box} key={scriptItem}>
-        {item.type} {item.data ? item.data.heading : ''}
-        <a href={`/#/admin/classroom-lessons/${this.props.lesson}/slide/${this.props.slide}/scriptItem/${scriptItem}`}> edit</a>
+      <div key={scriptItem} className="box slide-box">
+        <span className="slide-type">{item.type}</span>
+        <span className="slide-title">{item.data ? item.data.heading : ''}</span>
+        <span className="slide-edit"><a href={`/#/admin/classroom-lessons/${this.props.lesson}/slide/${this.props.slide}/scriptItem/${scriptItem}`}>Edit</a></span>
       </div>
     );
   }
