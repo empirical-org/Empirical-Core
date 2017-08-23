@@ -64,15 +64,33 @@ class ShowClassroomLesson extends Component<any, any> {
     }
   }
 
-  renderSlide = (questions, classroomLessonID, key) => <div key={key} className="box"><a href={`/#/admin/classroom-lessons/${classroomLessonID}/slide/${key}`}><strong>{getComponentDisplayName(questions[key].type)}:</strong> {questions[key].data.teach.title}</a></div>
+  renderSlide(questions, classroomLessonID, key) {
+    return (
+      <div key={key} className="box slide-box">
+        <span className="slide-type">{getComponentDisplayName(questions[key].type)}</span>
+        <span className="slide-title">{questions[key].data.teach.title}</span>
+        <span className="slide-edit"><a href={`/#/admin/classroom-lessons/${classroomLessonID}/slide/${key}`}>Edit Slide</a></span>
+      </div>
+    )
+  }
 
   renderAddSlide() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const options = slideTypeKeys.map(key => <option key={key} value={key}>{getComponentDisplayName(key)}</option>)
-      return <div>
-        <select value={this.state.newSlideType} onChange={this.selectNewSlideType}>{options}</select>
-        <button onClick={this.addSlide}>Add Slide</button>
-      </div>
+      return (
+        <div className="add-new-slide-form">
+          <p className="control has-addons">
+            <span className="select is-large">
+              <select value={this.state.newSlideType} onChange={this.selectNewSlideType}>
+                {options}
+              </select>
+            </span>
+            <a className="button is-primary is-large"onClick={this.addSlide}>
+              Add Slide
+            </a>
+          </p>
+        </div>
+      )
     }
   }
 
@@ -81,13 +99,16 @@ class ShowClassroomLesson extends Component<any, any> {
       const questions = this.classroomLesson().questions
       const classroomLessonID = this.props.params.classroomLessonID
       return (
-        <div>
-          <h1>{this.classroomLesson().title}</h1>
-          <button onClick={this.deleteLesson}>Delete Lesson</button>
+        <div className="admin-classroom-lessons-container">
+          <div className="lesson-header">
+            <h5 className="title is-5">{this.classroomLesson().title}</h5>
+            <button className="button is-danger" onClick={this.deleteLesson}>Delete Lesson</button>
+          </div>
+          <h5 className="title is-5">{questions.length} Slides</h5>
           {this.renderSlide(questions, classroomLessonID, 0)}
           {this.renderSortableMiddleSlides()}
-          {this.renderSlide(questions, classroomLessonID, questions.length - 1)}
           {this.renderAddSlide()}
+          {this.renderSlide(questions, classroomLessonID, questions.length - 1)}
         </div>
       )
     } else {

@@ -6,7 +6,7 @@
 }
 
 .admin-classroom-lessons-container {
-  .add-new-lesson-form {
+  .add-new-lesson-form, .lesson-header {
     padding-bottom: 30px;
     margin-bottom: 30px;
     border-bottom: 1px solid #e3e3e3;
@@ -24,6 +24,48 @@
       a {
         font-weight: bold;
         margin-left: 5px;
+      }
+    }
+  }
+
+  .slide-box {
+    width: 575px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    .slide-type {
+      font-size: 14px;
+      color: #969696;
+      width: 150px;
+    }
+    .slide-title {
+      font-weight: 600;
+      color: #3d3d3d;
+      flex-grow: 1;
+    }
+    .slide-edit {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .add-new-slide-form {
+    margin-bottom: 10px;
+    width: 575px;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    .select, .button {
+      height: 60px;
+      font-size: 14px;
+    }
+    .select {
+      width: 100%;
+      select {
+        width: 100%;
+        height: 60px;
+        font-size: 14px;
+        padding-left: 20px;
       }
     }
   }
