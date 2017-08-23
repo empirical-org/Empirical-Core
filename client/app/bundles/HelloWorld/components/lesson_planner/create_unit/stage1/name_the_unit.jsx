@@ -22,7 +22,7 @@
 					<div className="how-we-grade">
 						<p className="title title-not-started">
 
-							<a href="http://support.quill.org/knowledgebase/articles/369614-assigning-lessons">
+							<a href="http://support.quill.org/getting-started-for-teachers/assigning-activities/create-and-assign-your-own-activity-pack">
 								{"What's an Activity Pack?"}
 							</a>
 
