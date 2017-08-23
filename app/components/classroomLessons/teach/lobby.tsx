@@ -9,6 +9,7 @@ import {
 import {
   Question
 } from 'interfaces/classroomLessons';
+import ScriptComponent from '../shared/scriptComponent'
 import { sortByLastName } from '../shared/studentSorts'
 
 interface LobbyProps {
@@ -69,16 +70,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   }
 
   renderScript() {
-    // should be changed to this.props.slideData.data.teach.script[0].data.body || '';
-    // when the dummy data structure is updated
-    const scriptData = this.props.slideData.data.teach.script[0].data
-    if (scriptData) {
-      const html:string =  scriptData.body || '';
-      return (
-        <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
-        </div>
-      )
-    }
+    return (<ScriptComponent script={this.props.slideData.data.teach.script} />)
   }
 
   renderPresence() {
