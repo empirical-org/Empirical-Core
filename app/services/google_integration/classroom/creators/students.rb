@@ -5,7 +5,7 @@ module GoogleIntegration::Classroom::Creators::Students
     student_data = self.get_student_data_for_all_classrooms(classrooms, students_requester_and_parser)
     puts 'here is more student data'
     students = self.create_students(student_data)
-    students.compact
+    students
   end
 
   private
@@ -43,11 +43,7 @@ module GoogleIntegration::Classroom::Creators::Students
     students.compact
   end
 
-  def self.create_student(data, counter=0)
-    puts "retrying create_student from google classroom - counter #{counter}" if counter > 0
-    if counter > 2
-      return nil
-    end
+  def self.create_student(data)
     if data[:email]
       student = User.find_or_initialize_by(email: data[:email].downcase)
       if student.new_record?
@@ -66,7 +62,6 @@ module GoogleIntegration::Classroom::Creators::Students
         puts student.errors.full_messages
         puts 'classroom of errored students'
         puts classroom.attributes
-        student = self.create_student(data, counter++)
       else
         data[:classrooms].each do |id|
           classroom = Classroom.find(id)
