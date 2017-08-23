@@ -47,11 +47,14 @@ export function updateClassroomLessons(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
 }
 
-export function addSlide(classroomLessonUid: string, classroomLesson: IntF.ClassroomLesson, slideType: string) {
+export function addSlide(classroomLessonUid: string, classroomLesson: IntF.ClassroomLesson, slideType: string, cb:Function|undefined) {
   const lessonRef = classroomLessonsRef.child(classroomLessonUid);
   const newLesson: IntF.ClassroomLesson = _.merge({}, classroomLesson)
   newLesson.questions.splice(-1, 0, lessonSlideBoilerplates[slideType])
   lessonRef.set(newLesson);
+  if (cb) {
+    cb(newLesson.questions.length - 2)
+  }
 }
 
 export function deleteClassroomLessonSlide(classroomLessonID, slideID, slides) {
@@ -64,11 +67,14 @@ export function deleteClassroomLessonSlide(classroomLessonID, slideID, slides) {
   slidesRef.set(newArray);
 }
 
-export function addScriptItem(classroomLessonUid: string, slideID: string, slide: IntF.Question, scriptItemType: string) {
+export function addScriptItem(classroomLessonUid: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
   const slideRef = classroomLessonsRef.child(`${classroomLessonUid}/questions/${slideID}`)
   slideRef.set(newSlide)
+  if (cb) {
+    cb(newSlide.data.teach.script.length - 1)
+  }
 }
 
 export function deleteScriptItem(classroomLessonID, slideID, scriptItemID, script) {
@@ -81,10 +87,13 @@ export function deleteScriptItem(classroomLessonID, slideID, scriptItemID, scrip
   scriptRef.set(newArray);
 }
 
-export function addLesson(lessonName) {
+export function addLesson(lessonName, cb) {
   const newLesson = lessonBoilerplate(lessonName)
   const newLessonKey = classroomLessonsRef.push().key
   classroomLessonsRef.child(newLessonKey).set(newLesson)
+  if (cb) {
+    cb(newLessonKey)
+  }
 }
 
 export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData) {

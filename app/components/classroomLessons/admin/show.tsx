@@ -23,14 +23,19 @@ class ShowClassroomLesson extends Component<any, any> {
     this.deleteLesson = this.deleteLesson.bind(this)
     this.updateSlideOrder = this.updateSlideOrder.bind(this)
     this.selectNewSlideType = this.selectNewSlideType.bind(this)
+    this.goToNewSlide = this.goToNewSlide.bind(this)
   }
 
   classroomLesson() {
     return this.props.classroomLessons.data[this.props.params.classroomLessonID]
   }
 
+  goToNewSlide(slideID) {
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/slide/${slideID}`
+  }
+
   addSlide() {
-    addSlide(this.props.params.classroomLessonID, this.classroomLesson(), this.state.newSlideType)
+    addSlide(this.props.params.classroomLessonID, this.classroomLesson(), this.state.newSlideType, this.goToNewSlide)
   }
 
   deleteLesson() {

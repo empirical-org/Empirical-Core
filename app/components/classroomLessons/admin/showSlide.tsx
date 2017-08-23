@@ -31,6 +31,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     this.selectNewScriptItemType = this.selectNewScriptItemType.bind(this)
     this.deleteSlide = this.deleteSlide.bind(this)
     this.updateScriptItemOrder = this.updateScriptItemOrder.bind(this)
+    this.goToNewScriptItem = this.goToNewScriptItem.bind(this)
   }
 
   classroomLesson(): IntF.ClassroomLesson {
@@ -50,11 +51,15 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     const {classroomLessonID, slideID} = this.props.params;
     const slides = this.classroomLesson().questions
     deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
-    window.location = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
+  }
+
+  goToNewScriptItem(scriptItemID) {
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/slide/${this.props.params.slideID}/scriptItem/${scriptItemID}`
   }
 
   addScriptItem() {
-    addScriptItem(this.props.params.classroomLessonID, this.props.params.slideID, this.currentSlide(), this.state.newScriptItemType)
+    addScriptItem(this.props.params.classroomLessonID, this.props.params.slideID, this.currentSlide(), this.state.newScriptItemType, this.goToNewScriptItem)
   }
 
   selectNewScriptItemType(e) {
