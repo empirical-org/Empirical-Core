@@ -15,7 +15,7 @@ const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
   data: QuestionData,
-  handleStudentSubmission: Function,
+  handleStudentSubmission: Function|null,
   mode: string | null,
   submissions: QuestionSubmissionsList | null,
   selected_submissions: SelectedSubmissionsForQuestion | null,
@@ -58,6 +58,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {
       const splitPrompt = nextProps.data.play.prompt.split('___');
       this.setState({ submitted: false, editing: false, inputVals: this.generateInputs(splitPrompt) });
+    }
+
+    // this will update the prompt when it changes
+    const newSplitPrompt = nextProps.data.play.prompt.split('___');
+    if (newSplitPrompt !== this.state.splitPrompt) {
+      this.setState({splitPrompt: newSplitPrompt, inputVals: this.generateInputs(newSplitPrompt)})
     }
   }
 

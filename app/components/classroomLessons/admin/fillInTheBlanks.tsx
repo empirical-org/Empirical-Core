@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import * as IntF from '../interfaces';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
+import StudentFillInTheBlank from '../play/fillInTheBlank'
 
 interface SingleAnswerProps {
   question: IntF.QuestionData,
@@ -37,7 +38,7 @@ class AdminFillInTheBlanks extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e)
+    _.set(newVals, 'play.prompt', e.target.value)
     this.setState({question: newVals})
   }
 
@@ -67,6 +68,11 @@ class AdminFillInTheBlanks extends Component<SingleAnswerProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+      <div className="admin-slide-preview">
+        <div className="scaler">
+          <StudentFillInTheBlank data={this.state.question} />
+        </div>
+      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
@@ -76,10 +82,7 @@ class AdminFillInTheBlanks extends Component<SingleAnswerProps, any>{
         <div className="field">
           <label className="label">Prompt</label>
           <div className="control">
-            <MultipleTextEditor
-              text={this.state.question.play.prompt}
-              handleTextChange={(e) => this.handlePromptChange(e)}
-            />
+            <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <div className="field">
