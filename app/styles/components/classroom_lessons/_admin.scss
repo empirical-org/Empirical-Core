@@ -70,3 +70,18 @@
     }
   }
 }
+
+.admin-slide-preview {
+  height: 200px;
+  width: 432px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  .scaler {
+    width: 960px;
+    height: 900px;
+    transform: scale(0.45, 0.45);
+    transform-origin: top left;
+    padding: 25px;
+    pointer-events: none;
+  }
+}
