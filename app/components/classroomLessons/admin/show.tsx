@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
+import _ from 'lodash'
 import {
   getComponentDisplayName,
   slideTypeKeys
@@ -7,8 +8,10 @@ import {
 import {
   addSlide,
   deleteLesson,
-  updateClassroomLessonSlides
+  updateClassroomLessonSlides,
+  updateClassroomLessonDetails
 } from '../../../actions/classroomLesson'
+import EditLessonDetails from './editLessonDetails'
 import SortableList from '../../questions/sortableList/sortableList.jsx';
 
 class ShowClassroomLesson extends Component<any, any> {
@@ -23,6 +26,7 @@ class ShowClassroomLesson extends Component<any, any> {
     this.deleteLesson = this.deleteLesson.bind(this)
     this.updateSlideOrder = this.updateSlideOrder.bind(this)
     this.selectNewSlideType = this.selectNewSlideType.bind(this)
+    this.saveLessonDetails = this.saveLessonDetails.bind(this)
   }
 
   classroomLesson() {
@@ -39,6 +43,10 @@ class ShowClassroomLesson extends Component<any, any> {
       deleteLesson(this.props.params.classroomLessonID)
       window.location.href = `${window.location.origin}/#/admin/classroom-lessons/`
     }
+  }
+
+  saveLessonDetails(lesson) {
+    updateClassroomLessonDetails(this.props.params.classroomLessonID, lesson)
   }
 
   selectNewSlideType(e) {
@@ -102,6 +110,7 @@ class ShowClassroomLesson extends Component<any, any> {
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
             <h5 className="title is-5">{this.classroomLesson().title}</h5>
+            <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} />
             <button className="button is-danger" onClick={this.deleteLesson}>Delete Lesson</button>
           </div>
           <h5 className="title is-5">{questions.length} Slides</h5>
