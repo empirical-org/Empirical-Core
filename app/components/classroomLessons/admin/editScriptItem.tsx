@@ -61,8 +61,8 @@ class EditScriptItem extends Component<any, any> {
               />
             </div>
           </div>
-          <button onClick={this.saveChanges}>Save Changes</button>
-          <button onClick={this.deleteScriptItem}>Delete</button>
+          <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
+          <button className='button is-primary' onClick={this.deleteScriptItem}>Delete</button>
         </div>)
       case 'Overview':
         return (<div className="admin-show-script-item">
@@ -75,7 +75,7 @@ class EditScriptItem extends Component<any, any> {
             />
           </div>
         </div>
-        <button onClick={this.saveChanges}>Save Changes</button>
+        <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
         </div>)
     }
   }
