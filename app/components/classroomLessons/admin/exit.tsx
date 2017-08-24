@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
 import Static from '../play/static'
+import SlideHTMLEditor from './slideHTMLEditor'
 
 interface SingleAnswerProps {
   question: CLIntF.QuestionData,
@@ -60,7 +60,7 @@ class AdminExit extends Component<SingleAnswerProps, any>{
         <div className="field">
           <label className="label">HTML</label>
           <div className="control">
-            <MultipleTextEditor
+            <SlideHTMLEditor
               text={this.state.question.play.html}
               handleTextChange={(e) => this.handleHTMLChange(e)}
             />
