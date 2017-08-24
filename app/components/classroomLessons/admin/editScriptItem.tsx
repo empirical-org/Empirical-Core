@@ -33,13 +33,17 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
 
   updateValue(e, value) {
     const newScriptItem = Object.assign({}, this.state.scriptItem)
-    newScriptItem.data[value] = e.target.value
+    if (newScriptItem.data) {
+      newScriptItem.data[value] = e.target.value
+    }
     this.setState({scriptItem: newScriptItem})
   }
 
   updateBody(e) {
     const newScriptItem = Object.assign({}, this.state.scriptItem)
-    newScriptItem.data.body = e;
+    if (newScriptItem.data) {
+      newScriptItem.data.body = e
+    }
     this.setState({scriptItem: newScriptItem})
   }
 
@@ -52,21 +56,24 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
   }
 
   renderForm() {
-    switch (this.props.scriptItem.type) {
+    const scriptItem = this.state.scriptItem
+    const heading = scriptItem && scriptItem.data ? scriptItem.data.heading : ''
+    const body = scriptItem && scriptItem.data ? scriptItem.data.body : ''
+    switch (scriptItem.type) {
       case 'STEP-HTML-TIP':
       case 'STEP-HTML':
         return (<div className="admin-show-script-item">
           <div className="field">
             <label className="label">Heading</label>
             <div className="control">
-              <input value={this.state.scriptItem.data.heading} onChange={(e) => this.updateValue(e, 'heading')} className="input" type="text" placeholder="Heading"/>
+              <input value={heading} onChange={(e) => this.updateValue(e, 'heading')} className="input" type="text" placeholder="Heading"/>
             </div>
           </div>
           <div className="field">
             <label className="label">Body</label>
             <div className="control">
               <SlideHTMLEditor
-                text={this.state.scriptItem.data.body}
+                text={body}
                 handleTextChange={(e) => this.updateBody(e)}
               />
             </div>
@@ -80,7 +87,7 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
           <label className="label">Body</label>
           <div className="control">
             <SlideHTMLEditor
-              text={this.state.scriptItem.data.body}
+              text={body}
               handleTextChange={(e) => this.updateBody(e)}
             />
           </div>
