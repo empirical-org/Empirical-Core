@@ -24,13 +24,13 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
     this.saveChanges = this.saveChanges.bind(this)
     this.deleteScriptItem = this.deleteScriptItem.bind(this)
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.state.scriptItem, nextProps.scriptItem)) {
-      this.setState({scriptItem: nextProps.scriptItem})
-    }
-  }
-
+  
+  // componentWillReceiveProps(nextProps) {
+  //   if (!_.isEqual(this.state.scriptItem, nextProps.scriptItem)) {
+  //     this.setState({scriptItem: nextProps.scriptItem})
+  //   }
+  // }
+  //
   updateValue(e, value) {
     const newScriptItem = Object.assign({}, this.state.scriptItem)
     if (newScriptItem.data) {
