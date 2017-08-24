@@ -96,10 +96,13 @@ export function addLesson(lessonName, cb) {
   }
 }
 
-export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData) {
+export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData, cb) {
   classroomLessonsRef
     .child(`${classroomLessonID}/questions/${slideID}/data`)
     .set(slideData)
+  if (cb) {
+    cb()
+  }
 }
 
 export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, cb) {
