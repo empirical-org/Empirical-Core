@@ -62,11 +62,11 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    const formattedCues = Object.assign({}, e.target.value.split(','));
+    const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
     this.setState({question: newVals})
   }
-
+  
   save() {
     this.props.save(this.state.question)
   }
