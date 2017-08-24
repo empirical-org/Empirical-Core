@@ -18,6 +18,7 @@ class showScriptItem extends Component<any, any> {
   constructor(props){
     super(props);
     this.save = this.save.bind(this)
+    this.saveAlert = this.saveAlert.bind(this)
     this.delete = this.delete.bind(this)
   }
 
@@ -36,7 +37,11 @@ class showScriptItem extends Component<any, any> {
 
   save(scriptItem: IntF.ScriptItem) {
     const {classroomLessonID, slideID, scriptItemID} = this.props.params;
-    saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem)
+    saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, this.saveAlert)
+  }
+
+  saveAlert() {
+    alert('Saved!')
   }
 
   delete() {

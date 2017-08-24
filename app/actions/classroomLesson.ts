@@ -102,10 +102,13 @@ export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData) 
     .set(slideData)
 }
 
-export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem) {
+export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, cb) {
   classroomLessonsRef
     .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
     .set(scriptItem)
+  if (cb) {
+    cb()
+  }
 }
 
 export function deleteLesson(classroomLessonID) {

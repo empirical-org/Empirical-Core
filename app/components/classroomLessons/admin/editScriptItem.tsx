@@ -61,7 +61,7 @@ class EditScriptItem extends Component<any, any> {
               />
             </div>
           </div>
-          <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
+          <button style={{marginRight: '15px'}} className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
           <button className='button is-primary' onClick={this.deleteScriptItem}>Delete</button>
         </div>)
       case 'Overview':
@@ -96,7 +96,7 @@ class EditScriptItem extends Component<any, any> {
   render() {
     return (
       <div>
-        {this.renderPreview()}
+        <div className="admin-script-item-preview">{this.renderPreview()}</div>
         {this.renderForm()}
       </div>
     )
