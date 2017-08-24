@@ -2574,6 +2574,13 @@ CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google
 
 
 --
+-- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1555423) AND (username IS NOT NULL));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3059,4 +3066,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170811192029');
 INSERT INTO schema_migrations (version) VALUES ('20170817144049');
 
 INSERT INTO schema_migrations (version) VALUES ('20170824150025');
+
+INSERT INTO schema_migrations (version) VALUES ('20170824171451');
 
