@@ -44,9 +44,14 @@
       color: #3d3d3d;
       flex-grow: 1;
     }
-    .slide-edit {
+    .slide-edit, .slide-delete {
       font-size: 14px;
       font-weight: 600;
+    }
+    .slide-delete {
+      color: #00c2a2;
+      cursor: pointer;
+      margin-right: 10px;
     }
   }
 

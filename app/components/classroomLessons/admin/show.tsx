@@ -9,7 +9,8 @@ import {
   addSlide,
   deleteLesson,
   updateClassroomLessonSlides,
-  updateClassroomLessonDetails
+  updateClassroomLessonDetails,
+  deleteClassroomLessonSlide
 } from '../../../actions/classroomLesson'
 import EditLessonDetails from './editLessonDetails'
 import SortableList from '../../questions/sortableList/sortableList.jsx';
@@ -68,6 +69,16 @@ class ShowClassroomLesson extends Component<any, any> {
     updateClassroomLessonSlides(this.props.params.classroomLessonID, newSlides)
   }
 
+  deleteSlide(slideID) {
+    const confirmation = window.confirm('Are you sure you want to delete this slide?')
+    if (confirmation) {
+      const {classroomLessonID} = this.props.params;
+      const slides = this.classroomLesson().questions
+      deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
+    }
+  }
+
+
   renderSortableMiddleSlides() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const questions = this.classroomLesson().questions
@@ -78,10 +89,13 @@ class ShowClassroomLesson extends Component<any, any> {
   }
 
   renderSlide(questions, classroomLessonID, key) {
+    const exitSlideIndex = questions.length - 1
+    const deleteSlideButton = key === 0 || key === exitSlideIndex ? <span /> : <span className="slide-delete" onClick={() => this.deleteSlide(key)}>Delete Slide</span>
     return (
       <div key={key} className="box slide-box">
         <span className="slide-type">{getComponentDisplayName(questions[key].type)}</span>
         <span className="slide-title">{questions[key].data.teach.title}</span>
+        {deleteSlideButton}
         <span className="slide-edit"><a href={`/#/admin/classroom-lessons/${classroomLessonID}/slide/${key}`}>Edit Slide</a></span>
       </div>
     )
