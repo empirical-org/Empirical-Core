@@ -5,7 +5,7 @@ const lessonSlideTypes = {
     type: 'CL-LB',
     data: {
       play: {
-        html: "CHANGE ME"
+        html: "Lobby HTML"
       },
       teach: {script: [
         SIB['Overview']
@@ -18,12 +18,12 @@ const lessonSlideTypes = {
     type: 'CL-ST',
     data: {
       play: {
-        html: "CHANGE ME"
+        html: "Static HTML"
       },
       teach: {script: [
         SIB['STEP-HTML']
       ],
-        title: 'CHANGE ME'
+        title: 'STATIC SLIDE TITLE'
       }
     }
   },
@@ -40,7 +40,7 @@ const lessonSlideTypes = {
         SIB['STEP-HTML'],
         SIB['T-MODEL']
       ],
-        title: 'CHANGE ME'
+        title: 'MODEL SLIDE TITLE'
       }
     }
   },
@@ -58,7 +58,7 @@ const lessonSlideTypes = {
         SIB['STEP-HTML'],
         SIB['T-REVIEW']
       ],
-        title: 'CHANGE ME'
+        title: 'FILL IN THE LIST BLANKS SLIDE TITLE'
       }
     }
   },
@@ -74,7 +74,7 @@ const lessonSlideTypes = {
         SIB['STEP-HTML'],
         SIB['T-REVIEW']
       ],
-        title: 'CHANGE ME'
+        title: 'FILL IN THE BLANKS SLIDE TITLE'
       }
     }
   },
@@ -91,7 +91,7 @@ const lessonSlideTypes = {
         SIB['STEP-HTML'],
         SIB['T-REVIEW']
       ],
-        title: 'CHANGE ME'
+        title: 'SINGLE ANSWER SLIDE TITLE'
       }
     }
   },
@@ -99,7 +99,7 @@ const lessonSlideTypes = {
     type: 'CL-EX',
     data: {
       play: {
-        html: "Time to go!"
+        html: "EXIT SLIDE HTML"
       },
       teach: {
         script: [
