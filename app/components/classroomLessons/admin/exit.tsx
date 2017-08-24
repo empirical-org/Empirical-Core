@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
+import Static from '../play/static'
 
 interface SingleAnswerProps {
   question: CLIntF.QuestionData,
@@ -45,6 +46,11 @@ class AdminExit extends Component<SingleAnswerProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+        <div className="admin-slide-preview">
+          <div className="scaler">
+            <Static data={this.state.question} />
+          </div>
+        </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
@@ -52,7 +58,7 @@ class AdminExit extends Component<SingleAnswerProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">Prompt</label>
+          <label className="label">HTML</label>
           <div className="control">
             <MultipleTextEditor
               text={this.state.question.play.html}
