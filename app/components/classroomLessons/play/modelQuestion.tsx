@@ -10,8 +10,8 @@ const icon = require('../../../img/question_icon.svg')
 
 interface ModelQuestionProps {
   data: QuestionData,
-  model: string|null,
-  prompt: string|null,
+  model?: string|null,
+  prompt?: string|null,
 }
 
 interface ModelQuestionState {}

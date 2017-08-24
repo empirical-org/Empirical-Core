@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import * as IntF from '../interfaces';
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentModel from '../play/modelQuestion'
 
-interface SingleAnswerProps {
-  question: IntF.QuestionData,
-
+interface AdminModelProps {
+  question: CLIntF.QuestionData,
+  save: Function
 }
 
-class AdminModel extends Component<SingleAnswerProps, any>{
+class AdminModel extends Component<AdminModelProps, any>{
   constructor(props){
     super(props);
 

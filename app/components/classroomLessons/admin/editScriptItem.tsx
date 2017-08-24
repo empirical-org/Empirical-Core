@@ -1,15 +1,25 @@
 import React, {Component} from 'react'
 import ScriptComponent from '../shared/scriptComponent'
 import SlideHTMLEditor from './slideHTMLEditor'
+import _ from 'lodash'
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 
-import * as IntF from '../interfaces';
+interface EditScriptItemProps {
+  scriptItem: CLIntF.ScriptItem,
+  save: Function,
+  delete: Function
+}
 
-class EditScriptItem extends Component<any, any> {
+interface EditScriptItemState {
+  scriptItem: CLIntF.ScriptItem,
+}
+
+class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState> {
   constructor(props){
     super(props);
 
     this.state = {
-      scriptItem: this.props.scriptItem;
+      scriptItem: this.props.scriptItem
     }
     this.saveChanges = this.saveChanges.bind(this)
     this.deleteScriptItem = this.deleteScriptItem.bind(this)
@@ -46,24 +56,37 @@ class EditScriptItem extends Component<any, any> {
       case 'STEP-HTML-TIP':
       case 'STEP-HTML':
         return (<div className="admin-show-script-item">
-          <textarea onChange={(e) => this.updateValue(e, 'heading')} value={this.state.scriptItem.data.heading}></textarea>
-          <SlideHTMLEditor
-            text={this.state.scriptItem.data.body}
-            handleTextChange={(e) => this.updateBody(e)}
-            title={"Body Copy:"}
-          />
-          <button onClick={this.saveChanges}>Save Changes</button>
-          <button onClick={this.deleteScriptItem}>Delete</button>
+          <div className="field">
+            <label className="label">Heading</label>
+            <div className="control">
+              <input value={this.state.scriptItem.data.heading} onChange={(e) => this.updateValue(e, 'heading')} className="input" type="text" placeholder="Heading"/>
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Body</label>
+            <div className="control">
+              <SlideHTMLEditor
+                text={this.state.scriptItem.data.body}
+                handleTextChange={(e) => this.updateBody(e)}
+              />
+            </div>
+          </div>
+          <button style={{marginRight: '15px'}} className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
+          <button className='button is-primary' onClick={this.deleteScriptItem}>Delete</button>
         </div>)
       case 'Overview':
-      return (<div className="admin-show-script-item">
-        <SlideHTMLEditor
-          text={this.state.scriptItem.data.body}
-          handleTextChange={(e) => this.updateBody(e)}
-          title={"Body Copy:"}
-        />
-        <button onClick={this.saveChanges}>Save Changes</button>
-      </div>)
+        return (<div className="admin-show-script-item">
+        <div className="field">
+          <label className="label">Body</label>
+          <div className="control">
+            <SlideHTMLEditor
+              text={this.state.scriptItem.data.body}
+              handleTextChange={(e) => this.updateBody(e)}
+            />
+          </div>
+        </div>
+        <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
+        </div>)
     }
   }
 
@@ -83,7 +106,7 @@ class EditScriptItem extends Component<any, any> {
   render() {
     return (
       <div>
-        {this.renderPreview()}
+        <div className="admin-script-item-preview">{this.renderPreview()}</div>
         {this.renderForm()}
       </div>
     )

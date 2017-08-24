@@ -15,11 +15,11 @@ const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
   data: QuestionData,
-  handleStudentSubmission: Function|null,
-  mode: string | null,
-  submissions: QuestionSubmissionsList | null,
-  selected_submissions: SelectedSubmissionsForQuestion | null,
-  selected_submission_order: Array<string> | null,
+  handleStudentSubmission?: Function,
+  mode?: string | null,
+  submissions?: QuestionSubmissionsList | null,
+  selected_submissions?: SelectedSubmissionsForQuestion | null,
+  selected_submission_order?: Array<string> | null,
   projector?: boolean|null
 }
 
@@ -139,7 +139,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   submitSubmission() {
-    if (this.state.inputErrors.size === 0) {
+    if (this.state.inputErrors.size === 0 && this.props.handleStudentSubmission) {
       this.props.handleStudentSubmission(this.zipInputsAndText(), moment().format());
       this.setState({ submitted: true, });
     }

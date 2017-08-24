@@ -32,8 +32,8 @@ const moment = require('moment');
 
 interface ScriptContainerProps {
   script: Array<ScriptItem>,
-  onlyShowHeaders: boolean,
-  updateToggledHeaderCount: Function,
+  onlyShowHeaders?: boolean,
+  updateToggledHeaderCount?: Function,
   [key: string]: any,
 }
 
@@ -133,7 +133,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-MODEL':
           return this.renderTeacherModel()
         case 'Overview':
-          return <div className="lobby-text" dangerouslySetInnerHTML={{__html: item.data.body}} ></div>
+          const html:string = item && item.data && item.data.body ? item.data.body : ''
+          return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} ></div>
         default:
           return <li key={index}>Unsupported type</li>
       }

@@ -8,14 +8,14 @@ const scriptItemTypes = {
   'STEP-HTML': {
     data: {
       body: '<p><strong>Say:</strong> CHANGE ME</p>',
-      heading: "CHANGE ME"
+      heading: "STEP HTML HEADING"
     },
     type: 'STEP-HTML'
   },
   'STEP-HTML-TIP': {
     data: {
       body: '<p><strong>Say:</strong> CHANGE ME</p>',
-      heading: "CHANGE ME"
+      heading: "STEP HTML TIP HEADING"
     },
     type: 'STEP-HTML-TIP'
   },

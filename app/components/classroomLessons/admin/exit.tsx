@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import * as IntF from '../interfaces';
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
+import Static from '../play/static'
+import SlideHTMLEditor from './slideHTMLEditor'
 
 interface SingleAnswerProps {
-  question: IntF.QuestionData,
-
+  question: CLIntF.QuestionData,
+  save: Function
 }
 
 class AdminExit extends Component<SingleAnswerProps, any>{
@@ -45,6 +46,11 @@ class AdminExit extends Component<SingleAnswerProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+        <div className="admin-slide-preview">
+          <div className="scaler">
+            <Static data={this.state.question} />
+          </div>
+        </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
@@ -52,9 +58,9 @@ class AdminExit extends Component<SingleAnswerProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">Prompt</label>
+          <label className="label">HTML</label>
           <div className="control">
-            <MultipleTextEditor
+            <SlideHTMLEditor
               text={this.state.question.play.html}
               handleTextChange={(e) => this.handleHTMLChange(e)}
             />

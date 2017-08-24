@@ -1,4 +1,5 @@
 import * as IntF from '../interfaces';
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import AdminLobby from './lobby';
 import AdminStatic from './static';
 import AdminModel from './model';
@@ -58,7 +59,7 @@ export function getClassroomLessonSlide(props: IntF.ClassroomLessons, classroomL
   return getClassroomLesson(props, classroomLessonID).questions[slideID]
 }
 
-export function getClassroomLessonScriptItem(props: IntF.ClassroomLessons, classroomLessonID: string, slideID: string, scriptItemID: string): IntF.ScriptItem {
+export function getClassroomLessonScriptItem(props: IntF.ClassroomLessons, classroomLessonID: string, slideID: string, scriptItemID: string): CLIntF.ScriptItem {
   return getClassroomLessonSlide(props, classroomLessonID, slideID).data.teach.script[scriptItemID]
 }
 

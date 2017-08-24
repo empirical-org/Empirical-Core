@@ -99,12 +99,10 @@ class ShowClassroomLessonSlide extends Component<any, any> {
       const Component = getComponent(this.currentSlide().type)
       return (
         <div className="admin-classroom-lessons-container">
-          <h4 className="title is-4">
+          <h4 className="title is-4">Lesson: <a href={`${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/`}>
             {this.classroomLesson().title}
-          </h4>
-          <h5 className="title is-5">
-            {this.currentSlide().data.teach.title}
-          </h5>
+          </a></h4>
+          <h5 className="title is-5">Slide: {this.currentSlide().data.teach.title}</h5>
           <button onClick={this.deleteSlide}>Delete Slide</button>
           <p>{getComponentDisplayName(this.currentSlide().type)}</p>
           <Component question={this.currentSlide().data} save={this.save}/>
