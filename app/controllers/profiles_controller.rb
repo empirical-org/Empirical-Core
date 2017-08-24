@@ -22,7 +22,8 @@ class ProfilesController < ApplicationController
 
   def student_profile_data
     if current_user.classrooms.any?
-      render json: get_student_profile_data(params[:current_classroom_id], params[:current_page].to_i)
+      # get_student_profile_data(params[:current_classroom_id], params[:current_page].to_i)}}
+      render json: {scores: student_profile_data_sql(params[:current_classroom_id]), student: student_data}
     else
       render json: {error: 'Current user has no classrooms'}
     end
@@ -63,6 +64,44 @@ class ProfilesController < ApplicationController
 protected
   def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
+  end
+
+  def student_data
+    {
+      name: current_user.name,
+      classroom: {
+        name: @current_classroom.name,
+        id: @current_classroom.id,
+        teacher: {
+          name: @current_classroom.teacher.name
+        }
+      },
+    }
+  end
+
+
+  def student_profile_data_sql(classroom_id=nil)
+    @current_classroom = current_classroom(classroom_id)
+    act_sesh_records = ActiveRecord::Base.connection.execute(
+    "SELECT unit.name,
+       activity.name,
+       activity.description,
+       unit.id AS unit_id,
+       unit.created_at AS unit_created_at,
+       ca.id AS ca_id,
+       acts.activity_id,
+       ca.created_at AS classroom_activity_created_at,
+       MAX(acts.percentage) AS max_percentage,
+       SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link,
+    -- include ca.locked and ca.pinned
+    FROM activity_sessions AS acts
+    JOIN classroom_activities AS ca ON ca.id = acts.classroom_activity_id
+    JOIN units AS unit ON unit.id = ca.unit_id
+    JOIN activities AS activity ON activity.id = ca.activity_id
+    WHERE acts.user_id = #{current_user.id}
+    AND ca.classroom_id = #{@current_classroom.id}
+    GROUP BY ca.id, activity.name, activity.description, acts.activity_id, unit.name, unit.id, unit.created_at
+    ORDER BY unit_created_at").to_a
   end
 
   def get_student_profile_data(classroom_id, current_page)
