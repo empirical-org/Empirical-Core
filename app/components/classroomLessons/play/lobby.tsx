@@ -11,11 +11,14 @@ import {
 import { sortByLastName } from '../shared/studentSorts'
 
 interface LobbyProps {
-  data: ClassroomLessonSession,
-  title: string
+  title: string,
+  data?: ClassroomLessonSession,
+  save?: Function
 }
 
-interface LobbyState {}
+interface LobbyState {
+
+}
 
 class Lobby extends React.Component<LobbyProps, LobbyState> {
   constructor(props) {
@@ -78,6 +81,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   }
 
   renderStudentPresence() {
+    const presentStudents = this.props.data ? this.renderPresentStudents(this.props.data.presence, this.props.data.students) : <span/>
     return (
       <div className="presence-container">
         <div className="presence-header">
@@ -85,7 +89,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
         </div>
         <div className="presence-list-container">
           <ol>
-            {this.renderPresentStudents(this.props.data.presence, this.props.data.students)}
+            {presentStudents}
           </ol>
         </div>
       </div>

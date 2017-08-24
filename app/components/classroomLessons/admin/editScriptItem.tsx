@@ -1,15 +1,25 @@
 import React, {Component} from 'react'
 import ScriptComponent from '../shared/scriptComponent'
 import SlideHTMLEditor from './slideHTMLEditor'
+import _ from 'lodash'
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 
-import * as IntF from '../interfaces';
+interface EditScriptItemProps {
+  scriptItem: CLIntF.ScriptItem,
+  save: Function,
+  delete: Function
+}
 
-class EditScriptItem extends Component<any, any> {
+interface EditScriptItemState {
+  scriptItem: CLIntF.ScriptItem,
+}
+
+class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState> {
   constructor(props){
     super(props);
 
     this.state = {
-      scriptItem: this.props.scriptItem;
+      scriptItem: this.props.scriptItem
     }
     this.saveChanges = this.saveChanges.bind(this)
     this.deleteScriptItem = this.deleteScriptItem.bind(this)

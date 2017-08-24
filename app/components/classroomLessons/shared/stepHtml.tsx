@@ -6,9 +6,9 @@ import {
 
 
 interface StepHtmlProps {
-  onlyShowHeaders: boolean,
+  onlyShowHeaders?: boolean,
   item: ScriptItem,
-  updateToggledHeaderCount: Function
+  updateToggledHeaderCount?: Function
   isTip: boolean,
 }
 
@@ -44,7 +44,9 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
   }
 
   updateToggledHeaderCount() {
-    this.state.hideBody !== this.props.onlyShowHeaders ? this.props.updateToggledHeaderCount(1) : this.props.updateToggledHeaderCount(-1)
+    if (this.props.updateToggledHeaderCount) {
+      this.state.hideBody !== this.props.onlyShowHeaders ? this.props.updateToggledHeaderCount(1) : this.props.updateToggledHeaderCount(-1)
+    }
   }
 
   render() {

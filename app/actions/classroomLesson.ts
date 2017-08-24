@@ -53,7 +53,7 @@ export function addSlide(classroomLessonUid: string, classroomLesson: IntF.Class
   newLesson.questions.splice(-1, 0, lessonSlideBoilerplates[slideType])
   lessonRef.set(newLesson);
   if (cb) {
-    cb(newLesson.questions.length - 2)
+    cb(Number(newLesson.questions.length) - 2)
   }
 }
 

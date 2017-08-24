@@ -18,10 +18,10 @@ const icon = require('../../../img/question_icon.svg')
 
 interface ListBlankProps {
   data: QuestionData;
-  mode: null|string;
-  handleStudentSubmission: Function;
-  selected_submissions: SelectedSubmissionsForQuestion|null;
-  submissions: QuestionSubmissionsList|null;
+  mode?: null|string;
+  handleStudentSubmission?: Function;
+  selected_submissions?: SelectedSubmissionsForQuestion|null;
+  submissions?: QuestionSubmissionsList|null;
   projector?: boolean|null
 }
 interface ListBlankState {
@@ -197,7 +197,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   handleStudentSubmission(){
-    if (this.state.isSubmittable) {
+    if (this.state.isSubmittable && this.props.handleStudentSubmission) {
         this.props.handleStudentSubmission(this.sortedAndJoinedAnswers(), moment().format())
         this.setState({isSubmittable: false, submitted: true})
     } else {

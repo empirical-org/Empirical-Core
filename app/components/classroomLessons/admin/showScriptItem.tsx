@@ -11,6 +11,7 @@ import {
 } from 'actions/classroomLesson'
 
 import * as IntF from '../interfaces';
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 
 import EditScriptItem from './editScriptItem';
 
@@ -30,12 +31,12 @@ class showScriptItem extends Component<any, any> {
     return this.classroomLesson().questions[this.props.params.slideID]
   }
 
-  getCurrentScriptItem(): IntF.ScriptItem {
+  getCurrentScriptItem(): CLIntF.ScriptItem {
     const {classroomLessonID, slideID, scriptItemID} = this.props.params;
     return getClassroomLessonScriptItem(this.props.classroomLessons.data, classroomLessonID, slideID, scriptItemID)
   }
 
-  save(scriptItem: IntF.ScriptItem) {
+  save(scriptItem: CLIntF.ScriptItem) {
     const {classroomLessonID, slideID, scriptItemID} = this.props.params;
     saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, this.saveAlert)
   }
