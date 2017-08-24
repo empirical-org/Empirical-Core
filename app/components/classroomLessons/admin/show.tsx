@@ -128,7 +128,7 @@ class ShowClassroomLesson extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h5 className="title is-5">{this.classroomLesson().title}</h5>
+            <h4 className="title is-4">{this.classroomLesson().title}</h4>
             <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} deleteLesson={this.deleteLesson} />
           </div>
           <h5 className="title is-5">{questions.length} Slides</h5>

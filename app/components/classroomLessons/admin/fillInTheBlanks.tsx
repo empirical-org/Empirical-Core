@@ -66,7 +66,7 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
       {},
       this.state.question
     );
-    const formattedCues = Object.assign({}, e.target.value.split(','));
+    const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
     this.setState({question: newVals})
   }
