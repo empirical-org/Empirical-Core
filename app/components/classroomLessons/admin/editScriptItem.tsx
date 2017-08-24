@@ -46,24 +46,37 @@ class EditScriptItem extends Component<any, any> {
       case 'STEP-HTML-TIP':
       case 'STEP-HTML':
         return (<div className="admin-show-script-item">
-          <textarea onChange={(e) => this.updateValue(e, 'heading')} value={this.state.scriptItem.data.heading}></textarea>
-          <SlideHTMLEditor
-            text={this.state.scriptItem.data.body}
-            handleTextChange={(e) => this.updateBody(e)}
-            title={"Body Copy:"}
-          />
+          <div className="field">
+            <label className="label">Heading</label>
+            <div className="control">
+              <input value={this.state.scriptItem.data.heading} onChange={(e) => this.updateValue(e, 'heading')} className="input" type="text" placeholder="Heading"/>
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Body</label>
+            <div className="control">
+              <SlideHTMLEditor
+                text={this.state.scriptItem.data.body}
+                handleTextChange={(e) => this.updateBody(e)}
+              />
+            </div>
+          </div>
           <button onClick={this.saveChanges}>Save Changes</button>
           <button onClick={this.deleteScriptItem}>Delete</button>
         </div>)
       case 'Overview':
-      return (<div className="admin-show-script-item">
-        <SlideHTMLEditor
-          text={this.state.scriptItem.data.body}
-          handleTextChange={(e) => this.updateBody(e)}
-          title={"Body Copy:"}
-        />
+        return (<div className="admin-show-script-item">
+        <div className="field">
+          <label className="label">Body</label>
+          <div className="control">
+            <SlideHTMLEditor
+              text={this.state.scriptItem.data.body}
+              handleTextChange={(e) => this.updateBody(e)}
+            />
+          </div>
+        </div>
         <button onClick={this.saveChanges}>Save Changes</button>
-      </div>)
+        </div>)
     }
   }
 
