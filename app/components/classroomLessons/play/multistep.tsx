@@ -111,7 +111,9 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
-      const submission = this.renderHTMLFromSubmissionObject(this.props.submissions[getParameterByName('student')].data)
+      const studentID = getParameterByName('student')
+      const data = this.props.submissions && studentID && this.props.submissions[studentID] ? this.props.submissions[studentID].data : null
+      const submission = data ? this.renderHTMLFromSubmissionObject(data) : ''
       return <div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}}/>
@@ -125,8 +127,8 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
 
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
-    const selected = Object.keys(selected_submissions).map((key, index) => {
-      const html = submissions ? this.renderHTMLFromSubmissionObject(submissions[key].data) : null
+    const selected: Array<JSX.Element> = Object.keys(selected_submissions).map((key, index) => {
+      const html: string = submissions ? this.renderHTMLFromSubmissionObject(submissions[key].data) : ''
       return (
       <li key={`li-${index}`}>
         <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
