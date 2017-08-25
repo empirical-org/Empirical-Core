@@ -24,12 +24,12 @@ class AdminModel extends Component<AdminModelProps, any>{
     this.save = this.save.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.state.question, nextProps.question)) {
-      this.setState({question: nextProps.question})
-    }
-  }
-
+  // componentWillReceiveProps(nextProps) {
+  //   if (!_.isEqual(this.state.question, nextProps.question)) {
+  //     this.setState({question: nextProps.question})
+  //   }
+  // }
+  //
   handleTitleChange(e) {
     const newVals = Object.assign(
       {},
@@ -62,7 +62,7 @@ class AdminModel extends Component<AdminModelProps, any>{
       {},
       this.state.question
     );
-    const formattedCues = Object.assign({}, e.target.value.split(','));
+    const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
     this.setState({question: newVals})
   }

@@ -50,7 +50,8 @@ export function updateClassroomLessons(data) {
 export function addSlide(classroomLessonUid: string, classroomLesson: IntF.ClassroomLesson, slideType: string, cb:Function|undefined) {
   const lessonRef = classroomLessonsRef.child(classroomLessonUid);
   const newLesson: IntF.ClassroomLesson = _.merge({}, classroomLesson)
-  newLesson.questions.splice(-1, 0, lessonSlideBoilerplates[slideType])
+  const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
+  newLesson.questions.splice(-1, 0, newSlide)
   lessonRef.set(newLesson);
   if (cb) {
     cb(Number(newLesson.questions.length) - 2)
@@ -96,10 +97,13 @@ export function addLesson(lessonName, cb) {
   }
 }
 
-export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData) {
+export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData, cb) {
   classroomLessonsRef
     .child(`${classroomLessonID}/questions/${slideID}/data`)
     .set(slideData)
+  if (cb) {
+    cb()
+  }
 }
 
 export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, cb) {

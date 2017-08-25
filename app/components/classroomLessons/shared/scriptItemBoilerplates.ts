@@ -1,3 +1,9 @@
+import * as CLIntF from '../../../interfaces/classroomLessons'
+
+interface ScriptItemTypes {
+  [key:string]: CLIntF.ScriptItem
+}
+
 const scriptItemTypes = {
   'Overview': {
     type: 'Overview',
