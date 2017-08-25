@@ -347,6 +347,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'diagnostic/:activityId' =>'activities#diagnostic' # placeholder til we find where this goes
   get 'diagnostic/:activityId/stage/:stage' => 'activities#diagnostic'
   get 'diagnostic/:activityId/success' => 'activities#diagnostic'
+  get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 
