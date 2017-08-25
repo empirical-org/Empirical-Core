@@ -2527,21 +2527,21 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 -- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1571255) AND (email IS NOT NULL));
+CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
 
 
 --
 -- Name: unique_index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1571255) AND (google_id IS NOT NULL));
+CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
 
 
 --
 -- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1571255) AND (username IS NOT NULL));
+CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
 
 
 --
@@ -3030,6 +3030,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170811192029');
 INSERT INTO schema_migrations (version) VALUES ('20170824150025');
 
 INSERT INTO schema_migrations (version) VALUES ('20170824171451');
-
-INSERT INTO schema_migrations (version) VALUES ('20170811192029');
 
