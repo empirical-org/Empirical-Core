@@ -187,6 +187,8 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-MD':
         case 'CL-SA':
         case 'CL-FB':
+        case 'CL-FL':
+        case 'CL-MS':
           return (
             <CLSingleAnswer
               data={data}
@@ -206,26 +208,6 @@ class CurrentSlide extends React.Component<any, any> {
               clearSelectedSubmissionOrder={this.clearSelectedSubmissionOrder}
             />
           );
-        case 'CL-FL':
-        return (
-          <CLSingleAnswer
-            data={data}
-            lessonData={lessonData}
-            toggleStudentFlag={this.toggleStudentFlag}
-            toggleSelected={this.toggleSelected}
-            startDisplayingAnswers={this.startDisplayingAnswers}
-            stopDisplayingAnswers={this.stopDisplayingAnswers}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
-            clearAllSubmissions={this.clearAllSubmissions}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-            updateToggledHeaderCount={this.updateToggledHeaderCount}
-            saveModel={this.saveModel}
-            clearStudentSubmission={this.clearStudentSubmission}
-            savePrompt={this.savePrompt}
-            clearSelectedSubmissionOrder={this.clearSelectedSubmissionOrder}
-          />
-        )
         case 'CL-EX':
           return (
             <CLExit
