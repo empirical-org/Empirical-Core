@@ -58,14 +58,14 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.setState({question: newVals})
   }
 
-  // handleBlankLableChange(e) {
-  //   const newVals = Object.assign(
-  //     {},
-  //     this.state.question
-  //   );
-  //   _.set(newVals, 'play.blankLabel', e.target.value)
-  //   this.setState({question: newVals})
-  // }
+  handleBlankLableChange(e) {
+    const newVals = Object.assign(
+      {},
+      this.state.question
+    );
+    _.set(newVals, 'play.blankLabel', e.target.value)
+    this.setState({question: newVals})
+  }
 
   handleCuesChange(e) {
     const newVals = Object.assign(
@@ -77,15 +77,15 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.setState({question: newVals})
   }
 
-  // handleNBlanks(e) {
-  //     const newVals = Object.assign(
-  //       {},
-  //       this.state.question
-  //     );
-  //     const nBlanks = e.target.value.length > 0 ? Number(e.target.value) : e.target.value;
-  //     _.set(newVals, 'play.nBlanks', nBlanks)
-  //     this.setState({question: newVals})
-  // }
+  handleNBlanks(e) {
+      const newVals = Object.assign(
+        {},
+        this.state.question
+      );
+      const nBlanks = e.target.value.length > 0 ? Number(e.target.value) : e.target.value;
+      _.set(newVals, 'play.nBlanks', nBlanks)
+      this.setState({question: newVals})
+  }
 
   save() {
     this.props.save(this.state.question)
