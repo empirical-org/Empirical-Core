@@ -11,6 +11,7 @@ export default React.createClass({
     context: React.PropTypes.string.isRequired, // studentProfile, scorebook
     premiumState: React.PropTypes.string,
     placement: React.PropTypes.string, // not required
+    dontShowToolTip: React.PropTypes.bool, // TODO: remove this and make the tooltip show via ajax
   },
 
   getDefaultProps() {
@@ -38,7 +39,7 @@ export default React.createClass({
   },
 
   tooltipClasses() {
-    return `activate-tooltip icon-link icon-wrapper icon-${gradeColor(this.props.data.percentage)} icon-${activityFromClassificationId(this.props.data.activity_classification_id || this.props.data.classification.id)}`;
+    return `activate-tooltip icon-link icon-wrapper icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.props.data.activity_classification_id || this.props.data.classification.id)}`;
   },
 
   goToReport() {
@@ -58,10 +59,12 @@ export default React.createClass({
   },
 
   render() {
+    const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';
     return (
       <div
+        style={{ cursor: cursorType, }}
         onClick={this.props.context === 'scorebook' ? this.checkForStudentReport : null}
-        onMouseEnter={this.loadTooltipTitle}
+        onMouseEnter={this.props.context === 'scorebook' ? this.loadTooltipTitle : null}
         ref="activateTooltip"
         className={this.tooltipClasses()}
       />
