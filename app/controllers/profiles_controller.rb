@@ -86,11 +86,15 @@ protected
     "SELECT unit.name,
        activity.name,
        activity.description,
+       activity.repeatable,
+       activity.activity_classification_id,
        unit.id AS unit_id,
        unit.created_at AS unit_created_at,
+       unit.name AS unit_name,
        ca.id AS ca_id,
        acts.activity_id,
        MAX(acts.updated_at) AS act_sesh_updated_at,
+       ca.due_date,
        ca.created_at AS classroom_activity_created_at,
        MAX(acts.percentage) AS max_percentage,
        SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
@@ -101,8 +105,10 @@ protected
     JOIN activities AS activity ON activity.id = ca.activity_id
     WHERE acts.user_id = #{current_user.id}
     AND ca.classroom_id = #{@current_classroom.id}
-    GROUP BY ca.id, activity.name, activity.description, acts.activity_id, unit.name, unit.id, unit.created_at
-    ORDER BY unit_created_at").to_a
+    GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
+            unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
+            activity.activity_classification_id
+            ").to_a
   end
 
   def get_student_profile_data(classroom_id, current_page)
