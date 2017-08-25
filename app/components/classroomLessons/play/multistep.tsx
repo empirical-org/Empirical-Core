@@ -60,7 +60,6 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
-      debugger;
       this.setState({
         submitted: true,
       })
@@ -112,23 +111,25 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
-      const answers = Object.keys(this.state.answers).map(key =>
-        <p className="your-answer">{key}: {this.state.answers[key]}</p>
-      )
+      const submission = this.renderHTMLFromSubmissionObject(this.props.submissions[getParameterByName('student')].data)
       return <div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
-        {answers}
+        <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}}/>
       </div>
     }
+  }
+
+  renderHTMLFromSubmissionObject(submission) {
+    return Object.keys(submission).map(key => `<span><strong>${key}: </strong>${submission[key]}</span>`).join(', ')
   }
 
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text = submissions ? submissions[key].data : null
+      const html = submissions ? this.renderHTMLFromSubmissionObject(submissions[key].data) : null
       return (
       <li key={`li-${index}`}>
-        <span className='li-number'>{index + 1}</span> {text}
+        <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
       </li>);
     });
     return (
