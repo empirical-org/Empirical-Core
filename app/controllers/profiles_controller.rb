@@ -106,6 +106,9 @@ protected
     JOIN activities AS activity ON activity.id = ca.activity_id
     WHERE acts.user_id = #{current_user.id}
     AND ca.classroom_id = #{@current_classroom.id}
+    AND acts.visible = true
+    AND ca.visible = true
+    AND unit.visible = true
     GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
             unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
             activity.activity_classification_id, activity.repeatable
