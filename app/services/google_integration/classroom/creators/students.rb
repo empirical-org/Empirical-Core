@@ -57,6 +57,7 @@ module GoogleIntegration::Classroom::Creators::Students
                        role: 'student',
                        password: data[:last_name],
                        username: username,
+                       google_id
                        signed_up_with_google: true)
       end
       if student.errors.any?
