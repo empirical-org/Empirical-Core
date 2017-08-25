@@ -1,0 +1,70 @@
+body {
+  background-color: #fafafa;
+  font-family: AdelleSans;
+  color: #3b3b3b;
+}
+.container {
+  margin: auto;
+  max-width: 950px;
+  width: 100%;
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+.logo {
+  margin: 70px auto;
+  display: block;
+}
+.text {
+  max-width: 627px;
+  width: 100%;
+}
+.illustration {
+  padding-top: 30px;
+}
+span {
+  color: #00c2a2;
+}
+h1 {
+  font-size: 36px;
+  font-weight: normal;
+}
+p {
+  font-size: 24px;
+}
+.try-again {
+  font-weight: bold;
+}
+.contact-us {
+  font-size: 22px;
+}
+button {
+  margin-top: 5px;
+  margin-bottom: 9px;
+  width: 220px;
+  height: 45px;
+  border-radius: 6px;
+  border: none;
+  background-color: #00c2a2;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+button:hover {
+  outline: none;
+}
+
+@media (max-width: 900px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .text {
+    margin: auto;
+  }
+  .illustration {
+    display: none;
+  }
+
+}
