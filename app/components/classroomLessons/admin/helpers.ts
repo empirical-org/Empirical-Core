@@ -8,7 +8,7 @@ import AdminFillInTheBlanks from './fillInTheBlanks';
 import AdminFillInTheList from './fillInTheList';
 import AdminExit from './exit';
 import AdminUnsupported from './unsupportedType';
-import AdminMultistep from './multiStep';
+import AdminMultistep from './multistep';
 
 export function getComponent(type: string) {
   switch (type) {

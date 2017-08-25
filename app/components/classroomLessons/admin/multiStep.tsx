@@ -21,6 +21,7 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
+    this.deleteStepLabel = this.deleteStepLabel.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -72,16 +73,29 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
     this.setState({question: newVals})
   }
 
+  deleteStepLabel(i) {
+    const newVals = Object.assign(
+      {},
+      this.state.question
+    );
+    const newStepLabels = this.state.question.play.stepLabels.slice()
+    newStepLabels.splice(i, 1)
+    _.set(newVals, 'play.stepLabels', newStepLabels)
+    this.setState({question: newVals})
+  }
+
   save() {
     this.props.save(this.state.question)
   }
 
   renderStepLabels() {
-    return this.state.question.play.stepLabels.concat(['']).map((sl, i) =>
-      <div className="control" key={i}>
-        <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
-        
+    return this.state.question.play.stepLabels.concat(['']).map((sl, i) => {
+      const deleteButton = i === this.state.question.play.stepLabels.length ? <span /> : <i className="fa fa-times" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.deleteStepLabel(i)}/>
+      return <div className="control" style={{display: 'flex'}} key={i}>
+      <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
+      {deleteButton}
       </div>
+    }
     )
   }
 
