@@ -89,7 +89,8 @@
 
   .main-content {
     padding: 20px 30px 10px;
-    width: 66%;
+    width: 100%;
+    max-width: 960px;
     overflow-y: scroll;
     .main-content-wrapper {
       // width: 100%;
