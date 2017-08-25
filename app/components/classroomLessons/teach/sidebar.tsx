@@ -12,6 +12,7 @@ import CLStudentSingleAnswer from '../play/singleAnswer';
 import CLStudentListBlanks from '../play/listBlanks';
 import CLStudentFillInTheBlank from '../play/fillInTheBlank';
 import CLStudentModelQuestion from '../play/modelQuestion';
+import CLStudentMultistep from '../play/multistep';
 import {
   ClassroomLessonSession,
   QuestionSubmissionsList
@@ -139,6 +140,11 @@ class Sidebar extends React.Component<any, any> {
             thumb = (
               <CLStudentStatic data={questions[slide].data} />
             );
+            break;
+          case 'CL-MS':
+            thumb = (
+              <CLStudentMultistep data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+            )
             break;
           default:
             thumb = questions[slide].type;

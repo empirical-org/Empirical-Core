@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
-// import StudentFillInTheList from '../play/listBlanks'
+import StudentMultistep from '../play/multistep'
 
 interface AdminMultistepProps {
   question: CLIntF.QuestionData,
@@ -80,6 +80,7 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
     return this.state.question.play.stepLabels.concat(['']).map((sl, i) =>
       <div className="control" key={i}>
         <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
+        
       </div>
     )
   }
@@ -87,6 +88,11 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+        <div className="admin-slide-preview">
+          <div className="scaler">
+            <StudentMultistep data={this.state.question} />
+          </div>
+        </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
