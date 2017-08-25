@@ -1,6 +1,6 @@
 class AddUniqueGoogleIdAndEmailIndicesToUsers < ActiveRecord::Migration
   def change
-    add_index :users, :email, unique: true, name: 'unique_index_users_on_email', where: "id > 1555399 AND email IS NOT null"
-    add_index :users, :google_id, unique: true, name: 'unique_index_users_on_google_id', where: "id > 1555399 and google_id IS NOT null"
+    add_index :users, :email, unique: true, name: 'unique_index_users_on_email', where: "id > 1571255 AND email IS NOT null"
+    add_index :users, :google_id, unique: true, name: 'unique_index_users_on_google_id', where: "id > 1571255 and google_id IS NOT null"
   end
 end

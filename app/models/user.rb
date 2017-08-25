@@ -86,6 +86,13 @@ class User < ActiveRecord::Base
     false
   end
 
+  def update(*args)
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    errors[:db_level] << e
+    false
+  end
+
   def create_or_update(*args)
     super
   rescue ActiveRecord::RecordNotUnique => e
