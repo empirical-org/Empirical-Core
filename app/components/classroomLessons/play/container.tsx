@@ -15,6 +15,7 @@ import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
+import CLMultistep from './multistep'
 import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
@@ -147,6 +148,10 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         return (
           <CLStudentStatic key={data.current_slide} data={current.data} />
         );
+      case 'CL-MS':
+        return (
+          <CLMultistep key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+        )
       default:
 
     }
