@@ -2,14 +2,14 @@ import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
-import StudentFillInTheList from '../play/listBlanks'
+// import StudentFillInTheList from '../play/listBlanks'
 
-interface AdminFillInTheListProps {
+interface AdminMultistepProps {
   question: CLIntF.QuestionData,
   save: Function
 }
 
-class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
+class AdminMultistep extends Component<AdminMultistepProps, any>{
   constructor(props){
     super(props);
 
@@ -21,16 +21,9 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
-    this.handleNBlanks = this.handleNBlanks.bind(this)
     this.save = this.save.bind(this)
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!_.isEqual(this.state.question, nextProps.question)) {
-  //     this.setState({question: nextProps.question})
-  //   }
-  // }
-  //
   handleTitleChange(e) {
     const newVals = Object.assign(
       {},
@@ -58,15 +51,6 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.setState({question: newVals})
   }
 
-  // handleBlankLableChange(e) {
-  //   const newVals = Object.assign(
-  //     {},
-  //     this.state.question
-  //   );
-  //   _.set(newVals, 'play.blankLabel', e.target.value)
-  //   this.setState({question: newVals})
-  // }
-
   handleCuesChange(e) {
     const newVals = Object.assign(
       {},
@@ -77,18 +61,27 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.setState({question: newVals})
   }
 
-  // handleNBlanks(e) {
-  //     const newVals = Object.assign(
-  //       {},
-  //       this.state.question
-  //     );
-  //     const nBlanks = e.target.value.length > 0 ? Number(e.target.value) : e.target.value;
-  //     _.set(newVals, 'play.nBlanks', nBlanks)
-  //     this.setState({question: newVals})
-  // }
+  handleStepLabelChange(e, i) {
+    const newVals = Object.assign(
+      {},
+      this.state.question
+    );
+    const newStepLabels = this.state.question.play.stepLabels.slice()
+    newStepLabels[i] = e.target.value
+    _.set(newVals, 'play.stepLabels', newStepLabels)
+    this.setState({question: newVals})
+  }
 
   save() {
     this.props.save(this.state.question)
+  }
+
+  renderStepLabels() {
+    return this.state.question.play.stepLabels.concat(['']).map((sl, i) =>
+      <div className="control" key={i}>
+        <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
+      </div>
+    )
   }
 
   render() {
@@ -119,16 +112,8 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">Blank Label</label>
-          <div className="control">
-            <input value={this.state.question.play.blankLabel} onChange={this.handleBlankLableChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Number of Blanks</label>
-          <div className="control">
-            <input value={this.state.question.play.nBlanks} onChange={this.handleNBlanks} className="input" type="text" placeholder="Text input"/>
-          </div>
+          <label className="label">Step Labels</label>
+          {this.renderStepLabels()}
         </div>
         <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
@@ -137,4 +122,4 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
 
 }
 
-export default AdminFillInTheList
+export default AdminMultistep

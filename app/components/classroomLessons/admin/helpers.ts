@@ -8,6 +8,7 @@ import AdminFillInTheBlanks from './fillInTheBlanks';
 import AdminFillInTheList from './fillInTheList';
 import AdminExit from './exit';
 import AdminUnsupported from './unsupportedType';
+import AdminMultistep from './multiStep';
 
 export function getComponent(type: string) {
   switch (type) {
@@ -25,6 +26,8 @@ export function getComponent(type: string) {
       return AdminFillInTheList
     case 'CL-EX':
       return AdminExit
+    case 'CL-MS':
+      return AdminMultistep
     default:
       return AdminUnsupported
   }
@@ -44,6 +47,8 @@ export function getComponentDisplayName(type: string): string {
       return "Fill In The Blanks"
     case 'CL-FL':
       return "Fill In The List"
+    case 'CL-MS':
+      return 'Multistep'
     case 'CL-EX':
       return "Exit"
     default:
@@ -63,6 +68,6 @@ export function getClassroomLessonScriptItem(props: IntF.ClassroomLessons, class
   return getClassroomLessonSlide(props, classroomLessonID, slideID).data.teach.script[scriptItemID]
 }
 
-export const slideTypeKeys = ['CL-ST', 'CL-MD', 'CL-SA', 'CL-FB', 'CL-FL']
+export const slideTypeKeys = ['CL-ST', 'CL-MD', 'CL-SA', 'CL-FB', 'CL-FL', 'CL-MS']
 
 export const scriptItemTypeKeys = ['STEP-HTML', 'STEP-HTML-TIP']
