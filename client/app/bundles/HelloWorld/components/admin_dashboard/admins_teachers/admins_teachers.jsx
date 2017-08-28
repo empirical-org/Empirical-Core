@@ -15,7 +15,7 @@ export default React.createClass({
     if (this.props.isValid) {
       return <a className="green-link" href={link.path}>{link.name}</a>;
     }
-    return <a className="green-link" onClick={() => alert('Your Premium Subscription Has Expired. Please visit Quill.org/premium to access this feature.')}>{link.name}</a>;
+    return <a className="green-link" onClick={() => alert('Your Premium Subscription has expired. Please visit Quill.org/premium to access this feature.')}>{link.name}</a>;
   },
 
   rows() {

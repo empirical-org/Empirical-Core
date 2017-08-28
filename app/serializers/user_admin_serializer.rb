@@ -1,5 +1,5 @@
 class UserAdminSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :teachers, :valid_subscription
+  attributes :id, :name, :email, :teachers, :valid_subscription, :schools
 
 
   def teachers
@@ -11,6 +11,11 @@ class UserAdminSerializer < ActiveModel::Serializer
   def valid_subscription
     admin = User.find(object.id)
     admin.subscription_is_valid? && admin&.subscription&.school_subscription?
+  end
+
+  def schools
+    admin = User.find(object.id)
+    admin.admin_rights.pluck(:name).compact
   end
 
 end
