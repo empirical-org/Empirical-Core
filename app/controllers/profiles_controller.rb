@@ -22,7 +22,6 @@ class ProfilesController < ApplicationController
 
   def student_profile_data
     if current_user.classrooms.any?
-      # get_student_profile_data(params[:current_classroom_id], params[:current_page].to_i)}}
       render json: {scores: student_profile_data_sql(params[:current_classroom_id]), student: student_data}
     else
       render json: {error: 'Current user has no classrooms'}
@@ -79,10 +78,9 @@ protected
     }
   end
 
-
   def student_profile_data_sql(classroom_id=nil)
     @current_classroom = current_classroom(classroom_id)
-    act_sesh_records = ActiveRecord::Base.connection.execute(
+    @act_sesh_records = ActiveRecord::Base.connection.execute(
     "SELECT unit.name,
        activity.name,
        activity.description,
@@ -112,16 +110,8 @@ protected
     GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
             unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
             activity.activity_classification_id, activity.repeatable
+    ORDER BY max_percentage ASC, unit.created_at DESC, ca.created_at DESC
             ").to_a
-  end
-
-  def get_student_profile_data(classroom_id, current_page)
-    classroom = current_classroom(classroom_id)
-    grouped_scores, is_last_page = Profile::Processor.new.query(current_user, current_page, classroom.id)
-    # this grabs the first unfinished session from the top level unit
-    next_activity_session = current_user.next_activity_session(grouped_scores)
-    {student: {name: current_user.name, classroom: {name: classroom.name, id: classroom.id, teacher: {name: classroom.teacher.name}}},
-     grouped_scores: grouped_scores, is_last_page: is_last_page, next_activity_session: Profile::StudentActivitySessionSerializer.new(next_activity_session, root: false)}
   end
 
   def get_parsed_mobile_profile_data(classroom_id)

@@ -34,16 +34,7 @@ module Student
       activity_sessions.completed
                         .where(is_final_score: true)
     end
-
-    def next_activity_session(grouped_scores)
-      first_unit = grouped_scores[grouped_scores.keys[0]]
-      if first_unit && first_unit[:not_finished] && first_unit[:not_finished].any?
-        ActivitySession.find(first_unit[:not_finished].first.object.id)
-      else
-        return nil
-      end
-    end
-
+    
     def percentages_by_classification(unit = nil)
 
       if unit.nil?
