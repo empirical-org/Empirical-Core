@@ -9,7 +9,7 @@ ClassroomLessonSession,
 SelectedSubmissionsForQuestion,
 QuestionSubmissionsList
 } from '../interfaces'
-import TextEditor from '../../renderForQuestions/renderTextEditor';
+import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
