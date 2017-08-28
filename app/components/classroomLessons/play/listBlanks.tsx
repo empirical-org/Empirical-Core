@@ -9,7 +9,7 @@ ClassroomLessonSession,
 SelectedSubmissionsForQuestion,
 QuestionSubmissionsList
 } from '../interfaces'
-import TextEditor from '../../renderForQuestions/renderTextEditor';
+import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
@@ -155,7 +155,6 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       <div className={`list-component`} key={`${i}${this.state.answers[i]}`}>
         <span className="list-number">{`${i + 1}:`}</span>
         <TextEditor
-          editorIndex={i}
           value={this.state.answers[i]}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
