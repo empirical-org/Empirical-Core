@@ -3,8 +3,8 @@ import React from 'react';
 import TableSortingMixin from '../components/general_components/table/sortable_table/table_sorting_mixin.js';
 import _ from 'underscore';
 import AdminDashboardTop from '../components/admin_dashboard/admin_dashboard_top.jsx';
-import InviteUsers from '../components/invite_users/invite_users.jsx';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
+import pluralize from 'pluralize';
 
 export default React.createClass({
   mixins: [TableSortingMixin],
@@ -102,59 +102,48 @@ export default React.createClass({
     };
   },
 
-  saveNewTeacher() {
-    $.ajax({
-      url: `/admins/${this.props.id}/teachers`,
-      data: { teacher: this.state.newTeacher, authenticity_token: $('meta[name=csrf-token]').attr('content'), },
-      type: 'POST',
-      success: this.saveNewTeacherSuccess,
-    });
+  displaySchools() {
+    if (this.state.model && this.state.model.schools) {
+      return (<p style={{ paddingTop: '1em', paddingBottom: '1em', }}><strong>You are an admin of the following {this.schoolConjugation()}: </strong><br />
+        {this.state.model.schools.join(', ')}</p>);
+    }
+    return '';
   },
 
-  saveNewTeacherSuccess(data) {
-    const newModel = this.state.model;
-    const newTeachers = _.chain(newModel.teachers).unshift(data).value();
-    newModel.teachers = newTeachers;
-    this.setState({ model: newModel, });
-  },
-
-  updateNewTeacher(field, value) {
-    const newState = this.state;
-    newState.newTeacher[field] = value;
-    this.setState(newState);
-  },
-
-  inviteUsersData() {
-    return {
-      model: this.state.newTeacher,
-      userType: 'Teacher',
-      update: this.updateNewTeacher,
-      save: this.saveNewTeacher,
-    };
+  schoolConjugation() {
+    const schoolCount = this.state.model.schools.length;
+    return pluralize('school', schoolCount);
   },
 
   render() {
     const teachers = this.applySorting(this.state.model.teachers);
-    return (
-      <div >
-        <div className="sub-container">
-          <AdminDashboardTop />
-          <div className="flex-row space-between">
-            <InviteUsers data={this.inviteUsersData()} actions={this.inviteUsersActions()} />
-            <a href="mailto:ryan@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
-              <button className="button-green">Bulk Upload Teachers via CSV</button>
-            </a>
+    if (!this.state.loading) {
+      return (
+        <div >
+          <div className="sub-container">
+            <AdminDashboardTop />
+            <div className="flex-row space-between">
+              <div>
+                <h3>Connecting With Your Teachers</h3>
+                When a teacher joins a school you are an admin of, you will automatically see them added below. Teachers can add schools by following <a className="green-link" href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-add-my-school">these instructions.</a>
+                {this.displaySchools()}
+              </div>
+              <a className="green-link" href="mailto:ryan@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
+                <button className="button-green">Bulk Upload Teachers via CSV</button>
+              </a>
+            </div>
+            <AdminsTeachers
+              isValid={!!this.state.model.valid_subscription}
+              currentSort={this.state.currentSort}
+              loading={this.state.loading}
+              sortHandler={this.sortHandler()}
+              data={teachers}
+              columns={this.teacherColumns()}
+            />
           </div>
-          <AdminsTeachers
-            isValid={!!this.state.model.valid_subscription}
-            currentSort={this.state.currentSort}
-            loading={this.state.loading}
-            sortHandler={this.sortHandler()}
-            data={teachers}
-            columns={this.teacherColumns()}
-          />
         </div>
-      </div>
-    );
+      );
+    }
+    return <span />;
   },
 });
