@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import * as IntF from '../interfaces';
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import StudentLobby from '../play/lobby'
 import MultipleTextEditor from './slideHTMLEditor'
 
-interface SingleAnswerProps {
-  question: IntF.QuestionData,
-
+interface AdminLobbyProps {
+  question: CLIntF.QuestionData,
+  save: Function
 }
 
-class AdminLobby extends Component<SingleAnswerProps, any>{
+class AdminLobby extends Component<AdminLobbyProps, any>{
   constructor(props){
     super(props);
 
@@ -21,12 +21,12 @@ class AdminLobby extends Component<SingleAnswerProps, any>{
     this.save = this.save.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.state.question, nextProps.question)) {
-      this.setState({question: nextProps.question})
-    }
-  }
-
+  // componentWillReceiveProps(nextProps) {
+  //   if (!_.isEqual(this.state.question, nextProps.question)) {
+  //     this.setState({question: nextProps.question})
+  //   }
+  // }
+  //
   handleTitleChange(e) {
     const newVals = Object.assign(
       {},
@@ -54,7 +54,7 @@ class AdminLobby extends Component<SingleAnswerProps, any>{
       <div style={{marginTop: 30, marginBottom: 30}}>
         <div className="admin-slide-preview">
           <div className="scaler">
-            <StudentLobby title={this.state.question.teach.title} data={{presence: {}, students: {}}} />
+            <StudentLobby title={this.state.question.teach.title} />
           </div>
         </div>
         <div className="field">

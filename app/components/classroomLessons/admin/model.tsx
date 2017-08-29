@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import * as IntF from '../interfaces';
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentModel from '../play/modelQuestion'
 
-interface SingleAnswerProps {
-  question: IntF.QuestionData,
-
+interface AdminModelProps {
+  question: CLIntF.QuestionData,
+  save: Function
 }
 
-class AdminModel extends Component<SingleAnswerProps, any>{
+class AdminModel extends Component<AdminModelProps, any>{
   constructor(props){
     super(props);
 
@@ -24,12 +24,12 @@ class AdminModel extends Component<SingleAnswerProps, any>{
     this.save = this.save.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.state.question, nextProps.question)) {
-      this.setState({question: nextProps.question})
-    }
-  }
-
+  // componentWillReceiveProps(nextProps) {
+  //   if (!_.isEqual(this.state.question, nextProps.question)) {
+  //     this.setState({question: nextProps.question})
+  //   }
+  // }
+  //
   handleTitleChange(e) {
     const newVals = Object.assign(
       {},
@@ -62,7 +62,7 @@ class AdminModel extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    const formattedCues = Object.assign({}, e.target.value.split(','));
+    const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
     this.setState({question: newVals})
   }

@@ -32,6 +32,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     this.deleteSlide = this.deleteSlide.bind(this)
     this.updateScriptItemOrder = this.updateScriptItemOrder.bind(this)
     this.goToNewScriptItem = this.goToNewScriptItem.bind(this)
+    this.alertSave = this.alertSave.bind(this)
   }
 
   classroomLesson(): IntF.ClassroomLesson {
@@ -42,9 +43,13 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     return this.classroomLesson().questions[this.props.params.slideID]
   }
 
+  alertSave() {
+    alert('Saved!')
+  }
+
   save(newValues) {
     const {classroomLessonID, slideID} = this.props.params;
-    saveClassroomLessonSlide(classroomLessonID, slideID, newValues)
+    saveClassroomLessonSlide(classroomLessonID, slideID, newValues, this.alertSave)
   }
 
   deleteSlide() {
@@ -99,14 +104,12 @@ class ShowClassroomLessonSlide extends Component<any, any> {
       const Component = getComponent(this.currentSlide().type)
       return (
         <div className="admin-classroom-lessons-container">
-          <h4 className="title is-4">
+          <h4 className="title is-4">Lesson: <a href={`${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/`}>
             {this.classroomLesson().title}
-          </h4>
-          <h5 className="title is-5">
-            {this.currentSlide().data.teach.title}
-          </h5>
-          <button onClick={this.deleteSlide}>Delete Slide</button>
-          <p>{getComponentDisplayName(this.currentSlide().type)}</p>
+          </a></h4>
+          <h5 className="title is-5">Slide: {this.currentSlide().data.teach.title}</h5>
+          <h5 className="title is-5">Slide Type: {getComponentDisplayName(this.currentSlide().type)}</h5>
+          <button className="button is-primary" onClick={this.deleteSlide}>Delete Slide</button>
           <Component question={this.currentSlide().data} save={this.save}/>
           <Script
             script={this.currentSlide().data.teach.script}

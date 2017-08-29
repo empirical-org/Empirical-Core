@@ -1,3 +1,5 @@
+import * as CLIntF from '../../interfaces/classroomLessons'
+
 export interface ClassroomLessonSession {
   students: Students;
   presence: Presence;
@@ -16,7 +18,6 @@ export interface ClassroomLessonSession {
 export interface ClassroomLessonSessions {
  [sessionUID:string]: ClassroomLessonSession
 }
-
 
 export interface Students {
  [key:string]: string
@@ -88,34 +89,5 @@ export interface Questions {
 
 export interface Question {
   type: string;
-  data: QuestionData;
-}
-
-export interface QuestionData {
-  play: Play;
-  teach: Teach;
-}
-
-export interface Play {
-  html: string | null;
-  prompt: string | null;
-  cues: {[key: string]: string} | null;
-  instructions: string | null;
-}
-
-export interface Teach {
-  title: string | null;
-  script: Script;
-}
-
-export interface Script {
-  [key: string]: ScriptItem
-}
-
-export interface ScriptItem {
-  type: string;
-  data: {
-    heading: string,
-    body: string
-  } | null
+  data: CLIntF.QuestionData;
 }

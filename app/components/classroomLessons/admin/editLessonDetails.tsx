@@ -17,12 +17,12 @@ export default class EditLessonDetails extends Component<any, any> {
     this.handleLessonDetailsChange = this.handleLessonDetailsChange.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.classroomLesson, this.state.classroomLesson)) {
-      this.setState({classroomLesson: nextProps.classroomLesson})
-    }
-  }
-
+  // componentWillReceiveProps(nextProps) {
+  //   if (!_.isEqual(nextProps.classroomLesson, this.state.classroomLesson)) {
+  //     this.setState({classroomLesson: nextProps.classroomLesson})
+  //   }
+  // }
+  //
   handleLessonDetailsChange(e, key) {
     const newLesson = _.merge({}, this.state.classroomLesson)
     newLesson[key] = e.target.value

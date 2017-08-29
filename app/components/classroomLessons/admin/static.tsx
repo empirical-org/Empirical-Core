@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import * as IntF from '../interfaces';
+import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from './slideHTMLEditor'
 import StudentStatic from '../play/static'
 
-interface SingleAnswerProps {
-  question: IntF.QuestionData,
-
+interface AdminStaticProps {
+  question: CLIntF.QuestionData,
+  save: Function
 }
 
-class AdminStatic extends Component<SingleAnswerProps, any>{
+class AdminStatic extends Component<AdminStaticProps, any>{
   constructor(props){
     super(props);
 
