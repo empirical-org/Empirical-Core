@@ -1043,6 +1043,38 @@ CREATE TABLE schools (
 
 
 --
+-- Name: schools_admins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE schools_admins (
+    id integer NOT NULL,
+    user_id integer,
+    school_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: schools_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE schools_admins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: schools_admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE schools_admins_id_seq OWNED BY schools_admins.id;
+
+
+--
 -- Name: schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1660,6 +1692,13 @@ ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::r
 
 
 --
+-- Name: schools_admins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_admins ALTER COLUMN id SET DEFAULT nextval('schools_admins_id_seq'::regclass);
+
+
+--
 -- Name: schools_users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1942,6 +1981,14 @@ ALTER TABLE ONLY rules_misseds
 
 ALTER TABLE ONLY school_subscriptions
     ADD CONSTRAINT school_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schools_admins schools_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_admins
+    ADD CONSTRAINT schools_admins_pkey PRIMARY KEY (id);
 
 
 --
@@ -2332,6 +2379,27 @@ CREATE UNIQUE INDEX index_school_subscriptions_on_school_id ON school_subscripti
 --
 
 CREATE INDEX index_school_subscriptions_on_subscription_id ON school_subscriptions USING btree (subscription_id);
+
+
+--
+-- Name: index_schools_admins_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_schools_admins_on_school_id ON schools_admins USING btree (school_id);
+
+
+--
+-- Name: index_schools_admins_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_schools_admins_on_school_id_and_user_id ON schools_admins USING btree (school_id, user_id);
+
+
+--
+-- Name: index_schools_admins_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_schools_admins_on_user_id ON schools_admins USING btree (user_id);
 
 
 --
@@ -3026,6 +3094,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170809151404');
 INSERT INTO schema_migrations (version) VALUES ('20170809202510');
 
 INSERT INTO schema_migrations (version) VALUES ('20170811192029');
+
+INSERT INTO schema_migrations (version) VALUES ('20170817144049');
 
 INSERT INTO schema_migrations (version) VALUES ('20170824150025');
 

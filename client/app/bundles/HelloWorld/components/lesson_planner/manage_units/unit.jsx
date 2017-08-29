@@ -95,7 +95,7 @@
   },
 
   editStudentsLink: function(){
-    return this.props.report ? null : <a className='edit-unit edit-students' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Students</a>
+    return this.props.report ? null : <a className='edit-unit edit-students' href={`/teachers/classrooms/activity_planner/units/${this.props.data.unit.id}/students/edit`}>Edit Classes & Students</a>
   },
 
   handleSubmit: function(){
