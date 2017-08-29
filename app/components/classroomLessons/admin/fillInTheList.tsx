@@ -94,6 +94,11 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
+      <div className="admin-slide-preview">
+       <div className="scaler">
+         <StudentFillInTheList data={this.state.question} />		
+       </div>
+     </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
