@@ -100,7 +100,7 @@ exports[`ScoreLegend component should render 1`] = `
           className="title title-not-started"
         >
           <a
-            href="http://support.quill.org/knowledgebase/articles/545071-how-we-grade"
+            href="https://support.quill.org/activities-implementation/how-does-grading-work"
           >
             How We Grade
           </a>

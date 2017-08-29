@@ -89,7 +89,7 @@ export default React.createClass({
                          >
         <section className="alert alert-warning">
           <p>
-            We're upgrading this page since we have changed our scoring logic. <a href="http://support.quill.org/knowledgebase/articles/1125256">Learn More <i className="fa fa-long-arrow-right"></i></a>
+            We're upgrading this page since we have changed our scoring logic. <a href="http://support.quill.org/quill-premium/updates-to-the-concept-reports-page">Learn More <i className="fa fa-long-arrow-right"></i></a>
           </p>
         </section>
         <h2>Results by Student</h2>

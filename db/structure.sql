@@ -984,6 +984,19 @@ CREATE TABLE school_subscriptions (
 
 
 --
+-- Name: school_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE school_subscriptions (
+    id integer NOT NULL,
+    school_id integer,
+    subscription_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: school_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1432,6 +1445,69 @@ CREATE TABLE users (
 
 
 --
+-- Name: untitled_materialized_view; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW untitled_materialized_view AS
+ SELECT ((sum(a.total_students) / sum(b.total_students)) * (( SELECT count(DISTINCT s.id) AS students
+           FROM ((((((users t
+             LEFT JOIN ip_locations ON ((ip_locations.user_id = t.id)))
+             LEFT JOIN classrooms ON ((t.id = classrooms.teacher_id)))
+             LEFT JOIN users s ON (((classrooms.code)::text = (s.classcode)::text)))
+             LEFT JOIN activity_sessions ON ((s.id = activity_sessions.user_id)))
+             LEFT JOIN schools_users ON ((t.id = schools_users.user_id)))
+             LEFT JOIN schools ON ((schools_users.school_id = schools.id)))
+          WHERE (((activity_sessions.state)::text = 'finished'::text) AND (activity_sessions.completed_at < date_trunc('DAY'::text, (('now'::text)::date - '1 year'::interval))) AND ((ip_locations.country IS NULL) OR ((ip_locations.country)::text = 'United States'::text)))))::numeric)
+   FROM ( SELECT count(DISTINCT students.id) AS total_students
+           FROM ((((schools s
+             JOIN schools_users ON ((schools_users.school_id = s.id)))
+             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
+             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
+             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
+          WHERE ((schools_users.school_id IS NOT NULL) AND (s.free_lunches >= 40))) a,
+    ( SELECT count(DISTINCT students.id) AS total_students
+           FROM ((((schools s
+             JOIN schools_users ON ((schools_users.school_id = s.id)))
+             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
+             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
+             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
+          WHERE (schools_users.school_id IS NOT NULL)) b
+  WITH NO DATA;
+
+
+--
+-- Name: user_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE user_subscriptions (
+    id integer NOT NULL,
+    user_id integer,
+    subscription_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1647,7 +1723,7 @@ ALTER TABLE ONLY schools_admins ALTER COLUMN id SET DEFAULT nextval('schools_adm
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: sections id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sections ALTER COLUMN id SET DEFAULT nextval('sections_id_seq'::regclass);
@@ -1917,7 +1993,15 @@ ALTER TABLE ONLY rules_misseds
 
 
 --
--- Name: school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: school_subscriptions school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY school_subscriptions
+    ADD CONSTRAINT school_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schools schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY school_subscriptions
@@ -2525,6 +2609,27 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 
 
 --
+-- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
+
+
+--
+-- Name: unique_index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
+
+
+--
+-- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3004,6 +3109,12 @@ INSERT INTO schema_migrations (version) VALUES ('20170526220204');
 INSERT INTO schema_migrations (version) VALUES ('20170809151404');
 
 INSERT INTO schema_migrations (version) VALUES ('20170809202510');
+
+INSERT INTO schema_migrations (version) VALUES ('20170811192029');
+
+INSERT INTO schema_migrations (version) VALUES ('20170824150025');
+
+INSERT INTO schema_migrations (version) VALUES ('20170824171451');
 
 INSERT INTO schema_migrations (version) VALUES ('20170811192029');
 
