@@ -1,5 +1,6 @@
 declare function require(name:string);
 import * as React from 'react';
+import _ from 'lodash'
 const moment = require('moment');
 import {
 QuestionData,
@@ -152,9 +153,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   textEditListComponents(i){
     return (
-      <div className={`list-component`} key={`${i}${this.state.answers[i]}`}>
+      <div className={`list-component`} key={`${i}`}>
         <span className="list-number">{`${i + 1}:`}</span>
         <TextEditor
+          index={i}
           value={this.state.answers[i]}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}

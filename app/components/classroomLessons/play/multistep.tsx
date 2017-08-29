@@ -37,7 +37,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
     super(props);
 
     const answerHash = {}
-    props.data.play.stepLabels.forEach((sl) => answerHash[sl] = null)
+    props.data.play.stepLabels.forEach((sl) => answerHash[sl] = '')
     this.state = {
       isSubmittable: false,
       answers: answerHash,
@@ -46,15 +46,6 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       submitted: false}
     this.customChangeEvent = this.customChangeEvent.bind(this)
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
-  }
-
-  toObject(answers) {
-    const arr = answers.split(',')
-    const objectifiedArr = {};
-    for (var i = 0; i < arr.length; ++i) {
-      objectifiedArr[i] = arr[i];
-    }
-    return objectifiedArr;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -166,7 +157,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       <div className={`list-component`} key={sl}>
         <span className="list-number">{`${sl}:`}</span>
         <TextEditor
-          editorIndex={sl}
+          index={sl}
           value={this.state.answers[sl]}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(sl)}

@@ -1,21 +1,34 @@
-import React from 'react';
-import _ from 'underscore';
+import * as React from 'react';
 import Textarea from 'react-textarea-autosize';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      text: this.props.value || '',
-    };
-  },
+interface TextEditorProps {
+  value: string | null;
+  hasError?: boolean;
+  disabled?: boolean;
+  index: string|number;
+  handleChange: Function;
+  placeholder?: string;
+}
+
+interface TextEditorState {
+  text: string
+}
+
+class TextEditor extends React.Component<TextEditorProps, TextEditorState> {
+  constructor(props) {
+    super(props)
+
+    this.state = {text: props.value || ''}
+    this.handleTextChange = this.handleTextChange.bind(this)
+  }
 
   handleTextChange(e) {
     if (!this.props.disabled) {
-      this.props.handleChange(e.target.value, this.props.editorIndex);
+      this.props.handleChange(e.target.value, this.props.index);
     } else {
       console.log("I'm disable RN");
     }
-  },
+  }
 
   render() {
     return (
@@ -23,19 +36,20 @@ export default React.createClass({
         <div className="card-content">
           <div className="content">
             <Textarea
-              spellCheck={false}
-              autoCapitalize="off"
-              autoCorrect="off"
-              value={this.props.value}
-              onInput={this.handleTextChange}
-              placeholder={this.props.placeholder}
-              ref="answerBox"
-              className="connect-text-area"
-              autoFocus={false}
+            spellCheck={false}
+            autoCapitalize="off"
+            autoCorrect="off"
+            value={this.props.value}
+            onInput={this.handleTextChange}
+            placeholder={this.props.placeholder}
+            ref="answerBox"
+            className="connect-text-area"
             />
           </div>
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+export default TextEditor
