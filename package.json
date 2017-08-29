@@ -95,6 +95,7 @@
     "actioncable": "^5.1.1",
     "caniuse-db": "^1.0.30000693",
     "diff": "^3.2.0",
+    "draft-convert": "^1.4.9",
     "draft-js": "^0.10.1",
     "draft-js-export-html": "^0.6.0",
     "draft-js-plugins-editor": "^2.0.0-beta1",
