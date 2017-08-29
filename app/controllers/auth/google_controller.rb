@@ -64,12 +64,13 @@ class Auth::GoogleController < ApplicationController
 
 
   def register_with_google(name, email, role, access_token, google_id)
-    if current_user && current_user.email != email
+    email = email.downcase
+    if current_user && current_user.email.downcase != email
       session[:google_email] = email
       redirect_to "/auth/google_email_mismatch/"
       return
     else
-      @user = User.find_or_initialize_by(email: email.downcase)
+      @user = User.find_or_initialize_by(email: email)
       if @user.new_record?
         new_google_user(name, email, role, access_token, google_id, @user)
         if @user.role == 'teacher'

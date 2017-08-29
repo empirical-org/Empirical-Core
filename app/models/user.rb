@@ -84,6 +84,27 @@ class User < ActiveRecord::Base
 
   after_save :check_for_school
 
+  def create(*args)
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    errors[:db_level] << e
+    false
+  end
+
+  def update(*args)
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    errors[:db_level] << e
+    false
+  end
+
+  def create_or_update(*args)
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    errors[:db_level] << e
+    false
+  end
+
   def validate_username?
     validate_username.present? ? validate_username : false
   end

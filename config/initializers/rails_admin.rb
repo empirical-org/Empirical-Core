@@ -94,9 +94,9 @@ RailsAdmin.config do |config|
       field :zipcode do
         searchable true
       end
-      field :name do
-        searchable true
-      end
+      # field :name do
+      #   searchable true
+      # end
     end
   end
 
@@ -109,9 +109,6 @@ RailsAdmin.config do |config|
       searchable [:id, :account_type]
     end
   end
-
-  # config
-
 
   config.model SchoolSubscription do
     field :school do
