@@ -50,7 +50,7 @@ export default class ChooseClassroomLesson extends React.Component {
     }
     return <div key={i} onClick={clickFunction} className={`classroom-row ${selectedClassName} ${completionClass}`}>
       <div>
-        <img src={`${process.env.CDN_URL}/images/shared/${imgName}.svg`}/>
+        <img src={`${process.env.CDN_URL}/assets/images/shared/${imgName}.svg`}/>
         <span>{ca.classroom_name}</span> ({numberOfStudents})
       </div>
       {completionText}
@@ -73,6 +73,9 @@ export default class ChooseClassroomLesson extends React.Component {
 
   render() {
     const buttonClass = this.state.selectedClassroomActivityId ? 'bg-quillgreen' : ''
+    const text = this.state.selectedClassroomActivityId && this.state.classroomActivities.find(ca => ca.id === this.state.selectedClassroomActivityId).started === true
+          ? 'Resume Lesson'
+          : 'Launch Lesson'
     if (this.state.loading) {
       return <LoadingSpinner />
     } else {
@@ -81,7 +84,7 @@ export default class ChooseClassroomLesson extends React.Component {
           <div className='lesson-section'>
             <p>You've selected this lesson to launch:</p>
             <div className="lesson-row">
-              <img src={`${process.env.CDN_URL}/images/shared/icon-lesson-box.svg`}/>
+              <img src={`${process.env.CDN_URL}/assets/images/shared/icon-lesson-box.svg`}/>
               <p>{this.state.activityName}</p>
               <span onClick={this.goBack}>Undo Selection</span>
             </div>
@@ -95,7 +98,7 @@ export default class ChooseClassroomLesson extends React.Component {
         {/* we will use the text below when we have a lessons page to send teachers to */}
         {/* <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it. To re-assign a lesson, you can click here.</p> */}
         <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it.</p>
-        <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>Launch Lesson</a>
+        <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>{text}</a>
       </div>
     </div>)
     }

@@ -81,6 +81,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'make_teacher' => 'students#make_teacher'
 
   put 'teachers/update_current_user' => 'teachers#update_current_user'
+  get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'

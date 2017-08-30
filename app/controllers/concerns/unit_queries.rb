@@ -25,6 +25,7 @@ module UnitQueries
       end
       classroom_activity_hash[:classroom_name] = ca.classroom.name
       classroom_activity_hash[:completed] = ca.has_a_completed_session?
+      classroom_activity_hash[:started] = ca.has_a_started_session?
       classroom_activity_hash
     end
     classroom_activities
