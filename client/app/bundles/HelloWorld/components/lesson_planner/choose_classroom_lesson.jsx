@@ -73,6 +73,9 @@ export default class ChooseClassroomLesson extends React.Component {
 
   render() {
     const buttonClass = this.state.selectedClassroomActivityId ? 'bg-quillgreen' : ''
+    const text = this.state.selectedClassroomActivityId && this.state.classroomActivities.find(ca => ca.id === this.state.selectedClassroomActivityId).started === true
+          ? 'Resume Lesson'
+          : 'Launch Lesson'
     if (this.state.loading) {
       return <LoadingSpinner />
     } else {
@@ -95,7 +98,7 @@ export default class ChooseClassroomLesson extends React.Component {
         {/* we will use the text below when we have a lessons page to send teachers to */}
         {/* <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it. To re-assign a lesson, you can click here.</p> */}
         <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it.</p>
-        <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>Launch Lesson</a>
+        <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>{text}</a>
       </div>
     </div>)
     }

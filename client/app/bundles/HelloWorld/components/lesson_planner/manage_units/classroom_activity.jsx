@@ -90,7 +90,8 @@ export default React.createClass({
 		} else {
 			const classroomActivityId = this.props.data.id
 			const lessonId = this.props.data.activity.uid
-			return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`} className="q-button bg-quillgreen" id="launch-lesson">Launch Lesson</a>
+			const text = this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'
+			return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>
 		}
 	},
 
