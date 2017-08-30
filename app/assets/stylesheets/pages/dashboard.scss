@@ -354,6 +354,7 @@
     max-width: 638px;
     height: 270px;
     margin: auto;
+    background-color: #ffffff;
   }
   .header-container {
     font-weight: 600;
@@ -383,6 +384,28 @@
     padding-left: 12px;
     font-size: 14px;
     color: #027360;
+  }
+  .no-assigned-lessons {
+    color: #969696;
+    line-height: 1.57;
+    padding-top: 25px;
+    a {
+      color: #969696;
+      text-decoration: underline;
+    }
+    img {
+      margin-bottom: 15px;
+    }
+    &.completed-diagnostic {
+      color: #3b3b3b;
+      .recommendation {
+        color: #3b3b3b;
+        background-color: #e3fdff;
+        padding-left: 1px;
+        padding-right: 1px;
+        font-weight: 600;
+      }
+    }
   }
   .lesson-item {
     height: 52px;
