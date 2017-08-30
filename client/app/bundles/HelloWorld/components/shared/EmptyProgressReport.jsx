@@ -7,7 +7,7 @@ export default React.createClass({
       buttonText,
       content;
     if (this.props.missing === 'activities') {
-      link = '/teachers/classrooms/activity_planner/assign-new-activity';
+      link = '/teachers/classrooms/assign_activities';
       buttonText = 'Assign an Activity';
       content = 'In order to access our different reports, you need to assign activities to your students.';
     } else if (this.props.missing === 'students') {

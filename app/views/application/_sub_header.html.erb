@@ -16,7 +16,11 @@
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
 		<ul class="home-navbar-list">
 			<% if !current_user || current_user.role != "student" %>
-				<li><%= link_to "Tools", "/tools/connect"%></li>
+				<% if current_user && current_user.flag == 'beta' %>
+					<li><%= link_to "Tools", "/tools/lessons"%></li>
+				<% else %>
+					<li><%= link_to "Tools", "/tools/connect"%></li>
+				<% end %>
 				<li><%= link_to "Resources", teacher_resources_path%></li>
 				<li class="active"><%= link_to "Our Story", mission_path %></li>
 			<% end %>

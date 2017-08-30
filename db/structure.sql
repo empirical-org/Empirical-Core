@@ -2,12 +2,11 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -91,7 +90,8 @@ CREATE TABLE activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
-    repeatable boolean DEFAULT true
+    repeatable boolean DEFAULT true,
+    follow_up_activity_id integer
 );
 
 
@@ -138,7 +138,9 @@ CREATE TABLE activity_classifications (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     app_name character varying(255),
-    order_number integer DEFAULT 999999999
+    order_number integer DEFAULT 999999999,
+    instructor_mode boolean DEFAULT false,
+    locked_by_default boolean DEFAULT false
 );
 
 
@@ -411,7 +413,9 @@ CREATE TABLE classroom_activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     assigned_student_ids integer[],
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    locked boolean DEFAULT false,
+    pinned boolean DEFAULT false
 );
 
 
@@ -750,6 +754,37 @@ CREATE SEQUENCE ip_locations_id_seq
 --
 
 ALTER SEQUENCE ip_locations_id_seq OWNED BY ip_locations.id;
+
+
+--
+-- Name: milestones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE milestones (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE milestones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
 
 
 --
@@ -1289,6 +1324,36 @@ ALTER SEQUENCE unit_template_categories_id_seq OWNED BY unit_template_categories
 
 
 --
+-- Name: unit_template_units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE unit_template_units (
+    id integer NOT NULL,
+    unit_id integer,
+    unit_template_id integer
+);
+
+
+--
+-- Name: unit_template_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE unit_template_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unit_template_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE unit_template_units_id_seq OWNED BY unit_template_units.id;
+
+
+--
 -- Name: unit_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1360,6 +1425,38 @@ CREATE SEQUENCE units_id_seq
 --
 
 ALTER SEQUENCE units_id_seq OWNED BY units.id;
+
+
+--
+-- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE user_milestones (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    milestone_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: user_milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_milestones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_milestones_id_seq OWNED BY user_milestones.id;
 
 
 --
@@ -1471,175 +1568,182 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: activities id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
 
 
 --
--- Name: activity_classifications id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activity_classifications ALTER COLUMN id SET DEFAULT nextval('activity_classifications_id_seq'::regclass);
 
 
 --
--- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activity_sessions ALTER COLUMN id SET DEFAULT nextval('activity_sessions_id_seq'::regclass);
 
 
 --
--- Name: admin_accounts id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_accounts ALTER COLUMN id SET DEFAULT nextval('admin_accounts_id_seq'::regclass);
 
 
 --
--- Name: admin_accounts_admins id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_accounts_admins ALTER COLUMN id SET DEFAULT nextval('admin_accounts_admins_id_seq'::regclass);
 
 
 --
--- Name: admin_accounts_teachers id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_accounts_teachers ALTER COLUMN id SET DEFAULT nextval('admin_accounts_teachers_id_seq'::regclass);
 
 
 --
--- Name: authors id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY authors ALTER COLUMN id SET DEFAULT nextval('authors_id_seq'::regclass);
 
 
 --
--- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
 
 
 --
--- Name: checkboxes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY checkboxes ALTER COLUMN id SET DEFAULT nextval('checkboxes_id_seq'::regclass);
 
 
 --
--- Name: classroom_activities id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY classroom_activities ALTER COLUMN id SET DEFAULT nextval('classroom_activities_id_seq'::regclass);
 
 
 --
--- Name: classrooms id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY classrooms ALTER COLUMN id SET DEFAULT nextval('classrooms_id_seq'::regclass);
 
 
 --
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
--- Name: concept_results id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY concept_results ALTER COLUMN id SET DEFAULT nextval('concept_results_id_seq'::regclass);
 
 
 --
--- Name: concepts id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY concepts ALTER COLUMN id SET DEFAULT nextval('concepts_id_seq'::regclass);
 
 
 --
--- Name: csv_exports id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY csv_exports ALTER COLUMN id SET DEFAULT nextval('csv_exports_id_seq'::regclass);
 
 
 --
--- Name: districts id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY districts ALTER COLUMN id SET DEFAULT nextval('districts_id_seq'::regclass);
 
 
 --
--- Name: file_uploads id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY file_uploads ALTER COLUMN id SET DEFAULT nextval('file_uploads_id_seq'::regclass);
 
 
 --
--- Name: firebase_apps id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY firebase_apps ALTER COLUMN id SET DEFAULT nextval('firebase_apps_id_seq'::regclass);
 
 
 --
--- Name: ip_locations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ip_locations ALTER COLUMN id SET DEFAULT nextval('ip_locations_id_seq'::regclass);
 
 
 --
--- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY oauth_access_grants ALTER COLUMN id SET DEFAULT nextval('oauth_access_grants_id_seq'::regclass);
 
 
 --
--- Name: oauth_access_tokens id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY oauth_access_tokens ALTER COLUMN id SET DEFAULT nextval('oauth_access_tokens_id_seq'::regclass);
 
 
 --
--- Name: oauth_applications id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY oauth_applications ALTER COLUMN id SET DEFAULT nextval('oauth_applications_id_seq'::regclass);
 
 
 --
--- Name: objectives id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_seq'::regclass);
 
 
 --
--- Name: page_areas id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
 
 
 --
--- Name: rules_misseds id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_misseds_id_seq'::regclass);
@@ -1674,49 +1778,56 @@ ALTER TABLE ONLY sections ALTER COLUMN id SET DEFAULT nextval('sections_id_seq':
 
 
 --
--- Name: students_classrooms id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY students_classrooms ALTER COLUMN id SET DEFAULT nextval('students_classrooms_id_seq'::regclass);
 
 
 --
--- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY subscriptions ALTER COLUMN id SET DEFAULT nextval('subscriptions_id_seq'::regclass);
 
 
 --
--- Name: topic_categories id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY topic_categories ALTER COLUMN id SET DEFAULT nextval('topic_categories_id_seq'::regclass);
 
 
 --
--- Name: topics id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY topics ALTER COLUMN id SET DEFAULT nextval('topics_id_seq'::regclass);
 
 
 --
--- Name: unit_template_categories id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY unit_template_categories ALTER COLUMN id SET DEFAULT nextval('unit_template_categories_id_seq'::regclass);
 
 
 --
--- Name: unit_templates id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY unit_template_units ALTER COLUMN id SET DEFAULT nextval('unit_template_units_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY unit_templates ALTER COLUMN id SET DEFAULT nextval('unit_templates_id_seq'::regclass);
 
 
 --
--- Name: units id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY units ALTER COLUMN id SET DEFAULT nextval('units_id_seq'::regclass);
@@ -1733,11 +1844,18 @@ ALTER TABLE ONLY user_subscriptions ALTER COLUMN id SET DEFAULT nextval('user_su
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY user_milestones ALTER COLUMN id SET DEFAULT nextval('user_milestones_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activities
@@ -1745,7 +1863,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: activity_classifications activity_classifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: activity_classifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activity_classifications
@@ -1753,7 +1871,7 @@ ALTER TABLE ONLY activity_classifications
 
 
 --
--- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activity_sessions
@@ -1761,7 +1879,7 @@ ALTER TABLE ONLY activity_sessions
 
 
 --
--- Name: admin_accounts_admins admin_accounts_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_accounts_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_accounts_admins
@@ -1769,7 +1887,7 @@ ALTER TABLE ONLY admin_accounts_admins
 
 
 --
--- Name: admin_accounts admin_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_accounts
@@ -1777,7 +1895,7 @@ ALTER TABLE ONLY admin_accounts
 
 
 --
--- Name: admin_accounts_teachers admin_accounts_teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: admin_accounts_teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY admin_accounts_teachers
@@ -1785,7 +1903,7 @@ ALTER TABLE ONLY admin_accounts_teachers
 
 
 --
--- Name: authors authors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: authors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY authors
@@ -1793,7 +1911,7 @@ ALTER TABLE ONLY authors
 
 
 --
--- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categories
@@ -1801,7 +1919,7 @@ ALTER TABLE ONLY categories
 
 
 --
--- Name: checkboxes checkboxes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: checkboxes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY checkboxes
@@ -1809,7 +1927,7 @@ ALTER TABLE ONLY checkboxes
 
 
 --
--- Name: classroom_activities classroom_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: classroom_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY classroom_activities
@@ -1817,7 +1935,7 @@ ALTER TABLE ONLY classroom_activities
 
 
 --
--- Name: classrooms classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY classrooms
@@ -1825,7 +1943,7 @@ ALTER TABLE ONLY classrooms
 
 
 --
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments
@@ -1833,7 +1951,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: concept_results concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY concept_results
@@ -1841,7 +1959,7 @@ ALTER TABLE ONLY concept_results
 
 
 --
--- Name: concepts concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY concepts
@@ -1849,7 +1967,7 @@ ALTER TABLE ONLY concepts
 
 
 --
--- Name: csv_exports csv_exports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: csv_exports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY csv_exports
@@ -1857,7 +1975,7 @@ ALTER TABLE ONLY csv_exports
 
 
 --
--- Name: districts districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY districts
@@ -1865,7 +1983,7 @@ ALTER TABLE ONLY districts
 
 
 --
--- Name: file_uploads file_uploads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: file_uploads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY file_uploads
@@ -1873,7 +1991,7 @@ ALTER TABLE ONLY file_uploads
 
 
 --
--- Name: firebase_apps firebase_apps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: firebase_apps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY firebase_apps
@@ -1881,7 +1999,7 @@ ALTER TABLE ONLY firebase_apps
 
 
 --
--- Name: ip_locations ip_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ip_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ip_locations
@@ -1889,7 +2007,15 @@ ALTER TABLE ONLY ip_locations
 
 
 --
--- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY milestones
+    ADD CONSTRAINT milestones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY oauth_access_grants
@@ -1897,7 +2023,7 @@ ALTER TABLE ONLY oauth_access_grants
 
 
 --
--- Name: oauth_access_tokens oauth_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: oauth_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY oauth_access_tokens
@@ -1905,7 +2031,7 @@ ALTER TABLE ONLY oauth_access_tokens
 
 
 --
--- Name: oauth_applications oauth_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: oauth_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY oauth_applications
@@ -1913,7 +2039,7 @@ ALTER TABLE ONLY oauth_applications
 
 
 --
--- Name: objectives objectives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: objectives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY objectives
@@ -1921,7 +2047,7 @@ ALTER TABLE ONLY objectives
 
 
 --
--- Name: page_areas page_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: page_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY page_areas
@@ -1929,7 +2055,7 @@ ALTER TABLE ONLY page_areas
 
 
 --
--- Name: rules_misseds rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY rules_misseds
@@ -1969,7 +2095,7 @@ ALTER TABLE ONLY sections
 
 
 --
--- Name: students_classrooms students_classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: students_classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY students_classrooms
@@ -1977,7 +2103,7 @@ ALTER TABLE ONLY students_classrooms
 
 
 --
--- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY subscriptions
@@ -1985,7 +2111,7 @@ ALTER TABLE ONLY subscriptions
 
 
 --
--- Name: topic_categories topic_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: topic_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY topic_categories
@@ -1993,7 +2119,7 @@ ALTER TABLE ONLY topic_categories
 
 
 --
--- Name: topics topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY topics
@@ -2001,7 +2127,7 @@ ALTER TABLE ONLY topics
 
 
 --
--- Name: unit_template_categories unit_template_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: unit_template_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY unit_template_categories
@@ -2009,7 +2135,15 @@ ALTER TABLE ONLY unit_template_categories
 
 
 --
--- Name: unit_templates unit_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: unit_template_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY unit_template_units
+    ADD CONSTRAINT unit_template_units_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: unit_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY unit_templates
@@ -2017,7 +2151,7 @@ ALTER TABLE ONLY unit_templates
 
 
 --
--- Name: units units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY units
@@ -2034,6 +2168,14 @@ ALTER TABLE ONLY user_subscriptions
 
 --
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_milestones
+    ADD CONSTRAINT user_milestones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -2195,6 +2337,13 @@ CREATE INDEX index_classroom_activities_on_classroom_id ON classroom_activities 
 
 
 --
+-- Name: index_classroom_activities_on_classroom_id_and_pinned; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
+
+
+--
 -- Name: index_classroom_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2283,6 +2432,13 @@ CREATE INDEX index_ip_locations_on_user_id ON ip_locations USING btree (user_id)
 --
 
 CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
+
+
+--
+-- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_milestones_on_name ON milestones USING btree (name);
 
 
 --
@@ -2416,6 +2572,20 @@ CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (nam
 --
 
 CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
+
+
+--
+-- Name: index_unit_template_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unit_template_units_on_unit_id ON unit_template_units USING btree (unit_id);
+
+
+--
+-- Name: index_unit_template_units_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unit_template_units_on_unit_template_id ON unit_template_units USING btree (unit_template_id);
 
 
 --
@@ -2650,7 +2820,7 @@ CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, act
 
 
 --
--- Name: concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY concept_results
