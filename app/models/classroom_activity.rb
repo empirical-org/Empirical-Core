@@ -124,6 +124,10 @@ class ClassroomActivity < ActiveRecord::Base
     !!activity_sessions.find_by(classroom_activity_id: self.id, state: "finished")
   end
 
+  def has_a_started_session?
+    !!activity_sessions.find_by(classroom_activity_id: self.id, state: "started")
+  end
+
   def from_valid_date_for_activity_analysis?
     classification_id = self.activity.classification.id
     # if it is passage proofreader or sentence writing, we only want to show ones after this Date in certain reports
