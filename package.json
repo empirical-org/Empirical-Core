@@ -93,6 +93,7 @@
     "@types/request": "^2.0.0",
     "@types/underscore": "^1.8.1",
     "actioncable": "^5.1.1",
+    "babel-polyfill": "^6.23.0",
     "caniuse-db": "^1.0.30000693",
     "diff": "^3.2.0",
     "draft-js": "^0.10.1",
