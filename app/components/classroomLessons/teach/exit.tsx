@@ -72,6 +72,11 @@ class ExitSlide extends React.Component<any, any> {
     const {script, flaggedStudents, students} = this.props
     return (
       <div className='teacher-exit'>
+        <div className="header">
+          <h1>
+            <span>Slide {parseInt(this.props.data.current_slide) + 1}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+          </h1>
+        </div>
         <ScriptComponent
           script={script}
           onlyShowHeaders={this.props.onlyShowHeaders}
@@ -83,7 +88,7 @@ class ExitSlide extends React.Component<any, any> {
           toggleStudentFlag={this.props.toggleStudentFlag}
         />
         <AssignmentOptions
-          numberOfStudents={Object.keys(students).length}
+          numberOfStudents={students ? Object.keys(students).length : 0}
           updateSelectedOptionKey={this.updateSelectedOptionKey}
           selectedOptionKey={this.state.selectedOptionKey}
         />

@@ -82,10 +82,10 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       const splitPromptWithInput: Array<JSX.Element> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
-          splitPromptWithInput.push(this.renderText(section, i));
+          splitPromptWithInput.push(this.renderText(section));
           splitPromptWithInput.push(this.renderInput(i));
         } else {
-          splitPromptWithInput.push(this.renderText(section, i));
+          splitPromptWithInput.push(this.renderText(section));
         }
       });
       return splitPromptWithInput;
@@ -134,8 +134,13 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     );
   }
 
-  renderText(text: string, i: number) {
-    return <span key={i}>{text}</span>;
+  renderText(text: string) {
+    const words = text.split(' ').filter(word => word !== '')
+    const wordArray = []
+    words.forEach((word, i) => {
+      wordArray.push(<span key={i}>{word}&nbsp;</span>)
+    })
+    return wordArray
   }
 
   submitSubmission() {

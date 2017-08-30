@@ -89,7 +89,8 @@
 
   .main-content {
     padding: 20px 30px 10px;
-    width: 66%;
+    width: 100%;
+    max-width: 960px;
     overflow-y: scroll;
     .main-content-wrapper {
       // width: 100%;
@@ -330,26 +331,24 @@
 }
 
 .lobby-text {
-  padding: 25px;
-  max-width: 535px;
-  background-color: #fafafa;
-  font-size: 16px;
-  line-height: 1.63;
-  margin-bottom: 15px;
-  h4 {
-    font-weight: 600;
-    text-align: left;
-    color: #3b3b3b;
-    margin-bottom: 15px;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+  font-size: 18px;
+  padding: 15 30;
+  width: 100%;
+  margin-bottom: 20px;
+  hr {
+    border: solid 1px #e9e9e9;
+    margin: 15 0 20;
+  }
+
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
   }
 
   p {
-    color: #969696;
-    margin-bottom: 15px;
-    line-height: 26px;
+    padding-bottom: 30px;
   }
 
-  hr {
-   background-color: #e9e9e9;
-  }
 }
