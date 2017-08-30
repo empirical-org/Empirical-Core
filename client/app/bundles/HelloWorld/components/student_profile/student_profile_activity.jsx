@@ -16,6 +16,8 @@ export default React.createClass({
       linkText = 'Replay Activity';
     } else if (this.props.data.state == 'started') {
       linkText = 'Resume Activity';
+    } else if (this.props.data.activity.activity_classification_id === 6) {
+      linkText = 'Join Lesson'
     } else {
       linkText = 'Start Activity';
     }
