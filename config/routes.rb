@@ -79,7 +79,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
-
+  get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
@@ -100,6 +100,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'lesson_units' => 'units#lesson_units'
     get 'units/:unit_id/launch_lesson/:activity_id' => 'units#launch_lesson_with_activity_id'
     get 'units/:unit_id/activity/:activity_id' => 'units#lesson_info_for_unit_and_activity'
+
 
     resources :unit_templates, only: [:index] do
       collection do

@@ -24,6 +24,12 @@
         <%= link_to "Assign", assign_activities_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
       </li>
 
+      <%- if current_user.admin? %>
+        <li class="<%= (action_name == 'administrator') ? 'admin-tab active' : 'admin-tab' %>">
+          <%= link_to raw('Admin Dashboard'), teachers_admin_dashboard_path, role: 'tab' %>
+          <%= link_to 'Admin', teachers_admin_dashboard_path, role: 'tab', class: 'mobile'  %>
+        </li>
+      <% end %>
       <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
         <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
           <%= link_to raw(premium_tab_copy), premium_path, role: 'tab' %>
