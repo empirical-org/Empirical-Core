@@ -11,6 +11,7 @@ export default React.createClass({
   render: function () {
     var result;
     if (this.props.data) {
+      const text = this.props.data.activity.activity_classification_id === 6 ? 'Join Lesson' : 'Start Activity'
       result = (
           <div className="next-activity">
             <div className="next-activity-name">
@@ -19,7 +20,7 @@ export default React.createClass({
             </div>
             <div className="start-activity-wrapper">
               <a href={this.props.data.link}>
-                <button className='button-green pull-right'>Start Activity</button>
+                <button className='button-green pull-right'>{text}</button>
               </a>
             </div>
           </div>

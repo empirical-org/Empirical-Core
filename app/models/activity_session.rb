@@ -25,7 +25,7 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_completed_at
   before_save   :set_activity_id
 
-  after_save    :determine_if_final_score, :update_classroom_activity
+  after_save    :determine_if_final_score, :update_classroom_activity, :update_milestones
 
   after_commit :invalidate_activity_session_count_if_completed
 
@@ -299,6 +299,16 @@ class ActivitySession < ActiveRecord::Base
   def update_classroom_activity
     if self.state == 'finished' && !self.classroom_activity.has_a_completed_session?
       self.classroom_activity.update(updated_at: Time.current)
+    end
+  end
+
+  def update_milestones
+    # more milestones can be added here as relevant, for now this just checks to see if a Completed Diagnostic milestone needs to be created
+    if self.state == 'finished' && self.classroom_activity.activity.activity_classification_id === 4
+      teacher_milestones = self.classroom_activity.unit.user.milestones
+      if !teacher_milestones.find_by(name: 'Complete Diagnostic')
+        teacher_milestones.push(Milestone.find_by(name: 'Complete Diagnostic'))
+      end
     end
   end
 
