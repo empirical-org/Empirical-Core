@@ -9,10 +9,6 @@ describe 'GoogleIntegration::Classroom::Parsers::Students' do
   let!(:body) {
 
     x = {
-          "students":
-          [
-            {"courseId":"455798942",
-             "userId":"107708392406225674265",
              "profile":
                 {"id":"107708392406225674265",
                  "name":
@@ -22,10 +18,9 @@ describe 'GoogleIntegration::Classroom::Parsers::Students' do
                   "emailAddress":"test1_s1@gedu.demo.rockerz.xyz"
                 }
             }
-          ]
-    }
+          
 
-    x.to_json
+    x = JSON.parse(x.to_json)
   }
 
   let!(:response) {
