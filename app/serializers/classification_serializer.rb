@@ -12,19 +12,23 @@ class ClassificationSerializer < ActiveModel::Serializer
       'Quill Diagnostic'
     when 5
       'Quill Connect'
+    when 6
+      'Quill Lessons'
   	end
   end
 
   def image_class
   	case object.id
   	when 1
-  		'icon-flag-gray'
+  		'icon-flag-green'
   	when 2
-  		'icon-puzzle-gray'
+  		'icon-puzzle-green'
     when 4
-      'icon-diagnostic-gray'
+      'icon-diagnostic-green'
     when 5
-      'icon-connect-gray'
+      'icon-connect-green'
+    when 6
+      'icon-lessons-green'
     end
   end
 
@@ -38,6 +42,8 @@ class ClassificationSerializer < ActiveModel::Serializer
       'icon-diagnostic'
     when 5
       'icon-connect'
+    when 6
+      'icon-lessons'
     else
       ''
     end

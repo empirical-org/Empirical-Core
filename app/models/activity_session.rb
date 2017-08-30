@@ -25,7 +25,7 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_completed_at
   before_save   :set_activity_id
 
-  after_save    :determine_if_final_score
+  after_save    :determine_if_final_score, :update_classroom_activity
 
   after_commit :invalidate_activity_session_count_if_completed
 
@@ -36,13 +36,13 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
-  scope :started_or_better, -> { where("state != 'unstarted'") }
-
-  scope :current_session, -> {
-    complete_session   = completed.first
-    incomplete_session = incomplete.first
-    (complete_session || incomplete_session)
-  }
+  # scope :started_or_better, -> { where("state != 'unstarted'") }
+  #
+  # scope :current_session, -> {
+  #   complete_session   = completed.first
+  #   incomplete_session = incomplete.first
+  #   (complete_session || incomplete_session)
+  # }
 
   RESULTS_PER_PAGE = 25
 
@@ -294,6 +294,12 @@ class ActivitySession < ActiveRecord::Base
   def set_completed_at
     return true if state != 'finished'
     self.completed_at ||= Time.current
+  end
+
+  def update_classroom_activity
+    if self.state == 'finished' && !self.classroom_activity.has_a_completed_session?
+      self.classroom_activity.update(updated_at: Time.current)
+    end
   end
 
 end

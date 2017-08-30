@@ -7,5 +7,7 @@ export default (classificationId) => {
       return 'diagnostic'
     } else if (classificationId === 5) {
       return 'connect';
-    }
+    } else if (classificationId === 6) {
+    return 'lessons';
+  }
 }

@@ -1,0 +1,212 @@
+.tutorial-slides {
+  background: white;
+  min-height: 800px;
+  height: 100%;
+  .text {
+    width: 555px;
+    margin: auto;
+    text-align: center;
+    h1 {
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 32px;
+    }
+    p {
+      color: #7f7f7f;
+      line-height: 1.67;
+      font-size: 18px;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+  .slide-controls {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    width: 200px;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 750px;
+    .next-button, .previous-button, .try-button {
+      margin-bottom: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .next-button {
+      width: 120px;
+      height: 40px;
+    }
+    .try-button {
+      width: 200px;
+      height: 40px;
+    }
+    .circles {
+      margin-top: 15px;
+    }
+    .circle {
+      width: 10px;
+      height: 10px;
+      border: solid 1px $quillgreen;
+      margin: 0 10px;
+      pointer: cursor;
+      &.current {
+        background-color: $quillgreen;
+      }
+    }
+  }
+}
+
+.slide {
+  .media {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 1500;
+    width: 100%;
+    margin: auto;
+    .illustration {
+      width: 100%;
+      position: relative;
+    }
+    .caption {
+      position: relative;
+    }
+  }
+}
+
+.lessons-slide-one, .lessons-slide-two {
+  .media {
+    padding-top: 65px;
+    padding-bottom: 70px;
+  }
+}
+
+.lessons-slide-one, .lessons-slide-two, .lessons-slide-three {
+  .illustration {
+    left: 160;
+  }
+}
+
+.lessons-slide-one {
+  .text {
+    width: 570px;
+  }
+  @media (max-width: 1150px) {
+    .caption {
+      display: none;
+    }
+    .illustration {
+      left: initial !important;
+    }
+  }
+  .illustration {
+    max-width: 500px;
+    height: 356px;
+  }
+  .caption {
+    top: -24px;
+    left: 100px;
+  }
+}
+
+.lessons-slide-two {
+    .illustration {
+      max-width: 580px;
+    }
+    .caption {
+      left: 142px;
+      top: -60px;
+    }
+    @media (max-width: 1250px) {
+      .caption {
+        display: none;
+      }
+      .illustration {
+        left: initial !important;
+      }
+    }
+  }
+
+  .lessons-slide-three {
+    .media {
+      padding-bottom: 35px;
+      padding-top: 65px;
+      .illustration {
+        max-width: 600px;
+      }
+      .caption {
+        left: 95px;
+        top: -40px;
+      }
+        @media (max-width: 1150px) {
+          .caption {
+            display: none;
+          }
+          .illustration {
+            left: initial !important;
+          }
+        }
+      }
+    }
+
+    .lessons-slide-four {
+      .media {
+        padding-top: 55px;
+        padding-bottom: 30px;
+        .illustration {
+          max-width: 650px;
+          left: 300px;
+        }
+        .caption {
+          left: -30px;
+          top: -55px;
+        }
+        @media (max-width: 1210px) {
+          .caption {
+            display: none;
+          }
+          .illustration {
+            left: initial !important;
+          }
+        }
+      }
+      }
+
+      .lessons-slide-five {
+        .media {
+          padding-top: 60px;
+          padding-bottom: 70px;
+          video {
+            width: 869px;
+            height: 568px;
+            border: solid 5px black;
+          }
+        }
+      }
+
+      .lessons-slide-six {
+        .media {
+          padding-bottom: 130px;
+          padding-top: 130px;
+          .illustration {
+            max-width: 560px;
+            left: 155px;
+          }
+          .caption {
+            left: 110px;
+            top: 95px;
+          }
+          @media (max-width: 1100px) {
+            margin-bottom: 0px;
+            .caption {
+              display: none;
+            }
+            .illustration {
+              left: initial !important;
+            }
+          }
+        }
+        }
