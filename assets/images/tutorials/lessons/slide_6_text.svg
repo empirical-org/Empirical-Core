@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="292px" height="195px" viewBox="0 0 292 195" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 8</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="12_00-Guide-6" transform="translate(-926.000000, -286.000000)">
+            <g id="Group-8" transform="translate(925.000000, 285.000000)">
+                <text id="You-can-get-back-to" font-family="AdelleSans-Italic, Adelle Sans" font-size="18" font-style="italic" font-weight="normal" fill="#EA9A1A">
+                    <tspan x="65" y="108">You can get back to this </tspan>
+                    <tspan x="65" y="136">guide at any time by clicking </tspan>
+                    <tspan x="65" y="164" font-family="AdelleSans-BoldItalic, Adelle Sans" font-weight="bold">How It Works</tspan>
+                    <tspan x="176.384" y="164"> on the Help </tspan>
+                    <tspan x="65" y="192">dropdown. </tspan>
+                </text>
+                <g id="Group-12" transform="translate(40.000000, 40.500000) scale(-1, 1) translate(-40.000000, -40.500000) " stroke="#F5BA5B" stroke-width="2" stroke-linecap="round">
+                    <path d="M75.9497563,7.39878426 C75.9497563,7.39878426 50.2957647,12.0428604 28.4975478,33.738939 C6.69933094,55.4350176 0.656938115,81 0.656938115,81" id="Line"></path>
+                    <polyline id="Path-9" stroke-linejoin="round" transform="translate(74.500000, 7.500000) rotate(-283.000000) translate(-74.500000, -7.500000) " points="68 11 74.5951306 4 81 10.7980587"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

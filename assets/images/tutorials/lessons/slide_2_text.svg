@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="325px" height="150px" viewBox="0 0 325 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 10</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="12_00-Guide-2" transform="translate(-975.000000, -181.000000)">
+            <g id="Group-10" transform="translate(976.000000, 182.000000)">
+                <text id="The-step-by-step-gui" font-family="AdelleSans-Italic, Adelle Sans" font-size="18" font-style="italic" font-weight="normal" fill="#EA9A1A">
+                    <tspan x="68" y="61">The step-by-step guide provides </tspan>
+                    <tspan x="68" y="89">suggestions for facilitating a </tspan>
+                    <tspan x="68" y="117">conversation. Please feel free to </tspan>
+                    <tspan x="68" y="145">improvise and customize!</tspan>
+                </text>
+                <g id="Group-5" stroke="#F5BA5B" stroke-width="2">
+                    <path d="M1,10.0108452 C1,10.0108452 27.5288124,9.56702119 47.3275176,14.3577851 C67.1262228,19.148549 82.1908893,30.5074053 82.1908893,30.5074053" id="Line" stroke-linecap="square"></path>
+                    <polyline id="Path-9" stroke-linecap="round" stroke-linejoin="round" points="9.43948753 19.8640973 -1.59161573e-12 9.78668831 9.1671701 7.10542736e-13"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

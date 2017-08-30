@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="319px" height="149px" viewBox="0 0 319 149" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 12</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="12_00-Guide-3" transform="translate(-917.000000, -206.000000)">
+            <g id="Group-12" transform="translate(918.000000, 207.000000)">
+                <text id="Click-on-the-checkbo" font-family="AdelleSans-Italic, Adelle Sans" font-size="18" font-style="italic" font-weight="normal" fill="#EA9A1A">
+                    <tspan x="78" y="60">Click on the checkboxes to </tspan>
+                    <tspan x="78" y="88">select the answers you would </tspan>
+                    <tspan x="78" y="116">like to display, and then click </tspan>
+                    <tspan x="78" y="144" font-family="AdelleSans-BoldItalic, Adelle Sans" font-weight="bold">Display</tspan>
+                    <tspan x="140.748" y="144"> to show the students. </tspan>
+                </text>
+                <g id="Group-5" stroke="#F5BA5B" stroke-width="2">
+                    <path d="M1,10.0108452 C1,10.0108452 27.5288124,9.56702119 47.3275176,14.3577851 C67.1262228,19.148549 82.1908893,30.5074053 82.1908893,30.5074053" id="Line" stroke-linecap="square"></path>
+                    <polyline id="Path-9" stroke-linecap="round" stroke-linejoin="round" points="9.43948753 19.8640973 -1.59161573e-12 9.78668831 9.1671701 7.10542736e-13"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
