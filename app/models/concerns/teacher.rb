@@ -219,4 +219,14 @@ module Teacher
     sub_1.expiration > sub_2.expiration ? sub_1 : sub_2
   end
 
+  def finished_diagnostic_unit_ids
+    Unit.find_by_sql("SELECT DISTINCT units.id FROM units
+      JOIN classroom_activities AS ca ON ca.unit_id = units.id
+      JOIN activities AS acts ON ca.activity_id = acts.id
+      JOIN activity_sessions AS actsesh ON actsesh.classroom_activity_id = ca.id
+      WHERE units.user_id = #{self.id}
+      AND acts.activity_classification_id = 4
+      AND actsesh.state = 'finished'")
+  end
+
 end
