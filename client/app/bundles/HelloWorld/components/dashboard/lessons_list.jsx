@@ -70,21 +70,25 @@ export default class extends React.Component {
     }
   }
 
-  render() {
+  renderModalContent() {
     if (this.state.lessons && this.state.lessons.length) {
+      return <div className="inner-container">
+        <div className="header-container flex-row space-between vertically-centered lesson-item">
+          <h3 >
+            List of Assigned Quill Lessons
+          </h3>
+          <a href="/teachers/classrooms/activity_planner/lessons">View All Assigned Lessons </a>
+        </div>
+        {this.renderAssignedLessons()}
+      </div>
+    }
+  }
+
+  render() {
       return (
         <div className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center lessons-list">
-          <div className="inner-container">
-            <div className="header-container flex-row space-between vertically-centered lesson-item">
-              <h3 >
-                List of Recently Assigned Quill Lessons
-              </h3>
-              <a href="/teachers/classrooms/activity_planner/lessons">View All Assigned Lessons </a>
-            </div>
-            {this.renderAssignedLessons()}
-          </div>
+          {this.renderModalContent()}
         </div>);
-    }
     return <span />;
   }
 }
