@@ -47,17 +47,27 @@ export default React.createClass({
     // if loading we don't want to do anything when they click -- effectively
     // it is disabled
     if (!this.state.loading) {
-      const that = this;
       let path = status === 'Archive' ? 'hide' : 'unhide';
       path = `${this.state.basePath}/${id}/${path}`;
-      this.setState({ loading: true, },
-        () => {
-          $.post(path)
-             .done(
-               that.getClassrooms()
-             );
-        });
+      if (status === 'Archive') {
+        if (confirm("Are you sure you want to archive this classroom? If you choose to unarchive it at a later date, your students' activities will not be restored.")) {
+          this.postClassroomChange(path)
+        }
+      } else {
+        this.postClassroomChange(path)
+      }
     }
+  },
+
+  postClassroomChange(path) {
+    const that = this;
+    this.setState({ loading: true, },
+      () => {
+        $.post(path)
+        .done(
+          that.getClassrooms()
+        );
+      });
   },
 
   disabledIfLoading() {
