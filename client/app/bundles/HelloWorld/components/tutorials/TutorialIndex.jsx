@@ -80,21 +80,21 @@ export default class TutorialIndex extends React.Component {
   }
 
   goToSlide(slideNumber) {
-    const qs = `?url=${encodeURIComponent(getParameterByName('url'))}`
+    const qs = getParameterByName('url') ? `?url=${encodeURIComponent(getParameterByName('url'))}` : ''
     this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${qs}`)
     this.setState({slideNumber: slideNumber})
   }
 
-    render() {
-      return (
-        <div className="tutorial-slides">
-          {this.state.slides[this.state.slideNumber - 1]}
-          <div className="slide-controls">
-            {this.nextButton()}
-            {this.previousButton()}
-            {this.circles()}
-          </div>
+  render() {
+    return (
+      <div className="tutorial-slides">
+        {this.state.slides[this.state.slideNumber - 1]}
+        <div className="slide-controls">
+          {this.nextButton()}
+          {this.previousButton()}
+          {this.circles()}
         </div>
-      )
-    }
+      </div>
+    )
   }
+}
