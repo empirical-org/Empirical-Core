@@ -32,6 +32,11 @@ class User < ActiveRecord::Base
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
+
+  has_many :schools_admins, class_name: 'SchoolsAdmins'
+  has_many :admin_rights, through: :schools_admins, source: :school, foreign_key: :user_id
+
+
   has_and_belongs_to_many :districts
   has_one :ip_location
 
@@ -78,6 +83,27 @@ class User < ActiveRecord::Base
   before_validation :prep_authentication_terms
 
   after_save :check_for_school
+
+  def create(*args)
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    errors[:db_level] << e
+    false
+  end
+
+  def update(*args)
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    errors[:db_level] << e
+    false
+  end
+
+  def create_or_update(*args)
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    errors[:db_level] << e
+    false
+  end
 
   def validate_username?
     validate_username.present? ? validate_username : false
@@ -127,6 +153,10 @@ class User < ActiveRecord::Base
     self.name = result
   end
 
+  def admin?
+    SchoolsAdmins.find_by_user_id(self.id).present?
+  end
+
   def self.find_by_username_or_email(login_name)
     login_name.downcase!
     User.where("email = ? OR username = ?", login_name, login_name).first
@@ -172,16 +202,19 @@ class User < ActiveRecord::Base
     role.teacher?
   end
 
-  def admin?
-    role.admin?
-  end
-
   def staff?
     role.staff?
   end
 
   def permanent?
     !role.temporary?
+  end
+
+  def admins_teachers
+    schools = self.admin_rights.includes(:users)
+    if schools.any?
+      schools.map{|school| school.users.ids}.flatten
+    end
   end
 
   def refresh_token!
