@@ -1,41 +1,40 @@
-'use strict';
-import React from 'react'
-import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx'
-import LoadingIndicator from '../shared/loading_indicator'
+import React from 'react';
+import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
+import LoadingIndicator from '../shared/loading_indicator';
+import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 export default React.createClass({
-  propTypes: {
-    data: React.PropTypes.object // may be absent if there is no next_activity (student has completed all assigned activities)
+
+  dataForActivityIconWithToolTip() {
+    return {
+      percentage: this.props.data.max_percentage,
+      activity_classification_id: this.props.data.activity_classification_id,
+    };
   },
-  //<div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
-  render: function () {
-    var result;
+
+  render() {
     if (this.props.data) {
-      const text = this.props.data.activity.activity_classification_id === 6 ? 'Join Lesson' : 'Start Activity'
-      result = (
-          <div className="next-activity">
-            <div className="next-activity-name">
-                <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
-                <p>{this.props.data.activity.name}</p>
-            </div>
-            <div className="start-activity-wrapper">
-              <a href={this.props.data.link}>
-                <button className='button-green pull-right'>{text}</button>
-              </a>
-            </div>
+      const text = this.props.data.activity_classification_id === '6' ? 'Join Lesson' : 'Start Activity';
+      return (
+        <div className="next-activity">
+          <div className="next-activity-name">
+            <ActivityIconWithTooltip data={this.dataForActivityIconWithToolTip()} context={'studentProfile'} placement={'bottom'} />
+            <p>{this.props.data.name}</p>
           </div>
-      )
+          <div className="start-activity-wrapper">
+            <a href={activityLaunchLink(this.props.data.ca_id)}>
+              <button className="button-green pull-right">{text}</button>
+            </a>
+          </div>
+        </div>
+      );
     } else if (this.props.loading) {
-      result = <LoadingIndicator/>
-    } else if (this.props.hasActivities){
-      result = <span/>
-    } else {
-      result = <div className="container">
-        <p style={{fontSize: '18px', margin: '2em'}}>Your teacher hasn't assigned any activities to you yet.</p>
-      </div>
-
+      return (<LoadingIndicator />);
+    } else if (this.props.hasActivities) {
+      return (<span />);
     }
-    return result;
-
-  }
-})
+    return (<div className="container">
+      <p style={{ fontSize: '18px', margin: '2em', }}>Your teacher hasn't assigned any activities to you yet.</p>
+    </div>);
+  },
+});

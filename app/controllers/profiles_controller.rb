@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
 
   def student_profile_data
     if current_user.classrooms.any?
-      render json: {scores: student_profile_data_sql(params[:current_classroom_id]), student: student_data}
+      render json: {scores: student_profile_data_sql(params[:current_classroom_id]), next_activity_session: next_activity_session, student: student_data}
     else
       render json: {error: 'Current user has no classrooms'}
     end
@@ -111,8 +111,14 @@ protected
     GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
             unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
             activity.activity_classification_id, activity.repeatable
-    ORDER BY max_percentage ASC, unit.created_at DESC, ca.created_at DESC
+    ORDER BY pinned DESC, locked ASC, max_percentage DESC, unit.created_at ASC, ca.created_at ASC
             ").to_a
+  end
+
+  def next_activity_session
+    if @act_sesh_records.any?
+      @act_sesh_records.first[:max_percentage] ? nil : @act_sesh_records.first
+    end
   end
 
   def get_parsed_mobile_profile_data(classroom_id)
