@@ -12,37 +12,28 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
 
   let!(:students_requester) {
     lambda do |course_id|
-      x = {
-            "students":
-            [
-              {"courseId":"455798942",
-               "userId":"107708392406225674265",
-               "profile":
-                  {"id":"107708392406225674265",
-                   "name":
-                    {"givenName":"test1_s1",
-                     "familyName":"s1",
-                     "fullName":"test1_s1 s1"},
-                    "emailAddress":"test1_s1@gedu.demo.rockerz.xyz"
-                  }
+      x = [{
+          "profile": {
+              "id": "107708392406225674265",
+              "name": {
+                  "givenName": "test1_s1",
+                  "familyName": "s1",
+                  "fullName": "test1_s1 s1"
               },
-              {"courseId":"2",
-               "userId":"2",
-               "profile":
-                  {"id":"2",
-                   "name":
-                    {"givenName":"test1_s2",
-                     "familyName":"s2",
-                     "fullName":"test1_s2 s2"},
-                    "emailAddress":"test1_s2@gedu.demo.rockerz.xyz"
-                  }
-              }
-            ]
-      }
-      body = x.to_json
-      Response = Struct.new(:body)
-      response = Response.new(body)
-      return response
+              "emailAddress": "test1_s1@gedu.demo.rockerz.xyz"
+          }
+      }, {
+          "profile": {
+              "id": "2",
+              "name": {
+                  "givenName": "test1_s2",
+                  "familyName": "s2",
+                  "fullName": "test1_s2 s2"
+              },
+              "emailAddress": "test1_s2@gedu.demo.rockerz.xyz"
+          }
+      }]
+      body = JSON.parse(x.to_json)
     end
   }
 
