@@ -110,8 +110,6 @@ RailsAdmin.config do |config|
     end
   end
 
-
-
   config.model SchoolSubscription do
     field :school do
       searchable [:name, :zipcode]
@@ -124,4 +122,19 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model SchoolsAdmins do
+    field :user do
+      searchable [:email, :username]
+      sortable :email
+        Proc.new { |scope|
+          scope = scope.where(role: ['teacher','admin'])
+        }
+    end
+    field :school do
+      searchable [:name, :zipcode]
+        Proc.new { |scope|
+          scope = scope.where(role: ['teacher','admin'])
+        }
+    end
+  end
 end

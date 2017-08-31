@@ -17,7 +17,6 @@ class ActivitySession < ActiveRecord::Base
 
   validate :correctly_assigned, :on => :create
 
-  accepts_nested_attributes_for :concept_results, :reject_if => proc { |cr| Concept.where(uid: cr[:concept_uid]).empty? }
 
   ownable :user
 
@@ -211,8 +210,6 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def invalidate_activity_session_count_if_completed
-    if self.state == 'not validated'
-    end
     classroom_id = self.classroom_activity&.classroom_id
     if self.state == 'finished' && classroom_id
       $redis.del("classroom_id:#{classroom_id}_completed_activity_count")

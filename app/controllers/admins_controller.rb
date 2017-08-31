@@ -1,19 +1,14 @@
 class AdminsController < ApplicationController
   before_action :admin!
-  before_action :set_teacher, only: [:sign_in_classroom_manager,
+  before_action :set_teacher, :admin_of_this_teacher!, :sign_in,
+                only: [:sign_in_classroom_manager,
                                      :sign_in_progress_reports,
                                      :sign_in_account_settings]
 
-  before_action :admin_of_this_teacher!, only: [:sign_in_classroom_manager,
-                                                :sign_in_progress_reports,
-                                                :sign_in_account_settings]
 
-  before_action :sign_in, only: [:sign_in_classroom_manager,
-                                 :sign_in_progress_reports,
-                                 :sign_in_account_settings]
 
   def show
-    render json: Admin::AdminSerializer.new(current_user, root: false)
+    render json: UserAdminSerializer.new(current_user, root: false)
   end
 
   def sign_in_classroom_manager
@@ -35,7 +30,7 @@ class AdminsController < ApplicationController
   end
 
   def admin_of_this_teacher!
-    return if current_user.admin_accounts.first.teachers.include?(@teacher)
+    return if SchoolsAdmins.where(user_id: current_user.id, school_id: @teacher.school.id).limit(1).exists?
     auth_failed
   end
 
