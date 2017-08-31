@@ -20,10 +20,9 @@ example result of JSON.parse(response.body) :
 
 =end
 
-  def self.run(response)
-    x = JSON.parse(response.body)
-    return [] if x['students'].nil?
-    student_data = x['students'].map do |hash|
+  def self.run(students)
+    return [] if !students || !students.length
+    student_data = students.map do |hash|
       self.parse_hash(hash)
     end
   end

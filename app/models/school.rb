@@ -3,6 +3,7 @@ class School < ActiveRecord::Base
   has_one :subscription, through: :school_subscription
   has_many :schools_users,  class_name: 'SchoolsUsers'
   has_many :users, through: :schools_users
+  has_many :schools_admins, class_name: 'SchoolsAdmins'
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade

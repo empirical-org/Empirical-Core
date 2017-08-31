@@ -165,8 +165,12 @@ module Teacher
     end
   end
 
-  def is_trial_expired?
+  def subscription_is_expired?
     subscription && subscription.expiration < Date.today
+  end
+
+  def subscription_is_valid?
+    subscription && subscription.expiration > Date.today
   end
 
   def teachers_activity_sessions_since_trial_start_date
@@ -193,6 +197,10 @@ module Teacher
     end
   end
 
+  def has_premium?
+
+  end
+
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
     if part_of_admin_account?
@@ -203,7 +211,7 @@ module Teacher
       elsif is_premium?
         ## returns 'trial' or 'paid'
         subscription.trial_or_paid
-      elsif is_trial_expired?
+      elsif subscription_is_expired?
         "locked"
       end
     else
