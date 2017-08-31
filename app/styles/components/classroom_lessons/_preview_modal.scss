@@ -24,6 +24,7 @@
   text-align: center;
   padding: 40px;
   .exit {
+    cursor: pointer;
     right: 12px;
     top: 12px;
     position: absolute;
@@ -53,6 +54,7 @@
     font-weight: bold;
     border: none;
     margin: 15 0;
+    cursor: pointer;
   }
 
   a {
