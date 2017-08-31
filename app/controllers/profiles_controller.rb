@@ -95,9 +95,10 @@ protected
        MAX(acts.updated_at) AS act_sesh_updated_at,
        ca.due_date,
        ca.created_at AS classroom_activity_created_at,
+       ca.locked,
+       ca.pinned,
        MAX(acts.percentage) AS max_percentage,
        SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
-    -- include ca.locked and ca.pinned
     FROM activity_sessions AS acts
     JOIN classroom_activities AS ca ON ca.id = acts.classroom_activity_id
     JOIN units AS unit ON unit.id = ca.unit_id

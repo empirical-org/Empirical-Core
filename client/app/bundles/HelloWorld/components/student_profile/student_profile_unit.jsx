@@ -8,10 +8,6 @@ export default React.createClass({
   },
 
   render() {
-    /*
-    completed activities is just another fake table under unstarted activities
-    */
-
     const arr = [{ data: this.props.data.incomplete, header: 'Assigned Activities', finished: false, },
            { data: this.props.data.complete, header: 'Completed Activities', finished: true, }];
 
@@ -21,7 +17,7 @@ export default React.createClass({
       return acc;
     }, 0);
     const extant = this.props.data.incomplete ? this.props.data.incomplete[0] : this.props.data.complete[0];
-    const activities = _.map(compacted, ele => <StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} finished={ele.complete} />);
+    const activities = compacted.map(ele => <StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} finished={ele.complete} />);
     return (
       <section>
         <h3 className="section-header">{extant.unit_name}</h3>
