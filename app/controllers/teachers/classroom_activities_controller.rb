@@ -8,6 +8,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   before_filter :authorize_student!, :only => ["activity_from_classroom_activity"]
 
 
+
   def update
     cas = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
     cas.each{ |ca| ca.try(:update_attributes, classroom_activity_params)}
