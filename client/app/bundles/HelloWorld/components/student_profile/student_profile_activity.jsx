@@ -1,7 +1,9 @@
 import React from 'react';
+
 import moment from 'moment';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
+
 
 export default React.createClass({
   propTypes: {
@@ -36,6 +38,7 @@ export default React.createClass({
     }
     return <a href={activityLaunchLink(this.props.data.ca_id)}>{linkText}</a>;
   },
+
 
   render() {
     return (

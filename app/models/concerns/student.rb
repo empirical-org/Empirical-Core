@@ -34,7 +34,7 @@ module Student
       activity_sessions.completed
                         .where(is_final_score: true)
     end
-    
+
     def percentages_by_classification(unit = nil)
 
       if unit.nil?
