@@ -59,7 +59,7 @@ export default class ClassroomLessons extends React.Component {
           <a href="/tool/lessons" className="bg-white text-quillgreen">Learn More</a>
         </div>
       </div>
-      <img src={`${process.env.CDN_URL}/assets/images/illustrations/empty_state_illustration_lessons.svg`} />
+      <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
     </div>
   }
 
