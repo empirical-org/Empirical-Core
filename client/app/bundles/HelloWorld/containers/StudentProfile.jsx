@@ -29,7 +29,11 @@ export default React.createClass({
   },
 
   loadProfile(data) {
-    this.setState({ loading: false, scores: data.scores, student: data.student, }, () => this.initializePusher());
+    this.setState({ nextActivitySession: data.next_activity_session,
+      loading: false,
+      scores: data.scores,
+      student: data.student, },
+      () => this.initializePusher());
   },
 
   initializePusher() {
@@ -51,7 +55,7 @@ export default React.createClass({
         <div id="student-profile">
           <StudentClassroomNavbar data={this.state.student} fetchData={this.fetchData} loading={this.state.loading} />
           <StudentProfileHeader studentName={this.state.student.name} classroomName={this.state.student.classroom.name} teacherName={this.state.student.classroom.teacher.name} />
-          <NextActivity data={this.state.next_activity_session} loading={this.state.loading} hasActivities={!(_.isEmpty(this.state.grouped_scores))} />
+          <NextActivity data={this.state.nextActivitySession} loading={this.state.loading} hasActivities={this.state.scores.length > 0} />
           <StudentProfileUnits data={this.state.scores} loading={this.state.loading} />
         </div>
       );
