@@ -54,7 +54,7 @@ tools: function() {
     link='/teachers/classrooms/assign_activities/create-unit?tool=diagnostic'
     name='Quill Diagnostic'
     description='Identify Learning Gaps'
-    imgSrc={`${process.env.CDN_URL}/assets/images/icons/diagnostic-light-gray.svg`}
+    imgSrc={`${process.env.CDN_URL}/images/icons/diagnostic-light-gray.svg`}
   />,
   userFlag === 'beta'
   ? <LessonTypeMini
@@ -62,7 +62,7 @@ tools: function() {
     link='/teachers/classrooms/assign_activities/create-unit?tool=lessons'
     name='Quill Lessons'
     description='Shared Group Lessons'
-    imgSrc={`${process.env.CDN_URL}/assets/images/icons/lessons-light-gray.svg`}
+    imgSrc={`${process.env.CDN_URL}/images/icons/lessons-light-gray.svg`}
   />
   : null,
   <LessonTypeMini
@@ -70,21 +70,21 @@ tools: function() {
     link='/teachers/classrooms/assign_activities/create-unit?tool=connect'
     name='Quill Connect'
     description='Combine Sentences'
-    imgSrc={`${process.env.CDN_URL}/assets/images/icons/connect-light-gray.svg`}
+    imgSrc={`${process.env.CDN_URL}/images/icons/connect-light-gray.svg`}
   />,
   <LessonTypeMini
     key={'grammmar'}
     link='/teachers/classrooms/assign_activities/create-unit?tool=sentence'
     name='Quill Grammar'
     description='Practice Basic Grammar'
-    imgSrc={`${process.env.CDN_URL}/assets/images/icons/grammar-light-gray.svg`}
+    imgSrc={`${process.env.CDN_URL}/images/icons/grammar-light-gray.svg`}
   />,
   <LessonTypeMini
     key={'proofreader'}
     link='/teachers/classrooms/assign_activities/create-unit?tool=passage'
     name='Quill Proofreader'
     description='Find and Fix Errors in Passages'
-    imgSrc={`${process.env.CDN_URL}/assets/images/icons/proofreader-light-gray.svg`}
+    imgSrc={`${process.env.CDN_URL}/images/icons/proofreader-light-gray.svg`}
   />,
   <div key='superfluous element' style={{width: '300px', height: '0px'}}>
   </div>
