@@ -11,24 +11,19 @@ export default React.createClass({
   render: function () {
     var result;
     if (this.props.data) {
+      const text = this.props.data.activity.activity_classification_id === 6 ? 'Join Lesson' : 'Start Activity'
       result = (
-        <div className="container">
-          <section className="next-activity">
-            <div className="row">
-              <div className="col-xs-12 col-sm-7 col-xl-7">
+          <div className="next-activity">
+            <div className="next-activity-name">
                 <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
-                <div className="icons-description-wrapper">
-                  <p className="title title-v-centered">{this.props.data.activity.name}</p>
-                </div>
-              </div>
-              <div className="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
-                <a href={this.props.data.link}>
-                  <button className='button-green pull-right'>Start Your Next Activity</button>
-                </a>
-              </div>
+                <p>{this.props.data.activity.name}</p>
             </div>
-          </section>
-        </div>
+            <div className="start-activity-wrapper">
+              <a href={this.props.data.link}>
+                <button className='button-green pull-right'>{text}</button>
+              </a>
+            </div>
+          </div>
       )
     } else if (this.props.loading) {
       result = <LoadingIndicator/>

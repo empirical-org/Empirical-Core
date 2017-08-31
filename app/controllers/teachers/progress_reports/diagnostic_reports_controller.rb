@@ -1,5 +1,6 @@
 class Teachers::ProgressReports::DiagnosticReportsController < Teachers::ProgressReportsController
     include PublicProgressReports
+    include LessonsRecommendations
     require 'pusher'
 
     def show
@@ -21,7 +22,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def recommendations_for_classroom
-        render json: get_recommendations_for_classroom(params[:classroom_id], params[:activity_id])
+        render json: get_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
+    end
+
+    def lesson_recommendations_for_classroom
+        render json: {lessonsRecommendations: get_recommended_lessons(params[:unit_id], params[:classroom_id], params[:activity_id])}
     end
 
     def previously_assigned_recommendations
@@ -55,21 +60,24 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       render json: {diagnosticStatus: diagnostic_status}
     end
 
-
     private
 
     def create_or_update_selected_packs
-        teacher_id = current_user.id
-        selections_with_students = params["selections"].select do |ut|
-          ut["classrooms"][0]["student_ids"].any?
-        end
-        if selections_with_students.any?
-          number_of_selections = selections_with_students.length
-          selections_with_students.reverse.each_with_index do |value, index|
-              last = (number_of_selections - 1) == index
-              # this only accommodates one classroom at a time
-              classroom = value["classrooms"][0]
-              AssignRecommendationsWorker.perform_async(value["id"], classroom["id"], classroom["student_ids"], last)
+        if params[:whole_class]
+          UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
+        else
+          teacher_id = current_user.id
+          selections_with_students = params["selections"].select do |ut|
+            ut["classrooms"][0]["student_ids"].any?
+          end
+          if selections_with_students.any?
+            number_of_selections = selections_with_students.length
+            selections_with_students.reverse.each_with_index do |value, index|
+                last = (number_of_selections - 1) == index
+                # this only accommodates one classroom at a time
+                classroom = value["classrooms"][0]
+                AssignRecommendationsWorker.perform_async(value["id"], classroom["id"], classroom["student_ids"].compact, last)
+            end
           end
         end
     end
