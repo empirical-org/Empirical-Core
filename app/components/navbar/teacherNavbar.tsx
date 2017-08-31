@@ -72,7 +72,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   launchProjector() {
-    window.open(window.location.href.replace('teach', 'play').concat('&projector=true'), '_blank')
+    window.open(window.location.href.replace('teach', 'play').concat('&projector=true'), 'newwindow', `width=${window.innerWidth},height=${window.innerHeight}`)
   }
 
   renderTooltip(icon:string) {

@@ -16,6 +16,7 @@ import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
 import CLExit from './exit';
+import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
@@ -42,6 +43,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
     this.easyJoinDemo = this.easyJoinDemo.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.hideProjectorModal = this.hideProjectorModal.bind(this)
   }
 
   componentDidMount() {
@@ -58,7 +60,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student');
     const npCSData = nextProps.classroomSessions.data
     if (npCSData.assignedStudents && npCSData.assignedStudents.includes(student) && npCSData.followUpUrl) {
@@ -74,7 +76,9 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       const projector = getParameterByName('projector')
       const { data, hasreceiveddata } = this.props.classroomSessions;
       if (projector === "true") {
-        this.setState({projector: true})
+        if (!this.state.projector) {
+          this.setState({projector: true, showProjectorModal: true})
+        }
       } else if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
         registerPresence(classroom_activity_id, student);
       } else {
@@ -109,6 +113,16 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     }
   }
 
+  renderProjectorModal() {
+    if (this.state.projector && this.state.showProjectorModal) {
+      return <ProjectorModal closeModal={this.hideProjectorModal} />
+    }
+  }
+
+  hideProjectorModal() {
+    this.setState({showProjectorModal: false})
+  }
+
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
     const current = lessonData.questions[data.current_slide];
     const prompt = data.prompts && data.prompts[data.current_slide] ? data.prompts[data.current_slide] : null;
@@ -119,38 +133,36 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
     const projector = this.state.projector
     const props = { mode, submissions, selected_submissions, selected_submission_order, projector};
+    let slide
     switch (current.type) {
       case 'CL-LB':
-        return (
-          <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title}/>
-        );
+        slide = <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title}/>
+        break
       case 'CL-ST':
-        return (
-          <CLStudentStatic key={data.current_slide} data={current.data} />
-        );
+        slide = <CLStudentStatic key={data.current_slide} data={current.data} />
+        break
       case 'CL-MD':
-        return (
-          <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt}/>
-        );
+        slide = <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt}/>
+        break
       case 'CL-SA':
-        return (
-          <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
-        );
+        slide = <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+        break
       case 'CL-FB':
-        return (
-          <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
-        );
+        slide = <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+        break
       case 'CL-FL':
-        return (
-          <CLListBlanks key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
-        );
+        slide = <CLListBlanks key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+        break
       case 'CL-EX':
-        return (
-          <CLStudentStatic key={data.current_slide} data={current.data} />
-        );
+        slide = <CLStudentStatic key={data.current_slide} data={current.data} />
+        break
       default:
 
     }
+    return <div>
+      {this.renderProjectorModal()}
+      {slide}
+    </div>
   }
 
   handleChange(e) {
