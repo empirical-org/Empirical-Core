@@ -33,7 +33,7 @@ export default React.createClass({
   isActive: function(id, index) {
     if (id === this.state.selectedClassroomId) {
      return 'active';
-     }
+    }
   },
 
   handleClassroomClick: function(classroomId) {

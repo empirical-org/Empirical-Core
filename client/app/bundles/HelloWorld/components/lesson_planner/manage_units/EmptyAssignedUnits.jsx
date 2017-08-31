@@ -10,7 +10,7 @@
   },
 
   handleClick() {
-    window.location = '/teachers/classrooms/activity_planner/assign-new-activity'
+    window.location = '/teachers/classrooms/assign_activities'
   },
 
    render: function () {

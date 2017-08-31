@@ -7,14 +7,10 @@ export default React.createClass({
     data: React.PropTypes.object.isRequired,
   },
 
-  renderStartButton() {
-    let linkText;
-    if (!this.props.data.repeatable && this.props.data.max_percentage) {
-      return (<p className="title-v-centered text-right">Completed</p>);
-    } else if (this.props.data.max_percentage) {
-      linkText = 'Replay Activity';
-    } else if (this.props.data.state == 'started') {
-      linkText = 'Resume Activity';
+    } else if (this.props.data.locked) {
+      return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
+    } else if (this.props.data.activity.activity_classification_id === 6) {
+      linkText = 'Join Lesson'
     } else {
       linkText = 'Start Activity';
     }
@@ -44,7 +40,7 @@ export default React.createClass({
           </div>
           <span className="row-list-end">
             {this.renderDueDate()}
-            {this.renderStartButton()}
+            {this.renderStartButtonOrLockMessage()}
           </span>
         </div>
       </div>

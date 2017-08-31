@@ -1,6 +1,6 @@
 class Teachers::UnitsController < ApplicationController
   include Units
-  include EditUnits
+  include UnitQueries
 
   respond_to :json
   before_filter :teacher!
@@ -73,7 +73,31 @@ class Teachers::UnitsController < ApplicationController
     else
       render json: {errors: 'Unit not found'}, status: 422
     end
+  end
 
+  def lesson_info_for_unit_and_activity
+    unit = Unit.find_by(id: params[:unit_id])
+    activity = Activity.find_by(id: params[:activity_id])
+    if unit && activity
+      render json: {classroom_activities: get_classroom_activities_for_activity(unit, params[:activity_id]), activity_name: activity.name}
+    elsif !activity
+      render json: {errors: 'Activity not found'}, status: 422
+    else
+      render json: {errors: 'Unit not found'}, status: 422
+    end
+  end
+
+  def launch_lesson_with_activity_id
+    unit = Unit.find_by(id: params[:unit_id])
+    activity_id = params[:activity_id]
+    classroom_activities = unit.classroom_activities.where(activity_id: activity_id)
+    if classroom_activities.length == 1
+      ca_id = classroom_activities.first.id
+      lesson_uid = Activity.find(activity_id).uid
+      redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
+    else
+      redirect_to "/teachers/classrooms/activity_planner/lessons/#{activity_id}/unit/#{unit.id}"
+    end
   end
 
   def index
@@ -84,6 +108,12 @@ class Teachers::UnitsController < ApplicationController
   def diagnostic_units
     diagnostic_activity_ids = [413, 447]
     cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).where(classroom_activities: {activity_id: diagnostic_activity_ids}).map(&:classroom_activities).flatten
+    render json: units(cas).to_json
+  end
+
+  def lesson_units
+    lesson_activity_ids = Activity.where(activity_classification_id: 6).map(&:id)
+    cas = Classroom.where(id: params[:classroom_id]).includes(:students, classroom_activities: [{activity: :classification}, :topic]).where(classroom_activities: {activity_id: lesson_activity_ids}).map(&:classroom_activities).flatten
     render json: units(cas).to_json
   end
 

@@ -1,0 +1,217 @@
+<section class="tool-header">
+  <%= render partial: 'pages/shared/home_navbar' %>
+  <% @active_tab = 'Quill Lessons' %>
+  <% @tool = 'lessons' %>
+  <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
+</section>
+
+<div class="tool-container lessons-tool-page">
+
+    <section class='tool-hero text-center bg-lessons-purple'>
+        <h1 class="q-h1">
+            <img class="tool-page-icon" src=<%= "#{ENV['CDN_URL']}/images/shared/icon_lessons_white.svg" %>>Quill Lessons
+        </h1>
+        <p class='description'>
+          Lead whole-class direct instruction with interactive lesson plans. Quill Lessons provides teachers with lesson plans that include whole-class Quill activities and prompts for teacher modeling. Teachers can lead class-wide discussions by displaying students’ answers in real-time.
+        </p>
+        <!-- TODO get a real link here -->
+        <a href='https://quillconnect.firebaseapp.com/#/play/lessons/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-lessonspurple">Try Quill Lessons Now</a>
+    </section>
+
+    <section class="tool-animation-section " id="overview">
+      <video class='tool-animation' src=<%= "#{ENV['CDN_URL']}/assets/videos/tools/lessons.mp4" %> autoplay loop></video>
+    </section>
+
+    <section class="walk-thru-wrapper desktop" id="how-it-works">
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_1.svg" %> alt="lessons image">
+                <div class="blurb">
+                    <h2>Class-Wide Interactive Activities</h2>
+                    <p>
+                      Quill Lessons provides a series of interactive slides that allows the entire class to work on the activities with their teacher. Your students will answer the questions on their devices and you will be able to project the answers back to the class and lead a class discussion.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_2.svg" %> alt="lessons image">
+                <div class="blurb">
+                    <h2>Lead The Lesson</h2>
+                    <p>
+                      Each slide contains a step-by-step guide to help you introduce grammar concepts. The step-by-step guide also includes suggestions on how to discuss students’ answers and how to model strong writing skills to the students.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img class='negative-left-margin' src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_3.svg" %> alt="lessons image">
+                <div class="blurb">
+                    <h2>Discuss Student Answers</h2>
+                    <p>
+                      See your student answers in real-time, and facilitate a conversation by selecting both strong and weak answers to project to the class. As a class, students can discuss why certain sentences are stronger than others.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_4.svg" %> alt="lessons image">
+                <div class="blurb">
+                    <h2>Identify Students For Small Group</h2>
+                    <p>
+                      When the students respond, you can click on the “flag” button to select students who may need extra support. At the end of the lesson, you can pull aside the flagged students for small group instruction.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
+        <div class="walk-thru-step">
+            <div class="content-wrapper">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_1.svg" %> alt="lessons image">
+                <div class="blurb">
+                  <h2>Class-Wide Interactive Activities</h2>
+                  <p>
+                    Quill Lessons provides a series of interactive slides that allows the entire class to work on the activities with their teacher. Your students will answer the questions on their devices and you will be able to project the answers back to the class and lead a class discussion.
+                  </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step">
+            <div class="content-wrapper">
+                <img id='shrink-me' src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_2.svg" %> alt="lessons image">
+                <div class="blurb">
+                  <h2>Lead The Lesson</h2>
+                  <p>
+                    Each slide contains a step-by-step guide to help you introduce grammar concepts. The step-by-step guide also includes suggestions on how to discuss students’ answers and how to model strong writing skills to the students.
+                  </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step">
+            <div class="content-wrapper">
+                <img id='shrink-me' src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_3.svg" %> alt="lessons image">
+                <div class="blurb">
+                  <h2>Discuss Student Answers</h2>
+                  <p>
+                    See your student answers in real-time, and facilitate a conversation by selecting both strong and weak answers to project to the class. As a class, students can discuss why certain sentences are stronger than others.
+                  </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step">
+            <div class="content-wrapper">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_intro_slide_4.svg" %> alt="lessons image">
+                <div class="blurb">
+                  <h2>Identify Students For Small Group</h2>
+                  <p>
+                    When the students respond, you can click on the “flag” button to select students who may need extra support. At the end of the lesson, you can pull aside the flagged students for small group instruction.
+                  </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tool-carousel" id="walkthrough">
+        <div id="lessonsCarousel" class="carousel slide" data-ride="carousel">
+
+            <a class="left carousel-control" href="#lessonsCarousel" role="button" data-slide="prev">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_screenshot_1.png" %> alt="Chania">
+                  </div>
+                  <p>Teachers can use the step by step guide to introduce a grammar concept and model strong sentence construction skills.</p>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_screenshot_2.png" %> alt="Chania">
+                  </div>
+                  <p>Interactive slides allow students to answer open-ended questions, combine sentences, and write paragraphs that can be shared with the whole class.</p>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_screenshot_3.png" %> alt="Chania">
+                  </div>
+                  <p>As students answer questions, the teacher can view and select student responses to display to the class. The teacher can also flag students who may need extra support or small group instruction.</p>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_screenshot_4.png" %> alt="Chania">
+                  </div>
+                  <p>Students can compare their answers with selected class answers. The teacher and the students can discuss how to make the sentences stronger.</p>
+                </div>
+                <div class="item">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/lessons/lessons_screenshot_5.png" %> alt="Chania">
+                  </div>
+                  <p>Each lesson includes a follow-up independent practice activity to reinforce the in-class lesson. Teachers can select how they would like to assign practice at the end of the lesson.</p>
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+
+            <a class="right carousel-control" href="#lessonsCarousel" role="button" data-slide="next">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#lessonsCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#lessonsCarousel" data-slide-to="1"></li>
+                <li data-target="#lessonsCarousel" data-slide-to="2"></li>
+                <li data-target="#lessonsCarousel" data-slide-to="3"></li>
+                <li data-target="#lessonsCarousel" data-slide-to="4"></li>
+            </ol>
+
+        </div>
+    </section>
+
+    <section class="tool-try-it bg-lessons-purple bg-image-lessons-pattern">
+        <h2 class='q-h1'>Try It Out for Yourself</h2>
+        <!-- TODO get real link here -->
+        <a href='https://quillconnect.firebaseapp.com/#/play/lessons/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-lessonspurple">Preview the Lessons</a>
+    </section>
+
+    <section class="tool-testimonial" id="testimonial">
+        <p class='quote'>
+            “Thanks again for this tool. The length of lessons, the quality of writing, and the immediate feedback make this one of the best tools (and by far the best free tool) I’ve ever had for teaching and practicing grammar with my students.”
+        </p>
+        <h4 class="q-h4 author">
+            <span>Sean Martin,</span> City Neighbors High School
+        </h4>
+    </section>
+
+    <%= react_component('LessonsQuestionsAndAnswersApp', props: {})%>
+
+    <!-- Only show if user is not logged in  -->
+      <% if !current_user %>
+        <section class="tool-sign-up">
+            <h1 class='q-h1'>
+                Sign up to start using Quill Lessons in your class today!
+            </h1>
+            <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+        </section>
+
+      <% else %>
+      <section class="tool-sign-up">
+          <h1 class='q-h1'>
+              Get started now! Assign Quill Lessons.
+          </h1>
+          <a href='/teachers/classrooms/assign_activities/create-unit?tool=lessons' class="q-button cta-button bg-quillgreen text-white">Assign</a>
+      </section>
+      <% end %>
+
+</div>
+
+<%= render partial: 'pages/shared/footer' %>

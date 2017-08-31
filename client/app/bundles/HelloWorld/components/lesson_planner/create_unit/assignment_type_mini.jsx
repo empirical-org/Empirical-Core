@@ -42,10 +42,6 @@ export default React.createClass({
       }
     },
 
-    changeView: function() {
-      this.props.toggleTab(this.props.toggleTarget);
-    },
-
     render: function() {
         var unit = this.props.unit;
         let count = (this.props.quantity || this.state.count);
@@ -54,7 +50,7 @@ export default React.createClass({
           countCopy = count + ' ' + Pluralize(unit, count)
         }
         return (
-          <div className='assignment-type-mini' key={this.props.title} onClick={this.changeView}>
+          <div className='assignment-type-mini' key={this.props.title} onClick={() => window.location = this.props.link}>
             <h3>{this.props.title}</h3>
             <img src={this.props.img} alt="assignment-type-image"/>
             <p className='overview'>{this.props.bodyText}</p>

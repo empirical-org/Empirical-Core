@@ -1,13 +1,13 @@
 import React from 'react'
-import UnitTabs from '../components/lesson_planner/unit_tabs.jsx'
+import MyActivitiesTabs from '../components/lesson_planner/my_activities_tabs.jsx'
 
 export default React.createClass({
 
   render: function() {
-    const unitTabs = this.props.location.pathname.includes('teachers') ? <UnitTabs pathname={this.props.location.pathname}/> : null
+    const tabs = this.props.location.pathname.includes('teachers') ? <MyActivitiesTabs pathname={this.props.location.pathname}/> : <span/>
     return (
       <div>
-        {unitTabs}
+        {tabs}
         {this.props.children}
       </div>)
    }
