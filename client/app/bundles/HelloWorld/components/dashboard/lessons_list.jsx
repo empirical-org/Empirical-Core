@@ -103,7 +103,7 @@ export default class extends React.Component {
           <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unit_id}/a/${activity_id}/c/${classroom_id}/recommendations`}>View and Assign Quill Recommendations </a>
         </div>
         <div className="no-assigned-lessons completed-diagnostic">
-          <img src={`${process.env.CDN_URL}/images/Illustrations/empty_state_lessons_launch_card.svg`} />
+          <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_lessons_launch_card.svg`} />
           <p>Based on your class performance on the diagnostic, your students need instructions in concepts such as <span className="recommendation">Complex Sentences</span>, <span className="recommendation">Fragments</span> and <span className="recommendation">Compound Sentences</span>.</p>
         </div>
       </div>
@@ -116,7 +116,7 @@ export default class extends React.Component {
           <a href="/teachers/classrooms/assign_activities/create-unit?tool=lessons">View and Assign Quill Lessons </a>
         </div>
         <div className="no-assigned-lessons">
-          <img src={`${process.env.CDN_URL}/images/Illustrations/empty_state_lessons_launch_card.svg`} />
+          <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_lessons_launch_card.svg`} />
           <p>Once you assign a shared group lesson, you can launch it from this window.</p>
           <p>Quill Lessons provides whole-class lessons that are led by the teacher.</p>
           <p>Select questions for your students and instantly see their responses. <a target="_blank" href="/tools/lessons">Learn More</a></p>
