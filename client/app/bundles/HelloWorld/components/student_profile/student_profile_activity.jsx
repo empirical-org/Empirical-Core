@@ -7,16 +7,6 @@ export default React.createClass({
     data: React.PropTypes.object.isRequired,
   },
 
-    } else if (this.props.data.locked) {
-      return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
-    } else if (this.props.data.activity.activity_classification_id === 6) {
-      linkText = 'Join Lesson'
-    } else {
-      linkText = 'Start Activity';
-    }
-    return <a href={this.props.data.link}>{linkText}</a>;
-  },
-
   renderDueDate() {
     return this.props.data.due_date ? <span className="due-date">{moment(this.props.data.due_date).format('MM-DD-YYYY')}</span> : <span />;
   },
@@ -26,6 +16,24 @@ export default React.createClass({
       percentage: this.props.data.max_percentage,
       activity_classification_id: this.props.data.activity_classification_id,
     };
+  },
+
+  renderStartButtonOrLockMessage() {
+    let linkText;
+    if (this.props.data.repeatable === 'f' && this.props.max_percentage) {
+      return (<p className="title-v-centered text-right">Completed</p>);
+    } else if (this.props.data.locked === 't') {
+      return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
+    } else if (this.props.max_percentage) {
+      linkText = 'Replay Activity';
+    } else if (this.props.data.state === 'started') {
+      linkText = 'Resume Activity';
+    } else if (this.props.data.activity_classification_id === 6) {
+      linkText = 'Join Lesson';
+    } else {
+      linkText = 'Start Activity';
+    }
+    return <a href={this.props.data.link}>{linkText}</a>;
   },
 
   render() {
