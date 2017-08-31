@@ -30,7 +30,8 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   def launch_lesson
     completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
     lesson = Activity.find_by(uid: params['lesson_uid']) || Activity.find_by(id: params['lesson_uid'])
-    lesson_url = "https://connect.quill.org/#/teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    base_route = lesson.classification.form_url
+    lesson_url = "#{base_route}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
     if completed
       unlocked = @classroom_activity.update(locked: false, pinned: true)
       if unlocked

@@ -35,7 +35,8 @@ class ActivitiesController < ApplicationController
 
   def preview_lesson
     lesson = Activity.find_by(id: params[:lesson_id]) || Activity.find_by(uid: params[:lesson_id])
-    preview_url = "https://connect.quill.org/#/teach/class-lessons/#{lesson.uid}/preview"
+    base_route = lesson.classification.form_url
+    preview_url = "#{base_route}teach/class-lessons/#{lesson.uid}/preview"
     if current_user
       completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
       if completed
