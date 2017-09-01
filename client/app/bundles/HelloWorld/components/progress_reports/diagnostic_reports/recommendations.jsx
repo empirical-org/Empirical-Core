@@ -129,32 +129,24 @@ export default React.createClass({
   },
 
   assignToWholeClass(unitTemplateId) {
-    let newObj = Object.assign({}, this.state);
-    newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
-    this.setState(newObj, () => {
-      const that = this;
-      that.state.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId);
-      $.ajax({
-        type: 'POST',
-        url: '/teachers/progress_reports/assign_selected_packs/',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
-      })
-      .done(() => {
-        newObj = Object.assign({}, that.state);
-        newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
-        that.setState(newObj);
-        this.initializePusher();
-      })
-      .fail(() => {
-        alert('We had trouble processing your request. Please check your network connection and try again.');
-        // this.setState({ assigning: false, });
-      });
+    const that = this;
+    $.ajax({
+      type: 'POST',
+      url: '/teachers/progress_reports/assign_selected_packs/',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
+    })
+    .done(() => {
+      this.initializePusher(unitTemplateId);
+    })
+    .fail(() => {
+      alert('We had trouble processing your request. Please check your network connection and try again.');
+      // this.setState({ assigning: false, });
     });
   },
 
-  initializePusher() {
+  initializePusher(unitTemplateId) {
     if (process.env.NODE_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -162,10 +154,18 @@ export default React.createClass({
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(this.props.params.classroomId);
     const that = this;
-    channel.bind('recommendations-assigned', (data) => {
-      that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId);
-      that.setState({ assigning: false, assigned: true, });
-    });
+    if (unitTemplateId) {
+      channel.bind(`${unitTemplateId}-lesson-assigned`, (data) => {
+        const newObj = Object.assign({}, that.state);
+        newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
+        that.setState(newObj);
+      })
+    } else {
+      channel.bind('personalized-recommendations-assigned', (data) => {
+        that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId);
+        that.setState({ assigning: false, assigned: true, });
+      });
+    }
   },
 
   renderExplanation() {
