@@ -1,19 +1,23 @@
 class LessonRecommendations
     def rec_activities(rec_id)
-      UnitTemplate.find(rec_id).activities.map {|act| {name: act.name, url: 'placeholder_url'}}
+      UnitTemplate.find(rec_id).activities.map do |act|
+        base_route = act.classification.form_url
+        url = "#{base_route}teach/class-lessons/#{act.uid}/preview"
+        {name: act.name, url: url}
+      end
     end
 
     def previous_unit_names(classroom_id)
-      Unit.joins(:classroom_activities)
-      .where("classroom_activities.classroom_id = ?", classroom_id )
-      .pluck(:name)
+      ActiveRecord::Base.connection.execute("SELECT DISTINCT unit.name FROM units unit
+      LEFT JOIN classroom_activities as ca ON ca.unit_id = unit.id
+      WHERE ca.classroom_id = 43699").to_a.map {|e| e['name']}
     end
 
     def mark_previously_assigned(recs, classroom_id)
       # TODO: this needs to be able to handle when we have made the name
       # end in " | BETA"
       prev_names = previous_unit_names(classroom_id)
-      recs.each {|r| r[:previouly_assigned] = prev_names.include?(r["name"])}
+      recs.each { |r| r[:previously_assigned] = prev_names.include?(r[:recommendation]) }
       recs
     end
 
@@ -89,8 +93,8 @@ class LessonRecommendations
 
           {
               recommendation: 'Compound Sentences Lesson Pack',
-              activityPackId: 22,
-              activities: rec_activities(24),
+              activityPackId: 42,
+              activities: rec_activities(42),
               requirements: [
                   {
                       concept_id: 'GiUZ6KPkH958AT8S413nJg',
@@ -136,7 +140,7 @@ class LessonRecommendations
           },
 
           {
-              recommendation: 'Appositives and Modifying Phrases Lesson Pack',
+              recommendation: 'Appositive Phrases Lesson Pack',
               activityPackId: 44,
               activities: rec_activities(44),
               requirements: [
