@@ -1,0 +1,67 @@
+.projector-modal-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #969696;
+  .projector-modal {
+    width: 551px;
+    height: 555px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 55px;
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .illustration {
+      margin-bottom: 20px;
+    }
+    span {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 600px;
+      color: #3b3b3b;
+    }
+    p {
+      margin: 20 30 15;
+      font-size: 16px;
+      span {
+        font-weight: bold;
+      }
+    }
+    button {
+      width: 147px;
+    	height: 40px;
+    	border-radius: 3px;
+    	background-color: #00c2a2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    a {
+      margin-top: 15px;
+      margin-bottom: 40px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #027360;
+    }
+  }
+}
