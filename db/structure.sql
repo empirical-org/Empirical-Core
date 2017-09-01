@@ -1,9 +1,6 @@
---
--- PostgreSQL database dump
---
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -91,7 +88,8 @@ CREATE TABLE activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
-    repeatable boolean DEFAULT true
+    repeatable boolean DEFAULT true,
+    follow_up_activity_id integer
 );
 
 
@@ -138,7 +136,9 @@ CREATE TABLE activity_classifications (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     app_name character varying(255),
-    order_number integer DEFAULT 999999999
+    order_number integer DEFAULT 999999999,
+    instructor_mode boolean DEFAULT false,
+    locked_by_default boolean DEFAULT false
 );
 
 
@@ -411,7 +411,9 @@ CREATE TABLE classroom_activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     assigned_student_ids integer[],
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    locked boolean DEFAULT false,
+    pinned boolean DEFAULT false
 );
 
 
@@ -750,6 +752,37 @@ CREATE SEQUENCE ip_locations_id_seq
 --
 
 ALTER SEQUENCE ip_locations_id_seq OWNED BY ip_locations.id;
+
+
+--
+-- Name: milestones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE milestones (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE milestones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
 
 
 --
@@ -1452,6 +1485,38 @@ CREATE MATERIALIZED VIEW untitled_materialized_view AS
 
 
 --
+-- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE user_milestones (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    milestone_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: user_milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_milestones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_milestones_id_seq OWNED BY user_milestones.id;
+
+
+--
 -- Name: user_subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1636,6 +1701,13 @@ ALTER TABLE ONLY ip_locations ALTER COLUMN id SET DEFAULT nextval('ip_locations_
 
 
 --
+-- Name: milestones id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_seq'::regclass);
+
+
+--
 -- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1759,6 +1831,13 @@ ALTER TABLE ONLY unit_templates ALTER COLUMN id SET DEFAULT nextval('unit_templa
 --
 
 ALTER TABLE ONLY units ALTER COLUMN id SET DEFAULT nextval('units_id_seq'::regclass);
+
+
+--
+-- Name: user_milestones id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_milestones ALTER COLUMN id SET DEFAULT nextval('user_milestones_id_seq'::regclass);
 
 
 --
@@ -1928,6 +2007,14 @@ ALTER TABLE ONLY ip_locations
 
 
 --
+-- Name: milestones milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY milestones
+    ADD CONSTRAINT milestones_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2000,6 +2087,14 @@ ALTER TABLE ONLY schools
 
 
 --
+-- Name: schools_users schools_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_users
+    ADD CONSTRAINT schools_users_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sections sections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2061,6 +2156,14 @@ ALTER TABLE ONLY unit_templates
 
 ALTER TABLE ONLY units
     ADD CONSTRAINT units_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_milestones user_milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_milestones
+    ADD CONSTRAINT user_milestones_pkey PRIMARY KEY (id);
 
 
 --
@@ -2234,6 +2337,13 @@ CREATE INDEX index_classroom_activities_on_classroom_id ON classroom_activities 
 
 
 --
+-- Name: index_classroom_activities_on_classroom_id_and_pinned; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
+
+
+--
 -- Name: index_classroom_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2322,6 +2432,13 @@ CREATE INDEX index_ip_locations_on_user_id ON ip_locations USING btree (user_id)
 --
 
 CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
+
+
+--
+-- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_milestones_on_name ON milestones USING btree (name);
 
 
 --
@@ -2504,6 +2621,27 @@ CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates
 --
 
 CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
+
+
+--
+-- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_milestones_on_milestone_id ON user_milestones USING btree (milestone_id);
+
+
+--
+-- Name: index_user_milestones_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_milestones_on_user_id ON user_milestones USING btree (user_id);
+
+
+--
+-- Name: index_user_milestones_on_user_id_and_milestone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON user_milestones USING btree (user_id, milestone_id);
 
 
 --
@@ -3080,6 +3218,18 @@ INSERT INTO schema_migrations (version) VALUES ('20170505195744');
 INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170718160133');
+
+INSERT INTO schema_migrations (version) VALUES ('20170719192243');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720140557');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720195450');
+
+INSERT INTO schema_migrations (version) VALUES ('20170804154221');
+
+INSERT INTO schema_migrations (version) VALUES ('20170804154740');
 
 INSERT INTO schema_migrations (version) VALUES ('20170809151404');
 

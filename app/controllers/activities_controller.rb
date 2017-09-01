@@ -33,6 +33,22 @@ class ActivitiesController < ApplicationController
     render 'pages/diagnostic'
   end
 
+  def preview_lesson
+    lesson = Activity.find_by(id: params[:lesson_id]) || Activity.find_by(uid: params[:lesson_id])
+    base_route = lesson.classification.form_url
+    preview_url = "#{base_route}teach/class-lessons/#{lesson.uid}/preview"
+    if current_user
+      completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
+      if completed
+        redirect_to preview_url
+      else
+        redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(preview_url)}"
+      end
+    else
+      redirect_to preview_url
+    end
+  end
+
 protected
 
   def any_search_params

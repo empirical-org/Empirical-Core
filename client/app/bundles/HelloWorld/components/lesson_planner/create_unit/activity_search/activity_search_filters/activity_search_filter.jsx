@@ -6,12 +6,22 @@
  import $ from 'jquery'
  import naturalCmp from 'underscore.string/naturalCmp'
  import FilterButton from './filter_button.jsx'
+ import getParameterByName from '../../../../modules/get_parameter_by_name'
 
  export default  React.createClass({
 
    componentWillReceiveProps: function (nextProps) {
      if (!nextProps.activeFilterOn) {
        this.setState({activeFilterId: null})
+     }
+     if (nextProps.data.field === 'activity_classification' && nextProps.data.options.length > 0) {
+       const toolName = getParameterByName('tool')
+       if (toolName) {
+         const optionId = nextProps.data.options.find(option => option.key === toolName).id
+         if (this.state.activeFilterId !== optionId) {
+           this.handleFilterButtonClick(optionId)
+         }
+       }
      }
    },
 
