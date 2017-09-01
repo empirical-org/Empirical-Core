@@ -21,6 +21,7 @@ import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
 import CLExit from './exit';
+import PreviewModal from './previewModal'
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -42,7 +43,8 @@ class CurrentSlide extends React.Component<any, any> {
 
     this.state = {
       numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
-      numberOfToggledHeaders: 0
+      numberOfToggledHeaders: 0,
+      showModal: getParameterByName('modal')
     }
 
     this.toggleSelected = this.toggleSelected.bind(this);
@@ -56,6 +58,8 @@ class CurrentSlide extends React.Component<any, any> {
     this.savePrompt = this.savePrompt.bind(this);
     this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
     this.clearSelectedSubmissionOrder = this.clearSelectedSubmissionOrder.bind(this);
+    this.closeModal = this.closeModal.bind(this)
+    this.openStudentView = this.openStudentView.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -163,6 +167,22 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
+  closeModal() {
+    this.setState({showModal: false})
+  }
+
+  openStudentView() {
+    const studentUrl: string = window.location.href.replace('teach', 'play')
+    window.open(studentUrl, 'newwindow', `width=${window.innerWidth},height=${window.innerHeight}`)
+    this.closeModal()
+  }
+
+  renderModal() {
+    if (this.state.showModal) {
+      return <PreviewModal closeModal={this.closeModal} openStudentView={this.openStudentView}/>
+    }
+  }
+
   render() {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
@@ -172,7 +192,10 @@ class CurrentSlide extends React.Component<any, any> {
       switch (current.type) {
         case 'CL-LB':
           return (
-            <CLLobby data={data} slideData={current} />
+            <div>
+              {this.renderModal()}
+              <CLLobby data={data} slideData={current} />
+            </div>
           );
         case 'CL-ST':
           return (
