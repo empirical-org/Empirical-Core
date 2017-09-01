@@ -1,11 +1,17 @@
+#assign-new-activity-page {
+  .minis {
+    border-bottom: solid 1px #e9e9e9;
+  }
+}
+
 #assign-new-activity-page, #assign-a-diagnostic-page {
   a {
     text-decoration: none;
   }
-    h1 {
-      font-size: 24px;
-font-weight: 600;
-margin-top: 30px;
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 30px;
     }
     .minis {
       max-width: 1020px;
@@ -18,7 +24,6 @@ margin-top: 30px;
       flex-wrap: wrap;
       padding: 40px 20px 40px 20px;
       margin: auto;
-      border-bottom: solid 1px #e9e9e9;
        .assignment-type-mini {
             color: #333333;
              font-size: 12px;

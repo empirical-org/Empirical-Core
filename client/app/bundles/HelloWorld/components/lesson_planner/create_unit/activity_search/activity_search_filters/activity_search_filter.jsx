@@ -13,12 +13,12 @@
    componentWillReceiveProps: function (nextProps) {
      if (!nextProps.activeFilterOn) {
        this.setState({activeFilterId: null})
-     }
-     if (nextProps.data.field === 'activity_classification' && nextProps.data.options.length > 0) {
+     } else if (nextProps.data.field === 'activity_classification' && nextProps.data.options.length > 0) {
        const toolName = getParameterByName('tool')
        if (toolName) {
          const optionId = nextProps.data.options.find(option => option.key === toolName).id
-         if (this.state.activeFilterId !== optionId) {
+         // this should only be the case on initial render
+         if (this.state.activeFilterId === null && nextProps.data.selected === null) {
            this.handleFilterButtonClick(optionId)
          }
        }
@@ -41,7 +41,6 @@
 		this.props.selectFilterOption(this.props.data.field, null);
     this.setState({activeFilterId: null})
 	},
-
 
 	getDisplayedFilterOptions: function() {
 		var options, isThereASelection, clearSelection;

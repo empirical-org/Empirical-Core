@@ -133,7 +133,7 @@ export default React.createClass({
 				{this.renderModal()}
 				<div className='starting-row'>
 					<div className='cell col-md-1'>
-						<div className={'pull-left icon-wrapper ' + this.props.data.activity.classification.image_class}></div>
+						<div className={'pull-left icon-wrapper ' + this.props.data.activity.classification.green_image_class}></div>
 					</div>
 					<div className='cell col-md-8' id='activity-analysis-activity-name'>
 						{link}
