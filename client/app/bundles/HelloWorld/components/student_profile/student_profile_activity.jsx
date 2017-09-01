@@ -4,7 +4,6 @@ import moment from 'moment';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
-
 export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
@@ -29,7 +28,7 @@ export default React.createClass({
       return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
     } else if (this.props.max_percentage) {
       linkText = 'Replay Activity';
-    } else if (this.props.data.state === 'started') {
+    } else if (this.props.data.resume_link === '1') {
       linkText = 'Resume Activity';
     } else if (this.props.data.activity_classification_id === 6) {
       linkText = 'Join Lesson';
@@ -38,7 +37,6 @@ export default React.createClass({
     }
     return <a href={activityLaunchLink(this.props.data.ca_id)}>{linkText}</a>;
   },
-
 
   render() {
     return (
