@@ -63,7 +63,9 @@ export default React.createClass({
   },
 
   lessonsList() {
-    return <LessonsList />;
+    if (this.props.flag === 'beta') {
+      return <LessonsList />;
+    }
   },
 
   render() {
