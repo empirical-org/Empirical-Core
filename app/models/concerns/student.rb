@@ -35,32 +35,6 @@ module Student
                         .where(is_final_score: true)
     end
 
-    def next_activity_session(grouped_scores)
-      if pinned_activity_session
-        pinned_activity_session
-      else
-        first_unit = grouped_scores[grouped_scores.keys[0]]
-        if first_unit && first_unit[:not_finished] && first_unit[:not_finished].any?
-          activity_session = first_unit[:not_finished].first.object
-          if activity_session.classroom_activity.locked
-            return nil
-          else
-            return activity_session
-          end
-        else
-          return nil
-        end
-      end
-    end
-
-    def pinned_activity_session
-      ca_ids = self.activity_sessions.map(&:classroom_activity_id)
-      pinned_ca = ClassroomActivity.where(id: ca_ids, pinned: true)
-      if pinned_ca.first
-        ActivitySession.find_by(user_id: self.id, classroom_activity_id: pinned_ca.first.id)
-      end
-    end
-
     def percentages_by_classification(unit = nil)
 
       if unit.nil?

@@ -1,13 +1,14 @@
 export default (classificationId) => {
-    if (classificationId === 1) {
-      return 'flag';
-    } else if (classificationId === 2) {
-      return 'puzzle'
-    } else if (classificationId === 4) {
-      return 'diagnostic'
-    } else if (classificationId === 5) {
-      return 'connect';
-    } else if (classificationId === 6) {
+  const intClassificationId = parseInt(classificationId);
+  if (intClassificationId === 1) {
+    return 'flag';
+  } else if (intClassificationId === 2) {
+    return 'puzzle';
+  } else if (intClassificationId === 4) {
+    return 'diagnostic';
+  } else if (intClassificationId === 5) {
+    return 'connect';
+  } else if (intClassificationId === 6) {
     return 'lessons';
   }
-}
+};
