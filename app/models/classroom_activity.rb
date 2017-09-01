@@ -53,7 +53,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def mark_all_activity_sessions_complete
-    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished')
+    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1)
   end
 
   def session_for user
