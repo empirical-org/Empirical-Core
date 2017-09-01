@@ -52,6 +52,7 @@ const SlideFour =() => {
   </div>
 }
 
+// there is no video for this slide right now so it is not being passed to the tutorial index
 const SlideFive =() => {
   return <div className='slide lessons-slide-five'>
     <div className="media">
@@ -73,4 +74,4 @@ const SlideSix =() => {
   </div>
 }
 
-export default [SlideOne(), SlideTwo(), SlideThree(), SlideFour(), SlideFive(), SlideSix()]
+export default [SlideOne(), SlideTwo(), SlideThree(), SlideFour(), SlideSix()]
