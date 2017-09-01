@@ -178,9 +178,8 @@ class Activity < ActiveRecord::Base
   end
 
   def fix_angular_fragment!
-
     unless @url.fragment.blank?
-      @url.path = "/##{url.fragment}"
+      @url.path = "/##{@url.fragment}"
       @url.fragment = nil
     end
 
