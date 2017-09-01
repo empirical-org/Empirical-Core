@@ -82,7 +82,7 @@ export default React.createClass({
               // only used if it is rendered within a modal
             that.props.closeModal('because class added');
           } else if (that.props.hasClassroomActivities === false) {
-            window.location.assign('/teachers/classrooms/activity_planner/assign-new-activity');
+            window.location.assign('/teachers/classrooms/assign_activities');
           } else if (data.toInviteStudents) {
             window.location.assign('/teachers/classrooms/invite_students');
           } else {
