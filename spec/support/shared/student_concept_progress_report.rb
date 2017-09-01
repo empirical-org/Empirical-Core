@@ -15,7 +15,7 @@ shared_context 'Student Concept Progress Report' do
     teacher: teacher,
     students: [alice, fred, zojirushi]) }
   let(:activity) { FactoryGirl.create(:activity) }
-  let(:unit) { FactoryGirl.create(:unit) }
+  let(:unit) { FactoryGirl.create(:unit, user: teacher ) }
   let(:classroom_activity) { FactoryGirl.create(:classroom_activity,
                                           classroom: classroom,
                                           activity: activity,
