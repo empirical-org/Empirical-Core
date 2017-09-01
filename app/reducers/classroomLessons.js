@@ -11,6 +11,7 @@ const initialState = {
 };
 
 export default function (currentstate, action) {
+
   let newstate;
   switch (action.type) {
     case C.RECEIVE_CLASSROOM_LESSONS_DATA:

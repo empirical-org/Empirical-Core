@@ -1,8 +1,9 @@
 declare function require(name:string);
 
 import * as React from 'react';
-const { EditorState, ContentState, convertFromHTML, convertToRaw } = require('draft-js')
+const { EditorState, ContentState, convertToRaw } = require('draft-js')
 const Editor = require('draft-js-plugins-editor').default
+const convertFromHTML = require('draft-convert').convertFromHTML
 const DraftPasteProcessor = require('draft-js/lib/DraftPasteProcessor').default
 const stateToHTML = require('draft-js-export-html').stateToHTML
 const createRichButtonsPlugin = require('draft-js-richbuttons-plugin').default
@@ -16,7 +17,7 @@ class MultipleTextEditor extends React.Component<any, any> {
       BlockquoteButton, OLButton, ULButton, H4Button
     } = richButtonsPlugin;
     this.state = {
-      text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || ''))),
+      text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),
       components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, OLButton, ULButton, H4Button},
       plugins: [richButtonsPlugin],
       hasFocus: false,

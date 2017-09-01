@@ -80,6 +80,8 @@
         line-height: 20px;
         margin-bottom: 10px;
         font-weight: 600;
+        max-width: 300px;
+        width: 100%;
         &.active {
           color: $green;
         }
