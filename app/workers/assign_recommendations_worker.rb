@@ -1,7 +1,7 @@
 class AssignRecommendationsWorker
   include Sidekiq::Worker
 
-  def perform(ut_id, classroom_id, student_id_array, last)
+  def perform(ut_id, classroom_id, student_id_array, last, lesson)
     classroom = Classroom.find(classroom_id)
     teacher = classroom.teacher
     unit = Unit.find_by(name: UnitTemplate.find(ut_id).name, user_id: teacher.id)
@@ -21,6 +21,6 @@ class AssignRecommendationsWorker
     analytics = AssignRecommendationsAnalytics.new
     analytics.track(teacher)
 
-    PusherRecommendationCompleted.run(classroom) if last
+    PusherRecommendationCompleted.run(classroom, ut_id, lesson) if last
   end
 end
