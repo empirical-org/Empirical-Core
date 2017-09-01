@@ -68,6 +68,11 @@ EmpiricalGrammar::Application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :milestones, only: [] do
+    get :has_viewed_lesson_tutorial, on: :collection
+    post :complete_view_lesson_tutorial, on: :collection
+  end
+
   resources :grades, only: [:index]
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
@@ -76,7 +81,9 @@ EmpiricalGrammar::Application.routes.draw do
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
+  get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
+  get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
   get 'teachers/classrooms/:id/student_logins', only: [:pdf], controller: 'teachers/classrooms', action: 'generate_login_pdf', as: :generate_login_pdf, defaults: { format: 'pdf' }
 
@@ -91,6 +98,9 @@ EmpiricalGrammar::Application.routes.draw do
     get 'prohibited_unit_names' => 'units#prohibited_unit_names'
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
     get 'diagnostic_units' => 'units#diagnostic_units'
+    get 'lesson_units' => 'units#lesson_units'
+    get 'units/:unit_id/launch_lesson/:activity_id' => 'units#launch_lesson_with_activity_id'
+    get 'units/:unit_id/activity/:activity_id' => 'units#lesson_info_for_unit_and_activity'
 
 
     resources :unit_templates, only: [:index] do
@@ -103,7 +113,11 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path' do
       collection do
+        get 'lessons_activities_cache'
+        get 'lessons_units_and_activities'
         put ':id/hide' => 'classroom_activities#hide'
+        get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
+        get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
       end
     end
 
@@ -126,7 +140,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'question_view/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#question_view'
       get 'classrooms_with_students/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#classrooms_with_students'
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
-      get 'recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
+      get 'recommendations_for_classroom/:unit_id/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
+      get 'lesson_recommendations_for_classroom/u/:unit_id/c/:classroom_id/a/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
       post 'assign_selected_packs' => 'diagnostic_reports#assign_selected_packs'
 
@@ -160,6 +175,7 @@ EmpiricalGrammar::Application.routes.draw do
           "#{Rails.application.routes.url_helpers.lesson_planner_teachers_classrooms_path}?#{request.params.to_query}"
         }
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        get :assign_activities, controller: "classroom_manager", action: 'assign_activities', path: 'assign_activities'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
@@ -215,6 +231,7 @@ EmpiricalGrammar::Application.routes.draw do
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
+      put 'classroom_activities/:id/finish_lesson' => 'classroom_activities#finish_lesson'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'users/profile', to: 'users#profile'
     end
@@ -293,9 +310,15 @@ EmpiricalGrammar::Application.routes.draw do
     get page => "pages##{page}", as: "#{page}"
   end
 
-  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool)
+  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
   tools.each do |tool|
     get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
+  end
+
+  tutorials = %w(lessons)
+  tutorials.each do |tool|
+    get "tutorials/#{tool}" => "pages#tutorials"
+    get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
@@ -306,14 +329,18 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/packs/grade/:grade' => 'teachers/unit_templates#index'
 
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/category/:category' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/lessons/:classroom_id' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/lessons/:activity_id/unit/:unit_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'
+
+  get 'teachers/classrooms/assign_activities/:tab' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#assign_activities'
+  get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#assign_activities'
 
   # Count route to get quantities
   get 'count/featured_packs' => 'teachers/unit_templates#count'
@@ -324,6 +351,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'diagnostic/:activityId' =>'activities#diagnostic' # placeholder til we find where this goes
   get 'diagnostic/:activityId/stage/:stage' => 'activities#diagnostic'
   get 'diagnostic/:activityId/success' => 'activities#diagnostic'
+  get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 

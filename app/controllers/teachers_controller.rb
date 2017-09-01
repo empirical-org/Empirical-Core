@@ -27,12 +27,34 @@ class TeachersController < ApplicationController
     render json: {classrooms: current_user.classrooms_i_teach_with_students}
   end
 
+  def classrooms_i_teach_with_lessons
+    lesson_activity_ids = Activity.where(activity_classification_id: 6).map(&:id)
+    classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [{activity: :classification}]).where(classroom_activities: {activity_id: lesson_activity_ids})
+    render json: {classrooms: classrooms}
+  end
+
   def update_current_user
     if current_user.update(teacher_params)
       render json: current_user
     else
       render json: {errors: current_user.errors}, status: 400
     end
+  end
+
+  def get_completed_diagnostic_unit_info
+    if current_user.milestones.where(name: 'Complete Diagnostic')
+      unit_ids = current_user.finished_diagnostic_unit_ids
+      if unit_ids.length > 0
+        unit_id = unit_ids.first.id
+        ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447])
+        unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
+      else
+        unit_info = nil
+      end
+    else
+      unit_info = nil
+    end
+    render json: {unit_info: unit_info}
   end
 
   private

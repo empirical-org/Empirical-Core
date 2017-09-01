@@ -2,19 +2,19 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import LessonPlannerContainer from '../LessonPlannerContainer.jsx';
-import UnitTabs from '../../components/lesson_planner/unit_tabs.jsx'
+import MyActivitiesTabs from '../../components/lesson_planner/my_activities_tabs.jsx'
 
 describe('LessonPlannerContainer container', () => {
 
-  it('should render unitTabs component for teachers', () => {
+  it('should render MyActivitiesTabs component for teachers', () => {
     const wrapperTeachers = shallow(
       <LessonPlannerContainer location={{pathname: 'includes-teachers'}} />
     );
     const wrapperNotTeachers = shallow(
       <LessonPlannerContainer location={{pathname: 'does-not-include'}} />
     );
-    expect(wrapperTeachers.find(UnitTabs).exists()).toBe(true);
-    expect(wrapperNotTeachers.find(UnitTabs).exists()).toBe(false);
+    expect(wrapperTeachers.find(MyActivitiesTabs).exists()).toBe(true);
+    expect(wrapperNotTeachers.find(MyActivitiesTabs).exists()).toBe(false);
   });
 
   it('should render children', () => {
