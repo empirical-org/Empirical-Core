@@ -11,6 +11,7 @@ import ActivitySearchResults from './activity_search_results/activity_search_res
 import Pagination from './pagination/pagination';
 import SelectedActivities from './selected_activities/selected_activities';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
+import getParameterByName from '../../../modules/get_parameter_by_name'
 
 export default React.createClass({
   propTypes: {
@@ -37,7 +38,7 @@ export default React.createClass({
       },
       filters: ActivitySearchFilterConfig,
       sorts: ActivitySearchSortConfig,
-      activeFilterOn: false,
+      activeFilterOn: getParameterByName('tool') ? true : false,
       error: null,
     };
   },
