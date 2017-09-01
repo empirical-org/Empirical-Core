@@ -22,6 +22,9 @@ table.activity-table {
   }
 
   tbody tr {
+    &.selected {
+      background-color: white;
+    }
     &:first-of-type {
       border-top: none;
     }
