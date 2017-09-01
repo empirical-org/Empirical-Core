@@ -9,14 +9,19 @@
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', class: 'mobile' %>
       </li>
 
+      <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
+        <%= link_to "My Activities", lesson_planner_teachers_classrooms_path, role: 'tab' %>
+        <%= link_to "My Activities", lesson_planner_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
+      </li>
+
       <li class="<%= (is_progress_report_page? || (action_name == 'scorebook')) ? 'active' : '' %>">
         <%= link_to "Student Reports", '/teachers/progress_reports/landing_page', role: 'tab' %>
         <%= link_to "Reports", '/teachers/progress_reports/landing_page', role: 'tab', class: 'mobile' %>
       </li>
 
-      <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
-        <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path, role: 'tab' %>
-        <%= link_to "Planner", lesson_planner_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
+      <li class="<%= controller_name == 'classroom_manager' && action_name == 'assign_activities' ? 'active' : '' %>" >
+        <%= link_to "Assign Activities", assign_activities_teachers_classrooms_path, role: 'tab' %>
+        <%= link_to "Assign", assign_activities_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
       </li>
 
       <%- if current_user.admin? %>

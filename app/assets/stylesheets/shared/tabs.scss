@@ -91,7 +91,7 @@
         margin-right: 9px;
     }
 }
-@media (max-width: 800px) {
+@media (max-width: 871px) {
     #teacher-nav-tabs li a:not(.mobile) {
         display: none;
     }
@@ -118,5 +118,29 @@
                 padding: 5px 8px;
             }
         }
+    }
+}
+
+@media (max-width: 993px) {
+    .class-subnav.tab-subnavigation-wrapper {
+      .container {
+        margin-left: 0px;
+        ul {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+          justify-content: space-between;
+          li {
+            padding: 5px 0;
+            a {
+              padding: 5px 8px;
+            }
+          }
+        }
+      }
     }
 }

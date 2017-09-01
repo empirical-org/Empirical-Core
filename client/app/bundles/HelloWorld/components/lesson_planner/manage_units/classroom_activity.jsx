@@ -3,6 +3,10 @@
 import React from 'react'
 import moment from 'moment';
 import DatePicker from 'react-datepicker'
+import request from 'request'
+import $ from 'jquery'
+
+import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal'
 
 const styles = {
 	row: {
@@ -15,6 +19,12 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		maxWidth: '220px'
+	},
+	lessonEndRow: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		maxWidth: '220px'
 	}
 }
 
@@ -23,6 +33,7 @@ export default React.createClass({
 	getInitialState: function() {
 		return {
 			startDate: this.props.data.due_date ? moment(this.props.data.due_date) : undefined,
+			showModal: false
 		}
 	},
 
@@ -65,34 +76,71 @@ export default React.createClass({
 	finalCell: function() {
 		const startDate = this.state.startDate;
 		if (this.props.report) {
-			return [<a key='this.props.data.activity.anonymous_path' href={this.props.data.activity.anonymous_path} target="_blank">Preview Activity</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>]
+			return [<a key='this.props.data.activity.anonymous_path' href={this.props.data.activity.anonymous_path} target="_blank">Preview</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>]
+		} else if (this.props.lesson) {
+			return this.lessonCompletedOrLaunch()
 		} else {
 			return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'}/>
 		}
 	},
 
-  deleteRow:function(){
-    if (!this.props.report) {
+	lessonCompletedOrLaunch: function() {
+		if (this.props.data.completed) {
+			return <p className="lesson-completed">Lesson Completed</p>
+		} else {
+			const classroomActivityId = this.props.data.id
+			const lessonId = this.props.data.activity.uid
+			const text = this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'
+			return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>
+		}
+	},
+
+  deleteRow: function() {
+    if (!this.props.report && !this.props.lesson) {
       return <div className="pull-right"><img className='delete-classroom-activity h-pointer' onClick={this.hideClassroomActivity} src="/images/x.svg"/></div>
     }
   },
 
+	openModal: function() {
+		this.setState({showModal: true})
+	},
+
+	closeModal: function() {
+		this.setState({showModal: false})
+	},
+
+	renderModal: function() {
+		if (this.state.showModal) {
+			return <PreviewOrLaunchModal
+				lessonUID={this.props.data.activity.uid}
+				classroomActivityID={this.props.data.id}
+				closeModal={this.closeModal}
+			/>
+		}
+	},
+
 	render: function() {
-		let url = this.props.report ? this.urlForReport() : this.props.data.activity.anonymous_path;
+		let link
+		if (this.props.report) {
+			link = <a href={this.urlForReport()} target='_new'>{this.props.data.activity.name}</a>
+		} else if (this.props.lesson) {
+			link = <span onClick={this.openModal}>{this.props.data.activity.name}</span>
+		} else {
+			link = <a href={this.props.data.activity.anonymous_path} target='_new'>{this.props.data.activity.name}</a>
+		}
 		return (
 			<div className='row' style={styles.row}>
+				{this.renderModal()}
 				<div className='starting-row'>
 					<div className='cell col-md-1'>
-						<div className={'pull-left icon-gray icon-wrapper ' + this.props.data.activity.classification.scorebook_icon_class}></div>
+						<div className={'pull-left icon-wrapper ' + this.props.data.activity.classification.image_class}></div>
 					</div>
 					<div className='cell col-md-8' id='activity-analysis-activity-name'>
-						<a href={url} target='_new'>
-							{this.props.data.activity.name}
-						</a>
+						{link}
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
-				<div className='cell col-md-3' style={styles.endRow}>
+				<div className='cell col-md-3' style={this.props.lesson ? styles.lessonEndRow : styles.endRow}>
 						{this.finalCell()}
 						{this.deleteRow()}
 				</div>
