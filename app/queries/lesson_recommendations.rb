@@ -170,7 +170,7 @@ class LessonRecommendations
 
     end
 
-    def recs_for_447
+    def recs_447_data
       [
         # {
         #     recommendation: 'Fragments',
