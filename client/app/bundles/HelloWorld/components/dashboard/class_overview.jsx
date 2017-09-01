@@ -55,7 +55,7 @@ export default React.createClass({
   },
 
   announcementMini() {
-    const announcements = [<EllDiagnosticAnnouncement key="ell-diagnostic-announcement" />];
+    const announcements = [];
     if (this.props.flag === 'beta') {
       announcements.push(<QuillLessonsAnnouncement key="lessons-announcement" />);
     }
