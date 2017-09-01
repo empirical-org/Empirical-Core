@@ -31,7 +31,8 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def launch_lesson
-    completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
+    milestone = Milestone.find_by(name: 'View Lessons Tutorial')
+    completed = UserMilestone.find_by(milestone_id: milestone.id, user_id: current_user.id)
     lesson = Activity.find_by(uid: params['lesson_uid']) || Activity.find_by(id: params['lesson_uid'])
     base_route = lesson.classification.form_url
     lesson_url = "#{base_route}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
