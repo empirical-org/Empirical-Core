@@ -20,8 +20,9 @@
 	},
 
 	render: function () {
+    const selectedClass = this.props.selected ? 'selected' : ''
 		return (
-			<tr onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className='tooltip-trigger'>
+			<tr onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className={`tooltip-trigger ${selectedClass}`}>
       <td>
 					<input type='checkbox' checked={this.props.selected} onChange={this.callToggleActivitySelection} id={"activity_" + this.props.data.id} data-model-id={this.props.data.id} className='css-checkbox'/>
 					<label htmlFor={'activity_' + this.props.data.id} id={'activity_' + this.props.data.id} className='css-label' />
