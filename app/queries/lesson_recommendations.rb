@@ -48,9 +48,9 @@ class LessonRecommendations
           # },
 
           {
-              recommendation: 'Compound Subjects, Objects, and Predicates',
-              activityPackId: 24,
-              activities: rec_activities(24),
+              recommendation: 'Compound Subjects, Objects, and Predicates Lesson Pack',
+              activityPackId: 40,
+              activities: rec_activities(40),
               requirements: [
                   {
                       concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
@@ -64,9 +64,9 @@ class LessonRecommendations
           },
 
           {
-              recommendation: 'Adjectives',
-              activityPackId: 23,
-              activities: rec_activities(24),
+              recommendation: 'Adjectives Lesson Pack',
+              activityPackId: 39,
+              activities: rec_activities(39),
               requirements: [
                   {
                       concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
@@ -76,9 +76,9 @@ class LessonRecommendations
           },
 
           {
-              recommendation: 'Adverbs of Manner',
-              activityPackId: 25,
-              activities: rec_activities(24),
+              recommendation: 'Adverbs Lesson Pack',
+              activityPackId: 41,
+              activities: rec_activities(41),
               requirements: [
                   {
                       concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
@@ -88,7 +88,7 @@ class LessonRecommendations
           },
 
           {
-              recommendation: 'Compound Sentences',
+              recommendation: 'Compound Sentences Lesson Pack',
               activityPackId: 22,
               activities: rec_activities(24),
               requirements: [
@@ -112,9 +112,9 @@ class LessonRecommendations
           },
 
           {
-              recommendation: 'Complex Sentences',
-              activityPackId: 21,
-              activities: rec_activities(24),
+              recommendation: 'Complex Sentences Lesson Pack',
+              activityPackId: 43,
+              activities: rec_activities(43),
               requirements: [
                   {
                       concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
@@ -136,9 +136,9 @@ class LessonRecommendations
           },
 
           {
-              recommendation: 'Appositives and Modifying Phrases',
-              activityPackId: 27,
-              activities: rec_activities(24),
+              recommendation: 'Appositives and Modifying Phrases Lesson Pack',
+              activityPackId: 44,
+              activities: rec_activities(44),
               requirements: [
                   {
                       concept_id: 'InfGdB6Plr2M930kqsn63g',
@@ -152,9 +152,9 @@ class LessonRecommendations
           },
 
           {
-              recommendation: 'Parallel Structure',
-              activityPackId: 29,
-              activities: rec_activities(24),
+              recommendation: 'Parallel Structure Lesson Pack',
+              activityPackId: 46,
+              activities: rec_activities(46),
               requirements: [
                   {
                       concept_id: '1ohLyApTz7lZ3JszrA98Xg',
@@ -180,106 +180,106 @@ class LessonRecommendations
         #         }
         #     ]
         # },
+        # {
+        #     recommendation: 'Articles',
+        #     activityPackId: 2,
+        #     activities: rec_activities(24),
+        #     requirements: [
+        #         {
+        #             concept_id: 'fJXVAoYCC8S9kByua0kXXA',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: 'XHUbxx87N7TK1F-tiaNy-A',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: '5s-r1281DV8EpHyc9qJfiw',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: 'QsC1lua0t41_J2em_c7kUA',
+        #             count: 0,
+        #             noIncorrect: true
+        #         }
+        #     ]
+        # },
+        # {
+        #     recommendation: 'Verb Tense',
+        #     activityPackId: 10,
+        #     activities: rec_activities(24),
+        #     requirements: [
+        #         {
+        #             concept_id: 'TE-ElKaRWWumTrmVE4-m6g',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: 'RPNqOZuka_n8RESKbBF8OQ',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: '9ZPpieSHhlMYQkEvrhQP1w',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: 'YeioybAcmeBNsp3KRb9aow',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: '1mXma17dtAL7NGmJRU80bQ',
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: 'TPm4a19NUn2RlKLCbPbVUw',
+        #             count: 0,
+        #             noIncorrect: true
+        #         }
+        #     ]
+        # },
+        # {
+        #     recommendation: 'Prepositions',
+        #     activityPackId: 7,
+        #     activities: rec_activities(24),
+        #     requirements: [
+        #         {
+        #             concept_id: "LPMBB_M5hooC263qXFc_Yg",
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: "lD5FBHF-FEPpsFG0SXlcfQ",
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: "FZ0wa0oqQ-6ELHf1gzVJjw",
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: "wpzl6e2NhXcBaKDC11K4NA",
+        #             count: 0,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: "iY2_MBNxcVgzH3xmnyeEJA",
+        #             count: 0,
+        #             noIncorrect: true
+        #         }
+        #     ]
+        # },
         {
-            recommendation: 'Articles',
-            activityPackId: 2,
-            activities: rec_activities(24),
-            requirements: [
-                {
-                    concept_id: 'fJXVAoYCC8S9kByua0kXXA',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: 'XHUbxx87N7TK1F-tiaNy-A',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: '5s-r1281DV8EpHyc9qJfiw',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: 'QsC1lua0t41_J2em_c7kUA',
-                    count: 0,
-                    noIncorrect: true
-                }
-            ]
-        },
-        {
-            recommendation: 'Verb Tense',
-            activityPackId: 10,
-            activities: rec_activities(24),
-            requirements: [
-                {
-                    concept_id: 'TE-ElKaRWWumTrmVE4-m6g',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: 'RPNqOZuka_n8RESKbBF8OQ',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: '9ZPpieSHhlMYQkEvrhQP1w',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: 'YeioybAcmeBNsp3KRb9aow',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: '1mXma17dtAL7NGmJRU80bQ',
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: 'TPm4a19NUn2RlKLCbPbVUw',
-                    count: 0,
-                    noIncorrect: true
-                }
-            ]
-        },
-        {
-            recommendation: 'Prepositions',
-            activityPackId: 7,
-            activities: rec_activities(24),
-            requirements: [
-                {
-                    concept_id: "LPMBB_M5hooC263qXFc_Yg",
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: "lD5FBHF-FEPpsFG0SXlcfQ",
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: "FZ0wa0oqQ-6ELHf1gzVJjw",
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: "wpzl6e2NhXcBaKDC11K4NA",
-                    count: 0,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: "iY2_MBNxcVgzH3xmnyeEJA",
-                    count: 0,
-                    noIncorrect: true
-                }
-            ]
-        },
-        {
-            recommendation: 'Adjectives',
-            activityPackId: 23,
-            activities: rec_activities(24),
+            recommendation: 'Adjectives Lesson Pack',
+            activityPackId: 39,
+            activities: rec_activities(39),
             requirements: [
                 {
                     concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
@@ -288,10 +288,11 @@ class LessonRecommendations
                 }
             ]
         },
+
         {
-            recommendation: 'Adverbs',
-            activityPackId: 25,
-            activities: rec_activities(24),
+            recommendation: 'Adverbs Lesson Pack',
+            activityPackId: 41,
+            activities: rec_activities(41),
             requirements: [
                 {
                     concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
@@ -305,27 +306,27 @@ class LessonRecommendations
                 }
             ]
         },
+        # {
+        #     recommendation: 'Subject Verb Agreement',
+        #     activityPackId: 24,
+        #     activities: rec_activities(24),
+        #     requirements: [
+        #         {
+        #             concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
+        #             count: 1,
+        #             noIncorrect: true
+        #         },
+        #         {
+        #             concept_id: 'Tlhrx6Igxn6cR_SD1U5efA',
+        #             count: 0,
+        #             noIncorrect: true
+        #         }
+        #     ]
+        # },
         {
-            recommendation: 'Subject Verb Agreement',
-            activityPackId: 24,
-            activities: rec_activities(24),
-            requirements: [
-                {
-                    concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
-                    count: 1,
-                    noIncorrect: true
-                },
-                {
-                    concept_id: 'Tlhrx6Igxn6cR_SD1U5efA',
-                    count: 0,
-                    noIncorrect: true
-                }
-            ]
-        },
-        {
-            recommendation: 'Compound Sentences',
-            activityPackId: 22,
-            activities: rec_activities(24),
+            recommendation: 'Compound Sentences Lesson Pack',
+            activityPackId: 42,
+            activities: rec_activities(42),
             requirements: [
                 {
                     concept_id: 'tSSLMHqX0q-9mKTJHSyung',
@@ -345,9 +346,9 @@ class LessonRecommendations
             ]
         },
         {
-            recommendation: 'Complex Sentences',
-            activityPackId: 21,
-            activities: rec_activities(24),
+            recommendation: 'Complex Sentences Lesson Pack',
+            activityPackId: 43,
+            activities: rec_activities(43),
             requirements: [
                 {
                     concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
@@ -370,21 +371,7 @@ class LessonRecommendations
                     noIncorrect: true
                 }
             ]
-        },
-        {
-            recommendation: 'Capitalization',
-            activityPackId: 33,
-            activities: rec_activities(24),
-            requirements: [
-                {
-                    concept_id: '66upe3S5uvqxuHoHOt4PcQ',
-                    count: 0,
-                    noIncorrect: true
-                }
-            ]
-        },
-
-
+        }
       ]
     end
 end
