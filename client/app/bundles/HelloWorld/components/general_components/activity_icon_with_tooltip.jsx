@@ -38,8 +38,20 @@ export default React.createClass({
     });
   },
 
+  getActClassId() {
+    const d = this.props.data;
+    if (d.activity_classification_id) {
+      return d.activity_classification_id;
+    } else if (d.classification && d.classification.id) {
+      return d.classification.id;
+    } else if (d.activity && d.activity.classification && d.activity.classification.id) {
+      return d.activity.classification.id;
+    }
+    return null;
+  },
+
   tooltipClasses() {
-    return `activate-tooltip icon-link icon-wrapper icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.props.data.activity_classification_id || this.props.data.classification.id)}`;
+    return `activate-tooltip icon-link icon-wrapper icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`;
   },
 
   goToReport() {
