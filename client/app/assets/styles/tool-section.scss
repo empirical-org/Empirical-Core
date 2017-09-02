@@ -970,6 +970,13 @@ $tool-grey: #f8f9f9;
   color: white;
   padding: 50px 86px;
   text-align: left;
+
+  .q-and-a-inner-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
   h1 {
     font-size: 34px;
     font-weight: 600;
@@ -1000,6 +1007,7 @@ $tool-grey: #f8f9f9;
   }
   .expand-or-collapse {
     font-size: 16px;
+    line-height: 42px;
     font-weight: 600;
     cursor: pointer;
   }
