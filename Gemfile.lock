@@ -491,7 +491,7 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    puma (3.6.0)
+    puma (3.10.0)
     puma_worker_killer (0.0.6)
       get_process_mem (~> 0.2)
       puma (>= 2.7, < 4)
@@ -818,7 +818,7 @@ DEPENDENCIES
   pry-remote
   pry-rescue
   pry-stack_explorer
-  puma
+  puma (~> 3.10.0)
   puma_worker_killer
   pusher
   quiet_assets
@@ -870,4 +870,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.14.6
+   1.15.4
