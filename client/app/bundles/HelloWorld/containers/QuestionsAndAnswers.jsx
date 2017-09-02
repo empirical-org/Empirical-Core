@@ -16,7 +16,7 @@ export default class QuestionsAndAnswers extends React.Component {
               ]
       },
       {
-        question: 'How can I best support both struggling students and advanced learners in lessons mode?',
+        question: 'How can I support both struggling students and advanced learners in lessons mode?',
         answer: <p>You can also use the flagging features to privately select students for extra support. If a student’s response requires intervention, you can click on the flag next to their answer, and they will show up in a list for you at the end of the lesson. At this point all other students can begin the independent practice while you work with a small group.</p>
       },
       {
@@ -62,9 +62,11 @@ export default class QuestionsAndAnswers extends React.Component {
   render() {
     return(
       <div id="q-and-a">
-        <h1>Questions and Answers</h1>
-        {this.renderQuestionsAndAnswers()}
-        <a className="support-link" href="http://support.quill.org/activities-implementation">View All Questions and Answers<i className="fa fa-arrow-right" aria-hidden="true"></i></a>
+        <div className="q-and-a-inner-wrapper">
+          <h1>Questions and Answers</h1>
+          {this.renderQuestionsAndAnswers()}
+          <a className="support-link" href="http://support.quill.org/activities-implementation">View All Questions and Answers<i className="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
     )
   }
