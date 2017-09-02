@@ -63,6 +63,7 @@ gem 'prawn-table'
 gem 'pdf-core'
 gem 'pdf-inspector'
 gem 'ttfunk'
+gem 'scout_apm'
 
 
 # WEBSOCKETS
