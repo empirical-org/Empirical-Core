@@ -68,6 +68,22 @@ class ExitSlide extends React.Component<any, any> {
     })
   }
 
+  renderAssignmentOptionsAndButton() {
+    const {hasFollowUpActivity, students} = this.props
+    if (hasFollowUpActivity) {
+      return <div>
+        <AssignmentOptions
+          numberOfStudents={Object.keys(students).length}
+          updateSelectedOptionKey={this.updateSelectedOptionKey}
+          selectedOptionKey={this.state.selectedOptionKey}
+        />
+        <AssignButton selectedOptionKey={this.state.selectedOptionKey}
+                      assignAction={this.assignAction}
+        />
+      </div>
+    }
+  }
+
   render() {
     const {script, flaggedStudents, students} = this.props
     return (
@@ -82,14 +98,7 @@ class ExitSlide extends React.Component<any, any> {
           students={students}
           toggleStudentFlag={this.props.toggleStudentFlag}
         />
-        <AssignmentOptions
-          numberOfStudents={Object.keys(students).length}
-          updateSelectedOptionKey={this.updateSelectedOptionKey}
-          selectedOptionKey={this.state.selectedOptionKey}
-        />
-        <AssignButton selectedOptionKey={this.state.selectedOptionKey}
-                      assignAction={this.assignAction}
-        />
+        {this.renderAssignmentOptionsAndButton()}
       </div>
     );
   }
