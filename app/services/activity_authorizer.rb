@@ -13,4 +13,8 @@ class ActivityAuthorizer
     true
   end
 
+  def authorize_teacher
+    @activity_session.classroom_activity.classroom.teacher == @current_user
+  end
+
 end

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator';
 import $ from 'jquery';
+import request from 'request';
 import gradeColor from '../modules/grade_color.js';
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 
@@ -14,20 +15,28 @@ export default React.createClass({
     dontShowToolTip: React.PropTypes.bool, // TODO: remove this and make the tooltip show via ajax
   },
 
-  getDefaultProps() {
-    return {
-      context: 'scorebook',
-      placement: 'bottom',
-    };
+  getInitialState() {
+    return { loading: true, };
   },
 
-  loadTooltipTitle() {
+  getConceptResultInfo() {
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/activity_sessions/${this.props.data.id}/concept_results`,
+    }, (error, httpStatus, body) => {
+      const conceptResults = JSON.parse(body);
+      that.setState({ loaded: true, }, () => that.loadTooltipTitle(conceptResults));
+    });
+  },
+
+  loadTooltipTitle(conceptResults) {
     let data;
     if (this.props.context == 'scorebook') {
       data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
     } else {
       data = this.props.data;
     }
+    data.concept_results = conceptResults;
     this.modules = {
       titleGenerator: new TooltipTitleGeneratorGenerator(this.props.context).generate(data),
     };
@@ -76,7 +85,7 @@ export default React.createClass({
       <div
         style={{ cursor: cursorType, }}
         onClick={this.props.context === 'scorebook' ? this.checkForStudentReport : null}
-        onMouseEnter={this.props.context === 'scorebook' ? this.loadTooltipTitle : null}
+        onMouseEnter={this.props.context === 'scorebook' ? this.getConceptResultInfo : null}
         ref="activateTooltip"
         className={this.tooltipClasses()}
       />

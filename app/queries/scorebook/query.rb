@@ -72,8 +72,8 @@ class Scorebook::Query
       id: activity_session.id,
       percentage: activity_session.percentage,
       state: activity_session.state,
-      activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false),
-      concept_results: activity_session.concept_results.map{|result| {concept: result.concept, metadata: result.metadata}}
+      activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false)
+      # concept_results: activity_session.concept_results.map{|result| {concept: result.concept, metadata: result.metadata}}
     }
     if activity_session.state == 'finished'
       hash[:completed_at] = activity_session.formatted_completed_at

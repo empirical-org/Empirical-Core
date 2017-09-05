@@ -53,6 +53,7 @@ EmpiricalGrammar::Application.routes.draw do
     get :anonymous, on: :collection
     get :play, on: :member
     put :play, on: :member
+    get :concept_results, on: :member
   end
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
