@@ -12,7 +12,7 @@ export default React.createClass({
             key={'diagnostics'}
             title={'Entry Diagnostics'}
             img={'/images/diagnostic_icon.svg'}
-            bodyText={'Find your students’ writing abilities with a 22 question diagnostic.'}
+            bodyText={[<span key={1}>Find your students’ writing abilities with</span>, <br key={2}></br>, <span key={3}>a 22 question diagnostic.</span>]}
             directions={'use intermittently'}
             quantity={2}
             unit={'Diagnostic'}
@@ -24,7 +24,7 @@ export default React.createClass({
               toggleTarget={'exploreActivityPacks'}
               title={'Featured Activity Packs'}
               img={'/images/featured_activity_pack_icon.png'}
-              bodyText={'Quickly assign packs of activities created by experienced educators.'}
+              bodyText={[<span key={1}>Quickly assign packs of activities created</span>, <br key={2}></br>, <span key={3}>by experienced educators.</span>]}
               directions={'use continuously'}
               routeToGetQuantity={'/count/featured_packs'}
               unit={'Pack'}
