@@ -1,7 +1,7 @@
 import React from 'react'
 
 const SlideOne = () => {
-  return <div className='slide lessons-slide-one'>
+  return <div key='one' className='slide lessons-slide-one'>
       <div className="media">
         <img className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1.svg`} />
         <img className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1_text.svg`} />
@@ -14,7 +14,7 @@ const SlideOne = () => {
 }
 
 const SlideTwo =() => {
-  return <div className='slide lessons-slide-two'>
+  return <div key='two' className='slide lessons-slide-two'>
     <div className="media">
       <img className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_2.svg`} />
       <img className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_2_text.svg`} />
@@ -27,7 +27,7 @@ const SlideTwo =() => {
 }
 
 const SlideThree =() => {
-  return <div className='slide lessons-slide-three'>
+  return <div key='three' className='slide lessons-slide-three'>
     <div className="media">
       <img className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_3.svg`} />
       <img className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_3_text.svg`} />
@@ -40,7 +40,7 @@ const SlideThree =() => {
 }
 
 const SlideFour =() => {
-  return <div className='slide lessons-slide-four'>
+  return <div key='four' className='slide lessons-slide-four'>
     <div className="media">
       <img className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_4.svg`} />
       <img className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_4_text.svg`} />
@@ -54,7 +54,7 @@ const SlideFour =() => {
 
 // there is no video for this slide right now so it is not being passed to the tutorial index
 const SlideFive =() => {
-  return <div className='slide lessons-slide-five'>
+  return <div key='five' className='slide lessons-slide-five'>
     <div className="media">
       <video />
     </div>
@@ -62,7 +62,7 @@ const SlideFive =() => {
 }
 
 const SlideSix =() => {
-  return <div className='slide lessons-slide-six'>
+  return <div key='six' className='slide lessons-slide-six'>
     <div className="media">
       <img className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_6.svg`} />
       <img className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_6_text.svg`} />
