@@ -175,8 +175,8 @@ export default class extends React.Component{
               <MenuItem id={`${grade}-${id}`} key={`${grade}-${id}`} eventKey={{id, grade: grade}}>{NumberSuffix(grade)}</MenuItem>
           )
       }
-      grades.push(<MenuItem id={`university-${id}`} key={`university-${id}`} eventKey={'University'}>University</MenuItem>)
-      grades.push(<MenuItem id={`other-${id}`} key={`other-${id}`} eventKey={'Other'}>Other</MenuItem>)
+      grades.push(<MenuItem id={`university-${id}`} key={`university-${id}`} eventKey={{id, grade: 'University'}}>University</MenuItem>)
+      grades.push(<MenuItem id={`other-${id}`} key={`other-${id}`} eventKey={{id, grade: 'Other'}}>Other</MenuItem>)
       return grades
   }
 
