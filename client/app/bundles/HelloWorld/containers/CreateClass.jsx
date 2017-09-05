@@ -40,6 +40,10 @@ export default React.createClass({
   },
 
   grades() {
+    // Note to maintainers: if you update the grade options here, please also
+    // ensure to do so in the following locations:
+    //   - /app/views/teachers/students/index.html.erb
+    //   - /client/app/bundles/HelloWorld/components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx
     const grades = [];
     for (let grade = 1; grade <= 12; grade++) {
       grades.push(
@@ -47,6 +51,7 @@ export default React.createClass({
             );
     }
     grades.push(<MenuItem key={'University'} eventKey={'University'}>University</MenuItem>);
+    grades.push(<MenuItem key={'Other'} eventKey={'Other'}>Other</MenuItem>);
     return grades;
   },
 
@@ -125,7 +130,7 @@ export default React.createClass({
   formatTitle() {
     const classroom = this.state.classroom;
     if (classroom.grade) {
-      return classroom.grade == 'University' ? classroom.grade : NumberSuffix(classroom.grade);
+      return classroom.grade == 'University' || classroom.grade == 'Other' ? classroom.grade : NumberSuffix(classroom.grade);
     }
     return 'Select Grade';
   },
