@@ -37,14 +37,7 @@ export default React.createClass({
       data = this.props.data;
     }
     data.concept_results = conceptResults;
-    this.modules = {
-      titleGenerator: new TooltipTitleGeneratorGenerator(this.props.context).generate(data),
-    };
-    $(this.refs.activateTooltip).tooltip({
-      html: true,
-      placement: this.props.placement,
-      title: this.modules.titleGenerator.generate(this.props.data),
-    });
+    this.showLoadedToolTip(data);
   },
 
   getActClassId() {
@@ -57,6 +50,21 @@ export default React.createClass({
       return d.activity.classification.id;
     }
     return null;
+  },
+
+  showToolTipAndGetConceptResultInfo() {
+    this.showToolTip();
+    this.getConceptResultInfo();
+  },
+
+  showToolTip(data = this.props.data) {
+    const titleGenerator = new TooltipTitleGeneratorGenerator(this.props.context).generate(data);
+    this.setState({ toolTipHTML: titleGenerator.generate(data), showToolTip: true, });
+  },
+
+  showLoadedToolTip(data = this.props.data) {
+    const titleGenerator = new TooltipTitleGeneratorGenerator(this.props.context).generate(data);
+    this.setState({ toolTipHTML: titleGenerator.generate(data), });
   },
 
   tooltipClasses() {
@@ -79,16 +87,29 @@ export default React.createClass({
     }
   },
 
+  hideTooltip() {
+    this.setState({ showToolTip: false, });
+  },
+
   render() {
     const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';
+    let toolTip = null;
+    if (this.state.showToolTip && this.state.toolTipHTML) {
+      // TODO: this is here because the old way inserted the html into a jquery toolTip
+      // as we no longer do this, rather than dangerously inserting html, we should simply
+      // render it as a component
+      toolTip = <div style={{ position: 'absolute', zIndex: 1000, }} dangerouslySetInnerHTML={{ __html: this.state.toolTipHTML, }} />;
+    }
     return (
       <div
         style={{ cursor: cursorType, }}
         onClick={this.props.context === 'scorebook' ? this.checkForStudentReport : null}
-        onMouseEnter={this.props.context === 'scorebook' ? this.getConceptResultInfo : null}
-        ref="activateTooltip"
+        onMouseEnter={this.props.context === 'scorebook' ? this.showToolTipAndGetConceptResultInfo : null}
+        onMouseLeave={this.props.context === 'scorebook' ? this.hideTooltip : null}
         className={this.tooltipClasses()}
-      />
+      >
+        {toolTip}
+      </div>
     );
   },
 });
