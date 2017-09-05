@@ -10,33 +10,46 @@ export default function (percentageDisplayer) {
   this.generate = function (data) {
     let result,
       totalScoreOrNot,
-      aboutPremiumOrNot;
-    if (data.percentage == null) {
-      totalScoreOrNot = null;
-    } else if (data.activity.classification.id === 4 && data.percentage) {
-      totalScoreOrNot = <TotalScore diagnostic={Boolean(true)} />;
-    } else {
-      totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />;
+      aboutPremiumOrNot,
+      ready,
+      body = 'Loading';
+    if (data.concept_results) {
+      ready = true;
+      if (data.percentage == null) {
+        totalScoreOrNot = null;
+      } else if (data.activity.classification.id === 4 && data.percentage) {
+        totalScoreOrNot = <TotalScore diagnostic={Boolean(true)} />;
+      } else {
+        totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />;
+      }
+
+      if ((data.premium_state === 'school') || (data.premium_state === 'paid') || (data.premium_state === 'trial')) {
+        aboutPremiumOrNot = null;
+      } else {
+        aboutPremiumOrNot = <AboutPremium />;
+      }
     }
 
-    if ((data.premium_state === 'school') || (data.premium_state === 'paid') || (data.premium_state === 'trial')) {
-      aboutPremiumOrNot = null;
-    } else {
-      aboutPremiumOrNot = <AboutPremium />;
-    }
-    result = (
-      <div className="scorebook-tooltip">
-        <div className="title">
-          {data.activity.name}
-        </div>
+    if (ready) {
+      body = (
         <div className="main">
           <ConceptResultStats results={data.concept_results} />
           {totalScoreOrNot}
           <ActivityDetails data={data} />
         </div>
+      );
+    }
+
+    result = (
+      <div className="scorebook-tooltip">
+        <div className="title">
+          {data.activity.name}
+        </div>
+        {body}
         {aboutPremiumOrNot}
       </div>
     );
+    console.log(ReactDOMServer.renderToString(result));
     return ReactDOMServer.renderToString(result);
   };
 }
