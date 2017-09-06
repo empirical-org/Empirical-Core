@@ -10,16 +10,17 @@ export default function (percentageDisplayer) {
     let totalScoreOrNot,
       aboutPremiumOrNot,
       conceptResults,
-      conceptResultsOrLoading = <LoadingDots loadingMessage={'Loading concept results'} />;
+      conceptResultsOrLoadingOrNotCompleted = <LoadingDots loadingMessage={'Loading concept results'} />;
     if (data.concept_results && data.concept_results.length) {
       conceptResults = true;
-      conceptResultsOrLoading = <ConceptResultStats results={data.concept_results} />;
+      conceptResultsOrLoadingOrNotCompleted = <ConceptResultStats results={data.concept_results} />;
       if (!['trial', 'school', 'paid'].includes(data.premium_state)) {
         aboutPremiumOrNot = <AboutPremium />;
       }
     }
     if (data.percentage == null) {
       totalScoreOrNot = null;
+      conceptResultsOrLoadingOrNotCompleted = <span>This activity has not been completed.</span>;
     } else if (data.activity.classification.id === 4 && data.percentage) {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>100% Complete</strong></p>;
     } else {
@@ -37,7 +38,7 @@ export default function (percentageDisplayer) {
           <ActivityDetails data={data} />
           {totalScoreOrNot}
           <div className={conceptResults ? 'concept-results' : 'loading flex-row vertically-centered space-around'}>
-            {conceptResultsOrLoading}
+            {conceptResultsOrLoadingOrNotCompleted}
           </div>
         </div>
         {aboutPremiumOrNot}
