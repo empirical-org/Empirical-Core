@@ -252,6 +252,7 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-EX':
           return (
             <CLExit
+              hasFollowUpActivity={data.hasFollowUpActivity}
               redirectAssignedStudents={redirectAssignedStudents}
               lessonData={lessonData}
               script={current.data.teach.script}
