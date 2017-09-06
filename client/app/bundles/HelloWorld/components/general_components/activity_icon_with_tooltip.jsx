@@ -95,7 +95,7 @@ export default React.createClass({
     const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';
     let toolTip = null;
     if (this.state.showToolTip && this.state.toolTipHTML) {
-      // TODO: this is here because the old way inserted the html into a jquery toolTip
+      // TODO: this is here because the old way inserted the html into a jquery tooltip
       // as we no longer do this, rather than dangerously inserting html, we should simply
       // render it as a component
       toolTip = <div style={{ position: 'absolute', zIndex: 1000, }} dangerouslySetInnerHTML={{ __html: this.state.toolTipHTML, }} />;

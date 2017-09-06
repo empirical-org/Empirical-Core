@@ -1,6 +1,9 @@
 .scorebook-tooltip, .student-profile-tooltip {
   .main {
     padding: 0px 15px;
+     p {
+       padding-top: 12px;
+     }
     .concept-stats {
       width: 280px;
       font-size: 13px;
@@ -38,14 +41,6 @@
     }
     .total-score {
       text-align: center;
-      padding: 7px;
-      font-size: 15px;
-      .percentage {
-        margin-left: 5px;
-        // border-bottom: 1px solid $lightgray;
-        padding: 4px 0px;
-        font-weight: 700;
-      }
     }
 
     .tooltip-message {
@@ -53,16 +48,11 @@
     }
 
     .activity-details {
-      border-top: 1px solid $lightgray;
-      padding: 12px 0px 0px 0px;
       font-size: 13px;
-
       &.no-concept-results {
         border-top: 0px;
       }
-
       .activity-detail {
-        margin-bottom: 12px;
         .activity-detail-title {
           font-weight: 800;
           margin-right: 5px;
