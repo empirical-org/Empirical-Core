@@ -40,8 +40,7 @@ class UnitTemplate < ActiveRecord::Base
   end
 
   def self.assign_to_whole_class(class_id, unit_template_id)
-    student_ids = StudentsClassrooms.where(classroom_id: class_id).ids
-    student_ids.compact!
+    student_ids = Classroom.find(class_id).student_ids.compact
     AssignRecommendationsWorker.perform_async(unit_template_id, class_id, student_ids, true, true)
   end
 
