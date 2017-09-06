@@ -104,7 +104,7 @@ export default class extends React.Component{
   formatTitle(grade){
     // this is the title of the dropdown menu
     if (grade) {
-      return grade == 'University' ? grade : `${NumberSuffix(grade)} Grade`
+      return grade == 'University' || grade == 'Other' ? grade : `${NumberSuffix(grade)} Grade`
     } else {
       return 'Select Grade'
     }
@@ -166,13 +166,18 @@ export default class extends React.Component{
 
   grades(id) {
     // populates dropdown menu with grades
+    // Note to maintainers: if you update the grade options here, please also
+    // ensure to do so in the following locations:
+    //   - /app/views/teachers/students/index.html.erb
+    //   - /app/bundles/HelloWorld/containers/CreateClass.jsx
       let grades = [];
       for (let grade = 1; grade <= 12; grade++) {
           grades.push(
               <MenuItem id={`${grade}-${id}`} key={`${grade}-${id}`} eventKey={{id, grade: grade}}>{NumberSuffix(grade)}</MenuItem>
           )
       }
-      grades.push(<MenuItem id={`university-${id}`} key={`university-${id}`} eventKey={'University'}>University</MenuItem>)
+      grades.push(<MenuItem id={`university-${id}`} key={`university-${id}`} eventKey={{id, grade: 'University'}}>University</MenuItem>)
+      grades.push(<MenuItem id={`other-${id}`} key={`other-${id}`} eventKey={{id, grade: 'Other'}}>Other</MenuItem>)
       return grades
   }
 
