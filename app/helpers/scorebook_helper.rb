@@ -1,7 +1,5 @@
 module ScorebookHelper
 
-
-
   def percentage_color(score)
     proficiency_cutoff = ProficiencyEvaluator.proficiency_cutoff
     nearly_proficient_cutoff = ProficiencyEvaluator.nearly_proficient_cutoff
@@ -71,34 +69,4 @@ module ScorebookHelper
     end
   end
 
-
-
-  def activity_planner_tooltip_html activity_hash # note: not an active record object, a hash
-    activity_name = activity_hash['activity_name'].nil? ? '' : ("<h1>" + (activity_hash['activity_name'].gsub(/"/, '&quot;')) + "</h1>")
-    activity_description = activity_hash['activity_description'].nil? ? '' : ("<p>" + (activity_hash['activity_description'].gsub(/"/, '&quot;')) + "</p>")
-
-    app_name = activity_hash['activity_classification_name'].nil? ? '' : ("<p> App: " + (activity_hash['activity_classification_name'].gsub(/"/, '&quot;')) + "</p>")
-
-
-    %Q(data-toggle="tooltip" data-html=true data-placement="left" title="#{activity_name}#{app_name}#{activity_description}").html_safe
-  end
-
-  def activity_icon_with_tooltip(activity, activity_session, include_activity_title: false)
-    #activity, session = activity_and_session(activity_or_session)
-
-    render partial: 'activity_icon_with_tooltip', locals: {
-      activity: activity,
-      activity_session: activity_session,
-      include_activity_title: include_activity_title
-    }
-  end
-
-  # Return both the activity and its session (if there is one)
-  def activity_and_session(activity_or_session)
-    if activity_or_session.respond_to?(:activity)
-      [activity_or_session.activity, activity_or_session]
-    else
-      [activity_or_session, nil]
-    end
-  end
 end
