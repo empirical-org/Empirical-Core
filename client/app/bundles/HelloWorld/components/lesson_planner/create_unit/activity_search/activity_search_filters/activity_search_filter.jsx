@@ -47,21 +47,8 @@
 		isThereASelection = !!this.props.data.selected;
     var field = this.props.data.field;
 
-    if(field === 'activity_classification') {
-      // Put activity classifications into the desired order.
-      const activityClassificationIdsInOrder = [
-        4, // Diagnostic
-        6, // Lessons
-        5, // Connect
-        2, // Grammar
-        1, // Proofreader
-        3  // Writer
-      ];
-      this.props.data.options.sort((a,b) => {
-        return activityClassificationIdsInOrder.indexOf(a) - activityClassificationIdsInOrder.indexOf(b);
-      });
-    } else {
-      // Otherwise, sort the options alphanumerically.
+    if(field !== 'activity_classification') {
+      // Sort the options alphanumerically.
       this.props.data.options.sort(function(a, b) {
         // This is kind of a hack, but all of the filter's options have a 'name' property.
         return naturalCmp(a.name, b.name);
