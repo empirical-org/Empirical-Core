@@ -9,6 +9,7 @@ import EllDiagnosticAnnouncement from './ell_diagnostic_announcement_mini.jsx';
 import QuillLessonsAnnouncement from './quill_lessons_announcement_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
+import DiagnosticMini from './diagnostic_mini.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -68,10 +69,15 @@ export default React.createClass({
     }
   },
 
+  diagnosticMini() {
+    return <DiagnosticMini />
+  },
+
   render() {
     return (
       <div className="row">
         {this.teacherGuide()}
+        {this.diagnosticMini()}
         {this.announcementMini()}
         {this.overviewMinis()}
         {this.hasPremium()}
