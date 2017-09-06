@@ -1,8 +1,22 @@
 .scorebook-tooltip, .student-profile-tooltip {
+
+  i {
+    position: absolute;
+    top: -20px;
+    left: 8px;
+    font-size: 34px;
+    color: #f4f2f2;
+    &.border-color {
+      top: -22px;
+      z-index: -10;
+      color: #cecece;
+    }
+  }
+
   .main {
     padding: 0px 15px;
      p {
-       padding-top: 12px;
+       padding-top: 6px;
      }
     .concept-stats {
       width: 280px;
@@ -11,8 +25,11 @@
       margin: 0px;
       .row, .tooltip-message {
         margin: 0px;
-        border-bottom: 1px solid $lightgray;
+
         padding: 4px 0px;
+        &:not(:nth-last-child(2)) {
+          border-bottom: 1px solid $lightgray;
+        }
       }
 
       .tooltip-message {

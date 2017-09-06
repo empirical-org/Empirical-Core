@@ -10,7 +10,7 @@ export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     context: React.PropTypes.string.isRequired, // studentProfile, scorebook
-    premiumState: React.PropTypes.string,
+    premium_state: React.PropTypes.string,
     placement: React.PropTypes.string, // not required
     dontShowToolTip: React.PropTypes.bool, // TODO: remove this and make the tooltip show via ajax
   },
@@ -31,11 +31,7 @@ export default React.createClass({
 
   loadTooltipTitle(conceptResults) {
     let data;
-    if (this.props.context == 'scorebook') {
-      data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
-    } else {
-      data = this.props.data;
-    }
+    data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
     data.concept_results = conceptResults;
     this.showLoadedToolTip(data);
   },
@@ -98,11 +94,11 @@ export default React.createClass({
       // TODO: this is here because the old way inserted the html into a jquery tooltip
       // as we no longer do this, rather than dangerously inserting html, we should simply
       // render it as a component
-      toolTip = <div style={{ position: 'absolute', zIndex: 1000, }} dangerouslySetInnerHTML={{ __html: this.state.toolTipHTML, }} />;
+      toolTip = <div style={{ position: 'absolute', zIndex: 1000, top: '50px', }} dangerouslySetInnerHTML={{ __html: this.state.toolTipHTML, }} />;
     }
     return (
       <div
-        style={{ cursor: cursorType, }}
+        style={{ cursor: cursorType, position: 'relative', }}
         onClick={this.props.context === 'scorebook' ? this.checkForStudentReport : null}
         onMouseEnter={this.props.context === 'scorebook' ? this.showToolTipAndGetConceptResultInfo : null}
         onMouseLeave={this.props.context === 'scorebook' ? this.hideTooltip : null}

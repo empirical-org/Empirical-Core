@@ -7,17 +7,6 @@ export default React.createClass({
     data: React.PropTypes.object.isRequired,
   },
 
-  objectiveTitle() {
-    const activity = this.props.data.activity;
-    const classification = this.props.data.activity.classification;
-    if (activity.activity_classification_id) {
-      return [activityTypeFromClassificationId(activity.activity_classification_id), 'Objective'].join(' ');
-    } else if (classification) {
-      return [classification.alias, 'Objective'].join(' ');
-    }
-    return 'Objective';
-  },
-
   getClassName() {
     if (this.props.data.concept_results && this.props.data.concept_results.length) {
       return 'activity-details';
@@ -32,10 +21,10 @@ export default React.createClass({
     let dateTitle,
       dateBody;
     if (this.props.data.state == 'finished') {
-      dateTitle = 'Completed:';
+      dateTitle = 'Completed';
       dateBody = this.props.data.completed_at ? this.props.data.completed_at : this.props.data.due_date_or_completed_at_date;
     } else {
-      dateTitle = 'Due:';
+      dateTitle = 'Due';
       dateBody = this.props.data.due_date_or_completed_at_date ? this.props.data.due_date_or_completed_at_date : this.props.data.due_date;
     }
     return (
@@ -52,7 +41,7 @@ export default React.createClass({
       <div className={this.getClassName()}>
         <div className="activity-detail">
           <div className="activity-detail-body">
-            <strong>Objective:</strong>{this.props.data.activity.description}
+            <strong>Objective:</strong>{` ${this.props.data.activity.description}`}
             {this.dateOrNot()}
           </div>
         </div>
