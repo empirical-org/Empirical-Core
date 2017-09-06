@@ -130,7 +130,7 @@ export default React.createClass({
   formatTitle() {
     const classroom = this.state.classroom;
     if (classroom.grade) {
-      return classroom.grade == 'University' || classroom.grade == 'Other' ? classroom.grade : NumberSuffix(classroom.grade);
+      return classroom.grade == 'University' || classroom.grade == 'Other' ? classroom.grade : `${NumberSuffix(classroom.grade)} Grade`;
     }
     return 'Select Grade';
   },
