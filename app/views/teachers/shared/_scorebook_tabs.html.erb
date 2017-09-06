@@ -25,7 +25,7 @@
       </li>
 
       <%- if current_user.admin? %>
-        <li class="<%= (action_name == 'administrator') ? 'admin-tab active' : 'admin-tab' %>">
+        <li class="<%= (action_name == 'admin_dashboard') ? 'admin-tab active' : 'admin-tab' %>">
           <%= link_to raw('Admin Dashboard'), teachers_admin_dashboard_path, role: 'tab' %>
           <%= link_to 'Admin', teachers_admin_dashboard_path, role: 'tab', class: 'mobile'  %>
         </li>
