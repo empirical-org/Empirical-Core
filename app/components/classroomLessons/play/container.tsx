@@ -66,6 +66,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
 
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   componentWillReceiveProps(nextProps, nextState) {
