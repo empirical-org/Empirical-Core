@@ -22,6 +22,7 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
     this.handleNBlanks = this.handleNBlanks.bind(this)
+    this.handleBlankLabelChange = this.handleBlankLabelChange.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -58,7 +59,7 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.setState({question: newVals})
   }
 
-  handleBlankLableChange(e) {
+  handleBlankLabelChange(e) {
     const newVals = Object.assign(
       {},
       this.state.question
@@ -126,7 +127,7 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
         <div className="field">
           <label className="label">Blank Label</label>
           <div className="control">
-            <input value={this.state.question.play.blankLabel} onChange={this.handleBlankLableChange} className="input" type="text" placeholder="Text input"/>
+            <input value={this.state.question.play.blankLabel} onChange={this.handleBlankLabelChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <div className="field">
