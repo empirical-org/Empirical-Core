@@ -4,12 +4,22 @@
 
   .representative {
     .representative-header {
-      font-weight: 700;
-      margin-bottom: 25px;
+      font-weight: 600;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1.4;
+      color: #3d3d3d;
     }
 
     .rep-info {
       margin-bottom: 60px;
+
+      img {
+        height: 150px;
+        width: 150px;
+        margin-right: 25px;
+      }
     }
 
     .representative-contact {
