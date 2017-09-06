@@ -6,6 +6,8 @@ import {
   registerPresence,
   updateNoStudentError,
   easyJoinLessonAddName,
+  goToNextSlide,
+  goToPreviousSlide
 } from '../../../actions/classroomSessions';
 import CLAbsentTeacher from './absentTeacher';
 import CLStudentLobby from './lobby';
@@ -40,6 +42,12 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     this.state = {
       easyDemoName: ''
     }
+
+    if (getParameterByName('projector')) {
+      document.addEventListener("keydown", this.handleKeyDown.bind(this));
+    }
+
+
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
     this.easyJoinDemo = this.easyJoinDemo.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -88,6 +96,24 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
           } else {
             this.props.dispatch(updateNoStudentError(student))
           }
+        }
+      }
+    }
+  }
+
+  handleKeyDown(event) {
+    const tag = event.target.tagName.toLowerCase()
+    const className = event.target.className.toLowerCase()
+    if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
+      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+      if (ca_id) {
+        const updateInStore = event.keyCode === 39
+          ? goToNextSlide(ca_id, sessionData, lessonData)
+          : goToPreviousSlide(ca_id, sessionData, lessonData)
+        if (updateInStore) {
+          this.props.dispatch(updateInStore);
         }
       }
     }
