@@ -11,24 +11,26 @@ describe('StudentProfileUnits component', () => {
     const wrapper = shallow(
       <StudentProfileUnits
         data={{
-          'Example Key': {},
-          'Other Example': {}
+          '0': {unit_id: 1, unit_name: 'Same ID'},
+          '1': {unit_id: 1, unit_name: 'Same ID'},
+          '2': {unit_id: 2, unit_name: 'Different'},
         }}
       />
     );
     expect(wrapper.find(StudentProfileUnit).length).toBe(2);
-    expect(wrapper.find(StudentProfileUnit).at(0).props().data.unitName).toBe('Example Key');
-    expect(wrapper.find(StudentProfileUnit).at(1).props().data.unitName).toBe('Other Example');
+    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[0].unit_name).toBe('Same ID');
+    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].unit_name).toBe('Same ID');
+    expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].unit_name).toBe('Different');
   });
 
-  it('should render nothing if loading', () => {
+  it('should render LOADING if loading', () => {
     const wrapper = shallow(
       <StudentProfileUnits
         data={{}}
         loading={true}
       />
     );
-    expect(wrapper.find('.container').html()).toBe('<div class="container"></div>');
+    expect(wrapper.find('.container').html()).toBe('<div class="container">LOADING</div>');
   });
 
 });
