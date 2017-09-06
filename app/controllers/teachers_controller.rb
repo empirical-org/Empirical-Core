@@ -57,6 +57,30 @@ class TeachersController < ApplicationController
     render json: {unit_info: unit_info}
   end
 
+  def get_diagnostic_info_for_dashboard_mini
+    records = ActiveRecord::Base.connection.execute("SELECT ca.id AS classroom_activity_id, units.id AS unit_id, classroom.id AS classroom_activity_id, actsesh.completed_at FROM classroom_activities ca
+               JOIN units ON ca.unit_id = units.id
+               JOIN activities AS acts ON ca.activity_id = acts.id
+               JOIN classrooms AS classroom ON ca.classroom_id = classroom.id
+               JOIN activity_sessions AS actsesh ON actsesh.classroom_activity_id = ca.id
+               WHERE units.user_id = #{current_user.id}
+               AND acts.activity_classification_id = 4
+               ORDER BY actsesh.completed_at DESC").to_a
+    if records.length > 0
+      most_recently_completed = records.find { |r| r['completed_at'] != nil }
+      # checks to see if the diagnostic was completed within a week
+      if 1.week.ago < most_recently_completed['completed_at']
+        render json: {state: 'recently completed', unit_info: most_recently_completed }
+      elsif most_recently_completed
+        render json: {state: 'completed'}
+      else
+        render json: {state: 'assigned'}
+      end
+    else
+      render json: {state: 'unassigned'}
+    end
+  end
+
   private
 
   def set_admin_account
