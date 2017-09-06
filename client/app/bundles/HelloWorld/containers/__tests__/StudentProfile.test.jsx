@@ -35,7 +35,8 @@ describe('StudentProfile container', () => {
       },
       grouped_scores: {
         food: 'bars'
-      }
+      },
+      loading: false
     });
     describe('StudentClassroomNavbar component', () => {
       it('should render', () => {
