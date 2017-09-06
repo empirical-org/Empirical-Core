@@ -7,7 +7,8 @@ import {
   updateNoStudentError,
   easyJoinLessonAddName,
   goToNextSlide,
-  goToPreviousSlide
+  goToPreviousSlide,
+  saveStudentSubmission
 } from '../../../actions/classroomSessions';
 import CLAbsentTeacher from './absentTeacher';
 import CLStudentLobby from './lobby';
@@ -20,7 +21,6 @@ import CLStudentModelQuestion from './modelQuestion';
 import CLExit from './exit';
 import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
-import { saveStudentSubmission } from '../../../actions/classroomSessions';
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
