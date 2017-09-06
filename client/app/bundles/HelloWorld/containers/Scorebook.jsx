@@ -75,7 +75,7 @@ export default React.createClass({
       classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
       is_last_page: data.is_last_page,
-      premium_state: data.teacher.premium_state,
+      premium_state: data.premium_state,
       noLoadHasEverOccurredYet: false,
     });
     if (this.state.currentPage == 1) {

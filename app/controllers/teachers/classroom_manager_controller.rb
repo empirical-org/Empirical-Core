@@ -152,7 +152,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     selected_classroom =  Classroom.find_by id: params[:classroom_id]
     scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, selected_classroom.try(:id), params[:unit_id], params[:begin_date], params[:end_date]
     render json: {
-      teacher: current_user.premium_state,
+      premium_state: current_user.premium_state,
       classrooms: classrooms,
       units: units,
       scores: scores,

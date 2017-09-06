@@ -14,6 +14,9 @@ export default function (percentageDisplayer) {
     if (data.concept_results && data.concept_results.length) {
       conceptResults = true;
       conceptResultsOrLoading = <ConceptResultStats results={data.concept_results} />;
+      if (!['trial', 'school', 'paid'].includes(data.premium_state)) {
+        aboutPremiumOrNot = <AboutPremium />;
+      }
     }
     if (data.percentage == null) {
       totalScoreOrNot = null;
@@ -22,13 +25,11 @@ export default function (percentageDisplayer) {
     } else {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>Score:</strong> <span className="percentage">{percentageDisplayer.run(data.percentage)}</span></p>;
     }
-    if ((data.premium_state === 'school') || (data.premium_state === 'paid') || (data.premium_state === 'trial')) {
-      aboutPremiumOrNot = null;
-    } else {
-      aboutPremiumOrNot = <AboutPremium />;
-    }
+
     const result = (
-      <div className="scorebook-tooltip">
+      <div className="scorebook-tooltip" style={{ position: 'relative', }}>
+        <i className="fa fa-caret-up" />
+        <i className="fa fa-caret-up border-color" />
         <div className="title">
           {data.activity.name}
         </div>
