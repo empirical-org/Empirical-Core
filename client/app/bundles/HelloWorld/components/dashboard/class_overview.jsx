@@ -5,7 +5,6 @@ import PremiumMini from './premium_mini';
 import TeacherGuide from '../teacher_guide/teacher_guide';
 import BetaMini from './beta_mini.jsx';
 import NewTools from './new_tools_mini.jsx';
-import EllDiagnosticAnnouncement from './ell_diagnostic_announcement_mini.jsx';
 import QuillLessonsAnnouncement from './quill_lessons_announcement_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
