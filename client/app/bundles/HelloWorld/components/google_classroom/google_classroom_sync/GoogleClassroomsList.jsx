@@ -4,6 +4,7 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 import LoadingIndicator from '../../shared/loading_indicator.jsx'
 import Pluralize from 'pluralize'
+import moment from 'moment'
 
 export default class extends React.Component{
   constructor(){
@@ -77,7 +78,7 @@ export default class extends React.Component{
     // sorts by if alreadyImported, then by creationTime
     return this.state.classrooms.sort((a, b) => {
       if (a.alreadyImported === b.alreadyImported) {
-        return a.creationTime-b.creationTime;
+        return moment(a.creationTime)-moment(b.creationTime);
       } else if (a.alreadyImported) {
         return -1;
       } else {
