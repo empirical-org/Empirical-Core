@@ -4,9 +4,15 @@ import {
 } from '../interfaces';
 
 export function sortByLastName(name1: string, name2: string, students: Students) {
-  const lastName1: string = students[name1].split(" ").slice(-1)[0];
-  const lastName2: string = students[name2].split(" ").slice(-1)[0];
-  return sort(lastName1, lastName2)
+  const student1: string|null = students[name1]
+  const student2: string|null = students[name2]
+  if (student1 && student2) {
+    const lastName1: string = students[name1].split(" ").slice(-1)[0];
+    const lastName2: string = students[name2].split(" ").slice(-1)[0];
+    return sort(lastName1, lastName2)
+  } else {
+    return 0
+  }
 }
 
 export function sortByDisplayed(selected1: boolean, selected2: boolean) {
