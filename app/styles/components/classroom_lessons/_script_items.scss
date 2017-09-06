@@ -28,11 +28,14 @@
   .student-submission-item-table {
     padding: 15px 20px;
 
-    .answer-number {
+    .answer-number-container {
       width: 23px;
+      display: block;
+    }
+
+    .answer-number {
       height: 23px;
       background-color: #3adfbb;
-      display: block;
       text-align: center;
       border-radius: 20px;
       padding-top: 2px;

@@ -424,7 +424,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             {checkbox}
           </label>
         </td>
-        <td><span className={studentNumberClassName}>{studentNumber}</span></td>
+        <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
         <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
       </tr>
 
