@@ -45,17 +45,32 @@
 	getDisplayedFilterOptions: function() {
 		var options, isThereASelection, clearSelection;
 		isThereASelection = !!this.props.data.selected;
+    var field = this.props.data.field;
 
-		// Sort the options alphanumerically.
-		this.props.data.options.sort(function(a, b) {
-			// This is kind of a hack, but all of the filter's options have a 'name' property.
-			return naturalCmp(a.name, b.name);
-		});
+    if(field === 'activity_classification') {
+      // Put activity classifications into the desired order.
+      const activityClassificationIdsInOrder = [
+        4, // Diagnostic
+        6, // Lessons
+        5, // Connect
+        2, // Grammar
+        1, // Proofreader
+        3  // Writer
+      ];
+      this.props.data.options.sort((a,b) => {
+        return activityClassificationIdsInOrder.indexOf(a) - activityClassificationIdsInOrder.indexOf(b);
+      });
+    } else {
+      // Otherwise, sort the options alphanumerically.
+      this.props.data.options.sort(function(a, b) {
+        // This is kind of a hack, but all of the filter's options have a 'name' property.
+        return naturalCmp(a.name, b.name);
+      });
+    }
 
 		options = this.props.data.options;
 
     var that = this;
-    var field = this.props.data.field;
 		return _.map(options, function (option) {
       if (field === 'activity_classification') {
         return (<FilterButton key={option.id} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id}/>);
