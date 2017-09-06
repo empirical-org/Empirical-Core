@@ -70,7 +70,7 @@ class ExitSlide extends React.Component<any, any> {
 
   renderAssignmentOptionsAndButton() {
     const {hasFollowUpActivity, students} = this.props
-    if (hasFollowUpActivity) {
+    if (hasFollowUpActivity && students && Object.keys(students).length > 0) {
       return <div>
         <AssignmentOptions
           numberOfStudents={Object.keys(students).length}
