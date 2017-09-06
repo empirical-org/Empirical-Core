@@ -1,30 +1,25 @@
-import React from 'react'
-import TotalScore from '../../../general_components/tooltip/total_score.jsx'
-import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx'
+import React from 'react';
+import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';
 import ReactDOMServer from 'react-dom/server';
 
-
 export default function (percentageDisplayer) {
-
-  var _displayPercentage = percentageDisplayer.run
+  const _displayPercentage = percentageDisplayer.run;
 
   this.generate = function (data) {
-    var totalScoreOrNot;
+    let totalScoreOrNot;
     if (data.percentage == null) {
-      totalScoreOrNot = null
-    } else {
-      totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />
+      totalScoreOrNot = null;
     }
 
-  return ReactDOMServer.renderToString(
-      <div className='student-profile-tooltip'>
-        <div className='title'>
+    return ReactDOMServer.renderToString(
+      <div className="student-profile-tooltip">
+        <div className="title">
           {data.activity.name}
         </div>
-        <div className='main'>
+        <div className="main">
           <ActivityDetails data={data} />
         </div>
       </div>
     );
-  }
+  };
 }

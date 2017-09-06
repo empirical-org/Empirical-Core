@@ -639,7 +639,12 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               bsClass="dropdown"
                               disabled={false}
                               divider={false}
-                              eventKey="University"
+                              eventKey={
+                                Object {
+                                  "grade": "University",
+                                  "id": 4451629374,
+                                }
+                              }
                               header={false}
                               id="university-4451629374"
                               onKeyDown={[Function]}
@@ -666,6 +671,46 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                                     tabIndex="-1"
                                   >
                                     University
+                                  </a>
+                                </SafeAnchor>
+                              </li>
+                            </MenuItem>
+                            <MenuItem
+                              bsClass="dropdown"
+                              disabled={false}
+                              divider={false}
+                              eventKey={
+                                Object {
+                                  "grade": "Other",
+                                  "id": 4451629374,
+                                }
+                              }
+                              header={false}
+                              id="other-4451629374"
+                              onKeyDown={[Function]}
+                              onSelect={[Function]}
+                            >
+                              <li
+                                className=""
+                                role="presentation"
+                              >
+                                <SafeAnchor
+                                  componentClass="a"
+                                  id="other-4451629374"
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                  role="menuitem"
+                                  tabIndex="-1"
+                                >
+                                  <a
+                                    href="#"
+                                    id="other-4451629374"
+                                    onClick={[Function]}
+                                    onKeyDown={[Function]}
+                                    role="menuitem"
+                                    tabIndex="-1"
+                                  >
+                                    Other
                                   </a>
                                 </SafeAnchor>
                               </li>
@@ -1282,7 +1327,12 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               bsClass="dropdown"
                               disabled={false}
                               divider={false}
-                              eventKey="University"
+                              eventKey={
+                                Object {
+                                  "grade": "University",
+                                  "id": 3799271824,
+                                }
+                              }
                               header={false}
                               id="university-3799271824"
                               onKeyDown={[Function]}
@@ -1309,6 +1359,46 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                                     tabIndex="-1"
                                   >
                                     University
+                                  </a>
+                                </SafeAnchor>
+                              </li>
+                            </MenuItem>
+                            <MenuItem
+                              bsClass="dropdown"
+                              disabled={false}
+                              divider={false}
+                              eventKey={
+                                Object {
+                                  "grade": "Other",
+                                  "id": 3799271824,
+                                }
+                              }
+                              header={false}
+                              id="other-3799271824"
+                              onKeyDown={[Function]}
+                              onSelect={[Function]}
+                            >
+                              <li
+                                className=""
+                                role="presentation"
+                              >
+                                <SafeAnchor
+                                  componentClass="a"
+                                  id="other-3799271824"
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                  role="menuitem"
+                                  tabIndex="-1"
+                                >
+                                  <a
+                                    href="#"
+                                    id="other-3799271824"
+                                    onClick={[Function]}
+                                    onKeyDown={[Function]}
+                                    role="menuitem"
+                                    tabIndex="-1"
+                                  >
+                                    Other
                                   </a>
                                 </SafeAnchor>
                               </li>
@@ -1912,7 +2002,12 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               bsClass="dropdown"
                               disabled={false}
                               divider={false}
-                              eventKey="University"
+                              eventKey={
+                                Object {
+                                  "grade": "University",
+                                  "id": 3783127312,
+                                }
+                              }
                               header={false}
                               id="university-3783127312"
                               onKeyDown={[Function]}
@@ -1939,6 +2034,46 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                                     tabIndex="-1"
                                   >
                                     University
+                                  </a>
+                                </SafeAnchor>
+                              </li>
+                            </MenuItem>
+                            <MenuItem
+                              bsClass="dropdown"
+                              disabled={false}
+                              divider={false}
+                              eventKey={
+                                Object {
+                                  "grade": "Other",
+                                  "id": 3783127312,
+                                }
+                              }
+                              header={false}
+                              id="other-3783127312"
+                              onKeyDown={[Function]}
+                              onSelect={[Function]}
+                            >
+                              <li
+                                className=""
+                                role="presentation"
+                              >
+                                <SafeAnchor
+                                  componentClass="a"
+                                  id="other-3783127312"
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                  role="menuitem"
+                                  tabIndex="-1"
+                                >
+                                  <a
+                                    href="#"
+                                    id="other-3783127312"
+                                    onClick={[Function]}
+                                    onKeyDown={[Function]}
+                                    role="menuitem"
+                                    tabIndex="-1"
+                                  >
+                                    Other
                                   </a>
                                 </SafeAnchor>
                               </li>

@@ -1,6 +1,10 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
+
 import GoogleClassroomsList from '../GoogleClassroomsList.jsx'
+
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 const googleClasses = [
         {
@@ -154,8 +158,21 @@ describe('the GoogleClassroomsList component', () => {
         wrapper.find('button').last().simulate('click')
         expect(mockSyncClassrooms.mock.calls.length).toEqual(1);
       })
+    })
 
+    describe('the DropdownButton component', () => {
+      it('should render MenuItems for grades K-12, University, and Other', () => {
+        expect(wrapper.find(DropdownButton).at(0).find(MenuItem)).toHaveLength(14);
+      });
 
+      // TODO: write a test to ensure that the onselect event works and
+      // formats the dropdown's title prop properly.
+
+      it('should be disabled if not checked', () => {
+        const classKey = wrapper.state().classrooms[0].id;
+        wrapper.find(`button[id="grade-dropdown-${classKey}"]`).simulate('select', 'Other');
+        expect(wrapper.find(`button[id="grade-dropdown-${classKey}"]`).text()).toEqual('Select Grade ');
+      });
     })
 
 })

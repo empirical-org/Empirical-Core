@@ -53,6 +53,7 @@ EmpiricalGrammar::Application.routes.draw do
     get :anonymous, on: :collection
     get :play, on: :member
     put :play, on: :member
+    get :concept_results, on: :member
   end
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
@@ -230,6 +231,7 @@ EmpiricalGrammar::Application.routes.draw do
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
+      get 'activities/:id/has_follow_up_activity' => 'activities#has_follow_up_activity'
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
       put 'classroom_activities/:id/finish_lesson' => 'classroom_activities#finish_lesson'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'

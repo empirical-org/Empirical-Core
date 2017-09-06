@@ -10,7 +10,9 @@ class LessonRecommendations
     def previous_unit_names(classroom_id)
       ActiveRecord::Base.connection.execute("SELECT DISTINCT unit.name FROM units unit
       LEFT JOIN classroom_activities as ca ON ca.unit_id = unit.id
-      WHERE ca.classroom_id = 43699").to_a.map {|e| e['name']}
+      WHERE ca.classroom_id = #{classroom_id}
+      AND ca.visible = true
+      AND unit.visible = true").to_a.map {|e| e['name']}
     end
 
     def mark_previously_assigned(recs, classroom_id)

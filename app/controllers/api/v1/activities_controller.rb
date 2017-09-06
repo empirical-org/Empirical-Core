@@ -58,6 +58,10 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   end
 
+  def has_follow_up_activity
+    render json: {has_follow_up_activity: !!@activity.follow_up_activity_id}
+  end
+
   private
 
   def find_activity
