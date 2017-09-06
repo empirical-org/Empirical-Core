@@ -84,20 +84,25 @@ class ExitSlide extends React.Component<any, any> {
     }
   }
 
+  renderFlaggedStudents() {
+    const {flaggedStudents, students} = this.props
+    if (students && Object.keys(students).length > 0)
+    return  <FlaggedStudents
+              flaggedStudents={flaggedStudents}
+              students={students}
+              toggleStudentFlag={this.props.toggleStudentFlag}
+            />
+  }
+
   render() {
-    const {script, flaggedStudents, students} = this.props
     return (
       <div className='teacher-exit'>
         <ScriptComponent
-          script={script}
+          script={this.props.script}
           onlyShowHeaders={this.props.onlyShowHeaders}
           updateToggledHeaderCount={this.props.updateToggledHeaderCount}
         />
-        <FlaggedStudents
-          flaggedStudents={flaggedStudents}
-          students={students}
-          toggleStudentFlag={this.props.toggleStudentFlag}
-        />
+        {this.renderFlaggedStudents()}
         {this.renderAssignmentOptionsAndButton()}
       </div>
     );
