@@ -1,55 +1,47 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import TotalScore from '../../../general_components/tooltip/total_score.jsx';
 import AboutPremium from '../../../general_components/tooltip/about_premium.jsx';
 import ConceptResultStats from '../../../general_components/tooltip/concept_result_stats.jsx';
 import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';
+import LoadingDots from '../../../shared/loading_dots.jsx';
 
 export default function (percentageDisplayer) {
-  const _displayPercentage = percentageDisplayer.run;
   this.generate = function (data) {
-    let result,
-      totalScoreOrNot,
+    let totalScoreOrNot,
       aboutPremiumOrNot,
-      ready,
-      body = 'Loading';
-    if (data.concept_results) {
-      ready = true;
-      if (data.percentage == null) {
-        totalScoreOrNot = null;
-      } else if (data.activity.classification.id === 4 && data.percentage) {
-        totalScoreOrNot = <TotalScore diagnostic={Boolean(true)} />;
-      } else {
-        totalScoreOrNot = <TotalScore percentage={_displayPercentage(data.percentage)} />;
-      }
-
-      if ((data.premium_state === 'school') || (data.premium_state === 'paid') || (data.premium_state === 'trial')) {
-        aboutPremiumOrNot = null;
-      } else {
-        aboutPremiumOrNot = <AboutPremium />;
-      }
+      conceptResults,
+      conceptResultsOrLoading = <LoadingDots loadingMessage={'Loading concept results'} />;
+    if (data.concept_results && data.concept_results.length) {
+      conceptResults = true;
+      conceptResultsOrLoading = <ConceptResultStats results={data.concept_results} />;
     }
-
-    if (ready) {
-      body = (
-        <div className="main">
-          <ConceptResultStats results={data.concept_results} />
-          {totalScoreOrNot}
-          <ActivityDetails data={data} />
-        </div>
-      );
+    if (data.percentage == null) {
+      totalScoreOrNot = null;
+    } else if (data.activity.classification.id === 4 && data.percentage) {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>100% Complete</strong></p>;
+    } else {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>Score:</strong> <span className="percentage">{percentageDisplayer.run(data.percentage)}</span></p>;
     }
-
-    result = (
+    if ((data.premium_state === 'school') || (data.premium_state === 'paid') || (data.premium_state === 'trial')) {
+      aboutPremiumOrNot = null;
+    } else {
+      aboutPremiumOrNot = <AboutPremium />;
+    }
+    const result = (
       <div className="scorebook-tooltip">
         <div className="title">
           {data.activity.name}
         </div>
-        {body}
+        <div className="main">
+          <ActivityDetails data={data} />
+          {totalScoreOrNot}
+          <div className={conceptResults ? 'concept-results' : 'loading flex-row vertically-centered space-around'}>
+            {conceptResultsOrLoading}
+          </div>
+        </div>
         {aboutPremiumOrNot}
       </div>
     );
-    console.log(ReactDOMServer.renderToString(result));
     return ReactDOMServer.renderToString(result);
   };
 }
