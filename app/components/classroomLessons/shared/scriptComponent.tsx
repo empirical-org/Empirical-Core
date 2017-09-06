@@ -206,6 +206,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     }
   }
 
+  // TODO: decide whether we want to hang on to this method at all. right now it's not being called.
   renderShowDifferencesButton() {
     const shouldShowDifferences = this.props.lessonPrompt && (this.props.slideType === "CL-SA")
     if (shouldShowDifferences) {
@@ -285,7 +286,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           <div className="student-submission-item-header">
             <strong>{numAnswers} of {numStudents}</strong> Students have answered.
             {this.renderShowRemainingStudentsButton()}
-            {this.renderShowDifferencesButton()}
           </div>
           <div className="student-submission-item-table">
             <table >
