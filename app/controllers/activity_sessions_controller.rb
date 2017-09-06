@@ -1,10 +1,11 @@
 class ActivitySessionsController < ApplicationController
-  before_action :activity_session_from_id, only: [:play]
+  before_action :activity_session_from_id, only: [:play, :concept_results]
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
   before_action :activity, only: [:play, :result]
 
   before_action :activity_session_authorize!, only: [:play, :result]
+  before_action :activity_session_authorize_teacher!, only: [:concept_results]
 
   def play
     if @activity_session.state == "finished"
@@ -35,6 +36,10 @@ class ActivitySessionsController < ApplicationController
   def result
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
+  end
+
+  def concept_results
+    render json: ConceptResult.from_activity_session_with_names(@activity_session).to_json
   end
 
   def anonymous
@@ -72,6 +77,12 @@ class ActivitySessionsController < ApplicationController
     if @activity_session.user_id.nil?
       return true
     elsif !ActivityAuthorizer.new(current_user, @activity_session).authorize
+      render_error(404)
+    end
+  end
+
+  def activity_session_authorize_teacher!
+    if !ActivityAuthorizer.new(current_user, @activity_session).authorize_teacher
       render_error(404)
     end
   end

@@ -1,6 +1,23 @@
 .scorebook-tooltip, .student-profile-tooltip {
+
+  i {
+    position: absolute;
+    top: -20px;
+    left: 8px;
+    font-size: 34px;
+    color: #f4f2f2;
+    &.border-color {
+      top: -22px;
+      z-index: -10;
+      color: #cecece;
+    }
+  }
+
   .main {
     padding: 0px 15px;
+     p {
+       padding-top: 6px;
+     }
     .concept-stats {
       width: 280px;
       font-size: 13px;
@@ -8,8 +25,11 @@
       margin: 0px;
       .row, .tooltip-message {
         margin: 0px;
-        border-bottom: 1px solid $lightgray;
+
         padding: 4px 0px;
+        &:not(:nth-last-child(2)) {
+          border-bottom: 1px solid $lightgray;
+        }
       }
 
       .tooltip-message {
@@ -38,14 +58,6 @@
     }
     .total-score {
       text-align: center;
-      padding: 7px;
-      font-size: 15px;
-      .percentage {
-        margin-left: 5px;
-        // border-bottom: 1px solid $lightgray;
-        padding: 4px 0px;
-        font-weight: 700;
-      }
     }
 
     .tooltip-message {
@@ -53,16 +65,11 @@
     }
 
     .activity-details {
-      border-top: 1px solid $lightgray;
-      padding: 12px 0px 0px 0px;
       font-size: 13px;
-
       &.no-concept-results {
         border-top: 0px;
       }
-
       .activity-detail {
-        margin-bottom: 12px;
         .activity-detail-title {
           font-weight: 800;
           margin-right: 5px;
