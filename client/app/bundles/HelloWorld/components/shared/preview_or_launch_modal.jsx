@@ -22,6 +22,7 @@ export default class PreviewOrLaunchModal extends React.Component {
 
   render() {
     const {classroomActivityID, lessonUID} = this.props
+    const launchLessonButton = !this.props.completed ? <a href={this.launchLessonLink()} className="bg-quillgreen">Launch Lesson</a> : null;
     return (
       <div>
         <div className="preview-or-launch-modal-background"></div>
@@ -30,7 +31,7 @@ export default class PreviewOrLaunchModal extends React.Component {
           <img alt="close-icon" src="/images/close_icon.svg" onClick={this.props.closeModal}/>
           <p>You can either preview this lesson or launch it. If you are ready to use this lesson with your students now, launch it.</p>
           <a href={this.previewLessonLink()} className="bg-quillgreen">Preview Lesson</a>
-          <a href={this.launchLessonLink()} className="bg-quillgreen">Launch Lesson</a>
+          {launchLessonButton}
         </div>
       </div>
     )
