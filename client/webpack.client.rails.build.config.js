@@ -55,8 +55,7 @@ config.plugins.push(
   // new webpack.optimize.DedupePlugin()
   // COMMENTED OUT DedupePlugin as I was experiencing
   //  this issue https://github.com/webpack/webpack/issues/959
-  new ExtractTextPlugin('_[name]-bundle.scss', { allChunks: true })
-);
+  new ExtractTextPlugin('_[name]-bundle.scss', { allChunks: true, }));
 
 if (devBuild) {
   console.log('Webpack dev build for Rails'); // eslint-disable-line no-console
