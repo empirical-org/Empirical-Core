@@ -67,26 +67,11 @@ class ExitSlide extends React.Component<any, any> {
       console.log('error', error)
     })
   }
-
-  render() {
-    const {script, flaggedStudents, students} = this.props
-    return (
-      <div className='teacher-exit'>
-        <div className="header">
-          <h1>
-            <span>Slide {parseInt(this.props.data.current_slide) + 1}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
-          </h1>
-        </div>
-        <ScriptComponent
-          script={script}
-          onlyShowHeaders={this.props.onlyShowHeaders}
-          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-        />
-        <FlaggedStudents
-          flaggedStudents={flaggedStudents}
-          students={students}
-          toggleStudentFlag={this.props.toggleStudentFlag}
-        />
+  
+  renderAssignmentOptionsAndButton() {
+    const {hasFollowUpActivity, students} = this.props
+    if (hasFollowUpActivity && students && Object.keys(students).length > 0) {
+      return <div>
         <AssignmentOptions
           numberOfStudents={students ? Object.keys(students).length : 0}
           updateSelectedOptionKey={this.updateSelectedOptionKey}
@@ -95,6 +80,35 @@ class ExitSlide extends React.Component<any, any> {
         <AssignButton selectedOptionKey={this.state.selectedOptionKey}
                       assignAction={this.assignAction}
         />
+      </div>
+    }
+  }
+
+  renderFlaggedStudents() {
+    const {flaggedStudents, students} = this.props
+    if (students && Object.keys(students).length > 0)
+    return  <FlaggedStudents
+              flaggedStudents={flaggedStudents}
+              students={students}
+              toggleStudentFlag={this.props.toggleStudentFlag}
+            />
+  }
+
+  render() {
+    return (
+      <div className='teacher-exit'>
+        <div className="header">
+          <h1>
+            <span>Slide {parseInt(this.props.data.current_slide) + 1}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+          </h1>
+        </div>
+        <ScriptComponent
+          script={this.props.script}
+          onlyShowHeaders={this.props.onlyShowHeaders}
+          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+        />
+        {this.renderFlaggedStudents()}
+        {this.renderAssignmentOptionsAndButton()}
       </div>
     );
   }

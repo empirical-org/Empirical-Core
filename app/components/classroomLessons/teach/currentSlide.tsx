@@ -253,6 +253,7 @@ class CurrentSlide extends React.Component<any, any> {
           return (
             <CLExit
               data={data}
+              hasFollowUpActivity={data.hasFollowUpActivity}
               redirectAssignedStudents={redirectAssignedStudents}
               lessonData={lessonData}
               script={current.data.teach.script}

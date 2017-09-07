@@ -125,8 +125,8 @@ class TeacherNavbar extends React.Component<any, any> {
     return (
       <div className='help-dropdown'>
         <i className="fa fa-caret-up"/>
-        <p><a target="_blank" href={`${process.env.EMPIRICAL_BASE_URL}/tutorials/lessons`}>How It Works</a></p>
-        <p><a target="_blank" href={`${process.env.EMPIRICAL_BASE_URL}/tools/lessons#q-and-a`}>Quill Lessons - Q&A</a></p>
+        <p><a target="_blank" href={`${process.env.EMPIRICAL_BASE_URL}/tutorials/lessons`}>Tutorial</a></p>
+        <p><a target="_blank" href="https://support.quill.org/activities-implementation">Quill Lessons - Q&A</a></p>
       </div>
     )
   }

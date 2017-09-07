@@ -45,7 +45,7 @@ export function toggleOnlyShowHeaders() {
   }
 }
 
-export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string) {
+export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string, lesson_id: string) {
   return function (dispatch) {
     let initialized = false
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
@@ -53,7 +53,7 @@ export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id
         const payload = snapshot.val()
         delete payload.current_slide
         dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
-        dispatch(getInitialData(classroom_activity_id, initialized, payload.preview))
+        dispatch(getInitialData(classroom_activity_id, lesson_id, initialized, payload.preview))
         initialized = true
       } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
@@ -69,12 +69,13 @@ export function updateClassroomSessionWithoutCurrentSlide(data) {
   }
 }
 
-export function getInitialData(ca_id: string, initialized, preview) {
+export function getInitialData(ca_id: string, lesson_id, initialized, preview) {
   return function(dispatch) {
     if (!initialized && !preview) {
       if (ca_id) {
         dispatch(getClassroomAndTeacherNameFromServer(ca_id, process.env.EMPIRICAL_BASE_URL))
         dispatch(loadStudentNames(ca_id, process.env.EMPIRICAL_BASE_URL))
+        dispatch(loadHasFollowUp(lesson_id, ca_id, process.env.EMPIRICAL_BASE_URL))
       }
     }
   }
@@ -303,6 +304,11 @@ export function addStudentNames(classroom_activity_id: string, studentsNames: ob
   studentsRef.set(studentsNames)
 }
 
+export function addFollowUpBool(classroom_activity_id: string, followUpBool: boolean): void {
+  const followUpRef = classroomSessionsRef.child(`${classroom_activity_id}/hasFollowUpActivity`);
+  followUpRef.set(followUpBool)
+}
+
 export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
   const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
   console.log('question_id', question_id)
@@ -358,6 +364,26 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string|
       addStudentNames(classroom_activity_id, response)
     }).catch((error) => {
       console.log('error retrieving students names ', error)
+    });
+  };
+}
+
+export function loadHasFollowUp(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
+  return function (dispatch) {
+    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/has_follow_up_activity`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      addFollowUpBool(classroom_activity_id, response.has_follow_up_activity)
+    }).catch((error) => {
+      console.log('error retrieving follow up ', error)
     });
   };
 }

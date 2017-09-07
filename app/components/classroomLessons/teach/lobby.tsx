@@ -56,7 +56,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
     }
     return (
       <p>
-        <strong>{numPresent} student{numPresent === 1 ? '': 's'}</strong> joined this lesson.
+        <strong>{numPresent} student{numPresent === 1 ? '': 's'}</strong> connected to this lesson.
       </p>
     );
   }
