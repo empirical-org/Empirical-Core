@@ -48,6 +48,18 @@ export default class DiagnosticMini extends React.Component {
     </div>
   }
 
+  assignDiagnosticMini() {
+    return <div className="mini_content diagnostic-mini assign-diagnostic">
+    <div className="gray-underline">
+      <h3>Assign Entry Diagnostic</h3>
+    </div>
+
+    <img src={`${process.env.CDN_URL}/images/pages/diagnostic_reports/diagnostic_colored.svg`} />
+    <p>Determine which skills your students need to work on.</p>
+    <a href={`/teachers/classrooms/assign_activities`} className="bg-quillgreen text-white">View and Assign Diagnostic Mini</a>
+    </div>
+  }
+
   renderDiagnosticMini() {
     let miniContent
     switch (this.state.status) {
