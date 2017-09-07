@@ -163,8 +163,9 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   renderSubmitButton() {
     if (this.props.mode !== 'PROJECT') {
+      const disabled = !this.state.response || this.state.response.length === 0 ? 'is-disabled' : null
       return (<div className="question-button-group">
-        <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
+        <button disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission} className={`button student-submit ${disabled}`}>Submit</button>
       </div>);
     }
   }

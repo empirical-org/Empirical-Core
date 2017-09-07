@@ -239,7 +239,7 @@ const PlayDiagnosticQuestion = React.createClass({
               placeholder="Type your answer here. Remember, your answer should be just one sentence."
             />
             <div className="button-and-error-row">
-              <Error text={this.state.error} />
+              <Error error={this.state.error} />
               <div className="question-button-group button-group">
                 {button}
               </div>
