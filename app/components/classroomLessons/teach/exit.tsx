@@ -29,7 +29,7 @@ class ExitSlide extends React.Component<any, any> {
     case "Small Group Instruction and Independent Practice":
         const fs = this.props.flaggedStudents ? Object.keys(this.props.flaggedStudents) : null
         if (fs && fs.length) {
-          return studs.filter(stud => !fs.includes(stud));
+          return studs.filter(stud => fs.indexOf(stud) !== -1);
         }
         return studs
     case 'All Students Practice Now':
@@ -51,7 +51,7 @@ class ExitSlide extends React.Component<any, any> {
     const data = new FormData();
     data.append( "json", JSON.stringify( {follow_up} ) );
     let redirectAssignedStudents=this.redirectAssignedStudents
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${'1299436'}/finish_lesson`, {
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
@@ -72,6 +72,11 @@ class ExitSlide extends React.Component<any, any> {
     const {script, flaggedStudents, students} = this.props
     return (
       <div className='teacher-exit'>
+        <div className="header">
+          <h1>
+            <span>Slide {parseInt(this.props.data.current_slide) + 1}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+          </h1>
+        </div>
         <ScriptComponent
           script={script}
           onlyShowHeaders={this.props.onlyShowHeaders}
@@ -83,7 +88,7 @@ class ExitSlide extends React.Component<any, any> {
           toggleStudentFlag={this.props.toggleStudentFlag}
         />
         <AssignmentOptions
-          numberOfStudents={Object.keys(students).length}
+          numberOfStudents={students ? Object.keys(students).length : 0}
           updateSelectedOptionKey={this.updateSelectedOptionKey}
           selectedOptionKey={this.state.selectedOptionKey}
         />

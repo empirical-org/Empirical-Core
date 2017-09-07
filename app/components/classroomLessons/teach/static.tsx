@@ -12,7 +12,7 @@ interface StaticProps {
   lessonData: ClassroomLesson,
   toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
   updateToggledHeaderCount: Function,
-  onlyShowHeaders: boolean
+  onlyShowHeaders?: boolean
 }
 
 interface StaticState {}

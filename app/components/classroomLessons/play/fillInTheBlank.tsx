@@ -15,11 +15,11 @@ const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
   data: QuestionData,
-  handleStudentSubmission: Function,
-  mode: string | null,
-  submissions: QuestionSubmissionsList | null,
-  selected_submissions: SelectedSubmissionsForQuestion | null,
-  selected_submission_order: Array<string> | null,
+  handleStudentSubmission?: Function,
+  mode?: string | null,
+  submissions?: QuestionSubmissionsList | null,
+  selected_submissions?: SelectedSubmissionsForQuestion | null,
+  selected_submission_order?: Array<string> | null,
   projector?: boolean|null
 }
 
@@ -59,9 +59,15 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       const splitPrompt = nextProps.data.play.prompt.split('___');
       this.setState({ submitted: false, editing: false, inputVals: this.generateInputs(splitPrompt) });
     }
+
+    // this will update the prompt when it changes
+    const newSplitPrompt = nextProps.data.play.prompt.split('___');
+    if (newSplitPrompt !== this.state.splitPrompt) {
+      this.setState({splitPrompt: newSplitPrompt, inputVals: this.generateInputs(newSplitPrompt)})
+    }
   }
 
-  generateInputs(promptArray) {
+  generateInputs(promptArray): Array<string> {
     const inputs: Array<string> = [];
     for (let i = 0; i < promptArray.length - 2; i++) {
       inputs.push('');
@@ -76,10 +82,10 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       const splitPromptWithInput: Array<JSX.Element> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
-          splitPromptWithInput.push(this.renderText(section, i));
+          splitPromptWithInput.push(this.renderText(section));
           splitPromptWithInput.push(this.renderInput(i));
         } else {
-          splitPromptWithInput.push(this.renderText(section, i));
+          splitPromptWithInput.push(this.renderText(section));
         }
       });
       return splitPromptWithInput;
@@ -128,12 +134,17 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     );
   }
 
-  renderText(text: string, i: number) {
-    return <span key={i}>{text}</span>;
+  renderText(text: string) {
+    const words = text.split(' ').filter(word => word !== '')
+    const wordArray = []
+    words.forEach((word, i) => {
+      wordArray.push(<span key={i}>{word}&nbsp;</span>)
+    })
+    return wordArray
   }
 
   submitSubmission() {
-    if (this.state.inputErrors.size === 0) {
+    if (this.state.inputErrors.size === 0 && this.props.handleStudentSubmission) {
       this.props.handleStudentSubmission(this.zipInputsAndText(), moment().format());
       this.setState({ submitted: true, });
     }
@@ -174,7 +185,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   inputsEmpty() {
-    return this.state.inputVals.includes('')
+    return this.state.inputVals.indexOf('') === -1
   }
 
   renderSubmitButton() {

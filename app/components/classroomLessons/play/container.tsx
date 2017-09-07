@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import WakeLock from 'react-wakelock';
+const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
   registerPresence,
@@ -15,7 +15,6 @@ import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
-import CLExit from './exit';
 import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import { saveStudentSubmission } from '../../../actions/classroomSessions';

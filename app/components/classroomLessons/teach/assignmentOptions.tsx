@@ -1,5 +1,5 @@
 declare function require(name:string);
-import * as React from 'React'
+import * as React from 'react'
 const RadioButtonHover = require('../../../img/radioButtonHover.svg')
 const RadioButtonIcon = require('../../../img/radioButtonIcon.svg')
 const RadioButtonSelected = require('../../../img/radioButtonSelected.svg')

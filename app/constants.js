@@ -40,6 +40,12 @@ export default {
   SUBMIT_LESSON_EDIT: 'SUBMIT_LESSON_EDIT',
   TOGGLE_NEW_LESSON_MODAL: 'TOGGLE_NEW_LESSON_MODAL',
 
+  // CLASSROOM_LESSON ACTIONS
+  RECEIVE_CLASSROOM_LESSONS_DATA: 'RECEIVE_CLASSROOM_LESSONS_DATA',
+  RECEIVE_CLASSROOM_LESSON_DATA: 'RECEIVE_CLASSROOM_LESSON_DATA',
+  NO_LESSON_ID: 'NO_LESSON_ID',
+  NO_LESSONS: 'NO_LESSONS',
+
 	// lESSON STATES
   EDITING_LESSON: 'EDITING_LESSON',
   SUBMITTING_LESSON: 'SUBMITTING_LESSON',
@@ -156,10 +162,10 @@ export default {
   },
 
   NUMBERS_AS_WORDS: [
-    "zero", "one", "two", "three", "four", "five",
-    "six", "seven", "eight", "nine", "ten",
-    "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-    "sixteen", "seventeen", "eighteen", "nineteen", "twenty"
+    'zero', 'one', 'two', 'three', 'four', 'five',
+    'six', 'seven', 'eight', 'nine', 'ten',
+    'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
+    'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'
   ],
 
   INSTRUCTIONS: {
@@ -264,7 +270,4 @@ export default {
   NO_CLASSROOM_ACTIVITY: 'NO_CLASSROOM_ACTIVITY',
   NO_STUDENT_ID: 'NO_STUDENT_ID',
 
-  // CLASSROOM LESSONS ACTIONS
-  UPDATE_CLASSROOM_LESSON_DATA: 'UPDATE_CLASSROOM_LESSON_DATA',
-  NO_LESSON_ID: 'NO_LESSON_ID',
 };

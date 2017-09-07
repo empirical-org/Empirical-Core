@@ -194,7 +194,7 @@ class CurrentSlide extends React.Component<any, any> {
           return (
             <div>
               {this.renderModal()}
-              <CLLobby data={data} slideData={current} />
+            <CLLobby data={data} lessonData={lessonData} slideData={current} />
             </div>
           );
         case 'CL-ST':
@@ -252,6 +252,7 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-EX':
           return (
             <CLExit
+              data={data}
               redirectAssignedStudents={redirectAssignedStudents}
               lessonData={lessonData}
               script={current.data.teach.script}

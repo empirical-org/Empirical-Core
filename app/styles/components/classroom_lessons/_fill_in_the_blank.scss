@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
     .warning {
       z-index: 99;
       position: relative;
@@ -22,8 +23,7 @@
       border: solid 1px #c0c0c0;
       width: 104px;
       height: 40px;
-      margin-left: 8px;
-      margin-right: 8px;
+      margin: 3px 8px 3px 0px;
       font-size: 25px;
       text-align: center;
       &.bad-input {

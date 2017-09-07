@@ -19,7 +19,7 @@ interface SingleAnswerProps {
   updateToggledHeaderCount: Function,
   clearAllSubmissions: Function,
   clearAllSelectedSubmissions: Function,
-  onlyShowHeaders: boolean,
+  onlyShowHeaders?: boolean,
   saveModel: Function,
   clearStudentSubmission: Function,
   savePrompt: Function,

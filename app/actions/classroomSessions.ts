@@ -69,11 +69,13 @@ export function updateClassroomSessionWithoutCurrentSlide(data) {
   }
 }
 
-export function getInitialData(ca_id, initialized, preview) {
+export function getInitialData(ca_id: string, initialized, preview) {
   return function(dispatch) {
     if (!initialized && !preview) {
-      dispatch(getClassroomAndTeacherNameFromServer(ca_id || '', process.env.EMPIRICAL_BASE_URL))
-      dispatch(loadStudentNames(ca_id || '', process.env.EMPIRICAL_BASE_URL))
+      if (ca_id) {
+        dispatch(getClassroomAndTeacherNameFromServer(ca_id, process.env.EMPIRICAL_BASE_URL))
+        dispatch(loadStudentNames(ca_id, process.env.EMPIRICAL_BASE_URL))
+      }
     }
   }
 }
@@ -340,7 +342,7 @@ export function easyJoinLessonAddName(classroom_activity_id: string, studentName
   })
 }
 
-export function loadStudentNames(classroom_activity_id: string, baseUrl: string) {
+export function loadStudentNames(classroom_activity_id: string, baseUrl: string|undefined) {
   return function (dispatch) {
     fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`, {
       method: 'GET',

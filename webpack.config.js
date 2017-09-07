@@ -27,6 +27,7 @@ module.exports = {
   },
   context: `${__dirname}/app`,
   entry: {
+    polyfills: 'babel-polyfill',
     vendor: ['pos', 'draft-js'],
     javascript: './app.jsx',
   },
