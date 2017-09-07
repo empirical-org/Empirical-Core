@@ -10,7 +10,7 @@ describe('StudentProfileUnit component', () => {
   it('should render unit name', () => {
     const wrapper = shallow(
       <StudentProfileUnit
-        data={{unitName: 'Unit'}}
+        data={{complete: [{unit_name: 'Unit' }]}}
       />
     );
     expect(wrapper.find('h3.section-header').text()).toBe('Unit');
@@ -20,27 +20,23 @@ describe('StudentProfileUnit component', () => {
     const wrapper = shallow(
       <StudentProfileUnit
         data={{
-          unitName: 'Unit',
-          incomplete: [{}, {}, {}],
-          complete: [{}, {}]
+          incomplete: [{unit_name: 'Incomplete' }, {unit_name: 'Incomplete' }, {unit_name: 'Incomplete' }],
+          complete: [{unit_name: 'Complete' }, {unit_name: 'Complete' }]
         }}
       />
     );
     expect(wrapper.find(StudentProfileActivities).length).toBe(2);
     expect(wrapper.find(StudentProfileActivities).at(0).props().header).toBe('Assigned Activities');
-    expect(wrapper.find(StudentProfileActivities).at(0).props().complete).toBe(false);
-    expect(wrapper.find(StudentProfileActivities).at(0).props().data).toEqual([{}, {}, {}]);
+    expect(wrapper.find(StudentProfileActivities).at(0).props().data).toEqual([{unit_name: 'Incomplete' }, {unit_name: 'Incomplete' }, {unit_name: 'Incomplete' }]);
     expect(wrapper.find(StudentProfileActivities).at(1).props().header).toBe('Completed Activities');
-    expect(wrapper.find(StudentProfileActivities).at(1).props().complete).toBe(true);
-    expect(wrapper.find(StudentProfileActivities).at(1).props().data).toEqual([{}, {}]);
+    expect(wrapper.find(StudentProfileActivities).at(1).props().data).toEqual([{unit_name: 'Complete' }, {unit_name: 'Complete' }]);
   });
 
   it('should render only "Completed Activities" if incomplete is not defined', () => {
     const wrapper = shallow(
       <StudentProfileUnit
         data={{
-          unitName: 'Unit',
-          complete: [{}, {}]
+          complete: [{unit_name: 'Complete' }, {unit_name: 'Complete' }]
         }}
       />
     );
@@ -52,8 +48,7 @@ describe('StudentProfileUnit component', () => {
     const wrapper = shallow(
       <StudentProfileUnit
         data={{
-          unitName: 'Unit',
-          incomplete: [{}, {}, {}],
+          incomplete: [{unit_name: 'Incomplete' }, {unit_name: 'Incomplete' }, {unit_name: 'Incomplete' }],
         }}
       />
     );
