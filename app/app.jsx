@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';
@@ -17,6 +18,16 @@ import Passthrough from './components/shared/passthrough.jsx';
 // const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
+import Raven from 'raven-js';
+
+Raven
+  .config(
+    'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
+  {
+    environment: process.env.NODE_ENV || 'development',
+  }
+  )
+  .install();
 
 BackOff();
 const hashhistory = createHashHistory({ queryKey: false, });

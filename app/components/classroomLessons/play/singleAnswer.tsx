@@ -15,11 +15,11 @@ const icon = require('../../../img/question_icon.svg');
 
 interface SingleAnswerProps {
   data: QuestionData,
-  handleStudentSubmission: Function,
-  mode: string|null,
-  submissions: QuestionSubmissionsList|null,
-  selected_submissions: SelectedSubmissionsForQuestion|null,
-  selected_submission_order: Array<string>|null,
+  handleStudentSubmission?: Function,
+  mode?: string|null,
+  submissions?: QuestionSubmissionsList|null,
+  selected_submissions?: SelectedSubmissionsForQuestion|null,
+  selected_submission_order?: Array<string>|null,
   projector?: boolean|null
 }
 
@@ -58,8 +58,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   submitSubmission() {
-    this.props.handleStudentSubmission(this.state.response, moment().format());
-    this.setState({ submitted: true, });
+    if (this.props.handleStudentSubmission) {
+      this.props.handleStudentSubmission(this.state.response, moment().format());
+      this.setState({ submitted: true, });
+    }
   }
 
   handleChange(e) {

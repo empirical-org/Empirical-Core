@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import WakeLock from 'react-wakelock';
+const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
   startListeningToSessionWithoutCurrentSlide,

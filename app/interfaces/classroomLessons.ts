@@ -1,5 +1,8 @@
 export interface ClassroomLesson {
   title: string;
+  lesson?: string|number;
+  topic?: string;
+  unit?: string;
   questions: Questions
 }
 

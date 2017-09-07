@@ -29,7 +29,7 @@ class ExitSlide extends React.Component<any, any> {
     case "Small Group Instruction and Independent Practice":
         const fs = this.props.flaggedStudents ? Object.keys(this.props.flaggedStudents) : null
         if (fs && fs.length) {
-          return studs.filter(stud => !fs.includes(stud));
+          return studs.filter(stud => fs.indexOf(stud) !== -1);
         }
         return studs
     case 'All Students Practice Now':
@@ -67,13 +67,13 @@ class ExitSlide extends React.Component<any, any> {
       console.log('error', error)
     })
   }
-
+  
   renderAssignmentOptionsAndButton() {
     const {hasFollowUpActivity, students} = this.props
     if (hasFollowUpActivity && students && Object.keys(students).length > 0) {
       return <div>
         <AssignmentOptions
-          numberOfStudents={Object.keys(students).length}
+          numberOfStudents={students ? Object.keys(students).length : 0}
           updateSelectedOptionKey={this.updateSelectedOptionKey}
           selectedOptionKey={this.state.selectedOptionKey}
         />
@@ -97,6 +97,11 @@ class ExitSlide extends React.Component<any, any> {
   render() {
     return (
       <div className='teacher-exit'>
+        <div className="header">
+          <h1>
+            <span>Slide {parseInt(this.props.data.current_slide) + 1}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+          </h1>
+        </div>
         <ScriptComponent
           script={this.props.script}
           onlyShowHeaders={this.props.onlyShowHeaders}
