@@ -68,7 +68,7 @@ export default React.createClass({
     return (
       <div className="header">
         <h4>{this.props.overviewObj.header}</h4>
-        <p>All Time</p>
+        <p>Last 30 Days</p>
       </div>
     );
   },
