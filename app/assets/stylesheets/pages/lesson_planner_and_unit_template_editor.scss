@@ -12,6 +12,11 @@
 }
 #activity-planner,
 #unit-template-editor {
+  padding: 0;
+  max-width: 965px;
+  .container:first-of-type {
+    padding: 0;
+  }
   section {
     border-bottom: none;
     &.name-the-unit {
@@ -41,6 +46,9 @@
     .hidden-error-message {
       display: none;
     }
+  }
+  .section-header {
+    margin-bottom: 30px;
   }
   input {
     &#unit_name {
