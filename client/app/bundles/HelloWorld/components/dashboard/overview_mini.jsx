@@ -24,7 +24,7 @@ export default React.createClass({
       const dataRows = _.map(leftColumn, left => (
         <tr key={left}>
           <td className="left-column">{results[left].name}</td>
-          <td className="right-column">{results[left].score}%</td>
+          <td className="right-column">{Math.round(results[left].score)}%</td>
         </tr>
 
         ));

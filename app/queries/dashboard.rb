@@ -55,15 +55,15 @@ class Dashboard
 
   def self.difficult_concepts(user_id)
     ActiveRecord::Base.connection.execute("
-    SELECT concepts.id, concepts.name, ROUND(AVG((concept_results.metadata::json->>'correct')::int), 2) * 100  AS score, (CASE WHEN AVG((concept_results.metadata::json->>'correct')::int) *100 > 0 THEN true ELSE false END) AS non_zero FROM activity_sessions as acts
-JOIN classroom_activities ON classroom_activities.id = acts.classroom_activity_id
-JOIN classrooms ON classrooms.id = classroom_activities.classroom_id
-JOIN concept_results ON acts.id = concept_results.activity_session_id
-JOIN concepts ON concept_results.concept_id = concepts.id
-WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND acts.completed_at > date_trunc('day', NOW() - interval '150 days')
-GROUP BY concepts.id
-ORDER BY non_zero DESC, score
-LIMIT 5").to_a
+    SELECT concepts.id, concepts.name, AVG((concept_results.metadata::json->>'correct')::int) * 100  AS score, (CASE WHEN AVG((concept_results.metadata::json->>'correct')::int) *100 > 0 THEN true ELSE false END) AS non_zero FROM activity_sessions as acts
+    JOIN classroom_activities ON classroom_activities.id = acts.classroom_activity_id
+    JOIN classrooms ON classrooms.id = classroom_activities.classroom_id
+    JOIN concept_results ON acts.id = concept_results.activity_session_id
+    JOIN concepts ON concept_results.concept_id = concepts.id
+    WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND acts.completed_at > date_trunc('day', NOW() - interval '150 days')
+    GROUP BY concepts.id
+    ORDER BY non_zero DESC, score
+    LIMIT 5").to_a
   end
 
 
