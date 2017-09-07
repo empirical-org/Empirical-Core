@@ -19,13 +19,58 @@ export default class DiagnosticMini extends React.Component {
       url: `${process.env.DEFAULT_URL}/teachers/get_diagnostic_info_for_dashboard_mini`,
     },
     (e, r, response) => {
-      debugger;
       that.setState(JSON.parse(response));
     });
   }
 
+  assignRecommendationsMini() {
+
+    const {unit_info, number_of_finished_students} = this.state
+
+    return <div className="mini_content diagnostic-mini assign-recommendations">
+      <div className="gray-underline">
+        <h3>{number_of_finished_students} Student{number_of_finished_students === 1 ? '' : 's'} Completed Diagnostic</h3>
+      </div>
+    <img src={`${process.env.CDN_URL}/images/pages/diagnostic_reports/Diagnostic_Completion.svg`} />
+    <p>Your students are recommended to work on activities such as <span>Compound Sentences</span> and <span>Fragments</span>.</p>
+    <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unit_info.unit_id}/a/${unit_info.activity_id}/c/${unit_info.classroom_id}/recommendations`} className="bg-quillgreen text-white">View and Assign Recommendations</a>
+    </div>
+  }
+
+  awaitingStudentsMini() {
+    return <div className="mini_content diagnostic-mini awaiting-students">
+    <div className="gray-underline">
+      <h3>Awaiting Students' Completion</h3>
+    </div>
+
+    <img src={`${process.env.CDN_URL}/images/pages/diagnostic_reports/diagnostic_colored.svg`} />
+    <p>Ask your students to log in and complete the diagnostic so you can assign recommended activities. You can also <a href="/teachers/classrooms/activity_planner">set due dates here</a>.</p>
+    </div>
+  }
+
+  renderDiagnosticMini() {
+    let miniContent
+    switch (this.state.status) {
+      case 'recently completed':
+        miniContent = this.assignRecommendationsMini()
+        break
+      case 'assigned':
+        miniContent = this.awaitingStudentsMini()
+        break
+      case 'unassigned':
+        miniContent = this.assignDiagnosticMini()
+        break
+      case 'completed':
+      default:
+        return <span/>
+    }
+    return <div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
+            {miniContent}
+          </div>
+  }
+
 
   render() {
-    return(<div>{this.state.state}</div>)
+    return this.renderDiagnosticMini()
   }
 }
