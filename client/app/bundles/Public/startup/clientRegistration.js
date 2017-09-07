@@ -1,4 +1,4 @@
 import ReactOnRails from 'react-on-rails';
-import PremiumPricingGuideApp from './PremiumPricingGuideAppClient.jsx'
+import PremiumPricingGuideApp from './PremiumPricingGuideAppClient.jsx';
 
-ReactOnRails.register({ PremiumPricingGuideApp });
+ReactOnRails.register({ PremiumPricingGuideApp, });
