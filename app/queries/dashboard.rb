@@ -49,7 +49,11 @@ class Dashboard
     "JOIN users AS students ON students.id = acts.user_id
      JOIN students_classrooms AS sc ON sc.student_id = students.id
      JOIN classrooms ON classrooms.id = sc.classroom_id
-     WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true"
+     WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}"
+  end
+
+  def self.completed_since_sql
+    "acts.completed_at > date_trunc('day', NOW() - interval '30 days')"
   end
 
 
@@ -60,7 +64,7 @@ class Dashboard
     JOIN classrooms ON classrooms.id = classroom_activities.classroom_id
     JOIN concept_results ON acts.id = concept_results.activity_session_id
     JOIN concepts ON concept_results.concept_id = concepts.id
-    WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND acts.completed_at > date_trunc('day', NOW() - interval '150 days')
+    WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}
     GROUP BY concepts.id
     ORDER BY non_zero DESC, score
     LIMIT 5").to_a
