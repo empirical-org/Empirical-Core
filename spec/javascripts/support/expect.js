@@ -486,7 +486,7 @@
    * @api public
    */
   Assertion.prototype.fail = function (msg) {
-    var error = function() { return msg || "explicit failure"; }
+    var error = function() { return msg || 'explicit failure'; }
     this.assert(false, error, error);
     return this;
   };
@@ -543,7 +543,7 @@
   // https://gist.github.com/1044128/
   var getOuterHTML = function(element) {
     if ('outerHTML' in element) return element.outerHTML;
-    var ns = "http://www.w3.org/1999/xhtml";
+    var ns = 'http://www.w3.org/1999/xhtml';
     var container = document.createElementNS(ns, '_');
     var xmlSerializer = new XMLSerializer();
     var html;
@@ -601,7 +601,7 @@
 
         case 'string':
           var simple = '\'' + json.stringify(value).replace(/^"|"$/g, '')
-                                                   .replace(/'/g, "\\'")
+                                                   .replace(/'/g, '\\\'')
                                                    .replace(/\\"/g, '"') + '\'';
           return stylize(simple, 'string');
 
@@ -641,7 +641,7 @@
 
       // Error objects can be shortcutted
       if (value instanceof Error) {
-        return stylize("["+value.toString()+"]", 'Error');
+        return stylize('['+value.toString()+']', 'Error');
       }
 
       var base, type, braces;
@@ -730,9 +730,9 @@
             name = name.substr(1, name.length - 2);
             name = stylize(name, 'name');
           } else {
-            name = name.replace(/'/g, "\\'")
+            name = name.replace(/'/g, '\\\'')
                        .replace(/\\"/g, '"')
-                       .replace(/(^"|"$)/g, "'");
+                       .replace(/(^"|"$)/g, '\'');
             name = stylize(name, 'string');
           }
         }
@@ -834,7 +834,7 @@
 
     var len = +this.length;
 
-    if (typeof fun !== "function")
+    if (typeof fun !== 'function')
       throw new TypeError();
 
     // no value to return if no initial value and an empty array
@@ -967,7 +967,7 @@
   }
 
   var json = (function () {
-    "use strict";
+    'use strict';
 
     if ('object' == typeof JSON && JSON.parse && JSON.stringify) {
       return {
