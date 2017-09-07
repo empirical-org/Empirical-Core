@@ -20,32 +20,20 @@ describe('NextActivity component', () => {
   it('should display a linked button to start next activity if props.data is not empty', () => {
     const wrapper = shallow(
       <NextActivity
-        data={{activity: {name: 'Activity Name' }, link: 'http://example.com' }}
+        data={{name: 'Activity Name', ca_id: 1024}}
       />
     );
-    expect(wrapper.find('a').prop('href')).toBe('http://example.com');
-    expect(wrapper.find('button').text()).toBe('Start Your Next Activity');
-  });
-
-  it('should <ActivityIconWithTooltip /> component with correct props if props.data is not empty', () => {
-    const wrapper = shallow(
-      <NextActivity
-        data={{activity: {name: 'Activity Name'}}}
-      />
-    );
-    expect(wrapper.find(ActivityIconWithTooltip).exists()).toBe(true);
-    expect(wrapper.find(ActivityIconWithTooltip).prop('context')).toBe('studentProfile');
-    expect(wrapper.find(ActivityIconWithTooltip).prop('placement')).toBe('bottom');
-    expect(wrapper.find(ActivityIconWithTooltip).props().data.activity.name).toBe('Activity Name');
+    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+    expect(wrapper.find('button').text()).toBe('Start Activity');
   });
 
   it('should display the activity\'s name if props.data is not empty', () => {
     const wrapper = shallow(
       <NextActivity
-        data={{activity: {name: 'Activity Name'}}}
+        data={{name: 'Activity Name'}}
       />
     );
-    expect(wrapper.find('.title').text()).toBe('Activity Name');
+    expect(wrapper.find('p').text()).toBe('Activity Name');
   });
 
   it('should not display if props.hasActivities is true and props.data is empty', () => {
