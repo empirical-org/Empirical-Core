@@ -1,4 +1,3 @@
-
 // Run with Rails server like this:
 // rails s
 // cd client && babel-node server-rails-hot.js
@@ -38,10 +37,10 @@ config.module.loaders.push(
                 transform: 'react-transform-hmr',
                 imports: ['react'],
                 locals: ['module'],
-              },
+              }
             ],
-          },
-        ],
+          }
+        ]
       ],
     },
   },
@@ -50,7 +49,7 @@ config.module.loaders.push(
     loaders: [
       'style',
       'css',
-      'postcss',
+      'postcss'
     ],
   },
   {
@@ -60,7 +59,7 @@ config.module.loaders.push(
       'css',
       'postcss',
       'sass',
-      'sass-resources',
+      'sass-resources'
     ],
   },
   {
