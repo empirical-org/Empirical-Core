@@ -311,7 +311,13 @@ export default React.createClass({
     if ((this.state.assignSuccess)) {
       return (<UnitTemplatesAssigned data={this.state.assignSuccess} />);
     }
-    window.location.href = `/teachers/classrooms/activity_planner#${this.state.newUnitId}`;
+
+    if(_.map(this.state.selectedActivities, activity => { return activity.classification.id }).includes(6)) {
+      // There is a lesson here, so we should send the teacher to the Lessons page.
+      window.location.href = `/teachers/classrooms/activity_planner/lessons#${this.state.newUnitId}`;
+    } else {
+      window.location.href = `/teachers/classrooms/activity_planner#${this.state.newUnitId}`;
+    }
   },
 
   isUnitNameValid() {
