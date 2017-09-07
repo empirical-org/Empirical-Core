@@ -189,7 +189,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   renderSubmitButton() {
-    if (this.props.mode !== 'PROJECT') {
+    if (this.props.mode !== 'PROJECT' && !this.props.projector) {
       if (this.state.editing && !this.inputsEmpty()) {
         return (<div className="question-button-group">
           <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
