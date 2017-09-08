@@ -41,6 +41,6 @@ module CleverIntegration::Creators::Students
         role: 'student'
       })
     end
-    student.reload
+    student.reload if student.id?
   end
 end
