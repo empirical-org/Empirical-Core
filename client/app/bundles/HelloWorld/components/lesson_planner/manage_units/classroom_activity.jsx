@@ -122,6 +122,7 @@ export default React.createClass({
 				lessonUID={this.props.data.activity.uid}
 				classroomActivityID={this.props.data.id}
 				closeModal={this.closeModal}
+				completed={this.props.data.completed}
 			/>
 		}
 	},

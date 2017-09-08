@@ -16,15 +16,11 @@ exports[`PremiumPromo component should render 1`] = `
       }
     >
       <h3>
-        Premium Bonus: 
-        <strong>
-          2
-           Months Free
-        </strong>
+        Get Quill Premium Now
       </h3>
     </div>
     <p>
-      Upgrade now for next school year and get the rest of this year for free.
+      Upgrade now and cover all of the students in your classes or school.
     </p>
     <div
       className="flex-row space-around"
