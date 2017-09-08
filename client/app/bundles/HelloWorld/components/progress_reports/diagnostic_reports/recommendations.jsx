@@ -278,7 +278,7 @@ export default React.createClass({
   },
 
   render() {
-    const betaFlag = document.getElementById('current-user-flag').getAttribute('content') === 'beta'
+    const betaFlag = document.getElementById('current-user-flag') ? (document.getElementById('current-user-flag').getAttribute('content') === 'beta') : false
     if (this.state.loading) {
       return <LoadingSpinner />;
     }

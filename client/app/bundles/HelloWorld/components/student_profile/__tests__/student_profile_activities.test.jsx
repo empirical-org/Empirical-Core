@@ -11,18 +11,12 @@ describe('StudentProfileActivities component', () => {
     it('should render a <StudentProfileActivity /> component for each activity', () => {
       const wrapper = shallow(
         <StudentProfileActivities
-          data={[
-            { id: 'foo', activity: { id: 'foo', name: 'Activity', classification: { id: 'foo' } } },
-            { id: 'bar', activity: { id: 'bar', name: 'Activity', classification: { id: 'bar' } } }
-          ]}
+          data={[ { id: 'foo' }, { id: 'bar' } ]}
           header={''}
-          finished={true}
         />
       );
       expect(wrapper.find(StudentProfileActivity).length).toBe(2);
-      expect(wrapper.find(StudentProfileActivity).at(0).props().finished).toBe(true);
       expect(wrapper.find(StudentProfileActivity).at(0).props().data.id).toBe('foo');
-      expect(wrapper.find(StudentProfileActivity).at(1).props().finished).toBe(true);
       expect(wrapper.find(StudentProfileActivity).at(1).props().data.id).toBe('bar');
     });
 

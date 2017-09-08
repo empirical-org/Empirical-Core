@@ -29,7 +29,8 @@
     "jest:u": "cd client && npm run jest -- -u",
     "jest:update": "cd client && npm run jest -- -u",
     "jest:watch": "cd client && npm run jest:watch",
-    "jest:coverage": "cd client && npm run jest:coverage"
+    "jest:coverage": "cd client && npm run jest:coverage",
+    "jest:silent": "cd client && npm run jest:silent"
   },
   "repository": {
     "type": "git",

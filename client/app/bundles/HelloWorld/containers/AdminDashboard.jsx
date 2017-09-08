@@ -95,13 +95,6 @@ export default React.createClass({
     this.setState({ model: data, loading: false, });
   },
 
-  inviteUsersActions() {
-    return {
-      update: this.updateNewTeacher,
-      save: this.saveNewTeacher,
-    };
-  },
-
   displaySchools() {
     if (this.state.model && this.state.model.schools) {
       return (<p style={{ paddingTop: '1em', paddingBottom: '1em', }}><strong>You are an admin of the following {this.schoolConjugation()}: </strong><br />

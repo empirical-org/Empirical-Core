@@ -11,7 +11,7 @@ module.exports = {
   // the project dir
   context: __dirname,
   entry: [
-    'babel-polyfill',
+    'babel-polyfill'
     // './app/bundles/comments/startup/serverRegistration',
   ],
   output: {
@@ -29,15 +29,15 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
       },
-    }),
+    })
   ],
   module: {
     loaders: [
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, },
       {
         test: /\.css$/,
         loaders: [
-          'css',
+          'css'
         ],
       },
       {
@@ -45,9 +45,9 @@ module.exports = {
         loaders: [
           'css',
           'sass',
-          'sass-resources',
+          'sass-resources'
         ],
-      },
+      }
     ],
   },
 

@@ -1,3 +1,3 @@
-export function authForGoogleSyncPage () {
-  window.location = '/auth/google_oauth2/'
+export function authForGoogleSyncPage() {
+  window.location = '/auth/google_oauth2/';
 }

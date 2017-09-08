@@ -1,10 +1,10 @@
-import ClientRegistration from './startup/clientRegistration'
+import ClientRegistration from './startup/clientRegistration';
 
 // for news page
-$(document).ready(function() {
-  $("iframe").ready(function() {
+$(document).ready(() => {
+  $('iframe').ready(() => {
     if ($('script[src="https://static.medium.com/embed.js"]').length > 0) {
-      setTimeout(function() {
+      setTimeout(() => {
         $('.spinner-container').hide();
       }, 2000);
     }

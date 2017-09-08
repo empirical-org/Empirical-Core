@@ -5,11 +5,11 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 
 const devBuild = process.env.NODE_ENV !== 'production';
-const firebaseApiKey = process.env.FIREBASE_API_KEY
-const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL
-const pusherKey = process.env.PUSHER_KEY
-const defaultUrl = process.env.DEFAULT_URL
-const cdnUrl = process.env.CDN_URL
+const firebaseApiKey = process.env.FIREBASE_API_KEY;
+const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
+const pusherKey = process.env.PUSHER_KEY;
+const defaultUrl = process.env.DEFAULT_URL;
+const cdnUrl = process.env.CDN_URL;
 
 const nodeEnv = devBuild ? 'development' : 'production';
 
@@ -21,20 +21,20 @@ module.exports = {
 
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
-       'babel-polyfill',
-       'es5-shim/es5-shim',
-       'es5-shim/es5-sham',
-       'jquery-ujs',
-       'jquery',
-     ],
+      'babel-polyfill',
+      'es5-shim/es5-shim',
+      'es5-shim/es5-sham',
+      'jquery-ujs',
+      'jquery'
+    ],
 
     // This will contain the app entry points defined by webpack.hot.config and
     // webpack.rails.config
     app: [
-      './app/bundles/HelloWorld/startup/clientRegistration',
+      './app/bundles/HelloWorld/startup/clientRegistration'
     ],
     home: [
-      './app/bundles/Home/home',
+      './app/bundles/Home/home'
     ],
     student: [
       './app/bundles/Student/startup/clientRegistration'
@@ -54,7 +54,7 @@ module.exports = {
     ],
     tools: [
       './app/bundles/Tools/tools.js'
-    ]
+    ],
 
   },
   resolve: {
@@ -73,7 +73,7 @@ module.exports = {
         FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
         PUSHER_KEY: JSON.stringify(pusherKey),
         DEFAULT_URL: JSON.stringify(defaultUrl),
-        CDN_URL: JSON.stringify(cdnUrl)
+        CDN_URL: JSON.stringify(cdnUrl),
       },
       TRACE_TURBOLINKS: devBuild,
     }),
@@ -90,32 +90,32 @@ module.exports = {
       // Passing Infinity just creates the commons chunk, but moves no modules into it.
       // In other words, we only put what's in the vendor entry definition in vendor-bundle.js
       minChunks: Infinity,
-    }),
+    })
   ],
   module: {
-   loaders: [
-     { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
-     { test: /\.(ttf|eot)$/, loader: 'file' },
-     { test: /\.(jpe?g|png|gif|svg|ico)$/, loader: 'url?limit=10000' },
-     { test: require.resolve('jquery'), loader: 'expose?jQuery' },
-     { test: require.resolve('jquery'), loader: 'expose?$' },
-     { test: /\.json$/, loader: 'json-loader'}
-   ],
- },
- node: {
-  console: true,
-  fs: 'empty',
-  net: 'empty',
-  tls: 'empty',
- },
+    loaders: [
+      { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000', },
+      { test: /\.(ttf|eot)$/, loader: 'file', },
+      { test: /\.(jpe?g|png|gif|svg|ico)$/, loader: 'url?limit=10000', },
+      { test: require.resolve('jquery'), loader: 'expose?jQuery', },
+      { test: require.resolve('jquery'), loader: 'expose?$', },
+      { test: /\.json$/, loader: 'json-loader', }
+    ],
+  },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+  },
 
- // Place here all postCSS plugins here, so postcss-loader will apply them
- postcss: [autoprefixer],
+  // Place here all postCSS plugins here, so postcss-loader will apply them
+  postcss: [autoprefixer],
 
- // Place here all SASS files with variables, mixins etc.
- // And sass-resources-loader will load them in every CSS Module (SASS file) for you
- // (so don't need to @import them explicitly)
- // https://github.com/shakacode/sass-resources-loader
- sassResources: ['./app/assets/styles/app-variables.scss'],
+  // Place here all SASS files with variables, mixins etc.
+  // And sass-resources-loader will load them in every CSS Module (SASS file) for you
+  // (so don't need to @import them explicitly)
+  // https://github.com/shakacode/sass-resources-loader
+  sassResources: ['./app/assets/styles/app-variables.scss'],
 
 };

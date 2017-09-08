@@ -1,17 +1,14 @@
-'use strict'
+import React from 'react';
 
- import React from 'react'
-
- export default  function () {
-
-  var segmentAnalyticsPresent;
+export default function () {
+  let segmentAnalyticsPresent;
   if (typeof analytics === 'undefined') {
     segmentAnalyticsPresent = false;
   } else {
     segmentAnalyticsPresent = true;
   }
 
-  var whenAnalyticsNotDefined = function () {
+  const whenAnalyticsNotDefined = function () {
     console.log('not tracking segment analytics because its not defined');
   };
 
