@@ -37,17 +37,6 @@ class AssignedSection extends React.Component<any, any> {
     </div>
   }
 
-  optionObj() {
-    return (
-      {
-        "Small Group Instruction and Independent Practice": "Unflagged students will start the independent practice now. You can pull the flagged students aside for small group instruction.",
-        "All Students Practice Now": `All ${numberOfStudents} students in the class will enter the activity now.`,
-        "All Students Practice Later": `All ${numberOfStudents} students will be assigned the activity, and they will see it on their profile.`,
-        "No Follow Up Practice": "Students receive no follow up activity."
-      }
-    )
-  }
-
   render() {
     return this.optionDependentContent()
   }

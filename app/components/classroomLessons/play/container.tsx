@@ -71,8 +71,22 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student');
     const npCSData = nextProps.classroomSessions.data
-    if (npCSData.assignedStudents && npCSData.assignedStudents.includes(student) && npCSData.followUpUrl) {
-      window.location.href = npCSData.followUpUrl
+    if (npCSData.followUpUrl && npCSData.followUpOption) {
+      switch(npCSData.followUpOption) {
+        case "Small Group Instruction and Independent Practice":
+          if (!Object.keys(npCSData.flaggedStudents).includes(student)) {
+            window.location.href = npCSData.followUpUrl
+          }
+          break
+        case "All Students Practice Now":
+          window.location.href = npCSData.followUpUrl
+          break
+        case "All Students Practice Later":
+        case "No Follow Up Practice":
+        default:
+          window.location.href = process.env.EMPIRICAL_BASE_URL
+          break
+      }
     }
     if (!nextProps.classroomSessions.error && !nextProps.classroomLesson.error) {
       const element = document.getElementsByClassName("main-content")[0];

@@ -17,7 +17,6 @@ class ExitSlide extends React.Component<any, any> {
     }
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
     this.assignAction = this.assignAction.bind(this)
-    this.getAssignedStudents = this.getAssignedStudents.bind(this)
     this.redirectAssignedStudents = this.redirectAssignedStudents.bind(this)
   }
 
@@ -25,26 +24,10 @@ class ExitSlide extends React.Component<any, any> {
     this.setState({selectedOptionKey: selected})
   }
 
-  getAssignedStudents(){
-    const studs = Object.keys(this.props.students);
-    switch(this.state.selectedOptionKey) {
-    case "Small Group Instruction and Independent Practice":
-        const fs = this.props.flaggedStudents ? Object.keys(this.props.flaggedStudents) : null
-        if (fs && fs.length) {
-          return studs.filter(stud => fs.indexOf(stud) !== -1);
-        }
-        return studs
-    case 'All Students Practice Now':
-        return studs
-    default:
-      return [];
-    }
-  }
-
   redirectAssignedStudents(followUpUrl: string){
-    const assignedStudents = this.getAssignedStudents()
     const caId: string|null = getParameterByName('classroom_activity_id');
-    this.props.redirectAssignedStudents(caId, assignedStudents, followUpUrl)
+    const selectedOptionKey: string = this.state.selectedOptionKey
+    this.props.redirectAssignedStudents(caId, selectedOptionKey, followUpUrl)
   }
 
   assignAction(e){
