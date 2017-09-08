@@ -4,8 +4,6 @@ class Auth::GoogleController < ApplicationController
     access_token = request.env['omniauth.auth']['credentials']['token']
     session[:google_access_token] = access_token
     name, email, google_id = GoogleIntegration::Profile.fetch_name_email_and_google_id(access_token)
-    puts request.referer
-    puts 'there is the request referer'
     if redirect_request(request)
       # If we are here it is simply to get a new access token. Ultimately, we should
       # set this up for refresh tokens at which point, this will no longer be necessary.
@@ -51,14 +49,17 @@ class Auth::GoogleController < ApplicationController
   def new_google_user(name, email, role, access_token, google_id, user)
     @user = user
     @user.attributes = {signed_up_with_google: true, name: name, role: role, google_id: google_id}
-    @user.save
-    sign_in(@user)
-    ip = request.remote_ip
-    AccountCreationCallbacks.new(@user, ip).trigger
-    @user.subscribe_to_newsletter
-    if @user.role == 'teacher'
-      @js_file = 'session'
-      @teacherFromGoogleSignUp = true
+    if @user.save
+      sign_in(@user)
+      ip = request.remote_ip
+      AccountCreationCallbacks.new(@user, ip).trigger
+      @user.subscribe_to_newsletter
+      if @user.role == 'teacher'
+        @js_file = 'session'
+        @teacherFromGoogleSignUp = true
+      end
+    else
+      return redirect_to new_account_path
     end
   end
 
