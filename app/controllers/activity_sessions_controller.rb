@@ -44,8 +44,8 @@ class ActivitySessionsController < ApplicationController
 
   def anonymous
     @activity = Activity.find(params[:activity_id])
-    @module_url = @activity.anonymous_module_url
-    redirect_to(@module_url.to_s)
+    return redirect_to "#{ENV['DEFAULT_URL']}/preview_lesson/#{@activity.uid}" if @activity.classification.key == 'lessons'
+    redirect_to(@activity.anonymous_module_url.to_s)
   end
 
   private
