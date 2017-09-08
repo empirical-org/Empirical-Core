@@ -253,6 +253,24 @@ export function clearPreviewSessionOnDisconnect(classroom_activity_id) {
   })
 }
 
+export function unpinActivityOnSaveAndExit(classroom_activity_id) {
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/unpin_activity`, {
+      method: 'PUT',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log(error)
+    });
+}
+
 export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
   const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
   flaggedStudentRef.once('value', (snapshot) => {
