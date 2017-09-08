@@ -100,10 +100,10 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
-export function redirectAssignedStudents(classroom_activity_id: string, studentIds: Array<string>, followUpUrl: string) {
-  const assignedStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/assignedStudents`)
+export function redirectAssignedStudents(classroom_activity_id: string, followUpOption: string, followUpUrl: string) {
+  const followUpOptionRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpOption`)
   const followUpUrlRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpUrl`)
-  assignedStudentsRef.set(studentIds)
+  followUpOptionRef.set(followUpOption)
   followUpUrlRef.set(followUpUrl)
 }
 

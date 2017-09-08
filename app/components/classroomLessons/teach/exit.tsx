@@ -3,6 +3,7 @@ import request from 'request'
 import FlaggedStudents from './flaggedStudents'
 import AssignmentOptions from './assignmentOptions'
 import AssignButton from './assignButton'
+import AssignedSection from './assignedSection'
 import ScriptComponent from '../shared/scriptComponent'
 import { getParameterByName } from '../../../libs/getParameterByName';
 
@@ -11,11 +12,11 @@ class ExitSlide extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOptionKey: "Small Group Instruction and Independent Practice",
+      selectedOptionKey: props.hasFollowUpActivity ? "Small Group Instruction and Independent Practice" : '',
+      assigned: false
     }
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
     this.assignAction = this.assignAction.bind(this)
-    this.getAssignedStudents = this.getAssignedStudents.bind(this)
     this.redirectAssignedStudents = this.redirectAssignedStudents.bind(this)
   }
 
@@ -23,31 +24,15 @@ class ExitSlide extends React.Component<any, any> {
     this.setState({selectedOptionKey: selected})
   }
 
-  getAssignedStudents(){
-    const studs = Object.keys(this.props.students);
-    switch(this.state.selectedOptionKey) {
-    case "Small Group Instruction and Independent Practice":
-        const fs = this.props.flaggedStudents ? Object.keys(this.props.flaggedStudents) : null
-        if (fs && fs.length) {
-          return studs.filter(stud => fs.indexOf(stud) !== -1);
-        }
-        return studs
-    case 'All Students Practice Now':
-        return studs
-    default:
-      return [];
-    }
-  }
-
   redirectAssignedStudents(followUpUrl: string){
-    const assignedStudents = this.getAssignedStudents()
     const caId: string|null = getParameterByName('classroom_activity_id');
-    this.props.redirectAssignedStudents(caId, assignedStudents, followUpUrl)
+    const selectedOptionKey: string = this.state.selectedOptionKey
+    this.props.redirectAssignedStudents(caId, selectedOptionKey, followUpUrl)
   }
 
   assignAction(e){
     const caId: string|null = getParameterByName('classroom_activity_id');
-    const follow_up = this.state.selectedOptionKey !== 'No Follow Up Practice'
+    const follow_up = this.props.hasFollowUpActivity && this.state.selectedOptionKey !== 'No Follow Up Practice'
     const data = new FormData();
     data.append( "json", JSON.stringify( {follow_up} ) );
     let redirectAssignedStudents=this.redirectAssignedStudents
@@ -63,14 +48,19 @@ class ExitSlide extends React.Component<any, any> {
       return response.json();
     }).then((response) => {
       redirectAssignedStudents(response.follow_up_url)
+      if (this.props.hasFollowUpActivity) {
+        this.setState({assigned: true})
+      } else {
+        window.location.href = process.env.EMPIRICAL_BASE_URL
+      }
     }).catch((error) => {
       console.log('error', error)
     })
   }
-  
+
   renderAssignmentOptionsAndButton() {
     const {hasFollowUpActivity, students} = this.props
-    if (hasFollowUpActivity && students && Object.keys(students).length > 0) {
+    if (hasFollowUpActivity && students && Object.keys(students).length > 0 && !this.state.assigned) {
       return <div>
         <AssignmentOptions
           numberOfStudents={students ? Object.keys(students).length : 0}
@@ -80,6 +70,10 @@ class ExitSlide extends React.Component<any, any> {
         <AssignButton selectedOptionKey={this.state.selectedOptionKey}
                       assignAction={this.assignAction}
         />
+      </div>
+    } else if (!hasFollowUpActivity) {
+      return <div className='assign-button-container'>
+        <button onClick={this.assignAction}>End Lesson</button>
       </div>
     }
   }
@@ -92,6 +86,12 @@ class ExitSlide extends React.Component<any, any> {
               students={students}
               toggleStudentFlag={this.props.toggleStudentFlag}
             />
+  }
+
+  renderAssignedSection() {
+    if (this.state.assigned) {
+      return <AssignedSection selectedOptionKey={this.state.selectedOptionKey} />
+    }
   }
 
   render() {
@@ -109,6 +109,7 @@ class ExitSlide extends React.Component<any, any> {
         />
         {this.renderFlaggedStudents()}
         {this.renderAssignmentOptionsAndButton()}
+        {this.renderAssignedSection()}
       </div>
     );
   }
