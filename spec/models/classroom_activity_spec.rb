@@ -196,18 +196,18 @@ describe ClassroomActivity, type: :model, redis: :true do
 
       it "creates a redis key for the user if there isn't one" do
         lessons_classroom_activity
-        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher.id}_lessons_array")).to be
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to be
       end
 
       it "caches data about the assignment" do
-        lesson_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id}
-        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher.id}_lessons_array")).to eq([lesson_data].to_json)
+        lesson_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to eq([lesson_data].to_json)
       end
 
       it "caches data about subsequent assignment" do
-        lesson_1_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id}
-        lesson_2_data = {"classroom_activity_id": lessons_classroom_activity_2.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id}
-        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher.id}_lessons_array")).to eq([lesson_1_data, lesson_2_data].to_json)
+        lesson_1_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
+        lesson_2_data = {"classroom_activity_id": lessons_classroom_activity_2.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to eq([lesson_1_data, lesson_2_data].to_json)
       end
     end
 end

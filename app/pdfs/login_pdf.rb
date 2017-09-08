@@ -4,7 +4,7 @@ class LoginPdf < Prawn::Document
   def initialize(classroom)
     super(margin: [22, 24, 22, 24])
     @classroom = classroom
-    StudentLoginPdfDownloadAnalyticsWorker.perform_async(classroom.teacher.id, classroom.id)
+    StudentLoginPdfDownloadAnalyticsWorker.perform_async(classroom.teacher_id, classroom.id)
     render_login_pdf
   end
 
