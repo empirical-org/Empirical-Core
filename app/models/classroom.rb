@@ -96,13 +96,6 @@ class Classroom < ActiveRecord::Base
     if Classroom.unscoped.find_by_code(code) then generate_code end
   end
 
-  def students_classrooms_json(student_id)
-    {name: self.name,
-     teacher: self.teacher.name,
-     id: self.id,
-     join_date: StudentsClassrooms.find_by_classroom_id_and_student_id(self.id, student_id).created_at}
-  end
-
   def hide_appropriate_classroom_activities
     # on commit callback that checks if archived
     if self.visible == false

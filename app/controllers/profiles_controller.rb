@@ -38,10 +38,7 @@ class ProfilesController < ApplicationController
   end
 
   def students_classrooms_json
-    render json: {classrooms: current_user.classrooms.includes(:teacher)
-      .sort_by { |c|
-        c.students_classrooms.find_by_student_id(current_user.id).created_at
-      }.map {|c| c.students_classrooms_json(current_user.id)}}
+    render json: {classrooms: students_classrooms_with_join_info}
   end
 
   def teacher
@@ -76,6 +73,15 @@ protected
         }
       },
     }
+  end
+
+  def students_classrooms_with_join_info
+    ActiveRecord::Base.connection.execute(
+    "SELECT classrooms.name AS name, teacher.name AS teacher, classrooms.id AS id FROM classrooms
+      JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
+      JOIN users AS teacher ON teacher.id = classrooms.teacher_id
+      WHERE sc.student_id = #{current_user.id}
+      ORDER BY sc.created_at ASC").to_a
   end
 
   def student_profile_data_sql(classroom_id=nil)
