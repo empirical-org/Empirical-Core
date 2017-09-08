@@ -260,6 +260,14 @@ $tool-grey: #f8f9f9;
 .tool-carousel {
     padding-top: 55px;
 
+    &.lessons-tool-carousel {
+      .carousel {
+        img {
+          width: initial !important;
+        }
+      }
+    }
+
     .carousel {
         max-width: 1322px;
         margin: auto;
@@ -1000,10 +1008,7 @@ $tool-grey: #f8f9f9;
   }
   .answer {
     font-size: 20px;
-    color: #d8edff;
-    a {
-      color: white;
-    }
+    color: white;
   }
   .expand-or-collapse {
     font-size: 16px;
