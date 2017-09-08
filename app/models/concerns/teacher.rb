@@ -46,6 +46,10 @@ module Teacher
   end
 
   def get_classroom_minis_info
+    cache = get_classroom_minis_cache
+    if cache
+      return cache
+    end
     info = ActiveRecord::Base.connection.execute(
     "SELECT classrooms.name AS name, classrooms.id AS id, SUM(CASE WHEN acts.percentage IS NOT null THEN 1 ELSE 0 END) AS activity_count, COUNT(DISTINCT students.id) AS student_count, classrooms.code AS code FROM classrooms
           LEFT OUTER JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
