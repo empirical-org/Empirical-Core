@@ -13,6 +13,7 @@ export interface ClassroomLessonSession {
   public: Boolean | null;
   models: Models;
   prompts: Prompts;
+  hasFollowUpActivity: Boolean | null;
 }
 
 export interface ClassroomLessonSessions {

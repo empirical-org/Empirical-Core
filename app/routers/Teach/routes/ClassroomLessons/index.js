@@ -7,8 +7,10 @@ const previewRoute = {
   path: ':lessonID/preview',
   onEnter: (nextState, replaceWith) => {
     const classroomActivityId = createPreviewSession()
+    const modalQSValue = getParameterByName('modal')
+    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
     if (classroomActivityId) {
-      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${nextState.params.lessonID}?&classroom_activity_id=${classroomActivityId}`;
+      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${nextState.params.lessonID}?&classroom_activity_id=${classroomActivityId}${modalQS}`;
     }
   }
 };

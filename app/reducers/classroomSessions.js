@@ -30,13 +30,14 @@ export default function (currentState = initialState, action) {
       newState.data.current_slide = action.data;
       return newState;
     case C.TOGGLE_HEADERS:
+
       newState = Object.assign({}, currentState, {
         onlyShowHeaders: !currentState.onlyShowHeaders,
       });
       return newState;
     case C.NO_CLASSROOM_ACTIVITY:
       newState = Object.assign({}, currentState, {
-        error: `No such classroom activity. Classroom activity with id '${action.data}' does not exist.`,
+        error: 'missing classroom activity'
       });
       return newState;
     case C.NO_STUDENT_ID:

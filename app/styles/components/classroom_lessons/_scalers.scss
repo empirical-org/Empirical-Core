@@ -1,4 +1,9 @@
 .scaler {
+  padding: 10px;
+  > div {
+    margin: 0;
+  }
+
   .sentence-fragments {
     font-size: 40px;
   }
@@ -8,6 +13,5 @@
   }
 
   .student-lobby {
-    margin-top: 35px;
   }
 }

@@ -175,11 +175,13 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         this.textEditListComponents(i)
       )
     }
-    return (
-      <div className="list-blanks">
+    if (!this.props.projector) {
+      return (
+        <div className="list-blanks">
         {textEditorArr}
-      </div>
-    )
+        </div>
+      )
+    }
   }
 
   answerValues(){
@@ -225,6 +227,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       let instructionsRow = this.props.data.play.instructions ? (<div style={{marginTop: -20}} className="feedback-row">
         <p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>
       </div>) : null;
+      let submitButton = !this.props.projector ? <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/> : null;
       return (
         <div>
         <h1 className="prompt">
@@ -236,7 +239,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
           <div className='feedback-and-button-container'>
             {errorArea}
             {feedbackRow}
-            <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
+            {submitButton}
           </div>
         </div>
         </div>

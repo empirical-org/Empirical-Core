@@ -116,17 +116,19 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       return this.renderProject();
     }
     const textBoxDisabled = !!this.state.submitted;
-    return (
-      <TextEditor
-        defaultValue={''}
-        value={this.state.response}
-        disabled={textBoxDisabled}
-        checkAnswer={this.submitSubmission}
-        hasError={undefined}
-        handleChange={this.handleChange}
-        placeholder="Type your answer here."
-      />
-    );
+    if (!this.props.projector) {
+      return (
+        <TextEditor
+          defaultValue={''}
+          value={this.state.response}
+          disabled={textBoxDisabled}
+          checkAnswer={this.submitSubmission}
+          hasError={undefined}
+          handleChange={this.handleChange}
+          placeholder="Type your answer here."
+        />
+      );
+    }
   }
 
   renderInstructions() {
@@ -162,9 +164,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderSubmitButton() {
-    if (this.props.mode !== 'PROJECT') {
+    if (this.props.mode !== 'PROJECT' && !this.props.projector) {
+      const disabled = !this.state.response || this.state.response.length === 0 ? 'is-disabled' : null
       return (<div className="question-button-group">
-        <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
+        <button disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission} className={`button student-submit ${disabled}`}>Submit</button>
       </div>);
     }
   }

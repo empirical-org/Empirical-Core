@@ -169,6 +169,9 @@ export default class POSMatcher {
   }
 
   checkLengthMatch(userSubmission) {
+    if (this.ignoreCaseAndPunc) {
+      return;
+    }
     const userWordCount = wordLengthCount(userSubmission);
     const promptWordCount = wordLengthCount(this.prompt);
     const maxWordCount = promptWordCount + this.wordCountChange.max;
