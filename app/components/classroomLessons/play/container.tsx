@@ -20,6 +20,7 @@ import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
 import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
+import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
@@ -74,7 +75,9 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.hasFollowUpActivity)) {
       switch(npCSData.followUpOption) {
         case "Small Group Instruction and Independent Practice":
-          if (!Object.keys(npCSData.flaggedStudents).includes(student)) {
+          if (Object.keys(npCSData.flaggedStudents).includes(student)) {
+            this.setState({flaggedStudentCompletionScreen: true})
+          } else {
             window.location.href = npCSData.followUpUrl
           }
           break
@@ -245,6 +248,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
        return <ErrorPage text={error} />
      } else if (lessonError) {
        return <ErrorPage text={lessonError} />
+     } else if (this.state.flaggedStudentCompletionScreen) {
+       return <FlaggedStudentCompletedPage />
      } else {
        const lessonData: ClassroomLesson = this.props.classroomLesson.data;
        const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
