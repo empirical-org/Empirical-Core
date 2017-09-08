@@ -19,6 +19,14 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     render json: {follow_up_url: url}
   end
 
+  def pin_activity
+    @classroom_activity.update(pinned: true)
+  end
+
+  def unpin_activity
+    @classroom_activity.update(pinned: false)
+  end
+
   private
 
   def authorize!
