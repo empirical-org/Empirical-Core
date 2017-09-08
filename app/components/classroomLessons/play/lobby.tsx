@@ -71,9 +71,9 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
             <span className="student-indented">your username and password.</span>
           </li>
           <li>
-            <span>Start lesson by clicking on </span>
+            <span>Join lesson by clicking on </span>
             <br />
-            <span className="student-indented student-highlighted">Start Lesson</span>
+            <span className="student-indented student-highlighted">Join Lesson</span>
           </li>
         </ol>
       </div>
