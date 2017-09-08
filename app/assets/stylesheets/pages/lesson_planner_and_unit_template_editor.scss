@@ -12,10 +12,16 @@
 }
 #activity-planner,
 #unit-template-editor {
-  padding: 0;
-  max-width: 965px;
-  .container:first-of-type {
+  &.menu-aligned-left {
     padding: 0;
+    margin: auto;
+    max-width: 965px;
+    .container:first-of-type {
+      padding: 0;
+    }
+    .section-header {
+      margin-bottom: 30px;
+    }
   }
   section {
     border-bottom: none;
@@ -46,9 +52,6 @@
     .hidden-error-message {
       display: none;
     }
-  }
-  .section-header {
-    margin-bottom: 30px;
   }
   input {
     &#unit_name {
