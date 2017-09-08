@@ -10,7 +10,7 @@
   createMinis: function() {
     var classes = this.props.classList;
     var minis = _.map(classes, function(classObj) {
-      return <ClassMini classObj={classObj} key={classObj.classroom.code}/>;
+      return <ClassMini classObj={classObj} key={classObj.code}/>;
     });
     return minis;
   },

@@ -1,74 +1,71 @@
-'use strict'
-
-import React from 'react'
+import React from 'react';
 export default React.createClass({
 
-  manageClassGear: function() {
+  manageClassGear() {
     return (
-      <a className='pull-right class-mini-edit-students' href={this.manageClassLink()}>
-        <span><img src='/images/person_icon.svg'></img>Edit Students</span>
+      <a className="pull-right class-mini-edit-students" href={this.manageClassLink()}>
+        <span><img src="/images/person_icon.svg" />Edit Students</span>
       </a>
     );
   },
 
-  manageClassLink: function() {
-    var classId = this.props.classObj.classroom.id.toString();
-    return ('/teachers/classrooms/' + classId + '/students');
+  manageClassLink() {
+    const classId = this.props.classObj.id.toString();
+    return (`/teachers/classrooms/${classId}/students`);
   },
 
-  inviteStudentsLink: function() {
-    var classId = this.props.classObj.classroom.id.toString();
+  inviteStudentsLink() {
+    const classId = this.props.classObj.id.toString();
     return ('/teachers/classrooms/invite_students');
   },
 
-  studentCount: function() {
+  studentCount() {
     if (this.props.classObj.students !== 0) {
-      return (this.props.classObj.students + ' Students');
+      return (`${this.props.classObj.student_count} Students`);
     }
   },
 
-  activityCount: function() {
+  activityCount() {
     if (this.props.classObj.activities_completed !== 0) {
-      return (this.props.classObj.activities_completed + ' Activities Completed');
+      return (`${this.props.classObj.activity_count} Activities Completed`);
     }
   },
 
-  classroomSpecificReportLink: function() {
-    return "/teachers/classrooms/scorebook?classroom_id=" + this.props.classObj.classroom.id
+  classroomSpecificReportLink() {
+    return `/teachers/classrooms/scorebook?classroom_id=${this.props.classObj.id}`;
   },
 
-  classroomSpecificButton: function() {
+  classroomSpecificButton() {
     if (!this.studentCount()) {
       return (
         <a href={this.inviteStudentsLink()}>
-          <button className='button-green'>Invite Students</button>
+          <button className="button-green">Invite Students</button>
         </a>
       );
     } else if (!this.activityCount()) {
       return (
         <a href="/teachers/classrooms/activity_planner?tab=exploreActivityPacks">
-          <button className='button-green'>Assign Activities</button>
-        </a>
-      );
-    } else {
-      return (
-         <a href={this.classroomSpecificReportLink()}>
-          <button className='button-white class-mini-btn'>View Results</button>
+          <button className="button-green">Assign Activities</button>
         </a>
       );
     }
+    return (
+      <a href={this.classroomSpecificReportLink()}>
+        <button className="button-white class-mini-btn">View Results</button>
+      </a>
+    );
   },
 
-  classroomMini: function() {
+  classroomMini() {
     return (
       <div>
         {this.manageClassGear()}
-        <img className='class_icon' src='/class_icon.png'></img>
-        <a href={this.classroomSpecificReportLink()}><h3 className='classroom_name'>
-          {this.props.classObj.classroom.name}</h3></a>
-        <div className='classMetaData text-center'>
+        <img className="class_icon" src="/class_icon.png" />
+        <a href={this.classroomSpecificReportLink()}><h3 className="classroom_name">
+          {this.props.classObj.name}</h3></a>
+        <div className="classMetaData text-center">
           <p>
-            Class Code: {this.props.classObj.classroom.code}</p>
+            Class Code: {this.props.classObj.code}</p>
           <p>
             {this.studentCount()}
           </p>
@@ -81,13 +78,13 @@ export default React.createClass({
     );
   },
 
-  render: function() {
+  render() {
     return (
-      <div className={"mini_container col-md-4 col-sm-5 text-center"}>
-        <div className ={"mini_content "}>
+      <div className={'mini_container col-md-4 col-sm-5 text-center'}>
+        <div className={'mini_content '}>
           {this.classroomMini()}
         </div>
       </div>
     );
-  }
+  },
 });
