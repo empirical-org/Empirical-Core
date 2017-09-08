@@ -114,17 +114,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classroom_mini
-    current_user.classrooms_i_teach.includes(:students).each do |classroom|
-        classroom = {
-          classroom: classroom,
-          students: classroom.cached_student_count || classroom.students.count,
-          activities_completed: classroom.cached_completed_activity_count
-        }
-      ( @classrooms ||= [] ).push classroom
-    end
-    render json: {
-      classes: @classrooms
-    }
+    render json: { classes: current_user.get_classroom_minis_info}
   end
 
   def dashboard_query
@@ -214,6 +204,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   private
+
 
   def authorize!
     if current_user.classrooms_i_teach.any?

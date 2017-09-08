@@ -23,8 +23,8 @@ describe('MyClasses component', () => {
       />
     );
     expect(wrapper.find(ClassMini).length).toBe(2);
-    expect(wrapper.find(ClassMini).at(0).props().classObj.classroom.code).toBe('pug');
-    expect(wrapper.find(ClassMini).at(1).props().classObj.classroom.code).toBe('other pug');
+    expect(wrapper.find(ClassMini).at(0).props().classObj.code).toBe('pug');
+    expect(wrapper.find(ClassMini).at(1).props().classObj.code).toBe('other pug');
   });
 
   it('should render AddOrSyncClassroomsMini component', () => {

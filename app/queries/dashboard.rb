@@ -1,7 +1,5 @@
 class Dashboard
 
-
-
   def self.queries(user)
     get_redis_values(user)
     strug_stud = @@cached_strug_stud
