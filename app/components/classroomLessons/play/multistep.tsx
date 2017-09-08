@@ -1,6 +1,5 @@
 declare function require(name:string);
 import * as React from 'react';
-import _ from 'lodash'
 const moment = require('moment');
 import {
 QuestionData,
@@ -17,7 +16,7 @@ import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from 'libs/getParameterByName';
 const icon = require('../../../img/question_icon.svg')
 
-interface ListBlankProps {
+interface MultistepProps {
   data: QuestionData;
   mode?: null|string;
   handleStudentSubmission?: Function;
@@ -25,7 +24,7 @@ interface ListBlankProps {
   submissions?: QuestionSubmissionsList|null;
   projector?: boolean|null
 }
-interface ListBlankState {
+interface MultistepState {
   isSubmittable: Boolean;
   answers: { [key:string]: string|null };
   errors: Boolean;
@@ -33,51 +32,46 @@ interface ListBlankState {
   submitted: Boolean;
 }
 
-class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
+class Multisteps extends React.Component<MultistepProps, MultistepState> {
   constructor(props) {
     super(props);
-    this.state = {isSubmittable: false, answers: {}, errors: false, answerCount: 0, submitted: false}
+
+    const answerHash = {}
+    props.data.play.stepLabels.forEach((sl) => answerHash[sl] = '')
+    this.state = {
+      isSubmittable: false,
+      answers: answerHash,
+      errors: false,
+      answerCount: 0,
+      submitted: false}
     this.customChangeEvent = this.customChangeEvent.bind(this)
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
-  }
-
-  toObject(answers) {
-    const arr = answers.split(',')
-    const objectifiedArr = {};
-    for (var i = 0; i < arr.length; ++i) {
-      objectifiedArr[i] = arr[i];
-    }
-    return objectifiedArr;
   }
 
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
-      const submittedAnswers = {};
-      const splitAnswers = nextProps.submissions[student].data.split(", ");
-      for (let i = 0; i < splitAnswers.length; i++) {
-        submittedAnswers[i] = splitAnswers[i]
-      }
       this.setState({
         submitted: true,
-        answers: submittedAnswers
       })
     }
     if (student && this.state.submitted) {
       const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
       if (!nextProps.submissions || retryForStudent) {
         // this will  reset the state when a teacher resets a question
-        this.setState({ submitted: false, answers: {}, });
+        const answerHash = {}
+        nextProps.data.play.stepLabels.forEach((sl) => answerHash[sl] = null)
+        this.setState({ submitted: false, answers: answerHash, });
       } else {
-        this.setState({answers: this.toObject(nextProps.submissions[student].data)})
+        this.setState({answers: nextProps.submissions[student].data})
       }
     }
   }
 
-  customChangeEvent(e, index){
+  customChangeEvent(e, sl){
     const newState = {...this.state}
-    newState.answers[index] = e
-    const initialBlankCount = this.props.data.play.nBlanks;
+    newState.answers[sl] = e
+    const initialBlankCount = this.props.data.play.stepLabels.length;
     const answerCount = this.answerCount(newState.answers)
     newState.answerCount = answerCount
     if (initialBlankCount === answerCount) {
@@ -108,20 +102,27 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
+      const studentID = getParameterByName('student')
+      const data = this.props.submissions && studentID && this.props.submissions[studentID] ? this.props.submissions[studentID].data : null
+      const submission = data ? this.renderHTMLFromSubmissionObject(data) : ''
       return <div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
-        <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>
+        <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}}/>
       </div>
     }
   }
 
+  renderHTMLFromSubmissionObject(submission) {
+    return Object.keys(submission).map(key => `<span><strong>${key}: </strong>${submission[key]}</span>`).join(', ')
+  }
+
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
-    const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text = submissions ? submissions[key].data : null
+    const selected: Array<JSX.Element> = Object.keys(selected_submissions).map((key, index) => {
+      const html: string = submissions ? this.renderHTMLFromSubmissionObject(submissions[key].data) : ''
       return (
       <li key={`li-${index}`}>
-        <span className='li-number'>{index + 1}</span> {text}
+        <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
       </li>);
     });
     return (
@@ -151,15 +152,15 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     }
   }
 
-  textEditListComponents(i){
+  textEditListComponents(sl, i){
     return (
-      <div className={`list-component`} key={`${i}`}>
-        <span className="list-number">{`${i + 1}:`}</span>
+      <div className={`list-component`} key={sl}>
+        <span className="list-number">{`${sl}:`}</span>
         <TextEditor
-          index={i}
-          value={this.state.answers[i]}
+          index={sl}
+          value={this.state.answers[sl]}
           handleChange={this.customChangeEvent}
-          hasError={this.itemHasError(i)}
+          hasError={this.itemHasError(sl)}
           disabled={!this.state.isSubmittable && this.state.submitted}
           />
       </div>
@@ -168,40 +169,24 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   listBlanks() {
     // let { a, b }: { a: string, b: number } = o;
-    const nBlanks = this.props.data.play.nBlanks;
+    const stepLabels = this.props.data.play.stepLabels
+    const nStepLabels = stepLabels.length;
     const textEditorArr : JSX.Element[]  = [];
-    for (let i = 0; i < nBlanks; i++) {
+    for (let i = 0; i < nStepLabels; i++) {
         textEditorArr.push(
-        this.textEditListComponents(i)
+        this.textEditListComponents(stepLabels[i], i)
       )
     }
-    if (!this.props.projector) {
-      return (
-        <div className="list-blanks">
+    return (
+      <div className="list-blanks">
         {textEditorArr}
-        </div>
-      )
-    }
-  }
-
-  answerValues(){
-    // TODO use Object.values once we figure out typescript ECMA-2017
-    const answerArr : Array<string|null> = [];
-    const answers = this.state.answers
-    for (let key in answers) {
-      answerArr.push(answers[key])
-    }
-    return answerArr
-  }
-
-  sortedAndJoinedAnswers(){
-      const sortedAnswers = this.answerValues()
-      return sortedAnswers.join(', ')
+      </div>
+    )
   }
 
   handleStudentSubmission(){
     if (this.state.isSubmittable && this.props.handleStudentSubmission) {
-        this.props.handleStudentSubmission(this.sortedAndJoinedAnswers(), moment().format())
+        this.props.handleStudentSubmission(this.state.answers, moment().format())
         this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});
@@ -227,7 +212,6 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       let instructionsRow = this.props.data.play.instructions ? (<div style={{marginTop: -20}} className="feedback-row">
         <p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>
       </div>) : null;
-      let submitButton = !this.props.projector ? <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/> : null;
       return (
         <div>
         <h1 className="prompt">
@@ -239,7 +223,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
           <div className='feedback-and-button-container'>
             {errorArea}
             {feedbackRow}
-            {submitButton}
+            <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
           </div>
         </div>
         </div>
@@ -258,4 +242,4 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
 }
 
-export default ListBlanks;
+export default Multisteps;

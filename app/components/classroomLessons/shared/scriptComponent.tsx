@@ -397,12 +397,19 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     </tr>
   }
 
+  renderHTMLFromSubmissionObject(submission) {
+    return Object.keys(submission).map(key => `<span><strong>${key}: </strong>${submission[key]}</span>`).join(', ')
+  }
+
   renderSubmissionRow(studentKey: string, index: number) {
-    const { selected_submissions, submissions, current_slide, students, selected_submission_order } = this.props;
+    const { selected_submissions, submissions, current_slide, students, selected_submission_order, slideType } = this.props;
     const text: any = submissions[current_slide][studentKey].data
-
-    const submissionText = this.state.showDifferences ? findDifferences(text, this.props.lessonPrompt) : text;
-
+    let submissionText
+    if (slideType === 'CL-MS') {
+      submissionText = this.renderHTMLFromSubmissionObject(text)
+    } else {
+      submissionText = this.state.showDifferences ? findDifferences(text, this.props.lessonPrompt) : text;
+    }
     const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}}/>
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))

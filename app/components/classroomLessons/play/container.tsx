@@ -18,6 +18,7 @@ import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
+import CLMultistep from './multistep'
 import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
@@ -178,6 +179,9 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         break
       case 'CL-FL':
         slide = <CLListBlanks key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+        break
+      case 'CL-MS':
+        slide = <CLMultistep key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
         break
       case 'CL-EX':
         slide = <CLStudentStatic key={data.current_slide} data={current.data} />

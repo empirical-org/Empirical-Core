@@ -96,6 +96,24 @@ const lessonSlideTypes: CLIntF.Questions = {
       }
     }
   },
+  'CL-MS': {
+    type: 'CL-MS',
+    data: {
+      play: {
+        prompt: 'CHANGE ME',
+        cues: ['CHANGE', 'ME'],
+        instructions: 'CHANGE ME',
+        stepLabels: ['Why', 'How', 'Where']
+      },
+      teach: {
+        script: [
+          SIB['STEP-HTML'],
+          SIB['T-REVIEW']
+        ],
+        title: 'MULTISTEP SLIDE TITLE'
+      }
+    }
+  },
   'CL-EX': {
     type: 'CL-EX',
     data: {
