@@ -3,7 +3,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   doorkeeper_for :destroy
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
-
+  before_action :transform_incoming_request, only: [:update, :create]
 
   # GET
   def show
@@ -15,7 +15,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
     if @activity_session.update(activity_session_params.except(:id, :concept_results))
-      if params[:concept_results]
+      if @concept_results
         handle_concept_results
       end
       @status = :success
@@ -37,15 +37,15 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   # POST
   def create
 
-    @activity_session = ActivitySession.new(activity_session_params)
+    @activity_session = ActivitySession.new(activity_session_params.except(:id, :concept_results))
     crs = @activity_session.concept_results
     @activity_session.user = current_user if current_user
     @activity_session.concept_results = []
     # activity_session.set_owner(current_user) if activity_session.ownable?
     # activity_session.data = @data # FIXME: may no longer be necessary?
     if @activity_session.valid? && @activity_session.save
-      if @activity_session.update(activity_session_params.except(:id, :concept_results))
-        if params[:concept_results]
+      if @activity_session.update(activity_session_params.except(:id))
+        if @concept_results
           handle_concept_results
         end
         @status = :success
@@ -72,9 +72,9 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private
 
   def handle_concept_results
-    valid_concept_uids_and_ids = Concept.where(uid: params[:concept_results].map{|cr| cr[:concept_uid]}).pluck(:uid, :id)
+    valid_concept_uids_and_ids = Concept.where(uid: @concept_results.map{|cr| cr[:concept_uid]}).pluck(:uid, :id)
     concept_results_to_save = []
-    params[:concept_results].each do |cr|
+    @concept_results.each do |cr|
       valid_info = valid_concept_uids_and_ids.find{|concept| concept.first == cr[:concept_uid]}
       if valid_info
         cr[:activity_session_id] = @activity_session.id
@@ -96,7 +96,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def activity_session_params
     params.delete(:activity_session)
     @data = params.delete(:data)
-    concept_result_keys = [:concept_uid, :question_type, :activity_classification_id, metadata: concept_result_allowed_keys]
     params.permit(:id,
                   :access_token, # Required by OAuth
                   :percentage,
@@ -106,23 +105,15 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :activity_uid,
                   :activity_id,
                   :anonymous,
-                  :temporary,)
+                  :temporary)
       .merge(data: @data).reject {|k,v| v.nil? }
   end
 
-  # Grab a list of all the arbitrarily-named keys that are provided in the concept tag results payload.
-  # Returns a list of symbols, e.g. [:student_input, :wpm]
-  def concept_result_allowed_keys
-    if params[:concet_results]
-      params[:concet_results].reduce [] do |acc, hash|
-        if hash.has_key?(:metadata)
-          acc + hash[:metadata].keys.map(&:to_sym)
-        else
-          acc
-        end
-      end.uniq
+  def transform_incoming_request
+    if params[:concept_results].present?
+      @concept_results = params.delete(:concept_results)
     else
-      nil
+      params.delete(:concept_results)
     end
   end
 
