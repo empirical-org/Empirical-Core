@@ -12,7 +12,7 @@ class ExitSlide extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOptionKey: props.hasFollowUpActivity ? "Small Group Instruction and Independent Practice" : '',
+      selectedOptionKey: props.followUpActivityName ? "Small Group Instruction and Independent Practice" : '',
       assigned: false
     }
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
@@ -32,7 +32,7 @@ class ExitSlide extends React.Component<any, any> {
 
   assignAction(e){
     const caId: string|null = getParameterByName('classroom_activity_id');
-    const follow_up = this.props.hasFollowUpActivity && this.state.selectedOptionKey !== 'No Follow Up Practice'
+    const follow_up = this.props.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice'
     const data = new FormData();
     data.append( "json", JSON.stringify( {follow_up} ) );
     let redirectAssignedStudents=this.redirectAssignedStudents
@@ -48,7 +48,7 @@ class ExitSlide extends React.Component<any, any> {
       return response.json();
     }).then((response) => {
       redirectAssignedStudents(response.follow_up_url)
-      if (this.props.hasFollowUpActivity) {
+      if (this.props.followUpActivityName) {
         this.setState({assigned: true})
       } else {
         window.location.href = process.env.EMPIRICAL_BASE_URL
@@ -59,19 +59,20 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   renderAssignmentOptionsAndButton() {
-    const {hasFollowUpActivity, students} = this.props
-    if (hasFollowUpActivity && students && Object.keys(students).length > 0 && !this.state.assigned) {
+    const {followUpActivityName, students} = this.props
+    if (followUpActivityName && students && Object.keys(students).length > 0 && !this.state.assigned) {
       return <div>
         <AssignmentOptions
           numberOfStudents={students ? Object.keys(students).length : 0}
           updateSelectedOptionKey={this.updateSelectedOptionKey}
           selectedOptionKey={this.state.selectedOptionKey}
+          followUpActivityName={followUpActivityName}
         />
         <AssignButton selectedOptionKey={this.state.selectedOptionKey}
                       assignAction={this.assignAction}
         />
       </div>
-    } else if (!hasFollowUpActivity) {
+    } else if (!followUpActivityName) {
       return <div className='assign-button-container'>
         <button onClick={this.assignAction}>End Lesson</button>
       </div>

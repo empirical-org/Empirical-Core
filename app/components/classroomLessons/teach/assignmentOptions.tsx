@@ -4,7 +4,7 @@ const RadioButtonHover = require('../../../img/radioButtonHover.svg')
 const RadioButtonIcon = require('../../../img/radioButtonIcon.svg')
 const RadioButtonSelected = require('../../../img/radioButtonSelected.svg')
 
-class AssignmentOptions extends React.Component<{numberOfStudents: number, updateSelectedOptionKey: Function, selectedOptionKey: string}> {
+class AssignmentOptions extends React.Component<{numberOfStudents: number, updateSelectedOptionKey: Function, selectedOptionKey: string, followUpActivityName: string}> {
   constructor(props) {
     super(props)
   }
@@ -63,7 +63,7 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
     return (
       <div className="assignment-options-container">
         <div className="assignment-options-header">
-          <h2>Placeholder Activity Name</h2>
+          <h2>{this.props.followUpActivityName}</h2>
         </div>
         {this.renderOptions()}
       </div>

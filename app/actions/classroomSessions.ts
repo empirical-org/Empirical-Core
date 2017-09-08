@@ -75,7 +75,7 @@ export function getInitialData(ca_id: string, lesson_id, initialized, preview) {
       if (ca_id) {
         dispatch(getClassroomAndTeacherNameFromServer(ca_id, process.env.EMPIRICAL_BASE_URL))
         dispatch(loadStudentNames(ca_id, process.env.EMPIRICAL_BASE_URL))
-        dispatch(loadHasFollowUp(lesson_id, ca_id, process.env.EMPIRICAL_BASE_URL))
+        dispatch(loadFollowUpName(lesson_id, ca_id, process.env.EMPIRICAL_BASE_URL))
       }
     }
   }
@@ -304,9 +304,9 @@ export function addStudentNames(classroom_activity_id: string, studentsNames: ob
   studentsRef.set(studentsNames)
 }
 
-export function addFollowUpBool(classroom_activity_id: string, followUpBool: boolean): void {
-  const followUpRef = classroomSessionsRef.child(`${classroom_activity_id}/hasFollowUpActivity`);
-  followUpRef.set(followUpBool)
+export function addFollowUpName(classroom_activity_id: string, followUpActivityName: string|null): void {
+  const followUpRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpActivityName`);
+  followUpRef.set(followUpActivityName)
 }
 
 export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
@@ -368,9 +368,9 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string|
   };
 }
 
-export function loadHasFollowUp(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
+export function loadFollowUpName(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
   return function (dispatch) {
-    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/has_follow_up_activity`, {
+    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/follow_up_activity_name`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -381,7 +381,7 @@ export function loadHasFollowUp(lesson_id: string, classroom_activity_id: string
       }
       return response.json();
     }).then((response) => {
-      addFollowUpBool(classroom_activity_id, response.has_follow_up_activity)
+      addFollowUpName(classroom_activity_id, response.follow_up_activity_name)
     }).catch((error) => {
       console.log('error retrieving follow up ', error)
     });
