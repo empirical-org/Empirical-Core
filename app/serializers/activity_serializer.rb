@@ -5,11 +5,7 @@ class ActivitySerializer < ActiveModel::Serializer
   has_one :topic
 
   def anonymous_path
-    if object.classification.key != 'lessons'
-  	  Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: object.id)
-    else
-      "#{ENV['DEFAULT_URL']}/preview_lesson/#{object.uid}"
-    end
+    Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: object.id)
   end
 
 end

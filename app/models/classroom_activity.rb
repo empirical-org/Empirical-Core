@@ -211,6 +211,7 @@ class ClassroomActivity < ActiveRecord::Base
       else
         # unpin any other pinned ca before pinning new one
         pinned_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id, pinned: true)
+        return if pinned_ca && pinned_ca == self
         pinned_ca.update(pinned: false) if pinned_ca
       end
     end
@@ -261,7 +262,7 @@ class ClassroomActivity < ActiveRecord::Base
 
   def update_lessons_cache
     if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
-      lessons_cache = $redis.get("user_id:#{self.classroom.teacher.id}_lessons_array")
+      lessons_cache = $redis.get("user_id:#{self.classroom.teacher_id}_lessons_array")
       if lessons_cache
         lessons_cache = JSON.parse(lessons_cache)
         formatted_lesson = lessons_cache_info_formatter
@@ -276,7 +277,7 @@ class ClassroomActivity < ActiveRecord::Base
       else
         lessons_cache = format_initial_lessons_cache
       end
-        $redis.set("user_id:#{self.classroom.teacher.id}_lessons_array", lessons_cache.to_json)
+        $redis.set("user_id:#{self.classroom.teacher_id}_lessons_array", lessons_cache.to_json)
     end
   end
 

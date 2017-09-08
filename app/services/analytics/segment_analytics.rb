@@ -34,7 +34,7 @@ class SegmentAnalytics
 
   def track_classroom_creation(classroom)
     track({
-      user_id: classroom.teacher.id,
+      user_id: classroom.teacher_id,
       event: SegmentIo::Events::CLASSROOM_CREATION
     })
   end
@@ -67,7 +67,6 @@ class SegmentAnalytics
   end
 
   def track(options)
-    puts "calling backend track"
     backend.track(options)
   end
 

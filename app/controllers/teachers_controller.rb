@@ -57,6 +57,34 @@ class TeachersController < ApplicationController
     render json: {unit_info: unit_info}
   end
 
+  def get_diagnostic_info_for_dashboard_mini
+    records = ActiveRecord::Base.connection.execute("SELECT ca.id AS classroom_activity_id, units.id AS unit_id, classroom.id AS classroom_id, acts.id AS activity_id, actsesh.completed_at FROM classroom_activities ca
+               JOIN units ON ca.unit_id = units.id
+               JOIN activities AS acts ON ca.activity_id = acts.id
+               JOIN classrooms AS classroom ON ca.classroom_id = classroom.id
+               JOIN activity_sessions AS actsesh ON actsesh.classroom_activity_id = ca.id
+               WHERE units.user_id = #{current_user.id}
+               AND acts.activity_classification_id = 4
+               ORDER BY actsesh.completed_at DESC").to_a
+    if records.length > 0
+      most_recently_completed = records.find { |r| r['completed_at'] != nil }
+      # checks to see if the diagnostic was completed within a week
+      if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
+        number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.id) FROM activity_sessions actsesh
+                              JOIN classroom_activities AS ca ON actsesh.classroom_activity_id = ca.id
+                              WHERE ca.id = #{most_recently_completed['classroom_activity_id']}
+                              AND actsesh.state = 'finished'").to_a.first['count']
+        render json: {status: 'recently completed', unit_info: most_recently_completed, number_of_finished_students: number_of_finished_students }
+      elsif most_recently_completed
+        render json: {status: 'completed'}
+      else
+        render json: {status: 'assigned'}
+      end
+    else
+      render json: {status: 'unassigned'}
+    end
+  end
+
   private
 
   def set_admin_account

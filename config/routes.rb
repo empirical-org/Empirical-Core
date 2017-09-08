@@ -83,6 +83,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
+  get 'teachers/get_diagnostic_info_for_dashboard_mini' => 'teachers#get_diagnostic_info_for_dashboard_mini'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
@@ -231,9 +232,11 @@ EmpiricalGrammar::Application.routes.draw do
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
-      get 'activities/:id/has_follow_up_activity' => 'activities#has_follow_up_activity'
+      get 'activities/:id/follow_up_activity_name' => 'activities#follow_up_activity_name'
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
       put 'classroom_activities/:id/finish_lesson' => 'classroom_activities#finish_lesson'
+      put 'classroom_activities/:id/pin_activity' => 'classroom_activities#pin_activity'
+      put 'classroom_activities/:id/unpin_activity' => 'classroom_activities#unpin_activity'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'users/profile', to: 'users#profile'
     end

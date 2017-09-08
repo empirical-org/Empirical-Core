@@ -1,0 +1,57 @@
+.diagnostic-mini {
+
+  &.assign-recommendations {
+    padding: 0px 13px;
+    .gray-underline {
+      padding: 10px 0px !important;
+    }
+    img {
+      margin: 15px auto 10px;
+    }
+    span {
+      background-color: #e3fdff;
+      font-weight: 600px;
+    }
+    a {
+      width: 265px;
+      margin: 10px auto;
+    }
+  }
+  &.awaiting-students {
+    padding: 0px 10px;
+    a {
+      color: #027360;
+      text-decoration: underline;
+    }
+    img {
+      margin: 20px auto;
+    }
+  }
+  &.assign-diagnostic {
+    img {
+      margin: 15px auto;
+    }
+  }
+  &.assign-diagnostic, &.awaiting-students {
+    p {
+      font-size: 16px;
+    }
+    img {
+      height: 70px;
+    }
+    a {
+      margin: 15px auto;
+      width: 252px;
+    }
+  }
+  &.assign-recommendations, &.assign-diagnostic {
+    a {
+      height: 40px;
+      border-radius: 6px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
