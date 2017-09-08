@@ -71,7 +71,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student');
     const npCSData = nextProps.classroomSessions.data
-    if (npCSData.followUpUrl && npCSData.followUpOption) {
+    if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.hasFollowUpActivity)) {
       switch(npCSData.followUpOption) {
         case "Small Group Instruction and Independent Practice":
           if (!Object.keys(npCSData.flaggedStudents).includes(student)) {
