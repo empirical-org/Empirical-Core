@@ -190,7 +190,7 @@ class TeacherNavbar extends React.Component<any, any> {
       const assignLink = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/assign_activities/create-unit?tool=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       return <div className="lessons-teacher-preview-bar">
-        <p><i className="fa fa-eye" />You are <span>previewing</span> the teacher's view of Quill Lessons. <a href={assignLink}>Assign Quill Lessons</a> from your dashboard.</p>
+        <p><i className="fa fa-eye" />You are <span>previewing</span> the teacher's view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
         <a href={studentLink} target="_blank" className="student-link">Open Student View<i className="fa fa-external-link"/></a>
       </div>
     }
