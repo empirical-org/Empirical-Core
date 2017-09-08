@@ -3,7 +3,6 @@ module GoogleIntegration::Classroom::Creators::Students
   def self.run(classrooms, students_requester)
     students_requester_and_parser = self.students_requester_and_parser(students_requester)
     student_data = self.get_student_data_for_all_classrooms(classrooms, students_requester_and_parser)
-    puts 'here is more student data'
     students = self.create_students(student_data)
     students.compact
   end
@@ -44,7 +43,6 @@ module GoogleIntegration::Classroom::Creators::Students
   end
 
   def self.create_student(data, counter=0)
-    puts "retrying create_student from google classroom - counter #{counter}" if counter > 0
     if counter > 2
       return nil
     end
@@ -60,12 +58,6 @@ module GoogleIntegration::Classroom::Creators::Students
                        signed_up_with_google: true)
       end
       if student.errors.any?
-        puts "Error: Could not save google classroom student."
-        puts data[:email]
-        puts username
-        puts student.errors.full_messages
-        puts 'classroom of errored students'
-        puts classroom.attributes
         student = self.create_student(data, counter += 1)
       else
         data[:classrooms].each do |id|

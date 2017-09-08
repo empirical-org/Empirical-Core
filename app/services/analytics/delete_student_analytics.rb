@@ -2,7 +2,6 @@ class DeleteStudentAnalytics
   attr_accessor :analytics
 
   def initialize
-    puts DeleteStudentAnalytics
     self.analytics = SegmentAnalytics.new
   end
 

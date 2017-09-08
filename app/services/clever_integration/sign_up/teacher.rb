@@ -11,16 +11,11 @@ module CleverIntegration::SignUp::Teacher
       teacher = self.create_teacher(parsed_data)
       if teacher.present?
         self.associate_teacher_to_district(teacher, district)
-        puts "Associated Teacher to district"
         school = self.import_school(teacher, district.token, requesters)
-        puts "Imported School"
         classrooms = self.import_classrooms(teacher, district.token, requesters)
-        puts "Imported Classrooms"
         students = self.import_students(classrooms, district.token)
-        puts "Imported Students"
         result = {type: 'user_success', data: teacher}
       else
-        puts "No teacher present"
         result = {type: 'user_failure', data: "No Teacher Present"}
       end
     end
