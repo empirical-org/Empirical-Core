@@ -6,6 +6,7 @@ import { getParameterByName } from '../../libs/getParameterByName';
 import {
   setWatchTeacherState,
   removeWatchTeacherState,
+  unpinActivityOnSaveAndExit
 } from '../../actions/classroomSessions';
 const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = require('../../img/exit_icon.svg')
@@ -168,6 +169,8 @@ class TeacherNavbar extends React.Component<any, any> {
 
   exitLesson() {
     if (window.confirm('Are you sure you want to exit the lesson?')) {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      unpinActivityOnSaveAndExit(ca_id)
       document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
   }
