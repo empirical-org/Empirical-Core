@@ -5,7 +5,6 @@ import MockDate from 'mockdate';
 import ClassOverview from '../class_overview';
 
 import NewTools from '../new_tools_mini';
-import EllDiagnosticAnnouncementMini from '../ell_diagnostic_announcement_mini'
 import OverviewMini from '../overview_mini';
 import BetaMini from '../beta_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
@@ -13,14 +12,6 @@ import PremiumPromo from '../premium_promo';
 import PremiumMini from '../premium_mini';
 
 describe('ClassOverview component', () => {
-
-  describe('announcement minis', () => {
-    it('should return EllDiagnosticAnnouncementMini component', () => {
-      const wrapper = shallow(<ClassOverview />);
-      expect(wrapper.find(EllDiagnosticAnnouncementMini).exists()).toBe(true);
-    });
-  });
-
   describe('overview minis', () => {
     it('should render OverviewMinis with overviewObj for each in data', () => {
       const wrapper = shallow(

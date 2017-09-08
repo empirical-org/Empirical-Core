@@ -1,4 +1,3 @@
-
 'use strict'
 
  import React from 'react'
@@ -41,9 +40,6 @@
       </div>
     );
   },
-
-  // <button onClick={this.charge} className="q-button button-white text-qgreen inline">Buy Now</button>
-  // <a href='../../premium' className="q-button button-white inline">Learn More</a>
 
   render: function() {
     return (

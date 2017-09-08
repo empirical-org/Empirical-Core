@@ -108,7 +108,8 @@
     "install-react-on-rails": "npm install 'react-on-rails'",
     "jest": "jest",
     "jest:watch": "jest --watch",
-    "jest:coverage": "jest --coverage"
+    "jest:coverage": "jest --coverage",
+    "jest:silent": "jest --silent"
   },
   "jest": {
     "snapshotSerializers": [
