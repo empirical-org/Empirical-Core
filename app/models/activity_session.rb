@@ -26,7 +26,7 @@ class ActivitySession < ActiveRecord::Base
 
   after_save    :determine_if_final_score, :update_classroom_activity, :update_milestones
 
-  after_commit  :invalidate_activity_session_count_if_completed
+  after_commit :invalidate_activity_session_count_if_completed
 
   around_save   :trigger_events
 
