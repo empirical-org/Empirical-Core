@@ -33,7 +33,7 @@ export function startLesson(classroom_activity_id: string) {
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.once('value', (snapshot) => {
     const currentSlide = snapshot.val()
-    if (currentSlide !== '0' || !currentSlide) {
+    if (!currentSlide) {
       currentSlideRef.set('0')
     }
   })
