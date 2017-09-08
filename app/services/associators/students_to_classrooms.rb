@@ -5,8 +5,9 @@ module Associators::StudentsToClassrooms
     if self.legit_classroom && self.legit_teacher && (student.role == 'student')
       sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
       if sc.new_record?
-        sc.save!
-        StudentJoinedClassroomWorker.perform_async(@@classroom.teacher_id, student.id)
+        if sc.save!
+          StudentJoinedClassroomWorker.perform_async(@@classroom.teacher_id, student.id)
+        end
       end
       sc.update(visible: true)
       student.reload
