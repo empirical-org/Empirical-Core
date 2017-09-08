@@ -49,9 +49,7 @@ export default React.createClass({
     if (this.props.premium === 'locked') {
       return <PremiumPromo key="promo" />;
     } else if ((this.props.premium === 'none') || (this.props.premium === null)) {
-      if (new Date().getMonth() < 5) {
-        return <PremiumMini />;
-      }
+      return <PremiumMini />;
     }
   },
 
@@ -78,10 +76,10 @@ export default React.createClass({
       <div className="row">
         {this.teacherGuide()}
         {this.diagnosticMini()}
+        {this.lessonsList()}
+        {this.hasPremium()}
         {this.announcementMini()}
         {this.overviewMinis()}
-        {this.hasPremium()}
-        {this.lessonsList()}
         {this.betaMini()}
       </div>
     );
