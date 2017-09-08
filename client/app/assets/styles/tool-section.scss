@@ -262,8 +262,10 @@ $tool-grey: #f8f9f9;
 
     &.lessons-tool-carousel {
       .carousel {
-        img {
-          width: initial !important;
+        .item {
+          img {
+            width: initial;
+          }
         }
       }
     }
