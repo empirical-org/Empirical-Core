@@ -92,10 +92,20 @@ describe('StudentProfileActivity component', () => {
     expect(wrapper.find('a').exists()).toBe(false);
   });
 
-  it('should render "Join lesson" if activity is a Lesson', () => {
+  it('should render "Join Lesson" if activity is a Lesson', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{activity_classification_id: 6, ca_id: '1024', name: 'Activity'}}
+        data={{activity_classification_id: '6', ca_id: '1024', name: 'Activity'}}
+      />
+    );
+    expect(wrapper.find('.row-list-end').text()).toMatch('Join Lesson');
+    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+  });
+
+  it('should render "Join Lesson" if activity is a Lesson, even if in progress', () => {
+    const wrapper = shallow(
+      <StudentProfileActivity
+        data={{activity_classification_id: '6', resume_link: '1', ca_id: '1024', name: 'Activity'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Join Lesson');
