@@ -28,9 +28,11 @@ export default React.createClass({
       return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
     } else if (this.props.data.max_percentage) {
       linkText = 'Replay Activity';
+    } else if (this.props.data.resume_link === '1' && this.props.data.activity_classification_id === '6') {
+      linkText = 'Join Lesson';
     } else if (this.props.data.resume_link === '1') {
       linkText = 'Resume Activity';
-    } else if (this.props.data.activity_classification_id === 6) {
+    } else if (this.props.data.activity_classification_id === '6') {
       linkText = 'Join Lesson';
     } else {
       linkText = 'Start Activity';
