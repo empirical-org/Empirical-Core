@@ -20,6 +20,8 @@ class Classroom < ActiveRecord::Base
 
   belongs_to :teacher, class_name: 'User'
 
+  after_create :delete_classroom_minis_cache
+
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
   after_commit {
@@ -94,13 +96,6 @@ class Classroom < ActiveRecord::Base
     if Classroom.unscoped.find_by_code(code) then generate_code end
   end
 
-  def students_classrooms_json(student_id)
-    {name: self.name,
-     teacher: self.teacher.name,
-     id: self.id,
-     join_date: StudentsClassrooms.find_by_classroom_id_and_student_id(self.id, student_id).created_at}
-  end
-
   def hide_appropriate_classroom_activities
     # on commit callback that checks if archived
     if self.visible == false
@@ -121,48 +116,19 @@ class Classroom < ActiveRecord::Base
     Unit.where(id: ids).update_all(visible: false)
   end
 
-  def cached_student_count
-    student_count = $redis.get("classroom_id:#{self.id}_student_count")
-    unless student_count
-      student_count = self.students.count
-      $redis.set("classroom_id:#{self.id}_student_count", student_count, {ex: 7.days})
-    end
-    student_count
-  end
-
-  def cached_completed_activity_count
-    completed_activity_count = $redis.get("classroom_id:#{self.id}_completed_activity_count")
-    unless completed_activity_count
-      completed_activity_count = self.activity_sessions.where(state: "finished").count
-      $redis.set("classroom_id:#{self.id}_completed_activity_count", completed_activity_count, {ex: 7.days})
-    end
-    completed_activity_count
-  end
-
-  def cached_student_count
-    student_count = $redis.get("classroom_id:#{self.id}_student_count")
-    unless student_count
-      student_count = self.students.count
-      $redis.set("classroom_id:#{self.id}_student_count", student_count, {ex: 7.days})
-    end
-    student_count
-  end
-
-  def cached_completed_activity_count
-    completed_activity_count = $redis.get("classroom_id:#{self.id}_completed_activity_count")
-    unless completed_activity_count
-      completed_activity_count = self.activity_sessions.where(state: "finished").count
-      $redis.set("classroom_id:#{self.id}_completed_activity_count", completed_activity_count, {ex: 7.days})
-    end
-    completed_activity_count
-  end
-
   private
 
   # Clever integration
   def clever_classroom
     Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
   end
+
+  def delete_classroom_minis_cache
+    t_id = self.teacher&.id
+    t_id ? $redis.del("user_id:#{t_id}_classroom_minis") : nil
+  end
+
+
 
 
 end
