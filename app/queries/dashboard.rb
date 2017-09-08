@@ -1,22 +1,20 @@
 class Dashboard
 
+
+
   def self.queries(user)
     get_redis_values(user)
     strug_stud = @@cached_strug_stud
     diff_con = @@cached_diff_con
     unless @@cached_strug_stud && @@cached_diff_con
-      students = user.students.map(&:id)
-      sessions = ActivitySession.where(user_id: students).includes(:concept_results)
-      sessions = sessions.where.not(percentage: nil)
-      # we plan on limiting the timespan of this query
-      # sessions = sessions.where(["completed_at > ?", 30.days.ago])
-      if sessions.count == 0 || nil
+      completed_count = self.completed_activity_count(user.id)
+      if !completed_count || completed_count == 0
         return
       end
-      if sessions.count > 30
-        # teacherISteacher_id
-        diff_con ||= difficult_concepts(sessions)
-        strug_stud ||= lowest_performing_students(sessions)
+      if completed_count >= 30
+        user_id = user.id
+        diff_con ||= self.difficult_concepts(user_id)
+        strug_stud ||= self.lowest_performing_students(user_id)
         if diff_con.length == 0
           diff_con = 'insufficient data'
         end
@@ -33,45 +31,46 @@ class Dashboard
 
   private
 
-  def self.lowest_performing_students(sessions)
-    averages = {}
-    sessions = sessions.group_by(&:user_id)
-    sessions.each do |u, s|
-      total = s.sum(&:percentage)
-      # if they have a zero, it is probably because of connect and we don't want
-      # to hold that against them
-      if total > 0
-        averages[User.find(u).name] = ((total/sessions[u].count)*100).round
-      end
-    end
-    averages.sort_by{|user, score| score}[0..4].to_h
+  def self.completed_activity_count(user_id)
+    ActiveRecord::Base.connection.execute("SELECT COUNT(DISTINCT acts.id) FROM activity_sessions as acts
+    #{self.body_of_sql_search(user_id)}").to_a.first["count"].to_i
+  end
+
+  def self.lowest_performing_students(user_id)
+    ActiveRecord::Base.connection.execute(
+        "SELECT students.name, (AVG(acts.percentage)*100) AS score FROM activity_sessions as acts
+        #{self.body_of_sql_search(user_id)}
+        GROUP BY students.id
+        ORDER BY score
+        LIMIT 5").to_a
+  end
+
+  def self.body_of_sql_search(user_id)
+    "JOIN users AS students ON students.id = acts.user_id
+     JOIN students_classrooms AS sc ON sc.student_id = students.id
+     JOIN classrooms ON classrooms.id = sc.classroom_id
+     WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}"
+  end
+
+  def self.completed_since_sql
+    "acts.completed_at > date_trunc('day', NOW() - interval '30 days')"
   end
 
 
-
-  def self.difficult_concepts(sessions)
-    h = Hash.new { |hash, key| hash[key] = {correct: 0, total: 0}}
-    sessions.each do |s|
-      s.concept_results.each do |cr|
-        h[cr.concept_id][:correct] += cr.metadata["correct"]
-        h[cr.concept_id][:total] += 1
-      end
-    end
-    clean_concepts_hash(h)
+  def self.difficult_concepts(user_id)
+    ActiveRecord::Base.connection.execute("
+    SELECT concepts.id, concepts.name, AVG((concept_results.metadata::json->>'correct')::int) * 100  AS score, (CASE WHEN AVG((concept_results.metadata::json->>'correct')::int) *100 > 0 THEN true ELSE false END) AS non_zero FROM activity_sessions as acts
+    JOIN classroom_activities ON classroom_activities.id = acts.classroom_activity_id
+    JOIN classrooms ON classrooms.id = classroom_activities.classroom_id
+    JOIN concept_results ON acts.id = concept_results.activity_session_id
+    JOIN concepts ON concept_results.concept_id = concepts.id
+    WHERE classrooms.teacher_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}
+    GROUP BY concepts.id
+    ORDER BY non_zero DESC, score
+    LIMIT 5").to_a
   end
 
-  def self.clean_concepts_hash(h)
-    diff_concepts = {}
-    h.each do |k,v|
-      percentage = ((v[:correct].to_f/v[:total])*100).to_i
-      if percentage > 0
-        diff_concepts[Concept.find(k).name] = ((v[:correct].to_f/v[:total])*100).to_i
-      end
-    end
-    diff_concepts.sort_by{|k,v| v}[0..4].to_h
-    ## Line below if for local testing where concept results aren't always accessible
-    # diff_concepts = {"Commas in Addresses"=>56, "Future Tense Verbs"=>61, "Commas and Quotation Marks in Dialogue"=>66, "That"=>72, "Singular Possessive"=>72}
-  end
+
   def self.set_cache_if_empty(strug_stud, diff_con, user)
     unless @@cached_strug_stud || strug_stud == 'insufficient data'
       $redis.set("user_id:#{user.id}_struggling_students", strug_stud, {ex: 16.hours})

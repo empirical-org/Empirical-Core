@@ -60,12 +60,28 @@ describe('CreateClass container', () => {
 
     describe('DropdownButton component', () => {
       it('should have correctly formatted title prop', () => {
-        //TODO: test this more thoroughly, and add tests for NumberSuffix
-        expect(wrapper.find(DropdownButton).props().title).toBe('7th');
+        expect(wrapper.find(DropdownButton).props().title).toBe('7th Grade');
+        wrapper.setState({ classroom: { grade: 1 }});
+        expect(wrapper.find(DropdownButton).props().title).toBe('1st Grade');
+        wrapper.setState({ classroom: { grade: 2 }});
+        expect(wrapper.find(DropdownButton).props().title).toBe('2nd Grade');
+        wrapper.setState({ classroom: { grade: 3 }});
+        expect(wrapper.find(DropdownButton).props().title).toBe('3rd Grade');
+        wrapper.setState({ classroom: { grade: 'University' }});
+        expect(wrapper.find(DropdownButton).props().title).toBe('University');
+        wrapper.setState({ classroom: { grade: 'Other' }});
+        expect(wrapper.find(DropdownButton).props().title).toBe('Other');
+        wrapper.setState({
+          classroom: {
+            name: 'English 101',
+            grade: 7,
+            code: 'smelly-fish'
+          }
+        });
       });
 
-      it('should render MenuItems for grades K-12 & University', () => {
-        expect(wrapper.find(MenuItem)).toHaveLength(13);
+      it('should render MenuItems for grades K-12, University, and Other', () => {
+        expect(wrapper.find(MenuItem)).toHaveLength(14);
       });
 
       it('onSelect event should change grade in state', () => {

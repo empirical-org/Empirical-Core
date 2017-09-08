@@ -25,6 +25,13 @@ const styles = {
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 		maxWidth: '220px'
+	},
+	reportEndRow: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		width: '150px',
+		marginRight: '15px'
 	}
 }
 
@@ -115,32 +122,37 @@ export default React.createClass({
 				lessonUID={this.props.data.activity.uid}
 				classroomActivityID={this.props.data.id}
 				closeModal={this.closeModal}
+				completed={this.props.data.completed}
 			/>
 		}
 	},
 
 	render: function() {
-		let link
+		let link, endRow
 		if (this.props.report) {
 			link = <a href={this.urlForReport()} target='_new'>{this.props.data.activity.name}</a>
+			endRow = styles.reportEndRow
 		} else if (this.props.lesson) {
 			link = <span onClick={this.openModal}>{this.props.data.activity.name}</span>
+			endRow = styles.lessonEndRow
 		} else {
 			link = <a href={this.props.data.activity.anonymous_path} target='_new'>{this.props.data.activity.name}</a>
+			endRow = styles.endRow
+
 		}
 		return (
 			<div className='row' style={styles.row}>
 				{this.renderModal()}
 				<div className='starting-row'>
-					<div className='cell col-md-1'>
+					<div className='cell'>
 						<div className={'pull-left icon-wrapper ' + this.props.data.activity.classification.green_image_class}></div>
 					</div>
-					<div className='cell col-md-8' id='activity-analysis-activity-name'>
+					<div className='cell' id='activity-analysis-activity-name'>
 						{link}
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
-				<div className='cell col-md-3' style={this.props.lesson ? styles.lessonEndRow : styles.endRow}>
+				<div className='cell' style={endRow}>
 						{this.finalCell()}
 						{this.deleteRow()}
 				</div>
