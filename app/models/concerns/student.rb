@@ -100,7 +100,6 @@ module Student
         begin
           ActivitySession.bulk_insert values: assignable.flatten.compact
         rescue NoMethodError
-          puts 'rescue from no method error in assign_classroom_activities'
         end
       end
     end
