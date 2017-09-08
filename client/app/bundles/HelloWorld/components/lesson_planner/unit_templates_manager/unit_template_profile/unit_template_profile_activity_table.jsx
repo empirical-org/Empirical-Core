@@ -23,8 +23,12 @@
     return `icon-${image}-gray`
   },
 
-  findAnonymousPath: function(id) {
-    return `/activity_sessions/anonymous?activity_id=${id}`
+  findAnonymousPath: function(id, classification) {
+    if (classification === 'lessons') {
+      return `/preview_lesson/${id}`
+    } else {
+      return `/activity_sessions/anonymous?activity_id=${id}`
+    }
   },
 
   renderActivities: function() {
@@ -42,7 +46,7 @@
             {act.topic.topic_category.name}
           </td>
           <td>
-            <a href={that.findAnonymousPath(act.id)} target="_blank" className="button-green full-width preview-button">Preview Activity</a>
+            <a href={that.findAnonymousPath(act.id, act.classification.key)} target="_blank" className="button-green full-width preview-button">Preview Activity</a>
           </td>
         </tr>
       )
