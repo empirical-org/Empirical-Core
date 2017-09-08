@@ -54,7 +54,7 @@ exports[`QuillLessonsAnnouncementMini component should render 1`] = `
     </div>
     <div>
       <a
-        href="/tools/diagnostic"
+        href="/tools/lessons"
         style={
           Object {
             "alignItems": "center",
