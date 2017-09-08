@@ -13,8 +13,8 @@ class Scorebook::ActivitySessionsQuery
 
     # Find all the 'final' activity sessions for all the students in all the classrooms
     results = ActivitySession.select("users.name, activity_sessions.id, activity_sessions.percentage,
-                                #{User.sorting_name_sql}").preload(concept_results: :concept)
-                              .includes(:user, activity: [:classification, topic: [:section, :topic_category]])
+                                #{User.sorting_name_sql}")
+                              .includes(:user, activity: [:classification])
                               .references(:user)
                               .joins('JOIN  classroom_activities ON classroom_activities.id = activity_sessions.classroom_activity_id')
                               .where('classroom_activities.classroom_id IN (?)', classroom_ids)

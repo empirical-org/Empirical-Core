@@ -1,23 +1,22 @@
-'use strict';
-import React from 'react'
-import ConceptResultStat from './concept_result_stat.jsx'
-import $ from 'jquery'
+import React from 'react';
+import ConceptResultStat from './concept_result_stat.jsx';
+import $ from 'jquery';
 
 export default React.createClass({
   propTypes: {
-    results: React.PropTypes.array.isRequired
+    results: React.PropTypes.array.isRequired,
   },
 
-  addTotalAndPercentageToConRes: function (conResArr) {
-    conResArr.forEach(conRes => {
+  addTotalAndPercentageToConRes(conResArr) {
+    conResArr.forEach((conRes) => {
       conRes.total = conRes.incorrect + conRes.correct;
-      conRes.percentage = conRes.correct/ conRes.total
+      conRes.percentage = conRes.correct / conRes.total;
     });
   },
 
-  sortedStats: function(statsAsArr) {
+  sortedStats(statsAsArr) {
     return statsAsArr.sort((conRes1, conRes2) => {
-      this.addTotalAndPercentageToConRes([conRes1, conRes2])
+      this.addTotalAndPercentageToConRes([conRes1, conRes2]);
       if (conRes1.total !== conRes2.total) {
         return conRes2.total - conRes1.total;
       }
@@ -27,53 +26,55 @@ export default React.createClass({
       }
       // finally, sort alphabetically
       return conRes2.name < conRes1.name;
-    })
+    });
   },
 
-  statsRows: function() {
+  statsRows() {
     const statsRows = [];
     const stats = this.calculateStats();
     // loop through to the end of the array or 9. which ever is less
-    const maxNumOfResults = stats.length > 10 ? 10 : stats.length
+    const maxNumOfResults = stats.length > 10 ? 10 : stats.length;
     for (let i = 0; i < maxNumOfResults; i++) {
       const statsRow = stats[i];
-      statsRows.push(<ConceptResultStat key = {statsRow.name}
-                                   name = {statsRow.name}
-                                   correct={statsRow.correct}
-                                   incorrect={statsRow.incorrect} />);
+      statsRows.push(<ConceptResultStat
+        key={statsRow.name}
+        name={statsRow.name}
+        correct={statsRow.correct}
+        incorrect={statsRow.incorrect}
+      />);
     }
-    const additionalInfoRow = this.additionalInfoRow(statsRows.length, stats.length)
+    const additionalInfoRow = this.additionalInfoRow(statsRows.length, stats.length);
     return statsRows.concat(additionalInfoRow);
   },
 
-  additionalInfoRow: function(statsRowsLen, statsLen){
+  additionalInfoRow(statsRowsLen, statsLen) {
     let message;
-    let lengthDiff = statsLen - statsRowsLen;
+    const lengthDiff = statsLen - statsRowsLen;
     if (lengthDiff > 0) {
-      message = `+ ${lengthDiff} additional concepts in the activity report.`
+      message = `+ ${lengthDiff} additional concepts in the activity report.`;
     } else if (statsRowsLen) {
-      message = 'Clicking on the activity icon loads the report.'
+      message = 'Clicking on the activity icon loads the report.';
     }
     return (
-      <div  key='link_to_report'>
-        <div className='tooltip-message'>{message}</div>
+      <div key="link_to_report">
+        <div className="tooltip-message">{message}</div>
       </div>
     );
   },
 
-  objectToArray: function(calculatedStats){
-     return $.map(calculatedStats, (value, index) => [value]);
-   },
+  objectToArray(calculatedStats) {
+    return $.map(calculatedStats, (value, index) => [value]);
+  },
 
-  calculateStats: function() {
-    var stats = this.props.results.reduce(function (memo, conceptResult) {
-      var statsRow = memo[conceptResult.concept.name] || {
-        name: conceptResult.concept.name,
+  calculateStats() {
+    const stats = this.props.results.reduce((memo, conceptResult) => {
+      const statsRow = memo[conceptResult.name] || {
+        name: conceptResult.name,
         correct: 0,
         incorrect: 0,
       };
-      memo[conceptResult.concept.name] = statsRow;
-      var correct = parseInt(conceptResult.metadata.correct);
+      memo[conceptResult.name] = statsRow;
+      const correct = parseInt(conceptResult.metadata.correct);
       if (correct) {
         statsRow.correct++;
       } else {
@@ -86,11 +87,11 @@ export default React.createClass({
     return sortedStats;
   },
 
-  render: function () {
+  render() {
     return (
-      <div className='concept-stats container'>
+      <div className="concept-stats container">
         {this.statsRows()}
       </div>
     );
-  }
+  },
 });

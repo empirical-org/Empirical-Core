@@ -16,6 +16,7 @@ export default React.createClass({
       loading: true,
       recommendations: [],
       previouslyAssignedRecommendations: [],
+      lessonsRecommendations: [],
       selections: [],
       students: [],
       assigning: false,

@@ -2,6 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import GoogleClassroomsList from '../GoogleClassroomsList.jsx';
 
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+
 const googleClasses = [
   {
     id: 4451629374,
