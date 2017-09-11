@@ -42,15 +42,21 @@ class AccountsController < ApplicationController
   def select_school
     # TODO: this should be in schools controller
     @js_file = 'session'
+    puts 'here are the select_school params'
+    puts params
     #if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
     if School.find_by_id(params[:school_id_or_type])
       school = School.find(params[:school_id_or_type])
     else
       school = School.find_or_create_by(name: params[:school_id_or_type])
     end
+    puts 'hit #1'
     su = SchoolsUsers.find_or_create_by(user_id: current_user.id)
+    puts 'hit #2'
     su.update!(school_id: school.id)
+    puts 'hit #3'
     find_or_create_checkbox('Add School', current_user)
+    puts 'hit #4'
     render json: {}
   end
 
