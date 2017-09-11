@@ -46,12 +46,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     this.updateBlankValue = this.updateBlankValue.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student');
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
       const submissionVals = nextProps.submissions[student].data.match(/<strong>(.*?)<\/strong>/g).map((term) => term.replace(/<strong>|<\/strong>/g, ''))
-      this.setState({ submitted: true })
-      this.setState({ inputVals: submissionVals })
+      this.setState({ submitted: true, inputVals: submissionVals })
     }
     // this will reset the state when a teacher resets a question
     const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
@@ -62,7 +61,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
     // this will update the prompt when it changes
     const newSplitPrompt = nextProps.data.play.prompt.split('___');
-    if (newSplitPrompt !== this.state.splitPrompt) {
+    if (!_.isEqual(newSplitPrompt,this.state.splitPrompt)) {
       this.setState({splitPrompt: newSplitPrompt, inputVals: this.generateInputs(newSplitPrompt)})
     }
   }
@@ -185,7 +184,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   inputsEmpty() {
-    return this.state.inputVals.indexOf('') === -1
+    return this.state.inputVals.indexOf('') !== -1
   }
 
   renderSubmitButton() {
@@ -225,10 +224,10 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   renderClassAnswersList() {
     const { selected_submissions, submissions, selected_submission_order} = this.props;
     const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
-      const text = submissions && submissions[key] ? submissions[key].data : "";
+      const html = submissions && submissions[key] ? submissions[key].data : "";
       return (
         <li key={index}>
-          <span className="answer-number">{index + 1}</span>{text}
+          <span className="answer-number">{index + 1}</span><div style={{display: 'inline'}} dangerouslySetInnerHTML={{__html: html}} />
         </li>
       );
     }) : null;
@@ -242,10 +241,15 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   validateInput(i: number) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
-    if (inputVal && this.props.data.play.cues.indexOf(inputVal.toLowerCase()) === -1) {
-      newErrors.add(i);
-    } else {
-      newErrors.delete(i);
+    const cues = this.props.data.play.cues
+    // the check that the first cue is not '' can disappear once the cms has been updated not to save an empty
+    // array of cues as ''
+    if (inputVal && cues.length > 0 && cues[0] !== '') {
+      if (cues.indexOf(inputVal.toLowerCase()) === -1) {
+        newErrors.add(i);
+      } else {
+        newErrors.delete(i);
+      }
     }
     this.setState({ inputErrors: newErrors });
   }
