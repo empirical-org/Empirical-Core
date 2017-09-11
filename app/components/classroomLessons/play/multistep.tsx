@@ -104,7 +104,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
     if (!this.props.projector) {
       const studentID = getParameterByName('student')
       const data = this.props.submissions && studentID && this.props.submissions[studentID] ? this.props.submissions[studentID].data : null
-      const submission = data ? this.renderHTMLFromSubmissionObject(data) : ''
+      const submission: string =  data ? data : ''
       return <div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}}/>
@@ -113,13 +113,13 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
   }
 
   renderHTMLFromSubmissionObject(submission) {
-    return Object.keys(submission).map(key => `<span><strong>${key}: </strong>${submission[key]}</span>`).join(', ')
+    return Object.keys(submission).map(key => `<span><strong>${key} </strong>${submission[key]}</span>`).join(', ')
   }
 
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected: Array<JSX.Element> = Object.keys(selected_submissions).map((key, index) => {
-      const html: string = submissions ? this.renderHTMLFromSubmissionObject(submissions[key].data) : ''
+      const html = submissions[key].data
       return (
       <li key={`li-${index}`}>
         <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
@@ -155,7 +155,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
   textEditListComponents(sl, i){
     return (
       <div className={`list-component`} key={sl}>
-        <span className="list-number">{`${sl}:`}</span>
+        <span className="list-number">{sl}</span>
         <TextEditor
           index={sl}
           value={this.state.answers[sl]}
@@ -186,7 +186,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
 
   handleStudentSubmission(){
     if (this.state.isSubmittable && this.props.handleStudentSubmission) {
-        this.props.handleStudentSubmission(this.state.answers, moment().format())
+        this.props.handleStudentSubmission(this.renderHTMLFromSubmissionObject(this.state.answers), moment().format())
         this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});
