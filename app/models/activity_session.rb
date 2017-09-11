@@ -300,7 +300,12 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def update_milestones
-    UpdateMilestonesWorker.perform_async(self.uid)
+    # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
+    # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
+    # or started.
+    if self.state == 'finished'
+      UpdateMilestonesWorker.perform_async(self.uid)
+    end
   end
 
 end
