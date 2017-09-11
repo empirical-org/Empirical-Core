@@ -1,0 +1,15 @@
+<%= react_component('ActivityCategoriesApp', props: {activity_categories: @activity_categories}) %>
+
+<% @activity_categories.each do |activity_category| %>
+  <%= "##{activity_category.order_number}: #{activity_category.name}" %>
+<% end %>
+
+<%= form_for ActivityCategory.new, url: cms_activity_categories_path do |f| %>
+  <%= f.label      :name, 'Name' %>
+  <%= f.text_field :name %>
+
+  <%= f.label      :order_number, 'Order Number' %>
+  <%= f.text_field :order_number %>
+
+  <%= f.button 'Add Activity Category' %>
+<% end %>
