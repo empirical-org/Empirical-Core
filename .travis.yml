@@ -9,7 +9,7 @@ rvm:
 script:
   - npm run jest:silent && codecov
   - npm run build:test
-  - npm run lint
+  # - npm run lint
   - bundle exec rake spec
   - bundle exec teaspoon
 before_script:
