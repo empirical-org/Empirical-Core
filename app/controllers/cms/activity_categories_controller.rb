@@ -22,10 +22,10 @@ class Cms::ActivityCategoriesController < ApplicationController
     new_activity_category_activities = params[:activities]
     ActivityCategory.find(params[:activity_category_id]).activity_category_activities.destroy_all
     errors = []
-    new_activity_category_activities.each do |activity|
+    new_activity_category_activities.each do |activity, i|
       aca = ActivityCategoryActivity.new
       aca.activity_id = activity['id']
-      aca.order_number = activity['order_number']
+      aca.order_number = activity['order_number'] || i
       aca.activity_category_id = params[:activity_category_id]
       aca.save!
       errors << aca.errors if aca.errors.any?
