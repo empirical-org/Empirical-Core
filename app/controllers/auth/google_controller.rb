@@ -58,8 +58,9 @@ class Auth::GoogleController < ApplicationController
         @js_file = 'session'
         @teacherFromGoogleSignUp = true
       end
+      return true
     else
-      return redirect_to new_account_path
+      return false
     end
   end
 
@@ -72,7 +73,9 @@ class Auth::GoogleController < ApplicationController
     else
       @user = User.find_or_initialize_by(email: email)
       if @user.new_record?
-        new_google_user(name, email, role, access_token, google_id, @user)
+        if !new_google_user(name, email, role, access_token, google_id, @user)
+          return redirect_to new_account_path
+        end
         if @user.role == 'teacher'
           render 'accounts/new'
           return
