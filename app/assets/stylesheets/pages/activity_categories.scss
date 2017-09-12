@@ -1,0 +1,28 @@
+.activity-categories-container {
+  h1 {
+    margin: 20px 0px;
+  }
+  label {
+    margin-right: 5px;
+  }
+  input {
+    margin-right: 10px;
+    &:first-of-type {
+      width: 300px;
+    }
+  }
+  .activity-categories {
+    margin: 20px 0px;
+    .list {
+      margin-bottom: 20px;
+      .list-item {
+        font-size: 20px;
+        background-color: white;
+        border: 1px #adabab solid;
+        border-radius: 6px;
+        padding: 5px 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
