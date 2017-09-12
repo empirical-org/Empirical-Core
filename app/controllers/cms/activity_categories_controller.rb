@@ -19,5 +19,12 @@ class Cms::ActivityCategoriesController < ApplicationController
   end
 
   def destroy
+    activity_category = ActivityCategory.find(params[:id])
+    activity_category.destroy
+    if activity_category.errors.any?
+      render json: activity_category.errors, status: 400
+    else
+      render json: {}, status: 200
+    end
   end
 end

@@ -42,12 +42,32 @@ export default class ActivityCategories extends React.Component {
           alert('The updated classroom order has been saved.')
 
         }
-      // that.setState({activity_categories: })
+    })
+  }
+
+  deleteActivityCategory(key) {
+    const activityCategoryToDelete = this.state.activity_categories[key]
+    request.del(`${process.env.DEFAULT_URL}/cms/activity_categories/${activityCategoryToDelete.id}`, {
+      json: {
+        authenticity_token: getAuthToken()
+      }}, (e, r, response) => {
+      if (r.statusCode === 400) {
+        console.log(e)
+        alert(`We could not delete this activity category. Here is the response: ${response}`)
+      } else {
+        const newActivityCategories = this.state.activity_categories
+        newActivityCategories.splice(key, 1)
+        this.setState({activity_categories: newActivityCategories})
+        alert('Your activity category has been deleted.')
+      }
     })
   }
 
   renderActivityCategory(name, key) {
-    return <span key={key}>{name}</span>
+    return <div key={key} className="activity-category">
+      <span className="name">{name}</span>
+      <span className="delete" onClick={() => this.deleteActivityCategory(key)}>Delete Activity Category</span>
+    </div>
   }
 
   render() {
