@@ -2,7 +2,7 @@ class ActivitySearch
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(search_text, filters, sort, flag)
-    query = Activity.user_scope(flag).includes(:classification, topic: [:section, :topic_category])
+    query = Activity.user_scope(flag).includes(:classification, topic: [:section, :topic_category], activity_category_activities: [:activity_category])
       .where("(activities.name ILIKE ?) OR (topic_categories.name ILIKE ?)", "%#{search_text}%", "%#{search_text}%")
       .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")
       .order(search_sort_sql(sort)).references(:topic)
@@ -18,7 +18,7 @@ class ActivitySearch
   private
 
   def self.search_sort_sql(sort)
-    return 'activity_classifications.order_number asc, sections.position asc' if sort.blank?
+    return 'activity_categories.order_number asc, activity_classifications.order_number asc, activity_category_activities.order_number asc' if sort.blank?
 
     if sort['asc_or_desc'] == 'desc'
       order = 'desc'
