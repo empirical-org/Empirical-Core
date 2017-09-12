@@ -25,7 +25,7 @@ class Cms::ActivityCategoriesController < ApplicationController
     new_activity_category_activities.each do |activity|
       aca = ActivityCategoryActivity.new
       aca.activity_id = activity['id']
-      aca.order_number = activity['activity_order']
+      aca.order_number = activity['order_number']
       aca.activity_category_id = params[:activity_category_id]
       aca.save!
       errors << aca.errors if aca.errors.any?
