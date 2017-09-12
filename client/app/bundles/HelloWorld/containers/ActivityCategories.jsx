@@ -34,7 +34,14 @@ export default class ActivityCategories extends React.Component {
         activity_categories: this.state.activity_categories,
         authenticity_token: getAuthToken()
       }}, (e, r, response) => {
-      this.setState({activity_categories: response.activity_categories})
+        if (e) {
+          console.log(e)
+          alert(`We could not save the updated activity category order. Here is the error: ${e}`)
+        } else {
+          this.setState({activity_categories: response.activity_categories})
+          alert('The updated classroom order has been saved.')
+
+        }
       // that.setState({activity_categories: })
     })
   }
