@@ -10,16 +10,31 @@ class Cms::ActivityCategoriesController < ApplicationController
 
   def show
     @activity_category = ActivityCategory.find(params[:id])
-    @activities = Activity.select("activities.id, activities.name, activity_category_activities.order_number")
-    .joins('INNER JOIN activity_category_activities on activity_category_activities.activity_id = activities.id')
-    .joins('INNER JOIN activity_categories on activity_category_activities.activity_category_id = activity_categories.id')
-    .where('activity_categories.id = ?', @activity_category.id)
-    .order('activity_category_activities.order_number').to_a
+    @activities = get_activities_query(@activity_category.id)
   end
 
   def update_order_numbers
     params[:activity_categories].each { |ac| ActivityCategory.find(ac['id']).update(order_number: ac['order_number'])}
     render json: {activity_categories: ActivityCategory.order(order_number: :asc)}
+  end
+
+  def destroy_and_recreate_acas
+    new_activity_category_activities = params[:activities]
+    ActivityCategory.find(params[:activity_category_id]).activity_category_activities.destroy_all
+    errors = []
+    new_activity_category_activities.each do |activity|
+      aca = ActivityCategoryActivity.new
+      aca.activity_id = activity['id']
+      aca.order_number = activity['activity_order']
+      aca.activity_category_id = params[:activity_category_id]
+      aca.save!
+      errors << aca.errors if aca.errors.any?
+    end
+    unless errors.any?
+      render json: { activities: get_activities_query(params[:activity_category_id]) }, status: 200
+    else
+      render json: { errors: errors }, status: 500
+    end
   end
 
   def create
@@ -35,5 +50,14 @@ class Cms::ActivityCategoriesController < ApplicationController
     else
       render json: {}, status: 200
     end
+  end
+
+  private
+  def get_activities_query(activity_category_id)
+    Activity.select("activities.id, activities.name, activity_category_activities.order_number")
+    .joins('INNER JOIN activity_category_activities on activity_category_activities.activity_id = activities.id')
+    .joins('INNER JOIN activity_categories on activity_category_activities.activity_category_id = activity_categories.id')
+    .where('activity_categories.id = ?', activity_category_id)
+    .order('activity_category_activities.order_number').to_a
   end
 end

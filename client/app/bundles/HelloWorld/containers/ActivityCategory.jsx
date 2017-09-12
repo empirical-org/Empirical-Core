@@ -1,4 +1,6 @@
 import React from 'react'
+import request from 'request'
+import getAuthToken from '../components/modules/get_auth_token'
 import ActivitySearchAndSelect from '../components/lesson_planner/create_unit/activity_search/activity_search_and_select'
 
 export default class ActivityCategory extends React.Component {
@@ -15,7 +17,7 @@ export default class ActivityCategory extends React.Component {
 
   toggleActivitySelection(activity) {
     const newSelectedActivities = this.state.selectedActivities
-    const activityIndex = newSelectedActivities.indexOf(a => a.id === e.id)
+    const activityIndex = newSelectedActivities.findIndex(a => a.id === activity.id)
     if (activityIndex === -1) {
       const activityWithOrderNumber = Object.assign({}, activity)
       activityWithOrderNumber.order_number = newSelectedActivities.length
@@ -37,6 +39,25 @@ export default class ActivityCategory extends React.Component {
     this.setState({selectedActivities: newOrderedActivities})
   }
 
+  destroyAndRecreateOrderNumbers() {
+    const that = this
+    const activities = this.state.selectedActivities;
+    request.post(`${process.env.DEFAULT_URL}/cms/activity_categories/destroy_and_recreate_acas`, {
+      json: {
+        authenticity_token: getAuthToken(),
+        activities: activities,
+        activity_category_id: that.props.activity_category.id
+      }}, (e, r, response) => {
+        if (e) {
+          alert(`We could not save the updated activity order. Here is the error: ${e}`)
+        } else {
+          this.setState({selectedActivities: response.activities})
+          alert('The updated activity order has been saved.')
+        }
+      }
+    )
+  }
+
   render() {
     return(<div>
       <ActivitySearchAndSelect
@@ -45,7 +66,7 @@ export default class ActivityCategory extends React.Component {
         sortable={true}
         sortCallback={this.updateActivityOrder}
       />
-      <button>Save Activities</button>
+      <button onClick={this.destroyAndRecreateOrderNumbers}>Save Activities</button>
     </div>
   )
   }

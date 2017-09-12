@@ -277,6 +277,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :cms do
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
+    post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
     resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
