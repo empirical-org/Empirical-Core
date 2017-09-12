@@ -19,20 +19,17 @@ export default React.createClass({
     };
     return {
       units: [],
-      classrooms: [],
+      classrooms: this.props.allClassrooms,
       selectedUnit: {
         name: 'All Activity Packs',
         value: '',
       },
       selectedClassroom: this.selectedClassroom(),
-      // {
-      //   name: 'All Classrooms',
-      //   value: ''
-      // },
       classroomFilters: [],
       unitFilters: [],
+      scores: {},
       beginDate: null,
-      premium_state: null,
+      premium_state: this.props.premium_state,
       endDate: null,
       currentPage: 0,
       loading: false,
@@ -72,42 +69,28 @@ export default React.createClass({
 
   displayData(data) {
     this.setState({
-      classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
+      classroomFilters: this.getFilterOptions(this.state.classrooms, 'name', 'id', 'Select a Classroom'),
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
       is_last_page: data.is_last_page,
       premium_state: data.premium_state,
       noLoadHasEverOccurredYet: false,
     });
-    if (this.state.currentPage == 1) {
-      this.setState({ scores: data.scores, });
-    } else {
-      let y1 = this.state.scores;
-      const new_scores = [];
-      _.forEach(data.scores, (score) => {
-        const user_id = score.user.id;
-        const y2 = _.find(y1, ele => ele.user.id == user_id);
-        if (y2 == undefined) {
-          new_scores.push(score);
-        } else {
-          y1 = _.map(y1, (ele) => {
-            if (ele == y2) {
-              ele.results = ele.results.concat(score.results);
-              ele.results = _.uniq(ele.results, w1 => w1.id);
-            }
-            const w1 = ele;
-            return w1;
-          });
-        }
-      });
-      const all_scores = y1.concat(new_scores);
-      this.setState({ scores: all_scores, });
-    }
-    this.setState({ loading: false, });
+    const newScores = Object.assign({}, this.state.scores);
+    data.scores.forEach((s) => {
+      // add the score to the user scores arr or create a new one
+      newScores[s.user_id] = newScores[s.user_id] || { name: s.name, scores: [], };
+      newScores[s.user_id].scores.push({
+        caId: s.ca_id,
+        updated: s.updated_at,
+        percentage: s.percentage,
+        activity_classification_id: s.activity_classification_id, });
+    });
+    this.setState({ loading: false, scores: newScores, });
   },
 
   selectedClassroom() {
     if (!this.props.selectedClassroom) {
-      return { name: 'All Classrooms', value: '', };
+      return { name: 'None Selected', value: 'none_selected', };
     }
     return this.props.selectedClassroom;
   },
@@ -137,10 +120,14 @@ export default React.createClass({
   render() {
     let content,
       loadingIndicator;
-    const scores = _.map(this.state.scores, function (data) {
-      return <StudentScores key={data.user.id} data={data} premium_state={this.state.premium_state} />;
-    }, this);
-
+    const scores = [];
+    for (const userId in this.state.scores) {
+      if (this.state.scores.hasOwnProperty(userId)) {
+        const sObj = this.state.scores[userId];
+        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, }} premium_state={this.props.premium_state} />);
+      }
+    }
+    console.log('scores', scores);
     if (this.state.loading) {
       loadingIndicator = <LoadingIndicator />;
     } else {

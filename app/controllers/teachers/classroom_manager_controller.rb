@@ -74,8 +74,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
-    if current_user.classrooms_i_teach.any?
-
+    @all_classrooms = current_user.classrooms_i_teach.select(:id,:name).as_json
+    if @all_classrooms.any?
       cr_id = params[:classroom_id] ? params[:classroom_id] : LastActiveClassroom::last_active_classrooms(current_user.id, 1).first
       classroom = Classroom.find_by_id(cr_id)
       @selected_classroom = {name: classroom.try(:name), value: classroom.try(:id), id: classroom.try(:id)}
@@ -137,17 +137,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [:unit])
-    units = Unit.where(user: current_user).sort_by { |unit| unit.created_at }
-    selected_classroom =  Classroom.find_by id: params[:classroom_id]
-    scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, selected_classroom.try(:id), params[:unit_id], params[:begin_date], params[:end_date]
+    scores = Scorebook::Query.run(params[:current_page], params[:classroom_id], params[:unit_id], params[:begin_date], params[:end_date])
+    last_page = scores&.any?
     render json: {
-      premium_state: current_user.premium_state,
-      classrooms: classrooms,
-      units: units,
       scores: scores,
-      is_last_page: is_last_page,
-      selected_classroom: selected_classroom
+      is_last_page: last_page
     }
   end
 
