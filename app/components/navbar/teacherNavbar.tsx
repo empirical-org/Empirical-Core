@@ -158,7 +158,7 @@ class TeacherNavbar extends React.Component<any, any> {
       })
     } else {
       oneRow = true
-      content = <p key='no-flagged-students' className="no-flagged-students">No Flagged Students</p>
+      content = <span><p key='no-flagged-students' className="no-flagged-students">No Flagged Students</p><p key="explanation" className="explanation">Flag students based on their performance for small group instruction.</p></span>
     }
     const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
     return <div className={className}>
