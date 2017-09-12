@@ -1,5 +1,4 @@
 import _ from 'underscore';
-import IconRow from './icon_row.jsx';
 import React from 'react';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 
