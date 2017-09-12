@@ -13,6 +13,7 @@ export default class ActivityCategory extends React.Component {
 
     this.toggleActivitySelection = this.toggleActivitySelection.bind(this)
     this.updateActivityOrder = this.updateActivityOrder.bind(this)
+    this.destroyAndRecreateOrderNumbers = this.destroyAndRecreateOrderNumbers.bind(this)
   }
 
   toggleActivitySelection(activity) {
