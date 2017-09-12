@@ -63,16 +63,17 @@ export default class ActivityCategories extends React.Component {
     })
   }
 
-  renderActivityCategory(name, key) {
+  renderActivityCategory(name, key, id) {
     return <div key={key} className="activity-category">
       <span className="name">{name}</span>
-      <span className="delete" onClick={() => this.deleteActivityCategory(key)}>Delete Activity Category</span>
+      <a href={`/cms/activity_categories/${id}`}>Show</a>
+      <span className="delete" onClick={() => this.deleteActivityCategory(key)}>Delete</span>
     </div>
   }
 
   render() {
     // return <div>I am not the problem</div>
-    const activityCategoryItems = this.state.activity_categories.map((ac, i) => this.renderActivityCategory(ac.name, i))
+    const activityCategoryItems = this.state.activity_categories.map((ac, i) => this.renderActivityCategory(ac.name, i, ac.id))
     return <div className="activity-categories">
       <SortableList data={activityCategoryItems} sortCallback={this.updateActivityCategoryOrder} />
       <button onClick={this.saveActivityCategories}>Save Activity Categories</button>
