@@ -11,19 +11,24 @@
       width: 300px;
     }
   }
+  .selected-activities-section {
+    .deselect-activity {
+      width: 50px;
+    }
+  }
+  .list {
+    margin: 20px 0x;;
+    .list-item {
+      font-size: 20px;
+      background-color: white;
+      border: 1px #adabab solid;
+      border-radius: 6px;
+      padding: 5px 20px;
+      margin-bottom: 5px;
+    }
+  }
   .activity-categories {
     margin: 20px 0px;
-    .list {
-      margin-bottom: 20px;
-      .list-item {
-        font-size: 20px;
-        background-color: white;
-        border: 1px #adabab solid;
-        border-radius: 6px;
-        padding: 5px 20px;
-        margin-bottom: 5px;
-      }
-    }
     .activity-category {
       display: flex;
       justify-content: space-between;
