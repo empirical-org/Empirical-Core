@@ -33,8 +33,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .delete {
+      .delete, .show {
         font-size: 14px;
+        cursor: pointer;
       }
     }
   }

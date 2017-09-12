@@ -66,8 +66,10 @@ export default class ActivityCategories extends React.Component {
   renderActivityCategory(name, key, id) {
     return <div key={key} className="activity-category">
       <span className="name">{name}</span>
-      <a href={`/cms/activity_categories/${id}`}>Show</a>
-      <span className="delete" onClick={() => this.deleteActivityCategory(key)}>Delete</span>
+      <span>
+        <a className="show" href={`/cms/activity_categories/${id}`}>Show</a>
+        <span className="delete" onClick={() => this.deleteActivityCategory(key)}>Delete</span>
+      </span>
     </div>
   }
 
