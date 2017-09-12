@@ -41,7 +41,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     activity_sessions = @classroom_activity.activity_sessions.includes(:user)
     @assigned_student_hash = {}
     activity_sessions.each do |act_sesh|
-      @assigned_student_hash[act_sesh.id] = act_sesh.user.name
+      @assigned_student_hash[act_sesh.uid] = act_sesh.user.name
     end
   end
 
