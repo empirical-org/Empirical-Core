@@ -1,85 +1,40 @@
 class Scorebook::Query
   SCORES_PER_PAGE = 200
-  def initialize(teacher)
-    @teacher = teacher
+
+  def self.run(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
+    ActiveRecord::Base.connection.execute(
+    "SELECT acts.user_id,
+       ca.id AS ca_id,
+       students.name AS name,
+       activity.activity_classification_id,
+       MAX(acts.updated_at) AS updated_at,
+       MAX(acts.percentage) AS percentage
+    FROM classrooms AS classroom
+    LEFT JOIN students_classrooms AS sc on sc.classroom_id = classroom.id
+    RIGHT JOIN users AS students ON students.id = sc.student_id
+    INNER JOIN classroom_activities AS ca ON ca.classroom_id = classroom.id
+    INNER JOIN activity_sessions AS acts ON (
+          acts.classroom_activity_id = ca.id
+          AND acts.user_id = students.id
+          )
+    INNER JOIN activities AS activity ON activity.id = ca.activity_id
+    WHERE classroom.id = #{classroom_id}
+    AND acts.visible = true
+    AND ca.visible = true
+    AND sc.visible = true
+    #{self.units_if_necessary(unit_id)}
+    GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id
+    ORDER BY  substring(students.name, E'([^\\s]+)(,|$)'), ca.created_at ASC
+    OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
+    FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
+    ).to_a
   end
 
-  def query(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
-    results = Scorebook::ActivitySessionsQuery.new.query(@teacher, classroom_id) #TODO MAKE THIS WORK!!
-    results = filter_by_unit(results, unit_id)
-    results = filter_by_dates(results, begin_date, end_date)
-    results = paginate(results, current_page)
-
-    is_last_page = (results.length < SCORES_PER_PAGE)
-
-    x1 = results.group_by(&:user_id)
-
-    x2 = []
-    x1.each do |user_id, scores|
-      those_completed, those_not_completed = scores.partition{|s| s.completed_at.present? }
-      those_completed.sort_by!{|s| s.completed_at}
-      those_not_completed.sort_by!{|s| (s.classroom_activity.present? and s.classroom_activity.due_date.present?) ? s.classroom_activity.due_date : (Date.today - 10000)}
-
-      scores = those_completed.concat those_not_completed
-
-      formatted_scores = scores.map do |s|
-        present(s)
-      end
-      ele = {
-        user: User.find(user_id),
-        results: formatted_scores
-      }
-      x2.push ele
+  def self.units_if_necessary(unit_id)
+    if unit_id && !unit_id.blank?
+      "AND unit.id = #{unit_id}"
     end
-
-    x2 = x2.sort_by{|x2| x2[:user].sorting_name}
-    all = x2
-
-    [all, is_last_page]
   end
 
-  private
 
-  def filter_by_unit(results, unit_id)
-    if unit_id.present?
-      classroom_activity_ids = Unit.find(unit_id).classroom_activities.map(&:id)
-      results = results.where(classroom_activity_id: classroom_activity_ids)
-    end
-    results
-  end
-
-  def filter_by_dates(results, begin_date, end_date)
-    if (begin_date.present? or end_date.present?) then results = results.where("activity_sessions.completed_at IS NOT NULL") end
-
-    if begin_date.present?
-      results = results.where("activity_sessions.completed_at > ?", (begin_date.to_date - 1.day))
-    end
-    if end_date.present?
-      results = results.where("activity_sessions.completed_at < ?", (end_date.to_date + 1.day) )
-    end
-    results
-  end
-
-  def paginate(results, current_page)
-    results.order('sorting_name, activity_sessions.id, activity_sessions.completed_at')
-           .limit(SCORES_PER_PAGE)
-           .offset( (current_page -1 )*SCORES_PER_PAGE)
-  end
-
-  # TODO: This belongs in the view layer.
-  def present(activity_session)
-    hash = {
-      id: activity_session.id,
-      percentage: activity_session.percentage,
-      state: activity_session.state,
-      activity: (ActivitySerializer.new(activity_session.activity)).as_json(root: false)
-      # concept_results: activity_session.concept_results.map{|result| {concept: result.concept, metadata: result.metadata}}
-    }
-    if activity_session.state == 'finished'
-      hash[:completed_at] = activity_session.formatted_completed_at
-    else
-      hash[:due_date] = activity_session.formatted_due_date
-    end
-    hash
-  end
 end
