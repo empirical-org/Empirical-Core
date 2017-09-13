@@ -27,24 +27,27 @@ export default React.createClass({
 
   renderRows: function () {
     if(this.props.isSortable) {
-      return <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />;
+      return <div className="sortable-table">
+        <div className="header"><span>Name</span><span>Actions</span></div>
+        <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />
+      </div>
     } else {
-      return <tbody>{this.furnishRows()}</tbody>;
-    }
-  },
-
-  render: function () {
-    return (
-      <table className='table'>
+      return (<table className='table'>
         <thead>
           <tr>
             <th>{this.identifier()}</th>
             <th>Actions</th>
           </tr>
         </thead>
-          {this.renderRows()}
-      </table>
-    );
+        <tbody>
+          {this.furnishRows()}
+        </tbody>
+      </table>)
+    }
+  },
+
+  render: function () {
+    return this.renderRows();
   }
 
 });

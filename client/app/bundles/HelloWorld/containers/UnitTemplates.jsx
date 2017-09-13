@@ -13,9 +13,11 @@ export default React.createClass({
 
   render: function () {
     return (
-      <Cms resourceNameSingular='unit_template'
-              resourceNamePlural='unit_templates'
-              resourceComponentGenerator={this.resourceComponentGenerator}/>
+      <div className="cms-unit-templates">
+        <Cms resourceNameSingular='unit_template'
+                resourceNamePlural='unit_templates'
+                resourceComponentGenerator={this.resourceComponentGenerator}/>
+      </div>
 
     )
   }
