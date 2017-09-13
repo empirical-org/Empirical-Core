@@ -284,6 +284,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     resources :concepts
     resources :sections
+    put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
     resources :activity_classifications
     resources :topics
     resources :topic_categories

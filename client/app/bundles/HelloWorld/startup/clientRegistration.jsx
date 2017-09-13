@@ -24,6 +24,7 @@ import AssignActivitiesApp from './AssignActivitiesAppClient'
 import TutorialsApp from './TutorialsAppClient'
 import ActivityCategoriesApp from './ActivityCategoriesAppClient'
 import ActivityCategoryApp from './ActivityCategoryAppClient'
+import ActivityClassificationsApp from './ActivityClassificationsAppClient'
 
 require('../../../assets/styles/home.scss')
 
@@ -35,4 +36,5 @@ ReactOnRails.register({  TeacherGuideApp, DashboardApp,
   ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
   AdminsEditorApp, PublicActivityPacksApp, AddStudentApp,
   DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp,
-  GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp, TutorialsApp, ActivityCategoriesApp, ActivityCategoryApp});
+  GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp, TutorialsApp, ActivityCategoriesApp,
+  ActivityCategoryApp, ActivityClassificationsApp});
