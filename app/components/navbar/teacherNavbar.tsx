@@ -81,7 +81,7 @@ class TeacherNavbar extends React.Component<any, any> {
     // tooltips should not show if either watchTeacherState or showHelpDropdown is true
     if (watchTeacherState) {
       if (icon === 'watchTeacher') {
-        return (<Tooltip text={["Watch Teacher (", <strong key="watch-teacher-on">On</strong>,  ")"]} className={icon}/>)
+        return (<Tooltip text={["Watch Teacher - ", <strong key="watch-teacher-on">On</strong>]} className={icon}/>)
       }
     } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
       switch (icon) {
@@ -97,7 +97,7 @@ class TeacherNavbar extends React.Component<any, any> {
         break
         case 'watchTeacher':
         if (this.state.tooltip === 'watchTeacher') {
-          return (<Tooltip text={["Watch Teacher (", <strong key="watch-teacher-on">Off</strong>,  ")"]} className={icon}/>)
+          return (<Tooltip text={["Watch Teacher - ", <strong key="watch-teacher-on">Off</strong>]} className={icon}/>)
         }
         break
         case 'exit':
