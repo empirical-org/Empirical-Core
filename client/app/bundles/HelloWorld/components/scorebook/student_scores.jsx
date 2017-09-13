@@ -11,15 +11,12 @@ export default React.createClass({
   render() {
     const scores = this.props.data.scores.map(score => <ActivityIconWithTooltip key={`${this.props.data.name} ${score.caId}`} data={score} premium_state={this.props.premium_state} context={'scorebook'} />);
     return (
-      <div className="container">
-        <section>
-          <h3 className="student-name">{this.props.data.name}</h3>
-          <div className="row">
-            <div className="flex-row vertically-centered" />
-            {scores}
-          </div>
-        </section>
-      </div>
+      <section style={{ maxWidth: '950px', margin: '0 auto', }}>
+        <h3 className="student-name">{this.props.data.name}</h3>
+        <div className="flex-row vertically-centered" >
+          {scores}
+        </div>
+      </section>
     );
   },
 });
