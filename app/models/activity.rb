@@ -13,7 +13,7 @@ class Activity < ActiveRecord::Base
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
   has_many :units, through: :classroom_activities
-  has_many :activity_category_activities
+  has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
