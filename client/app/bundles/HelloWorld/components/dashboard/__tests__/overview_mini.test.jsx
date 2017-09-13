@@ -29,10 +29,10 @@ describe('OverviewMini component', () => {
     const wrapper = shallow(
       <OverviewMini overviewObj={{
         header: 'I am a header',
-        results: {
-          'Cool Activity': 50,
-          'Another Activity': 97
-        }
+        results: [
+          {name: 'Cool Activity', score: 50},
+          {name: 'Another Activity', score: 97}
+        ]
       }} />
     );
     expect(wrapper.find('td').at(0).text()).toMatch('Cool Activity');
