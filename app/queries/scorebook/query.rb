@@ -1,3 +1,4 @@
+# SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
 class Scorebook::Query
   SCORES_PER_PAGE = 200
 
@@ -8,7 +9,8 @@ class Scorebook::Query
        students.name AS name,
        activity.activity_classification_id,
        MAX(acts.updated_at) AS updated_at,
-       MAX(acts.percentage) AS percentage
+       MAX(acts.percentage) AS percentage,
+       SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
     FROM classrooms AS classroom
     LEFT JOIN students_classrooms AS sc on sc.classroom_id = classroom.id
     RIGHT JOIN users AS students ON students.id = sc.student_id

@@ -11,6 +11,7 @@ export default function (percentageDisplayer) {
       aboutPremiumOrNot,
       conceptResults,
       conceptResultsOrLoadingOrNotCompleted = <LoadingDots loadingMessage={'Loading concept results'} />;
+    const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
     if (data.concept_results && data.concept_results.length) {
       conceptResults = true;
       conceptResultsOrLoadingOrNotCompleted = <ConceptResultStats results={data.concept_results} />;
@@ -21,7 +22,7 @@ export default function (percentageDisplayer) {
     if (data.percentage == null) {
       totalScoreOrNot = null;
       conceptResultsOrLoadingOrNotCompleted = <span>This activity has not been completed.</span>;
-    } else if (data.activity.classification.id === 4 && data.percentage) {
+    } else if (actClassId === 4 && data.percentage) {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>100% Complete</strong></p>;
     } else {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>Score:</strong> <span className="percentage">{percentageDisplayer.run(data.percentage)}</span></p>;
