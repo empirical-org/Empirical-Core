@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'underscore'
+import SortableList from '../../../components/shared/sortableList'
 import CmsIndexTableRow from './cms_index_table_row.jsx'
 
 export default React.createClass({
@@ -9,14 +10,14 @@ export default React.createClass({
   },
 
   furnishRows: function () {
-    var rows = _.map(this.props.data.resources, this.furnishRow, this);
+    var rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
     return rows;
   },
 
-  furnishRow: function (resource) {
+  furnishRow: function (resource, index) {
     return <CmsIndexTableRow
                   data={{resource: resource, identifier: this.props.data.identifier}}
-                  key={resource.id}
+                  key={index}
                   actions={this.props.actions} />;
   },
 
@@ -24,8 +25,15 @@ export default React.createClass({
     return this.props.data.identifier || 'Name'
   },
 
+  renderRows: function () {
+    if(this.props.isSortable) {
+      return <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />;
+    } else {
+      return <tbody>{this.furnishRows()}</tbody>;
+    }
+  },
+
   render: function () {
-    var rows = this.furnishRows()
     return (
       <table className='table'>
         <thead>
@@ -34,9 +42,7 @@ export default React.createClass({
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          {rows}
-        </tbody>
+          {this.renderRows()}
       </table>
     );
   }

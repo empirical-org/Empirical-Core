@@ -288,6 +288,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :topics
     resources :topic_categories
     resources :authors, only: [:index, :create, :update, :destroy]
+    put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
 
