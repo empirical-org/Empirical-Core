@@ -6,8 +6,8 @@ const ProjectorModal: React.SFC<{closeModal: any}> = (props) => {
         <img onClick={props.closeModal} className="exit" src="http://assets.quill.org/images/icons/CloseIcon.svg"/>
         <img className="illustration" src="http://assets.quill.org/images/illustrations/projector_modal.svg" />
         <h1><span>Next:</span> Project This Window</h1>
-        <p>Drag this window to the projector and keep your teacher view on your computer’s screen only.</p>
-        <p><span>Note:</span> If your projector mirrors your computer’s screen, then you need to <span>unmirror</span> your projector.</p>
+        <p>In unmirrored mode, drag this window across your extended screen until it appears on your projector. Keep your teacher view on your computer's screen only.</p>
+        <p>For more information on how to unmirror your projector, click on the link below.</p>
         <a target="_blank" href="http://support.quill.org/activities-implementation/quill-lessons/how-do-i-project-quill-lessons">Learn How To Unmirror Projectors</a>
         <button onClick={props.closeModal}>Got it!</button>
      </div>
