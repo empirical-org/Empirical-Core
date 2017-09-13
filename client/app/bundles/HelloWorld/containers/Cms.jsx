@@ -135,7 +135,7 @@ export default React.createClass({
   },
 
   renderSaveButton: function () {
-    return this.isSortable() ? <button className='button-green button-top' onClick={this.saveOrder}>Save Order</button> : null
+    return this.isSortable() ? <button className='button-green button-top save-button' onClick={this.saveOrder}>Save Order</button> : null
   },
 
   isSortable: function () {
