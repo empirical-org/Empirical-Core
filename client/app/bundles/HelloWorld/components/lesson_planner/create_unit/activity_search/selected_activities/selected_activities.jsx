@@ -18,7 +18,7 @@
     if (this.props.selectedActivities.length > 0) {
       content = <section className="selected-activities-section">
 				<h3 className="section-header">Selected Activities For New Activity Pack:</h3>
-				{sortableRows ? sortableRows : <table className="table activity-table selected-activities headless-rounded-table"><tbody>rows</tbody></table>}
+				{sortableRows ? sortableRows : <table className="table activity-table selected-activities headless-rounded-table"><tbody>{rows}</tbody></table>}
 			</section>
     } else {
       content = <span/>
