@@ -138,7 +138,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def scores
     scores = Scorebook::Query.run(params[:current_page], params[:classroom_id], params[:unit_id], params[:begin_date], params[:end_date])
-    last_page = scores&.any?
+    last_page = scores.length < 200
     render json: {
       scores: scores,
       is_last_page: last_page

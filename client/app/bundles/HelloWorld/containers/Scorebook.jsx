@@ -97,6 +97,7 @@ export default React.createClass({
 
   selectUnit(option) {
     this.setState({
+      scores: {},
       currentPage: 0,
       selectedUnit: option,
     }, this.fetchData);
@@ -104,13 +105,16 @@ export default React.createClass({
 
   selectClassroom(option) {
     this.setState({
+      scores: {},
       currentPage: 0,
       selectedClassroom: option,
     }, this.fetchData
   );
   },
+
   selectDates(val1, val2) {
     this.setState({
+      scores: {},
       currentPage: 0,
       beginDate: val1,
       endDate: val2,

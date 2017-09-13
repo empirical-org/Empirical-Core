@@ -24,7 +24,7 @@ class Scorebook::Query
     AND sc.visible = true
     #{self.units_if_necessary(unit_id)}
     GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id
-    ORDER BY  substring(students.name, E'([^\\s]+)(,|$)'), ca.created_at ASC
+    ORDER BY  substring(students.name, '([^[:space:]]+)(?:,|$)'), ca.created_at ASC
     OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
     FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
     ).to_a
