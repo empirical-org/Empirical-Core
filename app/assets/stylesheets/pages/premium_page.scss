@@ -449,6 +449,24 @@ li.premium-tab > a:hover {
   }
 }
 
+@media screen and (max-width: 768px) {
+  #fourth-preview-section {
+    .preview-questions {
+      max-width: 90%;
+
+      .preview-questions-column {
+        float: none;
+        margin: 0 auto;
+        max-width: 95%;
+
+        &:first-child {
+          margin: 0 auto 39px auto;
+        }
+      }
+    }
+  }
+}
+
 .district-pricing-box {
 	max-width: 980px;
   width: 100%;
