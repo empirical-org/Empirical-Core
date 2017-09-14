@@ -112,6 +112,9 @@ class PagesController < ApplicationController
   def tutorials
   end
 
+  def teacher_fixes
+  end
+
   private
 
   def determine_layout
