@@ -9,6 +9,7 @@ export default React.createClass({
   },
 
   render() {
+    console.log('s', this.props.data);
     const scores = this.props.data.scores.map(score => <ActivityIconWithTooltip key={`${this.props.data.name} ${score.caId}`} data={score} premium_state={this.props.premium_state} context={'scorebook'} />);
     return (
       <section style={{ maxWidth: '950px', margin: '0 auto', }}>

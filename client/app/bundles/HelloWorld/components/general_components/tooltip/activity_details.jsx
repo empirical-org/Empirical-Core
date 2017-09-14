@@ -36,12 +36,13 @@ export default React.createClass({
     );
   },
 
+  // <strong>Objective:</strong>{` ${this.props.data.activity.description}`}
   render() {
     return (
       <div className={this.getClassName()}>
         <div className="activity-detail">
           <div className="activity-detail-body">
-            <strong>Objective:</strong>{` ${this.props.data.activity.description}`}
+
             {this.dateOrNot()}
           </div>
         </div>
