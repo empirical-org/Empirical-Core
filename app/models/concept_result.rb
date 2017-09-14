@@ -27,10 +27,17 @@ class ConceptResult < ActiveRecord::Base
   end
 
   def self.from_activity_session_with_names(activity_session)
-    ConceptResult.where(activity_session_id: activity_session.id)
-                 .joins(:concept)
-                 .select('concept_results.*, concepts.name')
+    ActiveRecord::Base.connection.execute(
+      "SELECT concept_results.metadata, activities.description, concepts.name
+        FROM activity_sessions
+          JOIN concept_results ON concept_results.activity_session_id = activity_sessions.id
+          JOIN concepts ON concept_results.concept_id = concepts.id
+          JOIN activities ON activities.id = activity_sessions.activity_id
+        WHERE activity_sessions.id = #{activity_session.id}
+      ").to_a
   end
+
+
 
 
 end

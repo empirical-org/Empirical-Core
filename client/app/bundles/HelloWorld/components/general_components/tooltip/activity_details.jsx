@@ -14,8 +14,8 @@ export default React.createClass({
     return 'activity-details no-concept-results';
   },
 
-  dateOrNot() {
-    if (this.props.data.state != 'finished' && (!this.props.data.due_date || !this.props.data.due_date_or_completed_at_date)) {
+  detailOrNot() {
+    if (!this.props.data.concept_results || !this.props.data.concept_results.length) {
       return null;
     }
     let dateTitle,
@@ -27,8 +27,12 @@ export default React.createClass({
       dateTitle = 'Due';
       dateBody = this.props.data.due_date_or_completed_at_date ? this.props.data.due_date_or_completed_at_date : this.props.data.due_date;
     }
+    const obj = this.props.data.concept_results[0].description;
     return (
       <div className="activity-detail">
+        <p>
+          <strong>Objectives:</strong>{` ${obj}`}
+        </p>
         <p>
           <strong>{`${dateTitle}: `}</strong>{dateBody}
         </p>
@@ -42,8 +46,7 @@ export default React.createClass({
       <div className={this.getClassName()}>
         <div className="activity-detail">
           <div className="activity-detail-body">
-
-            {this.dateOrNot()}
+            {this.detailOrNot()}
           </div>
         </div>
       </div>
