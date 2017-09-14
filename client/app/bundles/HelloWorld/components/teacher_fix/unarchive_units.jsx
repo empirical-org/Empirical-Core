@@ -64,7 +64,7 @@ export default class UnarchiveUnits extends React.Component {
   }
 
   renderTeacherForm() {
-    return <div>
+    return <div className="input-row">
       <label>Teacher Email Or Username:</label>
       <input type="text" value={this.state.teacherIdentifier} onChange={this.updateTeacherIdentifier}/>
       <button onClick={this.getArchivedUnits}>Submit</button>
@@ -93,7 +93,9 @@ export default class UnarchiveUnits extends React.Component {
   render() {
     return(
       <div>
-        <h1>Unarchive Units</h1>
+        <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
+        <h2>Unarchive Units</h2>
+        <p>All archived units are selected by default. Unarchiving a unit will also unarchive all of that unit's classroom activities and activity sessions.</p>
         {this.renderTeacherForm()}
         {this.renderError()}
         {this.renderUnitsForm()}
