@@ -29,6 +29,18 @@ class TeacherFixController < ApplicationController
     render json: {}, status: 200
   end
 
+  def recover_classroom_activities
+    classroom = Classroom.find_by_code(params['class_code'])
+    if classroom
+      classroom_activities = ClassroomActivity.unscoped.where(classroom_id: classroom.id)
+      classroom_activities.update_all(visible: true)
+      ActivitySession.unscoped.where(classroom_activity_id: classroom_activities.ids).update_all(visible: true)
+      render json: {}, status: 200
+    else
+      render json: {error: 'No such classroom'}
+    end
+  end
+
   def merge_student_accounts
     @account1 = User.find_by_username_or_email(params['account_1_identifier'])
     @account2 = User.find_by_username_or_email(params['account_2_identifier'])
