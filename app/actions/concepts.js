@@ -16,8 +16,6 @@ function getParentName(concept, concepts) {
 }
 
 const actions = {
-  // called when the app starts. this means we immediately download all quotes, and
-  // then receive all quotes again as soon as anyone changes anything.
   startListeningToConcepts() {
     return (dispatch) => {
       request(conceptsEndpoint, (error, response, body) => {
