@@ -83,6 +83,7 @@ export default React.createClass({
         caId: s.ca_id,
         activitySessionId: s.id,
         updated: s.updated_at,
+        name: s.activity_name,
         percentage: s.percentage,
         activity_classification_id: s.activity_classification_id, });
     });
@@ -129,7 +130,7 @@ export default React.createClass({
     for (const userId in this.state.scores) {
       if (this.state.scores.hasOwnProperty(userId)) {
         const sObj = this.state.scores[userId];
-        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, id: sObj.id, }} premium_state={this.props.premium_state} />);
+        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, activity_name: sObj.activity_name, id: sObj.id, }} premium_state={this.props.premium_state} />);
       }
     }
     if (this.state.loading) {
