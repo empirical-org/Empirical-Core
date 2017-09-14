@@ -328,6 +328,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'teacher_fix' => 'teacher_fix#index'
   get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
+  get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
