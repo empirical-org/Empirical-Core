@@ -1,5 +1,6 @@
 import React from 'react'
 import request from 'request'
+import getAuthToken from '../modules/get_auth_token'
 
 export default class UnarchiveUnits extends React.Component {
   constructor(props) {
@@ -7,21 +8,34 @@ export default class UnarchiveUnits extends React.Component {
 
     this.state = {
       archivedUnits: [],
-      selectedUnits: [],
+      selectedUnitIds: [],
       teacherIdentifier: ''
     }
 
     this.updateTeacherIdentifier = this.updateTeacherIdentifier.bind(this)
     this.getArchivedUnits = this.getArchivedUnits.bind(this)
+    this.toggleSelected = this.toggleSelected.bind(this)
+    this.unarchiveUnits = this.unarchiveUnits.bind(this)
   }
 
   updateTeacherIdentifier(e) {
     this.setState({teacherIdentifier: e.target.value})
   }
 
+  toggleSelected(e) {
+    const newSelectedUnitIds = this.state.selectedUnitIds
+    const selectedIndex = newSelectedUnitIds.findIndex(unitId => unitId == e.target.value)
+    if (selectedIndex === -1) {
+      newSelectedUnitIds.push(e.target.value)
+    } else {
+      newSelectedUnitIds.splice(selectedIndex, 1)
+    }
+    this.setState({selectedUnitIds: newSelectedUnitIds})
+  }
+
   getArchivedUnits() {
     const that = this
-    that.setState({archivedUnits: [], selectedUnits: [], error: ''})
+    that.setState({archivedUnits: [], selectedUnitIds: [], error: ''})
     request.get({
       url: `${process.env.DEFAULT_URL}/teacher_fix/get_archived_units`,
       qs: {teacher_identifier: that.state.teacherIdentifier}
@@ -31,11 +45,25 @@ export default class UnarchiveUnits extends React.Component {
       if (parsedResponse.error) {
         that.setState({error: parsedResponse.error})
       } else if (parsedResponse.archived_units)
-      that.setState({ archivedUnits: parsedResponse.archived_units, });
+        that.setState({ archivedUnits: parsedResponse.archived_units, selectedUnitIds: parsedResponse.archived_units.map(u => u.id)});
     });
   }
 
-  renderForm() {
+  unarchiveUnits() {
+    const that = this
+    request.post({
+      url: `${process.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
+      json: {unit_ids: that.state.selectedUnitIds, authenticity_token: getAuthToken()}
+    },
+    (e, r, response) => {
+      if (r.statusCode === 200) {
+        that.setState({ archivedUnits: {}, selectedUnitIds: {}, teacherIdentifier: ''})
+        window.alert('These units have been unarchived.')
+      }
+    })
+  }
+
+  renderTeacherForm() {
     return <div>
       <label>Teacher Email Or Username:</label>
       <input type="text" value={this.state.teacherIdentifier} onChange={this.updateTeacherIdentifier}/>
@@ -43,9 +71,16 @@ export default class UnarchiveUnits extends React.Component {
     </div>
   }
 
-  renderUnits() {
+  renderUnitsForm() {
     if (this.state.archivedUnits.length > 0) {
-      return this.state.archivedUnits.map(u => <p key={u.id}>{u.name}</p>)
+      const unitsList = this.state.archivedUnits.map(u => {
+        const checked = this.state.selectedUnitIds.find(unitId => unitId == u.id)
+        return <div  key={u.id}><input type="checkbox" checked={checked} onChange={this.toggleSelected} value={u.id}/>{u.name}</div>
+      })
+      return <div>
+        {unitsList}
+        <button onClick={this.unarchiveUnits}>Unarchive Units</button>
+      </div>
     }
   }
 
@@ -59,9 +94,9 @@ export default class UnarchiveUnits extends React.Component {
     return(
       <div>
         <h1>Unarchive Units</h1>
-        {this.renderForm()}
+        {this.renderTeacherForm()}
         {this.renderError()}
-        {this.renderUnits()}
+        {this.renderUnitsForm()}
       </div>
   )}
 }
