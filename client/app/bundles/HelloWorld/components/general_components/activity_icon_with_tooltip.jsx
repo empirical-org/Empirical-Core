@@ -20,10 +20,9 @@ export default React.createClass({
   },
 
   getConceptResultInfo() {
-    console.log(this.props.data);
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/activity_sessions/${this.props.data.id}/concept_results`,
+      url: `${process.env.DEFAULT_URL}/activity_sessions/${this.props.data.id || this.props.data.activitySessionId}/concept_results`,
     }, (error, httpStatus, body) => {
       const conceptResults = JSON.parse(body);
       that.setState({ loaded: true, }, () => that.loadTooltipTitle(conceptResults));
