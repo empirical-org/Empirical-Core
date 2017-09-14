@@ -326,8 +326,8 @@ EmpiricalGrammar::Application.routes.draw do
     get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
 
-  get 'teacher_fixes' => 'pages#teacher_fixes'
-  get 'teacher_fixes/unarchive_units' => 'pages#teacher_fixes'
+  get 'teacher_fix' => 'teacher_fix#index'
+  get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
