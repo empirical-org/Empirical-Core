@@ -37,20 +37,29 @@ export default class MergeStudentAccounts extends React.Component {
     this.setState({[key]: e.target.value})
   }
 
+  renderError() {
+    if (this.state.error) {
+      return <p className="error">{this.state.error}</p>
+    }
+  }
+
   render() {
     return <div>
-      <p>Note: Do not use this unless both students are in the same classroom, and the second student only belongs to this classroom. If you need help with a different case, ask a dev.</p>
+      <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
+      <h2>Merge Student Accounts</h2>
+      <p>This method will not work unless both students are in the same classroom, and the second student only belongs to this classroom. If you need help with a different case, ask a dev.</p>
+      <p>Also please note that this method will transfer all of the second student's activities to the first student's account. It will not, however, delete the second student's account or remove it from the classroom.</p>
       <div>
-        <div>
+        <div className="input-row">
           <label>Student One Email Or Username:</label>
           <input type="text" value={this.state.student1Identifier} onChange={(e) => this.updateStudentIdentifier(e, 1)}/>
         </div>
-        <div>
+        <div className="input-row">
           <label>Student Two Email Or Username:</label>
           <input type="text" value={this.state.student2Identifier} onChange={(e) => this.updateStudentIdentifier(e, 2)}/>
         </div>
         <button onClick={this.submitStudents}>Merge Student Accounts</button>
-        {this.state.error}
+        {this.renderError()}
       </div>
 
     </div>
