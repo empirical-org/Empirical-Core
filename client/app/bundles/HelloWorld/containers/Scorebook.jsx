@@ -129,7 +129,7 @@ export default React.createClass({
     for (const userId in this.state.scores) {
       if (this.state.scores.hasOwnProperty(userId)) {
         const sObj = this.state.scores[userId];
-        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, id: sObj.activitySessionId, }} premium_state={this.props.premium_state} />);
+        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, }} premium_state={this.props.premium_state} />);
       }
     }
     if (this.state.loading) {

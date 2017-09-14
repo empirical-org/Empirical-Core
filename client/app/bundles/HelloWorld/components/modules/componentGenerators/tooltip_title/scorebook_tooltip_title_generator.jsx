@@ -27,13 +27,13 @@ export default function (percentageDisplayer) {
     } else {
       totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>Score:</strong> <span className="percentage">{percentageDisplayer.run(data.percentage)}</span></p>;
     }
-
+    const name = data.activity ? data.activity.name : data.name;
     const result = (
       <div className="scorebook-tooltip" style={{ position: 'relative', }}>
         <i className="fa fa-caret-up" />
         <i className="fa fa-caret-up border-color" />
         <div className="title">
-          {data.activity.name}
+          {name}
         </div>
         <div className="main">
           <ActivityDetails data={data} />

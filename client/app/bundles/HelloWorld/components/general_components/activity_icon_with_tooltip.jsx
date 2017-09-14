@@ -20,6 +20,7 @@ export default React.createClass({
   },
 
   getConceptResultInfo() {
+    console.log(this.props.data);
     const that = this;
     request.get({
       url: `${process.env.DEFAULT_URL}/activity_sessions/${this.props.data.id}/concept_results`,

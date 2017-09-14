@@ -8,9 +8,10 @@ class Scorebook::Query
        ca.id AS ca_id,
        students.name AS name,
        activity.activity_classification_id,
+       activity.name AS activity_name,
        MAX(acts.updated_at) AS updated_at,
        MAX(acts.percentage) AS percentage,
-       SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
+       SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
     FROM classrooms AS classroom
     LEFT JOIN students_classrooms AS sc on sc.classroom_id = classroom.id
     RIGHT JOIN users AS students ON students.id = sc.student_id
@@ -25,7 +26,7 @@ class Scorebook::Query
     AND ca.visible = true
     AND sc.visible = true
     #{self.units_if_necessary(unit_id)}
-    GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id
+    GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id, activity.name
     ORDER BY  substring(students.name, '([^[:space:]]+)(?:,|$)'), ca.created_at ASC
     OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
     FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
