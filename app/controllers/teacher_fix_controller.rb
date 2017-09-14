@@ -20,4 +20,13 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  def unarchive_units
+    unit_ids = params['unit_ids']
+    Unit.unscoped.where(id: unit_ids).update_all(visible: true)
+    classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_ids)
+    classroom_activities.update_all(visible: true)
+    ActivitySession.unscoped.where(classroom_activity_id: classroom_activities.ids).update_all(visible: true)
+    render json: {}, status: 200
+  end
+
 end
