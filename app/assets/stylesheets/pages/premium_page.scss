@@ -412,7 +412,7 @@ li.premium-tab > a:hover {
   .preview-questions {
     font-size: 15px;
     text-align: left;
-    margin: 43px auto 134px;
+    margin: 43px auto 0;
     display: inline-block;
     .preview-questions-column:first-child {
       margin-right: 56px;
@@ -437,6 +437,14 @@ li.premium-tab > a:hover {
       .preview-question-and-answer.preview-question-and-answer-with-margin {
         margin-bottom: 39px;
       }
+    }
+  }
+  .preview-questions-view-all {
+    padding: 60px 0 88px;
+    a {
+      color: $white;
+      font-size: 16px;
+      text-decoration: underline;
     }
   }
 }
