@@ -38,10 +38,6 @@ class ActivitySessionsController < ApplicationController
     @results  = @activity_session.parse_for_results
   end
 
-  def concept_results
-    render json: ConceptResult.from_activity_session_with_names(@activity_session).to_json
-  end
-
   def anonymous
     @activity = Activity.find(params[:activity_id])
     @module_url = @activity.anonymous_module_url
