@@ -2,7 +2,7 @@
 class Scorebook::Query
   SCORES_PER_PAGE = 200
 
-  def self.run(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
+  def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil)
     ActiveRecord::Base.connection.execute(
     "SELECT acts.user_id,
        ca.id AS ca_id,

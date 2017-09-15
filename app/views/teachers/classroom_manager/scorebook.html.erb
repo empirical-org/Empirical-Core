@@ -4,5 +4,5 @@
 <%= render partial: 'teachers/progress_reports/subnav' %>
 
 <div class="page-content-wrapper">
-<%= react_component('ScorebookApp', props: {selectedClassroom: @selected_classroom, missing: @missing, allClassrooms: @all_classrooms, premium_state: current_user.premium_state}) %>
+<%= react_component('ScorebookApp', props: { selectedClassroom: @classrooms.first, missing: @missing, allClassrooms: @classrooms, premium_state: current_user.premium_state}) %>
 </div>

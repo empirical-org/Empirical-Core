@@ -74,17 +74,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
-    @all_classrooms = current_user.classrooms_i_teach.select(:id,:name).as_json
-    if @all_classrooms.any?
-      cr_id = params[:classroom_id] ? params[:classroom_id] : LastActiveClassroom::last_active_classrooms(current_user.id, 1).first
-      classroom = Classroom.find_by_id(cr_id)
-      @selected_classroom = {name: classroom.try(:name), value: classroom.try(:id), id: classroom.try(:id)}
-      if current_user.students.empty?
+    @classrooms = Classroom.where(teacher_id: current_user.id).select('classrooms.id, classrooms.id AS value, classrooms.name').as_json
+    if @classroom
+      if current_user.students.ids.empty?
         @missing = 'students'
       elsif Unit.find_by(user_id: current_user.id).nil?
         @missing = 'activities'
       end
-    elsif current_user.classrooms_i_teach.empty?
+    else
       @missing = 'true'
     end
   end
@@ -137,7 +134,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    scores = Scorebook::Query.run(params[:current_page], params[:classroom_id], params[:unit_id], params[:begin_date], params[:end_date])
+    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date])
     last_page = scores.length < 200
     render json: {
       scores: scores,
