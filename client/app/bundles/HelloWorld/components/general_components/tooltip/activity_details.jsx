@@ -20,14 +20,15 @@ export default React.createClass({
     }
     let dateTitle,
       dateBody;
-    if (this.props.data.state == 'finished') {
+    const firstCr = this.props.data.concept_results[0];
+    if (this.props.data.completed_at) {
       dateTitle = 'Completed';
-      dateBody = this.props.data.completed_at ? this.props.data.completed_at : this.props.data.due_date_or_completed_at_date;
+      dateBody = firstCr.completed_at;
     } else {
       dateTitle = 'Due';
-      dateBody = this.props.data.due_date_or_completed_at_date ? this.props.data.due_date_or_completed_at_date : this.props.data.due_date;
+      dateBody = firstCr.due_date;
     }
-    const obj = this.props.data.concept_results[0].description;
+    const obj = firstCr.description;
     return (
       <div className="activity-detail">
         <p>

@@ -28,10 +28,11 @@ class ConceptResult < ActiveRecord::Base
 
   def self.from_activity_session_with_names(activity_session)
     ActiveRecord::Base.connection.execute(
-      "SELECT concept_results.metadata, activities.description, concepts.name
+      "SELECT concept_results.metadata, activities.description, concepts.name, activity_sessions.completed_at, classroom_activities.due_date
         FROM activity_sessions
           JOIN concept_results ON concept_results.activity_session_id = activity_sessions.id
           JOIN concepts ON concept_results.concept_id = concepts.id
+          JOIN classroom_activities ON classroom_activities.id = activity_sessions.classroom_activity_id
           JOIN activities ON activities.id = activity_sessions.activity_id
         WHERE activity_sessions.id = #{activity_session.id}
       ").to_a
