@@ -81,7 +81,8 @@ export default React.createClass({
       newScores[s.user_id] = newScores[s.user_id] || { name: s.name, scores: [], };
       newScores[s.user_id].scores.push({
         caId: s.ca_id,
-        activitySessionId: s.id,
+        // activitySessionId: s.id,
+        userId: s.user_id,
         updated: s.updated_at,
         name: s.activity_name,
         percentage: s.percentage,
@@ -130,7 +131,7 @@ export default React.createClass({
     for (const userId in this.state.scores) {
       if (this.state.scores.hasOwnProperty(userId)) {
         const sObj = this.state.scores[userId];
-        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, activity_name: sObj.activity_name, id: sObj.id, }} premium_state={this.props.premium_state} />);
+        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, activity_name: sObj.activity_name, userId: sObj.userId, }} premium_state={this.props.premium_state} />);
       }
     }
     if (this.state.loading) {
