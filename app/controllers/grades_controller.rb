@@ -1,5 +1,7 @@
 class GradesController < ApplicationController
 
+  before_action :authorize!, only: [:tooltip]
+
   def index
     render json: Classroom::GRADES
   end
@@ -26,6 +28,12 @@ class GradesController < ApplicationController
         WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
           AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
       ").to_a
+  end
+
+  def authorize!
+    return unless params[:classroom_activity_id].present?
+    classroom_activity = ClassroomActivity.includes(:classroom).find(params[:classroom_activity_id])
+    auth_failed unless classroom_activity.classroom.teacher == current_user
   end
 
 end
