@@ -75,7 +75,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
-  get 'grades/tooltip/classroom_activity_id/:classroom_activity_id/user_id/:user_id' => 'grades#tooltip'
+  get 'grades/tooltip/classroom_activity_id/:classroom_activity_id/user_id/:user_id/completed/:completed' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 

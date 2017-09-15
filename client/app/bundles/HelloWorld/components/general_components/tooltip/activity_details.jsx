@@ -1,5 +1,5 @@
 import React from 'react';
-
+import moment from 'moment';
 import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js';
 
 export default React.createClass({
@@ -21,7 +21,7 @@ export default React.createClass({
     let dateTitle,
       dateBody;
     const firstCr = this.props.data.concept_results[0];
-    if (this.props.data.completed_at) {
+    if (firstCr.completed_at) {
       dateTitle = 'Completed';
       dateBody = firstCr.completed_at;
     } else {
@@ -35,7 +35,7 @@ export default React.createClass({
           <strong>Objectives:</strong>{` ${obj}`}
         </p>
         <p>
-          <strong>{`${dateTitle}: `}</strong>{dateBody}
+          <strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}
         </p>
       </div>
     );
