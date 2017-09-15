@@ -33,4 +33,18 @@ module TeacherFixes
       AND A.classroom_id = B.classroom_id").to_a.any?
   end
 
+  def self.move_activity_sessions(user_id, classroom_1_id, classroom_2_id)
+    classroom_activities = ClassroomActivity
+    .joins("JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id")
+    .joins("JOIN users ON activity_sessions.user_id = users.id")
+    .where("users.id = ?", user_id)
+    .where("classroom_activities.classroom_id = ?", classroom_1_id)
+    .group("classroom_activities.id")
+    classroom_activities.each do |ca|
+      sibling_ca = ClassroomActivity.find_or_create_by(unit_id: ca.unit_id, activity_id: ca.activity_id, classroom_id: classroom_2_id)
+      ActivitySession.where(classroom_activity_id: ca.id, user_id: user_id).each { |as| as.update(classroom_activity_id: sibling_ca.id)}
+      hide_extra_activity_sessions(ca.id, user_id)
+    end
+  end
+
 end
