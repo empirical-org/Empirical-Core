@@ -53,7 +53,6 @@ EmpiricalGrammar::Application.routes.draw do
     get :anonymous, on: :collection
     get :play, on: :member
     put :play, on: :member
-    get :concept_results, on: :member
   end
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
@@ -75,6 +74,8 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resources :grades, only: [:index]
+
+  get 'grades/tooltip/classroom_activity_id/:classroom_activity_id/user_id/:user_id' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
