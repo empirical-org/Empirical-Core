@@ -1,6 +1,7 @@
 import React from 'react';
 import Scrollify from '../components/modules/scrollify';
 import $ from 'jquery';
+import request from 'request';
 import _ from 'underscore';
 import TableFilterMixin from '../components/general_components/table/sortable_table/table_filter_mixin.js';
 import StudentScores from '../components/scorebook/student_scores';
@@ -24,7 +25,7 @@ export default React.createClass({
         name: 'All Activity Packs',
         value: '',
       },
-      selectedClassroom: this.selectedClassroom(),
+      selectedClassroom: this.props.selectedClassroom,
       classroomFilters: [],
       unitFilters: [],
       scores: {},
@@ -60,16 +61,31 @@ export default React.createClass({
         unit_id: this.state.selectedUnit.value,
         begin_date: this.formatDate(this.state.beginDate),
         end_date: this.formatDate(this.state.endDate),
-        selectedClassroom: this.state.selectedClassroom.id,
         no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet,
       },
       success: this.displayData,
+    });
+    if (this.state.selectedClassroom.value) {
+      this.getUpdatedUnits();
+    }
+  },
+
+// TODO: fix dropdown "select a class" is not a classroom
+// TODO: unit dropdown
+
+  getUpdatedUnits() {
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms/${this.state.selectedClassroom.value}/units`,
+    }, (error, httpStatus, body) => {
+      const parsedBody = JSON.parse(body);
+      that.setState({ unitFilters: parsedBody, });
     });
   },
 
   displayData(data) {
     this.setState({
-      classroomFilters: this.getFilterOptions(this.state.classrooms, 'name', 'id', 'Select a Classroom'),
+      classroomFilters: this.props.allClassrooms,
       unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
       is_last_page: data.is_last_page,
       premium_state: data.premium_state,
@@ -89,13 +105,6 @@ export default React.createClass({
         activity_classification_id: s.activity_classification_id, });
     });
     this.setState({ loading: false, scores: newScores, });
-  },
-
-  selectedClassroom() {
-    if (!this.props.selectedClassroom) {
-      return { name: 'None Selected', value: 'none_selected', };
-    }
-    return this.props.selectedClassroom;
   },
 
   selectUnit(option) {
@@ -146,7 +155,14 @@ export default React.createClass({
       content = (<span>
         <div className="container">
           <section className="section-content-wrapper">
-            <ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates} />
+            <ScorebookFilters
+              selectedClassroom={this.state.selectedClassroom}
+              classroomFilters={this.state.classroomFilters}
+              selectClassroom={this.selectClassroom}
+              selectedUnit={this.state.selectedUnit}
+              unitFilters={this.state.unitFilters}
+              selectUnit={this.selectUnit} selectDates={this.selectDates}
+            />
             <ScoreLegend />
             <AppLegend />
           </section>
