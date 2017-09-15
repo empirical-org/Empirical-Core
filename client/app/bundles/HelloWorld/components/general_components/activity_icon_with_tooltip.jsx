@@ -22,7 +22,7 @@ export default React.createClass({
   getConceptResultInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/activity_sessions/${this.props.data.id || this.props.data.activitySessionId}/concept_results`,
+      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_activity_id/${this.props.data.caId}/user_id/${this.props.data.userId}`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
       parsedBody.forEach(el => el.metadata = JSON.parse(el.metadata));
