@@ -152,7 +152,7 @@ class Activity < ActiveRecord::Base
     base = classification.module_url
     lesson = uid + '?'
     classroom_activity_id = @activity_session.classroom_activity.id.to_s
-    student_id = @activity_session.id.to_s
+    student_id = @activity_session.uid
     url = base + lesson + 'classroom_activity_id=' + classroom_activity_id + '&student=' + student_id
     @url = Addressable::URI.parse(url)
   end
