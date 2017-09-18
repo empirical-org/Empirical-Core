@@ -4,6 +4,7 @@ import TableSortingMixin from '../components/general_components/table/sortable_t
 import _ from 'underscore';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
 import PremiumFeatures from '../components/admin_dashboard/premium_features';
+import CreateNewAccounts from '../components/admin_dashboard/create_new_accounts.jsx';
 import pluralize from 'pluralize';
 
 export default React.createClass({
@@ -115,16 +116,6 @@ export default React.createClass({
         <div >
           <div className="sub-container">
             <PremiumFeatures/>
-            <div className="flex-row space-between">
-              <div>
-                <h3>Connecting With Your Teachers</h3>
-                When a teacher joins a school you are an admin of, you will automatically see them added below. Teachers can add schools by following <a className="green-link" href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-add-my-school">these instructions.</a>
-                {this.displaySchools()}
-              </div>
-              <a className="green-link" href="mailto:ryan@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
-                <button className="button-green">Bulk Upload Teachers via CSV</button>
-              </a>
-            </div>
             <AdminsTeachers
               isValid={!!this.state.model.valid_subscription}
               currentSort={this.state.currentSort}
@@ -132,6 +123,9 @@ export default React.createClass({
               sortHandler={this.sortHandler()}
               data={teachers}
               columns={this.teacherColumns()}
+            />
+            <CreateNewAccounts
+              schools={this.state.model.schools}
             />
           </div>
         </div>
