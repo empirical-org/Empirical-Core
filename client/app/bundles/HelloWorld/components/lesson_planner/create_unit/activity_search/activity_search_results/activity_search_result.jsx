@@ -21,6 +21,14 @@
 
 	render: function () {
     const selectedClass = this.props.selected ? 'selected' : ''
+    const toolTip = this.props.data.classification
+    ? <div ref='activateTooltip'
+      className={this.props.data.classification.gray_image_class}
+      data-html='true'
+      data-toggle='tooltip'
+      data-placement='top'
+    	title={"<h1>" + this.props.data.name + "</h1><p>App: " + this.props.data.classification.alias + "</p><p>" + this.props.data.topic.name +  "</p><p>" + this.props.data.description + "</p>"} />
+    : <span/>
 		return (
 			<tr onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className={`tooltip-trigger ${selectedClass}`}>
       <td>
@@ -29,11 +37,7 @@
 				</td>
 
         <td>
-					<div ref='activateTooltip' className={this.props.data.classification.gray_image_class} data-html='true' data-toggle='tooltip' data-placement='top'
-
-						title={"<h1>" + this.props.data.name + "</h1><p>App: " + this.props.data.classification.alias + "</p><p>" + this.props.data.topic.name +  "</p><p>" + this.props.data.description + "</p>"}>
-
-					</div>
+          {toolTip}
 				</td>
 
 
