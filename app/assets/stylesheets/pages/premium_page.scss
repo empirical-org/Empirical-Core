@@ -412,7 +412,7 @@ li.premium-tab > a:hover {
   .preview-questions {
     font-size: 15px;
     text-align: left;
-    margin: 43px auto 134px;
+    margin: 43px auto 0;
     display: inline-block;
     .preview-questions-column:first-child {
       margin-right: 56px;
@@ -436,6 +436,32 @@ li.premium-tab > a:hover {
       }
       .preview-question-and-answer.preview-question-and-answer-with-margin {
         margin-bottom: 39px;
+      }
+    }
+  }
+  .preview-questions-view-all {
+    padding: 60px 0 88px;
+    a {
+      color: $white;
+      font-size: 16px;
+      text-decoration: underline;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #fourth-preview-section {
+    .preview-questions {
+      max-width: 90%;
+
+      .preview-questions-column {
+        float: none;
+        margin: 0 auto;
+        max-width: 95%;
+
+        &:first-child {
+          margin: 0 auto 39px auto;
+        }
       }
     }
   }
