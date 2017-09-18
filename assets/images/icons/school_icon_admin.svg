@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="45px" viewBox="0 0 46 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Group Copy 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="14-Admin-Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="14_00-Admin-Dashboard" transform="translate(-841.000000, -279.000000)" stroke-width="2" stroke="#8F8F8F">
+            <g id="Group-Copy-4" transform="translate(842.000000, 279.000000)">
+                <polyline id="Shape" points="8 44 0 44 0 31 6 31"></polyline>
+                <polyline id="Shape" points="36 44 44 44 44 31 38 31"></polyline>
+                <path d="M22,10 L22,0" id="Shape"></path>
+                <polyline id="Shape" points="22 6 28 6 28 2 22 2"></polyline>
+                <polyline id="Shape" points="25 44 25 36 19 36 19 44"></polyline>
+                <path d="M12,44 L12,26" id="Shape"></path>
+                <path d="M32,44 L32,26" id="Shape"></path>
+                <path d="M6,20 L38,20" id="Shape"></path>
+                <polygon id="Shape" points="38 20 38 44 6 44 6 20 22 10"></polygon>
+                <path d="M6,26 L38,26" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
