@@ -31,15 +31,15 @@ export default class CreateNewAccounts extends React.Component {
 
   schoolsList() {
     return this.props.schools.map(school =>
-      <div className="school" key={school}><img src="https://assets.quill.org/images/icons/school_icon_admin.svg"/>{school}</div>
+      <div className="school" key={school.nces_id}><img src="https://assets.quill.org/images/icons/school_icon_admin.svg"/>{school.name}</div>
     )
   }
 
   schoolOptions() {
     return this.props.schools.map(school => {
       return {
-        name: school,
-        value: school
+        name: school.name,
+        value: school.nces_id
       }
     })
   }
