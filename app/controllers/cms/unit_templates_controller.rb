@@ -6,7 +6,7 @@ class Cms::UnitTemplatesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: UnitTemplate.all.map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
+        render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
       end
     end
   end
@@ -30,6 +30,12 @@ class Cms::UnitTemplatesController < ApplicationController
     else
       render json: {errors: @unit_template.errors}, status: 422
     end
+  end
+
+  def update_order_numbers
+    unit_templates = params[:unit_templates]
+    unit_templates.each { |ut| UnitTemplate.find(ut['id']).update(order_number: ut['order_number']) }
+    render json: {unit_templates: UnitTemplate.order(order_number: :asc)}
   end
 
   def destroy
