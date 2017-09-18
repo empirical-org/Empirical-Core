@@ -294,7 +294,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def update_classroom_activity
-    if self.state == 'finished' && self.classroom_activity_id && !self.classroom_activity.has_a_completed_session?
+    if self.state == 'finished' && self.classroom_activity && !self.classroom_activity.has_a_completed_session?
       self.classroom_activity.update(updated_at: Time.current)
     end
   end
