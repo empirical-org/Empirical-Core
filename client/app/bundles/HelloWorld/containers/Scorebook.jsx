@@ -82,6 +82,14 @@ export default React.createClass({
 
 // TODO: loading indicator, maybe search route (500 error), label dropdowns
 
+  checkMissing(newScores) {
+    if (this.state.classroomFilters.length === 0) {
+      return 'classrooms';
+    } else if (!newScores || _.isEmpty(newScores)) {
+      return 'activities';
+    }
+  },
+
   displayData(data) {
     this.setState({
       classroomFilters: this.props.allClassrooms,
@@ -102,7 +110,7 @@ export default React.createClass({
         percentage: s.percentage,
         activity_classification_id: s.activity_classification_id, });
     });
-    this.setState({ loading: false, scores: newScores, });
+    this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
   },
 
   selectUnit(option) {
@@ -148,31 +156,32 @@ export default React.createClass({
       loadingIndicator = null;
     }
 
-    if (this.props.missing) {
-      content = <EmptyProgressReport missing={this.props.missing} />;
+    if (this.state.missing) {
+      content = <EmptyProgressReport missing={this.state.missing} />;
     } else {
-      content = (<span>
-        <div className="container">
-          <section className="section-content-wrapper">
-            <ScorebookFilters
-              selectedClassroom={this.state.selectedClassroom}
-              classroomFilters={this.state.classroomFilters}
-              selectClassroom={this.selectClassroom}
-              selectedUnit={this.state.selectedUnit}
-              unitFilters={this.state.unitFilters}
-              selectUnit={this.selectUnit} selectDates={this.selectDates}
-            />
-            <ScoreLegend />
-            <AppLegend />
-          </section>
-        </div>
-        {scores}
-        {loadingIndicator}
-      </span>);
+      content =
+        (<div>
+          {scores}
+          {loadingIndicator}
+        </div>);
     }
     return (
       <div className="page-content-wrapper">
         <div className="tab-pane" id="scorebook">
+          <div className="container">
+            <section className="section-content-wrapper">
+              <ScorebookFilters
+                selectedClassroom={this.state.selectedClassroom}
+                classroomFilters={this.state.classroomFilters}
+                selectClassroom={this.selectClassroom}
+                selectedUnit={this.state.selectedUnit}
+                unitFilters={this.state.unitFilters}
+                selectUnit={this.selectUnit} selectDates={this.selectDates}
+              />
+              <ScoreLegend />
+              <AppLegend />
+            </section>
+          </div>
           {content}
         </div>
       </div>
