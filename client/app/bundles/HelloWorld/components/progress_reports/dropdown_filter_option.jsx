@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 export default React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
     value: React.PropTypes.any.isRequired,
-    selectOption: React.PropTypes.func.isRequired
+    selectOption: React.PropTypes.func.isRequired,
   },
 
-  clickOption: function () {
+  clickOption() {
     this.props.selectOption(this.props.value);
   },
 
-  render: function () {
+  render() {
     return (
       <li onClick={this.clickOption}>
         <span className="filter_option">
@@ -18,5 +18,5 @@ export default React.createClass({
         </span>
       </li>
     );
-  }
+  },
 });
