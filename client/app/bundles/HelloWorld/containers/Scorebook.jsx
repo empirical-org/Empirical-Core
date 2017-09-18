@@ -69,6 +69,8 @@ export default React.createClass({
   },
 
   getUpdatedUnits(classroomId) {
+    const loadingUnit = { name: 'Loading...', value: '', };
+    this.setState({ unitFilters: [loadingUnit], selectedUnit: loadingUnit, });
     const that = this;
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
