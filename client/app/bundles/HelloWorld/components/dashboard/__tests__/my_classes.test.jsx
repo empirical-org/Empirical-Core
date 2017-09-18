@@ -17,8 +17,8 @@ describe('MyClasses component', () => {
     const wrapper = shallow(
       <MyClasses
         classList={[
-          { classroom: { code: 'pug' } },
-          { classroom: { code: 'other pug' } }
+          {code: 'pug'},
+          {code: 'other pug'}
         ]}
       />
     );

@@ -5,6 +5,6 @@
         = current_user.admin? ? "Administrator Dashboard" : link_to("Administrator Dashboard", "/session")
         - if not current_user.admin?
           i.fa.fa-chevron-right
-          = "#{current_user.name}'s Dashboard"
+          = "#{current_user.name} Account"
     -if not current_user.admin?
       hr

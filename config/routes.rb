@@ -276,6 +276,9 @@ EmpiricalGrammar::Application.routes.draw do
   put '/select_school', to: 'accounts#select_school'
 
   namespace :cms do
+    put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
+    post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
+    resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
@@ -285,6 +288,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :topics
     resources :topic_categories
     resources :authors, only: [:index, :create, :update, :destroy]
+    put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
 
@@ -325,6 +329,17 @@ EmpiricalGrammar::Application.routes.draw do
     get "tutorials/#{tool}" => "pages#tutorials"
     get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
+
+  get 'teacher_fix' => 'teacher_fix#index'
+  get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
+  get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
+  get 'teacher_fix/recover_classroom_activities' => 'teacher_fix#index'
+  get 'teacher_fix/move_student' => 'teacher_fix#index'
+  get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
+  post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
+  post 'teacher_fix/unarchive_units' => 'teacher_fix#unarchive_units'
+  post 'teacher_fix/merge_student_accounts' => 'teacher_fix#merge_student_accounts'
+  post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
