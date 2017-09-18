@@ -2,8 +2,8 @@
 import React from 'react';
 import TableSortingMixin from '../components/general_components/table/sortable_table/table_sorting_mixin.js';
 import _ from 'underscore';
-import AdminDashboardTop from '../components/admin_dashboard/admin_dashboard_top.jsx';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
+import PremiumFeatures from '../components/admin_dashboard/premium_features';
 import pluralize from 'pluralize';
 
 export default React.createClass({
@@ -109,12 +109,12 @@ export default React.createClass({
   },
 
   render() {
-    const teachers = this.applySorting(this.state.model.teachers);
+    const teachers = this.state.model.teachers ? this.applySorting(this.state.model.teachers) : [];
     if (!this.state.loading) {
       return (
         <div >
           <div className="sub-container">
-            <AdminDashboardTop />
+            <PremiumFeatures/>
             <div className="flex-row space-between">
               <div>
                 <h3>Connecting With Your Teachers</h3>
