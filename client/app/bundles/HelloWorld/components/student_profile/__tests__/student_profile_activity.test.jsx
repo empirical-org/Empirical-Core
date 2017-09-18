@@ -7,21 +7,10 @@ import ActivityIconWithTooltip from '../../general_components/activity_icon_with
 
 describe('StudentProfileActivity component', () => {
 
-  it('should render <ActivityIconWithTooltip /> component with correct props', () => {
-    const wrapper = shallow(
-      <StudentProfileActivity
-        data={{foo: 'bar', activity: {name: 'Activity'}}}
-      />
-    );
-    expect(wrapper.find(ActivityIconWithTooltip).exists()).toBe(true);
-    expect(wrapper.find(ActivityIconWithTooltip).props().data.foo).toBe('bar');
-    expect(wrapper.find(ActivityIconWithTooltip).props().context).toBe('studentProfile');
-  });
-
   it('should render activity name', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{activity: {name: 'Activity'}}}
+        data={{name: 'Activity'}}
       />
     );
     expect(wrapper.find('p.title').text()).toBe('Activity');
@@ -30,10 +19,19 @@ describe('StudentProfileActivity component', () => {
   it('should render due date if one exists', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{due_date: 'foo', activity: {name: 'Activity'}}}
+        data={{due_date: '2017-03-25 00:00:00', name: 'Activity'}}
       />
     );
-    expect(wrapper.find('.due-date').text()).toBe('foo');
+    expect(wrapper.find('.due-date').text()).toBe('03-25-2017');
+  });
+
+  it('should render invalid due date if due date is invalid', () => {
+    const wrapper = shallow(
+      <StudentProfileActivity
+        data={{due_date: 'doge', name: 'Activity'}}
+      />
+    );
+    expect(wrapper.find('.due-date').text()).toBe('Invalid date');
   });
 
   it('should not render due date if one does not exist', () => {
@@ -48,8 +46,7 @@ describe('StudentProfileActivity component', () => {
   it('should render "Completed" if the activity is finished and not repeatable', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{activity: {repeatable: false, name: 'Activity'}}}
-        finished={true}
+        data={{repeatable: 'f', max_percentage: '1', name: 'Activity'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Completed');
@@ -58,32 +55,61 @@ describe('StudentProfileActivity component', () => {
   it('should render "Replay Activity" link if activity is finished and repeatable', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{activity: {repeatable: true, name: 'Activity'}, link: 'foo.bar'}}
-        finished={true}
+        data={{max_percentage: '1', repeatable: 't', name: 'Activity', ca_id: '1024'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Replay Activity');
-    expect(wrapper.find('a').prop('href')).toBe('foo.bar');
+    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
   });
 
-  it('should render "Resume Activity" link if activity is started', () => {
+  it('should render "Resume Activity" link', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{state: 'started', link: 'foo.bar', activity: {name: 'Activity'}}}
+        data={{resume_link: '1', ca_id: '1024', name: 'Activity'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Resume Activity');
-    expect(wrapper.find('a').prop('href')).toBe('foo.bar');
+    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
   });
 
-  it('should render "Start Activity" link if activity is not started', () => {
+  it('should render "Start Activity" link', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{link: 'foo.bar', activity: {name: 'Activity'}}}
+        data={{resume_link: '0', ca_id: '1024', name: 'Activity'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Start Activity');
-    expect(wrapper.find('a').prop('href')).toBe('foo.bar');
+    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+  });
+
+  it('should render "Locked by teacher" if activity is locked', () => {
+    const wrapper = shallow(
+      <StudentProfileActivity
+        data={{locked: 't', name: 'Activity'}}
+      />
+    );
+    expect(wrapper.find('.row-list-end').text()).toMatch('Locked by teacher');
+    expect(wrapper.find('a').exists()).toBe(false);
+  });
+
+  it('should render "Join Lesson" if activity is a Lesson', () => {
+    const wrapper = shallow(
+      <StudentProfileActivity
+        data={{activity_classification_id: '6', ca_id: '1024', name: 'Activity'}}
+      />
+    );
+    expect(wrapper.find('.row-list-end').text()).toMatch('Join Lesson');
+    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+  });
+
+  it('should render "Join Lesson" if activity is a Lesson, even if in progress', () => {
+    const wrapper = shallow(
+      <StudentProfileActivity
+        data={{activity_classification_id: '6', resume_link: '1', ca_id: '1024', name: 'Activity'}}
+      />
+    );
+    expect(wrapper.find('.row-list-end').text()).toMatch('Join Lesson');
+    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
   });
 
 });

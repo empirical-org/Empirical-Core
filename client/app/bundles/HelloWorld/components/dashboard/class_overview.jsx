@@ -5,10 +5,10 @@ import PremiumMini from './premium_mini';
 import TeacherGuide from '../teacher_guide/teacher_guide';
 import BetaMini from './beta_mini.jsx';
 import NewTools from './new_tools_mini.jsx';
-import EllDiagnosticAnnouncement from './ell_diagnostic_announcement_mini.jsx';
 import QuillLessonsAnnouncement from './quill_lessons_announcement_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
+import DiagnosticMini from './diagnostic_mini.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -47,9 +47,7 @@ export default React.createClass({
     if (this.props.premium === 'locked') {
       return <PremiumPromo key="promo" />;
     } else if ((this.props.premium === 'none') || (this.props.premium === null)) {
-      if (new Date().getMonth() < 5) {
-        return <PremiumMini />;
-      }
+      return <PremiumMini />;
     }
   },
 
@@ -67,14 +65,19 @@ export default React.createClass({
     }
   },
 
+  diagnosticMini() {
+    return <DiagnosticMini />
+  },
+
   render() {
     return (
       <div className="row">
         {this.teacherGuide()}
+        {this.diagnosticMini()}
+        {this.lessonsList()}
+        {this.hasPremium()}
         {this.announcementMini()}
         {this.overviewMinis()}
-        {this.hasPremium()}
-        {this.lessonsList()}
         {this.betaMini()}
       </div>
     );

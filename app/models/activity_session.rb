@@ -294,18 +294,17 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def update_classroom_activity
-    if self.state == 'finished' && !self.classroom_activity.has_a_completed_session?
+    if self.state == 'finished' && self.classroom_activity_id && !self.classroom_activity.has_a_completed_session?
       self.classroom_activity.update(updated_at: Time.current)
     end
   end
 
   def update_milestones
-    # more milestones can be added here as relevant, for now this just checks to see if a Completed Diagnostic milestone needs to be created
-    if self.state == 'finished' && self.classroom_activity.activity.activity_classification_id === 4
-      teacher_milestones = self.classroom_activity.unit.user.milestones
-      if !teacher_milestones.find_by(name: 'Complete Diagnostic')
-        teacher_milestones.push(Milestone.find_by(name: 'Complete Diagnostic'))
-      end
+    # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
+    # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
+    # or started.
+    if self.state == 'finished'
+      UpdateMilestonesWorker.perform_async(self.uid)
     end
   end
 

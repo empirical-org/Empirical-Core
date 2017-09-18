@@ -1,3 +1,6 @@
+--
+-- PostgreSQL database dump
+--
 
 -- Dumped from database version 9.6.1
 -- Dumped by pg_dump version 9.6.1
@@ -120,6 +123,71 @@ CREATE TABLE activities_unit_templates (
     unit_template_id integer NOT NULL,
     activity_id integer NOT NULL
 );
+
+
+--
+-- Name: activity_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_categories (
+    id integer NOT NULL,
+    name character varying,
+    order_number integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activity_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_categories_id_seq OWNED BY activity_categories.id;
+
+
+--
+-- Name: activity_category_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_category_activities (
+    id integer NOT NULL,
+    activity_category_id integer,
+    activity_id integer,
+    order_number integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activity_category_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_category_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_category_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_category_activities_id_seq OWNED BY activity_category_activities.id;
 
 
 --
@@ -1575,6 +1643,20 @@ ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_s
 
 
 --
+-- Name: activity_categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_categories ALTER COLUMN id SET DEFAULT nextval('activity_categories_id_seq'::regclass);
+
+
+--
+-- Name: activity_category_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_category_activities ALTER COLUMN id SET DEFAULT nextval('activity_category_activities_id_seq'::regclass);
+
+
+--
 -- Name: activity_classifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1860,6 +1942,22 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY activities
     ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_categories activity_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_categories
+    ADD CONSTRAINT activity_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_category_activities activity_category_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_category_activities
+    ADD CONSTRAINT activity_category_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -2351,6 +2449,13 @@ CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING
 
 
 --
+-- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
+
+
+--
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2369,6 +2474,13 @@ CREATE INDEX index_classrooms_on_grade ON classrooms USING btree (grade);
 --
 
 CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_level);
+
+
+--
+-- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
 
 
 --
@@ -2719,6 +2831,13 @@ CREATE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
+
+
+--
+-- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
 
 
 --
@@ -3242,4 +3361,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170817144049');
 INSERT INTO schema_migrations (version) VALUES ('20170824150025');
 
 INSERT INTO schema_migrations (version) VALUES ('20170824171451');
+
+INSERT INTO schema_migrations (version) VALUES ('20170911140007');
+
+INSERT INTO schema_migrations (version) VALUES ('20170911191447');
+
+INSERT INTO schema_migrations (version) VALUES ('20170914145423');
 

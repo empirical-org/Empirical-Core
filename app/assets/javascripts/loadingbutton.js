@@ -4,7 +4,7 @@
  */
 (function ( $ ) { // This extends JQuery with the function loadingButton
   $.fn.loadingButton = function() {
-    var loadingSpinnerClass = "loading-spinner",
+    var loadingSpinnerClass = 'loading-spinner',
     container = this,
     parent = {};
 
@@ -20,7 +20,7 @@
 
 (function ( $ ) {
   $.fn.removeLoadingButton = function() {
-    var loadingSpinnerClass = "loading-spinner",
+    var loadingSpinnerClass = 'loading-spinner',
     container = this,
     parent = {};
 
@@ -31,7 +31,7 @@
 }(jQuery));
 
 $(document).ready(function(){
-  $("a.button").on("click", function (){
+  $('a.button').on('click', function (){
     $(this).loadingButton();
   });
 });

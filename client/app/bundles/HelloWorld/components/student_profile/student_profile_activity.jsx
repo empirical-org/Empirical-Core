@@ -22,16 +22,16 @@ export default React.createClass({
 
   renderStartButtonOrLockMessage() {
     let linkText;
-    if (this.props.data.repeatable === 'f' && this.props.max_percentage) {
+    if (this.props.data.repeatable === 'f' && this.props.data.max_percentage) {
       return (<p className="title-v-centered text-right">Completed</p>);
     } else if (this.props.data.locked === 't') {
       return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
-    } else if (this.props.max_percentage) {
+    } else if (this.props.data.max_percentage) {
       linkText = 'Replay Activity';
+    } else if (this.props.data.activity_classification_id === '6') {
+      linkText = 'Join Lesson';
     } else if (this.props.data.resume_link === '1') {
       linkText = 'Resume Activity';
-    } else if (this.props.data.activity_classification_id === 6) {
-      linkText = 'Join Lesson';
     } else {
       linkText = 'Start Activity';
     }

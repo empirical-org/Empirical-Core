@@ -27,14 +27,6 @@ class ChargesController < ApplicationController
         body = e.json_body
         err  = body[:error]
 
-        puts "Status is: #{e.http_status}"
-        puts "Type is: #{err[:type]}"
-        puts "Charge ID is: #{err[:charge]}"
-        # The following fields are optional
-        puts "Code is: #{err[:code]}" if err[:code]
-        puts "Decline code is: #{err[:decline_code]}" if err[:decline_code]
-        puts "Param is: #{err[:param]}" if err[:param]
-        puts "Message is: #{err[:message]}" if err[:message]
       rescue Stripe::RateLimitError => e
         err = e
       # Too many requests made to the API too quickly
@@ -63,8 +55,6 @@ class ChargesController < ApplicationController
 
 
       respond_to  do |format|
-        puts 'here is the error'
-        puts err
         format.json { render :json => {route: premium_redirect, err: err, message: @message}}
       end
     end

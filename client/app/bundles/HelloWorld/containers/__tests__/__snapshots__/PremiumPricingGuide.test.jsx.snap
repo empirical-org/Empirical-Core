@@ -15,12 +15,6 @@ exports[`PremiumPricingGuide container should render 1`] = `
       Save time grading and gain actionable insights with Quill Premium.
     </p>
   </div>
-  <_class>
-    <span>
-      Upgrade now and get the rest of the school year free.
-    </span>
-     New subscriptions will be extended through July 1st, 2018.
-  </_class>
   <premium_pricing_minis_row />
   <_class />
   <_class />

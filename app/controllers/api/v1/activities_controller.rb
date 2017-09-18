@@ -58,6 +58,11 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   end
 
+  def follow_up_activity_name
+    follow_up_activity_name = @activity.follow_up_activity&.name
+    render json: {follow_up_activity_name: follow_up_activity_name}
+  end
+
   private
 
   def find_activity

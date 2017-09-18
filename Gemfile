@@ -4,7 +4,7 @@ ruby '2.3.1'
 
 # CORE DEPS
 gem 'rails'
-gem 'puma'
+gem 'puma', '~> 3.10.0'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails'
@@ -63,6 +63,7 @@ gem 'prawn-table'
 gem 'pdf-core'
 gem 'pdf-inspector'
 gem 'ttfunk'
+gem 'scout_apm'
 
 
 # WEBSOCKETS

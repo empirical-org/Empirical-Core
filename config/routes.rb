@@ -84,6 +84,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
+  get 'teachers/get_diagnostic_info_for_dashboard_mini' => 'teachers#get_diagnostic_info_for_dashboard_mini'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
   post 'teachers/classrooms/:class_id/unhide', controller: 'teachers/classrooms', action: 'unhide'
@@ -233,8 +234,11 @@ EmpiricalGrammar::Application.routes.draw do
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
+      get 'activities/:id/follow_up_activity_name' => 'activities#follow_up_activity_name'
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
       put 'classroom_activities/:id/finish_lesson' => 'classroom_activities#finish_lesson'
+      put 'classroom_activities/:id/pin_activity' => 'classroom_activities#pin_activity'
+      put 'classroom_activities/:id/unpin_activity' => 'classroom_activities#unpin_activity'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'users/profile', to: 'users#profile'
     end
@@ -274,15 +278,20 @@ EmpiricalGrammar::Application.routes.draw do
   put '/select_school', to: 'accounts#select_school'
 
   namespace :cms do
+    put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
+    post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
+    resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
     resources :concepts
     resources :sections
+    put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
     resources :activity_classifications
     resources :topics
     resources :topic_categories
     resources :authors, only: [:index, :create, :update, :destroy]
+    put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
 
@@ -323,6 +332,17 @@ EmpiricalGrammar::Application.routes.draw do
     get "tutorials/#{tool}" => "pages#tutorials"
     get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
+
+  get 'teacher_fix' => 'teacher_fix#index'
+  get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
+  get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
+  get 'teacher_fix/recover_classroom_activities' => 'teacher_fix#index'
+  get 'teacher_fix/move_student' => 'teacher_fix#index'
+  get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
+  post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
+  post 'teacher_fix/unarchive_units' => 'teacher_fix#unarchive_units'
+  post 'teacher_fix/merge_student_accounts' => 'teacher_fix#merge_student_accounts'
+  post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
