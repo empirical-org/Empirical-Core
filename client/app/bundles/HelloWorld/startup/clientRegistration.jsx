@@ -22,6 +22,7 @@ import GoogleSyncApp from './GoogleSyncAppClient.jsx'
 import GoogleMismatchApp from './GoogleMismatchAppClient.jsx'
 import AssignActivitiesApp from './AssignActivitiesAppClient'
 import TutorialsApp from './TutorialsAppClient'
+import TeacherFixApp from './TeacherFixAppClient'
 import ActivityCategoriesApp from './ActivityCategoriesAppClient'
 import ActivityCategoryApp from './ActivityCategoryAppClient'
 
@@ -35,4 +36,4 @@ ReactOnRails.register({  TeacherGuideApp, DashboardApp,
   ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
   AdminsEditorApp, PublicActivityPacksApp, AddStudentApp,
   DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp,
-  GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp, TutorialsApp, ActivityCategoriesApp, ActivityCategoryApp});
+  GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp, TutorialsApp, TeacherFixApp, ActivityCategoriesApp, ActivityCategoryApp});

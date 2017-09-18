@@ -1,0 +1,35 @@
+.teacher-fixes {
+  margin: 10px auto;
+  h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  h2 {
+    margin: 10px 0px;
+    font-size: 24px;
+  }
+  p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .input-row {
+    margin:10px auto;
+  }
+  label {
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  button {
+    background-color: #01c2a2;
+    color: white;
+  }
+  input, input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  .error {
+    color: red;
+  }
+  .unarchive-button {
+    margin-top: 10px;
+  }
+}
