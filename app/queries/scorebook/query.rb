@@ -16,6 +16,7 @@ class Scorebook::Query
     LEFT JOIN students_classrooms AS sc on sc.classroom_id = classroom.id
     RIGHT JOIN users AS students ON students.id = sc.student_id
     INNER JOIN classroom_activities AS ca ON ca.classroom_id = classroom.id
+    #{self.units(unit_id)&.first}
     INNER JOIN activity_sessions AS acts ON (
           acts.classroom_activity_id = ca.id
           AND acts.user_id = students.id
@@ -25,7 +26,9 @@ class Scorebook::Query
     AND acts.visible = true
     AND ca.visible = true
     AND sc.visible = true
-    #{self.units_if_necessary(unit_id)}
+    #{self.units(unit_id)&.last}
+    #{self.begin_date(begin_date)}
+    #{self.end_date(end_date)}
     GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id, activity.name
     ORDER BY  substring(students.name, '([^[:space:]]+)(?:,|$)'), ca.created_at ASC
     OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
@@ -33,9 +36,21 @@ class Scorebook::Query
     ).to_a
   end
 
-  def self.units_if_necessary(unit_id)
+  def self.units(unit_id)
     if unit_id && !unit_id.blank?
-      "AND unit.id = #{unit_id}"
+      ["INNER JOIN units ON ca.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.sanitize(unit_id)}"]
+    end
+  end
+
+  def self.begin_date(begin_date)
+    if begin_date && !begin_date.blank?
+      "AND acts.completed_at >= #{ActiveRecord::Base.sanitize(begin_date)}"
+    end
+  end
+
+  def self.end_date(end_date)
+    if end_date && !end_date.blank?
+      "AND acts.completed_at <= #{ActiveRecord::Base.sanitize(end_date)}"
     end
   end
 

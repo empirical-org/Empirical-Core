@@ -13,7 +13,13 @@ export default React.createClass({
             selectedOption={this.props.selectedClassroom}
           />
         </div>
-
+        <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+          <DropdownFilter
+            options={this.props.unitFilters}
+            selectOption={this.props.selectUnit}
+            selectedOption={this.props.selectedUnit}
+          />
+        </div>
         <div className="col-xs-12 col-sm-6">
           <DateRangeFilter selectDates={this.props.selectDates} />
         </div>
@@ -21,10 +27,3 @@ export default React.createClass({
     );
   },
 });
-// <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-//   <DropdownFilter
-//     options={this.props.unitFilters}
-//     selectOption={this.props.selectUnit}
-//     selectedOption={this.props.selectedUnit}
-//   />
-// </div>
