@@ -66,7 +66,7 @@ describe User, type: :model do
     end
 
     it '#classrooms_i_teach_with_students' do
-      Timecop.freeze(Time.local(2017, 9, 19)) do
+      Timecop.freeze(Time.utc(2017, 9, 19, 0, 0, 0, 0, 0)) do
         classroom_hash = classroom.attributes
         classroom_hash[:students] = classroom.students
         classroom1_hash = classroom1.attributes
