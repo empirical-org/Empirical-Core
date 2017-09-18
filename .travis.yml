@@ -7,15 +7,19 @@ cache:
 rvm:
   - 2.3.1
 script:
-  - npm run jest && codecov
+  - npm run jest:silent && codecov
   - npm run build:test
-  - npm run lint
+  # - npm run lint
   - bundle exec rake spec
   - bundle exec teaspoon
 before_script:
   - cp config/database.yml.travis config/database.yml
+  # run redis instances and send them to the background
+  - redis-server &
+  - redis-server --port 7654 &
+  - redis-server --port 6378 &
   - bundle exec rake db:create
-  - bundle exec rake db:migrate
+  - bundle exec rake db:structure:load
   # use version 7 of node instead of whatever travis uses so jest actually works
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 7.0.0
   - npm install  # Make use of 'postinstall' to run 'cd ./client npm install'

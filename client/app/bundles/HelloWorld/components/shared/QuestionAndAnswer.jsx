@@ -29,7 +29,7 @@ export default class QuestionAndAnswer extends React.Component {
     return (
       <div className="qa-section">
         <div className="qa">
-          <p className="question">{this.props.qa.question}</p>
+          <p className="question" onClick={this.toggleExpansion}>{this.props.qa.question}</p>
           {this.answer()}
         </div>
         {this.expandOrCollapseButton()}

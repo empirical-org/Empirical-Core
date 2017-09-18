@@ -52,6 +52,7 @@
     "react-on-rails": "=6.5.0",
     "react-redux": "^4.4.1",
     "react-router": "^2.0.1",
+    "react-sortable": "^1.2.0",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "request": "^2.81.0",
@@ -108,7 +109,8 @@
     "install-react-on-rails": "npm install 'react-on-rails'",
     "jest": "jest",
     "jest:watch": "jest --watch",
-    "jest:coverage": "jest --coverage"
+    "jest:coverage": "jest --coverage",
+    "jest:silent": "jest --silent"
   },
   "jest": {
     "snapshotSerializers": [

@@ -4,6 +4,7 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 import LoadingIndicator from '../../shared/loading_indicator.jsx'
 import Pluralize from 'pluralize'
+import moment from 'moment'
 
 export default class extends React.Component{
   constructor(){
@@ -77,7 +78,7 @@ export default class extends React.Component{
     // sorts by if alreadyImported, then by creationTime
     return this.state.classrooms.sort((a, b) => {
       if (a.alreadyImported === b.alreadyImported) {
-        return a.creationTime-b.creationTime;
+        return moment(a.creationTime)-moment(b.creationTime);
       } else if (a.alreadyImported) {
         return -1;
       } else {
@@ -103,7 +104,7 @@ export default class extends React.Component{
   formatTitle(grade){
     // this is the title of the dropdown menu
     if (grade) {
-      return grade == 'University' ? grade : `${NumberSuffix(grade)} Grade`
+      return grade == 'University' || grade == 'Other' ? grade : `${NumberSuffix(grade)} Grade`
     } else {
       return 'Select Grade'
     }
@@ -165,13 +166,18 @@ export default class extends React.Component{
 
   grades(id) {
     // populates dropdown menu with grades
+    // Note to maintainers: if you update the grade options here, please also
+    // ensure to do so in the following locations:
+    //   - /app/views/teachers/students/index.html.erb
+    //   - /app/bundles/HelloWorld/containers/CreateClass.jsx
       let grades = [];
       for (let grade = 1; grade <= 12; grade++) {
           grades.push(
               <MenuItem id={`${grade}-${id}`} key={`${grade}-${id}`} eventKey={{id, grade: grade}}>{NumberSuffix(grade)}</MenuItem>
           )
       }
-      grades.push(<MenuItem id={`university-${id}`} key={`university-${id}`} eventKey={'University'}>University</MenuItem>)
+      grades.push(<MenuItem id={`university-${id}`} key={`university-${id}`} eventKey={{id, grade: 'University'}}>University</MenuItem>)
+      grades.push(<MenuItem id={`other-${id}`} key={`other-${id}`} eventKey={{id, grade: 'Other'}}>Other</MenuItem>)
       return grades
   }
 

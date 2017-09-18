@@ -4,33 +4,14 @@ import { shallow } from 'enzyme';
 import AdminDashboard from '../AdminDashboard.jsx';
 
 import AdminDashboardTop from '../../components/admin_dashboard/admin_dashboard_top.jsx'
-import InviteUsers from '../../components/invite_users/invite_users.jsx'
 import AdminsTeachers from '../../components/admin_dashboard/admins_teachers/admins_teachers.jsx'
 
 describe('AdminDashboard container', () => {
   const wrapper = shallow(<AdminDashboard id={7} />);
+  wrapper.setState({ loading: false });
 
   it('should render an AdminDashboardTop component', () => {
     expect(wrapper.find(AdminDashboardTop).exists()).toBe(true);
-  });
-
-  describe('InviteUsers component', () => {
-    it('should render', () => {
-      expect(wrapper.find(InviteUsers).exists()).toBe(true);
-    });
-
-    it('data prop should have invite users data', () => {
-      wrapper.setState({newTeacher: {foo: 'bar'}});
-      expect(wrapper.find(InviteUsers).props().data.model.foo).toBe('bar');
-      expect(wrapper.find(InviteUsers).props().data.userType).toBe('Teacher');
-      expect(wrapper.find(InviteUsers).props().data.update).toBe(wrapper.instance().updateNewTeacher);
-      expect(wrapper.find(InviteUsers).props().data.save).toBe(wrapper.instance().saveNewTeacher);
-    });
-
-    it('actions prop should have invite users actions', () => {
-      expect(wrapper.find(InviteUsers).props().actions.update).toBe(wrapper.instance().updateNewTeacher);
-      expect(wrapper.find(InviteUsers).props().actions.save).toBe(wrapper.instance().saveNewTeacher);
-    });
   });
 
   describe('AdminsTeachers component', () => {
@@ -93,11 +74,6 @@ describe('AdminDashboard container', () => {
         ]
       );
     });
-  });
-
-  it('updateNewTeacher function should update state', () => {
-    wrapper.instance().updateNewTeacher('key', 'val');
-    expect(wrapper.state().newTeacher['key']).toBe('val');
   });
 
   it.skip('saveNewTeacher function should send post request with appropriate data', () => {

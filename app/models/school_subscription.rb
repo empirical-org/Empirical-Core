@@ -7,6 +7,8 @@ class SchoolSubscription < ActiveRecord::Base
   def self.update_or_create(school_id, subscription_id)
     school_sub = self.find_or_initialize_by(school_id: school_id)
     school_sub.update(subscription_id: subscription_id)
+    # after commit callback is regularly failing
+    school_sub.update_schools_users
     school_sub.save!
   end
 

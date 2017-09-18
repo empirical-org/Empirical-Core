@@ -4,8 +4,6 @@ class Auth::GoogleController < ApplicationController
     access_token = request.env['omniauth.auth']['credentials']['token']
     session[:google_access_token] = access_token
     name, email, google_id = GoogleIntegration::Profile.fetch_name_email_and_google_id(access_token)
-    puts request.referer
-    puts 'there is the request referer'
     if redirect_request(request)
       # If we are here it is simply to get a new access token. Ultimately, we should
       # set this up for refresh tokens at which point, this will no longer be necessary.
@@ -42,23 +40,27 @@ class Auth::GoogleController < ApplicationController
       sign_in(user)
       TestForEarnedCheckboxesWorker.perform_async(user.id)
       GoogleStudentImporterWorker.perform_async(current_user.id, session[:google_access_token])
-      redirect_to profile_path
+      return redirect_to profile_path
     else
-      redirect_to new_account_path
+      return redirect_to new_account_path
     end
   end
 
   def new_google_user(name, email, role, access_token, google_id, user)
     @user = user
     @user.attributes = {signed_up_with_google: true, name: name, role: role, google_id: google_id}
-    @user.save
-    sign_in(@user)
-    ip = request.remote_ip
-    AccountCreationCallbacks.new(@user, ip).trigger
-    @user.subscribe_to_newsletter
-    if @user.role == 'teacher'
-      @js_file = 'session'
-      @teacherFromGoogleSignUp = true
+    if @user.save
+      sign_in(@user)
+      ip = request.remote_ip
+      AccountCreationCallbacks.new(@user, ip).trigger
+      @user.subscribe_to_newsletter
+      if @user.role == 'teacher'
+        @js_file = 'session'
+        @teacherFromGoogleSignUp = true
+      end
+      return true
+    else
+      return false
     end
   end
 
@@ -67,12 +69,13 @@ class Auth::GoogleController < ApplicationController
     email = email.downcase
     if current_user && current_user.email.downcase != email
       session[:google_email] = email
-      redirect_to "/auth/google_email_mismatch/"
-      return
+      return redirect_to "/auth/google_email_mismatch/"
     else
       @user = User.find_or_initialize_by(email: email)
       if @user.new_record?
-        new_google_user(name, email, role, access_token, google_id, @user)
+        if !new_google_user(name, email, role, access_token, google_id, @user)
+          return redirect_to new_account_path
+        end
         if @user.role == 'teacher'
           render 'accounts/new'
           return
@@ -81,18 +84,15 @@ class Auth::GoogleController < ApplicationController
         end
       end
       if @user.errors.any?
-        redirect_to new_account_path
-        return
+        return redirect_to new_account_path
       else
         @user.update(signed_up_with_google: true, google_id: google_id)
         if request.referer && URI(request.referer) &&
           (URI(request.referer).path == '/teachers/classrooms/dashboard' || URI(request.referer).path == '/teachers/classrooms/new')
           # if they are hitting this route through the dashboard or new classrooms page, they should be brought to the google sync page
-          redirect_to '/teachers/classrooms/google_sync'
-          return
+          return redirect_to '/teachers/classrooms/google_sync'
         end
-        redirect_to profile_path
-        return
+        return redirect_to profile_path
       end
     end
   end

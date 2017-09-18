@@ -260,6 +260,16 @@ $tool-grey: #f8f9f9;
 .tool-carousel {
     padding-top: 55px;
 
+    &.lessons-tool-carousel {
+      .carousel {
+        .item {
+          img {
+            width: initial;
+          }
+        }
+      }
+    }
+
     .carousel {
         max-width: 1322px;
         margin: auto;
@@ -970,6 +980,13 @@ $tool-grey: #f8f9f9;
   color: white;
   padding: 50px 86px;
   text-align: left;
+
+  .q-and-a-inner-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
   h1 {
     font-size: 34px;
     font-weight: 600;
@@ -993,13 +1010,11 @@ $tool-grey: #f8f9f9;
   }
   .answer {
     font-size: 20px;
-    color: #d8edff;
-    a {
-      color: white;
-    }
+    color: white;
   }
   .expand-or-collapse {
     font-size: 16px;
+    line-height: 42px;
     font-weight: 600;
     cursor: pointer;
   }

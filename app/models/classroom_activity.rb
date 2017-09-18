@@ -53,7 +53,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def mark_all_activity_sessions_complete
-    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1)
+    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1, completed_at: Time.current)
   end
 
   def session_for user
@@ -211,6 +211,7 @@ class ClassroomActivity < ActiveRecord::Base
       else
         # unpin any other pinned ca before pinning new one
         pinned_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id, pinned: true)
+        return if pinned_ca && pinned_ca == self
         pinned_ca.update(pinned: false) if pinned_ca
       end
     end
