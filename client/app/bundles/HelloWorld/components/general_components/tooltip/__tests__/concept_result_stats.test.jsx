@@ -8,17 +8,17 @@ import ConceptResultStat from '../concept_result_stat.jsx'
 describe('ConceptResultStats component', () => {
 
   const moreThanTenConcepts = [
-    { concept: { name: 'A' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'B' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'C' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'D' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'E' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'F' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'G' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'H' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'I' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'J' }, metadata: { correct: 1, incorrect: 0 } },
-    { concept: { name: 'K' }, metadata: { correct: 1, incorrect: 0 } }
+    { name: 'A', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'B', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'C', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'D', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'E', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'F', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'G', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'H', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'I', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'J', metadata: { correct: 1, incorrect: 0 } },
+    { name: 'K', metadata: { correct: 1, incorrect: 0 } }
   ];
 
   it('should render only up to 10 ConceptResultStat components + an information row', () => {
@@ -33,11 +33,11 @@ describe('ConceptResultStats component', () => {
     const wrapper = shallow(
       <ConceptResultStats
         results={[
-          { concept: { name: 'B' }, metadata: { correct: 1, incorrect: 0 } },
-          { concept: { name: 'B' }, metadata: { correct: 0, incorrect: 1 } },
-          { concept: { name: 'B' }, metadata: { correct: 1, incorrect: 0 } },
-          { concept: { name: 'B' }, metadata: { correct: 1, incorrect: 0 } },
-          { concept: { name: 'B' }, metadata: { correct: 0, incorrect: 1 } },
+          { name: 'B', metadata: { correct: 1, incorrect: 0 } },
+          { name: 'B', metadata: { correct: 0, incorrect: 1 } },
+          { name: 'B', metadata: { correct: 1, incorrect: 0 } },
+          { name: 'B', metadata: { correct: 1, incorrect: 0 } },
+          { name: 'B', metadata: { correct: 0, incorrect: 1 } },
         ]}
       />
     );
@@ -50,7 +50,7 @@ describe('ConceptResultStats component', () => {
     const wrapper = shallow(
       <ConceptResultStats
         results={[
-          { concept: { name: 'B' }, metadata: { correct: 1, incorrect: 0 } }
+          { name: 'B', metadata: { correct: 1, incorrect: 0 } }
         ]}
       />
     );
@@ -67,16 +67,16 @@ describe('ConceptResultStats component', () => {
   it('should sort results properly by total, then percentage, then name', () => {
     const wrapper = shallow(
       <ConceptResultStats results={[
-        { concept: { name: 'B' }, metadata: { correct: 1, incorrect: 0 } },
-        { concept: { name: 'B' }, metadata: { correct: 1, incorrect: 0 } },
-        { concept: { name: 'B' }, metadata: { correct: 0, incorrect: 1 } },
-        { concept: { name: 'A' }, metadata: { correct: 1, incorrect: 0 } },
-        { concept: { name: 'A' }, metadata: { correct: 1, incorrect: 0 } },
-        { concept: { name: 'A' }, metadata: { correct: 0, incorrect: 1 } },
-        { concept: { name: 'Y' }, metadata: { correct: 1, incorrect: 0 } },
-        { concept: { name: 'Y' }, metadata: { correct: 1, incorrect: 0 } },
-        { concept: { name: 'X' }, metadata: { correct: 1, incorrect: 0 } },
-        { concept: { name: 'X' }, metadata: { correct: 0, incorrect: 1 } },
+        { name: 'B', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'B', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'B', metadata: { correct: 0, incorrect: 1 } },
+        { name: 'A', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'A', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'A', metadata: { correct: 0, incorrect: 1 } },
+        { name: 'Y', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'Y', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'X', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'X', metadata: { correct: 0, incorrect: 1 } },
       ]} />
     );
     expect(wrapper.find(ConceptResultStat).at(0).props().name).toBe('A');
