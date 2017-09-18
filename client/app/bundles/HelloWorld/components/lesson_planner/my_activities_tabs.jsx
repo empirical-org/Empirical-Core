@@ -13,7 +13,7 @@ export default React.createClass({
 
   render() {
     const userFlag = document.getElementById('current-user-flag').getAttribute('content');
-    const lessons = userFlag === 'beta' ? <li><a href="/teachers/classrooms/activity_planner/lessons" className={this.state.lessons}>Lessons</a></li> : null;
+    const lessons = userFlag === 'beta' ? <li><a href="/teachers/classrooms/activity_planner/lessons" className={this.state.lessons}>Launch Lessons</a></li> : null;
     return (
       <div className="unit-tabs tab-subnavigation-wrapper">
         <div className="container">
