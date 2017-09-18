@@ -6,17 +6,18 @@ describe ClassificationSerializer, type: :serializer do
     let(:result_key) { 'classification' }
 
     let(:expected_serialized_keys) do
-      %w(alias
-         created_at
-         form_url
+      %w(uid
          id
-         image_class
-         key
-         module_url
          name
-         scorebook_icon_class
-         uid
-         updated_at)
+         key
+         form_url
+         module_url
+         created_at
+         updated_at
+         green_image_class
+         gray_image_class
+         alias
+         scorebook_icon_class)
     end
   end
 end
