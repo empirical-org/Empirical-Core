@@ -280,6 +280,8 @@ export default React.createClass({
           errorMessage={this.props.errorMessage || ''}
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
+          sortable={this.props.sortable}
+          sortCallback={this.props.sortCallback}
         />
       </section>
     );

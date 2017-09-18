@@ -13,7 +13,7 @@ export default React.createClass({
   },
 
   delete: function () {
-    var confirm = confirm('are you sure you want to delete ' + this.props.data.resource[this.identifier()] + '?');
+    var confirm = window.confirm('are you sure you want to delete ' + this.props.data.resource[this.identifier()] + '?');
     if (confirm) {
       this.props.actions.delete(this.props.data.resource);
     }

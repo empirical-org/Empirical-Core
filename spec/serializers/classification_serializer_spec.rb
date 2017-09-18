@@ -10,7 +10,8 @@ describe ClassificationSerializer, type: :serializer do
          created_at
          form_url
          id
-         image_class
+         gray_image_class,
+         green_image_class,
          key
          module_url
          name
