@@ -1,49 +1,43 @@
 class Cms::ActivityClassificationsController < ApplicationController
 
   def index
-    @activity_classifications = ActivityClassification.all
-  end
-
-  def new
-    @activity_classification = ActivityClassification.new
-  end
-
-  def edit
-    @activity_classification = ActivityClassification.find(params[:id])
-    render :new
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: ActivityClassification.order(order_number: :asc)
+      end
+    end
   end
 
   def create
-    @activity_classification = ActivityClassification.new(activity_classification_params)
+    activity_classification = ActivityClassification.new(activity_classification_params)
 
-    if @activity_classification.save
-      redirect_to cms_activity_classifications_path, notice: 'ActivityClassification was successfully created.'
+    if activity_classification.save!
+      render json: activity_classification
     else
-      render :new
+      render json: {errors: activity_classification.errors}, status: 422
     end
   end
 
   def update
-    @activity_classification = ActivityClassification.find(params[:id])
-
-    if @activity_classification.update_attributes(activity_classification_params)
-      redirect_to cms_activity_classifications_path, notice: 'ActivityClassification was successfully updated.'
+    activity_classification = ActivityClassification.find(activity_classification_params['id'])
+    if activity_classification.update_attributes(activity_classification_params)
+      render json: activity_classification
     else
-      render :new
+      render json: {errors: activity_classification.errors}, status: 422
     end
   end
 
+  def update_order_numbers
+    activity_classifications = params[:activity_classifications]
+    activity_classifications.each { |ac| ActivityClassification.find(ac['id']).update(order_number: ac['order_number']) }
+    render json: {activity_classifications: ActivityClassification.order(order_number: :asc)}
+  end
+
   def destroy
-    @activity_classification = ActivityClassification.find(params[:id])
-
-    @activity_classification.assignments.each do |assignment|
-      assignment.scores.each(&:destroy)
-
-      Assignment.find(assignment.id).destroy
-    end
-
-    @activity_classification.destroy
-    redirect_to cms_activity_classifications_path
+    activity_classification = ActivityClassification.find(params[:id])
+    activity_classification.destroy
+    render json: {}
   end
 
   protected
