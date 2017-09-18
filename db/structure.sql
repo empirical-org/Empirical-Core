@@ -1,6 +1,9 @@
+--
+-- PostgreSQL database dump
+--
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -120,6 +123,71 @@ CREATE TABLE activities_unit_templates (
     unit_template_id integer NOT NULL,
     activity_id integer NOT NULL
 );
+
+
+--
+-- Name: activity_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_categories (
+    id integer NOT NULL,
+    name character varying,
+    order_number integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activity_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_categories_id_seq OWNED BY activity_categories.id;
+
+
+--
+-- Name: activity_category_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_category_activities (
+    id integer NOT NULL,
+    activity_category_id integer,
+    activity_id integer,
+    order_number integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activity_category_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_category_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_category_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_category_activities_id_seq OWNED BY activity_category_activities.id;
 
 
 --
@@ -1428,63 +1496,6 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_digest character varying(255),
-    role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    classcode character varying(255),
-    active boolean DEFAULT false,
-    username character varying(255),
-    token character varying(255),
-    ip_address inet,
-    clever_id character varying(255),
-    signed_up_with_google boolean DEFAULT false,
-    send_newsletter boolean DEFAULT false,
-    flag character varying,
-    google_id character varying,
-    last_sign_in timestamp without time zone
-);
-
-
---
--- Name: untitled_materialized_view; Type: MATERIALIZED VIEW; Schema: public; Owner: -
---
-
-CREATE MATERIALIZED VIEW untitled_materialized_view AS
- SELECT ((sum(a.total_students) / sum(b.total_students)) * (( SELECT count(DISTINCT s.id) AS students
-           FROM ((((((users t
-             LEFT JOIN ip_locations ON ((ip_locations.user_id = t.id)))
-             LEFT JOIN classrooms ON ((t.id = classrooms.teacher_id)))
-             LEFT JOIN users s ON (((classrooms.code)::text = (s.classcode)::text)))
-             LEFT JOIN activity_sessions ON ((s.id = activity_sessions.user_id)))
-             LEFT JOIN schools_users ON ((t.id = schools_users.user_id)))
-             LEFT JOIN schools ON ((schools_users.school_id = schools.id)))
-          WHERE (((activity_sessions.state)::text = 'finished'::text) AND (activity_sessions.completed_at < date_trunc('DAY'::text, (('now'::text)::date - '1 year'::interval))) AND ((ip_locations.country IS NULL) OR ((ip_locations.country)::text = 'United States'::text)))))::numeric)
-   FROM ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE ((schools_users.school_id IS NOT NULL) AND (s.free_lunches >= 40))) a,
-    ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE (schools_users.school_id IS NOT NULL)) b
-  WITH NO DATA;
-
-
---
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1549,6 +1560,32 @@ ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
 
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
+    active boolean DEFAULT false,
+    username character varying(255),
+    token character varying(255),
+    ip_address inet,
+    clever_id character varying(255),
+    signed_up_with_google boolean DEFAULT false,
+    send_newsletter boolean DEFAULT false,
+    flag character varying,
+    google_id character varying,
+    last_sign_in timestamp without time zone
+);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1572,6 +1609,20 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 --
 
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
+
+
+--
+-- Name: activity_categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_categories ALTER COLUMN id SET DEFAULT nextval('activity_categories_id_seq'::regclass);
+
+
+--
+-- Name: activity_category_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_category_activities ALTER COLUMN id SET DEFAULT nextval('activity_category_activities_id_seq'::regclass);
 
 
 --
@@ -1860,6 +1911,22 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY activities
     ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_categories activity_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_categories
+    ADD CONSTRAINT activity_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_category_activities activity_category_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_category_activities
+    ADD CONSTRAINT activity_category_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -2372,6 +2439,13 @@ CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_le
 
 
 --
+-- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
+
+
+--
 -- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2719,6 +2793,13 @@ CREATE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
+
+
+--
+-- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
 
 
 --
@@ -3243,3 +3324,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170824150025');
 
 INSERT INTO schema_migrations (version) VALUES ('20170824171451');
 
+INSERT INTO schema_migrations (version) VALUES ('20170914145423');
+
+INSERT INTO schema_migrations (version) VALUES ('20170911191447');
+
+INSERT INTO schema_migrations (version) VALUES ('20170911140007');

@@ -276,6 +276,9 @@ EmpiricalGrammar::Application.routes.draw do
   put '/select_school', to: 'accounts#select_school'
 
   namespace :cms do
+    put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
+    post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
+    resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
@@ -285,6 +288,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :topics
     resources :topic_categories
     resources :authors, only: [:index, :create, :update, :destroy]
+    put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
 

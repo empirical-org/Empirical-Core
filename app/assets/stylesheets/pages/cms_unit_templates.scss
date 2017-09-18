@@ -1,0 +1,42 @@
+.cms-unit-templates {
+  .save-button {
+    margin-left: 10px;
+  }
+  .sortable-table {
+    width: 100%;
+    border: #cecece 1px solid;
+    .header {
+      padding: 6px;
+      border-bottom: 1px solid #cecece;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      span:first-of-type {
+        flex: 2;
+      }
+      span:last-of-type {
+        flex: 1;
+      }
+    }
+    .list {
+      background-color: white;
+      .list-item {
+        padding: 6px;
+        border-bottom: 1px solid #cecece;
+        justify-content: space-between;
+        font-size: 16px;
+        tr {
+          display: flex;
+          justify-content: space-between;
+          td:first-of-type {
+            flex: 2;
+          }
+          td:last-of-type {
+            flex: 1;
+          }
+        }
+      }
+    }
+  }
+}

@@ -41,59 +41,12 @@ describe('ClassOverview component', () => {
     });
   });
 
-  describe('premium minis', () => {
-    it('should render PremiumPromo component if status is locked', () => {
-      const wrapper = shallow(
-        <ClassOverview
-          premium='locked'
-        />
-      );
-      expect(wrapper.find(PremiumPromo).exists()).toBe(true);
-    });
-
-    it('should render PremiumMini component if status is none and month is before June', () => {
-      MockDate.set('3/28/17');
-      const wrapper = shallow(
-        <ClassOverview
-          premium='none'
-        />
-      );
-      expect(wrapper.find(PremiumMini).exists()).toBe(true);
-      MockDate.reset();
-    });
-
-    it('should render PremiumMini component if status is null and month is before June', () => {
-      MockDate.set('3/28/17');
-      const wrapper = shallow(
-        <ClassOverview
-          premium={null}
-        />
-      );
-      expect(wrapper.find(PremiumMini).exists()).toBe(true);
-      MockDate.reset();
-    });
-
-    it('should not render PremiumMini component if status is none and month is June or after', () => {
-      MockDate.set('6/1/2017');
-      const wrapper = shallow(
-        <ClassOverview
-          premium='none'
-        />
-      );
-      expect(wrapper.find(PremiumMini).exists()).toBe(false);
-      MockDate.reset();
-    });
-
-    it('should not render PremiumMini component if status is null and month is June or after', () => {
-      MockDate.set('6/1/2017');
-      const wrapper = shallow(
-        <ClassOverview
-          premium={null}
-        />
-      );
-      expect(wrapper.find(PremiumMini).exists()).toBe(false);
-      MockDate.reset();
-    });
+  it('should render PremiumPromo component if status is locked', () => {
+    const wrapper = shallow(
+      <ClassOverview
+        premium='locked'
+      />
+    );
+    expect(wrapper.find(PremiumPromo).exists()).toBe(true);
   });
-
 });
