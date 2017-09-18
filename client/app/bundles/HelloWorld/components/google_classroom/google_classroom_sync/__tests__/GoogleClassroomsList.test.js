@@ -58,8 +58,10 @@ describe('the GoogleClassroomsList component', () => {
       expect(wrapper.find('table').length).toBe(1);
     });
 
+    // TODO: add test coverage for sorting functionality
+
     it('row should have a classes name in the first table cell', () => {
-      expect(wrapper.find('td').at(1).text()).toEqual(googleClasses[0].name);
+      expect(wrapper.find('td').at(1).text()).toEqual(googleClasses[1].name);
     });
   });
 
