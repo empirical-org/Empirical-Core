@@ -2820,6 +2820,13 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 
 
 --
+-- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
+
+
+--
 -- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3343,3 +3350,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170824171451');
 
 INSERT INTO schema_migrations (version) VALUES ('20170911191447');
 
+INSERT INTO schema_migrations (version) VALUES ('20170911140007');

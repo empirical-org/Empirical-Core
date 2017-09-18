@@ -24,10 +24,7 @@ class Classroom < ActiveRecord::Base
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
-  after_commit {
-                find_or_create_checkbox('Create a Classroom', self.teacher)
-                ClassroomCreationWorker.perform_async(self.id)
-              }
+  after_commit :trigger_analytics_events_for_classroom_creation, on: :create
 
   def x
     c = self
@@ -128,7 +125,10 @@ class Classroom < ActiveRecord::Base
     t_id ? $redis.del("user_id:#{t_id}_classroom_minis") : nil
   end
 
-
+  def trigger_analytics_events_for_classroom_creation
+    find_or_create_checkbox('Create a Classroom', self.teacher)
+    ClassroomCreationWorker.perform_async(self.id)
+  end
 
 
 end
