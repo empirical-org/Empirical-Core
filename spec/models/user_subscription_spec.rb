@@ -3,7 +3,9 @@ require 'rails_helper'
 describe UserSubscription, type: :model do
 let!(:user_1) {FactoryGirl.create(:user)}
 let!(:user_2) {FactoryGirl.create(:user)}
-let!(:user_sub) {FactoryGirl.create(:user_subscription, user_id: user_1.id, subscription_id: 1)}
+let!(:new_sub) { FactoryGirl.create(:subscription)}
+let!(:old_sub) { FactoryGirl.create(:subscription)}
+let!(:user_sub) {FactoryGirl.create(:user_subscription, user_id: user_1.id, subscription_id: old_sub.id)}
 
   context "validates" do
     describe "uniqueness of" do
@@ -29,8 +31,9 @@ let!(:user_sub) {FactoryGirl.create(:user_subscription, user_id: user_1.id, subs
 
     it "updates existing UserSubscriptions to the new subscription_id" do
       # TODO: figure out why this fails inconsistently
-      UserSubscription.update_or_create(user_sub.id, 11)
-      expect(user_sub.reload.subscription_id).to eq(11)
+      expect(user_sub.subscription_id).to eq(old_sub.id)
+      UserSubscription.update_or_create(user_1.id, new_sub.id)
+      expect(user_sub.reload.subscription_id).to eq(new_sub.id)
     end
 
     it "creates new UserSubscriptions with the passed subscription_id and user_id" do

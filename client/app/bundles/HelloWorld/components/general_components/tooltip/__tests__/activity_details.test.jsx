@@ -24,14 +24,9 @@ describe('ActivityDetails component', () => {
     expect(wrapperWithConcepts.find('.activity-details.no-concept-results').exists()).toBe(false);
   });
 
-  it('should render the objective title', () => {
+  it('should render the objective', () => {
     const wrapper = shallow(<ActivityDetails data={baseData} />);
-    expect(wrapper.find('.objective-title').text()).toBe('Activity Classification Objective');
-  });
-
-  it('should render the activity description', () => {
-    const wrapper = shallow(<ActivityDetails data={baseData} />);
-    expect(wrapper.find('.activity-detail-body').text()).toBe('I am a description.');
+    expect(wrapper.find('.activity-detail-body').text()).toBe('Objective: I am a description.');
   });
 
   it('should not render date text if activity is not finished and no due date exists', () => {
