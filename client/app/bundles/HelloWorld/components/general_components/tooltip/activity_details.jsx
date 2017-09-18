@@ -43,6 +43,7 @@ export default React.createClass({
 
   // <strong>Objective:</strong>{` ${this.props.data.activity.description}`}
   render() {
+    console.log(JSON.stringify(this.props));
     return (
       <div className={this.getClassName()}>
         <div className="activity-detail">

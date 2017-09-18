@@ -1,30 +1,26 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import StudentScores from '../student_scores.jsx'
-import IconRow from '../icon_row.jsx'
+import StudentScores from '../student_scores.jsx';
+import ActivityIconWithTooltip from '../../general_components/activity_icon_with_tooltip';
 
 const data = {
-  user: {
-    name: 'Albert Camus'
-  },
-  results: []
-}
-
-for (let x=0; x<11; x++) {
-  data.results.push({state: 'finished'})
-  data.results.push({state: 'unstarted'})
-}
+  userId: 666,
+  scores: [
+    { activity_classification_id: '4', caId: '12345', name: 'Sentence Structure Diagnostic', percentage: '1', updated: '2016-09-30 00:05:50.361093', userId: '666', },
+    { activity_classification_id: '4', caId: '12345', name: 'Sentence Structure Diagnostic', percentage: '1', updated: '2016-09-30 00:05:50.361093', userId: '666', }
+  ],
+};
 
 describe('StudentScores component', () => {
-
-  it('should render a tenth as many icon rows as it has data.props.results, rounded up', () => {
+  it('should as many Activity Icons as data.props.results, rounded up', () => {
     const wrapper = shallow(
-      <StudentScores data={data}
-                     premium_state={'trial'} />)
+      <StudentScores
+        data={data}
+        premium_state={'trial'}
+      />);
 
-    const numberOfResults = wrapper.instance().props.data.results.length
-    expect(wrapper.find(IconRow).length).toEqual(Math.ceil(numberOfResults/10))
-  })
-
-})
+    const numberOfResults = wrapper.instance().props.data.scores.length;
+    expect(wrapper.find(ActivityIconWithTooltip).length).toEqual(numberOfResults);
+  });
+});

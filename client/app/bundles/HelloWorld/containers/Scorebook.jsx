@@ -75,6 +75,8 @@ export default React.createClass({
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
+      console.log('ryan here is the body');
+      console.log(body);
       const parsedBody = JSON.parse(body);
       that.setState({ unitFilters: parsedBody.units, selectedUnit: { name: 'All Activity Packs', value: '', }, });
     });
