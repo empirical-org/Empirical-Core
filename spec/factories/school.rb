@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :school do
-    nces_id "MyString"
+    sequence(:nces_id) { |n| "UniqNCES#{n}" }
     lea_id "MyString"
     leanm "MyString"
     name "MyString"

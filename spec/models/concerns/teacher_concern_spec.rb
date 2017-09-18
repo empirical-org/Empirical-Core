@@ -66,28 +66,16 @@ describe User, type: :model do
     end
 
     it '#classrooms_i_teach_with_students' do
-      classroom_hash = classroom.attributes
-      classroom_hash[:students] = classroom.students
-      classroom1_hash = classroom1.attributes
-      classroom1_hash[:students] = classroom1.students
-      # This is a hack to get around the fact that time on Travis
-      # is being "stored" with a different level of precision.
-      # We'll check to make sure that the times are relatively
-      # close (a difference of less than a second). If they are,
-      # we'll modify the times to be equal such that the test
-      # passes as long as nothing else is wrong with it.
-      classrooms = teacher.classrooms_i_teach_with_students
-      if(classrooms[0]['created_at'] - classroom.created_at < 1 && classrooms[0]['updated_at'] - classroom.updated_at < 1)
-        classrooms[0]['created_at'] = classroom.created_at
-        classrooms[0]['updated_at'] = classroom.updated_at
+      Timecop.freeze() do
+        classroom_hash = classroom.attributes
+        classroom_hash[:students] = classroom.students
+        classroom1_hash = classroom1.attributes
+        classroom1_hash[:students] = classroom1.students
+        classrooms = teacher.classrooms_i_teach_with_students
+        expect(classrooms).to eq(
+          [classroom1_hash, classroom_hash]
+        )
       end
-      if(classrooms[1]['created_at'] - classroom1.created_at < 1 && classrooms[1]['updated_at'] - classroom1.updated_at < 1)
-        classrooms[1]['created_at'] = classroom1.created_at
-        classrooms[1]['updated_at'] = classroom1.updated_at
-      end
-      expect(classrooms).to eq(
-        [classroom_hash, classroom1_hash]
-      )
     end
 
     describe '#archived_classrooms' do
