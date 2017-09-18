@@ -15,6 +15,9 @@
   .sub-container {
     max-width: 950px;
     margin: 0 auto;
+    @media (max-width: 1000px) {
+      margin: 0 10px;
+    }
   }
   input {
     max-width: 150px;
@@ -23,4 +26,89 @@
   .add-user {
     margin-left: 20px;
   }
+
+  #features {
+    color: #3b3b3b;
+    margin-top: 22px;
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .features-list {
+      display: flex;
+      margin-top: 32px;
+      .feature {
+        width: 320px;
+        &:first-of-type, &:nth-of-type(2) {
+          padding-right: 60px;
+        }
+        img {
+          margin-bottom: 15px;
+        }
+        h3 {
+          font-size: 20px;
+          font-weight: 600;
+        }
+        .dividing-line {
+          width: 45px;
+          margin-bottom: 15px;
+          margin-top: 10px;
+          height: 1px;
+          border-top: solid 1px #3b3b3b;
+        }
+        .contact {
+          margin-top: 15px;
+          align-items: center;
+          display: flex;
+          img {
+            margin-bottom: 0px;
+            margin-right: 20px;
+            height: 55px;
+            border-radius: 30px;
+          }
+        }
+      }
+    }
+    .pd-session {
+      height: 48px;
+      border-radius: 100px;
+      background-color: #ae55e2;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      padding: 0px 24px;
+      margin-top: 25px;
+      span:first-of-type {
+        font-weight: bold;
+      }
+      span:nth-of-type(2) {
+        text-decoration: underline;
+      }
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    @media (max-width: 800px) {
+      text-align: center;
+      .features-list {
+        flex-direction: column;
+        align-items: center;
+        .feature {
+          margin-bottom: 30px;
+          &:first-of-type, &:nth-of-type(2) {
+            padding-right: 0px;
+          }
+          .dividing-line {
+            display: none;
+          }
+          .contact {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
 }
