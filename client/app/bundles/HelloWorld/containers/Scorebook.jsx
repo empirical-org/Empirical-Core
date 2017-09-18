@@ -41,6 +41,7 @@ export default React.createClass({
 
   componentDidMount() {
     this.fetchData();
+    this.getUpdatedUnits(this.props.selectedClassroom.value);
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
 
@@ -65,28 +66,23 @@ export default React.createClass({
       },
       success: this.displayData,
     });
-    if (this.state.selectedClassroom.value) {
-      this.getUpdatedUnits();
-    }
   },
 
-// TODO: fix dropdown "select a class" is not a classroom
-// TODO: unit dropdown
-
-  getUpdatedUnits() {
+  getUpdatedUnits(classroomId) {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classrooms/${this.state.selectedClassroom.value}/units`,
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      that.setState({ unitFilters: parsedBody, });
+      that.setState({ unitFilters: parsedBody.units, selectedUnit: { name: 'All Activity Packs', value: '', }, });
     });
   },
+
+// TODO: loading indicator, maybe search route (500 error), label dropdowns
 
   displayData(data) {
     this.setState({
       classroomFilters: this.props.allClassrooms,
-      unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
       is_last_page: data.is_last_page,
       premium_state: data.premium_state,
       noLoadHasEverOccurredYet: false,
@@ -116,6 +112,7 @@ export default React.createClass({
   },
 
   selectClassroom(option) {
+    this.getUpdatedUnits(option.value);
     this.setState({
       scores: {},
       currentPage: 0,
