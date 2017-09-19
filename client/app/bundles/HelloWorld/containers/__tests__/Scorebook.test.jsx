@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import moment from 'moment';
 
@@ -13,21 +13,15 @@ import AppLegend from '../../components/scorebook/app_legend.jsx';
 
 const classrooms = [{ name: 'A', id: 1, }, { name: 'B', id: 2, }, { name: 'C', id: 3, }];
 const units = [{ name: 'Something', id: 4, }, { name: 'Someone', id: 5, }, { name: 'Somewhere', id: 6, }];
-const scores = [];
-
-for (let x = 0; x < 30; x++) {
-  scores.push({ results: '', user: { id: x, }, });
-}
-
-jest.mock('request', () => ({ get: JSON.stringify({ scores: [{ user_id: '666', ca_id: '391646', name: 'teacher teacher', activity_classification_id: '4', activity_name: 'Sentence Structure Diagnostic', updated_at: '2016-09-30 00:05:50.361093', percentage: '1', id: '6675910', }], }
-), }));
+const resolvedScores = { 441555: { name: 'blah blah', scores: [{ caId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', }], }, };
+const rawScores = [{ user_id: '441555', ca_id: '341930', name: 'blah blah', activity_classification_id: '1', activity_name: 'America Used to be a Different Place', updated_at: '2016-09-16 15:39:00.775325', percentage: '1', id: '5951806', }];
 
 const data = {
   teacher: { premium_state: 'trial', },
   is_last_page: false,
   classrooms,
   units,
-  scores,
+  scores: JSON.parse(JSON.stringify(rawScores)),
 };
 
 describe('Scorebook component', () => {
@@ -35,9 +29,10 @@ describe('Scorebook component', () => {
     const wrapper = shallow(<Scorebook />);
     expect(wrapper).toMatchSnapshot();
   });
-
-  describe('if props.missing has a value', () => {
-    const wrapper = shallow(<Scorebook missing={'students'} />);
+  //
+  describe('if state.missing has a value', () => {
+    const wrapper = shallow(<Scorebook />);
+    wrapper.setState({ missing: 'activities', });
 
     it('renders EmptyProgressReport', () => {
       expect(wrapper.find(EmptyProgressReport).length).toEqual(1);
@@ -96,7 +91,7 @@ describe('Scorebook component', () => {
 
   describe('if it gets data when it had none', () => {
     const wrapper = shallow(<Scorebook />);
-    wrapper.setState({ currentPage: 1, });
+    wrapper.setState({ currentPage: 1, scores: {}, });
     wrapper.instance().displayData(data);
 
     it('does not render LoadingIndicator', () => {
@@ -116,20 +111,19 @@ describe('Scorebook component', () => {
     });
 
     it('updates the state.scores to be equal to the new ones', () => {
-      expect(wrapper.state('scores')).toEqual(scores);
-    });
-
-    it('renders as many StudentScores as there are state.scores', () => {
-      expect(wrapper.find(StudentScores).length).toEqual(wrapper.state('scores').length);
+      expect(wrapper.state('scores')).toEqual(resolvedScores);
     });
   });
 
   describe('if it gets data when it had some', () => {
-    const wrapper = shallow(<Scorebook />);
-    const scoreArray = [{ results: '', user: { id: 666, }, }];
-    wrapper.setState({ scores: scoreArray, });
+    const newResScores = Object.assign({}, resolvedScores);
+    const newRawScores = Array.slice(rawScores);
+    newRawScores[0].user_id = 'fakey';
+    const wrapper = shallow(<Scorebook allClassrooms={classrooms} />);
+    data.scores = newRawScores;
+    wrapper.setState({ scores: newResScores, classroomFilters: classrooms, });
     wrapper.instance().displayData(data);
-
+    console.log(wrapper.debug());
     it('does not render LoadingIndicator', () => {
       expect(wrapper.find(LoadingIndicator).length).toEqual(0);
     });
@@ -147,44 +141,12 @@ describe('Scorebook component', () => {
     });
 
     it('updates the state.scores to add the new ones', () => {
-      expect(wrapper.state('scores')).toEqual(scoreArray.concat(scores));
+      const updated = { 441555: { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: '441555', }], }, fakey: { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: 'fakey', }], }, };
+      expect(wrapper.state('scores')).toEqual(updated);
     });
 
     it('renders as many StudentScores as there are state.scores', () => {
-      expect(wrapper.find(StudentScores).length).toEqual(wrapper.state('scores').length);
+      expect(wrapper.find(StudentScores).length).toEqual(Object.keys(wrapper.state('scores')).length);
     });
-  });
-
-  describe('selectedClassroom function', () => {
-    it('returns All Classrooms if there is no selectedClassroom in props', () => {
-      const wrapper = shallow(<Scorebook />);
-      expect(wrapper.instance().selectedClassroom()).toEqual({ name: 'All Classrooms', value: '', });
-    });
-
-    it('returns props.selectedClassrom if there is a selectedClassroom in props', () => {
-      const wrapper = shallow(<Scorebook selectedClassroom={classrooms[0]} />);
-      expect(wrapper.instance().selectedClassroom()).toEqual(classrooms[0]);
-    });
-  });
-
-  it('sets state.selectedUnit when selectUnit is called', () => {
-    const wrapper = shallow(<Scorebook />);
-    wrapper.instance().selectUnit(units[0]);
-    expect(wrapper.state('selectedUnit')).toEqual(units[0]);
-  });
-
-  it('sets state.selectedClassroom when selectClassroom is called', () => {
-    const wrapper = shallow(<Scorebook />);
-    wrapper.instance().selectClassroom(classrooms[0]);
-    expect(wrapper.state('selectedClassroom')).toEqual(classrooms[0]);
-  });
-
-  it('sets state.beginDate and state.endDate when selectDates is called', () => {
-    const beginDate = moment(-7);
-    const endDate = moment(7);
-    const wrapper = shallow(<Scorebook />);
-    wrapper.instance().selectDates(beginDate, endDate);
-    expect(wrapper.state('beginDate')).toEqual(beginDate);
-    expect(wrapper.state('endDate')).toEqual(endDate);
   });
 });
