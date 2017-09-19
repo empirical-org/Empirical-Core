@@ -123,7 +123,7 @@ protected
 
   def next_activity_session
     if @act_sesh_records.any?
-      @act_sesh_records.first[:max_percentage] ? nil : @act_sesh_records.first
+      @act_sesh_records.first['max_percentage'] ? nil : @act_sesh_records.first
     end
   end
 
