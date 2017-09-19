@@ -2418,13 +2418,6 @@ CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING
 
 
 --
--- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
-
-
---
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 

@@ -9,61 +9,6 @@ describe User, type: :model do
       let!(:student1) {FactoryGirl.create(:user, role: 'student')}
       let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
 
-    # describe '#updated_school' do
-    #   let!(:new_school_id) {1}
-    #   let!(:old_school_id) {2}
-    #
-    #   let!(:expired_subscription) {Subscription.create(expiration: Date.yesterday, account_limit: 1000)}
-    #   let!(:non_expired_subscription) {Subscription.create(expiration: Date.tomorrow, account_limit: 1000)}
-    #
-    #   let!(:new_school_subscription) {SchoolSubscription.create(school_id: new_school_id, subscription: non_expired_subscription )}
-    #   let!(:old_school_subscription) {SchoolSubscription.create(school_id: old_school_id, subscription: non_expired_subscription )}
-    #
-    #   context 'when the user does not have a subscription' do
-    #     it "gives them the new school subscription if it exists" do
-    #       teacher.updated_school(new_school_id)
-    #       expect(teacher.subscription).to eq(new_school_subscription.subscription)
-    #     end
-    #
-    #   end
-    #
-    #
-    # end
-
-
-    describe '#scorebook_scores' do
-
-      let!(:section) {FactoryGirl.create(:section)}
-      let!(:topic_category) {FactoryGirl.create(:topic_category)}
-      let!(:topic) {FactoryGirl.create(:topic, topic_category: topic_category, section: section)}
-      let!(:activity_classification) {FactoryGirl.create :activity_classification}
-
-      let!(:activity) {FactoryGirl.create(:activity, topic: topic, classification: activity_classification)}
-
-      let!(:unit) {FactoryGirl.create(:unit)}
-
-      let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
-
-      let!(:activity_session1) {FactoryGirl.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity)}
-      let!(:activity_session2) {FactoryGirl.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity)}
-
-
-      it 'does not return a completed activities that is not a final scores' do
-        all, is_last_page = teacher.scorebook_scores
-        x = all.find{|x| x[:user] == student}
-        y = x[:results].find{|y| y[:id] == activity_session2.id}
-        expect(y).to be_nil
-      end
-
-      it 'does return a completed activity that is a final score' do
-        all, is_last_page = teacher.scorebook_scores
-        x = all.find{|x| x[:user] == student}
-        y = x[:results].find{|y| y[:id] == activity_session1.id}
-        expect(y).to be_present
-      end
-
-
-    end
 
     it '#classrooms_i_teach_with_students' do
       classroom_hash = classroom.attributes

@@ -8,37 +8,29 @@ exports[`Scorebook component should render 1`] = `
     className="tab-pane"
     id="scorebook"
   >
-    <span>
-      <div
-        className="container"
+    <div
+      className="container"
+    >
+      <section
+        className="section-content-wrapper"
       >
-        <section
-          className="section-content-wrapper"
-        >
-          <scorebook_filters
-            classroomFilters={Array []}
-            selectClassroom={[Function]}
-            selectDates={[Function]}
-            selectUnit={[Function]}
-            selectedClassroom={
-              Object {
-                "name": "All Classrooms",
-                "value": "",
-              }
+        <scorebook_filters
+          selectClassroom={[Function]}
+          selectDates={[Function]}
+          selectUnit={[Function]}
+          selectedUnit={
+            Object {
+              "name": "All Activity Packs",
+              "value": "",
             }
-            selectedUnit={
-              Object {
-                "name": "All Activity Packs",
-                "value": "",
-              }
-            }
-            unitFilters={Array []}
-          />
-          <score_legend />
-          <app_legend />
-        </section>
-      </div>
-    </span>
+          }
+          unitFilters={Array []}
+        />
+        <score_legend />
+        <app_legend />
+      </section>
+    </div>
+    <div />
   </div>
 </div>
 `;
