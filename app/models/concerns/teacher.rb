@@ -51,11 +51,12 @@ module Teacher
       return cache
     end
     info = ActiveRecord::Base.connection.execute(
-    "SELECT classrooms.name AS name, classrooms.id AS id, SUM(CASE WHEN acts.percentage IS NOT null THEN 1 ELSE 0 END) AS activity_count, COUNT(DISTINCT students.id) AS student_count, classrooms.code AS code FROM classrooms
+    "SELECT classrooms.name AS name, classrooms.id AS id, COUNT(DISTINCT acts.id) AS activity_count, COUNT(DISTINCT students.id) AS student_count, classrooms.code AS code FROM classrooms
           LEFT OUTER JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
           LEFT OUTER JOIN users AS students ON students.id = sc.student_id
-          LEFT OUTER JOIN activity_sessions AS acts ON acts.user_id = students.id
-          WHERE classrooms.teacher_id = #{self.id} AND classrooms.visible IS true
+          LEFT OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
+          LEFT OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
+          WHERE classrooms.teacher_id = #{self.id} AND classrooms.visible AND class_acts.visible IS true AND acts.is_final_score IS true
           GROUP BY classrooms.id"
     ).to_a
     # TODO: move setter to background worker
