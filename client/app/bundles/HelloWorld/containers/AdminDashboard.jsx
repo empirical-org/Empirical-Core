@@ -5,6 +5,7 @@ import _ from 'underscore';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
 import PremiumFeatures from '../components/admin_dashboard/premium_features';
 import CreateNewAccounts from '../components/admin_dashboard/create_new_accounts.jsx';
+import QuestionsAndAnswers from './QuestionsAndAnswers'
 import pluralize from 'pluralize';
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token'
@@ -153,6 +154,9 @@ export default React.createClass({
               addTeacherAccount={this.addTeacherAccount}
               error={this.state.error}
               message={this.state.message}
+            />
+            <QuestionsAndAnswers
+              questionsAndAnswersFile='admin'
             />
           </div>
         </div>
