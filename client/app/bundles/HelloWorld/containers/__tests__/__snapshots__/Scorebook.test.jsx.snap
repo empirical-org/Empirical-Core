@@ -15,7 +15,6 @@ exports[`Scorebook component should render 1`] = `
         className="section-content-wrapper"
       >
         <scorebook_filters
-          classroomFilters={Array []}
           selectClassroom={[Function]}
           selectDates={[Function]}
           selectUnit={[Function]}

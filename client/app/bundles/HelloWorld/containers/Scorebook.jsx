@@ -26,7 +26,7 @@ export default React.createClass({
         value: '',
       },
       selectedClassroom: this.props.selectedClassroom,
-      classroomFilters: [],
+      classroomFilters: this.props.allClassrooms,
       unitFilters: [],
       scores: {},
       beginDate: null,
@@ -85,7 +85,7 @@ export default React.createClass({
 // TODO: loading indicator, maybe search route (500 error), label dropdowns
 
   checkMissing(newScores) {
-    if (this.state.classroomFilters.length === 0) {
+    if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';
     } else if (!newScores || _.isEmpty(newScores)) {
       return 'activities';
