@@ -1,13 +1,48 @@
 class TeachersController < ApplicationController
-  before_action :set_admin_account, only: [:create]
 
   def create
-    x = teacher_params.merge({password: teacher_params[:last_name]})
-    @teacher = @admin_account.teachers.create(x)
-    if @teacher.errors.empty?
-      render json: Admin::TeacherSerializer.new(@teacher, root: false)
+    school = School.find_by(id: params[:id])
+    if SchoolsAdmins.find_by(school: school, user: current_user)
+      @teacher = User.find_by(email: teacher_params[:email])
+      if @teacher
+        if SchoolsUsers.find_by(user: @teacher, school: school)
+          message = "#{teacher_params[:first_name]} #{teacher_params[:last_name]} is already registered to #{school.name}."
+        else
+          message = "An email has been sent to #{teacher_params[:email]} asking them to join #{school.name}."
+          JoinSchoolEmailWorker.perform_async(@teacher.id, school.id)
+        end
+      else
+        teacher_attributes = teacher_params.merge({password: teacher_params[:last_name]})
+        @teacher = school.users.create(teacher_attributes)
+        AccountCreatedEmailWorker.perform_async(@teacher.id, teacher_params[:last_name], current_user.name)
+        message = "An email has been sent to #{teacher_params[:email]} asking them to set up their account."
+      end
+      if @teacher.errors.empty?
+        render json: {message: message}, status: 200
+      else
+        render json: @teacher.errors, status: 422
+      end
     else
-      render json: @teacher.errors, status: 422
+      render json: {errors: 'Something went wrong. If this problem persists, please contact us at hello@quill.org'}, status: 422
+    end
+  end
+
+  def add_school
+    if current_user && current_user == User.find_by(id: params[:id])
+      school = School.find(params[:school_id])
+      school_user = SchoolsUsers.new(user_id: params[:id], school_id: params[:school_id])
+      if school_user.save
+        redirect_to profile_path, flash: {notice: "You have successfully joined #{school.name}."}
+      else
+        previous_school = SchoolsUsers.find_by(user_id: params[:id]).school
+        if previous_school
+          redirect_to profile_path, flash: {error: "You already belong to #{previous_school.name}."}
+        else
+          redirect_to profile_path, flash: school_user.errors
+        end
+      end
+    else
+      redirect_to new_session_path, flash: {error: "You must be signed in to add a school."}
     end
   end
 
