@@ -74,17 +74,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
-    if current_user.classrooms_i_teach.any?
-
-      cr_id = params[:classroom_id] ? params[:classroom_id] : LastActiveClassroom::last_active_classrooms(current_user.id, 1).first
-      classroom = Classroom.find_by_id(cr_id)
-      @selected_classroom = {name: classroom.try(:name), value: classroom.try(:id), id: classroom.try(:id)}
-      if current_user.students.empty?
+    @classrooms = Classroom.where(teacher_id: current_user.id).select('classrooms.id, classrooms.id AS value, classrooms.name').as_json
+    if @classroom
+      if current_user.students.ids.empty?
         @missing = 'students'
       elsif Unit.find_by(user_id: current_user.id).nil?
         @missing = 'activities'
       end
-    elsif current_user.classrooms_i_teach.empty?
+    else
       @missing = 'true'
     end
   end
@@ -137,17 +134,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [:unit])
-    units = Unit.where(user: current_user).sort_by { |unit| unit.created_at }
-    selected_classroom =  Classroom.find_by id: params[:classroom_id]
-    scores, is_last_page = current_user.scorebook_scores params[:current_page].to_i, selected_classroom.try(:id), params[:unit_id], params[:begin_date], params[:end_date]
+    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date])
+    last_page = scores.length < 200
     render json: {
-      premium_state: current_user.premium_state,
-      classrooms: classrooms,
-      units: units,
       scores: scores,
-      is_last_page: is_last_page,
-      selected_classroom: selected_classroom
+      is_last_page: last_page
     }
   end
 
@@ -160,12 +151,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_account
-    # ⚠️ prevent teachers from making themselves superadmins 😱
-    if params[:role] && (params[:role] == 'teacher' || params[:role] == 'student')
-      response = current_user.update_teacher params
-    else
-      response = false
-    end
+    response = current_user.update_teacher params
     render json: response
   end
 
