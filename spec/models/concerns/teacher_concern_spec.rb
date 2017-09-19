@@ -70,24 +70,21 @@ describe User, type: :model do
       classroom_hash[:students] = classroom.students
       classroom1_hash = classroom1.attributes
       classroom1_hash[:students] = classroom1.students
-      # This is a hack to get around the fact that time on Travis
-      # is being "stored" with a different level of precision.
-      # We'll check to make sure that the times are relatively
-      # close (a difference of less than a second). If they are,
-      # we'll modify the times to be equal such that the test
-      # passes as long as nothing else is wrong with it.
       classrooms = teacher.classrooms_i_teach_with_students
-      if(classrooms[0]['created_at'] - classroom.created_at < 1 && classrooms[0]['updated_at'] - classroom.updated_at < 1)
-        classrooms[0]['created_at'] = classroom.created_at
-        classrooms[0]['updated_at'] = classroom.updated_at
-      end
-      if(classrooms[1]['created_at'] - classroom1.created_at < 1 && classrooms[1]['updated_at'] - classroom1.updated_at < 1)
-        classrooms[1]['created_at'] = classroom1.created_at
-        classrooms[1]['updated_at'] = classroom1.updated_at
-      end
-      expect(classrooms).to eq(
-        [classroom_hash, classroom1_hash]
-      )
+
+      # HACK: let's disregard the created_at and updated_at values
+      # to avoid a bunch of nasty temporal comparison issues...
+      classroom_hash['created_at'] = nil
+      classroom_hash['updated_at'] = nil
+      classroom1_hash['created_at'] = nil
+      classroom1_hash['updated_at'] = nil
+      classrooms[0]['created_at'] = nil
+      classrooms[0]['updated_at'] = nil
+      classrooms[1]['created_at'] = nil
+      classrooms[1]['updated_at'] = nil
+
+      expect(classrooms).to include(classroom_hash)
+      expect(classrooms).to include(classroom1_hash)
     end
 
     describe '#archived_classrooms' do
