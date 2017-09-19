@@ -45,8 +45,9 @@ article.cms {
   float:left;
   clear:both;
   }
-  label {
-    margin-top: 30px;
+  label, .form-label {
+    font-weight: 700;
+    margin: 30px auto 5px auto;
   }
   input[type='submit'] {
     margin-top: 30px;

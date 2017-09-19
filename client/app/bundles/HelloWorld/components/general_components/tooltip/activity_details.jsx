@@ -1,5 +1,5 @@
 import React from 'react';
-
+import moment from 'moment';
 import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js';
 
 export default React.createClass({
@@ -14,35 +14,41 @@ export default React.createClass({
     return 'activity-details no-concept-results';
   },
 
-  dateOrNot() {
-    if (this.props.data.state != 'finished' && (!this.props.data.due_date || !this.props.data.due_date_or_completed_at_date)) {
+  detailOrNot() {
+    if (!this.props.data.concept_results || !this.props.data.concept_results.length) {
       return null;
     }
     let dateTitle,
       dateBody;
-    if (this.props.data.state == 'finished') {
+    const firstCr = this.props.data.concept_results[0];
+    if (firstCr.completed_at) {
       dateTitle = 'Completed';
-      dateBody = this.props.data.completed_at ? this.props.data.completed_at : this.props.data.due_date_or_completed_at_date;
+      dateBody = firstCr.completed_at;
     } else {
       dateTitle = 'Due';
-      dateBody = this.props.data.due_date_or_completed_at_date ? this.props.data.due_date_or_completed_at_date : this.props.data.due_date;
+      dateBody = firstCr.due_date;
     }
+    const obj = firstCr.description;
     return (
       <div className="activity-detail">
         <p>
-          <strong>{`${dateTitle}: `}</strong>{dateBody}
+          <strong>Objectives:</strong>{` ${obj}`}
+        </p>
+        <p>
+          <strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}
         </p>
       </div>
     );
   },
 
+  // <strong>Objective:</strong>{` ${this.props.data.activity.description}`}
   render() {
+    console.log(JSON.stringify(this.props));
     return (
       <div className={this.getClassName()}>
         <div className="activity-detail">
           <div className="activity-detail-body">
-            <strong>Objective:</strong>{` ${this.props.data.activity.description}`}
-            {this.dateOrNot()}
+            {this.detailOrNot()}
           </div>
         </div>
       </div>
