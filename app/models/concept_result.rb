@@ -26,11 +26,8 @@ class ConceptResult < ActiveRecord::Base
     self.concept = Concept.where(uid: concept_uid).first
   end
 
-  def self.from_activity_session_with_names(activity_session)
-    ConceptResult.where(activity_session_id: activity_session.id)
-                 .joins(:concept)
-                 .select('concept_results.*, concepts.name')
-  end
+
+
 
 
 end

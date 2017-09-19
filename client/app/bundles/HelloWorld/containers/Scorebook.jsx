@@ -1,6 +1,7 @@
 import React from 'react';
 import Scrollify from '../components/modules/scrollify';
 import $ from 'jquery';
+import request from 'request';
 import _ from 'underscore';
 import TableFilterMixin from '../components/general_components/table/sortable_table/table_filter_mixin.js';
 import StudentScores from '../components/scorebook/student_scores';
@@ -19,20 +20,17 @@ export default React.createClass({
     };
     return {
       units: [],
-      classrooms: [],
+      classrooms: this.props.allClassrooms,
       selectedUnit: {
         name: 'All Activity Packs',
         value: '',
       },
-      selectedClassroom: this.selectedClassroom(),
-      // {
-      //   name: 'All Classrooms',
-      //   value: ''
-      // },
-      classroomFilters: [],
+      selectedClassroom: this.props.selectedClassroom,
+      classroomFilters: this.props.allClassrooms,
       unitFilters: [],
+      scores: {},
       beginDate: null,
-      premium_state: null,
+      premium_state: this.props.premium_state,
       endDate: null,
       currentPage: 0,
       loading: false,
@@ -43,6 +41,7 @@ export default React.createClass({
 
   componentDidMount() {
     this.fetchData();
+    this.getUpdatedUnits(this.props.selectedClassroom.value);
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
 
@@ -63,71 +62,80 @@ export default React.createClass({
         unit_id: this.state.selectedUnit.value,
         begin_date: this.formatDate(this.state.beginDate),
         end_date: this.formatDate(this.state.endDate),
-        selectedClassroom: this.state.selectedClassroom.id,
         no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet,
       },
       success: this.displayData,
     });
   },
 
+  getUpdatedUnits(classroomId) {
+    const loadingUnit = { name: 'Loading...', value: '', };
+    this.setState({ unitFilters: [loadingUnit], selectedUnit: loadingUnit, });
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
+    }, (error, httpStatus, body) => {
+      console.log('ryan here is the body');
+      console.log(body);
+      const parsedBody = JSON.parse(body);
+      that.setState({ unitFilters: parsedBody.units, selectedUnit: { name: 'All Activity Packs', value: '', }, });
+    });
+  },
+
+// TODO: loading indicator, maybe search route (500 error), label dropdowns
+
+  checkMissing(newScores) {
+    if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
+      return 'classrooms';
+    } else if (!newScores || _.isEmpty(newScores)) {
+      return 'activities';
+    }
+  },
+
   displayData(data) {
     this.setState({
-      classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
-      unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
+      classroomFilters: this.props.allClassrooms,
       is_last_page: data.is_last_page,
       premium_state: data.premium_state,
       noLoadHasEverOccurredYet: false,
     });
-    if (this.state.currentPage == 1) {
-      this.setState({ scores: data.scores, });
-    } else {
-      let y1 = this.state.scores;
-      const new_scores = [];
-      _.forEach(data.scores, (score) => {
-        const user_id = score.user.id;
-        const y2 = _.find(y1, ele => ele.user.id == user_id);
-        if (y2 == undefined) {
-          new_scores.push(score);
-        } else {
-          y1 = _.map(y1, (ele) => {
-            if (ele == y2) {
-              ele.results = ele.results.concat(score.results);
-              ele.results = _.uniq(ele.results, w1 => w1.id);
-            }
-            const w1 = ele;
-            return w1;
-          });
-        }
-      });
-      const all_scores = y1.concat(new_scores);
-      this.setState({ scores: all_scores, });
-    }
-    this.setState({ loading: false, });
-  },
-
-  selectedClassroom() {
-    if (!this.props.selectedClassroom) {
-      return { name: 'All Classrooms', value: '', };
-    }
-    return this.props.selectedClassroom;
+    const newScores = Object.assign({}, this.state.scores);
+    data.scores.forEach((s) => {
+      // add the score to the user scores arr or create a new one
+      newScores[s.user_id] = newScores[s.user_id] || { name: s.name, scores: [], };
+      newScores[s.user_id].scores.push({
+        caId: s.ca_id,
+        // activitySessionId: s.id,
+        userId: s.user_id,
+        updated: s.updated_at,
+        name: s.activity_name,
+        percentage: s.percentage,
+        activity_classification_id: s.activity_classification_id, });
+    });
+    this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
   },
 
   selectUnit(option) {
     this.setState({
+      scores: {},
       currentPage: 0,
       selectedUnit: option,
     }, this.fetchData);
   },
 
   selectClassroom(option) {
+    this.getUpdatedUnits(option.value);
     this.setState({
+      scores: {},
       currentPage: 0,
       selectedClassroom: option,
     }, this.fetchData
   );
   },
+
   selectDates(val1, val2) {
     this.setState({
+      scores: {},
       currentPage: 0,
       beginDate: val1,
       endDate: val2,
@@ -137,34 +145,45 @@ export default React.createClass({
   render() {
     let content,
       loadingIndicator;
-    const scores = _.map(this.state.scores, function (data) {
-      return <StudentScores key={data.user.id} data={data} premium_state={this.state.premium_state} />;
-    }, this);
-
+    const scores = [];
+    for (const userId in this.state.scores) {
+      if (this.state.scores.hasOwnProperty(userId)) {
+        const sObj = this.state.scores[userId];
+        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, activity_name: sObj.activity_name, userId: sObj.userId, }} premium_state={this.props.premium_state} />);
+      }
+    }
     if (this.state.loading) {
       loadingIndicator = <LoadingIndicator />;
     } else {
       loadingIndicator = null;
     }
 
-    if (this.props.missing) {
-      content = <EmptyProgressReport missing={this.props.missing} />;
+    if (this.state.missing) {
+      content = <EmptyProgressReport missing={this.state.missing} />;
     } else {
-      content = (<span>
-        <div className="container">
-          <section className="section-content-wrapper">
-            <ScorebookFilters selectedClassroom={this.state.selectedClassroom} classroomFilters={this.state.classroomFilters} selectClassroom={this.selectClassroom} selectedUnit={this.state.selectedUnit} unitFilters={this.state.unitFilters} selectUnit={this.selectUnit} selectDates={this.selectDates} />
-            <ScoreLegend />
-            <AppLegend />
-          </section>
-        </div>
-        {scores}
-        {loadingIndicator}
-      </span>);
+      content =
+        (<div>
+          {scores}
+          {loadingIndicator}
+        </div>);
     }
     return (
       <div className="page-content-wrapper">
         <div className="tab-pane" id="scorebook">
+          <div className="container">
+            <section className="section-content-wrapper">
+              <ScorebookFilters
+                selectedClassroom={this.state.selectedClassroom}
+                classroomFilters={this.state.classroomFilters}
+                selectClassroom={this.selectClassroom}
+                selectedUnit={this.state.selectedUnit}
+                unitFilters={this.state.unitFilters}
+                selectUnit={this.selectUnit} selectDates={this.selectDates}
+              />
+              <ScoreLegend />
+              <AppLegend />
+            </section>
+          </div>
           {content}
         </div>
       </div>

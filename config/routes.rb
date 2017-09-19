@@ -53,7 +53,6 @@ EmpiricalGrammar::Application.routes.draw do
     get :anonymous, on: :collection
     get :play, on: :member
     put :play, on: :member
-    get :concept_results, on: :member
   end
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/:uid' => 'activity_sessions#result'
@@ -75,6 +74,8 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resources :grades, only: [:index]
+
+  get 'grades/tooltip/classroom_activity_id/:classroom_activity_id/user_id/:user_id/completed/:completed' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
@@ -196,6 +197,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       member do
+        get :units
         get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         post :hide
         get  :students_list, controller: 'classroom_manager', action: 'students_list'
