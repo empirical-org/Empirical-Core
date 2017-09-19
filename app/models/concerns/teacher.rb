@@ -98,7 +98,7 @@ module Teacher
 
   def update_teacher params
     return if !self.teacher?
-    params[:role] = 'teacher' if !(['teacher', 'student'].include? params[:role])
+    params[:role] = 'teacher' if params[:role] != 'student'
     params.permit(:id,
                   :name,
                   :role,
