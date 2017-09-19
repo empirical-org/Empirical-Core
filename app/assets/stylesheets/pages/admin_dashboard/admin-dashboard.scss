@@ -1,5 +1,18 @@
 #admin-dashboard {
 
+  .error, .message {
+    font-size: 16px;
+    margin-top: 15px;
+  }
+
+  .error {
+    color: #ff4542
+  }
+
+  .message {
+    color: #348fdf;
+  }
+
   h2 {
     font-size: 24px;
     font-weight: 600;
@@ -129,6 +142,7 @@
 
   #create_new_accounts {
     padding-top:70px;
+    margin-bottom: 15px;
     .header {
       display: flex;
       justify-content: space-between;
@@ -150,6 +164,14 @@
     .form-and-schools-list {
       display: flex;
       margin-top: 50px;
+      @media (max-width: 475px){
+        flex-direction: column;
+        .form {
+          margin-right: none;
+          padding-right: 0px;
+          margin-bottom: 30px;
+        }
+      }
       .form {
         max-width: 586px;
         width: 100%;
@@ -164,6 +186,15 @@
         .first-line {
           display: flex;
           justify-content: space-between;
+          @media (max-width: 1000px) {
+            flex-direction: column;
+            margin-bottom: 0px;
+            input {
+              margin-bottom: 20px;
+              width: 100%;
+              max-width: 520px !important;
+            }
+          }
         }
         .second-line {
           position: relative;
@@ -176,6 +207,7 @@
             &.select-gray {
               background: white;
               color: #757575;
+              margin-top: 0px !important;
             }
             &:focus {
               outline: none;

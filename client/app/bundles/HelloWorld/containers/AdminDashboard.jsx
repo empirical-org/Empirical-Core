@@ -104,6 +104,7 @@ export default React.createClass({
 
   addTeacherAccount(data) {
     const that = this
+    that.setState({message: '', error: ''})
     data.authenticity_token = getAuthToken()
     request.post(`${process.env.DEFAULT_URL}/admins/${that.props.id}/teachers`, {
       json: data
@@ -150,6 +151,8 @@ export default React.createClass({
             <CreateNewAccounts
               schools={this.state.model.schools}
               addTeacherAccount={this.addTeacherAccount}
+              error={this.state.error}
+              message={this.state.message}
             />
           </div>
         </div>

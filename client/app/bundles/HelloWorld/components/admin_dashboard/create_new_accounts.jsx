@@ -20,6 +20,8 @@ export default class CreateNewAccounts extends React.Component {
     this.schoolsList = this.schoolsList.bind(this)
     this.schoolOptions = this.schoolOptions.bind(this)
     this.addTeacherAccount = this.addTeacherAccount.bind(this)
+    this.renderMessage = this.renderMessage.bind(this)
+    this.renderError = this.renderError.bind(this)
   }
 
   updateField(e, fieldName) {
@@ -55,6 +57,18 @@ export default class CreateNewAccounts extends React.Component {
       id: this.state.school.value
     }
     this.props.addTeacherAccount(data)
+  }
+
+  renderError() {
+    if (this.props.error) {
+      return <div className="error">{this.props.error}</div>
+    }
+  }
+
+  renderMessage() {
+    if (this.props.message) {
+      return <div className="message">{this.props.message}</div>
+    }
   }
 
   render() {
@@ -94,6 +108,8 @@ export default class CreateNewAccounts extends React.Component {
           <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:becca@quill.org">Email Becca</a></p>
         </div>
       </div>
+      {this.renderError()}
+      {this.renderMessage()}
     </div>
   }
 }

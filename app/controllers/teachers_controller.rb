@@ -29,17 +29,13 @@ class TeachersController < ApplicationController
 
   def add_school
     if current_user && current_user == User.find_by(id: params[:id])
-      school = School.find(params[:school_id])
-      school_user = SchoolsUsers.new(user_id: params[:id], school_id: params[:school_id])
+      school = School.find(param s[:school_id])
+      school_user = SchoolsUsers.find_or_initialize_by(user_id: params[:id])
+      school_user.school = school
       if school_user.save
         redirect_to profile_path, flash: {notice: "You have successfully joined #{school.name}."}
       else
-        previous_school = SchoolsUsers.find_by(user_id: params[:id]).school
-        if previous_school
-          redirect_to profile_path, flash: {error: "You already belong to #{previous_school.name}."}
-        else
-          redirect_to profile_path, flash: school_user.errors
-        end
+        redirect_to profile_path, flash: school_user.errors
       end
     else
       redirect_to new_session_path, flash: {error: "You must be signed in to add a school."}
