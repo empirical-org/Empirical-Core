@@ -19,6 +19,7 @@ export default class CreateNewAccounts extends React.Component {
     this.updateSchool = this.updateSchool.bind(this)
     this.schoolsList = this.schoolsList.bind(this)
     this.schoolOptions = this.schoolOptions.bind(this)
+    this.addTeacherAccount = this.addTeacherAccount.bind(this)
   }
 
   updateField(e, fieldName) {
@@ -31,7 +32,7 @@ export default class CreateNewAccounts extends React.Component {
 
   schoolsList() {
     return this.props.schools.map(school =>
-      <div className="school" key={school.nces_id}><img src="https://assets.quill.org/images/icons/school_icon_admin.svg"/>{school.name}</div>
+      <div className="school" key={school.id}><img src="https://assets.quill.org/images/icons/school_icon_admin.svg"/>{school.name}</div>
     )
   }
 
@@ -39,9 +40,21 @@ export default class CreateNewAccounts extends React.Component {
     return this.props.schools.map(school => {
       return {
         name: school.name,
-        value: school.nces_id
+        value: school.id
       }
     })
+  }
+
+  addTeacherAccount() {
+    const data = {
+      teacher: {
+        first_name: this.state.firstName,
+        last_name: this.state.lastName,
+        email: this.state.email
+      },
+      id: this.state.school.value
+    }
+    this.props.addTeacherAccount(data)
   }
 
   render() {
