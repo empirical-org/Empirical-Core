@@ -160,12 +160,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_account
-    # ⚠️ prevent teachers from making themselves superadmins 😱
-    if params[:role] && (params[:role] == 'teacher' || params[:role] == 'student')
-      response = current_user.update_teacher params
-    else
-      response = false
-    end
+    response = current_user.update_teacher params
     render json: response
   end
 
