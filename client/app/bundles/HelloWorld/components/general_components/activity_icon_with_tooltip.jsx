@@ -22,17 +22,18 @@ export default React.createClass({
   getConceptResultInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/activity_sessions/${this.props.data.id}/concept_results`,
+      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_activity_id/${this.props.data.caId}/user_id/${this.props.data.userId}/completed/${!!this.props.data.percentage}`,
     }, (error, httpStatus, body) => {
-      const conceptResults = JSON.parse(body);
-      that.setState({ loaded: true, }, () => that.loadTooltipTitle(conceptResults));
+      const parsedBody = JSON.parse(body);
+      parsedBody.forEach(el => el.metadata = JSON.parse(el.metadata));
+      that.setState({ loaded: true, }, () => that.loadTooltipTitle(parsedBody));
     });
   },
 
-  loadTooltipTitle(conceptResults) {
+  loadTooltipTitle(crData) {
     let data;
     data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
-    data.concept_results = conceptResults;
+    data.concept_results = crData;
     this.showLoadedToolTip(data);
   },
 
@@ -68,7 +69,7 @@ export default React.createClass({
   },
 
   goToReport() {
-    $.get(`/teachers/progress_reports/report_from_activity_session/${this.props.data.id}`)
+    $.get(`/teachers/progress_reports/report_from_activity_session/${this.props.data.id || this.props.data.activitySessionId}`)
       .success((data) => {
         window.location = data.url;
       })
@@ -76,7 +77,7 @@ export default React.createClass({
   },
 
   checkForStudentReport() {
-    if (this.props.data.state === 'finished') {
+    if (this.props.data.percentage) {
       this.goToReport();
     } else {
       alert('This activity has not been completed, so there is no report yet.');
