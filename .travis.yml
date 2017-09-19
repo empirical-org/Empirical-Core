@@ -10,6 +10,9 @@ script:
   - npm run jest:silent && codecov
   - npm run build:test
   # - npm run lint
+  # Run Brakeman to check for security holes, skipping cms controllers
+  # (skipping until all existing warnings are cleaned up)
+  # - ls app/controllers/cms | paste -s -d , - | xargs brakeman --skip-files
   - bundle exec rake spec
   - bundle exec teaspoon
 before_script:
