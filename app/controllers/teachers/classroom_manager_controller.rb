@@ -74,16 +74,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
-    @classrooms = Classroom.where(teacher_id: current_user.id).select('classrooms.id, classrooms.id AS value, classrooms.name').as_json
-    if @classroom
-      if current_user.students.ids.empty?
-        @missing = 'students'
-      elsif Unit.find_by(user_id: current_user.id).nil?
-        @missing = 'activities'
-      end
+    @classrooms = Classroom.where(teacher_id: current_user.id).select('classrooms.id, classrooms.id AS value, classrooms.name')
+    if params['classroom_id']
+      @classroom = @classrooms.find(params['classroom_id'])
     else
-      @missing = 'true'
+      @classroom = @classrooms.first
     end
+    @classrooms = @classrooms.as_json
+    @classroom = @classroom.as_json
   end
 
   def dashboard
