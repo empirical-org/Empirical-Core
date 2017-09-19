@@ -140,7 +140,8 @@ export default React.createClass({
 
   isSortable: function () {
     if(this.state[this.props.resourceNamePlural].length == 0) { return false }
-    return this.props.resourceNamePlural == 'unit_templates';
+    const sortableResources = ['activity_classifications', 'unit_templates'];
+    return sortableResources.includes(this.props.resourceNamePlural);
   },
 
   render: function () {

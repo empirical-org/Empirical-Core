@@ -67,6 +67,10 @@ class Teachers::ClassroomsController < ApplicationController
     render json: classroom
   end
 
+  def units
+    render json: {units: @classroom.units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)}
+  end
+
   def generate_login_pdf
     @classroom = Classroom.find(params[:id])
     respond_to do |format|
