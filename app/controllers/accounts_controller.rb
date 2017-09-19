@@ -15,7 +15,6 @@ class AccountsController < ApplicationController
     @js_file = 'session'
     role = params[:role]
     session[:role] = role if ['student', 'teacher'].include? role
-    puts session[:role]
     render json: {}
   end
 
