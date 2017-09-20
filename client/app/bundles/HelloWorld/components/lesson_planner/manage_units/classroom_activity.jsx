@@ -75,6 +75,12 @@ export default React.createClass({
 		}
 	},
 
+	supportingInfo: function() {
+		if (this.props.data.activity.supporting_info && window.location.pathname.includes('lessons')) {
+			return <a style={{marginLeft: '10px'}} target="_blank" href={`/activities/${this.props.data.activity_id}/supporting_info`}>Download Lesson Plan</a>
+		}
+	},
+
   urlForReport: function(){
     const d = this.props.data;
     return `/teachers/progress_reports/diagnostic_reports#/u/${d.unit_id}/a/${d.activity_id}/c/${d.classroom_id}/students`
@@ -149,6 +155,7 @@ export default React.createClass({
 					</div>
 					<div className='cell' id='activity-analysis-activity-name'>
 						{link}
+						{this.supportingInfo()}
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
