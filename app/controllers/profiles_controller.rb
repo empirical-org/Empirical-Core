@@ -122,8 +122,10 @@ protected
   end
 
   def next_activity_session
+    # We only need to check the first activity session record here because of
+    # the order in which the the query returns these. 
     if @act_sesh_records.any?
-      @act_sesh_records.first[:max_percentage] ? nil : @act_sesh_records.first
+      @act_sesh_records.first['max_percentage'] ? nil : @act_sesh_records.first
     end
   end
 
