@@ -3,16 +3,11 @@ import { shallow } from 'enzyme';
 
 import AdminDashboard from '../AdminDashboard.jsx';
 
-import AdminDashboardTop from '../../components/admin_dashboard/admin_dashboard_top.jsx'
 import AdminsTeachers from '../../components/admin_dashboard/admins_teachers/admins_teachers.jsx'
 
 describe('AdminDashboard container', () => {
   const wrapper = shallow(<AdminDashboard id={7} />);
   wrapper.setState({ loading: false });
-
-  it('should render an AdminDashboardTop component', () => {
-    expect(wrapper.find(AdminDashboardTop).exists()).toBe(true);
-  });
 
   describe('AdminsTeachers component', () => {
     it('should render', () => {
