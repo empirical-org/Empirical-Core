@@ -14,7 +14,7 @@ include_context "Unit Assignments Variables"
       let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity: activity, unit: unit) }
       let!(:activity_session) { FactoryGirl.create(:activity_session, classroom_activity: classroom_activity, activity: activity, user: student) }
       it "returns a json with the url" do
-          get :report_from_activity_session, ({activity_session: activity_session.id})
+          get :report_from_classroom_activity_and_user, ({classroom_activity_id: classroom_activity.id, user_id: student.id})
           response_body = JSON.parse(response.body)
           expect(response_body["url"]).to eq("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
       end
