@@ -41,6 +41,25 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Request Forgery",
+      "warning_code": 7,
+      "fingerprint": "87074659972ebc5f250131619ac95c44d9b4d73ae2dc8b6930de50633f2898c2",
+      "check_name": "ForgerySetting",
+      "message": "'protect_from_forgery' should be called in Api::ApiController",
+      "file": "app/controllers/api/api_controller.rb",
+      "line": 1,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross-site_request_forgery/",
+      "code": null,
+      "render_path": null,
+      "location": {
+        "type": "controller",
+        "controller": "Api::ApiController"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": "This is an API..."
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
       "fingerprint": "98c69d29e04c054ad795076081010b159bd38af8163776aee4fd61deb5076f89",
@@ -161,6 +180,6 @@
       "note": "This should not prove problematic except for a potential path traversal issue if these attributes were in some way settable by users"
     }
   ],
-  "updated": "2017-09-20 15:44:53 -0400",
+  "updated": "2017-09-20 16:39:52 -0400",
   "brakeman_version": "3.7.2"
 }
