@@ -1,0 +1,126 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "0c65aabdc743af40ef19d0591ab0826da78480c9408e8537b487f19144b9f2b4",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/cms/activity_classifications_controller.rb",
+      "line": 46,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:activity_classification).permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::ActivityClassificationsController",
+        "method": "activity_classification_params"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "This is only staff facing, so we don't need to worry about it."
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "2fb7213ca4e369371288fd354472afb686831fc474436791c4912f6b2f6a54d6",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/pages_controller.rb",
+      "line": 40,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Activity.with_classification.find_by_uid(\"-K0rnIIF_iejGqS3XPJ8\").anonymous_module_url.to_s)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PagesController",
+        "method": "play"
+      },
+      "user_input": "Activity.with_classification.find_by_uid(\"-K0rnIIF_iejGqS3XPJ8\").anonymous_module_url.to_s",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "9c898438f73b4ec85c616655e208953cc568ff787dc3ad25f2528fcbcf38e31d",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/cms/users_controller.rb",
+      "line": 75,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::UsersController",
+        "method": "user_params"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "This is only staff facing, so we don't need to worry about it."
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "af2fe8c8cd095dd58011e8920e6c93919c0a71d90b1c8c5506faf83b901ea74f",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/activity_sessions_controller.rb",
+      "line": 44,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Activity.find(params[:activity_id]).anonymous_module_url.to_s)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActivitySessionsController",
+        "method": "anonymous"
+      },
+      "user_input": "Activity.find(params[:activity_id]).anonymous_module_url.to_s",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "c300ebb7f349759beabe918ca495971a584e172fcc0f5c532ff106354e8905fa",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/cms/activities_controller.rb",
+      "line": 67,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:activity).permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::ActivitiesController",
+        "method": "activity_params"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "This is only staff facing, so we don't need to worry about it."
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "df6575dac5769b63b59d42cde4eeac407a60e36d9a772c284ee97c55c2390163",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/activity_sessions_controller.rb",
+      "line": 43,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(\"#{ENV[\"DEFAULT_URL\"]}/preview_lesson/#{Activity.find(params[:activity_id]).uid}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActivitySessionsController",
+        "method": "anonymous"
+      },
+      "user_input": "Activity.find(params[:activity_id]).uid",
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2017-09-20 13:08:38 -0400",
+  "brakeman_version": "3.7.2"
+}
