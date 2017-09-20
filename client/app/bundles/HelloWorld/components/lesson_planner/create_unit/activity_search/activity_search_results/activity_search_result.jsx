@@ -50,7 +50,7 @@
 
 				<td>{this.props.data.topic.section.name}</td>
 
-				<td>{this.props.data.topic.topic_category.name}</td>
+				<td>{this.props.data.activity_category ? this.props.data.activity_category.name : ''}</td>
 			</tr>
 		);
 

@@ -19,8 +19,8 @@
       asc_or_desc: 'asc'
     },
     {
-      field: 'topic_category',
-      alias: 'Concept',
+      field: 'activity_category',
+      alias: 'Category',
       selected: false,
       asc_or_desc: 'asc'
     }

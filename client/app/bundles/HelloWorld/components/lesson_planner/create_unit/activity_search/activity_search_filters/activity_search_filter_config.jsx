@@ -2,8 +2,8 @@ import React from 'react';
 
 export default [
   {
-    field: 'topic_category',
-    alias: 'Filter by Concept',
+    field: 'activity_category',
+    alias: 'Filter By Category',
     options: [],
     selected: null,
   },
