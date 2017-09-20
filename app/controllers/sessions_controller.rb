@@ -17,9 +17,8 @@ class SessionsController < ApplicationController
         TestForEarnedCheckboxesWorker.perform_async(@user.id)
       end
       sign_in(@user)
-      redirect_path = URI.parse(params[:redirect]).path
-      if redirect_path.present?
-        redirect_to redirect_path
+      if params[:redirect]
+        redirect_to URI.parse(params[:redirect]).path
       else
         redirect_to profile_path
       end
