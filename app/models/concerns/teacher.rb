@@ -56,7 +56,7 @@ module Teacher
           LEFT OUTER JOIN users AS students ON students.id = sc.student_id
           LEFT OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
           LEFT OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
-          WHERE classrooms.teacher_id = #{self.id} AND classrooms.visible AND class_acts.visible IS true AND acts.is_final_score IS true
+          WHERE classrooms.teacher_id = #{self.id} AND classrooms.visible AND ((acts.visible IS true AND acts.is_final_score IS true) OR acts IS NULL)
           GROUP BY classrooms.id"
     ).to_a
     # TODO: move setter to background worker
