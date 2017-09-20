@@ -42,16 +42,11 @@ class TeachersController < ApplicationController
   end
 
   def get_completed_diagnostic_unit_info
-    if current_user.milestones.where(name: 'Complete Diagnostic')
-      unit_ids = current_user.finished_diagnostic_unit_ids
-      if unit_ids.length > 0
-        unit_id = unit_ids.first.id
-        ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447])
-        unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
-      else
-        unit_info = nil
-      end
-    else
+    begin
+      unit_id = current_user.finished_diagnostic_unit_ids.first.id
+      ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447])
+      unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
+    rescue
       unit_info = nil
     end
     render json: {unit_info: unit_info}
