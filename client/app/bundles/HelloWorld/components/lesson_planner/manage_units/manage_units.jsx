@@ -1,136 +1,177 @@
-'use strict'
+import React from 'react';
+import $ from 'jquery';
+import Units from './units';
+import ManageUnitsHeader from './manageUnitsHeader.jsx';
+import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
+import LoadingIndicator from '../../shared/loading_indicator';
 
- import React from 'react'
- import $ from 'jquery'
- import Units from './units'
- import ManageUnitsHeader from './manageUnitsHeader.jsx'
- import EmptyAssignedUnits from './EmptyAssignedUnits.jsx'
- import LoadingIndicator from '../../shared/loading_indicator'
+export default React.createClass({
 
- export default React.createClass({
+  getInitialState() {
+    return {
+      units: [],
+      loaded: false,
+    };
+  },
 
-	getInitialState: function () {
-		return {
-			units: [],
-			loaded: false
-		}
-	},
+  componentWillMount() {
+    $.ajax({
+      url: '/teachers/units',
+      data: {},
+      success: this.displayUnits,
+      error() {
+      },
+    });
+  },
 
-	componentWillMount: function () {
-		$.ajax({
-			url: '/teachers/units',
-			data: {},
-			success: this.displayUnits,
-			error: function () {
-			}
-		});
-	},
-
-  hashLinkScroll: function() {
-  const hash = window.location.hash
-  if (hash !== '') {
-      const id = hash.replace('#', '')
-      const element = document.getElementById(id)
-      element ? element.scrollIntoView() : null
+  hashLinkScroll() {
+    const hash = window.location.hash;
+    if (hash !== '') {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      element ? element.scrollIntoView() : null;
     }
   },
 
-	displayUnits: function (data) {
-		this.setState({units: data.units,
-									 loaded: true});
-    this.hashLinkScroll()
-	},
+  generateNewCaUnit(u) {
+    const caObj = {
+      studentCount: Number(u.array_length ? u.array_length : u.class_size),
+      classrooms: new Set([u.class_name]),
+      classroomActivities: {},
+      unitId: u.activity_id,
+      unitCreated: u.unit_created_at,
+      unitName: u.unit_name,
+    };
+    caObj.classroomActivities[u.activity_id] = {
+      name: u.activity_name,
+      created_at: u.classroom_activity_created_at,
+      activityClassificationId: u.activity_classification_id,
+      dueDate: u.due_date, };
+    return caObj;
+  },
 
-	hideUnit: function (id) {
-		var units, x1;
-		units = this.state.units;
-		x1 = _.reject(units, function (unit) {
-			return unit.unit.id == id;
-		})
-		this.setState({units: x1});
+  parseUnits(data) {
+    const parsedUnits = {};
+    data.forEach((u) => {
+      if (!parsedUnits[u.unit_id]) {
+        // if this unit doesn't exist yet, go create it with the info from the first ca
+        parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
+      } else {
+        const caUnit = parsedUnits[u.unit_id];
+        if (!caUnit.classrooms.has(u.class_name)) {
+          // add the info and student count from the classroom if it hasn't already been done
+          caUnit.classrooms.add(u.class_name);
+          caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
+        }
+        // add the activity info if it doesn't exist
+        caUnit.classroomActivities[u.activity_id] = caUnit.classroomActivities[u.activity_id] || {
+          name: u.activity_name,
+          activityClassificationId: u.activity_classification_id,
+          createdAt: u.ca_created_at,
+          dueDate: u.due_date, };
+      }
+    });
+    return this.orderUnits(parsedUnits);
+  },
 
-		$.ajax({
-			type: 'put',
-			url: '/teachers/units/' + id + '/hide',
-			success: function () {
-			},
-			error: function () {
-			}
-		});
-	},
-	hideClassroomActivity: function (ca_id, unit_id) {
-		var units, x1;
-		units = this.state.units;
-		x1 = _.map(units, function (unit) {
-			if (unit.unit.id === unit_id) {
-				unit.classroom_activities = _.reject(unit.classroom_activities, function (ca) {
-					return ca.id === ca_id;
-				});
-			}
-			return unit;
-		});
-		this.setState({units: x1});
+  orderUnits(units) {
+    const unitsArr = [];
+    Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
+    return unitsArr;
+  },
 
-		$.ajax({
-			type: 'put',
-			url: '/teachers/classroom_activities/' + ca_id + '/hide',
-			success: function () {
-			},
-			error: function () {
-			}
-		});
-	},
+  displayUnits(data) {
+    this.setState({ units: this.parseUnits(data), loaded: true, });
+    this.hashLinkScroll();
+  },
 
-	updateDueDate: function (ca_id, date) {
-		$.ajax({
-			type: 'put',
+  hideUnit(id) {
+    let units,
+      x1;
+    units = this.state.units;
+    x1 = _.reject(units, unit => unit.unit.id == id);
+    this.setState({ units: x1, });
+
+    $.ajax({
+      type: 'put',
+      url: `/teachers/units/${id}/hide`,
+      success() {
+      },
+      error() {
+      },
+    });
+  },
+  hideClassroomActivity(ca_id, unit_id) {
+    let units,
+      x1;
+    units = this.state.units;
+    x1 = _.map(units, (unit) => {
+      if (unit.unit.id === unit_id) {
+        unit.classroom_activities = _.reject(unit.classroom_activities, ca => ca.id === ca_id);
+      }
+      return unit;
+    });
+    this.setState({ units: x1, });
+
+    $.ajax({
+      type: 'put',
+      url: `/teachers/classroom_activities/${ca_id}/hide`,
+      success() {
+      },
+      error() {
+      },
+    });
+  },
+
+  updateDueDate(ca_id, date) {
+    $.ajax({
+      type: 'put',
       dataType: 'json',
-			data: {classroom_activity: {due_date: date}},
-			url: '/teachers/classroom_activities/' + ca_id,
-			success: function () {
-			},
-			error: function () {
-			}
+      data: { classroom_activity: { due_date: date, }, },
+      url: `/teachers/classroom_activities/${ca_id}`,
+      success() {
+      },
+      error() {
+      },
 
-		});
-	},
+    });
+  },
 
-	switchToCreateUnit: function () {
-		this.props.actions.toggleTab('createUnit');
-	},
+  switchToCreateUnit() {
+    this.props.actions.toggleTab('createUnit');
+  },
 
-	stateBasedComponent: function () {
-		if (this.state.units.filter((unit) => unit.classroom_activities.length > 0).length === 0 && this.state.loaded) {
-      return <EmptyAssignedUnits/>
-		} else if (!this.state.loaded){
-      return <LoadingIndicator />
-    } else {
-			return (
-				<span>
-				{/* TODO: fix this so it links to the activity type selection page
+  stateBasedComponent() {
+    if (this.state.units.length === 0 && this.state.loaded === true) {
+      return <EmptyAssignedUnits />;
+    } else if (!this.state.loaded) {
+      return <LoadingIndicator />;
+    }
+    return (
+      <span>
+        {/* TODO: fix this so it links to the activity type selection page
           <div  className= "create-unit-button-container">
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
 				</div>*/}
         <ManageUnitsHeader />
-				<Units
-					updateDueDate={this.updateDueDate}
-					editUnit={this.props.actions.editUnit}
-					hideClassroomActivity={this.hideClassroomActivity}
-					hideUnit={this.hideUnit}
-          data={this.state.units} />
-				</span>
-			);
-		}
-	},
+        <Units
+          updateDueDate={this.updateDueDate}
+          editUnit={this.props.actions.editUnit}
+          hideClassroomActivity={this.hideClassroomActivity}
+          hideUnit={this.hideUnit}
+          data={this.state.units}
+        />
+      </span>
+    );
+    return <span />;
+  },
 
-	render: function () {
-		return (
-			<div className="container manage-units">
-				{this.stateBasedComponent()}
-			</div>
-		);
-
-	}
-
+  render() {
+    return (
+      <div className="container manage-units">
+        {this.stateBasedComponent()}
+      </div>
+    );
+  },
 
 });
