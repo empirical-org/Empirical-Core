@@ -47,6 +47,7 @@ class Teachers::UnitsController < ApplicationController
     unit = Unit.find_by_id(params[:id])
     classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
     if unit
+      # unit fix
       activities_data = unit.activities.uniq.map { |act| {id: act.id }}
       Units::Updater.run(unit, activities_data, classroom_activities)
       render json: {}
@@ -101,8 +102,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def index
-    cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).map(&:classroom_activities).flatten
-    render json: units(cas).to_json
+    render json: units.to_json
   end
 
   def diagnostic_units
@@ -157,50 +157,28 @@ class Teachers::UnitsController < ApplicationController
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
 
-  def units(cas)
-    units = cas.group_by{|ca| ca.unit_id}
-    arr = []
-    units.each do |unit_id, classroom_activities|
-
-      if params[:report]
-        classroom_activities =  classroom_activities.select{|ca| ca.has_a_completed_session? && ca.from_valid_date_for_activity_analysis?}
-        next if classroom_activities.empty?
-      end
-
-
-        x1 = classroom_activities.compact
-
-        x1 = ClassroomActivitySorter::sort(x1)
-
-        x1 = x1.map{|ca| (ClassroomActivitySerializer.new(ca)).as_json(root: false)}
-
-        classrooms = x1.map{|ca| ca[:classroom]}.compact.uniq
-
-        assigned_student_ids = []
-
-        classroom_activities.each do |ca|
-          if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
-            y = ca.classroom.students.map(&:id)
-          else
-            y = ca.assigned_student_ids
-          end
-          assigned_student_ids = assigned_student_ids.concat(y)
-        end
-
-        num_students_assigned = assigned_student_ids.uniq.length
-
-        x1 = x1.uniq{|y| y[:activity_id] }
-
-        unit = Unit.where(id: unit_id).first
-        if unit.present?
-          ele = {unit: unit, classroom_activities: x1, num_students_assigned: num_students_assigned, classrooms: classrooms}
-          arr.push ele
-        end
-      end
-
-      arr1, arr2 = arr.partition{|a| a[:unit].created_at.present? }
-      arr1 = arr1.sort_by{|ele| ele[:unit].created_at}
-      {units: arr2.concat(arr1)}
+  def units
+    ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name, 
+       activities.name AS activity_name,
+       classrooms.name AS class_name,
+       activities.activity_classification_id,
+       ca.id AS classroom_activity_id,
+       ca.unit_id,
+       array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
+       ca.due_date,
+       activities.id AS activity_id,
+       EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
+       EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
+    FROM units
+      INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
+      INNER JOIN activities ON ca.activity_id = activities.id
+      INNER JOIN classrooms ON ca.classroom_id = classrooms.id
+      INNER JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+    WHERE units.user_id = #{current_user.id}
+      AND classrooms.visible = true
+      AND units.visible = true
+      AND ca.visible = true
+    GROUP BY units.name, units.created_at, ca.id, classrooms.name, activities.name, activities.activity_classification_id, activities.id").to_a
   end
 
 end

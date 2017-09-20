@@ -80,8 +80,6 @@ export default React.createClass({
     });
   },
 
-// TODO: loading indicator, maybe search route (500 error), label dropdowns
-
   checkMissing(newScores) {
     if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';

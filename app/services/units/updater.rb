@@ -11,6 +11,7 @@ module Units::Updater
   end
 
   def self.assign_unit_template_to_one_class(unit, classrooms_data)
+    # unit fix
     activities_data = unit.activities.map{ |a| {id: a.id, due_date: nil} }
     self.update_helper(unit, activities_data, classrooms_data)
   end
@@ -45,6 +46,7 @@ module Units::Updater
         else
           due_date = activity_data[:due_date] || classroom_activity.due_date
         end
+        # todo: bulk update
         classroom_activity.update(due_date: due_date, assigned_student_ids: classroom[:student_ids])
       end
     end
