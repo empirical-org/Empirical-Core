@@ -11,13 +11,15 @@ class UserMailer < ActionMailer::Base
     mail to: user.email, subject: 'Reset your Quill password'
   end
 
+  # Sent when an admin adds a new teacher to one of their schools. 
   def account_created_email(user, temp_password, admin_name)
     @user = user
     @temp_password = temp_password
     @admin_name = admin_name
     mail to: user.email, subject: 'Welcome to Quill, An Administrator Created A Quill Account For You!'
   end
-
+  
+  # Sent when an admin requests an existing teacher to join one of their schools.
   def join_school_email(user, school)
     @user = user
     @school = school
