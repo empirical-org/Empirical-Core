@@ -77,7 +77,7 @@ export default React.createClass({
 
 	supportingInfo: function() {
 		if (this.props.data.activity.supporting_info && window.location.pathname.includes('lessons')) {
-			return <a style={{marginLeft: '10px'}} target="_blank" href={`/activities/${this.props.data.activity_id}/supporting_info`}>Download Lesson Plan</a>
+			return <a className="recommendations-button" target="_blank" href={`/activities/${this.props.data.activity_id}/supporting_info`}>Download Lesson Plan</a>
 		}
 	},
 
