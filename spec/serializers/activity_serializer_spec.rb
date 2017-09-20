@@ -15,7 +15,9 @@ describe ActivitySerializer, type: :serializer do
          name
          topic
          uid
-         updated_at)
+         updated_at
+         activity_category
+         )
     end
   end
 end
