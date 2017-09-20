@@ -69,7 +69,7 @@ export default React.createClass({
   },
 
   goToReport() {
-    $.get(`/teachers/progress_reports/report_from_activity_session/${this.props.data.id || this.props.data.activitySessionId}`)
+    $.get(`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${this.props.data.caId}/user/${this.props.data.userId}`)
       .success((data) => {
         window.location = data.url;
       })

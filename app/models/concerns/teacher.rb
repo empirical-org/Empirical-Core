@@ -169,8 +169,6 @@ module Teacher
     end
   end
 
-
-
   def part_of_admin_account?
     admin_accounts_i_am_part_of.any?
   end
