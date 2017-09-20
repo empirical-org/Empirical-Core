@@ -155,7 +155,6 @@ export default React.createClass({
 					</div>
 					<div className='cell' id='activity-analysis-activity-name'>
 						{link}
-						{this.supportingInfo()}
 						{this.buttonForRecommendations()}
 					</div>
 				</div>
