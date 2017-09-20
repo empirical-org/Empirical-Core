@@ -48,7 +48,7 @@ class Activity < ActiveRecord::Base
 
     # Sorry for the meta-programming.
     filters.each do |model_name, model_id| # :activity_classifications, 123
-      query = query.where("#{model_name}.id = ?", model_id)
+      query = query.where("#{ActiveRecord::Base.sanitize(model_name)}.id = ?", model_id)
     end
 
     query
