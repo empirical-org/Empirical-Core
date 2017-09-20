@@ -83,6 +83,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
+  get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
   get 'teachers/get_diagnostic_info_for_dashboard_mini' => 'teachers#get_diagnostic_info_for_dashboard_mini'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
