@@ -274,6 +274,13 @@ class User < ActiveRecord::Base
     UserMailer.welcome_email(self).deliver_now! if email.present?
   end
 
+  def send_account_created_email(temp_password, admin_name)
+    UserMailer.account_created_email(self, temp_password, admin_name).deliver_now! if email.present?
+  end
+
+  def send_join_school_email(school)
+    UserMailer.join_school_email(self, school).deliver_now! if email.present?
+  end
 
   def subscribe_to_newsletter
     self.send_newsletter ? SubscribeToNewsletterWorker.perform_async(self.id) : nil
