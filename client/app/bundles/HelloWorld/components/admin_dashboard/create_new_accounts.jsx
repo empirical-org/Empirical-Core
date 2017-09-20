@@ -75,7 +75,7 @@ export default class CreateNewAccounts extends React.Component {
     return <div id="create_new_accounts">
       <div className="header">
         <h2>Create New Accounts and Link Existing Teachers</h2>
-        <a className="green-link" href="mailto:ryan@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
+        <a className="green-link" href="mailto:becca@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
           <button className="bg-white text-black">Upload Teachers via CSV</button>
         </a>
       </div>
