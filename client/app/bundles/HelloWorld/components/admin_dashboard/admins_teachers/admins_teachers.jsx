@@ -34,7 +34,7 @@ export default React.createClass({
     return (
       <div id="teacher_account_access">
         <h2>Teacher Account Access</h2>
-        <p><span className="warning">Warning:</span> Any changes you make when you access teacher account will impact the teacher and student facing dashboards.</p>
+        <p><span className="warning">Warning:</span> Any changes you make when you access a teacher account will impact the teacher and student facing dashboards.</p>
         <p>This list provides you with the ability to sign in to all of the teacher accounts for the schools you have admin access.</p>
         <div className={`admins-teachers ${this.props.isValid ? '' : 'blur'}`}>
           <SortableTable
