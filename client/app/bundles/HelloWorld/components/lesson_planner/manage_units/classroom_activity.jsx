@@ -36,7 +36,7 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      startDate: this.props.data.due_date ? moment(this.props.data.due_date) : undefined,
+      startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
       showModal: false,
     };
   },
@@ -50,7 +50,7 @@ export default React.createClass({
 
   handleChange(date) {
     this.setState({ startDate: date, });
-    this.props.updateDueDate(this.props.data.id, date.format());
+    this.props.updateDueDate(this.caId(), date.format());
   },
 
   goToRecommendations() {
@@ -92,6 +92,10 @@ export default React.createClass({
 
   caId() {
     return this.props.data.caId || this.props.data.id;
+  },
+
+  dueDate() {
+    return this.props.data.due_date || this.props.data.dueDate;
   },
 
   activityId() {

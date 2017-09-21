@@ -132,20 +132,39 @@ export default React.createClass({
     return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.props.data.unitId || this.props.data.unit.id} unitName={this.props.data.unitName || this.props.data.unit.name} />;
   },
 
-  render() {
+  renderClassroomActivities() {
     const classroomActivitiesArr = [];
-    (this.props.data.classroom_activities || this.props.data.classroomActivities).forEach((ca) => {
-      classroomActivitiesArr.push(
-        <ClassroomActivity
-          key={`${ca.id}-${this.props.data.unitId}`}
-          report={this.props.report}
-          lesson={this.props.lesson}
-          updateDueDate={this.props.updateDueDate}
-          hideClassroomActivity={this.props.hideClassroomActivity}
-          data={ca}
-        />
-      );
-    });
+    if(this.props.data.classroom_activities) {
+      this.props.data.classroom_activities.forEach((ca) => {
+        classroomActivitiesArr.push(
+          <ClassroomActivity
+            key={`${ca.id}-${this.props.data.unitId}`}
+            report={this.props.report}
+            lesson={this.props.lesson}
+            updateDueDate={this.props.updateDueDate}
+            hideClassroomActivity={this.props.hideClassroomActivity}
+            data={ca}
+          />
+        );
+      });
+    } else if(this.props.data.classroomActivities) {
+      for(var [key, ca] of this.props.data.classroomActivities) {
+        classroomActivitiesArr.push(
+          <ClassroomActivity
+            key={`${this.props.data.unitId}-${key}`}
+            report={this.props.report}
+            lesson={this.props.lesson}
+            updateDueDate={this.props.updateDueDate}
+            hideClassroomActivity={this.props.hideClassroomActivity}
+            data={ca}
+          />
+        );
+      }
+    };
+    return classroomActivitiesArr;
+  },
+
+  render() {
     return (
       <section>
         <div className="row unit-header-row" id={this.props.data.unitId || this.props.data.unit.id}>
@@ -161,7 +180,7 @@ export default React.createClass({
           {this.dueDate()}
         </div>
         <div className="table assigned-activities">
-          {classroomActivitiesArr}
+          {this.renderClassroomActivities()}
           {this.addClassroomActivityRow()}
         </div>
       </section>

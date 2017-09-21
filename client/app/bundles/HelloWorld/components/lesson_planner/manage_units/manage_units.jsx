@@ -46,6 +46,7 @@ export default React.createClass({
       name: u.activity_name,
       activityId: u.activity_id,
       created_at: u.classroom_activity_created_at,
+      caId: u.classroom_activity_id,
       activityClassificationId: u.activity_classification_id,
       dueDate: u.due_date, });
     return caObj;
@@ -65,11 +66,13 @@ export default React.createClass({
           caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
         }
         // add the activity info if it doesn't exist
-        caUnit.classroomActivities[u.activity_id] = caUnit.classroomActivities[u.activity_id] || {
+        caUnit.classroomActivities.set(u.activity_id,
+          caUnit.classroomActivities[u.activity_id] || {
           name: u.activity_name,
+          caId: u.classroom_activity_id,
           activityClassificationId: u.activity_classification_id,
           createdAt: u.ca_created_at,
-          dueDate: u.due_date, };
+          dueDate: u.due_date, });
       }
     });
     return this.orderUnits(parsedUnits);
