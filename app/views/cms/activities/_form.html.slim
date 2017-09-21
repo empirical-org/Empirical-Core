@@ -15,5 +15,7 @@
       = f.select :flag, Activity::FLAGS
       = f.label :topic_category
       = f.collection_select :topic_id, Topic.all, :id, :name
+      = f.label :supporting_info
+      = f.text_field :supporting_info
 
     = f.submit :save

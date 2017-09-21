@@ -92,7 +92,8 @@ CREATE TABLE activities (
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
-    follow_up_activity_id integer
+    follow_up_activity_id integer,
+    supporting_info character varying
 );
 
 
@@ -2418,6 +2419,13 @@ CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING
 
 
 --
+-- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
+
+
+--
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3329,4 +3337,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170911140007');
 INSERT INTO schema_migrations (version) VALUES ('20170911191447');
 
 INSERT INTO schema_migrations (version) VALUES ('20170914145423');
+
+INSERT INTO schema_migrations (version) VALUES ('20170920133317');
 
