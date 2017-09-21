@@ -64,7 +64,7 @@ protected
   end
 
   def user_params
-    params.require(:user).permit!
+    params.require(:user).except!(:role).permit!
   end
 
   def edit_page_variables
