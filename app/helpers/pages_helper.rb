@@ -107,7 +107,7 @@ module PagesHelper
 				img: 'thumb-jared-silver.jpg',
 				name: "Jared Silver",
 				title: "Software Developer",
-				desc: "Jared Silver is a software developer who joined Quill full-time after contributing as an open source volunteer and intern. He has worked with a number of edtech organizations, such as Codecademy, EdSurge, and Oppia Foundation, and he cares deeply about using technology to make education more equitable.."
+				desc: "Jared Silver is a software developer who joined Quill full-time after contributing as an open source volunteer and intern. He has worked with a number of edtech organizations, such as Codecademy, EdSurge, and Oppia Foundation, and he cares deeply about using technology to make education more equitable."
 			}
 			]
 		},
