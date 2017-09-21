@@ -10,7 +10,7 @@ script:
   - npm run jest:silent && codecov
   - npm run build:test
   # - npm run lint
-  - bundle exec brakeman -q
+  - bundle exec brakeman -z
   - bundle exec rake spec
   - bundle exec teaspoon
 before_script:
