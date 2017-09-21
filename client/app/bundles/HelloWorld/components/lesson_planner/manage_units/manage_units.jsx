@@ -37,16 +37,17 @@ export default React.createClass({
     const caObj = {
       studentCount: Number(u.array_length ? u.array_length : u.class_size),
       classrooms: new Set([u.class_name]),
-      classroomActivities: {},
-      unitId: u.activity_id,
+      classroomActivities: new Map(),
+      unitId: u.unit_id,
       unitCreated: u.unit_created_at,
       unitName: u.unit_name,
     };
-    caObj.classroomActivities[u.activity_id] = {
+    caObj.classroomActivities.set(u.activity_id, {
       name: u.activity_name,
+      activityId: u.activity_id,
       created_at: u.classroom_activity_created_at,
       activityClassificationId: u.activity_classification_id,
-      dueDate: u.due_date, };
+      dueDate: u.due_date, });
     return caObj;
   },
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
-import request from 'request';
-import $ from 'jquery';
+import activityFromClassificationId from '../../modules/activity_from_classification_id.js';
 
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal';
 
@@ -55,10 +54,9 @@ export default React.createClass({
   },
 
   goToRecommendations() {
-    const activityId = this.props.data.activity_id;
     const unitId = this.props.data.unit_id;
     const classroomId = this.props.data.classroom_id;
-    const link = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/recommendations`;
+    const link = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${this.activityId()}/c/${classroomId}/recommendations`;
     window.location = link;
   },
 
@@ -78,28 +76,63 @@ export default React.createClass({
     return `/teachers/progress_reports/diagnostic_reports#/u/${d.unit_id}/a/${d.activity_id}/c/${d.classroom_id}/students`;
   },
 
+  anonymousPath() {
+    return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.caId()}`;
+  },
+
   finalCell() {
     const startDate = this.state.startDate;
     if (this.props.report) {
-      return [<a key="this.props.data.activity.anonymous_path" href={this.props.data.activity.anonymous_path} target="_blank">Preview</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>];
-    } else if (this.props.lesson) {
+      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>];
+    } else if (this.isLesson()) {
       return this.lessonCompletedOrLaunch();
     }
     return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'} />;
+  },
+
+  caId() {
+    return this.props.data.caId || this.props.data.id;
+  },
+
+  activityId() {
+    // uid is just for lessons, in case we don't have the id
+    console.log(this.props.data);
+    return this.props.data.activityId || this.props.data.activity.uid;
+  },
+
+  activityName() {
+    return this.props.data.name || this.props.data.activity.name;
+  },
+
+  classification() {
+    return this.props.data.activityClassificationId;
+  },
+
+  icon() {
+    const classification = this.classification();
+    if (classification) {
+      // then we're coming from the index and have an id
+      return `icon-${activityFromClassificationId(classification)}-green`;
+    }
+    // it is stupid that we are passing this in some of this components use create_activity_sessions
+    //  but don't have time to deprecate it right now
+    return this.props.data.activity.classification.green_image_class;
   },
 
   lessonCompletedOrLaunch() {
     if (this.props.data.completed) {
       return <p className="lesson-completed">Lesson Completed</p>;
     }
-    const classroomActivityId = this.props.data.id;
-    const lessonId = this.props.data.activity.uid;
     const text = this.props.data.started ? 'Resume Lesson' : 'Launch Lesson';
-    return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+    return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+  },
+
+  isLesson() {
+    return this.props.lesson || this.classification() === 6;
   },
 
   deleteRow() {
-    if (!this.props.report && !this.props.lesson) {
+    if (!this.props.report && !(this.isLesson())) {
       return <div className="pull-right"><img className="delete-classroom-activity h-pointer" onClick={this.hideClassroomActivity} src="/images/x.svg" /></div>;
     }
   },
@@ -115,7 +148,7 @@ export default React.createClass({
   renderModal() {
     if (this.state.showModal) {
       return (<PreviewOrLaunchModal
-        lessonUID={this.props.data.activity.uid}
+        lessonID={this.activityId()}
         classroomActivityID={this.props.data.id}
         closeModal={this.closeModal}
         completed={this.props.data.completed}
@@ -127,13 +160,13 @@ export default React.createClass({
     let link,
       endRow;
     if (this.props.report) {
-      link = <a href={this.urlForReport()} target="_new">{this.props.data.activity.name}</a>;
+      link = <a href={this.urlForReport()} target="_new">{this.activityName()}</a>;
       endRow = styles.reportEndRow;
-    } else if (this.props.lesson) {
-      link = <span onClick={this.openModal}>{this.props.data.activity.name}</span>;
+    } else if (this.isLesson()) {
+      link = <span onClick={this.openModal}>{this.activityName()}</span>;
       endRow = styles.lessonEndRow;
     } else {
-      link = <a href={this.props.data.activity.anonymous_path} target="_new">{this.props.data.activity.name}</a>;
+      link = <a href={this.anonymousPath()} target="_new">{this.activityName()}</a>;
       endRow = styles.endRow;
     }
     return (
@@ -141,7 +174,7 @@ export default React.createClass({
         {this.renderModal()}
         <div className="starting-row">
           <div className="cell">
-            <div className={`pull-left icon-wrapper ${this.props.data.activity.classification.green_image_class}`} />
+            <div className={`pull-left icon-wrapper ${this.icon()}`} />
           </div>
           <div className="cell" id="activity-analysis-activity-name">
             {link}
