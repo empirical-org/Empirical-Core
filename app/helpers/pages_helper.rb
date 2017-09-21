@@ -82,7 +82,7 @@ module PagesHelper
 			{
 		      img: 'thumb-emilia.png',
 		      name: "Emilia Friedberg",
-		      title: "Junior Web Developer",
+		      title: "Software Developer",
 		      desc: "Emilia is a developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
 	    },
 			{
@@ -90,6 +90,24 @@ module PagesHelper
 					name: 'Amr Thameen',
 					title: 'Lead Designer',
 					desc: "Amr is the Lead Designer at Quill. He designs Quill’s interface, creates the user experience, and oversees the overall brand image. A speaker of three different languages and graduate of schools on multiple continents, Amr sees the importance of improving students' writing and its effect on critical thinking. Before Quill, Amr was a designer at multiple startups, working with Virtual Reality and the travel industry. Amr holds a bachelor’s degree in Architecture from Middlebury College."
+			},
+			{
+					img: 'thumb-becca.jpg',
+					name: 'Becca Garrison',
+					title: 'Partnerships Director',
+					desc: "Becca supports teachers and schools in using Quill to its full potential to strengthen student writing. Previously she coached teachers and schools with integrating instructional technology in pedagogically sound ways. She started her career teaching secondary English in schools across the South Bronx and Colorado."
+			},
+			{
+					img: 'thumb-jenny.jpg',
+					name: 'Jenny Price',
+					title: 'Editorial Associate',
+					desc: "Jenny creates new content and works with the Engineering team to provide real-time feedback to students. Before joining Quill, Jenny taught English to elementary school students in France. She holds an undergraduate degree in French and is passionate about improving communication."
+			},
+			{
+				img: 'thumb-jared-silver.jpg',
+				name: "Jared Silver",
+				title: "Software Developer",
+				desc: "Jared Silver is a software developer who joined Quill full-time after contributing as an open source volunteer and intern. He has worked with a number of edtech organizations, such as Codecademy, EdSurge, and Oppia Foundation, and he cares deeply about using technology to make education more equitable.."
 			}
 			]
 		},
@@ -131,6 +149,13 @@ module PagesHelper
 					title: 'Board Member',
 					desc: "Matt Rodriguez is a Managing Director at BlackRock where he focuses on absolute return mortgage strategies. He began his career as a financial modeler after earning masters degrees in mathematics and financial engineering. Matt also serves on the Mathematics Department Advisory Board at UIUC and supports scholarship programs."
 					},
+					{
+					img: 'thumb-stephanie.jpg',
+					name: 'Stephanie Cohen',
+					title: 'Board Member',
+					desc: "Stephanie is the global head of Financial Sponsor M&A and is a member of the Partnership Committee at Goldman Sachs. She joined Goldman Sachs in 1999 as an analyst and was named managing director in 2008 and partner in 2014. Stephanie serves on the National Boards for two literacy focused non-profits, Reading Partners and Quill."
+					},
+
 				# {
 				# 	img: "thumb-tim.png",
 				# 	name: "Timothy Grieves",
@@ -168,7 +193,7 @@ module PagesHelper
 					{team: 'Technical Advisory Board',
 					members: [
 						{
-							img: 'thumb-alex.jpg',
+							img: 'thumb-alex.png',
 							name: "Alex Redmon",
 							title: "Open Source Developer",
 							desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
@@ -188,12 +213,6 @@ module PagesHelper
 					name: "Matt Coleman",
 					title: "Developer",
 					desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston.",
-				},
-				{
-					img: 'thumb-jared-silver.jpg',
-					name: "Jared Silver",
-					title: "Intern",
-					desc: "Jared Silver is an entrepreneur and TEDx speaker taking a leave of absence from college to intern as a software developer for Quill. He also serves as a learning advisor for Codecademy, a 2017 EdSurge Independent Fellow, and the User Journeys Lead for Oppia. Jared's mission in life is to foster a human capital revolution through education technology."
 				},
 				{
 					img: 'thumb_akash.png',
