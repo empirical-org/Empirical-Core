@@ -33,7 +33,7 @@ export default React.createClass({
       maxPageNumber: 4,
       allFilterOptions: {
         section: [],
-        topic_category: [],
+        activity_category: [],
         activity_classification: [],
       },
       filters: ActivitySearchFilterConfig,
@@ -163,22 +163,24 @@ export default React.createClass({
     // Return the remaining list.
 
     let activityClassificationIds = [],
-      topicCategoryIds = [],
+      activityCategoryIds = [],
       sectionIds = [];
     _.each(this.state.activitySearchResults, (activity) => {
       activityClassificationIds.push(activity.classification.id);
-      topicCategoryIds.push(activity.topic.topic_category.id);
+      if (activity.activity_category) {
+        activityCategoryIds.push(activity.activity_category.id);
+      }
       if (activity.topic.section) {
         sectionIds.push(activity.topic.section.id);
       }
     });
     activityClassificationIds = _.uniq(activityClassificationIds);
-    topicCategoryIds = _.uniq(topicCategoryIds);
+    activityCategoryIds = _.uniq(activityCategoryIds);
     sectionIds = _.uniq(sectionIds);
 
     const availableOptions = {};
-    availableOptions.topic_category = _.reject(this.state.allFilterOptions.topic_category,
-      option => !_.contains(topicCategoryIds, option.id));
+    availableOptions.activity_category = _.reject(this.state.allFilterOptions.activity_category,
+      option => !_.contains(activityCategoryIds, option.id));
     availableOptions.section = _.reject(this.state.allFilterOptions.section,
       option => !_.contains(sectionIds, option.id));
     availableOptions.activity_classification = _.reject(this.state.allFilterOptions.activity_classification,
@@ -189,8 +191,8 @@ export default React.createClass({
 
   // Super bad pluralize function.
   pluralize(str) {
-    if (str === 'topic_category') {
-      return 'topic_categories';
+    if (str === 'activity_category') {
+      return 'activity_categories';
     }
     return `${str}s`;
   },

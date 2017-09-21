@@ -2265,6 +2265,13 @@ CREATE INDEX email_idx ON users USING gin (email gin_trgm_ops);
 
 
 --
+-- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON activity_category_activities USING btree (activity_id, activity_category_id);
+
+
+--
 -- Name: index_activities_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2283,6 +2290,34 @@ CREATE INDEX index_activities_on_topic_id ON activities USING btree (topic_id);
 --
 
 CREATE UNIQUE INDEX index_activities_on_uid ON activities USING btree (uid);
+
+
+--
+-- Name: index_activity_categories_on_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_categories_on_id ON activity_categories USING btree (id);
+
+
+--
+-- Name: index_activity_category_activities_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_category_activities_on_act_id_and_act_cat_id ON activity_category_activities USING btree (activity_category_id, activity_id);
+
+
+--
+-- Name: index_activity_category_activities_on_activity_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_category_activities_on_activity_category_id ON activity_category_activities USING btree (activity_category_id);
+
+
+--
+-- Name: index_activity_category_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_category_activities_on_activity_id ON activity_category_activities USING btree (activity_id);
 
 
 --
@@ -3338,5 +3373,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170911191447');
 
 INSERT INTO schema_migrations (version) VALUES ('20170914145423');
 
-INSERT INTO schema_migrations (version) VALUES ('20170920133317');
+INSERT INTO schema_migrations (version) VALUES ('20170920205353');
 
+INSERT INTO schema_migrations (version) VALUES ('20170920211610');
+
+INSERT INTO schema_migrations (version) VALUES ('20170920133317');
