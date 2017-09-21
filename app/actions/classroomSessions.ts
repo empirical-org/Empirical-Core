@@ -69,15 +69,29 @@ export function updateClassroomSessionWithoutCurrentSlide(data) {
   }
 }
 
-export function getInitialData(ca_id: string, lesson_id, initialized, preview) {
+export function getInitialData(ca_id: string, lesson_id: string, initialized, preview) {
   return function(dispatch) {
-    if (!initialized && !preview) {
-      if (ca_id) {
-        dispatch(getClassroomAndTeacherNameFromServer(ca_id, process.env.EMPIRICAL_BASE_URL))
-        dispatch(loadStudentNames(ca_id, process.env.EMPIRICAL_BASE_URL))
-        dispatch(loadFollowUpName(lesson_id, ca_id, process.env.EMPIRICAL_BASE_URL))
+    if (!initialized && ca_id) {
+      if (preview) {
+        dispatch(getPreviewData(ca_id, lesson_id))
+      } else {
+        dispatch(getLessonData(ca_id, lesson_id))
       }
     }
+  }
+}
+
+export function getLessonData(ca_id: string, lesson_id: string) {
+  return function(dispatch) {
+    dispatch(getClassroomAndTeacherNameFromServer(ca_id, process.env.EMPIRICAL_BASE_URL))
+    dispatch(loadStudentNames(ca_id, process.env.EMPIRICAL_BASE_URL))
+    dispatch(loadFollowUpNameAndSupportingInfo(lesson_id, ca_id, process.env.EMPIRICAL_BASE_URL))
+  }
+}
+
+export function getPreviewData(ca_id: string, lesson_id: string) {
+  return function(dispatch) {
+    dispatch(loadSupportingInfo(lesson_id, ca_id, process.env.EMPIRICAL_BASE_URL))
   }
 }
 
@@ -327,6 +341,11 @@ export function addFollowUpName(classroom_activity_id: string, followUpActivityN
   followUpRef.set(followUpActivityName)
 }
 
+export function addSupportingInfo(classroom_activity_id: string, supportingInfo: string|null): void {
+  const supportingInfoRef = classroomSessionsRef.child(`${classroom_activity_id}/supportingInfo`);
+  supportingInfoRef.set(supportingInfo)
+}
+
 export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
   const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
   console.log('question_id', question_id)
@@ -386,9 +405,9 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string|
   };
 }
 
-export function loadFollowUpName(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
+export function loadFollowUpNameAndSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
   return function (dispatch) {
-    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/follow_up_activity_name`, {
+    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/follow_up_activity_name_and_supporting_info`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -400,8 +419,29 @@ export function loadFollowUpName(lesson_id: string, classroom_activity_id: strin
       return response.json();
     }).then((response) => {
       addFollowUpName(classroom_activity_id, response.follow_up_activity_name)
+      addSupportingInfo(classroom_activity_id, response.supporting_info)
     }).catch((error) => {
       console.log('error retrieving follow up ', error)
+    });
+  };
+}
+
+export function loadSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
+  return function (dispatch) {
+    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/supporting_info`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {},
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      addSupportingInfo(classroom_activity_id, response.supporting_info)
+    }).catch((error) => {
+      console.log('error retrieving supporting info ', error)
     });
   };
 }

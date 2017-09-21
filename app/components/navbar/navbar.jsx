@@ -55,7 +55,7 @@ const Navbar = React.createClass({
 
   render: function () {
     if (this.quillLessons()) {
-      return (<TeacherLessonsNavbar />);
+      return (<TeacherLessonsNavbar params={this.props.params}/>);
     } else {
       return (
         <header className="nav" style={{height: '65px'}}>

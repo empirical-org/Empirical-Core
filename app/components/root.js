@@ -6,7 +6,7 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar params={this.props.params}/>
         {this.props.children}
       </div>
     );
