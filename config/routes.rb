@@ -376,6 +376,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'diagnostic/:activityId/stage/:stage' => 'activities#diagnostic'
   get 'diagnostic/:activityId/success' => 'activities#diagnostic'
   get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
+  get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 

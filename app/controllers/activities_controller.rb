@@ -49,6 +49,13 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def supporting_info
+    activity = Activity.find_by(id: params[:id]) || Activity.find_by(uid: params[:id])
+    if activity.supporting_info
+      redirect_to activity.supporting_info
+    end
+  end
+
 protected
 
   def any_search_params
