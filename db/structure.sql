@@ -92,7 +92,8 @@ CREATE TABLE activities (
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
-    follow_up_activity_id integer
+    follow_up_activity_id integer,
+    supporting_info character varying
 );
 
 
@@ -2264,6 +2265,13 @@ CREATE INDEX email_idx ON users USING gin (email gin_trgm_ops);
 
 
 --
+-- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON activity_category_activities USING btree (activity_id, activity_category_id);
+
+
+--
 -- Name: index_activities_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2282,6 +2290,34 @@ CREATE INDEX index_activities_on_topic_id ON activities USING btree (topic_id);
 --
 
 CREATE UNIQUE INDEX index_activities_on_uid ON activities USING btree (uid);
+
+
+--
+-- Name: index_activity_categories_on_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_categories_on_id ON activity_categories USING btree (id);
+
+
+--
+-- Name: index_activity_category_activities_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_category_activities_on_act_id_and_act_cat_id ON activity_category_activities USING btree (activity_category_id, activity_id);
+
+
+--
+-- Name: index_activity_category_activities_on_activity_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_category_activities_on_activity_category_id ON activity_category_activities USING btree (activity_category_id);
+
+
+--
+-- Name: index_activity_category_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_category_activities_on_activity_id ON activity_category_activities USING btree (activity_id);
 
 
 --
@@ -2415,6 +2451,13 @@ CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON cla
 --
 
 CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING btree (unit_id);
+
+
+--
+-- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
 
 
 --
@@ -3330,3 +3373,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170911191447');
 
 INSERT INTO schema_migrations (version) VALUES ('20170914145423');
 
+INSERT INTO schema_migrations (version) VALUES ('20170920205353');
+
+INSERT INTO schema_migrations (version) VALUES ('20170920211610');
+
+INSERT INTO schema_migrations (version) VALUES ('20170920133317');
