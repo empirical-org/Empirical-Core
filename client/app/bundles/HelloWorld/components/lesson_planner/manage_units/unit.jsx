@@ -138,11 +138,12 @@ export default React.createClass({
       this.props.data.classroom_activities.forEach((ca) => {
         classroomActivitiesArr.push(
           <ClassroomActivity
-            key={`${ca.id}-${this.props.data.unitId}`}
+            key={`${ca.id}-${this.props.data.unit.id}`}
             report={this.props.report}
             lesson={this.props.lesson}
             updateDueDate={this.props.updateDueDate}
             hideClassroomActivity={this.props.hideClassroomActivity}
+            unitId={this.props.data.unit.id}
             data={ca}
           />
         );
@@ -156,6 +157,7 @@ export default React.createClass({
             lesson={this.props.lesson}
             updateDueDate={this.props.updateDueDate}
             hideClassroomActivity={this.props.hideClassroomActivity}
+            unitId={this.props.data.unitId}
             data={ca}
           />
         );

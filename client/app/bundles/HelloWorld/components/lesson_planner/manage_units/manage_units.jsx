@@ -93,7 +93,7 @@ export default React.createClass({
     let units,
       x1;
     units = this.state.units;
-    x1 = _.reject(units, unit => unit.unit.id == id);
+    x1 = _.reject(units, unit => this.getIdFromUnit(unit) == id);
     this.setState({ units: x1, });
 
     $.ajax({
@@ -110,8 +110,12 @@ export default React.createClass({
       x1;
     units = this.state.units;
     x1 = _.map(units, (unit) => {
-      if (unit.unit.id === unit_id) {
-        unit.classroom_activities = _.reject(unit.classroom_activities, ca => ca.id === ca_id);
+      if (this.getIdFromUnit(unit) === unit_id) {
+        if(unit.classroom_activities) {
+          unit.classroom_activities = _.reject(unit.classroom_activities, ca => ca.id === ca_id);
+        } else if(unit.classroomActivities) {
+          unit.classroomActivities = new Map(_.reject(Array.from(unit.classroomActivities), ca => ca[1].caId === ca_id)); // This is very bad code.
+        }
       }
       return unit;
     });
@@ -168,6 +172,10 @@ export default React.createClass({
       </span>
     );
     return <span />;
+  },
+
+  getIdFromUnit(unit) {
+    return unit.unitId || unit.unit.id;
   },
 
   render() {

@@ -44,7 +44,7 @@ export default React.createClass({
   hideClassroomActivity() {
     const x = confirm('Are you sure you want to delete this assignment?');
     if (x) {
-      this.props.hideClassroomActivity(this.props.data.id, this.props.data.unit_id);
+      this.props.hideClassroomActivity(this.caId(), this.unitId());
     }
   },
 
@@ -54,7 +54,7 @@ export default React.createClass({
   },
 
   goToRecommendations() {
-    const unitId = this.props.data.unit_id;
+    const unitId = this.unitId();
     const classroomId = this.props.data.classroom_id;
     const link = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${this.activityId()}/c/${classroomId}/recommendations`;
     window.location = link;
@@ -92,6 +92,10 @@ export default React.createClass({
 
   caId() {
     return this.props.data.caId || this.props.data.id;
+  },
+
+  unitId() {
+    return this.props.unitId || this.props.data.unit_id;
   },
 
   dueDate() {
