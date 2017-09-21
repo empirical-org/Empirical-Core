@@ -106,15 +106,13 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    diagnostic_activity_ids = [413, 447]
-    cas = current_user.classrooms_i_teach.includes(:students, classroom_activities: [{activity: :classification}, :topic]).where(classroom_activities: {activity_id: diagnostic_activity_ids}).map(&:classroom_activities).flatten
-    render json: units(cas).to_json
+    units_with_diagnostics = units.select { |a| a['activity_classification_id'] == '4' }
+    render json: units_with_diagnostics.to_json
   end
 
   def lesson_units
-    lesson_activity_ids = Activity.where(activity_classification_id: 6).map(&:id)
-    cas = Classroom.where(id: params[:classroom_id]).includes(:students, classroom_activities: [{activity: :classification}, :topic]).where(classroom_activities: {activity_id: lesson_activity_ids}).map(&:classroom_activities).flatten
-    render json: units(cas).to_json
+    units_with_lessons = units.select { |a| a['activity_classification_id'] == '6' }
+    render json: units_with_lessons.to_json
   end
 
   def hide
@@ -158,12 +156,12 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units
-    ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+    hi = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
        classrooms.name AS class_name,
        activities.activity_classification_id,
        ca.id AS classroom_activity_id,
-       ca.unit_id AS unit_id, 
+       ca.unit_id AS unit_id,
        array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
        ca.due_date,
        activities.id AS activity_id,
