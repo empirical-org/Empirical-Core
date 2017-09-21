@@ -5,7 +5,7 @@ module LastActiveClassroom
     last_active_arr = Classroom.find_by_sql("SELECT classrooms.id FROM classrooms
       JOIN classroom_activities AS ca ON ca.classroom_id = classrooms.id
       JOIN activity_sessions AS acts ON acts.classroom_activity_id = ca.id
-      WHERE classrooms.teacher_id = #{teacher_id}
+      WHERE classrooms.teacher_id = #{ActiveRecord::Base.sanitize(teacher_id)}
       AND classrooms.visible = true
       AND acts.state = 'finished'
       ORDER BY acts.completed_at DESC")

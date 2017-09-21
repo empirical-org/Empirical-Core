@@ -90,7 +90,7 @@ class Teachers::UnitsController < ApplicationController
 
   def launch_lesson_with_activity_id
     unit = Unit.find_by(id: params[:unit_id])
-    activity_id = params[:activity_id]
+    activity_id = params[:activity_id].to_i
     classroom_activities = unit.classroom_activities.where(activity_id: activity_id)
     if classroom_activities.length == 1
       ca_id = classroom_activities.first.id
