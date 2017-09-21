@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="20px" viewBox="0 0 23 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 20</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="V1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="12_12-Navbar" transform="translate(-1252.000000, -51.000000)" fill="#FFFFFF">
+            <g id="Group-6-Copy-2" transform="translate(0.000000, 30.000000)">
+                <g id="Group-19" transform="translate(1094.000000, 18.000000)">
+                    <g id="Group-13-Copy-3" transform="translate(90.500000, 13.500000) rotate(-180.000000) translate(-90.500000, -13.500000) translate(0.000000, 1.000000)">
+                        <g id="Group-5" transform="translate(0.000000, 0.000000)">
+                            <g id="Group-13">
+                                <g id="Group-20" transform="translate(0.000000, 3.000000)">
+                                    <path d="M3.62981299,11.3403044 C9.20993766,11.3403044 12,11.3403044 12,11.3403044 C12,11.3403044 12,10.6736378 12,9.34030443 L3.67590217,9.34030443 L5.76697992,7.33194955 L4.43288558,6 L-8.8817842e-16,10.354851 L4.35751224,14.7976638 L5.76697992,13.48801 L3.62979773,11.3403044 Z" id="Combined-Shape-Copy" fill-rule="nonzero"></path>
+                                    <path d="M20.8410777,0 L22.6666667,2 L20.8410777,2 L20.8410777,0 Z M22.6666667,18 L20.8410777,20 L20.8410777,18 L22.6666667,18 Z M2.88945236,2 L2.88945236,0 L22.6666667,0 L22.6666667,20 L2.88945236,20 L2.88945236,18 L20.8410777,18 L20.8410777,2 L2.88945236,2 Z M22.6666667,18 L20.8410777,20 L20.8410777,18 L22.6666667,18 Z M20.8410777,0 L22.6666667,2 L20.8410777,2 L20.8410777,0 Z M20.8410777,2 L2.88945236,2 C2.88945236,2 2,2.04931557 2,1.02465778 C2,0 2.88945236,0 2.88945236,0 L22.6666667,0 L22.6666667,20 L2.88945236,20 C2.88945236,20 2,20.092517 2,18.9911111 C2,17.8897052 2.88945236,18 2.88945236,18 L20.8410777,18 L20.8410777,2 Z" id="Rectangle-11-Copy-4" fill-rule="nonzero"></path>
+                                    <rect id="Rectangle-57" x="2" y="16" width="2" height="4"></rect>
+                                    <rect id="Rectangle-57-Copy" x="2" y="0" width="2" height="4"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
