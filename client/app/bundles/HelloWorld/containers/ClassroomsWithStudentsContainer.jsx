@@ -18,7 +18,6 @@ export default class extends React.Component {
 		this.getClassroomsAndStudentsData()
 	}
 
-
 	findTargetClassIndex(classroomId) {
 		return this.state.classrooms.findIndex((classy)=>{
 			return classy.id === classroomId
@@ -141,12 +140,23 @@ export default class extends React.Component {
 	classroomUpdated(classy) {
 		const assignedStudentIds = this.getAssignedIds(classy).sort()
 		let updated
-		if (assignedStudentIds.length > 0 && classy.classroom_activity) {
-			updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort())
-		} else if (assignedStudentIds.length == 0) {
-			updated = false
-		} else {
+		if (classy.classroom_activity) {
+			if (classy.classroom_activity.assigned_student_ids.length === 0) {
+				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
+				// if it is, there hasn't been an update unless there are no students in the class
+				const equalLengths = assignedStudentIds.length === classy.students.length
+				// this handles the edge case where a classroom with no students has an activity assigned,
+				// because if that class does have a classroom activity it would initially have allSelected = true, not noneSelected
+				updated = classy.students.length === 0 && classy.noneSelected ? true : !equalLengths
+			} else {
+				// if not everyone in the class was assigned, check to see if assigned student arrays are the same
+				updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort())
+			}
+		} else if (assignedStudentIds.length > 0) {
+			// if there were no students assigned but there are now, students have been added
 			updated = true
+		} else {
+			updated = false
 		}
 		return updated
 	}
