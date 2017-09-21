@@ -76,7 +76,7 @@ export default React.createClass({
   },
 
   handleNameChange(e) {
-    this.setState({ unitName: e.target.value, }, console.log(this.state.unitName));
+    this.setState({ unitName: e.target.value, });
   },
 
   editUnitName() {
@@ -105,7 +105,6 @@ export default React.createClass({
             unitName: that.state.savedUnitName, });
         },
       },
-      // error: this.setState.errors:
     });
   },
 
@@ -129,20 +128,24 @@ export default React.createClass({
   },
 
   addClassroomActivityRow() {
+    console.log(this.props.data);
     return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.props.data.unitId || this.props.data.unit.id} unitName={this.props.data.unitName || this.props.data.unit.name} />;
   },
 
   render() {
-    const classroomActivities = _.map(this.props.data.classroom_activities, function (ca) {
-      return (<ClassroomActivity
-        key={ca.id}
-        report={this.props.report}
-        lesson={this.props.lesson}
-        updateDueDate={this.props.updateDueDate}
-        hideClassroomActivity={this.props.hideClassroomActivity}
-        data={ca}
-      />);
-    }, this);
+    const classroomActivitiesArr = [];
+    (this.props.data.classroom_activities || this.props.data.classroomActivities).forEach((ca) => {
+      classroomActivitiesArr.push(
+        <ClassroomActivity
+          key={`${ca.id}-${this.props.data.unitId}`}
+          report={this.props.report}
+          lesson={this.props.lesson}
+          updateDueDate={this.props.updateDueDate}
+          hideClassroomActivity={this.props.hideClassroomActivity}
+          data={ca}
+        />
+      );
+    });
     return (
       <section>
         <div className="row unit-header-row" id={this.props.data.unitId || this.props.data.unit.id}>
@@ -158,7 +161,7 @@ export default React.createClass({
           {this.dueDate()}
         </div>
         <div className="table assigned-activities">
-          {classroomActivities}
+          {classroomActivitiesArr}
           {this.addClassroomActivityRow()}
         </div>
       </section>

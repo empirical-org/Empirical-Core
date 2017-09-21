@@ -158,12 +158,12 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units
-    ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name, 
+    ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
        classrooms.name AS class_name,
        activities.activity_classification_id,
        ca.id AS classroom_activity_id,
-       ca.unit_id,
+       ca.unit_id AS unit_id, 
        array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
        ca.due_date,
        activities.id AS activity_id,
