@@ -143,7 +143,7 @@ export default class extends React.Component {
 		if (classy.classroom_activity) {
 			if (classy.classroom_activity.assigned_student_ids.length === 0) {
 				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
-				// if it is, there hasn't been an update unless there are no students in hte class
+				// if it is, there hasn't been an update unless there are no students in the class
 				const equalLengths = assignedStudentIds.length === classy.students.length
 				// this handles the edge case where a classroom with no students has an activity assigned,
 				// because if that class does have a classroom activity it would initially have allSelected = true, not noneSelected
