@@ -16,13 +16,13 @@ export interface Question {
 }
 
 export interface QuestionData {
-  play: PlayData
-  teach: TeachData
+  play: PlayData;
+  teach: TeachData;
 }
 
 export interface PlayData {
   topic?: string;
-  [key:string]: any
+  [key:string]: any;
 }
 
 export interface TeachData {
