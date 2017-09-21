@@ -430,12 +430,6 @@ describe('ClassroomsWithStudentsContainer container', () => {
       expect(wrapper.instance().classroomUpdated(wrapper.state().classrooms[0])).toBe(false)
     })
 
-      it('returns false if the selected students are the same as the originally assigned students', () => {
-        const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
-        wrapper.setState(_.cloneDeep(state))
-        expect(wrapper.instance().classroomUpdated(wrapper.state().classrooms[0])).toBe(false)
-      })
-
     it('returns true otherwise', () => {
       const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
       const newState = _.cloneDeep(state)
