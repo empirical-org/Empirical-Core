@@ -1,5 +1,23 @@
 #admin-dashboard {
 
+  .error, .message {
+    font-size: 16px;
+    margin-top: 15px;
+  }
+
+  .error {
+    color: #ff4542
+  }
+
+  .message {
+    color: #348fdf;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
   .blur {
     tr {
       td:nth-of-type(2),td:nth-of-type(3),td:nth-of-type(4), {
@@ -15,6 +33,9 @@
   .sub-container {
     max-width: 950px;
     margin: 0 auto;
+    @media (max-width: 1000px) {
+      margin: 0 10px;
+    }
   }
   input {
     max-width: 150px;
@@ -23,4 +44,249 @@
   .add-user {
     margin-left: 20px;
   }
+
+  #features {
+    color: #3b3b3b;
+    margin-top: 22px;
+    h2 {
+      margin-bottom: 10px;
+    }
+    .features-list {
+      display: flex;
+      margin-top: 32px;
+      .feature {
+        width: 320px;
+        &:first-of-type, &:nth-of-type(2) {
+          padding-right: 60px;
+        }
+        img {
+          margin-bottom: 15px;
+        }
+        h3 {
+          font-size: 20px;
+          font-weight: 600;
+        }
+        .dividing-line {
+          width: 45px;
+          margin-bottom: 15px;
+          margin-top: 10px;
+          height: 1px;
+          border-top: solid 1px #3b3b3b;
+        }
+        .contact {
+          margin-top: 15px;
+          align-items: center;
+          display: flex;
+          img {
+            margin-bottom: 0px;
+            margin-right: 20px;
+            height: 55px;
+            border-radius: 30px;
+          }
+        }
+      }
+    }
+    .pd-session {
+      height: 48px;
+      border-radius: 100px;
+      background-color: #ae55e2;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      padding: 0px 24px;
+      margin-top: 25px;
+      span:first-of-type {
+        font-weight: bold;
+      }
+      span:nth-of-type(2) {
+        text-decoration: underline;
+      }
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    @media (max-width: 800px) {
+      text-align: center;
+      .features-list {
+        flex-direction: column;
+        align-items: center;
+        .feature {
+          margin-bottom: 30px;
+          &:first-of-type, &:nth-of-type(2) {
+            padding-right: 0px;
+          }
+          .dividing-line {
+            display: none;
+          }
+          .contact {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+  #teacher_account_access {
+    padding-top: 55px;
+    h2 {
+      margin-bottom: 15px;
+    }
+    .warning {
+      font-weight: bold;
+    }
+    .teacher-link {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  #create_new_accounts {
+    padding-top:70px;
+    margin-bottom: 150px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      .text-black {
+        border-radius: 6px;
+        border: solid 1px black;
+      }
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.62;
+      max-width: 850px;
+      span {
+        font-weight: bold;
+      }
+    }
+    .form-and-schools-list {
+      display: flex;
+      margin-top: 50px;
+      @media (max-width: 475px){
+        flex-direction: column;
+        .form {
+          margin-right: none;
+          padding-right: 0px;
+          margin-bottom: 30px;
+        }
+      }
+      .form {
+        max-width: 586px;
+        width: 100%;
+        border-right: 1px solid #c0c0c0;
+        padding-right: 55px;
+        input {
+          margin-right: 0px;
+        }
+        .first-line, .second-line {
+          margin-bottom: 20px;
+        }
+        .first-line {
+          display: flex;
+          justify-content: space-between;
+          @media (max-width: 1000px) {
+            flex-direction: column;
+            margin-bottom: 0px;
+            input {
+              margin-bottom: 20px;
+              width: 100%;
+              max-width: 520px !important;
+            }
+          }
+        }
+        .second-line {
+          position: relative;
+          max-width: 521px;
+          width: 100%;
+          &:focus {
+            outline: none;
+          }
+          button {
+            &.select-gray {
+              background: white;
+              color: #757575;
+              margin-top: 0px !important;
+            }
+            &:focus {
+              outline: none;
+            }
+          }
+          .dropdown-menu {
+            margin: 0px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            li {
+              height: 25px;
+              color: #757575;
+              display: flex;
+              align-items: center;
+              padding-left: 14px;
+            }
+          }
+        }
+        .first-name, .last-name {
+          width: 150px;
+        }
+        .email {
+          max-width: 200px;
+          width: 100%;
+        }
+      }
+      .schools {
+        margin-left: 25px;
+        max-width: 350px;
+        width: 100%;
+        .schools-list {
+          background-color: white;
+          padding: 0 20px;
+          margin: 15px 0px;
+          max-width: 350px;
+          width: 100%;
+          .school {
+            font-size: 14px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            border-bottom: solid 1px #e9e9e9;
+            &:last-of-type {
+              border-bottom: none;
+            }
+            img {
+              height: 20px;
+              margin-right: 15px;
+            }
+          }
+        }
+      .need-access {
+        font-size: 14px;
+        font-style: italic;
+        color: #969696;
+        a {
+          text-decoration: underline;
+        }
+      }
+      }
+    }
+  }
+
+  #q-and-a {
+    position: relative;
+    width: 100vw;
+    left: calc(-50vw + 50%);
+    h1 {
+      margin-bottom: 50px;
+    }
+    .qa-section {
+      padding: 15px 0px;
+      .answer {
+        p, ol, ul {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+
 }

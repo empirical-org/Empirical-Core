@@ -36,7 +36,7 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      startDate: this.props.data.due_date ? moment(this.props.data.due_date) : undefined,
+      startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
       showModal: false,
     };
   },
@@ -44,17 +44,17 @@ export default React.createClass({
   hideClassroomActivity() {
     const x = confirm('Are you sure you want to delete this assignment?');
     if (x) {
-      this.props.hideClassroomActivity(this.props.data.id, this.props.data.unit_id);
+      this.props.hideClassroomActivity(this.caId(), this.unitId());
     }
   },
 
   handleChange(date) {
     this.setState({ startDate: date, });
-    this.props.updateDueDate(this.props.data.id, date.format());
+    this.props.updateDueDate(this.caId(), date.format());
   },
 
   goToRecommendations() {
-    const unitId = this.props.data.unit_id;
+    const unitId = this.unitId();
     const classroomId = this.props.data.classroom_id;
     const link = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${this.activityId()}/c/${classroomId}/recommendations`;
     window.location = link;
@@ -70,6 +70,12 @@ export default React.createClass({
       );
     }
   },
+
+	supportingInfo() {
+		if (this.props.data.activity.supporting_info && window.location.pathname.includes('lessons')) {
+			return <a className="recommendations-button" target="_blank" href={`/activities/${this.props.data.activity_id}/supporting_info`}>Download Lesson Plan</a>
+		}
+	},
 
   urlForReport() {
     const d = this.props.data;
@@ -92,6 +98,14 @@ export default React.createClass({
 
   caId() {
     return this.props.data.caId || this.props.data.id;
+  },
+
+  unitId() {
+    return this.props.unitId || this.props.data.unit_id;
+  },
+
+  dueDate() {
+    return this.props.data.due_date || this.props.data.dueDate;
   },
 
   activityId() {

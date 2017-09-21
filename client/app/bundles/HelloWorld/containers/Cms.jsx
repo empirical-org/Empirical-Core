@@ -72,7 +72,9 @@ export default React.createClass({
             <CmsIndexTable data={{resources: this.state[this.props.resourceNamePlural] }}
                               actions={{edit: this.edit, delete: this.delete}}
                               isSortable={this.isSortable()}
-                              updateOrder={this.updateOrder}/>
+                              updateOrder={this.updateOrder}
+                              resourceNameSingular={this.props.resourceNameSingular}
+                            />
           </div>
         </div>
       </span>

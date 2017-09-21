@@ -172,6 +172,7 @@ group :test, :development do
   gem 'teaspoon-mocha'
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
+  gem 'brakeman'
 end
 
 group :test do
