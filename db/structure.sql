@@ -92,7 +92,8 @@ CREATE TABLE activities (
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
-    follow_up_activity_id integer
+    follow_up_activity_id integer,
+    supporting_info character varying
 );
 
 
@@ -3376,3 +3377,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170920205353');
 
 INSERT INTO schema_migrations (version) VALUES ('20170920211610');
 
+INSERT INTO schema_migrations (version) VALUES ('20170920133317');

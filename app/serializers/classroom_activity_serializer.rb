@@ -4,7 +4,6 @@ class ClassroomActivitySerializer < ActiveModel::Serializer
   has_one :activity
   has_one :classroom
 
-
   def formatted_due_date
     object.formatted_due_date
   end

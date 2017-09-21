@@ -17,6 +17,7 @@ describe ActivitySerializer, type: :serializer do
          uid
          updated_at
          activity_category
+         supporting_info
          )
     end
   end

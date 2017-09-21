@@ -42,8 +42,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         redirect_to default_diagnostic_url
     end
 
-    def report_from_activity_session
-        act_sesh_report = activity_session_report(params[:activity_session].to_i)
+    def report_from_classroom_activity_and_user
+        act_sesh_report = activity_session_report(params[:classroom_activity_id].to_i, params[:user_id].to_i)
         render json: act_sesh_report.to_json
     end
 
