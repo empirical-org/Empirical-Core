@@ -17,7 +17,7 @@ export default React.createClass({
   hideUnit() {
     const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
     if (x) {
-      this.props.hideUnit(this.props.data.unitId || this.props.data.unit.id);
+      this.props.hideUnit(this.getUnitId());
     }
   },
 
@@ -32,7 +32,7 @@ export default React.createClass({
   },
 
   editUnit() {
-    this.props.editUnit(this.props.data.unitId || this.props.data.unit.id);
+    this.props.editUnit(this.getUnitId());
   },
 
   delete() {
@@ -84,7 +84,7 @@ export default React.createClass({
   },
 
   editStudentsLink() {
-    return this.props.report || this.props.lesson ? null : <a className="edit-unit edit-students" href={`/teachers/classrooms/activity_planner/units/${this.props.data.unitId || this.props.data.unit.id}/students/edit`}>Edit Classes & Students</a>;
+    return this.props.report || this.props.lesson ? null : <a className="edit-unit edit-students" href={`/teachers/classrooms/activity_planner/units/${this.getUnitId()}/students/edit`}>Edit Classes & Students</a>;
   },
 
   handleSubmit() {
@@ -127,9 +127,13 @@ export default React.createClass({
     // return this.state.edit ? this.submitName() : this.editName()
   },
 
+  getUnitId() {
+    return this.props.data.unitId || this.props.data.unit.id;
+  },
+
   addClassroomActivityRow() {
     console.log(this.props.data);
-    return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.props.data.unitId || this.props.data.unit.id} unitName={this.props.data.unitName || this.props.data.unit.name} />;
+    return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
   },
 
   renderClassroomActivities() {
@@ -169,7 +173,7 @@ export default React.createClass({
   render() {
     return (
       <section>
-        <div className="row unit-header-row" id={this.props.data.unitId || this.props.data.unit.id}>
+        <div className="row unit-header-row" id={this.getUnitId()}>
           <span className="unit-name">
             {this.showOrEditName()}
           </span>
