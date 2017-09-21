@@ -8,9 +8,8 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
 
   def links
     [
-      { name: "Classroom Manager", path: admin_sign_in_classroom_manager_user_path(object) },
-      { name: "Progress Reports", path: admin_sign_in_progress_reports_user_path(object) },
-      { name: "Account Settings", path: admin_sign_in_account_settings_user_path(object) }
+      { name: "Teacher Access", path: admin_sign_in_classroom_manager_user_path(object) },
+      { name: "Premium Reports", path: admin_sign_in_progress_reports_user_path(object) },
     ]
   end
 

@@ -1,0 +1,14 @@
+<p>Hi <%= @user.first_name %>,</p>
+
+<p>Do you teach at the school <%= @school.name%>?</p>
+
+<p>This school now has Quill Premium for Schools, and an administrator has requested an upgrade on your behalf. To receive access to premium features, link your account to your school by clicking the button below.</p>
+
+<a href=<%= "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@school.id}" %>>Link My Account To My School</a>
+
+<p>With Quill Premium access, you can get access to concepts and standards reports and you can download and print your student reports. You will also receive priority support so if you contact us at support@quill.org.</p>
+
+<p>Your school will also receive Quill professional development. For more information about the session, reach out to your Quill school administrator. We’re excited that you have joined our community of learners, and welcome your questions and feedback!
+
+<p>Enjoy,</p>
+<p>Becca Garrison</p>

@@ -18,7 +18,9 @@ export default React.createClass({
     return <CmsIndexTableRow
                   data={{resource: resource, identifier: this.props.data.identifier}}
                   key={index}
-                  actions={this.props.actions} />;
+                  actions={this.props.actions}
+                  resourceNameSingular={this.props.resourceNameSingular}
+                />;
   },
 
   identifier: function () {

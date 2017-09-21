@@ -1,5 +1,5 @@
 class ActivitySerializer < ActiveModel::Serializer
-  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :anonymous_path, :activity_category
+  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :anonymous_path, :activity_category
 
   has_one :classification, serializer: ClassificationSerializer
   has_one :topic

@@ -33,13 +33,13 @@ export default React.createClass({
   },
   render() {
     return (
-      <div className="button-select">
-        <button type="button" className={`${this.getButtonClassName()} select-mixin button-select button-select-wrapper`} data-toggle="dropdown">
-          {this.props.selectedOption.name}
-          <i className="fa fa-caret-down" />
-        </button>
-        {this.getFilterOptions()}
-      </div>
+        <div className={`button-select ${this.props.className}`}>
+          <button type="button" className={this.getButtonClassName() + " select-mixin button-select button-select-wrapper"} data-toggle="dropdown">
+            {this.props.selectedOption.name || this.props.placeholder}
+            <i className="fa fa-caret-down"></i>
+          </button>
+          {this.getFilterOptions()}
+        </div>
     );
   },
 });
