@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1497,63 +1497,6 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_digest character varying(255),
-    role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    classcode character varying(255),
-    active boolean DEFAULT false,
-    username character varying(255),
-    token character varying(255),
-    ip_address inet,
-    clever_id character varying(255),
-    signed_up_with_google boolean DEFAULT false,
-    send_newsletter boolean DEFAULT false,
-    flag character varying,
-    google_id character varying,
-    last_sign_in timestamp without time zone
-);
-
-
---
--- Name: untitled_materialized_view; Type: MATERIALIZED VIEW; Schema: public; Owner: -
---
-
-CREATE MATERIALIZED VIEW untitled_materialized_view AS
- SELECT ((sum(a.total_students) / sum(b.total_students)) * (( SELECT count(DISTINCT s.id) AS students
-           FROM ((((((users t
-             LEFT JOIN ip_locations ON ((ip_locations.user_id = t.id)))
-             LEFT JOIN classrooms ON ((t.id = classrooms.teacher_id)))
-             LEFT JOIN users s ON (((classrooms.code)::text = (s.classcode)::text)))
-             LEFT JOIN activity_sessions ON ((s.id = activity_sessions.user_id)))
-             LEFT JOIN schools_users ON ((t.id = schools_users.user_id)))
-             LEFT JOIN schools ON ((schools_users.school_id = schools.id)))
-          WHERE (((activity_sessions.state)::text = 'finished'::text) AND (activity_sessions.completed_at < date_trunc('DAY'::text, (('now'::text)::date - '1 year'::interval))) AND ((ip_locations.country IS NULL) OR ((ip_locations.country)::text = 'United States'::text)))))::numeric)
-   FROM ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE ((schools_users.school_id IS NOT NULL) AND (s.free_lunches >= 40))) a,
-    ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE (schools_users.school_id IS NOT NULL)) b
-  WITH NO DATA;
-
-
---
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1615,6 +1558,32 @@ CREATE SEQUENCE user_subscriptions_id_seq
 --
 
 ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
+    active boolean DEFAULT false,
+    username character varying(255),
+    token character varying(255),
+    ip_address inet,
+    clever_id character varying(255),
+    signed_up_with_google boolean DEFAULT false,
+    send_newsletter boolean DEFAULT false,
+    flag character varying,
+    google_id character varying,
+    last_sign_in timestamp without time zone
+);
 
 
 --
@@ -2454,13 +2423,6 @@ CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON cla
 --
 
 CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING btree (unit_id);
-
-
---
--- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
 
 
 --
