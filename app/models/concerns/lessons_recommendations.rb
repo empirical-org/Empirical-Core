@@ -51,6 +51,12 @@ module LessonsRecommendations
 
     def percentage_needing_instruction(fail_count)
       @total_count ||= @activity_sessions.length
+      if fail_count.nil? && @total_count.nil?
+        puts 'percentage_needing_instruction fail_count and @total_count are both nil'
+        puts "Activity ID: #{@activity_id}"
+        puts "Classroom ID: #{@classroom_activity.classroom_id}"
+        return 0
+      end
       ((fail_count.to_f/@total_count.to_f)*100).round
     end
 
