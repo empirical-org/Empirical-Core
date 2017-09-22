@@ -185,4 +185,35 @@
     }
   }
 
+  .row-list-end {
+    position: relative;
+    .locked-tooltip {
+      position: absolute;
+      font-size: 13px;
+      padding: 10px 16px;
+      bottom: 38px;
+      right: 13px;
+      width: 405px;
+      border-radius: 3px;
+      background-color: #348fdf;
+      z-index: 100;
+      color: white;
+      .tooltip-header {
+        font-weight: bold;
+      }
+      i {
+        position: absolute;
+        color: #348fdf;
+        top: 51px;
+        right: 6px;
+        font-size: 30px;
+      }
+      p {
+        font-size: 12px;
+        line-height: 1.33;
+        letter-spacing: 0.1px;
+      }
+    }
+  }
+
 }
