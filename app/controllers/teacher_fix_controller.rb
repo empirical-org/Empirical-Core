@@ -99,4 +99,24 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  def google_unsync_account
+    original_email = params['original_email']
+    user = User.find_by_email(original_email)
+    if user
+      new_email = params['new_email']
+      if new_email != ''
+        user.update(email: new_email, password: params['password'], google_id: nil, signed_up_with_google: false)
+      else
+        user.update(password: params['password'], google_id: nil, signed_up_with_google: false)
+      end
+      if user.errors.any?
+        render json: user.errors
+      else
+        render json: {}, status: 200
+      end
+    else
+      render json: {error: "We do not have a user registered with the email #{original_email}"}
+    end
+  end
+
 end

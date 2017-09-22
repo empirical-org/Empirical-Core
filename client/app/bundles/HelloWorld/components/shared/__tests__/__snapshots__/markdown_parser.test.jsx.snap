@@ -5,6 +5,11 @@ exports[`MarkdownParser component should render <ReactMarkdown /> 1`] = `
   className="markdown-text undefined"
   containerTagName="div"
   parserOptions={Object {}}
+  renderers={
+    Object {
+      "Link": [Function],
+    }
+  }
   source=""
 />
 `;

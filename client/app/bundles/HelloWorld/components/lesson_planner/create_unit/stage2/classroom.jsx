@@ -33,7 +33,7 @@
       var selected = _.where(this.props.students, {isSelected: true});
       allSelected = (selected.length == this.props.students.length);
     } else {
-      allSelected = false;
+      allSelected = this.props.allSelected;
     }
     return (
         <input type='checkbox'
