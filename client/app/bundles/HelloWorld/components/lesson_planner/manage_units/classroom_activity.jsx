@@ -71,6 +71,12 @@ export default React.createClass({
     }
   },
 
+	supportingInfo() {
+		if (this.props.data.activity.supporting_info && window.location.pathname.includes('lessons')) {
+			return <a className="recommendations-button" target="_blank" href={`/activities/${this.props.data.activity_id}/supporting_info`}>Download Lesson Plan</a>
+		}
+	},
+
   urlForReport() {
     const d = this.props.data;
     return `/teachers/progress_reports/diagnostic_reports#/u/${d.unit_id}/a/${d.activity_id}/c/${d.classroom_id}/students`;

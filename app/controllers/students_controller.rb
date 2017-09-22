@@ -6,6 +6,7 @@ class StudentsController < ApplicationController
   end
 
   def make_teacher
+    params[:role] = 'teacher' unless params[:role] == 'student'
     if current_user.update(role: params[:role], email: params[:email])
       render json: {status: 200}
     else

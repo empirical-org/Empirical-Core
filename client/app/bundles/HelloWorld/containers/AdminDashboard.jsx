@@ -2,9 +2,13 @@
 import React from 'react';
 import TableSortingMixin from '../components/general_components/table/sortable_table/table_sorting_mixin.js';
 import _ from 'underscore';
-import AdminDashboardTop from '../components/admin_dashboard/admin_dashboard_top.jsx';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
+import PremiumFeatures from '../components/admin_dashboard/premium_features';
+import CreateNewAccounts from '../components/admin_dashboard/create_new_accounts.jsx';
+import QuestionsAndAnswers from './QuestionsAndAnswers'
 import pluralize from 'pluralize';
+import request from 'request'
+import getAuthToken from '../components/modules/get_auth_token'
 
 export default React.createClass({
   mixins: [TableSortingMixin],
@@ -27,6 +31,10 @@ export default React.createClass({
   },
 
   componentDidMount() {
+    this.getData()
+  },
+
+  getData() {
     const sortDefinitions = this.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     $.ajax({
@@ -95,6 +103,24 @@ export default React.createClass({
     this.setState({ model: data, loading: false, });
   },
 
+  addTeacherAccount(data) {
+    const that = this
+    that.setState({message: '', error: ''})
+    data.authenticity_token = getAuthToken()
+    request.post(`${process.env.DEFAULT_URL}/admins/${that.props.id}/teachers`, {
+      json: data
+    },
+    (e, r, response) => {
+      if (response.error) {
+        that.setState({error: response.error})
+      } else if (r.statusCode === 200){
+        that.setState({message: response.message}, () => that.getData())
+      } else {
+        console.log(response)
+      }
+    })
+  },
+
   displaySchools() {
     if (this.state.model && this.state.model.schools) {
       return (<p style={{ paddingTop: '1em', paddingBottom: '1em', }}><strong>You are an admin of the following {this.schoolConjugation()}: </strong><br />
@@ -109,22 +135,12 @@ export default React.createClass({
   },
 
   render() {
-    const teachers = this.applySorting(this.state.model.teachers);
+    const teachers = this.state.model.teachers ? this.applySorting(this.state.model.teachers) : [];
     if (!this.state.loading) {
       return (
         <div >
           <div className="sub-container">
-            <AdminDashboardTop />
-            <div className="flex-row space-between">
-              <div>
-                <h3>Connecting With Your Teachers</h3>
-                When a teacher joins a school you are an admin of, you will automatically see them added below. Teachers can add schools by following <a className="green-link" href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-add-my-school">these instructions.</a>
-                {this.displaySchools()}
-              </div>
-              <a className="green-link" href="mailto:ryan@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
-                <button className="button-green">Bulk Upload Teachers via CSV</button>
-              </a>
-            </div>
+            <PremiumFeatures/>
             <AdminsTeachers
               isValid={!!this.state.model.valid_subscription}
               currentSort={this.state.currentSort}
@@ -132,6 +148,15 @@ export default React.createClass({
               sortHandler={this.sortHandler()}
               data={teachers}
               columns={this.teacherColumns()}
+            />
+            <CreateNewAccounts
+              schools={this.state.model.schools}
+              addTeacherAccount={this.addTeacherAccount}
+              error={this.state.error}
+              message={this.state.message}
+            />
+            <QuestionsAndAnswers
+              questionsAndAnswersFile='admin'
             />
           </div>
         </div>

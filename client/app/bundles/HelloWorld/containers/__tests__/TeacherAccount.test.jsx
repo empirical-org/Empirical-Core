@@ -159,6 +159,24 @@ describe('TeacherAccount container', () => {
 
   describe('if the user uses google', () => {
     wrapper.setState({googleId: 7});
+    describe('input with ref email', () => {
+      it('should render', () => {
+        expect(wrapperStaff.ref('email').exists()).toBe(true);
+      });
+
+      it('should have class inactive', () => {
+        expect(wrapperStaff.ref('email').props().className).toBe('inactive');
+      });
+
+      it('should have value depending on state', () => {
+        wrapperStaff.setState({email: 'george@vandelay.industries'});
+        expect(wrapperStaff.ref('email').props().value).toBe('george@vandelay.industries');
+      });
+
+      it.skip('should have readOnly flag', () => {
+        //TODO: figure out how to test presence of readOnly flag
+      });
+    });
     wrapperStaff.setState({googleId: 7});
     describe('if the user is staff', () => {
       describe('input with ref email', () => {
@@ -178,13 +196,6 @@ describe('TeacherAccount container', () => {
         it.skip('should have readOnly flag', () => {
           //TODO: figure out how to test presence of readOnly flag
         });
-      });
-    });
-
-    describe('if the user is not staff', () => {
-      it.skip('should not display input with ref email', () => {
-        //TODO: fix this test
-        expect(wrapper.ref('email').exists()).toBe(false);
       });
     });
   });
@@ -235,27 +246,6 @@ describe('TeacherAccount container', () => {
 
   it('should render name errors based on state', () => {
     wrapper.setState({errors: {name: 'I am error'}});
-    expect(wrapper.text()).toMatch('I am error');
-  });
-
-  describe('input with ref username', () => {
-    it('should render', () => {
-      expect(wrapper.ref('username').exists()).toBe(true);
-    });
-
-    it('should have value equal to state.username', () => {
-      wrapper.setState({username: 'koko_the_monkey'});
-      expect(wrapper.ref('username').props().value).toBe('koko_the_monkey');
-    });
-
-    it('should have an onChange event that changes state.username', () => {
-      wrapper.ref('username').simulate('change', {target: {value: 'koko'}});
-      expect(wrapper.state().username).toBe('koko');
-    });
-  });
-
-  it('should render username errors based on state', () => {
-    wrapper.setState({errors: {username: 'I am error'}});
     expect(wrapper.text()).toMatch('I am error');
   });
 

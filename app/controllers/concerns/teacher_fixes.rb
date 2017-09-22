@@ -28,8 +28,8 @@ module TeacherFixes
   def self.same_classroom?(id1, id2)
     ActiveRecord::Base.connection.execute("SELECT A.student_id, B.student_id, A.classroom_id
       FROM students_classrooms A, students_classrooms B
-      WHERE A.student_id = #{id1}
-      AND B.student_id = #{id2}
+      WHERE A.student_id = #{ActiveRecord::Base.sanitize(id1)}
+      AND B.student_id = #{ActiveRecord::Base.sanitize(id2)}
       AND A.classroom_id = B.classroom_id").to_a.any?
   end
 

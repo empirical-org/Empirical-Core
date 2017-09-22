@@ -83,6 +83,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
+  get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
   get 'teachers/get_diagnostic_info_for_dashboard_mini' => 'teachers#get_diagnostic_info_for_dashboard_mini'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
@@ -136,7 +137,7 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
-      get 'report_from_activity_session/:activity_session' => 'diagnostic_reports#report_from_activity_session'
+      get 'report_from_classroom_activity_and_user/ca/:classroom_activity_id/user/:user_id' => 'diagnostic_reports#report_from_classroom_activity_and_user'
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
@@ -338,11 +339,13 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
   get 'teacher_fix/recover_classroom_activities' => 'teacher_fix#index'
   get 'teacher_fix/move_student' => 'teacher_fix#index'
+  get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
   post 'teacher_fix/unarchive_units' => 'teacher_fix#unarchive_units'
   post 'teacher_fix/merge_student_accounts' => 'teacher_fix#merge_student_accounts'
   post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
+  put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
@@ -375,6 +378,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'diagnostic/:activityId/stage/:stage' => 'activities#diagnostic'
   get 'diagnostic/:activityId/success' => 'activities#diagnostic'
   get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
+  get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
 
