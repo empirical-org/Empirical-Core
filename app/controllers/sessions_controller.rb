@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       end
       sign_in(@user)
       if params[:redirect].present?
-        redirect_to params[:redirect]
+        redirect_to URI.parse(params[:redirect]).path
       else
         redirect_to profile_path
       end
