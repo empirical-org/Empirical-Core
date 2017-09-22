@@ -30,13 +30,14 @@ export default class ClassroomLessons extends React.Component {
     })
   }
 
-
   getLessons() {
+    const selectedClassroomId = this.state.selectedClassroomId;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/lesson_units`,
-      qs: {classroom_id: this.state.selectedClassroomId}
+      url: `${process.env.DEFAULT_URL}/teachers/lesson_units`
     }, (error, httpStatus, body) => {
-      this.setState({lessons: JSON.parse(body).units, loaded: true})
+      const lessons = JSON.parse(body);
+      const lessons_in_current_classroom = _.reject(lessons, lesson => lesson.classroom_id !== selectedClassroomId);
+      this.setState({lessons: lessons_in_current_classroom, loaded: true});
     })
   }
 
@@ -65,7 +66,58 @@ export default class ClassroomLessons extends React.Component {
 
   switchClassrooms(classroom) {
     this.props.history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`)
-    this.setState({selectedClassroomId: classroom.id}, () => this.getLessons())
+    this.setState({selectedClassroomId: classroom.id}, () => this.getLessons());
+  }
+
+  generateNewCaUnit(u) {
+    const caObj = {
+      studentCount: Number(u.array_length ? u.array_length : u.class_size),
+      classrooms: new Set([u.class_name]),
+      classroomActivities: new Map(),
+      unitId: u.unit_id,
+      unitCreated: u.unit_created_at,
+      unitName: u.unit_name,
+    };
+    caObj.classroomActivities.set(u.activity_id, {
+      name: u.activity_name,
+      activityId: u.activity_id,
+      created_at: u.classroom_activity_created_at,
+      caId: u.classroom_activity_id,
+      activityClassificationId: u.activity_classification_id,
+      dueDate: u.due_date, });
+    return caObj;
+  }
+
+  parseUnits(data) {
+    const parsedUnits = {};
+    data.forEach((u) => {
+      if (!parsedUnits[u.unit_id]) {
+        // if this unit doesn't exist yet, go create it with the info from the first ca
+        parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
+      } else {
+        const caUnit = parsedUnits[u.unit_id];
+        if (!caUnit.classrooms.has(u.class_name)) {
+          // add the info and student count from the classroom if it hasn't already been done
+          caUnit.classrooms.add(u.class_name);
+          caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
+        }
+        // add the activity info if it doesn't exist
+        caUnit.classroomActivities.set(u.activity_id,
+          caUnit.classroomActivities[u.activity_id] || {
+          name: u.activity_name,
+          caId: u.classroom_activity_id,
+          activityClassificationId: u.activity_classification_id,
+          createdAt: u.ca_created_at,
+          dueDate: u.due_date, });
+      }
+    });
+    return this.orderUnits(parsedUnits);
+  }
+
+  orderUnits(units) {
+    const unitsArr = [];
+    Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
+    return unitsArr;
   }
 
   render() {
@@ -81,7 +133,7 @@ export default class ClassroomLessons extends React.Component {
                                selectedClassroom={this.state.classrooms.find((classy) => classy.id === Number(this.state.selectedClassroomId))}
             />
             <Units
-              data={this.state.lessons}
+              data={this.parseUnits(this.state.lessons)}
               lesson={true}
             />
             </div>
