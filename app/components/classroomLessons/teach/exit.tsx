@@ -5,8 +5,8 @@ import AssignmentOptions from './assignmentOptions'
 import AssignButton from './assignButton'
 import AssignedSection from './assignedSection'
 import ScriptComponent from '../shared/scriptComponent'
+import CongratulationsModal from './congratulationsModal'
 import { getParameterByName } from '../../../libs/getParameterByName';
-
 
 class ExitSlide extends React.Component<any, any> {
   constructor(props) {
@@ -51,7 +51,7 @@ class ExitSlide extends React.Component<any, any> {
       if (this.props.followUpActivityName) {
         this.setState({assigned: true})
       } else {
-        window.location.href = process.env.EMPIRICAL_BASE_URL
+        this.setState({showCongratulationsModal: true})
       }
     }).catch((error) => {
       console.log('error', error)
@@ -95,9 +95,16 @@ class ExitSlide extends React.Component<any, any> {
     }
   }
 
+  renderCongratulationsModal() {
+    if (this.state.showCongratulationsModal) {
+      return <CongratulationsModal />
+    }
+  }
+
   render() {
     return (
       <div className='teacher-exit'>
+        {this.renderCongratulationsModal()}
         <div className="header">
           <h1>
             <span>Slide {this.props.data.current_slide}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}

@@ -1,0 +1,69 @@
+.congratulations-modal-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #969696;
+  .congratulations-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 520px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 55px 50px 50px;
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .illustration {
+      height: 110px;
+      margin-bottom: 20px;
+      width: 187px;
+    }
+    .dividing-line {
+      width: 109px;
+      border-bottom: solid 2px #979797;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      &.congratulations {
+        font-weight: bold;
+      }
+    }
+    p {
+      margin: 20px 0px;
+      font-size: 16px;
+      line-height: 1.56;
+      width: 450px;
+      span {
+        font-weight: bold;
+      }
+    }
+    button {
+      margin-top: 30px;
+      width: 147px;
+      height: 40px;
+      border-radius: 3px;
+      background-color: #00c2a2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
