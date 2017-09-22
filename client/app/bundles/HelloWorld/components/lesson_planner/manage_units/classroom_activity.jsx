@@ -109,8 +109,7 @@ export default React.createClass({
   },
 
   activityId() {
-    // TODO: MAKE THIS WORK
-    return this.props.data.activityId || this.props.data.activity_uid || this.props.data.activity.uid;
+    return this.props.data.activityId || this.props.data.activityUid || this.props.data.activity.uid;
   },
 
   activityName() {

@@ -9,6 +9,7 @@ export default class ClassroomLessons extends React.Component {
     super()
 
     this.state = {
+      allLessons: [],
       lessons: [],
       classrooms: this.getClassrooms(),
       loaded: false,
@@ -23,22 +24,25 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms
       if (classrooms.length > 0) {
-        this.setState({classrooms: classrooms, selectedClassroomId: this.props.routeParams.classroomId || classrooms[0].id}, () => this.getLessons())
+        this.setState({classrooms: classrooms, selectedClassroomId: this.props.routeParams.classroomId || classrooms[0].id}, () => this.getAllLessons())
       } else {
         this.setState({empty: true, loaded: true})
       }
     })
   }
 
-  getLessons() {
-    const selectedClassroomId = this.state.selectedClassroomId;
+  getAllLessons() {
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/lesson_units`
     }, (error, httpStatus, body) => {
       const lessons = JSON.parse(body);
-      const lessons_in_current_classroom = _.reject(lessons, lesson => lesson.classroom_id !== selectedClassroomId);
-      this.setState({lessons: lessons_in_current_classroom, loaded: true});
+      this.setState({allLessons: lessons}, () => this.getLessonsForCurrentClass());
     })
+  }
+
+  getLessonsForCurrentClass() {
+    const lessons_in_current_classroom = _.reject(this.state.allLessons, lesson => lesson.classroom_id !== this.state.selectedClassroomId);
+    this.setState({lessons: lessons_in_current_classroom, loaded: true});
   }
 
   renderHeader() {
@@ -66,7 +70,7 @@ export default class ClassroomLessons extends React.Component {
 
   switchClassrooms(classroom) {
     this.props.history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`)
-    this.setState({selectedClassroomId: classroom.id}, () => this.getLessons());
+    this.setState({selectedClassroomId: classroom.id}, () => this.getLessonsForCurrentClass());
   }
 
   generateNewCaUnit(u) {
@@ -81,6 +85,7 @@ export default class ClassroomLessons extends React.Component {
     caObj.classroomActivities.set(u.activity_id, {
       name: u.activity_name,
       activityId: u.activity_id,
+      activityUid: u.activity_uid,
       created_at: u.classroom_activity_created_at,
       caId: u.classroom_activity_id,
       activityClassificationId: u.activity_classification_id,
@@ -106,6 +111,7 @@ export default class ClassroomLessons extends React.Component {
           caUnit.classroomActivities[u.activity_id] || {
           name: u.activity_name,
           caId: u.classroom_activity_id,
+          activityUid: u.activity_uid,
           activityClassificationId: u.activity_classification_id,
           createdAt: u.ca_created_at,
           dueDate: u.due_date, });
