@@ -159,6 +159,7 @@ class Teachers::UnitsController < ApplicationController
     ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
        classrooms.name AS class_name,
+       classrooms.id AS classroom_id,
        activities.activity_classification_id,
        ca.id AS classroom_activity_id,
        ca.unit_id AS unit_id,
@@ -176,7 +177,7 @@ class Teachers::UnitsController < ApplicationController
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
-    GROUP BY units.name, units.created_at, ca.id, classrooms.name, activities.name, activities.activity_classification_id, activities.id").to_a
+    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id").to_a
   end
 
 end

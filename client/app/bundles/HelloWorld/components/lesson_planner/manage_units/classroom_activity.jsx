@@ -109,9 +109,8 @@ export default React.createClass({
   },
 
   activityId() {
-    // uid is just for lessons, in case we don't have the id
-    console.log(this.props.data);
-    return this.props.data.activityId || this.props.data.activity.uid;
+    // TODO: MAKE THIS WORK
+    return this.props.data.activityId || this.props.data.activity_uid || this.props.data.activity.uid;
   },
 
   activityName() {
