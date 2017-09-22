@@ -65,7 +65,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   renderHeader() {
     return (
       <div className="lobby-header">
-        <p className="unit-title">Unit: {this.props.lessonData.unit}</p>
+        <p className="unit-title">Lessons Pack: {this.props.lessonData.unit}</p>
         <p className="lesson-title">Lesson {this.props.lessonData.lesson}: {this.props.lessonData.topic}</p>
       </div>
     )
