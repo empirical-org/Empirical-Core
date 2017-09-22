@@ -72,7 +72,7 @@ class TeachersController < ApplicationController
   end
 
   def classrooms_i_teach_with_lessons
-    lesson_activity_ids = Activity.where(activity_classification_id: 6).map(&:id)
+    lesson_activity_ids = Activity.where(activity_classification_id: 6).ids
     classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [{activity: :classification}]).where(classroom_activities: {activity_id: lesson_activity_ids})
     render json: {classrooms: classrooms}
   end
