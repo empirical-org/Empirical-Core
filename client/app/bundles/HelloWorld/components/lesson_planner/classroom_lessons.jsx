@@ -13,7 +13,7 @@ export default class ClassroomLessons extends React.Component {
       lessons: [],
       classrooms: this.getClassrooms(),
       loaded: false,
-      selectedClassroomId: props.routeParams.classroomId,
+      selectedClassroomId: `${props.routeParams.classroomId}`,
     };
 
     this.switchClassrooms = this.switchClassrooms.bind(this);
@@ -23,7 +23,7 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
-        this.setState({ classrooms, selectedClassroomId: this.props.routeParams.classroomId || classrooms[0].id, }, () => this.getAllLessons());
+        this.setState({ classrooms, selectedClassroomId: this.props.routeParams.classroomId || `${classrooms[0].id}`, }, () => this.getAllLessons());
       } else {
         this.setState({ empty: true, loaded: true, });
       }
