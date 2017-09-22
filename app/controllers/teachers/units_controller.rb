@@ -156,7 +156,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units
-    hi = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+    ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
        classrooms.name AS class_name,
        activities.activity_classification_id,
