@@ -110,7 +110,6 @@ export default React.createClass({
     const data = {
       name: this.state.name,
       authenticity_token: $('meta[name=csrf-token]').attr('content'),
-      username: this.state.username,
       email: this.state.email,
       role: this.state.role,
       password: this.state.password,
@@ -286,8 +285,20 @@ export default React.createClass({
           <div className="col-xs-4">
             <input className="inactive" ref="email" value={this.state.email} readOnly />
           </div>
-          <div className="col-xs-4 error">
-            <span>This is a Google Classroom user, so changing their email here will break their account. Have a dev do it.</span>
+          <div className="col-xs-4">
+            <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a href={`${process.env.DEFAULT_URL}/teacher_fix/google_sync`}>here</a>.</span>
+          </div>
+        </div>);
+      } else {
+        showEmail = (<div className="row">
+          <div className="form-label col-xs-2">
+                        Email
+                      </div>
+          <div className="col-xs-4">
+            <input className="inactive" ref="email" value={this.state.email} readOnly />
+          </div>
+          <div className="col-xs-4">
+            <span>Your email is locked because it is connected to Google Classroom. If you need to change it, please contact us at <a href="mailto:support@quill.org">support@quill.org</a>.</span>
           </div>
         </div>);
       }
@@ -325,21 +336,10 @@ export default React.createClass({
                 {this.state.errors.name}
               </div>
             </div>
-            <div className="row">
-              <div className="form-label col-xs-2">
-								Username
-							</div>
-              <div className="col-xs-4">
-                <input ref="username" onChange={this.updateUsername} value={this.state.username} />
-              </div>
-              <div className="col-xs-4 error">
-                {this.state.errors.username}
-              </div>
-            </div>
-
-            {selectRole}
 
             {showEmail}
+            
+            {selectRole}
 
             <div className="row">
               <div className="form-label col-xs-2">
