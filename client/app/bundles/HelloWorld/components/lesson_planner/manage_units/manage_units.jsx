@@ -46,6 +46,7 @@ export default React.createClass({
       name: u.activity_name,
       activityId: u.activity_id,
       created_at: u.classroom_activity_created_at,
+      caId: u.classroom_activity_id,
       activityClassificationId: u.activity_classification_id,
       dueDate: u.due_date, });
     return caObj;
@@ -65,11 +66,13 @@ export default React.createClass({
           caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
         }
         // add the activity info if it doesn't exist
-        caUnit.classroomActivities[u.activity_id] = caUnit.classroomActivities[u.activity_id] || {
+        caUnit.classroomActivities.set(u.activity_id,
+          caUnit.classroomActivities[u.activity_id] || {
           name: u.activity_name,
+          caId: u.classroom_activity_id,
           activityClassificationId: u.activity_classification_id,
           createdAt: u.ca_created_at,
-          dueDate: u.due_date, };
+          dueDate: u.due_date, });
       }
     });
     return this.orderUnits(parsedUnits);
@@ -90,7 +93,7 @@ export default React.createClass({
     let units,
       x1;
     units = this.state.units;
-    x1 = _.reject(units, unit => unit.unit.id == id);
+    x1 = _.reject(units, unit => this.getIdFromUnit(unit) == id);
     this.setState({ units: x1, });
 
     $.ajax({
@@ -107,8 +110,12 @@ export default React.createClass({
       x1;
     units = this.state.units;
     x1 = _.map(units, (unit) => {
-      if (unit.unit.id === unit_id) {
-        unit.classroom_activities = _.reject(unit.classroom_activities, ca => ca.id === ca_id);
+      if (this.getIdFromUnit(unit) === unit_id) {
+        if(unit.classroom_activities) {
+          unit.classroom_activities = _.reject(unit.classroom_activities, ca => ca.id === ca_id);
+        } else if(unit.classroomActivities) {
+          unit.classroomActivities = new Map(_.reject(Array.from(unit.classroomActivities), ca => ca[1].caId === ca_id)); // This is very bad code.
+        }
       }
       return unit;
     });
@@ -165,6 +172,10 @@ export default React.createClass({
       </span>
     );
     return <span />;
+  },
+
+  getIdFromUnit(unit) {
+    return unit.unitId || unit.unit.id;
   },
 
   render() {
