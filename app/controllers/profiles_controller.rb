@@ -81,6 +81,7 @@ protected
       JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
       JOIN users AS teacher ON teacher.id = classrooms.teacher_id
       WHERE sc.student_id = #{current_user.id}
+      AND classrooms.visible = true
       ORDER BY sc.created_at ASC").to_a
   end
 
@@ -123,7 +124,7 @@ protected
 
   def next_activity_session
     # We only need to check the first activity session record here because of
-    # the order in which the the query returns these. 
+    # the order in which the the query returns these.
     if @act_sesh_records.any?
       @act_sesh_records.first['max_percentage'] ? nil : @act_sesh_records.first
     end
