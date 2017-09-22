@@ -35,11 +35,24 @@ describe Teachers::UnitsController, type: :controller do
     let!(:activity) {FactoryGirl.create(:activity)}
     let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity)}
 
-    it 'includes classrooms' do
-      post :index
-      x = JSON.parse(response.body)
-      expect(x['units'][0]['classrooms']).to_not be_empty
+    it 'should return json in the appropriate format' do
+      response = get :index
+      response = JSON.parse(response.body)
+      expect(response[0]['unit_name']).to eq(unit.name)
+      expect(response[0]['activity_name']).to eq(activity.name)
+      expect(response[0]['class_name']).to eq(classroom.name)
+      expect(response[0]['classroom_id']).to eq(classroom.id.to_s)
+      expect(response[0]['activity_classification_id']).to eq(activity.activity_classification_id.to_s)
+      expect(response[0]['classroom_activity_id']).to eq(classroom_activity.id.to_s)
+      expect(response[0]['unit_id']).to eq(unit.id.to_s)
+      expect(response[0]['class_size']).to eq(classroom.students.count.to_s)
+      expect(response[0]['activity_uid']).to eq(activity.uid)
+      expect(DateTime.parse(response[0]['due_date']).to_i).to eq(classroom_activity.due_date.to_i)
+      expect(response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
+      expect(response[0]['classroom_activity_created_at'].to_i).to eq(classroom_activity.created_at.to_i)
     end
+
+    # TODO write a VCR-like test to check when this request returns something other than what we expect.
   end
 
   describe '#update' do
