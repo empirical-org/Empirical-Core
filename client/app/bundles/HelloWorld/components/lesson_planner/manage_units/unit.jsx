@@ -138,7 +138,7 @@ export default React.createClass({
 
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
-    if(this.props.data.classroom_activities) {
+    if (this.props.data.classroom_activities) {
       this.props.data.classroom_activities.forEach((ca) => {
         classroomActivitiesArr.push(
           <ClassroomActivity
@@ -152,8 +152,8 @@ export default React.createClass({
           />
         );
       });
-    } else if(this.props.data.classroomActivities) {
-      for(var [key, ca] of this.props.data.classroomActivities) {
+    } else if (this.props.data.classroomActivities) {
+      for (const [key, ca] of this.props.data.classroomActivities) {
         classroomActivitiesArr.push(
           <ClassroomActivity
             key={`${this.props.data.unitId}-${key}`}
@@ -166,11 +166,15 @@ export default React.createClass({
           />
         );
       }
-    };
+    }
     return classroomActivitiesArr;
   },
 
   render() {
+    if (this.props.data.classroomActivities.size === 0) {
+      return null;
+    }
+
     return (
       <section>
         <div className="row unit-header-row" id={this.getUnitId()}>
