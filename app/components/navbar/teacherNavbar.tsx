@@ -10,9 +10,10 @@ import {
 } from '../../actions/classroomSessions';
 const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = require('../../img/exit_icon.svg')
-const projectorIcon = require('../../img/projector_icon.svg')
+const projectorIcon = 'http://assets.quill.org/images/icons/projector_icon.svg'
 const helpIcon = require('../../img/help_icon.svg')
 const flagIcon = require('../../img/flag_icon.svg')
+const pdfIcon = 'http://assets.quill.org/images/icons/download_pdf_icon.svg'
 
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
@@ -113,6 +114,12 @@ class TeacherNavbar extends React.Component<any, any> {
         default:
         break
       }
+    }
+  }
+
+  renderPDFLink() {
+    if (this.props.classroomSessions.data.supportingInfo) {
+      return <a target="_blank" href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}><img src={pdfIcon}/></a>
     }
   }
 
@@ -233,6 +240,9 @@ class TeacherNavbar extends React.Component<any, any> {
           <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p>
           <span className="toolbar">
             {this.presentStudentCount()}
+            <div>
+              {this.renderPDFLink()}
+            </div>
             <div
               onMouseEnter={(e) => this.showTooltip(e, 'flag')}
               onMouseLeave={(e) => this.hideTooltip(e)}
