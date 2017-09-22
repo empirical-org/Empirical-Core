@@ -286,8 +286,8 @@ export default React.createClass({
           <div className="col-xs-4">
             <input className="inactive" ref="email" value={this.state.email} readOnly />
           </div>
-          <div className="col-xs-4 error">
-            <span>This is a Google Classroom user, so changing their email here will break their account. Have a dev do it.</span>
+          <div className="col-xs-4">
+            <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a href={`${process.env.DEFAULT_URL}/teacher_fix/google_sync`}>here</a>.</span>
           </div>
         </div>);
       }
