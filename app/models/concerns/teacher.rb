@@ -46,10 +46,10 @@ module Teacher
   end
 
   def get_classroom_minis_info
-    # cache = get_classroom_minis_cache
-    # if cache
-    #   return cache
-    # end
+    cache = get_classroom_minis_cache
+    if cache
+      return cache
+    end
     classrooms = ActiveRecord::Base.connection.execute("SELECT classrooms.name AS name, classrooms.id AS id, classrooms.code AS code, COUNT(DISTINCT sc.id) as student_count  FROM classrooms
 			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
 			WHERE classrooms.visible = true AND classrooms.teacher_id = #{self.id}
@@ -62,8 +62,8 @@ module Teacher
           AND classrooms.visible AND acts.is_final_score = true
           GROUP BY classrooms.id").to_a
     info = classrooms.map do |classy|
-      # THIS IS THE LINE THAT NEEDS FIXING
-      classy['activity_count'] = counts.find { |elm| elm['id'] == classy['id'] }['count']
+      count = counts.find { |elm| elm['id'] == classy['id'] }
+      classy['activity_count'] = count  ? count['count'] : 0
       classy
     end
     # TODO: move setter to background worker
