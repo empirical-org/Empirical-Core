@@ -82,13 +82,13 @@ describe('StudentProfileActivity component', () => {
     expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
   });
 
-  it('should render "Locked by teacher" if activity is locked', () => {
+  it('should render "Needs Teacher" if activity is locked', () => {
     const wrapper = shallow(
       <StudentProfileActivity
         data={{locked: 't', name: 'Activity'}}
       />
     );
-    expect(wrapper.find('.row-list-end').text()).toMatch('Locked by teacher');
+    expect(wrapper.find('.row-list-end').text()).toMatch('Needs Teacher');
     expect(wrapper.find('a').exists()).toBe(false);
   });
 
