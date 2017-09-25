@@ -49,7 +49,7 @@ class Teachers::UnitsController < ApplicationController
     if activities_data.any?
       classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
-      Units::Updater.run(Unit.find(params[:id]), activities_data, classroom_activities)
+      Units::Updater.run(params[:id], activities_data, classroom_activities)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -58,11 +58,9 @@ class Teachers::UnitsController < ApplicationController
 
   def update_activities
     data = JSON.parse(params[:data],symbolize_names: true)
-    # TODO: get rid of unit
-    unit = Unit.find_by_id(params[:id])
     classrooms_data = formatted_classrooms_data(params[:id])
     if classrooms_data.any?
-      Units::Updater.run(unit, data[:activities_data], classrooms_data)
+      Units::Updater.run(params[:id], data[:activities_data], classrooms_data)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
