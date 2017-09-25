@@ -14,7 +14,7 @@ export default React.createClass({
   },
 
   renderAccountLimit() {
-    if (this.props.subscriptions.account_limit) {
+    if (this.props.subscription.account_limit) {
       return `Accounts:       ${this.props.subscription.account_limit} students`
     } else {
       return 'No account limit set.'
