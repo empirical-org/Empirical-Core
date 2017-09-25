@@ -112,6 +112,10 @@ class Teachers::UnitsController < ApplicationController
 
   def lesson_units
     units_with_lessons = units.select { |a| a['activity_classification_id'] == '6' }
+    units_with_lessons.map do |u|
+      u["completed"] = ClassroomActivity.find(u["classroom_activity_id"]).has_a_completed_session?
+      u
+    end
     render json: units_with_lessons.to_json
   end
 
@@ -158,6 +162,7 @@ class Teachers::UnitsController < ApplicationController
   def units
     ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
+       activities.supporting_info AS supporting_info,
        classrooms.name AS class_name,
        classrooms.id AS classroom_id,
        activities.activity_classification_id,
