@@ -76,7 +76,7 @@ export default React.createClass({
 	},
 
   urlForReport() {
-    return `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/students`;
+    return `/teachers/progress_reports/report_from_unit_and_activity/u/${this.unitId()}/a/${this.activityId()}`;
   },
 
   anonymousPath() {
