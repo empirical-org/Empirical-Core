@@ -54,15 +54,13 @@ export default React.createClass({
   },
 
   goToRecommendations() {
-    const unitId = this.unitId();
-    const classroomId = this.props.data.classroom_id;
-    const link = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${this.activityId()}/c/${classroomId}/recommendations`;
+    const link = `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/recommendations`;
     window.location = link;
   },
 
   buttonForRecommendations() {
     const diagnosticIds = [413, 447];
-    if (diagnosticIds.includes(this.props.data.activity_id) && window.location.pathname.includes('diagnostic_reports')) {
+    if (diagnosticIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
         <div onClick={this.goToRecommendations} className="recommendations-button">
 					Recommendations
@@ -73,17 +71,16 @@ export default React.createClass({
 
 	supportingInfo() {
 		if (this.props.data.activity.supporting_info && window.location.pathname.includes('lessons')) {
-			return <a className="recommendations-button" target="_blank" href={`/activities/${this.props.data.activity_id}/supporting_info`}>Download Lesson Plan</a>
+			return <a className="recommendations-button" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}>Download Lesson Plan</a>
 		}
 	},
 
   urlForReport() {
-    const d = this.props.data;
-    return `/teachers/progress_reports/diagnostic_reports#/u/${d.unit_id}/a/${d.activity_id}/c/${d.classroom_id}/students`;
+    return `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/students`;
   },
 
   anonymousPath() {
-    return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.caId()}`;
+    return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`;
   },
 
   finalCell() {
@@ -118,6 +115,10 @@ export default React.createClass({
 
   classification() {
     return this.props.data.activityClassificationId;
+  },
+
+  classroomId() {
+    return this.props.data.classroom_id;;
   },
 
   icon() {
@@ -161,7 +162,7 @@ export default React.createClass({
     if (this.state.showModal) {
       return (<PreviewOrLaunchModal
         lessonID={this.activityId()}
-        classroomActivityID={this.props.data.id}
+        classroomActivityID={this.caId()}
         closeModal={this.closeModal}
         completed={this.props.data.completed}
       />);
