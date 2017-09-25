@@ -44,6 +44,7 @@ export default React.createClass({
       created_at: u.classroom_activity_created_at,
       caId: u.classroom_activity_id,
       activityClassificationId: u.activity_classification_id,
+			classroomId: u.classroom_id,
       dueDate: u.due_date, });
     return caObj;
   },
@@ -69,6 +70,7 @@ export default React.createClass({
 					activityId: u.activity_id,
           created_at: u.classroom_activity_created_at,
           activityClassificationId: u.activity_classification_id,
+					classroomId: u.classroom_id,
           createdAt: u.ca_created_at,
           dueDate: u.due_date, });
       }
