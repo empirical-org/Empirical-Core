@@ -8,7 +8,7 @@ class ActivitySearchWrapper
     @activities = nil
     @activity_classifications = []
     @topics = []
-    @topic_categories = []
+    @activity_categories = []
     @sections = []
     @number_of_pages = nil
     @flag = flag
@@ -27,7 +27,7 @@ class ActivitySearchWrapper
     {
       activities: @activities,
       activity_classifications: @activity_classifications,
-      topic_categories: @topic_categories,
+      activity_categories: @activity_categories,
       sections: @sections,
       number_of_pages: @number_of_pages
     }
@@ -36,7 +36,7 @@ class ActivitySearchWrapper
   private
 
   def process_filters(filters)
-    filter_fields = [:activity_classifications, :topic_categories, :sections]
+    filter_fields = [:activity_classifications, :activity_categories, :sections]
     filters.reduce({}) do |acc, filter|
       filter_value = filter[1]
       # activityClassification -> activity_classifications
@@ -53,7 +53,7 @@ class ActivitySearchWrapper
   def get_custom_search_results
     get_activity_search
     get_activity_classifications
-    get_topics_topic_categories_and_sections
+    get_activity_categories_topics_and_section
     get_formatted_search_results
   end
 
@@ -71,9 +71,9 @@ class ActivitySearchWrapper
     @activity_classifications = activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}
   end
 
-  def get_topics_topic_categories_and_sections
+  def get_activity_categories_topics_and_section
     @topics = @activities.includes(topic: :topic_category).map(&:topic).uniq.compact
-    @topic_categories = @topics.map(&:topic_category).uniq.compact
+    @activity_categories = ActivityCategory.all
     @sections = @topics.map(&:section).uniq.compact
   end
 

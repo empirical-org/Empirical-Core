@@ -6,7 +6,7 @@ class TeachersController < ApplicationController
     if SchoolsAdmins.find_by(school: school, user: current_user)
       @teacher = User.find_by(email: teacher_params[:email])
       if @teacher
-        # Teacher exists. 
+        # Teacher exists.
         if SchoolsUsers.find_by(user: @teacher, school: school)
           # Teacher is already in the school, let the admin know.
           message = "#{teacher_params[:first_name]} #{teacher_params[:last_name]} is already registered to #{school.name}."
@@ -112,7 +112,9 @@ class TeachersController < ApplicationController
         number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.id) FROM activity_sessions actsesh
                               JOIN classroom_activities AS ca ON actsesh.classroom_activity_id = ca.id
                               WHERE ca.id = #{most_recently_completed['classroom_activity_id']}
-                              AND actsesh.state = 'finished'").to_a.first['count']
+                              AND actsesh.state = 'finished'
+                              AND actsesh.visible = 'true'
+                              AND ca.visible = 'true'").to_a.first['count']
         render json: {status: 'recently completed', unit_info: most_recently_completed, number_of_finished_students: number_of_finished_students }
       elsif most_recently_completed
         render json: {status: 'completed'}
