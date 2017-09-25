@@ -43,6 +43,17 @@ class ClassroomActivity < ActiveRecord::Base
     follow_up
   end
 
+  def save_concept_results classroom_concept_results
+    acts = self.activity_sessions.select(:id, :uid)
+    classroom_concept_results.each do |concept_result|
+      activity_session_id = acts.find { |act| act[:uid] == concept_result["activity_session_uid"]}[:id]
+      concept_result["activity_session_id"] = activity_session_id
+      concept_result.delete("activity_session_uid")
+    end
+    classroom_concept_results.each do |concept_result|
+      ConceptResult.create(concept_result)
+    end
+  end
 
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
