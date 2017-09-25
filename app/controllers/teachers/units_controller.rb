@@ -58,9 +58,11 @@ class Teachers::UnitsController < ApplicationController
 
   def update_activities
     data = JSON.parse(params[:data],symbolize_names: true)
+    # TODO: get rid of unit
     unit = Unit.find_by_id(params[:id])
-    if unit && formatted_classrooms_data(unit).any?
-      Units::Updater.run(unit, data[:activities_data], formatted_classrooms_data(unit))
+    classrooms_data = formatted_classrooms_data(params[:id])
+    if classrooms_data.any?
+      Units::Updater.run(unit, data[:activities_data], classrooms_data)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -149,9 +151,9 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
-  def formatted_classrooms_data(unit)
-    # unit fix
-    cas = unit.classroom_activities
+  def formatted_classrooms_data(unit_id)
+    # potential refactor into SQL
+    cas = ClassroomActivity.where(unit_id: unit_id).select(:classroom_id, :assigned_student_ids)
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
