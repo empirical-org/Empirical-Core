@@ -112,6 +112,10 @@ class Teachers::UnitsController < ApplicationController
 
   def lesson_units
     units_with_lessons = units.select { |a| a['activity_classification_id'] == '6' }
+    units_with_lessons.map do |u|
+      u["completed"] = ClassroomActivity.find(u["classroom_activity_id"]).has_a_completed_session?
+      u
+    end
     render json: units_with_lessons.to_json
   end
 
