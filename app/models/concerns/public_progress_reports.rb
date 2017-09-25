@@ -22,6 +22,16 @@ module PublicProgressReports
       end
     end
 
+    def classroom_report_url(classroom_activity_id)
+      classroom_activity = ClassroomActivity.find(classroom_activity_id)
+      unit_id = classroom_activity.try(:unit).id
+      activity_id = classroom_activity.try(:activity).id
+      classroom_id = classroom_activity.try(:classroom).id
+      if unit_id && activity_id && classroom_id
+        "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students"
+      end
+    end
+
     def default_diagnostic_url
       ca = last_completed_diagnostic
       if ca
