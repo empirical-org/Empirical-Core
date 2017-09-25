@@ -76,7 +76,9 @@ export default React.createClass({
 	},
 
   urlForReport() {
-    return `/teachers/progress_reports/report_from_unit_and_activity/u/${this.unitId()}/a/${this.activityId()}`;
+    $.get(`/teachers/progress_reports/report_from_unit_and_activity/u/${this.unitId()}/a/${this.activityId()}`)
+      .success((data) => window.location = data.url)
+      .fail(() => alert('This report is not yet available. Please check back when at least one of your students has completed this activity.'));
   },
 
   anonymousPath() {
@@ -86,7 +88,7 @@ export default React.createClass({
   finalCell() {
     const startDate = this.state.startDate;
     if (this.props.report) {
-      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={this.urlForReport()} href={this.urlForReport()}>View Report</a>];
+      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.caId()}`} onClick={this.urlForReport}>View Report</a>];
     } else if (this.isLesson()) {
       return this.lessonCompletedOrLaunch();
     }
@@ -173,7 +175,7 @@ export default React.createClass({
     let link,
       endRow;
     if (this.props.report) {
-      link = <a href={this.urlForReport()} target="_new">{this.activityName()}</a>;
+      link = <a onClick={this.urlForReport} target="_new">{this.activityName()}</a>;
       endRow = styles.reportEndRow;
     } else if (this.isLesson()) {
       link = <span onClick={this.openModal}>{this.activityName()}</span>;
