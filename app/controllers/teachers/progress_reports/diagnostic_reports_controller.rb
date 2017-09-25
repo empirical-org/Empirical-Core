@@ -33,6 +33,21 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
     end
 
+    def redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit
+      params.permit(:unit_id, :activity_id)
+      unit_id = params[:unit_id]
+      activity_id = params[:activity_id]
+      classroom_id = ActiveRecord::Base.connection.execute("
+        SELECT classroom_activities.classroom_id from classroom_activities
+        LEFT JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
+        WHERE classroom_activities.unit_id = #{ActiveRecord::Base.sanitize(unit_id)}
+          AND classroom_activities.activity_id = #{ActiveRecord::Base.sanitize(activity_id)}
+          AND activity_sessions.is_final_score = TRUE
+        ORDER BY activity_sessions.updated_at DESC
+        LIMIT 1;").to_a[0]['classroom_id']
+      return redirect_to "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students"
+    end
+
     def assign_selected_packs
         create_or_update_selected_packs
         render json: { data: 'Hi' }
