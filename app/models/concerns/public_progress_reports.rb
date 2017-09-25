@@ -166,7 +166,11 @@ module PublicProgressReports
     end
 
     def get_average_score formatted_results
-      (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+      if (formatted_results.length == 0)
+        return 100
+      else
+        return (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+      end
     end
 
     def get_recommendations_for_classroom unit_id, classroom_id, activity_id
