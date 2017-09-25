@@ -1,12 +1,15 @@
 import _ from 'underscore';
 
 export function generate(lessonQuestionData, studentSessionData, modifications) {
-  return [];
+  const nestedConceptResults = generateConceptResultsForAllQuestions(lessonQuestionData, studentSessionData);
+  const completeConceptResults = embedActivitySessionUIDInConceptResult(nestedConceptResults);
+  const flatConceptResults = Object.values(completeConceptResults).map((questionSubs) => Object.values(questionSubs))
+  return [].concat.apply([], flatConceptResults); // Flatten array
 }
 
 export function generateConceptResult(questionData, studentSubmission) {
   return {
-    concept_uid: 'lessons-placeholder',
+    concept_uid: 'X37oyfiNxSphA34npOb-Ig',
     question_type: 'lessons-slide',
     metadata: {
       correct: 1,

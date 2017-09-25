@@ -14,14 +14,14 @@ import {
 
 describe('Getting concept results from a Classroom lesson session', () => {
   it('should return an empty array', () => {
-    expect(generate(questions, submissions, prompts)).toEqual([]);
+    expect(generate(questions, submissions, prompts)).toEqual(fullReturnValue);
   });
 
   it('should be able to generate individual concept results', () => {
     const qdata = questions[4].data.play;
     const submission = submissions[4][23663289].data;
     const expected = {
-      concept_uid: 'lessons-placeholder',
+      concept_uid: 'X37oyfiNxSphA34npOb-Ig',
       question_type: 'lessons-slide',
       metadata: {
         correct: 1,
@@ -39,7 +39,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
     const tsubmissions = submissions[4];
     const expected = {
       23663289: {
-        concept_uid: 'lessons-placeholder',
+        concept_uid: 'X37oyfiNxSphA34npOb-Ig',
         question_type: 'lessons-slide',
         metadata: {
           correct: 1,
@@ -50,7 +50,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
         },
       },
       23663290: {
-        concept_uid: 'lessons-placeholder',
+        concept_uid: 'X37oyfiNxSphA34npOb-Ig',
         question_type: 'lessons-slide',
         metadata: {
           correct: 1,
@@ -61,7 +61,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
         },
       },
       23663291: {
-        concept_uid: 'lessons-placeholder',
+        concept_uid: 'X37oyfiNxSphA34npOb-Ig',
         question_type: 'lessons-slide',
         metadata: {
           correct: 1,
@@ -82,7 +82,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
     expect(Object.keys(result).length).toEqual(2);
     expect(Object.keys(result[4]).length).toEqual(3);
     expect(result[4][23663289]).toEqual({
-      concept_uid: 'lessons-placeholder',
+      concept_uid: 'X37oyfiNxSphA34npOb-Ig',
       question_type: 'lessons-slide',
       metadata: {
         correct: 1,
@@ -109,7 +109,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
     const results = embedActivitySessionUIDInConceptResult(conceptResults);
     expect(results[4][23663289]).toEqual({
       activity_session_uid: '23663289',
-      concept_uid: 'lessons-placeholder',
+      concept_uid: 'X37oyfiNxSphA34npOb-Ig',
       question_type: 'lessons-slide',
       metadata: {
         correct: 1,
@@ -123,7 +123,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
 
     expect(results[5][23663289]).toEqual({
       activity_session_uid: '23663289',
-      concept_uid: 'lessons-placeholder',
+      concept_uid: 'X37oyfiNxSphA34npOb-Ig',
       question_type: 'lessons-slide',
       metadata: {
         correct: 1,
@@ -134,6 +134,15 @@ describe('Getting concept results from a Classroom lesson session', () => {
         questionNumber: 2,
       },
     });
+  });
+
+  it('should be able to return a flat array', () => {
+    const qdata = Object.assign({}, questions);
+    const subs = Object.assign({}, submissions);
+    const results = generate(qdata, subs);
+    expect(results.length).toEqual(6)
   })
 });
 
+
+const fullReturnValue = [ { activity_session_uid: '23663289', concept_uid: 'X37oyfiNxSphA34npOb-Ig', metadata: { answer: 'The football star leaped toward the end zone, but he did not score a touchdown.', attemptNumber: 1, correct: 1, directions: '<p>The football star leaped toward the end zone.&nbsp;</p>\n<p>He did not score a touchdown.</p>', prompt: '<p>The football star leaped toward the end zone.&nbsp;</p>\n<p>He did not score a touchdown.</p>', questionNumber: 1 }, question_type: 'lessons-slide' }, { activity_session_uid: '23663290', concept_uid: 'X37oyfiNxSphA34npOb-Ig', metadata: { answer: 'The footballstarleaped tourd hend zone,but he did not score a tuch down.', attemptNumber: 1, correct: 1, directions: '<p>The football star leaped toward the end zone.&nbsp;</p>\n<p>He did not score a touchdown.</p>', prompt: '<p>The football star leaped toward the end zone.&nbsp;</p>\n<p>He did not score a touchdown.</p>', questionNumber: 1 }, question_type: 'lessons-slide' }, { activity_session_uid: '23663291', concept_uid: 'X37oyfiNxSphA34npOb-Ig', metadata: { answer: 'The football star leaped toward the end zone, but he did not score a touchdown.', attemptNumber: 1, correct: 1, directions: '<p>The football star leaped toward the end zone.&nbsp;</p>\n<p>He did not score a touchdown.</p>', prompt: '<p>The football star leaped toward the end zone.&nbsp;</p>\n<p>He did not score a touchdown.</p>', questionNumber: 1 }, question_type: 'lessons-slide' }, { activity_session_uid: '23663289', concept_uid: 'X37oyfiNxSphA34npOb-Ig', metadata: { answer: 'The quarterback was fast, so the other players couldn\'t catch him.', attemptNumber: 1, correct: 1, directions: '<p>The quarterback was fast.&nbsp;</p>\n<p>The other players couldn’t catch him.&nbsp;</p>', prompt: '<p>The quarterback was fast.&nbsp;</p>\n<p>The other players couldn’t catch him.&nbsp;</p>', questionNumber: 2 }, question_type: 'lessons-slide' }, { activity_session_uid: '23663290', concept_uid: 'X37oyfiNxSphA34npOb-Ig', metadata: { answer: 'The quarterback was fast,so the other players couldn \'t catch him.', attemptNumber: 1, correct: 1, directions: '<p>The quarterback was fast.&nbsp;</p>\n<p>The other players couldn’t catch him.&nbsp;</p>', prompt: '<p>The quarterback was fast.&nbsp;</p>\n<p>The other players couldn’t catch him.&nbsp;</p>', questionNumber: 2 }, question_type: 'lessons-slide' }, { activity_session_uid: '23663291', concept_uid: 'X37oyfiNxSphA34npOb-Ig', metadata: { answer: 'The quarterback was fast, and the other players couldn\'t catch him.', attemptNumber: 1, correct: 1, directions: '<p>The quarterback was fast.&nbsp;</p>\n<p>The other players couldn’t catch him.&nbsp;</p>', prompt: '<p>The quarterback was fast.&nbsp;</p>\n<p>The other players couldn’t catch him.&nbsp;</p>', questionNumber: 2 }, question_type: 'lessons-slide' } ]
