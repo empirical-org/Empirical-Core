@@ -176,11 +176,6 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-  def sibling_due_date
-    ClassroomActivity.where(unit_id: self.unit_id, activity_id: self.activity_id, classroom_id: self.classroom_id)
-                      .where.not(due_date: nil).limit(1).pluck(:due_date).first
-  end
-
   def hide_appropriate_activity_sessions
     # on save callback that checks if archived
     if self.visible == false
