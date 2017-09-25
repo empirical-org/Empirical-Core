@@ -45,6 +45,7 @@ module Units::Updater
         end
 
         if classroom_activity.new_record?
+          # TODO: look further into what is going on with due date
           due_date = classroom_activity.sibling_due_date || activity_data[:due_date]
           classroom_activity.save
         else
