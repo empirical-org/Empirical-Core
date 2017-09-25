@@ -13,11 +13,13 @@ class ExitSlide extends React.Component<any, any> {
     super(props);
     this.state = {
       selectedOptionKey: props.followUpActivityName ? "Small Group Instruction and Independent Practice" : '',
-      assigned: false
+      completed: false
     }
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
     this.assignAction = this.assignAction.bind(this)
     this.redirectAssignedStudents = this.redirectAssignedStudents.bind(this)
+    this.hideCongratulationsModal = this.hideCongratulationsModal.bind(this)
+    this.goToReports = this.goToReports.bind(this)
   }
 
   updateSelectedOptionKey(selected) {
@@ -48,34 +50,45 @@ class ExitSlide extends React.Component<any, any> {
       return response.json();
     }).then((response) => {
       redirectAssignedStudents(response.follow_up_url)
-      if (this.props.followUpActivityName) {
-        this.setState({assigned: true})
-      } else {
-        this.setState({showCongratulationsModal: true})
-      }
+      this.setState({completed: true, showCongratulationsModal: true})
     }).catch((error) => {
       console.log('error', error)
     })
   }
 
+  hideCongratulationsModal() {
+    this.setState({showCongratulationsModal: false})
+  }
+
+  goToReports() {
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/progress_reports/report_from_classroom_activity/${caId}`
+  }
+
   renderAssignmentOptionsAndButton() {
     const {followUpActivityName, students} = this.props
-    if (followUpActivityName && students && Object.keys(students).length > 0 && !this.state.assigned) {
-      return <div>
+    if (this.state.completed) {
+      return <div className='assign-button-container'>
+      <button onClick={this.goToReports}>View Reports</button>
+      </div>
+    } else {
+      if (followUpActivityName && students && Object.keys(students).length > 0) {
+        return <div>
         <AssignmentOptions
-          numberOfStudents={students ? Object.keys(students).length : 0}
-          updateSelectedOptionKey={this.updateSelectedOptionKey}
-          selectedOptionKey={this.state.selectedOptionKey}
-          followUpActivityName={followUpActivityName}
+        numberOfStudents={students ? Object.keys(students).length : 0}
+        updateSelectedOptionKey={this.updateSelectedOptionKey}
+        selectedOptionKey={this.state.selectedOptionKey}
+        followUpActivityName={followUpActivityName}
         />
         <AssignButton selectedOptionKey={this.state.selectedOptionKey}
-                      assignAction={this.assignAction}
+        assignAction={this.assignAction}
         />
-      </div>
-    } else if (!followUpActivityName) {
-      return <div className='assign-button-container'>
-        <button onClick={this.assignAction}>End Lesson</button>
-      </div>
+        </div>
+      } else if (!followUpActivityName) {
+        return <div className='assign-button-container'>
+        <button onClick={this.assignAction}>Mark Lesson As Completed</button>
+        </div>
+      }
     }
   }
 
@@ -90,14 +103,14 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   renderAssignedSection() {
-    if (this.state.assigned) {
+    if (this.state.completed && this.props.followUpActivityName) {
       return <AssignedSection selectedOptionKey={this.state.selectedOptionKey} />
     }
   }
 
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
-      return <CongratulationsModal />
+      return <CongratulationsModal closeModal={this.hideCongratulationsModal} />
     }
   }
 
@@ -116,8 +129,8 @@ class ExitSlide extends React.Component<any, any> {
           updateToggledHeaderCount={this.props.updateToggledHeaderCount}
         />
         {this.renderFlaggedStudents()}
-        {this.renderAssignmentOptionsAndButton()}
         {this.renderAssignedSection()}
+        {this.renderAssignmentOptionsAndButton()}
       </div>
     );
   }
