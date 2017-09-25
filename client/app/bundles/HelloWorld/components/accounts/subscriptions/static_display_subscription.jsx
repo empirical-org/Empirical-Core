@@ -5,16 +5,36 @@ export default React.createClass({
     subscription: React.PropTypes.object,
   },
 
-  transformDate(string) {
-    let year,
+  renderExpirationDate() {
+    if (this.props.subscription.expiration) {
+      return `Expires:     ${this.transformDate(this.props.subscription.expiration)}`
+    } else {
+      return 'No expiration date set.'
+    }
+  },
+
+  renderAccountLimit() {
+    if (this.props.subscription.account_limit) {
+      return `Accounts:       ${this.props.subscription.account_limit} students`
+    } else {
+      return 'No account limit set.'
+    }
+  },
+
+  transformDate(dateString) {
+    if (dateString) {
+      let year,
       month,
       day,
       newString;
-    year = string.slice(0, 4);
-    month = string.slice(5, 7);
-    day = string.slice(8, 10);
-    newString = `${month}/${day}/${year}`;
-    return newString;
+      year = dateString.slice(0, 4);
+      month = dateString.slice(5, 7);
+      day = dateString.slice(8, 10);
+      newString = `${month}/${day}/${year}`;
+      return newString;
+    } else {
+      return ''
+    }
   },
 
   subscriptionType() {
@@ -45,13 +65,13 @@ export default React.createClass({
           <div className="row">
             <div className="col-xs-2" />
             <div className="col-xs-3">
-              {`Expires:     ${this.transformDate(this.props.subscription.expiration)}`}
+              {this.renderExpirationDate()}
             </div>
           </div>
           <div className="row">
             <div className="col-xs-2" />
             <div className="col-xs-3">
-              {`Accounts:       ${this.props.subscription.account_limit} students`}
+              {this.renderAccountLimit()}
             </div>
           </div>
         </span>
