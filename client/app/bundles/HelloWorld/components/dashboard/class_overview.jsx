@@ -53,16 +53,12 @@ export default React.createClass({
 
   announcementMini() {
     const announcements = [];
-    if (this.props.flag === 'beta') {
-      announcements.push(<QuillLessonsAnnouncement key="lessons-announcement" />);
-    }
+    announcements.push(<QuillLessonsAnnouncement key="lessons-announcement" />);
     return announcements;
   },
 
   lessonsList() {
-    if (this.props.flag === 'beta') {
-      return <LessonsList />;
-    }
+    return <LessonsList />;
   },
 
   diagnosticMini() {

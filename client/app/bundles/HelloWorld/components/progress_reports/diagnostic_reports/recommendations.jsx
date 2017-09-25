@@ -278,13 +278,12 @@ export default React.createClass({
   },
 
   render() {
-    const betaFlag = document.getElementById('current-user-flag') ? (document.getElementById('current-user-flag').getAttribute('content') === 'beta') : false
     if (this.state.loading) {
       return <LoadingSpinner />;
     }
     return (
       <div>
-        {betaFlag ? <RecommendationOverview /> : <div style={{height: '35px'}} />}
+      <RecommendationOverview />
         <h3
           id="recommendations-scroll-to"
           style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
@@ -306,7 +305,7 @@ export default React.createClass({
           <div className="recommendations-table-row-wrapper">
             {this.renderTableRows()}
           </div>
-          {betaFlag ? <LessonsRecommendations assignToWholeClass={this.assignToWholeClass} recommendations={this.state.lessonsRecommendations} /> : <span />}
+          <LessonsRecommendations assignToWholeClass={this.assignToWholeClass} recommendations={this.state.lessonsRecommendations} />
         </div>
       </div>
     );
