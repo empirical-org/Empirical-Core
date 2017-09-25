@@ -7,6 +7,7 @@ import AssignedSection from './assignedSection'
 import ScriptComponent from '../shared/scriptComponent'
 import CongratulationsModal from './congratulationsModal'
 import { getParameterByName } from '../../../libs/getParameterByName';
+import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 class ExitSlide extends React.Component<any, any> {
   constructor(props) {
@@ -34,10 +35,11 @@ class ExitSlide extends React.Component<any, any> {
 
   assignAction(e){
     const caId: string|null = getParameterByName('classroom_activity_id');
-    const follow_up = this.props.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice'
+    const follow_up = this.props.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
+    const concept_results = generate(this.props.lessonData.questions, this.props.data.submissions)
     const data = new FormData();
-    data.append( "json", JSON.stringify( {follow_up} ) );
-    let redirectAssignedStudents=this.redirectAssignedStudents
+    data.append( "json", JSON.stringify( {follow_up, concept_results} ) );
+    let redirectAssignedStudents = this.redirectAssignedStudents
     fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
       method: 'PUT',
       mode: 'cors',
