@@ -105,6 +105,12 @@ $tool-grey: #f8f9f9;
     }
   }
 
+  .lessons-tool {
+    .video-section {
+      background-image: url('http://assets.quill.org/images/homepage/lessonspatternhomepage.png')
+    }
+  }
+
   @media only screen and (max-width : 1305px) {
     padding: 15px;
     .info-section.right {
@@ -157,6 +163,7 @@ $tool-grey: #f8f9f9;
       }
 
       .connect-tool .video-section,
+      .lessons-tool .video-section,
       .diagnostic-tool .video-section,
       .proofreader-tool .video-section,
       .grammar-tool .video-section {
@@ -277,6 +284,7 @@ $tool-grey: #f8f9f9;
 
         .item {
             .wrapper {
+                height: 600px;
                 background-color: white;
                 margin: auto;
                 max-width: 950px;
@@ -300,6 +308,7 @@ $tool-grey: #f8f9f9;
                 width: 75%;
                 margin: auto;
                 font-size: 16px;
+                height: 80px;
             }
             padding-bottom: 130px;
         }
@@ -309,6 +318,7 @@ $tool-grey: #f8f9f9;
 
             li {
                 background-color: #cacaca;
+                border: none !important;
 
                 &.active {
                     background-color: $quillgreen;
@@ -710,6 +720,10 @@ $tool-grey: #f8f9f9;
 
 .bg-tool-purple {
     background-color: #9C2ADE;
+}
+
+.bg-tool-magenta {
+  background-color: #bd0d7e;
 }
 
 .text-orange {
