@@ -132,7 +132,6 @@ export default React.createClass({
   },
 
   addClassroomActivityRow() {
-    console.log(this.props.data);
     return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
   },
 
