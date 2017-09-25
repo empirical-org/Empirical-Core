@@ -16,7 +16,8 @@ export default React.createClass({
     const activities = this.props.data.map(ele => <StudentProfileActivity key={ele.ca_id} data={ele} />);
     if (this.props.data.length > 0) {
       return (<div className="fake-table">
-        <div className="header">{this.props.header}
+        <div className="header">
+          <span className="header-text">{this.props.header}</span>
           <span className="header-list">
             {this.showDueDateColumn()}
             <span className="header-list-counter">{`${this.props.data.length} of ${this.props.count}`}</span>

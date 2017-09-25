@@ -50,15 +50,22 @@ module Teacher
     if cache
       return cache
     end
-    info = ActiveRecord::Base.connection.execute(
-    "SELECT classrooms.name AS name, classrooms.id AS id, COUNT(DISTINCT acts.id) AS activity_count, COUNT(DISTINCT students.id) AS student_count, classrooms.code AS code FROM classrooms
-          LEFT OUTER JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-          LEFT OUTER JOIN users AS students ON students.id = sc.student_id
-          LEFT OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
-          LEFT OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
-          WHERE classrooms.teacher_id = #{self.id} AND classrooms.visible AND ((acts.visible IS true AND acts.is_final_score IS true) OR acts IS NULL)
-          GROUP BY classrooms.id"
+    classrooms = ActiveRecord::Base.connection.execute("SELECT classrooms.name AS name, classrooms.id AS id, classrooms.code AS code, COUNT(DISTINCT sc.id) as student_count  FROM classrooms
+			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
+			WHERE classrooms.visible = true AND classrooms.teacher_id = #{self.id}
+			GROUP BY classrooms.name, classrooms.id"
     ).to_a
+    counts = ActiveRecord::Base.connection.execute("SELECT classrooms.id AS id, COUNT(DISTINCT acts.id) FROM classrooms
+          FULL OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
+          FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
+          WHERE classrooms.teacher_id = #{self.id}
+          AND classrooms.visible AND acts.is_final_score = true
+          GROUP BY classrooms.id").to_a
+    info = classrooms.map do |classy|
+      count = counts.find { |elm| elm['id'] == classy['id'] }
+      classy['activity_count'] = count  ? count['count'] : 0
+      classy
+    end
     # TODO: move setter to background worker
     set_classroom_minis_cache(info)
     info
