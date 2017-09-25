@@ -27,6 +27,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
         directions: qdata.prompt,
         prompt: qdata.prompt,
         answer: submission.data,
+        attemptNumber: 1,
       },
     };
     expect(generateConceptResult(qdata, submission)).toEqual(expected);
@@ -44,6 +45,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
           directions: qdata.prompt,
           prompt: qdata.prompt,
           answer: tsubmissions[23663289].data,
+          attemptNumber: 1,
         },
       },
       23663290: {
@@ -54,6 +56,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
           directions: qdata.prompt,
           prompt: qdata.prompt,
           answer: tsubmissions[23663290].data,
+          attemptNumber: 1,
         },
       },
       23663291: {
@@ -64,6 +67,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
           directions: qdata.prompt,
           prompt: qdata.prompt,
           answer: tsubmissions[23663291].data,
+          attemptNumber: 1,
         },
       },
     };
@@ -84,6 +88,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
         directions: qdata[4].data.play.prompt,
         prompt: qdata[4].data.play.prompt,
         answer: subs[4][23663289].data,
+        attemptNumber: 1,
       },
     });
     expect(result[4][23663289].metadata).toEqual({
@@ -91,6 +96,7 @@ describe('Getting concept results from a Classroom lesson session', () => {
         directions: qdata[4].data.play.prompt,
         prompt: qdata[4].data.play.prompt,
         answer: subs[4][23663289].data,
+        attemptNumber: 1,
       },
     );
   });

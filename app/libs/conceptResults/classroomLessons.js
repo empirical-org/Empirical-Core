@@ -13,6 +13,7 @@ export function generateConceptResult(questionData, studentSubmission) {
       directions: questionData.prompt,
       prompt: questionData.prompt,
       answer: studentSubmission.data,
+      attemptNumber: 1,
     },
   };
 }
