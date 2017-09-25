@@ -5,12 +5,35 @@ import ActivityIconWithTooltip from '../general_components/activity_icon_with_to
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 export default React.createClass({
+
   propTypes: {
     data: React.PropTypes.object.isRequired,
   },
 
+  getInitialState() {
+    return {showLockedTooltip: false}
+  },
+
   renderDueDate() {
     return this.props.data.due_date ? <span className="due-date">{moment(this.props.data.due_date).format('MM-DD-YYYY')}</span> : <span />;
+  },
+
+  renderLockedTooltip() {
+    if (this.state.showLockedTooltip) {
+      return <div className="locked-tooltip">
+        <p className="tooltip-header">This is a whole group activity and is launched by the teacher.</p>
+        <p className="text">Your teacher will press the “Launch Lesson” button from the teacher dashboard to start the activity. You will then be able to join it.</p>
+        <i className="fa fa-caret-down"/>
+      </div>
+    }
+  },
+
+  showLockedTooltip() {
+    this.setState({showLockedTooltip: true})
+  },
+
+  hideLockedTooltip() {
+    this.setState({showLockedTooltip: false})
   },
 
   dataForActivityIconWithToolTip() {
@@ -25,7 +48,12 @@ export default React.createClass({
     if (this.props.data.repeatable === 'f' && this.props.data.max_percentage) {
       return (<p className="title-v-centered text-right">Completed</p>);
     } else if (this.props.data.locked === 't') {
-      return (<p className="title-v-centered text-right" style={{ color: '#969696', }}>Locked by teacher</p>);
+      return (<p
+        className="title-v-centered text-right"
+        style={{ color: '#969696', }}
+        onMouseEnter={this.showLockedTooltip}
+        onMouseLeave={this.hideLockedTooltip}
+        >Needs Teacher</p>);
     } else if (this.props.data.max_percentage) {
       linkText = 'Replay Activity';
     } else if (this.props.data.activity_classification_id === '6') {
@@ -41,18 +69,17 @@ export default React.createClass({
   render() {
     return (
       <div className="line">
-        <div className="row">
-          <div className="col-xs-8 col-sm-9 col-xl-9 pull-left">
-            <ActivityIconWithTooltip data={this.dataForActivityIconWithToolTip()} context={'studentProfile'} />
-            <div className="icons-description-wrapper">
-              <p className="title title-v-centered">{this.props.data.name}</p>
-            </div>
+        <div className="row-list-beginning pull-left">
+          <ActivityIconWithTooltip data={this.dataForActivityIconWithToolTip()} context={'studentProfile'} />
+          <div className="icons-description-wrapper">
+            <p className="title title-v-centered">{this.props.data.name}</p>
           </div>
-          <span className="row-list-end">
-            {this.renderDueDate()}
-            {this.renderStartButtonOrLockMessage()}
-          </span>
         </div>
+        <span className="row-list-end">
+          {this.renderDueDate()}
+          {this.renderStartButtonOrLockMessage()}
+          {this.renderLockedTooltip()}
+        </span>
       </div>
     );
   },
