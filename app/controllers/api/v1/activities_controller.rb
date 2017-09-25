@@ -58,9 +58,15 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   end
 
-  def follow_up_activity_name
+  def follow_up_activity_name_and_supporting_info
     follow_up_activity_name = @activity.follow_up_activity&.name
-    render json: {follow_up_activity_name: follow_up_activity_name}
+    supporting_info = @activity.supporting_info
+    render json: {follow_up_activity_name: follow_up_activity_name, supporting_info: supporting_info}
+  end
+
+  def supporting_info
+    supporting_info = @activity.supporting_info
+    render json: {supporting_info: supporting_info}
   end
 
   private
