@@ -6,31 +6,32 @@ module Units::Updater
   # and array of student ids.
 
   # TODO: rename this -- it isn't always the method called on the instance
-  def self.run(unit, activities_data, classrooms_data)
-    self.update_helper(unit, activities_data, classrooms_data)
+  def self.run(unit_id, activities_data, classrooms_data)
+    self.update_helper(unit_id, activities_data, classrooms_data)
   end
 
-  def self.assign_unit_template_to_one_class(unit, classrooms_data)
+  def self.assign_unit_template_to_one_class(unit_id, classrooms_data)
     # unit fix: this should just be a sql query
     activities_data = unit.activities.map{ |a| {id: a.id, due_date: nil} }
-    self.update_helper(unit, activities_data, classrooms_data)
+    self.update_helper(unit_id, activities_data, classrooms_data)
   end
 
-  def self.fast_assign_unit_template(teacher_id, unit_template, unit)
+  def self.fast_assign_unit_template(teacher_id, unit_template, unit_id)
     teacher = User.find(teacher_id)
     # unit fix: this should be a sql query
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     # unit fix: classrooms data can be a sql query
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
-    self.update_helper(unit, activities_data, classrooms_data)
+    self.update_helper(unit_id, activities_data, classrooms_data)
   end
 
   private
 
 
-  def self.update_helper(unit, activities_data, classrooms_data)
+  def self.update_helper(unit_id, activities_data, classrooms_data)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
+    unit = Unit.find unit_id
     classrooms_data.each do |classroom|
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
