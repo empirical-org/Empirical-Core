@@ -178,6 +178,13 @@
               align-items: center;
       padding: 0;
       margin: 0 !important;
+
+      .supporting-info {
+        font-weight: 600;
+        i {
+          margin-right: -6px;
+        }
+      }
       .cell:first-child {
         margin-left: 15px;
         margin-right: 10px;

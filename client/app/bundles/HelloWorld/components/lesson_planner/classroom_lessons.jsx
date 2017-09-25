@@ -89,6 +89,7 @@ export default class ClassroomLessons extends React.Component {
       activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
       dueDate: u.due_date,
+      supportingInfo: u.supporting_info,
       completed: u.completed,});
     return caObj;
   }
@@ -117,6 +118,7 @@ export default class ClassroomLessons extends React.Component {
 					classroomId: u.classroom_id,
           createdAt: u.ca_created_at,
           dueDate: u.due_date,
+          supportingInfo: u.supporting_info,
           completed: u.completed,});
       }
     });
