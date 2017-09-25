@@ -9,7 +9,7 @@ import {
   unpinActivityOnSaveAndExit
 } from '../../actions/classroomSessions';
 const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
-const exitIcon = require('../../img/exit_icon.svg')
+const exitIcon = 'http://assets.quill.org/images/icons/save_exit_icon.svg'
 const projectorIcon = 'http://assets.quill.org/images/icons/projector_icon.svg'
 const helpIcon = require('../../img/help_icon.svg')
 const flagIcon = require('../../img/flag_icon.svg')
@@ -82,44 +82,56 @@ class TeacherNavbar extends React.Component<any, any> {
     // tooltips should not show if either watchTeacherState or showHelpDropdown is true
     if (watchTeacherState) {
       if (icon === 'watchTeacher') {
-        return (<Tooltip text={["Watch Teacher (", <strong key="watch-teacher-on">On</strong>,  ")"]} className={icon}/>)
+        return (<Tooltip text={["Watch Teacher - ", <strong key="watch-teacher-on">On</strong>]} className={icon}/>)
       }
     } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
       switch (icon) {
         case 'flag':
-        if (this.state.tooltip === 'flag') {
-          return (this.flagDropdown())
-        }
-        break
+          if (this.state.tooltip === 'flag') {
+            return (this.flagDropdown())
+          }
+          break
         case 'projector':
-        if (this.state.tooltip === 'projector') {
-          return (<Tooltip text="Launch Projector" className={icon}/>)
-        }
-        break
+          if (this.state.tooltip === 'projector') {
+            return (<Tooltip text="Launch Projector" className={icon}/>)
+          }
+          break
         case 'watchTeacher':
-        if (this.state.tooltip === 'watchTeacher') {
-          return (<Tooltip text={["Watch Teacher (", <strong key="watch-teacher-on">Off</strong>,  ")"]} className={icon}/>)
-        }
-        break
+          if (this.state.tooltip === 'watchTeacher') {
+            return (<Tooltip text={["Watch Teacher - ", <strong key="watch-teacher-on">Off</strong>]} className={icon}/>)
+          }
+          break
         case 'exit':
-        if (this.state.tooltip === 'exit') {
-          return (<Tooltip text="Save and Exit Lesson" className={icon}/>)
-        }
-        break
+          if (this.state.tooltip === 'exit') {
+            return (<Tooltip text="Save and Exit Lesson" className={icon}/>)
+          }
+          break
         case 'help':
-        if (this.state.tooltip === 'help') {
-          return this.helpDropdown()
-        }
-        break
+          if (this.state.tooltip === 'help') {
+            return this.helpDropdown()
+          }
+          break
+        case 'pdf':
+          if (this.state.tooltip === 'pdf') {
+            return <Tooltip text="Download Lesson Plan" className={icon}/>
+          }
         default:
-        break
+          break
       }
     }
   }
 
   renderPDFLink() {
     if (this.props.classroomSessions.data.supportingInfo) {
-      return <a target="_blank" href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}><img src={pdfIcon}/></a>
+      return <a
+        target="_blank"
+        href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}
+        onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
+        onMouseLeave={(e) => this.hideTooltip(e)}
+        >
+          <img src={pdfIcon}/>
+          {this.renderTooltip('pdf')}
+      </a>
     }
   }
 
@@ -165,7 +177,7 @@ class TeacherNavbar extends React.Component<any, any> {
       })
     } else {
       oneRow = true
-      content = <p key='no-flagged-students' className="no-flagged-students">No Flagged Students</p>
+      content = <span><p key='no-flagged-students' className="no-flagged-students">No Flagged Students</p><p key="explanation" className="explanation">Flag students based on their performance for small group instruction.</p></span>
     }
     const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
     return <div className={className}>
