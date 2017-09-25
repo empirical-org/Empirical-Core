@@ -181,9 +181,14 @@
 
       .supporting-info {
         font-weight: 600;
+        margin-right: 8px;
         i {
           margin-right: -6px;
         }
+      }
+      .report-link {
+        font-weight: 600;
+        color: #969696;
       }
       .cell:first-child {
         margin-left: 15px;
