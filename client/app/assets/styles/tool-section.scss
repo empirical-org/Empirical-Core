@@ -277,6 +277,7 @@ $tool-grey: #f8f9f9;
 
         .item {
             .wrapper {
+                height: 600px;
                 background-color: white;
                 margin: auto;
                 max-width: 950px;
@@ -300,6 +301,7 @@ $tool-grey: #f8f9f9;
                 width: 75%;
                 margin: auto;
                 font-size: 16px;
+                height: 80px;
             }
             padding-bottom: 130px;
         }
@@ -309,6 +311,7 @@ $tool-grey: #f8f9f9;
 
             li {
                 background-color: #cacaca;
+                border: none !important;
 
                 &.active {
                     background-color: $quillgreen;
