@@ -31,6 +31,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update
+    # unit fix: get all names with pluck
     unit_template_names = UnitTemplate.all.map{ |u| u.name.downcase }
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: 'Unit must have a name'}, status: 422
@@ -44,12 +45,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    unit = Unit.find_by_id(params[:id])
-    classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
-    if unit
-      # unit fix
-      activities_data = unit.activities.uniq.map { |act| {id: act.id }}
-      Units::Updater.run(unit, activities_data, classroom_activities)
+    activities_data = ClassroomActivity.where(unit_id: params[:id]).select('activity_id as id').distinct.as_json
+    if activities_data.any?
+      classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
+      # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
+      Units::Updater.run(Unit.find(params[:id]), activities_data, classroom_activities)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
