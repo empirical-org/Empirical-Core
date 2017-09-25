@@ -74,7 +74,6 @@ describe('Getting concept results from a Classroom lesson session', () => {
     const qdata = Object.assign({}, questions);
     const subs = Object.assign({}, submissions);
     const result = generateConceptResultsForAllQuestions(qdata, subs);
-    console.log(result[4])
     expect(Object.keys(result).length).toEqual(2);
     expect(Object.keys(result[4]).length).toEqual(3);
     expect(result[4][23663289]).toEqual({
