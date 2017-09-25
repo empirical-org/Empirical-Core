@@ -4,7 +4,7 @@ class ActivitySearch
   def self.search(search_text, filters, sort, flag)
     query = Activity.user_scope(flag).includes(:classification, topic: [:section, :topic_category], activity_category_activities: [:activity_category])
       .where("(activities.name ILIKE ?) OR (activity_categories.name ILIKE ?) OR (activities.description ILIKE ?)", "%#{search_text}%", "%#{search_text}%", "%#{search_text}%")
-      .where("topic_categories.id IS NOT NULL AND sections.id IS NOT NULL")
+      .where("activity_categories.id IS NOT NULL AND sections.id IS NOT NULL")
       .order(search_sort_sql(sort)).references(:topic)
 
     # Sorry for the meta-programming.
