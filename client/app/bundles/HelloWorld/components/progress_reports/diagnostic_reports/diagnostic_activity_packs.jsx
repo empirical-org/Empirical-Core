@@ -43,8 +43,9 @@ export default React.createClass({
 	},
 
 	goToDiagnosticReport: function() {
-		const ca = this.state.units[0].classroom_activities[0]
-		window.location = `/teachers/progress_reports/diagnostic_reports#/u/${ca.unit_id}/a/${ca.activity_id}/c/${ca.classroom_id}/students`
+		const unit = this.state.units.values().next().value;
+		const ca = this.state.units.values().next().value.classroomActivities.values().next().value;
+		window.location = `/teachers/progress_reports/diagnostic_reports#/u/${unit.unitId}/a/${ca.activityId}/c/${ca.classroomId}/students`
 	},
 
 	generateNewCaUnit(u) {
@@ -61,6 +62,7 @@ export default React.createClass({
 			activityId: u.activity_id,
 			created_at: u.classroom_activity_created_at,
 			caId: u.classroom_activity_id,
+			unitId: u.unit_id,
 			activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
 			dueDate: u.due_date, });
@@ -86,6 +88,7 @@ export default React.createClass({
 					name: u.activity_name,
 					caId: u.classroom_activity_id,
 					activityId: u.activity_id,
+					unitId: u.unit_id,
 					created_at: u.classroom_activity_created_at,
 					activityClassificationId: u.activity_classification_id,
 					classroomId: u.classroom_id,
