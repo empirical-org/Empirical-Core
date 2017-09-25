@@ -124,6 +124,7 @@ const Responses = React.createClass({
   },
 
   searchResponses() {
+    this.props.dispatch(questionActions.incrementRequestCount())
     this.props.dispatch(questionActions.searchResponses(this.props.questionID));
   },
 

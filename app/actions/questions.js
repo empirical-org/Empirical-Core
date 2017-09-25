@@ -153,6 +153,8 @@ function getFormattedSearchData(state) {
 
 function searchResponses(qid) {
   return (dispatch, getState) => {
+    const requestNumber = getState().filters.requestCount
+    // check for request number in state, save as const
     request(
       {
         url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
@@ -160,17 +162,22 @@ function searchResponses(qid) {
         json: { search: getFormattedSearchData(getState()), },
       },
       (err, httpResponse, data) => {
-        const embeddedOrder = _.map(data.results, (response, i) => {
-          response.sortOrder = i;
-          return response;
-        });
-        const parsedResponses = _.indexBy(embeddedOrder, 'id');
-        const responseData = {
-          responses: parsedResponses,
-          numberOfResponses: data.numberOfResults,
-          numberOfPages: data.numberOfPages,
-        };
-        dispatch(updateResponses(responseData));
+        // check again for number in state
+        // if equal to const set earlier, update the state
+        // otherwise, do nothing
+        if (getState().filters.requestCount === requestNumber) {
+          const embeddedOrder = _.map(data.results, (response, i) => {
+            response.sortOrder = i;
+            return response;
+          });
+          const parsedResponses = _.indexBy(embeddedOrder, 'id');
+          const responseData = {
+            responses: parsedResponses,
+            numberOfResponses: data.numberOfResults,
+            numberOfPages: data.numberOfPages,
+          };
+          dispatch(updateResponses(responseData));
+        }
       }
     );
   };
@@ -261,6 +268,10 @@ function setStringFilter(stringFilter) {
   return { type: C.SET_RESPONSE_STRING_FILTER, stringFilter, };
 }
 
+function incrementRequestCount() {
+  return { type: C.INCREMENT_REQUEST_COUNT }
+}
+
 module.exports = {
   startListeningToQuestions,
   loadQuestions,
@@ -293,4 +304,5 @@ module.exports = {
   updateResponses,
   setPageNumber,
   setStringFilter,
+  incrementRequestCount
 };

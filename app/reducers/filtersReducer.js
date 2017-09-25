@@ -36,6 +36,7 @@ const initialState = {
     ascending: false,
     stringFilter: '',
     responsePageNumber: 1,
+    requestCount: 0,
     visibleStatuses,
     expanded: {},  // this will contain response keys set to true or false;
     formattedFilterData: {
@@ -152,6 +153,10 @@ export default function (currentState, action) {
       newState.stringFilter = action.stringFilter
       newState.responsePageNumber = 1
       return newState;
+    case C.INCREMENT_REQUEST_COUNT:
+      newState = _.cloneDeep(currentState);
+      newState.requestCount = currentState.requestCount + 1
+      return newState
     default:
       return currentState || initialState.filters;
   }
