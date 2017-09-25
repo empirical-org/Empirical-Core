@@ -8,7 +8,8 @@ import {
   generate,
   generateConceptResult,
   generateConceptResultForQuestion,
-  generateConceptResultsForAllQuestions
+  generateConceptResultsForAllQuestions,
+  embedActivitySessionUIDInConceptResult,
 } from '../../app/libs/conceptResults/classroomLessons';
 
 describe('Getting concept results from a Classroom lesson session', () => {
@@ -100,5 +101,39 @@ describe('Getting concept results from a Classroom lesson session', () => {
       },
     );
   });
+
+  it('should be able to embed the activity session UID for a concept result.', () => {
+    const qdata = Object.assign({}, questions);
+    const subs = Object.assign({}, submissions);
+    const conceptResults = generateConceptResultsForAllQuestions(qdata, subs);
+    const results = embedActivitySessionUIDInConceptResult(conceptResults);
+    expect(results[4][23663289]).toEqual({
+      activity_session_uid: '23663289',
+      concept_uid: 'lessons-placeholder',
+      question_type: 'lessons-slide',
+      metadata: {
+        correct: 1,
+        directions: qdata[4].data.play.prompt,
+        prompt: qdata[4].data.play.prompt,
+        answer: subs[4][23663289].data,
+        attemptNumber: 1,
+        questionNumber: 1,
+      },
+    });
+
+    expect(results[5][23663289]).toEqual({
+      activity_session_uid: '23663289',
+      concept_uid: 'lessons-placeholder',
+      question_type: 'lessons-slide',
+      metadata: {
+        correct: 1,
+        directions: qdata[5].data.play.prompt,
+        prompt: qdata[5].data.play.prompt,
+        answer: subs[5][23663289].data,
+        attemptNumber: 1,
+        questionNumber: 2,
+      },
+    });
+  })
 });
 

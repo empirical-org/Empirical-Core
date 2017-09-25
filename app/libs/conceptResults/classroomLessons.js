@@ -27,3 +27,14 @@ export function generateConceptResultsForAllQuestions(questionsData, studentSubm
     return generateConceptResultForQuestion(questionsData[questionID].data.play, questionSubmissions);
   })
 }
+
+export function embedActivitySessionUIDInConceptResult(nestedConceptResults) {
+  const questionNumbers = Object.keys(nestedConceptResults).sort();
+  return _.mapObject(nestedConceptResults, (submissions, questionUID) => {
+    return _.mapObject(submissions, (submission, activitySessionUID) => {
+       submission.activity_session_uid = activitySessionUID;
+       submission.metadata.questionNumber = questionNumbers.indexOf(questionUID) + 1;
+       return submission
+    })
+  })
+}
