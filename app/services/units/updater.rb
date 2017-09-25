@@ -11,14 +11,16 @@ module Units::Updater
   end
 
   def self.assign_unit_template_to_one_class(unit, classrooms_data)
-    # unit fix
+    # unit fix: this should just be a sql query
     activities_data = unit.activities.map{ |a| {id: a.id, due_date: nil} }
     self.update_helper(unit, activities_data, classrooms_data)
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template, unit)
     teacher = User.find(teacher_id)
+    # unit fix: this should be a sql query
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
+    # unit fix: classrooms data can be a sql query
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
     self.update_helper(unit, activities_data, classrooms_data)
   end
@@ -31,11 +33,13 @@ module Units::Updater
     # create all necessary activity sessions
     classrooms_data.each do |classroom|
       product = activities_data.product([classroom[:id].to_i])
-
       product.each do |pair|
         activity_data, classroom_id = pair
+        # units fix: probably better off loading each of these into memory one time before using the products
         classroom_activity = unit.classroom_activities.find_or_initialize_by(activity_id: activity_data[:id], classroom_id: classroom_id)
         if classroom[:student_ids] === false
+          # units fix: add this ca to a blacklisted array which will be bulk updated to visible false
+          # still use next
           classroom_activity.update(visible: false)
           next
         end
@@ -46,7 +50,7 @@ module Units::Updater
         else
           due_date = activity_data[:due_date] || classroom_activity.due_date
         end
-        # todo: bulk update
+        # units fix: add these to an array or hash for a bulk update at the end
         classroom_activity.update(due_date: due_date, assigned_student_ids: classroom[:student_ids])
       end
     end
