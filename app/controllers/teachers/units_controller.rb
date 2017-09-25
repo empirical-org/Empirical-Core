@@ -162,6 +162,7 @@ class Teachers::UnitsController < ApplicationController
   def units
     ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
+       activities.supporting_info AS supporting_info,
        classrooms.name AS class_name,
        classrooms.id AS classroom_id,
        activities.activity_classification_id,

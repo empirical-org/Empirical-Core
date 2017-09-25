@@ -21,7 +21,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    maxWidth: '220px',
+    maxWidth: '350px',
   },
   reportEndRow: {
     display: 'flex',
@@ -70,8 +70,8 @@ export default React.createClass({
   },
 
 	supportingInfo() {
-		if (this.props.data.activity.supporting_info && window.location.pathname.includes('lessons')) {
-			return <a className="recommendations-button" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}>Download Lesson Plan</a>
+		if (this.props.data.supportingInfo && window.location.pathname.includes('lessons')) {
+			return <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
 		}
 	},
 
@@ -197,6 +197,7 @@ export default React.createClass({
           </div>
         </div>
         <div className="cell" style={endRow}>
+          {this.supportingInfo()}
           {this.finalCell()}
           {this.deleteRow()}
         </div>
