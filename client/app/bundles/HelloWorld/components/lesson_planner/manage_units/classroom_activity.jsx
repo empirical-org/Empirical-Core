@@ -118,7 +118,7 @@ export default React.createClass({
   },
 
   classroomId() {
-    return this.props.data.classroom_id;;
+    return this.props.data.classroomId || this.props.data.classroom_id;
   },
 
   icon() {
