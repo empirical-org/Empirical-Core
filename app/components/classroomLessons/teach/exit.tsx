@@ -71,7 +71,7 @@ class ExitSlide extends React.Component<any, any> {
     const {followUpActivityName, students} = this.props
     if (this.state.completed) {
       return <div className='assign-button-container'>
-      <button onClick={this.goToReports}>View Reports</button>
+      <button onClick={this.goToReports}>Exit Lesson | View Report</button>
       </div>
     } else {
       if (followUpActivityName && students && Object.keys(students).length > 0) {
@@ -86,9 +86,9 @@ class ExitSlide extends React.Component<any, any> {
         assignAction={this.assignAction}
         />
         </div>
-      } else if (!followUpActivityName) {
+      } else if (!followUpActivityName && !this.props.data.preview) {
         return <div className='assign-button-container'>
-        <button onClick={this.assignAction}>Mark Lesson As Completed</button>
+        <button onClick={this.assignAction}>Mark Lesson As Complete</button>
         </div>
       }
     }
