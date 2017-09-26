@@ -110,6 +110,8 @@ class Teachers::UnitsController < ApplicationController
     render json: units_with_diagnostics.to_json
   end
 
+  # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
+  # We use the count to see if we should mark as completed.
   def lesson_units
     lesson_units = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
