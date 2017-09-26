@@ -90,7 +90,7 @@ export default class ClassroomLessons extends React.Component {
 			classroomId: u.classroom_id,
       dueDate: u.due_date,
       supportingInfo: u.supporting_info,
-      completed: u.completed,});
+      completed: u.completed_count > 0,});
     return caObj;
   }
 
@@ -119,7 +119,7 @@ export default class ClassroomLessons extends React.Component {
           createdAt: u.ca_created_at,
           dueDate: u.due_date,
           supportingInfo: u.supporting_info,
-          completed: u.completed,});
+          completed: u.completed_count > 0,});
       }
     });
     return this.orderUnits(parsedUnits);
