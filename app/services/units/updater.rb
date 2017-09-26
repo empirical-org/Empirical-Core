@@ -29,10 +29,13 @@ module Units::Updater
     if matching_activity
       if !visible
         # then there are no assigned students and we should hide the cas
+        puts 'here is the info ryan'
+        puts activity_data
+        puts classrooms[:student_ids]
         hidden_cas_ids.push(matching_activity.id)
       elsif (matching_activity[:due_date] != activity_data[:due_date]) || (matching_activity.assigned_student_ids != classroom[:student_ids])
         # then something changed and we should update
-        matching_activity.update(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids])
+        matching_activity.update!(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids])
       end
     elsif visible
       # making an array of hashes to create in one bulk option
@@ -45,109 +48,67 @@ module Units::Updater
   end
 
   def self.update_helper(unit_id, activities_data, classrooms_data)
+    # makes a permutation of each classroom with each activity to
+    # create all necessary activity sessions
     unit = Unit.find unit_id
-    extant_classroom_activities = ClassroomActivity.where(unit_id: unit_id)
-    new_cas = []
-    hidden_cas_ids = []
     classrooms_data.each do |classroom|
-        product = activities_data.product([classroom[:id].to_i])
-        product.each do |pair|
-          activity_data, classroom_id = pair
-          self.matching_or_new_classroom_activity(activity_data, classroom_id, extant_classroom_activities, new_cas, hidden_cas_ids, classroom, unit_id)
+      product = activities_data.product([classroom[:id].to_i])
+      product.each do |pair|
+        activity_data, classroom_id = pair
+        # units fix: probably better off loading each of these into memory one time before using the products
+        classroom_activity = unit.classroom_activities.find_or_initialize_by(activity_id: activity_data[:id], classroom_id: classroom_id)
+        if classroom[:student_ids] === false
+          # units fix: add this ca to a blacklisted array which will be bulk updated to visible false
+          # still use next
+          classroom_activity.update(visible: false)
+          next
         end
+
+        if classroom_activity.new_record?
+          # TODO: look further into what is going on with due date
+          due_date = classroom_activity.sibling_due_date || activity_data[:due_date]
+          classroom_activity.save
+        else
+          due_date = activity_data[:due_date] || classroom_activity.due_date
+        end
+        # units fix: add these to an array or hash for a bulk update at the end
+        classroom_activity.update(due_date: due_date, assigned_student_ids: classroom[:student_ids])
+      end
     end
-    # TODO: this is messing everything up by not generating new activity sessions since it skips the callback
-    # however, it is far more efficient
-    # new_cas.any? ? ClassroomActivity.bulk_insert(values: new_cas) : nil
-    new_cas.each{|ca| ClassroomActivity.create(ca)}
-    # TODO: same as above -- efficient, but we need the callbacks
-    # hidden_cas_ids.any? ? ClassroomActivity.where(id: hidden_cas_ids).update_all(visible: false) : nil
-    hidden_cas_ids.each{|ca_id| ClassroomActivity.find(ca_id).update(visible: false)}
-    if (hidden_cas_ids.any?) && (new_cas.none?)
-      # then there is a chance that there are no existing classroom activities
-      unit.hide_if_no_visible_classroom_activities
-    end
+    unit.hide_if_no_visible_classroom_activities
     # necessary activity sessions are created in an after_create and after_save callback
     # in activity_sessions.rb
     # TODO: Assign Activity Worker should be labeled as an analytics worker
     AssignActivityWorker.perform_async(unit.user_id)
   end
 
-
-  #TODO: find out if this code is worth salvaging
-  # def self.run(teacher, id, name, activities_data, classrooms_data)
-  #   extant = Unit.find(id)
-  #   extant.update(name: name)
-  #   classroom_activities = extant.classroom_activities
-  #   pairs = activities_data.product(classrooms_data)
-  #   self.create_and_update_cas(classroom_activities, pairs)
-  #   self.hide_cas(classroom_activities, pairs)
-  #   self.create_activity_sessions(extant)
-  # end
-  #
-  # private
-  #
-  # def self.create_and_update_cas(classroom_activities, pairs)
-  #   pairs.each do |pair|
-  #     activity_data, classroom_data = pair
-  #     hash = {activity_id: activity_data[:id], classroom_id: classroom_data[:id]}
-  #     ca = classroom_activities.find_by(hash)
-  #     if ca.present?
-  #       self.maybe_hide_some_activity_sessions(ca, classroom_data[:student_ids])
-  #     else
-  #       ca = classroom_activities.create(hash)
-  #     end
-  #     ca.update(due_date: activity_data[:due_date], assigned_student_ids: classroom_data[:student_ids])
+  # def self.update_helper(unit_id, activities_data, classrooms_data)
+  #   unit = Unit.find unit_id
+  #   extant_classroom_activities = ClassroomActivity.where(unit_id: unit_id)
+  #   new_cas = []
+  #   hidden_cas_ids = []
+  #   classrooms_data.each do |classroom|
+  #       product = activities_data.product([classroom[:id].to_i])
+  #       product.each do |pair|
+  #         activity_data, classroom_id = pair
+  #         self.matching_or_new_classroom_activity(activity_data, classroom_id, extant_classroom_activities, new_cas, hidden_cas_ids, classroom, unit_id)
+  #       end
   #   end
-  # end
-  #
-  # def self.maybe_hide_some_activity_sessions(classroom_activity, new_assigned_student_ids)
-  #
-  #   all_student_ids = classroom_activity.classroom.students.map(&:id)
-  #   formerly_assigned = self.helper(classroom_activity.assigned_student_ids, all_student_ids)
-  #   now_assigned = self.helper(new_assigned_student_ids, all_student_ids)
-  #
-  #   no_longer_assigned = formerly_assigned - now_assigned
-  #   no_longer_assigned.each do |student_id|
-  #     as = classroom_activity.activity_sessions.find_by(user_id: student_id)
-  #     self.hide_activity_session(as)
+  #   # TODO: this is messing everything up by not generating new activity sessions since it skips the callback
+  #   # however, it is far more efficient
+  #   # new_cas.any? ? ClassroomActivity.bulk_insert(values: new_cas) : nil
+  #   new_cas.each{|ca| ClassroomActivity.create(ca)}
+  #   # TODO: same as above -- efficient, but we need the callbacks
+  #   # hidden_cas_ids.any? ? ClassroomActivity.where(id: hidden_cas_ids).update_all(visible: false) : nil
+  #   hidden_cas_ids.each{|ca_id| ClassroomActivity.find(ca_id).update(visible: false)}
+  #   if (hidden_cas_ids.any?) && (new_cas.none?)
+  #     # then there is a chance that there are no existing classroom activities
+  #     unit.hide_if_no_visible_classroom_activities
   #   end
-  # end
-  #
-  # def self.helper(student_ids1, student_ids2)
-  #   student_ids1.any? ? student_ids1 : student_ids2
-  # end
-  #
-  # def self.hide_activity_session(activity_session)
-  #   Units::Hiders::ActivitySession.run(activity_session)
-  # end
-  #
-  # def self.hide_cas(classroom_activities, pairs)
-  #   classroom_activities.each do |ca|
-  #     self.maybe_hide_ca(ca, pairs)
-  #   end
-  # end
-  #
-  # def self.maybe_hide_ca(ca, pairs)
-  #   e = pairs.find do |pair|
-  #     activity_data, classroom_data = pair
-  #     a = (activity_data[:id] == ca.activity_id)
-  #     b = (classroom_data[:id] == ca.classroom_id)
-  #     a && b
-  #   end
-  #   if e.nil?
-  #     self.hide_classroom_activity(ca)
-  #   end
-  # end
-  #
-  # def self.hide_classroom_activity(classroom_activity)
-  #   Units::Hiders::ClassroomActivity.run(classroom_activity)
-  # end
-  #
-  # def self.create_activity_sessions(unit)
-  #   unit.reload.classroom_activities.each do |ca|
-  #     ca.assign_to_students
-  #   end
+  #   # necessary activity sessions are created in an after_create and after_save callback
+  #   # in activity_sessions.rb
+  #   # TODO: Assign Activity Worker should be labeled as an analytics worker
+  #   AssignActivityWorker.perform_async(unit.user_id)
   # end
 
 end
