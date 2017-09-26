@@ -22,6 +22,16 @@ module PublicProgressReports
       end
     end
 
+    def classroom_report_url(classroom_activity_id)
+      classroom_activity = ClassroomActivity.find(classroom_activity_id)
+      unit_id = classroom_activity.try(:unit).id
+      activity_id = classroom_activity.try(:activity).id
+      classroom_id = classroom_activity.try(:classroom).id
+      if unit_id && activity_id && classroom_id
+        "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students"
+      end
+    end
+
     def default_diagnostic_url
       ca = last_completed_diagnostic
       if ca
@@ -166,7 +176,11 @@ module PublicProgressReports
     end
 
     def get_average_score formatted_results
-      (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+      if (formatted_results.length == 0)
+        return 100
+      else
+        return (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+      end
     end
 
     def get_recommendations_for_classroom unit_id, classroom_id, activity_id

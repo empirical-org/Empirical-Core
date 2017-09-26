@@ -56,15 +56,13 @@ tools: function() {
     description='Identify Learning Gaps'
     imgSrc={`${process.env.CDN_URL}/images/icons/diagnostic-light-gray.svg`}
   />,
-  userFlag === 'beta'
-  ? <LessonTypeMini
+  <LessonTypeMini
     key={'lessons'}
     link='/teachers/classrooms/assign_activities/create-unit?tool=lessons'
     name='Quill Lessons'
     description='Shared Group Lessons'
     imgSrc={`${process.env.CDN_URL}/images/icons/lessons-light-gray.svg`}
-  />
-  : null,
+  />,
   <LessonTypeMini
     key={'connect'}
     link='/teachers/classrooms/assign_activities/create-unit?tool=connect'

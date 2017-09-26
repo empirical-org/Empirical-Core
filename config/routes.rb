@@ -138,6 +138,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
       get 'report_from_classroom_activity_and_user/ca/:classroom_activity_id/user/:user_id' => 'diagnostic_reports#report_from_classroom_activity_and_user'
+      get 'report_from_classroom_activity/:classroom_activity_id' => 'diagnostic_reports#report_from_classroom_activity'
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
@@ -147,6 +148,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'recommendations_for_classroom/:unit_id/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
       get 'lesson_recommendations_for_classroom/u/:unit_id/c/:classroom_id/a/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
+      get 'report_from_unit_and_activity/u/:unit_id/a/:activity_id' => 'diagnostic_reports#redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit'
       post 'assign_selected_packs' => 'diagnostic_reports#assign_selected_packs'
 
       namespace :concepts do
@@ -235,7 +237,8 @@ EmpiricalGrammar::Application.routes.draw do
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
-      get 'activities/:id/follow_up_activity_name' => 'activities#follow_up_activity_name'
+      get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
+      get 'activities/:id/supporting_info' => 'activities#supporting_info'
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
       put 'classroom_activities/:id/finish_lesson' => 'classroom_activities#finish_lesson'
       put 'classroom_activities/:id/pin_activity' => 'classroom_activities#pin_activity'

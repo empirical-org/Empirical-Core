@@ -6,7 +6,7 @@
     {name: 'Quill Proofreader', url: 'tools/proofreader'},
     {name: 'Quill Grammar', url: 'tools/grammar'}
     ]
-    @tabs = @beta_flag ? tabs : tabs[1..-1]
+    @tabs = tabs
     @mobile = false
   %>
 
@@ -21,7 +21,7 @@
     {name: 'Proofreader', url: 'tools/proofreader'},
     {name: 'Grammar', url: 'tools/grammar'}
     ]
-    @tabs = @beta_flag ? tabs : tabs[1..-1]
+    @tabs = tabs
     @active_tab = @active_tab.split.last
     @mobile = false
   %>
