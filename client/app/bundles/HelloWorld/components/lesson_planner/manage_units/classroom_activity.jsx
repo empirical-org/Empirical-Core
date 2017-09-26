@@ -21,7 +21,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    maxWidth: '350px',
   },
   reportEndRow: {
     display: 'flex',
