@@ -178,7 +178,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
       INNER JOIN activities ON ca.activity_id = activities.id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-      INNER JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
       AND classrooms.visible = true
       AND units.visible = true
