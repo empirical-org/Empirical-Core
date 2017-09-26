@@ -110,13 +110,37 @@ class Teachers::UnitsController < ApplicationController
     render json: units_with_diagnostics.to_json
   end
 
+  # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
+  # We use the count to see if we should mark as completed.
   def lesson_units
-    units_with_lessons = units.select { |a| a['activity_classification_id'] == '6' }
-    units_with_lessons.map do |u|
-      u["completed"] = ClassroomActivity.find(u["classroom_activity_id"]).has_a_completed_session?
-      u
-    end
-    render json: units_with_lessons.to_json
+    lesson_units = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+       activities.name AS activity_name,
+       activities.supporting_info AS supporting_info,
+       classrooms.name AS class_name,
+       classrooms.id AS classroom_id,
+       activities.activity_classification_id,
+       ca.id AS classroom_activity_id,
+       ca.unit_id AS unit_id,
+       array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
+       ca.due_date,
+       activities.id AS activity_id,
+       activities.uid as activity_uid,
+       COUNT(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE NULL END) AS completed_count,
+       EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
+       EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
+    FROM units
+      INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
+      INNER JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
+      INNER JOIN activities ON ca.activity_id = activities.id
+      INNER JOIN classrooms ON ca.classroom_id = classrooms.id
+      INNER JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+    WHERE units.user_id = #{current_user.id}
+      AND activities.activity_classification_id = 6
+      AND classrooms.visible = true
+      AND units.visible = true
+      AND ca.visible = true
+    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+    render json: lesson_units.to_json
   end
 
   def hide
