@@ -12,7 +12,7 @@ const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = 'http://assets.quill.org/images/icons/save_exit_icon.svg'
 const projectorIcon = 'http://assets.quill.org/images/icons/projector_icon.svg'
 const helpIcon = require('../../img/help_icon.svg')
-const flagIcon = require('../../img/flag_icon.svg')
+const flagIcon = 'http://assets.quill.org/images/icons/list_flagged_students_icon.svg'
 const pdfIcon = 'http://assets.quill.org/images/icons/download_pdf_icon.svg'
 
 class TeacherNavbar extends React.Component<any, any> {
