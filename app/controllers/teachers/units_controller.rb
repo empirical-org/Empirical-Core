@@ -128,10 +128,10 @@ class Teachers::UnitsController < ApplicationController
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
     FROM units
       INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
-      INNER JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
+      LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
       INNER JOIN activities ON ca.activity_id = activities.id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-      INNER JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
       AND activities.activity_classification_id = 6
       AND classrooms.visible = true
