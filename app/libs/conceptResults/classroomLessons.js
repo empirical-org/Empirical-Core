@@ -13,7 +13,7 @@ export function generateConceptResult(questionData, studentSubmission) {
     question_type: 'lessons-slide',
     metadata: {
       correct: 1,
-      directions: questionData.prompt,
+      directions: questionData.instructions,
       prompt: questionData.prompt,
       answer: studentSubmission.data,
       attemptNumber: 1,
