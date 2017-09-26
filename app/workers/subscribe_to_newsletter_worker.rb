@@ -6,7 +6,9 @@ class SubscribeToNewsletterWorker
   def perform(recipient_id)
     @recipient = User.find recipient_id
     add_recipient_to_contacts
-    add_recipient_to_list
+    if @recipient.send_newsletter
+      add_recipient_to_list
+    end
   end
 
   def add_recipient_to_contacts
