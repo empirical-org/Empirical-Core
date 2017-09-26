@@ -31,6 +31,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update
+    # unit fix: get all names with pluck
     unit_template_names = UnitTemplate.all.map{ |u| u.name.downcase }
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: 'Unit must have a name'}, status: 422
@@ -44,12 +45,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    unit = Unit.find_by_id(params[:id])
-    classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
-    if unit
-      # unit fix
-      activities_data = unit.activities.uniq.map { |act| {id: act.id }}
-      Units::Updater.run(unit, activities_data, classroom_activities)
+    activities_data = ClassroomActivity.where(unit_id: params[:id]).select('activity_id as id').distinct.as_json
+    if activities_data.any?
+      classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
+      # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
+      Units::Updater.run(params[:id], activities_data, classroom_activities)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -58,9 +58,9 @@ class Teachers::UnitsController < ApplicationController
 
   def update_activities
     data = JSON.parse(params[:data],symbolize_names: true)
-    unit = Unit.find_by_id(params[:id])
-    if unit && formatted_classrooms_data(unit).any?
-      Units::Updater.run(unit, data[:activities_data], formatted_classrooms_data(unit))
+    classrooms_data = formatted_classrooms_data(params[:id])
+    if classrooms_data.any?
+      Units::Updater.run(params[:id], data[:activities_data], classrooms_data)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -177,8 +177,9 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
-  def formatted_classrooms_data(unit)
-    cas = unit.classroom_activities
+  def formatted_classrooms_data(unit_id)
+    # potential refactor into SQL
+    cas = ClassroomActivity.where(unit_id: unit_id).select(:classroom_id, :assigned_student_ids)
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
