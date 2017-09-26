@@ -3,6 +3,7 @@ module UnitQueries
   extend ActiveSupport::Concern
 
   def get_classrooms_with_students_and_classroom_activities(unit_id)
+    # unit fix: make this more performant
     unit = Unit.find(unit_id)
     classrooms = User.find(unit.user_id).classrooms_i_teach_with_students
     classrooms.each do |c|
