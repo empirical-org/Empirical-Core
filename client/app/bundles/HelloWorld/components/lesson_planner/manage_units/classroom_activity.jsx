@@ -21,7 +21,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    maxWidth: '350px',
   },
   reportEndRow: {
     display: 'flex',
@@ -145,7 +144,17 @@ export default React.createClass({
       return <p className="lesson-completed">Lesson Completed</p>;
     }
     const text = this.props.data.started ? 'Resume Lesson' : 'Launch Lesson';
-    return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+    if (this.props.data.class_size > 0) {
+      return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+    } else {
+      return <a onClick={this.noStudentsWarning} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+    }
+  },
+
+  noStudentsWarning() {
+    if (window.confirm("You have no students in this class. Quill Lessons is a collaborative tool for teachers and students to work together. If you'd like to launch this lesson anyway, click OK below. Otherwise, click Cancel.")) {
+      window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`
+    }
   },
 
   isLesson() {
