@@ -55,8 +55,8 @@ export default class ClassroomLessons extends React.Component {
     return (<div className="empty-lessons manage-units">
       <div className="content">
         <h1>You have no lessons assigned!</h1>
-        <p>In order to launch a lesson with your class, you need to first assign to a class and then launch.</p>
-        <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and see and display student responses in real-time.</p>
+        <p>In order to launch a lesson, you need to assign a lesson to one of your classes.</p>
+        <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and to see and display student responses in real-time.</p>
         <div className="buttons">
           <a href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
           <a href="/tool/lessons" className="bg-white text-quillgreen">Learn More</a>
@@ -90,7 +90,7 @@ export default class ClassroomLessons extends React.Component {
 			classroomId: u.classroom_id,
       dueDate: u.due_date,
       supportingInfo: u.supporting_info,
-      completed: u.completed,});
+      completed: u.completed_count > 0,});
     return caObj;
   }
 
@@ -119,7 +119,7 @@ export default class ClassroomLessons extends React.Component {
           createdAt: u.ca_created_at,
           dueDate: u.due_date,
           supportingInfo: u.supporting_info,
-          completed: u.completed,});
+          completed: u.completed_count > 0,});
       }
     });
     return this.orderUnits(parsedUnits);

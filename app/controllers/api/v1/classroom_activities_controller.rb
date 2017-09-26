@@ -25,8 +25,8 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     render json: @classroom_activity.pinned
   end
 
-  def unpin_activity
-    @classroom_activity.update(pinned: false)
+  def unpin_and_lock_activity
+    @classroom_activity.update(pinned: false, locked: true)
     render json: @classroom_activity.pinned
   end
 
