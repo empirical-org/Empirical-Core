@@ -45,7 +45,6 @@ module Units::Updater
 
   def self.update_helper(unit_id, activities_data, classrooms_data)
     activities_data.each{|act| act.symbolize_keys!}
-    unit = Unit.find unit_id
     extant_classroom_activities = ClassroomActivity.where(unit_id: unit_id)
     new_cas = []
     hidden_cas_ids = []
@@ -65,6 +64,7 @@ module Units::Updater
     hidden_cas_ids.each{|ca_id| ClassroomActivity.find(ca_id).update!(visible: false)}
     if (hidden_cas_ids.any?) && (new_cas.none?)
       # then there is a chance that there are no existing classroom activities
+      unit = Unit.find unit_id
       unit.hide_if_no_visible_classroom_activities
     end
     # necessary activity sessions are created in an after_create and after_save callback
