@@ -52,8 +52,7 @@ class ActivitySearchWrapper
 
   def get_custom_search_results
     get_activity_search
-    get_activity_classifications
-    get_activity_categories_topics_and_section
+    get_activity_categories_classifications_topics_and_section
     get_formatted_search_results
   end
 
@@ -63,18 +62,26 @@ class ActivitySearchWrapper
 
   def get_formatted_search_results
     @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
-    @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
+    @activities = @activities.map do |a|
+      a['classification'] = {id: a['classification_id']}
+      a['activity_category'] = {id: a['activity_category_id'], name: a['activity_category_name']}
+      a['topic'] = {section: {id: a['section_id'], name: a['section_name']}}
+      a
+    end
   end
 
-  def get_activity_classifications
-    activity_classifications = @activities.map(&:classification).uniq.compact
-    @activity_classifications = activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}
-  end
-
-  def get_activity_categories_topics_and_section
-    @topics = @activities.includes(topic: :topic_category).map(&:topic).uniq.compact
+  def get_activity_categories_classifications_topics_and_section
+    topic_ids = []
+    activity_classification_ids = []
+    @activities.each do |a|
+      topic_ids << a['topic_id']
+      activity_classification_ids << a['activity_classification_id']
+    end
+    @activity_classifications = ActivityClassification.where(id: activity_classification_ids).map{|c| ClassificationSerializer.new(c).as_json(root: false)}
+    @topics = Topic.where(id: topic_ids)
     @activity_categories = ActivityCategory.all
-    @sections = @topics.map(&:section).uniq.compact
+    section_ids = @topics.map(&:section_id).uniq
+    @sections = Section.where(id: section_ids)
   end
 
 end
