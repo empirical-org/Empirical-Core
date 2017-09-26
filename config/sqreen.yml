@@ -1,1 +1,1 @@
-token: e0367394a13c4d87825627e6596b53ddb436ccdd85de4dd28076c67014ac61f0
+token: <%= ENV['SQREEN_TOKEN'] %>
