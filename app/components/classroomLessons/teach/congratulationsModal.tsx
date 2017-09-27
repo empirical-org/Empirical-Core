@@ -2,6 +2,7 @@ import * as React from 'react'
 
 const CongratulationsModal: React.SFC<{closeModal?: any}> = (props) => {
  return <div className="congratulations-modal-container">
+      <div className="congratulations-modal-background"/>
      <div className="congratulations-modal">
         <img onClick={props.closeModal} className="exit" src="http://assets.quill.org/images/icons/CloseIcon.svg"/>
         <img className="illustration" src="http://assets.quill.org/images/illustrations/congratulations_illustration.svg" />
