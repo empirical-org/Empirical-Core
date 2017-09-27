@@ -31,7 +31,7 @@ module Units::Updater
         hidden_cas_ids.push(matching_activity.id)
       elsif (matching_activity[:due_date] != activity_data[:due_date]) || (matching_activity.assigned_student_ids != classroom[:student_ids])
         # then something changed and we should update
-        matching_activity.update!(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids])
+        matching_activity.update!(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids], visible: true)
       end
     elsif classroom[:student_ids]
       # making an array of hashes to create in one bulk option
@@ -45,7 +45,7 @@ module Units::Updater
 
   def self.update_helper(unit_id, activities_data, classrooms_data)
     activities_data.each{|act| act.symbolize_keys!}
-    extant_classroom_activities = ClassroomActivity.where(unit_id: unit_id)
+    extant_classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_id)
     new_cas = []
     hidden_cas_ids = []
     classrooms_data.each do |classroom|
