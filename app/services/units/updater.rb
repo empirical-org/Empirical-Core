@@ -62,9 +62,9 @@ module Units::Updater
     # TODO: same as above -- efficient, but we need the callbacks
     # hidden_cas_ids.any? ? ClassroomActivity.where(id: hidden_cas_ids).update_all(visible: false) : nil
     hidden_cas_ids.each{|ca_id| ClassroomActivity.find(ca_id).update!(visible: false)}
+    unit = Unit.find unit_id
     if (hidden_cas_ids.any?) && (new_cas.none?)
       # then there is a chance that there are no existing classroom activities
-      unit = Unit.find unit_id
       unit.hide_if_no_visible_classroom_activities
     end
     # necessary activity sessions are created in an after_create and after_save callback
