@@ -39,7 +39,7 @@ class CurrentSlide extends React.Component<any, any> {
 
     const data: ClassroomLessonSession = props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
-    const script: Array<ScriptItem> = lessonData && lessonData.questions ? lessonData.questions[data.current_slide].data.teach.script : []
+    const script: Array<ScriptItem> = lessonData && lessonData.questions && lessonData.questions[data.current_slide] ? lessonData.questions[data.current_slide].data.teach.script : []
 
     this.state = {
       numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
