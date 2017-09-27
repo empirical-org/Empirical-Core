@@ -11,7 +11,7 @@ import ActivitySearchResults from './activity_search_results/activity_search_res
 import Pagination from './pagination/pagination';
 import SelectedActivities from './selected_activities/selected_activities';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
-import getParameterByName from '../../../modules/get_parameter_by_name'
+import getParameterByName from '../../../modules/get_parameter_by_name';
 
 export default React.createClass({
   propTypes: {
@@ -38,7 +38,7 @@ export default React.createClass({
       },
       filters: ActivitySearchFilterConfig,
       sorts: ActivitySearchSortConfig,
-      activeFilterOn: getParameterByName('tool') ? true : false,
+      activeFilterOn: !!getParameterByName('tool'),
       error: null,
     };
   },
@@ -177,14 +177,13 @@ export default React.createClass({
     activityClassificationIds = _.uniq(activityClassificationIds);
     activityCategoryIds = _.uniq(activityCategoryIds);
     sectionIds = _.uniq(sectionIds);
-
     const availableOptions = {};
     availableOptions.activity_category = _.reject(this.state.allFilterOptions.activity_category,
       option => !_.contains(activityCategoryIds, option.id));
     availableOptions.section = _.reject(this.state.allFilterOptions.section,
       option => !_.contains(sectionIds, option.id));
     availableOptions.activity_classification = _.reject(this.state.allFilterOptions.activity_classification,
-      option => !_.contains(activityClassificationIds, option.id));
+      option => !_.contains(activityClassificationIds, Number(option.id)));
 
     return availableOptions;
   },
