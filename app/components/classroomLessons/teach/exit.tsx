@@ -40,12 +40,13 @@ class ExitSlide extends React.Component<any, any> {
     const data = new FormData();
     data.append( "json", JSON.stringify( {follow_up, concept_results} ) );
     let redirectAssignedStudents = this.redirectAssignedStudents
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
+    request({
+      uri: `${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`,
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
       body: data
-    }).then((response) => {
+    }, (error, response, body) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
