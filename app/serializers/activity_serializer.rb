@@ -9,9 +9,11 @@ class ActivitySerializer < ActiveModel::Serializer
   end
 
   def activity_category
-    ActivityCategory.joins("JOIN activity_category_activities ON activity_categories.id = activity_category_activities.activity_category_id")
-    .where("activity_category_activities.activity_id = #{object.id}")
-    .limit(1).to_a.first
+    if object.id
+      ActivityCategory.joins("JOIN activity_category_activities ON activity_categories.id = activity_category_activities.activity_category_id")
+      .where("activity_category_activities.activity_id = #{object.id}")
+      .limit(1).to_a.first
+    end
   end
 
 end
