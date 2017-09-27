@@ -94,11 +94,7 @@ class ActivitySearchWrapper
       activity_classification_ids << a['classification_id'].to_i
     end
     @activity_classification_ids = activity_classification_ids.uniq
-    start = Time.now
     @activity_classifications = get_activity_classifications
-    finish = Time.now - start
-    puts 'yooooo'
-    puts finish
     @activity_categories = ActivityCategory.all
     @sections = Section.where(id: section_ids.uniq)
   end
