@@ -123,13 +123,14 @@ class TeacherNavbar extends React.Component<any, any> {
 
   renderPDFLink() {
     if (this.props.classroomSessions.data.supportingInfo) {
+      const className = this.state.tooltip === 'pdf' ? 'hover' : ''
       return <a
         target="_blank"
         href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}
         onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
         onMouseLeave={(e) => this.hideTooltip(e)}
         >
-          <img src={pdfIcon}/>
+          <img className={className} src={pdfIcon}/>
           {this.renderTooltip('pdf')}
       </a>
     }
@@ -146,7 +147,7 @@ class TeacherNavbar extends React.Component<any, any> {
       <div className='help-dropdown'>
         <i className="fa fa-caret-up"/>
         <a target="_blank" href={`${process.env.EMPIRICAL_BASE_URL}/tutorials/lessons`}><p>Tutorial</p></a>
-        <a target="_blank" href="https://support.quill.org/activities-implementation"><p>Quill Lessons - Q&A</p></a>
+        <a target="_blank" href="https://support.quill.org/using-quill-tools#quill-lessons"><p>Quill Lessons - Q&A</p></a>
       </div>
     )
   }
