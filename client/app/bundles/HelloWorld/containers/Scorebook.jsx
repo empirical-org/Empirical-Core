@@ -28,7 +28,7 @@ export default React.createClass({
       selectedClassroom: this.props.selectedClassroom,
       classroomFilters: this.props.allClassrooms,
       unitFilters: [],
-      scores: {},
+      scores: new Map(),
       beginDate: null,
       premium_state: this.props.premium_state,
       endDate: null,
@@ -83,7 +83,7 @@ export default React.createClass({
   checkMissing(newScores) {
     if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';
-    } else if (!newScores || _.isEmpty(newScores)) {
+    } else if (!newScores || newScores.size === 0) {
       return 'activities';
     }
   },
@@ -95,11 +95,12 @@ export default React.createClass({
       premium_state: data.premium_state,
       noLoadHasEverOccurredYet: false,
     });
-    const newScores = Object.assign({}, this.state.scores);
+    const newScores = new Map(this.state.scores);
     data.scores.forEach((s) => {
       // add the score to the user scores arr or create a new one
-      newScores[s.user_id] = newScores[s.user_id] || { name: s.name, scores: [], };
-      newScores[s.user_id].scores.push({
+      newScores.has(s.user_id) || newScores.set(s.user_id, { name: s.name, scores: [], });
+      const scores = newScores.get(s.user_id).scores;
+      scores.push({
         caId: s.ca_id,
         // activitySessionId: s.id,
         userId: s.user_id,
@@ -113,7 +114,7 @@ export default React.createClass({
 
   selectUnit(option) {
     this.setState({
-      scores: {},
+      scores: new Map(),
       currentPage: 0,
       selectedUnit: option,
     }, this.fetchData);
@@ -122,7 +123,7 @@ export default React.createClass({
   selectClassroom(option) {
     this.getUpdatedUnits(option.value);
     this.setState({
-      scores: {},
+      scores: new Map(),
       currentPage: 0,
       selectedClassroom: option,
     }, this.fetchData
@@ -131,7 +132,7 @@ export default React.createClass({
 
   selectDates(val1, val2) {
     this.setState({
-      scores: {},
+      scores: new Map(),
       currentPage: 0,
       beginDate: val1,
       endDate: val2,
@@ -142,12 +143,12 @@ export default React.createClass({
     let content,
       loadingIndicator;
     const scores = [];
-    for (const userId in this.state.scores) {
-      if (this.state.scores.hasOwnProperty(userId)) {
-        const sObj = this.state.scores[userId];
-        scores.push(<StudentScores key={userId} data={{ scores: sObj.scores, name: sObj.name, activity_name: sObj.activity_name, userId: sObj.userId, }} premium_state={this.props.premium_state} />);
-      }
-    }
+    let index = 0;
+    this.state.scores.forEach((s) => {
+      index += 0;
+      const sData = s.scores[0];
+      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, }} premium_state={this.props.premium_state} />);
+    });
     if (this.state.loading) {
       loadingIndicator = <LoadingIndicator />;
     } else {

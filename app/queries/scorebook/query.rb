@@ -30,7 +30,7 @@ class Scorebook::Query
     #{self.begin_date(begin_date)}
     #{self.end_date(end_date)}
     GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id, activity.name
-    ORDER BY  substring(students.name, '([^[:space:]]+)(?:,|$)'), ca.created_at ASC
+    ORDER BY  split_part( students.name, ' ' , 2), ca.created_at ASC
     OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
     FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
     ).to_a
