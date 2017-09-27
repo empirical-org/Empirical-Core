@@ -268,7 +268,7 @@ export function clearPreviewSessionOnDisconnect(classroom_activity_id) {
 }
 
 export function unpinActivityOnSaveAndExit(classroom_activity_id) {
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/unpin_activity`, {
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/unpin_and_lock_activity`, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',

@@ -28,7 +28,7 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
       const isSelected = option === this.props.selectedOptionKey
       const imgSrc = isSelected ? RadioButtonSelected : RadioButtonIcon;
       const row = (
-        <div className='assign-option-row' key={option}>
+        <div className='assign-option-row' key={option} onClick={() => this.props.updateSelectedOptionKey(option)}>
         <div className='flex-container'>
           <h3>{option}</h3>
           <p>
@@ -41,7 +41,6 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
                 name='rad-button'
                 type="radio"
                 checked={isSelected}
-                onChange={() => this.props.updateSelectedOptionKey(option)}
               />
             </span>
           </p>
