@@ -242,7 +242,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
       put 'classroom_activities/:id/finish_lesson' => 'classroom_activities#finish_lesson'
       put 'classroom_activities/:id/pin_activity' => 'classroom_activities#pin_activity'
-      put 'classroom_activities/:id/unpin_activity' => 'classroom_activities#unpin_activity'
+      put 'classroom_activities/:id/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'users/profile', to: 'users#profile'
     end

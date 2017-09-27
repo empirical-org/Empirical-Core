@@ -95,8 +95,8 @@ class PagesController < ApplicationController
   end
 
   def lessons_tool
-    @title = 'Quill Connect - Free Sentence Structure Activities'
-    @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
+    @title = 'Quill Lessons - Free Group Writing Activities'
+    @description = 'Lead whole-class and small group writing instruction with interactive writing prompts and discussion topics.'
   end
 
   def activities

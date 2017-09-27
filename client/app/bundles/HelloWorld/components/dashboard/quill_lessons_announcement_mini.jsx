@@ -16,7 +16,7 @@
           <p style={{ padding: '0px 15px', marginTop: '16px', minHeight: '86px', lineHeight: '1.57', fontFamily: 'lucida-grande, adelle-sans, helvetica', }}>
           Use Quill Lessons to lead whole-class direct instruction with interactive lesson plans. With Quill Lessons, you can see and display student responses in real time.
         </p>
-          <a target="_blank" href="https://www.quill.org/tools/lessons"><button style={{ fontWeight: 'normal', maxWidth: '233px', width: '100%', paddingBottom: '13px', }} className="button button-white beta">Learn More</button></a>
+          <a target="_blank" href="https://medium.com/writing-with-quill/quill-launches-quill-lessons-fb983f2b8970"><button style={{ fontWeight: 'normal', maxWidth: '233px', width: '100%', paddingBottom: '13px', }} className="button button-white beta">Learn More</button></a>
         </div>
       );
     },
