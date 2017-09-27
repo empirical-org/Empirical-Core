@@ -100,10 +100,18 @@ class ActivitySearchWrapper
   end
 
   def get_activity_classifications
-    activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
-    activity_classifications.map do |ac|
-      ac['alias'] = classification_alias(ac['id'].to_i)
-      ac
+    if @activity_classification_ids.any?
+      activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
+      activity_classifications.map do |ac|
+        ac_id = ac['id'].to_i
+        {
+          alias: classification_alias(ac_id),
+          id: ac_id,
+          key: ac['key']
+        }
+      end
+    else
+      []
     end
   end
 

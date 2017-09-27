@@ -7,7 +7,7 @@ class ActivitySearch
       filter_string.concat("AND #{model_name}.id = #{model_id}")
     end
 
-    sanitized_search_text = search_text.length > 0 ? ActiveRecord::Base.sanitize(search_text) : ''
+    sanitized_search_text = search_text.length > 0 ? ActiveRecord::Base.sanitize("%#{search_text}%") : "\'%\'"
 
     ActiveRecord::Base.connection.execute("SELECT
         activities.name AS activity_name,
@@ -27,7 +27,7 @@ class ActivitySearch
       LEFT JOIN sections ON topics.section_id = sections.id
       LEFT JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
-      WHERE (activities.name ILIKE '%#{sanitized_search_text}%' OR activity_categories.name ILIKE '%#{sanitized_search_text}%' OR activities.description ILIKE '%#{sanitized_search_text}%')
+      WHERE (activities.name ILIKE #{sanitized_search_text} OR activity_categories.name ILIKE #{sanitized_search_text} OR activities.description ILIKE #{sanitized_search_text})
       AND activity_categories.id IS NOT NULL
       AND sections.id IS NOT NULL
       #{filter_string}
