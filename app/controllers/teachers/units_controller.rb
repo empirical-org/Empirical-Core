@@ -31,6 +31,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update
+    # unit fix: get all names with pluck
     unit_template_names = UnitTemplate.all.map{ |u| u.name.downcase }
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: 'Unit must have a name'}, status: 422
@@ -44,12 +45,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    unit = Unit.find_by_id(params[:id])
-    classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
-    if unit
-      # unit fix
-      activities_data = unit.activities.uniq.map { |act| {id: act.id }}
-      Units::Updater.run(unit, activities_data, classroom_activities)
+    activities_data = ClassroomActivity.where(unit_id: params[:id]).select('activity_id as id').distinct.as_json
+    if activities_data.any?
+      classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
+      # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
+      Units::Updater.run(params[:id], activities_data, classroom_activities)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -58,9 +58,9 @@ class Teachers::UnitsController < ApplicationController
 
   def update_activities
     data = JSON.parse(params[:data],symbolize_names: true)
-    unit = Unit.find_by_id(params[:id])
-    if unit && formatted_classrooms_data(unit).any?
-      Units::Updater.run(unit, data[:activities_data], formatted_classrooms_data(unit))
+    classrooms_data = formatted_classrooms_data(params[:id])
+    if classrooms_data.any?
+      Units::Updater.run(params[:id], data[:activities_data], classrooms_data)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -110,13 +110,37 @@ class Teachers::UnitsController < ApplicationController
     render json: units_with_diagnostics.to_json
   end
 
+  # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
+  # We use the count to see if we should mark as completed.
   def lesson_units
-    units_with_lessons = units.select { |a| a['activity_classification_id'] == '6' }
-    units_with_lessons.map do |u|
-      u["completed"] = ClassroomActivity.find(u["classroom_activity_id"]).has_a_completed_session?
-      u
-    end
-    render json: units_with_lessons.to_json
+    lesson_units = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+       activities.name AS activity_name,
+       activities.supporting_info AS supporting_info,
+       classrooms.name AS class_name,
+       classrooms.id AS classroom_id,
+       activities.activity_classification_id,
+       ca.id AS classroom_activity_id,
+       ca.unit_id AS unit_id,
+       array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
+       ca.due_date,
+       activities.id AS activity_id,
+       activities.uid as activity_uid,
+       COUNT(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE NULL END) AS completed_count,
+       EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
+       EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
+    FROM units
+      INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
+      LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
+      INNER JOIN activities ON ca.activity_id = activities.id
+      INNER JOIN classrooms ON ca.classroom_id = classrooms.id
+      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+    WHERE units.user_id = #{current_user.id}
+      AND activities.activity_classification_id = 6
+      AND classrooms.visible = true
+      AND units.visible = true
+      AND ca.visible = true
+    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+    render json: lesson_units.to_json
   end
 
   def hide
@@ -153,8 +177,9 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
-  def formatted_classrooms_data(unit)
-    cas = unit.classroom_activities
+  def formatted_classrooms_data(unit_id)
+    # potential refactor into SQL
+    cas = ClassroomActivity.where(unit_id: unit_id).select(:classroom_id, :assigned_student_ids)
     one_ca_per_classroom =  cas.group_by{|class_act| class_act[:classroom_id] }.values.map{ |ca| ca.first }
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
@@ -178,7 +203,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
       INNER JOIN activities ON ca.activity_id = activities.id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-      INNER JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
       AND classrooms.visible = true
       AND units.visible = true

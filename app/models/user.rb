@@ -283,7 +283,9 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_newsletter
-    self.send_newsletter ? SubscribeToNewsletterWorker.perform_async(self.id) : nil
+    if self.role == "teacher"
+      SubscribeToNewsletterWorker.perform_async(self.id)
+    end
   end
 
   def imported_from_clever?
