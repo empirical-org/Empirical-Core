@@ -15,12 +15,11 @@ class ActivitySearch
     		activities.flags AS activity_flag,
     		activities.id AS activity_id,
     		activities.uid AS activity_uid,
-        sections.id AS section_id,
         activity_categories.id AS activity_category_id,
         activity_categories.name AS activity_category_name,
+        sections.id AS section_id,
         sections.name AS section_name,
         topics.name AS topic_name,
-        topics.id AS topic_id,
         activity_classifications.id AS classification_id
       FROM activities
       LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id

@@ -87,17 +87,28 @@ class ActivitySearchWrapper
   end
 
   def get_activity_categories_classifications_topics_and_section
-    topic_ids = []
+    section_ids = []
     activity_classification_ids = []
     @activities.each do |a|
-      topic_ids << a['topic_id']
-      activity_classification_ids << a['classification_id']
+      section_ids << a['section_id']
+      activity_classification_ids << a['classification_id'].to_i
     end
-    @activity_classifications = ActivityClassification.where(id: activity_classification_ids.uniq).map{|c| ClassificationSerializer.new(c).as_json(root: false)}
-    @topics = Topic.where(id: topic_ids.uniq)
+    @activity_classification_ids = activity_classification_ids.uniq
+    start = Time.now
+    @activity_classifications = get_activity_classifications
+    finish = Time.now - start
+    puts 'yooooo'
+    puts finish
     @activity_categories = ActivityCategory.all
-    section_ids = @topics.map(&:section_id).uniq
-    @sections = Section.where(id: section_ids)
+    @sections = Section.where(id: section_ids.uniq)
+  end
+
+  def get_activity_classifications
+    activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
+    activity_classifications.map do |ac|
+      ac['alias'] = classification_alias(ac['id'].to_i)
+      ac
+    end
   end
 
   def classification_alias(classification_id)
