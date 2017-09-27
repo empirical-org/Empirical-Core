@@ -4,7 +4,6 @@ import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 const moment = require('moment');
-import request from 'request';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -269,13 +268,12 @@ export function clearPreviewSessionOnDisconnect(classroom_activity_id) {
 }
 
 export function unpinActivityOnSaveAndExit(classroom_activity_id) {
-    request({
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/unpin_activity`, {
       method: 'PUT',
-      uri: `${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/unpin_activity`,
       mode: 'cors',
       credentials: 'include',
-      headers: {}
-    }, (error, response, body) => {
+      headers: {},
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -300,13 +298,12 @@ export function toggleStudentFlag(classroomActivityId: string|null, student_id: 
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string|null, baseUrl: string|undefined) {
   return function (dispatch) {
-    request({
-      uri: `${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/teacher_and_classroom_name`,
+    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/teacher_and_classroom_name`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
-      headers: {}
-    }, (error, response, body) => {
+      headers: {},
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -390,13 +387,12 @@ export function easyJoinLessonAddName(classroom_activity_id: string, studentName
 
 export function loadStudentNames(classroom_activity_id: string, baseUrl: string|undefined) {
   return function (dispatch) {
-    request({
-      uri: `${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`,
+    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
-      headers: {}
-    }, (error, response, body) => {
+      headers: {},
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -411,13 +407,12 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string|
 
 export function loadFollowUpNameAndSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
   return function (dispatch) {
-    request({
-      uri: `${baseUrl}/api/v1/activities/${lesson_id}/follow_up_activity_name_and_supporting_info`,
+    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/follow_up_activity_name_and_supporting_info`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
-      headers: {}
-    }, (error, response, body) => {
+      headers: {},
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -433,13 +428,12 @@ export function loadFollowUpNameAndSupportingInfo(lesson_id: string, classroom_a
 
 export function loadSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
   return function (dispatch) {
-    request({
-      uri: `${baseUrl}/api/v1/activities/${lesson_id}/supporting_info`,
+    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/supporting_info`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
-      headers: {}
-    }, (error, response, body) => {
+      headers: {},
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
