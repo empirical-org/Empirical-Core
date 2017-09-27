@@ -1,7 +1,7 @@
 declare function require(name:string);
 import * as React from 'react';
 import _ from 'lodash'
-const moment = require('moment');
+import { firebase } from '../../../libs/firebase';
 import {
 QuestionData,
 } from 'interfaces/classroomLessons'
@@ -201,7 +201,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   handleStudentSubmission(){
     if (this.state.isSubmittable && this.props.handleStudentSubmission) {
-        this.props.handleStudentSubmission(this.sortedAndJoinedAnswers(), moment().format())
+        this.props.handleStudentSubmission(this.sortedAndJoinedAnswers(), firebase.database.ServerValue.TIMESTAMP)
         this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});

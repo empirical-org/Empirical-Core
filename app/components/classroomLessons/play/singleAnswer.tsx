@@ -5,7 +5,7 @@ import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragm
 import FeedbackRow from './feedbackRow'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from 'libs/getParameterByName';
-const moment = require('moment');
+import { firebase } from '../../../libs/firebase';
 import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion,
@@ -59,7 +59,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   submitSubmission() {
     if (this.props.handleStudentSubmission) {
-      this.props.handleStudentSubmission(this.state.response, moment().format());
+      this.props.handleStudentSubmission(this.state.response, firebase.database.ServerValue.TIMESTAMP);
       this.setState({ submitted: true, });
     }
   }

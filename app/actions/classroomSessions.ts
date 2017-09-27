@@ -3,7 +3,6 @@ import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
-const moment = require('moment');
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -351,7 +350,7 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
   console.log('question_id', question_id)
   timestampRef.on('value', (snapshot) => {
     if (snapshot.val() === null) {
-      timestampRef.set(moment().format())
+      timestampRef.set(firebase.database.ServerValue.TIMESTAMP)
     }
   });
 }
