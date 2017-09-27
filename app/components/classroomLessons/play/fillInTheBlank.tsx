@@ -1,5 +1,6 @@
 declare function require(name:string);
 import * as React from 'react'
+import { firebase } from '../../../libs/firebase';
 import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from 'components/renderForQuestions/cues';
@@ -10,7 +11,6 @@ import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion
 } from '../interfaces';
-const moment = require('moment');
 const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
@@ -144,7 +144,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   submitSubmission() {
     if (this.state.inputErrors.size === 0 && this.props.handleStudentSubmission) {
-      this.props.handleStudentSubmission(this.zipInputsAndText(), moment().format());
+      this.props.handleStudentSubmission(this.zipInputsAndText(), firebase.database.ServerValue.TIMESTAMP);
       this.setState({ submitted: true, });
     }
   }
