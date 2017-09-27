@@ -2,6 +2,7 @@ import * as React from 'react'
 
 const ProjectorModal: React.SFC<{closeModal: any}> = (props) => {
  return <div className="projector-modal-container">
+    <div className="projector-modal-background" />
      <div className="projector-modal">
         <img onClick={props.closeModal} className="exit" src="http://assets.quill.org/images/icons/CloseIcon.svg"/>
         <img className="illustration" src="http://assets.quill.org/images/illustrations/projector_modal.svg" />
