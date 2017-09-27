@@ -1,5 +1,10 @@
 import 'babel-polyfill';
-require('es6-promise').polyfill();
+import Promise from 'promise-polyfill'; 
+
+// To add to window
+if (!window.Promise) {
+  window.Promise = Promise;
+}
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';

@@ -134,7 +134,8 @@
     "request": "^2.72.0",
     "request-promise": "^4.2.1",
     "underscore": "^1.8.3",
-    "warning": "^3.0.0"
+    "warning": "^3.0.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "jest": {
     "transform": {
