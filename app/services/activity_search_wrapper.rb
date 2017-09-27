@@ -63,10 +63,26 @@ class ActivitySearchWrapper
   def get_formatted_search_results
     @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
     @activities = @activities.map do |a|
-      a['classification'] = {id: a['classification_id']}
-      a['activity_category'] = {id: a['activity_category_id'], name: a['activity_category_name']}
-      a['topic'] = {section: {id: a['section_id'], name: a['section_name']}}
-      a
+      activity_id = a['activity_id'].to_i
+      classification_id = a['classification_id'].to_i
+      {
+        name: a['activity_name'],
+        description: a['activity_description'],
+        flags: a['activity_flag'],
+        id: activity_id,
+        uid: a['activity_uid'],
+        anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
+        classification: {
+          id: classification_id,
+          alias: classification_alias(classification_id),
+          gray_image_class: gray_image_class(classification_id)
+        },
+        activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
+        topic: {
+          name: a['topic_name'],
+          section: {id: a['section_id'].to_i, name: a['section_name']}
+        }
+      }
     end
   end
 
@@ -75,13 +91,43 @@ class ActivitySearchWrapper
     activity_classification_ids = []
     @activities.each do |a|
       topic_ids << a['topic_id']
-      activity_classification_ids << a['activity_classification_id']
+      activity_classification_ids << a['classification_id']
     end
-    @activity_classifications = ActivityClassification.where(id: activity_classification_ids).map{|c| ClassificationSerializer.new(c).as_json(root: false)}
-    @topics = Topic.where(id: topic_ids)
+    @activity_classifications = ActivityClassification.where(id: activity_classification_ids.uniq).map{|c| ClassificationSerializer.new(c).as_json(root: false)}
+    @topics = Topic.where(id: topic_ids.uniq)
     @activity_categories = ActivityCategory.all
     section_ids = @topics.map(&:section_id).uniq
     @sections = Section.where(id: section_ids)
+  end
+
+  def classification_alias(classification_id)
+    case classification_id
+    when 1
+      'Quill Proofreader'
+    when 2
+      'Quill Grammar'
+    when 4
+      'Quill Diagnostic'
+    when 5
+      'Quill Connect'
+    when 6
+      'Quill Lessons'
+    end
+  end
+
+  def gray_image_class(classification_id)
+    case classification_id
+    when 1
+      'icon-flag-gray'
+    when 2
+      'icon-puzzle-gray'
+    when 4
+      'icon-diagnostic-gray'
+    when 5
+      'icon-connect-gray'
+    when 6
+      'icon-lessons-gray'
+    end
   end
 
 end
