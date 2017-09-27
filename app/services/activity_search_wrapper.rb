@@ -52,8 +52,7 @@ class ActivitySearchWrapper
 
   def get_custom_search_results
     get_activity_search
-    get_activity_classifications
-    get_activity_categories_topics_and_section
+    get_activity_categories_classifications_topics_and_section
     get_formatted_search_results
   end
 
@@ -63,18 +62,79 @@ class ActivitySearchWrapper
 
   def get_formatted_search_results
     @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
-    @activities = @activities.map{|a| (ActivitySerializer.new(a)).as_json(root: false)}
+    @activities = @activities.map do |a|
+      activity_id = a['activity_id'].to_i
+      classification_id = a['classification_id'].to_i
+      {
+        name: a['activity_name'],
+        description: a['activity_description'],
+        flags: a['activity_flag'],
+        id: activity_id,
+        uid: a['activity_uid'],
+        anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
+        classification: {
+          id: classification_id,
+          alias: classification_alias(classification_id),
+          gray_image_class: gray_image_class(classification_id)
+        },
+        activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
+        topic: {
+          name: a['topic_name'],
+          section: {id: a['section_id'].to_i, name: a['section_name']}
+        }
+      }
+    end
+  end
+
+  def get_activity_categories_classifications_topics_and_section
+    section_ids = []
+    activity_classification_ids = []
+    @activities.each do |a|
+      section_ids << a['section_id']
+      activity_classification_ids << a['classification_id'].to_i
+    end
+    @activity_classification_ids = activity_classification_ids.uniq
+    @activity_classifications = get_activity_classifications
+    @activity_categories = ActivityCategory.all
+    @sections = Section.where(id: section_ids.uniq)
   end
 
   def get_activity_classifications
-    activity_classifications = @activities.map(&:classification).uniq.compact
-    @activity_classifications = activity_classifications.map{|c| ClassificationSerializer.new(c).as_json(root: false)}
+    activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
+    activity_classifications.map do |ac|
+      ac['alias'] = classification_alias(ac['id'].to_i)
+      ac
+    end
   end
 
-  def get_activity_categories_topics_and_section
-    @topics = @activities.includes(topic: :topic_category).map(&:topic).uniq.compact
-    @activity_categories = ActivityCategory.all
-    @sections = @topics.map(&:section).uniq.compact
+  def classification_alias(classification_id)
+    case classification_id
+    when 1
+      'Quill Proofreader'
+    when 2
+      'Quill Grammar'
+    when 4
+      'Quill Diagnostic'
+    when 5
+      'Quill Connect'
+    when 6
+      'Quill Lessons'
+    end
+  end
+
+  def gray_image_class(classification_id)
+    case classification_id
+    when 1
+      'icon-flag-gray'
+    when 2
+      'icon-puzzle-gray'
+    when 4
+      'icon-diagnostic-gray'
+    when 5
+      'icon-connect-gray'
+    when 6
+      'icon-lessons-gray'
+    end
   end
 
 end
