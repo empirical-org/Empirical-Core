@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
 
@@ -6,9 +7,7 @@ EmpiricalGrammar::Application.routes.draw do
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
-  # authenticate :user, lambda { |u| u.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
-  # end
+  mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
