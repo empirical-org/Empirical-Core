@@ -39,6 +39,7 @@ class ClassroomActivity < ActiveRecord::Base
                              unit_id: self.unit_id,
                              visible: true,
                              locked: locked,
+                             assigned_to_entire_classroom: self.assigned_to_entire_classroom,
                              assigned_student_ids: self.assigned_student_ids )
     follow_up
   end
@@ -106,15 +107,10 @@ class ClassroomActivity < ActiveRecord::Base
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
-  def for_student? student
-    return true if assigned_student_ids.nil? || assigned_student_ids.empty?
-    assigned_student_ids.include?(student.id)
-  end
-
   def students
     if assigned_student_ids && assigned_student_ids.any?
       User.where(id: assigned_student_ids)
-    else
+    elsif classroom
       classroom.students
     end
   end
@@ -242,10 +238,10 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def validate_assigned_student(student_id)
-    if (self.assigned_student_ids == []) || self.assigned_student_ids.nil?
+    if self.assigned_to_entire_classroom
       true
     else
-      self.assigned_student_ids.include?(student_id)
+      self.assigned_student_ids && self.assigned_student_ids.include?(student_id)
     end
   end
 
