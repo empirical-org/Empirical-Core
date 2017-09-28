@@ -483,7 +483,7 @@ CREATE TABLE classroom_activities (
     visible boolean DEFAULT true NOT NULL,
     locked boolean DEFAULT false,
     pinned boolean DEFAULT false,
-    assigned_to_entire_classroom boolean
+    assign_on_join boolean
 );
 
 

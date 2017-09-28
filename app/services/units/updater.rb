@@ -26,18 +26,19 @@ module Units::Updater
   def self.matching_or_new_classroom_activity(activity_data, classroom_id, extant_classroom_activities, new_cas, hidden_cas_ids, classroom, unit_id)
     matching_activity = extant_classroom_activities.find{|ca| (ca.activity_id == activity_data[:id] && ca.classroom_id == classroom_id)}
     if matching_activity
-      if classroom[:student_ids] == false
+      if (!classroom[:assign_on_join] && ![:student_ids])
         # then there are no assigned students and we should hide the cas
         hidden_cas_ids.push(matching_activity.id)
-      elsif (matching_activity[:due_date] != activity_data[:due_date]) || (matching_activity.assigned_student_ids != classroom[:student_ids])
+      elsif (matching_activity[:due_date] != activity_data[:due_date]) || (matching_activity.assigned_student_ids != classroom[:student_ids]) || matching_activity.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
-        matching_activity.update!(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids], visible: true)
+        matching_activity.update!(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids], assign_on_join: classroom[:assign_on_join], visible: true)
       end
     elsif classroom[:student_ids]
       # making an array of hashes to create in one bulk option
       new_cas.push({activity_id: activity_data[:id],
          classroom_id: classroom_id,
          unit_id: unit_id,
+         assign_on_join: classroom[:assign_on_join],
          due_date: activity_data[:due_date],
          assigned_student_ids: classroom[:student_ids]})
     end

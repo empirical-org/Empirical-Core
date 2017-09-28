@@ -141,8 +141,8 @@ describe ClassroomActivity, type: :model, redis: :true do
 
       context 'it must return true when' do
 
-        it 'assigned_to_entire_classroom is true' do
-          classroom_activity.assigned_to_entire_classroom = true
+        it 'assign_on_join is true' do
+          classroom_activity.assign_on_join = true
           expect(classroom_activity.validate_assigned_student(student.id)).to be true
         end
 

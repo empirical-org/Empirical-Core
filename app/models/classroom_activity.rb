@@ -39,7 +39,7 @@ class ClassroomActivity < ActiveRecord::Base
                              unit_id: self.unit_id,
                              visible: true,
                              locked: locked,
-                             assigned_to_entire_classroom: self.assigned_to_entire_classroom,
+                             assign_on_join: self.assign_on_join,
                              assigned_student_ids: self.assigned_student_ids )
     follow_up
   end
@@ -238,7 +238,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def validate_assigned_student(student_id)
-    if self.assigned_to_entire_classroom
+    if self.assign_on_join
       true
     else
       self.assigned_student_ids && self.assigned_student_ids.include?(student_id)

@@ -7,7 +7,7 @@ module UnitQueries
     unit = Unit.find(unit_id)
     classrooms = User.find(unit.user_id).classrooms_i_teach_with_students
     classrooms.each do |c|
-      classroom_activity = ClassroomActivity.select("id, assigned_student_ids").
+      classroom_activity = ClassroomActivity.select("id, assigned_student_ids, assign_on_join").
                               where(classroom_id: c['id'], unit_id: unit.id).
                               limit(1)
       c[:classroom_activity] = classroom_activity.try(:first) || nil
