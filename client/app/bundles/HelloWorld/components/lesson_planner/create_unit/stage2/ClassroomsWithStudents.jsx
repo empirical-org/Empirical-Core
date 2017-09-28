@@ -21,9 +21,11 @@ export default class extends React.Component {
       if (classy.edited) {
         const class_data = { id: classy.id, };
         if (classy.allSelected) {
-          class_data.student_ids = [];
+          class_data.student_ids = null;
+          class_data.assign_on_join = true;
         } else {
           const student_ids_arr = [];
+          class_data.assign_on_join = false;
           classy.students.forEach((stud) => {
             if (stud.isSelected) {
               student_ids_arr.push(stud.id);
