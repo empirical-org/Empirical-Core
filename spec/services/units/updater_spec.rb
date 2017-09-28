@@ -149,6 +149,7 @@ describe Units::Updater do
 
         it 'hides the activity session of unassigned students' do
           classrooms_data = [{id: classroom.id, student_ids: [student1.id, student2.id]}]
+          binding.pry
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           student_as_visibility = ActivitySession.unscoped.where(user_id: student.id).first.visible
           expect(student_as_visibility).to eq(false)
