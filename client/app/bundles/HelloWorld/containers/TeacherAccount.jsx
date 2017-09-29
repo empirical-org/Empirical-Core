@@ -256,8 +256,8 @@ export default React.createClass({
 
   saveButton() {
     return this.state.isSaving
-		? <button className="button-grey"><ButtonLoadingIndicator /></button>
-		: <button onClick={this.clickSave} className="button-green">Save Changes</button>;
+		? <button className="save-button button-grey"><ButtonLoadingIndicator /></button>
+		: <button onClick={this.clickSave} className="save-button button-green">Save Changes</button>;
   },
 
   renderEmail() {
@@ -274,7 +274,7 @@ export default React.createClass({
       inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />
       message = this.state.errors.email
     }
-    return <div className="row">
+    return <div className="form-row">
       <div className="form-label">Email</div>
       <div className="form-input">
         {inputField}
@@ -294,13 +294,17 @@ export default React.createClass({
       selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role} />;
       subscription = <SelectSubscription subscription={this.state.subscription} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState} />;
     } else {
+      selectRole = <div>
+        <p>Are you a student and not a teacher?</p>
+        <p className="switch-account-type" onClick={() => this.updateRole('student')}>Switch your account to a student account.</p>
+      </div>
       subscription = <StaticDisplaySubscription subscription={this.state.subscription} />;
     }
 
     return (
       <div className="container" id="my-account">
         <h3>My Account</h3>
-        <div className="row">
+        <div className="form-row">
           <div className="form-label">
 						Full Name
 					</div>
@@ -315,7 +319,7 @@ export default React.createClass({
         {this.renderEmail()}
 
 
-        <div className="row">
+        <div className="form-row">
           <div className="form-label">
 						Password
 					</div>
@@ -327,32 +331,21 @@ export default React.createClass({
           </div>
         </div>
 
-        {selectRole}
         <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
-
-        <div className="row school-checkbox">
-          <div className="col-xs-1 no-pr">
-            <input ref="schoolOptionsDoNotApply" onChange={this.updateSchoolOptionsDoNotApply} type="checkbox" checked={this.state.schoolOptionsDoNotApply} />
-          </div>
-          <div className="col-xs-6 no-pl form-label checkbox-label">
-						My school is not listed.
-					</div>
-        </div>
 
         {subscription}
 
-        <div className="row">
-          <div className="col-xs-4">
+        <div className="form-row">
             {this.saveButton()}
-          </div>
         </div>
 
-        <div className="row">
-          <div onClick={this.attemptDeleteAccount} className="col-xs-2 delete-account">
+        <div className="form-row">
+          <div onClick={this.attemptDeleteAccount} className="delete-account">
 						Delete Account
 					</div>
         </div>
-
+        <br/>
+        {selectRole}
       </div>
     );
   },
