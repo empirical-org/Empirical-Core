@@ -190,9 +190,23 @@
         <h4 class="q-h4 author">
             <span>Kim Hinderlie,</span> Elma Elementary School
         </h4>
+        <a href="https://medium.com/writing-with-quill/quill-launches-quill-lessons-fb983f2b8970#3bb3" target="_blank" class='q-button text-black'>
+            <span>View My Story</span>
+        </a>
     </section>
 
-    <%= react_component('LessonsQuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'lessons'})%>
+    <%= react_component('LessonsQuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'lessons', supportLink: "https://support.quill.org/using-quill-tools#quill-lessons"})%>
+
+    <section class="how-to">
+      <div class="text">
+        <h2>Have questions about getting started?</h2>
+        <p>If you are still not sure where to start with Quill Lessons, read the How To guide to see the step by step details to set up your first lesson.</p>
+        <a target="_blank" href="http://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson" class="text-white bg-quillgreen"><i class="fa fa-file-text-o"></i>Read How To Guide</a>
+      </div>
+      <div class="illustration">
+        <img src="http://assets.quill.org/images/Illustrations/lessons_how_to.svg" />
+      </div>
+    </section>
 
     <!-- Only show if user is not logged in  -->
       <% if !current_user %>
