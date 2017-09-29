@@ -17,11 +17,11 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   getClassroomLessonInfo() {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units/${this.props.params.unitId}/activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
       const data = JSON.parse(body)
       this.setState({
         classroomActivities: data.classroom_activities,
-        activityName: data.activity_name,
+        activityName: data.activity_name[0].name,
         loading: false
       })
     })

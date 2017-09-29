@@ -15,8 +15,12 @@ module UnitQueries
     classrooms
   end
 
-  def get_classroom_activities_for_activity(unit, activity_id)
-    classroom_activities = ClassroomActivity.where(unit_id: unit.id, activity_id: activity_id).map do |ca|
+  def get_classroom_activities_for_activity(activity_id)
+    classroom_activities = ClassroomActivity.joins(:classroom).where("
+      classrooms.teacher_id = #{current_user.id.to_i}
+      AND classroom_activities.activity_id = #{activity_id.to_i}
+      AND classroom_activities.visible is TRUE"
+    ).map do |ca|
       classroom_activity_hash = ca.attributes
       number_of_assigned_students = ca.assigned_student_ids.length
       if number_of_assigned_students > 0
