@@ -113,7 +113,7 @@ module Student
                                 user_id: self.id
                                }
         does_not_have_activity = @extant_act_sesh.where(@act_sesh_attributes).none?
-        student_should_be_assigned = ca.assigned_student_ids.nil? || ca.assigned_student_ids.length == 0 || ca.assigned_student_ids.include?(self.id)
+        student_should_be_assigned = ca.validate_assigned_student(self.id)
         if does_not_have_activity && student_should_be_assigned
             @act_sesh_attributes
         end
