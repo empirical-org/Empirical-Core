@@ -1,6 +1,6 @@
 module PublicProgressReports
     extend ActiveSupport::Concern
-    include ::NewRelic::Agent
+    include NewRelic::Agent
 
     def last_completed_diagnostic
       diagnostic_activity_ids = ActivityClassification.find(4).activities.map(&:id)
