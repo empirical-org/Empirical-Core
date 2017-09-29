@@ -17,11 +17,19 @@ class ClassroomActivity < ActiveRecord::Base
     if: Proc.new { |ca| ca.pinned == true }
 
   before_validation :check_pinned
+  before_save :update_students_array_if_assign_on_join
   after_create :assign_to_students, :lock_if_lesson
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions, :update_lessons_cache
 
   def assigned_students
     User.where(id: assigned_student_ids)
+  end
+
+  def update_students_array_if_assign_on_join
+    old_version = ClassroomActivity.find_by_id(self.id)
+    if self.assign_on_join && (!old_version || !old_version.assign_on_join)
+      self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
+    end
   end
 
   def assign_follow_up_lesson(locked=true)
@@ -194,9 +202,12 @@ class ClassroomActivity < ActiveRecord::Base
 
   def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
-    self.activity_sessions.each do |as|
-      if !validate_assigned_student(as.user_id)
-        as.update(visible: false)
+    act_seshes = self.activity_sessions
+    if act_seshes
+      act_seshes.each do |as|
+        if !validate_assigned_student(as.user_id)
+          as.update(visible: false)
+        end
       end
     end
   end
@@ -238,7 +249,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def validate_assigned_student(student_id)
-    if self.assign_on_join && self.students.ids.include?(student_id)
+    if self.assign_on_join
       if !self.assigned_student_ids || self.assigned_student_ids.exclude?(student_id)
         self.update(assigned_student_ids: (self.assigned_student_ids || []).push(student_id))
       end
