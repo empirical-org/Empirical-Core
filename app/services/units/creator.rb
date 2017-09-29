@@ -40,7 +40,7 @@ module Units::Creator
                                           due_date: activity_data[:due_date],
                                           classroom_id: classroom_id,
                                           assigned_student_ids: classroom[:student_ids],
-                                          assign_on_create: classroom[:assign_on_create]
+                                          assign_on_join: classroom[:assign_on_join]
                                         )
       end
     end

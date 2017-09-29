@@ -84,7 +84,7 @@ describe Teachers::UnitsController, type: :controller do
         expect(res["classrooms"].first["name"]).to eq(classroom.name)
         expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
         expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
-        expect(res["classrooms"].first["classroom_activity"]).to eq({"id" => classroom_activity.id, "assigned_student_ids" => classroom_activity.assigned_student_ids})
+        expect(res["classrooms"].first["classroom_activity"]).to eq({"id" => classroom_activity.id, "assigned_student_ids" => classroom_activity.assigned_student_ids, "assign_on_join" => true})
     end
 
 
