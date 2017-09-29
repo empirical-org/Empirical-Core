@@ -10,8 +10,8 @@ export default class PreviewOrLaunchModal extends React.Component {
     const { classroomActivityID, lessonUID, lessonID, unitID, } = this.props;
     if (classroomActivityID && (lessonUID || lessonID)) {
       return `/teachers/classroom_activities/${classroomActivityID}/launch_lesson/${lessonUID || lessonID}`;
-    } else if (lessonID && unitID) {
-      return `/teachers/units/${unitID}/launch_lesson/${lessonID}`;
+    } else if (lessonID) {
+      return `/teachers/units/select_lesson/${lessonID}`;
     }
   }
 
