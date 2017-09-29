@@ -1,94 +1,105 @@
 #my-account, #staff-teacher-account-editor, .user-profile-editor {
-  a {
-    cursor: pointer;
+  h3 {
+    margin: 30px 0px;
   }
-  .form-header {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-  // .zip-row {
-  //   width: 150px;
-  // }
   .row {
-    padding: 10px;
-    .form-label, input, .error {
-      height: 40px;
-      line-height: 40px;
-      float:left;
-      // clear:none;
-    }
-    // .form-label .zip {
-    //   margin-bottom: 50px;
-    // }
-    select, input {
-      width: 100%;
-      margin-bottom: 30px;
-    }
+    margin: 10px 0px;
   }
-  input[type='checkbox'] {
-    height: 40px;
-    margin: 0px !important;
+  .form-label {
+    width: 150px;
+    display: inline-block;
   }
-
-  button {
-    color: white;
+  .form-input {
+    display: inline-block;
   }
-  #select-role-dropdown {
-    color: black;
-    .caret {
-      float: right;
-      margin-top: 7px;
-    }
-  }
-  input.btn-warning {
-    line-height: 0;
-  }
-  button.get-premium {
-    margin-top: 0px;
-    background-color: #EA9A1A;
-  }
-  .row.school-checkbox {
-    //padding-top: 0 !important;
-    //padding-bottom: 0 !important;
-  }
-  .delete-account {
-    line-height: 0;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  .error {
-    color: red;
-  }
-  .gray-text {
-    color: rgb(100,100,100);
-  }
-  .remove-from-class {
-    width: 186px;
-    font-weight: bold;
-  }
-  .modal-dialog {
-    .modal-header {
-      min-height: 59px;
-    }
-    .account-form {
-      margin-bottom: 50px;
-    }
-    .close {
-      background-color: black;
-    }
-    .form-label, #zip{
-      float: none;
-      height: inherit;
-    line-height: inherit;
-    }
-    .row {
-      padding: 0px;
-    }
-    #select_school {
-      width: 50%;
-    }
-  }
+  // a {
+  //   cursor: pointer;
+  // }
+  // .form-header {
+  //   margin-top: 30px;
+  //   margin-bottom: 30px;
+  // }
+  //
+  // .row {
+  //   padding: 10px;
+  //   .form-label, input, .error {
+  //     height: 40px;
+  //     line-height: 40px;
+  //     float:left;
+  //     // clear:none;
+  //   }
+  //   // .form-label .zip {
+  //   //   margin-bottom: 50px;
+  //   // }
+  //   select, input {
+  //     width: 100%;
+  //     margin-bottom: 30px;
+  //   }
+  // }
+  // input[type='checkbox'] {
+  //   height: 40px;
+  //   margin: 0px !important;
+  // }
+  //
+  // button {
+  //   color: white;
+  // }
+  // #select-role-dropdown {
+  //   color: black;
+  //   .caret {
+  //     float: right;
+  //     margin-top: 7px;
+  //   }
+  // }
+  // input.btn-warning {
+  //   line-height: 0;
+  // }
+  // button.get-premium {
+  //   margin-top: 0px;
+  //   background-color: #EA9A1A;
+  // }
+  // .row.school-checkbox {
+  //   //padding-top: 0 !important;
+  //   //padding-bottom: 0 !important;
+  // }
+  // .delete-account {
+  //   line-height: 0;
+  //   &:hover {
+  //     cursor: pointer;
+  //   }
+  // }
+  // .error {
+  //   color: red;
+  // }
+  // .gray-text {
+  //   color: rgb(100,100,100);
+  // }
+  // .remove-from-class {
+  //   width: 186px;
+  //   font-weight: bold;
+  // }
+  // .modal-dialog {
+  //   .modal-header {
+  //     min-height: 59px;
+  //   }
+  //   .account-form {
+  //     margin-bottom: 50px;
+  //   }
+  //   .close {
+  //     background-color: black;
+  //   }
+  //   .form-label, #zip{
+  //     float: none;
+  //     height: inherit;
+  //   line-height: inherit;
+  //   }
+  //   .row {
+  //     padding: 0px;
+  //   }
+  //   #select_school {
+  //     width: 50%;
+  //   }
+  // }
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
