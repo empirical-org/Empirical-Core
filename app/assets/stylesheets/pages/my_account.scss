@@ -1,11 +1,15 @@
 #my-account, #staff-teacher-account-editor, .user-profile-editor {
+  margin-bottom: 50px;
   h3 {
     margin: 30px 0px;
   }
-  .row {
+  .form-row {
     display: flex;
     margin: 20px 0px;
     align-items: center;
+    .form-button {
+      margin-left: 25px;
+    }
   }
   .form-label {
     width: 150px;
@@ -21,6 +25,35 @@
   }
   .error {
 
+  }
+  .gray-text {
+    color: #969696;
+    .row {
+      margin-left: 152px;
+    }
+  }
+  .get-premium {
+    color: white;
+    background-color: #f8a724;
+    width: 137px;
+  }
+  .add-school {
+    width: 137px;
+  }
+  .save-button {
+    margin-top: 40px;
+    border-radius: 3px;
+  }
+
+  .delete-account {
+    font-size: 16px;
+  }
+
+  .delete-account, .switch-account-type {
+    cursor: pointer;
+    font-weight: 600;
+    color: #027360;
+    text-decoration: underline;
   }
   // a {
   //   cursor: pointer;

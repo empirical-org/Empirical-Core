@@ -73,7 +73,7 @@ export default React.createClass({
     var action = this.props.selectedSchool && this.props.selectedSchool.text ?
                 'Edit' : 'Add'
     return(
-    <button type='button' className='button btn button-green' data-toggle="modal" data-target="#myModal">
+    <button type='button' className='form-button button btn button-blue add-school' data-toggle="modal" data-target="#myModal">
       {action + ' School'}
     </button>
     )
@@ -101,7 +101,7 @@ export default React.createClass({
       return (
         <div>
               <div className='zip-row'>
-                <div className='form-label zip'>
+                <div className='zip'>
                   Add Your School's ZIP Code
                 </div>
                 <div>
@@ -113,7 +113,7 @@ export default React.createClass({
                          placeholder="Zip"/>
                 </div>
               </div>
-              <div className='form-label'>
+              <div className='name'>
                   School Name
               </div>
                 <div>
@@ -129,20 +129,18 @@ export default React.createClass({
     } else {
       return (
         <div>
-        <div className='row '>
-          <div className='form-label col-xs-2'>
+        <div className='form-row'>
+          <div className='form-label'>
             School
           </div>
-          <div className='col-xs-3'>
+          <div className='form-input'>
             <input
                     className='inactive'
                     defaultValue={this.schoolName()}
                     readOnly>
             </input>
           </div>
-          <div className='col-xs-3'>
             {this.editschoolButton()}
-          </div>
           <div className='error'>
             {this.props.errors}
           </div>
