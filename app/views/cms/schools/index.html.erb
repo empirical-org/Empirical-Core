@@ -1,0 +1,37 @@
+<div class='container'>
+  <article class='simple-rounded-box cms cms-user-index'>
+    <h1>School Directory</h1>
+    <br />
+    <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green'  %>
+    <br /><br />
+    <%= form_tag search_cms_schools_path, class: 'searchable' do %>
+      <% @search_attributes.each do |attribute| %>
+
+        <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize} Contains" %>
+        <%= text_field_tag attribute, @school_search_query[attribute] ? @school_search_query[attribute] : '' %>
+      <% end %>
+      <%= select_tag 'premium_status', options_for_select(@school_premium_types, @school_search_query['premium_status'] ? @school_search_query['premium_status'] : []), multiple: true %>
+      <%= submit_tag 'Search' %>
+    <% end %>
+
+    <table class='table table-stripe table-hover-row cms-user-index-table'>
+      <thead>
+        <tr>
+          <td>School</td>
+          <td>District</td>
+          <td>City</td>
+          <td>State</td>
+          <td>ZIP</td>
+          <td>FRL</td>
+          <td>Teachers</td>
+          <td>Premium?</td>
+          <td>Admins</td>
+          <td>Edit</td>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </article>
+</div>
