@@ -35,6 +35,7 @@ export default React.createClass({
       },
     });
   },
+
   componentDidMount() {
     let url,
       data;
@@ -45,6 +46,7 @@ export default React.createClass({
     }
     $.ajax({ url, success: this.populateData, });
   },
+
   populateData(data) {
     let school,
       schoolData,
@@ -91,20 +93,19 @@ export default React.createClass({
       loading: false,
     });
   },
-  displayHeader() {
-    const str = this.state.name;
-    const str2 = `${str}'s Account`;
-    return str2;
-  },
+
   updateName(event) {
     this.setState({ name: event.target.value, });
   },
+
   updateUsername(event) {
     this.setState({ username: event.target.value, });
   },
+
   updateEmail(event) {
     this.setState({ email: event.target.value, });
   },
+
   clickSave() {
     this.setState({ isSaving: true, });
     const data = {
@@ -259,129 +260,99 @@ export default React.createClass({
 		: <button onClick={this.clickSave} className="button-green">Save Changes</button>;
   },
 
+  renderEmail() {
+    let inputField, message
+    if (this.state.googleId || this.state.signedUpWithGoogle) {
+      if (this.props.userType == 'staff') {
+        inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
+        message = <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a href={`${process.env.DEFAULT_URL}/teacher_fix/google_sync`}>here</a>.</span>
+      } else {
+        inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
+        message = <span>Your email is locked because it is connected to Google Classroom. If you need to change it, please contact us at <a href="mailto:support@quill.org">support@quill.org</a>.</span>
+      }
+    } else {
+      inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />
+      message = this.state.errors.email
+    }
+    return <div className="row">
+      <div className="form-label">Email</div>
+      <div className="form-input">
+        {inputField}
+      </div>
+      <div className="col-xs-4">
+        {message}
+      </div>
+    </div>;
+  },
+
   render() {
     if (this.state.loading) {
       return <LoadingSpinner />;
     }
-    let selectRole,
-      subscription,
-      showEmail;
-    subscription;
+    let selectRole, subscription;
     if (this.props.userType == 'staff') {
       selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role} />;
       subscription = <SelectSubscription subscription={this.state.subscription} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState} />;
     } else {
-      selectRole = <UserSelectRole role={this.state.role || 'teacher'} updateRole={this.updateRole} />;
       subscription = <StaticDisplaySubscription subscription={this.state.subscription} />;
-    }
-
-		// TODO deprecate signedUpWithGoogle - need it here for now
-    if (this.state.googleId || this.state.signedUpWithGoogle) {
-      if (this.props.userType == 'staff') {
-        showEmail = (<div className="row">
-          <div className="form-label col-xs-2">
-												Email
-											</div>
-          <div className="col-xs-4">
-            <input className="inactive" ref="email" value={this.state.email} readOnly />
-          </div>
-          <div className="col-xs-4">
-            <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a href={`${process.env.DEFAULT_URL}/teacher_fix/google_sync`}>here</a>.</span>
-          </div>
-        </div>);
-      } else {
-        showEmail = (<div className="row">
-          <div className="form-label col-xs-2">
-                        Email
-                      </div>
-          <div className="col-xs-4">
-            <input className="inactive" ref="email" value={this.state.email} readOnly />
-          </div>
-          <div className="col-xs-4">
-            <span>Your email is locked because it is connected to Google Classroom. If you need to change it, please contact us at <a href="mailto:support@quill.org">support@quill.org</a>.</span>
-          </div>
-        </div>);
-      }
-    } else {
-      showEmail = (<div className="row">
-        <div className="form-label col-xs-2">
-											Email
-										</div>
-        <div className="col-xs-4">
-          <input ref="email" onChange={this.updateEmail} value={this.state.email} />
-        </div>
-        <div className="col-xs-4 error">
-          {this.state.errors.email}
-        </div>
-      </div>);
     }
 
     return (
       <div className="container" id="my-account">
+        <h3>My Account</h3>
         <div className="row">
-          <div className="col-xs-12">
-            <div className="row">
-              <h3 className="form-header col-xs-12">
-                {this.displayHeader()}
-              </h3>
-            </div>
-            <div className="row">
-              <div className="form-label col-xs-2">
-								Full Name
-							</div>
-              <div className="col-xs-4">
-                <input ref="name" onChange={this.updateName} value={this.state.name} />
-              </div>
-              <div className="col-xs-4 error">
-                {this.state.errors.name}
-              </div>
-            </div>
-
-            {showEmail}
-            
-            {selectRole}
-
-            <div className="row">
-              <div className="form-label col-xs-2">
-								Password
-							</div>
-              <div className="col-xs-4">
-                <input type="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
-              </div>
-              <div className="col-xs-4 error">
-                {this.state.errors.password}
-              </div>
-            </div>
-            <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
-
-            <div className="row school-checkbox">
-              <div className="form-label col-xs-2" />
-              <div className="col-xs-1 no-pr">
-                <input ref="schoolOptionsDoNotApply" onChange={this.updateSchoolOptionsDoNotApply} type="checkbox" checked={this.state.schoolOptionsDoNotApply} />
-              </div>
-              <div className="col-xs-6 no-pl form-label checkbox-label">
-								My school is not listed.
-							</div>
-            </div>
-
-            {subscription}
-
-            <div className="row">
-              <div className="col-xs-2" />
-              <div className="col-xs-4">
-                {this.saveButton()}
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-xs-2" />
-              <div onClick={this.attemptDeleteAccount} className="col-xs-2 delete-account">
-								Delete Account
-							</div>
-            </div>
-
+          <div className="form-label">
+						Full Name
+					</div>
+          <div className="form-input">
+            <input ref="name" onChange={this.updateName} value={this.state.name} />
+          </div>
+          <div className="col-xs-4 error">
+            {this.state.errors.name}
           </div>
         </div>
+
+        {this.renderEmail()}
+
+
+        <div className="row">
+          <div className="form-label">
+						Password
+					</div>
+          <div className="form-input">
+            <input type="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
+          </div>
+          <div className="col-xs-4 error">
+            {this.state.errors.password}
+          </div>
+        </div>
+
+        {selectRole}
+        <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
+
+        <div className="row school-checkbox">
+          <div className="col-xs-1 no-pr">
+            <input ref="schoolOptionsDoNotApply" onChange={this.updateSchoolOptionsDoNotApply} type="checkbox" checked={this.state.schoolOptionsDoNotApply} />
+          </div>
+          <div className="col-xs-6 no-pl form-label checkbox-label">
+						My school is not listed.
+					</div>
+        </div>
+
+        {subscription}
+
+        <div className="row">
+          <div className="col-xs-4">
+            {this.saveButton()}
+          </div>
+        </div>
+
+        <div className="row">
+          <div onClick={this.attemptDeleteAccount} className="col-xs-2 delete-account">
+						Delete Account
+					</div>
+        </div>
+
       </div>
     );
   },
