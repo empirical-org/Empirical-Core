@@ -29,7 +29,7 @@ describe Units::Updater do
 
         describe 'assigned to all students' do
           def update_ca_to_all_assigned
-            ca_with_unit.update(assigned_student_ids: [])
+            ca_with_unit.update(assigned_student_ids: [], assign_on_join: true)
             classroom_activity
           end
 
