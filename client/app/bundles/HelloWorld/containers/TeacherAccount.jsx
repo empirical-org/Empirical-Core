@@ -279,7 +279,7 @@ export default React.createClass({
       <div className="form-input">
         {inputField}
       </div>
-      <div className="col-xs-4">
+      <div className="error">
         {message}
       </div>
     </div>;
@@ -307,7 +307,7 @@ export default React.createClass({
           <div className="form-input">
             <input ref="name" onChange={this.updateName} value={this.state.name} />
           </div>
-          <div className="col-xs-4 error">
+          <div className="error">
             {this.state.errors.name}
           </div>
         </div>
@@ -322,7 +322,7 @@ export default React.createClass({
           <div className="form-input">
             <input type="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
           </div>
-          <div className="col-xs-4 error">
+          <div className="error">
             {this.state.errors.password}
           </div>
         </div>
