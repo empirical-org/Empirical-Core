@@ -41,8 +41,8 @@ export default class extends React.Component {
     });
   }
 
-  openModal(unitID) {
-    this.setState({ showModal: unitID, });
+  openModal(activityID) {
+    this.setState({ showModal: activityID, });
   }
 
   closeModal() {
@@ -56,15 +56,15 @@ export default class extends React.Component {
       const l = lessons[i];
       rows.push(
         <div key={JSON.stringify(l)}>
-          {this.renderModal(l.activity_id, l.unit_id)}
+          {this.renderModal(l.activity_id)}
           <div className="flex-row space-between vertically-centered lesson-item">
             <div className="flex-row vertically-centered">
               <div className="image-container flex-row space-around vertically-centered">
                 <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
               </div>
-              <span onClick={() => this.openModal(l.unit_id)} className="lesson-name">{l.name}</span>
+              <span onClick={() => this.openModal(l.activity_id)} className="lesson-name">{l.name}</span>
             </div>
-            <a href={`/teachers/units/${l.unit_id}/launch_lesson/${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
+            <a href={`/teachers/units/select_lesson/${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
           </div>
         </div>
       );
@@ -72,11 +72,10 @@ export default class extends React.Component {
     return rows;
   }
 
-  renderModal(lessonID, unitID) {
-    if (this.state.showModal === unitID) {
+  renderModal(lessonID) {
+    if (this.state.showModal === lessonID) {
       return <PreviewOrLaunchModal
         lessonID={lessonID}
-        unitID={unitID}
         closeModal={this.closeModal}
       />;
     }
