@@ -39,7 +39,9 @@ module Units::Creator
         unit.classroom_activities.create!(activity_id: activity_data[:id],
                                           due_date: activity_data[:due_date],
                                           classroom_id: classroom_id,
-                                          assigned_student_ids: classroom[:student_ids])
+                                          assigned_student_ids: classroom[:student_ids],
+                                          assign_on_create: classroom[:assign_on_create]
+                                        )
       end
     end
     unit.hide_if_no_visible_classroom_activities
