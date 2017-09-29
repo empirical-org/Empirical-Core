@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1140,7 +1140,8 @@ CREATE TABLE schools (
     total_students integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying(255)
+    clever_id character varying(255),
+    ppin character varying
 );
 
 
@@ -2426,6 +2427,13 @@ CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING
 
 
 --
+-- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
+
+
+--
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2808,6 +2816,13 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 --
 
 CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
+
+
+--
+-- Name: unique_index_schools_on_ppin; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_schools_on_ppin ON schools USING btree (ppin) WHERE ((ppin)::text <> ''::text);
 
 
 --
@@ -3341,4 +3356,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170914145423');
 INSERT INTO schema_migrations (version) VALUES ('20170920133317');
 
 INSERT INTO schema_migrations (version) VALUES ('20170920211610');
+
+INSERT INTO schema_migrations (version) VALUES ('20170928203242');
 
