@@ -417,7 +417,6 @@ $tool-grey: #f8f9f9;
     .q-button {
         margin-top: 10px;
         border: solid 1px #979797;
-        padding-top: 11px;
         span {
             line-height: 30px;
             font-weight: 500;
@@ -442,6 +441,37 @@ $tool-grey: #f8f9f9;
     font-size: 18px;
     line-height: 25px;
     margin-top: 0;
+}
+
+.how-to {
+  display: flex;
+  margin: 60px auto 80px;
+  text-align: left;
+  max-width: 1000px;
+  padding: 0px 50px;
+  .text {
+    flex: 1;
+  }
+  h2 {
+    font-weight: 600;
+    color: #00c2a2;
+  }
+  p {
+    max-width: 460px;
+  }
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 227px;
+    font-weight: bold;
+    height: 40px;
+    border-radius: 3px;
+    i {
+      margin-right: 5px;
+      margin-top: 3px;
+    }
+  }
 }
 
 .light-bar {
