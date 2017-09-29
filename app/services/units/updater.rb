@@ -33,7 +33,7 @@ module Units::Updater
         # then something changed and we should update
         matching_activity.update!(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids], visible: true)
       end
-    elsif classroom[:student_ids]
+    elsif classroom[:student_ids] && activity_data[:id]
       # making an array of hashes to create in one bulk option
       new_cas.push({activity_id: activity_data[:id],
          classroom_id: classroom_id,
