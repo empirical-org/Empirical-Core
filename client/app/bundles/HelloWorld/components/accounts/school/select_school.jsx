@@ -140,10 +140,7 @@ export default React.createClass({
                     readOnly>
             </input>
           </div>
-            {this.editschoolButton()}
-          <div className='error'>
-            {this.props.errors}
-          </div>
+          {this.editschoolButton()}
         </div>
         {this.modal()}
       </div>

@@ -268,21 +268,33 @@ export default React.createClass({
         message = <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a href={`${process.env.DEFAULT_URL}/teacher_fix/google_sync`}>here</a>.</span>
       } else {
         inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
-        message = <span>Your email is locked because it is connected to Google Classroom. If you need to change it, please contact us at <a href="mailto:support@quill.org">support@quill.org</a>.</span>
+        message = this.renderGoogleClassroomWarning()
       }
     } else {
       inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />
-      message = this.state.errors.email
     }
-    return <div className="form-row">
+    return <div className="form-row email-row">
       <div className="form-label">Email</div>
       <div className="form-input">
         {inputField}
       </div>
-      <div className="error">
-        {message}
-      </div>
+      {message}
     </div>;
+  },
+
+  renderGoogleClassroomWarning() {
+    return <div className="google-classroom-warning">
+      <i className="fa fa-icon fa-lightbulb-o"/>
+      <p>Your email is locked because it is connected to Google Classroom. If you need to change it, please contact us at <a href="mailto:support@quill.org">support@quill.org</a>.</p>
+    </div>
+  },
+
+  renderErrors() {
+    if (this.state.errors) {
+      return Object.keys(this.state.errors).map((e, i) =>
+        <span key={i} className="error">{e} {this.state.errors[e]}.&nbsp;</span>
+      )
+    }
   },
 
   render() {
@@ -304,39 +316,36 @@ export default React.createClass({
     return (
       <div className="container" id="my-account">
         <h3>My Account</h3>
-        <div className="form-row">
-          <div className="form-label">
-						Full Name
-					</div>
-          <div className="form-input">
-            <input ref="name" onChange={this.updateName} value={this.state.name} />
+        <div className="form">
+          <div className="form-row">
+            <div className="form-label">
+  						Full Name
+  					</div>
+            <div className="form-input">
+              <input ref="name" onChange={this.updateName} value={this.state.name} />
+            </div>
           </div>
-          <div className="error">
-            {this.state.errors.name}
+
+          {this.renderEmail()}
+
+
+          <div className="form-row">
+            <div className="form-label">
+  						Password
+  					</div>
+            <div className="form-input">
+              <input type="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
+            </div>
           </div>
+
+          <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
+
+          {subscription}
         </div>
-
-        {this.renderEmail()}
-
-
-        <div className="form-row">
-          <div className="form-label">
-						Password
-					</div>
-          <div className="form-input">
-            <input type="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
-          </div>
-          <div className="error">
-            {this.state.errors.password}
-          </div>
-        </div>
-
-        <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
-
-        {subscription}
 
         <div className="form-row">
             {this.saveButton()}
+            {this.renderErrors()}
         </div>
 
         <div className="form-row">
