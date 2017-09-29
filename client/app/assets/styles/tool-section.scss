@@ -1067,10 +1067,8 @@ $tool-grey: #f8f9f9;
     font-size: 18px;
     font-weight: 600;
     display: flex;
-    justify-content: flex-end;
-    i {
-      margin-left: 7px;
-      margin-top: 1px;
-    }
+    justify-content: center;
+    text-decoration: underline;
+    margin-top: 30px;
   }
 }
