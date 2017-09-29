@@ -315,6 +315,8 @@ EmpiricalGrammar::Application.routes.draw do
         get :sign_in
       end
     end
+
+    resources :schools
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.
