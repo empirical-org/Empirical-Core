@@ -12,11 +12,12 @@ module Units::Creator
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     # unit fix: may be able to better optimize this one, but possibly not
-    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
+    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
   end
 
   def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom)
+    classroom[:assign_on_join] = true
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
     # this call is unnecessary as we can do sql without it
