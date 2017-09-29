@@ -238,7 +238,10 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def validate_assigned_student(student_id)
-    if self.assign_on_join
+    if self.assign_on_join && self.students.ids.include?(student_id)
+      if !self.assigned_student_ids || self.assigned_student_ids.exclude?(student_id)
+        self.update(assigned_student_ids: (self.assigned_student_ids || []).push(student_id))
+      end
       true
     else
       self.assigned_student_ids && self.assigned_student_ids.include?(student_id)
