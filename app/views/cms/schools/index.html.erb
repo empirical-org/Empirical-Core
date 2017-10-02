@@ -48,6 +48,8 @@
             <td><%= td %></td>
           <% end %>
         </tr>
+      </thead>
+      <tbody>
         <% @school_search_query_results.each do |school| %>
           <tr>
             <% school.values[0...-1].each do |value| %>
@@ -56,9 +58,6 @@
             <td><%= link_to 'Edit', cms_school_path(school.values.last) %></td>
           </tr>
         <% end %>
-      </thead>
-      <tbody>
-
       </tbody>
     </table>
   </article>

@@ -20,7 +20,26 @@ class Cms::SchoolsController < ApplicationController
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
   def show
-
+    @school_name = School.find(params[:id]).name
+    @teacher_data = ActiveRecord::Base.connection.execute("
+      SELECT
+        users.name AS teacher_name,
+        COUNT(DISTINCT(classrooms.id)) AS number_classrooms,
+    		COUNT(DISTINCT(students_classrooms.student_id)) AS number_students,
+    		COUNT(activity_sessions) AS number_activities_completed,
+    		TO_CHAR(GREATEST(users.last_sign_in, MAX(activity_sessions.completed_at)), 'Mon DD, YYYY') as last_active,
+    		subscriptions.account_type as subscription,
+    		'TODO' as make_admin,
+    		'TODO' as sign_in
+      FROM schools_users
+      LEFT JOIN users ON schools_users.user_id = users.id
+      LEFT JOIN classrooms ON schools_users.user_id = classrooms.teacher_id AND classrooms.visible = true
+      LEFT JOIN students_classrooms ON classrooms.id =  students_classrooms.classroom_id
+      LEFT JOIN activity_sessions ON students_classrooms.student_id = activity_sessions.user_id AND completed_at IS NOT NULL
+      LEFT JOIN subscriptions ON schools_users.user_id = subscriptions.user_id
+      WHERE school_id = #{ActiveRecord::Base.sanitize(params[:id])}
+      GROUP BY users.name, users.last_sign_in, subscriptions.account_type;
+    ")
   end
 
   # This allows staff members to edit certain details about a school.
