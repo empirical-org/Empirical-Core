@@ -19,18 +19,13 @@ describe 'Profile::Query' do
                                                   activity: activity2,
                                                   unit: unit2) }
 
-
-  let!(:as1) { classroom_activity.session_for(student) }
-  let!(:as2) { classroom_activity2.session_for(student) }
-
-
   def subject
     Profile::Query.new.query(student, 20, 0, classroom.id)
   end
 
-  before do
-    as1.update_attributes(percentage: 1, state: 'finished')
-  end
+  # before do
+  #   as1.update_attributes(percentage: 1, state: 'finished')
+  # end
 
   it 'returns all activity sessions' do
     sessions = subject

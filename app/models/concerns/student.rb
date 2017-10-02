@@ -11,8 +11,6 @@ module Student
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
-    after_create :assign_classroom_activities
-
     def unfinished_activities classroom
       classroom.activities - finished_activities(classroom)
     end
