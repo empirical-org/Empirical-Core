@@ -6,7 +6,7 @@
     <br /><br />
     <%= form_tag search_cms_schools_path, class: 'searchable' do %>
       <table>
-        <% @search_attributes.each do |attribute| %>
+        <% @text_search_inputs.each do |attribute| %>
           <tr>
             <td>
               <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize} Contains" %>
@@ -31,7 +31,7 @@
             <%= label_tag 'search_schools_with_zero_teachers', 'Include Schools with 0 Teachers' %>
           </td>
           <td>
-            <%= check_box_tag 'search_schools_with_zero_teachers', @school_search_query['premium_status'] %>
+            <%= check_box_tag 'search_schools_with_zero_teachers', @school_search_query['search_schools_with_zero_teachers'] %>
           </td>
         </tr>
         <tr><td colspan="2">
@@ -44,24 +44,17 @@
       <thead>
         <tr>
           <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
-          <td>School</td>
-          <td>District</td>
-          <td>City</td>
-          <td>State</td>
-          <td>ZIP</td>
-          <td>FRL</td>
-          <td>Teachers</td>
-          <td>Premium?</td>
-          <td>Admins</td>
-          <td>Edit</td>
+          <% %w(School District City State ZIP FRL Teachers Premium? Admins Edit).each do |td| %>
+            <td><%= td %></td>
+          <% end %>
         </tr>
         <% # TODO: pop off last element of array, turn into edit link. %>
         <% @school_search_query_results.each do |school| %>
-          <% school.values.each do |value| %>
-            <td>
-              <%= value %>
-            </td>
-          <% end %>
+          <tr>
+            <% school.values.each do |value| %>
+              <td><%= value %></td>
+            <% end %>
+          </tr>
         <% end %>
       </thead>
       <tbody>
