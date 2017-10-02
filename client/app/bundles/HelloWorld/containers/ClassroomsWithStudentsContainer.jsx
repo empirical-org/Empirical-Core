@@ -135,7 +135,6 @@ export default class extends React.Component {
   classroomUpdated(classy) {
     const assignedStudentIds = this.getAssignedIds(classy).sort();
     let updated;
-    debugger;
     if (classy.classroom_activity) {
       if (classy.classroom_activity.assigned_student_ids.length === 0) {
 				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
