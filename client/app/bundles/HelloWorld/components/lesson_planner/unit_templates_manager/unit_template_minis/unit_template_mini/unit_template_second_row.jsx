@@ -25,7 +25,7 @@
   },
 
   numberOfActivities: function () {
-    return this.props.data.activities.length;
+    return this.props.data.activities ? this.props.data.activities.length : 0;
   },
 
   sayActivitiesCount: function () {
