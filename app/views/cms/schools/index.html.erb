@@ -53,7 +53,7 @@
         <% @school_search_query_results.each do |school| %>
           <tr>
             <% school.values[0...-1].each do |value| %>
-              <td><%= value %></td>
+              <td><%= value || 'N/A' %></td>
             <% end %>
             <td><%= link_to 'Edit', cms_school_path(school.values.last) %></td>
           </tr>

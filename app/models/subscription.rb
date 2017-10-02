@@ -37,6 +37,22 @@ class Subscription < ActiveRecord::Base
     SchoolSubscription.where(subscription_id: self.id).limit(1).exists?
   end
 
+  def self.account_types
+    ['School District Paid',
+    'School NYC Free',
+    'School NYC Paid',
+    'School Research',
+    'School Sponsored Free',
+    'School Strategic Free',
+    'School Strategic Paid',
+    'School Paid',
+    'Teacher Contributor Free',
+    'Teacher Sponsored Free',
+    'Teacher Paid',
+    'Teacher Trial',
+    'Purchase Missing School']
+  end
+
   private
 
   def self.set_premium_expiration(sub = nil)
