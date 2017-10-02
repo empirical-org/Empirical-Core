@@ -64,17 +64,19 @@ class ChargesController < ApplicationController
   private
 
   def handle_subscription
-    attributes = {account_type: 'paid', account_limit: 1000}
+    attributes = {account_limit: 1000}
     if @charge.amount == 45000
+      attributes[:account_type] = "School Paid"
       if current_user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user.school.name)
         # if the user has a school, and it is not one of the aforementioned defaults, create or update the premium subscription for it
         Subscription.create_or_update_with_school_or_user_join(current_user.school.id, 'school', attributes)
       else
         @message = 'You do not seem to be registered with a school. Your account has been upgraded, and we will reach out to you shortly to upgrade the rest of your school to premium.'
-        attributes[:account_type] = 'missing school'
+        attributes[:account_type] = 'Purchase Missing School'
         Subscription.create_or_update_with_school_or_user_join(current_user.id, 'user', attributes)
       end
     else
+      attributes[:account_type] = "Teacher Paid"
       Subscription.create_or_update_with_school_or_user_join(current_user.id, 'user', attributes)
     end
   end
