@@ -135,6 +135,8 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
       LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
       INNER JOIN activities ON ca.activity_id = activities.id
+      INNER JOIN activity_category_activities AS acas ON acas.activity_id = activities.id
+      INNER JOIN activity_categories AS acs ON acs.id = acas.activity_category_id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
@@ -142,7 +144,8 @@ class Teachers::UnitsController < ApplicationController
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
-    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, acs.order_number, acas.order_number
+    ORDER BY acs.order_number, acas.order_number").to_a
     render json: lesson_units.to_json
   end
 
@@ -205,13 +208,16 @@ class Teachers::UnitsController < ApplicationController
     FROM units
       INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
       INNER JOIN activities ON ca.activity_id = activities.id
+      INNER JOIN activity_category_activities AS acas ON acas.activity_id = activities.id
+      INNER JOIN activity_categories AS acs ON acs.id = acas.activity_category_id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
-    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, acs.order_number, acas.order_number
+      ORDER BY acs.order_number, acas.order_number").to_a
   end
 
 end
