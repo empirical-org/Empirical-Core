@@ -58,7 +58,20 @@ class Cms::SchoolsController < ApplicationController
 
   # This allows staff members to edit certain details about a school.
   def edit
+    @school = School.find(params[:id])
+    @editable_attributes = {
+      'School Name' => :name,
+      'School City' => :city,
+      'School State' => :state,
+      'School ZIP' => :zipcode,
+      'District Name' => :leanm,
+      'FRP Lunch' => :free_lunches
+    }
+  end
 
+  def update
+    School.find(edit_school_params[:id]).update(edit_school_params)
+    redirect_to cms_school_path(edit_school_params[:id])
   end
 
   # This allows staff members to create a new school.
@@ -170,5 +183,9 @@ class Cms::SchoolsController < ApplicationController
     else
       nil
     end
+  end
+
+  def edit_school_params
+    params.require(:school).permit!
   end
 end
