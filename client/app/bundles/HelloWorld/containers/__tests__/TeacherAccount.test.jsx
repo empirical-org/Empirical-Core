@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme';
 
 import TeacherAccount from '../TeacherAccount.jsx';
 import SelectRole from '../../components/accounts/edit/select_role';
-import UserSelectRole from '../../components/accounts/edit/user_accessible_select_role.jsx';
 import SelectSubscription from '../../components/accounts/subscriptions/select_subscription';
 import StaticDisplaySubscription from '../../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../../components/accounts/school/select_school';
@@ -121,25 +120,6 @@ describe('TeacherAccount container', () => {
   });
 
   describe('if the user is not staff', () => {
-    describe('UserSelectRole component', () => {
-      it('should render', () => {
-        expect(wrapper.find(UserSelectRole).exists()).toBe(true);
-      });
-
-      it('should have role prop equal to state or teacher', () => {
-        wrapper.setState({role: 'student'});
-        expect(wrapper.find(UserSelectRole).props().role).toBe('student');
-        wrapper.setState({role: null});
-        expect(wrapper.find(UserSelectRole).props().role).toBe('teacher');
-      });
-
-      it('should have updateRole prop that updates state', () => {
-        wrapper.find(UserSelectRole).props().updateRole('student');
-        expect(wrapper.state().role).toBe('student');
-        wrapper.find(UserSelectRole).props().updateRole('teacher');
-        expect(wrapper.state().role).toBe('teacher');
-      });
-    });
 
     describe('StaticDisplaySubscription component', () => {
       it('should render', () => {
@@ -223,11 +203,6 @@ describe('TeacherAccount container', () => {
     });
   });
 
-  it('should render user\'s name', () => {
-    wrapper.setState({name: 'George Costanza'});
-    expect(wrapper.text()).toMatch('George Costanza\'s Account');
-  });
-
   describe('input with ref name', () => {
     it('should render', () => {
       expect(wrapper.ref('name').exists()).toBe(true);
@@ -295,27 +270,6 @@ describe('TeacherAccount container', () => {
     });
   });
 
-  describe('input with ref schoolOptionsDoNotApply', () => {
-    it('should render', () => {
-      expect(wrapper.ref('schoolOptionsDoNotApply').exists()).toBe(true);
-    });
-
-    it('should have onChange prop that updates state', () => {
-      expect(wrapper.state().schoolOptionsDoNotApply).toBe(false);
-      wrapper.ref('schoolOptionsDoNotApply').props().onChange();
-      expect(wrapper.state().schoolOptionsDoNotApply).toBe(true);
-      wrapper.ref('schoolOptionsDoNotApply').props().onChange();
-      expect(wrapper.state().schoolOptionsDoNotApply).toBe(false);
-    });
-
-    it('should have checked prop that returns checked depending on state', () => {
-      wrapper.setState({schoolOptionsDoNotApply: true});
-      expect(wrapper.ref('schoolOptionsDoNotApply').props().checked).toBe(true)
-      wrapper.setState({schoolOptionsDoNotApply: false});
-      expect(wrapper.ref('schoolOptionsDoNotApply').props().checked).toBe(false)
-    });
-  });
-
   describe('save button', () => {
     it('should render', () => {
       expect(wrapper.find('button').filterWhere(e => e.text() == 'Save Changes').exists()).toBe(true);
@@ -327,7 +281,7 @@ describe('TeacherAccount container', () => {
 
     it('should have class button-grey if state.isSaving or button-green if not', () => {
       wrapper.setState({isSaving: false});
-      expect(wrapper.find('button').filterWhere(e => e.text() == 'Save Changes').props().className).toBe('button-green');
+      expect(wrapper.find('button').filterWhere(e => e.text() == 'Save Changes').props().className).toBe('save-button button-green');
       // we can no longer use a filterWhere on text to check for the button-grey class
       // because the button no longer has text when it is loading
       // as of 6/27/17, this is the only gray button that ever appears on the page
