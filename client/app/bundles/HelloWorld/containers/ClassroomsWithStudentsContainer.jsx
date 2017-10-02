@@ -57,7 +57,7 @@ export default class extends React.Component {
 	  const selectedStudent = classy.students[studentIndex];
     selectedStudent.isSelected = !selectedStudent.isSelected;
     newState.classrooms[classIndex].edited = this.classroomUpdated(newState.classrooms[classIndex]);
-    newState.studentsChanged = this.studentsChanged();
+    newState.studentsChanged = this.studentsChanged(newState.classrooms);
 		// we check to see if something has changed because this method gets called when the page loads
 		// as well as when a student's checkbox is clicked
     if (newState.studentsChanged) {
@@ -81,7 +81,7 @@ export default class extends React.Component {
     classroom.allSelected = !classroom.allSelected;
     classroom.noneSelected = !classroom.allSelected;
     classroom.students.forEach(stud => stud.isSelected = classroom.allSelected);
-    newState.studentsChanged = this.studentsChanged();
+    newState.studentsChanged = this.studentsChanged(newState.classrooms);
     this.setState(newState);
   }
 
@@ -135,6 +135,7 @@ export default class extends React.Component {
   classroomUpdated(classy) {
     const assignedStudentIds = this.getAssignedIds(classy).sort();
     let updated;
+    debugger;
     if (classy.classroom_activity) {
       if (classy.classroom_activity.assigned_student_ids.length === 0) {
 				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
@@ -147,8 +148,9 @@ export default class extends React.Component {
 				// if not everyone in the class was assigned, check to see if assigned student arrays are the same
         updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort());
       }
-    } else if (assignedStudentIds.length > 0) {
-			// if there were no students assigned but there are now, students have been added
+    } else if (assignedStudentIds.length > 0 || classy.allSelected) {
+			// if there were no students assigned but there are now,
+			// or everyone is selected (in the case of an empty classroom), students have been added
       updated = true;
     } else {
       updated = false;
@@ -156,9 +158,9 @@ export default class extends React.Component {
     return updated;
   }
 
-  studentsChanged() {
+  studentsChanged(classrooms) {
     let changed;
-    this.state.classrooms.forEach((classy) => {
+    classrooms.forEach((classy) => {
       if (this.classroomUpdated(classy)) {
         changed = true;
       }
