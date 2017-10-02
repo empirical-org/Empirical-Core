@@ -30,7 +30,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @lesson = lesson
     # TODO: update this when copy exists
-    mail to: user.email, subject: "Lesson Plan Email"
+    mail to: user.email, subject: "Lesson Plan for #{lesson.name}"
   end
 
 end
