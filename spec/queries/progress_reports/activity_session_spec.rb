@@ -16,8 +16,8 @@ describe ProgressReports::ActivitySession do
 
     context 'by default' do
       let(:filters) { {} }
-      it 'sorts by completed_at descending' do
-        expect(subject.first.completed_at).to be_within(1.second).of fred_first_grade_topic_session.completed_at
+      it 'sorts by last_name descending' do
+        expect(subject.first.user.name).to eq(alice.name)
       end
     end
 
@@ -32,7 +32,7 @@ describe ProgressReports::ActivitySession do
     context 'by student name' do
       let(:filters) { {sort: {field: 'student_name', direction: 'desc'} } }
       it 'retrieves results in the appropriate order' do
-        expect(subject.first.user.name).to eq(zojirushi.name)
+        expect(subject.first.user.name).to eq(fred.name)
       end
     end
 

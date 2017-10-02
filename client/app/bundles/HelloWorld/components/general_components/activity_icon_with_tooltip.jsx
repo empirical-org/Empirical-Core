@@ -1,103 +1,112 @@
-'use strict';
-import _ from 'lodash'
-import React from 'react'
-import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator'
-import $ from 'jquery'
+import _ from 'lodash';
+import React from 'react';
+import TooltipTitleGeneratorGenerator from '../modules/componentGenerators/tooltip_title/tooltip_title_generator_generator';
+import $ from 'jquery';
+import request from 'request';
+import gradeColor from '../modules/grade_color.js';
+import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 
 export default React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     context: React.PropTypes.string.isRequired, // studentProfile, scorebook
-    premiumState: React.PropTypes.string,
-    placement: React.PropTypes.string // not required
+    premium_state: React.PropTypes.string,
+    placement: React.PropTypes.string, // not required
+    dontShowToolTip: React.PropTypes.bool, // TODO: remove this and make the tooltip show via ajax
   },
 
-  getDefaultProps: function () {
-    return {
-      context: 'scorebook',
-      placement: 'bottom'
-    }
+  getInitialState() {
+    return { loading: true, };
   },
 
-  percentage_color: function () {
-    var y;
-    var x = this.props.data.percentage;
-    if (x == null) {
-      y = 'gray'
-    } else if (x < 0.5) {
-      y = 'red';
-    } else if (x <= 0.75) {
-      y = 'orange';
-    } else if (x <= 1.0) {
-      y = 'green';
-    } else {
-      y = 'gray';
-    }
-    return y;
-  },
-
-  loadTooltipTitle: function () {
-    var data;
-    if (this.props.context == 'scorebook') {
-      data = _.merge(this.props.data, {premium_state: this.props.premium_state})
-    } else {
-      data = this.props.data;
-    }
-    this.modules = {
-      titleGenerator: new TooltipTitleGeneratorGenerator(this.props.context).generate(data)
-    }
-    $(this.refs.activateTooltip).tooltip({
-      html: true,
-      placement: this.props.placement,
-      title: this.modules.titleGenerator.generate(this.props.data)
+  getConceptResultInfo() {
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_activity_id/${this.props.data.caId}/user_id/${this.props.data.userId}/completed/${!!this.props.data.percentage}`,
+    }, (error, httpStatus, body) => {
+      const parsedBody = JSON.parse(body);
+      parsedBody.forEach(el => el.metadata = JSON.parse(el.metadata));
+      that.setState({ loaded: true, }, () => that.loadTooltipTitle(parsedBody));
     });
   },
 
-  icon_for_classification: function () {
-      var y;
-      var x = this.props.data.activity.classification.id;
-      if (x === 1) {
-        y = 'flag';
-      } else if (x === 2) {
-        y = 'puzzle'
-      } else if (x === 4) {
-        y = 'diagnostic'
-      } else if (x === 5) {
-        y = 'connect';
-      }
-      return y;
+  loadTooltipTitle(crData) {
+    let data;
+    data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
+    data.concept_results = crData;
+    this.showLoadedToolTip(data);
   },
 
-  tooltipClasses: function () {
-    return 'activate-tooltip icon-link icon-wrapper icon-' + this.percentage_color() + ' icon-' + this.icon_for_classification();
+  getActClassId() {
+    const d = this.props.data;
+    if (d.activity_classification_id) {
+      return d.activity_classification_id;
+    } else if (d.classification && d.classification.id) {
+      return d.classification.id;
+    } else if (d.activity && d.activity.classification && d.activity.classification.id) {
+      return d.activity.classification.id;
+    }
+    return null;
   },
 
-  goToReport: function() {
-    $.get(`/teachers/progress_reports/report_from_activity_session/${this.props.data.id}`)
-      .success(data => {
+  showToolTipAndGetConceptResultInfo() {
+    this.showToolTip();
+    this.getConceptResultInfo();
+  },
+
+  showToolTip(data = this.props.data) {
+    const titleGenerator = new TooltipTitleGeneratorGenerator(this.props.context).generate(data);
+    this.setState({ toolTipHTML: titleGenerator.generate(data), showToolTip: true, });
+  },
+
+  showLoadedToolTip(data = this.props.data) {
+    const titleGenerator = new TooltipTitleGeneratorGenerator(this.props.context).generate(data);
+    this.setState({ toolTipHTML: titleGenerator.generate(data), });
+  },
+
+  tooltipClasses() {
+    return `activate-tooltip icon-link icon-wrapper icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`;
+  },
+
+  goToReport() {
+    $.get(`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${this.props.data.caId}/user/${this.props.data.userId}`)
+      .success((data) => {
         window.location = data.url;
       })
-      .fail(() => alert('This report is not available.'))
+      .fail(() => alert('This report is not available.'));
   },
 
-
-
-  checkForStudentReport: function() {
-    if (this.props.data.state === 'finished') {
+  checkForStudentReport() {
+    if (this.props.data.percentage) {
       this.goToReport();
     } else {
-      alert('This activity has not been completed, so there is no report yet.')
+      alert('This activity has not been completed, so there is no report yet.');
     }
   },
 
-  render: function () {
+  hideTooltip() {
+    this.setState({ showToolTip: false, });
+  },
+
+  render() {
+    const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';
+    let toolTip = null;
+    if (this.state.showToolTip && this.state.toolTipHTML) {
+      // TODO: this is here because the old way inserted the html into a jquery tooltip
+      // as we no longer do this, rather than dangerously inserting html, we should simply
+      // render it as a component
+      toolTip = <div style={{ position: 'absolute', zIndex: 1000, top: '50px', }} dangerouslySetInnerHTML={{ __html: this.state.toolTipHTML, }} />;
+    }
     return (
       <div
+        style={{ cursor: cursorType, position: 'relative', }}
         onClick={this.props.context === 'scorebook' ? this.checkForStudentReport : null}
-        onMouseEnter={this.loadTooltipTitle}
-        ref='activateTooltip'
-        className={this.tooltipClasses()}>
+        onMouseEnter={this.props.context === 'scorebook' ? this.showToolTipAndGetConceptResultInfo : null}
+        onMouseLeave={this.props.context === 'scorebook' ? this.hideTooltip : null}
+        className={this.tooltipClasses()}
+      >
+        {toolTip}
       </div>
     );
-  }
+  },
 });

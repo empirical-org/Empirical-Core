@@ -7,7 +7,11 @@
   <div class="home-nav-right wide">
      <!-- tools does not yet have a route set up -->
     <a href="/tools/connect" class="text-white">Tools</a>
-    <a href="/activities/packs" class="text-white">Resources</a>
+    <% if current_user.nil? %>
+      <a href="/activities/packs" class="text-white">Resources</a>
+    <% else %>
+      <a href="/teacher_resources" class="text-white">Resources</a>
+    <% end %>
     <a href="/mission" class="text-white">Our Story</a>
     <%- if current_user.nil? %>
 
@@ -37,7 +41,7 @@
 
     <ul>
       <li>
-        <a href="/" class="text-white">Tools</a>
+        <a href="/tools/connect" class="text-white">Tools</a>
       </li>
       <li>
         <a href="/activities/packs" class="text-white">Resources</a>

@@ -36,6 +36,28 @@ FactoryGirl.define do
       factory :mr_woodman do
         name 'Michael Woodman'
       end
+
+      factory :teacher_with_students do
+        classrooms_i_teach { [ FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)]),
+                       FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)])
+           ] }
+      end
+
+      factory :teacher_with_students_with_activities do
+        classrooms_i_teach {
+          [ FactoryGirl.create(:classroom,
+            students: [FactoryGirl.create(:student_with_many_activities),
+              FactoryGirl.create(:student_with_many_activities),
+              FactoryGirl.create(:student_with_many_activities),
+              FactoryGirl.create(:student_with_many_activities),
+              FactoryGirl.create(:student_with_many_activities),
+              FactoryGirl.create(:student_with_many_activities),
+              FactoryGirl.create(:student_with_many_activities)
+            ])
+           ]
+         }
+      end
+
     end
 
     factory :student do

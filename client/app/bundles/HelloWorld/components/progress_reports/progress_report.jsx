@@ -24,7 +24,7 @@ export default  React.createClass({
     jsonResultsKey: React.PropTypes.string.isRequired,
     onFetchSuccess: React.PropTypes.func, // Optional
     exportCsv: React.PropTypes.string,
-    premiumStatus: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string,
     colorByScoreKeys: React.PropTypes.array
   },
 
@@ -53,14 +53,14 @@ export default  React.createClass({
         value: ''
       },
       selectedUnit: {
-        name: 'All Units',
+        name: 'All Activity Packs',
         value: ''
       }
     };
   },
 
   disabled: function(){
-    return this.props.premiumStatus === ('none' || 'locked');
+    return this.props.premiumStatus === 'locked' || this.props.premiumStatus === 'none';
   },
 
   componentDidMount: function() {
@@ -138,7 +138,7 @@ export default  React.createClass({
         teacher: data.teacher,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
-        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Units')
+        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs')
       });
       if (this.props.onFetchSuccess) {
         this.props.onFetchSuccess(data);

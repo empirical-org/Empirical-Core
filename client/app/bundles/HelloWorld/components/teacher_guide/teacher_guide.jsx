@@ -7,7 +7,7 @@ import _ from 'underscore'
 export default React.createClass({
     propTypes: {
         dashboardMini: React.PropTypes.bool.isRequired,
-        hideTeacherGuide: React.PropTypes.func.isRequired
+        hideTeacherGuide: React.PropTypes.func
     },
 
     getInitialState: function() {
@@ -57,7 +57,7 @@ export default React.createClass({
         var display = [];
         var sections = this.groupBySectionAndCompleted();
         for (var sect in sections) {
-            display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false}/>);
+            display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
         }
         return display;
     },
@@ -66,7 +66,7 @@ export default React.createClass({
         return (
             <div className='summary intro-copy'>
                 <h2>Complete these quests and become a Quill guru!</h2>
-                <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there all kinds of power features that help you create custom activity packs, view in-depth reports and assign activities faster. Let’s take a look!</p>
+                <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
             </div>
         )
     },

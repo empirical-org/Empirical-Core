@@ -6,22 +6,30 @@ import {Router, Route, Link, hashHistory} from 'react-router'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 import Modal from 'react-bootstrap/lib/Modal';
 import CreateClass from '../../../containers/CreateClass.jsx'
+import Classroom from '../../lesson_planner/create_unit/stage2/classroom'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 
 export default React.createClass({
 
 	componentDidMount: function() {
-		this.getClassrooms()
+		this.getTeacher()
 	},
 
 	getInitialState: function() {
-		return ({loading: true, classrooms: null, show: false, hidden: true})
+		return ({
+			loading: true,
+			classrooms: null,
+			showModal: false,
+			hiddenButton: true,
+			selectedClassrooms: [],
+			user: {}
+		})
 	},
 
 	getClassrooms: function() {
 		var that = this;
-		$.ajax('/teachers/classrooms/classrooms_i_teach').done(function(data) {
-			let classrooms = that.addCheckedProp(data.classrooms);
+		$.ajax('/teachers/classrooms_i_teach_with_students').done(function(data) {
+			let classrooms = that.addClassroomProps(data.classrooms);
 			that.setState({classrooms: classrooms})
 		}).fail(function() {
 			alert('error');
@@ -30,25 +38,86 @@ export default React.createClass({
 		});
 	},
 
-	// TODO: we shoud just maintain an array of selectedClassrooms in state and push/pop
-	classroomsSelected: function(classrooms) {
+	getTeacher: function() {
+		const that = this;
+		$.get('/current_user_json').done(function(data) {
+			that.setState({user: data}, that.getClassrooms())
+		})
+	},
+
+	updateSelectedClassrooms: function() {
+		const newState = Object.assign({}, this.state)
+		const classrooms = this.state.classrooms
 		let checkedClassrooms = [];
 		classrooms.forEach((c) => {
 			if (c.checked) {
 				checkedClassrooms.push({'id': c.id, 'student_ids': []})
+			} else if (c.selectedStudentIds.length > 0) {
+				checkedClassrooms.push({'id': c.id, 'student_ids': c.selectedStudentIds})
 			}
 		})
-		return checkedClassrooms;
+		newState.selectedClassrooms = checkedClassrooms
+		newState.hiddenButton = checkedClassrooms.length < 1
+		this.setState(newState);
+	},
+
+	toggleStudentSelection: function(studentIndex, classIndex) {
+		const newState = Object.assign({}, this.state);
+		const classy = newState.classrooms[classIndex]
+	  let selectedStudent = classy.students[studentIndex]
+		selectedStudent.isSelected = !selectedStudent.isSelected;
+		if (selectedStudent.isSelected) {
+			classy.selectedStudentIds.push(selectedStudent.id)
+		} else {
+			const index = classy.selectedStudentIds.indexOf(selectedStudent.id)
+			classy.selectedStudentIds.splice(index, 1)
+		}
+		this.setState(newState, () => this.updateSelectedClassrooms())
+	},
+
+	handleStudentCheckboxClick: function(studentId, classroomId) {
+		const classIndex = this.findTargetClassIndex(classroomId)
+		const studentIndex = this.findTargetStudentIndex(studentId, classIndex)
+		this.toggleStudentSelection(studentIndex, classIndex)
+	},
+
+	toggleClassroomSelection: function(classy) {
+		const newState = Object.assign({}, this.state);
+		const classIndex = this.findTargetClassIndex(classy.id);
+		const classroom = newState.classrooms[classIndex];
+		classroom.checked = !classroom.checked
+		classroom.students.forEach((stud)=>stud.isSelected=classroom.checked);
+		this.setState(newState, () => this.updateSelectedClassrooms());
+	},
+
+	findTargetClassIndex: function(classroomId) {
+		return this.state.classrooms.findIndex((classy)=>{
+			return classy.id === classroomId
+		})
+	},
+
+	findTargetStudentIndex: function(studentId, targetClassIndex) {
+		return this.state.classrooms[targetClassIndex].students.findIndex(
+			(stud)=>{
+				return stud.id===studentId
+		})
 	},
 
 	assignedClassData: function() {
+		let name
+		if (this.props.diagnosticActivityId === 413) {
+			name = 'Sentence Structure Diagnostic'
+		} else if (this.props.diagnosticActivityId === 447) {
+			name = 'ELL Diagnostic'
+		}
+
 		return ({
 			unit: {
-				name: 'Beta: Diagnostic',
-				classrooms: this.classroomsSelected(this.state.classrooms),
+				name: name,
+				classrooms: this.state.selectedClassrooms,
 				activities: [
 					{
-						id: 413
+						id: this.props.diagnosticActivityId
 					}
 				]
 			}
@@ -56,13 +125,14 @@ export default React.createClass({
 	},
 
 	submitClasses: function() {
-		this.setState({hidden: true})
+		this.setState({hiddenButton: true})
 		let data = this.assignedClassData();
+		let that = this
 		if (data.unit.classrooms.length < 1) {
 			alert('You must select a classroom before assigning the diagnostic.')
 		} else {
 			$.ajax({type: 'POST', url: '/teachers/units', data: JSON.stringify(data), dataType: 'json', contentType: 'application/json'}).done(function() {
-				window.location = '/diagnostic#/success'
+				window.location = `/diagnostic/${that.props.diagnosticActivityId}/success`
 			}).fail(function() {
 				alert('There has been an error assigning the lesson. Please make sure you have selected a classroom');
 			})
@@ -79,11 +149,22 @@ export default React.createClass({
 		return grades
 	},
 
-	addCheckedProp: function(classrooms) {
-		let updatedClassrooms = classrooms.map((classy) => {
-			classy.checked = false
-			return classy
-		})
+	addClassroomProps: function(classrooms) {
+		let updatedClassrooms
+		if (this.state.selectedClassrooms) {
+			const selectedClassroomIds = this.state.selectedClassrooms.map((classy) => classy.id)
+			updatedClassrooms = classrooms.map((classy) => {
+				classy.checked = selectedClassroomIds.includes(classy.id)
+				classy.selectedStudentIds = []
+				return classy
+			})
+		} else {
+			updatedClassrooms = classrooms.map((classy) => {
+					classy.checked = false
+					classy.selectedStudentIds = []
+					return classy
+			})
+		}
 		return updatedClassrooms
 	},
 
@@ -102,7 +183,7 @@ export default React.createClass({
 	handleChange: function(index) {
 		let updatedClassrooms = this.state.classrooms.slice(0);
 		updatedClassrooms[index].checked = !updatedClassrooms[index].checked;
-		this.setState({classrooms: updatedClassrooms, hidden: this.classroomsSelected(updatedClassrooms).length < 1 })
+		this.setState({classrooms: updatedClassrooms}, this.updateSelectedClassrooms)
 	},
 
 	buildClassRow: function(classy, index) {
@@ -116,51 +197,44 @@ export default React.createClass({
 		// 		: that.readingLevelFormatter(input)
 		// }
 		return (
-			<div className='classroom-row' key={classy.id}>
-				<div className='pull-left'>
-					<input type='checkbox' id={classy.name} className='css-checkbox' value='on' onChange={() => this.handleChange(index)}/>
-					<label htmlFor={classy.name} id={classy.name} className='css-label'>
-						<h3>{classy.name}</h3>
-					</label>
-				</div>
-				<div className={'is-checked-' + currClass.checked}>
-					{/*<DropdownButton bsStyle='default' title={readingLevel()} id='select-grade' onSelect={this.handleSelect.bind(null, index)}>
-						{this.grades()}
-					</DropdownButton>*/}
-					{/*<a href='/'>Preview</a>*/}
-				</div>
-			</div>
+			<Classroom
+				students={classy.students}
+				classroom={classy}
+				allSelected={classy.allSelected}
+				toggleClassroomSelection={this.toggleClassroomSelection}
+				handleStudentCheckboxClick={this.handleStudentCheckboxClick}
+			/>
 		)
 	},
 
 	classroomTable: function() {
 		if (this.state.loading) {
 			//return loading image
-		} else if (this.state.classrooms === [] || null) {
+		} else if (this.state.classrooms === [] || this.state.classrooms === null) {
 			return <span></span>
 		} else {
 			let rows = this.state.classrooms.map((classy, index) => this.buildClassRow(classy, index));
-			return <div id='classroom-table-wrapper'>{rows}</div>
+			return <div className='edit-assigned-students-container'>{rows}</div>
 		}
 	},
 
 	showModal() {
-		this.setState({show: true});
+		this.setState({showModal: true});
 	},
 
 	hideModal(becauseClassAdded) {
 		if (becauseClassAdded) {
 			this.getClassrooms()
 		}
-		this.setState({show: false});
+		this.setState({showModal: false});
 	},
 
 	modal() {
 		return (
-			<Modal {...this.props} show={this.state.show} onHide={this.hideModal} dialogClassName='add-class-modal'>
+			<Modal {...this.props} show={this.state.showModal} onHide={this.hideModal} dialogClassName='add-class-modal'>
 				<Modal.Body>
-					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='images/close_x.svg' alt='close-modal'/>
-					<CreateClass closeModal={this.hideModal}/>
+					<img className='pull-right react-bootstrap-close' onClick={this.hideModal} src='/images/close_x.svg' alt='close-modal'/>
+					<CreateClass closeModal={this.hideModal} user={this.state.user}/>
 				</Modal.Body>
 			</Modal>
 		)
@@ -171,7 +245,7 @@ export default React.createClass({
 			? <LoadingSpinner/>
 			: this.classroomTable()
 		let display = {
-			display: this.state.hidden
+			display: this.state.hiddenButton
 				? 'none'
 				: null
 		}
@@ -185,13 +259,13 @@ export default React.createClass({
 				{content}
 				<div id='footer-buttons'>
 					<div className='pull-left text-center'>
-						<button className='button button-transparent' onClick={this.showModal}>Add a Class</button>
+						<button className='button button-transparent' id='add-a-class-button' onClick={this.showModal}>Add a Class</button>
 						{this.modal()}
 					</div>
 					<div className='pull-right text-center'>
-						<button style={display} onClick={this.submitClasses} className='button-green'>Save & Assign</button>
+						<button style={display} onClick={this.submitClasses} className='button-green' id='save-and-assign-button'>Save & Assign</button>
 						<br/>
-						<Link to='/stage/2'>Back</Link>
+						<Link to={`/diagnostic/${this.props.diagnosticActivityId}/stage/2`}>Back</Link>
 					</div>
 				</div>
 			</div>

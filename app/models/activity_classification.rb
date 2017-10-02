@@ -9,7 +9,7 @@ class ActivityClassification < ActiveRecord::Base
 
 
   def self.diagnostic
-    ActivityClassification.find_by_name "diagnostic"
+    ActivityClassification.find_by_key "diagnostic"
   end
 
 end

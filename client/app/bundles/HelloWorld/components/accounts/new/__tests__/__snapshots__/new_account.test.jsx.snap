@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewAccount component should render 1`] = `
+<div
+  className="container account-form"
+  id="sign-up"
+>
+  <new_account_stage1
+    selectRole={[Function]}
+  />
+</div>
+`;

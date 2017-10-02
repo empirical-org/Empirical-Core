@@ -8,10 +8,15 @@ class Activity < ActiveRecord::Base
 
   has_one :section, through: :topic
 
+  belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
+
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
   has_many :units, through: :classroom_activities
+  has_many :activity_category_activities, dependent: :destroy
+  has_many :activity_categories, through: :activity_category_activities
   before_create :flag_as_beta, unless: :flags?
+  after_commit :clear_activity_search_cache
 
   scope :production, -> {
     where(<<-SQL, :production)
@@ -103,6 +108,7 @@ class Activity < ActiveRecord::Base
   end
 
   def module_url(activity_session)
+    @activity_session = activity_session
     initial_params = {student: activity_session.uid}
     module_url_helper(initial_params)
   end
@@ -123,6 +129,18 @@ class Activity < ActiveRecord::Base
     self.flags = [flag]
   end
 
+  def clear_activity_search_cache
+    # can't call class methods from callback
+    self.class.clear_activity_search_cache
+  end
+
+  def self.clear_activity_search_cache
+    $redis.del('default_activity_search')
+  end
+
+  def self.set_activity_search_cache
+    $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
+  end
 
   private
 
@@ -130,15 +148,27 @@ class Activity < ActiveRecord::Base
     flag 'beta'
   end
 
-  def module_url_helper(initial_params)
-    url = Addressable::URI.parse(classification.module_url)
-    params = (url.query_values || {})
-    params.merge!(initial_params)
-    params[:uid] = uid if uid.present?
-    url.query_values = params
-    fix_angular_fragment!(url)
+  def lesson_url_helper
+    base = classification.module_url
+    lesson = uid + '?'
+    classroom_activity_id = @activity_session.classroom_activity.id.to_s
+    student_id = @activity_session.uid
+    url = base + lesson + 'classroom_activity_id=' + classroom_activity_id + '&student=' + student_id
+    @url = Addressable::URI.parse(url)
   end
 
+  def module_url_helper(initial_params)
+    if classification.key == 'lessons'
+      lesson_url_helper
+    else
+      @url = Addressable::URI.parse(classification.module_url)
+      params = (@url.query_values || {})
+      params.merge!(initial_params)
+      params[:uid] = uid if uid.present?
+      @url.query_values = params
+      fix_angular_fragment!
+    end
+  end
 
   def homepage_path(path, classification)
     case classification.app_name.to_sym
@@ -149,13 +179,15 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def fix_angular_fragment!(url)
-
-    unless url.fragment.blank?
-      url.path = "/##{url.fragment}"
-      url.fragment = nil
+  def fix_angular_fragment!
+    unless @url.fragment.blank?
+      @url.path = "/##{@url.fragment}"
+      @url.fragment = nil
     end
 
-    return url
+    return @url
   end
+
+
+
 end

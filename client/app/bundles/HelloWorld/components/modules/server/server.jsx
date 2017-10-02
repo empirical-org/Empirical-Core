@@ -3,6 +3,7 @@
  import React from 'react'
  import _ from 'lodash'
  import Saver from './saver'
+ import $ from 'jquery'
 
 
  export default  function (resourceNameSingular, resourceNamePlural, urlPrefix) {

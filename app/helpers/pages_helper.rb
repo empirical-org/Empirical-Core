@@ -59,7 +59,7 @@ module PagesHelper
 		      img: 'thumb-peter.png',
 		      name: 'Peter Gault',
 		      title: 'Executive Director, Cofounder',
-		      desc: "Peter designs the user experience, coordinates the team, and leads fundraising. He grew up playing and  designing educational games and found his passion for writing as a journalist at his high school's newspaper. With Quill, Peter aims to help millions of students to become better writers and thinkers. He wrote his senior thesis at Bates College on how emotions influence learning and moral judgments. In 2016, he was awarded Forbes 30 Under 30 for education."
+		      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 			},
 			{
 				img: 'thumb-ryan.png',
@@ -71,9 +71,7 @@ module PagesHelper
 					img: 'thumb-donald.png',
 		      name: 'Donald McKendrick',
 		      title: 'Technology Director, Cofounder',
-		      desc: "Donald is a developer who likes to create open platforms for learning.
-					He has a master's degree in chemistry with a specialization in computer
-					aided modeling and statistical analysis."
+		      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
 			},
 			{
 		      img: 'thumb-hannah.png',
@@ -84,9 +82,33 @@ module PagesHelper
 			{
 		      img: 'thumb-emilia.png',
 		      name: "Emilia Friedberg",
-		      title: "Junior Web Developer",
+		      title: "Software Developer",
 		      desc: "Emilia is a developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
-	    }
+	    },
+			{
+					img: 'thumb-amr.png',
+					name: 'Amr Thameen',
+					title: 'Lead Designer',
+					desc: "Amr is the Lead Designer at Quill. He designs Quill’s interface, creates the user experience, and oversees the overall brand image. A speaker of three different languages and graduate of schools on multiple continents, Amr sees the importance of improving students' writing and its effect on critical thinking. Before Quill, Amr was a designer at multiple startups, working with Virtual Reality and the travel industry. Amr holds a bachelor’s degree in Architecture from Middlebury College."
+			},
+			{
+					img: 'thumb-becca.jpg',
+					name: 'Becca Garrison',
+					title: 'Partnerships Director',
+					desc: "Becca supports teachers and schools in using Quill to its full potential to strengthen student writing. Previously she coached teachers and schools with integrating instructional technology in pedagogically sound ways. She started her career teaching secondary English in schools across the South Bronx and Colorado."
+			},
+			{
+					img: 'thumb-jenny.jpg',
+					name: 'Jenny Price',
+					title: 'Editorial Associate',
+					desc: "Jenny creates new content and works with the Engineering team to provide real-time feedback to students. Before joining Quill, Jenny taught English to elementary school students in France. She holds an undergraduate degree in French and is passionate about improving communication."
+			},
+			{
+				img: 'thumb-jared-silver.jpg',
+				name: "Jared Silver",
+				title: "Software Developer",
+				desc: "Jared Silver is a software developer who joined Quill full-time after contributing as an open source volunteer and intern. He has worked with a number of edtech organizations, such as Codecademy, EdSurge, and Oppia Foundation, and he cares deeply about using technology to make education more equitable."
+			}
 			]
 		},
 			{team: 'Board of Directors',
@@ -122,11 +144,18 @@ module PagesHelper
 					desc: "Rhys Kidd is an experienced infrastructure and real assets fund manager at Macquarie Group. Alongside his experience in strategic management and capital growth initiatives, he has an avid and active interest in technology and education."
 					},
 					{
-					img: 'thumb-quill.png',
+					img: 'thumb-matthew.jpg',
 					name: 'Matthew Rodriguez',
 					title: 'Board Member',
 					desc: "Matt Rodriguez is a Managing Director at BlackRock where he focuses on absolute return mortgage strategies. He began his career as a financial modeler after earning masters degrees in mathematics and financial engineering. Matt also serves on the Mathematics Department Advisory Board at UIUC and supports scholarship programs."
 					},
+					{
+					img: 'thumb-stephanie.jpg',
+					name: 'Stephanie Cohen',
+					title: 'Board Member',
+					desc: "Stephanie is the global head of Financial Sponsor M&A and is a member of the Partnership Committee at Goldman Sachs. She joined Goldman Sachs in 1999 as an analyst and was named managing director in 2008 and partner in 2014. Stephanie serves on the National Boards for two literacy focused non-profits, Reading Partners and Quill."
+					},
+
 				# {
 				# 	img: "thumb-tim.png",
 				# 	name: "Timothy Grieves",
@@ -153,7 +182,7 @@ module PagesHelper
 					img: 'thumb-quill.png',
 					name: 'John Silberstein',
 					title: 'Advisory Board Member',
-					desc: "After beginning his career as a real estate lawyer at Skadden Arps, John Silberstein pursued an entrepreneurial path in real estate and technology. John then taught middle school English at The Dalton School in New York CIty and The Rivers School in Weston, MA.  John is currently on the Board of Snap Interactive, a publicly traded social media company and is on the Advisory Board of Will Power Labs, which makes Meal Enders, a dietary lozenge."
+					desc: "After beginning his career as a real estate lawyer at Skadden Arps, John Silberstein pursued an entrepreneurial path in real estate and technology. John then taught middle school English at The Dalton School in New York City and The Rivers School in Weston, MA. John is currently on the Board of Snap Interactive, a publicly traded social media company and is on the Advisory Board of Will Power Labs, which makes Meal Enders, a dietary lozenge."
 				},
 				{
 					img: 'thumb-deborah.jpg',
@@ -163,27 +192,47 @@ module PagesHelper
 					}]},
 					{team: 'Technical Advisory Board',
 					members: [
-				{
+						{
+							img: 'thumb-alex.png',
+							name: "Alex Redmon",
+							title: "Open Source Developer",
+							desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
+						},
+						{
 	    				img: "thumb-oliver.jpg",
 	      				name: "Oliver Hurst Hiller",
 	      				title: "Advisory Board Member",
 	      				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
-					}]},
+					}
+				]},
 
-				{team: 'Open Source Developers',
+				{team: 'Interns and Volunteers',
 					members: [
-				{
-					img: 'thumb-alex.png',
-					name: "Alex Redmon",
-					title: "Open Source Developer",
-					desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
-				},
 				{
 					img: 'thumb-matt-coleman.png',
 					name: "Matt Coleman",
 					title: "Developer",
-					desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston."
-				}
+					desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston.",
+				},
+				{
+					img: 'thumb_akash.png',
+					name: "Akash Bagaria",
+					title: "Intern",
+					desc: "Akash is a student taking a gap year prior to attending Harvard University, where he intends to study economics. He is driven to intern at Quill by his fascination with the start-up culture and his love for serving the broader community. Having avidly debated and written for the newspaper throughout high school, Akash grasps the importance of critical thinking -- and he values Quill's mission to instill this skill in students nationwide."
+				},
+				{
+					img: 'thumb_priya.png',
+					name: "Priya Mathur",
+					title: "Intern",
+					desc: "Priya is a graduate student at NYU studying Digital Media Design for Learning. Before pursuing a master’s degree, she was an elementary school teacher and taught in both Canada and England. Most recently, Priya worked as an Educational Technology Consultant in elementary schools across Toronto, training students and teachers on how to accommodate assistive technology to their individual learning needs. She is enthusiastic about learning how educational technology can remove barriers to learning and change the landscape of education."
+				},
+				{
+					img: 'thumb_olivia.png',
+					name: 'Olivia Kingree',
+					title: 'Intern',
+					desc: "Olivia Kingree is a college student who is interning at Quill for the Spring 2017 semester. As an editorial intern, she creates new learning activities and grades existing practice problems. Olivia has also worked as a math and Spanish tutor for middle and high school students for the past four years. She is passionate about reading and writing and hopes to help Quill in its aim to  improve students' writing skills and confidence."
+				},
+
 				]
 				}
 				]

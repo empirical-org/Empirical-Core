@@ -1,4 +1,6 @@
 class Teachers::ProgressReports::Standards::ClassroomTopicsController < Teachers::ProgressReportsController
+  include UnitsWithCompletedActivities
+
   def index
     respond_to do |format|
       format.html
@@ -10,9 +12,12 @@ class Teachers::ProgressReports::Standards::ClassroomTopicsController < Teachers
           serializer.classroom_id = params[:classroom_id]
           serializer.as_json(root: false)
         end
+
+        cas = Classroom.where(id: params[:classroom_id]).includes(:classroom_activities).map(&:classroom_activities).flatten
+
         render json: {
           topics: topics_json,
-          units: ProgressReports::Standards::Unit.new(current_user).results({}),
+          units: units_with_completed_activities(cas),
           classroom: current_user.classrooms_i_teach.find(params[:classroom_id]),
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }

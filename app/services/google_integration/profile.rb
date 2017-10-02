@@ -1,10 +1,11 @@
 module GoogleIntegration::Profile
 
-  def self.fetch_name_and_email(access_token)
+  def self.fetch_name_email_and_google_id(access_token)
     data = self.fetch_data(access_token)
     name = data['displayName']
     email = data['emails'][0]['value']
-    [name, email]
+    google_id = data['id']
+    [name, email, google_id]
   end
 
   private

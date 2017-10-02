@@ -132,9 +132,32 @@ button.button-transparent {
 }
 .add-class-modal {
     max-width: 508px;
-}
-
-
-#responses {
-  margin-left: -75px;
+    .modal-content {
+      max-height: 600px;
+      .create-a-class-page {
+        .create-a-class {
+          padding-left: 25px;
+          background-color: white;
+          padding-bottom: 0px;
+          button {
+            height: 40px !important;
+          }
+          #new-classroom {
+            border-right: none;
+            #regenerate-class-code {
+              margin-bottom: 20px;
+            }
+          }
+          #new-google-classroom {
+            float: none;
+            padding-left: 0px;
+            padding-top: 25px;
+            border-top: 1px solid lightgray;
+            button {
+              margin-top: 20px;
+            }
+          }
+        }
+      }
+    }
 }

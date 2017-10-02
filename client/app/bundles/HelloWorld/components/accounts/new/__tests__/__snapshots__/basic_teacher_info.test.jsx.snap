@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicTeacherInfo component renders a signup form 1`] = `
+<div
+  className="new-teacher-account"
+>
+  <h3
+    className="sign-up-header"
+  >
+    Sign up for a Teacher Account
+  </h3>
+  <p
+    className="support-p text-center"
+  >
+    We now support Google Classroom!
+  </p>
+  <auth_sign_up />
+  <div
+    className="need-a-border"
+  />
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      First Name
+    </div>
+    <input
+      id="first_name"
+      onChange={[Function]}
+      placeholder="First Name"
+      type="text"
+    />
+    <span />
+  </div>
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      Last Name
+    </div>
+    <input
+      id="last_name"
+      onChange={[Function]}
+      placeholder="Last Name"
+      type="text"
+    />
+    <span />
+  </div>
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      Email
+    </div>
+    <input
+      id="email"
+      onChange={[Function]}
+      placeholder="Email"
+      type="text"
+    />
+    <span />
+  </div>
+  <div
+    className="text-input-row"
+  >
+    <div
+      className="form-label"
+    >
+      Password
+    </div>
+    <input
+      id="password"
+      onChange={[Function]}
+      placeholder="Password"
+      type="password"
+    />
+    <span />
+  </div>
+  <input
+    name="sendNewsletter"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <p>
+    Send me monthly Quill updates
+  </p>
+  <button
+    className="sign-up-button button-green"
+    onClick={[Function]}
+  >
+    Sign Up
+  </button>
+  <div
+    className="text-align-center"
+  >
+    By signing up, you agree to our 
+    <a
+      href="/tos"
+      target="_blank"
+    >
+      terms of service
+    </a>
+     and 
+    <a
+      href="/privacy"
+      target="_blank"
+    >
+      privacy policy
+    </a>
+    .
+  </div>
+</div>
+`;

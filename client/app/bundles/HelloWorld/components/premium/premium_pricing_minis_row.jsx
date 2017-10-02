@@ -1,6 +1,6 @@
 import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx'
 import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx'
-import DistrictPricingMini from './premium_minis/district_pricing_mini.jsx'
+import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx'
 import React from 'react'
 
 export default React.createClass({
@@ -15,7 +15,7 @@ export default React.createClass({
           <TeacherPricingMini/>
         </div>
         <div className='col-md-4'>
-          <DistrictPricingMini/>
+          <SchoolPricingMini/>
         </div>
       </div>
     )

@@ -13,7 +13,7 @@
   "scripts": {
     "postinstall": "cd ./client && npm install",
     "gulp": "cd ./client && npm run gulp",
-    "test": "npm run build:test && npm run lint && bundle exec rake spec",
+    "test": "npm run jest && npm run build:test && npm run lint && bundle exec rake spec",
     "lint": "cd client && npm run lint",
     "install-react-on-rails": "cd client && npm run install-react-on-rails",
     "build:clean": "rm app/assets/webpack/* || true",
@@ -24,7 +24,13 @@
     "build:server": "(cd client && npm run build:server --silent)",
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
     "build:dev:server": "(cd client && npm run build:dev:server --silent)",
-    "hot-assets": "(cd client && npm run hot-assets)"
+    "hot-assets": "(cd client && npm run hot-assets)",
+    "jest": "cd client && npm run jest",
+    "jest:u": "cd client && npm run jest -- -u",
+    "jest:update": "cd client && npm run jest -- -u",
+    "jest:watch": "cd client && npm run jest:watch",
+    "jest:coverage": "cd client && npm run jest:coverage",
+    "jest:silent": "cd client && npm run jest:silent"
   },
   "repository": {
     "type": "git",
@@ -43,5 +49,12 @@
   },
   "dependencies": {
     "tabslet": "^1.7.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0"
   }
 }

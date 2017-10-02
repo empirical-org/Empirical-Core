@@ -3,7 +3,7 @@ import StandardsAllClassroomsProgressReport from '../components/progress_reports
 import StandardsClassroomStudentsProgressReport from '../components/progress_reports/standards_classroom_students_progress_report.jsx'
 import StandardsTopicsProgressReport from '../components/progress_reports/standards_topics_progress_report.jsx'
 import StandardsClassroomTopicsProgressReport from '../components/progress_reports/standards_classroom_topics_progress_report.jsx'
-import StandardsTopicStudentsProgressReport from '../components/progress_reports/standards_topics_progress_report.jsx'
+import StandardsTopicStudentsProgressReport from '../components/progress_reports/standards_topic_students_progress_report.jsx'
 import ConceptsStudentsProgressReport from '../components/progress_reports/concepts_students_progress_report.jsx'
 import ConceptsConceptsProgressReport from '../components/progress_reports/concepts_concepts_progress_report.jsx'
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'

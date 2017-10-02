@@ -1,0 +1,139 @@
+.google-classroom-modal {
+    text-align: center;
+    .fa-exclamation-triangle {
+      color: #ff4542;
+      padding-right: 0.5em
+    }
+    .fa-check {
+      color: #82bf3c;
+      padding-right: 0.5em
+    }
+    .modal-content {
+      max-width: 522px;
+      margin: auto;
+      height: auto;
+    }
+    .modal-body {
+      padding: 40px 51px;
+      position: relative;
+      max-width: 520px;
+      .react-bootstrap-close {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        height: 39px;
+      }
+    }
+   .q-h2 {
+     font-size: 24px;
+     font-weight: 500;
+     margin-bottom: 9px;
+     &:after {
+       content: ' ';
+       display: block;
+       width: 87px;
+       margin: 17px auto 20px;
+       border-top: solid 1px #ebebeb;
+     }
+   }
+   p {
+     font-size: 18px;
+     margin-bottom: 22px;
+   }
+   form {
+     min-height: 30px;
+     width: 418px;
+     input[type=text] {
+       border: 1px solid #737373;
+       max-width: 264px;
+       width: 100%;
+       float: left;
+     }
+     input[type=submit] {
+       margin-left: 10px;
+       font-weight: 600;
+       max-width: 144px;
+       width: 100%;
+       float: right;
+     }
+     @media (max-width: 525px) {
+       input[type=text] {
+         float: none;
+         margin-bottom: 20px;
+       }
+       input[type=submit] {
+         margin-left: 0;
+         float: none;
+       }
+     }
+   }
+   a.q-button.cta-button {
+       border: none;
+       font-size: 16px;
+       height: 40px;
+       max-width: 280px;
+       width: 100%;
+       padding: 10px 10px 8px;
+       &:hover {
+         color: white;
+         text-decoration: none;
+       }
+      @media (max-width: 525px) {
+        margin-top: 20px
+      }
+     }
+     .error {
+       font-size: 12px;
+       height: 37px;
+       display: -webkit-box;
+       display: -ms-flexbox;
+       display: flex;
+       -webkit-box-pack: center;
+           -ms-flex-pack: center;
+               justify-content: center;
+       -webkit-box-align: center;
+           -ms-flex-align: center;
+               align-items: center;
+       color: #ff4542;
+       i {
+         padding-right: 3.5px;
+       }
+     }
+   }
+
+   .archive-warning, .sync-success {
+     .subheader {
+       color: #737373;
+       font-size: 18px;
+       margin-bottom: 30px;
+     }
+     button {
+       &.close-modal {
+         border-radius: 6px;
+         border: solid 1px #737373;
+         padding: 9px 34px;
+         width: 126px;
+         height: 40px;
+       }
+       &.sync-classrooms {
+         width: 196px;
+         height: 40px;
+       }
+       &.back-to-profile {
+         width: 180px;
+       }
+     }
+     .button-wrapper {
+       padding-top:L 18px;
+       max-width: 336px;
+       margin: auto;
+       margin-top: 33px;
+       display: -webkit-box;
+       display: -ms-flexbox;
+       display: flex;
+       -webkit-box-pack: justify;
+           -ms-flex-pack: justify;
+               justify-content: space-between;
+     }
+
+   }

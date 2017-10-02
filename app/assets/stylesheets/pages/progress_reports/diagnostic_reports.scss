@@ -8,7 +8,7 @@
     margin-bottom: 15px;
   }
   .nav-elements {
-    margin-top: 12px;
+    margin-top: 28px;
   }
 }
 
@@ -56,7 +56,7 @@ $lightgray: #cecece;
     th:first-of-type,
     tr td:first-of-type {
         width: 110px;
-        text-align: right;
+        text-align: center;
     }
     th:nth-of-type(2),
     tr td:nth-of-type(2) {
@@ -65,7 +65,12 @@ $lightgray: #cecece;
     }
     th:nth-of-type(3),
     tr td:nth-of-type(3) {
-        width: 465px;
+        width: 310px;
+        text-align: left;
+    }
+    th:nth-of-type(4),
+    tr td:nth-of-type(4) {
+        width: 310px;
         text-align: left;
     }
 }
@@ -122,11 +127,11 @@ $lightgray: #cecece;
             height: 30px;
             padding-left: 8px;
             border-bottom: solid 0.5px #cecece;
-            &:first-of-type:not(.directions) {
+            &:first-of-type:not(.directions):not(.feedback) {
               height: 0px;
             }
             /* first of type has height of 0 so we don't want any borders*/
-            &:last-of-type, &:first-of-type:not(.directions) {
+            &:last-of-type, &:first-of-type:not(.directions):not(.feedback) {
               border-bottom: none;
             }
             &.student-report-headers {
@@ -240,7 +245,7 @@ $lightgray: #cecece;
 
 .recommendations-container {
   margin: 0 auto;
-  max-width: 1150px;
+  max-width: 950px;
   width: 100%
 }
 
@@ -262,7 +267,6 @@ $lightgray: #cecece;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding-left: 8.5%;
 
 
   .recommendations-key {
@@ -285,6 +289,19 @@ $lightgray: #cecece;
       border: solid 1px #cecece;
       margin-right: 9px;
     }
+    .assigned-recommendations-key-icon {
+      i {
+        font-size: 35px;
+        color: #82bf3c;
+        margin-left: 44px;
+      }
+    }
+    .assigned-activity-pack-text {
+      margin-left: 10px;
+      p:nth-of-type(2) {
+        color: #737373;
+      }
+    }
   }
 }
 
@@ -292,6 +309,7 @@ $lightgray: #cecece;
   height: 40px;
   border-radius: 6px;
   background-color: #01c2a2;
+  cursor: pointer;
 
   span {
     font-family: 'adelle-sans';
@@ -401,34 +419,23 @@ $lightgray: #cecece;
               align-items: center;
       border-bottom: none;
 
-
-
-      .recommendations-table-row-item-checkbox {
-        height: 17px;
-        width: 17px;
-        min-width: 17px;
-        border-radius: 3px;
-        background-color: #ffffff;
-        border: solid 1px #cecece;
-        margin-right: 6px;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
-        -webkit-box-align: center;
-            -ms-flex-align: center;
-                align-items: center;
-      }
-
       &.recommended {
         background-color: #eafcff;
       }
 
       &.selected {
         p {
-          color: #333;
+          color: #000000;
+        }
+      }
+      &.previously-assigned {
+        p {
+          color: #737373 !important;
+        }
+        i {
+          font-size: 18px;
+          color: #82bf3c;
+          margin-right: 10px;
         }
       }
 
@@ -442,7 +449,7 @@ $lightgray: #cecece;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         font-weight: normal;
-        line-height: 1.15;
+        line-height: 1.25;
         color: #646464;
       }
 

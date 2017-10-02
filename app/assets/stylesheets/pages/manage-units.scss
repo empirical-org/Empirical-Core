@@ -3,52 +3,105 @@
     cursor: pointer;
   }
 }
+
+.lesson_planner_main {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
 .container.manage-units {
   padding-top: 0 !important;
   .create-unit-button-container {
     height: 130px;
     width: 100%;
     padding-top: 25px;
-    //outline: 1px solid black;
+    /*outline: 1px solid black;*/
     button.create-unit {
       margin: none !important;
       float: right;
     }
   }
-  .empty-unit-manager {
-    p {
-      font-size: 18px;
-      margin: 2em;
+
+  .manage-units-header {
+    margin-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: solid 1px #c0c0c0;
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
     }
-    .featured-button {
-      margin-top: 50px;
-      margin-left: 40px;
+    .header-content {
+      margin-top: 21px;
+      display: flex;
+      justify-content: space-between;
+      @media only screen and (max-width: 500px) {
+        flex-direction: column;
+        button {
+          width: 100%;
+          margin-top: 20px;
+        }
+      }
+      p {
+        max-width: 559px;
+        width: 100%;
+        font-size: 16px;
+        @media only screen and (max-width: 1000px) {
+          max-width: 528px;
+        }
+      }
     }
   }
+
   padding-top: 80px;
   section {
     border-bottom: none;
-    border-top: 1px solid #cecece;
   }
-  .vertical-align {
+  .unit-header-row, .unit-label-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+    margin-left: 15px;
+    margin-right: 15px;
   }
-  .delete-unit {
+  div.row::before, div.row::after {
+    content: none;
+  }
+  .delete-unit, .edit-unit {
+    padding-top: 4px;
     cursor: pointer;
     color: #137779;
-    text-align: right;
-    padding-right: 30px;
+  }
+  .delete-classroom-activity {
+    margin-right: 30px;
+  }
+  .delete-unit {
+    margin-left: auto;
+  }
+  .edit-unit {
+      width: 200px;
+  }
+  .edit-students {
+    vertical-align: top;
   }
   .fa {
     padding-right: 10px;
   }
-  .assigned-activities a {
-    color: #027360;
+
+  .unit-name {
+    padding-right: 10px;
+    font-weight: 500;
+    font-size: 24px;
+    input {
+      min-width: 300px;
+    }
   }
   .unit-label {
-    font-weight: bold;
-    margin-top: 30px;
+    margin-top: 12px;
     text-align: left !important;
     border-bottom: none;
     border-top: 1px solid #cecece !important;
@@ -61,37 +114,92 @@
     border-right: 1px solid #cecece;
     padding-left: 17px;
     margin-left: 0;
+    a {
+      margin-left: 10px;
+    }
+    div.assigned-to {
+      display: inline-block;
+      max-width: 515px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      @media (max-width: 990px) {
+        max-width: 300px;
+      }
+      @media (max-width: 680px) {
+        max-width: 200px;
+      }
+    }
   }
   .due-date-header {
-    padding-left: 39px;
+    width: 95px;
+    margin-right: 60px;
+    text-align: center;
+    float: right;
   }
-  .table {
+  .due-date-input {
+    text-align: center;
+    width: 95px;
+    margin-right: 30px;
+  }
+  .assigned-activities {
     margin-top: 0 !important;
-    border: 1px solid #cecece !important;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     width: 100%;
+    a {
+      color: #027360;
+    }
+    .q-button {
+      font-size: 14px;
+      height: 36px;
+      color: black;
+      border: 1px solid;
+      font-weight: 600;
+      span {
+        font-size: 9px;
+        font-weight: 500;
+        position: relative;
+        top: -1px;
+        left: 3px;
+      }
+    }
     .row:last-child {
-      border-bottom: none;
+      border-bottom: 1px solid #cecece;
     }
     .row {
-      border-bottom: 1px solid #cecece;
+      border: 1px solid #cecece;
+        border-bottom: none;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       padding: 0;
       margin: 0 !important;
+
+      .supporting-info {
+        font-weight: 600;
+        margin-right: 8px;
+        i {
+          margin-right: -6px;
+        }
+      }
+      .report-link {
+        font-weight: 600;
+        color: #969696;
+      }
       .cell:first-child {
-        padding-right: 10px;
+        margin-left: 15px;
+        margin-right: 10px;
       }
       .cell:nth-child(2) {
         padding-left: 0;
       }
-      .cell:nth-child(3) {
-        padding-left: 35px;
-      }
       .cell:nth-child(4) {
-        //padding-left: 5px;
-        //padding-right: 5px;
+        /*padding-left: 5px;*/
+        /*padding-right: 5px;*/
         padding-left: 12px;
         padding-right: 8px;
         .icon-x-gray {
@@ -110,3 +218,36 @@
     }
   }
 }
+
+  div.starting-row {
+    max-width: 500px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    div#activity-analysis-activity-name {
+      .recommendations-button {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 7px 17px 8px;
+        border-radius: 100px;
+        background-color: $white;
+        border: solid 1px $quillforestgreen;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 0.62;
+        letter-spacing: 0.8px;
+        color: $quillforestgreen;
+        cursor: pointer;
+      }
+      a, span {
+        color: #027360;
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    div#activity-analysis-activity-name {
+      width: 100%;
+    }
+  }

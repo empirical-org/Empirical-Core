@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the ArchiveClassesWarning component should render 1`] = `
+<Modal
+  animation={true}
+  autoFocus={true}
+  backdrop={true}
+  bsClass="modal"
+  dialogClassName="google-classroom-modal archive-warning"
+  dialogComponentClass={[Function]}
+  enforceFocus={true}
+  keyboard={true}
+  manager={
+    ModalManager {
+      "containers": Array [],
+      "data": Array [],
+      "handleContainerOverflow": true,
+      "hideSiblingNodes": true,
+      "modals": Array [],
+    }
+  }
+  onHide={[Function]}
+  renderBackdrop={[Function]}
+  restoreFocus={true}
+  show={false}
+>
+  <ModalBody
+    bsClass="modal-body"
+    componentClass="div"
+  >
+    <img
+      alt="close-modal"
+      className="pull-right react-bootstrap-close"
+      src="/images/close_x.svg"
+    />
+    <h1
+      className="q-h2"
+    >
+      <i
+        className="fa fa-exclamation-triangle"
+      />
+      Warning: Archiving Classroom
+    </h1>
+    <h3
+      className="subheader"
+    >
+      You are archiving 
+      <strong>
+        0 classrooms.
+      </strong>
+    </h3>
+    <p>
+      When a classroom is deselected, Quill will archive the classroom and it will no longer sync that classroom with Google Classroom. If you would like to use the classroom, please go back and select it
+    </p>
+    <div
+      className="button-wrapper"
+    >
+      <button
+        className="q-button cta-button bg-white text-black close-modal"
+      >
+        Back
+      </button>
+      <button
+        className="q-button cta-button bg-quillgreen text-white sync-classrooms"
+      >
+        Sync Classrooms
+      </button>
+    </div>
+  </ModalBody>
+</Modal>
+`;

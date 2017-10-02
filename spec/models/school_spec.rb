@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe School, type: :model do
+  let!(:bk_school) { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11206'}
+  let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
+  let!(:bk_teacher) { FactoryGirl.create(:teacher, school: bk_school) }
+  let!(:bk_teacher_colleague) { FactoryGirl.create(:teacher, school: bk_school) }
+  let!(:queens_teacher) { FactoryGirl.create(:teacher, school: queens_school) }
+
   describe 'validations' do
     before do
       @school = School.new
@@ -45,6 +51,22 @@ describe School, type: :model do
 
       expect(@school.valid?).to eq(false)
       expect(@school.errors[:lower_grade]).to eq([ 'must be less than or equal to upper grade' ])
+    end
+
+  end
+
+
+  describe '#grant_premium_to_users' do
+
+    it "gives premium to all of a schools users" do
+      expect(bk_school.users.map(&:subscription).flatten.any?).to eq(false)
+      bk_school.grant_premium_to_users
+      expect(bk_school.users.reload.map(&:subscription).flatten.count).to eq(bk_school.users.count)
+    end
+
+    it 'does not give premium to users of other schools' do
+      bk_school.grant_premium_to_users
+      expect(queens_school.users.map(&:subscription).flatten.any?).to eq(false)
     end
 
   end

@@ -3,10 +3,20 @@ require 'rails_helper'
 describe Classroom, type: :model do
 
   let(:classroom) { FactoryGirl.build(:classroom) }
+  let(:teacher) { FactoryGirl.create(:teacher)}
 
-  context "when is created" do
+  context "when created" do
+
+
     it 'must be valid with valid info' do
     	expect(classroom).to be_valid
+    end
+
+    it "deletes the redis classrooms mini cache" do
+      $redis.set("user_id:#{teacher.id}_classroom_minis", 'fake_data')
+      expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq('fake_data')
+      classroom = FactoryGirl.create(:classroom, teacher_id: teacher.id)
+      expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq(nil)
     end
   end
 
@@ -40,6 +50,7 @@ describe Classroom, type: :model do
     end
   end
 
+
   describe "#classroom_activity_for" do
     before do
       @activity=Activity.create!()
@@ -70,4 +81,5 @@ describe Classroom, type: :model do
       expect(classroom.code).to eq(old_code)
     end
   end
+
 end

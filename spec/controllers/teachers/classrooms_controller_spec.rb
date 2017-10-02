@@ -18,7 +18,7 @@ describe Teachers::ClassroomsController, type: :controller do
       }.to change(ClassroomCreationWorker.jobs, :size).by(1)
     end
 
-    it 'reponds with a json object representing the classroom' do
+    it 'responds with a json object representing the classroom' do
         post :create, classroom: {name: 'My Class', grade: '8', code: 'whatever-whatever'}
         expect(JSON.parse(response.body)['classroom']['code']).to eq('whatever-whatever')
     end

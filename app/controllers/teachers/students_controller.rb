@@ -11,19 +11,12 @@ class Teachers::StudentsController < ApplicationController
     else
       @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
       Associators::StudentsToClassrooms.run(@student, @classroom)
-      InviteStudentWorker.perform_async(current_user.id, @student.id)
       render json: @student
     end
   end
 
   def edit
-    # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
-    @was_teacher_the_last_user_to_reset_students_password =  (@student.password_digest && @student.authenticate(@student.last_name))
-    @sign_up_method = {
-      "Clever User": @student.clever_id,
-      "Google Sign On User": @student.signed_up_with_google,
-      "Student Email": @student.email
-    }
+    edit_page_variables
   end
 
   def index
@@ -46,7 +39,9 @@ class Teachers::StudentsController < ApplicationController
       #head :ok
       redirect_to teachers_classroom_students_path(@classroom)
     else
-      render text: @student.errors.full_messages.join(', '), status: :unprocessable_entity
+      flash.now[:error] = @student.errors.full_messages.join('. ')
+      edit_page_variables
+      render :edit
     end
   end
 
@@ -69,7 +64,18 @@ protected
   end
 
   def user_params
-    params.require(:user).permit!
+    params.require(:user).except!(:role).permit!
+  end
+
+  def edit_page_variables
+    # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
+    @was_teacher_the_last_user_to_reset_students_password =  (@student.password_digest && @student.authenticate(@student.last_name))
+    @teacher_created_student = @student.username.split('@').last == @classroom.code
+    @sign_up_method = {
+      "Clever User": @student.clever_id,
+      "Google Sign On User": @student.signed_up_with_google,
+      "Student Email": @student.email
+    }
   end
 
 end

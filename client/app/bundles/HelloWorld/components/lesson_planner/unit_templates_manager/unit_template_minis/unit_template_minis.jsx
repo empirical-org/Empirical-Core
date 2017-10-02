@@ -1,17 +1,18 @@
 'use strict'
 
  import React from 'react'
+ import { Link } from 'react-router'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
- import UnitTemplateMinisHeader from './unit_template_minis_header'
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
+ import _l from 'lodash'
 
 
  export default  React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object.isRequired
+    data: React.PropTypes.object,
+    actions: React.PropTypes.object
   },
 
   getInitialState: function () {
@@ -31,6 +32,7 @@
     } else {
       models = this.props.data.displayedModels;
     }
+    models = _.sortBy(models, 'order_number');
     models = this.addCreateYourOwnModel(models);
     var rows = this.modules.rowsCreator.create(models);
     return <span>{rows}</span>;
@@ -41,23 +43,26 @@
     if (models && models.length) {
       models.push({id: 'createYourOwn', non_authenticated: this.props.data.non_authenticated});
       }
-    return models;
+    return _l.uniqBy(models, 'id');
   },
 
   generateUnitTemplateView: function (model, index) {
     return <UnitTemplateMini key={model.id}
                                 data={model}
                                 index={index}
-                                actions={this.props.actions} />
+                                actions={this.props.actions}
+                                signedInTeacher={this.props.signedInTeacher}/>
+  },
+
+  getIndexLink: function () {
+    return this.props.signedInTeacher ? '/teachers/classrooms/assign_activities/featured-activity-packs' : '/activities/packs'
   },
 
   generateShowAllGradesView: function () {
     if (this.props.data.grade) {
       return (
-        <button className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all" onClick={this.props.actions.showAllGrades}>Show all Activity Packs</button>
+        <Link to={this.getIndexLink()} className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all">Show All Activity Packs</Link>
       )
-    } else {
-      return
     }
   },
 
@@ -86,28 +91,23 @@
     else {
       return (
             <ListFilterOptions
+                    key='listFilterOptions'
                     userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
-                    select={this.props.actions.filterByCategory} />
+                    // select={this.props.actions.filterByCategory}
+                    />
       );
     }
   },
 
-  renderHeaderIfLoggedIn: function () {
-    if (this.userLoggedIn()) {
-      return <UnitTemplateMinisHeader data={this.props.data} />
-    }
+  userLoggedIn: function () {
+    return this.props.signedInTeacher
   },
 
   userNotLoggedIn: function () {
-    return this.props.data.non_authenticated
+    return !this.userLoggedIn();
   },
-
-  userLoggedIn: function () {
-    return !this.userNotLoggedIn();
-  },
-
   renderTopLevelNav: function () {
     return this.listFilterOptions();
   },
@@ -136,7 +136,6 @@
 
   alwaysRender: function () {
     return (<div key='always-display' className='unit-template-minis'>
-      {this.renderHeaderIfLoggedIn()}
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>

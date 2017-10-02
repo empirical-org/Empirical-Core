@@ -1,6 +1,7 @@
 'use strict'
 
  import React from 'react'
+ import _ from 'underscore'
  import ClassMini from './class_mini.jsx'
  import AddOrSyncClassroomsMini from './add_or_sync_classrooms_mini.jsx'
 
@@ -9,7 +10,7 @@
   createMinis: function() {
     var classes = this.props.classList;
     var minis = _.map(classes, function(classObj) {
-      return <ClassMini classObj={classObj} key={classObj.classroom.code}/>;
+      return <ClassMini classObj={classObj} key={classObj.code}/>;
     });
     return minis;
   },

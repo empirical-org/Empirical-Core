@@ -8,7 +8,6 @@
  export default  React.createClass({
   propTypes: {
     options: React.PropTypes.array.isRequired,
-    select: React.PropTypes.func.isRequired,
     userLoggedIn: React.PropTypes.bool
   },
 
@@ -44,7 +43,7 @@
                     key={this.getKey(option)}
                     data={option}
                     isSelected={this.isSelected(option)}
-                    select={this.props.select} />
+                  />
   },
 
   renderForLoggedInUser: function () {

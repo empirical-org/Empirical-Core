@@ -1,25 +1,23 @@
-'use strict'
+import React from 'react';
 
- import React from 'react'
+export default [
+  {
+    field: 'activity_category',
+    alias: 'Filter By Category',
+    options: [],
+    selected: null,
+  },
+  {
+    field: 'section',
+    alias: 'Filter by Standard',
+    options: [],
+    selected: null,
 
- export default  [
-         {
-           field: 'section',
-           alias: 'Standard Level',
-           options: [],
-           selected: null
-
-         },
-         {
-           field: 'topic_category',
-           alias: 'Concept',
-           options: [],
-           selected: null
-         },
-        {
-          field: 'activity_classification',
-          alias: 'App',
-          options: [],
-          selected: null
-        },
+  },
+  {
+    field: 'activity_classification',
+    alias: 'App',
+    options: [],
+    selected: null,
+  }
 ];

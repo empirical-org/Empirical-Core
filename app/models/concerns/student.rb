@@ -35,17 +35,6 @@ module Student
                         .where(is_final_score: true)
     end
 
-    def next_activity_session(classroom_id)
-      ActivitySession.joins(classroom_activity: [:unit])
-          .where("classroom_activities.classroom_id = ?", classroom_id)
-          .where("activity_sessions.completed_at IS NULL")
-          .where("activity_sessions.user_id = ?", self.id)
-          .order("units.created_at DESC")
-          .order("classroom_activities.due_date ASC")
-          .select("activity_sessions.*")
-          .first
-    end
-
     def percentages_by_classification(unit = nil)
 
       if unit.nil?
@@ -99,23 +88,34 @@ module Student
       end
     end
 
-    def assign_classroom_activities
-      classrooms.each do |classroom|
-        assign_classroom_activities_for_classroom(classroom)
+    def assign_classroom_activities(classroom_id=nil)
+      classy = Classroom.find(classroom_id) unless classroom_id == nil
+      @extant_act_sesh = self.activity_sessions
+      # TODO: add includes here for the find
+      students_classrooms = classy ? [classy] : self.classrooms
+      assignable = students_classrooms.map do |classroom|
+        get_assignable_classroom_activities_for_classroom(classroom)
+      end
+      if assignable.any?
+        begin
+          ActivitySession.bulk_insert values: assignable.flatten.compact
+        rescue NoMethodError
+        end
       end
     end
 
-    def assign_classroom_activities_for_classroom(classroom)
-      classroom.classroom_activities.includes(:activity).each do |ca|
-        if ca.assigned_student_ids.nil? or ca.assigned_student_ids.length == 0
-          assign = true
-        elsif ca.assigned_student_ids.include?(self.id)
-          assign = true
-        else
-          assign = false
-        end
-        if assign
-          ca.session_for(self)
+
+    def get_assignable_classroom_activities_for_classroom(classroom)
+      classroom.classroom_activities.includes(:activity).map do |ca|
+        @act_sesh_attributes =  {
+                                activity_id: ca.activity_id,
+                                classroom_activity_id: ca.id,
+                                user_id: self.id
+                               }
+        does_not_have_activity = @extant_act_sesh.where(@act_sesh_attributes).none?
+        student_should_be_assigned = ca.assigned_student_ids.nil? || ca.assigned_student_ids.length == 0 || ca.assigned_student_ids.include?(self.id)
+        if does_not_have_activity && student_should_be_assigned
+            @act_sesh_attributes
         end
       end
     end

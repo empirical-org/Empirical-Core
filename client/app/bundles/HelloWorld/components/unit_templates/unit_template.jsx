@@ -7,7 +7,9 @@ import Fnl from '../modules/fnl.jsx'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
 import IndicatorGenerator from '../modules/indicator_generator.jsx'
 import OptionLoader from '../modules/option_loader.jsx'
+import MarkdownParser from '../shared/markdown_parser.jsx'
 import $ from 'jquery'
+import _ from 'underscore'
 
 
 export default React.createClass({
@@ -33,7 +35,12 @@ export default React.createClass({
     },
     {
       name: 'teacher_review',
-      label: 'teacher review',
+      label: 'Teacher Review',
+      size: 'medium'
+    },
+    {
+      name: 'activity_info',
+      label: 'Activity Info',
       size: 'medium'
     }
   ],
@@ -56,6 +63,7 @@ export default React.createClass({
       {name: 'unit_template_categories', value: [], fromServer: true, cmsController: true},
       {name: 'authors', value: [], fromServer: true, cmsController: true},
       {name: 'flag', value: ['alpha', 'beta', 'archived'], fromServer: false, cmsController: true},
+      {name: 'order_number', value: _.range(1, 30), fromServer: false}
     ];
     return this.modelOptions;
   },
@@ -69,12 +77,14 @@ export default React.createClass({
       problem: null,
       summary: null,
       teacher_review: null,
+      activity_info: null,
       time: null,
       grades: [],
       activities: [],
       unit_template_category_id: null,
       flag: this.props.unitTemplate.flag || null,
-      author_id: null
+      author_id: null,
+      order_number: this.props.unitTemplate.order_number || null
     };
     model = _.extend(model, this.props.unitTemplate);
     var options = this.modules.optionsLoader.initialOptions()
@@ -137,6 +147,20 @@ export default React.createClass({
     return 'button-green pull-right';
   },
 
+  determineMarkdownParser: function () {
+    if (this.state.model.activity_info) {
+      return(
+        <div>
+          <a href="http://commonmark.org/help/" style={{color: '#027360'}}>Markdown Cheatsheet</a>
+          <p>To add linebreaks, type &lt;br&gt;.</p>
+          <br/>
+          <p>Activity Info Preview</p>
+          <MarkdownParser className="markdown-preview" markdownText={this.state.model.activity_info}/>
+        </div>
+      )
+    }
+  },
+
   determineErrorMessageClass: function () {
     return '';
   },
@@ -163,6 +187,15 @@ export default React.createClass({
                 defaultValue={this.props.unitTemplate.flag}
                 options={this.state.options.flag}
                 label={'Select Flag'} />;
+  },
+
+  getOrderNumber: function () {
+    return <DropdownSelector
+      select={this.modules.indicatorGenerator.selector('order_number')}
+      defaultValue={this.props.unitTemplate.order_number}
+      options={this.state.options.order_number}
+      label={'Select Order Number'}
+    />
   },
 
   getAuthorSelect: function () {
@@ -194,7 +227,6 @@ export default React.createClass({
           </div>
   },
 
-
   render: function () {
     var inputs;
     inputs = this.modules.textInputGenerator.generate(this.formFields);
@@ -203,12 +235,14 @@ export default React.createClass({
         <span onClick={this.props.returnToIndex}>Back to List of Activity Packs</span>
         <span>
           {inputs}
+          {this.determineMarkdownParser()}
         </span>
         {this.getAuthorSelect()}
         {this.getUnitTemplateCategorySelect()}
         {this.getTimeDropdownSelect()}
         {this.getGradeCheckBoxes()}
         {this.getStatusFlag()}
+        {this.getOrderNumber()}
         <span>
           {this.getActivitySearchAndSelect()}
           {this.getErrorMessageAndButton()}

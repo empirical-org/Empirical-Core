@@ -1,24 +1,27 @@
 <section class="tool-header">
   <%= render partial: 'pages/shared/home_navbar' %>
   <% @active_tab = 'Quill Proofreader' %>
+  <% @tool = 'proofreader' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
-<div class="tool-container">
+<div class="tool-container proofreader-tool-page">
 
-    <section class='bg-quillblue bg-image-proofreader-pattern tool-hero text-center'>
+    <section class='bg-quillblue tool-hero text-center'>
       <h1 class="q-h1">
-        Quill Proofreader
+          <img class="tool-page-icon" src='/images/quill_proofreader_white.svg'>Quill Proofreader
       </h1>
       <p class='description'>
         Proofreader teaches your students editing skills by having them proofread passages. Students edit passages and receive personalized exercises based on their results. With over 100 expository passages, Proofreader gives students the practice they need to spot common grammatical errors.
       </p>
+      <a href='/play' target="_blank" class="q-button cta-button text-quillblue bg-white">Try Quill Proofreader Now</a>
     </section>
 
-    <section class="tool-animation-section ">
+    <section class="tool-animation-section " id="overview">
           <video class='tool-animation' src="/videos/proofreader.mp4" autoplay loop/>
     </section>
 
-  <section class="tool-carousel">
+  <section class="tool-carousel" id="walkthrough">
       <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
           <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
@@ -76,33 +79,41 @@
       </div>
   </section>
 
-  <section class="tool-try-it bg-quillblue bg-image-proofreader-pattern">
+  <section class="tool-try-it bg-quillblue bg-image-proofreader-pattern-flag">
     <h2 class='q-h1'>Try Proofreader Yourself!</h2>
     <a href='/play' target="_blank" class="q-button cta-button text-quillblue bg-white">Preview Proofreader</a>
   </section>
 
-  <section class="tool-testimonial">
-    <img class='q-headshot' src="/images/stephanie_90.png" alt="Daniel Scibienski">
+  <section class="tool-testimonial" id="testimonial">
+    <!-- <img class='q-headshot' src="/images/stephanie_90.png" alt="Daniel Scibienski"> -->
     <p class='quote'>
       “Students are eager to use the program and are quick to celebrate getting a 'green square,' denoting that they have passed an assigned skill.”
     </p>
     <h4 class="q-h4 author">
-      STEPHANIE L., KIPP D.C.
+      <span>Stephanie L.</span>, Kipp D.C.
     </h4>
     <a href="/activities/packs/4" class='q-button text-black'>
       <span>View My Story</span>
     </a>
   </section>
 
-<!-- Only how if user is not logged in  -->
-  <%if !current_user%>
+  <!-- Only show if user is not logged in  -->
+    <% if !current_user %>
+      <section class="tool-sign-up">
+          <h1 class='q-h1'>
+              Sign up to start Quill Proofreader in your class today!
+          </h1>
+          <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+      </section>
+
+    <% else %>
     <section class="tool-sign-up">
         <h1 class='q-h1'>
-            Sign up to start using Quill Proofreader in your class today!
+            Get started now! Assign Quill Proofreader.
         </h1>
-        <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+        <a href='/teachers/classrooms/assign_activities/create-unit' class="q-button cta-button bg-quillgreen text-white">Assign</a>
     </section>
-  <%end%>
+    <% end %>
 
 </div>
 

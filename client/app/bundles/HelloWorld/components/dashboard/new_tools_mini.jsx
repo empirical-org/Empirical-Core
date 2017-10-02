@@ -7,16 +7,18 @@
   miniBuilder: function() {
     return (
       <div className="mini_content">
-        <div className="gray-underline">
+        <div className="gray-underline" style={{position: 'relative'}}>
+          <img src="/assets/icons/icon-star.svg" style={{position: 'absolute', top: '-11px', right: '-22px', transform: 'rotate(-22deg)', height: '27px', width: '27px'}} />
+          <img src="/assets/icons/icon-star.svg" style={{position: 'absolute', top: '-11px', right: '-3px', transform: 'rotate(-34deg)', height: '14px', width: '14px'}} />
           <h3>Two New Writing Tools</h3>
         </div>
 
-        <div style={{display: 'flex', justifyContent: 'center', margin: '0px 15px'}}>
-          <a href='/tools/diagnostic'><div style={{margin: '15px'}} className="activate-tooltip icon-wrapper icon-green icon-diagnostic" data-original-title="" title=""></div></a>
-          <a href='/tools/connect'><div style={{margin: '15px'}} className="activate-tooltip icon-wrapper icon-green icon-connect" data-original-title="" title=""></div></a>
+        <div>
+          <a href='/tools/diagnostic' style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '8px'}}><img src="/images/icon-diagnostic-black.svg" style={{height: '25px', marginRight: '10px', marginTop: '3px'}} /><p style={{fontWeight: 'bold', fontSize: '18px', margin: '8px 0'}}>Quill Diagnostic</p></a>
+          <a href='/tools/connect' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><img src="/images/icon-connect-black.svg" style={{height: '26px', marginRight: '10px'}} /><p style={{fontWeight: 'bold', fontSize: '18px', margin: '8px 0'}}>Quill Connect</p></a>
         </div>
-          <p style={{padding: '0px 15px'}}>Use Quill’s diagnostic to assess students and build a learning plan. Use Quill Connect to build sentence structure skills.</p>
-          <a href='/tools/diagnostic'><button className="button button-white beta">Learn More</button></a>
+          <p style={{padding: '0px 15px', marginTop: '12px'}}>Use our new tools to assess your students’ writing and build sentence structure skills.</p>
+          <a href='/tools/diagnostic'><button style={{marginTop: '18px'}} className="button button-white beta">Learn More</button></a>
       </div>
     );
   },

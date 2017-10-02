@@ -1,6 +1,16 @@
 
 #lesson_planner {
   margin-bottom: 100px;
+  .section-header {
+    font-weight: 500;
+    font-size: 20px;
+    span {
+      font-weight: 300;
+    }
+  }
+  .bs-wizard {
+    right: 50px !important;
+  }
   .list-filter-options-container {
     // needed to get the centering to work
     // http://stackoverflow.com/questions/283961/centering-a-div-block-without-the-width

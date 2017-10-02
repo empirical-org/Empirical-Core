@@ -1,8 +1,16 @@
 class School < ActiveRecord::Base
-  has_and_belongs_to_many :users
+  has_one :school_subscription
+  has_one :subscription, through: :school_subscription
+  has_many :schools_users,  class_name: 'SchoolsUsers'
+  has_many :users, through: :schools_users
+  has_many :schools_admins, class_name: 'SchoolsAdmins'
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
+
+  def grant_premium_to_users
+    self.users.each{|u| Subscription.start_premium(u.id)}
+  end
 
   private
 

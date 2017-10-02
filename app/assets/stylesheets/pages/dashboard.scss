@@ -127,6 +127,54 @@
         border: 1px solid #cecece;
         background-color: #ffffff;
         margin-bottom: 40px;
+        &.premium-promo {
+          color: #333;
+          h3 {
+            font-size: 16px;
+            padding-top: 7px;
+          }
+          span {
+            line-height: 25px;
+            &.special-price {
+              font-size: 9px;
+              line-height: 15px;
+              color: #c0c0c0;
+            }
+          }
+          .flex-row {
+            width: 73%;
+            margin: auto;
+            -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+          }
+          .pricing {
+            width: 50%;
+          }
+          .fake-border {
+            border: solid 1px #ebebeb;
+            height: 42px;
+            width: 0px;
+          }
+          h2 {
+            font-weight: 700;
+            font-size: 20px;
+          }
+          .gray-underline {
+            padding-top: 10px;
+          }
+          .gray-underline + p {
+            margin-top: 13px;
+            margin-bottom: 19px;
+          }
+          .q-button {
+            padding: 9px 20px 4px;
+            font-size: 14px;
+            height: 40px;
+            margin-top: 21px;
+            background-color: #eda41b;
+            border: none;
+          }
+        }
         table {
             line-height: 25px;
             font-size: 14px;
@@ -170,13 +218,22 @@
             height: 66px;
             margin-bottom: 15px;
         }
-        .class-gear {
+        .class-mini-edit-students {
             padding: 12px;
+            padding-top: 10px;
+            font-size: 12px;
+            line-height: 0.92;
+            color: $quillforestgreen;
+            img {
+              padding-bottom: 2px;
+              margin-right: 4px;
+            }
         }
         .class_icon {
-            margin: auto;
-            padding-top: 19px;
-            margin-left: 39px;
+            margin-top: 31px;
+            margin-left: 113px;
+            width: 35px;
+            height: 32px;
         }
         .plus_icon {
             padding-top: 96px;
@@ -200,7 +257,7 @@
         }
         .gray-underline {
           margin: auto;
-          padding: 16px;
+          padding: 16px 0px;
           width: 280px;
           border-bottom: solid 1px #cecece;
           & + p {
@@ -285,51 +342,82 @@
     }
 }
 
+.lessons-list {
+  @media (max-width: 700px) {
+    display: none;
+  }
+  height: 270px;
+  margin-bottom: 40px;
+  .inner-container {
+    padding: 0 20 8 20px;
+    border: 1px solid #cecece;
+    max-width: 638px;
+    height: 270px;
+    margin: auto;
+    background-color: #ffffff;
+  }
+  .header-container {
+    font-weight: 600;
+    height: 46px;
+    border-bottom: solid 1px #e9e9e9;
+    h3 {
+      font-size: 16px;
+    }
+    a {
+      font-size: 14px;
+      color: #00c2a2;
+    }
+  }
+  .image-container {
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    border: solid 1px #027360;
+    img {
+      height: 22px;
+    }
+  }
+  .q-button {
+      font-size: 14px;
+  }
+  span {
+    padding-left: 12px;
+    font-size: 14px;
+    color: #027360;
+  }
+  .no-assigned-lessons {
+    color: #969696;
+    line-height: 1.57;
+    padding-top: 25px;
+    a {
+      color: #969696;
+      text-decoration: underline;
+    }
+    img {
+      margin-bottom: 15px;
+    }
+    &.completed-diagnostic {
+      color: #3b3b3b;
+      .recommendation {
+        color: #3b3b3b;
+        background-color: #e3fdff;
+        padding-left: 1px;
+        padding-right: 1px;
+        font-weight: 600;
+      }
+    }
+  }
+  .lesson-item {
+    height: 52px;
+    .lesson-name {
+      cursor: pointer;
+    }
+  }
+}
+
     #google-classroom-mini {
         img {
           width: 42px;
           margin-bottom: 8px;
         }
     }
-
-    .google-classroom-modal {
-        .modal-content {
-          max-height: 360px;
-          max-width: 508px;
-        }
-        .modal-body {
-          padding: 40px 63px;
-          .react-bootstrap-close {
-            position: absolute;
-            right: 12px;
-            top: 12px;
-            height: 39px;
-          }
-        }
-       .q-h2 {
-         font-size: 24px;
-         font-weight: 600;
-         margin-bottom: 14px;
-       }
-       p {
-         margin-top: 10px;
-       }
-       form {
-         margin: 35px 0;
-       }
-       input[type=submit] {
-         margin-left: 8px;
-         border: 1px solid #737373;
-         font-weight: 600;
-       }
-       a.q-button.cta-button {
-           border: none;
-           font-size: 16px;
-           height: 40px;
-           &:hover {
-             color: white;
-             text-decoration: none;
-           }
-
-         }
-       }

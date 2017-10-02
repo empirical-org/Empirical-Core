@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe User, type: :model do
   let(:user) { FactoryGirl.build(:user) }
+  let!(:user_with_original_email) { FactoryGirl.build(:user, email: 'fake@example.com') }
 
 
   describe '#newsletter?' do
@@ -20,12 +21,6 @@ describe User, type: :model do
     end
   end
 
-  # it 'gets a checkbox for adding a school' do
-  #   obj = Objective.new(name: 'Add School')
-  #   user.schools.push(school)
-  #   user.save
-  #   expect(user.checkboxes.objective).to eq(obj)
-  # end
 
   describe "default scope" do
     let(:user1) { FactoryGirl.create(:user) }
@@ -149,6 +144,25 @@ describe User, type: :model do
       user.role='newrole'
       expect(user.role.invalidrole?).to be false
     end
+  end
+
+  describe "#clear_data" do
+    let(:user) { FactoryGirl.create(:user) }
+    before(:each) { user.clear_data}
+
+    it "changes the user's email to one that is not personally identiable" do
+      expect(user.email).to eq("deleted_user_#{user.id}@example.com")
+    end
+
+    it "changes the user's username to one that is not personally identiable" do
+      expect(user.username).to eq("deleted_user_#{user.id}")
+    end
+
+    it "changes the user's name to one that is not personally identiable" do
+      expect(user.name).to eq("Deleted User_#{user.id}")
+    end
+
+
   end
 
   describe "#safe_role_assignment" do
@@ -328,9 +342,40 @@ describe User, type: :model do
           expect(user).to be_valid
         end
       end
+
+      context "when there is an existing user" do
+        it 'can update other parts of its record even if it is does not have a unique email' do
+          user = User.new(email: user_with_original_email.email)
+          expect(user.save(validate: false)).to be
+        end
+        it 'can not update it\'s email to an existing one' do
+          user = User.create(email: 'whatever@example.com', name: 'whatever whatever')
+          user.save(validate: false)
+          expect(user.update(email: user_with_original_email.email)).to_not be(false)
+        end
+      end
     end
 
     describe "username attribute" do
+
+      it "is invalid when not unique" do
+         FactoryGirl.create(:user,  username: "testtest.lan")
+         user = FactoryGirl.build(:user,  username: "testtest.lan")
+         expect(user).to_not be_valid
+      end
+
+      it "uniqueness is enforced on extant users changing to an existing username" do
+        user1 = FactoryGirl.create(:user)
+        user2 = FactoryGirl.create(:user)
+        expect(user2.update(username: user1.username)).to be(false)
+      end
+      it "uniqueness is not enforced on non-unique usernames changing other fields" do
+        user1 = FactoryGirl.create(:user,  username: "testtest.lan")
+        user2 = FactoryGirl.build(:user,  username: "testtest.lan")
+        user2.save(validate: false)
+        expect(user2.username).to eq(user1.username)
+      end
+
       context "role is permanent" do
         it "is invalid without username and email" do
           user.safe_role_assignment "student"
@@ -488,9 +533,8 @@ describe User, type: :model do
     context 'send_newsletter = false' do
       let(:newsletter) { false }
 
-      it 'does not call MailchimpConnection.subscribe_to_newsletter' do
-        expect(MailchimpConnection).not_to receive(:subscribe_to_newsletter)
-
+      it 'does not call the newsletter worker' do
+        expect(SubscribeToNewsletterWorker).not_to receive(:perform_async)
         user.subscribe_to_newsletter
       end
     end
@@ -498,10 +542,8 @@ describe User, type: :model do
     context 'send_newsletter = true' do
       let(:newsletter) { true }
 
-      it 'calls MailchimpConnection.subscribe_to_newsletter' do
-        expect(MailchimpConnection).to receive(:subscribe_to_newsletter)
-                                       .with(user.email)
-
+      it 'does call the newsletter worker' do
+        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
         user.subscribe_to_newsletter
       end
     end
@@ -533,10 +575,9 @@ describe User, type: :model do
 
   describe 'student behavior' do
     let!(:classroom)          { FactoryGirl.create(:classroom) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom) }
+    let!(:unit)    { FactoryGirl.create(:unit)}
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom, unit: unit) }
     let!(:activity)           { classroom_activity.activity }
-
-    let!(:unit)    { FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
     let!(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
 
     it 'assigns newly-created students to all activities previously assigned to their classroom' do

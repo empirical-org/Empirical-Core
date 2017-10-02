@@ -14,7 +14,10 @@ export default React.createClass({
   },
 
   finish: function () {
-    if (this.props.modal) {
+    console.log('i got clicked!!!!!')
+    if (this.props.teacherFromGoogleSignUp) {
+      window.location = '/teachers/classrooms/google_sync'
+    } else if (this.props.modal) {
       // refresh teacher account page;
       window.location = '/teachers/my_account';
     } else {

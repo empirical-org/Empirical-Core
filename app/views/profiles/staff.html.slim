@@ -8,8 +8,12 @@
       tr: td= link_to 'Admins Editor (Create Root Admin)', cms_admins_path
 
     article.simple-rounded-box: table.table
-      thead: th Project Kanban Board
-      tr: td= link_to 'Admin Dashboard Project', 'https://waffle.io/empirical-org/empirical-core?milestone=Admin%20Dashboard'
+      thead: th Teacher Fixes
+      tr: td= link_to "Index", 'teacher_fix'
+
+    article.simple-rounded-box: table.table
+      thead: th Project Board
+      tr: td= link_to 'Github Project Board', 'https://github.com/orgs/empirical-org/projects/1'
 
     article.simple-rounded-box: table.table
       thead: th Activity Management System
@@ -25,6 +29,8 @@
       tr: td= link_to "Topic Categories Manager", cms_topic_categories_path
       tr: td= link_to 'Topics Manager (Standard)', cms_topics_path
       tr: td= link_to "Concepts Manager (Create level 2 & 1 here)", cms_concepts_path
+      tr: td= link_to "Activity Category Manager", cms_activity_categories_path
+
 
     article.simple-rounded-box: table.table
       thead: th Data Dashboards
@@ -32,3 +38,7 @@
       tr: td= link_to "External: Daily Usage", "https://quill.geckoboard.com/edit/dashboards/138770"
       tr: td= link_to "Internal: Tracking", "https://quill.geckoboard.com/edit/dashboards/170032"
       tr: td= link_to "Memory/Response Time Stats", "https://log2viz.herokuapp.com/app/empirical-grammar"
+
+    article.simple-rounded-box: table.table
+      thead: th Bug Reporting
+      tr: td= link_to 'Bug Report Form', 'https://docs.google.com/document/d/1nBPI2qXQp_uOZamqctwi8UQoO4pBzWcanfD4dCu4RQ0/copy', target: "_blank"

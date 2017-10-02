@@ -12,35 +12,69 @@
 }
 #activity-planner,
 #unit-template-editor {
+  &.menu-aligned-left {
+    padding: 0;
+    margin: auto;
+    max-width: 965px;
+    .container:first-of-type {
+      padding: 0;
+    }
+    .section-header {
+      margin-bottom: 30px;
+    }
+  }
   section {
     border-bottom: none;
+    &.name-the-unit {
+      padding-bottom: 10px;
+    }
   }
   .error-message-and-button {
     display: inline-block;
     position: relative;
     width: 100%;
-    margin-bottom: 85px;
+    padding-bottom: 30px;
     .error-message {
       position: absolute;
       float: left;
-      top: 30px;
-      right: 150px;
+      top: 10px;
+      right: 125px;
     }
     .visible-error-message {
       color: red;
+      i {
+        margin-right: 5px;
+      }
+      button {
+        background-color: #C0C0C0;
+      }
     }
     .hidden-error-message {
       display: none;
     }
   }
   input {
-    &#search_activities_input,
     &#unit_name {
       width: 326px;
-      & + img {
-        position: relative;
-        right: 20px;
-        cursor: pointer;
+      &.name-error {
+        background-color: #ffeded;
+        border: solid 1px #ff4542;
+        &::placeholder {
+          color: #ff4542;
+        }
+        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+          color: #ff4542;
+        }
+        &::-moz-placeholder { /* Firefox 19+ */
+          color: #ff4542;
+        }
+        &:-ms-input-placeholder { /* IE 10+ */
+          color: #ff4542;
+        }
+        &:-moz-placeholder { /* Firefox 18- */
+          color: #ff4542;
+        }
+
       }
     }
   }
@@ -67,7 +101,7 @@
   }
 }
 .activity-page-dropdown-wrapper {
-  margin-top: 20px;
+  margin-top: 15px;
   cursor: pointer;
   padding-left: 0px;
   padding-right: 15px;
@@ -204,4 +238,10 @@
 }
 #search_activities_input, #unit_name {
   margin-top: 20px;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .select-by-student-button {
+    background-color: #e6e6e6;
+  }
 }

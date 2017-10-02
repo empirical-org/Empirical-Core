@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scorebook component should render 1`] = `
+<div
+  className="page-content-wrapper"
+>
+  <div
+    className="tab-pane"
+    id="scorebook"
+  >
+    <div
+      className="container"
+    >
+      <section
+        className="section-content-wrapper"
+      >
+        <scorebook_filters
+          selectClassroom={[Function]}
+          selectDates={[Function]}
+          selectUnit={[Function]}
+          selectedUnit={
+            Object {
+              "name": "All Activity Packs",
+              "value": "",
+            }
+          }
+          unitFilters={Array []}
+        />
+        <score_legend />
+        <app_legend />
+      </section>
+    </div>
+    <div />
+  </div>
+</div>
+`;

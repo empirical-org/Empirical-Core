@@ -1,21 +1,20 @@
 import Tabslet from 'tabslet';
-import $ from 'jquery'
-require('../../assets/styles/home.scss')
-require('./bootstrap_carousel.js')
+import $ from 'jquery';
 
-console.log('Hi from home bundle!');
+require('../../assets/styles/home.scss');
+require('./bootstrap_carousel.js');
 
 document.onreadystatechange = function () {
-  var state = document.readyState;
+  const state = document.readyState;
   if (state == 'interactive') {
-    console.log('init')
+    console.log('init');
   } else if (state == 'complete') {
     $('tabs-teacher-stories').tabslet({
       autorotate: true,
       delay: 10000,
       pauseonhover: true,
       animation: true,
-      active: 1
+      active: 1,
     });
 
     $('.tabs-testimonials').tabslet({
@@ -23,7 +22,7 @@ document.onreadystatechange = function () {
       delay: 10000,
       pauseonhover: false,
       animation: true,
-      active: 1
+      active: 1,
     });
   }
 };

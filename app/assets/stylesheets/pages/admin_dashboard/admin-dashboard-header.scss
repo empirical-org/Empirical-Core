@@ -1,5 +1,10 @@
 #admin-dashboard-header {
   background-color: white;
+  border-bottom: 10px solid #00c2a2;
+  .admin-nav-bar {
+    max-width: 950px;
+    margin: 0 auto;
+  }
   h4 {
     cursor: pointer;
     font-weight: 700 !important;
@@ -14,8 +19,4 @@
     border-top-color: $gray;
     margin: 0px;
   }
-}
-
-#admin-dashboard-header.teacher-dashboard {
-  padding-bottom: 10px;
 }

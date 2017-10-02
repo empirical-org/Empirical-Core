@@ -1,5 +1,4 @@
-ActiveRecord::Base.connection.execute(File.read('./db/oauth.sql'))
-ActiveRecord::Base.connection.execute(File.read('./db/activities.sql'))
+ActiveRecord::Base.connection.execute(File.read('./db/seeds.sql'))
 
 [:admin, :teacher, :student, :staff].each do |role|
   User.create(

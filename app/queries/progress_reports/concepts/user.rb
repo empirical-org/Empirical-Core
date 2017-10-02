@@ -7,6 +7,8 @@ class ProgressReports::Concepts::User
     # total results count
     # percentage score (correct / total)
 
+    last_name = "substring(users.name, '(?=\s).*')"
+
     ::User.with(filtered_correct_results: ::ProgressReports::Concepts::ConceptResult.results(teacher, filters))
       .select(<<-SELECT
         users.id,
@@ -17,6 +19,6 @@ class ProgressReports::Concepts::User
       SELECT
       ).joins('JOIN filtered_correct_results ON users.id = filtered_correct_results.user_id')
       .group('users.id')
-      .order('users.name asc')
+      .order("#{last_name} asc, users.name asc")
   end
 end

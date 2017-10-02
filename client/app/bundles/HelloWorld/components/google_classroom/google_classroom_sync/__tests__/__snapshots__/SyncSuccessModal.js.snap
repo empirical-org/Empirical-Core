@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the SyncSuccessModal component should render 1`] = `
+<Modal
+  animation={true}
+  autoFocus={true}
+  backdrop={true}
+  bsClass="modal"
+  data={
+    Object {
+      "selectedClassrooms": Array [
+        1,
+        2,
+        3,
+        4,
+        5,
+      ],
+    }
+  }
+  dialogClassName="google-classroom-modal sync-success"
+  dialogComponentClass={[Function]}
+  enforceFocus={true}
+  keyboard={true}
+  manager={
+    ModalManager {
+      "containers": Array [],
+      "data": Array [],
+      "handleContainerOverflow": true,
+      "hideSiblingNodes": true,
+      "modals": Array [],
+    }
+  }
+  onHide={[Function]}
+  renderBackdrop={[Function]}
+  restoreFocus={true}
+  show={false}
+>
+  <ModalBody
+    bsClass="modal-body"
+    componentClass="div"
+  >
+    <img
+      alt="close-modal"
+      className="pull-right react-bootstrap-close"
+      src="/images/close_x.svg"
+    />
+    <h1
+      className="q-h2"
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
+      />
+      Great! You've synced 
+      5 classes
+    </h1>
+    <h3
+      className="subheader"
+    >
+      It may take up to 
+      <strong>
+        5 minutes
+      </strong>
+       to import your students.
+    </h3>
+    <p>
+      Please have your students log in using their Google accounts. If you have any questions, you can check 
+      <a
+        href="www.support.quill.org"
+      >
+        support.quill.org
+      </a>
+    </p>
+    <a
+      className="q-button cta-button bg-quillgreen text-white back-to-profile"
+      href="/"
+    >
+      Got It!
+    </a>
+  </ModalBody>
+</Modal>
+`;

@@ -1,0 +1,41 @@
+<div class="container account-form">
+  <div class="sign-in-header text-center">
+  <h3>Welcome Back to Quill</h3>
+    <div class="text-center">
+      <div class="auth-section">
+        <a href='/auth/google_oauth2'>
+          <button class="google-login">
+            <img src='/images/google_icon.svg'/>
+            <span>Login with Google</span>
+          </button>
+        </a>
+        <a href=<%="https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }"%>>
+          <button class="clever-login">
+            <img src='/images/clever_icon.svg'/>
+            <span>Login with Clever</span>
+          </button>
+        </a>
+      </div>
+      <div class='need-a-border'></div>
+      <br/>
+      <div class="login-form">
+        <% if flash[:error] %>
+          <div class="error"><%= flash[:error] %></div>
+        <% end %>
+        <!-- replace below with react component -->
+        <%= react_component('LoginFormApp') %>
+
+        <!--<%= form_for @user, url: session_path(redirect: params[:redirect]) do |f| %>
+          <%= f.label :email_or_username, placeholder: 'Email or Username' %>
+          <%= f.text_field :email, placeholder: 'Email or Username' %>
+          <%= f.label :password %>
+          <%= f.password_field :password, placeholder: 'Password', class: 'Password' %>
+          <%= f.submit 'Login', class: 'login-button' %>
+        <% end %> -->
+        <!-- stop replacing things with react! -->
+        <%= link_to 'Forgot your password?', password_reset_index_path, class: 'newline' %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag('cookie_warning.js') %>

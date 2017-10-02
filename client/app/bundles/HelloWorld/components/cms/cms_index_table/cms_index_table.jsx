@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'underscore'
+import SortableList from '../../../components/shared/sortableList'
 import CmsIndexTableRow from './cms_index_table_row.jsx'
 
 export default React.createClass({
@@ -9,25 +10,31 @@ export default React.createClass({
   },
 
   furnishRows: function () {
-    var rows = _.map(this.props.data.resources, this.furnishRow, this);
+    var rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
     return rows;
   },
 
-  furnishRow: function (resource) {
+  furnishRow: function (resource, index) {
     return <CmsIndexTableRow
                   data={{resource: resource, identifier: this.props.data.identifier}}
-                  key={resource.id}
-                  actions={this.props.actions} />;
+                  key={index}
+                  actions={this.props.actions}
+                  resourceNameSingular={this.props.resourceNameSingular}
+                />;
   },
 
   identifier: function () {
     return this.props.data.identifier || 'Name'
   },
 
-  render: function () {
-    var rows = this.furnishRows()
-    return (
-      <table className='table'>
+  renderRows: function () {
+    if(this.props.isSortable) {
+      return <div className="sortable-table">
+        <div className="header"><span>Name</span><span>Actions</span></div>
+        <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />
+      </div>
+    } else {
+      return (<table className='table'>
         <thead>
           <tr>
             <th>{this.identifier()}</th>
@@ -35,10 +42,14 @@ export default React.createClass({
           </tr>
         </thead>
         <tbody>
-          {rows}
+          {this.furnishRows()}
         </tbody>
-      </table>
-    );
+      </table>)
+    }
+  },
+
+  render: function () {
+    return this.renderRows();
   }
 
 });

@@ -1,6 +1,7 @@
 namespace :report_demo do
   desc 'make report demo accounts'
   task :create, [:name] => :environment do |t, args|
+    # call this with no arguments if you want quill.org/demo to be created. otherwise
     # to use this call rake demo:create["firstname lastname"]
     name = args[:name] ? args[:name].to_s : nil
     ReportDemoCreator::create_demo(name)
@@ -188,7 +189,7 @@ namespace :report_demo do
           usr.activity_sessions.each do |ast|
             puts ast.attributes
           end
-          temp = usr.activity_sessions.where({activity_id: act_session.activity_id, is_final_score: true}).first #ActivitySession.find(tempates[index][act_session.activity_id])
+          temp = ActivitySession.unscoped.where({activity_id: act_session.activity_id, user_id: usr.id, is_final_score: true}).first #ActivitySession.find(tempates[index][act_session.activity_id])
           puts temp
           act_session.update({state: "finished", percentage: temp.percentage})
           temp.concept_results.each do |cr|

@@ -162,7 +162,7 @@
   }
 }
 .home-page-navbar {
-  z-index: 100;
+  z-index: 99;
   a .fa {
     color: #84f2da;
     font-size: 18px;
@@ -264,7 +264,7 @@
     }
   }
 }
-@media screen and(max-width: 992px) {
+@media screen and(max-width: 991px) {
   .home-page-navbar {
     #home-collapsed-navbar {
       border-top: none !important;

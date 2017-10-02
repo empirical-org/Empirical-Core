@@ -35,7 +35,6 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
                            section_name
                            total_student_count
                            proficient_student_count
-                           near_proficient_student_count
                            not_proficient_student_count
                            total_activity_count
                            average_score

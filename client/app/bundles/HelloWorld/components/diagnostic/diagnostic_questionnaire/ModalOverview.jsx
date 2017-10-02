@@ -16,7 +16,7 @@ export default React.createClass({
 
   hideModal() {
     this.setState({show: false});
-    location.href = 'diagnostic#/stage/2'
+    location.href = `/diagnostic/${this.props.diagnosticActivityId}/stage/2`
   },
 
   modalContent() {
@@ -58,7 +58,7 @@ export default React.createClass({
     if (this.state.slideIndex < this.modalSlides().length - 1) {
       this.setState({slideIndex: this.state.slideIndex + 1})
     } else {
-      parent.location.hash = '/stage/2'
+      location.href = `/diagnostic/${this.props.diagnosticActivityId}/stage/2`
     }
   },
 

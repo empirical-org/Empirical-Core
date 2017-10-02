@@ -14,8 +14,6 @@ export default React.createClass({
     });
   },
 
-
-
   selectBeginDate: function (date) {
     this.setState({beginDate: date}, this.selectDates);
   },
@@ -33,10 +31,10 @@ export default React.createClass({
     return (
       <div className="row date-range-filter">
         <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker selected={this.state.beginDate} maxDate={moment()} onChange={this.selectBeginDate}   placeholderText='Completed : From'/>
+          <DatePicker selected={this.state.beginDate} maxDate={moment()} onChange={this.selectBeginDate}   placeholderText='Completed: From'/>
         </div>
         <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker selected={this.state.endDate} maxDate={moment()}  onChange={this.selectEndDate}   placeholderText='Completed : To'/>
+          <DatePicker selected={this.state.endDate} maxDate={moment()}  onChange={this.selectEndDate}   placeholderText='Completed: To'/>
         </div>
       </div>
     );

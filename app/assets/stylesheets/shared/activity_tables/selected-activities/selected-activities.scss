@@ -1,3 +1,14 @@
-.selected-activities {
-  display: table;
+.selected-activities-section {
+  padding-top: 46px;
+  h3 {
+    font-size: 18px;
+  }
+
+  .selected-activities {
+    display: table;
+    border-bottom: none;
+    .deselect-activity {
+      padding-right: 40px;
+    }
+  }
 }

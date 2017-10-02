@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: emp_gr_development
+  host:     localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: emp_gr_test
+  host:     localhost

@@ -10,7 +10,7 @@
   },
 
   urlForPublicPage: function () {
-    return window.location.origin + "/activities/packs/" + (this.props.data.id ? this.props.data.id:this.props.data.model.id);
+    return window.location.origin + '/activities/packs/' + this.props.data.id;
   },
 
   render: function () {
@@ -20,21 +20,21 @@
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: "http://twitter.com/home?status=" + url + " check out this " + this.props.data.name +  " Activity pack by @Quill_org",
+        href: `http://twitter.com/home?status=${url} check out this ${this.props.data.name} Activity pack by @Quill_org`,
         title: 'Share on Twitter',
         action: 'Tweet'
       },
       {
         icon: 'fa-facebook',
         className: 'btn-facebook',
-        href: "https://www.facebook.com/share.php?u=" + url,
-        title: "Share this Activity pack on Facebook",
+        href: 'https://www.facebook.com/share.php?u=' + url,
+        title: 'Share this Activity pack on Facebook',
         action: 'Post'
       },
       {
         icon: 'fa-google-plus',
         className: 'btn-google-plus',
-        href: "https://plus.google.com/share?url=" + url,
+        href: 'https://plus.google.com/share?url=' + url,
         title: 'Share with Google Plus',
         action: 'Post'
       },
@@ -49,8 +49,8 @@
 
     var links = _.map(stuff, function (hash) {
       return (
-        <a href={hash.href} key={hash.title} title={hash.title} className={"btn btn-default btn-social " + hash.className}  target="_blank">
-          <i className={"fa " + hash.icon}></i><span className='social-action'>{hash.action}</span>
+        <a href={hash.href} key={hash.title} title={hash.title} className={'btn btn-default btn-social ' + hash.className}  target="_blank">
+          <i className={'fa ' + hash.icon}></i><span className='social-action'>{hash.action}</span>
         </a>
       );
     });
@@ -58,7 +58,7 @@
     return (
       <div className='share light-gray-bordered-box'>
           <strong>Share this Activity Pack</strong>
-          <div className='container'>
+          <div className='container' style={{width: 'auto'}}>
             {links}
           </div>
       </div>

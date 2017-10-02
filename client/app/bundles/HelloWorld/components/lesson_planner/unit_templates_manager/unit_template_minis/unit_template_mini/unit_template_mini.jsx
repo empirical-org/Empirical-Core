@@ -1,14 +1,14 @@
 'use strict'
 
  import React from 'react'
+ import { Link } from 'react-router'
  import UnitTemplateFirstRow from './unit_template_first_row'
  import UnitTemplateSecondRow from './unit_template_second_row'
  import String from '../../../../modules/string.jsx'
 
  export default  React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired
   },
 
   getInitialState: function () {
@@ -43,7 +43,7 @@
   displayPicture: function () {
     return (
       <div className='author-picture'>
-        <img src={this.avatarUrl()}></img>
+        <img src={this.avatarUrl()}/>
       </div>
     );
   },
@@ -58,42 +58,52 @@
     return val;
   },
 
-  onClickAction: function () {
+  getLink: function () {
+    let link
     if (this.props.data.id == 'createYourOwn') {
-      if(this.props.data.non_authenticated) {
-        this.props.actions.signUp();
+      if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
+        link = '/teachers/classrooms/assign_activities/create-unit'
       } else {
-        this.props.actions.toggleTab('createUnit');
+        link = '/account/new'
       }
     } else {
-      this.props.actions.selectModel(this.props.data);
+      if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
+        link = `/teachers/classrooms/assign_activities/featured-activity-packs/${this.props.data.id}`;
+      } else {
+        link = `/activities/packs/${this.props.data.id}`
+      }
     }
+    return link
   },
 
   miniSpecificComponents: function() {
     if (this.props.data.id == 'createYourOwn') {
       return (
-        <div className='text-center col-xs-12 create-your-own'>
-          <div className='content-wrapper'>
-            <img className='plus_icon' src='/add_class.png'></img>
-            <h3>Build Your Own Activity Pack</h3>
+        <Link to={this.getLink()}>
+          <div className='text-center col-xs-12 create-your-own'>
+            <div className='content-wrapper'>
+              <img className='plus_icon' src='/add_class.png'/>
+              <h3>Create Your Own Activity Pack</h3>
+              <h5 style={{paddingTop: '5px'}}>Select from over 150 grammar exercises.</h5>
+            </div>
           </div>
-      </div>
-    );
-      }
+        </Link>
+      );
+    }
     // else it is a normal mini
     else {
       return(
-          <div className='col-xs-12'>
+          <Link to={this.getLink()}>
+            <div className='col-xs-12'>
               <UnitTemplateFirstRow
-                  actions={{filterByCategory: this.props.actions.filterByCategory}}
                   data={this.props.data}
                   modules={{string: this.modules.string}} />
               <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
               {this.displayPicture()}
             </div>
-          );
-        }
+          </Link>
+        );
+      }
   },
 
   render: function () {

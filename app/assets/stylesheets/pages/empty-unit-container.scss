@@ -1,0 +1,40 @@
+.empty-state-manager {
+  p {
+    font-size: 18px;
+    margin: 2em;
+  }
+  .featured-button {
+    margin-top: 75px;
+    margin-left: 40px;
+  }
+}
+.diagnostic-empty-state {
+  margin-top: 44px;
+  h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 520px;
+    width: 100%;
+  }
+  button {
+    margin-right: 15px;
+    &:nth-of-type(2) {
+      background: white;
+      border: 1px solid #00c2a2;
+      min-width: 176px;
+      color: #00c2a2;
+    }
+  }
+  img {
+    margin-top: 50px;
+    margin-left: 100px;
+  }
+  i {
+    color: #82bf3c;
+  }
+}

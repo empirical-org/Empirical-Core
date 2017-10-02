@@ -20,4 +20,13 @@
 
     }
   }
+  .loading {
+    font-size: 13px;
+    color: #969696;
+    min-height: 80px;
+  }
+  .concept-results, .loading {
+    margin-top: 10px;
+    border-top: solid 1px #c0c0c0;
+  }
 }

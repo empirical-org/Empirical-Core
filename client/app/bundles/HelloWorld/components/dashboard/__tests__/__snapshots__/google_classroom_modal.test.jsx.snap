@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the GoogleClassroomModal component should render 1`] = `
+<Modal
+  animation={true}
+  autoFocus={true}
+  backdrop={true}
+  bsClass="modal"
+  dialogClassName="google-classroom-modal"
+  dialogComponentClass={[Function]}
+  enforceFocus={true}
+  keyboard={true}
+  manager={
+    ModalManager {
+      "containers": Array [],
+      "data": Array [],
+      "handleContainerOverflow": true,
+      "hideSiblingNodes": true,
+      "modals": Array [],
+    }
+  }
+  onHide={[Function]}
+  renderBackdrop={[Function]}
+  restoreFocus={true}
+  show={false}
+  user={
+    Object {
+      "email": "hal@spaceodyssey.org",
+    }
+  }
+>
+  <ModalBody
+    bsClass="modal-body"
+    componentClass="div"
+  >
+    <img
+      alt="close-modal"
+      className="pull-right react-bootstrap-close"
+      src="/images/close_x.svg"
+    />
+    <h1
+      className="q-h2"
+    >
+      First: Update Your Email
+    </h1>
+    <p>
+      Your Quill email address must be the same as your Google Classroom email. If your email is the same click Next. If it is different, you can update your Quill email below.
+    </p>
+    <_class
+      email="hal@spaceodyssey.org"
+    />
+    <a
+      className="q-button cta-button bg-quillgreen text-white"
+      href="/auth/google_oauth2"
+    >
+      Next: Choose Google Classrooms
+    </a>
+  </ModalBody>
+</Modal>
+`;

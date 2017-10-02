@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe ActivitySession, type: :model do
+describe ActivitySession, type: :model, redis: :true do
 
   describe "can behave like an uid class" do
 
@@ -25,6 +25,29 @@ describe ActivitySession, type: :model do
   		end
 
 	end
+
+  describe "#invalidate_activity_session_count_if_completed" do
+    let!(:student){ FactoryGirl.create(:student) }
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom_id: student.classrooms.first.id) }
+    let!(:activity_session){   FactoryGirl.create(:activity_session, classroom_activity_id: classroom_activity.id, state: 'not validated')}
+
+    before(:each) do
+      $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
+    end
+
+    it "deletes redis cache when an activity with a classroom's state is finished" do
+      activity_session.update(state: 'finished')
+      activity_session.invalidate_activity_session_count_if_completed
+      expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
+    end
+
+    it "does nothing to redis cache when any other classroom attribute changes" do
+      activity_session.update(visible: false)
+      activity_session.invalidate_activity_session_count_if_completed
+      expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
+    end
+
+  end
 
 	context "when there's not an associated activity but there's a classroom activity" do
 
@@ -277,33 +300,16 @@ describe ActivitySession, type: :model do
 
   end
 
-  describe '#concept_results' do
-
-    let!(:concept1){ FactoryGirl.create(:concept)}
-    let!(:concept2){ FactoryGirl.create(:concept)}
-    let!(:concept_result1){ FactoryGirl.create(:concept_result, concept_id: concept1.id)}
-    let!(:concept_result2){ FactoryGirl.create(:concept_result, concept_id: concept2.id)}
-    let!(:activity_session){ FactoryGirl.create(:activity_session) }
-
-    it 'cannot have an invalid concept_id' do
-      concept1.destroy!
-
-      activity_session.update(concept_results_attributes: [{concept_id: concept1.id}])
-      expect(activity_session.concept_results).to be_empty
-    end
-
-  end
 
   describe '#validations' do
     let!(:activity){ FactoryGirl.create(:activity) }
     let!(:assigned_student){ FactoryGirl.create(:student) }
     let!(:unassigned_student){ FactoryGirl.create(:student) }
     let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, assigned_student_ids: [assigned_student.id] )}
-    # let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                    }
 
     it 'ensures that the student was correctly assigned' do
-        act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)
-        expect(act_sesh).not_to be_valid
+      act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)
+      expect(act_sesh).not_to be_valid
     end
   end
 

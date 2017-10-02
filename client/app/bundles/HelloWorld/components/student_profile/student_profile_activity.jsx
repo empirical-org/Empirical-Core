@@ -1,41 +1,86 @@
-'use strict';
-import React from 'react'
-import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx'
+import React from 'react';
+
+import moment from 'moment';
+import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
+import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 export default React.createClass({
+
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
   },
 
-  renderStartButton: function () {
-    let linkText
-    if (!this.props.data.activity.repeatable && this.props.finished) {
-      return (<p className="title-v-centered text-right">Completed</p>)
-    } else if (this.props.finished) {
-      linkText = 'Replay Lesson'
-    } else if (this.props.data.state == 'started'){
-      linkText = 'Resume Lesson'
-    } else {
-      linkText = 'Start Lesson'
+  getInitialState() {
+    return {showLockedTooltip: false}
+  },
+
+  renderDueDate() {
+    return this.props.data.due_date ? <span className="due-date">{moment(this.props.data.due_date).format('MM-DD-YYYY')}</span> : <span />;
+  },
+
+  renderLockedTooltip() {
+    if (this.state.showLockedTooltip) {
+      return <div className="locked-tooltip">
+        <p className="tooltip-header">This is a whole group activity and is launched by the teacher.</p>
+        <p className="text">Your teacher will press the “Launch Lesson” button from the teacher dashboard to start the activity. You will then be able to join it.</p>
+        <i className="fa fa-caret-down"/>
+      </div>
     }
-    return <a href={this.props.data.link}>{linkText}</a>
   },
 
-  render: function () {
+  showLockedTooltip() {
+    this.setState({showLockedTooltip: true})
+  },
+
+  hideLockedTooltip() {
+    this.setState({showLockedTooltip: false})
+  },
+
+  dataForActivityIconWithToolTip() {
+    return {
+      percentage: this.props.data.max_percentage,
+      activity_classification_id: this.props.data.activity_classification_id,
+    };
+  },
+
+  renderStartButtonOrLockMessage() {
+    let linkText;
+    if (this.props.data.repeatable === 'f' && this.props.data.max_percentage) {
+      return (<p className="title-v-centered text-right">Completed</p>);
+    } else if (this.props.data.locked === 't') {
+      return (<p
+        className="title-v-centered text-right"
+        style={{ color: '#969696', }}
+        onMouseEnter={this.showLockedTooltip}
+        onMouseLeave={this.hideLockedTooltip}
+        >Needs Teacher</p>);
+    } else if (this.props.data.max_percentage) {
+      linkText = 'Replay Activity';
+    } else if (this.props.data.activity_classification_id === '6') {
+      linkText = 'Join Lesson';
+    } else if (this.props.data.resume_link === '1') {
+      linkText = 'Resume Activity';
+    } else {
+      linkText = 'Start Activity';
+    }
+    return <a href={activityLaunchLink(this.props.data.ca_id)}>{linkText}</a>;
+  },
+
+  render() {
     return (
       <div className="line">
-        <div className="row">
-          <div className="col-xs-9 col-sm-10 col-xl-10 pull-left">
-            <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} />
-            <div className="icons-description-wrapper">
-              <p className="title title-v-centered">{this.props.data.activity.name}</p>
-            </div>
-          </div>
-          <div className="col-xs-3 col-sm-2 col-xl-2">
-            {this.renderStartButton()}
+        <div className="row-list-beginning pull-left">
+          <ActivityIconWithTooltip data={this.dataForActivityIconWithToolTip()} context={'studentProfile'} />
+          <div className="icons-description-wrapper">
+            <p className="title title-v-centered">{this.props.data.name}</p>
           </div>
         </div>
+        <span className="row-list-end">
+          {this.renderDueDate()}
+          {this.renderStartButtonOrLockMessage()}
+          {this.renderLockedTooltip()}
+        </span>
       </div>
     );
-  }
-})
+  },
+});

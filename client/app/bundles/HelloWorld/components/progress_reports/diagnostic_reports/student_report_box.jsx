@@ -19,7 +19,7 @@ export default React.createClass({
 
 	concepts: function() {
 		return this.props.questionData.concepts.map((concept) => (
-			<ConceptResultTableRow concept={concept}/>
+			<ConceptResultTableRow key={concept.id} concept={concept}/>
 		));
 	},
 
@@ -63,7 +63,7 @@ export default React.createClass({
 										{this.directions()}
 										{this.prompt()}
 										<tr className={ScoreColor(data.score)}>
-											<td>Response</td>
+											<td>Submission</td>
 											<td></td>
 											<td>{data.answer}</td>
 										</tr>

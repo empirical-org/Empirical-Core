@@ -2,6 +2,7 @@
 
  import React from 'react'
  import SelectedActivity from './selected_activity'
+ import SortableList from '../../../../shared/sortableList'
 
  export default  React.createClass({
 	propTypes: {
@@ -10,19 +11,20 @@
 	},
 
 	render: function () {
-		var rows, buttonClassName;
+		let rows, buttonClassName, content
 
-		rows = this.props.selectedActivities.map((ele) => <SelectedActivity key={ele.id} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />);
-
-		return (
-			<section>
-				<h3 className="section-header unit_name">{this.props.unitName}</h3>
-				<table className="table activity-table selected-activities headless-rounded-table">
-					<tbody>
-						{rows}
-					</tbody>
-				</table>
+		rows = this.props.selectedActivities.map((ele, i) => <SelectedActivity key={i} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />);
+    const sortableRows = this.props.sortable ? <SortableList data={rows} sortCallback={this.props.sortCallback}/> : null
+    if (this.props.selectedActivities.length > 0) {
+      content = <section className="selected-activities-section">
+				<h3 className="section-header">Selected Activities For New Activity Pack:</h3>
+				{sortableRows ? sortableRows : <table className="table activity-table selected-activities headless-rounded-table"><tbody>{rows}</tbody></table>}
 			</section>
+    } else {
+      content = <span/>
+    }
+		return (
+      <div>{content}</div>
 		);
 	}
 });

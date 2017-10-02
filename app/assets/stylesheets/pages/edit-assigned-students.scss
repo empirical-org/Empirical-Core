@@ -1,0 +1,19 @@
+.edit-assigned-students-container, .edit-assigned-activities-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  .edit-students-h2, .edit-activities-h2, h3 {
+    font-weight: 500;
+    font-size: 24px;
+    padding-bottom: 10px;
+  }
+  .q-button.cta-button {
+    padding: 10px 25px;
+    font-size: 14px;
+  }
+}
+
+.edit-assigned-students-container {
+  .errors p {
+    margin-top: 20px;
+  }
+}

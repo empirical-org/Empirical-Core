@@ -2,20 +2,6 @@ require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
 
-  context 'OAuth' do
-    let!(:activity_session) { FactoryGirl.create(:activity_session, user: user) }
-    let!(:user) { FactoryGirl.create(:student) }
-
-    # context 'PUT #update' do
-    #   subject { put :update, id: activity_session.uid }
-    #   it_behaves_like 'protected endpoint'
-    # end
-
-    context 'GET #show' do
-      subject { get :show, id: activity_session.uid }
-      it_behaves_like 'protected endpoint'
-    end
-  end
 
   context 'PUT #update' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
@@ -115,9 +101,9 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
 
       # this is no longer the case, as results should not be saved with nonexistent concept tag
-      pending 'raises a 422 (Unprocessable Entity) status code' do
+      it 'does not save the concept result' do
         response = subject
-        expect(response.status).to eq(422)
+        expect(@activity_session.concept_results).to eq([])
       end
     end
   end

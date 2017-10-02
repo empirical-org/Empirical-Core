@@ -6,7 +6,7 @@ export default React.createClass({
     // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
     charge: function() {
-        new Stripe();
+        new Stripe(8000, '$80 Teacher Premium');
     },
 
     getInitialState: function() {
@@ -58,14 +58,14 @@ export default React.createClass({
                     </div>
                     <ul className='text-left'>
                         <li>Everything in Basic</li>
-                        <li>Unlimited students in each class</li>
-                        <li>Student reports on Common Core Standards</li>
+                        <li>Reports on concept mastery and Common Core Standards</li>
                         <li>Download and print reports</li>
+                        <li>Priority Support</li>
                     </ul>
                 </section>
                 <div className='row'>
-                    <button type='button' className='btn btn-default mini-btn empty-blue' onClick={this.beginTrial}>Free Trial</button>
                     {this.purchaseButton()}
+                    <button type='button' className='btn btn-default mini-btn empty-blue' onClick={this.beginTrial}>Free Trial</button>
                     <PleaseLoginModal ref='pleaseLoginModal'/>
                 </div>
             </div>

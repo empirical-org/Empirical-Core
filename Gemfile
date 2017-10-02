@@ -4,7 +4,7 @@ ruby '2.3.1'
 
 # CORE DEPS
 gem 'rails'
-gem 'puma'
+gem 'puma', '~> 3.10.0'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails'
@@ -15,7 +15,8 @@ gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'
 gem 'postgres_ext'
-gem 'rails_admin', '0.8.1'
+gem 'rails_admin', '1.2.0'
+gem 'bulk_insert'
 
 # USER AUTH, ETC
 gem 'bcrypt'
@@ -52,13 +53,21 @@ gem 'time_difference'
 # OTHERS
 gem 'global'
 gem 'google-api-client', '0.8.6'
-gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
+gem 'newrelic_rpm'
+gem 'skylight'
 gem 'pointpin', '~> 1.0.0' #IP-GEOLOCATION
 gem 'stripe'
 gem 'prawn'
+gem 'prawn-table'
 gem 'pdf-core'
+gem 'pdf-inspector'
 gem 'ttfunk'
+gem 'scout_apm'
+
+
+# WEBSOCKETS
+gem 'pusher'
 
 # PARSING
 gem 'parslet'
@@ -68,7 +77,10 @@ gem 'addressable'
 # QUEUE/CACHE
 gem 'sidekiq'
 gem 'sidekiq-retries'
+gem 'redis'
+gem 'redis-namespace'
 gem 'redis-rails'
+gem 'redis-rack-cache'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
 # JS/APP/UI
@@ -77,7 +89,6 @@ gem 'jquery-turbolinks'
 gem 'select2-rails'
 gem 'jbuilder'
 gem 'active_link_to'
-gem 'lodash-rails', '~> 3.10.1'
 
 # METRICS
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
@@ -91,7 +102,6 @@ gem 'sass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 
 gem 'slim-rails'
 gem 'haml-rails'
@@ -110,6 +120,7 @@ gem 'kaminari'
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
+gem 'rack-host-redirect'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
@@ -121,7 +132,6 @@ gem 'clever-ruby'
 
 group :production, :staging do
   gem 'rails_12factor'
-  gem 'newrelic_rpm'
   gem 'lograge' # for making logs more dense
   # gem "rack-timeout"
 end
@@ -161,6 +171,8 @@ group :test, :development do
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
   gem 'rspec-retry'
+  gem 'rspec-redis_helper'
+  gem 'brakeman'
 end
 
 group :test do
@@ -173,3 +185,4 @@ end
 
 # Memory profiling
 gem 'puma_worker_killer'
+gem 'sqreen'

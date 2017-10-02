@@ -4,7 +4,7 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize!
 
   def index
-    if current_user.classrooms_i_teach.empty?
+    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty?
       redirect_to new_teachers_classroom_path
     else
       @classrooms = current_user.classrooms_i_teach
@@ -14,22 +14,13 @@ class Teachers::ClassroomsController < ApplicationController
 
   def new
     class_ids = current_user.classrooms_i_teach.map(&:id)
+    @user = current_user
     @has_activities = ClassroomActivity.where(classroom_id: class_ids).exists?
   end
 
   def classrooms_i_teach
     @classrooms = current_user.classrooms_i_teach
     render json: @classrooms.order(:updated_at)
-  end
-
-  def classrooms_i_teach_with_students
-    classrooms = current_user.classrooms_i_teach.includes(:students)
-    classrooms_with_students = classrooms.map do |classroom|
-      classroom_h = classroom.attributes
-      classroom_h[:students] = classroom.students
-      classroom_h
-    end
-    render json: classrooms_with_students
   end
 
   def regenerate_code
@@ -74,6 +65,10 @@ class Teachers::ClassroomsController < ApplicationController
     classroom = Classroom.unscoped.find(params[:class_id])
     classroom.update(visible: true)
     render json: classroom
+  end
+
+  def units
+    render json: {units: @classroom.units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)}
   end
 
   def generate_login_pdf

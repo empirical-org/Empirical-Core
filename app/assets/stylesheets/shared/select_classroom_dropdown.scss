@@ -1,4 +1,4 @@
-#select-classroom-dropdown, #select-role-dropdown {
+#select-classroom-dropdown, #select-student-dropdown, #select-role-dropdown {
     padding: 10px 14px;
     width: 214px;
     height: 40px;
@@ -21,4 +21,9 @@
         border-right: 6px solid transparent;
         border-left: 6px solid transparent;
     }
+}
+
+#select-student-dropdown {
+  background-color: $quillgreen;
+  color: white;
 }

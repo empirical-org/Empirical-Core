@@ -57,7 +57,7 @@ export default React.createClass({
   sortDefinitions: function() {
     return {
       config: {
-        name: 'natural',
+        name: 'lastName',
         total_result_count: 'numeric',
         correct_result_count: 'numeric',
         incorrect_result_count: 'numeric',
@@ -89,12 +89,11 @@ export default React.createClass({
                          >
         <section className="alert alert-warning">
           <p>
-            We're upgrading this page since we have changed our scoring logic. <a href="http://support.quill.org/knowledgebase/articles/1125256">Learn More <i className="fa fa-long-arrow-right"></i></a>
+            We're upgrading this page since we have changed our scoring logic. <a href="http://support.quill.org/quill-premium/updates-to-the-concept-reports-page">Learn More <i className="fa fa-long-arrow-right"></i></a>
           </p>
         </section>
         <h2>Results by Student</h2>
         <br></br>
-        <p>This page shows how students are performing on individual questions. One question equals one results, and you can click on an individual concept to drill down.</p>
       </ProgressReport>
     );
   }

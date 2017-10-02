@@ -3,6 +3,9 @@ $tool-grey: #f8f9f9;
 
 .tool-header {
   background-color: $quillgreen;
+  .q-nav-bar {
+    max-width: 1165px;
+  }
 }
 
 .tool-section {
@@ -53,9 +56,8 @@ $tool-grey: #f8f9f9;
 
   .summary {
     font-size: 18px;
-    line-height: 1.53;
+    line-height: 1.28;
     max-width: 420px;
-    font-weight: 400;
     margin-bottom: 48px;
   }
 
@@ -67,6 +69,9 @@ $tool-grey: #f8f9f9;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
     video {
       max-width: 405px;
       border-radius: 12px;
@@ -76,37 +81,33 @@ $tool-grey: #f8f9f9;
     }
   }
 
+  .proofreader-tool {
+    .video-section {
+      background-image: url("../../../../public/images/homepage/proofreader_pattern.png");
+    }
+  }
+
   .diagnostic-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/diagnostic_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
+      background-image: url("../../../../public/images/homepage/diagnostic_pattern.png");
     }
   }
 
   .connect-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/connect_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
+      background-image: url("../../../../public/images/homepage/connect_pattern.png");
     }
   }
+
   .grammar-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/grammar_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
+      background-image: url("../../../../public/images/homepage/grammar_pattern.png");
     }
   }
-  .proofreader-tool {
+
+  .lessons-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/proofreader_keys.png");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
+      background-image: url('http://assets.quill.org/images/homepage/lessonspatternhomepage.png')
     }
   }
 
@@ -127,15 +128,6 @@ $tool-grey: #f8f9f9;
       flex-direction: column;
       justify-content: center;
     }
-
-    .connect-tool .video-section,
-    .diagnostic-tool .video-section,
-    .proofreader-tool .video-section,
-    .grammar-tool .video-section {
-      // background-image: none;
-      // background-position: 10px 10px
-      background-size: contain;
-    }
   }
 
     @media only screen and (max-width : 850px) {
@@ -147,6 +139,9 @@ $tool-grey: #f8f9f9;
 
       .info-section {
           margin-left: 35px;
+        .icon-white {
+          padding-left: 6px;
+        }
       }
 
       .info-section.right {
@@ -168,12 +163,14 @@ $tool-grey: #f8f9f9;
       }
 
       .connect-tool .video-section,
+      .lessons-tool .video-section,
       .diagnostic-tool .video-section,
       .proofreader-tool .video-section,
       .grammar-tool .video-section {
         background-image: none;
         min-height: initial;
         margin-bottom: 25px;
+        height: 371px;
       }
 
       .info-section {
@@ -194,14 +191,28 @@ $tool-grey: #f8f9f9;
           margin-bottom: 20px;
       }
 
-      .icon-button {
+      .icon-button, .learn-more-button {
           display: block;
       }
+
     }
 }
 
 .tool-container {
     text-align: center;
+
+    .q-button {
+      box-sizing: border-box;
+      height: 45px;
+      font-size: 18px;
+      &.cta-button {
+        font-size: 18px;
+      }
+    }
+
+    .bg-lessons-purple {
+      background-color: #bd0c7e;
+    }
 
     .bg-connect-yellow {
         background-color: #ea9a1a;
@@ -210,11 +221,61 @@ $tool-grey: #f8f9f9;
     .text-connect-yellow {
         color: #ea9a1a;
     }
+
+    .boy-playing-quill {
+      background-color: gray;
+      margin: 60px auto 2px;
+      width: 819px;
+      height: 431px;
+    }
+    #testimonial {
+      .author {
+        color: #606060;
+        font-weight: bold;
+        font-size: 24px;
+        span {
+          color: #343434;
+        }
+      }
+      .quote {
+        font-size: 24px;
+        &#connect-testimonial-quote {
+          max-width: 848px !important;
+        }
+      }
+      .q-button {
+        span {
+          line-height: 1.22;
+          font-weight: bold;
+        }
+      }
+    }
+}
+
+.tools-anchor-nav {
+  background-color: white;
+  li {
+    background-color: white;
+    border-right: none !important;
+  }
+  .q-nav-bar {
+    margin: auto;
+    max-width: 1165px;
+  }
 }
 
 .tool-carousel {
-    background-color: $tool-grey;
     padding-top: 55px;
+
+    &.lessons-tool-carousel {
+      .carousel {
+        .item {
+          img {
+            width: initial;
+          }
+        }
+      }
+    }
 
     .carousel {
         max-width: 1322px;
@@ -223,14 +284,15 @@ $tool-grey: #f8f9f9;
 
         .item {
             .wrapper {
+                height: 600px;
                 background-color: white;
                 margin: auto;
                 max-width: 950px;
                 padding: 20px;
                 width: 75%;
-                -webkit-box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
-                -moz-box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
-                box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
+                -webkit-box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
+                box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
             }
 
             img {
@@ -246,6 +308,7 @@ $tool-grey: #f8f9f9;
                 width: 75%;
                 margin: auto;
                 font-size: 16px;
+                height: 80px;
             }
             padding-bottom: 130px;
         }
@@ -255,6 +318,7 @@ $tool-grey: #f8f9f9;
 
             li {
                 background-color: #cacaca;
+                border: none !important;
 
                 &.active {
                     background-color: $quillgreen;
@@ -263,7 +327,7 @@ $tool-grey: #f8f9f9;
         }
 
         .left {
-            background: $tool-grey url("../../../../public/images/carousel/chevron_left.svg") no-repeat center;
+            background: url("../../../../public/images/carousel/chevron_left.svg") no-repeat center;
         }
 
         .right {
@@ -273,55 +337,72 @@ $tool-grey: #f8f9f9;
         .carousel-control {
             opacity: 1;
             background-position-y: 37%;
+            z-index: 1;
         }
     }
 }
 
-.tool-hero,
+.tool-hero {
+  padding: 45px 0 30px;
+  color: white;
+  box-sizing: border-box;
+  @media only screen and (max-width : 550px) {
+    padding-top: 30px;
+  }
+  .cta-button {
+    padding: 11px 19px 8px;
+    margin-top: 26px;
+  }
+  .q-h1 {
+    font-size: 36px;
+    margin-top: 0px;
+    margin-bottom: 25px;
+  }
+  .description {
+    margin: auto;
+    max-width: 750px;
+    width: 95%;
+    font-size: 18px;
+    margin-bottom: 0px;
+    line-height: 25px;
+  }
+}
+
 .tool-try-it {
     min-height: 166px;
     padding: 20px 0 45px;
     color: white;
-
     .q-h1 {
-        font-size: 36px;
+      font-size: 36px;
     }
-}
-
-.tool-try-it {
-    padding-bottom: 50px;
-}
-
-.tool-hero {
-    .description {
-        margin: auto;
-        max-width: 560px;
-        width: 95%;
-        font-size: 18px;
-        margin-bottom: 10px;
-        line-height: 25px;
+    @media only screen and (max-width : 435px) {
+      padding-bottom: 20px;
+      .q-h1 {
+        font-size: 30px;
+      }
     }
 }
 
 .tool-animation-section {
-    padding: 32px 15px 40px;
+    padding: 15px;
+    max-height: 488px;
     .tool-animation {
-        margin: 0 auto;
+        margin: 60px auto;
         border-radius: 12px;
         max-width: 405px;
         border-radius: 12px;
-        -webkit-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
-        box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+        -webkit-box-shadow: 0px 2px 10px 2px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 2px 10px 2px rgba(0,0,0,0.2);
+        box-shadow: 0px 2px 10px 2px rgba(0,0,0,0.2);
 
         @media only screen and (max-width : 435px) {
-          max-width: calc(100% - 30px);
+          max-width: calc(100%);
         }
     }
 }
 
 .tool-testimonial {
-    padding: 54px 0 58px;
+    padding: 54px 10px 58px;
 
     .quote {
         width: 95%;
@@ -336,7 +417,6 @@ $tool-grey: #f8f9f9;
     .q-button {
         margin-top: 10px;
         border: solid 1px #979797;
-
         span {
             line-height: 30px;
             font-weight: 500;
@@ -361,6 +441,37 @@ $tool-grey: #f8f9f9;
     font-size: 18px;
     line-height: 25px;
     margin-top: 0;
+}
+
+.how-to {
+  display: flex;
+  margin: 60px auto 80px;
+  text-align: left;
+  max-width: 1000px;
+  padding: 0px 50px;
+  .text {
+    flex: 1;
+  }
+  h2 {
+    font-weight: 600;
+    color: #00c2a2;
+  }
+  p {
+    max-width: 460px;
+  }
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 227px;
+    font-weight: bold;
+    height: 40px;
+    border-radius: 3px;
+    i {
+      margin-right: 5px;
+      margin-top: 3px;
+    }
+  }
 }
 
 .light-bar {
@@ -398,6 +509,10 @@ $tool-grey: #f8f9f9;
 @media only screen and (max-width : 1100px) {
     padding: 15px;
     min-height: 450px;
+
+    .video-section img {
+      display: none !important;
+    }
 
     .info-section {
         margin-top: 0;
@@ -458,6 +573,15 @@ $tool-grey: #f8f9f9;
 }
 
 .tools-tabs {
+    li {
+      &.active {
+        border-top: 3px solid #027360;
+        border-bottom: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    }
     .small-screen {
         display: none;
     }
@@ -468,6 +592,23 @@ $tool-grey: #f8f9f9;
 
         .small-screen {
             display: block;
+
+            .q-nav-bar .desktop-nav-list {
+              display: flex;
+              flex-wrap: nowrap;
+              max-width: 100%;
+
+              li {
+                flex-grow: 1;
+                text-align: center;
+                a {
+                  padding-left: 0;
+                  padding-right: 0;
+                }
+
+              }
+
+            }
         }
     }
 }
@@ -484,10 +625,21 @@ $tool-grey: #f8f9f9;
     .q-button {
         margin-top: 34px;
     }
+
+    @media only screen and (max-width : 435px) {
+      padding: 26px 15px 50px 15px;
+      min-height: 0px;
+      .q-h1 {
+        font-size: 22px;
+      }
+      .q-button {
+        margin-top: 15px;
+      }
+    }
 }
 // all for diagnostic page
 
-.diagnostic-walk-thru-wrapper {
+.walk-thru-wrapper {
     background-color: white;
 
     .walk-thru-step {
@@ -500,33 +652,58 @@ $tool-grey: #f8f9f9;
         .q-h2 {
             font-size: 28px;
             color: #343434;
+            vertical-align: middle;
         }
 
         p {
             font-size: 18px;
             line-height: 1.39;
             color: #414141;
-            max-width: 457px;
+            max-width: 480px;
         }
 
-        .diagnostic-blurb {
+        .blurb {
             max-width: 457px;
             text-align: left;
+            h2 img{
+              margin-left: 12px;
+              height: 20px;
+            }
+            a {
+              color: #0d614d;
+              text-decoration: underline;
+            }
+            p img {
+              width: 20px;
+              margin-right: 3px;
+              margin-bottom: -3px;
+            }
         }
 
-        .diagnostic-content-wrapper {
+        .ell-press-announcement {
+          color: #027360 !important;
+        }
+
+        .content-wrapper {
             max-width: 960px;
             width: 95%;
             margin: auto;
         }
 
         img {
-            max-width: 100%;
+          max-width: 100%;
         }
     }
 
-    #negative-left-margin {
+    .negative-left-margin {
         margin-left: -90px;
+    }
+
+    #ell-diagnostic-img {
+      margin-left: -30px;
+      @media screen and (max-width: 1025px) and (min-width: 930px) {
+        margin-left: -20px;
+      }
     }
 
     &.desktop {
@@ -536,9 +713,6 @@ $tool-grey: #f8f9f9;
     }
 
     &.mobile {
-        @media (min-width: 930px) {
-            display: none;
-        }
 
         #shrink-me {
             width: 100%;
@@ -550,7 +724,7 @@ $tool-grey: #f8f9f9;
             padding: 55px 10px 35px;
         }
 
-        .diagnostic-blurb {
+        .blurb {
             padding-top: 45px;
             margin: auto;
             text-align: center;
@@ -576,4 +750,325 @@ $tool-grey: #f8f9f9;
 
 .bg-tool-purple {
     background-color: #9C2ADE;
+}
+
+.bg-tool-magenta {
+  background-color: #bd0d7e;
+}
+
+.text-orange {
+    color: #EA9A1A;
+}
+
+.text-red {
+    color: #ff4441;
+}
+
+.text-blue {
+    color: #358FE0;
+}
+
+.text-purple {
+    color: #9C2ADE;
+}
+
+.icon-white {
+  height: 22px;
+  width: 22px;
+  margin-right: 10px;
+}
+
+.tool-page-icon {
+  height: 28px;
+  width: 42px;
+}
+
+.diagnostic-tool-page {
+  .tool-hero {
+    .cta-button {
+      margin-top: 50px;
+    }
+  }
+  .tool-animation-section {
+    background-image: url('../../../../public/images/landing_page_diagnostic_pattern.png');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .walk-thru-wrapper {
+    &.desktop {
+        @media (max-width: 930px) {
+            display: none;
+        }
+    }
+
+    &.mobile {
+        @media (min-width: 930px) {
+            display: none;
+        }
+      }
+    }
+  }
+
+.connect-tool-page {
+  .tool-animation-section {
+    background-image: url('../../../../public/images/landing_page_connect_pattern.png');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .walk-thru-wrapper {
+    .walk-thru-step {
+      &:first-of-type {
+        background-color: #fff8f0;
+      }
+      .content-wrapper {
+        position: relative;
+        .img-attempt-3 {
+          margin-top: -10px;
+        }
+        .img-attempt-4 {
+          margin-top: 10px;
+        }
+        .arrow {
+          position: absolute;
+          &.arrow-1 {
+            left: -130px;
+            top: 161px;
+          }
+          &.arrow-2 {
+            left: 445px;
+            top: 170px;
+          }
+          &.arrow-3 {
+            left: -121px;
+            top: 145px;
+          }
+        }
+        .prompt {
+          text-align: left;
+          margin-left: -58px;
+          .prompt-header {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.4px;
+            color: #f5ba5b;
+            margin: 0px auto 10px;
+          }
+          .prompt-text {
+            font-size: 26px;
+            font-weight: 600;
+            margin: 0px auto;
+            padding-bottom: 8px;
+          }
+        }
+        .blurb {
+          &.introduction {
+            h2 {
+              margin-bottom: 10px;
+            }
+            p {
+              margin-top: 0px;
+            }
+          }
+          &.blurb-attempt-1 h2 {
+            margin-top: 54px;
+          }
+          &.blurb-attempt-2 h2 {
+            margin-top: 70px;
+          }
+          &.blurb-attempt-3 h2 {
+            margin-top: 62px;
+          }
+          &.blurb-attempt-4 {
+            h2 {
+              margin-top: 42px;
+            }
+            p {
+              margin-bottom: 0px;
+              &:nth-of-type(2) {
+                margin-top: 2px;
+              }
+            }
+          }
+          h2 {
+            span {
+              color: #b3b3b3;
+            }
+          }
+          p {
+            span {
+              font-style: italic;
+            }
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 1278px) {
+      .arrow {
+        display: none;
+      }
+    }
+    &.desktop {
+      .walk-thru-step:first-of-type {
+          background-image: url('../../../../public/images/tools/connect/background_pattern.png');
+          background-repeat: no-repeat;
+          height: 255px;
+          @media screen and (min-width: 1540px) {
+            background-position: 43%;
+          }
+          @media screen and (max-width: 1540px) and (min-width: 1350px) {
+            background-position: 30%;
+          }
+          @media screen and (max-width: 1350px) and (min-width: 1290px) {
+            display: none;
+          }
+
+        }
+      // @media screen and (max-width: 1376px) {
+      //   display: none;
+      // }
+
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        .arrow {
+          display: none;
+        }
+      }
+    }
+    &.mobile {
+      .walk-thru-step {
+        .blurb {
+          max-width: 524px;
+          margin: auto;
+          text-align: left;
+          h2 {
+            font-size: 18.5px;
+          }
+          p {
+            max-width: 100%;
+          }
+        }
+        img, .prompt {
+          margin-left: 25px;
+          margin-top: auto;
+
+          @media screen and (max-width: 500px) {
+            margin-left: auto;
+          }
+        }
+      }
+      @media screen and (min-width: 1377px) {
+        display: none;
+      }
+    }
+  }
+}
+
+.proofreader-tool-page {
+  .tool-animation-section {
+    background-image: url('../../../../public/images/landing_page_proofreader_pattern.png');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.grammar-tool-page {
+  .tool-animation-section {
+    background-image: url('../../../../public/images/landing_page_grammar_pattern.png');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.lessons-tool-page {
+  .tool-animation-section {
+    background-image: url('http://assets.quill.org/images/tools/lessons/lessons_tool_pattern.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .walk-thru-wrapper.mobile {
+    @media (min-width: 930px) {
+        display: none;
+    }
+  }
+  .walk-thru-wrapper.desktop {
+    @media (max-width: 930px) {
+        display: none;
+    }
+    .walk-thru-step {
+      height: 360px;
+      &:nth-child(2), &:nth-child(3) {
+        img {
+          margin-left: -65px;
+        }
+      }
+      &:nth-child(4) {
+        img {
+          margin-left: -50px;
+        }
+      }
+    }
+  }
+  .tool-carousel {
+    background-color: #f1f2f2;
+  }
+}
+
+// TODO this classname is given to a tags on diagnostic tool page that currently go nowhere
+// should be removed when these links are up
+.need-links {
+  display: none;
+}
+
+#q-and-a {
+  background-color: #5aaef6;
+  color: white;
+  padding: 50px 86px;
+  text-align: left;
+
+  .q-and-a-inner-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .qa-section {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px #5bbefe;
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+  .qa {
+    max-width: 1030px;
+    width: 100%;
+  }
+  .question {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .answer {
+    font-size: 20px;
+    color: white;
+  }
+  .expand-or-collapse {
+    font-size: 16px;
+    line-height: 42px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .support-link {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    margin-top: 30px;
+  }
 }

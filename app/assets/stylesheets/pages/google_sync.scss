@@ -1,0 +1,126 @@
+.google-sync-container {
+  background-color: #f6f3f3;
+  width: 100%;
+}
+
+.google-sync {
+  margin: auto;
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+  padding: 35px 40px;
+  &.no-classrooms {
+    a {
+      color: $quillforestgreen
+    }
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  p {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  table {
+    background-color: white;
+    width: 100%;
+    font-size: 18px;
+    white-space: nowrap;
+    margin: 25px 0;
+    tr {
+      border: solid 1px #c0c0c0;
+    }
+    tr:not(.expansion){
+      width: 100%;
+      border-bottom: none;
+      &:last-of-type {
+        border-bottom: solid 1px #c0c0c0;
+      }
+      td {
+        &:first-child {
+          padding-left: 15px;
+          width: 55px;
+        }
+        &:nth-child(2) {
+          width: 33%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-align: left;
+        }
+        &:nth-child(3) {
+          width: 5%;
+          margin-left: 5px;
+        }
+        &:nth-child(4) {
+          width: 37%;
+          margin-left: 5px;
+          text-align: center;
+        }
+        &:last-child {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          justify-content: flex-end;
+          padding-right: 15px;
+          border-right: solid 1px #c0c0c0;
+          .dropdown {
+            padding-top: 5px;
+            padding-bottom: 5px;
+          }
+          .dropdown-toggle {
+            width: 125px;
+            color: black;
+            padding: 0;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            align-items: center;
+            .caret {
+              border-width: 6px;
+            }
+          }
+        }
+        @media(max-width: 1000px) {
+           &:nth-child(3) {
+              display: none;
+          }
+           &:nth-child(4) {
+              width: 24%;
+          }
+        }
+        @media(max-width: 600px) {
+          &:last-child {
+            display: none;
+          }
+        }
+    }
+  }
+  .expansion {
+    cursor: pointer;
+    text-align: center;
+    border: dashed 1px #c0c0c0;
+    border-bottom: dashed 1px #c0c0c0;
+    height: 50px;
+    span {
+      color: #027360;
+    }
+  }
+}
+  .connected {
+    font-size: 14px;
+    width: 79px;
+  	font-weight: 600;;
+  	color: #027360;
+  }
+
+  .sync-classrooms {
+    width: 196px;
+  	font-size: 16px;
+    margin-top: 25px;
+  }
+
+}

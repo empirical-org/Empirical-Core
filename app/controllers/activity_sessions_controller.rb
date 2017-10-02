@@ -1,10 +1,11 @@
 class ActivitySessionsController < ApplicationController
-  before_action :activity_session_from_id, only: [:play]
+  before_action :activity_session_from_id, only: [:play, :concept_results]
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
   before_action :activity, only: [:play, :result]
 
   before_action :activity_session_authorize!, only: [:play, :result]
+  before_action :activity_session_authorize_teacher!, only: [:concept_results]
 
   def play
     if @activity_session.state == "finished"
@@ -39,8 +40,8 @@ class ActivitySessionsController < ApplicationController
 
   def anonymous
     @activity = Activity.find(params[:activity_id])
-    @module_url = @activity.anonymous_module_url
-    redirect_to(@module_url.to_s)
+    return redirect_to "#{ENV['DEFAULT_URL']}/preview_lesson/#{@activity.uid}" if @activity.classification.key == 'lessons'
+    redirect_to(@activity.anonymous_module_url.to_s)
   end
 
   private
@@ -53,7 +54,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def activity_session_from_uid
-    @activity_session ||= ActivitySession.find_by_uid!(params[:uid])
+    @activity_session ||= ActivitySession.unscoped.find_by_uid!(params[:uid])
   end
 
   def activity_session_for_update
@@ -72,6 +73,12 @@ class ActivitySessionsController < ApplicationController
     if @activity_session.user_id.nil?
       return true
     elsif !ActivityAuthorizer.new(current_user, @activity_session).authorize
+      render_error(404)
+    end
+  end
+
+  def activity_session_authorize_teacher!
+    if !ActivityAuthorizer.new(current_user, @activity_session).authorize_teacher
       render_error(404)
     end
   end

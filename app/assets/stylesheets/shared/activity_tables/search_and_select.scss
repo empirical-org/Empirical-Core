@@ -1,3 +1,5 @@
+
+
 .drop-down-filters-and-search, .activity-filter-drop-downs {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -12,33 +14,46 @@
       height: 40px;
       margin-left: 15px;
     }
-    margin-bottom: 20px;
 }
 
 .drop-down-filters-and-search {
+  margin-left: 15px;
+  margin-bottom: 10px;
 
   #search_activities_input {
     margin-top: 0px;
     margin-bottom: 20px;
+    width: 280px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
   #search_activities_button {
     margin-right: 15px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    width: 70px;
+    height: 40px;
+    padding: 0;
+    background-color: #00c2a2;
+    .fa-search {
+      font-size: 18spx;
+    }
   }
 }
 
 .activity-filter-drop-downs {
-  .no-pl {
-    margin-right: 15px;
-  }
   button {
     overflow: hidden;
   }
   .button-select {
     height: 40px;
-    width: 163px;
+    width: 220px;
     margin-right: 15px;
     white-space: nowrap;
     text-overflow: ellipsis;
+    &:focus {
+      outline: none;
+    }
   }
   .activity-filter-button-wrapper.open {
     position: relative;
@@ -47,12 +62,16 @@
     }
   }
   .clear-button {
+    padding: 0px;
+    background-color: rgba(0,0,0,0);
     margin-right: 0px;
-    width: 81px;
-    background: #F7F5F5;
+    width: 75px;
     border: none;
     @media (max-width: 768px) {
       margin-top: 20px;
+    }
+    &:focus {
+      outline: none;
     }
   }
   .act-search-filter-fav {
@@ -60,6 +79,6 @@
     right: 36px;
   }
   img {
-    padding-top: 4px;
+    padding-left: 8px;
   }
 }

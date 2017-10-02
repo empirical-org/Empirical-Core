@@ -1,13 +1,14 @@
 <html lang='en'>
   <%= render partial: 'head' %>
   <body>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, "<p>#{value}</p><i class='fa fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
+    <% end %>
     <%= render partial: 'application/notification_bar' %>
     <div id='application_nav_bar'>
       <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
     </div>
-    <% flash.each do |key, value| %>
-  <%= content_tag :div, value, class: "flash #{key}" %>
-  <% end %>
+    <%= render partial: 'admin_dashboard_header' %>
     <%= yield %>
     <!-- This is a placeholder for ReactOnRails to know where to render the store props for
      client side hydration -->
@@ -23,7 +24,8 @@
           data-locale="auto">
     </script>
     <%end%>
-
+    <%= render partial: 'remarketing_tag' %>
+    <%= render partial: 'tracking_code' %>
   </body>
 
 </html>

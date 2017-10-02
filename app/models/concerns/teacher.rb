@@ -13,6 +13,8 @@ module Teacher
     has_many :admin_accounts_teachers,  foreign_key: 'teacher_id', class_name: "AdminAccountsTeachers"
     has_many :admin_accounts_i_am_part_of, through: :admin_accounts_teachers, class_name: "AdminAccount", source: :admin_account
     has_many :units
+    has_one :user_subscription
+    has_one :subscription, through: :user_subscription
   end
 
   class << self
@@ -29,12 +31,64 @@ module Teacher
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
-  def scorebook_scores(current_page=1, classroom_id=nil, unit_id=nil, begin_date=nil, end_date=nil)
-    Scorebook::Query.new(self).query(current_page, classroom_id, unit_id, begin_date, end_date)
+  def get_classroom_minis_cache
+    cache = $redis.get("user_id:#{self.id}_classroom_minis")
+    cache ? JSON.parse(cache) : nil
+  end
+
+  def set_classroom_minis_cache(info)
+    # TODO: move this to background worker
+    $redis.set("user_id:#{self.id}_classroom_minis", info.to_json, {ex: 16.hours} )
+  end
+
+  def self.clear_classrooms_minis_cache(teacher_id)
+    $redis.del("user_id:#{teacher_id}_classroom_minis")
+  end
+
+  def get_classroom_minis_info
+    cache = get_classroom_minis_cache
+    if cache
+      return cache
+    end
+    classrooms = ActiveRecord::Base.connection.execute("SELECT classrooms.name AS name, classrooms.id AS id, classrooms.code AS code, COUNT(DISTINCT sc.id) as student_count  FROM classrooms
+			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
+			WHERE classrooms.visible = true AND classrooms.teacher_id = #{self.id}
+			GROUP BY classrooms.name, classrooms.id"
+    ).to_a
+    counts = ActiveRecord::Base.connection.execute("SELECT classrooms.id AS id, COUNT(DISTINCT acts.id) FROM classrooms
+          FULL OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
+          FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
+          WHERE classrooms.teacher_id = #{self.id}
+          AND classrooms.visible AND acts.is_final_score = true
+          GROUP BY classrooms.id").to_a
+    info = classrooms.map do |classy|
+      count = counts.find { |elm| elm['id'] == classy['id'] }
+      classy['activity_count'] = count  ? count['count'] : 0
+      classy
+    end
+    # TODO: move setter to background worker
+    set_classroom_minis_cache(info)
+    info
+  end
+
+  def archived_classrooms
+    Classroom.unscoped.where(teacher_id: self.id, visible: false)
+  end
+
+  def google_classrooms
+    Classroom.where(teacher_id: self.id).where.not(google_classroom_id: nil)
   end
 
   def transfer_account
     TransferAccountWorker.perform_async(self.id, new_user.id);
+  end
+
+  def classrooms_i_teach_with_students
+    classrooms_i_teach.includes(:students).map do |classroom|
+      classroom_h = classroom.attributes
+      classroom_h[:students] = classroom.students
+      classroom_h
+    end
   end
 
   def classroom_activities(includes_value = nil)
@@ -48,6 +102,7 @@ module Teacher
 
   def update_teacher params
     return if !self.teacher?
+    params[:role] = 'teacher' if params[:role] != 'student'
     params.permit(:id,
                   :name,
                   :role,
@@ -66,18 +121,11 @@ module Teacher
       if params[:school_id].nil? or params[:school_id].length == 0
         are_there_school_related_errors = true
       else
-        if !(params[:original_selected_school_id].nil? or params[:original_selected_school_id].length == 0)
-          if params[:original_selected_school_id] != params[:school_id]
-            self.schools.delete(School.find(params[:school_id])) # this will not destroy the school, just the assocation to this user
-          end
-        end
-        unless self.schools.where(id: params[:school_id]).any?
-          (self.schools << School.find(params[:school_id]))
-          find_or_create_checkbox('Add School', self)
-        end
+        self.school = School.find(params[:school_id])
+        self.updated_school params[:school_id]
+        find_or_create_checkbox('Add School', self)
       end
     end
-
     if !are_there_school_related_errors
       if self.update_attributes(username: params[:username] || self.username,
                                         email: params[:email] || self.email,
@@ -101,6 +149,33 @@ module Teacher
     response
   end
 
+  def updated_school(school_id)
+    new_school_sub = SchoolSubscription.find_by_school_id(school_id)
+    current_sub = self.subscription
+    if current_sub&.school_subscriptions&.any?
+      # then they already belonged to a subscription through a school, which we destroy
+      self.user_subscription.destroy
+    end
+    if new_school_sub
+      if current_sub
+        current_is_school = current_sub&.school_subscriptions.any?
+        if current_is_school
+          # we don't care about their old school -- give them the new school sub
+          new_sub_id = new_school_sub.subscription.id
+        else
+          # give them the better of their personal sub or the school sub
+          new_sub_id = later_expiration_date(new_school_sub.subscription, current_sub).id
+        end
+      else
+        # they get the new sub by default
+        new_sub_id = new_school_sub.subscription.id
+      end
+    end
+    if new_sub_id
+      UserSubscription.update_or_create(self.id, new_sub_id)
+    end
+  end
+
   def part_of_admin_account?
     admin_accounts_i_am_part_of.any?
   end
@@ -109,18 +184,8 @@ module Teacher
     if part_of_admin_account?
       true
     else
-      subscriptions
-        .where("subscriptions.expiration >= ?", Date.today)
-        .where("subscriptions.account_limit >= ?", self.students.count)
-        .any?
+      !!(subscription && subscription.expiration >= Date.today)
     end
-  end
-
-  def teacher_subscription
-    subscriptions
-      .where("subscriptions.expiration >= ?", Date.today)
-      .first
-      .account_type
   end
 
   def getting_started_info
@@ -135,10 +200,12 @@ module Teacher
     end
   end
 
-  def is_trial_expired?
-    subscriptions
-      .where("subscriptions.expiration < ?", Date.today)
-      .any?
+  def subscription_is_expired?
+    subscription && subscription.expiration < Date.today
+  end
+
+  def subscription_is_valid?
+    subscription && subscription.expiration > Date.today
   end
 
   def teachers_activity_sessions_since_trial_start_date
@@ -151,29 +218,37 @@ module Teacher
   end
 
   def trial_days_remaining
-    valid_subscription = subscriptions.where("subscriptions.expiration >= ?", Date.today).first
-    if valid_subscription && (valid_subscription.account_type == 'trial')
-      (valid_subscription.expiration - Date.today).to_i
+    valid_subscription =   subscription && subscription.expiration > Date.today
+    if valid_subscription && (subscription.is_not_paid?)
+      (subscription.expiration - Date.today).to_i
     else
       nil
     end
   end
 
   def premium_updated_or_created_today?
-    subscriptions.where("created_at >= ? OR updated_at >= ?", Time.zone.now.beginning_of_day, Time.zone.now.beginning_of_day).any?
+    if subscription
+      [subscription.created_at, subscription.updated_at].max == Time.zone.now.beginning_of_day
+    end
+  end
+
+  def has_premium?
+
   end
 
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
-    if !is_beta_period_over?
-      "beta"
-    elsif part_of_admin_account?
-      'school'
-    elsif is_premium?
-      ## returns 'trial' or 'paid'
-      subscriptions.where("subscriptions.expiration >= ?", Date.today).first.account_type
-    elsif is_trial_expired?
-      "locked"
+    if part_of_admin_account?
+        'school'
+    elsif subscription
+      if !is_beta_period_over?
+        "beta"
+      elsif is_premium?
+        ## returns 'trial' or 'paid'
+        subscription.trial_or_paid
+      elsif subscription_is_expired?
+        "locked"
+      end
     else
       'none'
     end
@@ -183,5 +258,18 @@ module Teacher
     Date.today >= TRIAL_START_DATE
   end
 
+  def later_expiration_date(sub_1, sub_2)
+    sub_1.expiration > sub_2.expiration ? sub_1 : sub_2
+  end
+
+  def finished_diagnostic_unit_ids
+    Unit.find_by_sql("SELECT DISTINCT units.id FROM units
+      JOIN classroom_activities AS ca ON ca.unit_id = units.id
+      JOIN activities AS acts ON ca.activity_id = acts.id
+      JOIN activity_sessions AS actsesh ON actsesh.classroom_activity_id = ca.id
+      WHERE units.user_id = #{self.id}
+      AND acts.activity_classification_id = 4
+      AND actsesh.state = 'finished'")
+  end
 
 end

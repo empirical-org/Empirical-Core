@@ -16,8 +16,8 @@
 	<div id="home-collapsed-navbar" class="collapse navbar-collapse">
 		<ul class="home-navbar-list">
 			<% if !current_user || current_user.role != "student" %>
-				<li><%= link_to "Tools", "/tools/connect"%></li>
-				<li><%= link_to "Resources", activities_packs_path%></li>
+				<li><%= link_to "Tools", "/tools/lessons"%></li>
+				<li><%= link_to "Resources", teacher_resources_path%></li>
 				<li class="active"><%= link_to "Our Story", mission_path %></li>
 			<% end %>
 
@@ -29,7 +29,7 @@
 				<%- end %>
 				<%- if current_user.role == 'student' %>
 					<li><%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path %></li>
-					<li><%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), "account_settings"%></li>
+					<li><%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path%></li>
 				<% end %>
 				<%- if current_user.role != 'student' %>
 				<li><%= link_to "Support", "http://support.quill.org" %></li>

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.1
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -91,7 +91,9 @@ CREATE TABLE activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
-    repeatable boolean DEFAULT true
+    repeatable boolean DEFAULT true,
+    follow_up_activity_id integer,
+    supporting_info character varying
 );
 
 
@@ -125,6 +127,71 @@ CREATE TABLE activities_unit_templates (
 
 
 --
+-- Name: activity_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_categories (
+    id integer NOT NULL,
+    name character varying,
+    order_number integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activity_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_categories_id_seq OWNED BY activity_categories.id;
+
+
+--
+-- Name: activity_category_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_category_activities (
+    id integer NOT NULL,
+    activity_category_id integer,
+    activity_id integer,
+    order_number integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activity_category_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_category_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_category_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_category_activities_id_seq OWNED BY activity_category_activities.id;
+
+
+--
 -- Name: activity_classifications; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -137,7 +204,10 @@ CREATE TABLE activity_classifications (
     module_url character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    app_name character varying(255)
+    app_name character varying(255),
+    order_number integer DEFAULT 999999999,
+    instructor_mode boolean DEFAULT false,
+    locked_by_default boolean DEFAULT false
 );
 
 
@@ -410,7 +480,9 @@ CREATE TABLE classroom_activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     assigned_student_ids integer[],
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    locked boolean DEFAULT false,
+    pinned boolean DEFAULT false
 );
 
 
@@ -752,6 +824,37 @@ ALTER SEQUENCE ip_locations_id_seq OWNED BY ip_locations.id;
 
 
 --
+-- Name: milestones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE milestones (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE milestones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
+
+
+--
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -971,6 +1074,38 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: school_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE school_subscriptions (
+    id integer NOT NULL,
+    school_id integer,
+    subscription_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: school_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE school_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: school_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE school_subscriptions_id_seq OWNED BY school_subscriptions.id;
+
+
+--
 -- Name: schools; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1005,8 +1140,41 @@ CREATE TABLE schools (
     total_students integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying(255)
+    clever_id character varying(255),
+    ppin character varying
 );
+
+
+--
+-- Name: schools_admins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE schools_admins (
+    id integer NOT NULL,
+    user_id integer,
+    school_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: schools_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE schools_admins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: schools_admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE schools_admins_id_seq OWNED BY schools_admins.id;
 
 
 --
@@ -1034,8 +1202,28 @@ ALTER SEQUENCE schools_id_seq OWNED BY schools.id;
 
 CREATE TABLE schools_users (
     school_id integer,
-    user_id integer
+    user_id integer,
+    id integer NOT NULL
 );
+
+
+--
+-- Name: schools_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE schools_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: schools_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE schools_users_id_seq OWNED BY schools_users.id;
 
 
 --
@@ -1249,7 +1437,11 @@ CREATE TABLE unit_templates (
     problem text,
     summary text,
     teacher_review text,
-    flag character varying
+    flag character varying,
+    order_number integer DEFAULT 999999999,
+    activity_info text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -1306,6 +1498,70 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
+-- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE user_milestones (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    milestone_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: user_milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_milestones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_milestones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_milestones_id_seq OWNED BY user_milestones.id;
+
+
+--
+-- Name: user_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE user_subscriptions (
+    id integer NOT NULL,
+    user_id integer,
+    subscription_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1325,7 +1581,9 @@ CREATE TABLE users (
     clever_id character varying(255),
     signed_up_with_google boolean DEFAULT false,
     send_newsletter boolean DEFAULT false,
-    flag character varying
+    flag character varying,
+    google_id character varying,
+    last_sign_in timestamp without time zone
 );
 
 
@@ -1353,6 +1611,20 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 --
 
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
+
+
+--
+-- Name: activity_categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_categories ALTER COLUMN id SET DEFAULT nextval('activity_categories_id_seq'::regclass);
+
+
+--
+-- Name: activity_category_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_category_activities ALTER COLUMN id SET DEFAULT nextval('activity_category_activities_id_seq'::regclass);
 
 
 --
@@ -1482,6 +1754,13 @@ ALTER TABLE ONLY ip_locations ALTER COLUMN id SET DEFAULT nextval('ip_locations_
 
 
 --
+-- Name: milestones id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_seq'::regclass);
+
+
+--
 -- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1524,10 +1803,31 @@ ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_missed
 
 
 --
+-- Name: school_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY school_subscriptions ALTER COLUMN id SET DEFAULT nextval('school_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: schools id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schools ALTER COLUMN id SET DEFAULT nextval('schools_id_seq'::regclass);
+
+
+--
+-- Name: schools_admins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_admins ALTER COLUMN id SET DEFAULT nextval('schools_admins_id_seq'::regclass);
+
+
+--
+-- Name: schools_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_users ALTER COLUMN id SET DEFAULT nextval('schools_users_id_seq'::regclass);
 
 
 --
@@ -1587,6 +1887,20 @@ ALTER TABLE ONLY units ALTER COLUMN id SET DEFAULT nextval('units_id_seq'::regcl
 
 
 --
+-- Name: user_milestones id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_milestones ALTER COLUMN id SET DEFAULT nextval('user_milestones_id_seq'::regclass);
+
+
+--
+-- Name: user_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_subscriptions ALTER COLUMN id SET DEFAULT nextval('user_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1599,6 +1913,22 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY activities
     ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_categories activity_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_categories
+    ADD CONSTRAINT activity_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_category_activities activity_category_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_category_activities
+    ADD CONSTRAINT activity_category_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -1746,6 +2076,14 @@ ALTER TABLE ONLY ip_locations
 
 
 --
+-- Name: milestones milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY milestones
+    ADD CONSTRAINT milestones_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1794,11 +2132,35 @@ ALTER TABLE ONLY rules_misseds
 
 
 --
+-- Name: school_subscriptions school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY school_subscriptions
+    ADD CONSTRAINT school_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schools_admins schools_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_admins
+    ADD CONSTRAINT schools_admins_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schools schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schools
     ADD CONSTRAINT schools_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schools_users schools_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schools_users
+    ADD CONSTRAINT schools_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -1866,6 +2228,22 @@ ALTER TABLE ONLY units
 
 
 --
+-- Name: user_milestones user_milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_milestones
+    ADD CONSTRAINT user_milestones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_subscriptions user_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_subscriptions
+    ADD CONSTRAINT user_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1878,6 +2256,20 @@ ALTER TABLE ONLY users
 --
 
 CREATE INDEX aut ON activities_unit_templates USING btree (activity_id, unit_template_id);
+
+
+--
+-- Name: email_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX email_idx ON users USING gin (email gin_trgm_ops);
+
+
+--
+-- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON activity_category_activities USING btree (activity_id, activity_category_id);
 
 
 --
@@ -2021,10 +2413,24 @@ CREATE INDEX index_classroom_activities_on_classroom_id ON classroom_activities 
 
 
 --
+-- Name: index_classroom_activities_on_classroom_id_and_pinned; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
+
+
+--
 -- Name: index_classroom_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING btree (unit_id);
+
+
+--
+-- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
 
 
 --
@@ -2046,6 +2452,13 @@ CREATE INDEX index_classrooms_on_grade ON classrooms USING btree (grade);
 --
 
 CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_level);
+
+
+--
+-- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
 
 
 --
@@ -2112,6 +2525,13 @@ CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
 
 
 --
+-- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_milestones_on_name ON milestones USING btree (name);
+
+
+--
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2144,6 +2564,41 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
+
+
+--
+-- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_school_subscriptions_on_school_id ON school_subscriptions USING btree (school_id);
+
+
+--
+-- Name: index_school_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_school_subscriptions_on_subscription_id ON school_subscriptions USING btree (subscription_id);
+
+
+--
+-- Name: index_schools_admins_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_schools_admins_on_school_id ON schools_admins USING btree (school_id);
+
+
+--
+-- Name: index_schools_admins_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_schools_admins_on_school_id_and_user_id ON schools_admins USING btree (school_id, user_id);
+
+
+--
+-- Name: index_schools_admins_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_schools_admins_on_user_id ON schools_admins USING btree (user_id);
 
 
 --
@@ -2192,7 +2647,7 @@ CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING
 -- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
+CREATE UNIQUE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
 
 
 --
@@ -2210,6 +2665,13 @@ CREATE INDEX index_students_classrooms_on_student_id ON students_classrooms USIN
 
 
 --
+-- Name: index_students_classrooms_on_student_id_and_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON students_classrooms USING btree (student_id, classroom_id);
+
+
+--
 -- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2221,6 +2683,13 @@ CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (nam
 --
 
 CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
+
+
+--
+-- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unit_templates_on_activity_info ON unit_templates USING btree (activity_info);
 
 
 --
@@ -2242,6 +2711,41 @@ CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates
 --
 
 CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
+
+
+--
+-- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_milestones_on_milestone_id ON user_milestones USING btree (milestone_id);
+
+
+--
+-- Name: index_user_milestones_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_milestones_on_user_id ON user_milestones USING btree (user_id);
+
+
+--
+-- Name: index_user_milestones_on_user_id_and_milestone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON user_milestones USING btree (user_id, milestone_id);
+
+
+--
+-- Name: index_user_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_subscriptions_on_subscription_id ON user_subscriptions USING btree (subscription_id);
+
+
+--
+-- Name: index_user_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_subscriptions_on_user_id ON user_subscriptions USING btree (user_id);
 
 
 --
@@ -2273,6 +2777,13 @@ CREATE INDEX index_users_on_flag ON users USING btree (flag);
 
 
 --
+-- Name: index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_google_id ON users USING btree (google_id);
+
+
+--
 -- Name: index_users_on_role; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2298,6 +2809,41 @@ CREATE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
+
+
+--
+-- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
+
+
+--
+-- Name: unique_index_schools_on_ppin; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_schools_on_ppin ON schools USING btree (ppin) WHERE ((ppin)::text <> ''::text);
+
+
+--
+-- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
+
+
+--
+-- Name: unique_index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
+
+
+--
+-- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
 
 
 --
@@ -2754,4 +3300,62 @@ INSERT INTO schema_migrations (version) VALUES ('20170126211938');
 INSERT INTO schema_migrations (version) VALUES ('20170127014847');
 
 INSERT INTO schema_migrations (version) VALUES ('20170127020417');
+
+INSERT INTO schema_migrations (version) VALUES ('20170217201048');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222165119');
+
+INSERT INTO schema_migrations (version) VALUES ('20170313154512');
+
+INSERT INTO schema_migrations (version) VALUES ('20170314181527');
+
+INSERT INTO schema_migrations (version) VALUES ('20170315183853');
+
+INSERT INTO schema_migrations (version) VALUES ('20170412154159');
+
+INSERT INTO schema_migrations (version) VALUES ('20170502185232');
+
+INSERT INTO schema_migrations (version) VALUES ('20170505182334');
+
+INSERT INTO schema_migrations (version) VALUES ('20170505195744');
+
+INSERT INTO schema_migrations (version) VALUES ('20170517152031');
+
+INSERT INTO schema_migrations (version) VALUES ('20170526220204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170718160133');
+
+INSERT INTO schema_migrations (version) VALUES ('20170719192243');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720140557');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720195450');
+
+INSERT INTO schema_migrations (version) VALUES ('20170804154221');
+
+INSERT INTO schema_migrations (version) VALUES ('20170804154740');
+
+INSERT INTO schema_migrations (version) VALUES ('20170809151404');
+
+INSERT INTO schema_migrations (version) VALUES ('20170809202510');
+
+INSERT INTO schema_migrations (version) VALUES ('20170811192029');
+
+INSERT INTO schema_migrations (version) VALUES ('20170817144049');
+
+INSERT INTO schema_migrations (version) VALUES ('20170824150025');
+
+INSERT INTO schema_migrations (version) VALUES ('20170824171451');
+
+INSERT INTO schema_migrations (version) VALUES ('20170911140007');
+
+INSERT INTO schema_migrations (version) VALUES ('20170911191447');
+
+INSERT INTO schema_migrations (version) VALUES ('20170914145423');
+
+INSERT INTO schema_migrations (version) VALUES ('20170920133317');
+
+INSERT INTO schema_migrations (version) VALUES ('20170920211610');
+
+INSERT INTO schema_migrations (version) VALUES ('20170928203242');
 

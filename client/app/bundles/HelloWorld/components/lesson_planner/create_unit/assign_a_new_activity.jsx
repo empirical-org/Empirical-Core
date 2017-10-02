@@ -1,63 +1,101 @@
 'use strict'
 import React from 'react'
 import AssignmentTypeMini from './assignment_type_mini.jsx'
-
-
+import LessonTypeMini from '../../shared/lesson_type_mini.jsx'
 
 export default React.createClass({
-  propTypes: {
-    toggleTab: React.PropTypes.func.isRequired
-  },
-
   minis: function(){
     let minis =
       [
-        <a href='/diagnostic#/stage/1'
-            key={1}>
           <AssignmentTypeMini
-            toggleTab={this.props.toggleTab}
-            title={'Beta: Entry Diagnostic'}
+            link='/teachers/classrooms/assign_activities/assign-a-diagnostic'
+            key={'diagnostics'}
+            title={'Entry Diagnostics'}
             img={'/images/diagnostic_icon.svg'}
-            bodyText={'Find your students’ writing abilities through a 15 question diagnostic.'}
+            bodyText={[<span key={1}>Find your students’ writing abilities with</span>, <br key={2}></br>, <span key={3}>a 22 question diagnostic.</span>]}
             directions={'use intermittently'}
-            quantity={1}
-            unit={'Beta: Diagnostic'}
+            quantity={2}
+            unit={'Diagnostic'}
             timeDuration={'~20 Min.'}
-            />
-          </a>,
-          <AssignmentTypeMini
-            key={2}
-            toggleTab={this.props.toggleTab}
-            toggleTarget={'exploreActivityPacks'}
-            title={'Featured Activity Packs'}
-            img={'/images/featured_activity_pack_icon.png'}
-            bodyText={'Quickly assign packs of activities created by experienced educators.'}
-            directions={'use continuously'}
-            routeToGetQuantity={'/count/featured_packs'}
-            unit={'Pack'}
-            timeDuration={'~1 Hour'}
           />,
-          <AssignmentTypeMini
-            key={3}
-            toggleTab={this.props.toggleTab}
-            toggleTarget={'createUnit'}
-            title={'Custom Activity Packs'}
-            img={'/images/custom_activity_pack_icon.svg'}
-            bodyText={'Browse through our entire library of activities and create a custom sequence.'}
-            directions={'use continuously'}
-            routeToGetQuantity={'/count/activities'}
-            unit={'Activity'}
-            timeDuration={'~10 Min.'}
-          />
+            <AssignmentTypeMini
+              link='/teachers/classrooms/assign_activities/featured-activity-packs'
+              key={'featured'}
+              toggleTarget={'exploreActivityPacks'}
+              title={'Featured Activity Packs'}
+              img={'/images/featured_activity_pack_icon.png'}
+              bodyText={[<span key={1}>Quickly assign packs of activities created</span>, <br key={2}></br>, <span key={3}>by experienced educators.</span>]}
+              directions={'use continuously'}
+              routeToGetQuantity={'/count/featured_packs'}
+              unit={'Pack'}
+              timeDuration={'~1 Hour'}
+            />,
+            <AssignmentTypeMini
+              link='/teachers/classrooms/assign_activities/create-unit'
+              key={'custom'}
+              toggleTarget={'createUnit'}
+              title={'Explore All Activities'}
+              img={'/images/custom_activity_pack_icon.svg'}
+              bodyText={'Browse our entire library of activities and create your own activity pack.'}
+              directions={'use continuously'}
+              routeToGetQuantity={'/count/activities'}
+              unit={'Activity'}
+              timeDuration={'~10 Min.'}
+            />
         ]
       return minis
+},
+
+tools: function() {
+  const userFlag = document.getElementById('current-user-flag').getAttribute('content');
+  return [
+  <LessonTypeMini
+    key={'diagnostic'}
+    link='/teachers/classrooms/assign_activities/create-unit?tool=diagnostic'
+    name='Quill Diagnostic'
+    description='Identify Learning Gaps'
+    imgSrc={`${process.env.CDN_URL}/images/icons/diagnostic-light-gray.svg`}
+  />,
+  <LessonTypeMini
+    key={'lessons'}
+    link='/teachers/classrooms/assign_activities/create-unit?tool=lessons'
+    name='Quill Lessons'
+    description='Shared Group Lessons'
+    imgSrc={`${process.env.CDN_URL}/images/icons/lessons-light-gray.svg`}
+  />,
+  <LessonTypeMini
+    key={'connect'}
+    link='/teachers/classrooms/assign_activities/create-unit?tool=connect'
+    name='Quill Connect'
+    description='Combine Sentences'
+    imgSrc={`${process.env.CDN_URL}/images/icons/connect-light-gray.svg`}
+  />,
+  <LessonTypeMini
+    key={'grammmar'}
+    link='/teachers/classrooms/assign_activities/create-unit?tool=sentence'
+    name='Quill Grammar'
+    description='Practice Basic Grammar'
+    imgSrc={`${process.env.CDN_URL}/images/icons/grammar-light-gray.svg`}
+  />,
+  <LessonTypeMini
+    key={'proofreader'}
+    link='/teachers/classrooms/assign_activities/create-unit?tool=passage'
+    name='Quill Proofreader'
+    description='Find and Fix Errors in Passages'
+    imgSrc={`${process.env.CDN_URL}/images/icons/proofreader-light-gray.svg`}
+  />,
+  <div key='superfluous element' style={{width: '300px', height: '0px'}}>
+  </div>
+  ]
 },
 
 render: function(){
   return(
     <div id='assign-new-activity-page' className='text-center'>
       <h1>Choose which type of assignment you'd like to use:</h1>
-    <div className='minis'>{this.minis()}</div>
+      <div className='minis'>{this.minis()}</div>
+      <h1>Search all activities by tool:</h1>
+      <div className="tools">{this.tools()}</div>
     </div>
   )
 }

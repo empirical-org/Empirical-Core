@@ -2,8 +2,9 @@ class StudentsClassrooms < ActiveRecord::Base
   include CheckboxCallback
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"
-  validates :student, uniqueness: {scope: :classroom}
-  after_save :after_save_callback
+  # validates uniqueness of student/classroom on db
+  after_save :checkbox
+  after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}
 
@@ -13,10 +14,14 @@ class StudentsClassrooms < ActiveRecord::Base
 
   private
 
-  def after_save_callback
+  def checkbox
     if self.classroom
       find_or_create_checkbox('Add Students', self.classroom.teacher)
     end
+  end
+
+  def invalidate_classroom_minis
+    $redis.del("user_id:#{self.classroom.teacher_id}_classroom_minis")
   end
 
 end

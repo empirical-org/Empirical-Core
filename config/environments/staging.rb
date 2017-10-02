@@ -55,19 +55,15 @@ EmpiricalGrammar::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store, ENV["REDISTOGO_URL"], { expires_in: 90.minutes }
+  config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "//d2fl6wce3dth35.cloudfront.net"
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile += %w(epiceditor/themes/base/epiceditor.css
-                                 epiceditor/themes/preview/github.css
-                                 epiceditor/themes/editor/epic-dark.css
-                                 codemirror.css
+  config.assets.precompile += %w(
                                  cms.js
-                                 porthole.js
                                  cms.css
                                  scorebook/*
                                  scorebook/**/*

@@ -15,4 +15,4 @@
     = f.label :password_confirmation
     = f.password_field :password_confirmation
     = f.submit 'Save'
-  = link_to 'Destroy', [:cms, @user], method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger destroy'
+  = link_to 'Clear User Data', [:clear_data_cms, @user], method: :put, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger destroy'

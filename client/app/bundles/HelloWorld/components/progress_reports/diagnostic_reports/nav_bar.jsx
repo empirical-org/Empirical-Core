@@ -5,6 +5,7 @@ import React from 'react'
 import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown.jsx'
 import NavButtonGroup from './nav_button_group.jsx'
 import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx'
+import $ from 'jquery'
 
 export default React.createClass({
   propTypes: {
@@ -16,6 +17,16 @@ export default React.createClass({
     selectedClassroom: React.PropTypes.object,
     selectedStudentId: React.PropTypes.string,
     params: React.PropTypes.object
+  },
+
+  componentWillMount: function(){
+    if (window.location.hash.includes('/a/413', '/a/447')) {
+      $('.activity-analysis-tab').removeClass('active');
+      $('.diagnostic-tab').addClass('active');
+    } else {
+      $('.diagnostic-tab').removeClass('active');
+      $('.activity-analysis-tab').addClass('active');
+    }
   },
 
 
@@ -49,12 +60,7 @@ export default React.createClass({
     return (
       <div className='diagnostic-nav-container'>
         <div id='reports-navbar'>
-          <h1>{this.props.selectedActivity.name}      <div className="how-we-grade">
-                  <p className="title title-not-started">
-                    <a href="http://support.quill.org/knowledgebase/articles/545071-how-we-grade">How We Grade</a>
-                    <a href=""><i className="fa fa-long-arrow-right" /></a>
-                  </p>
-                </div></h1>
+          <h1>{this.props.selectedActivity.name}</h1>
           <p>{this.props.selectedActivity.description}</p>
           <div className='nav-elements'>
             <ClassroomDropdown classrooms={this.props.classrooms || [{name: 'Please Add a Classroom', id: null}]}

@@ -55,7 +55,7 @@ export default React.createClass({
   selectOption: function (event) {
     var schoolId, schoolObject;
     schoolId = event.target.value;
-    schoolObject = _.findWhere(this.props.schoolOptions, {id: parseInt(schoolId)});
+    schoolObject = this.props.schoolOptions.find((so) => { return so.id == parseInt(schoolId) })
     this.props.updateSchool(schoolObject);
   },
 
@@ -73,7 +73,7 @@ export default React.createClass({
     var action = this.props.selectedSchool && this.props.selectedSchool.text ?
                 'Edit' : 'Add'
     return(
-    <button type='button' className='button btn button-green' data-toggle="modal" data-target="#myModal">
+    <button type='button' className='form-button button btn button-blue add-school' data-toggle="modal" data-target="#myModal">
       {action + ' School'}
     </button>
     )
@@ -83,7 +83,7 @@ export default React.createClass({
     var schoolOptions, initialValue;
     if (this.props.schoolOptions.length == 0) {
       schoolOptions = <option value="enter-zipcode">Enter Your School&#39;s Zip Code</option>;
-      initialValue = "enter-zipcode";
+      initialValue = 'enter-zipcode';
     } else {
       schoolOptions = _.map(this.props.schoolOptions, function (schoolOption) {
         return <option key={schoolOption.id} value={schoolOption.id}>{schoolOption.text}</option>;
@@ -92,7 +92,7 @@ export default React.createClass({
         initialValue = this.props.selectedSchool.id;
       } else {
         var defaultOption = <option key='choose' value="choose">Choose Your School</option>;
-        initialValue = "choose";
+        initialValue = 'choose';
         schoolOptions.unshift(defaultOption);
       }
     }
@@ -101,7 +101,7 @@ export default React.createClass({
       return (
         <div>
               <div className='zip-row'>
-                <div className='form-label zip'>
+                <div className='zip'>
                   Add Your School's ZIP Code
                 </div>
                 <div>
@@ -113,7 +113,7 @@ export default React.createClass({
                          placeholder="Zip"/>
                 </div>
               </div>
-              <div className='form-label'>
+              <div className='name'>
                   School Name
               </div>
                 <div>
@@ -129,22 +129,18 @@ export default React.createClass({
     } else {
       return (
         <div>
-        <div className='row '>
-          <div className='form-label col-xs-2'>
+        <div className='form-row'>
+          <div className='form-label'>
             School
           </div>
-          <div className='col-xs-3'>
+          <div className='form-input'>
             <input
                     className='inactive'
-                    value={this.schoolName()}>
+                    defaultValue={this.schoolName()}
+                    readOnly>
             </input>
           </div>
-          <div className='col-xs-3'>
-            {this.editschoolButton()}
-          </div>
-          <div className='error'>
-            {this.props.errors}
-          </div>
+          {this.editschoolButton()}
         </div>
         {this.modal()}
       </div>

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import _ from 'lodash'
+import ScrollToTop from '../components/shared/scroll_to_top'
 import ResultsIcon from '../components/activities/results_page/results_icon.jsx'
 import StudentResultsTables from '../components/activities/results_page/student_results_tables.jsx'
 
@@ -43,6 +44,7 @@ export default React.createClass({
       <div
         id='results-page'
         className='container-fluid'>
+        <ScrollToTop />
         <div className='top-section'>
           <ResultsIcon
             percentage={this.props.percentage}

@@ -4,9 +4,14 @@
 
     <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
 
-      <li class="<%= (!is_progress_report_page?) && ((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account', 'teacher_guide'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
+      <li class="<%= (!is_progress_report_page?) && ((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab' %>
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', class: 'mobile' %>
+      </li>
+
+      <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
+        <%= link_to "My Activities", lesson_planner_teachers_classrooms_path, role: 'tab' %>
+        <%= link_to "My Activities", lesson_planner_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
       </li>
 
       <li class="<%= (is_progress_report_page? || (action_name == 'scorebook')) ? 'active' : '' %>">
@@ -14,11 +19,17 @@
         <%= link_to "Reports", '/teachers/progress_reports/landing_page', role: 'tab', class: 'mobile' %>
       </li>
 
-      <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
-        <%= link_to "Activity Planner", lesson_planner_teachers_classrooms_path, role: 'tab' %>
-        <%= link_to "Planner", lesson_planner_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
+      <li class="<%= controller_name == 'classroom_manager' && action_name == 'assign_activities' ? 'active' : '' %>" >
+        <%= link_to "Assign Activities", assign_activities_teachers_classrooms_path, role: 'tab' %>
+        <%= link_to "Assign", assign_activities_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
       </li>
 
+      <%- if current_user.admin? %>
+        <li class="<%= (action_name == 'admin_dashboard') ? 'admin-tab active' : 'admin-tab' %>">
+          <%= link_to raw('School Dashboard'), teachers_admin_dashboard_path, role: 'tab' %>
+          <%= link_to 'School', teachers_admin_dashboard_path, role: 'tab', class: 'mobile'  %>
+        </li>
+      <% end %>
       <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
         <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
           <%= link_to raw(premium_tab_copy), premium_path, role: 'tab' %>

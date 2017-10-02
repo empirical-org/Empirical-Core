@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EducatorType component should render if stage is 1 1`] = `
+<div
+  className="educator-type"
+>
+  <h3>
+    Are you a faculty member at a U.S K-12 School?*
+  </h3>
+  <div
+    className="option-wrapper"
+  >
+    <button
+      className="button-green"
+      onClick={[Function]}
+    >
+      Yes
+    </button>
+    <button
+      className="button-green"
+      onClick={[Function]}
+    >
+      No
+    </button>
+  </div>
+  <div>
+    *K-12 is a term for school grades prior to college.
+    <br />
+    These grades span from kindergarten through the 12th grade.
+  </div>
+</div>
+`;

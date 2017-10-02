@@ -1,28 +1,31 @@
 <section class="tool-header">
   <%= render partial: 'pages/shared/home_navbar' %>
   <% @active_tab = 'Quill Diagnostic' %>
+  <% @tool = 'diagnostic' %>
   <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
-<div class="tool-container">
+<div class="tool-container diagnostic-tool-page">
 
-    <section class='tool-hero text-center bg-darkred bg-image-diagnostic-pattern'>
+    <section class='tool-hero text-center bg-darkred'>
         <h1 class="q-h1">
-            Quill Diagnostic
+            <img class="tool-page-icon" src='/images/quill_diagnostic_white.svg'>Quill Diagnostic
         </h1>
         <p class='description'>
             Quickly determine which skills your students need to work on with our 22 question diagnostic. The diagnostic covers vital sentence construction skills and generates a personalized learning plan based on the student’s performance.
         </p>
+        <a href='https://connect.quill.org/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Try Quill Diagnostic Now</a>
     </section>
 
-    <section class="tool-animation-section ">
+    <section class="tool-animation-section " id="overview">
           <video class='tool-animation' src="/videos/diagnostic.mp4" autoplay loop/>
     </section>
 
-    <section class="diagnostic-walk-thru-wrapper desktop">
+    <section class="walk-thru-wrapper desktop" id="how-it-works">
         <div class="walk-thru-step flex-row vertically-centered">
-            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
+            <div class="content-wrapper flex-row space-between vertically-centered">
                 <img src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+                <div class="blurb">
                     <h2>What's Being Tested</h2>
                     <p>
                         The diagnostic covers eight fundamental areas of sentence structure, giving you insight into your students’ ability to effectively create both basic and advanced sentences.
@@ -31,9 +34,27 @@
             </div>
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
-            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
-                <img id='negative-left-margin' src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img id='ell-diagnostic-img' src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
+                <div class="blurb">
+                    <h2>ELL Diagnostic <img src="/images/tools/diagnostic/new_tag.svg"></h2>
+                    <p>
+                        Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners. The diagnostic also offers directions in
+                        <img src="/images/flags/spain.png">Spanish,
+                        <img src="/images/flags/china.png">Mandarin,
+                        <img src="/images/flags/france.png">French,<br/>
+                        <img src="/images/flags/vietnam.png">Vietnamese,
+                        <img src="/images/flags/egypt.png">Arabic, and
+                        <img src="/images/flags/india.png">Hindi.
+                        <a class="ell-press-announcement" target="_blank" href="https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692">Learn more here.</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img class='negative-left-margin' src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
+                <div class="blurb">
                     <h2>Student Responses Analyzed</h2>
                     <p>
                         Quill automatically analyzes and grades open-ended responses. It identifies the writing skills students know and the skills they need to practice.
@@ -42,9 +63,9 @@
             </div>
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
-            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
-                <img src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
+                <div class="blurb">
                     <h2>Recommended Activities</h2>
                     <p>
                         You can then view a variety of reports to identify individual student and class-wide learning gaps. Quill generates a personalized learning plan for students based on where they need the most help.
@@ -53,22 +74,23 @@
             </div>
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
-            <div class="diagnostic-content-wrapper flex-row space-between vertically-centered">
-                <img src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_5.svg" alt="diagnostic image">
+                <div class="blurb">
                     <h2>Evidence Based</h2>
                     <p>
                         The diagnostic evaluates student writing using an evidence based strategy called sentence combining. This strategy explicitly teaches students how to write sophisticated, complex sentences.
                     </p>
+                    <p class="need-links"><a href="/">Check out the research.</a></p>
                 </div>
             </div>
         </div>
     </section>
-    <section class="diagnostic-walk-thru-wrapper mobile">
+    <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
         <div class="walk-thru-step">
-            <div class="diagnostic-content-wrapper">
+            <div class="content-wrapper">
                 <img src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+                <div class="blurb">
                     <h2>What's Being Tested</h2>
                     <p>
                         The diagnostic covers eight fundamental areas of sentence structure, giving you insight into your students’ ability to effectively create both basic and advanced sentences.
@@ -77,9 +99,27 @@
             </div>
         </div>
         <div class="walk-thru-step">
-            <div class="diagnostic-content-wrapper">
+            <div class="content-wrapper">
                 <img id='shrink-me' src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+                <div class="blurb">
+                  <h2>ELL Diagnostic<img src="/images/tools/diagnostic/new_tag.svg"></h2>
+                    <p>
+                        Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners. The diagnostic also offers directions in
+                        <img src="/images/flags/spain.png">Spanish,
+                        <img src="/images/flags/china.png">Mandarin,
+                        <img src="/images/flags/france.png">French,
+                        <img src="/images/flags/vietnam.png">Vietnamese,
+                        <img src="/images/flags/egypt.png">Arabic, and
+                        <img src="/images/flags/india.png">Hindi.
+                        <a class="ell-press-announcement" target="_blank" href="https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692">Learn more here.</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="walk-thru-step">
+            <div class="content-wrapper">
+                <img id='shrink-me' src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
+                <div class="blurb">
                     <h2>Student Responses Analyzed</h2>
                     <p>
                         Quill automatically analyzes and grades open-ended responses. It identifies the writing skills students know and the skills they need to practice.
@@ -88,9 +128,9 @@
             </div>
         </div>
         <div class="walk-thru-step">
-            <div class="diagnostic-content-wrapper">
-                <img src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+            <div class="content-wrapper">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
+                <div class="blurb">
                     <h2>Recommended Activities</h2>
                     <p>
                         You can then view a variety of reports to identify individual student and class-wide learning gaps. Quill generates a personalized learning plan for students based on where they need the most help.
@@ -99,19 +139,20 @@
             </div>
         </div>
         <div class="walk-thru-step">
-            <div class="diagnostic-content-wrapper">
-                <img src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
-                <div class="diagnostic-blurb">
+            <div class="content-wrapper">
+                <img src="/images/tools/diagnostic/diagnostic_intro_slide_5.svg" alt="diagnostic image">
+                <div class="blurb">
                     <h2>Evidence Based</h2>
                     <p>
                         The diagnostic evaluates student writing using an evidence based strategy called sentence combining. This strategy explicitly teaches students how to write sophisticated, complex sentences.
                     </p>
+                    <p class="need-links"><a href="/">Check out the research.</a></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="tool-carousel">
+    <section class="tool-carousel" id="walkthrough">
         <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
             <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
@@ -165,25 +206,25 @@
         </div>
     </section>
 
-    <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern">
-        <h2 class='q-h1'>Try It Yourself!</h2>
-        <a href='https://quillconnect.firebaseapp.com/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
+    <section class="tool-try-it bg-darkred bg-image-diagnostic-pattern-magnifier">
+        <h2 class='q-h1'>Try It Out for Yourself</h2>
+        <a href='https://connect.quill.org/#/play/diagnostic/fNAwNLJDkc2T8O5lBeJQwg' target="_blank" class="q-button cta-button bg-white text-darkred">Preview the Diagnostic</a>
     </section>
 
-    <section class="tool-testimonial">
-        <!-- <img class='q-headshot' src="/images/daniel_scibienski_90.png" alt="Daniel Scibienski"> -->
+    <section class="tool-testimonial" id="testimonial">
+        <!-- <img class='q-headshot' src="/images/daniel_90.png" alt="Daniel Scibienski"> -->
         <p class='quote'>
             "It was very useful to see which concepts students needed more help with. It is extremely beneficial if I want to work on grouping students based on skill."
         </p>
         <h4 class="q-h4 author">
-            NORMA BONILLA, DOWNTOWN COLLEGE PREP
+            <span>Norma Bonilla,</span> Downtown College Prep
         </h4>
         <a href="/activities/packs/20" class='q-button text-black'>
             <span>View My Story</span>
         </a>
     </section>
 
-    <!-- Only how if user is not logged in  -->
+    <!-- Only show if user is not logged in  -->
       <% if !current_user %>
         <section class="tool-sign-up">
             <h1 class='q-h1'>
@@ -195,9 +236,9 @@
       <% else %>
       <section class="tool-sign-up">
           <h1 class='q-h1'>
-              Start using the Quill Diagnostic in your class today!
+              Get started now! Assign the Quill Diagnostic.
           </h1>
-          <a href='/diagnostic#/stage/1' class="q-button cta-button bg-quillgreen text-white">Get Started</a>
+          <a href='/teachers/classrooms/assign_activities/assign-a-diagnostic' class="q-button cta-button bg-quillgreen text-white">Assign</a>
       </section>
       <% end %>
 

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewAccountStage1 component should render  1`] = `
+<div
+  className="container account-form"
+  id="sign-up"
+>
+  <div
+    className="row sign_up_select_role"
+  >
+    <div
+      className="row"
+    >
+      <h3
+        className="col-xs-12"
+      >
+        Sign up for Quill as:
+      </h3>
+    </div>
+    <div
+      className="option-wrapper"
+    >
+      <role_option
+        role="educator"
+        selectRole={[Function]}
+      />
+      <role_option
+        role="student"
+        selectRole={[Function]}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-xs-12"
+      >
+        Already signed up? 
+        <a
+          href="/session/new"
+        >
+          Return to Login
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

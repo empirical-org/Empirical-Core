@@ -1,11 +1,12 @@
 .q-nav-bar {
   margin: auto;
-  max-width: 1000px;
+  max-width: 965px;
   ul {
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
     margin: 0;
+    padding-left: 0px;
   }
 
   li {
@@ -21,7 +22,11 @@
     &:hover {
       background-color: white;
     }
-    &:active, &.active {
+    &.active {
+      a {
+        margin-top: -3px;
+        font-weight: 600;
+      }
       &:after {
         content: "";
         width: 100%;
@@ -49,7 +54,7 @@
     cursor: pointer;
     padding-left: 25px;
     padding-right: 25px;
-
+    display: inline-block;
   }
 
 

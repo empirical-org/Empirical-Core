@@ -12,13 +12,14 @@ export default React.createClass({
 		);
 	},
 
-	directions: (directions) => {
-		if (directions) {
-			return <tr className='directions'>
-				<td>Directions</td>
-				<td />
-				<td><span>{directions}</span></td>
-			</tr>
+	feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
+		if (directionsOrFeedback) {
+			return (
+				<tr className={classNameAndText}>
+					<td>{classNameAndText}</td>
+					<td />
+					<td>{directionsOrFeedback}</td>
+			</tr>)
 		}
 	},
 
@@ -28,27 +29,48 @@ export default React.createClass({
 		let results = [];
 		while (conceptsByAttempt[attemptNum]) {
 			let currAttempt = conceptsByAttempt[attemptNum]
-			let directions = this.directions(currAttempt[0].directions)
+			let feedback = false
+			let nextAttempt = conceptsByAttempt[attemptNum + 1]
+			if (nextAttempt) {
+				let index = 0;
+				// iterate until we find a next attempt with directions
+				while (!feedback && nextAttempt[index]) {
+					feedback = nextAttempt[index].directions
+					index++
+				}
+				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
+				if (typeof feedback === 'string') {
+					feedback = this.feedbackOrDirections(feedback, 'Feedback')
+				}
+			}
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
 				concept.correct ? score++ : null;
-				return [<ConceptResultTableRow key={concept.id} concept={concept}/>]
+				return [<ConceptResultTableRow key={concept.id + attemptNum} concept={concept}/>]
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
-			let scoreRow = this.scoreRow(currAttempt[0].answer, attemptNum, averageScore)
-			attemptNum > 1 ? results.push(directions, scoreRow, concepts) : results.push(scoreRow, concepts)
+			let scoreRow = this.scoreRow(conceptsByAttempt[attemptNum][0].answer, attemptNum, averageScore)
+			feedback ? results.push(scoreRow, feedback, concepts) : results.push(scoreRow, concepts)
 			if (conceptsByAttempt[attemptNum + 1]) {
-				results.push(<tr/>)
+				results.push(this.emptyRow(attemptNum + averageScore))
 			}
 			attemptNum ++;
 		}
 		return results;
 	},
 
+	emptyRow: function(key){
+		return (<tr key={'empty-row'+key}>
+							<td/>
+							<td/>
+							<td/>
+						</tr>)
+	},
+
 	scoreRow: function(answer, attemptNum, averageScore) {
 		return (
-			<tr className={ScoreColor(averageScore)}>
-				<td>{`${NumberSuffix(attemptNum)} Response`}</td>
+			<tr key={attemptNum + answer}className={ScoreColor(averageScore)}>
+				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
 				<td />
 				<td>{answer}</td>
 			</tr>
@@ -56,12 +78,15 @@ export default React.createClass({
 	},
 
 	questionScore: function() {
-		if (this.props.questionData.questionScore) {
+		// occassionally there is no questionScore
+		// don't just do ...questionData && ...questionData.questionScore because
+		// if it questionScore is zero it will evaluate to false
+		if (typeof this.props.questionData.questionScore !== undefined) {
 			return (
 						<tr>
 							<td>Score</td>
 							<td/>
-							<td>{this.props.questionData.questionScore}%</td>
+							<td>{this.props.questionData.questionScore * 100}%</td>
 						</tr>
 			);
 		}
@@ -78,14 +103,14 @@ export default React.createClass({
 								<table>
 									<tbody>
 										{header}
-										{this.directions(data.directions)}
+										{this.feedbackOrDirections(data.directions, 'Directions')}
 										<tr>
 											<td>Prompt</td>
 											<td/>
 											<td>{data.prompt}</td>
 										</tr>
 										{this.questionScore()}
-										<tr/>
+										{this.emptyRow()}
 										{this.conceptsByAttempt()}
 	        				</tbody>
 								</table>

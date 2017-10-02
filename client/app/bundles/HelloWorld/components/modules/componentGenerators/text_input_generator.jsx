@@ -25,7 +25,7 @@ export default function (component, update, options) {
       }
 
       return <TextInput key={ele.name}
-                           update={config.update}
+                           update={update}
                            name={ele.name}
                            label={ele.label}
                            errors={config.errors}

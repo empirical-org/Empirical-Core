@@ -4,8 +4,24 @@
 		border-bottom: 1px solid rgb(206,206,206);
 	}
 
+	.icons-wrapper.icon-legend {
+		.icons {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			.icon {
+				display: flex;
+				align-items: center;
+			}
+		}
+	}
+
 	.dropdown-menu {
 		margin-left: 15px;
+	}
+
+	.student-name {
+		margin-bottom: 1em;
 	}
 
 	.date-range-filter {

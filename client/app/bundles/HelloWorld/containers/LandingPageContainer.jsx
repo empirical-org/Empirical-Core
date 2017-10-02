@@ -11,7 +11,7 @@ export default React.createClass({
   },
 
   componentDidMount: function(){
-    let that = this;s
+    let that = this;
     $.get('/current_user_json', function(data) {
       that.setState({flag: data.flag,loading: false})
     })

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RoleOption component should render a button 1`] = `
+<button
+  className="select_student button-green"
+  onClick={[Function]}
+>
+  Student
+</button>
+`;

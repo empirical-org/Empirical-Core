@@ -1,4 +1,9 @@
+require 'newrelic_rpm'
+require 'new_relic/agent'
+
 class ActivitySession < ActiveRecord::Base
+
+  include ::NewRelic::Agent
 
   include Uid
   include Concepts
@@ -10,10 +15,8 @@ class ActivitySession < ActiveRecord::Base
   has_many :concept_results
   has_many :concepts, -> { uniq }, through: :concept_results
 
+  validate :correctly_assigned, :on => :create
 
-  validate :correctly_assigned
-
-  accepts_nested_attributes_for :concept_results, :reject_if => proc { |cr| Concept.where(uid: cr[:concept_uid]).empty? }
 
   ownable :user
 
@@ -21,7 +24,9 @@ class ActivitySession < ActiveRecord::Base
   before_save   :set_completed_at
   before_save   :set_activity_id
 
-  after_save    :determine_if_final_score
+  after_save    :determine_if_final_score, :update_milestones
+
+  after_commit :invalidate_activity_session_count_if_completed
 
   around_save   :trigger_events
 
@@ -30,13 +35,13 @@ class ActivitySession < ActiveRecord::Base
 
   scope :completed,  -> { where('completed_at is not null') }
   scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
-  scope :started_or_better, -> { where("state != 'unstarted'") }
-
-  scope :current_session, -> {
-    complete_session   = completed.first
-    incomplete_session = incomplete.first
-    (complete_session || incomplete_session)
-  }
+  # scope :started_or_better, -> { where("state != 'unstarted'") }
+  #
+  # scope :current_session, -> {
+  #   complete_session   = completed.first
+  #   incomplete_session = incomplete.first
+  #   (complete_session || incomplete_session)
+  # }
 
   RESULTS_PER_PAGE = 25
 
@@ -116,25 +121,16 @@ class ActivitySession < ActiveRecord::Base
 
   def display_due_date_or_completed_at_date
     if self.completed_at.present?
-      "Completed #{self.completed_at.strftime('%A, %B %d, %Y')}"
+      "#{self.completed_at.strftime('%A, %B %d, %Y')}"
     elsif (self.classroom_activity.present? and self.classroom_activity.due_date.present?)
-      "Due #{self.classroom_activity.due_date.strftime('%A, %B %d, %Y')}"
+      "#{self.classroom_activity.due_date.strftime('%A, %B %d, %Y')}"
     else
       ""
     end
   end
 
   def percentile
-    case percentage
-    when 0.75..1.0
-      1.0
-    when 0.5..0.75
-      0.75
-    when 0.0..0.5
-      0.5
-    else
-      0.0
-    end
+    ProficiencyEvaluator.lump_into_center_of_proficiency_band(percentage)
   end
 
   def percentage_as_percent_prefixed_by_scored
@@ -213,13 +209,23 @@ class ActivitySession < ActiveRecord::Base
     super
   end
 
+  def invalidate_activity_session_count_if_completed
+    classroom_id = self.classroom_activity&.classroom_id
+    if self.state == 'finished' && classroom_id
+      $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
+    end
+  end
+
   private
+
+
 
   def correctly_assigned
     if self.classroom_activity && (classroom_activity.validate_assigned_student(self.user_id) == false)
       begin
-        puts 'Student was not assigned this activity'
-      rescue
+        raise 'Student was not assigned this activity'
+      rescue => e
+        NewRelic::Agent.notice_error(e)
         errors.add(:incorrectly_assigned, "student was not assigned this activity")
       end
     else
@@ -230,8 +236,7 @@ class ActivitySession < ActiveRecord::Base
   def self.search_sort_sql(sort)
     if sort.blank? or sort[:field].blank?
       sort = {
-        field: 'completed_at',
-        direction: 'desc'
+        field: 'student_name',
       }
     end
 
@@ -244,11 +249,13 @@ class ActivitySession < ActiveRecord::Base
     # The matching names for this case statement match those returned by
     # the progress reports ActivitySessionSerializer and used as
     # column definitions in the corresponding React component.
+    last_name = "substring(users.name, '(?=\s).*')"
+
     case sort[:field]
     when 'activity_classification_name'
-      "activity_classifications.name #{order}, users.name #{order}"
+      "activity_classifications.name #{order}, #{last_name} #{order}"
     when 'student_name'
-      "users.name #{order}"
+      "#{last_name} #{order}, users.name #{order}"
     when 'completed_at'
       "activity_sessions.completed_at #{order}"
     when 'activity_name'
@@ -284,6 +291,15 @@ class ActivitySession < ActiveRecord::Base
   def set_completed_at
     return true if state != 'finished'
     self.completed_at ||= Time.current
+  end
+
+  def update_milestones
+    # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
+    # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
+    # or started.
+    if self.state == 'finished'
+      UpdateMilestonesWorker.perform_async(self.uid)
+    end
   end
 
 end

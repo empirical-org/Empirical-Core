@@ -33,7 +33,7 @@
       var selected = _.where(this.props.students, {isSelected: true});
       allSelected = (selected.length == this.props.students.length);
     } else {
-      allSelected = false;
+      allSelected = this.props.allSelected;
     }
     return (
         <input type='checkbox'
@@ -50,7 +50,12 @@
 
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <Student key={student.id} student={student} classroom={this.props.classroom} toggleStudentSelection={this.props.toggleStudentSelection}/>;
+      return <Student
+                      key={`c${this.props.classroom.id}s${student.id}`}
+                      student={student}
+                      classroom={this.props.classroom}
+                      handleStudentCheckboxClick={this.props.handleStudentCheckboxClick}
+                      toggleStudentSelection={this.props.toggleStudentSelection}/>;
     }, this);
 
     return (
@@ -61,7 +66,7 @@
               <span>
                 Select Entire Class
               </span>
-              <Button className='toggle-button pull-right' onClick={()=> this.setState({ open: !this.state.open })}>
+              <Button className='toggle-button pull-right select-by-student-button' onClick={()=> this.setState({ open: !this.state.open })}>
                 <span className='pull-right panel-select-by-student' >
                   Select by Student <i className={'fa fa-angle-' + this.angleIcon()}></i>
                 </span>

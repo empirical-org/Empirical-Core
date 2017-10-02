@@ -10,7 +10,7 @@ class TestForEarnedCheckboxesWorker
     find_or_create_checkbox('Add Students', teacher, flag) if teacher.students.any?
     #finds all types of assigned units and ensures they have checkboxes
     assigned_unit_types = teacher.classrooms_i_teach.map(&:classroom_activities).flatten.map(&:checkbox_type).uniq.each{|type| find_or_create_checkbox(type, teacher)}
-    find_or_create_checkbox('Add School', teacher) if teacher.schools.any?
+    find_or_create_checkbox('Add School', teacher) if teacher.school.present?
   end
 
 

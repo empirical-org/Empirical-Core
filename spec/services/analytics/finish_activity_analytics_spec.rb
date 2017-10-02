@@ -14,8 +14,8 @@ describe "FinishActivityAnalytics" do
     let!(:classroom) { FactoryGirl.create(:classroom) }
     # This object graph is kind of crazy and doesn't make all that much sense.
 
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom) }
-    let!(:unit) {FactoryGirl.create(:unit, classroom_activities: [classroom_activity])}
+    let!(:unit) {FactoryGirl.create(:unit)}
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: unit) }
 
     let!(:activity_session) { FactoryGirl.create(:activity_session,
                                                 state: 'finished',
@@ -26,7 +26,7 @@ describe "FinishActivityAnalytics" do
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_COMPLETION)
-      expect(track_calls[0][:user_id]).to eq(activity_session.classroom_activity.classroom.teacher.id)
+      expect(track_calls[0][:user_id]).to eq(activity_session.classroom_activity.classroom.teacher_id)
     end
   end
 

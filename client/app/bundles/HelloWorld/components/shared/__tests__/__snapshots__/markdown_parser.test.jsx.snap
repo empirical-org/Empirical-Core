@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MarkdownParser component should render <ReactMarkdown /> 1`] = `
+<ReactMarkdown
+  className="markdown-text undefined"
+  containerTagName="div"
+  parserOptions={Object {}}
+  renderers={
+    Object {
+      "Link": [Function],
+    }
+  }
+  source=""
+/>
+`;

@@ -1,5 +1,5 @@
 class ClassificationSerializer < ActiveModel::Serializer
-  attributes :uid, :id, :name, :key, :form_url, :module_url, :created_at, :updated_at, :image_class, :alias, :scorebook_icon_class
+  attributes :uid, :id, :name, :key, :form_url, :module_url, :created_at, :updated_at, :green_image_class, :gray_image_class, :alias, :scorebook_icon_class
 
 
   def alias
@@ -9,13 +9,15 @@ class ClassificationSerializer < ActiveModel::Serializer
   	when 2
   		'Quill Grammar'
     when 4
-      'Beta: Quill Diagnostic'
+      'Quill Diagnostic'
     when 5
-      'Beta: Quill Connect'
+      'Quill Connect'
+    when 6
+      'Quill Lessons'
   	end
   end
 
-  def image_class
+  def gray_image_class
   	case object.id
   	when 1
   		'icon-flag-gray'
@@ -25,8 +27,26 @@ class ClassificationSerializer < ActiveModel::Serializer
       'icon-diagnostic-gray'
     when 5
       'icon-connect-gray'
+    when 6
+      'icon-lessons-gray'
     end
   end
+
+  def green_image_class
+    case object.id
+    when 1
+      'icon-flag-green'
+    when 2
+      'icon-puzzle-green'
+    when 4
+      'icon-diagnostic-green'
+    when 5
+      'icon-connect-green'
+    when 6
+      'icon-lessons-green'
+    end
+  end
+
 
   def scorebook_icon_class
     case object.id
@@ -38,6 +58,8 @@ class ClassificationSerializer < ActiveModel::Serializer
       'icon-diagnostic'
     when 5
       'icon-connect'
+    when 6
+      'icon-lessons'
     else
       ''
     end

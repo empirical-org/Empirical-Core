@@ -1,40 +1,89 @@
-#new-classroom {
+.create-a-class-page {
+  background-color: #f6f3f3;
+.create-a-class {
+  max-width: 820px;
+  width: 100%;
+  margin: auto;
   padding-bottom: 54px;
-  max-width: 508px;
+  background-color: #f6f3f3;
+  &:before {
+    content: '';
+    display: block;
+    height: 24px;
+    width: 100%;
+  }
+  #new-classroom, #new-google-classroom {
+    max-width: 405px;
+    width: 100%;
+    display: inline-block;
+  }
+  #new-google-classroom {
+    padding-left: 50px;
+    float: right;
+    img {
+      height: 33px;
+      width: 33px;
+      float: right;
+      margin-right: 10px;
+      margin-top: -7px;
+    }
+    button {
+      margin-top: 42px;
+      width: 272px;
+      font-size: 16px;
+      padding: 8px 19px;
+    }
+  }
+  #new-classroom {
+    border-right: solid 1px #c0c0c0;
+    padding-right: 70px;
+  }
    h1 {
-     margin-top: 32px;
-     font-size: 24px;
-	font-weight: 600;
+     font-size: 20px;
+	   font-weight: 600;
+     margin-bottom: 20px;
    }
    label {
      font-size: 14px;
-     margin: 13px 0 6px 0;
+     max-width: 127px;
+     width: 100%;
      font-weight: 400;
    }
     .dropdown-toggle {
-        padding: 9px;
-        margin: 0 10px 10px 0;
         font-size: 14px;
         font-weight: 500;
         border: solid 1px #d4d4d4;
         text-align: left;
         min-width: 90px;
         color: #b2b2b2;
-        margin-bottom: 13px;
         &.has-grade {
           color: #000;
         }
     }
-    input.inactive {
-      margin-left: 10px;
-      margin-right: 10px;
-      background-color: transparent;
-      margin-bottom: 27px;
+    .input-row {
+      margin-bottom: 10px;
+      input, .dropdown-toggle {
+        width: 188px;
+        &.inactive {
+          background-color: transparent;
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 1.05;
+          letter-spacing: 1px;
+        }
+      }
     }
     #regenerate-class-code {
-      margin-left: 10px;
+      margin-left: 127px;
       color:  #027360;
       cursor: pointer;
+      margin-bottom: 50px;
+      max-width: 188px;
+      width: 100%;
+      text-align: center;
+      i {
+        margin-right: 8px;
+      }
     }
     .errors {
       margin-top: 1em;
@@ -50,4 +99,10 @@
         top: 8px;
         margin-left: 10px;
     }
+    .submit-button {
+      width: 187px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+}
 }

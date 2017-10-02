@@ -1,13 +1,13 @@
 'use strict'
 
 import React from 'react'
-import {Router, Route, Link, hashHistory} from 'react-router'
+import {Router, Route, Link, hashHistory, withRouter} from 'react-router'
 import NavBar from './nav_bar.jsx'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 require('../../../../../assets/styles/app-variables.scss')
 
-export default React.createClass({
+const DiagnosticReports = React.createClass({
 
 	getInitialState: function() {
 		return ({
@@ -18,8 +18,8 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		// /activity_packs and not /not_completed are the only report that doesn't require the classroom, unit, etc...
-		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) === -1) {
+		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
+		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData();
 		}
 		if (this.props.params.studentId) {
@@ -31,7 +31,7 @@ export default React.createClass({
 		if (nextProps.params && nextProps.params.studentId) {
 			this.setStudentId(nextProps.params.studentId);
 		}
-		if (['/activity_packs', '/not_completed'].indexOf(nextProps.location.pathname)) {
+		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData(nextProps.params);
 		}
 	},
@@ -81,7 +81,7 @@ export default React.createClass({
 	changeStudent: function(student) {
 		this.setState({selectedStudentId: student})
 		const p = this.props.params;
-		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
+		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
 	},
 
 	findClassroomById: function(id) {
@@ -104,14 +104,15 @@ export default React.createClass({
 			}
 			else {
 				let reportBeginningIndex = window.location.hash.lastIndexOf('/');
-				report = window.location.hash.substring(reportBeginningIndex + 1);
+				// get report name without hash history junk
+				report = window.location.hash.substring(reportBeginningIndex + 1).split('?').shift()
 			}
-			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
+			this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
 	},
 
 	changeReport: function(reportName) {
 		const p = this.props.params;
-		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
+		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
 	},
 
 	showStudentDropdown: function(){
@@ -121,8 +122,8 @@ export default React.createClass({
 	},
 
 	render: function() {
-		// we don't want to render a navbar for the activity packs or not_complted
-		if (['/activity_packs', '/not_completed'].indexOf(this.props.location.pathname) !== -1) {
+		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
+		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1) {
 			return (
 				<div>{this.props.children}</div>
 			)
@@ -150,3 +151,5 @@ export default React.createClass({
 	}
 
 });
+
+export default withRouter(DiagnosticReports)

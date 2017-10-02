@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 import React from 'react'
 import ProgressReport from './progress_report.jsx'
 import MasteryStatus from './mastery_status.jsx'
@@ -71,9 +71,11 @@ export default  React.createClass({
   },
 
   onFetchSuccess: function(responseData) {
-    this.setState({
-      topic: responseData.topic
-    });
+    if (responseData.topics && responseData.topics.length) {
+      this.setState({
+        topic: responseData.topics[0]
+      });
+    }
   },
 
   render: function() {
@@ -87,7 +89,7 @@ export default  React.createClass({
                          onFetchSuccess={this.onFetchSuccess}
                          filterTypes={['unit']}
                          premiumStatus={this.props.premiumStatus}>
-        <h2>Standards: {this.state.topic.name}</h2>
+        <h2>Standard: {this.state.topic.name}</h2>
       </ProgressReport>
     );
   }

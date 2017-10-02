@@ -1,6 +1,7 @@
 class ProgressReports::Standards::Topic
   def initialize(teacher)
     @teacher = teacher
+    @proficiency_cutoff = ProficiencyEvaluator.proficiency_cutoff
   end
 
   def results(filters)
@@ -15,37 +16,26 @@ class ProgressReports::Standards::Topic
         COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
         COUNT(DISTINCT(best_activity_sessions.user_id)) as total_student_count,
         COALESCE(AVG(proficient_count.user_count), 0)::integer as proficient_student_count,
-        COALESCE(AVG(near_proficient_count.user_count), 0)::integer as near_proficient_student_count,
         COALESCE(AVG(not_proficient_count.user_count), 0)::integer as not_proficient_student_count
       SQL
       ).joins('JOIN topics ON topics.id = best_activity_sessions.topic_id')
       .joins('JOIN sections ON sections.id = topics.section_id')
-      .joins(<<-JOINS
-      LEFT JOIN (
+      .joins("LEFT JOIN (
           select COUNT(DISTINCT(user_id)) as user_count, topic_id
            from best_per_topic_user
-           where avg_score_in_topic >= 0.75
+           where avg_score_in_topic >= #{@proficiency_cutoff}
            group by topic_id
-        ) as proficient_count ON proficient_count.topic_id = topics.id
-      JOINS
+        ) as proficient_count ON proficient_count.topic_id = topics.id"
       ).joins(<<-JOINS
       LEFT JOIN (
           select COUNT(DISTINCT(user_id)) as user_count, topic_id
            from best_per_topic_user
-           where avg_score_in_topic < 0.75 AND avg_score_in_topic >= 0.50
-           group by topic_id
-        ) as near_proficient_count ON near_proficient_count.topic_id = topics.id
-      JOINS
-      ).joins(<<-JOINS
-      LEFT JOIN (
-          select COUNT(DISTINCT(user_id)) as user_count, topic_id
-           from best_per_topic_user
-           where avg_score_in_topic < 0.5
+           where avg_score_in_topic < #{@proficiency_cutoff}
            group by topic_id
         ) as not_proficient_count ON not_proficient_count.topic_id = topics.id
       JOINS
       )
       .group('topics.id, sections.name')
-      .order('topics.name asc')    
-  end  
+      .order('topics.name asc')
+  end
 end

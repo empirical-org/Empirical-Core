@@ -4,19 +4,20 @@ export default React.createClass({
   render: function() {
     return (
       <div>
-      <h1 className="section-header">
-        Have Students Create Their Accounts
-      </h1>
-      <ol>
-        <li>
-          Have students sign up at quill.org/account/new
-        </li>
-        <li>
-          Once students sign up, in the "Join My Class" field,
-          <br/>they enter the class code <code>{this.props.classCode}</code>
-        </li>
-      </ol>
-        <span className="class-code">Class Code</span><code><input className="inactive" disabled="" type="text" value={this.props.classCode}/></code>
+      <div className="box-top">
+        <h1>
+          <span>Option 1: </span>Students Create Their Accounts
+        </h1>
+      </div>
+      <div className="box-content">
+          <p>
+            1. Have students sign up at <span>quill.org/account/new</span>
+          </p>
+          <p>
+            2. Once students sign up, in the <span>"Join My Class"</span> field, they enter the class code.
+          </p>
+          <span>Class Code:</span><input className="inactive class-code" readOnly type="text" value={this.props.classCode}/>
+        </div>
       </div>
     );
    }

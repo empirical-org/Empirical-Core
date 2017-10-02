@@ -3,6 +3,10 @@
    ========================================================================== */
 
 .class-page {
+  h3 {
+    display: inline-block;
+    padding-top: 7px;
+  }
   table {
     margin-top: 20px;
     border-collapse: separate;
@@ -99,13 +103,35 @@ form.class-page {
 
 .delete-class {
   color: #027360;
-  line-height: 50.5px;
-  margin-top: 10px;
+  margin-top: 35px;
+  display: inline-block;
+  float: right;
 }
 
 .edit_classroom {
-  label, select, input {
-    display: block !important;
+  display: inline-block;
+  #class-name, #class-grade {
+    display: inline-block;
+    margin-right: 30px;
+  }
+  label {
+    display: block;
+  }
+  select, input {
     margin-bottom: 10px;
+  }
+}
+
+#student-table {
+  border-top: 1px solid #c0c0c0;
+  padding: 0;
+  div {
+    margin-bottom: 30px;
+  }
+  button {
+    height: 40px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    border: solid 1px #000000;
   }
 }

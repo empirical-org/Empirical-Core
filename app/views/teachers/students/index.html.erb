@@ -1,0 +1,77 @@
+<div id="page-content-wrapper">
+  <div class="row">
+    <div class="col-xs-12.col-xl-12">
+      <%= render partial: 'teachers/shared/scorebook_tabs' %>
+      <div class="tab-content">
+        <div id="class-manager" class="tab-pane active">
+          <%= render partial: 'teachers/classrooms/subnav' %>
+          <div class="container">
+            <section>
+            <div class="edit-classroom-row">
+              <%= form_for(@classroom,
+                         url: teachers_classroom_path(@classroom),
+                       class: 'class-page')  do |f|%>
+                <div id="class-name">
+                  <%= f.label      :name, 'Class Name', class: 'class-name' %>
+                  <%= f.text_field :name %>
+                </div>
+                <div id="class-grade">
+                  <%= f.label :grade, class: 'class-grade' %>
+                  <%
+                    # Note to maintainers: if you update the grade options here, please also ensure to do so in the following locations:
+                    #   - /app/bundles/HelloWorld/components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx
+                    #   - /app/bundles/HelloWorld/containers/CreateClass.jsx
+                  %>
+                  <%= f.select :grade, %w(1 2 3 4 5 6 7 8 9 10 11 12 University Other) %>
+                </div>
+                <%= f.button 'Save Changes',          class: 'button-green' %>
+              <% end %>
+
+              <%= link_to 'Archive Class',
+                            hide_teachers_classroom_path(@classroom),
+                            method: 'post',
+                            class: 'delete-class' %>
+            </div>
+            <% if @classroom.students.any? %>
+              <div class="container" id="student-table">
+                <section class="no-border class-page">
+                  <div>
+                    <h3>Edit Students</h3>
+                    <button class="pull-right">
+                      <%= link_to 'Download Login Sheet PDF',
+                                  generate_login_pdf_path(@classroom.id),
+                                  method: 'get' %>
+                    </button>
+                  </div>
+                  <table class="table students">
+                    <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Username</th>
+                        <th>Activities Completed</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @classroom.students.sort_by(&:sorting_name).each do |student| %>
+                        <tr class=<%dom_class(student)%> id=<% dom_id(student)%> >
+                          <td class="name"> <%=student.name %> </td>
+                          <td class="username"> <%= student.username %> </td>
+                          <td class="activities_completed"> <%= student.completed_activities.count %> </td>
+                          <td> <%= link_to 'Edit Account',
+                                      edit_teachers_classroom_student_path(@classroom,
+                                                                           student) %> </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </section>
+              </div>
+              <% end %>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

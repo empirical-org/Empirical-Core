@@ -8,10 +8,8 @@ class FastAssignWorker
   end
 
   def perform(teacher_id, unit_template_id)
-    logger.debug "Here's some info: #{hash.inspect}"
-    logger.debug "ID: #{unit_template_id}"
     if unit_with_same_name(unit_template_id, teacher_id)
-      Units::Updater.fast_assign_unit_template(teacher_id, @unit_template, @unit)
+      Units::Updater.fast_assign_unit_template(teacher_id, @unit_template, @unit.id)
     else
       Units::Creator.fast_assign_unit_template(teacher_id, unit_template_id)
     end

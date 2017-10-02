@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_filter :resolve_body_class
+  before_filter :resolve_body_class, :determine_js_file, :determine_flag
   layout :determine_layout
 
   def home
@@ -45,7 +45,6 @@ class PagesController < ApplicationController
   end
 
   def media
-
   end
 
   def faq
@@ -95,6 +94,11 @@ class PagesController < ApplicationController
     @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
   end
 
+  def lessons_tool
+    @title = 'Quill Lessons - Free Group Writing Activities'
+    @description = 'Lead whole-class and small group writing instruction with interactive writing prompts and discussion topics.'
+  end
+
   def activities
     @body_class = 'full-width-page white-page'
     @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
@@ -105,7 +109,7 @@ class PagesController < ApplicationController
   def premium
   end
 
-  def map 
+  def tutorials
   end
 
   private
@@ -114,8 +118,17 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool'
+    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
+    end
+  end
+
+  def determine_js_file
+    case action_name
+    when 'partners', 'mission', 'news', 'media', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher_resources', 'news', 'stats', 'activities'
+      @js_file = 'public'
+    when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
+      @js_file = 'tools'
     end
   end
 
@@ -124,6 +137,13 @@ class PagesController < ApplicationController
     case action_name
     when 'learning', 'story'
       @body_class = 'auxiliary'
+    end
+  end
+
+  def determine_flag
+    case action_name
+    when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
+      @beta_flag = current_user && current_user.flag == 'beta'
     end
   end
 end

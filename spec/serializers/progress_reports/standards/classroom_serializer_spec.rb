@@ -27,7 +27,6 @@ describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
         .to match_array %w(name
                            total_student_count
                            proficient_student_count
-                           near_proficient_student_count
                            not_proficient_student_count
                            total_standard_count
                            students_href

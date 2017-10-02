@@ -7,7 +7,7 @@ import OverviewBoxes from './overview_boxes.jsx'
 export default React.createClass({
 
   propTypes: {
-    premiumStatus: React.PropTypes.string.isRequired,
+    premiumStatus: React.PropTypes.string,
     params: React.PropTypes.object.isRequired
   },
 
@@ -58,6 +58,7 @@ export default React.createClass({
   sortDefinitions: function() {
     return {
       config: {
+        name: 'lastName',
         question_id: 'natural',
         score: 'numeric',
         instructions: 'natural',

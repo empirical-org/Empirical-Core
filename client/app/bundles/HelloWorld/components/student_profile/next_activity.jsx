@@ -1,38 +1,40 @@
-'use strict';
-import React from 'react'
-import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx'
+import React from 'react';
+import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
+import LoadingIndicator from '../shared/loading_indicator';
+import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 export default React.createClass({
-  propTypes: {
-    data: React.PropTypes.object // may be absent if there is no next_activity (student has completed all assigned activities)
-  },
-  //<div className="activate-tooltip icon-wrapper icon-gray icon-puzzle"></div>
-  render: function () {
-    var result;
-    if (this.props.data) {
-      result = (
-        <div className="container">
-          <section>
-            <div className="row">
-              <div className="col-xs-12 col-sm-7 col-xl-7">
-                <ActivityIconWithTooltip data={this.props.data} context={'studentProfile'} placement={'bottom'}/>
-                <div className="icons-description-wrapper">
-                  <p className="title title-v-centered">{this.props.data.activity.name}</p>
-                </div>
-              </div>
-              <div className="col-xs-12 col-sm-5 col-xl-5 start-activity-wrapper">
-                <a href={this.props.data.link}>
-                  <button className='button-green pull-right'>Start Your Next Lesson</button>
-                </a>
-              </div>
-            </div>
-          </section>
-        </div>
-      )
-    } else {
-      result = <span></span>
-    }
-    return result;
 
-  }
-})
+  dataForActivityIconWithToolTip() {
+    return {
+      percentage: this.props.data.max_percentage,
+      activity_classification_id: this.props.data.activity_classification_id,
+    };
+  },
+
+  render() {
+    if (this.props.data) {
+      const text = this.props.data.activity_classification_id === '6' ? 'Join Lesson' : 'Start Activity';
+      return (
+        <div className="next-activity">
+          <div className="next-activity-name">
+            <ActivityIconWithTooltip data={this.dataForActivityIconWithToolTip()} context={'studentProfile'} placement={'bottom'} />
+            <p>{this.props.data.name}</p>
+          </div>
+          <div className="start-activity-wrapper">
+            <a href={activityLaunchLink(this.props.data.ca_id)}>
+              <button className="button-green pull-right">{text}</button>
+            </a>
+          </div>
+        </div>
+      );
+    } else if (this.props.loading) {
+      return (<LoadingIndicator />);
+    } else if (this.props.hasActivities) {
+      return (<span />);
+    }
+    return (<div className="container">
+      <p style={{ fontSize: '18px', margin: '2em', }}>Your teacher hasn't assigned any activities to you yet.</p>
+    </div>);
+  },
+});

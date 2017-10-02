@@ -7,8 +7,7 @@ class Classroom < ActiveRecord::Base
   validates_presence_of :name
   default_scope { where(visible: true)}
 
-
-
+  after_commit :hide_appropriate_classroom_activities
 
   has_many :classroom_activities
   has_many :activities, through: :classroom_activities
@@ -21,12 +20,11 @@ class Classroom < ActiveRecord::Base
 
   belongs_to :teacher, class_name: 'User'
 
+  after_create :delete_classroom_minis_cache
+
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
-  after_create {
-                find_or_create_checkbox('Create a Classroom', self.teacher)
-                ClassroomCreationWorker.perform_async(self.id)
-              }
+  after_commit :trigger_analytics_events_for_classroom_creation, on: :create
 
   def x
     c = self
@@ -95,11 +93,24 @@ class Classroom < ActiveRecord::Base
     if Classroom.unscoped.find_by_code(code) then generate_code end
   end
 
-  def students_classrooms_json(student_id)
-    {name: self.name,
-     teacher: self.teacher.name,
-     id: self.id,
-     join_date: StudentsClassrooms.find_by_classroom_id_and_student_id(self.id, student_id).created_at}
+  def hide_appropriate_classroom_activities
+    # on commit callback that checks if archived
+    if self.visible == false
+      hide_all_classroom_activities
+      return
+    end
+  end
+
+  def hide_all_classroom_activities
+    ActivitySession.where(classroom_activity: self.classroom_activities).update_all(visible: false)
+    self.classroom_activities.update_all(visible: false)
+    ids = Unit.find_by_sql("
+      SELECT unit.id FROM units unit
+      LEFT JOIN classroom_activities as ca ON ca.unit_id = unit.id AND ca.visible = true
+      WHERE unit.visible = true
+      AND ca.id IS null
+      AND unit.user_id = #{self.teacher_id}")
+    Unit.where(id: ids).update_all(visible: false)
   end
 
   private
@@ -107,6 +118,16 @@ class Classroom < ActiveRecord::Base
   # Clever integration
   def clever_classroom
     Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
+  end
+
+  def delete_classroom_minis_cache
+    t_id = self.teacher&.id
+    t_id ? $redis.del("user_id:#{t_id}_classroom_minis") : nil
+  end
+
+  def trigger_analytics_events_for_classroom_creation
+    find_or_create_checkbox('Create a Classroom', self.teacher)
+    ClassroomCreationWorker.perform_async(self.id)
   end
 
 

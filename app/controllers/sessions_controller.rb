@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       end
       sign_in(@user)
       if params[:redirect].present?
-        redirect_to params[:redirect]
+        redirect_to URI.parse(params[:redirect]).path
       else
         redirect_to profile_path
       end
@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
       if staff.present? and (staff != current_user)
         sign_out
         sign_in(staff)
-        redirect_to profile_path
+        redirect_to cms_users_path
       else
         sign_out
         redirect_to signed_out_path
@@ -50,6 +50,7 @@ class SessionsController < ApplicationController
   end
 
   def new
+    @js_file = 'login'
     @user = User.new
     session[:role] = nil
   end
