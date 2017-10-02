@@ -20,7 +20,21 @@ class Cms::SchoolsController < ApplicationController
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
   def show
-    @school_name = School.find(params[:id]).name
+    @school_info = School.includes(:subscription).find(params[:id])
+    @school_subscription_info = {
+      'School Premium Type' => @school_info.subscription&.account_type,
+      'Expiration' => @school_info.subscription&.expiration&.strftime('%b %d, %Y')
+    }
+    @school_info = {
+      'Name' => @school_info.name,
+      'City' => @school_info.city || @school_info.mail_city,
+      'State' => @school_info.state || @school_info.mail_state,
+      'ZIP' => @school_info.zipcode || @school_info.mail_zipcode,
+      'District' => @school_info.leanm,
+      'Free and Reduced Price Lunch' => "#{@school_info.free_lunches}%",
+      'NCES ID' => @school_info.nces_id,
+      'PPIN' => @school_info.ppin
+    }
     @teacher_data = ActiveRecord::Base.connection.execute("
       SELECT
         users.name AS teacher_name,
@@ -56,7 +70,7 @@ class Cms::SchoolsController < ApplicationController
   def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.
     @text_search_inputs = ['school_name', 'school_city', 'school_state', 'school_zip', 'district_name']
-    @school_premium_types = Subscription.where(id: SchoolSubscription.all.pluck(:subscription_id)).pluck(:account_type).uniq
+    @school_premium_types = Subscription.account_types
   end
 
   def all_search_inputs
