@@ -211,7 +211,7 @@ class Teachers::UnitsController < ApplicationController
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
-    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
   end
 
 end

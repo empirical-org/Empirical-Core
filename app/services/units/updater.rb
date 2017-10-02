@@ -11,12 +11,12 @@ module Units::Updater
   end
 
   def self.assign_unit_template_to_one_class(unit_id, classrooms_data)
-    activities_data = ClassroomActivity.where(unit_id: unit_id).select('activity_id AS id, NULL as due_date').as_json
+    activities_data = ClassroomActivity.where(unit_id: unit_id).select('classroom_activities.activity_id AS id, NULL as due_date').as_json
     self.update_helper(unit_id, activities_data, classrooms_data)
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template, unit_id)
-    activities_data = unit_template.activities.select('activity_id AS id, NULL as due_date').as_json
+    activities_data = unit_template.activities.select('activities.id AS id, NULL as due_date').as_json
     classrooms_data = Classroom.where(teacher_id: teacher_id).ids.map{|id| {id: id, student_ids: []}}
     self.update_helper(unit_id, activities_data, classrooms_data)
   end
