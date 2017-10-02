@@ -46,7 +46,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         ORDER BY activity_sessions.updated_at DESC
         LIMIT 1;").to_a
       if !classroom_hash[0]
-        return render json: {}, status: 404
+        return render status: 404
       end
       classroom_id = classroom_hash[0]['classroom_id']
       return render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
