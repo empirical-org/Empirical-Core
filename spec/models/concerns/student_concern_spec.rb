@@ -22,13 +22,6 @@ describe 'Student Concern' do
     as1.update_attributes(percentage: 1, state: 'finished')
   end
 
-  describe '#percentages_by_classification' do
-    it 'includes only completed activity_session' do
-      ps = student.percentages_by_classification
-      expect(ps).to eq([as1])
-    end
-  end
-
   describe '#assign_classroom_activities' do
     it "does not assign any new activities if the student already has them" do
       old_act_sesh_count = ActivitySession.count
