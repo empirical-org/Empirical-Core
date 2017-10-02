@@ -60,7 +60,7 @@ class Subscription < ActiveRecord::Base
     attributes[:account_limit] ||= 1000
     if !attributes[:expiration]
       # if there is no expiration, either give them a trial one or a premium one
-      attributes[:expiration] = attributes[:account_type] == 'trial' || attributes[:account_type]&.downcase == 'teacher trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration
+      attributes[:expiration] = attributes[:account_type]&.downcase == 'teacher trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration
     end
     if subscription
       subscription.update_attributes!(attributes)
