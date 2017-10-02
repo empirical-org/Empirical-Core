@@ -33,38 +33,6 @@ module Student
                         .where(is_final_score: true)
     end
 
-    def percentages_by_classification(unit = nil)
-
-      if unit.nil?
-        sessions = self.activity_sessions.preload(concept_results: [:concept]).where(is_final_score: true).completed
-      else
-        sessions = ActivitySession.joins(:classroom_activity)
-                  .preload(concept_results: [:concept])
-                  .where(is_final_score: true)
-                  .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                  .select("activity_sessions.*").completed
-
-      end
-
-      # we only want to show one session per classroom activity (highest score), there may be multiple bc of retries :
-      arr = []
-      x1 = sessions.to_a.group_by{|as| as.classroom_activity_id}
-      x1.each do |key, ca_group|
-        x2 = ca_group.max{|a, b| a.percentile <=> b.percentile}
-        arr.push x2
-      end
-      sessions = arr
-
-      # sort by percentage
-      sessions.sort do |a,b|
-        if a.percentile == b.percentile
-          b.activity.classification.key <=> a.activity.classification.key
-        else
-          b.percentile <=> a.percentile
-        end
-      end
-    end
-
     def assign_classroom_activities(classroom_id=nil)
       classy = Classroom.find(classroom_id) unless classroom_id == nil
       @extant_act_sesh = self.activity_sessions
