@@ -29,11 +29,26 @@ export function startListeningToSession(classroom_activity_id: string) {
 }
 
 export function startLesson(classroom_activity_id: string) {
+  setCurrentSlide(classroom_activity_id)
+  setStartTime(classroom_activity_id)
+}
+
+export function setCurrentSlide(classroom_activity_id: string) {
   const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
   currentSlideRef.once('value', (snapshot) => {
     const currentSlide = snapshot.val()
     if (!currentSlide) {
       currentSlideRef.set('0')
+    }
+  })
+}
+
+export function setStartTime(classroom_activity_id: string) {
+  const startTimeRef = classroomSessionsRef.child(`${classroom_activity_id}/startTime`);
+  startTimeRef.once('value', (snapshot) => {
+    const startTime = snapshot.val()
+    if (!startTime) {
+      startTimeRef.set(firebase.database.ServerValue.TIMESTAMP)
     }
   })
 }
