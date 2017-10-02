@@ -48,12 +48,12 @@
             <td><%= td %></td>
           <% end %>
         </tr>
-        <% # TODO: pop off last element of array, turn into edit link. %>
         <% @school_search_query_results.each do |school| %>
           <tr>
-            <% school.values.each do |value| %>
+            <% school.values[0...-1].each do |value| %>
               <td><%= value %></td>
             <% end %>
+            <td><%= link_to 'Edit', cms_school_path(school.values.last) %></td>
           </tr>
         <% end %>
       </thead>

@@ -33,8 +33,6 @@ class Cms::SchoolsController < ApplicationController
 
   end
 
-  # TODO: subscriptions manager?
-
   private
   def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.
@@ -70,12 +68,6 @@ class Cms::SchoolsController < ApplicationController
     #   }
     # ]
 
-    # TODO:
-    #   - Account for mail_city versus city
-    #   - Account for mail_state versus state
-    #   - Account for mail_zipcode versus zipcode
-    #   - Add default values where appropriate
-
     ActiveRecord::Base.connection.execute("
       SELECT
         schools.name AS school_name,
@@ -83,7 +75,7 @@ class Cms::SchoolsController < ApplicationController
         schools.city AS school_city,
         schools.state AS school_state,
         schools.zipcode AS school_zip,
-        schools.free_lunches AS frl,
+        schools.free_lunches || '%' AS frl,
         COUNT(schools_users.*) AS number_teachers,
         subscriptions.account_type AS premium_status,
         COUNT(schools_admins.*) AS number_admins,
@@ -101,14 +93,17 @@ class Cms::SchoolsController < ApplicationController
   end
 
   def having_string
+    # We have to use HAVING here instead of including this in the WHERE query
+    # builder because we're doing an aggregation here. This will merely filter
+    # the results at the end.
     'HAVING COUNT(schools_users.*) != 0' unless school_query_params[:search_schools_with_zero_teachers]
   end
 
   def where_query_string_builder
     conditions = []
     # This converts all of the search inputs into strings so we can iterate
-    # over them. The weird ternary here is in case we have arrays as inputs,
-    # which we do in this case as the 'premium_status' field accepts an array.
+    # over them and grab the value from params. The weird ternary here is in
+    # case we have arrays as inputs (e.g. the 'premium_status' field).
     all_search_inputs.map{|i| i.instance_of?(Symbol) ? i.to_s : i.keys[0].to_s}.each do |param|
       param_value = school_query_params[param]
       if param_value && !param_value.empty?
