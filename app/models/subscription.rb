@@ -26,7 +26,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def is_not_paid?
-    self.account_type && (self.account_type == 'trial' || self.account_type.downcase == 'teacher trial')
+    self.account_type && (self.account_type.downcase == 'teacher trial')
   end
 
   def trial_or_paid
