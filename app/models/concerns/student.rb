@@ -67,27 +67,6 @@ module Student
       end
     end
 
-
-    def incomplete_activity_sessions_by_classification(unit = nil)
-      if unit.nil?
-        sessions = self.activity_sessions.preload(concept_results: [:concept]).incomplete
-      else
-
-        sessions = ActivitySession
-                    .preload(concept_results: [:concept])
-                    .joins(:classroom_activity)
-                    .where("activity_sessions.user_id = ? AND classroom_activities.unit_id = ?", self.id, unit.id)
-                    .where("activity_sessions.completed_at is null")
-                    .where("activity_sessions.is_retry = false")
-                    .select("activity_sessions.*")
-
-      end
-
-      sessions.sort do |a,b|
-        b.activity.classification.key <=> a.activity.classification.key
-      end
-    end
-
     def assign_classroom_activities(classroom_id=nil)
       classy = Classroom.find(classroom_id) unless classroom_id == nil
       @extant_act_sesh = self.activity_sessions

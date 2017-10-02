@@ -29,13 +29,6 @@ describe 'Student Concern' do
     end
   end
 
-  describe '#incomplete_activity_sessions_by_classification' do
-    it 'includes only not-completed activity_session' do
-      ps = student.incomplete_activity_sessions_by_classification
-      expect(ps).to eq([as2])
-    end
-  end
-
   describe '#assign_classroom_activities' do
     it "does not assign any new activities if the student already has them" do
       old_act_sesh_count = ActivitySession.count
