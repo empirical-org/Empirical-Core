@@ -106,7 +106,10 @@ class Cms::SchoolsController < ApplicationController
 
   def where_query_string_builder
     conditions = []
-    all_search_inputs.map(&:to_s).each do |param|
+    # This converts all of the search inputs into strings so we can iterate
+    # over them. The weird ternary here is in case we have arrays as inputs,
+    # which we do in this case as the 'premium_status' field accepts an array.
+    all_search_inputs.map{|i| i.instance_of?(Symbol) ? i.to_s : i.keys[0].to_s}.each do |param|
       param_value = school_query_params[param]
       if param_value && !param_value.empty?
         conditions << where_query_string_clause_for(param, param_value)
@@ -123,26 +126,21 @@ class Cms::SchoolsController < ApplicationController
     # School zip: schools.zipcode or schools.mail_zipcode
     # District name: schools.leanm
     # Premium status: subscriptions.account_type
-    param_value = ActiveRecord::Base.sanitize(param_value)
     case param
     when 'school_name'
-      "schools.name ILIKE #{format_sanitized_string_for_ilike(param_value)}"
+      "schools.name ILIKE '%#{(param_value)}%'"
     when 'school_city'
-      "schools.city ILIKE #{format_sanitized_string_for_ilike(param_value)}"
+      "schools.city ILIKE '%#{(param_value)}%'"
     when 'school_state'
       "UPPER(schools.state) = UPPER(#{param_value})"
     when 'school_zip'
       "schools.zipcode = #{param_value}"
     when 'district_name'
-      "schools.leanm ILIKE #{format_sanitized_string_for_ilike(param_value)}"
+      "schools.leanm ILIKE '%#{(param_value)}%'"
     when 'premium_status'
-      "subscriptions.account_type = #{premium_status}" # TODO this won't work yet
+      "subscriptions.account_type IN ('#{param_value.join('\',\'')}')"
     else
       nil
     end
-  end
-
-  def format_sanitized_string_for_ilike(string)
-    "'%#{string[1..string.length-2]}%'"
   end
 end
