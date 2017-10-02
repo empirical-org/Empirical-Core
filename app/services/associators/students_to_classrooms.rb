@@ -5,11 +5,14 @@ module Associators::StudentsToClassrooms
     if self.legit_classroom && self.legit_teacher && (student&.role == 'student')
       sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
       if sc.new_record?
+        sc.visible = true
         if sc.save!
           StudentJoinedClassroomWorker.perform_async(@@classroom.teacher_id, student.id)
         end
       end
-      sc.update(visible: true)
+      if !sc.visible
+        sc.update(visible: true)
+      end
       student.reload
       student.assign_classroom_activities(classroom[:id])
     end

@@ -3,7 +3,7 @@ FactoryGirl.define do
     to_create {|instance| instance.save(validate: false) }
     unit {Unit.first || FactoryGirl.create(:unit)}
     classroom {Classroom.first || FactoryGirl.create(:classroom)}
-    assign_on_join {true}
+    assign_on_join {false}
     activity {Activity.first || FactoryGirl.create(:activity)}
 	  factory :classroom_activity_with_activity do
 	  	activity { Activity.first || FactoryGirl.create(:activity) }
