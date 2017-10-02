@@ -9,7 +9,7 @@
         <% @text_search_inputs.each do |attribute| %>
           <tr>
             <td>
-              <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize} Contains" %>
+              <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize}" %>
             </td>
             <td>
               <%= text_field_tag attribute, @school_search_query[attribute] ? @school_search_query[attribute] : '' %>
