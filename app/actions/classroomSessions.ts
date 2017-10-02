@@ -251,19 +251,9 @@ export function registerTeacherPresence(classroom_activity_id: string | null): v
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
     if (snapshot.val() === true) {
       absentTeacherRef.onDisconnect().set(true);
-      clearPreviewSessionOnDisconnect(classroom_activity_id)
       absentTeacherRef.set(false);
     }
   });
-}
-
-export function clearPreviewSessionOnDisconnect(classroom_activity_id) {
-  const previewRef = classroomSessionsRef.child(`${classroom_activity_id}/preview/`)
-  previewRef.once('value', (snapshot) => {
-    if (snapshot.val() === true) {
-      classroomSessionsRef.child(`${classroom_activity_id}`).onDisconnect().remove()
-    }
-  })
 }
 
 export function unpinActivityOnSaveAndExit(classroom_activity_id) {
