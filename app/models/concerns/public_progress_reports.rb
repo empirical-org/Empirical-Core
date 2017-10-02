@@ -1,6 +1,5 @@
 module PublicProgressReports
     extend ActiveSupport::Concern
-    include NewRelic::Agent
 
     def last_completed_diagnostic
       diagnostic_activity_ids = ActivityClassification.find(4).activities.map(&:id)
@@ -74,10 +73,6 @@ module PublicProgressReports
 
     def classrooms_with_students_that_completed_activity unit_id, activity_id
       h = {}
-      if unit_id.nil?
-        NewRelic::Agent.notice_error('classrooms_with_students_that_completed_activity undefined unit_id error')
-        NewRelic::Agent.add_custom_attributes({ current_user_id: current_user.id })
-      end
       unit = Unit.find(unit_id)
       class_ids = current_user.classrooms_i_teach.map(&:id)
       #without definining class ids, it may default to a classroom activity from a non-existant classroom
