@@ -19,7 +19,6 @@ class Unit < ActiveRecord::Base
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
   after_save :hide_classroom_activities_if_visible_false
-  after_create :email_lesson_plan
 
   def hide_if_no_visible_classroom_activities
     if self.classroom_activities.length == 0
@@ -33,21 +32,17 @@ class Unit < ActiveRecord::Base
     end
   end
 
-  private
   def email_lesson_plan
-    binding.pry
     activity_ids = Activity.select('DISTINCT(activities.id)')
     .joins("JOIN classroom_activities ON classroom_activities.activity_id = activities.id")
-    .joins("JOIN units ON classroom_activities.unit_id = units.id")
-    .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL AND units.id = #{self.id}")
+    .joins("JOIN units ON classroom_activities.unit_id = #{self.id}")
+    .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
     if activity_ids.any?
       teacher_id = self.user_id
-      activity_ids.each do |lesson_id|
-        LessonPlanWorker.perform_async(teacher_id, id)
+      activity_ids.each do |lesson|
+        LessonPlanEmailWorker.perform_async(teacher_id, lesson.id)
       end
     end
   end
-
-
 
 end
