@@ -8,12 +8,12 @@ describe 'Student Concern' do
   let(:student) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
 
   let(:activity) { FactoryGirl.create(:activity) }
-  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity, assigned_student_ids: []) }
-  let!(:classroom_activity_for_class2) { FactoryGirl.create(:classroom_activity, classroom: classroom2, activity: activity, assigned_student_ids: []) }
+  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity, assign_on_join: true) }
+  let!(:classroom_activity_for_class2) { FactoryGirl.create(:classroom_activity, classroom: classroom2, activity: activity, assign_on_join: true) }
 
   let(:activity2) { FactoryGirl.create(:activity) }
   let(:activity3) { FactoryGirl.create(:activity) }
-  let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity2, assigned_student_ids: []) }
+  let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity2, assign_on_join: true) }
 
   let!(:as1) { classroom_activity.session_for(student) }
   let!(:as2) { classroom_activity2.session_for(student) }
