@@ -18,7 +18,7 @@ class ClassroomActivity < ActiveRecord::Base
 
   before_validation :check_pinned
   before_save :update_students_array_if_assign_on_join
-  after_create :assign_to_students, :lock_if_lesson
+  after_create :lock_if_lesson
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions, :update_lessons_cache
 
   def assigned_students
@@ -97,17 +97,6 @@ class ClassroomActivity < ActiveRecord::Base
     else
       activity_sessions.create(user: user, activity: activity)
     end
-
-    # if as.save
-    #
-    # else
-    #   if as.errors[""]
-    #     begin
-    #
-    #     rescue
-    #
-    #     end
-    # end
   end
 
   def activity_session_metadata
