@@ -45,8 +45,8 @@ module Units::Updater
     end
   end
 
+
   def self.update_helper(unit_id, activities_data, classrooms_data)
-    activities_data.each{|act| act.symbolize_keys!}
     extant_classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_id)
     new_cas = []
     hidden_cas_ids = []

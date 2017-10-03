@@ -13,7 +13,7 @@ class Teachers::UnitsController < ApplicationController
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first, params[:unit][:activities].map(&:to_h), params[:unit][:classrooms])
+      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms])
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
