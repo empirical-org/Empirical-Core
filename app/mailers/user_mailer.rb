@@ -26,11 +26,12 @@ class UserMailer < ActionMailer::Base
     mail to: user.email, subject: "#{user.first_name}, you need to link your account to your school"
   end
 
-  def lesson_plan_email(user, lesson)
+  def lesson_plan_email(user, lessons, unit)
     @user = user
-    @lesson = lesson
+    @lessons = lessons
+    @unit = unit
     # TODO: update this when copy exists
-    mail to: user.email, subject: "Lesson Plan for #{lesson.name}"
+    mail to: user.email, subject: "Lesson Plans for Your New Unit, #{@unit.name}"
   end
 
 end

@@ -1,8 +1,11 @@
 <p>Hi <%= @user.first_name %>,</p>
 
-<p>We're so excited that you've decided to try out <%= @lesson.name %> with your students.</p> Below, you'll find a link to download the lesson plan. This version of our lesson can be easily read on a screen before class or printed out to keep with you during the instructional period.
+<p>We're so excited that you've decided to try out Quill Lessons with your students.</p> Below, you'll find a link to download the lesson plan. This version of our lesson can be easily read on a screen before class or printed out to keep with you during the instructional period.
 
-<p><a href=<%=@lesson.supporting_info%>>Get the Lesson Plan</a></p>
+<% @lessons.each do |l| %>
+  <p><a href=<%=l.supporting_info%>><%=l.name%></a></p>
+
+<% end %>
 
 <p>If this is your first time using Quill Lessons, you might find it helpful to read through the best practices and ideas we've gathered from other teachers <a href="https://support.quill.org/using-quill-tools/quill-lessons/teacher-stories-how-to-best-utilize-quill-lessons-with-your-students">here</a>.</p>
 

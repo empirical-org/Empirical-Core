@@ -282,8 +282,8 @@ class User < ActiveRecord::Base
     UserMailer.join_school_email(self, school).deliver_now! if email.present?
   end
 
-  def send_lesson_plan_email(lesson)
-    UserMailer.lesson_plan_email(self, lesson).deliver_now! if email.present?
+  def send_lesson_plan_email(lessons, unit)
+    UserMailer.lesson_plan_email(self, lessons, unit).deliver_now! if email.present?
   end
 
   def subscribe_to_newsletter
