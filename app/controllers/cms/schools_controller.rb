@@ -43,16 +43,16 @@ class Cms::SchoolsController < ApplicationController
     		COUNT(activity_sessions) AS number_activities_completed,
     		TO_CHAR(GREATEST(users.last_sign_in, MAX(activity_sessions.completed_at)), 'Mon DD, YYYY') as last_active,
     		subscriptions.account_type as subscription,
-    		'TODO' as make_admin,
-    		'TODO' as sign_in
+    		users.id as user_id
       FROM schools_users
       LEFT JOIN users ON schools_users.user_id = users.id
       LEFT JOIN classrooms ON schools_users.user_id = classrooms.teacher_id AND classrooms.visible = true
       LEFT JOIN students_classrooms ON classrooms.id =  students_classrooms.classroom_id
       LEFT JOIN activity_sessions ON students_classrooms.student_id = activity_sessions.user_id AND completed_at IS NOT NULL
-      LEFT JOIN subscriptions ON schools_users.user_id = subscriptions.user_id
+      LEFT JOIN user_subscriptions ON schools_users.user_id = user_subscriptions.user_id
+      LEFT JOIN subscriptions ON subscriptions.id = user_subscriptions.subscription_id
       WHERE school_id = #{ActiveRecord::Base.sanitize(params[:id])}
-      GROUP BY users.name, users.last_sign_in, subscriptions.account_type;
+      GROUP BY users.name, users.last_sign_in, subscriptions.account_type, users.id;
     ")
   end
 
@@ -160,9 +160,9 @@ class Cms::SchoolsController < ApplicationController
       SELECT
         schools.name AS school_name,
         schools.leanm AS district_name,
-        schools.city AS school_city,
-        schools.state AS school_state,
-        schools.zipcode AS school_zip,
+        COALESCE(schools.city, schools.mail_city) AS school_city,
+        COALESCE(schools.state, schools.mail_state) AS school_state,
+        COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
         schools.free_lunches || '%' AS frl,
         COUNT(schools_users.*) AS number_teachers,
         subscriptions.account_type AS premium_status,
@@ -176,7 +176,7 @@ class Cms::SchoolsController < ApplicationController
       #{where_query_string_builder}
       GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
       #{having_string}
-      LIMIT 10
+      LIMIT 50
     ").to_a
   end
 
@@ -213,11 +213,11 @@ class Cms::SchoolsController < ApplicationController
     when 'school_name'
       "schools.name ILIKE '%#{(param_value)}%'"
     when 'school_city'
-      "schools.city ILIKE '%#{(param_value)}%'"
+      "(schools.city ILIKE '%#{(param_value)}%' OR schools.mail_city ILIKE '%#{(param_value)}%')"
     when 'school_state'
-      "UPPER(schools.state) = UPPER(#{param_value})"
+      "(UPPER(schools.state) = UPPER(#{param_value}) OR UPPER(schools.mail_state) = UPPER(#{param_value}))"
     when 'school_zip'
-      "schools.zipcode = #{param_value}"
+      "(schools.zipcode = '#{param_value}' OR schools.mail_zipcode = '#{param_value}')"
     when 'district_name'
       "schools.leanm ILIKE '%#{(param_value)}%'"
     when 'premium_status'
