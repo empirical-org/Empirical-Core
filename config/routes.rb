@@ -313,6 +313,7 @@ EmpiricalGrammar::Application.routes.draw do
         put :sign_in
         put :clear_data
         get :sign_in
+        put :make_admin
       end
     end
 

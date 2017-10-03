@@ -41,6 +41,11 @@ class Cms::UsersController < ApplicationController
     redirect_to profile_path
   end
 
+  def make_admin
+    User.find(params[:id]).update(role: 'admin')
+    redirect_to :back
+  end
+
   def edit
   end
 
