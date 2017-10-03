@@ -17,7 +17,6 @@ module Units::Creator
   end
 
   def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom)
-    classroom[:assign_on_join] = true
     classroom_array = [classroom]
     # converted to array so we can map in helper function as we would otherwise
     # unit fix: pass whole teacher object

@@ -14,7 +14,7 @@ class AssignRecommendationsWorker
         #  This way, we can just pass the units creator a unit argument.
         #  The reason we are not doing so at this time, is because the unit creator
         #  Is used elsewhere, and we do not want to overly optimize it for the diagnostic
-        Units::Creator.assign_unit_template_to_one_class(teacher.id, ut_id, classroom_array)
+        Units::Creator.assign_unit_template_to_one_class(teacher.id, ut_id, classroom_data)
     end
 
     analytics = AssignRecommendationsAnalytics.new
