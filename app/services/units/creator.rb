@@ -18,13 +18,14 @@ module Units::Creator
 
   def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom)
     classroom[:assign_on_join] = true
+    classroom_array = [classroom]
+    # converted to array so we can map in helper function as we would otherwise
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
     # this call is unnecessary as we can do sql without it
     unit_template = UnitTemplate.find(unit_template_id)
-
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
-    self.create_helper(teacher, unit_template.name, activities_data, classroom)
+    self.create_helper(teacher, unit_template.name, activities_data, classroom_array)
   end
 
   private

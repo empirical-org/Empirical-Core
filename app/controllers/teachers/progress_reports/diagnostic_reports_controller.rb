@@ -105,9 +105,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
                 # this only accommodates one classroom at a time
                 classroom = value[:classrooms][0]
                 AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids].compact, last, false)
-                # AssignRecommendationsWorker.new.perform(value[:id], classroom[:id], classroom[:student_ids].compact, last, false)
             end
           end
         end
     end
+
 end

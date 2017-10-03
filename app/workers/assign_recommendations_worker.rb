@@ -6,9 +6,9 @@ class AssignRecommendationsWorker
     teacher = classroom.teacher
     unit = Unit.find_by(name: UnitTemplate.find(ut_id).name, user_id: teacher.id)
 
-    classroom_array = [{id: classroom_id, student_ids: student_id_array}]
+    classroom_data = {id: classroom_id, student_ids: student_id_array}
     if unit
-        Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_array)
+        Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data)
     else
         #  TODO: use a find or create for the unit var above.
         #  This way, we can just pass the units creator a unit argument.
