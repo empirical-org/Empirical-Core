@@ -20,7 +20,7 @@
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: `http://twitter.com/home?status=${url} check out this ${this.props.data.name} Activity pack by @Quill_org`,
+        href: `http://twitter.com/home?status=I’m using the ${this.props.data.name} Activity Pack from Quill.org to teach writing & grammar. ${url}`
         title: 'Share on Twitter',
         action: 'Tweet'
       },
