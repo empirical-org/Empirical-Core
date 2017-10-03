@@ -70,6 +70,42 @@ class Cms::SchoolsController < ApplicationController
     end
   end
 
+  def edit_subscription
+    @school = School.includes(:subscription).find(params[:id])
+    @school_premium_types = Subscription.account_types
+
+    if @school.subscription
+      # If this school already has a subscription, we want the expiration date
+      # to reflect the expiration date of that subscription.
+      @expiration_date = @school.subscription.expiration
+      @account_type = @school.subscription.account_type
+    else
+      # If this school does not already have a subscription, we want the
+      # default expiration date to be one year from today.
+      @expiration_date = Date.today + 1.years
+      @account_type = nil
+    end
+  end
+
+  def update_subscription
+    school = School.find(subscription_params[:id])
+    subscription = school.subscription
+    unless subscription
+      subscription = Subscription.new
+      binding.pry
+      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
+      subscription.account_type = subscription_params[:premium_status]
+      subscription.account_limit = 1000 # This is a default value, and this should be later deprecated.
+      success = (school.subscription = subscription)
+    else
+      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
+      subscription.account_type = subscription_params[:premium_status]
+      success = subscription.save
+    end
+    return redirect_to cms_school_path(subscription_params[:id]) if success
+    render :edit_subscription
+  end
+
   # This allows staff members to create a new school.
   def new
     @school = School.new
@@ -204,5 +240,9 @@ class Cms::SchoolsController < ApplicationController
       'District Name' => :leanm,
       'FRP Lunch' => :free_lunches
     }
+  end
+
+  def subscription_params
+    params.permit! # TODO: change this.
   end
 end

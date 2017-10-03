@@ -320,6 +320,10 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         match 'search' => 'schools#search', via:[:get, :post], as: :search
       end
+      member do
+        get :edit_subscription
+        post :update_subscription
+      end
     end
   end
 
