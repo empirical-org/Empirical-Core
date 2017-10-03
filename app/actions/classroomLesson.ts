@@ -17,6 +17,7 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
       console.log("Fetched")
       if (snapshot.val()) {
         dispatch(updateClassroomLesson(snapshot.val()));
+        dispatch(setLessonId(classroomLessonUid))
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
       }
@@ -28,6 +29,13 @@ export function updateClassroomLesson(data) {
   return {
     type: C.RECEIVE_CLASSROOM_LESSON_DATA,
     data,
+  }
+}
+
+export function setLessonId(id:string) {
+  return {
+    type: C.SET_LESSON_ID,
+    id
   }
 }
 
