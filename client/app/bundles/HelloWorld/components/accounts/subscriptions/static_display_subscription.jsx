@@ -7,17 +7,9 @@ export default React.createClass({
 
   renderExpirationDate() {
     if (this.props.subscription.expiration) {
-      return `Expires:     ${this.transformDate(this.props.subscription.expiration)}`
+      return `Expires: ${this.transformDate(this.props.subscription.expiration)}`
     } else {
       return 'No expiration date set.'
-    }
-  },
-
-  renderAccountLimit() {
-    if (this.props.subscription.account_limit) {
-      return `Accounts:       ${this.props.subscription.account_limit} students`
-    } else {
-      return 'No account limit set.'
     }
   },
 
@@ -47,43 +39,33 @@ export default React.createClass({
     }
     return (this.props.subscription.subscriptionType);
   },
+
   render() {
     let getPremium,
       subscriptionDetails;
     if (['free', 'locked', 'none'].includes(this.subscriptionType())) {
       getPremium = (
-        <div className="col-xs-3">
           <a href="/premium" target="_new">
-            <button className="get-premium">Get Premium</button>
-          </a>
-        </div>);
+            <button className="form-button get-premium">Get Premium</button>
+          </a>);
       subscriptionDetails = null;
     } else {
       getPremium = null;
       subscriptionDetails = (
         <span className="gray-text">
           <div className="row">
-            <div className="col-xs-2" />
-            <div className="col-xs-3">
               {this.renderExpirationDate()}
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-2" />
-            <div className="col-xs-3">
-              {this.renderAccountLimit()}
-            </div>
           </div>
         </span>
         );
     }
     return (
       <span>
-        <div className="row">
-          <div className="form-label col-xs-2">
+        <div className="form-row">
+          <div className="form-label">
             Status
           </div>
-          <div className="col-xs-2">
+          <div className="form-input">
             <input disabled className="inactive" value={this.subscriptionTypeInUserLanguage()} />
           </div>
           {getPremium}

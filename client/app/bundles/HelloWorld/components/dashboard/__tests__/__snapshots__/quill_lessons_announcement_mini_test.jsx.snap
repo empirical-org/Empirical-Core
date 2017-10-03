@@ -101,7 +101,7 @@ exports[`QuillLessonsAnnouncementMini component should render 1`] = `
       Use Quill Lessons to lead whole-class direct instruction with interactive lesson plans. With Quill Lessons, you can see and display student responses in real time.
     </p>
     <a
-      href="https://www.quill.org/tools/lessons"
+      href="https://medium.com/writing-with-quill/quill-launches-quill-lessons-fb983f2b8970"
       target="_blank"
     >
       <button

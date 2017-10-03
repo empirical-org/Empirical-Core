@@ -27,14 +27,13 @@ a.q-button {
   font-family: $family-sans-serif;
   font-size: 18px;
   margin-top: 5px;
-  padding: 7px 20px 6px;
+  padding: 6px 20px;
   text-align: center;
   user-select: none;
   vertical-align: middle;
   &.icon-button,
   &.learn-more-button {
     box-sizing: border-box;
-    padding-top: 9px;
     font-weight: 600;
     height: 40px;
     margin-right: 10px;
@@ -45,7 +44,7 @@ a.q-button {
     border: none;
     font-size: 20px;
     font-weight: bold;
-    padding: 11px 33px 8px;
+    padding: 8px 33px;
   }
   &:hover.text-white {
     color: white;
@@ -201,7 +200,6 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
 
 .bg-image-lessons-pattern {
   background-image: url("http://assets.quill.org/images/background_images/lessons-pattern.svg");
-  background-repeat: repeat;
   background-position-y: -10px;
 }
 
