@@ -76,28 +76,31 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
-  def lesson_info_for_unit_and_activity
-    unit = Unit.find_by(id: params[:unit_id])
-    activity = Activity.find_by(id: params[:activity_id])
-    if unit && activity
-      render json: {classroom_activities: get_classroom_activities_for_activity(unit, params[:activity_id]), activity_name: activity.name}
-    elsif !activity
-      render json: {errors: 'Activity not found'}, status: 422
-    else
-      render json: {errors: 'Unit not found'}, status: 422
-    end
+  def lesson_info_for_activity
+    activity_id = params[:activity_id].to_i
+    classroom_activities = get_classroom_activities_for_activity(activity_id)
+    return render json: {errors: 'No activities found'}, status: 422 if classroom_activities.empty?
+    render json: {
+      classroom_activities: classroom_activities,
+      activity_name: Activity.select('name').where("id = #{activity_id}")
+    }
   end
 
-  def launch_lesson_with_activity_id
-    unit = Unit.find_by(id: params[:unit_id])
+  def select_lesson_with_activity_id
     activity_id = params[:activity_id].to_i
-    classroom_activities = unit.classroom_activities.where(activity_id: activity_id)
+    classroom_activities = ActiveRecord::Base.connection.execute("
+      SELECT classroom_activities.id from classroom_activities
+      	LEFT JOIN classrooms ON
+      		classroom_activities.classroom_id = classrooms.id
+      	WHERE classrooms.teacher_id = #{current_user.id.to_i}
+      		AND classroom_activities.activity_id = #{activity_id}
+      		AND classroom_activities.visible is TRUE").to_a
     if classroom_activities.length == 1
       ca_id = classroom_activities.first.id
       lesson_uid = Activity.find(activity_id).uid
       redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
     else
-      redirect_to "/teachers/classrooms/activity_planner/lessons/#{activity_id}/unit/#{unit.id}"
+      redirect_to "/teachers/classrooms/activity_planner/lessons_for_activity/#{activity_id}"
     end
   end
 
@@ -208,7 +211,7 @@ class Teachers::UnitsController < ApplicationController
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
-    GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
   end
 
 end

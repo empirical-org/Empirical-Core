@@ -11,7 +11,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    if (['trial', 'free low-income', 'free contributor'].include? params[:account_type]) && current_user.eligible_for_trial?
+    if (['Teacher Trial', 'Teacher Sponsored Free', 'Teacher Sponsored Free'].include? params[:account_type]) && current_user.eligible_for_trial?
       params[:expiration] = Date.today + 30
       PremiumAnalyticsWorker.perform_async(current_user.id, params[:account_type])
     end

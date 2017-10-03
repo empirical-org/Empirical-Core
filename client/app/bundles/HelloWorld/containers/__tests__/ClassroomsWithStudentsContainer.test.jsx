@@ -446,14 +446,14 @@ describe('ClassroomsWithStudentsContainer container', () => {
       const newState = _.cloneDeep(state)
       newState.classrooms[0].students[0].isSelected = true
       wrapper.setState(newState)
-      expect(wrapper.instance().studentsChanged()).toBe(true)
+      expect(wrapper.instance().studentsChanged(newState.classrooms)).toBe(true)
     })
 
     it('returns false if no classrooms have been updated', () => {
       const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
       wrapper.setState(_.cloneDeep(state))
       wrapper.instance().selectPreviouslyAssignedStudents();
-      expect(wrapper.instance().studentsChanged()).toBe(undefined)
+      expect(wrapper.instance().studentsChanged(wrapper.state('classrooms'))).toBe(undefined)
     })
   })
 
