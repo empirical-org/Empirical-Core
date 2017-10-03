@@ -315,6 +315,16 @@ EmpiricalGrammar::Application.routes.draw do
         get :sign_in
       end
     end
+
+    resources :schools do
+      collection do
+        match 'search' => 'schools#search', via:[:get, :post], as: :search
+      end
+      member do
+        get :edit_subscription
+        post :update_subscription
+      end
+    end
   end
 
   # tooltip is just for prototyping tooltip, if its still there you can remove it.

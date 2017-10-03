@@ -1,0 +1,50 @@
+<div class='container'>
+  <article class='simple-rounded-box cms cms-user-index'>
+    <%= link_to 'School Directory', cms_schools_path %> > <%= @school_info['Name'] %>
+    <br /><br />
+    <h2><%= @school_info['Name'] %></h2>
+    <br /><br />
+    <table class='table table-stripe table-hover-row cms-user-index-table'>
+      <thead>
+        <tr>
+          <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
+          <% ['Name', 'Classes', 'Students', 'Activities Completed',
+              'Last Active', 'Premium?', 'Make Admin', 'Sign In'].each do |td| %>
+            <td><%= td %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @teacher_data.each do |teacher| %>
+          <tr>
+            <% teacher.values[0...-2].each do |value| %>
+              <td><%= value || 'N/A' %></td>
+            <% end %>
+            <td><%= teacher.values[-2] %></td>
+            <td><%= teacher.values[-1] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br /><br />
+    <h2>School Subscription</h2>
+    <br />
+    <%= link_to 'Edit Subscription', edit_subscription_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <br />
+    <% @school_subscription_info.each do |k,v| %>
+      <br />
+      <p><strong><%= k %></strong></p>
+      <p><%= v || 'N/A' %></p>
+    <% end %>
+    <br /><br />
+    <h2>School Info</h2>
+    <br />
+    <%= link_to 'Edit School Info', edit_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <br />
+    <% @school_info.each do |k,v| %>
+      <br />
+      <p><strong><%= k %></strong></p>
+      <p><%= v || 'N/A' %></p>
+    <% end %>
+  </article>
+</div>
