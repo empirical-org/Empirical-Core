@@ -18,7 +18,7 @@ module Units::Updater
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template, unit_id)
-    activities_data = unit_template.activities.select('activity.id AS id, NULL as due_date').distinct
+    activities_data = unit_template.activities.select('activity_id AS id, NULL as due_date').distinct
     classrooms_data = Classroom.where(teacher_id: teacher_id).ids.map{|id| {id: id, student_ids: [], assign_on_join: true}}
     self.update_helper(unit_id, activities_data, classrooms_data)
   end
