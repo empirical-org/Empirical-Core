@@ -17,11 +17,11 @@
       <tbody>
         <% @teacher_data.each do |teacher| %>
           <tr>
-            <% teacher.values[0...-2].each do |value| %>
+            <% teacher.values[0...-1].each do |value| %>
               <td><%= value || 'N/A' %></td>
             <% end %>
-            <td><%= teacher.values[-2] %></td>
             <td><%= teacher.values[-1] %></td>
+            <td><%= button_to 'Sign in', sign_in_cms_user_path(teacher.values[-1]), method: :put %></td>
           </tr>
         <% end %>
       </tbody>

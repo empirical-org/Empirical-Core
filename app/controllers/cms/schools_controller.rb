@@ -43,16 +43,16 @@ class Cms::SchoolsController < ApplicationController
     		COUNT(activity_sessions) AS number_activities_completed,
     		TO_CHAR(GREATEST(users.last_sign_in, MAX(activity_sessions.completed_at)), 'Mon DD, YYYY') as last_active,
     		subscriptions.account_type as subscription,
-    		'TODO' as make_admin,
-    		'TODO' as sign_in
+    		users.id as user_id
       FROM schools_users
       LEFT JOIN users ON schools_users.user_id = users.id
       LEFT JOIN classrooms ON schools_users.user_id = classrooms.teacher_id AND classrooms.visible = true
       LEFT JOIN students_classrooms ON classrooms.id =  students_classrooms.classroom_id
       LEFT JOIN activity_sessions ON students_classrooms.student_id = activity_sessions.user_id AND completed_at IS NOT NULL
-      LEFT JOIN subscriptions ON schools_users.user_id = subscriptions.user_id
+      LEFT JOIN user_subscriptions ON schools_users.user_id = user_subscriptions.user_id
+      LEFT JOIN subscriptions ON subscriptions.id = user_subscriptions.subscription_id
       WHERE school_id = #{ActiveRecord::Base.sanitize(params[:id])}
-      GROUP BY users.name, users.last_sign_in, subscriptions.account_type;
+      GROUP BY users.name, users.last_sign_in, subscriptions.account_type, users.id;
     ")
   end
 
