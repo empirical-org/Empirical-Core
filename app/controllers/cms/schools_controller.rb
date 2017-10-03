@@ -160,9 +160,9 @@ class Cms::SchoolsController < ApplicationController
       SELECT
         schools.name AS school_name,
         schools.leanm AS district_name,
-        schools.city AS school_city,
-        schools.state AS school_state,
-        schools.zipcode AS school_zip,
+        COALESCE(schools.city, schools.mail_city) AS school_city,
+        COALESCE(schools.state, schools.mail_state) AS school_state,
+        COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
         schools.free_lunches || '%' AS frl,
         COUNT(schools_users.*) AS number_teachers,
         subscriptions.account_type AS premium_status,
@@ -176,7 +176,7 @@ class Cms::SchoolsController < ApplicationController
       #{where_query_string_builder}
       GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
       #{having_string}
-      LIMIT 10
+      LIMIT 50
     ").to_a
   end
 
@@ -213,11 +213,11 @@ class Cms::SchoolsController < ApplicationController
     when 'school_name'
       "schools.name ILIKE '%#{(param_value)}%'"
     when 'school_city'
-      "schools.city ILIKE '%#{(param_value)}%'"
+      "(schools.city ILIKE '%#{(param_value)}%' OR schools.mail_city ILIKE '%#{(param_value)}%')"
     when 'school_state'
-      "UPPER(schools.state) = UPPER(#{param_value})"
+      "(UPPER(schools.state) = UPPER(#{param_value}) OR UPPER(schools.mail_state) = UPPER(#{param_value}))"
     when 'school_zip'
-      "schools.zipcode = #{param_value}"
+      "(schools.zipcode = '#{param_value}' OR schools.mail_zipcode = '#{param_value}')"
     when 'district_name'
       "schools.leanm ILIKE '%#{(param_value)}%'"
     when 'premium_status'
