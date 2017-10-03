@@ -41,9 +41,10 @@ class Cms::SchoolsController < ApplicationController
         COUNT(DISTINCT(classrooms.id)) AS number_classrooms,
     		COUNT(DISTINCT(students_classrooms.student_id)) AS number_students,
     		COUNT(activity_sessions) AS number_activities_completed,
-    		TO_CHAR(GREATEST(users.last_sign_in, MAX(activity_sessions.completed_at)), 'Mon DD, YYYY') as last_active,
-    		subscriptions.account_type as subscription,
-    		users.id as user_id
+    		TO_CHAR(GREATEST(users.last_sign_in, MAX(activity_sessions.completed_at)), 'Mon DD, YYYY') AS last_active,
+    		subscriptions.account_type AS subscription,
+    		users.id AS user_id,
+    		users.role AS user_role
       FROM schools_users
       LEFT JOIN users ON schools_users.user_id = users.id
       LEFT JOIN classrooms ON schools_users.user_id = classrooms.teacher_id AND classrooms.visible = true
