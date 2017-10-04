@@ -70,7 +70,6 @@ describe('StaticDisplaySubscription component', () => {
     );
     //
     expect(wrapper.text()).toMatch('Expires: 03/18/2017');
-    expect(wrapper.text()).toMatch('Accounts: 1000 students');
   });
 
 });

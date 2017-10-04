@@ -36,10 +36,12 @@ module Units::Creator
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
         activity_data, classroom_id = pair
-        unit.classroom_activities.create!(activity_id: activity_data[:id],
-                                          due_date: activity_data[:due_date],
-                                          classroom_id: classroom_id,
-                                          assigned_student_ids: classroom[:student_ids])
+        if activity_data[:id]
+          unit.classroom_activities.create!(activity_id: activity_data[:id],
+                                            due_date: activity_data[:due_date],
+                                            classroom_id: classroom_id,
+                                            assigned_student_ids: classroom[:student_ids])
+        end
       end
     end
     unit.hide_if_no_visible_classroom_activities

@@ -188,11 +188,25 @@
           "The kids LOVED seeing their responses come up live as we went through the lesson. Eighth-grade students were literally begging me to project their answers or asking me to allow them to resubmit an answer because they'd just gotten a better idea from another students example. An excited class learning grammar from each other, now that's a good day in ELA class! I can't wait till Friday to do it again."
         </p>
         <h4 class="q-h4 author">
-            <span>Kim Hinderlie,</span> Elma Elementary School
+            <span>Kim Hinderlie,</span> Elma Middle School
         </h4>
+        <a href="https://medium.com/writing-with-quill/quill-launches-quill-lessons-fb983f2b8970#3bb3" target="_blank" class='q-button text-black'>
+            <span>View My Story</span>
+        </a>
     </section>
 
-    <%= react_component('LessonsQuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'lessons'})%>
+    <%= react_component('LessonsQuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'lessons', supportLink: "https://support.quill.org/using-quill-tools#quill-lessons"})%>
+
+    <section class="how-to">
+      <div class="text">
+        <h2>Have questions about getting started?</h2>
+        <p>If you are still not sure where to start with Quill Lessons, read the How To guide to see the step by step details to set up your first lesson.</p>
+        <a target="_blank" href="http://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson" class="text-white bg-quillgreen"><i class="fa fa-file-text-o"></i>Read How To Guide</a>
+      </div>
+      <div class="illustration">
+        <img src="http://assets.quill.org/images/illustrations/lessons_how_to.svg" />
+      </div>
+    </section>
 
     <!-- Only show if user is not logged in  -->
       <% if !current_user %>

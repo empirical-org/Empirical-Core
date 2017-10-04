@@ -26,7 +26,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def is_not_paid?
-    self.account_type && (self.account_type == 'trial' || self.account_type.downcase == 'teacher trial')
+    self.account_type && (self.account_type.downcase == 'teacher trial')
   end
 
   def trial_or_paid
@@ -35,6 +35,22 @@ class Subscription < ActiveRecord::Base
 
   def school_subscription?
     SchoolSubscription.where(subscription_id: self.id).limit(1).exists?
+  end
+
+  def self.account_types
+    ['School District Paid',
+    'School NYC Free',
+    'School NYC Paid',
+    'School Research',
+    'School Sponsored Free',
+    'School Strategic Free',
+    'School Strategic Paid',
+    'School Paid',
+    'Teacher Contributor Free',
+    'Teacher Sponsored Free',
+    'Teacher Paid',
+    'Teacher Trial',
+    'Purchase Missing School']
   end
 
   private
@@ -60,7 +76,7 @@ class Subscription < ActiveRecord::Base
     attributes[:account_limit] ||= 1000
     if !attributes[:expiration]
       # if there is no expiration, either give them a trial one or a premium one
-      attributes[:expiration] = attributes[:account_type] == 'trial' || attributes[:account_type]&.downcase == 'teacher trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration
+      attributes[:expiration] = attributes[:account_type]&.downcase == 'teacher trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration
     end
     if subscription
       subscription.update_attributes!(attributes)
