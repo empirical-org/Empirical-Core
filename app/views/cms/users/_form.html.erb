@@ -1,0 +1,23 @@
+<div class='cms-form'>
+  <%= form_for [:cms, @user] do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+    <%= f.label :role %>
+    <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']] %>
+    <%= f.label :classcode %>
+    <%= f.text_field :classcode %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+    <%= f.submit 'Save' %>
+  <% end %>
+
+  <% if @user.id %>
+    <%= link_to 'Clear User Data', clear_data_cms_user_path(@user), method: :put, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger destroy' %>
+  <% end %>
+</div>
