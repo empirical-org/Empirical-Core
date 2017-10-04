@@ -3,30 +3,24 @@
     <%= link_to 'School Directory', cms_schools_path %> > <%= link_to @school.name, cms_school_path(@school.id) %> > Edit Subscription
     <br /><br />
     <h2>Edit Subscription: <%= @school.name %></h2>
-    <br /><br />
-    <%= form_tag update_subscription_cms_school_path(params[:id]), class: 'searchable' do %>
-      <table>
-        <tr>
-          <td>
-            <%= label_tag 'premium_status', 'Premium Status' %>
-          </td>
-          <td>
-            <%= select_tag 'premium_status', options_for_select(@school_premium_types, @account_type), include_blank: true %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= label_tag 'expiration_date', 'Expiration Date' %>
-          </td>
-          <td>
-            <%= select_date @expiration_date, prefix: :expiration_date %>
-          </td>
-        </tr>
-        <tr><td colspan="2">
+    <br />
+    <div class='cms-form'>
+      <%= form_tag update_subscription_cms_school_path(params[:id]) do %>
+        <div class=''>
+          <%= label_tag 'premium_status', 'Premium Status' %>
+          <%= select_tag 'premium_status', options_for_select(@school_premium_types, @account_type), include_blank: true %>
+        </div>
+
+        <div class=''>
+          <%= label_tag 'expiration_date', 'Expiration Date' %>
+          <%= select_date @expiration_date, prefix: :expiration_date %>
+        </div>
+
+        <div class='cms-submit-row'>
           <%= submit_tag 'Save' %><br /><br />
           <%= link_to 'Cancel', cms_school_path(@school.id)  %>
-        </td></tr>
+        </div>
       <% end %>
-    </table>
+    </div>
   </article>
 </div>

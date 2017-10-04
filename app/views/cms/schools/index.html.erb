@@ -5,10 +5,10 @@
         <h1>School Directory</h1>
         <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green'  %>
       </div>
-      <%= form_tag search_cms_schools_path, class: 'cms-search-form' do %>
+      <%= form_tag search_cms_schools_path, class: 'cms-form' do %>
         <div class='cms-meta-middle'>
           <% @text_search_inputs.each do |attribute| %>
-            <div class='cms-search-form-row'>
+            <div class='cms-form-row'>
               <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize}" %>
               <%= text_field_tag attribute, @school_search_query[attribute] ? @school_search_query[attribute] : '' %>
             </div>
@@ -16,24 +16,24 @@
         </div>
 
         <div class='cms-meta-right'>
-          <div class='cms-search-form-row'>
+          <div class='cms-form-row'>
             <%= label_tag 'premium_status', 'Premium Status' %>
             <%= select_tag 'premium_status', options_for_select(@school_premium_types, @school_search_query['premium_status'] ? @school_search_query['premium_status'] : []), multiple: true %>
           </div>
 
-          <div class='cms-search-form-row cms-search-checkbox-row'>
+          <div class='cms-form-row cms-checkbox-row'>
             <%= label_tag 'search_schools_with_zero_teachers', 'Include Schools with 0 Teachers' %>
             <%= check_box_tag 'search_schools_with_zero_teachers', @school_search_query['search_schools_with_zero_teachers'] %>
           </div>
 
-          <div class='cms-search-submit-row'>
+          <div class='cms-submit-row'>
             <%= submit_tag 'Search' %>
           </div>
         </div>
       <% end %>
     </div>
 
-    <table class='cms-search-results-table'>
+    <table class='cms-results-table'>
       <thead>
         <tr>
           <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
