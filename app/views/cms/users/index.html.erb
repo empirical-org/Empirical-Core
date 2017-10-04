@@ -22,7 +22,7 @@
             <%= label_tag 'user_premium_status', 'Premium Status' %>
           </td>
           <td>
-            <%= select_tag 'user_premium_status', options_for_select(@school_premium_types, @user_search_query['premium_status'] ? @user_search_query['premium_status'] : []), multiple: true %>
+            <%= select_tag 'user_premium_status', options_for_select(@school_premium_types, @user_search_query['user_premium_status'] ? @user_search_query['user_premium_status'] : []), multiple: true %>
           </td>
         </tr>
 
@@ -31,7 +31,7 @@
             <%= label_tag 'user_role', 'Role' %>
           </td>
           <td>
-            <%= select_tag 'user_role', options_for_select(@user_role_types, @user_search_query['user_role']) %>
+            <%= select_tag 'user_role', options_for_select(@user_role_types, @user_search_query['user_role']), include_blank: true %>
           </td>
         </tr>
 
