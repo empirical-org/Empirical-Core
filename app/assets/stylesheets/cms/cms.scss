@@ -1,82 +1,80 @@
-.cms-container {
-  .cms-container-meta {
-    display: flex;
+.cms-container-meta {
+  display: flex;
+}
 
-    .cms-container-meta-left {
-      max-width: 210px;
+.cms-container-meta-left {
+  max-width: 210px;
 
-      h1 {
-        line-height: 1.3;
-        margin-bottom: 20px;
-      }
+  h1 {
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+}
+
+.cms-meta-middle {
+  padding: 0 20px 0 40px;
+  width: 50%;
+}
+
+.cms-meta-right {
+  width: 50%;
+}
+
+.cms-form {
+  display: flex;
+  width: 100%;
+
+  label {
+    margin: 0;
+    width: 110px;
+  }
+
+  input, select {
+    margin: 3px auto 12px auto;
+    width: 90%;
+  }
+
+  select[multiple='multiple'] {
+    height: 265px;
+  }
+
+  .cms-checkbox-row {
+    margin: -5px 0 5px;
+
+    label {
+      width: auto;
     }
 
-    .cms-search-form {
-      display: flex;
-      width: 100%;
+    input[type='checkbox'] {
+      margin: auto;
+      width: auto;
+    }
+  }
+}
 
-      label {
-        margin: 0;
-        width: 110px;
-      }
+.cms-results-table {
+  margin-top: 20px;
+  font-size: 14px;
+  width: 100%;
 
-      input, select {
-        margin: 3px auto 12px auto;
-        width: 90%;
-      }
+  td {
+    padding: 5px;
 
-      select[multiple='multiple'] {
-        height: 265px;
-      }
+    a {
+      border-bottom: 2px solid #eee;
+      transition: all 0.3s ease;
 
-      .cms-search-checkbox-row {
-        margin: -5px 0 5px;
-
-        label {
-          width: auto;
-        }
-
-        input[type='checkbox'] {
-          margin: auto;
-          width: auto;
-        }
-      }
-
-      .cms-meta-middle {
-        padding: 0 20px 0 40px;
-        width: 50%;
-      }
-
-      .cms-meta-right {
-        width: 50%;
+      &:hover {
+        text-decoration: none;
+        border-color: #ddd;
       }
     }
   }
 
-  .cms-search-results-table {
-    margin-top: 20px;
-    font-size: 14px;
-    width: 100%;
-
-    td {
-      padding: 5px;
-
-      a {
-        border-bottom: 2px solid #eee;
-        transition: all 0.3s ease;
-
-        &:hover {
-          text-decoration: none;
-          border-color: #ddd;
-        }
-      }
-    }
-
-    thead {
-      border-top: 1px  solid #EEEEEE;
-      border-bottom: 2px solid #EEEEEE;
-      color: #666666;
-      font-weight: 700;
-    }
+  thead {
+    border-top: 1px  solid #EEEEEE;
+    border-bottom: 2px solid #EEEEEE;
+    color: #666666;
+    font-weight: 700;
   }
 }

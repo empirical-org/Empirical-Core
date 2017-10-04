@@ -13,25 +13,21 @@
       <li>Before adding a district, search for other schools in the same district so you can copy and paste the exact district name in the database.</li>
       <li>Free and Reduced Price lunch is just a number (e.g. 75 &mdash; not 75%).</li>
     </strong></ul><br />
-    <%= form_for @school, url: cms_school_path(@school.id) do |f| %>
-      <% @editable_attributes.each do |attribute_name, attribute_field| %>
-        <div class='row'>
-          <div class='form-label col-xs-2'>
-            <%= attribute_name %>
+    <div class='cms-form'>
+      <%= form_for @school, url: cms_school_path(@school.id) do |f| %>
+        <% @editable_attributes.each do |attribute_name, attribute_field| %>
+          <div class='cms-form-row'>
+            <%= f.label attribute_field, attribute_name %>
+            <%= f.text_field attribute_field %>
           </div>
-          <div class='col-xs-8'>
-            <%= f.text_field attribute_field, class: 'col-xs-4' %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
 
-      <%= f.hidden_field :id %>
+        <%= f.hidden_field :id %>
 
-      <div class='row'>
-        <div class='form-label col-xs-2'>
+        <div class='cms-submit-row'>
           <%= f.button "Save", class: 'button-green' %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </article>
 </div>
