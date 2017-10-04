@@ -121,12 +121,49 @@ protected
   end
 
   def where_query_string_builder
-    'WHERE users.id = 2'
+    conditions = ["users.role != 'temporary'"]
+    @all_search_inputs.each do |param|
+      param_value = user_query_params[param]
+      if param_value && !param_value.empty?
+        conditions << where_query_string_clause_for(param, param_value)
+      end
+    end
+    "WHERE #{conditions.reject(&:nil?).join(' AND ')}"
+  end
+
+  def where_query_string_clause_for(param, param_value)
+    # Potential params by which to search:
+    # User name: users.name
+    # User role: users.role
+    # User username: users.username
+    # User email: users.email
+    # User IP: users.ip_address
+    # School name: schools.name
+    # Premium status: subscriptions.account_type
+    case param
+    when 'user_name'
+      "users.name ILIKE '%#{(param_value)}%'"
+    when 'user_role'
+      "users.role = '#{(param_value)}'"
+    when 'user_username'
+      "users.username ILIKE '%#{(param_value)}%'"
+    when 'user_email'
+      "users.email ILIKE '%#{(param_value)}%'"
+    when 'user_ip'
+      "users.ip_address = '#{(param_value)}'"
+    when 'school_name'
+      "schools.name ILIKE '%#{(param_value)}%'"
+    when 'user_premium_status'
+      "subscriptions.account_type IN ('#{param_value.join('\',\'')}')"
+    else
+      nil
+    end
   end
 
   def set_search_inputs
-    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'user_school_name']
+    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
     @school_premium_types = Subscription.account_types
     @user_role_types = User.select('DISTINCT role').map { |r| r.role }
+    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role']
   end
 end
