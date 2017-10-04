@@ -1,59 +1,82 @@
-// Used on users section of CMS
-form.searchable {
-  label {
-    float: left;
-    clear: left;
-    position: relative; width: 215px;
-    top: 5px; margin-right: 10px;
+.cms-container {
+  .cms-container-meta {
+    display: flex;
+
+    .cms-container-meta-left {
+      max-width: 210px;
+
+      h1 {
+        line-height: 1.3;
+        margin-bottom: 20px;
+      }
+    }
+
+    .cms-search-form {
+      display: flex;
+      width: 100%;
+
+      label {
+        margin: 0;
+        width: 110px;
+      }
+
+      input, select {
+        margin: 3px auto 12px auto;
+        width: 90%;
+      }
+
+      select[multiple='multiple'] {
+        height: 265px;
+      }
+
+      .cms-search-checkbox-row {
+        margin: -5px 0 5px;
+
+        label {
+          width: auto;
+        }
+
+        input[type='checkbox'] {
+          margin: auto;
+          width: auto;
+        }
+      }
+
+      .cms-meta-middle {
+        padding: 0 20px 0 40px;
+        width: 50%;
+      }
+
+      .cms-meta-right {
+        width: 50%;
+      }
+    }
   }
 
-  div {
-    label {width: 90px;}
-    select {float: left; width: 115px; margin-right: 10px;}
-  }
-
-  input {float: left; clear: right;}
-  input[type="submit"].btn {float: left; clear: both;}
-}
-
-article.cms {
-  .role-staff, .role-student, .role-teacher, .role-user { font-weight: bold; }
-  .role-staff   { color: $missed-color }
-  .role-student { color: $found-color }
-  .role-teacher { color: $introduced-color }
-}
-
-// for staff users cms tool
-.cms-user-index {
-  input.btn {
-    margin-top: 15px !important;
-    margin-bottom: 15px !important;
-  }
-}
-
-.cms-user-index-table {
-  margin-left: -50px;
-  margin-right: -50px;
-  background-color: white;
-  border: 1px solid rgb(220,220,220);
-  width: 1000px !important;
-}
-
-.cms-form {
-  margin-left: 100px;
-  * {
-  float:left;
-  clear:both;
-  }
-  label, .form-label {
-    font-weight: 700;
-    margin: 30px auto 5px auto;
-  }
-  input[type='submit'] {
-    margin-top: 30px;
-  }
-  input, textarea {
-    min-width: 700px;
+  .cms-search-results-table {
+    margin-top: 20px;
+    font-size: 14px;
     width: 100%;
+
+    td {
+      padding: 5px;
+
+      a {
+        border-bottom: 2px solid #eee;
+        transition: all 0.3s ease;
+
+        &:hover {
+          text-decoration: none;
+          border-color: #ddd;
+        }
+      }
+    }
+
+    thead {
+      border-top: 1px  solid #EEEEEE;
+      border-bottom: 2px solid #EEEEEE;
+      color: #666666;
+      font-weight: 700;
+    }
   }
 }
