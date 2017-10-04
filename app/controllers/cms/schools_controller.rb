@@ -93,11 +93,10 @@ class Cms::SchoolsController < ApplicationController
     subscription = school.subscription
     unless subscription
       subscription = Subscription.new
-      binding.pry
       subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
       subscription.account_type = subscription_params[:premium_status]
-      subscription.account_limit = 1000 # This is a default value, and this should be later deprecated.
-      success = (school.subscription = subscription)
+      subscription.account_limit = 1000 # This is a default value and should be deprecated.
+      success = (subscription.save && school.subscription = subscription)
     else
       subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
       subscription.account_type = subscription_params[:premium_status]
