@@ -96,7 +96,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         else
           teacher_id = current_user.id
           selections_with_students = params[:selections].select do |ut|
-            ut[:classrooms][0][:student_ids]&.compact!&.any?
+            ut[:classrooms][0][:student_ids]&.compact&.any?
           end
           if selections_with_students.any?
             number_of_selections = selections_with_students.length
