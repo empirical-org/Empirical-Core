@@ -12,6 +12,7 @@ export default class extends React.Component {
       classrooms: null,
       loading: true,
       studentsChanged: false,
+      classroomsChanged: false,
       newUnit: !!this.props.params.activityIdsArray,
     };
     this.getClassroomsAndStudentsData();
@@ -81,6 +82,7 @@ export default class extends React.Component {
     classroom.allSelected = !classroom.allSelected;
     classroom.noneSelected = !classroom.allSelected;
     classroom.students.forEach(stud => stud.isSelected = classroom.allSelected);
+    newState.classroomsChanged = true;
     newState.studentsChanged = this.studentsChanged();
     this.setState(newState);
   }
@@ -116,7 +118,7 @@ export default class extends React.Component {
   }
 
   updateAllOrNoneAssigned(classy, selectedCount) {
-    if (selectedCount === classy.students.length) {
+    if (classy.students.length && (selectedCount === classy.students.length)) {
       classy.allSelected = true;
       classy.noneSelected = false;
     } else if (selectedCount === 0) {
@@ -210,7 +212,7 @@ export default class extends React.Component {
               createOrEdit={this.state.newUnit ? 'create' : 'edit'}
               handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
               toggleClassroomSelection={this.toggleClassroomSelection}
-              isSaveButtonEnabled={this.state.studentsChanged}
+              isSaveButtonEnabled={this.state.studentsChanged || this.state.classroomsChanged}
             />
           </div>
         </div>);
