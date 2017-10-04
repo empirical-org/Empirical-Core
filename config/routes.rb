@@ -314,6 +314,7 @@ EmpiricalGrammar::Application.routes.draw do
         put :clear_data
         get :sign_in
         put :make_admin
+        put :remove_admin
       end
     end
 
