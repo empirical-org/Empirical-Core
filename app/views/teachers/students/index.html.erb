@@ -57,7 +57,7 @@
                         <tr class=<%dom_class(student)%> id=<% dom_id(student)%> >
                           <td class="name"> <%=student.name %> </td>
                           <td class="username"> <%= student.username %> </td>
-                          <td class="activities_completed"> <%= student.completed_activities.count %> </td>
+                          <td class="activities_completed"> <%= student.finished_activities(@classroom).count %> </td>
                           <td> <%= link_to 'Edit Account',
                                       edit_teachers_classroom_student_path(@classroom,
                                                                            student) %> </td>
