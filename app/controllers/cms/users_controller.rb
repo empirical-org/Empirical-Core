@@ -47,6 +47,11 @@ class Cms::UsersController < ApplicationController
     redirect_to :back
   end
 
+  def remove_admin
+    User.find(params[:id]).update(role: 'teacher')
+    redirect_to :back
+  end
+
   def edit
   end
 

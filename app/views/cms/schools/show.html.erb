@@ -20,7 +20,13 @@
             <% teacher.values[0...-2].each do |value| %>
               <td><%= value || 'N/A' %></td>
             <% end %>
-            <td><%= teacher.values[-1] == 'admin' ? 'N/A' : (button_to 'Make Admin', make_admin_cms_user_path(teacher.values[-2]), method: :put) %></td>
+            <td>
+              <% if teacher.values[-1] == 'admin' %>
+                <%= button_to 'Remove Admin', remove_admin_cms_user_path(teacher.values[-2]), method: :put %>
+              <% else %>
+                <%= button_to 'Make Admin', make_admin_cms_user_path(teacher.values[-2]), method: :put %>
+              <% end %>
+            </td>
             <td><%= button_to 'Sign In', sign_in_cms_user_path(teacher.values[-2]), method: :put %></td>
           </tr>
         <% end %>
