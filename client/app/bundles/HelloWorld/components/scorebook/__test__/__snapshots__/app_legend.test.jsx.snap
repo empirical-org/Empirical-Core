@@ -2,7 +2,7 @@
 
 exports[`AppLegend component should render 1`] = `
 <div
-  className="icons-wrapper icon-legend"
+  className="icons-wrapper icon-legend app-legend"
 >
   <div
     className="icons"
