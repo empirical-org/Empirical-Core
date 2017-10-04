@@ -45,10 +45,12 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    activities_data = ClassroomActivity.where(unit_id: params[:id]).select('activity_id as id').distinct.as_json
+    activities_data = ClassroomActivity.where(unit_id: params[:id]).pluck(:activity_id).map{|id| {id: id}}
     if activities_data.any?
       classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
+      puts "here are the params"
+      puts "#{params[:id]}, #{activities_data}, #{classroom_activities}"
       Units::Updater.run(params[:id], activities_data, classroom_activities)
       render json: {}
     else
