@@ -22,11 +22,11 @@ module Student
     end
 
     def finished_activities classroom
-      classroom_activity_score_join(classroom).where('activity_sessions.completed_at is not null')
+      classroom_activity_score_join(classroom).where('activity_sessions.is_final_score is true')
     end
 
     def classroom_activity_score_join classroom
-      started_activities.where(classroom_activities: { classroom_id: classroom.id })
+      started_activities.joins('join classroom_activities ON classroom_activities.activity_id = activities.id').where(classroom_activities: { classroom_id: classroom.id })
     end
     protected :classroom_activity_score_join
 
