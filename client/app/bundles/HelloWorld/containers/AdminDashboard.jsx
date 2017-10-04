@@ -157,6 +157,7 @@ export default React.createClass({
             />
             <QuestionsAndAnswers
               questionsAndAnswersFile='admin'
+              supportLink="https://support.quill.org/"
             />
           </div>
         </div>

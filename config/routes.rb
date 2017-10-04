@@ -102,8 +102,8 @@ EmpiricalGrammar::Application.routes.draw do
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
     get 'diagnostic_units' => 'units#diagnostic_units'
     get 'lesson_units' => 'units#lesson_units'
-    get 'units/:unit_id/launch_lesson/:activity_id' => 'units#launch_lesson_with_activity_id'
-    get 'units/:unit_id/activity/:activity_id' => 'units#lesson_info_for_unit_and_activity'
+    get 'units/select_lesson/:activity_id' => 'units#select_lesson_with_activity_id'
+    get 'units/lesson_info_for_activity/:activity_id' => 'units#lesson_info_for_activity'
 
 
     resources :unit_templates, only: [:index] do
@@ -313,6 +313,17 @@ EmpiricalGrammar::Application.routes.draw do
         put :sign_in
         put :clear_data
         get :sign_in
+        put :make_admin
+      end
+    end
+
+    resources :schools do
+      collection do
+        match 'search' => 'schools#search', via:[:get, :post], as: :search
+      end
+      member do
+        get :edit_subscription
+        post :update_subscription
       end
     end
   end
@@ -358,7 +369,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/lessons/:classroom_id' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/lessons/:activity_id/unit/:unit_id' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/lessons_for_activity/:activity_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'

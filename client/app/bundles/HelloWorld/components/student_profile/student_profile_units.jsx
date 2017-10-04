@@ -14,7 +14,7 @@ export default React.createClass({
         unitsWithGroupedActivities[unit].complete = _.sortBy(partitionedActivities[0], 'classroom_activity_created_at');
       }
       if (partitionedActivities[1].length) {
-        unitsWithGroupedActivities[unit].incomplete = _.sortBy(partitionedActivities[1], 'act_sesh_updated_at');
+        unitsWithGroupedActivities[unit].incomplete = partitionedActivities[1];
       }
     }
     const unitsGroupedByCompletion = _.partition(unitsWithGroupedActivities, unit => (!!unit.incomplete));

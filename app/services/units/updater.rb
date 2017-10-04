@@ -11,12 +11,12 @@ module Units::Updater
   end
 
   def self.assign_unit_template_to_one_class(unit_id, classrooms_data)
-    activities_data = ClassroomActivity.where(unit_id: unit_id).select('activity_id AS id, NULL as due_date').as_json
+    activities_data = ClassroomActivity.where(unit_id: unit_id).select('classroom_activities.activity_id AS id, NULL as due_date').as_json
     self.update_helper(unit_id, activities_data, classrooms_data)
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template, unit_id)
-    activities_data = unit_template.activities.select('activity_id AS id, NULL as due_date').as_json
+    activities_data = unit_template.activities.select('activities.id AS id, NULL as due_date').as_json
     classrooms_data = Classroom.where(teacher_id: teacher_id).ids.map{|id| {id: id, student_ids: []}}
     self.update_helper(unit_id, activities_data, classrooms_data)
   end
@@ -33,7 +33,7 @@ module Units::Updater
         # then something changed and we should update
         matching_activity.update!(due_date: activity_data[:due_date], assigned_student_ids: classroom[:student_ids], visible: true)
       end
-    elsif classroom[:student_ids]
+    elsif classroom[:student_ids] && activity_data[:id]
       # making an array of hashes to create in one bulk option
       new_cas.push({activity_id: activity_data[:id],
          classroom_id: classroom_id,
