@@ -94,9 +94,10 @@ protected
     #     name: 'first last',
     #     email: 'example@example.com',
     #     role: 'staff',
-    #     school: 'not listed',
     #     premium: 'N/A',
     #     last_sign_in: 'Sep 19, 2017',
+    #     school: 'not listed',
+    #     school_id: 9,
     #     id: 19,
     #   }
     # ]
@@ -106,9 +107,10 @@ protected
       	users.name AS name,
       	users.email AS email,
       	users.role AS role,
-      	schools.name AS school,
       	subscriptions.account_type AS subscription,
       	TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,
+        schools.name AS school,
+        schools.id AS school_id,
       	users.id AS id
       FROM users
       LEFT JOIN schools_users ON users.id = schools_users.user_id

@@ -45,7 +45,7 @@
       <thead>
         <tr>
           <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN USERS_CONTROLLER. %>
-          <% ['Name', 'Email', 'Role', 'School', 'Premium', 'Last Sign In', 'Edit', 'Details', 'Sign In'].each do |td| %>
+          <% ['Name', 'Email', 'Role', 'Premium', 'Last Sign In', 'School', 'Edit', 'Details', 'Sign In'].each do |td| %>
             <td><%= td %></td>
           <% end %>
         </tr>
@@ -53,9 +53,10 @@
       <tbody>
         <% @user_search_query_results.each do |user| %>
           <tr>
-            <% user.values[0...-1].each do |value| %>
+            <% user.values[0...-3].each do |value| %>
               <td><%= value || 'N/A' %></td>
             <% end %>
+            <td><%= user.values[-3] ? (link_to user.values[-3], cms_school_path(user.values[-2])) : 'N/A' %></td>
             <td><%= link_to 'Edit', edit_cms_user_path(user.values.last) %></td>
             <td><%= link_to 'Details', cms_user_path(user.values.last) %></td>
             <td><%= button_to 'Sign in', sign_in_cms_user_path(user.values.last), method: :put %></td>
