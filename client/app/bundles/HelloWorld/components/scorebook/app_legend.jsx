@@ -4,7 +4,7 @@ import React from 'react'
 export default React.createClass({
   render: function () {
     return (
-      <div className="icons-wrapper icon-legend">
+      <div className="icons-wrapper icon-legend app-legend">
         <div className="icons">
           <div className="icon">
             <div className="icon-wrapper icon-green icon-diagnostic"/>
