@@ -1,0 +1,67 @@
+<div class='container'>
+  <article class='simple-rounded-box cms cms-user-index'>
+    <h1>User Directory</h1>
+    <br />
+    <%= link_to 'Add New User', new_cms_user_path, class: 'btn button-green'  %>
+    <br /><br />
+    <%= form_tag search_cms_users_path, class: 'searchable' do %>
+      <table>
+        <% @text_search_inputs.each do |attribute| %>
+          <tr>
+            <td>
+              <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize}" %>
+            </td>
+            <td>
+              <%= text_field_tag attribute, @user_search_query[attribute] ? @user_search_query[attribute] : '' %>
+            </td>
+          </tr>
+        <% end %>
+
+        <tr>
+          <td>
+            <%= label_tag 'user_premium_status', 'Premium Status' %>
+          </td>
+          <td>
+            <%= select_tag 'user_premium_status', options_for_select(@school_premium_types, @user_search_query['premium_status'] ? @user_search_query['premium_status'] : []), multiple: true %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <%= label_tag 'user_role', 'Role' %>
+          </td>
+          <td>
+            <%= select_tag 'user_role', options_for_select(@user_role_types, @user_search_query['user_role']) %>
+          </td>
+        </tr>
+
+        <tr><td colspan="2">
+          <%= submit_tag 'Search' %>
+        </td></tr>
+      <% end %>
+    </table>
+
+    <table class='table table-stripe table-hover-row cms-user-index-table'>
+      <thead>
+        <tr>
+          <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN USERS_CONTROLLER. %>
+          <% ['Name', 'Email', 'Role', 'School', 'Premium', 'Last Sign In', 'Edit', 'Details', 'Sign In'].each do |td| %>
+            <td><%= td %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user_search_query_results.each do |user| %>
+          <tr>
+            <% user.values[0...-1].each do |value| %>
+              <td><%= value || 'N/A' %></td>
+            <% end %>
+            <td><%= link_to 'Edit', edit_cms_user_path(user.values.last) %></td>
+            <td><%= link_to 'Details', cms_user_path(user.values.last) %></td>
+            <td><%= button_to 'Sign in', sign_in_cms_user_path(user.values.last), method: :put %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </article>
+</div>

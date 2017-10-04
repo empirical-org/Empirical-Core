@@ -2,6 +2,7 @@ class Cms::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :staff!
   before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
+  before_action :set_search_inputs, only: [:index, :search]
 
   def index
     @user_search_query = {}
@@ -9,8 +10,8 @@ class Cms::UsersController < ApplicationController
   end
 
   def search
-    @user_search_query = user_params
-    @user_search_query_results = user_query(user_params)
+    @user_search_query = user_query_params
+    @user_search_query_results = user_query(user_query_params)
     @user_search_query_results = @user_search_query_results ? @user_search_query_results : []
     render :index
   end
@@ -80,6 +81,10 @@ protected
     params.require(:user).permit!
   end
 
+  def user_query_params
+    params.permit!
+  end
+
   def user_query(params)
     # This should return an array of hashes with the following order.
     # (Order matters because of the order in which these are being
@@ -117,5 +122,11 @@ protected
 
   def where_query_string_builder
     'WHERE users.id = 2'
+  end
+
+  def set_search_inputs
+    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'user_school_name']
+    @school_premium_types = Subscription.account_types
+    @user_role_types = User.select('DISTINCT role').map { |r| r.role }
   end
 end
