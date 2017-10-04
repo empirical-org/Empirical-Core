@@ -59,7 +59,10 @@ module Teacher
           FULL OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
           FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
           WHERE classrooms.teacher_id = #{self.id}
-          AND classrooms.visible AND acts.is_final_score = true
+          AND classrooms.visible
+          AND class_acts.visible
+          AND acts.visible
+          AND acts.is_final_score = true
           GROUP BY classrooms.id").to_a
     info = classrooms.map do |classy|
       count = counts.find { |elm| elm['id'] == classy['id'] }
