@@ -1,46 +1,39 @@
 <div class='container'>
-  <article class='simple-rounded-box cms cms-user-index'>
-    <h1>School Directory</h1>
-    <br />
-    <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green'  %>
-    <br /><br />
-    <%= form_tag search_cms_schools_path, class: 'searchable' do %>
-      <table>
-        <% @text_search_inputs.each do |attribute| %>
-          <tr>
-            <td>
+  <article class='simple-rounded-box cms-container'>
+    <div class='cms-container-meta'>
+      <div class='cms-container-meta-left'>
+        <h1>School Directory</h1>
+        <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green'  %>
+      </div>
+      <%= form_tag search_cms_schools_path, class: 'cms-search-form' do %>
+        <div class='cms-meta-middle'>
+          <% @text_search_inputs.each do |attribute| %>
+            <div class='cms-search-form-row'>
               <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize}" %>
-            </td>
-            <td>
               <%= text_field_tag attribute, @school_search_query[attribute] ? @school_search_query[attribute] : '' %>
-            </td>
-          </tr>
-        <% end %>
+            </div>
+          <% end %>
+        </div>
 
-        <tr>
-          <td>
+        <div class='cms-meta-right'>
+          <div class='cms-search-form-row'>
             <%= label_tag 'premium_status', 'Premium Status' %>
-          </td>
-          <td>
             <%= select_tag 'premium_status', options_for_select(@school_premium_types, @school_search_query['premium_status'] ? @school_search_query['premium_status'] : []), multiple: true %>
-          </td>
-        </tr>
+          </div>
 
-        <tr>
-          <td>
+          <div class='cms-search-form-row cms-search-checkbox-row'>
             <%= label_tag 'search_schools_with_zero_teachers', 'Include Schools with 0 Teachers' %>
-          </td>
-          <td>
             <%= check_box_tag 'search_schools_with_zero_teachers', @school_search_query['search_schools_with_zero_teachers'] %>
-          </td>
-        </tr>
-        <tr><td colspan="2">
-          <%= submit_tag 'Search' %>
-        </td></tr>
-      <% end %>
-    </table>
+          </div>
 
-    <table class='table table-stripe table-hover-row cms-user-index-table'>
+          <div class='cms-search-submit-row'>
+            <%= submit_tag 'Search' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <table class='cms-search-results-table'>
       <thead>
         <tr>
           <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
