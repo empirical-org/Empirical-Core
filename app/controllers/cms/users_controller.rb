@@ -4,14 +4,14 @@ class Cms::UsersController < ApplicationController
   before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
 
   def index
-    @q = User.where(id: (1..100).to_a).includes([:school, :classrooms]).search(params[:q])
-    @users = @q.result(distinct: true).page(params[:page]).per(100)
+    @user_search_query = {}
+    @user_search_query_results = []
   end
 
   def search
-    @q = User.includes([:school, :classrooms]).search(params[:q])
-    @q.sorts = 'created_at desc' if @q.sorts.empty?
-    @users = @q.result(distinct: true).page(params[:page]).per(100)
+    @user_search_query = user_params
+    @user_search_query_results = user_query(user_params)
+    @user_search_query_results = @user_search_query_results ? @user_search_query_results : []
     render :index
   end
 
@@ -78,5 +78,44 @@ protected
 
   def user_params
     params.require(:user).permit!
+  end
+
+  def user_query(params)
+    # This should return an array of hashes with the following order.
+    # (Order matters because of the order in which these are being
+    # displayed in the table on the front end.)
+    # [
+    #   {
+    #     name: 'first last',
+    #     email: 'example@example.com',
+    #     role: 'staff',
+    #     school: 'not listed',
+    #     premium: 'N/A',
+    #     last_sign_in: 'Sep 19, 2017',
+    #     id: 19,
+    #   }
+    # ]
+
+    ActiveRecord::Base.connection.execute("
+      SELECT
+      	users.name AS name,
+      	users.email AS email,
+      	users.role AS role,
+      	schools.name AS school,
+      	subscriptions.account_type AS subscription,
+      	TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,
+      	users.id AS id
+      FROM users
+      LEFT JOIN schools_users ON users.id = schools_users.user_id
+      LEFT JOIN schools ON schools_users.school_id = schools.id
+      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
+      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
+      #{where_query_string_builder}
+      LIMIT 50
+    ").to_a
+  end
+
+  def where_query_string_builder
+    'WHERE users.id = 2'
   end
 end
