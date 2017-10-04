@@ -96,7 +96,7 @@ class Teachers::UnitsController < ApplicationController
       		AND classroom_activities.activity_id = #{activity_id}
       		AND classroom_activities.visible is TRUE").to_a
     if classroom_activities.length == 1
-      ca_id = classroom_activities.first.id
+      ca_id = classroom_activities.first["id"]
       lesson_uid = Activity.find(activity_id).uid
       redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
     else
