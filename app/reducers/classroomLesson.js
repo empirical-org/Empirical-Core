@@ -8,6 +8,7 @@ const initialState = {
     states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
     data: {}, // this will contain firebase data
     error: '',
+    id: ''
   },
 };
 
@@ -29,6 +30,10 @@ export default function (currentstate, action) {
         error: `No such lesson. Lesson with id '${action.data}' does not exist.`,
       });
       return newstate;
+    case C.SET_LESSON_ID:
+      return Object.assign({}, currentstate, {
+        id: action.id,
+      });
     default: return currentstate || initialState.lesson;
   }
 }

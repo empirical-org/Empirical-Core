@@ -112,7 +112,7 @@ class ExitSlide extends React.Component<any, any> {
 
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
-      return <CongratulationsModal closeModal={this.hideCongratulationsModal} />
+      return <CongratulationsModal closeModal={this.hideCongratulationsModal} lessonId={this.props.lessonId}/>
     }
   }
 

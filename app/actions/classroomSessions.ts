@@ -3,6 +3,7 @@ import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
+const reviewsRef = rootRef.child('reviews')
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -453,4 +454,14 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
 export function createPreviewSession() {
   const previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
   return previewSession.key
+}
+
+export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
+  const reviewRef = reviewsRef.child(classroom_activity_id)
+  const review = {
+    activity_id: activity_id,
+    value: value,
+    classroom_activity_id: classroom_activity_id
+  }
+  reviewRef.set(review)
 }

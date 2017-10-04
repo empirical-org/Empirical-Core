@@ -186,6 +186,7 @@ class CurrentSlide extends React.Component<any, any> {
   render() {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonId: string = this.props.classroomLesson.id
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
       const current = lessonData.questions[parseInt(data.current_slide) || 0];
@@ -242,6 +243,7 @@ class CurrentSlide extends React.Component<any, any> {
               flaggedStudents={data.flaggedStudents}
               students={data.students}
               toggleStudentFlag={this.toggleStudentFlag}
+              lessonId={lessonId}
             />
           );
         default:
