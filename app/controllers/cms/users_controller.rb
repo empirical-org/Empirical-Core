@@ -32,7 +32,8 @@ class Cms::UsersController < ApplicationController
     if @user.save
       redirect_to cms_users_path
     else
-      render :new
+      flash[:error] = 'Did not save.'
+      redirect_to :back
     end
   end
 
@@ -63,6 +64,7 @@ class Cms::UsersController < ApplicationController
       if @user.update_attributes(user_params)
         redirect_to cms_users_path, notice: 'User was successfully updated.'
       else
+        flash[:error] = 'Did not save.'
         render action: 'edit'
       end
     end
@@ -83,11 +85,13 @@ protected
   end
 
   def user_params
-    params.require(:user).permit!
+    params.require(:user).permit([:name, :email, :username,
+      :role, :classcode, :password, :password_confirmation] + default_params
+    )
   end
 
   def user_query_params
-    params.permit!
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:user_role, :user_premium_status => []])
   end
 
   def user_query(params)
