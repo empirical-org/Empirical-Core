@@ -10,10 +10,11 @@ module Units::Updater
     self.update_helper(unit_id, activities_data, classrooms_data)
   end
 
-  def self.assign_unit_template_to_one_class(unit_id, classrooms_data)
+  def self.assign_unit_template_to_one_class(unit_id, classrooms_data, unit_template_id)
     classroom_array = [classrooms_data]
     # converted to array so we can map in helper function as we would otherwise
-    activities_data = ClassroomActivity.where(unit_id: unit_id).select('activity_id AS id, NULL as due_date').distinct
+    unit_template = UnitTemplate.find(unit_template_id)
+    activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     puts 'updater - activity data here'
     puts activities_data
     self.update_helper(unit_id, activities_data, classroom_array)
