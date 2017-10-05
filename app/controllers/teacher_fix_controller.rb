@@ -14,7 +14,16 @@ class TeacherFixController < ApplicationController
     else
       archived_units = Unit.unscoped.where(visible: false, user_id: user.id)
       if archived_units.any?
-        render json: {archived_units: archived_units}
+        archived_units_with_shared_name_attr = archived_units.map do |u|
+          unit_obj = u.attributes
+          if Unit.find_by(user_id: u['user_id'], name: u['name'])
+            unit_obj['shared_name'] = true
+          else
+            unit_obj['shared_name'] = false
+          end
+          unit_obj
+        end
+        render json: {archived_units: archived_units_with_shared_name_attr}
       else
         render json: {error: 'This user has no archived units.'}
       end
@@ -23,6 +32,9 @@ class TeacherFixController < ApplicationController
 
   def unarchive_units
     unit_ids = params['unit_ids']
+    params['changed_names'].each do |id, name|
+      Unit.unscoped.where(id: id).first.update_attribute('name', name)
+    end
     Unit.unscoped.where(id: unit_ids).update_all(visible: true)
     classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_ids)
     classroom_activities.update_all(visible: true)
@@ -34,6 +46,8 @@ class TeacherFixController < ApplicationController
     classroom = Classroom.find_by_code(params['class_code'])
     if classroom
       classroom_activities = ClassroomActivity.unscoped.where(classroom_id: classroom.id)
+      unit_ids = classroom_activities.map(&:unit_id)
+      Unit.unscoped.where(visible: false, id: unit_ids).update_all(visible: true)
       classroom_activities.update_all(visible: true)
       ActivitySession.unscoped.where(classroom_activity_id: classroom_activities.ids).update_all(visible: true)
       render json: {}, status: 200
