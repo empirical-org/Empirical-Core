@@ -72,8 +72,9 @@ export default class ClassroomLessons extends React.Component {
   }
 
   generateNewCaUnit(u) {
+    const studentCount = Number(u.array_length ? u.array_length : u.class_size)
     const caObj = {
-      studentCount: Number(u.array_length ? u.array_length : u.class_size),
+      studentCount: studentCount,
       classrooms: new Set([u.class_name]),
       classroomActivities: new Map(),
       unitId: u.unit_id,
@@ -90,7 +91,9 @@ export default class ClassroomLessons extends React.Component {
 			classroomId: u.classroom_id,
       dueDate: u.due_date,
       supportingInfo: u.supporting_info,
-      completed: u.completed_count > 0,});
+      completed: u.completed_count > 0,
+      studentCount: studentCount
+    });
     return caObj;
   }
 
@@ -102,10 +105,11 @@ export default class ClassroomLessons extends React.Component {
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
       } else {
         const caUnit = parsedUnits[u.unit_id];
+        const studentCount = Number(u.array_length ? u.array_length : u.class_size)
         if (!caUnit.classrooms.has(u.class_name)) {
           // add the info and student count from the classroom if it hasn't already been done
           caUnit.classrooms.add(u.class_name);
-          caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
+          caUnit.studentCount += studentCount;
         }
         // add the activity info if it doesn't exist
         caUnit.classroomActivities.set(u.activity_id,
@@ -119,7 +123,9 @@ export default class ClassroomLessons extends React.Component {
           createdAt: u.ca_created_at,
           dueDate: u.due_date,
           supportingInfo: u.supporting_info,
-          completed: u.completed_count > 0,});
+          completed: u.completed_count > 0,
+          studentCount: studentCount
+        });
       }
     });
     return this.orderUnits(parsedUnits);
