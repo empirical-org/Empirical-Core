@@ -3,8 +3,8 @@
     <%= link_to 'School Directory', cms_schools_path %> > <%= @school_info['Name'] %>
     <br /><br />
     <h2><%= @school_info['Name'] %></h2>
-    <br /><br />
-    <table class='table table-stripe table-hover-row cms-user-index-table'>
+    <br />
+    <table class='cms-results-table'>
       <thead>
         <tr>
           <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
@@ -22,12 +22,12 @@
             <% end %>
             <td>
               <% if teacher.values[-1] == 'admin' %>
-                <%= button_to 'Remove Admin', remove_admin_cms_user_path(teacher.values[-2]), method: :put %>
+                <%= link_to 'Remove Admin', remove_admin_cms_user_path(teacher.values[-2]), method: :put %>
               <% else %>
-                <%= button_to 'Make Admin', make_admin_cms_user_path(teacher.values[-2]), method: :put %>
+                <%= link_to 'Make Admin', make_admin_cms_user_path(teacher.values[-2]), method: :put %>
               <% end %>
             </td>
-            <td><%= button_to 'Sign In', sign_in_cms_user_path(teacher.values[-2]), method: :put %></td>
+            <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher.values[-2]), method: :put %></td>
           </tr>
         <% end %>
       </tbody>

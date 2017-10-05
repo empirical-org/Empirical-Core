@@ -214,7 +214,7 @@ class Cms::SchoolsController < ApplicationController
     when 'school_city'
       "(schools.city ILIKE '%#{(param_value)}%' OR schools.mail_city ILIKE '%#{(param_value)}%')"
     when 'school_state'
-      "(UPPER(schools.state) = UPPER(#{param_value}) OR UPPER(schools.mail_state) = UPPER(#{param_value}))"
+      "(UPPER(schools.state) = UPPER('#{param_value}') OR UPPER(schools.mail_state) = UPPER('#{param_value}'))"
     when 'school_zip'
       "(schools.zipcode = '#{param_value}' OR schools.mail_zipcode = '#{param_value}')"
     when 'district_name'
@@ -227,7 +227,7 @@ class Cms::SchoolsController < ApplicationController
   end
 
   def edit_or_add_school_params
-    params.require(:school).permit!
+    params.require(:school).permit(editable_school_attributes.values)
   end
 
   def editable_school_attributes
@@ -242,6 +242,6 @@ class Cms::SchoolsController < ApplicationController
   end
 
   def subscription_params
-    params.permit! # TODO: change this.
+    params.permit([:id, :premium_status, :expiration_date => [:day, :month, :year]] + default_params)
   end
 end
