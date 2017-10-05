@@ -4,15 +4,19 @@ class Cms::UsersController < ApplicationController
   before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
   before_action :set_search_inputs, only: [:index, :search]
 
+  USERS_PER_PAGE = 10
+
   def index
     @user_search_query = {}
-    @user_search_query_results = []
+    @user_search_query_results = user_query(user_query_params)
+    @number_of_pages = 0
   end
 
   def search
     @user_search_query = user_query_params
     @user_search_query_results = user_query(user_query_params)
     @user_search_query_results = @user_search_query_results ? @user_search_query_results : []
+    @number_of_pages = number_of_users_matched / USERS_PER_PAGE
     render :index
   end
 
@@ -91,7 +95,7 @@ protected
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:user_role, :user_premium_status => []])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_premium_status => []])
   end
 
   def user_query(params)
@@ -127,7 +131,7 @@ protected
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
       #{where_query_string_builder}
-      LIMIT 50
+      #{pagination_query_string}
     ").to_a
   end
 
@@ -171,10 +175,28 @@ protected
     end
   end
 
+  def pagination_query_string
+    page = [user_query_params[:page].to_i - 1, 0].max
+    "LIMIT #{USERS_PER_PAGE} OFFSET #{USERS_PER_PAGE * page}"
+  end
+
+  def number_of_users_matched
+    ActiveRecord::Base.connection.execute("
+      SELECT
+      	COUNT(users.id) AS count
+      FROM users
+      LEFT JOIN schools_users ON users.id = schools_users.user_id
+      LEFT JOIN schools ON schools_users.school_id = schools.id
+      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
+      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
+      #{where_query_string_builder}
+    ").to_a[0]['count'].to_i
+  end
+
   def set_search_inputs
     @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
     @school_premium_types = Subscription.account_types
     @user_role_types = User.select('DISTINCT role').map { |r| r.role }
-    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role']
+    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page']
   end
 end
