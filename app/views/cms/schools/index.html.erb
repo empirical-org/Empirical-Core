@@ -46,10 +46,10 @@
       <tbody>
         <% @school_search_query_results.each do |school| %>
           <tr>
-            <% school.values[0...-1].each do |value| %>
-              <td><%= value || 'N/A' %></td>
+            <% %w(school_name district_name school_city school_state school_zip frl number_teachers premium_status number_admins).each do |attribute| %>
+              <td><%= school[attribute] || 'N/A' %></td>
             <% end %>
-            <td><%= link_to 'Edit', cms_school_path(school.values.last) %></td>
+            <td><%= link_to 'Edit', cms_school_path(school['id']) %></td>
           </tr>
         <% end %>
       </tbody>

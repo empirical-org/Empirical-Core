@@ -46,10 +46,10 @@
       <tbody>
         <% @user_search_query_results.each do |user| %>
           <tr>
-            <% user.values[0...-3].each do |value| %>
-              <td><%= value || 'N/A' %></td>
+            <% %w(name email role subscription last_sign_in).each do |attribute| %>
+              <td><%= user[attribute] || 'N/A' %></td>
             <% end %>
-            <td><%= user.values[-3] ? (link_to user.values[-3], cms_school_path(user.values[-2])) : 'N/A' %></td>
+            <td><%= user['school'] ? (link_to user['school'], cms_school_path(user['school_id'])) : 'N/A' %></td>
             <td><%= link_to 'Edit', edit_cms_user_path(user.values.last) %></td>
             <td><%= link_to 'Details', cms_user_path(user.values.last) %></td>
             <td><%= link_to 'Sign in', sign_in_cms_user_path(user.values.last), method: :put %></td>

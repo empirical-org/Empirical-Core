@@ -58,7 +58,7 @@ class Cms::SchoolsController < ApplicationController
       LEFT JOIN subscriptions ON subscriptions.id = user_subscriptions.subscription_id
       WHERE school_id = #{ActiveRecord::Base.sanitize(params[:id])}
       GROUP BY users.name, users.last_sign_in, subscriptions.account_type, users.id;
-    ")
+    ").to_a
   end
 
   # This allows staff members to edit certain details about a school.
