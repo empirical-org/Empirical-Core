@@ -4,7 +4,7 @@ class Cms::UsersController < ApplicationController
   before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
   before_action :set_search_inputs, only: [:index, :search]
 
-  USERS_PER_PAGE = 10
+  USERS_PER_PAGE = 10.0
 
   def index
     @user_search_query = {}
@@ -16,7 +16,7 @@ class Cms::UsersController < ApplicationController
     @user_search_query = user_query_params
     @user_search_query_results = user_query(user_query_params)
     @user_search_query_results = @user_search_query_results ? @user_search_query_results : []
-    @number_of_pages = number_of_users_matched / USERS_PER_PAGE
+    @number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
     render :index
   end
 

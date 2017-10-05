@@ -321,7 +321,8 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :schools do
       collection do
-        match 'search' => 'schools#search', via:[:get, :post], as: :search
+        post :search
+        get :search, to: 'schools#index'
       end
       member do
         get :edit_subscription
