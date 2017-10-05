@@ -27,6 +27,7 @@
           </div>
 
           <div class='cms-submit-row'>
+            <%= hidden_field_tag 'page', 1 %>
             <%= submit_tag 'Search' %>
           </div>
         </div>
@@ -56,5 +57,17 @@
         <% end %>
       </tbody>
     </table>
+    <div class='cms-pagination-container'>
+      <% (1..@number_of_pages).to_a.each do |page| %>
+        <%= link_to page, '#!', onclick: "submitForm(#{page})", class: "cms-pagination #{ page == @user_search_query['page'].to_i ? 'cms-pagination-current' : nil}" %>
+      <% end %>
+    </div>
   </article>
 </div>
+<script>
+  function submitForm(page) {
+
+    document.getElementById('page').value = page;
+    document.getElementsByClassName('cms-form')[0].submit();
+  }
+</script>

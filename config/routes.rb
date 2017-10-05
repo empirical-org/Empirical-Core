@@ -306,7 +306,8 @@ EmpiricalGrammar::Application.routes.draw do
       resource :subscription
 
       collection do
-        match 'search' => 'users#search', via: [:get, :post], as: :search
+        post :search
+        get :search, to: 'users#index'
       end
       member do
         get :show_json

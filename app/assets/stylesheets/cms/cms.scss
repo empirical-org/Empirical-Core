@@ -78,3 +78,22 @@
     font-weight: 700;
   }
 }
+
+.cms-pagination-container {
+  margin-top: 20px;
+
+  .cms-pagination {
+    border-radius: 3px;
+    border: 1px solid #eee;
+    display: inline-block;
+    font-size: 16px;
+    padding: 4px;
+    text-align: center;
+    width: 28px;
+
+    &.cms-pagination-current {
+      background: #eee;
+      border-color: #ccc;
+    }
+  }
+}
