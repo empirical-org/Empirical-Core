@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
+import rootRef, { firebase } from '../../../libs/firebase';
 import _ from 'lodash'
 import {
   getComponentDisplayName,
@@ -29,6 +30,27 @@ class ShowClassroomLesson extends Component<any, any> {
     this.selectNewSlideType = this.selectNewSlideType.bind(this)
     this.goToNewSlide = this.goToNewSlide.bind(this)
     this.saveLessonDetails = this.saveLessonDetails.bind(this)
+    this.updateReviewPercentage = this.updateReviewPercentage.bind(this)
+  }
+
+  componentDidMount() {
+    const lessonId = this.props.params.classroomLessonID
+    const reviewsRef = rootRef.child("reviews");
+    const that = this
+    reviewsRef.orderByChild("activity_id").equalTo(lessonId).once("value", function(snapshot) {
+      const reviews = snapshot.val()
+      if (reviews) {
+        const reviewKeys = Object.keys(reviews)
+        const numberPoints = _.sumBy(reviewKeys, (rk) => reviews[rk].value)
+        const numberPointsPoss = reviewKeys.length * 2
+        const percentage = ((numberPoints/numberPointsPoss) * 100).toFixed(2)
+        that.updateReviewPercentage(percentage)
+      }
+    });
+  }
+
+  updateReviewPercentage(reviewPercentage) {
+    this.setState({reviewPercentage})
   }
 
   classroomLesson() {
@@ -78,7 +100,6 @@ class ShowClassroomLesson extends Component<any, any> {
     }
   }
 
-
   renderSortableMiddleSlides() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const questions = this.classroomLesson().questions
@@ -121,6 +142,12 @@ class ShowClassroomLesson extends Component<any, any> {
     }
   }
 
+  renderPercentage() {
+    if (this.state.reviewPercentage) {
+      return <span>{this.state.reviewPercentage}% Approval</span>
+    }
+  }
+
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const questions = this.classroomLesson().questions
@@ -128,7 +155,8 @@ class ShowClassroomLesson extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h4 className="title is-4">{this.classroomLesson().title} <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonID}/preview`}>Preview</a></h4>
+            <h4 className="title is-4">{this.classroomLesson().title} <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonID}/preview`}>Preview</a> </h4>
+            <h5 className="title is-5">{this.renderPercentage()}</h5>
             <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} deleteLesson={this.deleteLesson} />
           </div>
           <h5 className="title is-5">{questions.length} Slides</h5>
