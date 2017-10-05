@@ -31,15 +31,21 @@ module Units::Updater
 
     matching_ca = extant_classroom_activities.find{|ca| (ca.activity_id == activity_data[:id] && ca.classroom_id == classroom_id)}
     puts 'matching_ca here'
-    puts matching_ca
+    puts matching_ca.attributes
     if matching_ca
       if classroom[:student_ids] == false
         # then there are no assigned students and we should hide the cas
         hidden_cas_ids.push(matching_ca.id)
       elsif (matching_ca[:due_date] != activity_data[:due_date]) || (matching_ca.assigned_student_ids != classroom[:student_ids]) || matching_ca.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
+        puts 'matching_ca about to get updated'
+        puts matching_ca.attributes
         matching_ca.update!(due_date: activity_data[:due_date], assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
+      else
+        puts 'nothing happened with matching_ca'
+        puts matching_ca.attributes
       end
+
     elsif classroom[:student_ids] || classroom[:assign_on_join]
       # making an array of hashes to create in one bulk option
       new_cas.push({activity_id: activity_data[:id],
@@ -55,7 +61,7 @@ module Units::Updater
   def self.update_helper(unit_id, activities_data, classrooms_data)
     extant_classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_id)
     puts 'extant_classroom_activities here'
-    puts extant_classroom_activities
+    puts extant_classroom_activities.to_json
     new_cas = []
     hidden_cas_ids = []
     classrooms_data.each do |classroom|
