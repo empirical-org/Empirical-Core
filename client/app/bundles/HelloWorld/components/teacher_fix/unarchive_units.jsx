@@ -100,7 +100,7 @@ export default class UnarchiveUnits extends React.Component {
       })
       const selectAllCopy = this.state.archivedUnits.length === this.state.selectedUnitIds.length ? 'Unselect All Units' : 'Select All Units'
       return <div>
-        <button onClick={this.toggleSelectAllUnits}>{selectAllCopy}</button>
+        <button className="unselect-all-button" onClick={this.toggleSelectAllUnits}>{selectAllCopy}</button>
         {unitsList}
         <button onClick={this.unarchiveUnits}>Unarchive Units</button>
       </div>
