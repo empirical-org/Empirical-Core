@@ -353,8 +353,9 @@ export function addSupportingInfo(classroom_activity_id: string, supportingInfo:
 
 export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
   const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
-  console.log('question_id', question_id)
-  timestampRef.on('value', (snapshot) => {
+  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`)
+  // update timestamp if the teacher clicks on a slide and there are no submissions yet
+  submissionRef.on('value', (snapshot) => {
     if (snapshot.val() === null) {
       timestampRef.set(firebase.database.ServerValue.TIMESTAMP)
     }
