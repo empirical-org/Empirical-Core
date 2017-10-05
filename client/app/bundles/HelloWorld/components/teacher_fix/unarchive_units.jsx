@@ -9,6 +9,7 @@ export default class UnarchiveUnits extends React.Component {
     this.state = {
       archivedUnits: [],
       selectedUnitIds: [],
+      changedNames: {},
       teacherIdentifier: ''
     }
 
@@ -16,6 +17,8 @@ export default class UnarchiveUnits extends React.Component {
     this.getArchivedUnits = this.getArchivedUnits.bind(this)
     this.toggleSelected = this.toggleSelected.bind(this)
     this.unarchiveUnits = this.unarchiveUnits.bind(this)
+    this.updateName = this.updateName.bind(this)
+    this.toggleSelectAllUnits = this.toggleSelectAllUnits.bind(this)
   }
 
   updateTeacherIdentifier(e) {
@@ -24,13 +27,19 @@ export default class UnarchiveUnits extends React.Component {
 
   toggleSelected(e) {
     const newSelectedUnitIds = this.state.selectedUnitIds
-    const selectedIndex = newSelectedUnitIds.findIndex(unitId => unitId == e.target.value)
+    const selectedIndex = newSelectedUnitIds.findIndex(unitId => unitId == e.target.id)
     if (selectedIndex === -1) {
-      newSelectedUnitIds.push(e.target.value)
+      newSelectedUnitIds.push(e.target.id)
     } else {
       newSelectedUnitIds.splice(selectedIndex, 1)
     }
     this.setState({selectedUnitIds: newSelectedUnitIds})
+  }
+
+  updateName(e, id) {
+    const newChangedNames = this.state.changedNames
+    newChangedNames[id] = e.target.value
+    this.setState({changedNames: newChangedNames})
   }
 
   getArchivedUnits() {
@@ -53,14 +62,22 @@ export default class UnarchiveUnits extends React.Component {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
-      json: {unit_ids: that.state.selectedUnitIds, authenticity_token: getAuthToken()}
+      json: {unit_ids: that.state.selectedUnitIds, changed_names: that.state.changedNames, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {
       if (r.statusCode === 200) {
-        that.setState({ archivedUnits: {}, selectedUnitIds: {}, teacherIdentifier: ''})
+        that.setState({ archivedUnits: [], changedNames: {}, selectedUnitIds: [], teacherIdentifier: ''})
         window.alert('These units have been unarchived.')
       }
     })
+  }
+
+  toggleSelectAllUnits() {
+    if (this.state.archivedUnits.length === this.state.selectedUnitIds.length) {
+      this.setState({selectedUnitIds: []})
+    } else {
+      this.setState({selectedUnitIds: this.state.archivedUnits.map(u => u.id)})
+    }
   }
 
   renderTeacherForm() {
@@ -75,9 +92,15 @@ export default class UnarchiveUnits extends React.Component {
     if (this.state.archivedUnits.length > 0) {
       const unitsList = this.state.archivedUnits.map(u => {
         const checked = this.state.selectedUnitIds.find(unitId => unitId == u.id)
-        return <div  key={u.id}><input type="checkbox" checked={checked} onChange={this.toggleSelected} value={u.id}/>{u.name}</div>
+        const nameFieldStyle = u.shared_name ? {'border': 'red 1px solid', 'width': '447px'} : {'width': '447px'}
+        return <div key={`${u.id}-${checked}`}>
+        <input type="checkbox" onChange={this.toggleSelected} id={u.id} checked={checked}/>
+        <input style={nameFieldStyle} onChange={(e) => this.updateName(e, u.id)} value={this.state.changedNames[u.id] || u.name} />
+        </div>
       })
+      const selectAllCopy = this.state.archivedUnits.length === this.state.selectedUnitIds.length ? 'Unselect All Units' : 'Select All Units'
       return <div>
+        <button onClick={this.toggleSelectAllUnits}>{selectAllCopy}</button>
         {unitsList}
         <button onClick={this.unarchiveUnits}>Unarchive Units</button>
       </div>
@@ -96,6 +119,7 @@ export default class UnarchiveUnits extends React.Component {
         <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
         <h2>Unarchive Units</h2>
         <p>All archived units are selected by default. Unarchiving a unit will also unarchive all of that unit's classroom activities and activity sessions.</p>
+        <p>If the input field for a unit name is outlined in red, that means that it shares a name with one of that teacher's visible units. <strong>If you are going to unarchive this unit, make sure you change the name.</strong> Appending a number to the unit's name is a good way to handle this.</p>
         {this.renderTeacherForm()}
         {this.renderError()}
         {this.renderUnitsForm()}
