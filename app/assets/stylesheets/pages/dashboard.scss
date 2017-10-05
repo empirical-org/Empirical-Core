@@ -42,6 +42,7 @@
     #google-classroom-mini,
     .premium-container,
     .resources-container,
+    .best-practices-container,
     .video-container {
         display: inline-block;
         vertical-align: middle;
@@ -421,3 +422,14 @@
           margin-bottom: 8px;
         }
     }
+
+.best-practices-container {
+  p {
+    width: 270px;
+    margin: 6px auto !important;
+  }
+}
+
+.best-practices-container, .resources-container {
+  cursor: pointer;
+}
