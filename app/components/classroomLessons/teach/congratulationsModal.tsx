@@ -22,13 +22,14 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
   renderFeedbackResponse() {
     let text
     if (this.state.selectedEmoji === 2) {
-      text = <p>We are happy to hear that you had a good experience with Quill Lessons. Please share your feedback, suggestions or report any bugs through this <a href="https://goo.gl/forms/jOnHqHOInBnNDvig1" target="_blank">short feedback form</a>.</p>
+      text = <p>We are happy to hear that you had a good experience with Quill Lessons. Please share your feedback, suggestions or report any bugs by clicking on the link below.</p>
     } else {
-      text = <p>We are sorry to hear that you did not have a good experience with Quill Lessons. Please share your feedback, suggestions or report any bugs through this <a href="https://goo.gl/forms/jOnHqHOInBnNDvig1" target="_blank">short feedback form</a>.</p>
+      text = <p>We are sorry to hear that you did not have a good experience with Quill Lessons. Please share your feedback, suggestions or report any bugs by clicking on the link below.</p>
     }
     return <div className="feedback-response">
       <p>Thank you!</p>
       {text}
+      <a href="https://goo.gl/forms/jOnHqHOInBnNDvig1" target="_blank">Share Your Feedback</a>
     </div>
   }
 
