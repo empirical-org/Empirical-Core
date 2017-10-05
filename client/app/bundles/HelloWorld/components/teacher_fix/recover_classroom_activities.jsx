@@ -46,7 +46,7 @@ export default class RecoverClassroomActivities extends React.Component {
     return <div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Recover Classroom Activities</h2>
-      <p>This method will unarchive all of the classroom activities and associated activity sessions for a given classroom..</p>
+      <p>This method will unarchive all of the classroom activities and associated activity sessions for a given classroom, as well as any units (activity packs) that are associated with these classroom activities in the event that they have been hidden.</p>
       <div>
         <div className="input-row">
           <label>Class Code:</label>
