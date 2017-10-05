@@ -216,9 +216,9 @@ class ClassroomActivity < ActiveRecord::Base
         self.update!(pinned: false)
       else
         # unpin any other pinned ca before pinning new one
-        pinned_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id, pinned: true)
+        pinned_ca = ClassroomActivity.unscoped.find_by(classroom_id: self.classroom_id, pinned: true)
         return if pinned_ca && pinned_ca == self
-        pinned_ca.update(pinned: false) if pinned_ca
+        pinned_ca.update_column("pinned", false) if pinned_ca
       end
     end
   end
