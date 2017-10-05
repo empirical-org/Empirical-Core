@@ -34,6 +34,8 @@ class TeacherFixController < ApplicationController
     classroom = Classroom.find_by_code(params['class_code'])
     if classroom
       classroom_activities = ClassroomActivity.unscoped.where(classroom_id: classroom.id)
+      unit_ids = classroom_activities.map(&:unit_id)
+      Unit.unscoped.where(visible: false, id: unit_ids).update_all(visible: true)
       classroom_activities.update_all(visible: true)
       ActivitySession.unscoped.where(classroom_activity_id: classroom_activities.ids).update_all(visible: true)
       render json: {}, status: 200
