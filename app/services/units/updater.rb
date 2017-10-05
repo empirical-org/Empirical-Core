@@ -15,8 +15,6 @@ module Units::Updater
     # converted to array so we can map in helper function as we would otherwise
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
-    puts 'updater - activity data here'
-    puts activities_data
     self.update_helper(unit_id, activities_data, classroom_array)
   end
 
@@ -31,20 +29,14 @@ module Units::Updater
   def self.matching_or_new_classroom_activity(activity_data, classroom_id, extant_classroom_activities, new_cas, hidden_cas_ids, classroom, unit_id)
 
     matching_ca = extant_classroom_activities.find{|ca| (ca.activity_id == activity_data[:id] && ca.classroom_id == classroom_id)}
-    puts 'matching_ca here'
-    puts matching_ca.attributes
     if matching_ca
       if classroom[:student_ids] == false
         # then there are no assigned students and we should hide the cas
         hidden_cas_ids.push(matching_ca.id)
       elsif (matching_ca[:due_date] != activity_data[:due_date]) || (matching_ca.assigned_student_ids != classroom[:student_ids]) || matching_ca.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
-        puts 'matching_ca about to get updated'
-        puts matching_ca.attributes
         matching_ca.update!(due_date: activity_data[:due_date], assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
       else
-        puts 'nothing happened with matching_ca'
-        puts matching_ca.attributes
       end
 
     elsif classroom[:student_ids] || classroom[:assign_on_join]
@@ -61,8 +53,6 @@ module Units::Updater
 
   def self.update_helper(unit_id, activities_data, classrooms_data)
     extant_classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_id)
-    puts 'extant_classroom_activities here'
-    puts extant_classroom_activities.to_json
     new_cas = []
     hidden_cas_ids = []
     classrooms_data.each do |classroom|
@@ -75,13 +65,9 @@ module Units::Updater
     # TODO: this is messing everything up by not generating new activity sessions since it skips the callback
     # however, it is far more efficient
     # new_cas.any? ? ClassroomActivity.bulk_insert(values: new_cas) : nil
-    puts 'new_cas'
-    puts new_cas
     new_cas.each{|ca| ClassroomActivity.create(ca)}
     # TODO: same as above -- efficient, but we need the callbacks
     # hidden_cas_ids.any? ? ClassroomActivity.where(id: hidden_cas_ids).update_all(visible: false) : nil
-    puts 'hidden_cas_ids here'
-    puts hidden_cas_ids
     hidden_cas_ids.each{|ca_id| ClassroomActivity.find(ca_id).update!(visible: false)}
     unit = Unit.find unit_id
     if (hidden_cas_ids.any?) && (new_cas.none?)

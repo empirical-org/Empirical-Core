@@ -6,12 +6,6 @@ class AssignRecommendationsWorker
     teacher = classroom.teacher
     unit = Unit.find_by(name: UnitTemplate.find(unit_template_id).name, user_id: teacher.id)
     classroom_data = {id: classroom_id, student_ids: student_id_array}
-    puts 'classroom here'
-    puts classroom.attributes
-    puts 'unit here'
-    unit
-    puts 'classroom_data here'
-    puts classroom_data
     if unit
         Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id)
     else
