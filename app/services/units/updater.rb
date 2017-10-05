@@ -14,6 +14,8 @@ module Units::Updater
     classroom_array = [classrooms_data]
     # converted to array so we can map in helper function as we would otherwise
     activities_data = ClassroomActivity.where(unit_id: unit_id).select('activity_id AS id, NULL as due_date').distinct
+    puts 'updater - activity data here'
+    puts activities_data
     self.update_helper(unit_id, activities_data, classroom_array)
   end
 
@@ -28,6 +30,8 @@ module Units::Updater
   def self.matching_or_new_classroom_activity(activity_data, classroom_id, extant_classroom_activities, new_cas, hidden_cas_ids, classroom, unit_id)
 
     matching_ca = extant_classroom_activities.find{|ca| (ca.activity_id == activity_data[:id] && ca.classroom_id == classroom_id)}
+    puts 'matching_ca here'
+    puts matching_ca
     if matching_ca
       if classroom[:student_ids] == false
         # then there are no assigned students and we should hide the cas
@@ -50,6 +54,8 @@ module Units::Updater
 
   def self.update_helper(unit_id, activities_data, classrooms_data)
     extant_classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_id)
+    puts 'extant_classroom_activities here'
+    puts extant_classroom_activities
     new_cas = []
     hidden_cas_ids = []
     classrooms_data.each do |classroom|
@@ -62,10 +68,13 @@ module Units::Updater
     # TODO: this is messing everything up by not generating new activity sessions since it skips the callback
     # however, it is far more efficient
     # new_cas.any? ? ClassroomActivity.bulk_insert(values: new_cas) : nil
-
+    puts 'new_cas'
+    puts new_cas
     new_cas.each{|ca| ClassroomActivity.create(ca)}
     # TODO: same as above -- efficient, but we need the callbacks
     # hidden_cas_ids.any? ? ClassroomActivity.where(id: hidden_cas_ids).update_all(visible: false) : nil
+    puts 'hidden_cas_ids here'
+    puts hidden_cas_ids
     hidden_cas_ids.each{|ca_id| ClassroomActivity.find(ca_id).update!(visible: false)}
     unit = Unit.find unit_id
     if (hidden_cas_ids.any?) && (new_cas.none?)
