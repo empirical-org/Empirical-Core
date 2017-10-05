@@ -133,7 +133,6 @@ class Cms::SchoolsController < ApplicationController
   end
 
   def school_query_params
-    default_params = [:utf8, :authenticity_token, :commit]
     params.permit(default_params + all_search_inputs)
   end
 
