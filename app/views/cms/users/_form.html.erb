@@ -1,0 +1,39 @@
+<div class='cms-form'>
+  <%= form_for [:cms, @user] do |f| %>
+    <div class='cms-form-row'>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :username %>
+      <%= f.text_field :username %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :role %>
+      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']] %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :classcode %>
+      <%= f.text_field :classcode %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div class='cms-submit-row'>
+      <%= f.submit 'Save', class: 'button-green' %>
+    </div>
+  <% end %>
+</div>
+<br />
+<% if @user.id %>
+  <%= link_to 'Clear User Data', clear_data_cms_user_path(@user), method: :put, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger destroy' %>
+<% end %>

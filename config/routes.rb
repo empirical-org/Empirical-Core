@@ -306,7 +306,8 @@ EmpiricalGrammar::Application.routes.draw do
       resource :subscription
 
       collection do
-        match 'search' => 'users#search', via: [:get, :post], as: :search
+        post :search
+        get :search, to: 'users#index'
       end
       member do
         get :show_json
@@ -314,12 +315,14 @@ EmpiricalGrammar::Application.routes.draw do
         put :clear_data
         get :sign_in
         put :make_admin
+        put :remove_admin
       end
     end
 
     resources :schools do
       collection do
-        match 'search' => 'schools#search', via:[:get, :post], as: :search
+        post :search
+        get :search, to: 'schools#index'
       end
       member do
         get :edit_subscription
