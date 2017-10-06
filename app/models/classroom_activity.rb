@@ -77,41 +77,43 @@ class ClassroomActivity < ActiveRecord::Base
     ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1, completed_at: Time.current)
   end
 
-  def session_for user
-    ass = ActivitySession.unscoped.where(classroom_activity: self, user: user, activity: activity).includes(:activity).order(created_at: :asc)
-    if ass.any?
-      if ass.any? { |as| as.is_final_score }
-        keeper = ass.find { |as| as.is_final_score}
-      # the next two cases should not be necessary to handle
-      # since the highest score should always have .is_final_score
-      # and only one should be started at a time,
-      # but due to some data confusion we're going to leave it in for now
-      elsif ass.any? { |as| as.state == 'finished' }
-        keeper = ass.find_all { |as| as.state == 'finished' }.sort_by { |as| as.percentage }.first
-      elsif ass.any? { |as| as.state == 'started' }
-        keeper = ass.find_all { |as| as.state == 'started' }.sort_by { |as| as.updated_at }.last
-      else
-        keeper = ass.sort_by { |as| as.updated_at }.last
-      end
-      keeper.update(visible: true)
-      return keeper
-    else
-      activity_sessions.create(user: user, activity: activity)
-    end
-  end
+  # TODO: DELETE THIS
+  # def session_for user
+  #   ass = ActivitySession.unscoped.where(classroom_activity: self, user: user, activity: activity).includes(:activity).order(created_at: :asc)
+  #   if ass.any?
+  #     if ass.any? { |as| as.is_final_score }
+  #       keeper = ass.find { |as| as.is_final_score}
+  #     # the next two cases should not be necessary to handle
+  #     # since the highest score should always have .is_final_score
+  #     # and only one should be started at a time,
+  #     # but due to some data confusion we're going to leave it in for now
+  #     elsif ass.any? { |as| as.state == 'finished' }
+  #       keeper = ass.find_all { |as| as.state == 'finished' }.sort_by { |as| as.percentage }.first
+  #     elsif ass.any? { |as| as.state == 'started' }
+  #       keeper = ass.find_all { |as| as.state == 'started' }.sort_by { |as| as.updated_at }.last
+  #     else
+  #       keeper = ass.sort_by { |as| as.updated_at }.last
+  #     end
+  #     keeper.update(visible: true)
+  #     return keeper
+  #   else
+  #     activity_sessions.create(user: user, activity: activity)
+  #   end
+  # end
 
   def activity_session_metadata
     act_seshes = activity_sessions.where(is_final_score: true).includes(concept_results: :concept)
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
-  def students
-    if assigned_student_ids && assigned_student_ids.any?
-      User.where(id: assigned_student_ids)
-    elsif classroom
-      classroom.students
-    end
-  end
+  # TODO: DELETE THIS
+  # def students
+  #   if assigned_student_ids && assigned_student_ids.any?
+  #     User.where(id: assigned_student_ids)
+  #   elsif classroom
+  #     classroom.students
+  #   end
+  # end
 
   def teacher_and_classroom_name
     {teacher: classroom&.teacher&.name, classroom: classroom&.name}
