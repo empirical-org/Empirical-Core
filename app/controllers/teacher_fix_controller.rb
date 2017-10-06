@@ -88,8 +88,8 @@ class TeacherFixController < ApplicationController
       if account1.role === 'teacher' && account2.role === 'teacher'
         Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
         Classroom.unscoped.where(teacher_id: account1.id).update_all(teacher_id: account2.id)
-        account1.delete_classroom_minis_cache
-        account2.delete_classroom_minis_cache
+        account1.delete_dashboard_caches
+        account2.delete_dashboard_caches
         render json: {}, status: 200
       else
         nonteacher_account_identifier = account1.role === 'teacher' ? params['account_2_identifier'] : params['account_1_identifier']
@@ -109,17 +109,13 @@ class TeacherFixController < ApplicationController
         classroom_1 = Classroom.find_by_code(params['class_code_1'])
         classroom_2 = Classroom.find_by_code(params['class_code_2'])
         if classroom_1 && classroom_2
-          if classroom_1.teacher_id == classroom_2.teacher_id
-            if StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
-              StudentsClassrooms.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id)
-              TeacherFixes::move_activity_sessions(user.id, classroom_1.id, classroom_2.id)
-              StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id).destroy
-              render json: {}, status: 200
-            else
-              render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code_1']}."}
-            end
+          if StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
+            StudentsClassrooms.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id)
+            TeacherFixes::move_activity_sessions(user, classroom_1, classroom_2)
+            StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id).destroy
+            render json: {}, status: 200
           else
-            render json: {error: 'These classrooms do not have the same teacher.'}
+            render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code_1']}."}
           end
         else
           missing_class_code = classroom_1 ? params['class_code_2'] : params['class_code_1']

@@ -265,7 +265,7 @@ export default React.createClass({
     if (this.state.googleId || this.state.signedUpWithGoogle) {
       if (this.props.userType == 'staff') {
         inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
-        message = <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a href={`${process.env.DEFAULT_URL}/teacher_fix/google_sync`}>here</a>.</span>
+        message = <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a style={{'textDecorationLine': 'underline'}} href={`${process.env.DEFAULT_URL}/teacher_fix/google_unsync`}>here</a>.</span>
       } else {
         inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
         message = this.renderGoogleClassroomWarning()
