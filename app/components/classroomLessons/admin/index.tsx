@@ -23,6 +23,8 @@ class ClassLessonsIndex extends Component<any, any> {
   componentWillReceiveProps(nextProps) {
     if (this.props.classroomLessonsReviews.hasreceiveddata !== nextProps.classroomLessonsReviews.hasreceiveddata) {
       this.scoreReviews(nextProps.classroomLessonsReviews.data)
+    } else if (Object.keys(nextProps.classroomLessonsReviews.data).length > 0 && Object.keys(this.state.scores).length === 0) {
+      this.scoreReviews(nextProps.classroomLessonsReviews.data)
     }
   }
 
@@ -43,7 +45,7 @@ class ClassLessonsIndex extends Component<any, any> {
 
   renderClassroomLessonList() {
     const scores = this.state.scores
-    if (this.props.classroomLessons.hasreceiveddata && Object.keys(scores).length > 0) {
+    if (this.props.classroomLessons.hasreceiveddata) {
       const data = this.props.classroomLessons.data
       const components = Object.keys(data).map((classroomLessonId) => {
         const score = scores[classroomLessonId] ? `${scores[classroomLessonId]}%` : ''
