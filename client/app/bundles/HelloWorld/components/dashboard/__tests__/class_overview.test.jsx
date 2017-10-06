@@ -6,7 +6,6 @@ import ClassOverview from '../class_overview';
 
 import NewTools from '../new_tools_mini';
 import OverviewMini from '../overview_mini';
-import BetaMini from '../beta_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';
 import PremiumMini from '../premium_mini';
@@ -25,11 +24,6 @@ describe('ClassOverview component', () => {
       expect(wrapper.find(OverviewMini).length).toBe(2);
       expect(wrapper.find(OverviewMini).at(0).props().overviewObj.header).toBe('arbitrary-data');
       expect(wrapper.find(OverviewMini).at(1).props().overviewObj.header).toBe('different-arbitrary-data');
-    });
-
-    it('should render BetaMini if flag is beta', () => {
-      const wrapper = shallow(<ClassOverview flag='beta' />);
-      expect(wrapper.find(BetaMini).exists()).toBe(true);
     });
 
     it('should render TeacherGuide only if displayTeacherGuide is true in state', () => {
