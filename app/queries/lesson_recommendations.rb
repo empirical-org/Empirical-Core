@@ -1,9 +1,17 @@
 class LessonRecommendations
     def rec_activities(rec_id)
-      UnitTemplate.find(rec_id).activities.map do |act|
-        base_route = act.classification.form_url
-        url = "#{base_route}teach/class-lessons/#{act.uid}/preview"
-        {name: act.name, url: url}
+      activities = ActiveRecord::Base.connection.execute("SELECT activities.name, activities.uid, activity_classifications.form_url
+        FROM activities
+        INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
+        INNER JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
+        INNER JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
+        INNER JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
+        WHERE activities_unit_templates.unit_template_id = #{rec_id}
+        ORDER BY activity_categories.order_number, activity_category_activities.order_number").to_a
+      activities.map do |act|
+        base_route = act['form_url']
+        url = "#{base_route}teach/class-lessons/#{act['uid']}/preview"
+        {name: act['name'], url: url}
       end
     end
 

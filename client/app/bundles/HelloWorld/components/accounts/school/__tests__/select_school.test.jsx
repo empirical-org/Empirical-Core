@@ -70,7 +70,7 @@ describe('SelectSchool component', () => {
           requestSchools={() => null}
           schoolOptions={[]} />
       );
-      expect(wrapper.find('.form-label.zip').text()).toBe("Add Your School's ZIP Code");
+      expect(wrapper.find('.zip').text()).toBe("Add Your School's ZIP Code");
     });
 
     it('should call props.requestSchools if zip input is changed and has a length of five', () => {
@@ -143,15 +143,5 @@ describe('SelectSchool component', () => {
       expect(wrapper.find(EducatorType).exists()).toBe(true);
     });
 
-    it('should render props.errors', () => {
-      const wrapper = shallow(
-        <SelectSchool isForSignUp={false}
-          updateSchool={() => null}
-          requestSchools={() => null}
-          schoolOptions={[]}
-          errors={["Hi, I'm an error!"]} />
-      );
-      expect(wrapper.find('.error').text()).toBe("Hi, I'm an error!");
-    });
   });
 });

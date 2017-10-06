@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
       if staff.present? and (staff != current_user)
         sign_out
         sign_in(staff)
-        redirect_to profile_path
+        redirect_to cms_users_path
       else
         sign_out
         redirect_to signed_out_path

@@ -1,0 +1,56 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <%= link_to 'School Directory', cms_schools_path %> > <%= @school_info['Name'] %>
+    <br /><br />
+    <h2><%= @school_info['Name'] %></h2>
+    <br />
+    <table class='cms-results-table'>
+      <thead>
+        <tr>
+          <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
+          <% ['Name', 'Classes', 'Students', 'Activities Completed',
+              'Last Active', 'Premium?', 'Make Admin', 'Sign In'].each do |td| %>
+            <td><%= td %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @teacher_data.each do |teacher| %>
+          <tr>
+            <% %w(teacher_name number_classrooms number_students number_activities_completed last_active subscription).each do |attribute| %>
+              <td><%= teacher[attribute] || 'N/A' %></td>
+            <% end %>
+            <td>
+              <% if teacher['user_role'] == 'admin' %>
+                <%= link_to 'Remove Admin', remove_admin_cms_user_path(teacher['user_id']), method: :put %>
+              <% else %>
+                <%= link_to 'Make Admin', make_admin_cms_user_path(teacher['user_id']), method: :put %>
+              <% end %>
+            </td>
+            <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']), method: :put %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br /><br />
+    <h2>School Subscription</h2>
+    <br />
+    <%= link_to 'Edit Subscription', edit_subscription_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <br />
+    <% @school_subscription_info.each do |k,v| %>
+      <br />
+      <p><strong><%= k %></strong></p>
+      <p><%= v || 'N/A' %></p>
+    <% end %>
+    <br /><br />
+    <h2>School Info</h2>
+    <br />
+    <%= link_to 'Edit School Info', edit_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <br />
+    <% @school_info.each do |k,v| %>
+      <br />
+      <p><strong><%= k %></strong></p>
+      <p><%= v || 'N/A' %></p>
+    <% end %>
+  </article>
+</div>

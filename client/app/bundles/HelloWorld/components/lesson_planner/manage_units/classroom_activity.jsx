@@ -144,10 +144,10 @@ export default React.createClass({
       return <p className="lesson-completed">Lesson Completed</p>;
     }
     const text = this.props.data.started ? 'Resume Lesson' : 'Launch Lesson';
-    if (this.props.data.class_size > 0) {
-      return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
-    } else {
+    if (this.props.data.studentCount === 0) {
       return <a onClick={this.noStudentsWarning} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+    } else {
+      return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
     }
   },
 

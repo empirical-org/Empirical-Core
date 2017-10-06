@@ -59,6 +59,8 @@ export default class TutorialIndex extends React.Component {
     } else if (getParameterByName('url')){
       const url = getParameterByName('url')
       return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = decodeURIComponent(url)}>Next</button>
+    } else if (getParameterByName('nocta')){
+      return <div style={{'height': '55px'}}/>
     } else {
       // TODO: get link for sample activity
       return <button className="text-white bg-quillgreen try-button" onClick={() => {}}>Try Sample Activity</button>
@@ -82,9 +84,18 @@ export default class TutorialIndex extends React.Component {
   }
 
   goToSlide(slideNumber) {
-    const qs = getParameterByName('url') ? `?url=${encodeURIComponent(getParameterByName('url'))}` : ''
-    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${qs}`)
+    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${this.qs()}`)
     this.setState({slideNumber: slideNumber})
+  }
+
+  qs() {
+    if (getParameterByName('url')) {
+      return `?url=${encodeURIComponent(getParameterByName('url'))}`
+    } else if (getParameterByName('nocta')) {
+      return `?nocta=${getParameterByName('nocta')}`
+    } else {
+      return ''
+    }
   }
 
   render() {
