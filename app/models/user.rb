@@ -342,8 +342,22 @@ class User < ActiveRecord::Base
     user_attributes
   end
 
+  def delete_dashboard_caches
+    delete_classroom_minis_cache
+    delete_struggling_students_cache
+    delete_difficult_concepts_cache
+  end
+
   def delete_classroom_minis_cache
     $redis.del("user_id:#{self.id}_classroom_minis")
+  end
+
+  def delete_struggling_students_cache
+    $redis.del("user_id:#{self.id}_struggling_students")
+  end
+
+  def delete_difficult_concepts_cache
+    $redis.del("user_id:#{self.id}_difficult_concepts")
   end
 
 private
