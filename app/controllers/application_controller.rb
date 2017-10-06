@@ -62,6 +62,10 @@ class ApplicationController < ActionController::Base
     redirect_to "/session/new"
   end
 
+  def default_params
+    [:utf8, :authenticity_token, :commit]
+  end
+  
   protected
 
   def set_vary_header
