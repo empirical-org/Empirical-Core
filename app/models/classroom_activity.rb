@@ -20,7 +20,7 @@ class ClassroomActivity < ActiveRecord::Base
   before_validation :check_pinned
   before_save :update_students_array_if_assign_on_join
   after_create :lock_if_lesson
-  after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions, :update_lessons_cache
+  after_save :teacher_checkbox, :hide_appropriate_activity_sessions, :update_lessons_cache
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -163,13 +163,14 @@ class ClassroomActivity < ActiveRecord::Base
     @score_book
   end
 
-  def assign_to_students
-    # sometimes a student can be one student object rather than an array
-    assignees = [students].flatten
-    assignees.each do |student|
-      session_for(student)
-    end
-  end
+  # TODO: DELETE THIS
+  # def assign_to_students
+  #   # sometimes a student can be one student object rather than an array
+  #   assignees = [students].flatten
+  #   assignees.each do |student|
+  #     session_for(student)
+  #   end
+  # end
 
   def teacher_checkbox
     if self.classroom && self.classroom.teacher
