@@ -96,12 +96,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         else
           teacher_id = current_user.id
           selections_with_students = params[:selections].select do |ut|
-            puts 'i am being called and the array is'
-            puts ut[:classrooms][0][:student_ids]&.compact&.any?
             ut[:classrooms][0][:student_ids]&.compact&.any?
           end
-          puts 'selections with students here'
-          puts selections_with_students
           if selections_with_students.any?
             number_of_selections = selections_with_students.length
             selections_with_students.reverse.each_with_index do |value, index|
