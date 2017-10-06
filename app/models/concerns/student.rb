@@ -70,8 +70,10 @@ module Student
         includes(:classroom_activity).where(classroom_activities: { activity_id: activity.id })
       end
 
+      # TODO: DELETE - ONLY USED IN TESTS?
       def for_activity activity
-        rel_for_activity(activity).first
+        sessions = rel_for_activity(activity)
+        sessions ? sessions.firsts : nil 
       end
 
       def completed_for_activity activity
