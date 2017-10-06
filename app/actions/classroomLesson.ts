@@ -2,8 +2,8 @@ declare function require(name:string);
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
+const reviewsRef = rootRef.child('reviews');
 import _ from 'lodash'
-
 import * as IntF from 'components/classroomLessons/interfaces';
 
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
@@ -15,7 +15,7 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
     console.log("Fetching")
     classroomLessonsRef.child(classroomLessonUid).once('value', (snapshot) => {
       console.log("Fetched")
-      if (snapshot.val()) {
+      if (snapshot.rval()) {
         dispatch(updateClassroomLesson(snapshot.val()));
         dispatch(setLessonId(classroomLessonUid))
       } else {
@@ -51,8 +51,33 @@ export function listenForClassroomLessonsFromFirebase() {
   }
 }
 
+export function listenForclassroomLessonsReviewsFromFirebase() {
+  return function (dispatch) {
+    reviewsRef.on('value', (snapshot) => {
+      if (snapshot.val()) {
+        dispatch(updateclassroomLessonsReviews(snapshot.val()))
+      }
+    })
+  }
+}
+
 export function updateClassroomLessons(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
+}
+
+export function updateclassroomLessonsReviews(data) {
+  const reviewsGroupedByClassroomLessonId = {}
+  const classroomActivityIds = Object.keys(data)
+  classroomActivityIds.forEach((ca_id) => {
+    const review = data[ca_id]
+    const lessonId = review.activity_id
+    if (reviewsGroupedByClassroomLessonId[lessonId]) {
+      reviewsGroupedByClassroomLessonId[lessonId][ca_id] = review
+    } else {
+      reviewsGroupedByClassroomLessonId[lessonId] = { [ca_id]: review }
+    }
+  })
+  return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})
 }
 
 export function addSlide(classroomLessonUid: string, classroomLesson: IntF.ClassroomLesson, slideType: string, cb:Function|undefined) {
