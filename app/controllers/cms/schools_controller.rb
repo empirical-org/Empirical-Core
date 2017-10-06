@@ -252,7 +252,7 @@ class Cms::SchoolsController < ApplicationController
   end
 
   def edit_or_add_school_params
-    params.require(:school).permit(editable_school_attributes.values)
+    params.require(:school).permit(:id, editable_school_attributes.values)
   end
 
   def editable_school_attributes
