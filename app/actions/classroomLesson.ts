@@ -15,7 +15,7 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
     console.log("Fetching")
     classroomLessonsRef.child(classroomLessonUid).once('value', (snapshot) => {
       console.log("Fetched")
-      if (snapshot.rval()) {
+      if (snapshot.val()) {
         dispatch(updateClassroomLesson(snapshot.val()));
         dispatch(setLessonId(classroomLessonUid))
       } else {
@@ -55,7 +55,7 @@ export function listenForclassroomLessonsReviewsFromFirebase() {
   return function (dispatch) {
     reviewsRef.on('value', (snapshot) => {
       if (snapshot.val()) {
-        dispatch(updateclassroomLessonsReviews(snapshot.val()))
+        dispatch(updateClassroomLessonsReviews(snapshot.val()))
       }
     })
   }
@@ -65,7 +65,7 @@ export function updateClassroomLessons(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_DATA, data: data})
 }
 
-export function updateclassroomLessonsReviews(data) {
+export function updateClassroomLessonsReviews(data) {
   const reviewsGroupedByClassroomLessonId = {}
   const classroomActivityIds = Object.keys(data)
   classroomActivityIds.forEach((ca_id) => {
