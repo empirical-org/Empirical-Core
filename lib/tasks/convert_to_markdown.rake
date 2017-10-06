@@ -1,0 +1,23 @@
+namespace :unit_templates do
+  desc 'Convert unit template problem, summary, and review into activity_info markdown'
+  task :convert_to_markdown => :environment do
+    UnitTemplate.all.each do |ut|
+      next unless ut.activity_info.blank?
+      markdown = ''
+      if ut.problem
+        markdown.concat "### Problem\n\n#{ut.problem}\n\n"
+      end
+      if ut.summary
+        markdown.concat "### Summary\n\n#{ut.summary}\n\n"
+      end
+      if ut.teacher_review
+        markdown.concat "### Activity Info\n\n#{ut.teacher_review}\n\n"
+      end
+      unless markdown.blank?
+        ut.activity_info = markdown
+        ut.save
+        puts "💪   Unit Template updated: #{ut.name}"
+      end
+    end
+  end
+end
