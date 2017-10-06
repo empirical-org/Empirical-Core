@@ -1,5 +1,5 @@
 class UnitTemplatePseudoSerializer
-  # attributes :id, :name, :problem, :summary, :teacher_review, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :topics
+  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :topics
 
   def initialize(unit_template, flag=nil)
     @unit_template = unit_template
@@ -10,9 +10,6 @@ class UnitTemplatePseudoSerializer
     {
       id: ut.id,
       name: ut.name,
-      problem: ut.problem,
-      summary: ut.summary,
-      teacher_review: ut.teacher_review,
       time: ut.time,
       grades: ut.grades,
       order_number: ut.order_number,
