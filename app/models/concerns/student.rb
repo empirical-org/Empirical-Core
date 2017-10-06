@@ -73,7 +73,7 @@ module Student
       # TODO: DELETE - ONLY USED IN TESTS?
       def for_activity activity
         sessions = rel_for_activity(activity)
-        sessions ? sessions.firsts : nil 
+        sessions ? sessions.first : nil 
       end
 
       def completed_for_activity activity
