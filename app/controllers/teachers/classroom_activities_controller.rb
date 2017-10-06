@@ -51,7 +51,13 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def activity_from_classroom_activity
-    act_sesh_id = @classroom_activity.session_for(current_user).id
+    # old_activity_routing
+    started_activity = ActivitySession.find_by(state: 'started', classroom_activity_id: @classroom_activity.id, user_id: current_user.id)
+    if started_activity
+      act_sesh_id = started_activity.id
+    else
+      act_sesh_id =  ActivitySession.create(classroom_activity_id: @classroom_activity.id, user_id: current_user.id, activity_id: @classroom_activity.activity_id, state: 'started', started_at: Time.now).id
+    end
     redirect_to "/activity_sessions/#{act_sesh_id}/play"
   end
 
@@ -64,6 +70,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
 private
+
+  def old_activity_routing
+    act_sesh_id = @classroom_activity.session_for(current_user).id
+    redirect_to "/activity_sessions/#{act_sesh_id}/play"
+  end
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
