@@ -1,7 +1,4 @@
 import React from 'react';
-import SelectRole from '../components/accounts/edit/select_role';
-import UserSelectRole from '../components/accounts/edit/user_accessible_select_role.jsx';
-import SelectSubscription from '../components/accounts/subscriptions/select_subscription';
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
