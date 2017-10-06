@@ -1,6 +1,7 @@
 class ClassroomActivity < ActiveRecord::Base
   include CheckboxCallback
   include ::NewRelic::Agent
+  include AtomicArrays
 
   belongs_to :classroom
   belongs_to :activity
@@ -240,7 +241,10 @@ class ClassroomActivity < ActiveRecord::Base
   def validate_assigned_student(student_id)
     if self.assign_on_join
       if !self.assigned_student_ids || self.assigned_student_ids.exclude?(student_id)
-        self.update(assigned_student_ids: (self.assigned_student_ids || []).push(student_id))
+        if !self.assigned_student_ids.kind_of?(Array)
+          self.update(assigned_student_ids: [])
+        end
+        self.atomic_append(:assigned_student_ids, student_id)
       end
       true
     else
