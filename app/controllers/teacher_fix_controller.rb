@@ -57,6 +57,7 @@ class TeacherFixController < ApplicationController
   end
 
   def merge_student_accounts
+
     account1 = User.find_by_username_or_email(params['account_1_identifier'])
     account2 = User.find_by_username_or_email(params['account_2_identifier'])
     if account1 && account2
@@ -74,6 +75,25 @@ class TeacherFixController < ApplicationController
       else
         nonstudent_account_identifier = account1.role === 'student' ? params['account_2_identifier'] : params['account_1_identifier']
         render json: {error: "#{nonstudent_account_identifier} is not a student."}
+      end
+    else
+      missing_account_identifier = account1 ? params['account_2_identifier'] : params['account_1_identifier']
+      render json: {error: "We do not have an account for #{missing_account_identifier}"}
+    end  end
+
+  def merge_teacher_accounts
+    account1 = User.find_by_username_or_email(params['account_1_identifier'])
+    account2 = User.find_by_username_or_email(params['account_2_identifier'])
+    if account1 && account2
+      if account1.role === 'teacher' && account2.role === 'teacher'
+        Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
+        Classroom.unscoped.where(teacher_id: account1.id).update_all(teacher_id: account2.id)
+        account1.delete_classroom_minis_cache
+        account2.delete_classroom_minis_cache
+        render json: {}, status: 200
+      else
+        nonteacher_account_identifier = account1.role === 'teacher' ? params['account_2_identifier'] : params['account_1_identifier']
+        render json: {error: "#{nonteacher_account_identifier} is not a teacher."}
       end
     else
       missing_account_identifier = account1 ? params['account_2_identifier'] : params['account_1_identifier']

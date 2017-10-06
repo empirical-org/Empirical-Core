@@ -342,6 +342,10 @@ class User < ActiveRecord::Base
     user_attributes
   end
 
+  def delete_classroom_minis_cache
+    $redis.del("user_id:#{self.id}_classroom_minis")
+  end
+
 private
   def validate_username_and_email
     # change_field will return the field (username or email) that is changing
