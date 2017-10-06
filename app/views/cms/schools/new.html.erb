@@ -1,5 +1,5 @@
 <div class='container'>
-  <article class='simple-rounded-box cms cms-user-index'>
+  <article class='simple-rounded-box cms-container'>
     <%= link_to 'School Directory', cms_schools_path %> > New School
     <br /><br />
     <h2>New School</h2>
@@ -13,24 +13,20 @@
       <li>Before adding a district, search for other schools in the same district so you can copy and paste the exact district name in the database.</li>
       <li>Free and Reduced Price lunch is just a number (e.g. 75 &mdash; not 75%).</li>
     </strong></ul>
-    <br /><br />
-    <%= form_for @school, url: cms_schools_path(@school) do |f| %>
-      <% @editable_attributes.each do |attribute_name, attribute_field| %>
-        <div class='row'>
-          <div class='form-label col-xs-2'>
-            <%= attribute_name %>
+    <br />
+    <div class='cms-form'>
+      <%= form_for @school, url: cms_schools_path(@school) do |f| %>
+        <% @editable_attributes.each do |attribute_name, attribute_field| %>
+          <div class='cms-form-row'>
+            <%= f.label attribute_field, attribute_name %>
+            <%= f.text_field attribute_field %>
           </div>
-          <div class='col-xs-8'>
-            <%= f.text_field attribute_field, class: 'col-xs-4' %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
 
-      <div class='row'>
-        <div class='form-label col-xs-2'>
+        <div class='cms-submit-row'>
           <%= f.button "Add School", class: 'button-green' %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </article>
 </div>
