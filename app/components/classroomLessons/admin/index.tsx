@@ -37,7 +37,7 @@ class ClassLessonsIndex extends Component<any, any> {
         return lessonReviews[rk].value
       })
       const numberPointsPoss = reviewKeys.length * 2
-      const percentage = ((numberPoints/numberPointsPoss) * 100).toFixed(2)
+      const percentage = Math.round((numberPoints/numberPointsPoss) * 100)
       scoreObj[lessonId] = percentage
     });
     this.setState({scores: scoreObj})
