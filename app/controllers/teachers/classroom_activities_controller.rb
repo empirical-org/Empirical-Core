@@ -70,11 +70,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
 private
-
-  def old_activity_routing
-    act_sesh_id = @classroom_activity.session_for(current_user).id
-    redirect_to "/activity_sessions/#{act_sesh_id}/play"
-  end
+  # TODO: DELETE THIS 
+  # def old_activity_routing
+  #   act_sesh_id = @classroom_activity.session_for(current_user).id
+  #   redirect_to "/activity_sessions/#{act_sesh_id}/play"
+  # end
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
