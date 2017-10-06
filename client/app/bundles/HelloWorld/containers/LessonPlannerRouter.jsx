@@ -40,7 +40,7 @@ export default class LessonPlannerRouter extends React.Component{
 					<IndexRoute component={LessonPlanner}/>
 					<Route path="lessons" component={ClassroomLessonsPlanner}/>
 					<Route path="lessons/:classroomId" component={ClassroomLessonsPlanner}/>
-					<Route path="lessons/:activityId/unit/:unitId" component={ChooseClassroomLesson}/>
+					<Route path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" component={ChooseClassroomLesson}/>
 					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/students/edit" component={ClassroomsWithStudentsContainer}/>
 					<Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>

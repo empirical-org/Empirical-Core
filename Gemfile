@@ -65,6 +65,8 @@ gem 'pdf-core'
 gem 'pdf-inspector'
 gem 'ttfunk'
 gem 'scout_apm'
+gem 'rubyzip'
+gem 'httparty'
 
 
 # WEBSOCKETS

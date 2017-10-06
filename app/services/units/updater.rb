@@ -38,8 +38,12 @@ module Units::Updater
         matching_ca.update!(due_date: activity_data[:due_date], assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
       else
       end
+<<<<<<< HEAD
 
     elsif classroom[:student_ids] || classroom[:assign_on_join]
+=======
+    elsif classroom[:student_ids] && activity_data[:id]
+>>>>>>> 415306831a3bc35099e72ca93b6c99901dd79f55
       # making an array of hashes to create in one bulk option
       new_cas.push({activity_id: activity_data[:id],
          classroom_id: classroom_id,

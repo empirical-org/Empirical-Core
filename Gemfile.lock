@@ -338,6 +338,8 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     htmlentities (4.3.4)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     i18n (0.7.0)
     inflecto (0.0.2)
@@ -646,6 +648,7 @@ GEM
     ruby_dep (1.4.0)
     ruby_parser (3.8.2)
       sexp_processor (~> 4.1)
+    rubyzip (1.2.1)
     safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -794,6 +797,7 @@ DEPENDENCIES
   guard-rspec
   guard-shell
   haml-rails
+  httparty
   jbuilder
   jquery-fileupload-rails
   jquery-rails
@@ -847,6 +851,7 @@ DEPENDENCIES
   rspec-rails
   rspec-redis_helper
   rspec-retry
+  rubyzip
   sass
   sass-rails
   scout_apm

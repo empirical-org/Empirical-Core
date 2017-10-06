@@ -1,0 +1,52 @@
+<div class="container account-form reset-password">
+  <h3>Reset Your Password</h3>
+
+  <% if flash[:error] %>
+    <div class="error"><%= flash[:error]%></div>
+  <% end %>
+  <% if flash[:notice] %>
+    <div class="success"><%= flash[:notice]%></div>
+  <% end %>
+
+  <%= form_for @user, url: password_reset_index_path do |f| %>
+    <%= f.label      :email, 'Email Address' %>
+    <%= f.text_field :email, placeholder: 'Email Address' %>
+    <%= f.button 'Reset Password', class: 'text-white bg-quillgreen' %>
+  <% end %>
+
+  <div class="sign-up-link">
+    <a href=<%= "http://#{ENV['DEFAULT_URL']}/account/new" %>>New to Quill? Sign up here</a>
+  </div>
+
+  <div class="student-info-box">
+    <h4>Are you a student and you didn’t use an email to sign up?</h4>
+    <p>Your teacher can reset your password from their dashboard. Here are the steps for your teacher to reset your password:</p>
+    <p class="step">1. Click on <span>“Manage Classes”</span></p>
+    <p class="step">2. Click on <span>“Edit Students”</span> for the class.</p>
+    <p class="step">3. Click on <span>“Edit Account"</span>.</p>
+    <div class="dividing-line"></div>
+    <div class="tip">
+      <i class="fa fa-icon fa-lightbulb-o"></i>
+      <p><span>Tip:</span> Your teacher can download and print a pdf that includes all your login information from the <span>Edit Students</span> page.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- .container.account-form
+  .row
+    .col-sm-6.col-md-4.col-md-offset-4
+      h3 Reset your password
+
+      - if flash[:error]
+        .error= flash[:error]
+
+      - if flash[:notice]
+        .success= flash[:notice]
+
+      = form_for @user, url: password_reset_index_path do |f|
+        = f.label :email
+        = f.text_field :email
+        = f.submit 'Reset password' do
+          br
+          = link_to 'Forgot your password?', password_reset_index_path, class: 'newline' -->

@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
 
@@ -6,9 +7,7 @@ EmpiricalGrammar::Application.routes.draw do
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
-  # authenticate :user, lambda { |u| u.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
-  # end
+  mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
@@ -103,8 +102,8 @@ EmpiricalGrammar::Application.routes.draw do
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
     get 'diagnostic_units' => 'units#diagnostic_units'
     get 'lesson_units' => 'units#lesson_units'
-    get 'units/:unit_id/launch_lesson/:activity_id' => 'units#launch_lesson_with_activity_id'
-    get 'units/:unit_id/activity/:activity_id' => 'units#lesson_info_for_unit_and_activity'
+    get 'units/select_lesson/:activity_id' => 'units#select_lesson_with_activity_id'
+    get 'units/lesson_info_for_activity/:activity_id' => 'units#lesson_info_for_activity'
 
 
     resources :unit_templates, only: [:index] do
@@ -307,13 +306,27 @@ EmpiricalGrammar::Application.routes.draw do
       resource :subscription
 
       collection do
-        match 'search' => 'users#search', via: [:get, :post], as: :search
+        post :search
+        get :search, to: 'users#index'
       end
       member do
         get :show_json
         put :sign_in
         put :clear_data
         get :sign_in
+        put :make_admin
+        put :remove_admin
+      end
+    end
+
+    resources :schools do
+      collection do
+        post :search
+        get :search, to: 'schools#index'
+      end
+      member do
+        get :edit_subscription
+        post :update_subscription
       end
     end
   end
@@ -359,7 +372,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/lessons/:classroom_id' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/lessons/:activity_id/unit/:unit_id' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/lessons_for_activity/:activity_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'
