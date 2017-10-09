@@ -12,23 +12,12 @@ module Student
     has_many :started_activities, through: :activity_sessions, source: :activity
 
 
-    def teachers
-      classrooms.map(&:teacher)
-    end
-
     def classroom_activity_score_join classroom
       started_activities.joins('join classroom_activities ON classroom_activities.activity_id = activities.id').where(classroom_activities: { classroom_id: classroom.id })
     end
     protected :classroom_activity_score_join
 
-    has_many :activity_sessions, dependent: :destroy do
-      def rel_for_activity activity
-        includes(:classroom_activity).where(classroom_activities: { activity_id: activity.id })
-      end
+    has_many :activity_sessions, dependent: :destroy
 
-      def for_classroom classroom
-        includes(:classroom_activity).where(classroom_activities: { classroom_id: classroom.id })
-      end
-    end
   end
 end
