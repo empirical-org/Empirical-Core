@@ -148,6 +148,7 @@ describe Units::Updater do
         end
 
         it 'hides the activity session of unassigned students' do
+          ActivitySession.create(user_id: student.id, activity_id: classroom_activity.activity, classroom_activity_id: classroom_activity.id, completed_at: Date.today, state: 'finished', percentage: 0.8)
           classrooms_data = [{id: classroom.id, student_ids: [student1.id, student2.id], assign_on_join: false}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           student_as_visibility = ActivitySession.unscoped.where(user_id: student.id).first.visible
@@ -192,7 +193,7 @@ describe Units::Updater do
 
         it "it does not create new activity sessions" do
           # because it used to create new ones
-          expect(student.activity_sessions.map(&:activity_id)).to eq([activity.id])
+          expect(student.activity_sessions.map(&:activity_id)).to be_empty
           classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
           activities_data = [{id: activity1.id, due_date: nil}]
           old_activity_session_count = ActivitySession.count
