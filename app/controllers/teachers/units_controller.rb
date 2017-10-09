@@ -13,7 +13,7 @@ class Teachers::UnitsController < ApplicationController
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first, params[:unit][:activities].map(&:to_h), params[:unit][:classrooms])
+      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms])
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
@@ -45,7 +45,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    activities_data = ClassroomActivity.where(unit_id: params[:id]).select('activity_id as id').distinct.as_json
+    activities_data = ClassroomActivity.where(unit_id: params[:id]).pluck(:activity_id).map{|id| {id: id}}
     if activities_data.any?
       classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater

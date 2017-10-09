@@ -53,6 +53,8 @@ GEM
       fog (>= 1.8.0)
       mime-types
       unf
+    atomic_arrays (1.1.0)
+      activerecord (>= 4.0)
     autoparse (0.3.3)
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
@@ -762,6 +764,7 @@ DEPENDENCIES
   analytics-ruby (~> 2.0.0)
   ancestry
   asset_sync
+  atomic_arrays
   awesome_print
   bcrypt
   better_errors

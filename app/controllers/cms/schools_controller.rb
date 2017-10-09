@@ -201,7 +201,8 @@ class Cms::SchoolsController < ApplicationController
         conditions << where_query_string_clause_for(param, param_value)
       end
     end
-    "WHERE #{conditions.reject(&:nil?).join(' AND ')}" unless conditions.empty?
+    conditions = conditions.reject(&:nil?)
+    "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
   end
 
   def where_query_string_clause_for(param, param_value)

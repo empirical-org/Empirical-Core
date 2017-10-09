@@ -12,18 +12,19 @@ module Units::Creator
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     # unit fix: may be able to better optimize this one, but possibly not
-    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: []} }
+    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
   end
 
   def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom)
+    classroom_array = [classroom]
+    # converted to array so we can map in helper function as we would otherwise
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
     # this call is unnecessary as we can do sql without it
     unit_template = UnitTemplate.find(unit_template_id)
-
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
-    self.create_helper(teacher, unit_template.name, activities_data, classroom)
+    self.create_helper(teacher, unit_template.name, activities_data, classroom_array)
   end
 
   private
@@ -36,12 +37,12 @@ module Units::Creator
       product = activities_data.product([classroom[:id].to_i])
       product.each do |pair|
         activity_data, classroom_id = pair
-        if activity_data[:id]
-          unit.classroom_activities.create!(activity_id: activity_data[:id],
-                                            due_date: activity_data[:due_date],
-                                            classroom_id: classroom_id,
-                                            assigned_student_ids: classroom[:student_ids])
-        end
+        unit.classroom_activities.create!(activity_id: activity_data[:id],
+                                          due_date: activity_data[:due_date],
+                                          classroom_id: classroom_id,
+                                          assigned_student_ids: classroom[:student_ids],
+                                          assign_on_join: classroom[:assign_on_join]
+                                        )
       end
     end
     unit.hide_if_no_visible_classroom_activities
