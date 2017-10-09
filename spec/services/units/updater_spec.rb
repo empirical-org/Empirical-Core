@@ -29,7 +29,7 @@ describe Units::Updater do
 
         describe 'assigned to all students' do
           def update_ca_to_all_assigned
-            ca_with_unit.update(assigned_student_ids: [])
+            ca_with_unit.update(assigned_student_ids: [], assign_on_join: true)
             classroom_activity
           end
 
@@ -148,14 +148,14 @@ describe Units::Updater do
         end
 
         it 'hides the activity session of unassigned students' do
-          classrooms_data = [{id: classroom.id, student_ids: [student1.id, student2.id]}]
+          classrooms_data = [{id: classroom.id, student_ids: [student1.id, student2.id], assign_on_join: false}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           student_as_visibility = ActivitySession.unscoped.where(user_id: student.id).first.visible
           expect(student_as_visibility).to eq(false)
         end
 
         it 'can add all students in a classroom' do
-          classrooms_data = [{id: classroom.id, student_ids: []}]
+          classrooms_data = [{id: classroom.id, student_ids: [], assign_on_join: true}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           assigned_users = classroom_activity.reload.activity_sessions.map(&:user_id)
           expect(assigned_users).to include(student1.id, student2.id, student.id)

@@ -305,7 +305,7 @@ describe ActivitySession, type: :model, redis: :true do
     let!(:activity){ FactoryGirl.create(:activity) }
     let!(:assigned_student){ FactoryGirl.create(:student) }
     let!(:unassigned_student){ FactoryGirl.create(:student) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, assigned_student_ids: [assigned_student.id] )}
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
 
     it 'ensures that the student was correctly assigned' do
       act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)

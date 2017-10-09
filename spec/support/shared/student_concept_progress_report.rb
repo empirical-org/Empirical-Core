@@ -19,6 +19,7 @@ shared_context 'Student Concept Progress Report' do
   let(:classroom_activity) { FactoryGirl.create(:classroom_activity,
                                           classroom: classroom,
                                           activity: activity,
+                                          assign_on_join: true,
                                           unit: unit) }
 
 

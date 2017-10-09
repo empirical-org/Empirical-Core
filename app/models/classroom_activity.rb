@@ -1,6 +1,7 @@
 class ClassroomActivity < ActiveRecord::Base
   include CheckboxCallback
   include ::NewRelic::Agent
+  include AtomicArrays
 
   belongs_to :classroom
   belongs_to :activity
@@ -17,11 +18,19 @@ class ClassroomActivity < ActiveRecord::Base
     if: Proc.new { |ca| ca.pinned == true }
 
   before_validation :check_pinned
-  after_create :assign_to_students, :lock_if_lesson
+  before_save :update_students_array_if_assign_on_join
+  after_create :lock_if_lesson
   after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions, :update_lessons_cache
 
   def assigned_students
     User.where(id: assigned_student_ids)
+  end
+
+  def update_students_array_if_assign_on_join
+    old_version = ClassroomActivity.find_by_id(self.id)
+    if self.assign_on_join && (!old_version || !old_version.assign_on_join)
+      self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
+    end
   end
 
   def assign_follow_up_lesson(locked=true)
@@ -39,6 +48,7 @@ class ClassroomActivity < ActiveRecord::Base
                              unit_id: self.unit_id,
                              visible: true,
                              locked: locked,
+                             assign_on_join: self.assign_on_join,
                              assigned_student_ids: self.assigned_student_ids )
     follow_up
   end
@@ -88,17 +98,6 @@ class ClassroomActivity < ActiveRecord::Base
     else
       activity_sessions.create(user: user, activity: activity)
     end
-
-    # if as.save
-    #
-    # else
-    #   if as.errors[""]
-    #     begin
-    #
-    #     rescue
-    #
-    #     end
-    # end
   end
 
   def activity_session_metadata
@@ -106,15 +105,10 @@ class ClassroomActivity < ActiveRecord::Base
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
-  def for_student? student
-    return true if assigned_student_ids.nil? || assigned_student_ids.empty?
-    assigned_student_ids.include?(student.id)
-  end
-
   def students
     if assigned_student_ids && assigned_student_ids.any?
       User.where(id: assigned_student_ids)
-    else
+    elsif classroom
       classroom.students
     end
   end
@@ -198,9 +192,12 @@ class ClassroomActivity < ActiveRecord::Base
 
   def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
-    self.activity_sessions.each do |as|
-      if !validate_assigned_student(as.user_id)
-        as.update(visible: false)
+    act_seshes = self.activity_sessions
+    if act_seshes
+      act_seshes.each do |as|
+        if !validate_assigned_student(as.user_id)
+          as.update(visible: false)
+        end
       end
     end
   end
@@ -242,10 +239,16 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def validate_assigned_student(student_id)
-    if (self.assigned_student_ids == []) || self.assigned_student_ids.nil?
+    if self.assign_on_join
+      if !self.assigned_student_ids || self.assigned_student_ids.exclude?(student_id)
+        if !self.assigned_student_ids.kind_of?(Array)
+          self.update(assigned_student_ids: [])
+        end
+        self.atomic_append(:assigned_student_ids, student_id)
+      end
       true
     else
-      self.assigned_student_ids.include?(student_id)
+      self.assigned_student_ids && self.assigned_student_ids.include?(student_id)
     end
   end
 
