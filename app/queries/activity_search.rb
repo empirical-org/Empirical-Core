@@ -28,7 +28,6 @@ class ActivitySearch
       LEFT JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
       WHERE (activities.name ILIKE #{sanitized_search_text} OR activity_categories.name ILIKE #{sanitized_search_text} OR activities.description ILIKE #{sanitized_search_text})
-      AND activity_categories.id IS NOT NULL
       AND sections.id IS NOT NULL
       #{filter_string}
       ORDER BY #{search_sort_sql(sort)}").to_a
