@@ -910,9 +910,9 @@ $tool-grey: #f8f9f9;
     }
     &.desktop {
       .walk-thru-step:first-of-type {
-          background-image: url('../../../../public/images/tools/connect/background_pattern.png');
+          background-image: url('http://assets.quill.org/images/tools/connect/background_pattern.png');
           background-repeat: no-repeat;
-          height: 255px;
+          height: 320px;
           @media screen and (min-width: 1540px) {
             background-position: 43%;
           }
