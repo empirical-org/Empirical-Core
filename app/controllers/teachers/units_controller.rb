@@ -124,7 +124,8 @@ class Teachers::UnitsController < ApplicationController
        activities.activity_classification_id,
        ca.id AS classroom_activity_id,
        ca.unit_id AS unit_id,
-       array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
+       array_length(ca.assigned_student_ids, 1),
+       COUNT(DISTINCT sc.student_id) AS class_size,
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
@@ -138,6 +139,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
+      AND sc.visible = true
       AND activities.activity_classification_id = 6
       AND classrooms.visible = true
       AND units.visible = true
@@ -208,6 +210,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
+      AND sc.visible = true
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
