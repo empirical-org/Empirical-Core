@@ -14,7 +14,6 @@ module Associators::StudentsToClassrooms
         sc.update(visible: true)
       end
       student.reload
-      student.assign_classroom_activities(classroom[:id])
     end
     student
   end
