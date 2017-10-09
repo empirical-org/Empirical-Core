@@ -61,9 +61,7 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
     let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity, assign_on_join: true) }
 
     it 'assigns those activities to the new students' do
-      students = subject
-      acss = ActivitySession.where(classroom_activity: classroom_activity, user: students.map(&:id))
-      expect(acss.count).to eq(students.count)
+      expect(classroom_activity.assigned_student_ids.length).to eq(subject.count)
     end
   end
 end
