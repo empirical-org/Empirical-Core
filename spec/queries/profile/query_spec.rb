@@ -21,7 +21,7 @@ describe 'Profile::Query' do
                                                   assign_on_join: true,
                                                   unit: unit2) }
 
-  def subject
+  def sessions
     Profile::Query.new.query(student, 20, 0, classroom.id)
   end
 
@@ -29,9 +29,13 @@ describe 'Profile::Query' do
     StudentsClassrooms.create(student_id: student.id, classroom_id: classroom.id)
   end
 
-  it 'returns all activity sessions' do
-    sessions = subject
-    expect(sessions.count).to eq(2)
+  it 'returns no activity sessions if there are any activity sessions' do
+    expect(sessions.count).to eq(0)
+  end
+
+  it 'returns one activity sessions if there is one per the classroom' do
+    ActivitySession.create(user_id: student.id, classroom_activity_id: classroom.id, state: 'finished', completed_at: Date.yesterday, percentage: 0.9)
+    expect(sessions.count).to eq(1)
   end
 
 
