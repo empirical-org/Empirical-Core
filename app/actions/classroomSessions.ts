@@ -462,7 +462,8 @@ export function saveReview(activity_id:string, classroom_activity_id:string, val
   const review = {
     activity_id: activity_id,
     value: value,
-    classroom_activity_id: classroom_activity_id
+    classroom_activity_id: classroom_activity_id,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
   }
   reviewRef.set(review)
 }
