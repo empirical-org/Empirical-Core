@@ -248,7 +248,7 @@ class ClassroomActivity < ActiveRecord::Base
       end
       true
     else
-      self.assigned_student_ids && self.assigned_student_ids.include?(student_id)
+      self.assigned_student_ids && (self.assigned_student_ids.include?(student_id) || self.assigned_student_ids == [])
     end
   end
 
