@@ -598,11 +598,12 @@ describe User, type: :model do
   describe 'student behavior' do
     let!(:classroom)          { FactoryGirl.create(:classroom) }
     let!(:unit)    { FactoryGirl.create(:unit)}
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom, unit: unit) }
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom, unit: unit, assign_on_join: true) }
     let!(:activity)           { classroom_activity.activity }
-    let!(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
+    let!(:student) { FactoryGirl.create(:student) }
 
     it 'assigns newly-created students to all activities previously assigned to their classroom' do
+      StudentsClassrooms.create(student_id: student.id, classroom_id: classroom.id)
       expect(student.activity_sessions.size).to eq(1)
       expect(student.activity_sessions.first.activity).to eq(activity)
     end
