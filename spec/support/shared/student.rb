@@ -25,82 +25,19 @@ shared_examples_for "student" do
 
   end
 
-  describe "#unfinished_activities" do
-
-    it "must return an empty list when there aren't any available yet" do
-      expect(student.unfinished_activities(classroom)).to be_empty
-    end
-
-    context "when there is one available" do
-
-      let(:activity){FactoryGirl.build(:activity)}
-
-      it "must return one item" do
-        student.classrooms.first.activities<<activity
-        expect(student.unfinished_activities(student.classrooms.first).count).to eq 1
-      end
-
-    end
-
-  end
-
 
   describe "#activity_sessions" do
     let!(:activity){ FactoryGirl.create(:activity) }
-    let!(:student){ FactoryGirl.build(:student) }
+    let!(:student){ FactoryGirl.create(:student) }
     let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,activity_id: activity.id, classroom_id: student.classrooms.first.id) }
 
     it "must returns an empty array when none is assigned" do
       expect(student.activity_sessions).to be_empty
     end
 
-    describe "return availables" do
-      before do
-        student.activity_sessions.build()
-      end
-      it "must return which are available" do
-        expect(student.activity_sessions).to_not be_empty
-      end
-    end
-
-    context "with a valid activity_session initialized" do
-
-        before do
-          student.save!
-          student.activity_sessions.create!(classroom_activity_id: classroom_activity.id, activity_id: activity.id)
-        end
-
-        describe "#rel_for_activity" do
-
-          it "must not be an empty list" do
-            expect(student.activity_sessions.rel_for_activity(activity)).to_not be_empty
-          end
-
-        end
-
-        context "when the activity is completed" do
-
-            before do
-              activity_session=student.activity_sessions.first
-              activity_session.completed_at=Time.now
-              activity_session.save
-            end
-
-            describe "#completed_for_activity" do
-
-              it "must be present" do
-                expect(student.activity_sessions.completed_for_activity(activity)).to be_present
-              end
-
-            end
-            describe "#for_classroom" do
-
-              it "must be present" do
-                expect(student.activity_sessions.for_classroom(student.classrooms.first)).to be_present
-              end
-
-            end
-        end
+    it "must not be empty when an activity session has been completed and is visible" do
+      ActivitySession.create(classroom_activity_id: classroom_activity.id, activity_id: activity.id, completed_at: Time.now, user_id: student.id)
+      expect(student.activity_sessions).not_to be_empty
     end
   end
 
