@@ -77,13 +77,6 @@ shared_examples_for "student" do
           end
 
         end
-        describe "#for_activity" do
-
-          it "must be present" do
-            expect(student.activity_sessions.for_activity(activity)).to be_present
-          end
-
-        end
 
         context "when the activity is completed" do
 
