@@ -22,12 +22,14 @@ import display from './display';
 import classroomSessions from './classroomSessions';
 import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
+import classroomLessonsReviews from './classroomLessonsReviews'
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
   question,
   classroomLesson,
   classroomLessons,
+  classroomLessonsReviews,
   classroomSessions,
   concepts,
   conceptsFeedback,

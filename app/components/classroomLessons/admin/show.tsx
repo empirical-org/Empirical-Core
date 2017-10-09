@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import rootRef, { firebase } from '../../../libs/firebase';
 import _ from 'lodash'
 import {
   getComponentDisplayName,
@@ -30,27 +29,36 @@ class ShowClassroomLesson extends Component<any, any> {
     this.selectNewSlideType = this.selectNewSlideType.bind(this)
     this.goToNewSlide = this.goToNewSlide.bind(this)
     this.saveLessonDetails = this.saveLessonDetails.bind(this)
-    this.updateReviewPercentage = this.updateReviewPercentage.bind(this)
   }
 
   componentDidMount() {
     const lessonId = this.props.params.classroomLessonID
-    const reviewsRef = rootRef.child("reviews");
-    const that = this
-    reviewsRef.orderByChild("activity_id").equalTo(lessonId).once("value", function(snapshot) {
-      const reviews = snapshot.val()
+    if (this.props.classroomLessonsReviews.hasreceiveddata) {
+      const reviews = this.props.classroomLessonsReviews.data[lessonId]
       if (reviews) {
-        const reviewKeys = Object.keys(reviews)
-        const numberPoints = _.sumBy(reviewKeys, (rk) => reviews[rk].value)
-        const numberPointsPoss = reviewKeys.length * 2
-        const percentage = ((numberPoints/numberPointsPoss) * 100).toFixed(2)
-        that.updateReviewPercentage(percentage)
+        this.scoreReviews(reviews)
       }
-    });
+    }
   }
 
-  updateReviewPercentage(reviewPercentage) {
-    this.setState({reviewPercentage})
+  componentWillReceiveProps(nextProps) {
+    if (this.props.classroomLessonsReviews.hasreceiveddata !== nextProps.classroomLessonsReviews.hasreceiveddata) {
+      const lessonId = nextProps.params.classroomLessonID
+      const reviews = nextProps.classroomLessonsReviews.data[lessonId]
+      if (reviews) {
+        this.scoreReviews(reviews)
+      }
+    }
+  }
+
+  scoreReviews(reviews) {
+    const reviewKeys = Object.keys(reviews)
+    if (reviewKeys.length > 0) {
+      const numberPoints = _.sumBy(reviewKeys, (rk) => reviews[rk].value)
+      const numberPointsPoss = reviewKeys.length * 2
+      const percentage = Math.round((numberPoints/numberPointsPoss) * 100)
+      this.setState({reviewPercentage: percentage})
+    };
   }
 
   classroomLesson() {
@@ -176,6 +184,7 @@ class ShowClassroomLesson extends Component<any, any> {
 function select(props) {
   return {
     classroomLessons: props.classroomLessons,
+    classroomLessonsReviews: props.classroomLessonsReviews
   };
 }
 
