@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -376,11 +376,7 @@ ALTER SEQUENCE admin_accounts_teachers_id_seq OWNED BY admin_accounts_teachers.i
 CREATE TABLE authors (
     id integer NOT NULL,
     name character varying(255),
-    avatar_file_name character varying(255),
-    avatar_content_type character varying(255),
-    avatar_file_size integer,
-    avatar_updated_at timestamp without time zone,
-    description text
+    avatar text
 );
 
 
@@ -1435,9 +1431,6 @@ CREATE TABLE unit_templates (
     "time" integer,
     grades text,
     author_id integer,
-    problem text,
-    summary text,
-    teacher_review text,
     flag character varying,
     order_number integer DEFAULT 999999999,
     activity_info text,
@@ -2428,13 +2421,6 @@ CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING
 
 
 --
--- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
-
-
---
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2453,13 +2439,6 @@ CREATE INDEX index_classrooms_on_grade ON classrooms USING btree (grade);
 --
 
 CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_level);
-
-
---
--- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
 
 
 --
@@ -2810,13 +2789,6 @@ CREATE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
-
-
---
--- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
 
 
 --
@@ -3362,15 +3334,17 @@ INSERT INTO schema_migrations (version) VALUES ('20170927213514');
 
 INSERT INTO schema_migrations (version) VALUES ('20170928203242');
 
-INSERT INTO schema_migrations (version) VALUES ('20171005193104');
-
 INSERT INTO schema_migrations (version) VALUES ('20171005210006');
-
-INSERT INTO schema_migrations (version) VALUES ('20171005211221');
-
-INSERT INTO schema_migrations (version) VALUES ('20171005214127');
 
 INSERT INTO schema_migrations (version) VALUES ('20171006150857');
 
 INSERT INTO schema_migrations (version) VALUES ('20171006151454');
+
+INSERT INTO schema_migrations (version) VALUES ('20171006194812');
+
+INSERT INTO schema_migrations (version) VALUES ('20171009155139');
+
+INSERT INTO schema_migrations (version) VALUES ('20171009160011');
+
+INSERT INTO schema_migrations (version) VALUES ('20171009162550');
 
