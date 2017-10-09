@@ -9,6 +9,9 @@ import OverviewMini from '../overview_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';
 import PremiumMini from '../premium_mini';
+import QuillLessonsAnnouncement from '../quill_lessons_announcement_mini.jsx';
+import LessonsList from '../lessons_list.jsx';
+import DiagnosticMini from '../diagnostic_mini.jsx'
 
 describe('ClassOverview component', () => {
   describe('overview minis', () => {
@@ -43,4 +46,34 @@ describe('ClassOverview component', () => {
     );
     expect(wrapper.find(PremiumPromo).exists()).toBe(true);
   });
+
+  describe('QuillLessonsAnnouncement', () => {
+    it('should render QuillLessonsAnnouncement', () => {
+      const wrapper = shallow(
+        <ClassOverview/>
+      );
+      expect(wrapper.find(QuillLessonsAnnouncement).exists()).toBe(true);
+    });
+  })
+
+  describe('LessonsList', () => {
+    it('should render LessonsList', () => {
+      const wrapper = shallow(
+        <ClassOverview/>
+      );
+      expect(wrapper.find(LessonsList).exists()).toBe(true);
+    });
+  })
+
+  describe('DiagnosticMini', () => {
+    it('should render DiagnosticMini', () => {
+      const wrapper = shallow(
+        <ClassOverview/>
+      );
+      expect(wrapper.find(DiagnosticMini).exists()).toBe(true);
+    });
+  })
+
+
+
 });
