@@ -38,7 +38,6 @@
       background-color: #3adfbb;
       text-align: center;
       border-radius: 20px;
-      padding-top: 2px;
       font-size: 16px;
       font-weight: bold;
       color: #ffffff;
@@ -72,6 +71,10 @@
           }
           &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(7) {
             text-align: center;
+          }
+          span {
+            display: flex;
+            align-items: center;
           }
           p {
             cursor: pointer;

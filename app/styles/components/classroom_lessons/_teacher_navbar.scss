@@ -111,8 +111,13 @@
   padding: 0 30px;
   color: white;
   i {
-    margin: 1px 10px;
     font-size: 15px;
+    &.fa-eye {
+      margin: 1px 10px 0px 0px;
+    }
+    &.fa-external-link {
+      margin: 1px 0px 0px 10px;
+    }
   }
   p {
     span {

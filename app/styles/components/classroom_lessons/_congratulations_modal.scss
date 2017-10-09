@@ -107,15 +107,20 @@
     }
     .feedback-response {
       p:first-of-type {
-        margin-top: 40px;
+        margin-top: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
       }
       p:last-of-type {
-        width: 350px;
-        a {
-          font-weight: 600;
-          color: #027360;
-          text-decoration: underline;
-        }
+        margin-bottom: 12px;
+        width: 408px;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+      }
+      a {
+        font-size: 14px;
+        font-weight: 600;
+        color: #027360;
       }
     }
   }
