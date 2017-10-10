@@ -12,8 +12,18 @@
 			.icon {
 				display: flex;
 				align-items: center;
+				.icon-wrapper {
+					position: relative;
+				}
 			}
 		}
+	}
+
+	.in-progress-symbol {
+		vertical-align: middle;
+		position: absolute;
+		top: -8px;
+		right: -8px;
 	}
 
 	.dropdown-menu {
