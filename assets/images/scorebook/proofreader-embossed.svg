@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="25px" viewBox="0 0 26 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3 Copy 24</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M25.3758896,4.11342722 C25.1605716,4.11342722 24.9192489,4.20022309 24.6529618,4.37381484 C23.7667251,4.95419688 22.8420015,5.23445343 21.8226213,5.23445343 C20.1083981,5.23445343 18.3328041,4.42610151 16.6165006,3.64284718 C14.8440272,2.83554099 13.0143436,2 11.1773787,2 C10.0456586,2 9.01691668,2.31267429 8.0370634,2.95266313 C7.48368554,3.31134969 7,4.18558282 7,4.82452593 L7,14.1775655 C7,14.7025237 7.3370196,14.8876185 7.62411037,14.8876185 C7.83734808,14.8876185 8.08075112,14.8018684 8.34703821,14.6293224 C9.2291142,14.0489403 10.1569583,13.767638 11.1773787,13.767638 C12.8926421,13.767638 14.6651155,14.5770357 16.3824592,15.3592443 C18.1559728,16.164459 19.9846162,17 21.8205409,17 C22.9543414,17 23.9820431,16.6894172 24.9598161,16.0473369 C25.5142341,15.6886503 26,14.8144172 26,14.1775655 L26,4.82452593 C26,4.3006135 25.6619402,4.11342722 25.3758896,4.11342722" id="path-1"></path>
+        <filter x="-5.3%" y="-6.7%" width="110.5%" height="113.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.671290391   0 0 0 0 0.671290391   0 0 0 0 0.671290391  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <path d="M2,0 C0.897852279,0 0,0.874183007 0,1.9505719 C0,2.58374183 0.311157674,3.14440359 0.792037716,3.50081699 C0.792037716,3.52839052 0.78784704,3.55290033 0.78784704,3.57945261 L0.78784704,23.8214869 C0.78784704,24.472018 1.32949188,25 1.99476166,25 L2.00523834,25 C2.66946045,25 3.21215296,24.472018 3.21215296,23.8214869 L3.21215296,3.57945261 C3.21215296,3.55290033 3.21110529,3.52839052 3.21005762,3.50081699 C3.68884233,3.14440359 4,2.58374183 4,1.9505719 C4,0.874183007 3.10424306,0 2,0" id="path-3"></path>
+        <filter x="-25.0%" y="-4.0%" width="150.0%" height="108.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="0.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.671290391   0 0 0 0 0.671290391   0 0 0 0 0.671290391  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="09-Teacher-Dashboard:-Student-Reports" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="09_14-Visual-Overview-Updated" transform="translate(-968.000000, -353.000000)">
+            <g id="Group-3-Copy-24" transform="translate(968.000000, 353.000000)">
+                <g id="Group-4">
+                    <g id="Group-3">
+                        <g id="Fill-42">
+                            <use fill="#C0C0C0" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="Fill-44">
+                            <use fill="#C0C0C0" fill-rule="evenodd" xlink:href="#path-3"></use>
+                            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

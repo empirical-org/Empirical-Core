@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 12</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="9" cy="9" r="9"></circle>
+    </defs>
+    <g id="09-Teacher-Dashboard:-Student-Reports" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="09_14-Visual-Overview-Updated" transform="translate(-507.000000, -471.000000)">
+            <g id="Group-12" transform="translate(508.000000, 472.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" stroke="#F8F6F6" fill="#348FDF" stroke-linecap="round" xlink:href="#path-1"></use>
+                <path d="M4.7554012,1.52674174 C5.84886088,0.838555562 7.1292965,0.497518844 8.59670804,0.503631592 L8.70992269,9.00505734 L2.45594449,3.57224969 C2.89545594,2.89676391 3.66194151,2.21492793 4.7554012,1.52674174 Z" id="Rectangle-6" fill="#FFFFFF" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
