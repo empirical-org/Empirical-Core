@@ -8,6 +8,8 @@ import LoadingIndicator from '../shared/loading_indicator'
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx'
 import FaqLink from './faq_link.jsx'
 import ProgressReportFilters from './progress_report_filters.jsx'
+import stripHtml from '../modules/strip_html'
+
 import $ from 'jquery'
 
 export default  React.createClass({
@@ -67,6 +69,13 @@ export default  React.createClass({
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     this.fetchData();
+  },
+
+  strippedResults: function(results) {
+    return results.map((r) => {
+      r.prompt = stripHtml(r.prompt)
+      return r
+    })
   },
 
   // Get results with all filters, sorting
@@ -134,7 +143,7 @@ export default  React.createClass({
       this.setState({
         numPages: data.page_count,
         loading: false,
-        results: data[this.props.jsonResultsKey],
+        results: this.strippedResults(data[this.props.jsonResultsKey]),
         teacher: data.teacher,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
