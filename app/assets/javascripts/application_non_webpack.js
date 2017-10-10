@@ -13,4 +13,3 @@
 
 //= require jquery.turbolinks
 //= require jquery-fileupload/basic
-  
