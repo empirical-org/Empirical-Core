@@ -26,12 +26,14 @@ shared_context 'Topic Progress Report' do
   let!(:classroom_activity1) { FactoryGirl.create(:classroom_activity,
                                             classroom: full_classroom,
                                             activity: activity_for_second_grade_topic,
+                                            assign_on_join: true,
                                             unit: unit1) }
   let!(:activity_for_first_grade_topic) { FactoryGirl.create(:activity,
     name: '1st Grade Activity', topic: first_grade_topic) }
   let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity,
                                             classroom: full_classroom,
                                             activity: activity_for_first_grade_topic,
+                                            assign_on_join: true,
                                             unit: unit1) }
 
   # NOTE: ClassroomActivity.create creates new activity sessions for every student in the classroom.
@@ -43,6 +45,7 @@ shared_context 'Topic Progress Report' do
   end
 
   let!(:fred_second_grade_topic_session) do
+    # StudentsClassrooms.find_or_create(classroom_id: full_classroom.id, student_id: fred.id)
     session = fred.activity_sessions.for_activity(activity_for_second_grade_topic)
     session.update!(state: 'finished', percentage: 1, completed_at: 1.month.ago) # proficient
     session

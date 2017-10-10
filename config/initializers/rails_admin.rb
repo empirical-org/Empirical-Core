@@ -79,7 +79,7 @@ RailsAdmin.config do |config|
         searchable true
         # TODO: get this displaying emails
         # formatted_value do # used in form views
-        #   binding.pry
+        #    
         #   bindings[:object].email
         # end
         # pretty_value do # used in list view columns and show views, defaults to formatted_value for non-association fields

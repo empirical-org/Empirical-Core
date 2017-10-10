@@ -102,7 +102,7 @@ class GoogleDriveFile
 
     data = doc.data
     @download_url = data.download_url || data.export_links['text/plain']
-    #binding.pry if @download_url.blank?
+    #  if @download_url.blank?
     @download_url
   end
 

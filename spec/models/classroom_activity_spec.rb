@@ -141,13 +141,8 @@ describe ClassroomActivity, type: :model, redis: :true do
 
       context 'it must return true when' do
 
-        it 'assigned_student_ids is an empty array' do
-          classroom_activity.assigned_student_ids = []
-          expect(classroom_activity.validate_assigned_student(student.id)).to be true
-        end
-
-        it 'assigned_student_ids is nil' do
-          classroom_activity.assigned_student_ids = nil
+        it 'assign_on_join is true' do
+          classroom_activity.assign_on_join = true
           expect(classroom_activity.validate_assigned_student(student.id)).to be true
         end
 
@@ -158,7 +153,7 @@ describe ClassroomActivity, type: :model, redis: :true do
 
       end
 
-      it 'must return false when assigned_student_ids does not contain the student id' do
+      it 'must return false when assigned_student_ids does not contain the student id and it was not assigned to the entire classroom' do
         classroom_activity.assigned_student_ids = [student.id + 1]
         expect(classroom_activity.validate_assigned_student(student.id)).to be false
       end
