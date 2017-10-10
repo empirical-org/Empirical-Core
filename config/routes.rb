@@ -316,6 +316,8 @@ EmpiricalGrammar::Application.routes.draw do
         get :sign_in
         put :make_admin
         put :remove_admin
+        get :edit_subscription
+        post :update_subscription
       end
     end
 
@@ -353,6 +355,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix' => 'teacher_fix#index'
   get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
   get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
+  get 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#index'
   get 'teacher_fix/recover_classroom_activities' => 'teacher_fix#index'
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
@@ -360,6 +363,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
   post 'teacher_fix/unarchive_units' => 'teacher_fix#unarchive_units'
   post 'teacher_fix/merge_student_accounts' => 'teacher_fix#merge_student_accounts'
+  post 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#merge_teacher_accounts'
   post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
 

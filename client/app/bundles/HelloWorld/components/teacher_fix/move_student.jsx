@@ -54,6 +54,7 @@ export default class MoveStudent extends React.Component {
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Move Student From One Class to Another</h2>
       <p>This method will transfer a student and their data from the class identified by class code 1 to the class identified by class code 2.</p>
+      <p>Please note that if the classes have different teachers, all of the student's activities in the second classroom will belong to a new unit that is separate from anything that teacher may have assigned to the rest of the class.</p>
       <div>
         <div className="input-row">
           <label>Class Code 1:</label>
