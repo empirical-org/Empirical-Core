@@ -304,7 +304,6 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :users do
       resource :subscription
-
       collection do
         post :search
         get :search, to: 'users#index'
@@ -314,9 +313,9 @@ EmpiricalGrammar::Application.routes.draw do
         put :sign_in
         put :clear_data
         get :sign_in
-        put :make_admin
-        put :remove_admin
       end
+      put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
+      put 'remove_admin/:school_id', to: 'users#remove_admin', as: :remove_admin
     end
 
     resources :schools do

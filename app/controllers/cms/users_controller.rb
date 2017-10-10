@@ -48,12 +48,16 @@ class Cms::UsersController < ApplicationController
   end
 
   def make_admin
-    User.find(params[:id]).update(role: 'admin')
+    admin = SchoolsAdmins.new
+    admin.school_id = params[:school_id]
+    admin.user_id = params[:user_id]
+    flash[:error] = 'Something went wrong.' unless admin.save
     redirect_to :back
   end
 
   def remove_admin
-    User.find(params[:id]).update(role: 'teacher')
+    admin = SchoolsAdmins.where(user_id: params[:user_id], school_id: params[:school_id]).first
+    flash[:error] = 'Something went wrong.' unless admin.destroy
     redirect_to :back
   end
 
