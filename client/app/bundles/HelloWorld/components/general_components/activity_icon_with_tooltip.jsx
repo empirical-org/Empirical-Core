@@ -64,8 +64,24 @@ export default React.createClass({
     this.setState({ toolTipHTML: titleGenerator.generate(data), });
   },
 
+  iconClass() {
+    if (this.props.data.completedAttempts > 0) {
+      if (Number(this.props.data.activity_classification_id) === 4 || Number(this.props.data.activity_classification_id) === 6 ) {
+        return  `icon-blue icon-${activityFromClassificationId(this.getActClassId())}`
+      } else {
+        return `icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`
+      }
+    } else {
+      if (this.props.data.started) {
+        return `icon-progress icon-${activityFromClassificationId(this.getActClassId())}-embossed`
+      } else {
+        return `icon-unstarted icon-${activityFromClassificationId(this.getActClassId())}-embossed`
+      }
+    }
+  },
+
   tooltipClasses() {
-    return `activate-tooltip icon-link icon-wrapper icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`;
+    return `activate-tooltip icon-link icon-wrapper ${this.iconClass()}`;
   },
 
   goToReport() {
@@ -88,6 +104,19 @@ export default React.createClass({
     this.setState({ showToolTip: false, });
   },
 
+  statusIndicator() {
+    const {started, completedAttempts} = this.props.data
+    if (started) {
+      return <img className="in-progress-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg"/>
+    } else if (completedAttempts > 1) {
+      const completedNumber = completedAttempts > 9 ? '+' : completedAttempts
+      return <span>
+        <img className="attempt-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-solid.svg"/>
+        <span className="attempt-count">{completedNumber}</span>
+      </span>
+    }
+  },
+
   render() {
     const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';
     let toolTip = null;
@@ -105,6 +134,7 @@ export default React.createClass({
         onMouseLeave={this.props.context === 'scorebook' ? this.hideTooltip : null}
         className={this.tooltipClasses()}
       >
+        {this.statusIndicator()}
         {toolTip}
       </div>
     );
