@@ -3,7 +3,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :teacher_or_public_activity_packs
   before_filter :authorize!
   include ScorebookHelper
-  include LastActiveClassroom
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?

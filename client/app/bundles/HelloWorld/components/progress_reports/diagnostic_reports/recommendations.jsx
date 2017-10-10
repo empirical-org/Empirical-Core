@@ -160,7 +160,7 @@ export default React.createClass({
         const newObj = Object.assign({}, that.state);
         newObj.lessonsRecommendations.find(rec => rec.activity_pack_id === unitTemplateId).status = 'assigned';
         that.setState(newObj);
-      })
+      });
     } else {
       channel.bind('personalized-recommendations-assigned', (data) => {
         that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId);
@@ -283,7 +283,7 @@ export default React.createClass({
     }
     return (
       <div>
-      <RecommendationOverview />
+        <RecommendationOverview />
         <h3
           id="recommendations-scroll-to"
           style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}

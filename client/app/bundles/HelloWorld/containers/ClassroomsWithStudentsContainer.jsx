@@ -12,6 +12,7 @@ export default class extends React.Component {
       classrooms: null,
       loading: true,
       studentsChanged: false,
+      classroomsChanged: false,
       newUnit: !!this.props.params.activityIdsArray,
     };
     this.getClassroomsAndStudentsData();
@@ -81,6 +82,7 @@ export default class extends React.Component {
     classroom.allSelected = !classroom.allSelected;
     classroom.noneSelected = !classroom.allSelected;
     classroom.students.forEach(stud => stud.isSelected = classroom.allSelected);
+    newState.classroomsChanged = true;
     newState.studentsChanged = this.studentsChanged(newState.classrooms);
     this.setState(newState);
   }
@@ -116,7 +118,7 @@ export default class extends React.Component {
   }
 
   updateAllOrNoneAssigned(classy, selectedCount) {
-    if (selectedCount === classy.students.length) {
+    if (classy.students.length && (selectedCount === classy.students.length)) {
       classy.allSelected = true;
       classy.noneSelected = false;
     } else if (selectedCount === 0) {
@@ -136,7 +138,8 @@ export default class extends React.Component {
     const assignedStudentIds = this.getAssignedIds(classy).sort();
     let updated;
     if (classy.classroom_activity) {
-      if (classy.classroom_activity.assigned_student_ids.length === 0) {
+      const ca = classy.classroom_activity;
+      if (ca.assign_on_join) {
 				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
 				// if it is, there hasn't been an update unless there are no students in the class
         const equalLengths = assignedStudentIds.length === classy.students.length;
@@ -145,7 +148,7 @@ export default class extends React.Component {
         updated = classy.students.length === 0 && classy.noneSelected ? true : !equalLengths;
       } else {
 				// if not everyone in the class was assigned, check to see if assigned student arrays are the same
-        updated = !_.isEqual(assignedStudentIds, classy.classroom_activity.assigned_student_ids.filter(Number).sort());
+        updated = !_.isEqual(assignedStudentIds, ca.assigned_student_ids.filter(Number).sort());
       }
     } else if (assignedStudentIds.length > 0 || classy.allSelected) {
 			// if there were no students assigned but there are now,
@@ -210,7 +213,7 @@ export default class extends React.Component {
               createOrEdit={this.state.newUnit ? 'create' : 'edit'}
               handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
               toggleClassroomSelection={this.toggleClassroomSelection}
-              isSaveButtonEnabled={this.state.studentsChanged}
+              isSaveButtonEnabled={this.state.studentsChanged || this.state.classroomsChanged}
             />
           </div>
         </div>);
