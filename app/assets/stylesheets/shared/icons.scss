@@ -179,3 +179,33 @@
    margin: 8px;
    cursor: pointer;
 }
+
+.icon-puzzle-embossed {
+  background-image: url("http://assets.quill.org/images/scorebook/grammar-embossed.svg");
+  background-repeat: no-repeat;
+  background-position: 11px 7px;
+}
+
+.icon-lessons-embossed {
+  background-image: url("https://assets.quill.org/images/scorebook/lessons-embossed.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-flag-embossed {
+  background-image: url("https://assets.quill.org/images/scorebook/proofreader-embossed.svg");
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
+
+.icon-diagnostic-embossed {
+  background-image: url("https://assets.quill.org/images/scorebook/diagnostic-embossed.svg");
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
+.icon-connect-embossed {
+  background-image: url("https://assets.quill.org/images/scorebook/connect-embossed.svg");
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
