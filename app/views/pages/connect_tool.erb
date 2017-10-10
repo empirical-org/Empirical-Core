@@ -9,16 +9,16 @@
 
     <section class='bg-connect-yellow tool-hero text-center'>
       <h1 class="q-h1">
-          <img class="tool-page-icon" src='/images/quill_connect_white.svg'>Quill Connect
+          <img class="tool-page-icon" src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
       </h1>
       <p class='description'>
         Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect. Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve the clarity and precision of their sentences.
       </p>
-      <a href='http://connect.quill.org/#/play/lesson/-KnBeexyhssSWcrSEfpr' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
+      <a href='https://connect.quill.org/#/play/lesson/-KnoWhUWhtxvet4_bi4r' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
     </section>
 
     <section class="tool-animation-section " id="overview">
-          <video class='tool-animation' src="/videos/connect.mp4" autoplay loop/>
+          <video class='tool-animation' src=<%= "#{ENV['CDN_URL']}/videos/tools/connect.mp4" %> autoplay loop/>
     </section>
 
     <section class="walk-thru-wrapper desktop" id="how-it-works">
@@ -28,54 +28,58 @@
                 <p class="prompt-header">
                   PROMPT
                 </p>
-                <p class="prompt-text">The British taxed tea.</p>
-                <p class="prompt-text">The colonists decided to boycott the tea.</p>
+                <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
+                <p class="prompt-text">He gave a speech.</p>
+                <p class="prompt-text">The speech was powerful.</p>
+                <p class="prompt-text">The speech was to inspire the colonists.</p>
               </div>
               <div class="blurb introduction">
                   <h2>How Quill Connect Gives Feedback</h2>
                   <p>
-                    In the prompt, students have to join two ideas. Quill Connect serves feedback on hundreds of potential answers. Here is a student’s progression from the first attempt to a strong sentence.
+                    In the prompt, students have to join together four ideas. There are many different ways of joining these ideas together, and Quill serves feedback on hundreds of potential answers. Here is a student’s progression from the first attempt to a strong sentence.
                   </p>
               </div>
           </div>
       </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class="arrow arrow-1" src="/images/tools/connect/arrow_1.png">
-                <img class="negative-left-margin" src="/images/tools/connect/attempt_1.png" alt="connect image">
+                <img class="arrow arrow-1" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_1.png" %>>
+                <img class="negative-left-margin" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
                 <div class="blurb blurb-attempt-1">
-                    <h2><span>1st Attempt:</span> Show Relationships</h2>
-                    <p>Using <span>and</span> is a very common pattern for emerging writers. Quill challenges the student to revise the sentence to express a causal relationship, which is an important step towards conveying complex ideas.</p>
-                </div>
-            </div>
-        </div>
-        <div class="walk-thru-step flex-row vertically-centered">
-            <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin" src="/images/tools/connect/attempt_2.png" alt="connect image">
-                <div class="blurb blurb-attempt-2">
-                    <h2><span>2nd Attempt:</span> Use Pronouns</h2>
+                    <h2><span>1st Attempt:</span> Write Concisely</h2>
                     <p>
-                      The student showed the correct relationship but unnecessarily repeated a noun. Quill guides the student towards using a pronoun to make the sentence more fluid.
+                        The student used <span>and</span> to join the sentences together. This is a very common pattern for emerging writers. Quill breaks this pattern by challenging students to revise their work.
                     </p>
                 </div>
-                <img class="arrow arrow-2" src="/images/tools/connect/arrow_2.png">
             </div>
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="arrow arrow-3" src="/images/tools/connect/arrow_3.png">
-              <img class="negative-left-margin img-attempt-3" src="/images/tools/connect/attempt_3.png" alt="connect image">
+              <img class="negative-left-margin" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png"%> alt="connect image">
+                <div class="blurb blurb-attempt-2">
+                    <h2><span>2nd Attempt:</span> Show Relationships</h2>
+                    <p>
+                      While using <span>and</span> is grammatically correct, it is not the strongest way of conveying the relationship between the ideas. Students must express the causal relationship here, an important step towards conveying complex ideas.
+                    </p>
+                </div>
+                <img class="arrow arrow-2" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_2.png" %>>
+            </div>
+        </div>
+        <div class="walk-thru-step flex-row vertically-centered">
+            <div class="content-wrapper flex-row space-between vertically-centered">
+              <img class="arrow arrow-3" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_3.png" %>>
+              <img class="negative-left-margin img-attempt-3" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
                 <div class="blurb blurb-attempt-3">
                     <h2><span>3rd Attempt:</span> Use Punctuation</h2>
                     <p>
-                      The student used a pronoun effectively but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
-                     </p>
+                      The student showed the correct relationship but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
+                    </p>
                 </div>
             </div>
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin img-attempt-4" src="/images/tools/connect/attempt_4.png" alt="connect image">
+              <img class="negative-left-margin img-attempt-4" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
                 <div class="blurb blurb-attempt-4">
                     <h2><span>4th Attempt:</span> Strong Sentence!</h2>
                     <p>
@@ -88,15 +92,17 @@
             </div>
         </div>
     </section>
-    <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
+    <section class="walk-thru-wrapper mobile">
         <div class="walk-thru-step">
             <div class="content-wrapper">
               <div class="prompt">
                 <p class="prompt-header">
                   PROMPT
                 </p>
-                <p class="prompt-text">The British taxed tea.</p>
-                <p class="prompt-text">The colonists decided to boycott the tea.</p>
+                <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
+                <p class="prompt-text">He gave a speech.</p>
+                <p class="prompt-text">The speech was powerful.</p>
+                <p class="prompt-text">The speech was to inspire the colonists.</p>
               </div>
               <div class="blurb">
                   <h2>How Quill Connect Gives Feedback</h2>
@@ -108,38 +114,40 @@
       </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-              <img src="/images/tools/connect/attempt_1.png" alt="connect image">
+              <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
               <div class="blurb">
-                <h2><span>1st Attempt:</span> Show Relationships</h2>
-                <p>Using <span>and</span> is a very common pattern for emerging writers. Quill challenges the student to revise the sentence to express a causal relationship, which is an important step towards conveying complex ideas.</p>
+                  <h2><span>1st Attempt:</span> Write Concisely</h2>
+                  <p>
+                      The student used <span>and</span> to join the sentences together. This is a very common pattern for emerging writers. Quill breaks this pattern by challenging students to revise their work.
+                  </p>
               </div>
             </div>
         </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-              <img src="/images/tools/connect/attempt_2.png" alt="connect image">
+              <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png" %> alt="connect image">
                 <div class="blurb">
-                  <h2><span>2nd Attempt:</span> Use Pronouns</h2>
-                  <p>
-                    The student showed the correct relationship but unnecessarily repeated a noun. Quill guides the student towards using a pronoun to make the sentence more fluid.
-                  </p>
+                    <h2><span>2nd Attempt:</span> Show Relationships</h2>
+                    <p>
+                      While using <span>and</span> is grammatically correct, it is not the strongest way of conveying the relationship between the ideas. Students must express the causal relationship here, an important step towards conveying complex ideas.
+                    </p>
                 </div>
             </div>
         </div>
         <div class="walk-thru-step">
           <div class="content-wrapper">
-            <img class="img-attempt-3" src="/images/tools/connect/attempt_3.png" alt="connect image">
+            <img class="img-attempt-3" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
               <div class="blurb">
-                <h2><span>3rd Attempt:</span> Use Punctuation</h2>
-                <p>
-                  The student used a pronoun effectively but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
-                 </p>
+                  <h2><span>3rd Attempt:</span> Use Punctuation</h2>
+                  <p>
+                    The student showed the correct relationship but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
+                  </p>
               </div>
           </div>
         </div>
         <div class="walk-thru-step">
           <div class="content-wrapper">
-            <img class="img-attempt-4" src="/images/tools/connect/attempt_4.png" alt="connect image">
+            <img class="img-attempt-4" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
               <div class="blurb">
                   <h2><span>4th Attempt:</span> Strong Sentence!</h2>
                   <p>
@@ -153,7 +161,6 @@
         </div>
     </section>
 
-
   <section class="tool-carousel" id="walkthrough">
       <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
@@ -166,21 +173,21 @@
           <div class="carousel-inner" role="listbox">
               <div class="item active">
                 <div class="wrapper">
-                  <img src="/images/tools/connect/visual_overview_screenshot.png" alt="Chania">
+                  <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/visual_overview_screenshot.png" %> alt="Chania">
                 </div>
                 <p>Teachers can use their scorebook report to quickly see which concepts the student mastered and which ones the student needs to practice.</p>
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img src="/images/tools/connect/analysis_screenshot.png" alt="Chania">
+                  <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/analysis_screenshot.png" %> alt="Chania">
                 </div>
                 <p>Teachers see reports that state exactly which errors the student made and which concepts the student mastered.</p>
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img src="/images/tools/connect/activities_screenshot.png" alt="Chania">
+                  <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/activities_screenshot.png" %> alt="Chania">
                 </div>
                 <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
               </div>
@@ -205,12 +212,12 @@
 
   <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern-bullseye">
     <h2 class='q-h1'>Try It Out for Yourself</h2>
-    <a href='http://connect.quill.org/#/play/lesson/-KnBeexyhssSWcrSEfpr' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
+    <a href='https://connect.quill.org/#/play/lesson/-KnoWhUWhtxvet4_bi4r' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
   </section>
 
   <section>
     <div class="boy-playing-quill">
-      <img src="/images/tools/connect/laura_marshall_student.png" alt="boy playing quill">
+      <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/laura_marshall_student.png" %> alt="boy playing quill">
     </div>
   </section>
 
