@@ -129,7 +129,7 @@ class Teachers::UnitsController < ApplicationController
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
-       COUNT(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE NULL END) AS completed_count,
+       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) AS completed_count,
        EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
     FROM units
@@ -191,7 +191,7 @@ class Teachers::UnitsController < ApplicationController
 
   def units(report)
     if report
-      completed = "HAVING COUNT(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE null END) > 0"
+      completed = "HAVING SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
     else
       completed = ''
     end
@@ -207,7 +207,7 @@ class Teachers::UnitsController < ApplicationController
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
-       COUNT(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE null END) as coompleted_count,
+       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
        EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
     FROM units
