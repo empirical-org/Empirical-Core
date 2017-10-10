@@ -139,9 +139,7 @@ protected
   end
 
   def user_query(params)
-    # This should return an array of hashes with the following order.
-    # (Order matters because of the order in which these are being
-    # displayed in the table on the front end.)
+    # This should return an array of hashes that look like this:
     # [
     #   {
     #     name: 'first last',
@@ -155,6 +153,8 @@ protected
     #   }
     # ]
 
+    # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
+    # ADJUST THE PAGINATION QUERY STRING AS WELL.
     ActiveRecord::Base.connection.execute("
       SELECT
       	users.name AS name,
