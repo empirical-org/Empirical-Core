@@ -147,7 +147,7 @@ export default React.createClass({
     this.state.scores.forEach((s) => {
       index += 0;
       const sData = s.scores[0];
-      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, }} premium_state={this.props.premium_state} />);
+      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
     });
     if (this.state.loading) {
       loadingIndicator = <LoadingIndicator />;
