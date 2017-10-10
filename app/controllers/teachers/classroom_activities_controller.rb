@@ -13,13 +13,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: cas.to_json
   end
 
-  def destroy
-    # cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
-    # cas.each{|ca| ca.destroy}
-    # @classroom_activity.unit.hide_if_no_visible_classroom_activities
-    # render json: {}
-  end
-
   def hide
     cas = ClassroomActivity.where(activity_id: @classroom_activity.activity_id, unit_id: @classroom_activity.unit_id)
     activity_sessions = ActivitySession.where(classroom_activity_id: cas.ids)
@@ -65,11 +58,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
 private
-  # TODO: DELETE THIS
-  # def old_activity_routing
-  #   act_sesh_id = @classroom_activity.session_for(current_user).id
-  #   redirect_to "/activity_sessions/#{act_sesh_id}/play"
-  # end
 
   def find_or_create_lesson_activity_sessions_for_classroom
     @classroom_activity.assigned_student_ids.each{|id| @classroom_activity.find_or_create_started_activity_session(id)}
