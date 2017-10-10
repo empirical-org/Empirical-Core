@@ -3,10 +3,6 @@ import GenericMini from '../shared/generic_mini.jsx';
 
 export default React.createClass({
 
-  getDefaultProps() {
-    { null; }
-  },
-
   miniList() {
     return [
       {
