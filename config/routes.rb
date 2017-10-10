@@ -316,6 +316,8 @@ EmpiricalGrammar::Application.routes.draw do
         get :sign_in
         put :make_admin
         put :remove_admin
+        get :edit_subscription
+        post :update_subscription
       end
     end
 
