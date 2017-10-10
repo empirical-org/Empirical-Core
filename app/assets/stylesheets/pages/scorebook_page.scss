@@ -12,10 +12,21 @@
 			.icon {
 				display: flex;
 				align-items: center;
+				.icons-description-wrapper {
+					p {
+						font-weight: 600;
+					}
+				}
 				.icon-wrapper {
 					position: relative;
 				}
 			}
+		}
+	}
+
+	.app-legend {
+		.title {
+			color: #717171;
 		}
 	}
 
