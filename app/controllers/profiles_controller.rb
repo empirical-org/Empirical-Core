@@ -109,12 +109,11 @@ protected
        MAX(acts.percentage) AS max_percentage,
        SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
     FROM classroom_activities AS ca
-    LEFT JOIN activity_sessions AS acts ON ca.id = acts.classroom_activity_id
-    JOIN units AS unit ON unit.id = ca.unit_id
+    LEFT JOIN activity_sessions AS acts ON ca.id = acts.classroom_activity_id AND acts.visible = true
+    JOIN units AS unit ON unit.id = ca.unit_id 
     JOIN activities AS activity ON activity.id = ca.activity_id
     WHERE #{current_user.id} = ANY (ca.assigned_student_ids::int[])
     AND ca.classroom_id = #{@current_classroom.id}
-    AND acts.visible = true
     AND ca.visible = true
     AND unit.visible = true
     GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
