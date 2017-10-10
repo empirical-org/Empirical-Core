@@ -16,6 +16,7 @@ export default React.createClass({
     return (
       <section style={{ maxWidth: '950px', margin: '0 auto', }}>
         <h3 className="student-name">{this.props.data.name}</h3>
+        <a className="view-list" target="_blank" href={`/teachers/progress_reports/activity_sessions?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`}><i class="fa fa-list" /> View List</a>
         <div className="flex-row vertically-centered" >
           {this.handleScores()}
         </div>
