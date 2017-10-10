@@ -92,7 +92,7 @@ describe('Scorebook component', () => {
 
   describe('if it gets data when it had none', () => {
     const wrapper = shallow(<Scorebook />);
-    wrapper.setState({ currentPage: 1, scores: new Map(), });
+    wrapper.setState({ currentPage: 1, scores: new Map(), selectedClassroom: { id: 6 }});
     wrapper.instance().displayData(data);
 
     it('does not render LoadingIndicator', () => {
@@ -122,7 +122,7 @@ describe('Scorebook component', () => {
     newRawScores[0].user_id = 'fakey';
     const wrapper = shallow(<Scorebook allClassrooms={classrooms} />);
     data.scores = newRawScores;
-    wrapper.setState({ scores: newResScores, classroomFilters: classrooms, });
+    wrapper.setState({ scores: newResScores, classroomFilters: classrooms, selectedClassroom: { id: 6 } });
     wrapper.instance().displayData(data);
     it('does not render LoadingIndicator', () => {
       expect(wrapper.find(LoadingIndicator).length).toEqual(0);
