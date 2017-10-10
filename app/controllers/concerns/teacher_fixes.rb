@@ -1,5 +1,6 @@
 module TeacherFixes
   extend ActiveSupport::Concern
+  include AtomicArrays
 
   def self.merge_activity_sessions(account1, account2)
     a1_grouped_activity_sessions = account1.activity_sessions.group_by { |as| as.classroom_activity_id }
@@ -9,7 +10,7 @@ module TeacherFixes
       if a1_grouped_activity_sessions[ca_id]
         hide_extra_activity_sessions(ca_id, account1.id)
       else
-        ClassroomActivity.find(ca_id).assigned_student_ids.push(account1.id)
+        ClassroomActivity.find(ca_id).atomic_append(:assigned_student_ids, account1.id)
       end
     end
   end

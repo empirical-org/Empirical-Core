@@ -17,6 +17,7 @@ gem 'ranked-model'
 gem 'postgres_ext'
 gem 'rails_admin', '1.2.0'
 gem 'bulk_insert'
+gem 'atomic_arrays'
 
 # USER AUTH, ETC
 gem 'bcrypt'

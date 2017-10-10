@@ -13,7 +13,7 @@ class Teachers::UnitsController < ApplicationController
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first, params[:unit][:activities].map(&:to_h), params[:unit][:classrooms])
+      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms])
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
@@ -45,7 +45,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    activities_data = ClassroomActivity.where(unit_id: params[:id]).select('activity_id as id').distinct.as_json
+    activities_data = ClassroomActivity.where(unit_id: params[:id]).pluck(:activity_id).map{|id| {id: id}}
     if activities_data.any?
       classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
@@ -124,7 +124,8 @@ class Teachers::UnitsController < ApplicationController
        activities.activity_classification_id,
        ca.id AS classroom_activity_id,
        ca.unit_id AS unit_id,
-       array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
+       array_length(ca.assigned_student_ids, 1),
+       COUNT(DISTINCT sc.student_id) AS class_size,
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
@@ -138,6 +139,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
+      AND sc.visible = true
       AND activities.activity_classification_id = 6
       AND classrooms.visible = true
       AND units.visible = true
@@ -208,6 +210,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
+      AND sc.visible = true
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true

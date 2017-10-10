@@ -228,11 +228,8 @@ module PublicProgressReports
       teacher_id = classroom.teacher_id
       diagnostic = Activity.find(activity_id)
       assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
-        unit_name = [(rec[:recommendation] + ' | BETA'), rec[:recommendation]]
-        # using where instead of .find_by here because we will
-        # presumably be taking the BETA tag away soon. there should only be
         # one unit per teacher with this name.
-        unit = Unit.where(user_id: teacher_id, name: unit_name).first
+        unit = Unit.find_by(user_id: teacher_id, name: rec[:recommendation])
         student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids)
         return_value_for_recommendation(student_ids, rec)
       end
