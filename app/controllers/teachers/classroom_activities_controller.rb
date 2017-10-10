@@ -39,6 +39,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     if completed
       unlocked = @classroom_activity.update(locked: false, pinned: true)
       if unlocked
+
         PusherLessonLaunched.run(@classroom_activity.classroom)
         redirect_to lesson_url
       else
@@ -51,13 +52,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def activity_from_classroom_activity
-    # old_activity_routing
-    started_activity = ActivitySession.find_by(state: 'started', classroom_activity_id: @classroom_activity.id, user_id: current_user.id)
-    if started_activity
-      act_sesh_id = started_activity.id
-    else
-      act_sesh_id =  ActivitySession.create(classroom_activity_id: @classroom_activity.id, user_id: current_user.id, activity_id: @classroom_activity.activity_id, state: 'started', started_at: Time.now).id
-    end
+    act_sesh_id = @classroom_activity.find_or_create_started_activity_session(current_user.id).id
     redirect_to "/activity_sessions/#{act_sesh_id}/play"
   end
 
