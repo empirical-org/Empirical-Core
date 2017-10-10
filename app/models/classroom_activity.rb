@@ -65,6 +65,15 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def find_or_create_started_activity_session(student_id)
+    started_activity = ActivitySession.find_by(state: 'started', classroom_activity_id: self.id, user_id: student_id)
+    if started_activity
+      started_activity
+    else
+      ActivitySession.create(classroom_activity_id: self.id, user_id: student_id, activity_id: self.activity_id, state: 'started', started_at: Time.now)
+    end
+  end
+
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
