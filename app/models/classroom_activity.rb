@@ -65,6 +65,14 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def delete_activity_sessions_with_no_concept_results
+    self.activity_sessions.each do |as|
+      if as.concept_results.empty?
+        as.update(visible: false)
+      end
+    end
+  end
+
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
