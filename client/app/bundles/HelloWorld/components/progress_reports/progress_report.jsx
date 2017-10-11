@@ -73,7 +73,9 @@ export default  React.createClass({
 
   strippedResults: function(results) {
     return results.map((r) => {
-      r.prompt = stripHtml(r.prompt)
+      if(r.prompt) {
+        r.prompt = stripHtml(r.prompt)
+      }
       return r
     })
   },
