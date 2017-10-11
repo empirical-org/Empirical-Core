@@ -22,7 +22,7 @@ export default React.createClass({
       dateBody;
     const firstScore = this.props.data.scores[0]
     const firstCr = this.props.data.concept_results[0];
-    if (firstScore.completed_at) {
+    if (firstScore && firstScore.completed_at) {
       dateTitle = 'Completed';
       dateBody = firstScore.completed_at;
     } else {

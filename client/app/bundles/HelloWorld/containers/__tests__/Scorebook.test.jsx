@@ -12,7 +12,7 @@ import ScoreLegend from '../../components/scorebook/score_legend';
 import AppLegend from '../../components/scorebook/app_legend.jsx';
 
 const resolvedScores = new Map();
-resolvedScores.set('441555', { name: 'blah blah', scores: [{ caId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', }], }, );
+resolvedScores.set('441555', { name: 'blah blah', scores: [{ caId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', completed_attempts: 0, started: 0}], }, );
 const classrooms = [{ name: 'A', id: 1, }, { name: 'B', id: 2, }, { name: 'C', id: 3, }];
 const units = [{ name: 'Something', id: 4, }, { name: 'Someone', id: 5, }, { name: 'Somewhere', id: 6, }];
 const rawScores = [{ user_id: '441555', ca_id: '341930', name: 'blah blah', activity_classification_id: '1', activity_name: 'America Used to be a Different Place', updated_at: '2016-09-16 15:39:00.775325', percentage: '1', id: '5951806', }];
@@ -141,10 +141,9 @@ describe('Scorebook component', () => {
     });
 
     it('updates the state.scores to add the new ones', () => {
-      const updated = { 441555: { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: '441555', }], }, fakey: { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: 'fakey', }], }, };
       const newScores = new Map(resolvedScores);
-      newScores.set('441555', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: '441555', }], });
-      newScores.set('fakey', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: 'fakey', }], });
+      newScores.set('441555', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: '441555', completed_attempts: 0, started: 0}], });
+      newScores.set('fakey', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: 'fakey', completed_attempts: 0, started: 0}], });
       expect(wrapper.state('scores')).toEqual(newScores);
     });
 

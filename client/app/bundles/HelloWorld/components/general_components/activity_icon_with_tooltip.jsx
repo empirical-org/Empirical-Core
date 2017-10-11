@@ -67,7 +67,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   }
 
   iconClass() {
-    if (this.props.data.completedAttempts > 0) {
+    if (this.props.data.completed_attempts > 0) {
       if (Number(this.props.data.activity_classification_id) === 4 || Number(this.props.data.activity_classification_id) === 6 ) {
         return  `icon-blue icon-${activityFromClassificationId(this.getActClassId())}`
       } else {
@@ -107,11 +107,11 @@ export default class ActivityIconWithTooltip extends React.Component {
   }
 
   statusIndicator() {
-    const {started, completedAttempts} = this.props.data
+    const {started, completed_attempts} = this.props.data
     if (started) {
       return <img className="in-progress-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg"/>
-    } else if (completedAttempts > 1) {
-      const completedNumber = completedAttempts > 9 ? '+' : completedAttempts
+    } else if (completed_attempts > 1) {
+      const completedNumber = completed_attempts > 9 ? '+' : completed_attempts
       return <span>
         <img className="attempt-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-solid.svg"/>
         <span className="attempt-count">{completedNumber}</span>
