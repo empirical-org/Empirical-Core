@@ -13,13 +13,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: cas.to_json
   end
 
-  def destroy
-    # cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
-    # cas.each{|ca| ca.destroy}
-    # @classroom_activity.unit.hide_if_no_visible_classroom_activities
-    # render json: {}
-  end
-
   def hide
     cas = ClassroomActivity.where(activity_id: @classroom_activity.activity_id, unit_id: @classroom_activity.unit_id)
     activity_sessions = ActivitySession.where(classroom_activity_id: cas.ids)
@@ -39,6 +32,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     if completed
       unlocked = @classroom_activity.update(locked: false, pinned: true)
       if unlocked
+        find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_activity.classroom)
         redirect_to lesson_url
       else
@@ -51,7 +45,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def activity_from_classroom_activity
-    act_sesh_id = @classroom_activity.session_for(current_user).id
+    act_sesh_id = @classroom_activity.find_or_create_started_activity_session(current_user.id).id
     redirect_to "/activity_sessions/#{act_sesh_id}/play"
   end
 
@@ -64,6 +58,10 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
 private
+
+  def find_or_create_lesson_activity_sessions_for_classroom
+    @classroom_activity.assigned_student_ids.each{|id| @classroom_activity.find_or_create_started_activity_session(id)}
+  end
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
