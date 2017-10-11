@@ -26,7 +26,7 @@ module SegmentIo
     CLASSROOM_CREATION ||= 'Teacher created a classroom'
     ACTIVITY_COMPLETION ||= 'Student completed an activity'
     ACTIVITY_ASSIGNMENT ||= 'Teacher assigned an activity'
-    ACTIVITY_ASSIGNMENT ||= 'Teacher assigned an activity'
+    USER_COMPLETED_MILESTONE ||= 'User Completed Milestone'
     ASSIGN_FEATURED_ACTIVITY_PACK ||= 'Assign Featured Activity Pack'
     BUILD_YOUR_OWN_ACTIVITY_PACK ||= 'Build Your Own Activity Pack'
     ACCESS_PROGRESS_REPORT ||= 'Teacher opened progress report'

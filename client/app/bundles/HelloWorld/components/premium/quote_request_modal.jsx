@@ -32,7 +32,7 @@ export default React.createClass ({
                   </a>
               </Modal.Body>
               <Modal.Footer>
-                <p>To pay now, please <span data-toggle="modal" onClick={this.chargeOrLogin}>click here</span>.</p>
+                <p>To pay now with a credit card, please <span data-toggle="modal" onClick={this.chargeOrLogin}>click here</span>.</p>
                 <p>You can also call us at 646-442-1095 </p>
               </Modal.Footer>
           </Modal>
