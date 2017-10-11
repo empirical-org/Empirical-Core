@@ -9,17 +9,14 @@ exports[`TeacherResourcesMini component should render 1`] = `
   >
     <div
       className="resources-container"
+      onClick={[Function]}
     >
       <h4>
         Teacher Resources
       </h4>
-      <a
-        href="/teacher_resources"
-      >
-        <img
-          src="/teacher_resources_icons.png"
-        />
-      </a>
+      <img
+        src="/teacher_resources_icons.png"
+      />
       <p>
         Introduce fellow educators to Quill with presentations, guides, and videos.
       </p>
