@@ -65,10 +65,6 @@ export default function diagnosticQuestions() {
     {
       type: 'SC', //  fall is my favorite season. The colors are pretty. The weather is nice (not currently in the database)
       key: '-KPt3uD8hulWiYGp3Rm7',
-    },
-    {
-      type: 'SC', //  i like to ski. I like swimming. I like to go hiking.
-      key: '-KP-Nc414z5N_TKwnvms',
     }
   ]);
 }
