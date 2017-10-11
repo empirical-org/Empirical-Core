@@ -68,6 +68,7 @@ export default  React.createClass({
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
+    // Pass true to fetchData on mount becuase we only want to use the query params on the first load.
     this.fetchData(true);
   },
 
