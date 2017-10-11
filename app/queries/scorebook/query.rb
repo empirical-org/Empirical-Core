@@ -11,6 +11,8 @@ class Scorebook::Query
        activity.name AS activity_name,
        MAX(acts.updated_at) AS updated_at,
        MAX(acts.percentage) AS percentage,
+       SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) AS completed_attempts,
+       SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS started,
        SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
     FROM classrooms AS classroom
     LEFT JOIN students_classrooms AS sc on sc.classroom_id = classroom.id
@@ -30,7 +32,11 @@ class Scorebook::Query
     #{self.begin_date(begin_date)}
     #{self.end_date(end_date)}
     GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id, activity.name
-    ORDER BY  split_part( students.name, ' ' , 2), ca.created_at ASC
+    ORDER BY split_part( students.name, ' ' , 2),
+      CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
+      MIN(acts.completed_at),
+      CASE WHEN SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
+      ca.created_at ASC
     OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
     FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
     ).to_a
