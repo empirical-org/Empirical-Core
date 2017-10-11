@@ -10,6 +10,7 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import AppLegend from '../components/scorebook/app_legend.jsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
+import moment from 'moment';
 
 export default React.createClass({
   mixins: [TableFilterMixin],
@@ -131,12 +132,22 @@ export default React.createClass({
   },
 
   selectDates(val1, val2) {
+    localStorage.setItem('scorebookBeginDate', val1);
+    localStorage.setItem('scorebookEndDate', val2);
     this.setState({
       scores: new Map(),
       currentPage: 0,
       beginDate: val1,
       endDate: val2,
     }, this.fetchData);
+  },
+
+  convertStoredDateToMoment(savedString) {
+    if(savedString && savedString !== 'null') {
+      return moment(savedString)
+    } else {
+      return null;
+    }
   },
 
   render() {
@@ -176,6 +187,8 @@ export default React.createClass({
                 selectedUnit={this.state.selectedUnit}
                 unitFilters={this.state.unitFilters}
                 selectUnit={this.selectUnit} selectDates={this.selectDates}
+                beginDate={this.convertStoredDateToMoment(localStorage.getItem('scorebookBeginDate'))}
+                endDate={this.convertStoredDateToMoment(localStorage.getItem('scorebookEndDate'))}
               />
               <ScoreLegend />
               <AppLegend />
