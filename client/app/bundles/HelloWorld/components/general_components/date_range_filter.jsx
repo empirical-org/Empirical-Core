@@ -28,17 +28,45 @@ export default React.createClass({
     this.props.selectDates(this.state.beginDate, this.state.endDate);
   },
 
+  FILTER_OPTIONS: [
+    {
+      title: 'Today',
+      beginDate: moment()
+    },
+    {
+      title: 'This Week',
+      beginDate: moment().startOf('week')
+    },
+    {
+      title: 'This Month',
+      beginDate: moment().startOf('month')
+    },
+    {
+      title: 'Last 7 days',
+      beginDate: moment().subtract(7, 'days')
+    },
+    {
+      title: 'Last 30 days',
+      beginDate: moment().subtract(1, 'months')
+    },
+    {
+      title: 'All Time',
+      beginDate: null
+    },
+  ],
+
+  setDateFromFilter: function(beginDate) {
+    this.setState({beginDate: beginDate, endDate: moment(), focusedInput: null}, this.selectDates);
+  },
+
   renderFilterOptions: function () {
     return (
       <div className='calendar-prefill-options'>
-        <DateRangeFilterOption
-          title={'Hi I am the title'}
-          onClickFunction={() => {alert('yoooo')}}
-        />
-        <DateRangeFilterOption
-          title={'wow another title'}
-          onClickFunction={() => {alert('heeeeey')}}
-        />
+        {this.FILTER_OPTIONS.map(filter => <DateRangeFilterOption
+          key={filter.title}
+          title={filter.title}
+          onClickFunction={() => { this.setDateFromFilter(filter.beginDate) }}
+        />)}
       </div>
 
     )
