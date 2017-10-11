@@ -8,6 +8,8 @@ import LoadingIndicator from '../shared/loading_indicator'
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx'
 import FaqLink from './faq_link.jsx'
 import ProgressReportFilters from './progress_report_filters.jsx'
+import getParameterByName from '../modules/get_parameter_by_name';
+import stripHtml from '../modules/strip_html'
 import $ from 'jquery'
 
 export default  React.createClass({
@@ -66,7 +68,17 @@ export default  React.createClass({
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
-    this.fetchData();
+    // Pass true to fetchData on mount becuase we only want to use the query params on the first load.
+    this.fetchData(true);
+  },
+
+  strippedResults: function(results) {
+    return results.map((r) => {
+      if(r.prompt) {
+        r.prompt = stripHtml(r.prompt)
+      }
+      return r
+    })
   },
 
   // Get results with all filters, sorting
@@ -128,18 +140,36 @@ export default  React.createClass({
     return requestParams;
   },
 
-  fetchData: function() {
+  fetchData: function(setStateBasedOnURLParams) {
     this.setState({loading: true});
     $.get(this.props.sourceUrl, this.requestParams(), function onSuccess(data) {
       this.setState({
         numPages: data.page_count,
         loading: false,
-        results: data[this.props.jsonResultsKey],
+        results: this.strippedResults(data[this.props.jsonResultsKey]),
         teacher: data.teacher,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classrooms'),
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs')
       });
+      if (setStateBasedOnURLParams) {
+        const classroomId = getParameterByName('classroom_id') || '';
+        const studentId = getParameterByName('student_id') || '';
+        const unitId = getParameterByName('unit_id') || '';
+        const selectedClassroom = this.state.classroomFilters.filter(classroom => { return classroom.value == classroomId })[0];
+        const selectedStudent = this.state.studentFilters.filter(student => { return student.value == studentId })[0];
+        const selectedUnit = this.state.unitFilters.filter(unit => { return unit.value == unitId })[0];
+        this.setState({
+          selectedClassroom: selectedClassroom,
+          selectedStudent: selectedStudent,
+          selectedUnit: selectedUnit
+        });
+        this.filterByField('classroom_id', classroomId);
+        this.filterByField('student_id', studentId);
+        this.filterByField('unit_id', unitId);
+        this.resetPagination();
+        this.fetchData();
+      }
       if (this.props.onFetchSuccess) {
         this.props.onFetchSuccess(data);
       }
