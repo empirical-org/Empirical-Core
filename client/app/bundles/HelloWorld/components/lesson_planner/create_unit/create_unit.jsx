@@ -172,14 +172,16 @@ export default React.createClass({
     }, this);
 
     classroomPostData = _.map(classroomPostData, (c) => {
-      let selectedStudentIds;
+      let selectedStudentIds,
+        assign_on_join;
       const selectedStudents = _.where(c.students, { isSelected: true, });
       if (selectedStudents.length == c.students.length) {
         selectedStudentIds = [];
+        assign_on_join = true;
       } else {
         selectedStudentIds = _.map(selectedStudents, s => s.id);
       }
-      return { id: c.classroom.id, student_ids: selectedStudentIds, };
+      return { id: c.classroom.id, student_ids: selectedStudentIds, assign_on_join, };
     });
 
     const sas = this.getSelectedActivities();

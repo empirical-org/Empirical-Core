@@ -27,7 +27,7 @@ describe ActivitiesController, type: :controller, redis: true do
               {"search_query"=>"",
                "filters"=>
                 {"0"=>{"field"=>"section", "selected"=>""},
-                 "1"=>{"field"=>"topic_category", "selected"=>""},
+                 "1"=>{"field"=>"activity_category", "selected"=>""},
                  "2"=>{"field"=>"activity_classification", "selected"=>""}}},
              "controller"=>"activities",
              "action"=>"search"})

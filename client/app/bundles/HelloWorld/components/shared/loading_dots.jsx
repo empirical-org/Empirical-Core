@@ -7,10 +7,10 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(
-      () => this.dots(),
-      150
-    );
+    // setInterval(
+    //   () => this.dots(),
+    //   150
+    // );
   }
 
   dots() {

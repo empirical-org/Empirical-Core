@@ -1,11 +1,11 @@
 class AssignRecommendationsWorker
   include Sidekiq::Worker
 
-  def perform(unit_template_id, classroom_id, student_id_array, last, lesson)
+  def perform(unit_template_id, classroom_id, student_id_array, last, lesson, assign_on_join=false)
     classroom = Classroom.find(classroom_id)
     teacher = classroom.teacher
     unit = Unit.find_by(name: UnitTemplate.find(unit_template_id).name, user_id: teacher.id)
-    classroom_data = {id: classroom_id, student_ids: student_id_array}
+    classroom_data = {id: classroom_id, student_ids: student_id_array, assign_on_join: assign_on_join}
     if unit
         Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id)
     else

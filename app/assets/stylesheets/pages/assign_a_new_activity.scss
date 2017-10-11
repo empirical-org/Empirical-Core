@@ -85,6 +85,9 @@ min-height: 112px;
       padding-left: 25px;
       text-align: left;
       margin-bottom: 25px;
+      &:hover {
+        outline: solid 2.5px #00c2a2;
+      }
       h1 {
         margin-top: 0px;
         font-size: 20px;
