@@ -15,10 +15,9 @@ class Scorebook::Query
         SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) AS completed_attempts,
         SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS started,
         SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
-     FROM classrooms AS classroom
-     LEFT JOIN students_classrooms AS sc on sc.classroom_id = classroom.id
+     FROM classroom_activities AS ca
+     LEFT JOIN students_classrooms AS sc on ca.classroom_id = sc.classroom_id
      RIGHT JOIN users AS students ON students.id = sc.student_id
-     INNER JOIN classroom_activities AS ca ON ca.classroom_id = classroom.id
      #{self.units(unit_id)&.first}
      LEFT JOIN activity_sessions AS acts ON (
            acts.classroom_activity_id = ca.id
@@ -26,7 +25,7 @@ class Scorebook::Query
            AND acts.visible = true
            )
      INNER JOIN activities AS activity ON activity.id = ca.activity_id
-     WHERE classroom.id = #{classroom_id}
+     WHERE ca.classroom_id = #{classroom_id}
      AND ca.visible = true
      AND sc.visible = true
      #{self.units(unit_id)&.last}
