@@ -1,7 +1,8 @@
 'use strict';
-import DatePicker from 'react-datepicker'
-import React from 'react'
+import React from 'react';
 import moment from 'moment';
+import { DateRangePicker } from 'react-dates';
+
 export default React.createClass({
   propTypes: {
     selectDates: React.PropTypes.func.isRequired
@@ -29,14 +30,17 @@ export default React.createClass({
 
   render: function() {
     return (
-      <div className="row date-range-filter">
-        <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker selected={this.state.beginDate} maxDate={moment()} onChange={this.selectBeginDate}   placeholderText='Completed: From'/>
-        </div>
-        <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker selected={this.state.endDate} maxDate={moment()}  onChange={this.selectEndDate}   placeholderText='Completed: To'/>
-        </div>
-      </div>
+      <DateRangePicker
+        startDate={this.state.beginDate}
+        endDate={this.state.endDate}
+        onDatesChange={({ startDate, endDate }) => this.setState({ beginDate: startDate, endDate }, this.selectDates)}
+        focusedInput={this.state.focusedInput}
+        onFocusChange={focusedInput => this.setState({ focusedInput })}
+        numberOfMonths={1}
+        isOutsideRange={day => {return false}}
+        renderCalendarInfo={() => { return 'TODO'}}
+        daySize={40}
+      />
     );
   }
 });
