@@ -11,49 +11,14 @@ export default React.createClass({
 
   getInitialState: function () {
     return ({
-      beginDate: null,
-      endDate: null
+      beginDate: this.props.beginDate || null,
+      endDate: this.props.endDate || null
     });
-  },
-
-  setBeginDate: function (date) {
-    this.setState({beginDate: date}, this.selectDates);
-  },
-
-  setEndDate: function (date) {
-    this.setState({endDate: date}, this.selectDates);
   },
 
   selectDates: function () {
     this.props.selectDates(this.state.beginDate, this.state.endDate);
   },
-
-  FILTER_OPTIONS: [
-    {
-      title: 'Today',
-      beginDate: moment()
-    },
-    {
-      title: 'This Week',
-      beginDate: moment().startOf('week')
-    },
-    {
-      title: 'This Month',
-      beginDate: moment().startOf('month')
-    },
-    {
-      title: 'Last 7 days',
-      beginDate: moment().subtract(7, 'days')
-    },
-    {
-      title: 'Last 30 days',
-      beginDate: moment().subtract(1, 'months')
-    },
-    {
-      title: 'All Time',
-      beginDate: null
-    },
-  ],
 
   setDateFromFilter: function(beginDate) {
     this.setState({beginDate: beginDate, endDate: moment(), focusedInput: null}, this.selectDates);
@@ -62,7 +27,7 @@ export default React.createClass({
   renderFilterOptions: function () {
     return (
       <div className='calendar-prefill-options'>
-        {this.FILTER_OPTIONS.map(filter => <DateRangeFilterOption
+        {this.props.filterOptions.map(filter => <DateRangeFilterOption
           key={filter.title}
           title={filter.title}
           onClickFunction={() => { this.setDateFromFilter(filter.beginDate) }}
