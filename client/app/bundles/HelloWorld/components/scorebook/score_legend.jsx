@@ -7,45 +7,49 @@ export default React.createClass({
 		const cutOff = proficiencyCutoffsAsPercentage();
 		return (
 			 <div className="icons-wrapper icon-legend score-legend">
-		        <div className="row no-pl">
-		          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 no-pl">
-		            <div className="col-xs-6 col-sm-3 col-xl-3">
+		        <div className="icons">
+		            <div className="icon">
 		              <div className="icon-wrapper icon-green"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">At Proficiency</p>
 		                <p className="explanation">{`${cutOff.proficient}-100%`}</p>
 		              </div>
 		            </div>
-		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
+		            <div className="icon">
 		              <div className="icon-wrapper icon-orange"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">Nearly Proficient</p>
 		                <p className="explanation">{`${cutOff.nearlyProficient}-${cutOff.proficient - 1}%`}</p>
 		              </div>
 		            </div>
-		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
+		            <div className="icon">
 		              <div className="icon-wrapper icon-red"></div>
 		              <div className="icons-description-wrapper">
 		                <p className="title">Not Yet Proficient</p>
 		                <p className="explanation">{`0-${cutOff.nearlyProficient - 1}%`}</p>
 		              </div>
 		            </div>
-		            <div className="col-xs-6 col-sm-3 col-xl-3 no-pl">
-		              <div className="icon-wrapper icon-gray"></div>
+								<div className="icon">
+									<div className="icon-wrapper icon-blue"></div>
+									<div className="icons-description-wrapper">
+										<p className="title title-single-line">Completed</p>
+									</div>
+								</div>
+								<div className="icon">
+									<div className="icon-wrapper icon-progress">
+										<img className="in-progress-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
+									</div>
+									<div className="icons-description-wrapper">
+										<p className="title title-single-line">In Progress</p>
+									</div>
+								</div>
+		            <div className="icon">
+		              <div className="icon-wrapper icon-unstarted"></div>
 		              <div className="icons-description-wrapper">
-		                <p className="title title-not-started">Not Finished</p>
+		                <p className="title title-single-line">Not Started</p>
 		              </div>
 		            </div>
 		          </div>
-		          <div className="col-xs-12 col-md-12 col-lg-2 col-xl-2 no-pl no-pr">
-		            <div className="how-we-grade">
-		              <p className="title title-not-started">
-		                <a href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade</a>
-		                <a href=""><i className="fa fa-long-arrow-right"></i></a>
-		              </p>
-		            </div>
-		          </div>
-		        </div>
     		  </div>
 		);
 	}

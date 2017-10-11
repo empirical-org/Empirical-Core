@@ -12,8 +12,38 @@
 			.icon {
 				display: flex;
 				align-items: center;
+				.icons-description-wrapper {
+					p {
+						font-weight: 600;
+					}
+				}
+				.icon-wrapper {
+					position: relative;
+				}
 			}
 		}
+	}
+
+	.app-legend {
+		.title {
+			color: #717171;
+		}
+	}
+
+	.in-progress-symbol, .attempt-symbol {
+		vertical-align: middle;
+		position: absolute;
+		top: -8px;
+		right: -8px;
+	}
+
+	.attempt-count {
+		color: white;
+		position: absolute;
+		right: -1px;
+		font-weight: 800;
+		top: -6px;
+		font-size: 11px;
 	}
 
 	.dropdown-menu {
