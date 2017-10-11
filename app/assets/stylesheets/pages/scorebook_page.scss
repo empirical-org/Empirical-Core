@@ -20,8 +20,28 @@
 		margin-left: 15px;
 	}
 
+	.overview-section {
+		margin: 0 auto;
+		max-width: 950px;
+	}
+
+	.student-header {
+		align-items: center;
+		display: flex;
+		margin-bottom: 26px;
+
+		a {
+			color: #3b3b3b;
+
+			&:hover {
+				color: #000;
+				text-decoration: none;
+			}
+		}
+	}
+
 	.student-name {
-		margin-bottom: 1em;
+		flex-grow: 1;
 	}
 
 	.date-range-filter {
