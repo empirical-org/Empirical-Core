@@ -48,12 +48,16 @@ class Cms::UsersController < ApplicationController
   end
 
   def make_admin
-    User.find(params[:id]).update(role: 'admin')
+    admin = SchoolsAdmins.new
+    admin.school_id = params[:school_id]
+    admin.user_id = params[:user_id]
+    flash[:error] = 'Something went wrong.' unless admin.save
     redirect_to :back
   end
 
   def remove_admin
-    User.find(params[:id]).update(role: 'teacher')
+    admin = SchoolsAdmins.where(user_id: params[:user_id], school_id: params[:school_id]).first
+    flash[:error] = 'Something went wrong.' unless admin.destroy
     redirect_to :back
   end
 
@@ -135,9 +139,7 @@ protected
   end
 
   def user_query(params)
-    # This should return an array of hashes with the following order.
-    # (Order matters because of the order in which these are being
-    # displayed in the table on the front end.)
+    # This should return an array of hashes that look like this:
     # [
     #   {
     #     name: 'first last',
@@ -151,6 +153,8 @@ protected
     #   }
     # ]
 
+    # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
+    # ADJUST THE PAGINATION QUERY STRING AS WELL.
     ActiveRecord::Base.connection.execute("
       SELECT
       	users.name AS name,
