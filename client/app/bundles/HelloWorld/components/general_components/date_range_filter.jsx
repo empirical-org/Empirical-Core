@@ -2,6 +2,7 @@
 import React from 'react';
 import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
+import DateRangeFilterOption from './date_range_filter_option.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -15,11 +16,11 @@ export default React.createClass({
     });
   },
 
-  selectBeginDate: function (date) {
+  setBeginDate: function (date) {
     this.setState({beginDate: date}, this.selectDates);
   },
 
-  selectEndDate: function (date) {
+  setEndDate: function (date) {
     this.setState({endDate: date}, this.selectDates);
   },
 
@@ -27,6 +28,21 @@ export default React.createClass({
     this.props.selectDates(this.state.beginDate, this.state.endDate);
   },
 
+  renderFilterOptions: function () {
+    return (
+      <div className='calendar-prefill-options'>
+        <DateRangeFilterOption
+          title={'Hi I am the title'}
+          onClickFunction={() => {alert('yoooo')}}
+        />
+        <DateRangeFilterOption
+          title={'wow another title'}
+          onClickFunction={() => {alert('heeeeey')}}
+        />
+      </div>
+
+    )
+  },
 
   render: function() {
     return (
@@ -38,7 +54,7 @@ export default React.createClass({
         onFocusChange={focusedInput => this.setState({ focusedInput })}
         numberOfMonths={1}
         isOutsideRange={day => {return false}}
-        renderCalendarInfo={() => { return 'TODO'}}
+        renderCalendarInfo={this.renderFilterOptions}
         daySize={40}
       />
     );

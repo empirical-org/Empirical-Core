@@ -56,6 +56,24 @@
 
 $accentcolor: #00a699;
 
+// This style is for the list of options beneath the calendar.
+.calendar-prefill-options {
+	margin-top: -10px;
+	padding: 0 20px 20px;
+
+	.calendar-prefill-option {
+		border-radius: 5px;
+		color: #666;
+		font-size: 16px;
+		font-weight: 600;
+		padding: 8px;
+
+		&:hover {
+			color: #333;
+		}
+	}
+}
+
 .CalendarDay {
   border: 1px solid #e4e7e7;
   padding: 0;
@@ -504,13 +522,12 @@ $accentcolor: #00a699;
   display: inline; }
 
 .DateInput {
-  font-weight: 200;
-  font-size: 18px;
-  line-height: 24px;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 25px;
   color: #757575;
   margin: 0;
-  padding: 8px;
-  background: #fff;
+  padding: 5px;
   position: relative;
   display: inline-block;
   width: 130px;
@@ -568,7 +585,7 @@ $accentcolor: #00a699;
     user-select: none; }
 
 .DateInput__display-text {
-  padding: 4px 8px;
+  padding: 2px 6px;
   white-space: nowrap;
   overflow: hidden; }
 
@@ -576,10 +593,10 @@ $accentcolor: #00a699;
   color: #484848; }
 
 .DateInput__display-text--focused {
-  background: #99ede6;
-  border-color: #99ede6;
+  background: $quillgreen;
+  border-color: $quillgreen;
   border-radius: 3px;
-  color: #007a87; }
+  color: $white; }
 
 .DateInput__display-text--disabled {
   font-style: italic; }
@@ -654,7 +671,8 @@ $accentcolor: #00a699;
 .DateRangePickerInput {
   background-color: #fff;
   border: 1px solid #cacccd;
-  display: inline-block; }
+  display: inline-block;
+ 	border-radius: 5px; }
 
 .DateRangePickerInput--disabled {
   background: #cacccd; }
