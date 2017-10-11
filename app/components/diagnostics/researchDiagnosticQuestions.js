@@ -1,9 +1,9 @@
 export default function diagnosticQuestions() {
   return ([
     {
-      type: 'TL', //  listening to music on the ride home
+      type: 'TL',
       key: '-sen-cor',
-      content: '<h3>Sentence Correction</h3><p>In this section, you’ll correct sentences by adding punctuation or changing words.</p><p>You’re doing great so far!</p>',
+      content: '<h3>Sentence Correction</h3><p>In this section, you’ll correct sentences by adding punctuation or changing words.</p>',
     },
     {
       type: 'SC', //  after the game, we played music it was loud
