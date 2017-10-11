@@ -123,9 +123,7 @@ export default class ActivityIconWithTooltip extends React.Component {
     const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';
     let toolTip = null;
     if (this.state.showToolTip) {
-      toolTip = <div style={{ position: 'absolute', zIndex: 1000, top: '50px', }}>
-        <ScorebookTooltip data={this.state.tooltipData ? this.state.tooltipData : this.props.data} />
-      </div>;
+      toolTip = <ScorebookTooltip data={this.state.tooltipData ? this.state.tooltipData : this.props.data} />;
     }
     return (
       <div
