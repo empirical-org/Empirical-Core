@@ -7,7 +7,7 @@ class GradesController < ApplicationController
   end
 
   def tooltip
-    render json: tooltip_query.to_json
+    render json: tooltip_query.merge(tooltip_scores_query).to_json
   end
 
   private
@@ -16,19 +16,48 @@ class GradesController < ApplicationController
     params.permit(:classroom_activity_id, :user_id, :completed)
   end
 
-
   def tooltip_query
     # TODO(upgrade) Use ActiveRecord::Sanitization.sanitize_sql_for_conditions
-    ActiveRecord::Base.connection.execute(
-      "SELECT concept_results.metadata, activities.description, concepts.name, activity_sessions.completed_at, classroom_activities.due_date
+    if (tooltip_params[:completed])
+      ActiveRecord::Base.connection.execute(
+        "SELECT concept_results.metadata,
+        activities.description,
+        concepts.name,
+        activity_sessions.completed_at,
+        classroom_activities.due_date
         FROM activity_sessions
+        LEFT JOIN concept_results ON concept_results.activity_session_id = activity_sessions.id
+        LEFT OUTER JOIN concepts ON concept_results.concept_id = concepts.id
+        JOIN classroom_activities ON classroom_activities.id = activity_sessions.classroom_activity_id
+        JOIN activities ON activities.id = activity_sessions.activity_id
+        WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
+        AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
+        AND activity_sessions.is_final_score IS true
+        ").to_a
+      else
+        ActiveRecord::Base.connection.execute(
+          "SELECT concept_results.metadata,
+          activities.description,
+          concepts.name,
+          activity_sessions.completed_at,
+          classroom_activities.due_date
+          FROM activity_sessions
           LEFT JOIN concept_results ON concept_results.activity_session_id = activity_sessions.id
           LEFT OUTER JOIN concepts ON concept_results.concept_id = concepts.id
           JOIN classroom_activities ON classroom_activities.id = activity_sessions.classroom_activity_id
           JOIN activities ON activities.id = activity_sessions.activity_id
-        WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
+          WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
           AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
-          #{tooltip_params[:completed] == 'true' ? 'AND activity_sessions.is_final_score IS true' : ''}
+          ").to_a
+    end
+  end
+
+  def tooltip_scores_query
+    ActiveRecord::Base.connection.execute(
+      "SELECT activity_sessions.percentage
+      FROM activity_sessions
+      WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
+      AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
       ").to_a
   end
 

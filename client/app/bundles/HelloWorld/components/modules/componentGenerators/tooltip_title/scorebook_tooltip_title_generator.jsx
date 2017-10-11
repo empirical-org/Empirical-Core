@@ -23,9 +23,11 @@ export default function (percentageDisplayer) {
       totalScoreOrNot = null;
       conceptResultsOrLoadingOrNotCompleted = <span>This activity has not been completed.</span>;
     } else if (actClassId === 4 && data.percentage) {
-      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>100% Complete</strong></p>;
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance.</strong></p>;
+    } else if (actClassId === 6 && data.percentage) {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>Quill Lessons are facilitated by the teachers and not graded. You can click to view your student’s’ answers from this lesson.</strong></p>;
     } else {
-      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>Score:</strong> <span className="percentage">{percentageDisplayer.run(data.percentage)}</span></p>;
+      totalScoreOrNot = this.displayScores()
     }
     const name = data.activity ? data.activity.name : data.name;
     const result = (
