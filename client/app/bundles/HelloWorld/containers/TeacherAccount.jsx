@@ -1,7 +1,4 @@
 import React from 'react';
-import SelectRole from '../components/accounts/edit/select_role';
-import UserSelectRole from '../components/accounts/edit/user_accessible_select_role.jsx';
-import SelectSubscription from '../components/accounts/subscriptions/select_subscription';
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
@@ -37,14 +34,8 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    let url,
-      data;
-    if (this.props.userType == 'staff') {
-      url = `/cms/users/${this.props.teacherId}/show_json`;
-    } else {
-      url = '/teachers/my_account_data';
-    }
-    $.ajax({ url, success: this.populateData, });
+    let data;
+    $.ajax({ url: '/teachers/my_account_data', success: this.populateData, });
   },
 
   populateData(data) {
@@ -120,13 +111,7 @@ export default React.createClass({
       original_selected_school_id: this.state.originalSelectedSchoolId,
       school_options_do_not_apply: this.state.schoolOptionsDoNotApply,
     };
-    let url;
-    if (this.props.userType == 'staff') {
-      url = `/cms/users/${this.props.teacherId}`;
-    } else if (this.props.userType == 'teacher') {
-      url = '/teachers/update_my_account';
-    }
-    $.ajax({ type: 'PUT', data, url, success: this.uponUpdateAttempt, });
+    $.ajax({ type: 'PUT', data, url: '/teachers/update_my_account', success: this.uponUpdateAttempt, });
   },
 
   uponUpdateAttempt(data) {
@@ -134,75 +119,13 @@ export default React.createClass({
     if (data.errors == null) {
 			// name may have been capitalized on back-end
       data.errors = {};
-      if (this.props.userType == 'staff') {
-        this.saveSubscription();
-      } else if (this.state.role === 'student') {
+      if (this.state.role === 'student') {
         window.location = '/profile';
       }
     }
     this.setState({ errors: data.errors, });
   },
 
-  saveSubscription() {
-    if (this.state.subscription.account_type == 'none') {
-      if (this.state.subscription.id != null) {
-        this.destroySubscription();
-      }
-    } else if (this.state.subscription.account_type == 'paid' || 'trial' || 'free low-income' || 'free contributor') {
-      if (this.state.subscription.id == null) {
-        this.createSubscription();
-      } else {
-        this.updateSubscription();
-      }
-    }
-  },
-  createSubscription() {
-    const sub = Object.assign({}, this.state.subscription);
-    delete sub.subscriptionType;
-    sub.user_id = this.props.teacherId;
-    $.ajax({ type: 'POST', url: '/subscriptions', data: sub, success: alert('saved!'), });
-  },
-
-  updateSubscription() {
-    $.ajax({
-      type: 'PUT',
-      url: `/subscriptions/${this.state.subscription.id}`,
-      data: {
-        expiration: this.state.subscription.expiration,
-        account_limit: this.state.subscription.account_limit,
-        account_type: this.state.subscription.account_type || this.state.account_type,
-      },
-      success: alert('saved!'),
-    });
-  },
-
-  destroySubscription() {
-    const that = this;
-    $.ajax({
-      type: 'DELETE',
-			// not sure why, but strong params are blocking me from sending the
-      data: {
-        account_type: this.state.subscription.account_type,
-      },
-      url: `/subscriptions/${this.state.subscription.id}`,
-    }).done(() => {
-      const subscription = {
-        id: null,
-        account_limit: null,
-        expiration: null,
-      };
-      that.setState({ subscription, });
-    });
-  },
-  updateSubscriptionState(subscription) {
-    this.setState({ subscription, });
-  },
-  updateSubscriptionType(type) {
-    const new_sub = Object.assign({}, this.state.subscription);
-    new_sub.account_type = type;
-    new_sub.subscriptionType = type;
-    this.setState({ subscription: new_sub, });
-  },
   updateSchool(school) {
     this.setState({ selectedSchool: school, });
   },
@@ -251,7 +174,7 @@ export default React.createClass({
   },
 
   updateRole(role) {
-    this.setState({ role, });
+    this.setState({ role, }, this.clickSave);
   },
 
   saveButton() {
@@ -261,15 +184,10 @@ export default React.createClass({
   },
 
   renderEmail() {
-    let inputField, message
+    let message, inputField;
     if (this.state.googleId || this.state.signedUpWithGoogle) {
-      if (this.props.userType == 'staff') {
-        inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
-        message = <span>This is a Google Classroom user, so you need to unsync their account with Google in order to change their email. You can do that <a href={`${process.env.DEFAULT_URL}/teacher_fix/google_sync`}>here</a>.</span>
-      } else {
-        inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
-        message = this.renderGoogleClassroomWarning()
-      }
+      inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
+      message = this.renderGoogleClassroomWarning()
     } else {
       inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />
     }
@@ -301,17 +219,11 @@ export default React.createClass({
     if (this.state.loading) {
       return <LoadingSpinner />;
     }
-    let selectRole, subscription;
-    if (this.props.userType == 'staff') {
-      selectRole = <SelectRole role={this.state.role} updateRole={this.updateRole} errors={this.state.errors.role} />;
-      subscription = <SelectSubscription subscription={this.state.subscription} updateSubscriptionType={this.updateSubscriptionType} updateSubscriptionState={this.updateSubscriptionState} />;
-    } else {
-      selectRole = <div>
-        <p>Are you a student and not a teacher?</p>
-        <p className="switch-account-type" onClick={() => this.updateRole('student')}>Switch your account to a student account.</p>
-      </div>
-      subscription = <StaticDisplaySubscription subscription={this.state.subscription} />;
-    }
+    const selectRole = (<div>
+      <p>Are you a student and not a teacher?</p>
+      <p className="switch-account-type" onClick={() => this.updateRole('student')}>Switch your account to a student account.</p>
+    </div>)
+    const subscription = <StaticDisplaySubscription subscription={this.state.subscription} />;
 
     return (
       <div className="container" id="my-account">

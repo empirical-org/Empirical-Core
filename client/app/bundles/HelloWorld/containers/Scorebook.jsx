@@ -107,6 +107,8 @@ export default React.createClass({
         updated: s.updated_at,
         name: s.activity_name,
         percentage: s.percentage,
+        started: s.started ? Number(s.started) : 0,
+        completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
         activity_classification_id: s.activity_classification_id, });
     });
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
@@ -147,7 +149,7 @@ export default React.createClass({
     this.state.scores.forEach((s) => {
       index += 0;
       const sData = s.scores[0];
-      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, }} premium_state={this.props.premium_state} />);
+      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
     });
     if (this.state.loading) {
       loadingIndicator = <LoadingIndicator />;

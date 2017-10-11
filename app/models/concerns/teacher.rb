@@ -89,7 +89,7 @@ module Teacher
   def classrooms_i_teach_with_students
     classrooms_i_teach.includes(:students).map do |classroom|
       classroom_h = classroom.attributes
-      classroom_h[:students] = classroom.students
+      classroom_h[:students] = classroom.students.sort_by { |s| s.last_name }
       classroom_h
     end
   end

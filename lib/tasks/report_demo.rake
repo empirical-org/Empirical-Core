@@ -2,7 +2,7 @@ namespace :report_demo do
   desc 'make report demo accounts'
   task :create, [:name] => :environment do |t, args|
     # call this with no arguments if you want quill.org/demo to be created. otherwise
-    # to use this call rake demo:create["firstname lastname"]
+    # to use this call rake report_demo:create["firstname lastname"]
     name = args[:name] ? args[:name].to_s : nil
     ReportDemoCreator::create_demo(name)
   end
@@ -118,7 +118,7 @@ namespace :report_demo do
           activity_id: act_id,
           classroom: classroom,
           unit: unit,
-          assigned_student_ids: []
+          assign_on_join: true
         }
         ca = ClassroomActivity.create(values)
         classroom_activities.push(ca)

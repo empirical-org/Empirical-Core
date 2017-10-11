@@ -3,7 +3,7 @@ class Scorebook::Query
   SCORES_PER_PAGE = 200
 
   def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil)
-  ActiveRecord::Base.connection.execute(
+    ActiveRecord::Base.connection.execute(
     "SELECT
        students.id AS user_id,
         ca.id AS ca_id,
@@ -41,7 +41,7 @@ class Scorebook::Query
        ca.created_at ASC
        OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
        FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
-      ).to_a
+    ).to_a
   end
 
   def self.units(unit_id)

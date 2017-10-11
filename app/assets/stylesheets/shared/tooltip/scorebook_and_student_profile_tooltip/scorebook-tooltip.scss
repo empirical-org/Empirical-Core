@@ -7,6 +7,13 @@
   }
 }
 
+.scorebook-tooltip {
+  position: absolute;
+  z-index: 1000;
+  top: 50px;
+  left: -137px
+}
+
 .scorebook-tooltip, .student-profile-tooltip {
   width: 310px;
   background-color: white;
