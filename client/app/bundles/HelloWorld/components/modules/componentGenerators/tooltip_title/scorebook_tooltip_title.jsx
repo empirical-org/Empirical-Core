@@ -52,6 +52,16 @@ export default class ScorebookTooltip extends React.Component {
     return totalScoreOrNot
   }
 
+  activityOverview() {
+    const data = this.props.data
+    if (data.percentage) {
+      return <div className="activity-overview">
+        <ActivityDetails data={data} />
+        {this.totalScoreOrNot()}
+      </div>
+    }
+  }
+
   displayScores() {
     const data = this.props.data
     const attemptInProgress = data.started > 0
@@ -82,8 +92,7 @@ export default class ScorebookTooltip extends React.Component {
           {name}
         </div>
         <div className="main">
-          <ActivityDetails data={data} />
-          {this.totalScoreOrNot()}
+          {this.activityOverview()}
           <div className={conceptResults ? 'concept-results' : 'loading flex-row vertically-centered space-around'}>
             {this.conceptResultsOrLoadingOrNotCompleted()}
           </div>

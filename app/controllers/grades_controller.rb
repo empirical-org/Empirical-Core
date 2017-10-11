@@ -39,7 +39,7 @@ class GradesController < ApplicationController
 
   def tooltip_scores_query
     ActiveRecord::Base.connection.execute(
-      "SELECT activity_sessions.percentage
+      "SELECT activity_sessions.percentage, activity_sessions.completed_at
       FROM activity_sessions
       WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
       AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
