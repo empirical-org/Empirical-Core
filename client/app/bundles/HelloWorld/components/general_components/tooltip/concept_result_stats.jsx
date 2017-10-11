@@ -68,19 +68,21 @@ export default React.createClass({
 
   calculateStats() {
     const stats = this.props.results.reduce((memo, conceptResult) => {
-      const statsRow = memo[conceptResult.name] || {
-        name: conceptResult.name,
-        correct: 0,
-        incorrect: 0,
-      };
-      memo[conceptResult.name] = statsRow;
-      const correct = parseInt(conceptResult.metadata.correct);
-      if (correct) {
-        statsRow.correct++;
-      } else {
-        statsRow.incorrect++;
+      if (conceptResult.metadata) {
+        const statsRow = memo[conceptResult.name] || {
+          name: conceptResult.name,
+          correct: 0,
+          incorrect: 0,
+        };
+        memo[conceptResult.name] = statsRow;
+        const correct = parseInt(conceptResult.metadata.correct);
+        if (correct) {
+          statsRow.correct++;
+        } else {
+          statsRow.incorrect++;
+        }
+        return memo;
       }
-      return memo;
     }, {});
     const statsAsArr = this.objectToArray(stats);
     const sortedStats = this.sortedStats(statsAsArr);
