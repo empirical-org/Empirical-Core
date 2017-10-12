@@ -11,6 +11,9 @@ import ScorebookFilters from '../../components/scorebook/scorebook_filters';
 import ScoreLegend from '../../components/scorebook/score_legend';
 import AppLegend from '../../components/scorebook/app_legend.jsx';
 
+import localStorageMock from '../../../../../__mocks__/localStorageMock.js';
+window.localStorage = localStorageMock;
+
 const resolvedScores = new Map();
 resolvedScores.set('441555', { name: 'blah blah', scores: [{ caId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', }], }, );
 const classrooms = [{ name: 'A', id: 1, }, { name: 'B', id: 2, }, { name: 'C', id: 3, }];
@@ -150,6 +153,48 @@ describe('Scorebook component', () => {
 
     it('renders as many StudentScores as there are state.scores', () => {
       expect(wrapper.find(StudentScores).length).toEqual(wrapper.state('scores').size);
+    });
+  });
+
+  describe('selectDates function', () => {
+    const wrapper = shallow(<Scorebook />);
+    const beginDate = moment();
+    const endDate = moment();
+    wrapper.instance().fetchData = jest.fn();
+
+    it('should set scorebookBeginDate as a stringified Moment object', () => {
+      wrapper.instance().selectDates(beginDate, null);
+      expect(window.localStorage.getItem('scorebookBeginDate')).toBe(beginDate);
+      expect(window.localStorage.getItem('scorebookEndDate')).toBe(null);
+    });
+
+    it('should set scorebookEndDate as a stringified Moment object', () => {
+      wrapper.instance().selectDates(null, endDate);
+      expect(window.localStorage.getItem('scorebookEndDate')).toBe(endDate);
+      expect(window.localStorage.getItem('scorebookBeginDate')).toBe(null);
+    });
+
+    it('should set state and call fetchData on callback', () => {
+      wrapper.instance().selectDates(beginDate, endDate);
+      expect(wrapper.state().scores).toEqual(new Map());
+      expect(wrapper.state().currentPage).toBe(0);
+      expect(wrapper.state().beginDate).toBe(beginDate);
+      expect(wrapper.state().endDate).toBe(endDate);
+      expect(wrapper.instance().fetchData).toHaveBeenCalled();
+    });
+  });
+
+  describe('convertStoredDateToMoment function', () => {
+    const wrapper = shallow(<Scorebook />);
+    const beginDate = moment().toString();
+    const endDate = moment().toString();
+
+    it('should get scorebookBeginDate and convert it to Moment', () => {
+      expect(wrapper.instance().convertStoredDateToMoment(beginDate)).toEqual(moment(beginDate));
+    });
+
+    it('should get scorebookEndDate and convert it to Moment', () => {
+      expect(wrapper.instance().convertStoredDateToMoment(endDate)).toEqual(moment(endDate));
     });
   });
 });
