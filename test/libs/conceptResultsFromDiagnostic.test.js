@@ -5,7 +5,7 @@ import {
     getNestedConceptResultsForAllQuestions,
     getConceptResultsForAllQuestions,
     embedQuestionNumbers
-} from '../../app/libs/conceptResults/diagnostic';
+} from '../../src/libs/conceptResults/diagnostic';
 import conceptResults from './conceptResultsWithMetadata.js';
 
 describe('Getting concept results from an answered SC object', () => {

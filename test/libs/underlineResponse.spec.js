@@ -13,7 +13,7 @@ import {
 	getAdditionalInlineStyleRangeObject,
 	generateStyleObjects,
 	getImportantStyleRangeObject
-} from '../../app/libs/markupUserResponses.js'
+} from '../../src/libs/markupUserResponses.js'
 
 describe("finding the position of the substring", () => {
 	const target = "I like NYC.";

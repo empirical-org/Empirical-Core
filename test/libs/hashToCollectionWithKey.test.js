@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {embedKeys, hashToCollection} from '../../app/libs/hashToCollection.js';
+import {embedKeys, hashToCollection} from '../../src/libs/hashToCollection.js';
 
 describe("Turning a hash into a collection with embedded keys", () => {
   const hash = {

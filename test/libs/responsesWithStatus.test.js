@@ -1,6 +1,6 @@
 /* global describe, it*/
 import expect from 'expect';
-import responsesWithStatus, { getStatusForResponse } from '../../app/libs/responseTools.js';
+import responsesWithStatus, { getStatusForResponse } from '../../src/libs/responseTools.js';
 import responses, {
   optimalResponse,
   subOptimalResponse,

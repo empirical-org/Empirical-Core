@@ -2,7 +2,7 @@ import expect from 'expect';
 import data from '../jsonFromDiagnostic';
 import {
   getConceptResultsForSentenceCombining
-} from '../../app/libs/conceptResults/sentenceCombining'
+} from '../../src/libs/conceptResults/sentenceCombining'
 
 describe("Getting concept results from an answered SC object", () => {
   const question = data[2].data;

@@ -1,5 +1,5 @@
 import expect from 'expect';
-import Question from '../../app/libs/diagnosticQuestion';
+import Question from '../../src/libs/diagnosticQuestion';
 
 const data = {
   responses: [

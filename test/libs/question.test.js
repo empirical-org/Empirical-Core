@@ -1,5 +1,5 @@
 import expect from 'expect';
-import Question from '../../app/libs/question';
+import Question from '../../src/libs/question';
 
 const data = {
   prompt: 'Combine the following sentences into one sentence.',

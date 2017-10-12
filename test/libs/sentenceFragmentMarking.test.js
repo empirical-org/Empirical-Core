@@ -1,12 +1,12 @@
 /* global describe, it*/
 import expect from 'expect';
-import { hashToCollection } from '../../app/libs/hashToCollection.js';
-import SFMarkingObj, { wordLengthCount } from '../../app/libs/sentenceFragment';
+import { hashToCollection } from '../../src/libs/hashToCollection.js';
+import SFMarkingObj, { wordLengthCount } from '../../src/libs/sentenceFragment';
 import responses, {
   optimalResponse
 } from '../data/sentenceFragmentResponses';
-import validEndingPunctuation from '../../app/libs/validEndingPunctuation.js';
-import { getGradedResponses } from '../../app/libs/sharedResponseFunctions';
+import validEndingPunctuation from '../../src/libs/validEndingPunctuation.js';
+import { getGradedResponses } from '../../src/libs/sharedResponseFunctions';
 
 const questionUID = 'mockID';
 

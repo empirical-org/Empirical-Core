@@ -3,7 +3,7 @@ import {
   getFeedbackForMissingWord,
   getconceptUIDForMissingWord,
   trimMissingWord,
-} from '../../app/libs/algorithms/joiningWords.js';
+} from '../../src/libs/algorithms/joiningWords.js';
 
 describe('Checking for feedback for missing words', () => {
   it('can get feedback when because is missing from a sentence', () => {

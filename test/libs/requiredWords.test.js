@@ -7,11 +7,11 @@ import {
   getPOSForWord,
   getFeedbackForWord,
   extractSentencesFromResponses
-} from '../../app/libs/requiredWords';
+} from '../../src/libs/requiredWords';
 import {
   getPartsOfSpeechWordsWithTags,
   checkPOSEquivalancy
-} from '../../app/libs/partsOfSpeechTagging';
+} from '../../src/libs/partsOfSpeechTagging';
 
 describe('Finding the common words in multiple sentences', () => {
   const sentences = [

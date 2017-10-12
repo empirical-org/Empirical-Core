@@ -3,7 +3,7 @@ import {
   checkForSpacingError,
   getFeedbackForPunc,
   spacingBeforePunctuation,
-} from '../../app/libs/algorithms/spacingBeforePunctuation.js';
+} from '../../src/libs/algorithms/spacingBeforePunctuation.js';
 
 describe('Checking for a spacing issue before punctuation', () => {
   it('can detect commas with leading spaces', () => {

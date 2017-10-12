@@ -10,7 +10,7 @@ import {
   generateConceptResultForQuestion,
   generateConceptResultsForAllQuestions,
   embedActivitySessionUIDInConceptResult,
-} from '../../app/libs/conceptResults/classroomLessons';
+} from '../../src/libs/conceptResults/classroomLessons';
 
 describe('Getting concept results from a Classroom lesson session', () => {
   it('should return an empty array', () => {

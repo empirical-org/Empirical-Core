@@ -1,8 +1,8 @@
 import expect from 'expect';
 import pos from 'pos';
-import * as qpos from '../../app/libs/partsOfSpeechTagging.js';
+import * as qpos from '../../src/libs/partsOfSpeechTagging.js';
 import * as responseData from '../responsesForPOSTesting.js';
-import POSMatcher from '../../app/libs/sentenceFragment.js';
+import POSMatcher from '../../src/libs/sentenceFragment.js';
 import _ from 'underscore';
 
 describe('Converting a string to a list of parts of speech', () => {

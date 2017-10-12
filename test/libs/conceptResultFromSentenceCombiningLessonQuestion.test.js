@@ -3,7 +3,7 @@ import data from '../dataFromLesson';
 import {
     getConceptResultsForSentenceCombining,
     getConceptResultsForSentenceCombiningAttempt
-} from '../../app/libs/conceptResults/sentenceCombiningLessonQuestion';
+} from '../../src/libs/conceptResults/sentenceCombiningLessonQuestion';
 
 describe('Getting concept results from an answered SC object', () => {
   it('should have the correct score and concept uids with a question that was correct on the first attempt', () => {
