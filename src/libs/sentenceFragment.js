@@ -13,7 +13,7 @@ const conceptResultTemplate = (conceptUID, correct = false) => ({
 });
 
 export function wordLengthCount(str) {
-  const strNoPunctuation = str.replace(/[^0-9a-z\s]/gi, '').replace(/\s{2,}/g, ' ').split(' ');
+  const strNoPunctuation = str.replace(/[^0-9a-z\s]/gi, '').split(/\s+/);
   return strNoPunctuation.length;
 }
 
@@ -43,7 +43,8 @@ export default class POSMatcher {
   }
 
   getTopOptimalResponse() {
-    return _.sortBy(this.getOptimalResponses(), r => r.count).reverse()[0];
+    // this.responses is inherently sorted by count.
+    return _.last(this.getOptimalResponses());
   }
 
   getGradedResponses() {
@@ -170,36 +171,22 @@ export default class POSMatcher {
     }
     const userWordCount = wordLengthCount(userSubmission);
     const promptWordCount = wordLengthCount(this.prompt);
-    const maxWordCount = promptWordCount + this.wordCountChange.max;
-    const minWordCount = promptWordCount + this.wordCountChange.min;
+    const changeMin = this.wordCountChange.min;
+    const changeMax = this.wordCountChange.max;
+    const maxWordCount = promptWordCount + changeMax;
+    const minWordCount = promptWordCount + changeMin;
     const templateResponse = {
       optimal: false,
       parentID: this.getTopOptimalResponse().key,
     };
-    const feedback = getMinMaxFeedback(this.wordCountChange.min, this.wordCountChange.max);
-    if (this.wordCountChange.min && (userWordCount < minWordCount)) {
-      if (this.wordCountChange.min === 1) {
-        return Object.assign({}, templateResponse, {
-          feedback,
-          author: 'Too Short Hint',
-        });
-      } else if (this.wordCountChange.min === this.wordCountChange.max) {
-        return Object.assign({}, templateResponse, {
-          feedback,
-          author: 'Too Short Hint',
-        });
-      }
+    const feedback = getMinMaxFeedback(changeMin, changeMax);
+
+    if (changeMin && (userWordCount < minWordCount)) {
       return Object.assign({}, templateResponse, {
         feedback,
         author: 'Too Short Hint',
       });
-    } else if (this.wordCountChange.max && (userWordCount > maxWordCount)) {
-      if (this.wordCountChange.max === 1) {
-        return Object.assign({}, templateResponse, {
-          feedback,
-          author: 'Too Long Hint',
-        });
-      }
+    } else if (changeMax && (userWordCount > maxWordCount)) {
       return Object.assign({}, templateResponse, {
         feedback,
         author: 'Too Long Hint',
@@ -336,18 +323,17 @@ export default class POSMatcher {
       return;
     }
     for (let i = 0; i < userSubmission.length; i++) {
-      if (userSubmission[i] === ',' && (i + 1 < userSubmission.length)) {
-        if (userSubmission[i + 1] !== ' ') {
-          return {
-            optimal: false,
-            feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
-            author: 'Punctuation Hint',
-            parentID: this.getTopOptimalResponse().key,
-            conceptResults: [
-              conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
-            ],
-          };
-        }
+      if (userSubmission[i] === ',' && (i + 1 === userSubmission.length ||
+                                        userSubmission[i + 1] !== ' ')) {
+        return {
+          optimal: false,
+          feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
+          author: 'Punctuation Hint',
+          parentID: this.getTopOptimalResponse().key,
+          conceptResults: [
+            conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+          ],
+        };
       }
     }
   }
