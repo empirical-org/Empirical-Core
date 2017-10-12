@@ -27,7 +27,7 @@
 											Real Name
 										</div>
 										<div class='col-xs-4'>
-											<%= f.text_field :name, class: 'col-xs-4'%>
+											<%= f.text_field :name %>
 										</div>
 									</div>
 									<div class='row'>
@@ -35,7 +35,7 @@
 											Username
 										</div>
 										<div class='col-xs-4'>
-												<%= f.text_field :username, class: 'col-xs-4'%>
+												<%= f.text_field :username %>
 												<%= f.button "Save Changes", class: 'button-green' %>
 										</div>
 									</div>
@@ -45,7 +45,7 @@
 										Real Name
 									</div>
 									<div class='col-xs-4'>
-										<%= f.text_field :name, class: 'inactive col-xs-4', disabled: true%>
+										<%= f.text_field :name, class: 'inactive', disabled: true%>
 									</div>
 								</div>
 								<div class='row'>
@@ -63,7 +63,7 @@
 										Class Code
 									</div>
 									<div class='col-xs-4'>
-										<input disabled type='text' class='inactive col-xs-4' value=<%= @classroom.code %>>
+										<input disabled type='text' class='inactive' value=<%= @classroom.code %>>
 									</div>
 								</div>
 
@@ -74,7 +74,7 @@
 													<%= k %>
 												</div>
 												<div class='col-xs-4'>
-													<input disabled type='text' class='inactive col-xs-4' value=<%= v %>>
+													<input disabled type='text' class='inactive' value=<%= v %>>
 	  										</div>
 											</div>
 										<%end%>
