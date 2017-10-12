@@ -33,8 +33,7 @@ export default React.createClass({
           onClickFunction={() => { this.setDateFromFilter(filter.beginDate) }}
         />)}
       </div>
-
-    )
+    );
   },
 
   render: function() {
