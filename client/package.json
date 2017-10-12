@@ -116,6 +116,9 @@
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
+    "globals": {
+      "window": true
+    },
     "coverageDirectory": "<rootDir>/coverage/",
     "collectCoverage": true,
     "moduleNameMapper": {
