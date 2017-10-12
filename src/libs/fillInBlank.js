@@ -1,0 +1,76 @@
+import _ from 'underscore';
+import constants from '../constants';
+import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
+const jsDiff = require('diff');
+
+const ERROR_TYPES = {
+  NO_ERROR: 'NO_ERROR',
+  MISSING_WORD: 'MISSING_WORD',
+  ADDITIONAL_WORD: 'ADDITIONAL_WORD',
+  INCORRECT_WORD: 'INCORRECT_WORD',
+};
+
+String.prototype.normalize = function () {
+  return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
+};
+
+export default class Question {
+  constructor(data) {
+    this.prompt = data.prompt;
+    this.responses = data.responses;
+    this.questionUID = data.questionUID;
+  }
+
+  checkMatch(response) {
+    // remove leading and trailing whitespace
+    response = response.trim();
+    // make sure all words are single spaced
+    response = response.replace(/\s{2,}/g, ' ');
+    const returnValue = {
+      found: true,
+      submitted: response,
+      response: {
+        text: response,
+        questionUID: this.questionUID,
+        gradeIndex: `nonhuman${this.questionUID}`,
+        count: 1,
+      },
+    };
+    const res = returnValue.response;
+    const exactMatch = this.checkExactMatch(response);
+    if (exactMatch !== undefined) {
+      returnValue.response = exactMatch;
+      console.log('Response: ', returnValue);
+      return returnValue;
+    }
+    const lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
+    if (lowerCaseMatch !== undefined) {
+      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.author = 'Capitalization Hint';
+      res.parentID = lowerCaseMatch.key;
+      this.copyParentResponses(res, lowerCaseMatch);
+      console.log('Response: ', returnValue);
+      return returnValue;
+    }
+    returnValue.found = false;
+    returnValue.response.gradeIndex = `unmarked${this.questionUID}`;
+    return returnValue;
+  }
+
+  nonChildResponses(responses) {
+    return _.filter(this.responses, resp => resp.parentID === undefined && resp.feedback !== undefined);
+  }
+
+  checkExactMatch(response) {
+    return _.find(this.responses, resp => resp.text.normalize() === response.normalize());
+  }
+
+  checkCaseInsensitiveMatch(response) {
+    return _.find(getOptimalResponses(this.responses), resp => resp.text.normalize().toLowerCase() === response.normalize().toLowerCase());
+  }
+  copyParentResponses(newResponse, parentResponse) {
+    if (parentResponse.conceptResults) {
+      newResponse.conceptResults = Object.assign({}, parentResponse.conceptResults);
+    }
+  }
+}
