@@ -4,7 +4,10 @@
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --opts mocha.opts",
+    "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
+    "test:singular": "mocha --compilers js:babel-register $FILE --watch --reporter dot"
   },
   "repository": {
     "type": "git",
