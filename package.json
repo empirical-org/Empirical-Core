@@ -2,11 +2,12 @@
   "name": "quill-shared-modules",
   "version": "0.0.1",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
-    "test:singular": "mocha --compilers js:babel-register $FILE --watch --reporter dot"
+    "test:singular": "mocha --compilers js:babel-register $FILE --watch --reporter dot",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
