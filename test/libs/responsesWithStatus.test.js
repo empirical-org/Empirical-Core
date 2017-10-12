@@ -47,12 +47,12 @@ describe('Responses with status', () => {
 
     it('returns the correct value for an algorithm optimal response', () => {
       const status = getStatusForResponse(algoOptimalResponse);
-      expect(status).toBe(2);
+      expect(status).toBe(0);
     });
 
     it('returns the correct value for an algorithm sub optimal response', () => {
       const status = getStatusForResponse(algoSubOptimalResponse);
-      expect(status).toBe(3);
+      expect(status).toBe(1);
     });
 
     it('returns the correct value for an ungraded response', () => {
