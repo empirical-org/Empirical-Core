@@ -199,7 +199,7 @@ export default class Question {
 
 }
 
-const removePunctuation = string => string.replace(/\./g, '');
+const removePeriods = string => string.replace(/\./g, '');
 
 const removeSpaces = string => string.replace(/\s+/g, '');
 
