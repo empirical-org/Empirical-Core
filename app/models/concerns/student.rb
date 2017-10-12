@@ -11,6 +11,9 @@ module Student
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
+    def finished_activities classroom
+      classroom_activity_score_join(classroom).where('activity_sessions.completed_at is not null')
+    end
 
     def classroom_activity_score_join classroom
       started_activities.joins('join classroom_activities ON classroom_activities.activity_id = activities.id').where(classroom_activities: { classroom_id: classroom.id })
