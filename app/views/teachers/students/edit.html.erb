@@ -18,62 +18,62 @@
 				<div class="container">
 					<div class='user-profile-editor'>
 						<section class="no-border">
-							<h3 class="form-header col-xs-12"><%= "#{@student.name}'s Account" %></h1>
+							<h3 class="form-header"><%= "#{@student.name}'s Account" %></h1>
 
 							<%= form_for @student, url: teachers_classroom_student_path(@classroom, @student), class: 'edit-student-page' do |f| %>
 								<% if @teacher_created_student %>
-									<div class='row'>
-										<div class='form-label col-xs-2'>
+									<div class='form-row'>
+										<div class='form-label'>
 											Real Name
 										</div>
-										<div class='col-xs-4'>
+										<div class='form-input'>
 											<%= f.text_field :name %>
 										</div>
 									</div>
-									<div class='row'>
-										<div class='form-label col-xs-2'>
+									<div class='form-row'>
+										<div class='form-label'>
 											Username
 										</div>
-										<div class='col-xs-4'>
+										<div class='form-input'>
 												<%= f.text_field :username %>
-												<%= f.button "Save Changes", class: 'button-green' %>
 										</div>
 									</div>
+									<%= f.button "Save Changes", class: 'button-green' %>
 								<% else %>
-								<div class='row'>
-									<div class='form-label col-xs-2'>
+								<div class='form-row'>
+									<div class='form-label'>
 										Real Name
 									</div>
-									<div class='col-xs-4'>
+									<div class='form-input'>
 										<%= f.text_field :name, class: 'inactive', disabled: true%>
 									</div>
 								</div>
-								<div class='row'>
-									<div class='form-label col-xs-2'>
+								<div class='form-row'>
+									<div class='form-label'>
 										Username
 									</div>
-									<div class='col-xs-4'>
-											<%= f.text_field :username, class: 'inactive col-xs-4', disabled: true%>
+									<div class='form-input'>
+											<%= f.text_field :username, class: 'inactive form-input', disabled: true%>
 									</div>
 								</div>
 								<% end %>
 
-								<div class='row'>
-									<div class='form-label col-xs-2'>
+								<div class='form-row'>
+									<div class='form-label'>
 										Class Code
 									</div>
-									<div class='col-xs-4'>
+									<div class='form-input'>
 										<input disabled type='text' class='inactive' value=<%= @classroom.code %>>
 									</div>
 								</div>
 
 								<% @sign_up_method.each do |k,v|  %>
 									<% if v %>
-										 <div class='row'>
-												<div class='form-label col-xs-2'>
+										 <div class='form-row'>
+												<div class='form-label'>
 													<%= k %>
 												</div>
-												<div class='col-xs-4'>
+												<div class='form-input'>
 													<input disabled type='text' class='inactive' value=<%= v %>>
 	  										</div>
 											</div>
@@ -82,11 +82,11 @@
 
 
 
-								<div class='row'>
-									<div class='form-label col-xs-2'>
+								<div class='form-row'>
+									<div class='form-label'>
 										Password
 									</div>
-										<div class='col-xs-4'>
+										<div class='form-input'>
 											<%- if @was_teacher_the_last_user_to_reset_students_password %>
 												<input disabled class='inactive' value=<%= @student.last_name %>>
 											<%- else %>
@@ -94,17 +94,17 @@
 											<% end %>
 										</div>
 									</div>
-									<div class='row'>
-										<div class="col-xs-3 col-xs-offset-2">
+									<div class='form-row'>
+										<div>
 											<%=link_to "<button class='btn-warning'>Reset Password</button>".html_safe,  teachers_classroom_student_reset_password_path(@classroom, @student), method: 'put', class: 'password-reset' %>
 										</div>
 										<br>
-											<p class='button-helper'>After resetting a password, the student's password will be the student's last name.</p>
+											<p style="margin-left:10px">After resetting a password, the student's password will be the student's last name.</p>
 									</div>
 
 										<% end %>
-								<div class='row'>
-									<div class="col-xs-3 col-xs-offset-2">
+								<div class='form-row'>
+									<div>
 										<%= button_to "Remove From Classroom", teacher_hide_students_classroom_path(classroom_id: @classroom.id, student_id: @student.id),data: {confirm: 'Are you sure you want to delete this account?'}, method: 'post', class: 'delete-account remove-from-class btn btn-danger' %>
 									</div>
 								</div>
