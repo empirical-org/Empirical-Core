@@ -147,7 +147,7 @@ export default class Question {
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    return _.find(getOptimalResponses(this.responses), resp => removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize()));
+    return _.find(getOptimalResponses(this.responses), resp => removePeriods(resp.text.normalize()) === removePeriods(response.normalize()));
   }
 
   checkPunctuationAndCaseInsensitiveMatch(response) {
@@ -201,13 +201,13 @@ export default class Question {
 
 }
 
-const removePunctuation = string => string.replace(/\./g, '');
+const removePeriods = string => string.replace(/\./g, '');
 
 const removeSpaces = string => string.replace(/\s+/g, '');
 
 const removeCaseSpacePunc = (string) => {
   let transform = string.normalize();
-  transform = removePunctuation(transform);
+  transform = removePeriods(transform);
   transform = removeSpaces(transform);
   return transform.toLowerCase();
 };
