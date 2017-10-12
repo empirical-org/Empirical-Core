@@ -3,8 +3,14 @@ import _ from 'underscore';
 export function generate(lessonQuestionData, studentSessionData, modifications) {
   const nestedConceptResults = generateConceptResultsForAllQuestions(lessonQuestionData, studentSessionData);
   const completeConceptResults = embedActivitySessionUIDInConceptResult(nestedConceptResults);
-  const flatConceptResults = Object.values(completeConceptResults).map((questionSubs) => Object.values(questionSubs))
-  return [].concat.apply([], flatConceptResults); // Flatten array
+  const values = [];
+  for (const completeConceptKey in completeConceptResults) {
+    const questionSubs = completeConceptResults[completeConceptKey]
+    for (const questionSubsKey in questionSubs) {
+      values.push(questionSubs[questionSubsKey]);
+    }
+  }
+  return values;
 }
 
 export function generateConceptResult(questionData, studentSubmission) {

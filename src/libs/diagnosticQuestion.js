@@ -9,6 +9,8 @@ import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } fr
 
 import { sortByLevenshteinAndOptimal } from './responseTools.js';
 
+import normalizeString from './normalizeString'
+
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {
@@ -16,10 +18,6 @@ const ERROR_TYPES = {
   MISSING_WORD: 'MISSING_WORD',
   ADDITIONAL_WORD: 'ADDITIONAL_WORD',
   INCORRECT_WORD: 'INCORRECT_WORD',
-};
-
-String.prototype.normalize = function () {
-  return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
 };
 
 export default class Question {
@@ -126,10 +124,10 @@ export default class Question {
     if (optimalResponses.length < 2) {
       return undefined;
     }
-    const lengthsOfResponses = optimalResponses.map(resp => resp.text.normalize().length);
+    const lengthsOfResponses = optimalResponses.map(resp => normalizeString(resp.text).length);
     const minLength = _.min(lengthsOfResponses) - 10;
     if (response.length < minLength) {
-      return _.sortBy(optimalResponses, resp => resp.text.normalize().length)[0];
+      return _.sortBy(optimalResponses, resp => normalizeString(resp.text).length)[0];
     }
     return undefined;
   }
@@ -139,15 +137,15 @@ export default class Question {
   }
 
   checkExactMatch(response) {
-    return _.find(this.responses, resp => resp.text.normalize() === response.normalize());
+    return _.find(this.responses, resp => normalizeString(resp.text) === normalizeString(response));
   }
 
   checkCaseInsensitiveMatch(response) {
-    return _.find(getOptimalResponses(this.responses), resp => resp.text.normalize().toLowerCase() === response.normalize().toLowerCase());
+    return _.find(getOptimalResponses(this.responses), resp => normalizeString(resp.text).toLowerCase() === normalizeString(response).toLowerCase());
   }
 
   checkPunctuationInsensitiveMatch(response) {
-    return _.find(getOptimalResponses(this.responses), resp => removePeriods(resp.text.normalize()) === removePeriods(response.normalize()));
+    return _.find(getOptimalResponses(this.responses), resp => removePunctuation(normalizeString(resp.text)) === removePunctuation(normalizeString(response)));
   }
 
   checkPunctuationAndCaseInsensitiveMatch(response) {
@@ -159,22 +157,22 @@ export default class Question {
   }
 
   checkWhiteSpaceMatch(response) {
-    return _.find(getOptimalResponses(this.responses), resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize()));
+    return _.find(getOptimalResponses(this.responses), resp => removeSpaces(normalizeString(response)) === removeSpaces(normalizeString(resp.text)));
   }
 
   checkChangeObjectLevenshteinMatch(response) {
-    const fn = string => string.normalize();
+    const fn = string => normalizeString(string);
     const responses = sortByLevenshteinAndOptimal(response, getOptimalResponses(this.responses).concat(getSubOptimalResponses(this.responses)));
     return checkChangeObjectMatch(response, responses, fn, true);
   }
 
   checkChangeObjectRigidMatch(response) {
-    const fn = string => string.normalize();
+    const fn = string => normalizeString(string);
     return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
   checkChangeObjectSubMatch(response) {
-    const fn = string => string.normalize();
+    const fn = string => normalizeString(string);
     return checkChangeObjectMatch(response, getSubOptimalResponses(this.responses), fn);
   }
 
@@ -206,8 +204,8 @@ const removePeriods = string => string.replace(/\./g, '');
 const removeSpaces = string => string.replace(/\s+/g, '');
 
 const removeCaseSpacePunc = (string) => {
-  let transform = string.normalize();
-  transform = removePeriods(transform);
+  let transform = normalizeString(string);
+  transform = removePunctuation(transform);
   transform = removeSpaces(transform);
   return transform.toLowerCase();
 };
