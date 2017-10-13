@@ -275,4 +275,10 @@ module Teacher
       AND actsesh.state = 'finished'")
   end
 
+  def set_lessons_cache
+    lessons_cache = self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
+    $redis.set("user_id:#{self.id}_lessons_array", lessons_cache.to_json)
+  end
+
+
 end
