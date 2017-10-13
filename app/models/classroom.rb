@@ -104,6 +104,7 @@ class Classroom < ActiveRecord::Base
   def hide_all_classroom_activities
     ActivitySession.where(classroom_activity: self.classroom_activities).update_all(visible: false)
     self.classroom_activities.update_all(visible: false)
+    SetTeacherLessonCache.perform_async(self.teacher_id)
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
       LEFT JOIN classroom_activities as ca ON ca.unit_id = unit.id AND ca.visible = true
