@@ -132,8 +132,8 @@ export default React.createClass({
   },
 
   selectDates(val1, val2) {
-    localStorage.setItem('scorebookBeginDate', val1);
-    localStorage.setItem('scorebookEndDate', val2);
+    window.localStorage.setItem('scorebookBeginDate', val1);
+    window.localStorage.setItem('scorebookEndDate', val2);
     this.setState({
       scores: new Map(),
       currentPage: 0,
@@ -187,8 +187,8 @@ export default React.createClass({
                 selectedUnit={this.state.selectedUnit}
                 unitFilters={this.state.unitFilters}
                 selectUnit={this.selectUnit} selectDates={this.selectDates}
-                beginDate={this.convertStoredDateToMoment(localStorage.getItem('scorebookBeginDate'))}
-                endDate={this.convertStoredDateToMoment(localStorage.getItem('scorebookEndDate'))}
+                beginDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))}
+                endDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))}
               />
               <ScoreLegend />
               <AppLegend />
