@@ -2267,6 +2267,13 @@ CREATE INDEX email_idx ON users USING gin (email gin_trgm_ops);
 
 
 --
+-- Name: idx_class_act_on_class_act_and_unit; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_class_act_on_class_act_and_unit ON classroom_activities USING btree (classroom_id, activity_id, unit_id);
+
+
+--
 -- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3373,4 +3380,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171005214127');
 INSERT INTO schema_migrations (version) VALUES ('20171006150857');
 
 INSERT INTO schema_migrations (version) VALUES ('20171006151454');
+
+INSERT INTO schema_migrations (version) VALUES ('20171016161650');
 
