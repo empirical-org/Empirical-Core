@@ -26,6 +26,7 @@ class Scorebook::Query
            )
      INNER JOIN activities AS activity ON activity.id = ca.activity_id
      WHERE ca.classroom_id = #{classroom_id}
+     AND  students.id = ANY (ca.assigned_student_ids::int[])
      AND ca.visible = true
      AND sc.visible = true
      #{self.units(unit_id)&.last}
