@@ -2270,7 +2270,7 @@ CREATE INDEX email_idx ON users USING gin (email gin_trgm_ops);
 -- Name: idx_class_act_on_class_act_and_unit; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX idx_class_act_on_class_act_and_unit ON classroom_activities USING btree (classroom_id, activity_id, unit_id);
+CREATE UNIQUE INDEX idx_class_act_on_class_act_and_unit ON classroom_activities USING btree (classroom_id, activity_id, unit_id, visible) WHERE (id > 1553802);
 
 
 --
