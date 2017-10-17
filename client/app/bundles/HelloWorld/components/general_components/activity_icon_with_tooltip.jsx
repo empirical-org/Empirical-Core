@@ -75,9 +75,9 @@ export default class ActivityIconWithTooltip extends React.Component {
       }
     } else {
       if (this.props.data.started) {
-        return `icon-progress icon-${activityFromClassificationId(this.getActClassId())}-embossed`
+        return `icon-progress icon-${activityFromClassificationId(this.getActClassId())}-lightgray`
       } else {
-        return `icon-unstarted icon-${activityFromClassificationId(this.getActClassId())}-embossed`
+        return `icon-unstarted icon-${activityFromClassificationId(this.getActClassId())}-lightgray`
       }
     }
   }
