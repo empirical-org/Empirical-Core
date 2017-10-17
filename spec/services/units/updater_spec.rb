@@ -140,14 +140,15 @@ describe Units::Updater do
 
       context 'when assigned students are changed' do
 
-        it 'gives newly assigned students an activity session' do
+        it 'does not give newly assigned students an activity session' do
            classrooms_data = [{id: classroom.id, student_ids: [student.id, student1.id, student2.id]}]
+           old_activity_session_count = ActivitySession.count
            Units::Updater.run(unit.id, activities_data, classrooms_data)
-           assigned_users = classroom_activity.reload.activity_sessions.map(&:user_id)
-           expect(assigned_users).to include(student1.id, student2.id)
+           expect(ActivitySession.count).to eq(old_activity_session_count)
         end
 
         it 'hides the activity session of unassigned students' do
+          ActivitySession.create(user_id: student.id, activity_id: classroom_activity.activity, classroom_activity_id: classroom_activity.id, completed_at: Date.today, state: 'finished', percentage: 0.8)
           classrooms_data = [{id: classroom.id, student_ids: [student1.id, student2.id], assign_on_join: false}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           student_as_visibility = ActivitySession.unscoped.where(user_id: student.id).first.visible
@@ -157,29 +158,21 @@ describe Units::Updater do
         it 'can add all students in a classroom' do
           classrooms_data = [{id: classroom.id, student_ids: [], assign_on_join: true}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
-          assigned_users = classroom_activity.reload.activity_sessions.map(&:user_id)
+          assigned_users = classroom_activity.reload.assigned_student_ids
           expect(assigned_users).to include(student1.id, student2.id, student.id)
         end
 
         it 'can unnassign some students and assign new students' do
-          expect(classroom_activity.activity_sessions).to eq(student.activity_sessions)
           classrooms_data = [{id: classroom.id, student_ids: [student1.id]}]
+          old_assigned_student_ids = classroom_activity.assigned_student_ids
+          expect(old_assigned_student_ids).to eq([student.id])
           Units::Updater.run(unit.id, activities_data, classrooms_data)
-          assigned_users = classroom_activity.reload.activity_sessions.map(&:user_id)
-          expect(assigned_users).to include(student1.id)
-          expect(assigned_users).not_to include(student.id)
-        end
-
-        it "does not affect the activity session of existing students" do
-          expect(classroom_activity.activity_sessions).to eq(student.activity_sessions)
-          classrooms_data = [{id: classroom.id, student_ids: [student.id, student1.id, student2.id]}]
-          Units::Updater.run(unit.id, activities_data, classrooms_data)
-          assigned_users = classroom_activity.reload.activity_sessions.map(&:user_id)
-          expect(assigned_users).to include(student.id)
+          new_assigned_student_ids = classroom_activity.reload.assigned_student_ids
+          expect(new_assigned_student_ids).to eq([student1.id])
         end
 
         it "hides all activity sessions when assigned to no students" do
-          expect(classroom_activity.activity_sessions).to eq(student.activity_sessions)
+          expect(classroom_activity.assigned_student_ids.any?).to eq(true)
           classrooms_data = [{id: classroom.id, student_ids: false}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           assigned_users = classroom_activity.reload.activity_sessions
@@ -187,7 +180,7 @@ describe Units::Updater do
         end
 
         it "hides the unit when assigned to no students" do
-          expect(classroom_activity.activity_sessions).to eq(student.activity_sessions)
+          expect(Unit.unscoped.find(unit.id).visible).to eq(true)
           classrooms_data = [{id: classroom.id, student_ids: false}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           assigned_users = classroom_activity.reload.activity_sessions
@@ -198,159 +191,16 @@ describe Units::Updater do
 
       context 'when a new activity is added' do
 
-        it "creates new activity sessions with new activity for assigned students" do
-          expect(student.activity_sessions.map(&:activity_id)).to eq([activity.id])
+        it "it does not create new activity sessions" do
+          # because it used to create new ones
+          expect(student.activity_sessions.map(&:activity_id)).to be_empty
           classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
           activities_data = [{id: activity1.id, due_date: nil}]
+          old_activity_session_count = ActivitySession.count
           Units::Updater.run(unit.id, activities_data, classrooms_data)
-          expect(student.reload.activity_sessions.map(&:activity_id).sort).to eq([activity.id, activity1.id].sort)
-        end
-
-        it "does not creates new activity sessions with new activity for non-assigned students" do
-          classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
-          activities_data = [{id: activity1.id, due_date: nil}]
-          Units::Updater.run(unit.id, activities_data, classrooms_data)
-          expect(student1.activity_sessions.count).to eq(0)
+          expect(ActivitySession.count).to eq(old_activity_session_count)
         end
 
       end
-
-
-
     end
-
-
-
   end
-
-
-
-
-
-
-  #TODO: find out if this code is worth salvaging
-  # let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
-  #
-  # let!(:old_kept_activity) { FactoryGirl.create(:activity) }
-  # let!(:old_kept_activity_old_due_date) { Date.yesterday }
-  #
-  # let!(:old_removed_activity) { FactoryGirl.create(:activity) }
-  # let!(:new_activity) { FactoryGirl.create(:activity) }
-  #
-  # let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  #
-  # let!(:student1) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
-  # let!(:student2) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
-  #
-  # let!(:old_assigned_student_ids) { [student1.id] }
-  #
-  # let!(:unit) { FactoryGirl.create(:unit, name: 'old_name')}
-  # let!(:id) { unit.id }
-  #
-  # let!(:old_classroom_activity1) { FactoryGirl.create(:classroom_activity,
-  #                                                     activity: old_kept_activity,
-  #                                                     due_date: old_kept_activity_old_due_date,
-  #                                                     assigned_student_ids: old_assigned_student_ids,
-  #                                                     classroom: classroom,
-  #                                                     unit: unit) }
-  #
-  # let!(:old_classroom_activity2) { FactoryGirl.create(:classroom_activity,
-  #                                                     activity: old_removed_activity,
-  #                                                     due_date: Date.yesterday,
-  #                                                     assigned_student_ids: old_assigned_student_ids,
-  #                                                     classroom: classroom,
-  #                                                     unit: unit) }
-  #
-  # let!(:new_name) { 'new_name' }
-  #
-  # let!(:old_kept_activity_new_due_date) { Date.today }
-  # let!(:new_activity_due_date) { Date.today }
-  #
-  # let!(:new_assigned_student_ids) { [student2.id] }
-  #
-  # let!(:activities_data) do
-  #   [
-  #     {
-  #       id: old_kept_activity.id,
-  #       due_date: old_kept_activity_new_due_date
-  #     },
-  #     {
-  #       id: new_activity.id,
-  #       due_date: new_activity_due_date
-  #     }
-  #   ]
-  # end
-  #
-  # let!(:classrooms_data) do
-  #   [
-  #     {
-  #       id: classroom.id,
-  #       student_ids: new_assigned_student_ids
-  #     }
-  #   ]
-  # end
-  #
-  #
-  # def subject
-  #   Units::Updater.run(teacher, id, new_name, activities_data, classrooms_data)
-  # end
-  #
-  # it 'updates the units name' do
-  #   subject
-  #   expect(Unit.find(id).name).to eq(new_name)
-  # end
-  #
-  # it 'creates classroom_activity for new activity' do
-  #   subject
-  #   x = unit.classroom_activities.find_by(classroom: classroom, activity: new_activity)
-  #   expect(x).to be_present
-  # end
-  #
-  # it 'updates due date for old kept activity' do
-  #   subject
-  #   expect(old_classroom_activity1.reload.due_date).to eq(old_kept_activity_new_due_date)
-  # end
-  #
-  # it 'updates assigned_student_ids for old kept activity' do
-  #   subject
-  #   expect(old_classroom_activity1.reload.assigned_student_ids).to eq(new_assigned_student_ids)
-  # end
-  #
-  # it 'creates a new classroom activity for the new activity' do
-  #   subject
-  #   x = unit.classroom_activities.find_by(classroom: classroom, activity: new_activity)
-  #   expect(x).to be_present
-  # end
-  #
-  # it 'hides the classroom activity associated with the old removed activity' do
-  #   subject
-  #   x = unit.classroom_activities.find_by(classroom: classroom, activity: old_removed_activity)
-  #   expect(x).to be_nil
-  #   expect(ClassroomActivity.find_by(id: old_classroom_activity2.id)).to be_nil
-  # end
-  #
-  # it 'hides the activity session associated to the removed activity' do
-  #   subject
-  #   as = ActivitySession.where(classroom_activity: old_classroom_activity2)
-  #   expect(as).to be_empty
-  # end
-  #
-  # it 'hides the activity session associated to the unassigned student (on the old, kept activity)' do
-  #   subject
-  #   as = old_classroom_activity1.activity_sessions.find_by(user: student1)
-  #   expect(as).to be_nil
-  # end
-  #
-  # it 'creates the activity session associated to the newly assigned student (on the old, kept activity)' do
-  #   subject
-  #   ca = ClassroomActivity.find_by(activity: old_kept_activity, classroom: classroom)
-  #   as = ca.activity_sessions.find_by(user: student2)
-  #   expect(as).to be_present
-  # end
-  #
-  # it 'creates the activity session associated to the new activity' do
-  #   subject
-  #   ca = ClassroomActivity.find_by(classroom: classroom, activity: new_activity)
-  #   as = ca.activity_sessions.find_by(user: student2)
-  #   expect(as).to be_present
-  # end

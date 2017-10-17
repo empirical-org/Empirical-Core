@@ -67,8 +67,8 @@ export default class ActivityIconWithTooltip extends React.Component {
   }
 
   iconClass() {
-    if (this.props.data.completed_attempts > 0) {
-      if (Number(this.props.data.activity_classification_id) === 4 || Number(this.props.data.activity_classification_id) === 6 ) {
+    if (this.props.data.completed_attempts > 0 || this.props.data.percentage) {
+      if (this.props.context === 'scorebook' && (Number(this.props.data.activity_classification_id) === 4 || Number(this.props.data.activity_classification_id) === 6)) {
         return  `icon-blue icon-${activityFromClassificationId(this.getActClassId())}`
       } else {
         return `icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`

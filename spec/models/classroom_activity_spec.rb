@@ -121,22 +121,6 @@ describe ClassroomActivity, type: :model, redis: :true do
         end
     end
 
-    describe 'session_for' do
-        let(:classroom) { FactoryGirl.create(:classroom, code: '101') }
-        let(:student) { classroom.students.create(first_name: 'John', last_name: 'Doe') }
-
-        before do
-            student.generate_student(classroom.id)
-        end
-
-        it 'must start a session for the given user' do
-            expect(classroom_activity.session_for(student)).to be_valid
-        end
-        it "must raise an error when user's input is not valid" do
-            expect { classroom_activity.session_for(0) }.to raise_error ActiveRecord::AssociationTypeMismatch
-        end
-    end
-
     describe '#validate_assigned_student' do
 
       context 'it must return true when' do
