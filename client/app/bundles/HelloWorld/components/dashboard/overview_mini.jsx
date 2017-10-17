@@ -20,10 +20,10 @@ export default React.createClass({
       let text
       switch (this.props.overviewObj.header) {
         case 'Difficult Concepts':
-          text = <p style={{'margin':'27px'}}>Once your students have completed <strong>30 activities</strong> in total in the past 30 days, you’ll see their <strong>concept results</strong> here.</p>
+          text = <p style={{'margin':'25px'}}>Once your students have completed <strong>30 activities</strong> in total in the past 30 days, you’ll see their <strong>concept results</strong> here.</p>
           break
         case 'Lowest Performing Students':
-          text = <p style={{'margin':'27px'}}>Once your students have completed <strong>30 activities</strong> in total in the past 30 days, you’ll see <strong>their results</strong> here.</p>
+          text = <p style={{'margin':'25px'}}>Once your students have completed <strong>30 activities</strong> in total in the past 30 days, you’ll see <strong>their results</strong> here.</p>
           break
       }
       return <div>
