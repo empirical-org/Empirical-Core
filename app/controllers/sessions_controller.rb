@@ -4,7 +4,6 @@ require 'new_relic/agent'
 class SessionsController < ApplicationController
   before_filter :signed_in!, only: [:destroy]
   before_filter :set_cache_buster, only: [:new]
-  include ::NewRelic::Agent
 
   def create
     begin

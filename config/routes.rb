@@ -261,6 +261,7 @@ EmpiricalGrammar::Application.routes.draw do
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
   # so we have the patch below:
   get '/session', to: 'sessions#destroy'
+  post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   resource :session
 
   resource :account do
