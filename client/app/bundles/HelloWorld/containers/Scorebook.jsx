@@ -41,7 +41,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.fetchData();
+    this.setStateFromLocalStorage(this.fetchData);
     this.getUpdatedUnits(this.props.selectedClassroom.value);
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
@@ -50,6 +50,13 @@ export default React.createClass({
     if (date) {
       return `${date.year()}-${date.month() + 1}-${date.date()}`;
     }
+  },
+
+  setStateFromLocalStorage(callback) {
+    this.setState({
+      beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate')),
+      endDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))
+    }, callback);
   },
 
   fetchData() {
