@@ -5,7 +5,6 @@ import request from 'request';
 class LoginFormApp extends Component {
   constructor() {
     super();
-
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,15 +44,17 @@ class LoginFormApp extends Component {
 
   handleSubmit(e) {
     request({
-      url: `${process.env.DEFAULT_URL}/session`,
+      url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
       json: { user: this.state, authenticity_token: ReactOnRails.authenticityToken(), },
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
-        window.location = `${process.env.DEFAULT_URL}${body.redirect}`,
+        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
+      } else if (body.message) {
+        alert(body.message);
       } else {
-        alert('Incorrect Username or Password');
+        alert('Incorrect Username/Email or Password');
       }
     });
     e.preventDefault();
