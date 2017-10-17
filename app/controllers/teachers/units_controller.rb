@@ -109,7 +109,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    units_with_diagnostics = units.select { |a| a['activity_classification_id'] == '4' }
+    units_with_diagnostics = units(params['report']).select { |a| a['activity_classification_id'] == '4' }
     render json: units_with_diagnostics.to_json
   end
 
