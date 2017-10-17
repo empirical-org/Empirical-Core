@@ -50,7 +50,7 @@ export default class RecoverClassroomActivities extends React.Component {
       <div>
         <div className="input-row">
           <label>Class Code:</label>
-          <input type="text" value={this.state.student1Identifier} onChange={this.updateClassCode}/>
+          <input type="text" value={this.state.classCode} onChange={this.updateClassCode}/>
         </div>
         <button onClick={this.submitClassCode}>Recover Classroom Activities</button>
         {this.renderError()}
