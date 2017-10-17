@@ -30,8 +30,7 @@ class Scorebook::Query
      AND ca.visible = true
      AND sc.visible = true
      #{self.units(unit_id)&.last}
-     #{self.begin_date(begin_date)}
-     #{self.end_date(end_date)}
+     #{self.date_conditional_string(begin_date, end_date)}
      GROUP BY
       students.id,
        students.name, ca.id, activity.activity_classification_id, activity.name
@@ -51,17 +50,46 @@ class Scorebook::Query
     end
   end
 
-  def self.begin_date(begin_date)
-    if begin_date && !begin_date.blank?
-      "AND acts.completed_at >= #{ActiveRecord::Base.sanitize(begin_date)}"
-    end
+  def self.sanitize_date(date)
+    return ActiveRecord::Base.sanitize(date) if date && !date.blank?
   end
 
-  def self.end_date(end_date)
-    if end_date && !end_date.blank?
-      "AND acts.completed_at <= #{ActiveRecord::Base.sanitize(end_date)}"
-    end
+  def self.date_conditional_string(begin_date, end_date)
+    sanitized_begin_date = self.sanitize_date(begin_date)
+    sanitized_end_date = self.sanitize_date(end_date)
+    return unless sanitized_begin_date || sanitized_end_date
+    "AND (
+      CASE
+      WHEN acts.completed_at IS NOT NULL THEN
+        #{self.date_substring_for_acts_completed_at(sanitized_begin_date, sanitized_end_date)}
+      WHEN acts.started_at IS NOT NULL THEN
+        #{self.date_substring_for_acts_started_at(sanitized_begin_date, sanitized_end_date)}
+      ELSE
+        #{self.date_substring_for_ca_created_at(sanitized_begin_date, sanitized_end_date)}
+      END
+    )"
   end
 
+  def self.date_substring_for_acts_completed_at(begin_date, end_date)
+    [
+      begin_date ? "acts.completed_at >= #{begin_date}" : nil,
+      end_date ? "acts.completed_at <= #{end_date}" : nil
+    ].reject(&:nil?).join(' AND ')
+  end
+
+  def self.date_substring_for_acts_started_at(begin_date, end_date)
+    [
+      begin_date ? "acts.started_at >= #{begin_date}" : nil,
+      end_date ? "acts.started_at <= #{end_date}" : nil
+    ].reject(&:nil?).join(' AND ')
+
+  end
+
+  def self.date_substring_for_ca_created_at(begin_date, end_date)
+    [
+      begin_date ? "ca.created_at >= #{begin_date}" : nil,
+      end_date ? "ca.created_at <= #{end_date}" : nil
+    ].reject(&:nil?).join(' AND ')
+  end
 
 end
