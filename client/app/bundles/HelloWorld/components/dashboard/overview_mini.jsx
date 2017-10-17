@@ -17,7 +17,19 @@ export default React.createClass({
   stateSpecificComponents() {
     const results = this.props.overviewObj.results;
     if (results === 'insufficient data') {
-      return <img src={this.props.overviewObj.placeholderImg} />;
+      let text
+      switch (this.props.overviewObj.header) {
+        case 'Difficult Concepts':
+          text = <p style={{'margin':'27px'}}>Once your students have completed <strong>30 activities</strong> in total in the past 30 days, you’ll see their <strong>concept results</strong> here.</p>
+          break
+        case 'Lowest Performing Students':
+          text = <p style={{'margin':'27px'}}>Once your students have completed <strong>30 activities</strong> in total in the past 30 days, you’ll see <strong>their results</strong> here.</p>
+          break
+      }
+      return <div>
+        <img src='http://assets.quill.org/images/shared/results_card.svg' />
+        {text}
+      </div>;
     } else if (results) {
       const button = this.miniSpecificButton();
       const leftColumn = Object.keys(results);
