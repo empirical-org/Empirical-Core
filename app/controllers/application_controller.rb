@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   def default_params
     [:utf8, :authenticity_token, :commit]
   end
-  
+
   protected
 
   def set_vary_header

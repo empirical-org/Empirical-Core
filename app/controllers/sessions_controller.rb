@@ -1,11 +1,20 @@
+require 'newrelic_rpm'
+require 'new_relic/agent'
+
 class SessionsController < ApplicationController
   before_filter :signed_in!, only: [:destroy]
   before_filter :set_cache_buster, only: [:new]
+  include ::NewRelic::Agent
 
   def create
+    begin
+      raise 'sessions/create original route still being called'
+    rescue => e
+      NewRelic::Agent.notice_error(e)
+      errors.add(:seemingly_deprecated_route_called, "the old sessions create route was called")
+    end
     params[:user][:email].downcase! unless params[:user][:email].nil?
     @user =  User.find_by_username_or_email(params[:user][:email])
-
     if @user.nil?
       login_failure_message
     elsif @user.signed_up_with_google
@@ -24,6 +33,30 @@ class SessionsController < ApplicationController
       end
     else
       login_failure_message
+    end
+  end
+
+  def login_through_ajax
+    params[:user][:email].downcase! unless params[:user][:email].nil?
+    @user =  User.find_by_username_or_email(params[:user][:email])
+    if @user.nil?
+      render json: {message: 'Incorrect username/email or password'}, status: 401
+    elsif @user.signed_up_with_google
+      render json: {message: 'You signed up with Google, please log in with Google using the link above.'}, status: 401
+    elsif @user.password_digest.nil?
+      render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.'}, status: 401
+    elsif @user.authenticate(params[:user][:password])
+      if @user.role == 'teacher'
+        TestForEarnedCheckboxesWorker.perform_async(@user.id)
+      end
+      sign_in(@user)
+      if params[:redirect].present?
+        render json: {redirect: URI.parse(params[:redirect]).path}
+      else
+        render json: {redirect: '/'}
+      end
+    else
+      render json: {message: 'Incorrect username/email or password'}, status: 401
     end
   end
 
