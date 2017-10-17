@@ -58,8 +58,8 @@ $accentcolor: #00a699;
 
 // This style is for the list of options beneath the calendar.
 .calendar-prefill-options {
-	margin-top: -10px;
-	padding: 0 20px 20px;
+	margin-top: 15px;
+	padding: 0 20px;
 	text-align: center;
 
 	.calendar-prefill-option {
@@ -214,7 +214,7 @@ $accentcolor: #00a699;
 
 .CalendarMonth--horizontal .CalendarMonth__caption,
 .CalendarMonth--vertical .CalendarMonth__caption {
-  padding: 15px 0 35px; }
+  padding: 15px 0; }
 
 .CalendarMonth--vertical-scrollable .CalendarMonth__caption {
   padding: 5px 0; }
@@ -245,6 +245,11 @@ $accentcolor: #00a699;
   background: #fff;
   position: relative;
   text-align: left; }
+
+.DayPicker > div {
+	display: flex;
+	flex-direction: column-reverse;
+}
 
 .DayPicker--horizontal {
   background: #fff;
