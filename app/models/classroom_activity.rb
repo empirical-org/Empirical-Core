@@ -133,10 +133,6 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-  def completed
-    activity_sessions.completed.includes([:user, :activity]).joins(:user).where('users.role' == 'student')
-  end
-
   def scorebook
     @score_book = {}
     completed.each do |activity_session|
