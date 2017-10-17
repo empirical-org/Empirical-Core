@@ -555,11 +555,11 @@ $accentcolor: #00a699;
   border-top: 0; }
 
 .DateInput--open-down.DateInput--with-caret::before {
-  top: 62px;
+  top: 44px;
   border-bottom-color: rgba(0, 0, 0, 0.1); }
 
 .DateInput--open-down.DateInput--with-caret::after {
-  top: 63px;
+  top: 45px;
   border-bottom-color: #fff; }
 
 .DateInput--open-up.DateInput--with-caret::before,
@@ -637,10 +637,10 @@ $accentcolor: #00a699;
   right: 0; }
 
 .DateRangePicker__picker--open-down {
-  top: 72px; }
+  top: 56px; }
 
 .DateRangePicker__picker--open-up {
-  bottom: 72px; }
+  bottom: 56px; }
 
 .DateRangePicker__picker--portal {
   background-color: rgba(0, 0, 0, 0.3);
