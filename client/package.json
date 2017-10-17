@@ -48,7 +48,7 @@
     "react-addons-update": "^15.2.1",
     "react-bootstrap": "^0.30.0",
     "react-datepicker": "^0.40.0",
-    "react-dates": "^13.0.6",
+    "react-dates": "=12.7.0",
     "react-dom": "^15.2.1",
     "react-markdown": "^2.4.6",
     "react-on-rails": "=6.5.0",
