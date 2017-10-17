@@ -1,6 +1,6 @@
 body {
   background-color: #fafafa;
-  font-family: AdelleSans;
+  font-family: adelle-sans, Arial;
   color: #3b3b3b;
 }
 .container {
@@ -23,23 +23,29 @@ body {
 .illustration {
   padding-top: 30px;
 }
-span {
-  color: #00c2a2;
-}
 h1 {
   font-size: 36px;
   font-weight: normal;
 }
-p {
-  font-size: 24px;
-}
 .try-again {
   font-weight: bold;
+}
+.dont-worry {
+  font-weight: bold;
+  color: #348fdf;
 }
 .contact-us {
   font-size: 22px;
 }
-button {
+.return-time {
+  font-weight: bold;
+  font-size: 24px;
+}
+button, .learn-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
   margin-top: 5px;
   margin-bottom: 9px;
   width: 220px;
@@ -53,6 +59,23 @@ button {
 }
 button:hover {
   outline: none;
+}
+
+.upgrading p {
+  font-size: 20px;
+}
+
+.upgrading .contact-info {
+  color: #027360;
+  text-decoration: none;
+}
+
+.timeout p {
+  font-size: 24px;
+}
+
+.timeout  .contact-info {
+  color: #18b891;
 }
 
 @media (max-width: 900px) {
