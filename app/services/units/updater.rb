@@ -63,7 +63,7 @@ module Units::Updater
     # TODO: this is messing everything up by not generating new activity sessions since it skips the callback
     # however, it is far more efficient
     # new_cas.any? ? ClassroomActivity.bulk_insert(values: new_cas) : nil
-    new_cas.each{|ca| ClassroomActivity.create(ca)}
+    new_cas.uniq.each{|ca| ClassroomActivity.create(ca)}
     # TODO: same as above -- efficient, but we need the callbacks
     # hidden_cas_ids.any? ? ClassroomActivity.where(id: hidden_cas_ids).update_all(visible: false) : nil
     hidden_cas_ids.each{|ca_id| ClassroomActivity.find_by_id(ca_id)&.update(visible: false)}
