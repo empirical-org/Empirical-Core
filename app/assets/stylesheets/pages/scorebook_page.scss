@@ -405,6 +405,7 @@ $accentcolor: #00a699;
 
 .DayPickerKeyboardShortcuts__show,
 .DayPickerKeyboardShortcuts__close {
+	display: none;
   background: none;
   border: 0;
   color: inherit;
