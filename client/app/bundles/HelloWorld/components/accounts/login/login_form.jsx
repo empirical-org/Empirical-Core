@@ -51,10 +51,8 @@ class LoginFormApp extends Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
-      } else if (body.message) {
-        alert(body.message);
       } else {
-        alert('Incorrect Username/Email or Password');
+        this.setState({ message: (body.message || 'You have entered an incorrect email/username or password.'), });
       }
     });
     e.preventDefault();
@@ -62,36 +60,41 @@ class LoginFormApp extends Component {
 
   render() {
     return (
-      <form id="new_user" className="new_user" onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
-        <input name="utf8" type="hidden" value="✓" />
-        <input value={this.state.authToken} type="hidden" name="authenticity_token" />
-        <label>Email or username</label>
-        <input
-          placeholder="Email or Username"
-          name="user[email]"
-          value={this.state.email}
-          onChange={this.handleEmailChange}
-          type="text"
-        />
-        <label>Password</label>
-        <div className="login-password">
-          <input
-            placeholder="Password"
-            className="password-input"
-            name="user[password]"
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-            type={this.togglePass()}
-          />
-          <div
-            onClick={() => { this.clickHandler(); }}
-            className={this.toggleButtonClass()}
-          >
-            {this.toggleButtonText()}
-          </div>
+      <div>
+        <div className="error">
+          {this.state.message}
         </div>
-        <input type="submit" name="commit" value="Login" />
-      </form>
+        <form id="new_user" className="new_user" onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+          <input name="utf8" type="hidden" value="✓" />
+          <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+          <label>Email or username</label>
+          <input
+            placeholder="Email or Username"
+            name="user[email]"
+            value={this.state.email}
+            onChange={this.handleEmailChange}
+            type="text"
+          />
+          <label>Password</label>
+          <div className="login-password">
+            <input
+              placeholder="Password"
+              className="password-input"
+              name="user[password]"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+              type={this.togglePass()}
+            />
+            <div
+              onClick={() => { this.clickHandler(); }}
+              className={this.toggleButtonClass()}
+            >
+              {this.toggleButtonText()}
+            </div>
+          </div>
+          <input type="submit" name="commit" value="Login" />
+        </form>
+      </div>
     );
   }
 }
