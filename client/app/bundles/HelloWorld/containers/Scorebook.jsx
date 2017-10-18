@@ -10,6 +10,7 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import AppLegend from '../components/scorebook/app_legend.jsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
+import moment from 'moment';
 
 export default React.createClass({
   mixins: [TableFilterMixin],
@@ -40,7 +41,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.fetchData();
+    this.setStateFromLocalStorage(this.fetchData);
     this.getUpdatedUnits(this.props.selectedClassroom.value);
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
@@ -49,6 +50,13 @@ export default React.createClass({
     if (date) {
       return `${date.year()}-${date.month() + 1}-${date.date()}`;
     }
+  },
+
+  setStateFromLocalStorage(callback) {
+    this.setState({
+      beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate')),
+      endDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))
+    }, callback);
   },
 
   fetchData() {
@@ -133,12 +141,22 @@ export default React.createClass({
   },
 
   selectDates(val1, val2) {
+    window.localStorage.setItem('scorebookBeginDate', val1);
+    window.localStorage.setItem('scorebookEndDate', val2);
     this.setState({
       scores: new Map(),
       currentPage: 0,
       beginDate: val1,
       endDate: val2,
     }, this.fetchData);
+  },
+
+  convertStoredDateToMoment(savedString) {
+    if(savedString && savedString !== 'null') {
+      return moment(savedString)
+    } else {
+      return null;
+    }
   },
 
   render() {
@@ -178,6 +196,8 @@ export default React.createClass({
                 selectedUnit={this.state.selectedUnit}
                 unitFilters={this.state.unitFilters}
                 selectUnit={this.selectUnit} selectDates={this.selectDates}
+                beginDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))}
+                endDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))}
               />
               <ScoreLegend />
               <AppLegend />
