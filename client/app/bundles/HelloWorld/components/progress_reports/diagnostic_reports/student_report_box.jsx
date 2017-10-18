@@ -2,6 +2,7 @@ import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.jsx'
 import StudentReportHeader from './student_report_header.jsx'
+import stripHtml from '../../modules/strip_html'
 
 export default React.createClass({
 
@@ -37,7 +38,7 @@ export default React.createClass({
 	},
 
 	prompt: function(){
-		const prompt = this.props.questionData.prompt;
+		const prompt = this.props.questionData.prompt ? stripHtml(this.props.questionData.prompt) : '';
 		if (prompt) {
 			return (
 				<tr>
@@ -47,6 +48,10 @@ export default React.createClass({
 				</tr>
 			)
 		}
+	},
+
+	answer: function() {
+		return this.props.questionData.answer ? stripHtml(this.props.questionData.answer) : '';
 	},
 
 	render: function() {
@@ -65,7 +70,7 @@ export default React.createClass({
 										<tr className={ScoreColor(data.score)}>
 											<td>Submission</td>
 											<td></td>
-											<td>{data.answer}</td>
+											<td>{this.answer()}</td>
 										</tr>
 										{this.concepts()}
 	        				</tbody>

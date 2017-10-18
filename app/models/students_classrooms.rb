@@ -3,7 +3,7 @@ class StudentsClassrooms < ActiveRecord::Base
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
-  after_save :checkbox
+  after_save :checkbox, :run_associator
   after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}
@@ -12,7 +12,14 @@ class StudentsClassrooms < ActiveRecord::Base
     {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.teacher.name, id: self.id}
   end
 
+
   private
+
+  def run_associator
+    if self.student && self.classroom && self.visible
+      Associators::StudentsToClassrooms.run(self.student, self.classroom)
+    end
+  end
 
   def checkbox
     if self.classroom

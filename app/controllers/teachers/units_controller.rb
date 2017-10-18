@@ -13,7 +13,7 @@ class Teachers::UnitsController < ApplicationController
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first, params[:unit][:activities].map(&:to_h), params[:unit][:classrooms])
+      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms])
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms])
     end
@@ -45,7 +45,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_activities_assigned_students
-    activities_data = ClassroomActivity.where(unit_id: params[:id]).select('activity_id as id').distinct.as_json
+    activities_data = ClassroomActivity.where(unit_id: params[:id]).pluck(:activity_id).map{|id| {id: id}}
     if activities_data.any?
       classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
@@ -96,7 +96,7 @@ class Teachers::UnitsController < ApplicationController
       		AND classroom_activities.activity_id = #{activity_id}
       		AND classroom_activities.visible is TRUE").to_a
     if classroom_activities.length == 1
-      ca_id = classroom_activities.first.id
+      ca_id = classroom_activities.first["id"]
       lesson_uid = Activity.find(activity_id).uid
       redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
     else
@@ -105,11 +105,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def index
-    render json: units.to_json
+    render json: units(params['report']).to_json
   end
 
   def diagnostic_units
-    units_with_diagnostics = units.select { |a| a['activity_classification_id'] == '4' }
+    units_with_diagnostics = units(params['report']).select { |a| a['activity_classification_id'] == '4' }
     render json: units_with_diagnostics.to_json
   end
 
@@ -124,11 +124,12 @@ class Teachers::UnitsController < ApplicationController
        activities.activity_classification_id,
        ca.id AS classroom_activity_id,
        ca.unit_id AS unit_id,
-       array_length(ca.assigned_student_ids, 1), COUNT(DISTINCT sc.student_id) AS class_size,
+       array_length(ca.assigned_student_ids, 1),
+       COUNT(DISTINCT sc.student_id) AS class_size,
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
-       COUNT(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE NULL END) AS completed_count,
+       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) AS completed_count,
        EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
     FROM units
@@ -138,6 +139,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
+      AND sc.visible = true
       AND activities.activity_classification_id = 6
       AND classrooms.visible = true
       AND units.visible = true
@@ -187,7 +189,12 @@ class Teachers::UnitsController < ApplicationController
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
 
-  def units
+  def units(report)
+    if report
+      completed = "HAVING SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+    else
+      completed = ''
+    end
     ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
        activities.supporting_info AS supporting_info,
@@ -200,18 +207,23 @@ class Teachers::UnitsController < ApplicationController
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
+       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
        EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
     FROM units
       INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
       INNER JOIN activities ON ca.activity_id = activities.id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
+      LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
+      AND sc.visible = true
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
-      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid
+      #{completed}
+      ").to_a
   end
 
 end

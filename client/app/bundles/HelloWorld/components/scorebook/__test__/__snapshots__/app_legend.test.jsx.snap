@@ -2,7 +2,7 @@
 
 exports[`AppLegend component should render 1`] = `
 <div
-  className="icons-wrapper icon-legend"
+  className="icons-wrapper icon-legend app-legend"
 >
   <div
     className="icons"
@@ -11,7 +11,7 @@ exports[`AppLegend component should render 1`] = `
       className="icon"
     >
       <div
-        className="icon-wrapper icon-green icon-diagnostic"
+        className="icon-wrapper icon-diagnostic-embossed"
       />
       <div
         className="icons-description-wrapper"
@@ -27,7 +27,7 @@ exports[`AppLegend component should render 1`] = `
       className="icon"
     >
       <div
-        className="icon-wrapper icon-green icon-lessons"
+        className="icon-wrapper icon-lessons-embossed"
       />
       <div
         className="icons-description-wrapper"
@@ -43,7 +43,7 @@ exports[`AppLegend component should render 1`] = `
       className="icon"
     >
       <div
-        className="icon-wrapper icon-green icon-connect"
+        className="icon-wrapper icon-connect-embossed"
       />
       <div
         className="icons-description-wrapper"
@@ -59,7 +59,7 @@ exports[`AppLegend component should render 1`] = `
       className="icon"
     >
       <div
-        className="icon-wrapper icon-green icon-flag"
+        className="icon-wrapper icon-flag-embossed"
       />
       <div
         className="icons-description-wrapper"
@@ -75,7 +75,7 @@ exports[`AppLegend component should render 1`] = `
       className="icon"
     >
       <div
-        className="icon-wrapper icon-green icon-puzzle"
+        className="icon-wrapper icon-puzzle-embossed"
       />
       <div
         className="icons-description-wrapper"

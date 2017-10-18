@@ -12,16 +12,66 @@
 			.icon {
 				display: flex;
 				align-items: center;
+				.icons-description-wrapper {
+					p {
+						font-weight: 600;
+					}
+				}
+				.icon-wrapper {
+					position: relative;
+				}
 			}
 		}
+	}
+
+	.app-legend {
+		.title {
+			color: #717171;
+		}
+	}
+
+	.in-progress-symbol, .attempt-symbol {
+		vertical-align: middle;
+		position: absolute;
+		top: -8px;
+		right: -8px;
+	}
+
+	.attempt-count {
+		color: white;
+		position: absolute;
+		right: -1px;
+		font-weight: 800;
+		top: -6px;
+		font-size: 11px;
 	}
 
 	.dropdown-menu {
 		margin-left: 15px;
 	}
 
+	.overview-section {
+		margin: 0 auto;
+		max-width: 950px;
+	}
+
+	.student-header {
+		align-items: center;
+		display: flex;
+		margin-bottom: 26px;
+
+		a {
+			color: #3b3b3b;
+
+			&:hover {
+				color: #000;
+				text-decoration: none;
+			}
+		}
+	}
+
 	.student-name {
-		margin-bottom: 1em;
+		flex-grow: 1;
 	}
 
 	.date-range-filter {
