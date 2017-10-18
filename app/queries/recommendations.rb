@@ -346,4 +346,127 @@ class Recommendations
     ]
   end
 
+  def recs_for_602
+    [
+      {
+        recommendation: 'Compound Subjects, Objects, and Predicates',
+        activityPackId: 24,
+        requirements: [
+          {
+            concept_id: 'Jl4ByYtUfo4VhIKpMt23yA',
+            count: 1
+          },
+          {
+            concept_id: 'QNkNRs8zbCXU7nLBeo4mgA',
+            count: 1
+          }
+        ]
+      },
+
+      {
+        recommendation: 'Adjectives',
+        activityPackId: 23,
+        requirements: [
+          {
+            concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
+            count: 1
+          }
+        ]
+      },
+
+      {
+        recommendation: 'Adverbs of Manner',
+        activityPackId: 25,
+        requirements: [
+          {
+            concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
+            count: 1
+          }
+        ]
+      },
+
+      {
+        recommendation: 'Compound Sentences',
+        activityPackId: 22,
+        requirements: [
+          {
+            concept_id: 'GiUZ6KPkH958AT8S413nJg',
+            count: 2
+          },
+          {
+            concept_id: 'Qqn6Td-zR6NIAX43NOHoCg',
+            count: 1
+          },
+          {
+            concept_id: 'hJKqVOkQQQgfEsmzOWC1xw',
+            count: 1
+          },
+          {
+            concept_id: 'tSSLMHqX0q-9mKTJHSyung',
+            count: 1
+          }
+        ]
+      },
+
+      {
+        recommendation: 'Complex Sentences',
+        activityPackId: 21,
+        requirements: [
+          {
+            concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
+            count: 2
+          },
+          {
+            concept_id: 'Q8FfGSv4Z9L2r1CYOfvO9A',
+            count: 2
+          },
+          {
+            concept_id: 'S8b-N3ZrB50CWgxD5yg8yQ',
+            count: 1
+          },
+          {
+            concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
+            count: 1
+          }
+        ]
+      },
+
+      {
+        recommendation: 'Appositives and Modifying Phrases',
+        activityPackId: 27,
+        requirements: [
+          {
+            concept_id: 'InfGdB6Plr2M930kqsn63g',
+            count: 1
+          },
+          {
+            concept_id: 'GLjAExmqZShBTZ7DQGvVLw',
+            count: 1
+          }
+        ]
+      },
+      # these are mandatory
+      {
+        recommendation: 'Relative Clauses',
+        activityPackId: 49,
+        requirements: [
+          {
+            concept_id: 'mandatory',
+            count: 1
+          },
+        ]
+      },
+      # these are mandatory
+      {
+        recommendation: 'Prepositional Phrases',
+        activityPackId: 50,
+        requirements: [
+          {
+            concept_id: 'mandatory',
+            count: 1
+          },
+        ]
+      }
+    ]
+  end
 end
