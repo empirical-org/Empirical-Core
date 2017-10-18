@@ -73,6 +73,10 @@ class Teachers::ClassroomsController < ApplicationController
 
   def generate_login_pdf
     @classroom = Classroom.find(params[:id])
+    if @classroom.students.empty?
+      flash[:info] = 'You can print a sheet with student logins once you add students.'
+      return redirect_to :back
+    end
     respond_to do |format|
       format.pdf do
         pdf = LoginPdf.new(@classroom)
