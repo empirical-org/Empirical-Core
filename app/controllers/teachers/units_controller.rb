@@ -191,7 +191,7 @@ class Teachers::UnitsController < ApplicationController
 
   def units(report)
     if report
-      completed = "HAVING SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+      completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
     else
       completed = ''
     end
