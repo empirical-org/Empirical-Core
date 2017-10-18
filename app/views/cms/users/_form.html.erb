@@ -2,31 +2,31 @@
   <%= form_for [:cms, @user] do |f| %>
     <div class='cms-form-row'>
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :username %>
-      <%= f.text_field :username %>
+      <%= f.text_field :username, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :role %>
-      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']] %>
+      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']], autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :classcode %>
-      <%= f.text_field :classcode %>
+      <%= f.text_field :classcode, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: 'off' %>
     </div>
     <div class='cms-submit-row'>
       <%= f.submit 'Save', class: 'button-green' %>
