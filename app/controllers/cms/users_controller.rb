@@ -1,17 +1,22 @@
 class Cms::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :staff!
-  before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :show_json, :update, :destroy]
+  before_action :set_search_inputs, only: [:index, :search]
+
+  USERS_PER_PAGE = 10.0
 
   def index
-    @q = User.where(id: (1..100).to_a).includes([:school, :classrooms]).search(params[:q])
-    @users = @q.result(distinct: true).page(params[:page]).per(100)
+    @user_search_query = {}
+    @user_search_query_results = user_query(user_query_params)
+    @number_of_pages = 0
   end
 
   def search
-    @q = User.includes([:school, :classrooms]).search(params[:q])
-    @q.sorts = 'created_at desc' if @q.sorts.empty?
-    @users = @q.result(distinct: true).page(params[:page]).per(100)
+    @user_search_query = user_query_params
+    @user_search_query_results = user_query(user_query_params)
+    @user_search_query_results = @user_search_query_results ? @user_search_query_results : []
+    @number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
     render :index
   end
 
@@ -31,7 +36,8 @@ class Cms::UsersController < ApplicationController
     if @user.save
       redirect_to cms_users_path
     else
-      render :new
+      flash[:error] = 'Did not save.'
+      redirect_to :back
     end
   end
 
@@ -42,11 +48,56 @@ class Cms::UsersController < ApplicationController
   end
 
   def make_admin
-    User.find(params[:id]).update(role: 'admin')
+    admin = SchoolsAdmins.new
+    admin.school_id = params[:school_id]
+    admin.user_id = params[:user_id]
+    flash[:error] = 'Something went wrong.' unless admin.save
+    redirect_to :back
+  end
+
+  def remove_admin
+    admin = SchoolsAdmins.where(user_id: params[:user_id], school_id: params[:school_id]).first
+    flash[:error] = 'Something went wrong.' unless admin.destroy
     redirect_to :back
   end
 
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def edit_subscription
+    @user = User.includes(:subscription).find(params[:id])
+    @user_premium_types = Subscription.account_types
+
+    if @user.subscription
+      # If this user already has a subscription, we want the expiration date
+      # to reflect the expiration date of that subscription.
+      @expiration_date = @user.subscription.expiration
+      @account_type = @user.subscription.account_type
+    else
+      # If this user does not already have a subscription, we want the
+      # default expiration date to be one year from today.
+      @expiration_date = Date.today + 1.years
+      @account_type = nil
+    end
+  end
+
+  def update_subscription
+    user = User.find(subscription_params[:id])
+    subscription = user.subscription
+    unless subscription
+      subscription = Subscription.new
+      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
+      subscription.account_type = subscription_params[:premium_status]
+      subscription.account_limit = 1000 # This is a default value and should be deprecated.
+      success = (subscription.save && user.subscription = subscription)
+    else
+      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
+      subscription.account_type = subscription_params[:premium_status]
+      success = subscription.save
+    end
+    return redirect_to cms_user_path(subscription_params[:id]) if success
+    render :edit_subscription
   end
 
   def update
@@ -57,6 +108,7 @@ class Cms::UsersController < ApplicationController
       if @user.update_attributes(user_params)
         redirect_to cms_users_path, notice: 'User was successfully updated.'
       else
+        flash[:error] = 'Did not save.'
         render action: 'edit'
       end
     end
@@ -77,6 +129,118 @@ protected
   end
 
   def user_params
-    params.require(:user).permit!
+    params.require(:user).permit([:name, :email, :username,
+      :role, :classcode, :password, :password_confirmation] + default_params
+    )
+  end
+
+  def user_query_params
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_premium_status => []])
+  end
+
+  def user_query(params)
+    # This should return an array of hashes that look like this:
+    # [
+    #   {
+    #     name: 'first last',
+    #     email: 'example@example.com',
+    #     role: 'staff',
+    #     premium: 'N/A',
+    #     last_sign_in: 'Sep 19, 2017',
+    #     school: 'not listed',
+    #     school_id: 9,
+    #     id: 19,
+    #   }
+    # ]
+
+    # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
+    # ADJUST THE PAGINATION QUERY STRING AS WELL.
+    ActiveRecord::Base.connection.execute("
+      SELECT
+      	users.name AS name,
+      	users.email AS email,
+      	users.role AS role,
+      	subscriptions.account_type AS subscription,
+      	TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,
+        schools.name AS school,
+        schools.id AS school_id,
+      	users.id AS id
+      FROM users
+      LEFT JOIN schools_users ON users.id = schools_users.user_id
+      LEFT JOIN schools ON schools_users.school_id = schools.id
+      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
+      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
+      #{where_query_string_builder}
+      #{pagination_query_string}
+    ").to_a
+  end
+
+  def where_query_string_builder
+    conditions = ["users.role != 'temporary'"]
+    @all_search_inputs.each do |param|
+      param_value = user_query_params[param]
+      if param_value && !param_value.empty?
+        conditions << where_query_string_clause_for(param, param_value)
+      end
+    end
+    "WHERE #{conditions.reject(&:nil?).join(' AND ')}"
+  end
+
+  def where_query_string_clause_for(param, param_value)
+    # Potential params by which to search:
+    # User name: users.name
+    # User role: users.role
+    # User username: users.username
+    # User email: users.email
+    # User IP: users.ip_address
+    # School name: schools.name
+    # Premium status: subscriptions.account_type
+    case param
+    when 'user_name'
+      "users.name ILIKE '%#{(param_value)}%'"
+    when 'user_role'
+      "users.role = '#{(param_value)}'"
+    when 'user_username'
+      "users.username ILIKE '%#{(param_value)}%'"
+    when 'user_email'
+      "users.email ILIKE '%#{(param_value)}%'"
+    when 'user_ip'
+      "users.ip_address = '#{(param_value)}'"
+    when 'school_name'
+      "schools.name ILIKE '%#{(param_value)}%'"
+    when 'user_premium_status'
+      "subscriptions.account_type IN ('#{param_value.join('\',\'')}')"
+    else
+      nil
+    end
+  end
+
+  def pagination_query_string
+    page = [user_query_params[:page].to_i - 1, 0].max
+    "LIMIT #{USERS_PER_PAGE} OFFSET #{USERS_PER_PAGE * page}"
+  end
+
+  def number_of_users_matched
+    ActiveRecord::Base.connection.execute("
+      SELECT
+      	COUNT(users.id) AS count
+      FROM users
+      LEFT JOIN schools_users ON users.id = schools_users.user_id
+      LEFT JOIN schools ON schools_users.school_id = schools.id
+      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
+      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
+      #{where_query_string_builder}
+    ").to_a[0]['count'].to_i
+  end
+
+  def set_search_inputs
+    @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
+    @school_premium_types = Subscription.account_types
+    @user_role_types = User.select('DISTINCT role').map { |r| r.role }
+    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page']
+  end
+
+  def subscription_params
+    params.permit([:id, :premium_status, :expiration_date => [:day, :month, :year]] + default_params)
   end
 end

@@ -3,6 +3,7 @@ include AsyncHelper
 
 describe FastAssignWorker, type: :worker do
   include_context "Unit Assignments Variables"
+  let!(:unit) {FactoryGirl.create(:unit, name: unit_template1.name, user_id: teacher.id)}
 
   context 'creates a new unit' do
     it "can create new units and classroom activities" do
@@ -14,7 +15,6 @@ describe FastAssignWorker, type: :worker do
 
   context 'updates an existing unit' do
     it "does not duplicate the existing unit" do
-      Unit.create(name: unit_template1.name, user_id: teacher.id)
       units_with_a_specific_name = Unit.where(name: unit_template1.name).count
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)
       expect(Unit.where(name: unit_template1.name).count).to eq(units_with_a_specific_name)
@@ -22,7 +22,6 @@ describe FastAssignWorker, type: :worker do
 
     it "and adds new classroom activities to the existing unit" do
       # TODO: something is wrong with the associations
-      unit = Unit.create(name: unit_template1.name, user_id: teacher.id)
       original_units_cas = ClassroomActivity.where(unit_id: unit.id).count
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)
       new_units_cas = ClassroomActivity.where(unit_id: unit.id).count
@@ -30,10 +29,9 @@ describe FastAssignWorker, type: :worker do
     end
 
     it "that assigns the new activities to all students" do
-      unit = Unit.create(name: unit_template1.name, user_id: teacher.id)
       original_classroom_activity = ClassroomActivity.create!(unit_id: unit.id, activity_id: unit_template1.activities.first.id, classroom_id: classroom.id, assigned_student_ids: [student.id])
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)
-      expect(unit.classroom_activities.find(original_classroom_activity.id).assigned_student_ids.length).to eq(0)
+      expect(unit.classroom_activities.find(original_classroom_activity.id).assign_on_join).to eq(true)
     end
   end
 

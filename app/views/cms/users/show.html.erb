@@ -1,0 +1,84 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <%= link_to 'User Directory', cms_users_path %> > <%= @user.name %>
+    <br /><br />
+    <h2><%= @user.name %></h2>
+    <br />
+    <%= link_to 'Edit User', edit_cms_user_path(params[:id]), class: 'btn button-green' %>
+    <%= link_to 'Edit Subscription', edit_subscription_cms_user_path(params[:id]), class: 'btn button-green' %>
+    <br /><br />
+
+    <p style='font-weight: 700;'>Email</p>
+    <p><%= @user.email || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Signed up with Google?</p>
+    <p><%= @user.signed_up_with_google || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Clever Id (if exists)</p>
+    <p><%= @user.clever_id || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Token (if exists)</p>
+    <p><%= @user.token || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Username</p>
+    <p><%= @user.username || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Role</p>
+    <p><%= @user.role || 'N/A' %></p>
+    <br />
+
+    <% if @user.role == 'student' %>
+      <p style='font-weight: 700;'>Belongs to Classes</p>
+      <% @user.classrooms.each do |c| %>
+        <p><%= "#{c.name} - #{c.teacher.name}" %></p>
+      <% end %>
+      <br />
+    <% end %>
+
+    <p style='font-weight: 700;'>Classcode</p>
+    <p><%= @user.classcode || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>School</p>
+    <p><%= @user.school_name || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>School Location</p>
+    <p><%= "#{@user.school_mail_city || @user.school&.city || 'N/A' }, #{@user.school_mail_state || @user.school&.state || 'N/A' }" %></p>
+    <br />
+
+    <% if @user.role == 'teacher' %>
+      <p style='font-weight: 700;'>Premium Status</p>
+      <p><%= @user.subscription.try(:account_type) || 'N/A' %></p>
+      <br />
+
+      <p style='font-weight: 700;'>Premium Expires</p>
+      <p><%= @user.subscription.try(:expiration) || 'N/A' %></p>
+      <br />
+
+      <p style='font-weight: 700;'>Classes / Grades</p>
+      <% @user.classrooms_i_teach.each do |c| %>
+        <p><%= "#{c.name} - #{c.grade}" %></p>
+      <% end %>
+      <br />
+    <% end %>
+
+    <p style='font-weight: 700;'>IP Address</p>
+    <p><%= @user.ip_address || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Created</p>
+    <p><%= @user.created_at || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Last Sign In</p>
+    <p><%= @user.updated_at || 'N/A' %></p>
+    <br />
+
+  </article>
+</div>

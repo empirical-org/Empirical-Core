@@ -46,7 +46,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         ORDER BY activity_sessions.updated_at DESC
         LIMIT 1;").to_a
       if !classroom_hash[0]
-        return render status: 404
+        return render json: {}, status: 404
       end
       classroom_id = classroom_hash[0]['classroom_id']
       return render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
@@ -95,18 +95,19 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
         else
           teacher_id = current_user.id
-          selections_with_students = params["selections"].select do |ut|
-            ut["classrooms"][0]["student_ids"].any?
+          selections_with_students = params[:selections].select do |ut|
+            ut[:classrooms][0][:student_ids]&.compact&.any?
           end
           if selections_with_students.any?
             number_of_selections = selections_with_students.length
             selections_with_students.reverse.each_with_index do |value, index|
                 last = (number_of_selections - 1) == index
                 # this only accommodates one classroom at a time
-                classroom = value["classrooms"][0]
-                AssignRecommendationsWorker.perform_async(value["id"], classroom["id"], classroom["student_ids"].compact, last, false)
+                classroom = value[:classrooms][0]
+                AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids].compact, last, false)
             end
           end
         end
     end
+
 end
