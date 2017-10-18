@@ -6,10 +6,12 @@ import ClassOverview from '../class_overview';
 
 import NewTools from '../new_tools_mini';
 import OverviewMini from '../overview_mini';
-import BetaMini from '../beta_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';
 import PremiumMini from '../premium_mini';
+import QuillLessonsAnnouncement from '../quill_lessons_announcement_mini.jsx';
+import LessonsList from '../lessons_list.jsx';
+import DiagnosticMini from '../diagnostic_mini.jsx'
 
 describe('ClassOverview component', () => {
   describe('overview minis', () => {
@@ -25,11 +27,6 @@ describe('ClassOverview component', () => {
       expect(wrapper.find(OverviewMini).length).toBe(2);
       expect(wrapper.find(OverviewMini).at(0).props().overviewObj.header).toBe('arbitrary-data');
       expect(wrapper.find(OverviewMini).at(1).props().overviewObj.header).toBe('different-arbitrary-data');
-    });
-
-    it('should render BetaMini if flag is beta', () => {
-      const wrapper = shallow(<ClassOverview flag='beta' />);
-      expect(wrapper.find(BetaMini).exists()).toBe(true);
     });
 
     it('should render TeacherGuide only if displayTeacherGuide is true in state', () => {
@@ -49,4 +46,34 @@ describe('ClassOverview component', () => {
     );
     expect(wrapper.find(PremiumPromo).exists()).toBe(true);
   });
+
+  describe('QuillLessonsAnnouncement', () => {
+    it('should render QuillLessonsAnnouncement', () => {
+      const wrapper = shallow(
+        <ClassOverview/>
+      );
+      expect(wrapper.find(QuillLessonsAnnouncement).exists()).toBe(true);
+    });
+  })
+
+  describe('LessonsList', () => {
+    it('should render LessonsList', () => {
+      const wrapper = shallow(
+        <ClassOverview/>
+      );
+      expect(wrapper.find(LessonsList).exists()).toBe(true);
+    });
+  })
+
+  describe('DiagnosticMini', () => {
+    it('should render DiagnosticMini', () => {
+      const wrapper = shallow(
+        <ClassOverview/>
+      );
+      expect(wrapper.find(DiagnosticMini).exists()).toBe(true);
+    });
+  })
+
+
+
 });

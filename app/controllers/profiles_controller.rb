@@ -88,7 +88,7 @@ protected
   def student_profile_data_sql(classroom_id=nil)
     @current_classroom = current_classroom(classroom_id)
     @act_sesh_records = ActiveRecord::Base.connection.execute(
-    "SELECT unit.name,
+      "SELECT unit.name,
        activity.name,
        activity.description,
        activity.repeatable,
@@ -106,20 +106,18 @@ protected
        ca.pinned,
        MAX(acts.percentage) AS max_percentage,
        SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
-    FROM activity_sessions AS acts
-    JOIN classroom_activities AS ca ON ca.id = acts.classroom_activity_id
+    FROM classroom_activities AS ca
+    LEFT JOIN activity_sessions AS acts ON ca.id = acts.classroom_activity_id AND acts.visible = true AND acts.user_id = #{current_user.id}
     JOIN units AS unit ON unit.id = ca.unit_id
     JOIN activities AS activity ON activity.id = ca.activity_id
-    WHERE acts.user_id = #{current_user.id}
+    WHERE #{current_user.id} = ANY (ca.assigned_student_ids::int[])
     AND ca.classroom_id = #{@current_classroom.id}
-    AND acts.visible = true
     AND ca.visible = true
     AND unit.visible = true
     GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
             unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
             activity.activity_classification_id, activity.repeatable
-    ORDER BY pinned DESC, locked ASC, max_percentage DESC, unit.created_at ASC, ca.created_at ASC
-            ").to_a
+    ORDER BY pinned DESC, locked ASC, max_percentage DESC, unit.created_at ASC, ca.created_at ASC").to_a
   end
 
   def next_activity_session

@@ -23,10 +23,13 @@
   .loading {
     font-size: 13px;
     color: #969696;
-    min-height: 80px;
+    padding-bottom: 10px;
   }
   .concept-results, .loading {
     margin-top: 10px;
-    border-top: solid 1px #c0c0c0;
+  }
+  .activity-overview {
+    padding-bottom: 10px;
+    border-bottom: solid 1px #c0c0c0;
   }
 }

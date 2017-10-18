@@ -304,7 +304,6 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :users do
       resource :subscription
-
       collection do
         post :search
         get :search, to: 'users#index'
@@ -314,11 +313,11 @@ EmpiricalGrammar::Application.routes.draw do
         put :sign_in
         put :clear_data
         get :sign_in
-        put :make_admin
-        put :remove_admin
         get :edit_subscription
         post :update_subscription
       end
+      put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
+      put 'remove_admin/:school_id', to: 'users#remove_admin', as: :remove_admin
     end
 
     resources :schools do
@@ -357,10 +356,12 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
   get 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#index'
   get 'teacher_fix/recover_classroom_activities' => 'teacher_fix#index'
+  get 'teacher_fix/recover_activity_sessions' => 'teacher_fix#index'
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
+  post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
   post 'teacher_fix/unarchive_units' => 'teacher_fix#unarchive_units'
   post 'teacher_fix/merge_student_accounts' => 'teacher_fix#merge_student_accounts'
   post 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#merge_teacher_accounts'
