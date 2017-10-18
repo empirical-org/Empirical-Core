@@ -47,7 +47,9 @@ export default React.createClass({
         numberOfMonths={1}
         isOutsideRange={day => {return false}}
         renderCalendarInfo={this.renderFilterOptions}
-        daySize={40}
+        daySize={30}
+        navPrev={'‹'}
+        navNext={'›'}
       />
     );
   }
