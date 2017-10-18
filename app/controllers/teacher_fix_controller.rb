@@ -56,8 +56,26 @@ class TeacherFixController < ApplicationController
     end
   end
 
-  def merge_student_accounts
+  def recover_activity_sessions
+    user = User.find_by_email(params['email'])
+    if user && user.role == 'teacher'
+      unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
+      if unit
+        ClassroomActivity.unscoped.where(unit_id: unit.id).each do |ca|
+          activity_sessions = ActivitySession.unscoped.where(classroom_activity_id: ca.id)
+          ca.update(visible: true, assigned_student_ids: activity_sessions.map(&:user_id))
+          activity_sessions.update_all(visible: true)
+        end
+        render json: {}, status: 200
+      else
+        render json: {error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}"}
+      end
+    else
+      render json: {error: "Cannot find a teacher with the email #{params['email']}."}
+    end
+  end
 
+  def merge_student_accounts
     account1 = User.find_by_username_or_email(params['account_1_identifier'])
     account2 = User.find_by_username_or_email(params['account_2_identifier'])
     if account1 && account2

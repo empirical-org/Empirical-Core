@@ -6,11 +6,9 @@
 
   miniBuilder: function() {
     return (
-      <div className='resources-container'>
+      <div className='resources-container' onClick={() => window.location = '/teacher_resources'}>
         <h4>Teacher Resources</h4>
-        <a href='/teacher_resources'>
           <img src='/teacher_resources_icons.png'></img>
-        </a>
         <p>Introduce fellow educators to Quill with presentations, guides, and videos.</p>
       </div>
     );

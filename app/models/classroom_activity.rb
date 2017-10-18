@@ -20,17 +20,20 @@ class ClassroomActivity < ActiveRecord::Base
   before_validation :check_pinned
   before_save :update_students_array_if_assign_on_join
   after_create :lock_if_lesson
-  after_save :teacher_checkbox, :assign_to_students, :hide_appropriate_activity_sessions, :update_lessons_cache
+  after_save :teacher_checkbox, :hide_appropriate_activity_sessions, :update_lessons_cache
 
   def assigned_students
     User.where(id: assigned_student_ids)
   end
 
   def update_students_array_if_assign_on_join
-    old_version = ClassroomActivity.find_by_id(self.id)
-    if self.assign_on_join && (!old_version || !old_version.assign_on_join)
+    if self.assign_on_join
       self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
     end
+    # old_version = ClassroomActivity.find_by_id(self.id)
+    # if self.assign_on_join && (!old_version || !old_version.assign_on_join)
+    #   self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
+    # end
   end
 
   def assign_follow_up_lesson(locked=true)
@@ -65,6 +68,15 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def find_or_create_started_activity_session(student_id)
+    started_activity = ActivitySession.find_by(state: 'started', classroom_activity_id: self.id, user_id: student_id)
+    if started_activity
+      started_activity
+    else
+      ActivitySession.create(classroom_activity_id: self.id, user_id: student_id, activity_id: self.activity_id, state: 'started', started_at: Time.now)
+    end
+  end
+
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
@@ -77,40 +89,9 @@ class ClassroomActivity < ActiveRecord::Base
     ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1, completed_at: Time.current)
   end
 
-  def session_for user
-    ass = ActivitySession.unscoped.where(classroom_activity: self, user: user, activity: activity).includes(:activity).order(created_at: :asc)
-    if ass.any?
-      if ass.any? { |as| as.is_final_score }
-        keeper = ass.find { |as| as.is_final_score}
-      # the next two cases should not be necessary to handle
-      # since the highest score should always have .is_final_score
-      # and only one should be started at a time,
-      # but due to some data confusion we're going to leave it in for now
-      elsif ass.any? { |as| as.state == 'finished' }
-        keeper = ass.find_all { |as| as.state == 'finished' }.sort_by { |as| as.percentage }.first
-      elsif ass.any? { |as| as.state == 'started' }
-        keeper = ass.find_all { |as| as.state == 'started' }.sort_by { |as| as.updated_at }.last
-      else
-        keeper = ass.sort_by { |as| as.updated_at }.last
-      end
-      keeper.update(visible: true)
-      return keeper
-    else
-      activity_sessions.create(user: user, activity: activity)
-    end
-  end
-
   def activity_session_metadata
     act_seshes = activity_sessions.where(is_final_score: true).includes(concept_results: :concept)
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
-  end
-
-  def students
-    if assigned_student_ids && assigned_student_ids.any?
-      User.where(id: assigned_student_ids)
-    elsif classroom
-      classroom.students
-    end
   end
 
   def teacher_and_classroom_name
@@ -161,14 +142,6 @@ class ClassroomActivity < ActiveRecord::Base
     end
 
     @score_book
-  end
-
-  def assign_to_students
-    # sometimes a student can be one student object rather than an array
-    assignees = [students].flatten
-    assignees.each do |student|
-      session_for(student)
-    end
   end
 
   def teacher_checkbox
@@ -295,6 +268,12 @@ class ClassroomActivity < ActiveRecord::Base
       begin
         raise 'This classroom activity is a duplicate'
       rescue => e
+        NewRelic::Agent.add_custom_attributes({
+          classroom_id: self.classroom_id,
+          activity_id: self.activity_id,
+          unit_id: self.unit_id,
+          visible: self.visible
+        })
         NewRelic::Agent.notice_error(e)
         errors.add(:duplicate_classroom_activity, "this classroom activity is a duplicate")
       end

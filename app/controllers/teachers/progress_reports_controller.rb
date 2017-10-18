@@ -5,21 +5,31 @@ class Teachers::ProgressReportsController < ApplicationController
   layout 'progress_reports'
 
   def demo
-    if params[:name]
-      @user = User.find_by_email "hello+#{params[:name]}@quill.org"
-      if @user.nil?
+    begin
+      if params[:name] && params[:name] != ""
+        @user = User.find_by_email "hello+#{params[:name]}@quill.org"
+        if @user.nil?
+          raise NoMethodError
+        end
+      else
         @user = User.find_by_email 'hello+demoteacher@quill.org'
       end
-    else
-      @user = User.find_by_email 'hello+demoteacher@quill.org'
-    end
-    sign_in @user
-    if params[:name] == 'demoaccount'
-      redirect_to teachers_progress_reports_concepts_students_path
-    elsif params[:name] == 'admin_demo'
-      redirect_to profile_path
-    else
-      redirect_to scorebook_teachers_classrooms_path
+      sign_in @user
+      if params[:name] == 'demoaccount'
+        redirect_to teachers_progress_reports_concepts_students_path
+      elsif params[:name] == 'admin_demo'
+        redirect_to profile_path
+      else
+        redirect_to scorebook_teachers_classrooms_path
+      end
+    rescue NoMethodError
+      Demo::ReportDemoDestroyer.destroy_demo(params[:name])
+      Demo::ReportDemoCreator.create_demo(params[:name])
+      if params[:name] && params[:name] != ""
+        redirect_to "/demo?name=#{params[:name]}"
+      else
+        redirect_to "/demo"
+      end
     end
   end
 
