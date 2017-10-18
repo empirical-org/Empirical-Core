@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ResumeOrBeginButton from '../shared/resumeOrBeginButton.jsx'
+import ResumeOrBeginButton from '../shared/resumeOrBeginButton.jsx';
 
 export default React.createClass({
 
@@ -30,7 +30,7 @@ export default React.createClass({
       <div className="landing-page">
         <h1>You're working on the Quill Placement Activity </h1>
         <p>
-          You're about to answer 22 questions about writing sentences.
+          You're about to answer {this.props.questionCount || '22'} questions about writing sentences.
           Don't worry, it's not a test. It's just to figure out what you know.
         </p>
         <p className="second-p">

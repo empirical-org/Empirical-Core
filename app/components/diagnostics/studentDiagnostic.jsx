@@ -200,11 +200,18 @@ const StudentDiagnostic = React.createClass({
 
   getData() {
     const { diagnosticID, } = this.props.params;
-    console.log(diagnosticID, this.props.params);
     if (diagnosticID == 'researchDiagnostic') {
       return researchDiagnosticQuestions();
     }
     return diagnosticQuestions();
+  },
+
+  getQuestionCount() {
+    const { diagnosticID, } = this.props.params;
+    if (diagnosticID == 'researchDiagnostic') {
+      return '15';
+    }
+    return '22';
   },
 
   markIdentify(bool) {
@@ -285,7 +292,7 @@ const StudentDiagnostic = React.createClass({
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
         component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
       } else {
-        component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} />;
+        component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} questionCount={this.getQuestionCount()} />;
       }
     } else {
       component = (<SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />);
