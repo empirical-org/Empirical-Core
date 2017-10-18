@@ -268,6 +268,12 @@ class ClassroomActivity < ActiveRecord::Base
       begin
         raise 'This classroom activity is a duplicate'
       rescue => e
+        NewRelic::Agent.add_custom_attributes({
+          classroom_id: self.classroom_id,
+          activity_id: self.activity_id,
+          unit_id: self.unit_id,
+          visible: self.visible
+        })
         NewRelic::Agent.notice_error(e)
         errors.add(:duplicate_classroom_activity, "this classroom activity is a duplicate")
       end
