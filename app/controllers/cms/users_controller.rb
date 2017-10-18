@@ -101,16 +101,11 @@ class Cms::UsersController < ApplicationController
   end
 
   def update
-    if @user.teacher?
-      response = @user.update_teacher params
-      render json: response
+    if @user.update_attributes(user_params)
+      redirect_to cms_users_path, notice: 'User was successfully updated.'
     else
-      if @user.update_attributes(user_params)
-        redirect_to cms_users_path, notice: 'User was successfully updated.'
-      else
-        flash[:error] = 'Did not save.'
-        render action: 'edit'
-      end
+      flash[:error] = 'Did not save.'
+      render action: 'edit'
     end
   end
 
@@ -129,8 +124,9 @@ protected
   end
 
   def user_params
-    params.require(:user).permit([:name, :email, :username,
-      :role, :classcode, :password, :password_confirmation] + default_params
+    params[:user][:flag] = nil unless ['alpha', 'beta'].include? params[:user][:flag]
+    params.require(:user).permit([:name, :email, :username, :role,
+      :flag, :classcode, :password, :password_confirmation] + default_params
     )
   end
 
