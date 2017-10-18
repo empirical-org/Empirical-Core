@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import ActivityDetails from '../activity_details';
 
 describe('ActivityDetails component', () => {
-  const baseData = { activity_classification_id: '4', caId: '12345', name: 'Sentence Structure Diagnostic', percentage: '1', updated: '2016-09-30 00:05:50.361093', userId: '666', };
+  const baseData = { activity_classification_id: '4', caId: '12345', name: 'Sentence Structure Diagnostic', percentage: '1', updated: '2016-09-30 00:05:50.361093', userId: '666', scores: [{percentage: '1', completed_at: '2016-09-30 00:05:50.361093'}]};
 
   it('should render div with appropriate class name depending on presence of concept results', () => {
     const wrapperNoConcepts = shallow(<ActivityDetails data={baseData} />);
@@ -38,13 +38,13 @@ describe('ActivityDetails component', () => {
       />
     );
     expect(wrapperWithCompletedAt.text()).toMatch('Completed:');
-    expect(wrapperWithCompletedAt.text()).toMatch('March 31, 2017');
+    expect(wrapperWithCompletedAt.text()).toMatch('September 30, 2016');
   });
 
   it('should render due date text if due', () => {
     const wrapper = shallow(
       <ActivityDetails
-        data={Object.assign({}, baseData, { concept_results: [{ metadata: null, description: 'Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.', name: null, completed_at: null, due_date: '2016-11-04 00:00:00', }], })}
+        data={Object.assign({}, baseData, {scores: [], concept_results: [{ metadata: null, description: 'Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.', name: null, completed_at: null, due_date: '2016-11-04 00:00:00', }], })}
       />
     );
     expect(wrapper.text()).toMatch('Due:');
