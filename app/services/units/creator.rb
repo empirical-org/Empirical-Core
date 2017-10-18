@@ -34,7 +34,7 @@ module Units::Creator
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms.each do |classroom|
-      product = activities_data.product([classroom[:id].to_i])
+      product = activities_data.product([classroom[:id].to_i]).uniq
       product.each do |pair|
         activity_data, classroom_id = pair
         unit.classroom_activities.create!(activity_id: activity_data[:id],
