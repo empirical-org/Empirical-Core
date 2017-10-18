@@ -52,7 +52,7 @@ class LoginFormApp extends Component {
       if (httpResponse.statusCode === 200 && body.redirect) {
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
-        this.setState({ message: (body.message || 'You have entered an incorrect email/username or password.'), });
+        this.setState({ lastUpdate: new Date(), message: (body.message || 'You have entered an incorrect email/username or password.'), });
       }
     });
     e.preventDefault();
@@ -61,7 +61,7 @@ class LoginFormApp extends Component {
   render() {
     return (
       <div>
-        <div className="error">
+        <div key={this.state.lastUpdate} className={`error ${this.state.message ? 'shake' : null}`}>
           {this.state.message}
         </div>
         <form id="new_user" className="new_user" onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
