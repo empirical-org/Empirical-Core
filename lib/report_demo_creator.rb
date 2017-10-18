@@ -11,6 +11,11 @@ module ReportDemoCreator
   end
 
   def self.create_teacher(name)
+    # Note to maintainers: if you modify the email address structure here,
+    # please also modify app/views/application/_head_embed_codes.html.erb.
+    # We are using a regex looking for this email structure in order to
+    # determine whether or not to display Intercom. (We don't want to
+    # display it to demo users.)
     email = name ? "hello+#{name}@quill.org" : "hello+demoteacher@quill.org"
     values = {
       name: "Demo Teacher",
