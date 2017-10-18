@@ -150,7 +150,7 @@ class Cms::SchoolsController < ApplicationController
         schools.free_lunches || '%' AS frl,
         COUNT(schools_users.*) AS number_teachers,
         subscriptions.account_type AS premium_status,
-        COUNT(schools_admins.*) AS number_admins,
+        COUNT(DISTINCT schools_admins.*) AS number_admins,
         schools.id AS id
       FROM schools
       LEFT JOIN schools_users ON schools_users.school_id = schools.id
