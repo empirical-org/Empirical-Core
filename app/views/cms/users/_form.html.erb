@@ -17,6 +17,10 @@
       <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']] %>
     </div>
     <div class='cms-form-row'>
+      <%= f.label :flag %>
+      <%= f.select :flag, [['beta', 'beta'], ['alpha', 'alpha']], autocomplete: 'off', include_blank: true %>
+    </div>
+    <div class='cms-form-row'>
       <%= f.label :classcode %>
       <%= f.text_field :classcode %>
     </div>
