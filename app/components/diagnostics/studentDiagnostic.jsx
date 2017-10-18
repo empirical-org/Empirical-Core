@@ -6,6 +6,7 @@ import _ from 'underscore';
 import { loadResponseData, loadMultipleResponses } from '../../actions/responses';
 import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.js';
+import researchDiagnosticQuestions from './researchDiagnosticQuestions.js';
 import SessionActions from '../../actions/sessions.js';
 import Spinner from '../shared/spinner.jsx';
 import SmartSpinner from '../shared/smartSpinner.jsx';
@@ -17,6 +18,7 @@ import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
+
 const request = require('request');
 
 const StudentDiagnostic = React.createClass({
@@ -31,7 +33,6 @@ const StudentDiagnostic = React.createClass({
 
   componentWillMount() {
     this.props.dispatch(clearData());
-    // this.getResponsesForEachQuestion();
     if (this.state.sessionID) {
       SessionActions.get(this.state.sessionID, (data) => {
         this.setState({ session: data, });
@@ -76,20 +77,6 @@ const StudentDiagnostic = React.createClass({
   hasQuestionsInQuestionSet(props) {
     const pL = props.playDiagnostic;
     return (pL && pL.questionSet && pL.questionSet.length);
-  },
-
-  getResponsesForEachQuestion() {
-    const questionIDs = diagnosticQuestions().map(q => q.key);
-    this.props.dispatch(loadMultipleResponses(questionIDs, () => {
-      this.setState({ responsesReady: true, });
-    }));
-    // we need to change the gettingResponses state so that we don't keep hitting this as the props update,
-    // otherwise it forms an infinite loop via component will receive props
-    // this.setState({ hasOrIsGettingResponses: true, }, () => {
-    //   _.each(diagnosticQuestions(), (q) => {
-    //     this.props.dispatch(loadResponseData(q.key));
-    //   });
-    // });
   },
 
   saveToLMS() {
@@ -212,6 +199,11 @@ const StudentDiagnostic = React.createClass({
   },
 
   getData() {
+    const { diagnosticID, } = this.props.params;
+    console.log(diagnosticID, this.props.params);
+    if (diagnosticID == 'researchDiagnostic') {
+      return researchDiagnosticQuestions();
+    }
     return diagnosticQuestions();
   },
 
