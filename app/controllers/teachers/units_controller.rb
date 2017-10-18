@@ -109,7 +109,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    units_with_diagnostics = units.select { |a| a['activity_classification_id'] == '4' }
+    units_with_diagnostics = units(params['report']).select { |a| a['activity_classification_id'] == '4' }
     render json: units_with_diagnostics.to_json
   end
 
@@ -191,7 +191,7 @@ class Teachers::UnitsController < ApplicationController
 
   def units(report)
     if report
-      completed = "HAVING SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+      completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
     else
       completed = ''
     end

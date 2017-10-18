@@ -27,10 +27,13 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def update_students_array_if_assign_on_join
-    old_version = ClassroomActivity.find_by_id(self.id)
-    if self.assign_on_join && (!old_version || !old_version.assign_on_join)
+    if self.assign_on_join
       self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
     end
+    # old_version = ClassroomActivity.find_by_id(self.id)
+    # if self.assign_on_join && (!old_version || !old_version.assign_on_join)
+    #   self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
+    # end
   end
 
   def assign_follow_up_lesson(locked=true)
@@ -265,6 +268,12 @@ class ClassroomActivity < ActiveRecord::Base
       begin
         raise 'This classroom activity is a duplicate'
       rescue => e
+        NewRelic::Agent.add_custom_attributes({
+          classroom_id: self.classroom_id,
+          activity_id: self.activity_id,
+          unit_id: self.unit_id,
+          visible: self.visible
+        })
         NewRelic::Agent.notice_error(e)
         errors.add(:duplicate_classroom_activity, "this classroom activity is a duplicate")
       end
