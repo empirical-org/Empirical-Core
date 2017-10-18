@@ -7,13 +7,13 @@ class LoginFormApp extends Component {
 
     this.state = {
       showPass: false,
-      authToken: ReactOnRails.authenticityToken()
-    }
+      authToken: ReactOnRails.authenticityToken(),
+    };
   }
 
   clickHandler() {
     this.setState(prevState => ({
-      showPass: !prevState.showPass
+      showPass: !prevState.showPass,
     }));
   }
 
@@ -31,29 +31,32 @@ class LoginFormApp extends Component {
 
   render() {
     return (
-        <form id='new_user' className='new_user' action='/session' acceptCharset="UTF-8" method="post">
-          <input name="utf8" type="hidden" value="✓"/>
-          <input value={this.state.authToken} type='hidden' name='authenticity_token'/>
-          <label>Email or username</label>
+      <form className="sign-up-form" action="/session" acceptCharset="UTF-8" method="post">
+        <input name="utf8" type="hidden" value="✓" />
+        <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+        <label>Email or username</label>
+        <input
+          placeholder="Email or Username"
+          name="user[email]"
+          type="text"
+        />
+        <label>Password</label>
+        <div className="login-password">
           <input
-            placeholder="Email or Username"
-            name="user[email]"
-            type='text'/>
-          <label>Password</label>
-          <div className='login-password'>
-            <input
-              placeholder="Password"
-              className='password-input'
-              name="user[password]"
-              type={this.togglePass()}/>
-            <div
-              onClick={() => {this.clickHandler()}}
-              className={this.toggleButtonClass()}>
-                {this.toggleButtonText()}
-            </div>
+            placeholder="Password"
+            className="password-input"
+            name="user[password]"
+            type={this.togglePass()}
+          />
+          <div
+            onClick={() => { this.clickHandler(); }}
+            className={this.toggleButtonClass()}
+          >
+            {this.toggleButtonText()}
           </div>
-          <input type='submit' name="commit" value='Login'/>
-        </form>
+        </div>
+        <input type="submit" name="commit" value="Login" />
+      </form>
     );
   }
 }

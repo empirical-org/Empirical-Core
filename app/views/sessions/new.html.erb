@@ -19,21 +19,28 @@
       <div class='need-a-border'></div>
       <br/>
       <div class="login-form">
-        <% if flash[:error] %>
-          <div class="error"><%= flash[:error] %></div>
-        <% end %>
-        <!-- replace below with react component -->
         <%= react_component('LoginFormApp') %>
-
-        <!--<%= form_for @user, url: session_path(redirect: params[:redirect]) do |f| %>
-          <%= f.label :email_or_username, placeholder: 'Email or Username' %>
-          <%= f.text_field :email, placeholder: 'Email or Username' %>
-          <%= f.label :password %>
-          <%= f.password_field :password, placeholder: 'Password', class: 'Password' %>
-          <%= f.submit 'Login', class: 'login-button' %>
-        <% end %> -->
-        <!-- stop replacing things with react! -->
-        <%= link_to 'Forgot your password?', password_reset_index_path, class: 'newline' %>
+        <div class='password-and-signup'>
+          <a href="/password_reset">Forgot your password?</a>
+          <a href="/session/new">New to Quill? Sign up here</a>
+        </div>
+        <div class='password-hint'>
+          <h3>Password not working? Don’t worry! Here is a hint:</h3>
+          <p>
+            If your teacher created your account, your username is your first and last name combined with your classcode. For example:
+            <pre>
+              John.Smith@magic-apple
+            </pre>
+          </p>
+          <p>
+            Your password is your last name with the first letter capitalized.
+            <br>
+            For example:
+            <pre>
+              John.Smith@magic-apple
+            </pre>
+          </p>
+        </div>
       </div>
     </div>
   </div>
