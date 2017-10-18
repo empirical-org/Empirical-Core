@@ -71,11 +71,12 @@ class CurrentSlide extends React.Component<any, any> {
     this.openStudentView = this.openStudentView.bind(this)
     this.finishLesson = this.finishLesson.bind(this)
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
+    this.timeOut = this.timeOut.bind(this)
   }
 
   componentDidMount() {
     // setTimeout(() => this.setState({showTimeoutModal: true}), 43200000)
-        setTimeout(() => this.setState({showTimeoutModal: true}), 5000)
+        setTimeout(() => this.timeout(), 5000)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -229,6 +230,12 @@ class CurrentSlide extends React.Component<any, any> {
     }).catch((error) => {
       console.log('error', error)
     })
+  }
+
+  timeOut() {
+    if (!this.props.classroomSessions.data.preview) {
+      this.setState({showTimeoutModal: true})
+    }
   }
 
   renderPreviewModal() {
