@@ -107,10 +107,11 @@
 $accentcolor: #00a699;
 $quillbluebgreen: #00c2a2;
 $backgroundgray: #fafafa;
+$chevroncolor: #027360;
 
 // This style is for the list of options beneath the calendar.
 .calendar-prefill-options {
-	margin-top: 15px;
+	margin-top: 5px;
 	order: -1;
 	padding: 0 20px;
 	text-align: center;
@@ -120,10 +121,10 @@ $backgroundgray: #fafafa;
 		border: 1px solid $quillbluebgreen;
 		color: $quillbluebgreen;
 		display: inline-block;
-		font-size: 12px;
+		font-size: 11px;
 		font-weight: 600;
-		margin: 4px;
-		padding: 4px 12px;
+		margin: 2px;
+		padding: 2px 6px;
 		transition: all 0.3s ease;
 
 		&:hover {
@@ -151,6 +152,7 @@ $backgroundgray: #fafafa;
   padding: 0 !important; // Added '!important' to override a super widely scoped style elsewhere in our app.
   color: inherit;
   font: inherit;
+	font-weight: 300 !important;
   line-height: normal;
   overflow: visible;
   cursor: pointer;
@@ -261,12 +263,8 @@ $backgroundgray: #fafafa;
   margin-top: 7px;
   font-size: 18px;
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 25px;
   caption-side: initial; }
-
-.CalendarMonth--horizontal .CalendarMonth__caption,
-.CalendarMonth--vertical .CalendarMonth__caption {
-  padding: 10px 0; }
 
 .CalendarMonth--vertical-scrollable .CalendarMonth__caption {
   padding: 5px 0; }
@@ -283,6 +281,7 @@ $backgroundgray: #fafafa;
   z-index: 1; }
 
 .CalendarMonthGrid--horizontal {
+	background: $backgroundgray;
   position: absolute;
   left: 9px; }
 
@@ -328,7 +327,7 @@ $backgroundgray: #fafafa;
 .DayPicker__week-header {
   color: #757575;
   position: absolute;
-  top: 52px;
+  top: 45px;
   z-index: 2;
   padding: 0 13px;
   text-align: left; }
@@ -352,6 +351,7 @@ $backgroundgray: #fafafa;
     border-bottom: 1px solid #dbdbdb;
     background: white; }
   .DayPicker--vertical-scrollable .transition-container--vertical {
+		background: $backgroundgray;
     padding-top: 20px;
     height: 100%;
     position: absolute;
@@ -372,6 +372,8 @@ $backgroundgray: #fafafa;
   border-radius: 3px; }
 
 .transition-container--horizontal {
+	background: $backgroundgray;
+	margin-top: 5px;
   transition: height 0.2s ease-in-out; }
 
 .transition-container--vertical {
@@ -379,15 +381,29 @@ $backgroundgray: #fafafa;
 
 .DayPickerNavigation__prev,
 .DayPickerNavigation__next {
+	background: none;
+	color: $chevroncolor;
   cursor: pointer;
-  line-height: 0.78;
+  line-height: 0.15;
+	font-family: 'Open Sans', $family-sans-serif;
+	font-size: 28px !important;
+	font-weight: 400 !important;
   -webkit-user-select: none;
   /* Chrome/Safari */
   -moz-user-select: none;
   /* Firefox */
   -ms-user-select: none;
   /* IE10+ */
-  user-select: none; }
+  user-select: none;
+
+	&:hover {
+		color: darken($chevroncolor, 10%);
+	}
+
+	&:active {
+		box-shadow: none !important;
+	}
+}
 
 .DayPickerNavigation__prev--default,
 .DayPickerNavigation__next--default {
@@ -407,20 +423,20 @@ $backgroundgray: #fafafa;
   .DayPickerNavigation--horizontal .DayPickerNavigation__prev,
   .DayPickerNavigation--horizontal .DayPickerNavigation__next {
     border-radius: 3px;
-    padding: 6px 9px;
+    padding: 2px 20px;
     top: 18px;
     z-index: 2;
     position: absolute; }
   .DayPickerNavigation--horizontal .DayPickerNavigation__prev {
-    left: 22px; }
+    left: 11px; }
   .DayPickerNavigation--horizontal .DayPickerNavigation__prev--rtl {
     left: auto;
-    right: 22px; }
+    right: 11px; }
   .DayPickerNavigation--horizontal .DayPickerNavigation__next {
-    right: 22px; }
+    right: 11px; }
   .DayPickerNavigation--horizontal .DayPickerNavigation__next--rtl {
     right: auto;
-    left: 22px; }
+    left: 11px; }
   .DayPickerNavigation--horizontal .DayPickerNavigation__prev--default svg,
   .DayPickerNavigation--horizontal .DayPickerNavigation__next--default svg {
     height: 19px;
