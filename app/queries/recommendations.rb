@@ -203,6 +203,11 @@ class Recommendations
                     concept_id: 'TPm4a19NUn2RlKLCbPbVUw',
                     count: 0,
                     noIncorrect: true
+                },
+                {
+                    concept_id: 'I5Si4ZxILjjDR077WgSZ6w',
+                    count: 0,
+                    noIncorrect: true
                 }
             ]
         },
@@ -338,8 +343,6 @@ class Recommendations
                 }
             ]
         },
-
-
       ]
     end
 end
