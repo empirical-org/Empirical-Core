@@ -20,10 +20,11 @@ export default React.createClass({
     }
     let dateTitle,
       dateBody;
+    const firstScore = this.props.data.scores[0]
     const firstCr = this.props.data.concept_results[0];
-    if (firstCr.completed_at) {
+    if (firstScore && firstScore.completed_at) {
       dateTitle = 'Completed';
-      dateBody = firstCr.completed_at;
+      dateBody = firstScore.completed_at;
     } else {
       dateTitle = 'Due';
       dateBody = firstCr.due_date;

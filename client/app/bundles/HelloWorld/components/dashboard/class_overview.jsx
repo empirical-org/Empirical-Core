@@ -33,7 +33,7 @@ export default React.createClass({
 
   betaMini() {
     if (this.props.flag === 'beta') {
-      return <BetaMini key="beta-mini" />;
+      // return <BetaMini key="beta-mini" />;
     }
   },
 

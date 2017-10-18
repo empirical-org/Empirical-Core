@@ -8,29 +8,9 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
 
   def play
-    if @activity_session.state == "finished"
-      started_session = ActivitySession.where(
-        user_id: @activity_session.user_id,
-        activity_id: @activity_session.activity_id
-        ).last
-      if started_session && started_session.started_at && started_session.started_at > @activity_session.completed_at
-        redirect_to play_activity_session_path(started_session)
-      else
-        new_session = ActivitySession.create(
-         state: "unstarted",
-         user_id: @activity_session.user_id,
-         activity_id: @activity_session.activity_id,
-         classroom_activity_id: @activity_session.classroom_activity_id,
-         is_retry: true
-        )
-        redirect_to play_activity_session_path(new_session)
-      end
-    else
-      @activity_session.start
-      @activity_session.save!
-      @module_url = @activity.module_url(@activity_session)
-      redirect_to(@module_url.to_s)
-    end
+    # old_play_function
+    @module_url = @activity.module_url(@activity_session)
+    redirect_to(@module_url.to_s)
   end
 
   def result
