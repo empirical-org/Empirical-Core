@@ -15,7 +15,7 @@
 <p>We're so excited that you've decided to try out Quill Lessons with your students. <%=second_sentence_beginning%> that you will lead with your students in the classroom. <%= lesson_plan_text %></p>
 
 <% @lessons.each do |l| %>
-  <p><a href=<%=l.supporting_info%>><%=l.name%> Lesson Plan</a></p>
+  <p><a href="http://quill.org/activities/<%=l.id%>/supporting_info"><%=l.name%> Lesson Plan</a></p>
 <% end %>
 
 <p><strong>Next steps:</strong></p>
