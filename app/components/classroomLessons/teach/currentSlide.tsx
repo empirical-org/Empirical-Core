@@ -307,7 +307,7 @@ class CurrentSlide extends React.Component<any, any> {
               students={data.students}
               toggleStudentFlag={this.toggleStudentFlag}
               lessonId={lessonId}
-              assignAction={this.finishLesson}
+              finishLesson={this.finishLesson}
               completed={this.state.completed}
             />
             break
