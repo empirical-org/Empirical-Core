@@ -105,6 +105,8 @@
 // significantly in order to make it do what we want it to do.
 
 $accentcolor: #00a699;
+$quillbluebgreen: #00c2a2;
+$backgroundgray: #fafafa;
 
 // This style is for the list of options beneath the calendar.
 .calendar-prefill-options {
@@ -114,20 +116,19 @@ $accentcolor: #00a699;
 	text-align: center;
 
 	.calendar-prefill-option {
-		border-radius: 5px;
-		border: 1px solid #eee;
-		color: #666;
+		border-radius: 50px;
+		border: 1px solid $quillbluebgreen;
+		color: $quillbluebgreen;
 		display: inline-block;
-		font-size: 14px;
+		font-size: 12px;
 		font-weight: 600;
-		margin: 3px;
-		padding: 8px;
+		margin: 4px;
+		padding: 4px 12px;
 		transition: all 0.3s ease;
 
 		&:hover {
-			background-color: #fefefe;
-			border-color: #ddd;
-			color: #333;
+			border-color: darken($quillbluebgreen, 10%);
+			color: darken($quillbluebgreen, 10%);
 		}
 	}
 }
