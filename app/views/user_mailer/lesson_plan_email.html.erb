@@ -1,15 +1,33 @@
-<p>Hi <%= @user.first_name %>,</p>
-
-<p>We're so excited that you've decided to try out Quill Lessons with your students.</p> Below, you'll find a link to download the lesson plan. This version of our lesson can be easily read on a screen before class or printed out to keep with you during the instructional period.
-
-<% @lessons.each do |l| %>
-  <p><a href=<%=l.supporting_info%>><%=l.name%></a></p>
-
+<% if @lessons.length == 1 %>
+  <% second_sentence_beginning = "This is a collaborative group activity" %>
+  <% lesson_plan_text = "Below, you’ll find a link to download the lesson plan for the Quill Lessons activity in this pack. This version of the lesson can easily be read on a screen before class or printed out to keep with you during the instructional period."%>
+  <% step_two_head = "Download lesson plan:"%>
+  <% step_two_body = "Download and review the lesson plan for your Quill Lesson activity, attached above."%>
+<% else %>
+  <% second_sentence_beginning = "These are collaborative group activities" %>
+  <% lesson_plan_text = "Below, you’ll find links to download the lesson plans for each of the Quill Lessons activities in this pack. These versions of the lessons can easily be read on a screen before class or printed out to keep with you during the instructional period." %>
+  <% step_two_head = "Download lesson plans:"%>
+  <% step_two_body = "Download and review the lesson plans for your Quill Lesson activities, attached above."%>
 <% end %>
 
-<p>If this is your first time using Quill Lessons, you might find it helpful to read through the best practices and ideas we've gathered from other teachers <a href="https://support.quill.org/using-quill-tools/quill-lessons/teacher-stories-how-to-best-utilize-quill-lessons-with-your-students">here</a>.</p>
+<p>Hi <%= @user.first_name %>,</p>
 
-<p>Do you have your own ideas about how to use Quill Lessons in class, or suggestions for how we might improve it? Please feel free to contact us with your thoughts at <a href="mailto:support@quill.org">support@quill.org</a>.</p>
+<p>We're so excited that you've decided to try out Quill Lessons with your students. <%=second_sentence_beginning%> that you will lead with your students in the classroom. <%= lesson_plan_text %></p>
 
-<p>Thank you,</p>
-<p>The Quill Team</p>
+<% @lessons.each do |l| %>
+  <p><a href=<%=l.supporting_info%>><%=l.name%> Lesson Plan</a></p>
+<% end %>
+
+<p><strong>Next steps:</strong></p>
+<ol>
+  <li><strong>Tutorial:</strong> For an overview of how to use Quill Lessons, <a href="https://www.quill.org/tutorials/lessons">here’s a quick tutorial</a> to get you started. We recommend that you follow the link at the end to preview a lesson before launching one in your classroom.</li>
+  <li><strong><%= step_two_head %></strong> <%= step_two_body %></li>
+  <li><strong>Launching the lesson:</strong> Launch the lesson in your classroom from the <a href="https://www.quill.org/teachers/classrooms/activity_planner/lessons">Launch Lessons page</a>.</li>
+</ol>
+
+<p>For a more complete step by step guide on how to set up a lesson, <a href="http://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson">here’s an article</a> that guides you through the process.</p>
+
+<p>Do you have your own ideas about how to use Quill Lessons in class, or suggestions for how we might improve it? Please feel free to contact me with your thoughts at <a href="mailto:amr@quill.org">amr@quill.org</a>.</p>
+
+<p>Best,</p>
+<p>Amr</p>

@@ -30,8 +30,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @lessons = lessons
     @unit = unit
-    # TODO: update this when copy exists
-    mail from: 'amr.thameen@quill.org', to: user.email, subject: "Lesson Plans for Your New Unit, #{@unit.name}"
+    mail from: 'amr.thameen@quill.org', to: user.email, subject: "Next Steps for the Lessons in Your New Activity Pack, #{@unit.name}"
   end
 
 end
