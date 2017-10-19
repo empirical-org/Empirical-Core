@@ -116,7 +116,7 @@ module PublicProgressReports
         if final_activity_session
           scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
         else
-          if ActivitySession.find_by(user_id: student_id, state: 'started')
+          if ActivitySession.find_by(user_id: student_id, state: 'started', classroom_activity_id: ca_id)
             scores[:started_names].push(student.name)
           else
             scores[:unstarted_names].push(student.name)
