@@ -102,16 +102,20 @@ export default React.createClass({
   },
 
   assignedClassData() {
-    let name;
+    let name,
+      unit_template_id;
     if (this.props.diagnosticActivityId === 413) {
+      unit_template_id = 20;
       name = 'Sentence Structure Diagnostic';
     } else if (this.props.diagnosticActivityId === 447) {
+      unit_template_id = 34;
       name = 'ELL Diagnostic';
     }
 
     return ({
       unit: {
         name,
+        unit_template_id,
         classrooms: this.state.selectedClassrooms,
         activities: [
           {
