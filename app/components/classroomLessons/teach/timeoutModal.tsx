@@ -9,7 +9,7 @@ const TimeoutModal = (props) =>
          <h1 className="timeout">Are you still using this lesson with your students?</h1>
          <p>If you are no longer collaborating on this lesson with your students, you can <span className="mark-complete">mark it as complete</span>. Once your lesson is marked complete, your student answers will be saved in the <span className="activity-analysis">Activity Analysis</span> report.</p>
          <button onClick={props.closeModal}>Yes, resume lesson</button>
-         <p className="complete-lesson" onClick={props.finishLesson}>No, mark lesson as complete.</p>
+         <p className="complete-lesson" onClick={props.finishLesson}>No, mark lesson as complete</p>
       </div>
     </div>);
 
