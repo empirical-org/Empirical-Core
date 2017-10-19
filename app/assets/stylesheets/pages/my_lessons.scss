@@ -1,4 +1,16 @@
 .my-lessons {
+  section:last-of-type {
+    padding-bottom: 5px;
+  }
+  .feedback-note {
+    border-top: solid 1px #c0c0c0;
+    padding-top: 20px;
+    a {
+      color: #027360;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+  }
   .my-lessons-header {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -12,7 +24,12 @@
       font-size: 16px;
     }
     span {
-      color: #ea9a1a;
+      font-weight: 600;
+    }
+    a {
+      color: #027360;
+      font-weight: 600;
+      text-decoration: underline;
     }
   }
   #launch-lesson {
