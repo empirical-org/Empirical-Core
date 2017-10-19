@@ -46,14 +46,14 @@ export default class ClassroomLessons extends React.Component {
   renderHeader() {
     return (<div className="my-lessons-header">
       <h1>Launch Lessons</h1>
-      <p>Before you launch a lessons activity with your students, we recommend you check out <a href={`${process.env.DEFAULT_URL}/tutorials/lessons/1`}>this tutorial</a> on how to lead a lesson. We have also put together a <a href="https://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson">comprehensive guide</a> that will explain how to set up lessons in your classroom.</p>
+      <p>Before you launch a lessons activity with your students, we recommend you check out <a target="_blank" href={`${process.env.DEFAULT_URL}/tutorials/lessons/1`}>this tutorial</a> on how to lead a lesson. We have also put together a <a target="_blank" href="https://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson">comprehensive guide</a> that will explain how to set up lessons in your classroom.</p>
       <p><span>Note:</span> If you want to re-do a lesson with your class, re-assign the lesson then launch it.</p>
     </div>);
   }
 
   renderFeedbackNote() {
     return <div className="feedback-note">
-      We would love to hear about your experience with Quill Lessons. Please share your feedback by filling out this <a href="https://goo.gl/forms/podicVxtfRR8CVVO2">short feedback form</a>.
+      We would love to hear about your experience with Quill Lessons. Please share your feedback by filling out this <a target="_blank" href="https://goo.gl/forms/podicVxtfRR8CVVO2">short feedback form</a>.
     </div>
   }
 
@@ -64,8 +64,8 @@ export default class ClassroomLessons extends React.Component {
         <p>In order to launch a lesson, you need to assign a lesson to one of your classes.</p>
         <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and to see and display student responses in real-time.</p>
         <div className="buttons">
-          <a href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
-          <a href="/tool/lessons" className="bg-white text-quillgreen">Learn More</a>
+          <a target="_blank" href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
+          <a target="_blank" href="/tool/lessons" className="bg-white text-quillgreen">Learn More</a>
         </div>
       </div>
       <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
@@ -98,7 +98,8 @@ export default class ClassroomLessons extends React.Component {
       dueDate: u.due_date,
       supportingInfo: u.supporting_info,
       completed: u.completed_count > 0,
-      studentCount: studentCount
+      studentCount: studentCount,
+      started: u.started_count > 0
     });
     return caObj;
   }
@@ -130,7 +131,8 @@ export default class ClassroomLessons extends React.Component {
           dueDate: u.due_date,
           supportingInfo: u.supporting_info,
           completed: u.completed_count > 0,
-          studentCount: studentCount
+          studentCount: studentCount,
+          started: u.started_count > 0
         });
       }
     });
