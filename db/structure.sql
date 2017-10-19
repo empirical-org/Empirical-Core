@@ -1475,7 +1475,8 @@ CREATE TABLE units (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     visible boolean DEFAULT true NOT NULL,
-    user_id integer
+    user_id integer,
+    unit_template_id integer
 );
 
 
@@ -2708,6 +2709,13 @@ CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates
 
 
 --
+-- Name: index_units_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_units_on_unit_template_id ON units USING btree (unit_template_id);
+
+
+--
 -- Name: index_units_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2950,6 +2958,14 @@ CREATE INDEX users_to_tsvector_idx9 ON users USING gin (to_tsvector('english'::r
 --
 
 CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
+
+
+--
+-- Name: units fk_rails_0b3b28b65f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY units
+    ADD CONSTRAINT fk_rails_0b3b28b65f FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
 
 
 --
@@ -3373,4 +3389,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171005214127');
 INSERT INTO schema_migrations (version) VALUES ('20171006150857');
 
 INSERT INTO schema_migrations (version) VALUES ('20171006151454');
+
+INSERT INTO schema_migrations (version) VALUES ('20171019150737');
 

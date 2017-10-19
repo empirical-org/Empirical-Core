@@ -18,6 +18,7 @@ class Unit < ActiveRecord::Base
   has_many :activities, through: :classroom_activities
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
+  belongs_to :unit_template
   after_save :hide_classroom_activities_if_visible_false
 
   def hide_if_no_visible_classroom_activities
