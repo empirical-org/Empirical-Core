@@ -41,12 +41,24 @@
     font-weight: bold;
   }
   .lesson-completed {
-    margin-right: 30px;
+    margin-right: 8px;
     color: #82bf3c;
     font-size: 16px;
     font-weight: 600;
     width: 160px;
-    text-align: center;
+  }
+  .resume-lesson {
+    width: 145px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: solid 1px #00c2a2;
+    font-weight: bold;
+    color: #00c2a2 !important;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
