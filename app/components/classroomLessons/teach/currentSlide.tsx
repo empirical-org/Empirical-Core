@@ -75,7 +75,7 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    setTimeout(() => this.timeOut(), 43200000)
+    setTimeout(this.timeOut, 43200000)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -314,6 +314,7 @@ class CurrentSlide extends React.Component<any, any> {
               lessonId={lessonId}
               finishLesson={this.finishLesson}
               completed={this.state.completed}
+              followUpActivityName={data.followUpActivityName}
             />
             break
         default:
