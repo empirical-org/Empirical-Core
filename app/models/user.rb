@@ -368,7 +368,7 @@ private
   def validate_username_and_email
     # change_field will return the field (username or email) that is changing
     change_field = detect_username_or_email_updated
-    if change_field && User.find_by(change_field => self[change_field])
+    if change_field && self[change_field].present? && User.find_by(change_field => self[change_field])
       # if the field has been changed, to that of an existing record,
       # raise an error
       errors.add(change_field, "is being updated to a #{change_field} that exists")
