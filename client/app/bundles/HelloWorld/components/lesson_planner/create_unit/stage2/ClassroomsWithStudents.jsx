@@ -1,6 +1,7 @@
 import React from 'react';
 import Classroom from './classroom.jsx';
 import EditStudentsButton from './EditStudentsButton.jsx';
+import getParameterByName from '../../../modules/get_parameter_by_name.js';
 
 export default class extends React.Component {
 
@@ -51,7 +52,8 @@ export default class extends React.Component {
     const data = { classrooms: JSON.stringify(this.classroomActivityUpdates()), };
     if (this.props.createOrEdit === 'create') {
       data.create = true,
-			data.name = this.props.unitName,
+      data.unit_template_id = getParameterByName('unit_template_id');
+      data.name = this.props.unitName,
 			data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
     }
     return data;

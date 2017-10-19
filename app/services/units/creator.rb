@@ -1,8 +1,8 @@
 module Units::Creator
 
 
-  def self.run(teacher, name, activities_data, classrooms_data)
-    self.create_helper(teacher, name, activities_data, classrooms_data)
+  def self.run(teacher, name, activities_data, classrooms_data, unit_template_id=nil)
+    self.create_helper(teacher, name, activities_data, classrooms_data, unit_template_id)
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template_id)
@@ -13,7 +13,7 @@ module Units::Creator
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     # unit fix: may be able to better optimize this one, but possibly not
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
-    self.create_helper(teacher, unit_template.name, activities_data, classrooms_data)
+    self.create_helper(teacher, unit_template.name, activities_data, classrooms_data, unit_template_id)
   end
 
   def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom)
@@ -24,13 +24,13 @@ module Units::Creator
     # this call is unnecessary as we can do sql without it
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
-    self.create_helper(teacher, unit_template.name, activities_data, classroom_array)
+    self.create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id)
   end
 
   private
 
-  def self.create_helper(teacher, name, activities_data, classrooms)
-    unit = Unit.create!(name: name, user: teacher)
+  def self.create_helper(teacher, name, activities_data, classrooms, unit_template_id=nil)
+    unit = Unit.create!(name: name, user: teacher, unit_template_id: unit_template_id)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms.each do |classroom|
