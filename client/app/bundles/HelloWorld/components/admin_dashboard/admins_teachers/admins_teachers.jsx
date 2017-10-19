@@ -11,8 +11,9 @@ export default React.createClass({
     loading: React.PropTypes.bool.isRequired,
   },
 
+  // Temp fix until isValid is confirmed to work.
   linkGenerator(link) {
-    if (this.props.isValid) {
+    if (this.props.isValid || true) {
       return <a className="green-link teacher-link" href={link.path} target="_blank">{link.name}</a>;
     }
     return <a className="green-link teacher-link" onClick={() => alert('Your Premium Subscription has expired. Please visit Quill.org/premium to access this feature.')}>{link.name}</a>;
