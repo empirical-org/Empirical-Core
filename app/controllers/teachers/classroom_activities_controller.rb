@@ -44,6 +44,14 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     end
   end
 
+  def mark_activity_as_completed
+    lesson = Activity.find_by(uid: params['lesson_uid']) || Activity.find_by(id: params['lesson_uid'])
+    base_route = lesson.classification.form_url
+    mark_activity_as_completed_url = "#{base_route}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
+    redirect_to mark_activity_as_completed_url
+  end
+
+
   def activity_from_classroom_activity
     act_sesh_id = @classroom_activity.find_or_create_started_activity_session(current_user.id).id
     redirect_to "/activity_sessions/#{act_sesh_id}/play"

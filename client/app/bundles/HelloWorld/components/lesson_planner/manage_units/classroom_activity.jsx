@@ -75,7 +75,7 @@ export default React.createClass({
       if (this.props.data.completed) {
         return <p className="lesson-completed">Lesson Complete</p>;
       } else if (this.props.data.started) {
-        return <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
+        return <a className="supporting-info" target="_blank" href={`/teachers/classroom_activities/${this.props.data.caId}/mark_lesson_as_completed/${this.activityId()}`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
       } else if (this.props.data.supportingInfo) {
         return <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
       }
@@ -146,12 +146,12 @@ export default React.createClass({
       return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_activity/${this.props.data.caId}`}>View Report</a>
     }
     if (this.props.data.studentCount === 0) {
-      return <a onClick={this.noStudentsWarning} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+      return <a onClick={this.noStudentsWarning} id="launch-lesson">{text}</a>;
     } else {
       if (this.props.data.started) {
         return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>;
       } else {
-        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="q-button bg-quillgreen" id="launch-lesson">Launch Lesson</a>;
+        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>;
       }
     }
   },

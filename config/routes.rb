@@ -121,6 +121,7 @@ EmpiricalGrammar::Application.routes.draw do
         put ':id/hide' => 'classroom_activities#hide'
         get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
+        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
       end
     end
 
