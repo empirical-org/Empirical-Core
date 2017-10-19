@@ -41,7 +41,7 @@ export default React.createClass({
 				}
 			}
 			let isNotDiagnostic = function(){
-				return [413, 447].indexOf(Number(that.props.params.activityId)) === -1;
+				return [413, 447, 602].indexOf(Number(that.props.params.activityId)) === -1;
 			}
 			let name = navButton.name
 			if (name === 'Recommendations' && isNotDiagnostic()) {
