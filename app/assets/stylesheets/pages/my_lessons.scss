@@ -33,12 +33,17 @@
     }
   }
   #launch-lesson {
-    margin-top: 0px;
     margin-right: 30px;
     height: 40px;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    width: 145px;
+    border-radius: 3px;
+    background-color: #00c2a2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .lesson-completed {
     margin-right: 8px;
