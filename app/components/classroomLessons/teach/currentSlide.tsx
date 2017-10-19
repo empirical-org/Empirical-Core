@@ -41,7 +41,7 @@ class CurrentSlide extends React.Component<any, any> {
     super(props);
 
     const data: ClassroomLessonSession = props.classroomSessions.data;
-    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonData: ClassroomLesson = props.classroomLesson.data;
     const script: Array<ScriptItem> = lessonData && lessonData.questions && lessonData.questions[data.current_slide] ? lessonData.questions[data.current_slide].data.teach.script : []
 
     this.state = {
@@ -107,7 +107,6 @@ class CurrentSlide extends React.Component<any, any> {
       }
     }
   }
-
 
   clearAllSelectedSubmissions(currentSlide: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
@@ -208,11 +207,11 @@ class CurrentSlide extends React.Component<any, any> {
   finishLesson() {
     const questions = this.props.classroomLesson.data.questions
     const submissions = this.props.classroomSessions.data.submissions
-
+    const follow_up = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
     const caId: string|null = getParameterByName('classroom_activity_id');
     const concept_results = generate(questions, submissions)
     const data = new FormData();
-    data.append( "json", JSON.stringify( {follow_up: false, concept_results} ) );
+    data.append( "json", JSON.stringify( {follow_up, concept_results} ) );
     fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
       method: 'PUT',
       mode: 'cors',
