@@ -21,7 +21,7 @@ export default React.createClass({
   },
 
   setDateFromFilter: function(beginDate) {
-    this.setState({beginDate: beginDate, endDate: moment(), focusedInput: null}, this.selectDates);
+    this.setState({beginDate: beginDate, endDate: moment().add(1, 'days'), focusedInput: null}, this.selectDates);
   },
 
   renderFilterOptions: function () {
