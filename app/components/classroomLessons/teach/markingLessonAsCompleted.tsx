@@ -73,7 +73,6 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
       );
     }
   }
-}
 
 function select(props) {
   return {
