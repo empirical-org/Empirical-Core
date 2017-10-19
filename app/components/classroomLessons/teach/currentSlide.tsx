@@ -75,8 +75,7 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    // setTimeout(() => this.setState({showTimeoutModal: true}), 43200000)
-        setTimeout(() => this.timeout(), 5000)
+    setTimeout(() => this.timeOut(), 43200000)
   }
 
   componentWillReceiveProps(nextProps) {

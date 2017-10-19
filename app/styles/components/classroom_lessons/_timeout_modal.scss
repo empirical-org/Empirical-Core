@@ -14,7 +14,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 580px;
+    height: 516px;
     border-radius: 6px;
     background-color: #ffffff;
     display: flex;
@@ -31,7 +31,7 @@
     }
     .illustration {
       height: 110px;
-      margin-bottom: 20px;
+      margin-bottom: 35px;
       width: 187px;
       margin-top: 55px;
     }
@@ -56,10 +56,11 @@
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;
+        margin-top: 25px;
       }
     }
     button {
-      margin-top: 30px;
+      margin-top: 20px;
       width: 180px;
       height: 40px;
       border-radius: 3px;
