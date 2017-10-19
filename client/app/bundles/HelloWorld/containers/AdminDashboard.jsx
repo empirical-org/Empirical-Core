@@ -11,7 +11,6 @@ import pluralize from 'pluralize';
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token'
 
-
 export default React.createClass({
   mixins: [TableSortingMixin],
   propTypes: {
