@@ -1,0 +1,77 @@
+.timeout-modal-container {
+  .timeout-modal-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background-color: #969696;
+    opacity: 0.9;
+  }
+  .timeout-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 580px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 100;
+    width: 550px;
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .illustration {
+      height: 110px;
+      margin-bottom: 20px;
+      width: 187px;
+      margin-top: 55px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #000;
+    }
+    p {
+      margin: 20px 0px;
+      font-size: 16px;
+      line-height: 1.56;
+      width: 450px;
+      span.mark-complete {
+        font-style: italic;
+      }
+      span.activity-analysis {
+        font-weight: 600;
+      }
+      &.complete-lesson {
+        color: #027360;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+      }
+    }
+    button {
+      margin-top: 30px;
+      width: 180px;
+      height: 40px;
+      border-radius: 3px;
+      background-color: #00c2a2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
