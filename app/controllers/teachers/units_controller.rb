@@ -21,9 +21,9 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def prohibited_unit_names
-    unitNames = current_user.units.map { |u| u.name.downcase }
-    unitTemplateNames = UnitTemplate.all.map{ |u| u.name.downcase }
-    render json: { prohibitedUnitNames: unitNames.concat(unitTemplateNames) }.to_json
+    unitNames = current_user.units.pluck(:name).map(&:downcase)
+    unit_template_names = UnitTemplate.pluck(:name).map(&:downcase)
+    render json: { prohibitedUnitNames: unitNames.concat(unit_template_names) }.to_json
   end
 
   def last_assigned_unit_id
@@ -31,8 +31,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update
-    # unit fix: get all names with pluck
-    unit_template_names = UnitTemplate.all.map{ |u| u.name.downcase }
+    unit_template_names = UnitTemplate.pluck(:name).map(&:downcase)
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: 'Unit must have a name'}, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
@@ -48,7 +47,6 @@ class Teachers::UnitsController < ApplicationController
     activities_data = ClassroomActivity.where(unit_id: params[:id]).pluck(:activity_id).map{|id| {id: id}}
     if activities_data.any?
       classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
-      # TODO: change this Unit.find to just params[:id] if/when we change the Units::Updater
       Units::Updater.run(params[:id], activities_data, classroom_activities)
       render json: {}
     else
@@ -68,9 +66,9 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def classrooms_with_students_and_classroom_activities
-    unit = Unit.find_by(id: params[:id])
-    if unit
-      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id]), unit_name: unit.name}
+    unit_name = Unit.where(id: params[:id]).limit(1).pluck(:name).first
+    if unit_name
+      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id]), unit_name: unit_name}
     else
       render json: {errors: 'Unit not found'}, status: 422
     end
