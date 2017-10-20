@@ -1,4 +1,16 @@
 .my-lessons {
+  section:last-of-type {
+    padding-bottom: 5px;
+  }
+  .feedback-note {
+    border-top: solid 1px #c0c0c0;
+    padding-top: 20px;
+    a {
+      color: #027360;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+  }
   .my-lessons-header {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -12,24 +24,46 @@
       font-size: 16px;
     }
     span {
-      color: #ea9a1a;
+      font-weight: 600;
+    }
+    a {
+      color: #027360;
+      font-weight: 600;
+      text-decoration: underline;
     }
   }
   #launch-lesson {
-    margin-top: 0px;
     margin-right: 30px;
     height: 40px;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    width: 145px;
+    border-radius: 3px;
+    background-color: #00c2a2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .lesson-completed {
-    margin-right: 30px;
+    margin-right: 8px;
     color: #82bf3c;
     font-size: 16px;
     font-weight: 600;
     width: 160px;
-    text-align: center;
+  }
+  .resume-lesson {
+    width: 145px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: solid 1px #00c2a2;
+    font-weight: bold;
+    color: #00c2a2 !important;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
