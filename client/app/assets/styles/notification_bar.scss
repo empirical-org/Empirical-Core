@@ -1,4 +1,4 @@
-.notification-bar {
+.notification-bar, .upgraded-bar {
   background-color: $quillblue;
   margin: 0;
   width: 100%;
@@ -18,5 +18,17 @@
 
   @media screen and (max-width: 501px) {
     display: none;
+  }
+}
+
+.upgraded-bar {
+  span {
+    font-weight: bold;
+  }
+  a {
+    font-weight: 600;
+  }
+  i {
+    margin-right: 6px;
   }
 }
