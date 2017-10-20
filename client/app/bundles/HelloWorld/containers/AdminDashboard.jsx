@@ -5,6 +5,7 @@ import _ from 'underscore';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
 import PremiumFeatures from '../components/admin_dashboard/premium_features';
 import CreateNewAccounts from '../components/admin_dashboard/create_new_accounts.jsx';
+import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers'
 import pluralize from 'pluralize';
 import request from 'request'
@@ -163,6 +164,6 @@ export default React.createClass({
         </div>
       );
     }
-    return <span />;
+    return <LoadingSpinner />;
   },
 });
