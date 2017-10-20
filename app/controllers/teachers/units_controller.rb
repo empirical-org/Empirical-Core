@@ -215,9 +215,8 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN activities ON ca.activity_id = activities.id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
-      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id AND sc.visible = TRUE
     WHERE units.user_id = #{current_user.id}
-      AND sc.visible = true
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
