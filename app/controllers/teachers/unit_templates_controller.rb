@@ -28,7 +28,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     @content = "Try out the #{@unit_template.name} Activity Pack I’m using at Quill.org"
     @unit_template_id = @unit_template.id
     render 'public_show' if not @is_teacher
-  end 
+  end
 
   def count
     @count = UnitTemplate.count
@@ -69,7 +69,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def related_models(ut)
-    related_models = UnitTemplate.where(unit_template_category_id: ut.unit_template_category_id).where.not(id: ut.id).limit(3)
+    related_models = UnitTemplate.user_scope(current_user.try(:flag) || 'production').where(unit_template_category_id: ut.unit_template_category_id).where.not(id: ut.id).limit(3)
     formatted_related_models = []
     related_models.each do |rm|
       formatted_related_models << format_unit_template(rm)
