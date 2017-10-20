@@ -15,6 +15,16 @@ const previewRoute = {
   }
 };
 
+const markingLessonAsCompletedRoute = {
+  path: ':lessonID/mark_lesson_as_completed',
+  getComponent: (nextState, cb) => {
+    System.import(/* webpackChunkName: "teach-classroom-lesson" */'components/classroomLessons/teach/markingLessonAsCompleted.tsx')
+    .then((component) => {
+      cb(null, component.default);
+    });
+  },
+};
+
 const teachRoute = {
   path: ':lessonID',
   getComponent: (nextState, cb) => {
@@ -24,7 +34,6 @@ const teachRoute = {
     });
   },
 };
-
 
 const indexRoute = {
   component: Passthrough,
@@ -41,6 +50,7 @@ const route = {
   path: 'class-lessons',
   indexRoute,
   childRoutes: [
+    markingLessonAsCompletedRoute,
     previewRoute,
     teachRoute
   ],
