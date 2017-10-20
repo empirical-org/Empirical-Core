@@ -73,9 +73,9 @@ export default React.createClass({
   renderLessonsAction() {
     if (window.location.pathname.includes('lessons')) {
       if (this.props.data.completed) {
-        return <p className="lesson-completed">Lesson Complete</p>;
+        return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>;
       } else if (this.props.data.started) {
-        return <a className="supporting-info" target="_blank" href={`/teachers/classroom_activities/${this.props.data.caId}/mark_lesson_as_completed/${this.activityId()}`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
+        return <a className="mark-completed" target="_blank" href={`/teachers/classroom_activities/${this.props.data.caId}/mark_lesson_as_completed/${this.activityId()}`}>Mark As Complete</a>
       } else if (this.props.data.supportingInfo) {
         return <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
       }

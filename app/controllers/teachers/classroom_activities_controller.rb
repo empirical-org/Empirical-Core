@@ -44,11 +44,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     end
   end
 
-  def mark_activity_as_completed
+  def mark_lesson_as_completed
     lesson = Activity.find_by(uid: params['lesson_uid']) || Activity.find_by(id: params['lesson_uid'])
     base_route = lesson.classification.form_url
-    mark_activity_as_completed_url = "#{base_route}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
-    redirect_to mark_activity_as_completed_url
+    mark_lesson_as_completed_url = "#{base_route}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
+    redirect_to mark_lesson_as_completed_url
   end
 
 
