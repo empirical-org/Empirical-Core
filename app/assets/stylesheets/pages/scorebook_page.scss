@@ -1,4 +1,8 @@
 #scorebook {
+	.section-content-wrapper {
+		padding-bottom: 25px;
+	}
+
 	.icons-wrapper.score-legend {
 		padding-bottom: 30px;
 		border-bottom: 1px solid rgb(206,206,206);
@@ -25,6 +29,7 @@
 	}
 
 	.app-legend {
+		padding-top: 25px;
 		.title {
 			color: #717171;
 		}

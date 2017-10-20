@@ -19,7 +19,9 @@ describe('dashboard container', () => {
     expect(wrapper.state()).toEqual({
       classrooms: null,
       hasPremium: null,
-      performanceQuery: [{header: 'Difficult Concepts', results: null}]
+      performanceQuery: [
+        { header: 'Lowest Performing Students', results: null},
+        { header: 'Difficult Concepts', results: null, }],
     });
   });
 

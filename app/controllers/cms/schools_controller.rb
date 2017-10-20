@@ -148,7 +148,7 @@ class Cms::SchoolsController < ApplicationController
         COALESCE(schools.state, schools.mail_state) AS school_state,
         COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
         schools.free_lunches || '%' AS frl,
-        COUNT(schools_users.id) AS number_teachers,
+        COUNT(DISTINCT schools_users.id) AS number_teachers,
         subscriptions.account_type AS premium_status,
         COUNT(DISTINCT schools_admins.id) AS number_admins,
         schools.id AS id

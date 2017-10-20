@@ -121,6 +121,7 @@ EmpiricalGrammar::Application.routes.draw do
         put ':id/hide' => 'classroom_activities#hide'
         get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
+        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
       end
     end
 
@@ -261,6 +262,7 @@ EmpiricalGrammar::Application.routes.draw do
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
   # so we have the patch below:
   get '/session', to: 'sessions#destroy'
+  post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   resource :session
 
   resource :account do
@@ -402,6 +404,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
+  get 'student_demo' => 'students#student_demo'
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
