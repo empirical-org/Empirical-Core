@@ -22,6 +22,8 @@ import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
 import CLExit from './exit';
 import PreviewModal from './previewModal'
+import TimeoutModal from './timeoutModal'
+import CongratulationsModal from './congratulationsModal'
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -32,19 +34,24 @@ import {
   ClassroomLesson,
   ScriptItem
 } from 'interfaces/classroomLessons';
+import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 class CurrentSlide extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
     const data: ClassroomLessonSession = props.classroomSessions.data;
-    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const lessonData: ClassroomLesson = props.classroomLesson.data;
     const script: Array<ScriptItem> = lessonData && lessonData.questions && lessonData.questions[data.current_slide] ? lessonData.questions[data.current_slide].data.teach.script : []
 
     this.state = {
       numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       numberOfToggledHeaders: 0,
-      showModal: getParameterByName('modal')
+      showPreviewModal: getParameterByName('modal'),
+      showTimeoutModal: false,
+      showCongratulationsModal: false,
+      completed: false,
+      selectedOptionKey: data.followUpActivityName ? "Small Group Instruction and Independent Practice" : '',
     }
 
     this.toggleSelected = this.toggleSelected.bind(this);
@@ -58,8 +65,17 @@ class CurrentSlide extends React.Component<any, any> {
     this.savePrompt = this.savePrompt.bind(this);
     this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
     this.clearSelectedSubmissionOrder = this.clearSelectedSubmissionOrder.bind(this);
-    this.closeModal = this.closeModal.bind(this)
+    this.closePreviewModal = this.closePreviewModal.bind(this)
+    this.closeTimeoutModal = this.closeTimeoutModal.bind(this)
+    this.closeCongratulationsModal = this.closeCongratulationsModal.bind(this)
     this.openStudentView = this.openStudentView.bind(this)
+    this.finishLesson = this.finishLesson.bind(this)
+    this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
+    this.timeOut = this.timeOut.bind(this)
+  }
+
+  componentDidMount() {
+    setTimeout(this.timeOut, 43200000)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,7 +107,6 @@ class CurrentSlide extends React.Component<any, any> {
       }
     }
   }
-
 
   clearAllSelectedSubmissions(currentSlide: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
@@ -167,19 +182,78 @@ class CurrentSlide extends React.Component<any, any> {
     }
   }
 
-  closeModal() {
-    this.setState({showModal: false})
+  closePreviewModal() {
+    this.setState({showPreviewModal: false})
+  }
+
+  closeTimeoutModal() {
+    this.setState({showTimeoutModal: false})
+  }
+
+  closeCongratulationsModal() {
+    this.setState({showCongratulationsModal: false})
   }
 
   openStudentView() {
     const studentUrl: string = window.location.href.replace('teach', 'play')
     window.open(studentUrl, 'newwindow', `width=${window.innerWidth},height=${window.innerHeight}`)
-    this.closeModal()
+    this.closePreviewModal()
   }
 
-  renderModal() {
-    if (this.state.showModal) {
-      return <PreviewModal closeModal={this.closeModal} openStudentView={this.openStudentView}/>
+  updateSelectedOptionKey(selected) {
+    this.setState({selectedOptionKey: selected})
+  }
+
+  finishLesson() {
+    const questions = this.props.classroomLesson.data.questions
+    const submissions = this.props.classroomSessions.data.submissions
+    const follow_up = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
+    const caId: string|null = getParameterByName('classroom_activity_id');
+    const concept_results = generate(questions, submissions)
+    const data = new FormData();
+    data.append( "json", JSON.stringify( {follow_up, concept_results} ) );
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
+      method: 'PUT',
+      mode: 'cors',
+      credentials: 'include',
+      body: data
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      redirectAssignedStudents(caId, this.state.selectedOptionKey, response.follow_up_url)
+      this.setState({completed: true, showTimeoutModal: false, showCongratulationsModal: true})
+    }).catch((error) => {
+      console.log('error', error)
+    })
+  }
+
+  timeOut() {
+    if (!this.props.classroomSessions.data.preview) {
+      this.setState({showTimeoutModal: true})
+    }
+  }
+
+  renderPreviewModal() {
+    if (this.state.showPreviewModal) {
+      return <PreviewModal closeModal={this.closePreviewModal} openStudentView={this.openStudentView}/>
+    }
+  }
+
+  renderTimeoutModal() {
+    if (this.state.showTimeoutModal) {
+      return <TimeoutModal
+        finishLesson={this.finishLesson}
+        closeModal={this.closeTimeoutModal}
+      />
+    }
+  }
+
+  renderCongratulationsModal() {
+    if (this.state.showCongratulationsModal) {
+      return <CongratulationsModal closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId}/>
     }
   }
 
@@ -190,31 +264,26 @@ class CurrentSlide extends React.Component<any, any> {
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
       const current = lessonData.questions[parseInt(data.current_slide) || 0];
+      let slide
       switch (current.type) {
         case 'CL-LB':
-          return (
-            <div>
-              {this.renderModal()}
-            <CLLobby data={data} lessonData={lessonData} slideData={current} />
-            </div>
-          );
+          slide = <CLLobby data={data} lessonData={lessonData} slideData={current} />
+          break
         case 'CL-ST':
-          return (
-            <CLStatic
+          slide = <CLStatic
               data={data}
               lessonData={lessonData}
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
             />
-          );
+          break
         case 'CL-MD':
         case 'CL-SA':
         case 'CL-FB':
         case 'CL-FL':
         case 'CL-MS':
-          return (
-            <CLSingleAnswer
+          slide = <CLSingleAnswer
               data={data}
               lessonData={lessonData}
               toggleStudentFlag={this.toggleStudentFlag}
@@ -231,26 +300,33 @@ class CurrentSlide extends React.Component<any, any> {
               savePrompt={this.savePrompt}
               clearSelectedSubmissionOrder={this.clearSelectedSubmissionOrder}
             />
-          );
+          break
         case 'CL-EX':
-          return (
-            <CLExit
+          slide = <CLExit
               data={data}
-              followUpActivityName={data.followUpActivityName}
-              redirectAssignedStudents={redirectAssignedStudents}
+              selectedOptionKey={this.state.selectedOptionKey}
+              updateSelectedOptionKey={this.updateSelectedOptionKey}
               lessonData={lessonData}
               script={current.data.teach.script}
               flaggedStudents={data.flaggedStudents}
               students={data.students}
               toggleStudentFlag={this.toggleStudentFlag}
               lessonId={lessonId}
+              finishLesson={this.finishLesson}
+              completed={this.state.completed}
+              followUpActivityName={data.followUpActivityName}
             />
-          );
+            break
         default:
-          return (
-            <p>UNSUPPORTED QUESTION TYPE</p>
-          )
+          slide = <p>UNSUPPORTED QUESTION TYPE</p>
+          break
       }
+      return <div>
+        {this.renderPreviewModal()}
+        {this.renderTimeoutModal()}
+        {this.renderCongratulationsModal()}
+        {slide}
+      </div>
     } else {
       return (
         <div>
