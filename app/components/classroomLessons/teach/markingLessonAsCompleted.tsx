@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import SmartSpinner from  '../../shared/smartSpinner.jsx'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
@@ -18,6 +17,7 @@ import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
+
 
 class MarkingLessonAsCompleted extends React.Component<any, any> {
   constructor(props) {
@@ -38,8 +38,6 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
       const data: ClassroomLessonSession = nextProps.classroomSessions.data;
       const lessonData: ClassroomLesson = nextProps.classroomLesson.data;
       this.finishLesson(nextProps)
-    } else if (nextProps.classroomSessions.error === 'missing classroom activity') {
-      window.alert('Your lesson could not be marked as complete. Please contact us at support@quill.org if this problem persists.')
     }
   }
 
@@ -63,14 +61,15 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
     }).then((response) => {
       window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`
     }).catch((error) => {
-      window.alert('Your lesson could not be marked as complete. Please contact us at support@quill.org if this problem persists.')
       console.log('error', error)
     })
   }
 
   render() {
       return (
-        <SmartSpinner message="Marking your lesson as complete and saving your students' answers."/>
+        <div className="marking-lesson-as-completed">
+          This lesson is getting marked as completed
+        </div>
       );
     }
   }
