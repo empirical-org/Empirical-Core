@@ -15,7 +15,7 @@ export default class extends React.Component{
             <a className="download-button" href="http://d2t498vi8pate3.cloudfront.net/assets/Quill+Premium.pdf" download="Quill Premium"><i className="fa fa-file-pdf-o"/>Download Premium PDF</a>
           </div>
           <div className="picture">
-            <img src="/images/big_premium_flyer.png"/>
+            <img src={`${process.env.CDN_URL}/images/shared/big_premium_flyer.png`}/>
           </div>
         </div>
       </div>
