@@ -74,10 +74,51 @@ export default React.createClass({
 
   onFetchSuccess: function(responseData) {
     this.setState({
-      students: responseData.students
+      students: responseData.students,
+      startedNames: responseData.started_names,
+      unstartedNames: responseData.unstarted_names
     });
   },
 
+  startedAndUnstartedStudents: function() {
+    let startedNameRow, unstartedNameRow
+    if (this.state.startedNames && this.state.startedNames.length > 0) {
+      startedNameRow = this.renderStartedNames()
+    }
+    if (this.state.unstartedNames && this.state.unstartedNames.length > 0) {
+      unstartedNameRow = this.renderUnstartedNames()
+    }
+    return <div style={{'marginTop': '20px', 'marginLeft': '10px'}}>
+      {startedNameRow}
+      {unstartedNameRow}
+    </div>
+   },
+
+   renderStartedNames: function() {
+     const startedNameRow = [<span style={{'fontWeight': 'bold'}}>In Progress: </span>]
+     const numberOfNames = this.state.startedNames.length
+     this.state.startedNames.forEach((name, i) => {
+       if (numberOfNames === i + 1) {
+         startedNameRow.push(<span>{name}.</span>)
+       } else {
+         startedNameRow.push(<span>{name}, </span>)
+       }
+     })
+     return <p style={{'marginBottom': '10px'}}>{startedNameRow}</p>
+   },
+
+   renderUnstartedNames: function() {
+     const unstartedNameRow = [<span style={{'fontWeight': 'bold'}}>Not Started: </span>]
+     const numberOfNames = this.state.unstartedNames.length
+     this.state.unstartedNames.forEach((name, i) => {
+       if (numberOfNames === i + 1) {
+         unstartedNameRow.push(<span>{name}.</span>)
+       } else {
+         unstartedNameRow.push(<span>{name}, </span>)
+       }
+     })
+     return <p style={{'marginBottom': '10px'}}>{unstartedNameRow}</p>
+   },
 
   render: function() {
     let overviewBoxes;
@@ -99,6 +140,7 @@ export default React.createClass({
                            filterTypes={[]}
                            premiumStatus={this.props.premiumStatus}
                            />
+        {this.startedAndUnstartedStudents()}
       </div>
     );
   }

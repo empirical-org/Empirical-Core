@@ -7,7 +7,8 @@ class Dashboard
     unless @@cached_strug_stud && @@cached_diff_con
       completed_count = self.completed_activity_count(user.id)
       if !completed_count || completed_count == 0
-        return
+        strug_stud = 'insufficient data'
+        diff_con = 'insufficient data'
       end
       if completed_count >= 30
         user_id = user.id
@@ -23,8 +24,8 @@ class Dashboard
     end
     set_cache_if_empty(strug_stud, diff_con, user)
     results = [
-              {header: 'Lowest Performing Students', results: strug_stud, placeholderImg: '/lowest_performing_students_no_data.png'},
-              {header: 'Difficult Concepts', results: diff_con, placeholderImg: '/difficult_concepts_no_data.png'}]
+              {header: 'Lowest Performing Students', results: strug_stud},
+              {header: 'Difficult Concepts', results: diff_con}]
   end
 
   private

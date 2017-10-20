@@ -7,15 +7,14 @@ import LoadingIndicator from '../../shared/loading_indicator';
 
 describe('OverviewMini component', () => {
 
-  it('should render insufficient data image if results are insufficient data', () => {
+  it('should render results card svg if results are insufficient data', () => {
     const wrapper = shallow(
       <OverviewMini overviewObj={{
-          results: 'insufficient data',
-          placeholderImg: 'https://media.giphy.com/media/Vuw9m5wXviFIQ/giphy.gif'
+          results: 'insufficient data'
       }} />
     );
     expect(wrapper.find('img').exists()).toBe(true);
-    expect(wrapper.find('img').prop('src')).toBe('https://media.giphy.com/media/Vuw9m5wXviFIQ/giphy.gif');
+    expect(wrapper.find('img').prop('src')).toBe('http://assets.quill.org/images/shared/results_card.svg');
   });
 
   it('should render a loading indicator if there are no results', () => {

@@ -11,8 +11,9 @@ export default React.createClass({
     loading: React.PropTypes.bool.isRequired,
   },
 
+  // Temp fix until isValid is confirmed to work.
   linkGenerator(link) {
-    if (this.props.isValid) {
+    if (this.props.isValid || true) {
       return <a className="green-link teacher-link" href={link.path} target="_blank">{link.name}</a>;
     }
     return <a className="green-link teacher-link" onClick={() => alert('Your Premium Subscription has expired. Please visit Quill.org/premium to access this feature.')}>{link.name}</a>;
@@ -36,7 +37,7 @@ export default React.createClass({
         <h2>Teacher Account Access</h2>
         <p><span className="warning">Warning:</span> Any changes you make when you access a teacher account will impact the teacher and student facing dashboards.</p>
         <p>This list provides you with the ability to sign in to all of the teacher accounts for the schools you have admin access.</p>
-        <div className={`admins-teachers ${this.props.isValid ? '' : 'blur'}`}>
+        <div className={'admins-teachers'}>
           <SortableTable
             columns={this.props.columns}
             rows={this.rows()}
