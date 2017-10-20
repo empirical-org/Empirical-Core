@@ -403,6 +403,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
+  get 'student_demo' => 'students#student_demo'
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
