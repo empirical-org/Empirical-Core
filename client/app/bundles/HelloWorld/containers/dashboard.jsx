@@ -11,8 +11,7 @@ export default React.createClass({
       classrooms: null,
       hasPremium: null,
       performanceQuery: [
-        // pulling lowest performing students until we finalize our grading schema
-        // {header: 'Lowest Performing Students', results: null},
+        {header: 'Lowest Performing Students', results: null},
         { header: 'Difficult Concepts', results: null, }],
     });
   },

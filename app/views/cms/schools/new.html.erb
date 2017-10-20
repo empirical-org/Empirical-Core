@@ -19,7 +19,7 @@
         <% @editable_attributes.each do |attribute_name, attribute_field| %>
           <div class='cms-form-row'>
             <%= f.label attribute_field, attribute_name %>
-            <%= f.text_field attribute_field %>
+            <%= f.text_field attribute_field, autocomplete: 'off' %>
           </div>
         <% end %>
 

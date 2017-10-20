@@ -96,7 +96,7 @@ describe('RecommendationsTableCell component', () => {
       expect(wrapper.find('.donalito-checkbox')).toHaveLength(1)
     })
     it('should call a function on clicking the checkbox', () => {
-      wrapper.find('.donalito-checkbox').simulate('click')
+      wrapper.simulate('click')
       expect(mockCheckboxOnClick.mock.calls).toHaveLength(1);
     })
     it('should render an img with the class recommendation-check', () => {
@@ -127,7 +127,7 @@ describe('RecommendationsTableCell component', () => {
       expect(wrapper.find('.donalito-checkbox')).toHaveLength(1)
     })
     it('should call a function on clicking the checkbox', () => {
-      wrapper.find('.donalito-checkbox').simulate('click')
+      wrapper.simulate('click')
       expect(mockCheckboxOnClick.mock.calls).toHaveLength(1);
     })
     it('should not render an img with the class recommendation-check', () => {
@@ -192,7 +192,7 @@ describe('RecommendationsTableCell component', () => {
       expect(wrapper.find('.donalito-checkbox')).toHaveLength(1)
     })
     it('should call a function on clicking the checkbox', () => {
-      wrapper.find('.donalito-checkbox').simulate('click')
+      wrapper.simulate('click')
       expect(mockCheckboxOnClick.mock.calls).toHaveLength(1);
     })
     it('should render an img with the class recommendation-check', () => {
