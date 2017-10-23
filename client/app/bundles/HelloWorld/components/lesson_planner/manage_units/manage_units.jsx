@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'request';
+import $ from 'jquery';
 import Units from './units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
@@ -47,7 +48,7 @@ export default React.createClass({
   getUnitsForCurrentClass() {
     if (this.state.selectedClassroomId) {
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
-      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.has(selectedClassroom.name));
+      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.includes(selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
       this.setState({units: this.state.allUnits, loaded: true})
@@ -57,7 +58,7 @@ export default React.createClass({
   generateNewCaUnit(u) {
     const caObj = {
       studentCount: Number(u.array_length ? u.array_length : u.class_size),
-      classrooms: new Set([u.class_name]),
+      classrooms: [u.class_name],
       classroomActivities: new Map(),
       unitId: u.unit_id,
       unitCreated: u.unit_created_at,
@@ -82,9 +83,9 @@ export default React.createClass({
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
       } else {
         const caUnit = parsedUnits[u.unit_id];
-        if (!caUnit.classrooms.has(u.class_name)) {
+        if (!caUnit.classrooms.includes(u.class_name)) {
           // add the info and student count from the classroom if it hasn't already been done
-          caUnit.classrooms.add(u.class_name);
+          caUnit.classrooms.push(u.class_name);
           caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
         }
         // add the activity info if it doesn't exist
@@ -166,6 +167,11 @@ export default React.createClass({
     } else if (!this.state.loaded) {
       return <LoadingIndicator />;
     }
+    const allClassroomsClassroom = {name: 'All Classrooms'}
+    const classrooms = [allClassroomsClassroom].concat(this.state.classrooms)
+    const classroomWithSelectedId = classrooms.find(classy => classy.id === this.state.selectedClassroomId)
+    const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom
+
     return (
       <span>
         {/* TODO: fix this so it links to the activity type selection page
@@ -173,11 +179,14 @@ export default React.createClass({
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
 				</div>*/}
         <ManageUnitsHeader />
-        <ClassroomDropdown
-          classrooms={this.state.classrooms}
-          callback={this.switchClassrooms}
-          selectedClassroom={this.state.classrooms.find(classy => classy.id === this.state.selectedClassroomId)}
-        />
+        <div className="classroom-selector">
+          <p>Select a classroom: </p>
+          <ClassroomDropdown
+            classrooms={classrooms}
+            callback={this.switchClassrooms}
+            selectedClassroom={selectedClassroom}
+          />
+        </div>
         <Units
           updateDueDate={this.updateDueDate}
           editUnit={this.props.actions.editUnit}
