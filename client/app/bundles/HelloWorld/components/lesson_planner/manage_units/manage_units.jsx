@@ -1,26 +1,31 @@
 import React from 'react';
-import $ from 'jquery';
+import request from 'request';
 import Units from './units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
+import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
 
 export default React.createClass({
 
   getInitialState() {
     return {
+      allUnits: [],
       units: [],
       loaded: false,
-    };
+      classrooms: this.getClassrooms(),
+      // selectedClassroomId: this.props.routeParams ? this.props.routeParams.classroomId : null,
+    }
   },
 
-  componentWillMount() {
-    $.ajax({
-      url: '/teachers/units',
-      data: {},
-      success: this.displayUnits,
-      error() {
-      },
+  getClassrooms() {
+    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
+      const classrooms = JSON.parse(body).classrooms;
+      if (classrooms.length > 0) {
+        this.setState({ classrooms}, () => this.getUnits());
+      } else {
+        this.setState({ empty: true, loaded: true, });
+      }
     });
   },
 
@@ -30,6 +35,22 @@ export default React.createClass({
       const id = hash.replace('#', '');
       const element = document.getElementById(id);
       element ? element.scrollIntoView() : null;
+    }
+  },
+
+  getUnits() {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units`, (error, httpStatus, body) => {
+      this.displayUnits(JSON.parse(body))
+    });
+  },
+
+  getUnitsForCurrentClass() {
+    if (this.state.selectedClassroomId) {
+      const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
+      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.has(selectedClassroom.name));
+      this.setState({ units: unitsInCurrentClassroom, loaded: true, });
+    } else {
+      this.setState({units: this.state.allUnits, loaded: true})
     }
   },
 
@@ -89,7 +110,7 @@ export default React.createClass({
   },
 
   displayUnits(data) {
-    this.setState({ units: this.parseUnits(data), loaded: true, });
+    this.setState({ allUnits: this.parseUnits(data)}, this.getUnitsForCurrentClass);
     this.hashLinkScroll();
   },
 
@@ -109,6 +130,7 @@ export default React.createClass({
       },
     });
   },
+
   hideClassroomActivity(ca_id, unit_id) {
     let units,
       x1;
@@ -125,32 +147,17 @@ export default React.createClass({
     });
     this.setState({ units: x1, });
 
-    $.ajax({
-      type: 'put',
-      url: `/teachers/classroom_activities/${ca_id}/hide`,
-      success() {
-      },
-      error() {
-      },
-    });
+    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}/hide`)
   },
 
   updateDueDate(ca_id, date) {
-    $.ajax({
-      type: 'put',
-      dataType: 'json',
-      data: { classroom_activity: { due_date: date, }, },
-      url: `/teachers/classroom_activities/${ca_id}`,
-      success() {
-      },
-      error() {
-      },
-
+    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}`, {
+      qs: { classroom_activity: { due_date: date, }, },
     });
   },
 
-  switchToCreateUnit() {
-    this.props.actions.toggleTab('createUnit');
+  switchClassrooms(classroom) {
+    this.setState({ selectedClassroomId: `${classroom.id}`, }, () => this.getUnitsForCurrentClass());
   },
 
   stateBasedComponent() {
@@ -166,6 +173,11 @@ export default React.createClass({
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
 				</div>*/}
         <ManageUnitsHeader />
+        <ClassroomDropdown
+          classrooms={this.state.classrooms}
+          callback={this.switchClassrooms}
+          selectedClassroom={this.state.classrooms.find(classy => classy.id === this.state.selectedClassroomId)}
+        />
         <Units
           updateDueDate={this.updateDueDate}
           editUnit={this.props.actions.editUnit}
