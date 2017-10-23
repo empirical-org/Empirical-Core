@@ -11,6 +11,14 @@
 }
 .container.manage-units {
   padding-top: 0 !important;
+  .classroom-selector {
+    display: flex;
+    align-items: center;
+    padding-top: 25px;
+    p {
+      margin-right: 20px;
+    }
+  }
   .create-unit-button-container {
     height: 130px;
     width: 100%;
