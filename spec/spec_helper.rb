@@ -1,8 +1,9 @@
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  track_files "/app/**/*.rb"
+end
 
-require 'codecov'
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
 
 require 'rspec/retry'
 require 'rspec-redis_helper'
