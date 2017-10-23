@@ -6,6 +6,7 @@ import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
 import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
+import getParameterByName from '../../modules/get_parameter_by_name';
 
 export default React.createClass({
 
@@ -15,7 +16,7 @@ export default React.createClass({
       units: [],
       loaded: false,
       classrooms: this.getClassrooms(),
-      // selectedClassroomId: this.props.routeParams ? this.props.routeParams.classroomId : null,
+      selectedClassroomId: getParameterByName('classroom_id'),
     }
   },
 
@@ -158,7 +159,12 @@ export default React.createClass({
   },
 
   switchClassrooms(classroom) {
-    this.setState({ selectedClassroomId: `${classroom.id}`, }, () => this.getUnitsForCurrentClass());
+    if (classroom.id) {
+      window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`)
+    } else {
+      window.history.pushState({}, '', '/teachers/classrooms/activity_planner')
+    }
+    this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
   },
 
   stateBasedComponent() {
