@@ -54,7 +54,7 @@ export default React.createClass({
         key={el.classroom.id}
         classroom={el.classroom}
         students={el.students}
-        allSelected={el.allSelected}
+        allSelected={el.allSelected || el.emptyClassroomSelected}
         toggleClassroomSelection={that.props.toggleClassroomSelection}
         toggleStudentSelection={that.props.toggleStudentSelection}
       />);
