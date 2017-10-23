@@ -106,9 +106,9 @@ export default class extends React.Component {
       classroomList = [];
     }
     if (this.props.createOrEdit === 'edit') {
-      warningBlurb = <div className="automatic-assign-note">
-        <i className="fa fa-icon fa-lightbulb-o"/>
-        <p><span className="bold">Note:</span> If you choose to assign the activity pack to the <span className="italic">entire class</span>, new students will get assigned the activity pack automatically. But, if you only assign the activity pack to <span className="italic">certain students</span>, then the activity pack <span className="bold">will not be assigned</span> to the new students automatically.</p>
+      warningBlurb = <div className="unselecting-students-note">
+        <i className="fa fa-icon fa-exclamation-circle"/>
+        <p><span className="bold">Note:</span> If you unselect a student on this page, you will delete all of their assignments associated with this pack, even if those assignments <span className="italic">have already been completed</span>.</p>
       </div>;
     }
     return (
