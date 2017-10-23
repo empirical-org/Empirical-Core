@@ -269,9 +269,9 @@ class Cms::SchoolsController < ApplicationController
     ActiveRecord::Base.connection.execute("
       SELECT
         users.name AS teacher_name,
-        COUNT(DISTINCT(classrooms.id)) AS number_classrooms,
-        COUNT(DISTINCT(students_classrooms.student_id)) AS number_students,
-        COUNT(activity_sessions) AS number_activities_completed,
+        COUNT(DISTINCT classrooms.id) AS number_classrooms,
+        COUNT(DISTINCT students_classrooms.student_id) AS number_students,
+        COUNT(DISTINCT activity_sessions) AS number_activities_completed,
         TO_CHAR(GREATEST(users.last_sign_in, MAX(activity_sessions.completed_at)), 'Mon DD, YYYY') AS last_active,
         subscriptions.account_type AS subscription,
         users.id AS user_id,
