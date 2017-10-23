@@ -1,12 +1,12 @@
 import React from 'react';
 import request from 'request';
-import $ from 'jquery';
 import Units from './units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
 import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
+import getAuthToken from '../../modules/get_auth_token'
 
 export default React.createClass({
 
@@ -123,13 +123,8 @@ export default React.createClass({
     x1 = _.reject(units, unit => this.getIdFromUnit(unit) == id);
     this.setState({ units: x1, });
 
-    $.ajax({
-      type: 'put',
-      url: `/teachers/units/${id}/hide`,
-      success() {
-      },
-      error() {
-      },
+    request.put(`${process.env.DEFAULT_URL}/teachers/units/${id}/hide`, {
+      json: {authenticity_token: getAuthToken()}
     });
   },
 
@@ -149,7 +144,9 @@ export default React.createClass({
     });
     this.setState({ units: x1, });
 
-    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}/hide`)
+    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}/hide`, {
+      json: {authenticity_token: getAuthToken()}
+    })
   },
 
   updateDueDate(ca_id, date) {
