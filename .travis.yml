@@ -7,12 +7,12 @@ cache:
 rvm:
   - 2.3.1
 script:
-  - npm run jest:silent
-  - bash <(curl -s https://codecov.io/bash) -cF jest
+  # - npm run jest:silent
+  # - bash <(curl -s https://codecov.io/bash) -cF jest
   - npm run build:test
   # - npm run lint
   - bundle exec rake spec
-  - bash <(curl -s https://codecov.io/bash) -cF rspec
+  - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/.resultset.json
   - bundle exec teaspoon
 before_script:
   - cp config/database.yml.travis config/database.yml
