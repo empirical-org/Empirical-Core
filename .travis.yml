@@ -12,7 +12,7 @@ script:
   - npm run build:test
   # - npm run lint
   - bundle exec rake spec
-  - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/.resultset.json
+  - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
   - bundle exec teaspoon
 before_script:
   - cp config/database.yml.travis config/database.yml
