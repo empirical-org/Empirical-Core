@@ -43,7 +43,9 @@ export default React.createClass({
 
   componentDidMount() {
     this.setStateFromLocalStorage(this.fetchData);
-    this.getUpdatedUnits(this.props.selectedClassroom.value);
+    if(this.props.selectedClassroom) {
+      this.getUpdatedUnits(this.props.selectedClassroom.value);
+    }
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
 
@@ -63,6 +65,10 @@ export default React.createClass({
   fetchData() {
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
+    if(!this.state.selectedClassroom) {
+      this.setState({ missing: 'classrooms' });
+      return;
+    }
     $.ajax({
       url: '/teachers/classrooms/scores',
       data: {
@@ -209,7 +215,8 @@ export default React.createClass({
                 selectClassroom={this.selectClassroom}
                 selectedUnit={this.state.selectedUnit}
                 unitFilters={this.state.unitFilters}
-                selectUnit={this.selectUnit} selectDates={this.selectDates}
+                selectUnit={this.selectUnit}
+                selectDates={this.selectDates}
                 beginDate={this.state.beginDate}
                 endDate={this.state.endDate}
               />
