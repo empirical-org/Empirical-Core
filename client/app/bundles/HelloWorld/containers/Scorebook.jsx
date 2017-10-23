@@ -85,21 +85,26 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      that.setState({ unitFilters: parsedBody.units, selectedUnit: { name: 'All Activity Packs', value: '', }, });
+      that.setState({
+        unitFilters: parsedBody.units,
+        selectedUnit: { name: 'All Activity Packs', value: '', },
+        missing: this.checkMissing(this.state.scores)
+      });
     });
   },
 
-  checkMissing(newScores) {
-    if(!this.state.anyScoresHaveLoadedPreviously && newScores.size > 0) {
+  checkMissing(scores) {
+    if(!this.state.anyScoresHaveLoadedPreviously && scores.size > 0) {
       this.setState({anyScoresHaveLoadedPreviously: true});
       localStorage.setItem('anyScoresHaveLoadedPreviously', true);
     }
-
     if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';
-    } else if(this.state.anyScoresHaveLoadedPreviously && (!newScores || newScores.size === 0)) {
+    } else if(this.state.anyScoresHaveLoadedPreviously && (!scores || scores.size === 0)) {
       return 'activitiesWithinDateRange';
-    } else if (!newScores || newScores.size === 0) {
+    } else if (this.state.unitFilters.length && (!scores || scores.size === 0)) {
+      return 'students';
+    } else if (!scores || scores.size === 0) {
       return 'activities';
     }
   },
