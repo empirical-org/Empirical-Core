@@ -1,4 +1,4 @@
-import { Example } from '../src/main';
+import { train } from '../src/main';
 
-const ex = new Example();
-ex.doSomething();
+const ex = train("hi\nbye\nhi");
+console.log(ex);
