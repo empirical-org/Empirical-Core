@@ -9,11 +9,11 @@ rvm:
 script:
   - npm run jest:silent
   - cd ..
-  - bash <(curl -s https://codecov.io/bash) -c -F jest -f client/coverage/coverage-final.json
+  - bash <(curl -s https://codecov.io/bash) -cF jest
   - npm run build:test
   # - npm run lint
   - bundle exec rake spec
-  - bash <(curl -s https://codecov.io/bash) -c -F rspec -f coverage/.resultset.json
+  - bash <(curl -s https://codecov.io/bash) -cF rspec
   - bundle exec teaspoon
 before_script:
   - cp config/database.yml.travis config/database.yml

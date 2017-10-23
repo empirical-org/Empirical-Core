@@ -184,6 +184,8 @@ group :test do
   gem "vcr"
   gem "webmock"
   gem "codeclimate-test-reporter", require: nil
+  gem 'codecov'
+  gem 'simplecov'
 end
 
 # Memory profiling
