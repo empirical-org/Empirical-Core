@@ -37,6 +37,7 @@ export default React.createClass({
       loading: false,
       is_last_page: false,
       noLoadHasEverOccurredYet: true,
+      anyScoresHaveLoadedPreviously: localStorage.getItem('anyScoresHaveLoadedPreviously') || false
     };
   },
 
@@ -89,8 +90,15 @@ export default React.createClass({
   },
 
   checkMissing(newScores) {
+    if(!this.state.anyScoresHaveLoadedPreviously && newScores.size > 0) {
+      this.setState({anyScoresHaveLoadedPreviously: true});
+      localStorage.setItem('anyScoresHaveLoadedPreviously', true);
+    }
+
     if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';
+    } else if(this.state.anyScoresHaveLoadedPreviously && (!newScores || newScores.size === 0)) {
+      return 'activitiesWithinDateRange';
     } else if (!newScores || newScores.size === 0) {
       return 'activities';
     }
@@ -176,7 +184,8 @@ export default React.createClass({
     }
 
     if (this.state.missing) {
-      content = <EmptyProgressReport missing={this.state.missing} />;
+      const onButtonClick = this.state.missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
+      content = <EmptyProgressReport missing={this.state.missing} onButtonClick={onButtonClick} />;
     } else {
       content =
         (<div>
@@ -196,8 +205,8 @@ export default React.createClass({
                 selectedUnit={this.state.selectedUnit}
                 unitFilters={this.state.unitFilters}
                 selectUnit={this.selectUnit} selectDates={this.selectDates}
-                beginDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))}
-                endDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))}
+                beginDate={this.state.beginDate}
+                endDate={this.state.endDate}
               />
               <ScoreLegend />
               <AppLegend />
