@@ -11,6 +11,7 @@ script:
   - npm run build:test
   # - npm run lint
   - bundle exec rake spec
+  - bundle exec rake brakeman
   - bundle exec teaspoon
 before_script:
   - cp config/database.yml.travis config/database.yml
