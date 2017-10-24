@@ -5,7 +5,8 @@ describe LoginPdf do
     let(:arnold) { FactoryGirl.create(:arnold_horshack) }
     let(:clever_student) { FactoryGirl.create(:student, clever_id: 'clever_id_1', email: 'clever@gmail.com') }
     let(:google_student) { FactoryGirl.create(:student, signed_up_with_google: true, email: 'googler@gmail.com') }
-    let(:students) { [arnold, clever_student, google_student] }
+    let(:non_email_student)  { FactoryGirl.create(:student, email: nil)}
+    let(:students) { [arnold, clever_student, google_student, non_email_student] }
     let(:classroom) { FactoryGirl.create(:classroom, students: students) }
 
     before do
@@ -42,8 +43,12 @@ describe LoginPdf do
       expect(@text_analysis.strings).to include(arnold.username)
     end
 
-    it 'shows regular users the right password' do
-      expect(@text_analysis.strings).to include(arnold.last_name.capitalize)
+    it 'shows email users the right password' do
+      expect(@text_analysis.strings).to include('Log in with email/username and custom password')
+    end
+
+    it 'shows non-email users the default password' do
+      expect(@text_analysis.strings).to include(non_email_student.last_name.capitalize)
     end
 
     it 'tells the teacher the right class code' do
