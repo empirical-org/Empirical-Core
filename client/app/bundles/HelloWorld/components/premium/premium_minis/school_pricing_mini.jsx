@@ -30,7 +30,7 @@ export default React.createClass({
     </div>
     <header className='pricing-mini-header purple'>
       <div className='img-holder'>
-          <img src="/images/school_premium_icon.png" alt="teacher_premium_icon"/>
+          <img src={`${process.env.CDN_URL}/images/shared/school_premium_icon.png`} alt="teacher_premium_icon"/>
       </div>
       <h4>School Premium</h4>
     </header>
