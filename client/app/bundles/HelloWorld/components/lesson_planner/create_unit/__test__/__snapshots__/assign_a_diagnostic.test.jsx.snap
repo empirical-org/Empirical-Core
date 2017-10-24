@@ -17,7 +17,7 @@ exports[`AssignADiagnostic component should render 1`] = `
       <assignment_type_mini
         bodyText="Find your students’ writing abilities with a 22 question diagnostic."
         directions="use intermittently"
-        img="/images/diagnostic_icon.svg"
+        img="http://cdn.quill.org/images/shared/diagnostic_icon.svg"
         quantity={1}
         timeDuration="~20 Min."
         title="Sentence Structure Diagnostic"
@@ -30,7 +30,7 @@ exports[`AssignADiagnostic component should render 1`] = `
       <assignment_type_mini
         bodyText="Find your students’ writing abilities with a 22 question diagnostic for language learners."
         directions="use continuously"
-        img="/images/ell_diagnostic_icon.svg"
+        img="http://cdn.quill.org/images/shared/ell_diagnostic_icon.svg"
         quantity={1}
         timeDuration="~25 Min."
         title="ELL Diagnostic"
