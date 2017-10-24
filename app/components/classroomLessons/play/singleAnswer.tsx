@@ -55,7 +55,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {
       this.setState({ submitted: false, editing: false, response: nextProps.data.play.prefilledText || '', });
     }
-    if (!(student && this.props.submissions && this.props.submissions[student]) && (nextProps.data.play.prefilledText !== this.state.response)) {
+    if (this.state.editing === false && (nextProps.data.play.prefilledText !== this.state.response)) {
       this.setState({response: nextProps.data.play.prefilledText})
     }
   }
