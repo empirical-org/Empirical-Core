@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactOnRails from 'react-on-rails';
 import request from 'request';
+import PasswordInfo from './password_info.jsx';
 
 class LoginFormApp extends Component {
   constructor() {
@@ -94,6 +95,7 @@ class LoginFormApp extends Component {
           </div>
           <input type="submit" name="commit" value="Login" />
         </form>
+        <PasswordInfo showHintBox={!!this.state.message} />
       </div>
     );
   }
