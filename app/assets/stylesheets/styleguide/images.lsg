@@ -3,7 +3,7 @@
 ### Headshots
 
 ```
-<img class='q-headshot' src="/images/daniel_90.png">
+<img class='q-headshot' src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%>>
 @css {
   .lsg-html {
     background-color: #dedede;

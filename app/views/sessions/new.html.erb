@@ -11,7 +11,7 @@
         </a>
         <a href=<%="https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }"%>>
           <button class="clever-login">
-            <img src='/images/clever_icon.svg'/>
+            <img src=<%= "#{ENV['CDN_URL']}/images/shared/clever_icon.svg" %>/>
             <span>Login with Clever</span>
           </button>
         </a>
@@ -22,7 +22,7 @@
         <%= react_component('LoginFormApp') %>
         <div class='password-and-signup'>
           <a href="/password_reset">Forgot your password?</a>
-          <a href="/session/new">New to Quill? Sign up here</a>
+          <a href="/account/new">New to Quill? Sign up here</a>
         </div>
         <div class='password-hint'>
           <h4>Password not working? Here is a hint:</h3>
