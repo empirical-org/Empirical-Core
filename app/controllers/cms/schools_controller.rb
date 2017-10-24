@@ -40,6 +40,14 @@ class Cms::SchoolsController < ApplicationController
       'PPIN' => @school_info.ppin
     }
     @teacher_data = teacher_search_query_for_school(params[:id])
+    @admins = SchoolsAdmins.includes(:user).where(school_id: params[:id].to_i).map do |admin|
+      {
+        name: admin.user.name,
+        email: admin.user.email,
+        school_id: admin.school_id,
+        user_id: admin.user_id
+      }
+    end
   end
 
   # This allows staff members to edit certain details about a school.
@@ -110,7 +118,7 @@ class Cms::SchoolsController < ApplicationController
     @school = School.find(params[:id])
   end
 
-  def add_admin
+  def add_admin_by_email
     begin
       user = User.find_by(email: params[:email_address])
       school = School.find(params[:id])

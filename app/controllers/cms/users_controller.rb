@@ -56,8 +56,9 @@ class Cms::UsersController < ApplicationController
   end
 
   def remove_admin
-    admin = SchoolsAdmins.where(user_id: params[:user_id], school_id: params[:school_id]).first
+    admin = SchoolsAdmins.find_by(user_id: params[:user_id], school_id: params[:school_id])
     flash[:error] = 'Something went wrong.' unless admin.destroy
+    flash[:success] = 'Success! 🎉'
     redirect_to :back
   end
 
