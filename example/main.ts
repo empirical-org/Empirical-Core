@@ -1,7 +1,8 @@
 import { train, correct, edits } from '../src/main';
 
-export {
-  train, 
+export default {
+  train,
   correct, 
   edits
-}
+} 
+

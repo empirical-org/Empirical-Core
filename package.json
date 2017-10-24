@@ -1,8 +1,8 @@
 {
-  "name": "typescript-starter",
-  "version": "1.0.0",
-  "description": "```\r npm init -f\r ```",
-  "main": "dist/index.js",
+  "name": "quill-spellchecker",
+  "version": "0.0.1",
+  "description": "Spellchecker for Quill.",
+  "main": "dist/lib.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/mocha": "^2.2.38",
+    "@types/node": "^8.0.46",
     "chai": "^3.5.0",
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
