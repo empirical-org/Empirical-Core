@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import Promise from 'promise-polyfill'; 
+import Promise from 'promise-polyfill';
 
 // To add to window
 if (!window.Promise) {
@@ -25,6 +25,7 @@ import Passthrough from './components/shared/passthrough.jsx';
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
+import quillNormalizer from './libs/quillNormalizer'
 
 Raven
   .config(
@@ -82,3 +83,5 @@ setTimeout(() => {
   store.dispatch(lessonActions.loadLessons());
   store.dispatch(levelActions.loadItemLevels());
 });
+
+String.prototype.quillNormalize = quillNormalizer
