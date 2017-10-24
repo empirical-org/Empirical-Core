@@ -21,7 +21,7 @@ export default React.createClass({
   },
 
   getClassrooms() {
-    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
         this.setState({ classrooms}, () => this.getUnits());
