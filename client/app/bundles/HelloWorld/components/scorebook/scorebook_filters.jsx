@@ -40,6 +40,7 @@ export default React.createClass({
             options={this.props.classroomFilters}
             selectOption={this.props.selectClassroom}
             selectedOption={this.props.selectedClassroom}
+            placeholder={'Select a Classroom'}
           />
         </div>
         <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">

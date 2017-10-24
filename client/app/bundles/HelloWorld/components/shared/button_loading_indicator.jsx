@@ -5,7 +5,7 @@ export default React.createClass({
 	render: function () {
 		return (
 			<span className='assigner-container'>
-				<img className='assigner' src='/images/assigner_still.png'/>
+				<img className='assigner' src={`${process.env.CDN_URL}/images/shared/assigner_still.png`}/>
 			</span>
 		);
 	}
