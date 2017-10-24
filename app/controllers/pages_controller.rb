@@ -50,10 +50,6 @@ class PagesController < ApplicationController
   def faq
   end
 
-  def new
-    @body_class = 'full-width-white-page'
-  end
-
   def impact
   end
 

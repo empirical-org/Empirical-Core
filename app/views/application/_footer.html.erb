@@ -8,7 +8,7 @@
 			<li><%= link_to "Privacy", "#{root_path}privacy" %></li>
 		</ul>
 
-		<%= image_tag "footer-line.png", class: "footer-line" %>
+		<img src=<%= "#{ENV['CDN_URL']}/images/shared/footer-line.png" %> class="footer-line"></img>
 
 		<ul class="footer-social">
 			<li><a href="https://twitter.com/Quill_org"><i class="fa fa-twitter"></i></a></li>

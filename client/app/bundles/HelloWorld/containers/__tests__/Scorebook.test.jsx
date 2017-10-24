@@ -33,13 +33,39 @@ describe('Scorebook component', () => {
     const wrapper = shallow(<Scorebook />);
     expect(wrapper).toMatchSnapshot();
   });
-  //
+
   describe('if state.missing has a value', () => {
     const wrapper = shallow(<Scorebook />);
     wrapper.setState({ missing: 'activities', });
 
-    it('renders EmptyProgressReport', () => {
-      expect(wrapper.find(EmptyProgressReport).length).toEqual(1);
+    describe('EmptyProgressReport', () => {
+      it('renders', () => {
+        expect(wrapper.find(EmptyProgressReport).length).toEqual(1);
+      });
+
+      it('receives classrooms as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ classroomFilters: [] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('classrooms');
+      });
+
+      it('receives activities as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ anyScoresHaveLoadedPreviously: 'true', classroomFilters: [''] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('activitiesWithinDateRange');
+      });
+
+      it('receives students as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ unitFilters: [''], classroomFilters: [''] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('students');
+      });
+
+      it('receives activitiesWithinDateRange as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ classroomFilters: [''] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('activities');
+      });
     });
 
     it('does not render LoadingIndicator', () => {
@@ -61,11 +87,6 @@ describe('Scorebook component', () => {
     it('does not render StudentScores', () => {
       expect(wrapper.find(StudentScores).length).toEqual(0);
     });
-
-    // it('does not get rendered if it is not passed a value for missing', () => {
-    //   const wrapper = shallow(<Scorebook missing={''}/>)
-    //   expect(wrapper.find(EmptyProgressReport).length).toEqual(0)
-    // })
   });
 
   describe('if state.loading is true', () => {

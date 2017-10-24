@@ -16,7 +16,7 @@ export default React.createClass({
 
     checkOrNum: function(current, index, green) {
       if (!current && green) {
-        return <img src='/images/check_icon.svg' alt='checked'/>
+        return <img src={`${process.env.CDN_URL}/images/shared/check_icon.svg`} alt='checked'/>
       } else {
         return  <span>{index + 1}</span>
       }
@@ -47,7 +47,7 @@ export default React.createClass({
         return (
             <div id='status-bar-wrapper'>
                 <div id='diagnostic-icon-section'>
-                    <img id='diagnostic-icon' src="/images/diagnostic_icon.svg" alt="diagnostic_icon"/>
+                    <img id='diagnostic-icon' src={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`} alt="diagnostic_icon"/>
                     <span>Sentence Structure</span><br/><span>Diagnostic</span>
                 </div>
                 <div id="checkpoint-wrapper">
