@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
 import Unit from './unit';
-import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 
 export default React.createClass({
 

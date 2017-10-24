@@ -165,10 +165,23 @@ export default React.createClass({
   },
 
   stateBasedComponent() {
+    let content
     if (this.state.units.length === 0 && this.state.loaded === true) {
-      return <EmptyAssignedUnits />;
+      if (this.state.selectedClassroomId) {
+        content = <p className="no-activity-packs">There are no activity packs assigned to this classroom. To assign a new activity pack, click the <strong>Assign A New Activity</strong> button above. To assign an existing activity pack to this classroom, select another classroom from the dropdown menu and click <strong>Edit Classes & Students</strong> next to the activity pack you'd like to assign.</p>
+      } else {
+        content = <p className="no-activity-packs">Welcome! This is where your assigned activity packs are stored, but it's empty at the moment. Let's assign your first activity pack by clicking on the <strong>Assign A New Activity</strong> button above.</p>
+      }
     } else if (!this.state.loaded) {
       return <LoadingIndicator />;
+    } else {
+      content = <Units
+                updateDueDate={this.updateDueDate}
+                editUnit={this.props.actions.editUnit}
+                hideClassroomActivity={this.hideClassroomActivity}
+                hideUnit={this.hideUnit}
+                data={this.state.units}
+              />
     }
     const allClassroomsClassroom = {name: 'All Classrooms'}
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms)
@@ -190,13 +203,7 @@ export default React.createClass({
             selectedClassroom={selectedClassroom}
           />
         </div>
-        <Units
-          updateDueDate={this.updateDueDate}
-          editUnit={this.props.actions.editUnit}
-          hideClassroomActivity={this.hideClassroomActivity}
-          hideUnit={this.hideUnit}
-          data={this.state.units}
-        />
+        {content}
       </span>
     );
     return <span />;
