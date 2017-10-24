@@ -85,7 +85,8 @@ const lessonSlideTypes: CLIntF.Questions = {
       play: {
         prompt: "CHANGE ME",
         cues: ["CHANGE", "ME"],
-        instructions: "CHANGE ME"
+        instructions: "CHANGE ME",
+        prefilledText: "CHANGE ME"
       },
       teach: {
         script: [
