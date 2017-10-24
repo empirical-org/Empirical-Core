@@ -42,7 +42,7 @@ export default React.createClass({
 
   getUnits() {
     request.get(`${process.env.DEFAULT_URL}/teachers/units`, (error, httpStatus, body) => {
-      this.displayUnits(JSON.parse(body))
+      this.setAllUnits(JSON.parse(body))
     });
   },
 
@@ -111,7 +111,7 @@ export default React.createClass({
     return unitsArr;
   },
 
-  displayUnits(data) {
+  setAllUnits(data) {
     this.setState({ allUnits: this.parseUnits(data)}, this.getUnitsForCurrentClass);
     this.hashLinkScroll();
   },
@@ -151,7 +151,7 @@ export default React.createClass({
 
   updateDueDate(ca_id, date) {
     request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}`, {
-      qs: { classroom_activity: { due_date: date, }, },
+      json: { classroom_activity: { due_date: date, }, authenticity_token: getAuthToken()},
     });
   },
 
