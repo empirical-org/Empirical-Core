@@ -11,7 +11,7 @@ export default React.createClass({
             link='/teachers/classrooms/assign_activities/assign-a-diagnostic'
             key={'diagnostics'}
             title={'Entry Diagnostics'}
-            img={'/images/diagnostic_icon.svg'}
+            img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
             bodyText={[<span key={1}>Find your students’ writing abilities with</span>, <br key={2}></br>, <span key={3}>a 22 question diagnostic.</span>]}
             directions={'use intermittently'}
             quantity={2}
@@ -23,7 +23,7 @@ export default React.createClass({
               key={'featured'}
               toggleTarget={'exploreActivityPacks'}
               title={'Featured Activity Packs'}
-              img={'/images/featured_activity_pack_icon.png'}
+              img={`${process.env.CDN_URL}/images/shared/featured_activity_pack_icon.png`}
               bodyText={[<span key={1}>Quickly assign packs of activities created</span>, <br key={2}></br>, <span key={3}>by experienced educators.</span>]}
               directions={'use continuously'}
               routeToGetQuantity={'/count/featured_packs'}
@@ -35,7 +35,7 @@ export default React.createClass({
               key={'custom'}
               toggleTarget={'createUnit'}
               title={'Explore All Activities'}
-              img={'/images/custom_activity_pack_icon.svg'}
+              img={`${process.env.CDN_URL}/images/shared/custom_activity_pack_icon.svg`}
               bodyText={'Browse our entire library of activities and create your own activity pack.'}
               directions={'use continuously'}
               routeToGetQuantity={'/count/activities'}
