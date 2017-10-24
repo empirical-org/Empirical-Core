@@ -330,6 +330,8 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :edit_subscription
         post :update_subscription
+        get :new_admin
+        post :add_admin_by_email
       end
     end
   end
