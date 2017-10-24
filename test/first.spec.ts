@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import {train, edits} from '../src/main'
+import {train, edits, correct} from '../src/main'
 
 describe('The train function', () => {
     it('Should take \n seperated words in a list', () => {
@@ -20,6 +20,26 @@ describe('The edits function', () => {
         const potentialEdits = edits("ryan")
         console.log(potentialEdits)
         assert.deepEqual(potentialEdits.length, 241);
+    });
+});
+
+describe('The correct function', () => {
+    it('Should take a word and correct it if appropriate.', () => {
+        const dict = 'misspelled\nforked';
+        const dictionary = train(dict);
+
+        const correctWord = correct(dictionary, "mispeled")
+        console.log(correctWord)
+        assert.equal(correctWord, 'misspelled');
+    });
+
+    it('Should take take a word correct it if appropriate.', () => {
+        const dict = 'misspelled\nforked';
+        const dictionary = train(dict);
+
+        const correctWord = correct(dictionary, "mspeled")
+        console.log(correctWord)
+        assert.equal(correctWord, 'mspeled');
     });
 });
 
