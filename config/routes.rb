@@ -336,13 +336,20 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  # tooltip is just for prototyping tooltip, if its still there you can remove it.
-
-  other_pages = %w(tooltip beta board press blog_posts supporters partners middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new map firewall_info)
+  other_pages = %w(beta board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
+
+  # These are legacy routes that we are redirecting for posterity.
+  get 'blog_posts', to: redirect('/news')
+  get 'supporters', to: redirect('https://community.quill.org/')
+  get 'story', to: redirect('/mission')
+  get 'learning', to: redirect('https://support.quill.org/research-and-pedagogy')
+  get 'new', to: redirect('/')
+  get 'media', to: redirect('/media_kit')
+  # End legacy route redirects.
 
   tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
   tools.each do |tool|
