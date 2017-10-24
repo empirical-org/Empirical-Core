@@ -1,6 +1,6 @@
 {
   "name": "quill-spellchecker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Spellchecker for Quill.",
   "main": "dist/lib.js",
   "scripts": {
