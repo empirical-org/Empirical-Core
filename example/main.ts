@@ -1,4 +1,7 @@
-import { train } from '../src/main';
+import { train, correct, edits } from '../src/main';
 
-const ex = train("hi\nbye\nhi");
-console.log(ex);
+export {
+  train, 
+  correct, 
+  edits
+}

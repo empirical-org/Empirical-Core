@@ -23,7 +23,6 @@ export function correct(dictionary: Dictionary, potentialWord: string) {
 	list.forEach(function (edit) {
 		if (dictionary.hasOwnProperty(edit)) candidates[dictionary[edit]] = edit;
 	});
-	console.log("count:", countKeys(candidates))
 	if (countKeys(candidates) > 0) return candidates[max(candidates)];
 
 	list.forEach(function (edit) {
@@ -31,7 +30,6 @@ export function correct(dictionary: Dictionary, potentialWord: string) {
 			if (dictionary.hasOwnProperty(w)) candidates[dictionary[w]] = w;
 		});
 	});
-	console.log("count:", countKeys(candidates))
 	return countKeys(candidates) > 0 ? candidates[max(candidates)] : potentialWord;
 }
 
@@ -45,7 +43,6 @@ export function max(candidates) {
 		if (candidates.hasOwnProperty(candidate))
 			arr.push(candidate);
 	const output  = Math.max.apply(null, arr)
-	console.log("output:", output);
 	return output;
 }
 
