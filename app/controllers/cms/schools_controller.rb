@@ -106,6 +106,23 @@ class Cms::SchoolsController < ApplicationController
     end
   end
 
+  def new_admin
+    @school = School.find(params[:id])
+  end
+
+  def add_admin
+    begin
+      user = User.find_by(email: params[:email_address])
+      school = School.find(params[:id])
+      SchoolsAdmins.create(user_id: user.id, school_id: school.id)
+      flash[:success] = "Yay! It worked! 🎉"
+      return redirect_to cms_school_path(params[:id])
+    rescue
+      flash[:error] = "It did't work! 😭😭😭"
+      return redirect_to :back
+    end
+  end
+
   private
   def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.

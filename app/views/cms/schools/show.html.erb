@@ -52,5 +52,9 @@
       <p><strong><%= k %></strong></p>
       <p><%= v || 'N/A' %></p>
     <% end %>
+    <br /><br />
+    <h2>Add Admin</h2>
+    <br />
+    <%= link_to 'Add Admin', new_admin_cms_school_path(params[:id]), class: 'btn button-green' %>
   </article>
 </div>
