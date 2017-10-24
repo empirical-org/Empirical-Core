@@ -17,14 +17,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def assign_activities
-    if current_user.classrooms_i_teach.empty?
+    if current_user.role != 'staff' && current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     else
       @tab = params[:tab] #|| "manageUnits"
       @grade = params[:grade]
       @students = current_user.students.any?
-      @last_classroom_name = current_user.classrooms_i_teach.last.name
-      @last_classroom_id = current_user.classrooms_i_teach.last.id
+      @last_classroom_name = current_user.classrooms_i_teach&.last&.name
+      @last_classroom_id = current_user.classrooms_i_teach&.last&.id
     end
   end
 
@@ -211,7 +211,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         redirect_to "/activities/packs"
       end
     else
-      teacher!
+      current_user.role == 'staff' || teacher!
     end
   end
 
