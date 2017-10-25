@@ -59,19 +59,19 @@
 }
 
 .icon-pencil {
-  background-image: image-url("scorebook/icon-pencil.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-pencil.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
 .icon-puzzle {
-  background-image: image-url("scorebook/icon-puzzle.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-puzzle.png");
   background-repeat: no-repeat;
   background-position: 11px 7px;
 }
 
 .icon-puzzle-gray {
-  background-image: image-url("scorebook/icon-puzzle-gray.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-puzzle-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
@@ -84,14 +84,14 @@
 }
 
 .icon-diagnostic-gray {
-  background-image: image-url("scorebook/icon-diagnostic-gray.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
 .icon-connect-gray {
-  background-image: image-url("scorebook/icon-connect-gray.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-connect-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
@@ -140,30 +140,30 @@
 }
 
 .icon-flag {
-  background-image: image-url("scorebook/icon-flag.png");
+  background-image: url("http://assets.quill.org/images/scorebook/icon-flag.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
 .icon-diagnostic {
-  background-image: image-url("scorebook/icon-diagnostic.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 .icon-connect {
-  background-image: image-url("scorebook/icon-connect.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-connect.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
 .icon-flag {
-  background-image: image-url("scorebook/icon-flag.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-flag.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
 .icon-flag-gray {
-  background-image: image-url("scorebook/icon-flag-gray.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-flag-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
@@ -178,34 +178,67 @@
 .icon-link {
    margin: 8px;
    cursor: pointer;
+   &:first-of-type {
+     margin-left: 0px;
+   }
 }
 
 .icon-puzzle-embossed {
-  background-image: url("http://assets.quill.org/images/scorebook/grammar-embossed.svg");
+  background-image: url("http://assets.quill.org/images/scorebook/grammar-embossed.png");
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .icon-lessons-embossed {
-  background-image: url("https://assets.quill.org/images/scorebook/lessons-embossed.svg");
+  background-image: url("http://assets.quill.org/images/scorebook/lessons-embossed.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
 .icon-flag-embossed {
-  background-image: url("https://assets.quill.org/images/scorebook/proofreader-embossed.svg");
+  background-image: url("https://assets.quill.org/images/scorebook/proofreader-embossed.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
 .icon-diagnostic-embossed {
-  background-image: url("https://assets.quill.org/images/scorebook/diagnostic-embossed.svg");
+  background-image: url("https://assets.quill.org/images/scorebook/diagnostic-embossed.png");
   background-repeat: no-repeat;
   background-position: center;
 }
 .icon-connect-embossed {
-  background-image: url("https://assets.quill.org/images/scorebook/connect-embossed.svg");
+  background-image: url("https://assets.quill.org/images/scorebook/connect-embossed.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon-puzzle-lightgray {
+  background-image: url("http://assets.quill.org/images/scorebook/icon-grammar-lightgray.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon-lessons-lightgray {
+  background-image: url("http://assets.quill.org/images/scorebook/icon-lessons-lightgray.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-flag-lightgray {
+  background-image: url("https://assets.quill.org/images/scorebook/icon-proofreader-lightgray.svg");
+  background-repeat: no-repeat;
+  background-position: 9px;
+}
+
+.icon-diagnostic-lightgray {
+  background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic-lightgray.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.icon-connect-lightgray {
+  background-image: url("https://assets.quill.org/images/scorebook/icon-connect-lightgray.svg");
   background-repeat: no-repeat;
   background-position: center;
 }

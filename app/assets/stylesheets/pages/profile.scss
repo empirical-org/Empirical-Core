@@ -187,10 +187,10 @@
 
   .row-list-end {
     position: relative;
-    .locked-tooltip {
+    .locked-tooltip, .missed-tooltip {
       position: absolute;
       font-size: 13px;
-      padding: 10px 16px;
+      padding: 10px 13px;
       bottom: 38px;
       right: 13px;
       width: 405px;

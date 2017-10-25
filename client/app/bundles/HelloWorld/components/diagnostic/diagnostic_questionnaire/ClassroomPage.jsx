@@ -235,7 +235,7 @@ export default React.createClass({
     return (
       <Modal {...this.props} show={this.state.showModal} onHide={this.hideModal} dialogClassName="add-class-modal">
         <Modal.Body>
-          <img className="pull-right react-bootstrap-close" onClick={this.hideModal} src="/images/close_x.svg" alt="close-modal" />
+          <img className="pull-right react-bootstrap-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
           <CreateClass closeModal={this.hideModal} user={this.state.user} />
         </Modal.Body>
       </Modal>

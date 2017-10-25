@@ -1,46 +1,43 @@
 class Cms::AuthorsController < ApplicationController
   before_filter :staff!
-  before_action :set_author, only: [:update, :destroy]
 
   def index
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: Author.all.map{|a| AuthorSerializer.new(a).as_json(root: false)}
-      end
-    end
+    @authors = Author.all
+  end
+
+  def new
+    @author = Author.new
   end
 
   def create
     @author = Author.new(author_params)
     if @author.save
-      render json: @author
+      flash[:success] = 'Created successfully!'
+      redirect_to cms_authors_path
     else
-      render json: @author.errors, status: 422
+      flash[:error] = 'Something went wrong.'
+      render :new
     end
   end
 
-  def update
-    @author.assign_attributes(author_params)
-    if @author.save
-      render json: @author
-    else
-      render json: @author.errors, status: 422
-    end
-  end
-
-  def destroy
-    @author.destroy
-    render json: {}
-  end
-
-  private
-
-  def set_author
+  def edit
     @author = Author.find(params[:id])
   end
 
+  def update
+    author = Author.find(params[:id])
+    author.assign_attributes(author_params)
+    if author.save
+      flash[:success] = 'Updated successfully!'
+      redirect_to cms_authors_path
+    else
+      flash[:error] = 'Something went wrong.'
+      render :update
+    end
+  end
+
+  private
   def author_params
-    params.require(:author).permit(:id, :name, :avatar)
+    params.require(:author).permit(:id, :name, :avatar, default_params)
   end
 end

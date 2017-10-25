@@ -13,8 +13,9 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
 
   def finish_lesson
     @classroom_activity.mark_all_activity_sessions_complete
-    @classroom_activity.update(locked: true, pinned: false)
+    @classroom_activity.update(locked: true, pinned: false, completed: true)
     @classroom_activity.save_concept_results(JSON.parse(params['json'])['concept_results'])
+    @classroom_activity.delete_activity_sessions_with_no_concept_results
     follow_up = JSON.parse(params['json'])['follow_up'] ? @classroom_activity.assign_follow_up_lesson(false) : false
     url = follow_up ? "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{follow_up&.id}/activity_from_classroom_activity" : "#{ENV['DEFAULT_URL']}"
     render json: {follow_up_url: url}

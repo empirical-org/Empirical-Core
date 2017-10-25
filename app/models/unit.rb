@@ -34,15 +34,18 @@ class Unit < ActiveRecord::Base
   end
 
   def email_lesson_plan
-    unit_id = self.id
-    activity_ids = Activity.select('DISTINCT(activities.id)')
-    .joins("JOIN classroom_activities ON classroom_activities.activity_id = activities.id")
-    .joins("JOIN units ON classroom_activities.unit_id = #{unit_id}")
-    .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
-    if activity_ids.any?
-      activity_ids = activity_ids.map(&:id)
-      teacher_id = self.user_id
-      LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, unit_id)
+    # limiting to production so teachers don't get emailed when we assign lessons from their account locally
+    if Rails.env.production? || self.user.email.match('quill.org')
+      unit_id = self.id
+      activity_ids = Activity.select('DISTINCT(activities.id)')
+      .joins("JOIN classroom_activities ON classroom_activities.activity_id = activities.id")
+      .joins("JOIN units ON classroom_activities.unit_id = #{unit_id}")
+      .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
+      if activity_ids.any?
+        activity_ids = activity_ids.map(&:id)
+        teacher_id = self.user_id
+        LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, unit_id)
+      end
     end
   end
 

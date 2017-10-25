@@ -7,6 +7,7 @@ class Scorebook::Query
     "SELECT
        students.id AS user_id,
         ca.id AS ca_id,
+        ca.completed AS marked_complete,
         students.name AS name,
         activity.activity_classification_id,
         activity.name AS activity_name,

@@ -1,26 +1,33 @@
 import React from 'react';
-import $ from 'jquery';
+import request from 'request';
 import Units from './units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
+import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
+import getParameterByName from '../../modules/get_parameter_by_name';
+import getAuthToken from '../../modules/get_auth_token'
 
 export default React.createClass({
 
   getInitialState() {
     return {
+      allUnits: [],
       units: [],
       loaded: false,
-    };
+      classrooms: this.getClassrooms(),
+      selectedClassroomId: getParameterByName('classroom_id'),
+    }
   },
 
-  componentWillMount() {
-    $.ajax({
-      url: '/teachers/units',
-      data: {},
-      success: this.displayUnits,
-      error() {
-      },
+  getClassrooms() {
+    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
+      const classrooms = JSON.parse(body).classrooms;
+      if (classrooms.length > 0) {
+        this.setState({ classrooms}, () => this.getUnits());
+      } else {
+        this.setState({ empty: true, loaded: true, });
+      }
     });
   },
 
@@ -33,10 +40,26 @@ export default React.createClass({
     }
   },
 
+  getUnits() {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units`, (error, httpStatus, body) => {
+      this.setAllUnits(JSON.parse(body))
+    });
+  },
+
+  getUnitsForCurrentClass() {
+    if (this.state.selectedClassroomId) {
+      const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
+      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.includes(selectedClassroom.name));
+      this.setState({ units: unitsInCurrentClassroom, loaded: true, });
+    } else {
+      this.setState({units: this.state.allUnits, loaded: true})
+    }
+  },
+
   generateNewCaUnit(u) {
     const caObj = {
       studentCount: Number(u.array_length ? u.array_length : u.class_size),
-      classrooms: new Set([u.class_name]),
+      classrooms: [u.class_name],
       classroomActivities: new Map(),
       unitId: u.unit_id,
       unitCreated: u.unit_created_at,
@@ -61,9 +84,9 @@ export default React.createClass({
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
       } else {
         const caUnit = parsedUnits[u.unit_id];
-        if (!caUnit.classrooms.has(u.class_name)) {
+        if (!caUnit.classrooms.includes(u.class_name)) {
           // add the info and student count from the classroom if it hasn't already been done
-          caUnit.classrooms.add(u.class_name);
+          caUnit.classrooms.push(u.class_name);
           caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
         }
         // add the activity info if it doesn't exist
@@ -88,8 +111,8 @@ export default React.createClass({
     return unitsArr;
   },
 
-  displayUnits(data) {
-    this.setState({ units: this.parseUnits(data), loaded: true, });
+  setAllUnits(data) {
+    this.setState({ allUnits: this.parseUnits(data)}, this.getUnitsForCurrentClass);
     this.hashLinkScroll();
   },
 
@@ -100,15 +123,11 @@ export default React.createClass({
     x1 = _.reject(units, unit => this.getIdFromUnit(unit) == id);
     this.setState({ units: x1, });
 
-    $.ajax({
-      type: 'put',
-      url: `/teachers/units/${id}/hide`,
-      success() {
-      },
-      error() {
-      },
+    request.put(`${process.env.DEFAULT_URL}/teachers/units/${id}/hide`, {
+      json: {authenticity_token: getAuthToken()}
     });
   },
+
   hideClassroomActivity(ca_id, unit_id) {
     let units,
       x1;
@@ -125,40 +144,50 @@ export default React.createClass({
     });
     this.setState({ units: x1, });
 
-    $.ajax({
-      type: 'put',
-      url: `/teachers/classroom_activities/${ca_id}/hide`,
-      success() {
-      },
-      error() {
-      },
-    });
+    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}/hide`, {
+      json: {authenticity_token: getAuthToken()}
+    })
   },
 
   updateDueDate(ca_id, date) {
-    $.ajax({
-      type: 'put',
-      dataType: 'json',
-      data: { classroom_activity: { due_date: date, }, },
-      url: `/teachers/classroom_activities/${ca_id}`,
-      success() {
-      },
-      error() {
-      },
-
+    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}`, {
+      json: { classroom_activity: { due_date: date, }, authenticity_token: getAuthToken()},
     });
   },
 
-  switchToCreateUnit() {
-    this.props.actions.toggleTab('createUnit');
+  switchClassrooms(classroom) {
+    if (classroom.id) {
+      window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`)
+    } else {
+      window.history.pushState({}, '', '/teachers/classrooms/activity_planner')
+    }
+    this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
   },
 
   stateBasedComponent() {
+    let content
     if (this.state.units.length === 0 && this.state.loaded === true) {
-      return <EmptyAssignedUnits />;
+      if (this.state.selectedClassroomId) {
+        content = <p className="no-activity-packs">There are no activity packs assigned to this classroom. To assign a new activity pack, click the <strong>Assign A New Activity</strong> button above. To assign an existing activity pack to this classroom, select another classroom from the dropdown menu and click <strong>Edit Classes & Students</strong> next to the activity pack you'd like to assign.</p>
+      } else {
+        content = <p className="no-activity-packs">Welcome! This is where your assigned activity packs are stored, but it's empty at the moment. Let's assign your first activity pack by clicking on the <strong>Assign A New Activity</strong> button above.</p>
+      }
     } else if (!this.state.loaded) {
       return <LoadingIndicator />;
+    } else {
+      content = <Units
+                updateDueDate={this.updateDueDate}
+                editUnit={this.props.actions.editUnit}
+                hideClassroomActivity={this.hideClassroomActivity}
+                hideUnit={this.hideUnit}
+                data={this.state.units}
+              />
     }
+    const allClassroomsClassroom = {name: 'All Classrooms'}
+    const classrooms = [allClassroomsClassroom].concat(this.state.classrooms)
+    const classroomWithSelectedId = classrooms.find(classy => classy.id === this.state.selectedClassroomId)
+    const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom
+
     return (
       <span>
         {/* TODO: fix this so it links to the activity type selection page
@@ -166,13 +195,15 @@ export default React.createClass({
 					<button onClick={this.switchToCreateUnit} className="button-green create-unit">Assign A New Activity</button>
 				</div>*/}
         <ManageUnitsHeader />
-        <Units
-          updateDueDate={this.updateDueDate}
-          editUnit={this.props.actions.editUnit}
-          hideClassroomActivity={this.hideClassroomActivity}
-          hideUnit={this.hideUnit}
-          data={this.state.units}
-        />
+        <div className="classroom-selector">
+          <p>Select a classroom: </p>
+          <ClassroomDropdown
+            classrooms={classrooms}
+            callback={this.switchClassrooms}
+            selectedClassroom={selectedClassroom}
+          />
+        </div>
+        {content}
       </span>
     );
     return <span />;
