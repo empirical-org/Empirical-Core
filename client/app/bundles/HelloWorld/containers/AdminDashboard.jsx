@@ -54,6 +54,7 @@ export default React.createClass({
     return {
       config: {
         name: 'natural',
+        school: 'natural',
         number_of_students: 'numeric',
         number_of_questions_completed: 'numeric',
         time_spent: 'numeric',
@@ -72,6 +73,12 @@ export default React.createClass({
         field: 'name',
         sortByField: 'name',
         className: 'teacher-name-column',
+      },
+      {
+        name: 'School',
+        field: 'school',
+        sortByField: 'school',
+        className: 'school-name-column',
       },
       {
         name: 'Students',
