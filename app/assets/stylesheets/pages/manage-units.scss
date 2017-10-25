@@ -11,6 +11,18 @@
 }
 .container.manage-units {
   padding-top: 0 !important;
+  .classroom-selector {
+    display: flex;
+    align-items: center;
+    padding-top: 25px;
+    p {
+      margin-right: 20px;
+    }
+  }
+  .no-activity-packs {
+    margin-top: 30px;
+    font-size: 16px;
+  }
   .create-unit-button-container {
     height: 130px;
     width: 100%;
@@ -27,8 +39,8 @@
     padding-bottom: 30px;
     border-bottom: solid 1px #c0c0c0;
     h1 {
-      font-size: 24px;
-      font-weight: 600;
+      font-size: 30px;
+      font-weight: bold;
     }
     .header-content {
       margin-top: 21px;
