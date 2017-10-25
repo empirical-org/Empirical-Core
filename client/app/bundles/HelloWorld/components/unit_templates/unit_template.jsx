@@ -26,19 +26,6 @@ export default React.createClass({
       name: 'name'
     },
     {
-      name: 'problem',
-      size: 'medium'
-    },
-    {
-      name: 'summary',
-      size: 'medium'
-    },
-    {
-      name: 'teacher_review',
-      label: 'Teacher Review',
-      size: 'medium'
-    },
-    {
       name: 'activity_info',
       label: 'Activity Info',
       size: 'medium'
@@ -74,9 +61,6 @@ export default React.createClass({
 
     var model = {
       name: null,
-      problem: null,
-      summary: null,
-      teacher_review: null,
       activity_info: null,
       time: null,
       grades: [],

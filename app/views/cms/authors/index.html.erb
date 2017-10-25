@@ -1,0 +1,26 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <h1>Authors</h1>
+    <br />
+    <%= link_to 'Add New Author', new_cms_author_path, class: 'btn button-green'  %>
+    <br /><br />
+    <table class='cms-results-table'>
+      <thead>
+        <tr>
+          <% %w(Avatar Name Edit).each do |td| %>
+            <td><%= td %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @authors.each do |author| %>
+          <tr>
+            <td><%= image_tag author.avatar_url, class: 'cms-author-avatar' %></td>
+            <td><%= author.name || 'N/A' %></td>
+            <td><%= link_to 'Edit', edit_cms_author_path(author) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </article>
+</div>

@@ -1,0 +1,15 @@
+<div class='cms-form'>
+  <%= form_for [:cms, @author] do |f| %>
+    <div class='cms-form-row'>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :avatar %>
+      <%= f.text_field :avatar %>
+    </div>
+    <div class='cms-submit-row'>
+      <%= f.submit 'Save', class: 'button-green' %>
+    </div>
+  <% end %>
+</div>

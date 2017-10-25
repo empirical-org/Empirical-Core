@@ -27,7 +27,7 @@ describe ConceptHelper, type: :helper do
       expect(html).to include(prepositions_concept.name)
     end
 
-    it "displays a breakdown of the grammar concepts and correct/incorrect" do
+    xit "displays a breakdown of the grammar concepts and correct/incorrect" do
       html = helper.all_concept_stats(activity_session)
       expect(html).to include(prepositions_concept.name)
       expect(html).to include("1")
