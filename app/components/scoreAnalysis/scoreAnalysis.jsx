@@ -37,6 +37,8 @@ class ScoreAnalysis extends Component {
     this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
     this.updateStatusFilter = this.updateStatusFilter.bind(this)
     this.formatDataForTable = this.formatDataForTable.bind(this)
+    this.getAbbreviationFromQuestionType = this.getAbbreviationFromQuestionType.bind(this)
+    this.getAbbreviationFromStatus = this.getAbbreviationFromStatus.bind(this)
   }
 
   componentWillMount() {
@@ -83,7 +85,6 @@ class ScoreAnalysis extends Component {
   }
 
   formatData(props) {
-    debugger;
     const { questions, concepts, scoreAnalysis, } = props;
     const validConcepts = _.map(concepts.data[0], con => con.uid);
     const formatted = _.map(hashToCollection(questions.data).filter(e => validConcepts.includes(e.conceptID)), (question) => {
@@ -164,6 +165,21 @@ class ScoreAnalysis extends Component {
     }
   }
 
+  getAbbreviationFromQuestionType(questionType) {
+    switch (questionType) {
+      case 'Sentence Combining':
+        return 'sc'
+      case 'Sentence Fragment':
+        return 'sf'
+      case 'Diagnostic Question':
+        return 'dq'
+      case 'Fill In Blank':
+        return 'fib'
+      default:
+        return 'all'
+    }
+  }
+
   getStatusFromAbbreviation(abbrev) {
     switch (abbrev) {
       case 'all':
@@ -176,6 +192,21 @@ class ScoreAnalysis extends Component {
         return 'Okay'
       case 's':
         return 'Strong'
+    }
+  }
+
+  getAbbreviationFromStatus(status) {
+    switch (status) {
+      case 'Very Weak':
+        return 'vw'
+      case 'Weak':
+        return 'w'
+      case 'Okay':
+        return 'o'
+      case 'Strong':
+        return 's'
+      default:
+        return 'all'
     }
   }
 
@@ -192,14 +223,14 @@ class ScoreAnalysis extends Component {
     if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <div>
-          <select value={this.state.questionType || 'all'} onChange={this.updateQuestionTypeFilter}>
+          <select value={this.getAbbreviationFromQuestionType(this.state.questionType)} onChange={this.updateQuestionTypeFilter}>
             <option value="all">All</option>
             <option value="sc">Sentence Combining</option>
             <option value="sf">Sentence Fragment</option>
             <option value="dq">Diagnostic Question</option>
             <option value="fib">Fill In Blanks</option>
           </select>
-          <select value={this.state.status || 'all'} onChange={this.updateStatusFilter}>
+          <select value={this.getAbbreviationFromStatus(this.state.status)} onChange={this.updateStatusFilter}>
             <option value="all">All</option>
             <option value="vw">Very Weak</option>
             <option value="w">Weak</option>
