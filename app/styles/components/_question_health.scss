@@ -1,4 +1,6 @@
 .question-health {
+  font-size: 16px;
+
   h1 {
     font-size: 24px;
     font-weight: bold;
@@ -11,6 +13,7 @@
   .row {
     display: flex;
     justify-content: space-between;
+    margin: 5px 0px;
     span, a {
       flex: 1;
     }
