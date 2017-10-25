@@ -1,0 +1,17 @@
+.question-health {
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  h2 {
+    margin: 15px 0px;
+    font-style: italic;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    span {
+      flex: 1;
+    }
+  }
+}
