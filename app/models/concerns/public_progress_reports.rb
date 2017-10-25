@@ -247,7 +247,7 @@ module PublicProgressReports
       diagnostic = Activity.find(activity_id)
       assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
         # one unit per teacher with this name.
-        unit = Unit.find_by(user_id: teacher_id, name: rec[:recommendation])
+        unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId])
         student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids)
         return_value_for_recommendation(student_ids, rec)
       end
