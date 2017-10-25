@@ -86,10 +86,10 @@ describe ClassroomActivity, type: :model, redis: :true do
             expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
         end
 
-        it 'assigns a classroom activity through a featured activity pack' do
-            UnitTemplate.create(name: 'Adverbs')
+        it 'creates a unit with a unit_template_id' do
+            ut = UnitTemplate.create(name: 'Adverbs')
             obj = Objective.create(name: 'Assign Featured Activity Pack')
-            new_unit = Unit.create(name: 'Adverbs')
+            new_unit = Unit.create(name: 'Adverbs', unit_template_id: ut.id)
             classroom_activity.update!(unit: new_unit)
             expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
         end

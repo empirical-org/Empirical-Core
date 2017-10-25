@@ -16,7 +16,7 @@ export default React.createClass({
       <div className="unit-tabs tab-subnavigation-wrapper">
         <div className="container">
           <ul>
-            <li><a href="/teachers/classrooms/activity_planner" className={this.state.allActivityPacks}>All Activity Packs</a></li>
+            <li><a href="/teachers/classrooms/activity_planner" className={this.state.allActivityPacks}>My Activity Packs</a></li>
             <li><a href="/teachers/classrooms/activity_planner/lessons" className={this.state.lessons}>Launch Lessons</a></li>
           </ul>
         </div>
