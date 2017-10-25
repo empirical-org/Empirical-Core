@@ -223,7 +223,7 @@ class ClassroomActivity < ActiveRecord::Base
         if !self.assigned_student_ids.kind_of?(Array)
           self.update(assigned_student_ids: [])
         end
-        self.atomic_append(:assigned_student_ids, student_id)
+        self.update(assigned_student_ids: StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id))
       end
       true
     else
