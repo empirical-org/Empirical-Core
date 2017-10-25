@@ -7,7 +7,7 @@
 
     analytics.load("<%= ENV["SEGMENT_WRITE_KEY"] %>");
     analytics.page();
-    <% if current_user && current_user.role == 'teacher' && session[:staff_id].nil? %>
+    <% if current_user && current_user.role == 'teacher' && session[:staff_id].nil? && /hello\+(.)*@quill.org/.match(current_user.email).nil? %>
       analytics.identify(<%= current_user.id %>, <%= raw(SegmentAnalyticsUserSerializer.new(current_user).to_json(root: false)) %>)
       // Here is where we poll Intercom for new messages.
       setInterval(function() {

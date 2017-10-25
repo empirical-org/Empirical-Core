@@ -1,0 +1,22 @@
+<% start_datetime = Time.parse(ENV['UPGRADE_START_TIME']) %>
+<% end_datetime = Time.parse(ENV['UPGRADE_END_TIME']) %>
+<% start_day = start_datetime.strftime("%e") %>
+<% end_day = end_datetime.strftime("%e") %>
+<% ordinal_start_day = ordinal(start_day) %>
+<% ordinal_end_day = ordinal(end_day) %>
+<% if ordinal_start_day == ordinal_end_day %>
+  <% formatted_start_time = start_datetime.strftime("%l:%M %P") %>
+  <% formatted_day = start_datetime.strftime("on %A, %B") %>
+  <% formatted_end_time = end_datetime.strftime("%l:%M %P") %>
+  <% time_duration =  "#{formatted_day} #{ordinal_end_day} from #{formatted_start_time} to #{formatted_end_time}"%>
+<% else %>
+  <% formatted_start_datetime = start_datetime.strftime("%l:%M %P on %A, %B") %>
+  <% formatted_end_datetime = end_datetime.strftime("%l:%M %P on %A, %B") %>
+  <% time_duration =  "from #{formatted_start_datetime} #{ordinal_start_day} to #{formatted_end_datetime} #{ordinal_end_day}"%>
+<% end %>
+
+<div class="upgraded-bar">
+  <p>
+    <i class="fa fa-icon fa-rocket"></i><span>Quill is being upgraded!</span> The site will be offline <%="#{time_duration}"%> ET. <a href="http://support.quill.org/technical-questions/what-is-happening-when-quill-is-upgrading">Learn More</a>
+  </p>
+</div>

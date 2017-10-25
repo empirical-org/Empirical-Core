@@ -11,8 +11,11 @@ import ScorebookFilters from '../../components/scorebook/scorebook_filters';
 import ScoreLegend from '../../components/scorebook/score_legend';
 import AppLegend from '../../components/scorebook/app_legend.jsx';
 
+import localStorageMock from '../../../../../__mocks__/localStorageMock.js';
+window.localStorage = localStorageMock;
+
 const resolvedScores = new Map();
-resolvedScores.set('441555', { name: 'blah blah', scores: [{ caId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', }], }, );
+resolvedScores.set('441555', { name: 'blah blah', scores: [{ caId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', completed_attempts: 0, started: 0}], }, );
 const classrooms = [{ name: 'A', id: 1, }, { name: 'B', id: 2, }, { name: 'C', id: 3, }];
 const units = [{ name: 'Something', id: 4, }, { name: 'Someone', id: 5, }, { name: 'Somewhere', id: 6, }];
 const rawScores = [{ user_id: '441555', ca_id: '341930', name: 'blah blah', activity_classification_id: '1', activity_name: 'America Used to be a Different Place', updated_at: '2016-09-16 15:39:00.775325', percentage: '1', id: '5951806', }];
@@ -30,13 +33,39 @@ describe('Scorebook component', () => {
     const wrapper = shallow(<Scorebook />);
     expect(wrapper).toMatchSnapshot();
   });
-  //
+
   describe('if state.missing has a value', () => {
     const wrapper = shallow(<Scorebook />);
     wrapper.setState({ missing: 'activities', });
 
-    it('renders EmptyProgressReport', () => {
-      expect(wrapper.find(EmptyProgressReport).length).toEqual(1);
+    describe('EmptyProgressReport', () => {
+      it('renders', () => {
+        expect(wrapper.find(EmptyProgressReport).length).toEqual(1);
+      });
+
+      it('receives classrooms as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ classroomFilters: [] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('classrooms');
+      });
+
+      it('receives activities as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ anyScoresHaveLoadedPreviously: 'true', classroomFilters: [''] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('activitiesWithinDateRange');
+      });
+
+      it('receives students as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ unitFilters: [''], classroomFilters: [''] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('students');
+      });
+
+      it('receives activitiesWithinDateRange as the missing prop value when appropriate', () => {
+        const wrapper = shallow(<Scorebook />);
+        wrapper.setState({ classroomFilters: [''] });
+        expect(wrapper.instance().checkMissing(new Map())).toBe('activities');
+      });
     });
 
     it('does not render LoadingIndicator', () => {
@@ -58,11 +87,6 @@ describe('Scorebook component', () => {
     it('does not render StudentScores', () => {
       expect(wrapper.find(StudentScores).length).toEqual(0);
     });
-
-    // it('does not get rendered if it is not passed a value for missing', () => {
-    //   const wrapper = shallow(<Scorebook missing={''}/>)
-    //   expect(wrapper.find(EmptyProgressReport).length).toEqual(0)
-    // })
   });
 
   describe('if state.loading is true', () => {
@@ -92,7 +116,7 @@ describe('Scorebook component', () => {
 
   describe('if it gets data when it had none', () => {
     const wrapper = shallow(<Scorebook />);
-    wrapper.setState({ currentPage: 1, scores: new Map(), });
+    wrapper.setState({ currentPage: 1, scores: new Map(), selectedClassroom: { id: 6 }});
     wrapper.instance().displayData(data);
 
     it('does not render LoadingIndicator', () => {
@@ -122,7 +146,7 @@ describe('Scorebook component', () => {
     newRawScores[0].user_id = 'fakey';
     const wrapper = shallow(<Scorebook allClassrooms={classrooms} />);
     data.scores = newRawScores;
-    wrapper.setState({ scores: newResScores, classroomFilters: classrooms, });
+    wrapper.setState({ scores: newResScores, classroomFilters: classrooms, selectedClassroom: { id: 6 } });
     wrapper.instance().displayData(data);
     it('does not render LoadingIndicator', () => {
       expect(wrapper.find(LoadingIndicator).length).toEqual(0);
@@ -141,15 +165,56 @@ describe('Scorebook component', () => {
     });
 
     it('updates the state.scores to add the new ones', () => {
-      const updated = { 441555: { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: '441555', }], }, fakey: { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: 'fakey', }], }, };
       const newScores = new Map(resolvedScores);
-      newScores.set('441555', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: '441555', }], });
-      newScores.set('fakey', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: 'fakey', }], });
+      newScores.set('441555', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: '441555', completed_attempts: 0, started: 0}], });
+      newScores.set('fakey', { name: 'blah blah', scores: [{ activity_classification_id: '1', caId: '341930', name: 'America Used to be a Different Place', percentage: '1', updated: '2016-09-16 15:39:00.775325', userId: 'fakey', completed_attempts: 0, started: 0}], });
       expect(wrapper.state('scores')).toEqual(newScores);
     });
 
     it('renders as many StudentScores as there are state.scores', () => {
       expect(wrapper.find(StudentScores).length).toEqual(wrapper.state('scores').size);
+    });
+  });
+
+  describe('selectDates function', () => {
+    const wrapper = shallow(<Scorebook />);
+    const beginDate = moment();
+    const endDate = moment();
+    wrapper.instance().fetchData = jest.fn();
+
+    it('should set scorebookBeginDate as a stringified Moment object', () => {
+      wrapper.instance().selectDates(beginDate, null);
+      expect(window.localStorage.getItem('scorebookBeginDate')).toBe(beginDate);
+      expect(window.localStorage.getItem('scorebookEndDate')).toBe(null);
+    });
+
+    it('should set scorebookEndDate as a stringified Moment object', () => {
+      wrapper.instance().selectDates(null, endDate);
+      expect(window.localStorage.getItem('scorebookEndDate')).toBe(endDate);
+      expect(window.localStorage.getItem('scorebookBeginDate')).toBe(null);
+    });
+
+    it('should set state and call fetchData on callback', () => {
+      wrapper.instance().selectDates(beginDate, endDate);
+      expect(wrapper.state().scores).toEqual(new Map());
+      expect(wrapper.state().currentPage).toBe(0);
+      expect(wrapper.state().beginDate).toBe(beginDate);
+      expect(wrapper.state().endDate).toBe(endDate);
+      expect(wrapper.instance().fetchData).toHaveBeenCalled();
+    });
+  });
+
+  describe('convertStoredDateToMoment function', () => {
+    const wrapper = shallow(<Scorebook />);
+    const beginDate = moment().toString();
+    const endDate = moment().toString();
+
+    it('should get scorebookBeginDate and convert it to Moment', () => {
+      expect(wrapper.instance().convertStoredDateToMoment(beginDate)).toEqual(moment(beginDate));
+    });
+
+    it('should get scorebookEndDate and convert it to Moment', () => {
+      expect(wrapper.instance().convertStoredDateToMoment(endDate)).toEqual(moment(endDate));
     });
   });
 });

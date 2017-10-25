@@ -89,7 +89,7 @@ module Teacher
   def classrooms_i_teach_with_students
     classrooms_i_teach.includes(:students).map do |classroom|
       classroom_h = classroom.attributes
-      classroom_h[:students] = classroom.students
+      classroom_h[:students] = classroom.students.sort_by { |s| s.last_name }
       classroom_h
     end
   end
@@ -274,5 +274,23 @@ module Teacher
       AND acts.activity_classification_id = 4
       AND actsesh.state = 'finished'")
   end
+
+  def set_and_return_lessons_cache_data
+    lessons_cache = get_data_for_lessons_cache
+    set_lessons_cache(lessons_cache)
+    lessons_cache
+  end
+
+  def set_lessons_cache(lessons_data=nil)
+    if !lessons_data
+      lessons_data = get_data_for_lessons_cache
+    end
+    $redis.set("user_id:#{self.id}_lessons_array", lessons_data.to_json)
+  end
+
+  def get_data_for_lessons_cache
+    self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
+  end
+
 
 end

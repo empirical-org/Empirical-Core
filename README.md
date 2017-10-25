@@ -1,4 +1,7 @@
-[![Code Climate](https://codeclimate.com/github/empirical-org/Empirical-Core/badges/gpa.svg)](https://codeclimate.com/github/empirical-org/Empirical-Core) [![Test Coverage](https://codeclimate.com/github/empirical-org/Empirical-Core/badges/coverage.svg)](https://codeclimate.com/github/empirical-org/Empirical-Core/coverage) [![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg)](https://travis-ci.org/empirical-org/Empirical-Core)
+|Front End|Back End|Travis CI|
+|---|---|---|
+|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg)](https://travis-ci.org/empirical-org/Empirical-Core)
+
 
 # Welcome to Empirical Core
 

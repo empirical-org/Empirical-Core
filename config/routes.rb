@@ -121,6 +121,7 @@ EmpiricalGrammar::Application.routes.draw do
         put ':id/hide' => 'classroom_activities#hide'
         get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
+        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
       end
     end
 
@@ -261,6 +262,7 @@ EmpiricalGrammar::Application.routes.draw do
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
   # so we have the patch below:
   get '/session', to: 'sessions#destroy'
+  post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   resource :session
 
   resource :account do
@@ -278,7 +280,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/auth/failure', to: 'sessions#failure'
 
-  put '/select_school', to: 'accounts#select_school'
+  put '/select_school', to: 'schools#select_school'
 
   namespace :cms do
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
@@ -304,7 +306,6 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :users do
       resource :subscription
-
       collection do
         post :search
         get :search, to: 'users#index'
@@ -314,9 +315,11 @@ EmpiricalGrammar::Application.routes.draw do
         put :sign_in
         put :clear_data
         get :sign_in
-        put :make_admin
-        put :remove_admin
+        get :edit_subscription
+        post :update_subscription
       end
+      put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
+      put 'remove_admin/:school_id', to: 'users#remove_admin', as: :remove_admin
     end
 
     resources :schools do
@@ -327,17 +330,26 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :edit_subscription
         post :update_subscription
+        get :new_admin
+        post :add_admin_by_email
       end
     end
   end
 
-  # tooltip is just for prototyping tooltip, if its still there you can remove it.
-
-  other_pages = %w(tooltip beta board press blog_posts supporters partners middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new map firewall_info)
+  other_pages = %w(beta board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
+
+  # These are legacy routes that we are redirecting for posterity.
+  get 'blog_posts', to: redirect('/news')
+  get 'supporters', to: redirect('https://community.quill.org/')
+  get 'story', to: redirect('/mission')
+  get 'learning', to: redirect('https://support.quill.org/research-and-pedagogy')
+  get 'new', to: redirect('/')
+  get 'media', to: redirect('/media_kit')
+  # End legacy route redirects.
 
   tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
   tools.each do |tool|
@@ -353,13 +365,17 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix' => 'teacher_fix#index'
   get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
   get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
+  get 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#index'
   get 'teacher_fix/recover_classroom_activities' => 'teacher_fix#index'
+  get 'teacher_fix/recover_activity_sessions' => 'teacher_fix#index'
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
+  post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
   post 'teacher_fix/unarchive_units' => 'teacher_fix#unarchive_units'
   post 'teacher_fix/merge_student_accounts' => 'teacher_fix#merge_student_accounts'
+  post 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#merge_teacher_accounts'
   post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
 
@@ -397,6 +413,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
+  get 'student_demo' => 'students#student_demo'
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'

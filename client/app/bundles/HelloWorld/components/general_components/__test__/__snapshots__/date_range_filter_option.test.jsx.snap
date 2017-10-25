@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRangeFilterOption should match snapshot 1`] = `
+<div
+  className="calendar-prefill-option"
+  onClick={[Function]}
+>
+  Example Title
+</div>
+`;

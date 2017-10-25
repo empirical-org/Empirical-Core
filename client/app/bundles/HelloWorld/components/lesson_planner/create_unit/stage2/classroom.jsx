@@ -48,6 +48,30 @@
     return this.state.open === true ? 'up' : 'down';
   },
 
+  selectedStudentCount: function() {
+    let selectedStudentCount = 0
+    this.props.students.forEach((s) => {
+      if (s.isSelected) {
+        selectedStudentCount++
+      }
+    })
+    return selectedStudentCount
+  },
+
+  renderStudentCountText: function() {
+    const numberOfStudents = this.props.students.length
+    const selectedStudentCount = this.selectedStudentCount()
+    if (numberOfStudents === 0 && this.props.allSelected) {
+      return '(Empty class - all added students will be assigned)'
+    } else if (selectedStudentCount === 0) {
+      return '(0 students will be assigned)'
+    } else if (selectedStudentCount === numberOfStudents) {
+      return `(All ${numberOfStudents} will be assigned)`
+    } else {
+      return `(${selectedStudentCount} out of ${numberOfStudents} students will be assigned)`
+    }
+  },
+
   render: function() {
     var studentList = this.props.students.map(function(student) {
       return <Student
@@ -75,6 +99,9 @@
                 {this.determineCheckbox()}
                 <label className='css-label' htmlFor={'classroom_checkbox_' + this.props.classroom.id}>
                   {this.props.classroom.name}
+                  <span style={{marginLeft: '5px', fontWeight: '600'}}>
+                    {this.renderStudentCountText()}
+                  </span>
                 </label>
               </div>
             </h4>

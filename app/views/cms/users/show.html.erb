@@ -5,6 +5,7 @@
     <h2><%= @user.name %></h2>
     <br />
     <%= link_to 'Edit User', edit_cms_user_path(params[:id]), class: 'btn button-green' %>
+    <%= link_to 'Edit Subscription', edit_subscription_cms_user_path(params[:id]), class: 'btn button-green' %>
     <br /><br />
 
     <p style='font-weight: 700;'>Email</p>

@@ -30,7 +30,7 @@ export default React.createClass({
     if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
       return 'button-green';
     }
-    return 'button-grey';
+    return 'button-gray';
   },
 
   determineErrorMessageClass() {
@@ -54,7 +54,7 @@ export default React.createClass({
         key={el.classroom.id}
         classroom={el.classroom}
         students={el.students}
-        allSelected={el.allSelected}
+        allSelected={el.allSelected || el.emptyClassroomSelected}
         toggleClassroomSelection={that.props.toggleClassroomSelection}
         toggleStudentSelection={that.props.toggleStudentSelection}
       />);
@@ -86,16 +86,21 @@ export default React.createClass({
 
   render() {
     return (
-      <div>
+      <div className="name-and-assign-activity-pack">
+        <h1>Name & Assign Activity Pack</h1>
         {this.nameComponent()}
         <section className="select-students">
-          <h1 className="section-header">Select Students To Assign Activity Pack To:</h1>
+          <h2 className="section-header">Select Students To Assign Activity Pack To:</h2>
+          <div className="automatic-assign-note">
+            <i className="fa fa-icon fa-lightbulb-o"/>
+            <p><span className="bold">Note:</span> If you choose to assign the activity pack to the <span className="italic">entire class</span>, new students to the classroom will get assigned the activity pack automatically. But, if you only assign the activity pack to <span className="italic">certain students</span>, then the activity pack <span className="bold">will not be assigned</span> to the new students automatically.</p>
+          </div>
           {this.classroomList()}
         </section>
         <section className="assign-dates">
-          <h1 className="section-header">
-            Optional - <span>Assign Due Dates For Your Activities:</span>
-          </h1>
+          <h2 className="section-header">
+            Optional - <span>Assign Due Dates To Your Activities:</span>
+          </h2>
           <table className="table activity-table">
             <tbody>
               {this.dueDateList()}
