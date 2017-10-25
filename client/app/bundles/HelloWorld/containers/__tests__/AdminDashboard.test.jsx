@@ -43,6 +43,12 @@ describe('AdminDashboard container', () => {
             className: 'teacher-name-column'
           },
           {
+            name: 'School',
+            field: 'school',
+            sortByField: 'school',
+            className: 'school-name-column',
+          },
+          {
             name: 'Students',
             field: 'number_of_students',
             sortByField: 'number_of_students',
@@ -88,6 +94,7 @@ describe('AdminDashboard container', () => {
         name: 'natural',
         number_of_students: 'numeric',
         number_of_questions_completed: 'numeric',
+        school: 'natural',
         time_spent: 'numeric'
       },
       default: {
