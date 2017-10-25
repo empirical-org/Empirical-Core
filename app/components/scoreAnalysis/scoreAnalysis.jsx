@@ -218,29 +218,43 @@ class ScoreAnalysis extends Component {
     ));
   }
 
+  renderOptions() {
+    const innerDivStyle = {display: 'flex', alignItems: 'center', marginRight: '10px'}
+    const labelStyle = {marginRight: '10px'}
+    return <div style={{display: 'flex', marginBottom: '15px'}}>
+      <div style={innerDivStyle}>
+        <label style={labelStyle}>Question Type:</label>
+        <select value={this.getAbbreviationFromQuestionType(this.state.questionType)} onChange={this.updateQuestionTypeFilter}>
+          <option value="all">All</option>
+          <option value="sc">Sentence Combining</option>
+          <option value="sf">Sentence Fragment</option>
+          <option value="dq">Diagnostic Question</option>
+          <option value="fib">Fill In Blanks</option>
+        </select>
+      </div>
+      <div style={innerDivStyle}>
+        <label style={labelStyle}>Health Status:</label>
+        <select value={this.getAbbreviationFromStatus(this.state.status)} onChange={this.updateStatusFilter}>
+          <option value="all">All</option>
+          <option value="vw">Very Weak</option>
+          <option value="w">Weak</option>
+          <option value="o">Okay</option>
+          <option value="s">Strong</option>
+        </select>
+      </div>
+      <div style={innerDivStyle}>
+        <label style={labelStyle} htmlFor="minResponses">Response Threshold:</label>
+        <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({ minResponses: this.refs.minResponses.value, })} style={{ fontSize: '1.25em', width: '100px', }} />
+      </div>
+    </div>
+  }
+
   render() {
     const { questions, scoreAnalysis, concepts, } = this.props;
     if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <div>
-          <select value={this.getAbbreviationFromQuestionType(this.state.questionType)} onChange={this.updateQuestionTypeFilter}>
-            <option value="all">All</option>
-            <option value="sc">Sentence Combining</option>
-            <option value="sf">Sentence Fragment</option>
-            <option value="dq">Diagnostic Question</option>
-            <option value="fib">Fill In Blanks</option>
-          </select>
-          <select value={this.getAbbreviationFromStatus(this.state.status)} onChange={this.updateStatusFilter}>
-            <option value="all">All</option>
-            <option value="vw">Very Weak</option>
-            <option value="w">Weak</option>
-            <option value="o">Okay</option>
-            <option value="s">Strong</option>
-          </select>
-          <p>
-            <label htmlFor="minResponses">Response Threshold:</label>
-            <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({ minResponses: this.refs.minResponses.value, })} style={{ fontSize: '1.25em', width: '100px', }} />
-          </p>
+          {this.renderOptions()}
           <table className="table is-striped is-bordered">
             <thead>
               <tr>
