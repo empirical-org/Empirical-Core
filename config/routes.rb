@@ -121,6 +121,7 @@ EmpiricalGrammar::Application.routes.draw do
         put ':id/hide' => 'classroom_activities#hide'
         get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
+        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
       end
     end
 
@@ -261,6 +262,7 @@ EmpiricalGrammar::Application.routes.draw do
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
   # so we have the patch below:
   get '/session', to: 'sessions#destroy'
+  post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   resource :session
 
   resource :account do
@@ -293,7 +295,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :activity_classifications
     resources :topics
     resources :topic_categories
-    resources :authors, only: [:index, :create, :update, :destroy]
+    resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
@@ -328,17 +330,26 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :edit_subscription
         post :update_subscription
+        get :new_admin
+        post :add_admin_by_email
       end
     end
   end
 
-  # tooltip is just for prototyping tooltip, if its still there you can remove it.
-
-  other_pages = %w(tooltip beta board press blog_posts supporters partners middle_school story learning develop mission faq tos privacy activities new impact stats team premium teacher_resources media_kit play media news home_new map firewall_info)
+  other_pages = %w(beta board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
   end
+
+  # These are legacy routes that we are redirecting for posterity.
+  get 'blog_posts', to: redirect('/news')
+  get 'supporters', to: redirect('https://community.quill.org/')
+  get 'story', to: redirect('/mission')
+  get 'learning', to: redirect('https://support.quill.org/research-and-pedagogy')
+  get 'new', to: redirect('/')
+  get 'media', to: redirect('/media_kit')
+  # End legacy route redirects.
 
   tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
   tools.each do |tool|
@@ -402,6 +413,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
+  get 'student_demo' => 'students#student_demo'
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'

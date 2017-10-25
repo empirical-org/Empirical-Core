@@ -40,6 +40,14 @@ class Cms::SchoolsController < ApplicationController
       'PPIN' => @school_info.ppin
     }
     @teacher_data = teacher_search_query_for_school(params[:id])
+    @admins = SchoolsAdmins.includes(:user).where(school_id: params[:id].to_i).map do |admin|
+      {
+        name: admin.user.name,
+        email: admin.user.email,
+        school_id: admin.school_id,
+        user_id: admin.user_id
+      }
+    end
   end
 
   # This allows staff members to edit certain details about a school.
@@ -106,6 +114,23 @@ class Cms::SchoolsController < ApplicationController
     end
   end
 
+  def new_admin
+    @school = School.find(params[:id])
+  end
+
+  def add_admin_by_email
+    begin
+      user = User.find_by(email: params[:email_address])
+      school = School.find(params[:id])
+      SchoolsAdmins.create(user_id: user.id, school_id: school.id)
+      flash[:success] = "Yay! It worked! 🎉"
+      return redirect_to cms_school_path(params[:id])
+    rescue
+      flash[:error] = "It did't work! 😭😭😭"
+      return redirect_to :back
+    end
+  end
+
   private
   def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.
@@ -148,7 +173,7 @@ class Cms::SchoolsController < ApplicationController
         COALESCE(schools.state, schools.mail_state) AS school_state,
         COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
         schools.free_lunches || '%' AS frl,
-        COUNT(schools_users.id) AS number_teachers,
+        COUNT(DISTINCT schools_users.id) AS number_teachers,
         subscriptions.account_type AS premium_status,
         COUNT(DISTINCT schools_admins.id) AS number_admins,
         schools.id AS id
@@ -269,9 +294,9 @@ class Cms::SchoolsController < ApplicationController
     ActiveRecord::Base.connection.execute("
       SELECT
         users.name AS teacher_name,
-        COUNT(DISTINCT(classrooms.id)) AS number_classrooms,
-        COUNT(DISTINCT(students_classrooms.student_id)) AS number_students,
-        COUNT(activity_sessions) AS number_activities_completed,
+        COUNT(DISTINCT classrooms.id) AS number_classrooms,
+        COUNT(DISTINCT students_classrooms.student_id) AS number_students,
+        COUNT(DISTINCT activity_sessions) AS number_activities_completed,
         TO_CHAR(GREATEST(users.last_sign_in, MAX(activity_sessions.completed_at)), 'Mon DD, YYYY') AS last_active,
         subscriptions.account_type AS subscription,
         users.id AS user_id,

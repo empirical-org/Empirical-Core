@@ -44,7 +44,7 @@ class LoginPdf < Prawn::Document
   end
 
   def render_cover_page_table
-    header = [["<b><font size='12'>Name</font></b>", "<b><font size='12'>Username</font></b>", "<b><font size='12'>Password</font></b>"]]
+    header = [["<b><font size='12'>Name</font></b>", "<b><font size='12'>Username</font></b>", "<b><font size='12'> Default Password</font></b>"]]
     body = []
     @classroom.students.each do |student|
       body << [student.name, username_or_email_value_for_student(student), render_password_for_student(student)]
@@ -147,7 +147,7 @@ class LoginPdf < Prawn::Document
 
   def render_password_instructions_for_student(student)
     if student.clever_id.present? || student.signed_up_with_google?
-      render_text "Password:", 10
+      render_text "Default Password:", 10
     else
       render_text "Password: (First letter is <b>Capitalized</b>)", 10
     end
@@ -158,6 +158,8 @@ class LoginPdf < Prawn::Document
       "Log in with Clever"
     elsif student.signed_up_with_google?
       "Log in with Google"
+    elsif student.email.present?
+      "Log in with email/username and custom password"
     else
       student.last_name.capitalize
     end

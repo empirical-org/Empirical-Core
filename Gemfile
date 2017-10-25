@@ -44,10 +44,6 @@ gem 'responders'
 gem 'carrierwave'
 gem 'fog', require: 'fog/aws/storage'
 
-# IMAGE UPLOADS
-gem 'paperclip'
-gem "jquery-fileupload-rails"
-
 # TIME
 gem 'time_difference'
 
@@ -184,6 +180,9 @@ group :test do
   gem "vcr"
   gem "webmock"
   gem "codeclimate-test-reporter", require: nil
+  gem 'simplecov'
+  gem 'simplecov-json'
+  gem 'codecov'
 end
 
 # Memory profiling

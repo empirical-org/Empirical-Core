@@ -44,8 +44,8 @@ module Demo::ReportDemoCreator
     students = []
     student_values = [
       {
-        name: "Maya Angelou",
-        username: "maya.angelou.#{classroom.id}@demo-teacher",
+        name: "William Shakespeare",
+        username: "william.shakespeare.#{classroom.id}@demo-teacher",
         role: "student",
         password: 'password',
         password_confirmation: 'password',
@@ -72,13 +72,18 @@ module Demo::ReportDemoCreator
         password_confirmation: 'password',
       },
       {
-        name: "William Shakespeare",
-        username: "william.shakespeare.#{classroom.id}@demo-teacher",
+        name: "Maya Angelou",
+        username: "maya.angelou.#{classroom.id}@demo-teacher",
         role: "student",
+        email: 'maya_angelou_demo@quill.org',
         password: 'password',
-        password_confirmation: 'password',
+        password_confirmation: 'password'
       }
     ]
+    # In case the old one didn't get deleted, delete Maya Angelou so that we
+    # won't raise a validation error.
+    # This is important as we have /student set to go to the Maya Angelou email
+    User.where(email: 'maya_angelou_demo@quill.org').each(&:destroy)
     student_values.each do |values|
       student = User.create(values)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})

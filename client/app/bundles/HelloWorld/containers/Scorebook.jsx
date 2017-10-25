@@ -37,12 +37,15 @@ export default React.createClass({
       loading: false,
       is_last_page: false,
       noLoadHasEverOccurredYet: true,
+      anyScoresHaveLoadedPreviously: localStorage.getItem('anyScoresHaveLoadedPreviously') || false
     };
   },
 
   componentDidMount() {
     this.setStateFromLocalStorage(this.fetchData);
-    this.getUpdatedUnits(this.props.selectedClassroom.value);
+    if(this.props.selectedClassroom) {
+      this.getUpdatedUnits(this.props.selectedClassroom.value);
+    }
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
 
@@ -62,6 +65,10 @@ export default React.createClass({
   fetchData() {
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
+    if(!this.state.selectedClassroom) {
+      this.setState({ missing: 'classrooms' });
+      return;
+    }
     $.ajax({
       url: '/teachers/classrooms/scores',
       data: {
@@ -84,14 +91,26 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      that.setState({ unitFilters: parsedBody.units, selectedUnit: { name: 'All Activity Packs', value: '', }, });
+      that.setState({
+        unitFilters: parsedBody.units,
+        selectedUnit: { name: 'All Activity Packs', value: '', },
+        missing: this.checkMissing(this.state.scores)
+      });
     });
   },
 
-  checkMissing(newScores) {
+  checkMissing(scores) {
+    if(!(this.state.anyScoresHaveLoadedPreviously == 'true') && scores.size > 0) {
+      this.setState({anyScoresHaveLoadedPreviously: true});
+      localStorage.setItem('anyScoresHaveLoadedPreviously', true);
+    }
     if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';
-    } else if (!newScores || newScores.size === 0) {
+    } else if(this.state.anyScoresHaveLoadedPreviously == 'true' && (!scores || scores.size === 0)) {
+      return 'activitiesWithinDateRange';
+    } else if (this.state.unitFilters.length && (!scores || scores.size === 0)) {
+      return 'students';
+    } else if (!scores || scores.size === 0) {
       return 'activities';
     }
   },
@@ -117,6 +136,7 @@ export default React.createClass({
         percentage: s.percentage,
         started: s.started ? Number(s.started) : 0,
         completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
+        marked_complete: s.marked_complete,
         activity_classification_id: s.activity_classification_id, });
     });
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
@@ -176,7 +196,8 @@ export default React.createClass({
     }
 
     if (this.state.missing) {
-      content = <EmptyProgressReport missing={this.state.missing} />;
+      const onButtonClick = this.state.missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
+      content = <EmptyProgressReport missing={this.state.missing} onButtonClick={onButtonClick} />;
     } else {
       content =
         (<div>
@@ -195,9 +216,10 @@ export default React.createClass({
                 selectClassroom={this.selectClassroom}
                 selectedUnit={this.state.selectedUnit}
                 unitFilters={this.state.unitFilters}
-                selectUnit={this.selectUnit} selectDates={this.selectDates}
-                beginDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))}
-                endDate={this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))}
+                selectUnit={this.selectUnit}
+                selectDates={this.selectDates}
+                beginDate={this.state.beginDate}
+                endDate={this.state.endDate}
               />
               <ScoreLegend />
               <AppLegend />
