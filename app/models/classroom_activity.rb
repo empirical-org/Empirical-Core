@@ -68,6 +68,16 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def delete_activity_sessions_with_no_concept_results
+    incomplete_activity_session_ids = []
+    self.activity_sessions.each do |as|
+      if as.concept_result_ids.empty?
+        incomplete_activity_session_ids.push(as.id)
+      end
+    end
+    ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
+  end
+
   def find_or_create_started_activity_session(student_id)
     started_activity = ActivitySession.find_by(state: 'started', classroom_activity_id: self.id, user_id: student_id)
     if started_activity
@@ -124,10 +134,6 @@ class ClassroomActivity < ActiveRecord::Base
     else
       true
     end
-  end
-
-  def completed
-    activity_sessions.completed.includes([:user, :activity]).joins(:user).where('users.role' == 'student')
   end
 
   def scorebook
@@ -226,7 +232,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def lessons_cache_info_formatter
-    {"classroom_activity_id" => self.id, "activity_id" => activity.id, "activity_name" => activity.name, "unit_id" => self.unit_id, "completed" => self.has_a_completed_session?}
+    {"classroom_activity_id" => self.id, "activity_id" => activity.id, "activity_name" => activity.name, "unit_id" => self.unit_id, "completed" => self.has_a_completed_session? || self.completed}
   end
 
   private
