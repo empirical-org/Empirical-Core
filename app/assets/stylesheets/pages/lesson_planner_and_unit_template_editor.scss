@@ -25,25 +25,41 @@
       font-weight: bold;
     }
   }
-  .automatic-assign-note {
+  .automatic-assign-note, .unselecting-students-note {
     margin-top: 15px;
     padding: 15;
-    background-color: #fcf1e1;
-    border: solid 1px rgba(245, 186, 91, 0.41);
     display: flex;
     justify-content: space-between;
+    font-size: 16px;
     .bold {
-      font-weight: 600;
+      font-weight: bold;
     }
     .italic {
       font-style: italic;
     }
     i {
+      padding-top: 2px;
       font-size: 20;
       margin-right: 10px;
+    }
+  }
+
+  .automatic-assign-note {
+    background-color: #fcf1e1;
+    border: solid 1px rgba(245, 186, 91, 0.41);
+    i {
       color: #ea9a1a;
     }
   }
+
+  .unselecting-students-note {
+    background-color: #ffefef;
+    border: solid 1px rgba(255, 115, 112, 0.72);
+    i {
+      color: #ff4542;
+    }
+  }
+
   &.menu-aligned-left {
     padding: 0;
     margin: auto;
