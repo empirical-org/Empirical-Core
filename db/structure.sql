@@ -1436,9 +1436,6 @@ CREATE TABLE unit_templates (
     "time" integer,
     grades text,
     author_id integer,
-    problem text,
-    summary text,
-    teacher_review text,
     flag character varying,
     order_number integer DEFAULT 999999999,
     activity_info text,
@@ -3385,5 +3382,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171006150857');
 
 INSERT INTO schema_migrations (version) VALUES ('20171006151454');
 
-INSERT INTO schema_migrations (version) VALUES ('20171011202936');
+INSERT INTO schema_migrations (version) VALUES ('20171006194812');
 
+INSERT INTO schema_migrations (version) VALUES ('20171011202936');
