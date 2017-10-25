@@ -39,6 +39,7 @@ class ScoreAnalysis extends Component {
     this.formatDataForTable = this.formatDataForTable.bind(this)
     this.getAbbreviationFromQuestionType = this.getAbbreviationFromQuestionType.bind(this)
     this.getAbbreviationFromStatus = this.getAbbreviationFromStatus.bind(this)
+    this.formatDataForQuestionType = this.formatDataForQuestionType.bind(this)
   }
 
   componentWillMount() {
@@ -85,15 +86,24 @@ class ScoreAnalysis extends Component {
   }
 
   formatData(props) {
-    const { questions, concepts, scoreAnalysis, } = props;
+    const { questions, diagnosticQuestions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
     const validConcepts = _.map(concepts.data[0], con => con.uid);
-    const formatted = _.map(hashToCollection(questions.data).filter(e => validConcepts.includes(e.conceptID)), (question) => {
-      const scoreData = scoreAnalysis.data[question.key];
+    const formattedQuestions = this.formatDataForQuestionType('questions', validConcepts, 'Sentence Combining')
+    const formattedDiagnosticQuestions = this.formatDataForQuestionType('diagnosticQuestions', validConcepts, 'Diagnostic Question')
+    const formattedSentenceFragments = this.formatDataForQuestionType('sentenceFragments', validConcepts, 'Sentence Fragments')
+    const formattedFillInBlank = this.formatDataForQuestionType('fillInBlank', validConcepts, 'Fill In Blank')
+    const formatted = [...formattedQuestions, ...formattedDiagnosticQuestions, ...formattedSentenceFragments, ...formattedFillInBlank]
+    this.setState({questionData: formatted})
+  }
+
+  formatDataForQuestionType(questionType, validConcepts, typeName) {
+    return _.map(hashToCollection(this.props[questionType].data).filter(e => validConcepts.includes(e.conceptID)), (question) => {
+      const scoreData = this.props.scoreAnalysis.data[question.key];
       if (scoreData && scoreData.total_attempts >= this.state.minResponses) {
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: question.key,
-          type: this.getQuestionTypeFromQuestionKey(question.key),
+          type: typeName,
           prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
           responses: scoreData.responses || 0,
           weakResponses: percentageWeakResponses,
@@ -104,7 +114,6 @@ class ScoreAnalysis extends Component {
         };
       }
     });
-    this.setState({questionData: formatted})
   }
 
   formatDataForTable() {
@@ -229,7 +238,7 @@ class ScoreAnalysis extends Component {
           <option value="sc">Sentence Combining</option>
           <option value="sf">Sentence Fragment</option>
           <option value="dq">Diagnostic Question</option>
-          <option value="fib">Fill In Blanks</option>
+          <option value="fib">Fill In Blank</option>
         </select>
       </div>
       <div style={innerDivStyle}>
