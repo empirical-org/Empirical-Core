@@ -110,7 +110,7 @@ protected
     LEFT JOIN activity_sessions AS acts ON ca.id = acts.classroom_activity_id AND acts.visible = true AND acts.user_id = #{current_user.id}
     JOIN units AS unit ON unit.id = ca.unit_id
     JOIN activities AS activity ON activity.id = ca.activity_id
-    WHERE #{current_user.id} = ANY (ca.assigned_student_ids::int[]) OR ca.assign_on_join = TRUE
+    WHERE #{current_user.id} = ANY (ca.assigned_student_ids::int[])
     AND ca.classroom_id = #{@current_classroom.id}
     AND ca.visible = true
     AND unit.visible = true
