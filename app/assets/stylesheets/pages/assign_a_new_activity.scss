@@ -136,6 +136,7 @@ min-height: 112px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  justify-content: space-between;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   button {
@@ -153,7 +154,6 @@ min-height: 112px;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-    margin-right: 12px;
     div:first-of-type {
       width: 30px;
     }
@@ -163,7 +163,8 @@ min-height: 112px;
       width: 160px;
     }
     &:hover, &.active {
-      border: solid 2px #00c2a2;
+      border-color: #ffffff;
+      box-shadow: 0 0 0 2px $quillgreen;
     }
     h4 {
       text-align: left;
@@ -202,6 +203,16 @@ min-height: 112px;
       div:last-of-type {
         width: 191px;
       }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .activity-filter.button-row {
+    justify-content: flex-start;
+
+    button {
+      margin: 4px;
     }
   }
 }
