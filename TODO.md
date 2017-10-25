@@ -1,9 +1,0 @@
-- Switch to Rspec
-- Make standalone app
-- Upgrade to Bootstrap 3
-- Add tests
-- Centralize authorization ?
-- Remove coffeescript / convert to javascript
-- Get site functioning on jruby
-- Anything that could be split out into gems or separate library
-- Make site responsive

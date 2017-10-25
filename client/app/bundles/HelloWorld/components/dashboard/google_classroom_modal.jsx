@@ -9,7 +9,7 @@ export default React.createClass({
         return (
             <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal' restoreFocus>
                 <Modal.Body>
-                    <img className='pull-right react-bootstrap-close' onClick={this.props.hideModal} src='/images/close_x.svg' alt='close-modal'/>
+                    <img className='pull-right react-bootstrap-close' onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt='close-modal'/>
                     <h1 className='q-h2'>First: Update Your Email</h1>
                     <p>Your Quill email address must be the same as your Google Classroom email. If your email is the same click Next. If it is different, you can update your Quill email below.</p>
                     <UpdateEmail email={this.props.user.email}/>

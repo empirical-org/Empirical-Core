@@ -4,35 +4,44 @@ class Scorebook::Query
 
   def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil)
     ActiveRecord::Base.connection.execute(
-    "SELECT acts.user_id,
-       ca.id AS ca_id,
-       students.name AS name,
-       activity.activity_classification_id,
-       activity.name AS activity_name,
-       MAX(acts.updated_at) AS updated_at,
-       MAX(acts.percentage) AS percentage,
-       SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
-    FROM classrooms AS classroom
-    LEFT JOIN students_classrooms AS sc on sc.classroom_id = classroom.id
-    RIGHT JOIN users AS students ON students.id = sc.student_id
-    INNER JOIN classroom_activities AS ca ON ca.classroom_id = classroom.id
-    #{self.units(unit_id)&.first}
-    INNER JOIN activity_sessions AS acts ON (
-          acts.classroom_activity_id = ca.id
-          AND acts.user_id = students.id
-          )
-    INNER JOIN activities AS activity ON activity.id = ca.activity_id
-    WHERE classroom.id = #{classroom_id}
-    AND acts.visible = true
-    AND ca.visible = true
-    AND sc.visible = true
-    #{self.units(unit_id)&.last}
-    #{self.begin_date(begin_date)}
-    #{self.end_date(end_date)}
-    GROUP BY acts.user_id, students.name, ca.id, activity.activity_classification_id, activity.name
-    ORDER BY  split_part( students.name, ' ' , 2), ca.created_at ASC
-    OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
-    FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
+    "SELECT
+       students.id AS user_id,
+        ca.id AS ca_id,
+        ca.completed AS marked_complete,
+        students.name AS name,
+        activity.activity_classification_id,
+        activity.name AS activity_name,
+        MAX(acts.updated_at) AS updated_at,
+        MAX(acts.percentage) AS percentage,
+        SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) AS completed_attempts,
+        SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS started,
+        SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
+     FROM classroom_activities AS ca
+     LEFT JOIN students_classrooms AS sc on ca.classroom_id = sc.classroom_id
+     RIGHT JOIN users AS students ON students.id = sc.student_id
+     #{self.units(unit_id)&.first}
+     LEFT JOIN activity_sessions AS acts ON (
+           acts.classroom_activity_id = ca.id
+           AND acts.user_id = students.id
+           AND acts.visible = true
+           )
+     INNER JOIN activities AS activity ON activity.id = ca.activity_id
+     WHERE ca.classroom_id = #{classroom_id}
+     AND  students.id = ANY (ca.assigned_student_ids::int[])
+     AND ca.visible = true
+     AND sc.visible = true
+     #{self.units(unit_id)&.last}
+     #{self.date_conditional_string(begin_date, end_date)}
+     GROUP BY
+      students.id,
+       students.name, ca.id, activity.activity_classification_id, activity.name
+     ORDER BY split_part( students.name, ' ' , 2),
+       CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
+       MIN(acts.completed_at),
+       CASE WHEN SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
+       ca.created_at ASC
+       OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
+       FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
     ).to_a
   end
 
@@ -42,17 +51,46 @@ class Scorebook::Query
     end
   end
 
-  def self.begin_date(begin_date)
-    if begin_date && !begin_date.blank?
-      "AND acts.completed_at >= #{ActiveRecord::Base.sanitize(begin_date)}"
-    end
+  def self.sanitize_date(date)
+    return ActiveRecord::Base.sanitize(date) if date && !date.blank?
   end
 
-  def self.end_date(end_date)
-    if end_date && !end_date.blank?
-      "AND acts.completed_at <= #{ActiveRecord::Base.sanitize(end_date)}"
-    end
+  def self.date_conditional_string(begin_date, end_date)
+    sanitized_begin_date = self.sanitize_date(begin_date)
+    sanitized_end_date = self.sanitize_date(end_date)
+    return unless sanitized_begin_date || sanitized_end_date
+    "AND (
+      CASE
+      WHEN acts.completed_at IS NOT NULL THEN
+        #{self.date_substring_for_acts_completed_at(sanitized_begin_date, sanitized_end_date)}
+      WHEN acts.started_at IS NOT NULL THEN
+        #{self.date_substring_for_acts_started_at(sanitized_begin_date, sanitized_end_date)}
+      ELSE
+        #{self.date_substring_for_ca_created_at(sanitized_begin_date, sanitized_end_date)}
+      END
+    )"
   end
 
+  def self.date_substring_for_acts_completed_at(begin_date, end_date)
+    [
+      begin_date ? "acts.completed_at >= #{begin_date}" : nil,
+      end_date ? "acts.completed_at <= #{end_date}" : nil
+    ].reject(&:nil?).join(' AND ')
+  end
+
+  def self.date_substring_for_acts_started_at(begin_date, end_date)
+    [
+      begin_date ? "acts.started_at >= #{begin_date}" : nil,
+      end_date ? "acts.started_at <= #{end_date}" : nil
+    ].reject(&:nil?).join(' AND ')
+
+  end
+
+  def self.date_substring_for_ca_created_at(begin_date, end_date)
+    [
+      begin_date ? "ca.created_at >= #{begin_date}" : nil,
+      end_date ? "ca.created_at <= #{end_date}" : nil
+    ].reject(&:nil?).join(' AND ')
+  end
 
 end

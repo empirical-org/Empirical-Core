@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import TeacherAccount from '../TeacherAccount.jsx';
-import SelectRole from '../../components/accounts/edit/select_role';
-import SelectSubscription from '../../components/accounts/subscriptions/select_subscription';
 import StaticDisplaySubscription from '../../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../../components/accounts/school/select_school';
 import LoadingSpinner from '../../components/shared/loading_indicator.jsx'
@@ -51,17 +49,6 @@ describe('TeacherAccount container', () => {
     });
   });
 
-  describe.skip('componentDidMount', () => {
-    // TODO: write these tests once we switch to requestjs
-    it('call cms if account is type staff', () => {
-
-    });
-
-    it('should call teachers/my_account_data if account is not staff', () => {
-
-    });
-  });
-
   it('should render LoadingSpinner component if loading', () => {
     wrapper.setState({loading: true});
     expect(wrapper.find(LoadingSpinner).exists()).toBe(true);
@@ -69,71 +56,18 @@ describe('TeacherAccount container', () => {
     expect(wrapper.find(LoadingSpinner).exists()).toBe(false);
   });
 
-  describe('if the user is staff', () => {
-    describe('SelectRole component', () => {
-      it('should render', () => {
-        expect(wrapperStaff.find(SelectRole).exists()).toBe(true);
-      });
-
-      it('should have role prop based on state', () => {
-        wrapperStaff.setState({role: 'student'});
-        expect(wrapperStaff.find(SelectRole).props().role).toBe('student');
-      });
-
-      it('should have updateRole prop that updates state', () => {
-        wrapperStaff.find(SelectRole).props().updateRole('awesome');
-        expect(wrapperStaff.state().role).toBe('awesome');
-      });
-
-      it('should have prop errors based on state', () => {
-        wrapperStaff.setState({errors: { role: 'self-destructing' }});
-        expect(wrapperStaff.find(SelectRole).props().errors).toBe('self-destructing');
-      })
+  describe('StaticDisplaySubscription component', () => {
+    it('should render', () => {
+      expect(wrapper.find(StaticDisplaySubscription).exists()).toBe(true);
     });
 
-    describe('SelectSubscription component', () => {
-      it('should render', () => {
-        expect(wrapperStaff.find(SelectSubscription).exists()).toBe(true);
-      });
-
-      it('should have prop subscription based on state', () => {
-        wrapperStaff.setState({subscription: {
-          id: 3,
-          expiration: '2017-04-28',
-          account_limit: 1000
-        }});
-        expect(wrapperStaff.find(SelectSubscription).props().subscription.id).toBe(3);
-      });
-
-      it('should have prop updateSubscriptionType that updates state', () => {
-        wrapperStaff.find(SelectSubscription).props().updateSubscriptionType('premium');
-        expect(wrapperStaff.state().subscription.account_type).toBe('premium');
-      });
-
-      it('should have prop updateSubscriptionState that updates state', () => {
-        wrapperStaff.find(SelectSubscription).props().updateSubscriptionState({
-          id: 4, expiration: '2017-04-28', account_limit: 1000
-        });
-        expect(wrapperStaff.state().subscription.id).toBe(4);
-      });
-    });
-  });
-
-  describe('if the user is not staff', () => {
-
-    describe('StaticDisplaySubscription component', () => {
-      it('should render', () => {
-        expect(wrapper.find(StaticDisplaySubscription).exists()).toBe(true);
-      });
-
-      it('should have subscription prop based on state', () => {
-        wrapper.setState({subscription: {
-          id: 3,
-          expiration: '2017-04-28',
-          account_limit: 1000
-        }});
-        expect(wrapper.find(StaticDisplaySubscription).props().subscription.id).toBe(3);
-      });
+    it('should have subscription prop based on state', () => {
+      wrapper.setState({subscription: {
+        id: 3,
+        expiration: '2017-04-28',
+        account_limit: 1000
+      }});
+      expect(wrapper.find(StaticDisplaySubscription).props().subscription.id).toBe(3);
     });
   });
 

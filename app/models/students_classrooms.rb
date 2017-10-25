@@ -16,7 +16,7 @@ class StudentsClassrooms < ActiveRecord::Base
   private
 
   def run_associator
-    if self.student && self.classroom
+    if self.student && self.classroom && self.visible
       Associators::StudentsToClassrooms.run(self.student, self.classroom)
     end
   end

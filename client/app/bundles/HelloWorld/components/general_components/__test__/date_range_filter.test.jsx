@@ -1,43 +1,56 @@
 import React from 'react';
-import DatePicker from 'react-datepicker'
 import { shallow, mount } from 'enzyme';
+import { DateRangePicker } from 'react-dates';
+import DateRangeFilterOption from '../date_range_filter_option'
 import moment from 'moment';
 
 import DateRangeFilter from '../date_range_filter'
 
 describe('DateRangeFilter component', () => {
 
-  it('should render two DatePickers', () => {
-    const wrapper = shallow(
-      <DateRangeFilter selectDates={() => {}} />
-    );
-    expect(wrapper.find(DatePicker).length).toEqual(2)
-  })
+  describe('DateRangePicker', () => {
+    it('should render', () => {
+      const wrapper = shallow(
+        <DateRangeFilter selectDates={() => {}} />
+      );
+      expect(wrapper.find(DateRangePicker).length).toEqual(1);
+    });
 
-  it('the function selectBeginDate changes the beginDate in state', () => {
-    const wrapper = shallow(
-      <DateRangeFilter selectDates={() => {}} />
-    );
-    const lastWeek = moment().day(-7)
-    wrapper.instance().selectBeginDate(lastWeek)
-    expect(wrapper.state('beginDate')).toEqual(lastWeek)
-  })
+    it('should call props.selectDates with correct params onDatesChange', () => {
+      const mockSelectDates = jest.fn();
+      const wrapper = mount(<DateRangeFilter selectDates={mockSelectDates} />);
+      const startDate = moment();
+      const endDate = moment().add(1, 'days');
+      wrapper.find(DateRangePicker).props().onDatesChange({startDate, endDate});
+      expect(mockSelectDates).toHaveBeenCalled();
+      expect(mockSelectDates.mock.calls[0][0]).toEqual(startDate);
+      expect(mockSelectDates.mock.calls[0][1]).toEqual(endDate);
+    });
+  });
 
-  it('the function selectEndDate changes the endDate in state', () => {
-    const wrapper = shallow(
-      <DateRangeFilter selectDates={() => {}} />
-    );
-    const nextWeek = moment().day(7)
-    wrapper.instance().selectEndDate(nextWeek)
-    expect(wrapper.state('endDate')).toEqual(nextWeek)
-  })
-
-  it('the function selectDates calls the selectDates prop function', () => {
+  describe('setDateFromFilter', () => {
     const mockSelectDates = jest.fn();
+    const beginDate = moment();
     const wrapper = shallow(
       <DateRangeFilter selectDates={mockSelectDates} />
     );
-    wrapper.instance().selectDates()
-    expect(mockSelectDates.mock.calls).toHaveLength(1)
-  })
-})
+    wrapper.instance().setDateFromFilter(beginDate);
+    it('should call selectDates on callback', () => {
+      expect(mockSelectDates).toHaveBeenCalled();
+    });
+  });
+
+  it('renderFilterOptions should return DateRangeFilterOptions with appropriate props based on props', () => {
+    const exampleBeginDate = moment();
+    const wrapper = shallow(
+      <DateRangeFilter
+        filterOptions={[
+          { title: 'Example', beginDate: exampleBeginDate },
+          { title: 'Another Example', beginDate: moment() }
+        ]}
+      />
+    );
+    const renderFilterOptionsReturnValue = shallow(wrapper.instance().renderFilterOptions());
+    expect(renderFilterOptionsReturnValue.find(DateRangeFilterOption).length).toBe(2);
+  });
+});

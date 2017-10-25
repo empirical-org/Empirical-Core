@@ -282,6 +282,10 @@ class User < ActiveRecord::Base
     UserMailer.join_school_email(self, school).deliver_now! if email.present?
   end
 
+  def send_lesson_plan_email(lessons, unit)
+    UserMailer.lesson_plan_email(self, lessons, unit).deliver_now! if email.present?
+  end
+
   def subscribe_to_newsletter
     if self.role == "teacher"
       SubscribeToNewsletterWorker.perform_async(self.id)
@@ -342,11 +346,29 @@ class User < ActiveRecord::Base
     user_attributes
   end
 
+  def delete_dashboard_caches
+    delete_classroom_minis_cache
+    delete_struggling_students_cache
+    delete_difficult_concepts_cache
+  end
+
+  def delete_classroom_minis_cache
+    $redis.del("user_id:#{self.id}_classroom_minis")
+  end
+
+  def delete_struggling_students_cache
+    $redis.del("user_id:#{self.id}_struggling_students")
+  end
+
+  def delete_difficult_concepts_cache
+    $redis.del("user_id:#{self.id}_difficult_concepts")
+  end
+
 private
   def validate_username_and_email
     # change_field will return the field (username or email) that is changing
     change_field = detect_username_or_email_updated
-    if change_field && User.find_by(change_field => self[change_field])
+    if change_field && self[change_field].present? && User.find_by(change_field => self[change_field])
       # if the field has been changed, to that of an existing record,
       # raise an error
       errors.add(change_field, "is being updated to a #{change_field} that exists")

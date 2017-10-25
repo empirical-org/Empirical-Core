@@ -1,5 +1,6 @@
 .assign-dates {
   margin-bottom: 200px;
+  padding-top: 10px;
 }
 .fake-border {
   width: 99.4%;
@@ -12,6 +13,53 @@
 }
 #activity-planner,
 #unit-template-editor {
+  .explore-activities-header {
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .name-and-assign-activity-pack {
+    margin-top: 35px;
+    h1 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+  .automatic-assign-note, .unselecting-students-note {
+    margin-top: 15px;
+    padding: 15;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    .bold {
+      font-weight: bold;
+    }
+    .italic {
+      font-style: italic;
+    }
+    i {
+      padding-top: 2px;
+      font-size: 20;
+      margin-right: 10px;
+    }
+  }
+
+  .automatic-assign-note {
+    background-color: #fcf1e1;
+    border: solid 1px rgba(245, 186, 91, 0.41);
+    i {
+      color: #ea9a1a;
+    }
+  }
+
+  .unselecting-students-note {
+    background-color: #ffefef;
+    border: solid 1px rgba(255, 115, 112, 0.72);
+    i {
+      color: #ff4542;
+    }
+  }
+
   &.menu-aligned-left {
     padding: 0;
     margin: auto;
@@ -20,13 +68,17 @@
       padding: 0;
     }
     .section-header {
-      margin-bottom: 30px;
+      display: inline-block;
+      margin-right: 20px;
+      font-size: 16px;
+      font-weight: 600;
     }
   }
   section {
     border-bottom: none;
     &.name-the-unit {
-      padding-bottom: 10px;
+      border-bottom: solid 1px #c0c0c0;
+      padding-bottom: 30px;
     }
   }
   .error-message-and-button {
@@ -139,12 +191,12 @@
   color: #027360;
 }
 .scorebook-icon-check {
-  background-image: image-url("scorebook/icon-check.png");
+  background-image: url("https://assets.quill.org/images/scorebook/icon-check.png");
   background-repeat: no-repeat;
   background-position: center;
 }
 .icon-x-gray {
-  background-image: image-url("scorebook/icon-x-gray.png");
+  background-image: url("http://assets.quill.org/images/scorebook/icon-x-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   background-position-x: 21px;

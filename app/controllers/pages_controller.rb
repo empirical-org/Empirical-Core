@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_filter :resolve_body_class, :determine_js_file, :determine_flag
+  before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
   def home
@@ -44,14 +44,7 @@ class PagesController < ApplicationController
     @body_class = 'full-width-page white-page'
   end
 
-  def media
-  end
-
   def faq
-  end
-
-  def new
-    @body_class = 'full-width-white-page'
   end
 
   def impact
@@ -125,18 +118,10 @@ class PagesController < ApplicationController
 
   def determine_js_file
     case action_name
-    when 'partners', 'mission', 'news', 'media', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher_resources', 'news', 'stats', 'activities'
+    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher_resources', 'news', 'stats', 'activities'
       @js_file = 'public'
     when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
-    end
-  end
-
-
-  def resolve_body_class
-    case action_name
-    when 'learning', 'story'
-      @body_class = 'auxiliary'
     end
   end
 

@@ -100,26 +100,44 @@ module PublicProgressReports
     def results_for_classroom unit_id, activity_id, classroom_id
       classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, activity_id: activity_id, unit_id: unit_id)
       activity = classroom_activity.activity
-      activity_sessions = classroom_activity.activity_sessions.where(is_final_score: true).includes(:user, concept_results: :concept)
+      # activity_sessions = classroom_activity.activity_sessions.where(is_final_score: true).includes(:user, concept_results: :concept)
       classroom = Classroom.find(classroom_id)
+      ca_id = classroom_activity.id
       scores = {
         id: classroom.id,
-        name: classroom.name
+        name: classroom.name,
+        students: [],
+        started_names: [],
+        unstarted_names: []
       }
-      scores[:students] = activity_sessions.map do |activity_session|
-          student = activity_session.user
-          formatted_concept_results = get_concept_results(activity_session)
-        {
-            activity_classification: ActivityClassification.find(activity.activity_classification_id).key,
-            id: student.id,
-            name: student.name,
-            time: get_time_in_minutes(activity_session),
-            number_of_questions: formatted_concept_results.length,
-            concept_results: formatted_concept_results,
-            score: get_average_score(formatted_concept_results)
-          }
+      classroom_activity.assigned_student_ids.each do |student_id|
+        student = User.find(student_id)
+        final_activity_session = ActivitySession.find_by(user_id: student_id, is_final_score: true, classroom_activity_id: ca_id)
+        if final_activity_session
+          scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
+        else
+          if ActivitySession.find_by(user_id: student_id, state: 'started', classroom_activity_id: ca_id)
+            scores[:started_names].push(student.name)
+          else
+            scores[:unstarted_names].push(student.name)
+          end
+        end
+
       end
       scores
+    end
+
+    def formatted_score_obj(final_activity_session, activity, student)
+      formatted_concept_results = get_concept_results(final_activity_session)
+      {
+        activity_classification: ActivityClassification.find(activity.activity_classification_id).key,
+        id: student.id,
+        name: student.name,
+        time: get_time_in_minutes(final_activity_session),
+        number_of_questions: formatted_concept_results.length,
+        concept_results: formatted_concept_results,
+        score: get_average_score(formatted_concept_results)
+      }
     end
 
 

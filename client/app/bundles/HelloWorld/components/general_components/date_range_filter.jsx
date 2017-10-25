@@ -1,42 +1,52 @@
 'use strict';
-import DatePicker from 'react-datepicker'
-import React from 'react'
+import React from 'react';
 import moment from 'moment';
+import { DateRangePicker } from 'react-dates';
+import DateRangeFilterOption from './date_range_filter_option.jsx'
+
 export default React.createClass({
   propTypes: {
     selectDates: React.PropTypes.func.isRequired
   },
 
   getInitialState: function () {
-    return ({
-      beginDate: null,
-      endDate: null
-    });
+    return {};
   },
 
-  selectBeginDate: function (date) {
-    this.setState({beginDate: date}, this.selectDates);
+  setDateFromFilter: function(beginDate) {
+    this.setState({focusedInput: null});
+    this.props.selectDates(beginDate, moment().add(1, 'days'));
   },
 
-  selectEndDate: function (date) {
-    this.setState({endDate: date}, this.selectDates);
+  renderFilterOptions: function () {
+    return (
+      <div className='calendar-prefill-options'>
+        {this.props.filterOptions.map(filter =>
+          <DateRangeFilterOption
+            key={filter.title}
+            title={filter.title}
+            onClickFunction={() => { this.setDateFromFilter(filter.beginDate) }}
+          />
+        )}
+      </div>
+    );
   },
-
-  selectDates: function () {
-    this.props.selectDates(this.state.beginDate, this.state.endDate);
-  },
-
 
   render: function() {
     return (
-      <div className="row date-range-filter">
-        <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker selected={this.state.beginDate} maxDate={moment()} onChange={this.selectBeginDate}   placeholderText='Completed: From'/>
-        </div>
-        <div className="no-pl col-xs-6 col-sm-5">
-          <DatePicker selected={this.state.endDate} maxDate={moment()}  onChange={this.selectEndDate}   placeholderText='Completed: To'/>
-        </div>
-      </div>
+      <DateRangePicker
+        startDate={this.props.beginDate}
+        endDate={this.props.endDate}
+        onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate)}
+        focusedInput={this.state.focusedInput}
+        onFocusChange={focusedInput => this.setState({ focusedInput })}
+        numberOfMonths={1}
+        isOutsideRange={day => {return false}}
+        renderCalendarInfo={this.renderFilterOptions}
+        daySize={30}
+        navPrev={'‹'}
+        navNext={'›'}
+      />
     );
   }
 });

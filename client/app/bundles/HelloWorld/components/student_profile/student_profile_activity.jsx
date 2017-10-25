@@ -11,7 +11,7 @@ export default React.createClass({
   },
 
   getInitialState() {
-    return {showLockedTooltip: false}
+    return {showLockedTooltip: false, showMissedTooltip: false}
   },
 
   renderDueDate() {
@@ -28,12 +28,30 @@ export default React.createClass({
     }
   },
 
+  renderMissedTooltip() {
+    if (this.state.showMissedTooltip) {
+      return <div className="missed-tooltip">
+        <p className="tooltip-header">Your teacher has launched and completed this group lesson in class.</p>
+        <p className="text">This activity is now locked. Be sure to ask your teacher what you missed.</p>
+        <i className="fa fa-caret-down"/>
+      </div>
+    }
+  },
+
   showLockedTooltip() {
     this.setState({showLockedTooltip: true})
   },
 
   hideLockedTooltip() {
     this.setState({showLockedTooltip: false})
+  },
+
+  showMissedTooltip() {
+    this.setState({showMissedTooltip: true})
+  },
+
+  hideMissedTooltip() {
+    this.setState({showMissedTooltip: false})
   },
 
   dataForActivityIconWithToolTip() {
@@ -47,6 +65,13 @@ export default React.createClass({
     let linkText;
     if (this.props.data.repeatable === 'f' && this.props.data.max_percentage) {
       return (<p className="title-v-centered text-right">Completed</p>);
+    } else if (this.props.data.max_percentage === null && this.props.data.marked_complete === 't'){
+      return (<p
+        className="title-v-centered text-right"
+        style={{ color: '#969696', }}
+        onMouseEnter={this.showMissedTooltip}
+        onMouseLeave={this.hideMissedTooltip}
+        >Missed Lesson</p>);
     } else if (this.props.data.locked === 't') {
       return (<p
         className="title-v-centered text-right"
@@ -79,6 +104,7 @@ export default React.createClass({
           {this.renderDueDate()}
           {this.renderStartButtonOrLockMessage()}
           {this.renderLockedTooltip()}
+          {this.renderMissedTooltip()}
         </span>
       </div>
     );

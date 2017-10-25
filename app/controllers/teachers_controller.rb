@@ -88,7 +88,7 @@ class TeachersController < ApplicationController
   def get_completed_diagnostic_unit_info
     begin
       unit_id = current_user.finished_diagnostic_unit_ids.first.id
-      ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447])
+      ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447, 602])
       unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
     rescue
       unit_info = nil
@@ -111,7 +111,7 @@ class TeachersController < ApplicationController
       if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
         number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.id) FROM activity_sessions actsesh
                               JOIN classroom_activities AS ca ON actsesh.classroom_activity_id = ca.id
-                              WHERE ca.id = #{most_recently_completed['classroom_activity_id']}
+                              WHERE ca.id = #{ActiveRecord::Base.sanitize(most_recently_completed['classroom_activity_id'])}
                               AND actsesh.state = 'finished'
                               AND actsesh.visible = 'true'
                               AND ca.visible = 'true'").to_a.first['count']

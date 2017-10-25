@@ -105,11 +105,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def index
-    render json: units.to_json
+    render json: units(params['report']).to_json
   end
 
   def diagnostic_units
-    units_with_diagnostics = units.select { |a| a['activity_classification_id'] == '4' }
+    units_with_diagnostics = units(params['report']).select { |a| a['activity_classification_id'] == '4' }
     render json: units_with_diagnostics.to_json
   end
 
@@ -129,7 +129,8 @@ class Teachers::UnitsController < ApplicationController
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
-       COUNT(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE NULL END) AS completed_count,
+       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) AS completed_count,
+       SUM(CASE WHEN act_sesh.state = 'started' THEN 1 ELSE 0 END) AS started_count,
        EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
     FROM units
@@ -189,7 +190,12 @@ class Teachers::UnitsController < ApplicationController
     one_ca_per_classroom.map{|ca| {id: ca.classroom_id, student_ids: ca.assigned_student_ids}}
   end
 
-  def units
+  def units(report)
+    if report
+      completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+    else
+      completed = ''
+    end
     ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
        activities.supporting_info AS supporting_info,
@@ -202,19 +208,22 @@ class Teachers::UnitsController < ApplicationController
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
+       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
        EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
     FROM units
       INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
       INNER JOIN activities ON ca.activity_id = activities.id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
+      LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
+      LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id AND sc.visible = TRUE
     WHERE units.user_id = #{current_user.id}
-      AND sc.visible = true
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
-      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid").to_a
+      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid
+      #{completed}
+      ").to_a
   end
 
 end
