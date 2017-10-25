@@ -19,7 +19,9 @@ const styles = {
   },
   lessonEndRow: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    width: '100%',
+    maxWidth: '350px',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   reportEndRow: {
@@ -58,7 +60,7 @@ export default React.createClass({
   },
 
   buttonForRecommendations() {
-    const diagnosticIds = [413, 447];
+    const diagnosticIds = [413, 447, 602];
     if (diagnosticIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
         <div onClick={this.goToRecommendations} className="recommendations-button">
@@ -68,15 +70,15 @@ export default React.createClass({
     }
   },
 
-	supportingInfo() {
-		if (!this.props.data.completed && this.props.data.supportingInfo && window.location.pathname.includes('lessons')) {
-			return <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
-		}
-	},
-
-  reportLink() {
-    if (this.props.data.completed && window.location.pathname.includes('lessons')) {
-      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_activity/${this.props.data.caId}`}>View Report</a>
+  renderLessonsAction() {
+    if (window.location.pathname.includes('lessons')) {
+      if (this.props.data.completed) {
+        return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>;
+      } else if (this.props.data.started) {
+        return <a className="mark-completed" target="_blank" href={`/teachers/classroom_activities/${this.props.data.caId}/mark_lesson_as_completed/${this.activityId()}`}>Mark As Complete</a>
+      } else if (this.props.data.supportingInfo) {
+        return <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
+      }
     }
   },
 
@@ -141,13 +143,16 @@ export default React.createClass({
 
   lessonCompletedOrLaunch() {
     if (this.props.data.completed) {
-      return <p className="lesson-completed">Lesson Completed</p>;
+      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_activity/${this.props.data.caId}`}>View Report</a>
     }
-    const text = this.props.data.started ? 'Resume Lesson' : 'Launch Lesson';
     if (this.props.data.studentCount === 0) {
-      return <a onClick={this.noStudentsWarning} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+      return <a onClick={this.noStudentsWarning} id="launch-lesson">{text}</a>;
     } else {
-      return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="q-button bg-quillgreen" id="launch-lesson">{text}</a>;
+      if (this.props.data.started) {
+        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>;
+      } else {
+        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>;
+      }
     }
   },
 
@@ -212,8 +217,7 @@ export default React.createClass({
           </div>
         </div>
         <div className="cell" style={endRow}>
-          {this.reportLink()}
-          {this.supportingInfo()}
+          {this.renderLessonsAction()}
           {this.finalCell()}
           {this.deleteRow()}
         </div>

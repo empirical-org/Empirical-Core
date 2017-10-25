@@ -5,6 +5,7 @@ import _ from 'underscore';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
 import PremiumFeatures from '../components/admin_dashboard/premium_features';
 import CreateNewAccounts from '../components/admin_dashboard/create_new_accounts.jsx';
+import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers'
 import pluralize from 'pluralize';
 import request from 'request'
@@ -53,6 +54,7 @@ export default React.createClass({
     return {
       config: {
         name: 'natural',
+        school: 'natural',
         number_of_students: 'numeric',
         number_of_questions_completed: 'numeric',
         time_spent: 'numeric',
@@ -71,6 +73,12 @@ export default React.createClass({
         field: 'name',
         sortByField: 'name',
         className: 'teacher-name-column',
+      },
+      {
+        name: 'School',
+        field: 'school',
+        sortByField: 'school',
+        className: 'school-name-column',
       },
       {
         name: 'Students',
@@ -157,12 +165,12 @@ export default React.createClass({
             />
             <QuestionsAndAnswers
               questionsAndAnswersFile='admin'
-              supportLink="https://support.quill.org/"
+              supportLink="https://support.quill.org/quill-premium"
             />
           </div>
         </div>
       );
     }
-    return <span />;
+    return <LoadingSpinner />;
   },
 });

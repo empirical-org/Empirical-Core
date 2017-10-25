@@ -1,10 +1,14 @@
 # look at Admin::Serializer - it passes the result of TeachersData into this serializer, not just an ActiveRecord::Relation of teachers
 class Admin::TeacherSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email,
+  attributes :id, :name, :email, :school,
             :links,
             :number_of_students,
             :number_of_questions_completed,
             :time_spent
+
+  def school
+    object.try(:school).try(:name)
+  end
 
   def links
     [
@@ -12,7 +16,6 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
       { name: "Premium Reports", path: admin_sign_in_progress_reports_user_path(object) },
     ]
   end
-
 
   def number_of_students
     x = object.try(:number_of_students)

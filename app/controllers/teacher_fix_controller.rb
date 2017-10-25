@@ -56,6 +56,25 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  def recover_activity_sessions
+    user = User.find_by_email(params['email'])
+    if user && user.role == 'teacher'
+      unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
+      if unit
+        ClassroomActivity.unscoped.where(unit_id: unit.id).each do |ca|
+          activity_sessions = ActivitySession.unscoped.where(classroom_activity_id: ca.id)
+          ca.update(visible: true, assigned_student_ids: activity_sessions.map(&:user_id))
+          activity_sessions.update_all(visible: true)
+        end
+        render json: {}, status: 200
+      else
+        render json: {error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}"}
+      end
+    else
+      render json: {error: "Cannot find a teacher with the email #{params['email']}."}
+    end
+  end
+
   def merge_student_accounts
     account1 = User.find_by_username_or_email(params['account_1_identifier'])
     account2 = User.find_by_username_or_email(params['account_2_identifier'])
@@ -78,6 +97,25 @@ class TeacherFixController < ApplicationController
     else
       missing_account_identifier = account1 ? params['account_2_identifier'] : params['account_1_identifier']
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
+    end  end
+
+  def merge_teacher_accounts
+    account1 = User.find_by_username_or_email(params['account_1_identifier'])
+    account2 = User.find_by_username_or_email(params['account_2_identifier'])
+    if account1 && account2
+      if account1.role === 'teacher' && account2.role === 'teacher'
+        Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
+        Classroom.unscoped.where(teacher_id: account1.id).update_all(teacher_id: account2.id)
+        account1.delete_dashboard_caches
+        account2.delete_dashboard_caches
+        render json: {}, status: 200
+      else
+        nonteacher_account_identifier = account1.role === 'teacher' ? params['account_2_identifier'] : params['account_1_identifier']
+        render json: {error: "#{nonteacher_account_identifier} is not a teacher."}
+      end
+    else
+      missing_account_identifier = account1 ? params['account_2_identifier'] : params['account_1_identifier']
+      render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
 
@@ -89,17 +127,13 @@ class TeacherFixController < ApplicationController
         classroom_1 = Classroom.find_by_code(params['class_code_1'])
         classroom_2 = Classroom.find_by_code(params['class_code_2'])
         if classroom_1 && classroom_2
-          if classroom_1.teacher_id == classroom_2.teacher_id
-            if StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
-              StudentsClassrooms.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id)
-              TeacherFixes::move_activity_sessions(user.id, classroom_1.id, classroom_2.id)
-              StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id).destroy
-              render json: {}, status: 200
-            else
-              render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code_1']}."}
-            end
+          if StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
+            StudentsClassrooms.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id)
+            TeacherFixes::move_activity_sessions(user, classroom_1, classroom_2)
+            StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id).destroy
+            render json: {}, status: 200
           else
-            render json: {error: 'These classrooms do not have the same teacher.'}
+            render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code_1']}."}
           end
         else
           missing_class_code = classroom_1 ? params['class_code_2'] : params['class_code_1']

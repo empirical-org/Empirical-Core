@@ -7,31 +7,31 @@ export default React.createClass({
       <div className="icons-wrapper icon-legend app-legend">
         <div className="icons">
           <div className="icon">
-            <div className="icon-wrapper icon-green icon-diagnostic"/>
+            <div className="icon-wrapper icon-diagnostic-embossed"/>
             <div className="icons-description-wrapper">
               <p className="title">Quill Diagnostic</p>
             </div>
           </div>
           <div className="icon">
-            <div className="icon-wrapper icon-green icon-lessons"/>
+            <div className="icon-wrapper icon-lessons-embossed"/>
             <div className="icons-description-wrapper">
               <p className="title">Quill Lessons</p>
             </div>
           </div>
           <div className="icon">
-            <div className="icon-wrapper icon-green icon-connect"/>
+            <div className="icon-wrapper icon-connect-embossed"/>
             <div className="icons-description-wrapper">
               <p className="title">Quill Connect</p>
             </div>
           </div>
             <div className="icon">
-              <div className="icon-wrapper icon-green icon-flag"/>
+              <div className="icon-wrapper icon-flag-embossed"/>
               <div className="icons-description-wrapper">
                 <p className="title">Quill Proofreader</p>
               </div>
             </div>
             <div className="icon">
-              <div className="icon-wrapper icon-green icon-puzzle"/>
+              <div className="icon-wrapper icon-puzzle-embossed"/>
               <div className="icons-description-wrapper">
                 <p className="title">Quill Grammar</p>
               </div>

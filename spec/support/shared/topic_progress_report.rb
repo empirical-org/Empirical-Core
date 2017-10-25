@@ -36,36 +36,30 @@ shared_context 'Topic Progress Report' do
                                             assign_on_join: true,
                                             unit: unit1) }
 
-  # NOTE: ClassroomActivity.create creates new activity sessions for every student in the classroom.
-  # These lets will update the existing activity sessions instead of creating new ones.
+  # NOTE: ClassroomActivity.create does not create new activity sessions for every student in the classroom.
+  # Create new sessions for them
   let!(:alice_second_grade_topic_session) do
-    session = alice.activity_sessions.for_activity(activity_for_second_grade_topic)
-    session.update!(state: 'finished', percentage: 1, completed_at: 1.month.ago) # proficient
+    session = ActivitySession.create(user_id: alice.id, activity: activity_for_second_grade_topic, classroom_activity: classroom_activity1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
     session
   end
 
   let!(:fred_second_grade_topic_session) do
-    # StudentsClassrooms.find_or_create(classroom_id: full_classroom.id, student_id: fred.id)
-    session = fred.activity_sessions.for_activity(activity_for_second_grade_topic)
-    session.update!(state: 'finished', percentage: 1, completed_at: 1.month.ago) # proficient
+    session = ActivitySession.create(user_id: fred.id, activity: activity_for_second_grade_topic, classroom_activity: classroom_activity1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
     session
   end
 
   let!(:zojirushi_second_grade_topic_session) do
-    session = zojirushi.activity_sessions.for_activity(activity_for_second_grade_topic)
-    session.update!(state: 'finished', percentage: 0.49, completed_at: 25.days.ago) # Not Yet Proficient
+    session = ActivitySession.create(user_id: zojirushi.id, activity: activity_for_second_grade_topic, classroom_activity: classroom_activity1, state: 'finished', percentage: 0.49, completed_at: 25.days.ago)
     session
   end
 
   let!(:alice_first_grade_topic_session)  do
-    session = alice.activity_sessions.for_activity(activity_for_first_grade_topic)
-    session.update!(state: 'finished', percentage: 0.70, completed_at: 28.days.ago) # Near-proficient
+    session = ActivitySession.create(user_id: alice.id, activity: activity_for_first_grade_topic, classroom_activity: classroom_activity2, state: 'finished', percentage: 0.70, completed_at: 28.days.ago)
     session
   end
 
   let!(:fred_first_grade_topic_session) do
-    session = fred.activity_sessions.for_activity(activity_for_first_grade_topic)
-    session.update!(state: 'finished', percentage: 0.70, completed_at: 2.days.ago) # Nearly Proficient
+    session = ActivitySession.create(user_id: fred.id, activity: activity_for_first_grade_topic, classroom_activity: classroom_activity2, state: 'finished', percentage: 0.70, completed_at: 2.days.ago)
     session
   end
 

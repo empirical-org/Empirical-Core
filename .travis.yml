@@ -7,10 +7,13 @@ cache:
 rvm:
   - 2.3.1
 script:
-  - npm run jest:silent && codecov
+  - npm run jest:silent
+  - bash <(curl -s https://codecov.io/bash) -cF jest
   - npm run build:test
   # - npm run lint
   - bundle exec rake spec
+  - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
+  - bundle exec brakeman
   - bundle exec teaspoon
 before_script:
   - cp config/database.yml.travis config/database.yml
@@ -23,7 +26,6 @@ before_script:
   # use version 7 of node instead of whatever travis uses so jest actually works
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 7.0.0
   - npm install  # Make use of 'postinstall' to run 'cd ./client npm install'
-  - npm install -g codecov
 addons:
   postgresql: "9.3"
   code_climate:

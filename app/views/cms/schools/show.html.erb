@@ -7,7 +7,6 @@
     <table class='cms-results-table'>
       <thead>
         <tr>
-          <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
           <% ['Name', 'Classes', 'Students', 'Activities Completed',
               'Last Active', 'Premium?', 'Make Admin', 'Sign In'].each do |td| %>
             <td><%= td %></td>
@@ -21,10 +20,10 @@
               <td><%= teacher[attribute] || 'N/A' %></td>
             <% end %>
             <td>
-              <% if teacher['user_role'] == 'admin' %>
-                <%= link_to 'Remove Admin', remove_admin_cms_user_path(teacher['user_id']), method: :put %>
+              <% unless teacher['admin_id'].blank? %>
+                <%= link_to 'Remove Admin', cms_user_remove_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
               <% else %>
-                <%= link_to 'Make Admin', make_admin_cms_user_path(teacher['user_id']), method: :put %>
+                <%= link_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
               <% end %>
             </td>
             <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']), method: :put %></td>
@@ -52,5 +51,29 @@
       <p><strong><%= k %></strong></p>
       <p><%= v || 'N/A' %></p>
     <% end %>
+    <br /><br />
+    <h2>All Admins</h2>
+    <% if @admins.any? %>
+      <table class='cms-results-table'>
+        <thead>
+          <tr>
+            <% ['Name', 'Email', 'Remove Admin'].each do |td| %>
+              <td><%= td %></td>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @admins.each do |admin| %>
+            <tr>
+              <td><%= admin[:name] %></td>
+              <td><%= admin[:email] %></td>
+              <td><%= link_to 'Remove Admin', cms_user_remove_admin_path(user_id: admin[:user_id], school_id: admin[:school_id]), data: { confirm: 'Are you sure?' }, method: :put %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <br />
+    <%= link_to 'Add Admin', new_admin_cms_school_path(params[:id]), class: 'btn button-green' %>
   </article>
 </div>
