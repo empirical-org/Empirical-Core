@@ -14,10 +14,10 @@ class questionHealth extends Component {
 
     this.state = {
       loading: true,
-      sentenceCombiningQuestionScores: {},
-      sentenceFragmentQuestionScores: {},
-      diagnosticQuestionScores: {},
-      fillInBlankQuestionScores: {}
+      sc: {},
+      sf: {},
+      dq: {},
+      fib: {}
     }
   }
 
@@ -28,12 +28,10 @@ class questionHealth extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.loading) {
-      const sc = Object.keys(nextState.sentenceCombiningQuestionScores)
-      const sf = Object.keys(nextState.sentenceFragmentQuestionScores)
-      const dq = Object.keys(nextState.diagnosticQuestionScores)
-      const fib = Object.keys(nextState.fillInBlankQuestionScores)
-      console.log('component will update')
-      console.log(nextState)
+      const sc = Object.keys(nextState.sc)
+      const sf = Object.keys(nextState.sf)
+      const dq = Object.keys(nextState.dq)
+      const fib = Object.keys(nextState.fib)
       if (sc && sc.length && sf && sf.length && dq && dq.length && fib && fib.length) {
         this.setState({loading: false})
       }
@@ -58,47 +56,47 @@ class questionHealth extends Component {
   }
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
-    const sentenceCombiningQuestionScores = []
+    const sc = []
     const sentenceCombiningKeys = Object.keys(sentenceCombiningQuestions)
     sentenceCombiningKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        sentenceCombiningQuestionScores.push(analyzedQuestions[uid])
+        sc.push(analyzedQuestions[uid])
       }
     })
-    this.analyzeQuestions(sentenceCombiningQuestionScores, 'sentenceCombiningQuestionScores')
+    this.analyzeQuestions(sc, 'sc')
   }
 
   setDiagnosticQuestions(analyzedQuestions, diagnosticQuestions) {
-    const diagnosticQuestionScores = []
+    const dq = []
     const diagnosticKeys = Object.keys(diagnosticQuestions)
     diagnosticKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        diagnosticQuestionScores.push(analyzedQuestions[uid])
+        dq.push(analyzedQuestions[uid])
       }
     })
-    this.analyzeQuestions(diagnosticQuestionScores, 'diagnosticQuestionScores')
+    this.analyzeQuestions(dq, 'dq')
   }
 
   setSentenceFragments(analyzedQuestions, sentenceFragmentQuestions) {
-    const sentenceFragmentQuestionScores = []
+    const sf = []
     const sentenceFragmentKeys = Object.keys(sentenceFragmentQuestions)
     sentenceFragmentKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        sentenceFragmentQuestionScores.push(analyzedQuestions[uid])
+        sf.push(analyzedQuestions[uid])
       }
     })
-    this.analyzeQuestions(sentenceFragmentQuestionScores, 'sentenceFragmentQuestionScores')
+    this.analyzeQuestions(sf, 'sf')
   }
 
   setFillInBlankQuestions(analyzedQuestions, fillInBlankQuestions) {
-    const fillInBlankQuestionScores = []
+    const fib = []
     const fillInBlankKeys = Object.keys(fillInBlankQuestions)
     fillInBlankKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        fillInBlankQuestionScores.push(analyzedQuestions[uid])
+        fib.push(analyzedQuestions[uid])
       }
     })
-    this.analyzeQuestions(fillInBlankQuestionScores, 'fillInBlankQuestionScores')
+    this.analyzeQuestions(fib, 'fib')
   }
 
   analyzeQuestions(scores, keyName) {
@@ -110,7 +108,7 @@ class questionHealth extends Component {
       strong: []
     }
     scores.forEach((q) => {
-      const percentageUnmatched = q.unmatched_responses/q.responses * 100
+      const percentageUnmatched = q.common_unmatched_attempts/q.responses * 100
       if (percentageUnmatched > 5) {
         groupedScores.veryWeak.push(q)
       } else if (percentageUnmatched > 2) {
@@ -123,7 +121,7 @@ class questionHealth extends Component {
     })
     groupedScores.percentageWeak = Math.round((groupedScores.veryWeak.length + groupedScores.weak.length)/groupedScores.totalNumber * 100)
     groupedScores.status = this.getStatus(groupedScores.percentageWeak)
-    console.log('i ran')
+    groupedScores.name = this.getName(keyName)
     this.setState({[keyName]: groupedScores})
   }
 
@@ -139,16 +137,89 @@ class questionHealth extends Component {
     }
   }
 
+  getName(keyName) {
+    switch (keyName) {
+      case 'sc':
+        return 'Sentence Combining'
+      case 'sf':
+        return 'Sentence Fragments'
+      case 'dq':
+        return 'Diagnostic Questions'
+      case 'fib':
+        return 'Fill In Blank'
+    }
+  }
+
   renderQuestionTypeStatusTable() {
-    const sc = this.state.sentenceCombiningQuestionScores
-    const sf = this.state.sentenceFragmentQuestionScores
-    const fib = this.state.fillInBlankQuestionScores
-    const dq = this.state.diagnosticQuestionScores
-    return <div>
-      <div className="row"><span>Sentence Combining:</span><span>{sc.status}</span><span>{sc.percentageWeak} of questions are weak</span></div>
-      <div className="row"><span>Sentence Fragments:</span><span>{sf.status}</span><span>{sf.percentageWeak} of questions are weak</span></div>
-      <div className="row"><span>Fill In Blank:</span><span>{fib.status}</span><span>{fib.percentageWeak} of questions are weak</span></div>
-      <div className="row"><span>Diagnostic Questions:</span><span>{dq.status}</span><span>{dq.percentageWeak} of questions are weak</span></div>
+    return <div className="status-table">
+      <h2>Question Type Status</h2>
+      {this.renderQuestionTypeRow('sc')}
+      {this.renderQuestionTypeRow('sf')}
+      {this.renderQuestionTypeRow('dq')}
+      {this.renderQuestionTypeRow('fib')}
+    </div>
+  }
+
+  renderQuestionTypeRow(questionType) {
+    const data = this.state[questionType]
+    return <div className="row">
+      <span>{data.name}</span>
+      <span className="bold">{data.status}</span>
+      <span>{data.percentageWeak}% of questions are weak</span>
+    </div>
+  }
+
+  renderQuestionTypeTable(questionType) {
+    const data = this.state[questionType]
+    return <div className="question-type-table">
+      <h2>{data.name}: {data.totalNumber} Active Questions</h2>
+      <div className="row"><span className="bold">Status</span><span className="bold">{data.status}</span><span>{data.percentageWeak}% of questions are weak</span></div>
+      {this.renderVeryWeakRow(data)}
+      {this.renderWeakRow(data)}
+      {this.renderOkayRow(data)}
+      {this.renderStrongRow(data)}
+    </div>
+  }
+
+  renderVeryWeakRow(data) {
+    const numberOfRelevantAnswers = data.veryWeak.length
+    const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
+    return <div className="row">
+      <span>Very Weak (>5% Unmatched):</span>
+      <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
+      <a>See Very Weak</a>
+    </div>
+  }
+
+  renderWeakRow(data) {
+    const numberOfRelevantAnswers = data.weak.length
+    const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
+    return <div className="row">
+      <span>Weak (5%-2% Unmatched):</span>
+      <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
+      <a>See Weak</a>
+    </div>
+  }
+
+
+  renderOkayRow(data) {
+    const numberOfRelevantAnswers = data.okay.length
+    const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
+    return <div className="row">
+      <span>Okay (2%-0.5% Unmatched):</span>
+      <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
+      <a>See Okay</a>
+    </div>
+  }
+
+
+  renderStrongRow(data) {
+    const numberOfRelevantAnswers = data.strong.length
+    const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
+    return <div className="row">
+      <span>Strong (0.5%-0% Unmatched):</span>
+      <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
+      <a>See Strong</a>
     </div>
   }
 
@@ -158,8 +229,11 @@ class questionHealth extends Component {
     } else {
       return <div className="question-health">
         <h1>Data Dashboard - Health of Questions</h1>
-        <h2>Question Type Status</h2>
         {this.renderQuestionTypeStatusTable()}
+        {this.renderQuestionTypeTable('sc')}
+        {this.renderQuestionTypeTable('sf')}
+        {this.renderQuestionTypeTable('dq')}
+        {this.renderQuestionTypeTable('fib')}
       </div>
     }
   }

@@ -6,12 +6,25 @@
   h2 {
     margin: 15px 0px;
     font-style: italic;
+    font-weight: bold;
   }
   .row {
     display: flex;
     justify-content: space-between;
-    span {
+    span, a {
       flex: 1;
     }
+  }
+  .bold {
+    font-weight: bold;
+  }
+
+  .question-type-table {
+    border-top: 1px black solid;
+    padding-bottom: 15px;
+  }
+
+  .status-table {
+    padding-bottom: 15px;
   }
 }
