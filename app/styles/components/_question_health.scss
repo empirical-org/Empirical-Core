@@ -6,7 +6,7 @@
     font-weight: bold;
   }
   h2 {
-    margin: 15px 0px;
+    margin: 0px 0px 15px;
     font-style: italic;
     font-weight: bold;
   }
@@ -24,10 +24,11 @@
 
   .question-type-table {
     border-top: 1px black solid;
-    padding-bottom: 15px;
+    padding: 15px;
   }
 
   .status-table {
-    padding-bottom: 15px;
+    background-color: rgba(255, 246, 209, 0.3);
+    padding: 15px;
   }
 }

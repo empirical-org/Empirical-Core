@@ -13,6 +13,13 @@ import _ from 'underscore';
 class ScoreAnalysis extends Component {
   constructor(props) {
     super();
+
+    const questionType = getParameterByName('questionType')
+                          ? this.getQuestionTypeFromAbbreviation(getParameterByName('questionType'))
+                          : null
+    const status = getParameterByName('status')
+                          ? this.getStatusFromAbbreviation(getParameterByName('status'))
+                          : null
     this.state = {
       sort: 'weakResponses',
       direction: 'dsc',
@@ -21,11 +28,15 @@ class ScoreAnalysis extends Component {
       diagnosticQuestionKeys: [],
       sentenceFragmentKeys: [],
       fillInBlankKeys: [],
-      questionType: getParameterByName('questionType'),
-      status: getParameterByName('status'),
+      questionType: questionType,
+      status: status,
       questionData: [],
       questionTypesLoaded: false
     };
+
+    this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
+    this.updateStatusFilter = this.updateStatusFilter.bind(this)
+    this.formatDataForTable = this.formatDataForTable.bind(this)
   }
 
   componentWillMount() {
@@ -72,6 +83,7 @@ class ScoreAnalysis extends Component {
   }
 
   formatData(props) {
+    debugger;
     const { questions, concepts, scoreAnalysis, } = props;
     const validConcepts = _.map(concepts.data[0], con => con.uid);
     const formatted = _.map(hashToCollection(questions.data).filter(e => validConcepts.includes(e.conceptID)), (question) => {
@@ -80,11 +92,11 @@ class ScoreAnalysis extends Component {
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: question.key,
-          type: this.getQuestionType(question.key),
+          type: this.getQuestionTypeFromQuestionKey(question.key),
           prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
           responses: scoreData.responses || 0,
           weakResponses: percentageWeakResponses,
-          status: this.getStatus(percentageWeakResponses),
+          status: this.getStatusFromPercentage(percentageWeakResponses),
           hasModelConcept: !!question.modelConceptUID,
           focusPoints: question.focusPoints ? Object.keys(question.focusPoints).length : 0,
           incorrectSequences: question.incorrectSequences ? Object.keys(question.incorrectSequences).length : 0,
@@ -95,10 +107,17 @@ class ScoreAnalysis extends Component {
   }
 
   formatDataForTable() {
-    return _.compact(this.state.questionData);
+    let filteredData = this.state.questionData
+    if (this.state.questionType) {
+      filteredData = filteredData.filter((q) => q && q.type === this.state.questionType)
+    }
+    if (this.state.status) {
+      filteredData = filteredData.filter((q) => q && q.status === this.state.status)
+    }
+    return _.compact(filteredData);
   }
 
-  getQuestionType(questionKey) {
+  getQuestionTypeFromQuestionKey(questionKey) {
     if (this.state.sentenceCombiningKeys.includes(questionKey)) {
       return 'Sentence Combining'
     } else if (this.state.diagnosticQuestionKeys.includes(questionKey)) {
@@ -110,7 +129,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  getStatus(percentage) {
+  getStatusFromPercentage(percentage) {
     if (percentage > 5) {
       return 'Very Weak'
     } else if (percentage > 10) {
@@ -119,6 +138,44 @@ class ScoreAnalysis extends Component {
       return 'Okay'
     } else {
       return 'Strong'
+    }
+  }
+
+  updateQuestionTypeFilter(e) {
+    this.setState({questionType: this.getQuestionTypeFromAbbreviation(e.target.value)})
+  }
+
+  updateStatusFilter(e) {
+    this.setState({status: this.getStatusFromAbbreviation(e.target.value)})
+  }
+
+  getQuestionTypeFromAbbreviation(abbrev) {
+    switch (abbrev) {
+      case 'all':
+        return null
+      case 'sc':
+        return 'Sentence Combining'
+      case 'sf':
+        return 'Sentence Fragment'
+      case 'dq':
+        return 'Diagnostic Question'
+      case 'fib':
+        return 'Fill In Blank'
+    }
+  }
+
+  getStatusFromAbbreviation(abbrev) {
+    switch (abbrev) {
+      case 'all':
+        return null
+      case 'vw':
+        return 'Very Weak'
+      case 'w':
+        return 'Weak'
+      case 'o':
+        return 'Okay'
+      case 's':
+        return 'Strong'
     }
   }
 
@@ -135,9 +192,24 @@ class ScoreAnalysis extends Component {
     if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <div>
-          <p style={{ fontSize: '1.5em', textAlign: 'center', margin: '0.75em 0', }}><label htmlFor="minResponses">Show questions with a minimum of </label>
+          <select value={this.state.questionType || 'all'} onChange={this.updateQuestionTypeFilter}>
+            <option value="all">All</option>
+            <option value="sc">Sentence Combining</option>
+            <option value="sf">Sentence Fragment</option>
+            <option value="dq">Diagnostic Question</option>
+            <option value="fib">Fill In Blanks</option>
+          </select>
+          <select value={this.state.status || 'all'} onChange={this.updateStatusFilter}>
+            <option value="all">All</option>
+            <option value="vw">Very Weak</option>
+            <option value="w">Weak</option>
+            <option value="o">Okay</option>
+            <option value="s">Strong</option>
+          </select>
+          <p>
+            <label htmlFor="minResponses">Response Threshold:</label>
             <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({ minResponses: this.refs.minResponses.value, })} style={{ fontSize: '1.25em', width: '100px', }} />
-            <label htmlFor="minResponses"> total responses.</label></p>
+          </p>
           <table className="table is-striped is-bordered">
             <thead>
               <tr>
