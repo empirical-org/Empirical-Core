@@ -135,25 +135,25 @@ min-height: 112px;
   padding-left: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
-  justify-content: space-between;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   button {
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: solid 1px #cecece;
+    box-sizing:border-box;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    flex-direction: row;
+        -ms-flex-direction: row;
+    height: 75px;
+    margin-right: 20px;
     padding: 6px;
     width: 180px;
-    height: 75px;
-    box-sizing:border-box;
-    border-radius: 6px;
-    background-color: #ffffff;
-    border: solid 1px #cecece;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
+
     div:first-of-type {
       width: 30px;
     }
