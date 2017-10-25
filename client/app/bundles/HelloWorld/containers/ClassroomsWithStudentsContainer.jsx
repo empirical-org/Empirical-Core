@@ -118,10 +118,10 @@ export default class extends React.Component {
   }
 
   updateAllOrNoneAssigned(classy, selectedCount) {
-    if (classy.students.length && (selectedCount === classy.students.length)) {
+    if ((classy.students.length && (selectedCount === classy.students.length)) || (classy.students.length === 0 && classy.classroom_activity)) {
       classy.allSelected = true;
       classy.noneSelected = false;
-    } else if (selectedCount === 0) {
+    } else if (classy.students.length && selectedCount === 0) {
       classy.noneSelected = true;
       classy.allSelected = false;
     } else {
