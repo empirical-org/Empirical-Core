@@ -53,6 +53,7 @@ class questionHealth extends Component {
         this.setFillInBlankQuestions(nextProps.scoreAnalysis.data, nextProps.fillInBlank.data)
       }
     }
+
   }
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
@@ -108,7 +109,7 @@ class questionHealth extends Component {
       strong: []
     }
     scores.forEach((q) => {
-      const percentageUnmatched = q.common_unmatched_attempts/q.responses * 100
+      const percentageUnmatched = q.common_unmatched_responses/q.responses * 100
       if (percentageUnmatched > 5) {
         groupedScores.veryWeak.push(q)
       } else if (percentageUnmatched > 2) {
