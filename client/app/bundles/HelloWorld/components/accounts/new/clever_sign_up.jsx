@@ -53,7 +53,7 @@ export default React.createClass({
       result = <span></span>;
     } else {
       result = (<button className='clever-sign-up' onClick={() => window.location = this.buildLink()}>
-        <img src='/images/clever_icon.svg'/>
+        <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`}/>
         <span>Sign up with Clever</span>
       </button>)
     }

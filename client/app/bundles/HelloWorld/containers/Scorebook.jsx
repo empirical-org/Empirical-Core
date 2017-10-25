@@ -10,6 +10,7 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import AppLegend from '../components/scorebook/app_legend.jsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
+import moment from 'moment';
 
 export default React.createClass({
   mixins: [TableFilterMixin],
@@ -36,12 +37,15 @@ export default React.createClass({
       loading: false,
       is_last_page: false,
       noLoadHasEverOccurredYet: true,
+      anyScoresHaveLoadedPreviously: localStorage.getItem('anyScoresHaveLoadedPreviously') || false
     };
   },
 
   componentDidMount() {
-    this.fetchData();
-    this.getUpdatedUnits(this.props.selectedClassroom.value);
+    this.setStateFromLocalStorage(this.fetchData);
+    if(this.props.selectedClassroom) {
+      this.getUpdatedUnits(this.props.selectedClassroom.value);
+    }
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
 
@@ -51,9 +55,20 @@ export default React.createClass({
     }
   },
 
+  setStateFromLocalStorage(callback) {
+    this.setState({
+      beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate')),
+      endDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))
+    }, callback);
+  },
+
   fetchData() {
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
+    if(!this.state.selectedClassroom) {
+      this.setState({ missing: 'classrooms' });
+      return;
+    }
     $.ajax({
       url: '/teachers/classrooms/scores',
       data: {
@@ -76,14 +91,26 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      that.setState({ unitFilters: parsedBody.units, selectedUnit: { name: 'All Activity Packs', value: '', }, });
+      that.setState({
+        unitFilters: parsedBody.units,
+        selectedUnit: { name: 'All Activity Packs', value: '', },
+        missing: this.checkMissing(this.state.scores)
+      });
     });
   },
 
-  checkMissing(newScores) {
+  checkMissing(scores) {
+    if(!(this.state.anyScoresHaveLoadedPreviously == 'true') && scores.size > 0) {
+      this.setState({anyScoresHaveLoadedPreviously: true});
+      localStorage.setItem('anyScoresHaveLoadedPreviously', true);
+    }
     if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';
-    } else if (!newScores || newScores.size === 0) {
+    } else if(this.state.anyScoresHaveLoadedPreviously == 'true' && (!scores || scores.size === 0)) {
+      return 'activitiesWithinDateRange';
+    } else if (this.state.unitFilters.length && (!scores || scores.size === 0)) {
+      return 'students';
+    } else if (!scores || scores.size === 0) {
       return 'activities';
     }
   },
@@ -107,6 +134,9 @@ export default React.createClass({
         updated: s.updated_at,
         name: s.activity_name,
         percentage: s.percentage,
+        started: s.started ? Number(s.started) : 0,
+        completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
+        marked_complete: s.marked_complete,
         activity_classification_id: s.activity_classification_id, });
     });
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
@@ -131,12 +161,22 @@ export default React.createClass({
   },
 
   selectDates(val1, val2) {
+    window.localStorage.setItem('scorebookBeginDate', val1);
+    window.localStorage.setItem('scorebookEndDate', val2);
     this.setState({
       scores: new Map(),
       currentPage: 0,
       beginDate: val1,
       endDate: val2,
     }, this.fetchData);
+  },
+
+  convertStoredDateToMoment(savedString) {
+    if(savedString && savedString !== 'null') {
+      return moment(savedString)
+    } else {
+      return null;
+    }
   },
 
   render() {
@@ -147,7 +187,7 @@ export default React.createClass({
     this.state.scores.forEach((s) => {
       index += 0;
       const sData = s.scores[0];
-      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, }} premium_state={this.props.premium_state} />);
+      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
     });
     if (this.state.loading) {
       loadingIndicator = <LoadingIndicator />;
@@ -156,7 +196,8 @@ export default React.createClass({
     }
 
     if (this.state.missing) {
-      content = <EmptyProgressReport missing={this.state.missing} />;
+      const onButtonClick = this.state.missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
+      content = <EmptyProgressReport missing={this.state.missing} onButtonClick={onButtonClick} />;
     } else {
       content =
         (<div>
@@ -175,7 +216,10 @@ export default React.createClass({
                 selectClassroom={this.selectClassroom}
                 selectedUnit={this.state.selectedUnit}
                 unitFilters={this.state.unitFilters}
-                selectUnit={this.selectUnit} selectDates={this.selectDates}
+                selectUnit={this.selectUnit}
+                selectDates={this.selectDates}
+                beginDate={this.state.beginDate}
+                endDate={this.state.endDate}
               />
               <ScoreLegend />
               <AppLegend />

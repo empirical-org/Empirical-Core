@@ -34,7 +34,7 @@ module Units::Creator
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     classrooms.each do |classroom|
-      product = activities_data.product([classroom[:id].to_i])
+      product = activities_data.product([classroom[:id].to_i]).uniq
       product.each do |pair|
         activity_data, classroom_id = pair
         unit.classroom_activities.create!(activity_id: activity_data[:id],
@@ -45,6 +45,7 @@ module Units::Creator
                                         )
       end
     end
+    unit.email_lesson_plan
     unit.hide_if_no_visible_classroom_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(teacher.id)

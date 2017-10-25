@@ -1,7 +1,7 @@
 class Cms::UsersController < ApplicationController
   before_filter :signed_in!
   before_filter :staff!
-  before_action :set_user, only: [:show, :show_json, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :show_json, :update, :destroy]
   before_action :set_search_inputs, only: [:index, :search]
 
   USERS_PER_PAGE = 10.0
@@ -48,29 +48,65 @@ class Cms::UsersController < ApplicationController
   end
 
   def make_admin
-    User.find(params[:id]).update(role: 'admin')
+    admin = SchoolsAdmins.new
+    admin.school_id = params[:school_id]
+    admin.user_id = params[:user_id]
+    flash[:error] = 'Something went wrong.' unless admin.save
     redirect_to :back
   end
 
   def remove_admin
-    User.find(params[:id]).update(role: 'teacher')
+    admin = SchoolsAdmins.find_by(user_id: params[:user_id], school_id: params[:school_id])
+    flash[:error] = 'Something went wrong.' unless admin.destroy
+    flash[:success] = 'Success! 🎉'
     redirect_to :back
   end
 
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def edit_subscription
+    @user = User.includes(:subscription).find(params[:id])
+    @user_premium_types = Subscription.account_types
+
+    if @user.subscription
+      # If this user already has a subscription, we want the expiration date
+      # to reflect the expiration date of that subscription.
+      @expiration_date = @user.subscription.expiration
+      @account_type = @user.subscription.account_type
+    else
+      # If this user does not already have a subscription, we want the
+      # default expiration date to be one year from today.
+      @expiration_date = Date.today + 1.years
+      @account_type = nil
+    end
+  end
+
+  def update_subscription
+    user = User.find(subscription_params[:id])
+    subscription = user.subscription
+    unless subscription
+      subscription = Subscription.new
+      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
+      subscription.account_type = subscription_params[:premium_status]
+      subscription.account_limit = 1000 # This is a default value and should be deprecated.
+      success = (subscription.save && user.subscription = subscription)
+    else
+      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
+      subscription.account_type = subscription_params[:premium_status]
+      success = subscription.save
+    end
+    return redirect_to cms_user_path(subscription_params[:id]) if success
+    render :edit_subscription
   end
 
   def update
-    if @user.teacher?
-      response = @user.update_teacher params
-      render json: response
+    if @user.update_attributes(user_params)
+      redirect_to cms_users_path, notice: 'User was successfully updated.'
     else
-      if @user.update_attributes(user_params)
-        redirect_to cms_users_path, notice: 'User was successfully updated.'
-      else
-        flash[:error] = 'Did not save.'
-        render action: 'edit'
-      end
+      flash[:error] = 'Did not save.'
+      render action: 'edit'
     end
   end
 
@@ -89,8 +125,9 @@ protected
   end
 
   def user_params
-    params.require(:user).permit([:name, :email, :username,
-      :role, :classcode, :password, :password_confirmation] + default_params
+    params[:user][:flag] = nil unless ['alpha', 'beta'].include? params[:user][:flag]
+    params.require(:user).permit([:name, :email, :username, :role,
+      :flag, :classcode, :password, :password_confirmation] + default_params
     )
   end
 
@@ -99,9 +136,7 @@ protected
   end
 
   def user_query(params)
-    # This should return an array of hashes with the following order.
-    # (Order matters because of the order in which these are being
-    # displayed in the table on the front end.)
+    # This should return an array of hashes that look like this:
     # [
     #   {
     #     name: 'first last',
@@ -115,6 +150,8 @@ protected
     #   }
     # ]
 
+    # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
+    # ADJUST THE PAGINATION QUERY STRING AS WELL.
     ActiveRecord::Base.connection.execute("
       SELECT
       	users.name AS name,
@@ -198,5 +235,9 @@ protected
     @school_premium_types = Subscription.account_types
     @user_role_types = User.select('DISTINCT role').map { |r| r.role }
     @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page']
+  end
+
+  def subscription_params
+    params.permit([:id, :premium_status, :expiration_date => [:day, :month, :year]] + default_params)
   end
 end

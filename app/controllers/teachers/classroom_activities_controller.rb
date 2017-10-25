@@ -13,18 +13,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: cas.to_json
   end
 
-  def destroy
-    # cas = @classroom_activity.unit.classroom_activities.where(activity: @classroom_activity.activity)
-    # cas.each{|ca| ca.destroy}
-    # @classroom_activity.unit.hide_if_no_visible_classroom_activities
-    # render json: {}
-  end
-
   def hide
     cas = ClassroomActivity.where(activity_id: @classroom_activity.activity_id, unit_id: @classroom_activity.unit_id)
     activity_sessions = ActivitySession.where(classroom_activity_id: cas.ids)
-    # cannot use update_all here bc we need the callbacks to run
     cas.update_all(visible: false)
+    SetTeacherLessonCache.perform_async(current_user.id)
     activity_sessions.update_all(visible: false)
     @classroom_activity.unit.hide_if_no_visible_classroom_activities
     render json: {}
@@ -39,6 +32,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     if completed
       unlocked = @classroom_activity.update(locked: false, pinned: true)
       if unlocked
+        find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_activity.classroom)
         redirect_to lesson_url
       else
@@ -50,8 +44,16 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     end
   end
 
+  def mark_lesson_as_completed
+    lesson = Activity.find_by(uid: params['lesson_uid']) || Activity.find_by(id: params['lesson_uid'])
+    base_route = lesson.classification.form_url
+    mark_lesson_as_completed_url = "#{base_route}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
+    redirect_to mark_lesson_as_completed_url
+  end
+
+
   def activity_from_classroom_activity
-    act_sesh_id = @classroom_activity.session_for(current_user).id
+    act_sesh_id = @classroom_activity.find_or_create_started_activity_session(current_user.id).id
     redirect_to "/activity_sessions/#{act_sesh_id}/play"
   end
 
@@ -64,6 +66,10 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
 private
+
+  def find_or_create_lesson_activity_sessions_for_classroom
+    @classroom_activity.assigned_student_ids.each{|id| @classroom_activity.find_or_create_started_activity_session(id)}
+  end
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
@@ -82,7 +88,12 @@ private
   end
 
   def lessons_cache
-    JSON.parse($redis.get("user_id:#{current_user.id}_lessons_array") || '[]')
+    lessons_cache = $redis.get("user_id:#{current_user.id}_lessons_array")
+    if lessons_cache
+      JSON.parse(lessons_cache)
+    else
+      current_user.set_and_return_lessons_cache_data
+    end
   end
 
   def classroom_activity_params

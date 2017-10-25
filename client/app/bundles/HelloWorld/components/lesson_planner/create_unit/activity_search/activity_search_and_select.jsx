@@ -255,7 +255,7 @@ export default React.createClass({
     }
     return (
       <section>
-        <h3 className="section-header">Explore Activities & Create Activity Pack</h3>
+        <h1 className="explore-activities-header">Explore Activities & Create Activity Pack</h1>
 
         <ActivitySearchAndFilters
           updateSearchQuery={this.updateSearchQuery}

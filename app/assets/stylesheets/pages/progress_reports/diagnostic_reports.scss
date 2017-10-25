@@ -418,7 +418,9 @@ $lightgray: #cecece;
           -ms-flex-align: center;
               align-items: center;
       border-bottom: none;
-
+      &:not(.previously-assigned) {
+        cursor: pointer;  
+      }
       &.recommended {
         background-color: #eafcff;
       }
