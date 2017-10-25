@@ -211,7 +211,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         redirect_to "/activities/packs"
       end
     else
-      current_user.role == 'staff' || teacher!
+      teacher_or_staff!
     end
   end
 
