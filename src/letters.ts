@@ -1,0 +1,1 @@
+export const letters: string[] = "abcdefghijklmnopqrstuvwxyz".split("");
