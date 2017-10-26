@@ -45,12 +45,10 @@ class ScoreAnalysis extends Component {
   componentWillMount() {
     checkTimeout();
     this.props.dispatch(loadScoreData());
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.questionTypesLoaded === false) {
-      if (this.state.sentenceCombiningKeys.length && this.state.sentenceFragmentKeys.length && this.state.diagnosticQuestionKeys.length && this.state.fillInBlankKeys.length) {
-        this.setState({questionTypesLoaded: true}, this.formatData(nextProps))
+    const {scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank} = this.props
+    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
+      if (this.state.questionData.length === 0) {
+        this.formatData(this.props)
       }
     }
   }
@@ -58,7 +56,7 @@ class ScoreAnalysis extends Component {
   componentWillReceiveProps(nextProps) {
     const {scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank} = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
-      if (!_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data) || this.state.questionData === []) {
+      if (!_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data) || this.state.questionData.length === 0) {
         this.formatData(nextProps)
       }
     }

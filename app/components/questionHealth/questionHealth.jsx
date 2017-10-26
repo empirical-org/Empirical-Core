@@ -175,52 +175,52 @@ class questionHealth extends Component {
     return <div className="question-type-table">
       <h2>{data.name}: {data.totalNumber} Active Questions</h2>
       <div className="row"><span className="bold">Status</span><span className="bold">{data.status}</span><span>{data.percentageWeak}% of questions are weak</span></div>
-      {this.renderVeryWeakRow(data)}
-      {this.renderWeakRow(data)}
-      {this.renderOkayRow(data)}
-      {this.renderStrongRow(data)}
+      {this.renderVeryWeakRow(data, questionType)}
+      {this.renderWeakRow(data, questionType)}
+      {this.renderOkayRow(data, questionType)}
+      {this.renderStrongRow(data, questionType)}
     </div>
   }
 
-  renderVeryWeakRow(data) {
+  renderVeryWeakRow(data, questionType) {
     const numberOfRelevantAnswers = data.veryWeak.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
     return <div className="row">
       <span>Very Weak (>5% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
-      <a>See Very Weak</a>
+      <a href={`/#/admin/datadash?questionType=${questionType}&status=vw`}>See Very Weak</a>
     </div>
   }
 
-  renderWeakRow(data) {
+  renderWeakRow(data, questionType) {
     const numberOfRelevantAnswers = data.weak.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
     return <div className="row">
       <span>Weak (5%-2% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
-      <a>See Weak</a>
+      <a href={`/#/admin/datadash?questionType=${questionType}&status=w`}>See Weak</a>
     </div>
   }
 
 
-  renderOkayRow(data) {
+  renderOkayRow(data, questionType) {
     const numberOfRelevantAnswers = data.okay.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
     return <div className="row">
       <span>Okay (2%-0.5% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
-      <a>See Okay</a>
+      <a href={`/#/admin/datadash?questionType=${questionType}&status=o`}>See Okay</a>
     </div>
   }
 
 
-  renderStrongRow(data) {
+  renderStrongRow(data, questionType) {
     const numberOfRelevantAnswers = data.strong.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
     return <div className="row">
       <span>Strong (0.5%-0% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
-      <a>See Strong</a>
+      <a href={`/#/admin/datadash?questionType=${questionType}&status=s`}>See Strong</a>
     </div>
   }
 
