@@ -1,8 +1,8 @@
 import React from 'react'
+import request from 'request';
 import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx'
-import $ from 'jquery'
 
 'use strict'
 
@@ -13,12 +13,21 @@ export default React.createClass({
 	},
 
 	componentWillMount(){
-		$('.diagnostic-tab').removeClass('active');
-		$('.activity-analysis-tab').addClass('active');
+		document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
+		document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
 	},
 
 	componentDidMount: function() {
-		$.ajax({url: '/teachers/units', data: {report: true}, success: this.displayUnits, error: function() {alert('Unable to download your reports at this time.')}});
+		request.get({
+			url: `${process.env.DEFAULT_URL}/teachers/units`,
+			data: {report: true}
+		}, (error, httpStatus, body) => {
+			if(error) {
+				alert('Unable to download your reports at this time.');
+			} else {
+				this.displayUnits(JSON.parse(body));
+			}
+		});
 	},
 
 	displayUnits: function(data) {
