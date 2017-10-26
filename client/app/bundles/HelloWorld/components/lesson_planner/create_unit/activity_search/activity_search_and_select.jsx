@@ -98,7 +98,7 @@ export default React.createClass({
       loading: false,
     };
     this.setInitialFilterOptions(data);
-    this.setState(hash, this.updateFilterOptionsAfterRequest);
+    this.setState(hash, this.updateFilterOptionsAfterChange);
   },
 
   setInitialFilterOptions(data) {
@@ -117,7 +117,7 @@ export default React.createClass({
     this.setState({ allFilterOptions: newOptions, });
   },
 
-  updateFilterOptionsAfterRequest() {
+  updateFilterOptionsAfterChange() {
     console.log('oy');
     // Go through all the filters,
     // For each filter that is not currently selected,
@@ -125,7 +125,7 @@ export default React.createClass({
     // of activity results that have been returned from the server.
     // Otherwise, selected filters will display all available options.
     const availableOptions = this._findFilterOptionsBasedOnActivities();
-
+    debugger;
     const newFilters = this.state.filters;
     newFilters.forEach(function (filter) {
       if (filter.selected) {
@@ -151,7 +151,7 @@ export default React.createClass({
     let activityClassificationIds = [],
       activityCategoryIds = [],
       sectionIds = [];
-    _.each(this.state.activitySearchResults, (activity) => {
+    _.each(this.state.viewableActivities, (activity) => {
       activityClassificationIds.push(activity.classification.id);
       if (activity.activity_category) {
         activityCategoryIds.push(activity.activity_category.id);
@@ -204,7 +204,6 @@ export default React.createClass({
       }
       return filter;
     }, this);
-    debugger;
     this.setState({ filters, activeFilterOn: true, }, this.changeViewableActivities);
   },
 
@@ -214,15 +213,13 @@ export default React.createClass({
     const viewableActivities = this.state.activitySearchResults.filter((activity) => {
       let matchingFieldCount = 0;
       selectedFiltersAndFields.forEach((filter) => {
-        console.log('activityFilterFied', activity[filter.field]);
-        console.log('selectedFilter', filter.selected);
         if (activity[filter.field] === filter.selected) {
           matchingFieldCount += 1;
         }
       });
       return matchingFieldCount === sFFLength;
     });
-    this.setState({ viewableActivities, }, () => console.log(viewableActivities));
+    this.setState({ viewableActivities, }, this.updateFilterOptionsAfterChange);
   },
 
   updateSort(field, asc_or_desc) {
