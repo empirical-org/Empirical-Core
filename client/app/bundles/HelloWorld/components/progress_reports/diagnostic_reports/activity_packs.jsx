@@ -61,7 +61,7 @@ export default React.createClass({
 
 	getUnitsForCurrentClass() {
 		if(this.state.selectedClassroomId) {
-			const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
+			const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId));
 			const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.includes(selectedClassroom.name));
 			this.setState({ units: unitsInCurrentClassroom, loaded: true, });
 		} else {
@@ -156,7 +156,7 @@ export default React.createClass({
 		} else {
 			const allClassroomsClassroom = { name: 'All Classrooms' }
 			const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-			const classroomWithSelectedId = classrooms.find(classroom => classroom.id === this.state.selectedClassroomId);
+			const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
 			const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
 
 			return (

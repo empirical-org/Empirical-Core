@@ -192,7 +192,7 @@ export default React.createClass({
     }
     const allClassroomsClassroom = {name: 'All Classrooms'}
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms)
-    const classroomWithSelectedId = classrooms.find(classy => classy.id === this.state.selectedClassroomId)
+    const classroomWithSelectedId = classrooms.find(classy => classy.id === Number(this.state.selectedClassroomId))
     const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom
 
     return (
