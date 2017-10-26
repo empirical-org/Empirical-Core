@@ -92,7 +92,7 @@ class ScoreAnalysis extends Component {
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: `${question.key}-${typeName}`,
-          type: typeName,
+          questionType: typeName,
           prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
           responses: scoreData.responses || 0,
           weakResponses: percentageWeakResponses,
@@ -196,8 +196,38 @@ class ScoreAnalysis extends Component {
     }
   }
 
+  sortData(data) {
+    switch (this.state.sort) {
+      case 'questionType':
+      case 'prompt':
+        return this.sortAlphabetically(data);
+      case 'responses':
+      case 'weakResponses':
+      case 'incorrectSequences':
+      case 'focusPoints':
+      case 'hasModelConcept':
+        return this.sortNumerically(data)
+      case 'status':
+        return this.sortByStatus(data)
+    }
+  }
+
+  sortNumerically(data) {
+    return data.sort((a, b) => a[this.state.sort] - b[this.state.sort])
+  }
+
+  sortAlphabetically(data) {
+    return data.sort((a, b,) => a[this.state.sort].localeCompare(b[this.state.sort]))
+  }
+
+  sortByStatus(data) {
+    const statusOrder = ['Very Weak', 'Weak', 'Okay', 'Strong']
+    return data.sort((a, b) => statusOrder.indexOf(a[this.state.sort]) - statusOrder.indexOf(b[this.state.sort]))
+  }
+
   renderRows() {
-    const sorted = this.formatDataForTable().sort((a, b) => a[this.state.sort] - b[this.state.sort]);
+    const data = this.formatDataForTable()
+    const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, question => (
       <QuestionRow key={question.key} question={question} />

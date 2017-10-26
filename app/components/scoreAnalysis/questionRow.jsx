@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 const QuestionRow = props => (
   <tr>
-    <td>{props.question.type}</td>
+    <td>{props.question.questionType}</td>
     <td width="600px"><Link to={`/admin/questions/${props.question.key}`}>{props.question.prompt}</Link></td>
     <td>{props.question.responses}</td>
     <td>{props.question.weakResponses}%</td>
