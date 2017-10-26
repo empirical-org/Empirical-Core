@@ -1,18 +1,4 @@
-interface Dictionary {
-    [word: string]: number;
-}
-
-export function train(text: string): Dictionary {
-    const dictionary: Dictionary = {};
-    var word, m
-    const r = /[a-z]+/g;
-	text = text.toLowerCase();
-	while (m = r.exec(text)) {
-		word = m[0];
-        dictionary[word] = dictionary.hasOwnProperty(word) ? dictionary[word] + 1 : 1;
-    }
-    return dictionary;
-}
+import {Dictionary} from './dictionary';
 
 export function correct(dictionary: Dictionary, potentialWord: string) {
     if (dictionary.hasOwnProperty(potentialWord)) {
@@ -66,5 +52,7 @@ export function edits(word): string[] {
 		});
 	return results;
 }
+
+export {train} from './train'
 
 const letters: string[] = "abcdefghijklmnopqrstuvwxyz".split("");
