@@ -14,31 +14,22 @@ describe('The train function', () => {
 
 describe('The edits function', () => {
     it('Should take take a word and return potential edits.', () => {
-        // const dict = 'misspelled\nforked';
-        // const dictionary = train(dict);
-
-        const potentialEdits = edits("ryan")
-        console.log(potentialEdits)
+        const potentialEdits = edits("ryan");
         assert.deepEqual(potentialEdits.length, 241);
     });
 });
 
 describe('The correct function', () => {
-    it('Should take a word and correct it if appropriate.', () => {
-        const dict = 'misspelled\nforked';
-        const dictionary = train(dict);
+    const dict = 'misspelled\nforked';
+    const dictionary = train(dict);
 
-        const correctWord = correct(dictionary, "mispeled")
-        console.log(correctWord)
+    it('Should take a word and correct it if appropriate.', () => {
+        const correctWord = correct(dictionary, "mispeled");
         assert.equal(correctWord, 'misspelled');
     });
 
     it('Should take take a word correct it if appropriate.', () => {
-        const dict = 'misspelled\nforked';
-        const dictionary = train(dict);
-
-        const correctWord = correct(dictionary, "mspeled")
-        console.log(correctWord)
+        const correctWord = correct(dictionary, "mspeled");;
         assert.equal(correctWord, 'mspeled');
     });
 });

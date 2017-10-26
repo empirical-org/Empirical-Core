@@ -1,4 +1,4 @@
-# TypeScript Starter Project
+# Quill Spellchecker
 
 - TypeScript 2.2
 - Webpack 2
