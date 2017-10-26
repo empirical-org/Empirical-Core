@@ -56,20 +56,9 @@ class ScoreAnalysis extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.scoreAnalysis.hasreceiveddata) {
-      if (nextProps.questions.hasreceiveddata) {
-        this.setState({sentenceCombiningKeys: Object.keys(nextProps.questions.data)})
-      }
-      if (nextProps.diagnosticQuestions.hasreceiveddata) {
-        this.setState({diagnosticQuestionKeys: Object.keys(nextProps.diagnosticQuestions.data)})
-      }
-      if (nextProps.sentenceFragments.hasreceiveddata) {
-        this.setState({sentenceFragmentKeys: Object.keys(nextProps.sentenceFragments.data)})
-      }
-      if (nextProps.fillInBlank.hasreceiveddata) {
-        this.setState({fillInBlankKeys: Object.keys(nextProps.fillInBlank.data)})
-      }
-      if (this.state.questionTypesLoaded && !_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data)) {
+    const {scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank} = nextProps
+    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
+      if (!_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data) || this.state.questionData === []) {
         this.formatData(nextProps)
       }
     }
@@ -88,21 +77,21 @@ class ScoreAnalysis extends Component {
   formatData(props) {
     const { questions, diagnosticQuestions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
     const validConcepts = _.map(concepts.data[0], con => con.uid);
-    const formattedQuestions = this.formatDataForQuestionType('questions', validConcepts, 'Sentence Combining')
-    const formattedDiagnosticQuestions = this.formatDataForQuestionType('diagnosticQuestions', validConcepts, 'Diagnostic Question')
-    const formattedSentenceFragments = this.formatDataForQuestionType('sentenceFragments', validConcepts, 'Sentence Fragments')
-    const formattedFillInBlank = this.formatDataForQuestionType('fillInBlank', validConcepts, 'Fill In Blank')
+    const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, validConcepts, 'Sentence Combining')
+    const formattedDiagnosticQuestions = this.formatDataForQuestionType(diagnosticQuestions.data, scoreAnalysis, validConcepts, 'Diagnostic Question')
+    const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, validConcepts, 'Sentence Fragments')
+    const formattedFillInBlank = this.formatDataForQuestionType(fillInBlank.data, scoreAnalysis, validConcepts, 'Fill In Blank')
     const formatted = [...formattedQuestions, ...formattedDiagnosticQuestions, ...formattedSentenceFragments, ...formattedFillInBlank]
     this.setState({questionData: formatted})
   }
 
-  formatDataForQuestionType(questionType, validConcepts, typeName) {
-    return _.map(hashToCollection(this.props[questionType].data).filter(e => validConcepts.includes(e.conceptID)), (question) => {
-      const scoreData = this.props.scoreAnalysis.data[question.key];
+  formatDataForQuestionType(questionData, scoreAnalysis, validConcepts, typeName) {
+    return _.map(hashToCollection(questionData).filter(e => validConcepts.includes(e.conceptID)), (question) => {
+      const scoreData = scoreAnalysis.data[question.key];
       if (scoreData && scoreData.total_attempts >= this.state.minResponses) {
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
-          key: question.key,
+          key: `${question.key}-${typeName}`,
           type: typeName,
           prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
           responses: scoreData.responses || 0,
@@ -125,18 +114,6 @@ class ScoreAnalysis extends Component {
       filteredData = filteredData.filter((q) => q && q.status === this.state.status)
     }
     return _.compact(filteredData);
-  }
-
-  getQuestionTypeFromQuestionKey(questionKey) {
-    if (this.state.sentenceCombiningKeys.includes(questionKey)) {
-      return 'Sentence Combining'
-    } else if (this.state.diagnosticQuestionKeys.includes(questionKey)) {
-      return 'Diagnostic Question'
-    } else if (this.state.sentenceFragmentKeys.includes(questionKey)) {
-      return 'Sentence Fragment'
-    } else if (this.state.fillInBlankKeys.includes(questionKey)) {
-      return 'Fill In Blank'
-    }
   }
 
   getStatusFromPercentage(percentage) {
