@@ -3,16 +3,24 @@ import request from 'request';
 import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx'
+import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
+import getParameterByName from '../../modules/get_parameter_by_name';
 
 'use strict'
 
 export default React.createClass({
 
 	getInitialState: function() {
-		return {units: [], loaded: false}
+		return {
+			allUnits: [],
+			units: [],
+			loaded: false,
+			classrooms: this.getClassrooms(),
+			selectedClassroomId: getParameterByName('classroom_id'),
+		}
 	},
 
-	componentWillMount(){
+	componentWillMount() {
 		document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
 		document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
 	},
@@ -20,28 +28,55 @@ export default React.createClass({
 	componentDidMount: function() {
 		request.get({
 			url: `${process.env.DEFAULT_URL}/teachers/units`,
-			data: {report: true}
+			data: { report: true }
 		}, (error, httpStatus, body) => {
 			if(error) {
 				alert('Unable to download your reports at this time.');
 			} else {
-				this.displayUnits(JSON.parse(body));
+				this.setAllUnits(JSON.parse(body));
 			}
+		});
+		window.onpopstate = () => {
+			this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id') });
+			this.getUnitsForCurrentClass();
+		};
+	},
+
+	getClassrooms() {
+		request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
+			const classrooms = JSON.parse(body).classrooms;
+			if(classrooms.length > 0) {
+				this.setState({ classrooms }, () => this.getUnits());
+			} else {
+				this.setState({ empty: true, loaded: true, });
+			}
+  	});
+	},
+
+	getUnits() {
+		request.get(`${process.env.DEFAULT_URL}/teachers/units`, (error, httpStatus, body) => {
+			this.setAllUnits(JSON.parse(body));
 		});
 	},
 
-	displayUnits: function(data) {
-		this.setState({units: this.parseUnits(data), loaded: true});
+	getUnitsForCurrentClass() {
+		if(this.state.selectedClassroomId) {
+			const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
+			const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.includes(selectedClassroom.name));
+			this.setState({ units: unitsInCurrentClassroom, loaded: true, });
+		} else {
+			this.setState({ units: this.state.allUnits, loaded: true })
+		}
 	},
 
-	switchToExploreActivityPacks: function(){
-		window.location.href = '/teachers/classrooms/activity_planner?tab=exploreActivityPacks';
+	setAllUnits(data) {
+		this.setState({ allUnits: this.parseUnits(data)}, this.getUnitsForCurrentClass);
 	},
 
 	generateNewCaUnit(u) {
     const caObj = {
       studentCount: Number(u.array_length ? u.array_length : u.class_size),
-      classrooms: new Set([u.class_name]),
+      classrooms: [u.class_name],
       classroomActivities: new Map(),
       unitId: u.unit_id,
       unitCreated: u.unit_created_at,
@@ -66,9 +101,9 @@ export default React.createClass({
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
       } else {
         const caUnit = parsedUnits[u.unit_id];
-        if (!caUnit.classrooms.has(u.class_name)) {
+        if (!caUnit.classrooms.includes(u.class_name)) {
           // add the info and student count from the classroom if it hasn't already been done
-          caUnit.classrooms.add(u.class_name);
+          caUnit.classrooms.push(u.class_name);
           caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
         }
         // add the activity info if it doesn't exist
@@ -93,25 +128,52 @@ export default React.createClass({
     return unitsArr;
   },
 
+	switchClassrooms(classroom) {
+		const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs'
+   	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
+ 		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
+  },
+
 	stateBasedComponent: function() {
-		if (this.state.loaded) {
-			if (this.state.units.length === 0) {
-				return (
-					<EmptyProgressReport missing='activities'/>
-				);
-			} else {
-				return (
-					<div className='activity-analysis'>
-						<h1>Activity Analysis</h1>
-						<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
-						<Units report={Boolean(true)} data={this.state.units}/>
-					</div>
-				);
-			}
-		} else {
+		if(!this.state.loaded) {
+			return <LoadingSpinner />;
+		}
+
+		if(this.state.units.length === 0 && this.state.selectedClassroomId) {
 			return (
-			<LoadingSpinner />
-			)
+				<EmptyProgressReport
+					missing='activitiesForSelectedClassroom'
+					onButtonClick={() => {
+						this.setState({ selectedClassroomId: null, loaded: false });
+						this.getUnitsForCurrentClass();
+					}}
+				/>
+			);
+		} else if(this.state.units.length === 0) {
+			return (
+				<EmptyProgressReport missing='activities'/>
+			);
+		} else {
+			const allClassroomsClassroom = { name: 'All Classrooms' }
+			const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
+			const classroomWithSelectedId = classrooms.find(classroom => classroom.id === this.state.selectedClassroomId);
+			const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
+
+			return (
+				<div className='activity-analysis'>
+					<h1>Activity Analysis</h1>
+					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
+					<div className="classroom-selector">
+						<p>Select a classroom:</p>
+						<ClassroomDropdown
+							classrooms={classrooms}
+							callback={this.switchClassrooms}
+							selectedClassroom={selectedClassroom}
+						/>
+					</div>
+					<Units report={Boolean(true)} data={this.state.units}/>
+				</div>
+			);
 		}
 	},
 

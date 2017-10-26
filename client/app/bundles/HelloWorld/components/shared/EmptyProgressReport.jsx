@@ -22,6 +22,11 @@ export default React.createClass({
       onButtonClick = this.props.onButtonClick || null;
       buttonText = 'Reset Date Range';
       content = 'Please select a date range in which you assigned activities or your students worked on them.';
+    } else if(this.props.missing === 'activitiesForSelectedClassroom') {
+      title = 'You have no activities for that classroom.';
+      onButtonClick = this.props.onButtonClick || null;
+      buttonText = 'View All Classes';
+      content = 'Please select a class that has activities, or assign new activities from the \'Assign Activities\' page.';
     } else {
       title = 'You have no reports yet!';
       onButtonClick = () => { window.location = '/teachers/classrooms/new'; }

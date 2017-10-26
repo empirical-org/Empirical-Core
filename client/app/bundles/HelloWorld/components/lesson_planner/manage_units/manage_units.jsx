@@ -20,6 +20,13 @@ export default React.createClass({
     }
   },
 
+  componentDidMount() {
+    window.onpopstate = () => {
+			this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id') });
+			this.getUnitsForCurrentClass();
+		};
+  },
+
   getClassrooms() {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
