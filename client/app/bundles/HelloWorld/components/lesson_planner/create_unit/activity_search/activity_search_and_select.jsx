@@ -4,7 +4,6 @@ import $ from 'jquery';
 
 import ActivitySearchAndFilters from './activity_search_filters/activity_search_filters';
 import ActivitySearchFilterConfig from './activity_search_filters/activity_search_filter_config';
-import ActivitySearchSort from './activity_search_sort/activity_search_sort';
 import ActivitySearchSortConfig from './activity_search_sort/activity_search_sort_config';
 import ActivitySearchSorts from './activity_search_sort/activity_search_sorts';
 import ActivitySearchResults from './activity_search_results/activity_search_results';
@@ -26,6 +25,7 @@ export default React.createClass({
       loading: true,
       activitySearchResults: [],
       currentPageSearchResults: [],
+      viewableActivities: [],
       currentPage: 1,
       searchQuery: '',
       numberOfPages: 1,
@@ -52,39 +52,23 @@ export default React.createClass({
   },
 
   searchRequest() {
+    console.log('wtf');
     this.setState({ loading: true, });
     $.ajax({
       url: '/activities/search',
       context: this,
-      data: this.searchRequestData(),
       success: this.searchRequestSuccess,
       error: this.errorState,
     });
   },
 
-  searchRequestData() {
-    const filters = this.state.filters.map(filter => ({
-      field: filter.field,
-      selected: filter.selected,
-    }));
-
-    let currentSort;
-    _.each(this.state.sorts, (sort) => {
-      if (sort.selected) {
-        currentSort = {
-          field: sort.field,
-          asc_or_desc: sort.asc_or_desc,
-        };
+  selectedFiltersAndFields() {
+    return this.state.filters.reduce((selected, filter) => {
+      if (filter.selected) {
+        selected.push({ field: filter.field, selected: filter.selected, });
       }
-    });
-
-    return {
-      search: {
-        search_query: this.state.searchQuery,
-        filters,
-        sort: currentSort,
-      },
-    };
+      return selected;
+    }, []);
   },
 
   errorState(data) {
@@ -108,6 +92,7 @@ export default React.createClass({
   searchRequestSuccess(data) {
     const hash = {
       activitySearchResults: data.activities,
+      viewableActivities: data.activities,
       numberOfPages: data.number_of_pages,
       currentPage: 1,
       loading: false,
@@ -133,6 +118,7 @@ export default React.createClass({
   },
 
   updateFilterOptionsAfterRequest() {
+    console.log('oy');
     // Go through all the filters,
     // For each filter that is not currently selected,
     // only display the options that are available based on the set
@@ -207,7 +193,8 @@ export default React.createClass({
   },
 
   updateSearchQuery(newQuery) {
-    this.setState({ searchQuery: newQuery, }, this.searchRequest);
+    debugger;
+    // this.setState({ searchQuery: newQuery, }, this.searchRequest);
   },
 
   selectFilterOption(field, optionId) {
@@ -217,8 +204,25 @@ export default React.createClass({
       }
       return filter;
     }, this);
-    this.setState({ filters, activeFilterOn: true, });
-    this.searchRequest();
+    debugger;
+    this.setState({ filters, activeFilterOn: true, }, this.changeViewableActivities);
+  },
+
+  changeViewableActivities() {
+    const selectedFiltersAndFields = this.selectedFiltersAndFields();
+    const sFFLength = selectedFiltersAndFields.length;
+    const viewableActivities = this.state.activitySearchResults.filter((activity) => {
+      let matchingFieldCount = 0;
+      selectedFiltersAndFields.forEach((filter) => {
+        console.log('activityFilterFied', activity[filter.field]);
+        console.log('selectedFilter', filter.selected);
+        if (activity[filter.field] === filter.selected) {
+          matchingFieldCount += 1;
+        }
+      });
+      return matchingFieldCount === sFFLength;
+    });
+    this.setState({ viewableActivities, }, () => console.log(viewableActivities));
   },
 
   updateSort(field, asc_or_desc) {
@@ -233,7 +237,7 @@ export default React.createClass({
       return sort;
     }, this);
     this.setState({ sorts, });
-    this.searchRequest();
+    // this.searchRequest();
   },
 
   selectPageNumber(number) {
@@ -251,7 +255,7 @@ export default React.createClass({
       table = <span>We're experiencing the following error: {this.state.error}</span>;
     } else {
       pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} />;
-      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />;
+      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={this.state.viewableActivities} toggleActivitySelection={this.props.toggleActivitySelection} />;
     }
     return (
       <section>

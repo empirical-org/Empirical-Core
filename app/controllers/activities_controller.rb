@@ -45,22 +45,22 @@ class ActivitiesController < ApplicationController
 protected
 
   def any_search_params
-    case
-    when search_params["search_query"] != ''
-      return true
-    when search_params["filters"]["0"]["selected"] != ''
-      return true
-    when search_params["filters"]["1"]["selected"] != ''
-      return true
-    when search_params["filters"]["2"]["selected"] != ''
-      return true
-    when search_params["sort"].present?
-      return true
-    when current_user.flag.present?
-      return true
-    else
-      return false
-    end
+    # case
+    # when search_params["search_query"] != ''
+    #   return true
+    # when search_params["filters"]["0"]["selected"] != ''
+    #   return true
+    # when search_params["filters"]["1"]["selected"] != ''
+    #   return true
+    # when search_params["filters"]["2"]["selected"] != ''
+    #   return true
+    # when search_params["sort"].present?
+    #   return true
+    # when current_user.flag.present?
+    #   return true
+    # else
+    #   return false
+    # end
   end
 
   def custom_search

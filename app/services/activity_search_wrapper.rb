@@ -77,11 +77,14 @@ class ActivitySearchWrapper
           alias: classification_alias(classification_id),
           gray_image_class: gray_image_class(classification_id)
         },
+        activity_classification: classification_id,
         activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
         topic: {
           name: a['topic_name'],
           section: {id: a['section_id'].to_i, name: a['section_name']}
-        }
+        },
+        section: a['section_id'].to_i,
+        section_name: a['section_name']
       }
     end
   end
