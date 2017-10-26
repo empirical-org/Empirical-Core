@@ -52,7 +52,11 @@ describe('Replacing apostrophes', () => {
 });
 
 describe('Replacing commas', () => {
-  const sentences = ["He said‚ she said.", "He saidˌ she said."]
+  const sentences = [
+    "He said‚ she said.",
+    "He saidˌ she said.",
+    "He said， she said."
+  ]
   const normalizedSentence = "He said, she said."
 
   it('returns a sentence with normalized apostrophes', () => {
@@ -63,4 +67,7 @@ describe('Replacing commas', () => {
     expect(sentences[1].quillNormalize()).toEqual(normalizedSentence);
   });
 
+  it('returns a sentence with normalized apostrophes', () => {
+    expect(sentences[2].quillNormalize()).toEqual(normalizedSentence);
+  });
 });
