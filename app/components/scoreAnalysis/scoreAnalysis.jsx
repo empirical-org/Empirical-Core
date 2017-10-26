@@ -127,11 +127,27 @@ class ScoreAnalysis extends Component {
   }
 
   updateQuestionTypeFilter(e) {
-    this.setState({questionType: this.getQuestionTypeFromAbbreviation(e.target.value)})
+    this.setState({questionType: this.getQuestionTypeFromAbbreviation(e.target.value)}, this.updateUrl)
   }
 
   updateStatusFilter(e) {
-    this.setState({status: this.getStatusFromAbbreviation(e.target.value)})
+    this.setState({status: this.getStatusFromAbbreviation(e.target.value)}, this.updateUrl)
+  }
+
+  updateUrl() {
+    let newUrl
+    const questionTypeAbbrev = this.state.questionType ? this.getAbbreviationFromQuestionType(this.state.questionType) : null
+    const statusAbbrev = this.state.status ? this.getAbbreviationFromStatus(this.state.status) : null
+    if (questionTypeAbbrev && statusAbbrev) {
+      newUrl = `/admin/datadash?questionType=${questionTypeAbbrev}&status=${statusAbbrev}`
+    } else if (questionTypeAbbrev) {
+      newUrl = `/admin/datadash?questionType=${questionTypeAbbrev}`
+    } else if (statusAbbrev) {
+      newUrl = `/admin/datadash?status=${statusAbbrev}`
+    } else {
+      newUrl = `/admin/datadash`
+    }
+    this.props.router.push(newUrl)
   }
 
   getQuestionTypeFromAbbreviation(abbrev) {
