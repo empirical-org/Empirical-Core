@@ -79,7 +79,7 @@ class ScoreAnalysis extends Component {
     const validConcepts = _.map(concepts.data[0], con => con.uid);
     const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, validConcepts, 'Sentence Combining')
     const formattedDiagnosticQuestions = this.formatDataForQuestionType(diagnosticQuestions.data, scoreAnalysis, validConcepts, 'Diagnostic Question')
-    const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, validConcepts, 'Sentence Fragments')
+    const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, validConcepts, 'Sentence Fragment')
     const formattedFillInBlank = this.formatDataForQuestionType(fillInBlank.data, scoreAnalysis, validConcepts, 'Fill In Blank')
     const formatted = [...formattedQuestions, ...formattedDiagnosticQuestions, ...formattedSentenceFragments, ...formattedFillInBlank]
     this.setState({questionData: formatted})
@@ -108,7 +108,7 @@ class ScoreAnalysis extends Component {
   formatDataForTable() {
     let filteredData = this.state.questionData
     if (this.state.questionType) {
-      filteredData = filteredData.filter((q) => q && q.type === this.state.questionType)
+      filteredData = filteredData.filter((q) => q && q.questionType === this.state.questionType)
     }
     if (this.state.status) {
       filteredData = filteredData.filter((q) => q && q.status === this.state.status)
