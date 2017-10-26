@@ -23,15 +23,10 @@ class ScoreAnalysis extends Component {
     this.state = {
       sort: 'weakResponses',
       direction: 'dsc',
-      minResponses: 150,
-      sentenceCombiningKeys: [],
-      diagnosticQuestionKeys: [],
-      sentenceFragmentKeys: [],
-      fillInBlankKeys: [],
+      minAttempts: 150,
       questionType: questionType,
       status: status,
-      questionData: [],
-      questionTypesLoaded: false
+      questionData: []
     };
 
     this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
@@ -40,6 +35,7 @@ class ScoreAnalysis extends Component {
     this.getAbbreviationFromQuestionType = this.getAbbreviationFromQuestionType.bind(this)
     this.getAbbreviationFromStatus = this.getAbbreviationFromStatus.bind(this)
     this.formatDataForQuestionType = this.formatDataForQuestionType.bind(this)
+    this.updateMinAttempts = this.updateMinAttempts.bind(this)
   }
 
   componentWillMount() {
@@ -86,7 +82,7 @@ class ScoreAnalysis extends Component {
   formatDataForQuestionType(questionData, scoreAnalysis, validConcepts, typeName) {
     return _.map(hashToCollection(questionData).filter(e => validConcepts.includes(e.conceptID)), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
-      if (scoreData && scoreData.total_attempts >= this.state.minResponses) {
+      if (scoreData && scoreData.total_attempts >= this.state.minAttempts) {
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: `${question.key}-${typeName}`,
@@ -148,6 +144,10 @@ class ScoreAnalysis extends Component {
       newUrl = `/admin/datadash`
     }
     this.props.router.push(newUrl)
+  }
+
+  updateMinAttempts(value) {
+    this.setState({minAttempts: value}, () => this.formatData(this.props))
   }
 
   getQuestionTypeFromAbbreviation(abbrev) {
@@ -273,15 +273,15 @@ class ScoreAnalysis extends Component {
         </select>
       </div>
       <div style={innerDivStyle}>
-        <label style={labelStyle} htmlFor="minResponses">Response Threshold:</label>
-        <input type="number" step="10" min="0" value={this.state.minResponses} ref="minResponses" name="minResponses" onChange={() => this.setState({ minResponses: this.refs.minResponses.value, })} style={{ fontSize: '1.25em', width: '100px', }} />
+        <label style={labelStyle} htmlFor="minAttempts">Attempt Threshold:</label>
+        <input type="number" step="10" min="0" value={this.state.minAttempts} ref="minAttempts" name="minAttempts" onChange={() => this.updateMinAttempts(this.refs.minAttempts.value)} style={{ fontSize: '1.25em', width: '100px', }} />
       </div>
     </div>
   }
 
   render() {
     const { questions, scoreAnalysis, concepts, } = this.props;
-    if (questions.hasreceiveddata && scoreAnalysis.hasreceiveddata && concepts.hasreceiveddata) {
+    if (this.state.questionData) {
       return (
         <div>
           {this.renderOptions()}
