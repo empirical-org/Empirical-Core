@@ -21,11 +21,12 @@
   margin-bottom: 10px;
 
   #search_activities_input {
-    margin-top: 0px;
-    margin-bottom: 20px;
-    width: 280px;
-    border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    border-right-width: 0;
+    border-top-right-radius: 0;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    width: 280px;
   }
   #search_activities_button {
     margin-right: 15px;
