@@ -30,7 +30,12 @@ class UserMailer < ActionMailer::Base
     @user = user
     @lessons = lessons
     @unit = unit
-    mail from: 'amr.thameen@quill.org', to: user.email, subject: "Next Steps for the Lessons in Your New Activity Pack, #{@unit.name}"
+    mail from: "Amr Thameen <amr.thameen@quill.org>", to: user.email, subject: "Next Steps for the Lessons in Your New Activity Pack, #{@unit.name}"
+  end
+
+  def send_premium_user_subscription_email(user)
+    @user = user
+    mail to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
   end
 
 end
