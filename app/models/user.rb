@@ -294,6 +294,10 @@ class User < ActiveRecord::Base
     UserMailer.premium_school_subscription_email(self, school, admin).deliver_now! if email.present?
   end
 
+  def send_new_admin_email(school)
+    UserMailer.new_admin_email(self, school).deliver_now! if email.present?
+  end
+
   def subscribe_to_newsletter
     if self.role == "teacher"
       SubscribeToNewsletterWorker.perform_async(self.id)
