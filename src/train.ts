@@ -1,8 +1,7 @@
 import {Dictionary} from './dictionary';
 
 // declare function train(text: string): Dictionary;
-function train(text: string): Dictionary {
-  console.log(typeof(text))
+export function train(text: string): Dictionary {
   if (typeof(text) !== 'string') {
     return {}
   }
@@ -15,9 +14,4 @@ function train(text: string): Dictionary {
     dictionary[word] = dictionary.hasOwnProperty(word) ? dictionary[word] + 1 : 1;
   }
   return dictionary;
-}
-
-
-export {
-  train
 }
