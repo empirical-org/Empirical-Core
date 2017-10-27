@@ -1,8 +1,8 @@
 require 'simplecov'
-require 'simplecov-json' 
+require 'simplecov-json'
 SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 SimpleCov.start do
-  track_files "/app/**/*.rb"
+  track_files "{app,lib}/**/*.rb"
 end
 
 require 'rspec/retry'
