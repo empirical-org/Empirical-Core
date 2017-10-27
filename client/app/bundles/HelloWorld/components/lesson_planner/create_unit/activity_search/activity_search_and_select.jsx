@@ -145,9 +145,6 @@ export default React.createClass({
       filterFields.forEach((field) => {
         // we want an object if it exists
         // const af = activity[field];
-        if (field !== 'activity_category') {
-          debugger;
-        }
         // const option = Number.isInteger(activity[field]) ? activity[field] : activity[field].id;
         availableOptions[field].add(activity[field]);
       });
