@@ -54,9 +54,6 @@ export default React.createClass({
          naturalCmp(a.name, b.name));
     }
     options = this.props.data.options;
-    if (options.length) {
-      debugger;
-    }
     const that = this;
     return _.map(options, (option) => {
       if (field === 'activity_classification') {
