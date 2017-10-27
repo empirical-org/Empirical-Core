@@ -1,8 +1,7 @@
 import React from 'react'
 import ProgressReport from '../progress_report.jsx'
 import OverviewBoxes from './overview_boxes.jsx'
-
-
+import _ from 'underscore';
 
 export default React.createClass({
 
