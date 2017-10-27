@@ -45,4 +45,10 @@ class UserMailer < ActionMailer::Base
     mail to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
   end
 
+  def new_admin_email(user, school)
+    @user = user
+    @school = school
+    mail from: "Becca Garrison <becca@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
+  end
+
 end
