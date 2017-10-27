@@ -1,5 +1,5 @@
 /*!
- * {LIB} v0.0.4
+ * {LIB} v0.0.5
  * (c) 2017 {NAME}
  * Released under the MIT License.
  */
@@ -11,7 +11,6 @@
 
 // declare function train(text: string): Dictionary;
 function train(text) {
-    console.log(typeof (text));
     if (typeof (text) !== 'string') {
         return {};
     }
