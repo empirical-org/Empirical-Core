@@ -38,4 +38,11 @@ class UserMailer < ActionMailer::Base
     mail to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
   end
 
+  def premium_school_subscription_email(user, school, admin)
+    @user = user
+    @school = school
+    @admin = admin
+    mail to: user.email, subject: "#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️"
+  end
+
 end
