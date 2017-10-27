@@ -83,6 +83,8 @@ class ActivitySearchWrapper
           name: a['topic_name'],
           section: {id: a['section_id'].to_i, name: a['section_name']}
         },
+        activity_category_name: a['activity_category_name'],
+        activity_category_id: a['activity_category_id'].to_i,
         section: a['section_id'].to_i,
         section_name: a['section_name']
       }

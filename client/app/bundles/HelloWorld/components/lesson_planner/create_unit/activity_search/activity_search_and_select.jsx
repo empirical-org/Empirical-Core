@@ -52,7 +52,6 @@ export default React.createClass({
   },
 
   searchRequest() {
-    console.log('wtf');
     this.setState({ loading: true, });
     $.ajax({
       url: '/activities/search',
@@ -118,14 +117,12 @@ export default React.createClass({
   },
 
   updateFilterOptionsAfterChange() {
-    console.log('oy');
     // Go through all the filters,
     // For each filter that is not currently selected,
     // only display the options that are available based on the set
     // of activity results that have been returned from the server.
     // Otherwise, selected filters will display all available options.
     const availableOptions = this._findFilterOptionsBasedOnActivities();
-    debugger;
     const newFilters = this.state.filters;
     newFilters.forEach(function (filter) {
       if (filter.selected) {
@@ -193,7 +190,6 @@ export default React.createClass({
   },
 
   updateSearchQuery(newQuery) {
-    debugger;
     // this.setState({ searchQuery: newQuery, }, this.searchRequest);
   },
 
@@ -213,7 +209,7 @@ export default React.createClass({
     const viewableActivities = this.state.activitySearchResults.filter((activity) => {
       let matchingFieldCount = 0;
       selectedFiltersAndFields.forEach((filter) => {
-        if (activity[filter.field] === filter.selected) {
+        if ((activity[filter.field].id || activity[filter.field]) === filter.selected) {
           matchingFieldCount += 1;
         }
       });
