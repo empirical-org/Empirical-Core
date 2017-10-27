@@ -113,7 +113,7 @@ export default React.createClass({
       const key = this.pluralize(field);
       newOptions[field] = data[key];
     }, this);
-    this.setState({ allFilterOptions: newOptions, });
+    this.setState({ allFilterOptions: newOptions, },);
   },
 
   updateFilterOptionsAfterChange() {
@@ -123,51 +123,38 @@ export default React.createClass({
     // of activity results that have been returned from the server.
     // Otherwise, selected filters will display all available options.
     const availableOptions = this._findFilterOptionsBasedOnActivities();
-    const newFilters = this.state.filters;
-    newFilters.forEach(function (filter) {
+    const newFilters = [...this.state.filters];
+    newFilters.forEach((filter) => {
       if (filter.selected) {
         filter.options = this.state.allFilterOptions[filter.field];
       } else {
         filter.options = availableOptions[filter.field];
       }
-    }, this);
+    });
     this.setState({ filters: newFilters, });
   },
 
-  // Return a hash of the filter options that are available based on the activities
-  // that were returned in the search results.
   _findFilterOptionsBasedOnActivities() {
-    // This function works like so:
-    // Gather all the IDs for properties of the activity that can be filtered.
-    // Create a unique set of those IDs (optimization).
-    // Go through the sets of filter options returned from the server and remove
-    // them from the list of available options if their IDs are not referenced
-    // by any of the activities.
-    // Return the remaining list.
-
-    let activityClassificationIds = [],
-      activityCategoryIds = [],
-      sectionIds = [];
-    _.each(this.state.viewableActivities, (activity) => {
-      activityClassificationIds.push(activity.classification.id);
-      if (activity.activity_category) {
-        activityCategoryIds.push(activity.activity_category.id);
-      }
-      if (activity.topic.section) {
-        sectionIds.push(activity.topic.section.id);
-      }
-    });
-    activityClassificationIds = _.uniq(activityClassificationIds);
-    activityCategoryIds = _.uniq(activityCategoryIds);
-    sectionIds = _.uniq(sectionIds);
+    const filterFields = this.state.filters.map(filter => filter.field);
     const availableOptions = {};
-    availableOptions.activity_category = _.reject(this.state.allFilterOptions.activity_category,
-      option => !_.contains(activityCategoryIds, option.id));
-    availableOptions.section = _.reject(this.state.allFilterOptions.section,
-      option => !_.contains(sectionIds, option.id));
-    availableOptions.activity_classification = _.reject(this.state.allFilterOptions.activity_classification,
-      option => !_.contains(activityClassificationIds, Number(option.id)));
-
+    // get all filter keys and then map them onto availableOptions as empty arrs
+    // filterFields.forEach((field) => { availableOptions[field] = new Set(); });
+    filterFields.forEach((field) => { availableOptions[field] = new Set(); });
+    // go through all viewable activities, then
+    this.state.viewableActivities.forEach((activity) => {
+      filterFields.forEach((field) => {
+        // we want an object if it exists
+        // const af = activity[field];
+        if (field !== 'activity_category') {
+          debugger;
+        }
+        // const option = Number.isInteger(activity[field]) ? activity[field] : activity[field].id;
+        availableOptions[field].add(activity[field]);
+      });
+    });
+    filterFields.forEach((field) => {
+      availableOptions[field] = Array.from(availableOptions[field]);
+    });
     return availableOptions;
   },
 
