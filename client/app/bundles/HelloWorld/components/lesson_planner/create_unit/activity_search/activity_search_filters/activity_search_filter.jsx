@@ -53,9 +53,10 @@ export default React.createClass({
         // This is kind of a hack, but all of the filter's options have a 'name' property.
          naturalCmp(a.name, b.name));
     }
-
     options = this.props.data.options;
-
+    if (options.length) {
+      debugger;
+    }
     const that = this;
     return _.map(options, (option) => {
       if (field === 'activity_classification') {
