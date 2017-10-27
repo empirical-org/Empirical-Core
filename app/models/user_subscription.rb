@@ -11,8 +11,10 @@ class UserSubscription < ActiveRecord::Base
   end
 
   def send_premium_emails
-    if subscription.account_type.downcase != 'teacher trial' && subscription.school_subscriptions.empty?
-      PremiumUserSubscriptionEmailWorker.perform_async(user_id)
+    if Rails.env.production? || User.find(user_id).email.match('quill.org')
+      if subscription.account_type.downcase != 'teacher trial' && subscription.school_subscriptions.empty?
+        PremiumUserSubscriptionEmailWorker.perform_async(user_id)
+      end
     end
   end
 
