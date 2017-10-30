@@ -7,6 +7,7 @@ import LoadingIndicator from '../../shared/loading_indicator';
 import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token'
+import _ from 'underscore';
 
 export default React.createClass({
 
