@@ -94,24 +94,7 @@ export default React.createClass({
       currentPage: 1,
       loading: false,
     };
-    this.setInitialFilterOptions(data);
     this.setState(hash, this.updateFilterOptionsAfterChange);
-  },
-
-  setInitialFilterOptions(data) {
-    // If the filter options have set already, do not override them.
-
-    const allEmpty = _.all(this.state.allFilterOptions, (options, field) => options.length === 0);
-    if (!allEmpty) {
-      return;
-    }
-    const newOptions = {};
-
-    _.each(this.state.allFilterOptions, function (options, field) {
-      const key = this.pluralize(field);
-      newOptions[field] = data[key];
-    }, this);
-    this.setState({ allFilterOptions: newOptions, },);
   },
 
   updateFilterOptionsAfterChange() {
