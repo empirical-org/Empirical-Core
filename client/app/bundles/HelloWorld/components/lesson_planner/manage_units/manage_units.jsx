@@ -30,12 +30,16 @@ export default React.createClass({
   getClassrooms() {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
-      if (classrooms.length > 0) {
-        this.setState({ classrooms}, () => this.getUnits());
-      } else {
-        this.setState({ empty: true, loaded: true, });
-      }
+      this.handleClassrooms(classrooms);
     });
+  },
+
+  handleClassrooms(classrooms) {
+    if (classrooms.length > 0) {
+      this.setState({ classrooms }, () => this.getUnits());
+    } else {
+      this.setState({ empty: true, loaded: true, });
+    }
   },
 
   hashLinkScroll() {
