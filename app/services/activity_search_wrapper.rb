@@ -72,17 +72,12 @@ class ActivitySearchWrapper
         id: activity_id,
         uid: a['activity_uid'],
         anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
-        classification: {
+        activity_classification: {
           id: classification_id,
           alias: classification_alias(classification_id),
           gray_image_class: gray_image_class(classification_id)
         },
-        activity_classification: classification_id,
         activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
-        # section: {
-        #   name: a['topic_name'],
-        #   section: {id: a['section_id'].to_i, name: a['section_name']}
-        # },
         activity_category_name: a['activity_category_name'],
         activity_category_id: a['activity_category_id'].to_i,
         section: {id: a['section_id'].to_i, name: a['section_name']},

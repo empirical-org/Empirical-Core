@@ -53,14 +53,18 @@ export default React.createClass({
         // This is kind of a hack, but all of the filter's options have a 'name' property.
          naturalCmp(a.name, b.name));
     }
-    options = this.props.data.options;
+    // unique options by turning them into a set and then back into an array
+    options = this.props.data.options.map(option => JSON.stringify(option));
+    options = [...new Set(options)];
     const that = this;
-    return _.map(options, (option) => {
+    return _.map(options, (JSONoption) => {
+      const option = JSON.parse(JSONoption);
+      console.log(option);
       if (field === 'activity_classification') {
-        return (<FilterButton key={option.id} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id} />);
+        return (<FilterButton key={`${option.id}-activity`} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id} />);
       }
       return (
-        <FilterOption key={option.id} selectFilterOption={that.selectFilterOption} data={option} />
+        <FilterOption key={`${option.id}-${option.name}`} selectFilterOption={that.selectFilterOption} data={option} />
       );
     }, this);
   },
