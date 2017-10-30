@@ -12,6 +12,8 @@ import SelectedActivities from './selected_activities/selected_activities';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name';
 
+const resultsPerPage = 50;
+
 export default React.createClass({
   propTypes: {
     selectedActivities: React.PropTypes.array.isRequired,
@@ -24,12 +26,8 @@ export default React.createClass({
     return {
       loading: true,
       activitySearchResults: [],
-      currentPageSearchResults: [],
       viewableActivities: [],
-      currentPage: 1,
-      searchQuery: '',
       numberOfPages: 1,
-      resultsPerPage: 12,
       maxPageNumber: 4,
       allFilterOptions: {
         section: [],
@@ -90,7 +88,7 @@ export default React.createClass({
     const hash = {
       activitySearchResults: data.activities,
       viewableActivities: data.activities,
-      numberOfPages: data.number_of_pages,
+      numberOfPages: Math.ceil(data.activities.length / resultsPerPage),
       currentPage: 1,
       loading: false,
     };
@@ -129,16 +127,6 @@ export default React.createClass({
       return 'activity_categories';
     }
     return `${str}s`;
-  },
-
-  determineCurrentPageSearchResults() {
-    let start,
-      end,
-      currentPageSearchResults;
-    start = (this.state.currentPage - 1) * this.state.resultsPerPage;
-    end = this.state.currentPage * this.state.resultsPerPage;
-    currentPageSearchResults = this.state.activitySearchResults.slice(start, end);
-    return currentPageSearchResults;
   },
 
   updateSearchQuery(newQuery) {
@@ -199,14 +187,12 @@ export default React.createClass({
   },
 
   currentPageResults() {
-    const resultsPerPage = 50;
     const lowerBound = (this.state.currentPage - 1) * resultsPerPage;
     const upperBound = (this.state.currentPage) * resultsPerPage;
     return this.state.viewableActivities.slice(lowerBound, upperBound);
   },
 
   render() {
-    const currentPageSearchResults = this.determineCurrentPageSearchResults();
     let table,
       loading,
       pagination;
