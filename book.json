@@ -1,0 +1,10 @@
+{
+  "root": "./docs",
+  "title": "Quill.org Docs",
+  "description": "Quill.org Docs on major functionality.",
+  "author": "Donald McKendrick",
+  "structure": {
+    "readme": "README.md",
+    "summary": "SUMMARY.md"
+  }
+}
