@@ -72,9 +72,8 @@ export default React.createClass({
   },
 
   render() {
-		// Several cases here:
 		// Nothing is selected. 'Filter by X' displays. All other options can be selected.
-		// An option is selected. Option name displays. Options now include 'All X'. All options displayed.
+		// An option is selected. Option name displays. Options now include 'All X'.
     const filterIsButtons = this.props.data.field === 'activity_classification';
     if (filterIsButtons) {
       return (
