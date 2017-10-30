@@ -1,6 +1,6 @@
 import React from 'react';
 import FilterOption from './filter_option';
-import _ from 'underscore';
+import _ from 'lodash';
 import $ from 'jquery';
 import naturalCmp from 'underscore.string/naturalCmp';
 import FilterButton from './filter_button.jsx';
@@ -41,32 +41,23 @@ export default React.createClass({
   },
 
   getDisplayedFilterOptions() {
-    let options,
-      isThereASelection,
-      clearSelection;
-    isThereASelection = !!this.props.data.selected;
     const field = this.props.data.field;
-
+    // unique options
+    const options = _.uniqWith(this.props.data.options, _.isEqual);
     if (field !== 'activity_classification') {
       // Sort the options alphanumerically.
-      this.props.data.options.sort((a, b) =>
+      options.sort((a, b) =>
         // This is kind of a hack, but all of the filter's options have a 'name' property.
          naturalCmp(a.name, b.name));
     }
-    // unique options by turning them into a set and then back into an array
-    options = this.props.data.options.map(option => JSON.stringify(option));
-    options = [...new Set(options)];
-    const that = this;
-    return _.map(options, (JSONoption) => {
-      const option = JSON.parse(JSONoption);
-      console.log(option);
+    return options.map((option) => {
       if (field === 'activity_classification') {
-        return (<FilterButton key={`${option.id}-activity`} handleFilterButtonClick={that.handleFilterButtonClick} data={option} active={that.state.activeFilterId === option.id} />);
+        return (<FilterButton key={`${option.id}-activity`} handleFilterButtonClick={this.handleFilterButtonClick} data={option} active={this.state.activeFilterId === option.id} />);
       }
       return (
-        <FilterOption key={`${option.id}-${option.name}`} selectFilterOption={that.selectFilterOption} data={option} />
+        <FilterOption key={`${option.id}-${option.name}`} selectFilterOption={this.selectFilterOption} data={option} />
       );
-    }, this);
+    });
   },
 
   getFilterHeader() {
