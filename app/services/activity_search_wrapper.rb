@@ -75,7 +75,7 @@ class ActivitySearchWrapper
         activity_classification: {
           id: classification_id,
           alias: classification_alias(classification_id),
-          gray_image_class: gray_image_class(classification_id)
+          gray_image_class: gray_image_class(classification_id),
           description: act_class_description(classification_id)
         },
         activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},

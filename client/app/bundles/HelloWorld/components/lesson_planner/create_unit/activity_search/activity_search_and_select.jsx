@@ -79,12 +79,10 @@ export default React.createClass({
       filter.selected = null;
       return filter;
     });
-    const that = this;
     this.setState({
       filters: clearedFilters,
       activeFilterOn: false,
-    },
-    () => { that.searchRequest(); });
+    });
     this.updateSearchQuery('');
   },
 
