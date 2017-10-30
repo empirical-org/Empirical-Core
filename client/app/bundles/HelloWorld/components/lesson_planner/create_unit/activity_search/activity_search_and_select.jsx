@@ -198,6 +198,13 @@ export default React.createClass({
     this.setState({ currentPage: number, });
   },
 
+  currentPageResults() {
+    const resultsPerPage = 50;
+    const lowerBound = (this.state.currentPage - 1) * resultsPerPage;
+    const upperBound = (this.state.currentPage) * resultsPerPage;
+    return this.state.viewableActivities.slice(lowerBound, upperBound);
+  },
+
   render() {
     const currentPageSearchResults = this.determineCurrentPageSearchResults();
     let table,
@@ -209,7 +216,7 @@ export default React.createClass({
       table = <span>We're experiencing the following error: {this.state.error}</span>;
     } else {
       pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} />;
-      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={this.state.viewableActivities} toggleActivitySelection={this.props.toggleActivitySelection} />;
+      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={this.currentPageResults()} toggleActivitySelection={this.props.toggleActivitySelection} />;
     }
     return (
       <section>

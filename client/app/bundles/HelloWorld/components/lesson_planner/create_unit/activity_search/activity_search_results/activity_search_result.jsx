@@ -26,7 +26,7 @@ export default React.createClass({
       data-html="true"
       data-toggle="tooltip"
       data-placement="top"
-      title={`<h1>${this.props.data.name}</h1><p>App: ${this.props.data.classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.description}</p>`}
+      title={`<h1>${this.props.data.name}</h1><p>App: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.description}</p>`}
     />)
     : <span />;
     return (
