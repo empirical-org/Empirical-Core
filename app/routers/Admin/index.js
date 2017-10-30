@@ -5,6 +5,7 @@ export default {
       System.import(/* webpackChunkName: "admin-concept-feedback" */ './routes/ConceptFeedback/index.js'),
       System.import(/* webpackChunkName: "admin-concepts" */ './routes/Concepts/index.js'),
       System.import(/* webpackChunkName: "admin-dashboard" */ './routes/DataDash/index.js'),
+      System.import(/* webpackChunkName: "admin-question-health" */ './routes/QuestionHealth/index.js'),
       System.import(/* webpackChunkName: "admin-lessons" */ './routes/Lessons/index.js'),
       System.import(/* webpackChunkName: "admin-diagsnostic-questions" */ './routes/DiagnosticQuestions/index.js'),
       System.import(/* webpackChunkName: "admin-questions" */ './routes/Questions/index.js'),
