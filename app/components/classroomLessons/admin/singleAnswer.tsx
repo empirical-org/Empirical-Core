@@ -21,6 +21,7 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
+    this.handlePrefilledTextChange = this.handlePrefilledTextChange.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -67,6 +68,12 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
     this.setState({question: newVals})
   }
 
+  handlePrefilledTextChange(e) {
+    const newVals = {...this.state.question}
+    _.set(newVals, 'play.prefilledText', e.target.value)
+    this.setState({question: newVals})
+  }
+
   save() {
     this.props.save(this.state.question)
   }
@@ -98,6 +105,12 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
           <label className="label">Instructions (Optional)</label>
           <div className="control">
             <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Prefilled Text (Optional)</label>
+          <div className="control">
+            <input value={this.state.question.play.prefilledText} onChange={this.handlePrefilledTextChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <div className="field">
