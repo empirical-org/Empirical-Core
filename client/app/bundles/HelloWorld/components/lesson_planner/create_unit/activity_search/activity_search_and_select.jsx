@@ -11,6 +11,7 @@ import Pagination from './pagination/pagination';
 import SelectedActivities from './selected_activities/selected_activities';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name';
+import naturalCmp from 'underscore.string/naturalCmp';
 
 const resultsPerPage = 50;
 
@@ -178,8 +179,22 @@ export default React.createClass({
       }
       return sort;
     }, this);
-    this.setState({ sorts, });
-    // this.searchRequest();
+    this.setState({ sorts, }, this.sort);
+  },
+
+  sort() {
+    let visActs = [...this.state.viewableActivities];
+    this.state.sorts.forEach((sortObj) => {
+      // iterate through each sorter, and activate it
+      if (sortObj.selected) {
+        visActs = _.sortBy(visActs, obj => (obj[sortObj.field].name || obj[sortObj.field]));
+        if (sortObj.asc_or_desc === 'desc') {
+          // reverse sorter if necessary
+          visActs = visActs.reverse();
+        }
+      }
+    });
+    this.setState({ viewableActivities: visActs, });
   },
 
   selectPageNumber(number) {
