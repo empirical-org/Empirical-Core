@@ -10,7 +10,6 @@ class ActivitySearchWrapper
     @topics = []
     @activity_categories = []
     @sections = []
-    @number_of_pages = nil
     @flag = flag
     @user_id = user_id
   end
@@ -29,7 +28,6 @@ class ActivitySearchWrapper
       activity_classifications: @activity_classifications,
       activity_categories: @activity_categories,
       sections: @sections,
-      number_of_pages: @number_of_pages
     }
   end
 
@@ -61,7 +59,6 @@ class ActivitySearchWrapper
   end
 
   def get_formatted_search_results
-    @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
     @activities = @activities.map do |a|
       activity_id = a['activity_id'].to_i
       classification_id = a['classification_id'].to_i
