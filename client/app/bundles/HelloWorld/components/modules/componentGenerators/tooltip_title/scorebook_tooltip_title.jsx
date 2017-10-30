@@ -54,12 +54,10 @@ export default class ScorebookTooltip extends React.Component {
 
   activityOverview() {
     const data = this.props.data
-    if (data.percentage) {
-      return <div className="activity-overview">
-        <ActivityDetails data={data} />
-        {this.totalScoreOrNot()}
-      </div>
-    }
+    return <div className="activity-overview">
+      <ActivityDetails data={data} />
+      {this.totalScoreOrNot()}
+    </div>
   }
 
   displayScores() {
@@ -97,7 +95,6 @@ export default class ScorebookTooltip extends React.Component {
             {this.conceptResultsOrLoadingOrNotCompleted()}
           </div>
         </div>
-        {this.aboutPremiumOrNot()}
       </div>
     )
   }
