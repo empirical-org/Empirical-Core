@@ -35,6 +35,7 @@ export default React.createClass({
   selectFilterOption(optionId) {
     this.props.selectFilterOption(this.props.data.field, optionId);
   },
+
   clearFilterOptionSelection() {
     this.props.selectFilterOption(this.props.data.field, null);
     this.setState({ activeFilterId: null, });
