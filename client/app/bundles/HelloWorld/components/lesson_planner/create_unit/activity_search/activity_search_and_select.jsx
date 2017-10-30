@@ -117,19 +117,11 @@ export default React.createClass({
   },
 
   updateFilterOptionsAfterChange() {
-    // Go through all the filters,
-    // For each filter that is not currently selected,
-    // only display the options that are available based on the set
-    // of activity results that have been returned from the server.
-    // Otherwise, selected filters will display all available options.
+    // Go through all the filters, and only display the options that are available based on the currently viewable activity set
     const availableOptions = this._findFilterOptionsBasedOnActivities();
     const newFilters = [...this.state.filters];
     newFilters.forEach((filter) => {
-      if (filter.selected) {
-        filter.options = this.state.allFilterOptions[filter.field];
-      } else {
-        filter.options = availableOptions[filter.field];
-      }
+      filter.options = availableOptions[filter.field];
     });
     this.setState({ filters: newFilters, });
   },
@@ -138,14 +130,9 @@ export default React.createClass({
     const filterFields = this.state.filters.map(filter => filter.field);
     const availableOptions = {};
     // get all filter keys and then map them onto availableOptions as empty arrs
-    // filterFields.forEach((field) => { availableOptions[field] = new Set(); });
     filterFields.forEach((field) => { availableOptions[field] = new Set(); });
-    // go through all viewable activities, then
     this.state.viewableActivities.forEach((activity) => {
       filterFields.forEach((field) => {
-        // we want an object if it exists
-        // const af = activity[field];
-        // const option = Number.isInteger(activity[field]) ? activity[field] : activity[field].id;
         availableOptions[field].add(activity[field]);
       });
     });
@@ -174,7 +161,7 @@ export default React.createClass({
   },
 
   updateSearchQuery(newQuery) {
-    // this.setState({ searchQuery: newQuery, }, this.searchRequest);
+    this.setState({ searchQuery: newQuery, }, this.changeViewableActivities);
   },
 
   selectFilterOption(field, optionId) {
@@ -187,6 +174,11 @@ export default React.createClass({
     this.setState({ filters, activeFilterOn: true, }, this.changeViewableActivities);
   },
 
+  activityContainsSearchTerm(activity) {
+    const stringActivity = Object.values(activity).join(' ').toLowerCase();
+    return stringActivity.includes(this.state.searchQuery.toLowerCase());
+  },
+
   changeViewableActivities() {
     const selectedFiltersAndFields = this.selectedFiltersAndFields();
     const sFFLength = selectedFiltersAndFields.length;
@@ -197,7 +189,11 @@ export default React.createClass({
           matchingFieldCount += 1;
         }
       });
-      return matchingFieldCount === sFFLength;
+      let matchesSearchQuery = true;
+      if (this.state.searchQuery) {
+        matchesSearchQuery = this.activityContainsSearchTerm(activity);
+      }
+      return (matchingFieldCount === sFFLength) && matchesSearchQuery;
     });
     this.setState({ viewableActivities, }, this.updateFilterOptionsAfterChange);
   },

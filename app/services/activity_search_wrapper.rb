@@ -76,6 +76,7 @@ class ActivitySearchWrapper
           id: classification_id,
           alias: classification_alias(classification_id),
           gray_image_class: gray_image_class(classification_id)
+          description: act_class_description(classification_id)
         },
         activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
         activity_category_name: a['activity_category_name'],
@@ -127,6 +128,21 @@ class ActivitySearchWrapper
       'Quill Connect'
     when 6
       'Quill Lessons'
+    end
+  end
+
+  def act_class_description(classification_id)
+    case classification_id
+    when 1
+      'Fix Errors in Passages'
+    when 2
+      'Practice Mechanics'
+    when 4
+      'Identify Learning Gaps'
+    when 5
+      'Combine Sentences'
+    when 6
+      'Shared Group Lessons'
     end
   end
 
