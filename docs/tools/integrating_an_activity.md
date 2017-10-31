@@ -1,10 +1,6 @@
-### Integrating an External Activity
+# Integrating an External Activity
 
-
-
-When a user begins an activity session they hit the `/actvity_sessions/:activity_session_id/play` route.
-
-The `ActivitySessionsController` uses the `play` function which determines if the user is starting a new activity for the first time, resuming a suspended activity, or retrying a completed activity. In the case where the activity session `state` is `unstarted || started` the function continues using the record retrieved from the parameters in the URL. If the activity session's `state` is `finished` then the function creates a new record in the database and continues execution with the new activity sessions record.
+When a user begins an activity session they hit the `/teachers/classroom_activities/:classroom_activity_id/activity_from_classroom_activity` route. This either finds an existing started activity session, which is the case when a user is resuming an activity, or creates a new record in the database, when a user has either never started or already completed an activity. The user is then redirected to the `/activity_sessions/:activity_session_id/play` route.
 
 The `ActivitySessionsController#play` function redirects the user to the activity page by building a URL from the activity model function `module_url` which calls `module_url_helper`. The `module_url_helper` function looks to the `ActivityClassification` model to fetch the `module_url` value so that it can build a URL for the user. The built URL has the structure `:ActivityClassification.module_url?uid=:Activity.uid&student=:ActivitySession.uid` for example: `grammar.quill.org/play/?uid=1234&student=abcd`.
 
@@ -16,7 +12,7 @@ Assuming the records in the database are:
 
 ActivityClassification: `id: 1, module_url: "grammar.quill.org/play/"`
 
-Activty: `id: 1, activity_classification_id: 1, uid: '1234'`
+Activity: `id: 1, activity_classification_id: 1, uid: '1234'`
 
 ActivitySession: `id: 1, activity_id: 1, uid: 'abcd'`
 
@@ -26,7 +22,7 @@ The page the the user is redirected to must be able to interpret the url by pars
 
 If the `student` value is not present, an anonymous session can be create by making a `POST` request to `/api/v1/activity_sessions/`.
 
-#### What do the `/api/v1/activity_sessions/` routes expect?
+## What do the `/api/v1/activity_sessions/` routes expect?
 
 The activity session `PUT` and `POST` routes expect `JSON` in the following form.
 
