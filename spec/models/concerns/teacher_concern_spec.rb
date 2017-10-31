@@ -9,14 +9,12 @@ describe User, type: :model do
       let!(:student1) {FactoryGirl.create(:user, role: 'student')}
       let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
 
-
     it '#classrooms_i_teach_with_students' do
       classroom_hash = classroom.attributes
       classroom_hash[:students] = classroom.students
       classroom1_hash = classroom1.attributes
       classroom1_hash[:students] = classroom1.students
       classrooms = teacher.classrooms_i_teach_with_students
-
       # HACK: let's disregard the created_at and updated_at values
       # to avoid a bunch of nasty temporal comparison issues...
       classroom_hash['created_at'] = nil
@@ -46,15 +44,6 @@ describe User, type: :model do
     describe '#is_premium?' do
       let!(:teacher_premium_test) {FactoryGirl.create(:user, role: 'teacher')}
       let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}
-
-      context 'user is part of an admin account' do
-      let!(:admin_account) {FactoryGirl.create(:admin_account)}
-      let!(:school_account) {FactoryGirl.create(:admin_accounts_teacher, admin_account_id: admin_account.id, teacher_id: teacher_premium_test.id)}
-
-        it 'returns true' do
-          expect(teacher_premium_test.is_premium?).to be true
-        end
-      end
 
       context 'user has no associated subscription' do
         it 'returns false' do
@@ -118,10 +107,7 @@ describe User, type: :model do
       end
 
       context "when the school has a subscription" do
-
-
         describe 'and the teacher has a subscription' do
-
           it "overwrites the teacher's if the teacher's is from a different school" do
             expect(queens_teacher_2.subscription).to eq(queens_subscription)
             queens_teacher_2.updated_school(brooklyn_school)
@@ -146,8 +132,6 @@ describe User, type: :model do
             end
 
           end
-
-
         end
 
         describe 'and the user does not have a subscription' do
@@ -157,25 +141,11 @@ describe User, type: :model do
             expect(queens_teacher_2.reload.subscription).to eq(brooklyn_school.subscription)
           end
         end
-
-
       end
-
-
-
 
     end
     describe '#premium_state' do
       let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
-
-      context 'user is part of an admin account' do
-        let!(:admin_account) {FactoryGirl.create(:admin_account)}
-        let!(:school_account) {FactoryGirl.create(:admin_accounts_teacher, admin_account_id: admin_account.id, teacher_id: teacher.id)}
-
-        it "returns 'school'" do
-          expect(teacher.premium_state).to eq('school')
-        end
-      end
 
       context 'user is on a valid trial' do
         let!(:trial_teacher) {FactoryGirl.create(:user, role: 'teacher')}
@@ -208,10 +178,6 @@ describe User, type: :model do
           expect(teacher.premium_state).to eq('none')
         end
       end
-
-
-
     end
-
   end
 end
