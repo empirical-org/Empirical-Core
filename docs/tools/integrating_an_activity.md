@@ -1,4 +1,4 @@
-### Integrating an External Activity
+# Integrating an External Activity
 
 When a user begins an activity session they hit the `/teachers/classroom_activities/:classroom_activity_id/activity_from_classroom_activity` route. This either finds an existing started activity session, which is the case when a user is resuming an activity, or creates a new record in the database, when a user has either never started or already completed an activity. The user is then redirected to the `/activity_sessions/:activity_session_id/play` route.
 
@@ -12,7 +12,7 @@ Assuming the records in the database are:
 
 ActivityClassification: `id: 1, module_url: "grammar.quill.org/play/"`
 
-Activty: `id: 1, activity_classification_id: 1, uid: '1234'`
+Activity: `id: 1, activity_classification_id: 1, uid: '1234'`
 
 ActivitySession: `id: 1, activity_id: 1, uid: 'abcd'`
 
@@ -22,7 +22,7 @@ The page the the user is redirected to must be able to interpret the url by pars
 
 If the `student` value is not present, an anonymous session can be create by making a `POST` request to `/api/v1/activity_sessions/`.
 
-#### What do the `/api/v1/activity_sessions/` routes expect?
+## What do the `/api/v1/activity_sessions/` routes expect?
 
 The activity session `PUT` and `POST` routes expect `JSON` in the following form.
 
