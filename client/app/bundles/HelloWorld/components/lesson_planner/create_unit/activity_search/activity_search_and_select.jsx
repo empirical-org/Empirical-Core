@@ -14,6 +14,7 @@ import getParameterByName from '../../../modules/get_parameter_by_name';
 import naturalCmp from 'underscore.string/naturalCmp';
 
 const resultsPerPage = 50;
+const showAllId = 'showAllId';
 
 export default React.createClass({
   propTypes: {
@@ -53,7 +54,7 @@ export default React.createClass({
 
   selectedFiltersAndFields() {
     return this.state.filters.reduce((selected, filter) => {
-      if (filter.selected) {
+      if (filter.selected && filter.selected !== showAllId) {
         selected.push({ field: filter.field, selected: filter.selected, });
       }
       return selected;
@@ -97,7 +98,15 @@ export default React.createClass({
     const filterFields = this.state.filters.map(filter => filter.field);
     const availableOptions = {};
     // get all filter keys and then map them onto availableOptions as empty arrs
-    filterFields.forEach((field) => { availableOptions[field] = new Set(); });
+    filterFields.forEach((field) => {
+      let setDefault;
+      if (field == 'activity_category') {
+        setDefault = [{ name: 'All Categories', id: showAllId, }];
+      } else if (field == 'section') {
+        setDefault = [{ name: 'All Sections', id: showAllId, }];
+      }
+      availableOptions[field] = new Set(setDefault);
+    });
     this.state.viewableActivities.forEach((activity) => {
       filterFields.forEach((field) => {
         availableOptions[field].add(activity[field]);
@@ -194,7 +203,6 @@ export default React.createClass({
   },
 
   render() {
-    console.log('sort callback', this.props.sortable);
     let table,
       loading,
       pagination;
