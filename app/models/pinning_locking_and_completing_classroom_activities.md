@@ -13,7 +13,7 @@ By default, lessons are not pinned.
 ### Pinning a lesson
 Lesson classroom activities become pinned when teachers launch them for a given classroom. Right now, we have no way for teachers to manually pin classroom activities.
 
-Note that previewing a lesson is not the same as launching it, and will not pin the classroom activity.
+> Note that previewing a lesson is not the same as launching it, and will not pin the classroom activity.
 
 ### Unpinning a lesson
 Lessons can become unpinned through the following paths:
@@ -28,7 +28,7 @@ Lessons can become unpinned through the following paths:
 
 
 ### Other notes
-There can only be one pinned classroom activity per classroom at a time.
+> There can only be one pinned classroom activity per classroom at a time.
 
 ## Locked
 
@@ -41,7 +41,7 @@ Lesson classroom activities are locked by default due to an after_create callbac
 ### Unlocking a lesson
 Lesson classroom activities become unlocked when teachers launch them. Right now, we have no way for teachers to manually unlock activities.
 
-Note that previewing a lesson is not the same as launching it, and will not unlock the classroom activity.
+> Previewing a lesson is not the same as launching it, and will not unlock the classroom activity.
 
 ### Relocking a lesson
 Lesson classroom activities can become relocked through the following paths:
