@@ -135,9 +135,16 @@ export default React.createClass({
   },
 
   selectFilterOption(field, optionId) {
+    let activeFilterOn = true;
     const filters = _.map(this.state.filters, (filter) => {
       if (filter.field == field) {
-        filter.selected = optionId;
+        // Is this an already selected activity_classification field? Deselect it!
+        if (field === 'activity_classification' && filter.selected == optionId) {
+          filter.selected = null;
+          activeFilterOn = false;
+        } else {
+          filter.selected = optionId;
+        }
       }
       return filter;
     }, this);
