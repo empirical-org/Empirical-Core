@@ -26,16 +26,7 @@ export default React.createClass({
   defaultState() {
     return {
       loading: true,
-      activitySearchResults: [],
-      viewableActivities: [],
-      numberOfPages: 1,
-      maxPageNumber: 4,
-      allFilterOptions: {
-        section: [],
-        activity_category: [],
-        activity_classification: [],
-      },
-      filters: ActivitySearchFilterConfig,
+      filters: ActivitySearchFilterConfig(),
       sorts: ActivitySearchSortConfig,
       activeFilterOn: !!getParameterByName('tool'),
       error: null,
@@ -74,15 +65,11 @@ export default React.createClass({
   },
 
   clearFilters() {
-    const clearedFilters = this.state.filters.map((filter) => {
-      filter.selected = null;
-      return filter;
-    });
     this.setState({
-      filters: clearedFilters,
+      filters: ActivitySearchFilterConfig(),
       activeFilterOn: false,
-    });
-    this.updateSearchQuery('');
+      searchQuery: '',
+    }, this.changeViewableActivities);
   },
 
   searchRequestSuccess(data) {
@@ -120,14 +107,6 @@ export default React.createClass({
       availableOptions[field] = Array.from(availableOptions[field]);
     });
     return availableOptions;
-  },
-
-  // Super bad pluralize function.
-  pluralize(str) {
-    if (str === 'activity_category') {
-      return 'activity_categories';
-    }
-    return `${str}s`;
   },
 
   updateSearchQuery(newQuery) {
@@ -215,6 +194,7 @@ export default React.createClass({
   },
 
   render() {
+    console.log('sort callback', this.props.sortable);
     let table,
       loading,
       pagination;
@@ -229,7 +209,6 @@ export default React.createClass({
     return (
       <section>
         <h1 className="explore-activities-header">Explore Activities & Create Activity Pack</h1>
-
         <ActivitySearchAndFilters
           updateSearchQuery={this.updateSearchQuery}
           searchQuery={this.state.searchQuery}
@@ -238,7 +217,6 @@ export default React.createClass({
           clearFilters={this.clearFilters}
           activeFilterOn={this.state.activeFilterOn}
         />
-
         <table className="table activity-table search-and-select">
           <thead>
             <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
@@ -246,16 +224,12 @@ export default React.createClass({
           {table}
         </table>
         {loading}
-
         {pagination}
-
         <SelectedActivities
           clickContinue={this.props.clickContinue}
           errorMessage={this.props.errorMessage || ''}
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
-          sortable={this.props.sortable}
-          sortCallback={this.props.sortCallback}
         />
       </section>
     );
