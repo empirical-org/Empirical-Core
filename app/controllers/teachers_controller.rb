@@ -128,12 +128,6 @@ class TeachersController < ApplicationController
 
   private
 
-  def set_admin_account
-    # TODO: when admins actually belong to more than 1 admin_account,
-    # we will need to specifically fetch an admin_account by id
-    @admin_account = User.find(params[:admin_id]).admin_accounts.first
-  end
-
   def teacher_params
     params.require(:teacher).permit(:admin_id, :first_name, :last_name, :email)
            .merge({role: 'teacher'})
