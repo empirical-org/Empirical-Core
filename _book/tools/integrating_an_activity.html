@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Features · Quill.org Docs</title>
+        <title>Integrating a new Tool · Quill.org Docs</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="coteachers.html" />
+    <link rel="next" href="../libraries/" />
     
     
-    <link rel="prev" href="../" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -102,9 +102,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="./">
+        <li class="chapter " data-level="1.2" data-path="../features/">
             
-                <a href="./">
+                <a href="../features/">
             
                     
                     Features
@@ -116,9 +116,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1" data-path="coteachers.html">
+        <li class="chapter " data-level="1.2.1" data-path="../features/coteachers.html">
             
-                <a href="coteachers.html">
+                <a href="../features/coteachers.html">
             
                     
                     Co-teachers
@@ -134,9 +134,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="../tools/">
+        <li class="chapter " data-level="1.3" data-path="./">
             
-                <a href="../tools/">
+                <a href="./">
             
                     
                     Quill Tools
@@ -148,9 +148,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="../tools/integrating_an_activity.html">
+        <li class="chapter active" data-level="1.3.1" data-path="integrating_an_activity.html">
             
-                <a href="../tools/integrating_an_activity.html">
+                <a href="integrating_an_activity.html">
             
                     
                     Integrating a new Tool
@@ -261,7 +261,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Features</a>
+        <a href=".." >Integrating a new Tool</a>
     </h1>
 </div>
 
@@ -276,7 +276,37 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="features">Features</h1>
+                                <h3 id="integrating-an-external-activity">Integrating an External Activity</h3>
+<p>When a user begins an activity session they hit the <code>/actvity_sessions/:activity_session_id/play</code> route.</p>
+<p>The <code>ActivitySessionsController</code> uses the <code>play</code> function which determines if the user is starting a new activity for the first time, resuming a suspended activity, or retrying a completed activity. In the case where the activity session <code>state</code> is <code>unstarted || started</code> the function continues using the record retrieved from the parameters in the URL. If the activity session&apos;s <code>state</code> is <code>finished</code> then the function creates a new record in the database and continues execution with the new activity sessions record.</p>
+<p>The <code>ActivitySessionsController#play</code> function redirects the user to the activity page by building a URL from the activity model function <code>module_url</code> which calls <code>module_url_helper</code>. The <code>module_url_helper</code> function looks to the <code>ActivityClassification</code> model to fetch the <code>module_url</code> value so that it can build a URL for the user. The built URL has the structure <code>:ActivityClassification.module_url?uid=:Activity.uid&amp;student=:ActivitySession.uid</code> for example: <code>grammar.quill.org/play/?uid=1234&amp;student=abcd</code>.</p>
+<ul>
+<li><code>:ActivityClassification.module_url</code> evaluates to <code>grammar.quill.org/play/</code></li>
+<li><code>uid=:Activity.uid</code> evaluates to <code>uid=1234</code></li>
+<li><code>student=:ActivitySession.uid</code> evaluates to <code>student=abcd</code></li>
+</ul>
+<p>Assuming the records in the database are:</p>
+<p>ActivityClassification: <code>id: 1, module_url: &quot;grammar.quill.org/play/&quot;</code></p>
+<p>Activty: <code>id: 1, activity_classification_id: 1, uid: &apos;1234&apos;</code></p>
+<p>ActivitySession: <code>id: 1, activity_id: 1, uid: &apos;abcd&apos;</code></p>
+<p><code>Activities</code> belong to <code>ActivityClassifications</code> through <code>activity_classification_id</code> field on their model.</p>
+<p>The page the the user is redirected to must be able to interpret the url by parsing the query parameters to load the appropriate lesson from the <code>uid</code> value,  and save to the appropriate <code>activity session</code> via <code>PUT</code> request to <code>/api/v1/activity_sessions/:student</code> when the activity is complete by using the <code>student</code> value from the parameters.</p>
+<p>If the <code>student</code> value is not present, an anonymous session can be create by making a <code>POST</code> request to <code>/api/v1/activity_sessions/</code>.</p>
+<h4 id="what-do-the-apiv1activitysessions-routes-expect">What do the <code>/api/v1/activity_sessions/</code> routes expect?</h4>
+<p>The activity session <code>PUT</code> and <code>POST</code> routes expect <code>JSON</code> in the following form.</p>
+<pre><code>{
+  state: &apos;finished&apos;,
+  activity_uid: :activitySessionUID,
+  concept_results: :ArrayOfConceptResults,
+  percentage: :FloatingPointValueBetween0-1,
+}
+</code></pre><p>where</p>
+<ul>
+<li><code>state: &apos;finished&apos;</code> update the activity to the completed state.</li>
+<li><code>activity_uid</code> is the <code>uid</code> value from the query parameters</li>
+<li><code>concept_results</code> is an array of objects representing concept measurement from the activity. This will be given in more detail later.</li>
+<li><code>percentage</code> takes a floating point value between 0 and 1, representing the students percentage score.</li>
+</ul>
 
                                 
                                 </section>
@@ -304,12 +334,12 @@
 
             
                 
-                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Quill Tools">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="coteachers.html" class="navigation navigation-next " aria-label="Next page: Co-teachers">
+                <a href="../libraries/" class="navigation navigation-next " aria-label="Next page: Libraries">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -320,7 +350,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Features","level":"1.2","depth":1,"next":{"title":"Co-teachers","level":"1.2.1","depth":2,"path":"features/coteachers.md","ref":"features/coteachers.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Donald McKendrick","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Quill.org Docs","gitbook":"*","description":"Quill.org Docs on major functionality."},"file":{"path":"features/index.md","mtime":"2017-10-31T15:04:57.218Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-10-30T21:32:15.694Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Integrating a new Tool","level":"1.3.1","depth":2,"next":{"title":"Libraries","level":"1.4","depth":1,"path":"libraries/index.md","ref":"libraries/index.md","articles":[]},"previous":{"title":"Quill Tools","level":"1.3","depth":1,"path":"tools/index.md","ref":"tools/index.md","articles":[{"title":"Integrating a new Tool","level":"1.3.1","depth":2,"path":"tools/integrating_an_activity.md","ref":"tools/integrating_an_activity.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Donald McKendrick","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Quill.org Docs","gitbook":"*","description":"Quill.org Docs on major functionality."},"file":{"path":"tools/integrating_an_activity.md","mtime":"2017-10-31T18:22:39.457Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-10-30T21:32:15.694Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
