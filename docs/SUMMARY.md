@@ -1,8 +1,10 @@
 # Summary
 
-* [Co-teachers](coteachers.md)
-    * [Writing is nice](coteachers.md)
-    * [GitBook is nice](coteachers.md)
-* [Integrating an Activity](integrating_an_activity.md)
-    * [We love feedback](integrating_an_activity.md)
-    * [Better tools for authors](integrating_an_activity.md)
+* [Features](features/index.md)
+  * [Co-teachers](coteachers.md)
+* [Quill Tools](tools/index.md)
+* [Libraries](libraries/index.md)
+* [Devops](devops/index.md)
+* [Misc](misc/index.md)
+* [Conventions](conventions/index.md)
+* [APIs](apis/index.md)
