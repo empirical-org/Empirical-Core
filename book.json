@@ -6,5 +6,12 @@
   "structure": {
     "readme": "README.md",
     "summary": "SUMMARY.md"
+  },
+  "plugins": ["edit-link"],
+  "pluginsConfig": {
+          "edit-link": {
+              "base": "https://github.com/empirical-org/Empirical-Core/edit/develop/docs",
+              "label": "Edit This Page"
+          }
   }
 }
