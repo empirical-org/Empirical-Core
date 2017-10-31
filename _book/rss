@@ -4,7 +4,7 @@
         <description><![CDATA[Documentation for Quill.org functionality lives here.]]></description>
         <link>https://docs.quill.org/</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 31 Oct 2017 20:28:50 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 31 Oct 2017 21:47:26 GMT</lastBuildDate>
         <atom:link href="https://docs.quill.org/rss" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Donald McKendrick]]></author>
         <managingEditor><![CDATA[donald@quill.org (Donald McKendrick)]]></managingEditor>
@@ -37,6 +37,41 @@
             <title><![CDATA[Tools]]></title>
             <link>https://docs.quill.org/tools/index.html</link>
             <guid isPermaLink="true">https://docs.quill.org/tools/index.html</guid>
+            <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Quill Proofreader]]></title>
+            <description><![CDATA[Example Activity]]></description>
+            <link>https://docs.quill.org/tools/proofreader.html</link>
+            <guid isPermaLink="true">https://docs.quill.org/tools/proofreader.html</guid>
+            <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Quill Grammar]]></title>
+            <description><![CDATA[Example Activity]]></description>
+            <link>https://docs.quill.org/tools/grammar.html</link>
+            <guid isPermaLink="true">https://docs.quill.org/tools/grammar.html</guid>
+            <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Quill Connect]]></title>
+            <description><![CDATA[Example Activity]]></description>
+            <link>https://docs.quill.org/tools/connect.html</link>
+            <guid isPermaLink="true">https://docs.quill.org/tools/connect.html</guid>
+            <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Quill Diagnostic]]></title>
+            <description><![CDATA[Example Activity]]></description>
+            <link>https://docs.quill.org/tools/diagnostic.html</link>
+            <guid isPermaLink="true">https://docs.quill.org/tools/diagnostic.html</guid>
+            <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Quill Lessons]]></title>
+            <description><![CDATA[Example Activity]]></description>
+            <link>https://docs.quill.org/tools/lessons.html</link>
+            <guid isPermaLink="true">https://docs.quill.org/tools/lessons.html</guid>
             <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
         </item>
         <item>
