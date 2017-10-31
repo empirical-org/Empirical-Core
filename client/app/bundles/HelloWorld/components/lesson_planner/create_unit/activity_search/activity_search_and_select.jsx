@@ -99,13 +99,7 @@ export default React.createClass({
     const availableOptions = {};
     // get all filter keys and then map them onto availableOptions as empty arrs
     filterFields.forEach((field) => {
-      let setDefault;
-      if (field == 'activity_category') {
-        setDefault = [{ name: 'All Categories', id: showAllId, }];
-      } else if (field == 'section') {
-        setDefault = [{ name: 'All Sections', id: showAllId, }];
-      }
-      availableOptions[field] = new Set(setDefault);
+      availableOptions[field] = new Set();
     });
     this.state.viewableActivities.forEach((activity) => {
       filterFields.forEach((field) => {
@@ -113,7 +107,14 @@ export default React.createClass({
       });
     });
     filterFields.forEach((field) => {
+      debugger;
       availableOptions[field] = Array.from(availableOptions[field]);
+      debugger;
+      if (field === 'activity_category') {
+        availableOptions[field].unshift([{ name: 'All Categories', id: showAllId, }]);
+      } else if (field === 'section') {
+        availableOptions[field].unshift([{ name: 'All Sections', id: showAllId, }]);
+      }
     });
     return availableOptions;
   },
