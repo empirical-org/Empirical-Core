@@ -69,12 +69,7 @@ class ActivitySearchWrapper
         id: activity_id,
         uid: a['activity_uid'],
         anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
-        activity_classification: {
-          id: classification_id,
-          alias: classification_alias(classification_id),
-          gray_image_class: gray_image_class(classification_id),
-          description: act_class_description(classification_id)
-        },
+        activity_classification: classification_hash(classification_id),
         activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
         activity_category_name: a['activity_category_name'],
         activity_category_id: a['activity_category_id'].to_i,
@@ -103,7 +98,7 @@ class ActivitySearchWrapper
       activity_classification_details = activity_classifications.map do |ac|
         ac_id = ac['id'].to_i
         {
-          alias: classification_alias(ac_id),
+          alias: classification_hash(ac_id)[:alias],
           id: ac_id,
           key: ac['key'],
           order: ac['order_number'].to_i
@@ -115,49 +110,46 @@ class ActivitySearchWrapper
     end
   end
 
-  def classification_alias(classification_id)
+  def classification_hash(classification_id)
     case classification_id
     when 1
-      'Quill Proofreader'
+      h = {
+        alias: 'Quill Proofreader',
+        description: 'Fix Errors in Passages',
+        gray_image_class: 'icon-flag-gray',
+        key: 'passage'
+      }
     when 2
-      'Quill Grammar'
+      h = {
+        alias: 'Quill Grammar',
+        description: 'Practice Mechanics',
+        gray_image_class: 'icon-puzzle-gray',
+        key: 'sentence'
+      }
     when 4
-      'Quill Diagnostic'
+      h = {
+        alias: 'Quill Diagnostic',
+        description: 'Identify Learning Gaps',
+        gray_image_class: 'icon-diagnostic-gray',
+        key: 'diagnostic'
+      }
     when 5
-      'Quill Connect'
+      h = {
+        alias: 'Quill Connect',
+        description: 'Combine Sentences',
+        gray_image_class: 'icon-connect-gray',
+        key: 'connect'
+      }
     when 6
-      'Quill Lessons'
+      h = {
+        alias: 'Quill Lessons',
+        description: 'Shared Group Lessons',
+        gray_image_class: 'icon-lessons-gray',
+        key: 'lessons'
+      }
     end
-  end
-
-  def act_class_description(classification_id)
-    case classification_id
-    when 1
-      'Fix Errors in Passages'
-    when 2
-      'Practice Mechanics'
-    when 4
-      'Identify Learning Gaps'
-    when 5
-      'Combine Sentences'
-    when 6
-      'Shared Group Lessons'
-    end
-  end
-
-  def gray_image_class(classification_id)
-    case classification_id
-    when 1
-      'icon-flag-gray'
-    when 2
-      'icon-puzzle-gray'
-    when 4
-      'icon-diagnostic-gray'
-    when 5
-      'icon-connect-gray'
-    when 6
-      'icon-lessons-gray'
-    end
+    h[:id] = classification_id
+    h
   end
 
 end
