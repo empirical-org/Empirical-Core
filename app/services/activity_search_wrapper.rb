@@ -1,9 +1,8 @@
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
-  def initialize(search_query='', filters={}, sort=nil, flag=nil, user_id=nil)
+  def initialize(search_query='', sort=nil, flag=nil, user_id=nil)
     @search_query = search_query
-    @filters = process_filters(filters)
     @sort = sort
     @activities = nil
     @activity_classifications = []
@@ -31,22 +30,13 @@ class ActivitySearchWrapper
     }
   end
 
-  private
-
-  def process_filters(filters)
-    filter_fields = [:activity_classifications, :activity_categories, :sections]
-    filters.reduce({}) do |acc, filter|
-      filter_value = filter[1]
-      # activityClassification -> activity_classifications
-      # Just for the record, this is a terrible hacky workaround.
-      model_name = filter_value['field'].to_s.pluralize.underscore.to_sym
-      model_id = filter_value['selected'].to_i
-      if filter_fields.include?(model_name) and !model_id.zero?
-        acc[model_name] = model_id
-      end
-      acc
-    end
+  def self.set_and_return_search_cache_data(flag = nil)
+    activity_search_json = ActivitySearchWrapper.new(flag).search.to_json
+    $redis.set("default_#{flag}_activity_search", activity_search_json)
+    activity_search_json
   end
+
+  private
 
   def get_custom_search_results
     get_activity_search
@@ -55,7 +45,7 @@ class ActivitySearchWrapper
   end
 
   def get_activity_search
-    @activities = ActivitySearch.search(@search_query, @filters, @sort, @flag)
+    @activities = ActivitySearch.search(@flag)
   end
 
   def get_formatted_search_results
