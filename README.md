@@ -1,9 +1,22 @@
+## Documentation Table of Contents
+
+* [API Controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/api/README.md)
+* [Authentication Controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/auth/README.md)
+* [Clever Integration](https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/clever_integration/README.md)
+* [CMS controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/cms/README.md)
+* [Google Integration](https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/google_integration/README.md)
+
+
+
+# Welcome to Empirical Core 
+
+Empirical Core is the Learning Management System that powers Quill.org, a free writing tool. 
+
 |Front End|Back End|Travis CI|
 |---|---|---|
 |[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg)](https://travis-ci.org/empirical-org/Empirical-Core)
 
 
-# Welcome to Empirical Core
 
 **Fork and Clone this repository to submit a Pull Request**.
 
@@ -87,10 +100,3 @@ The installation comes with four users, though you can create as many more as yo
 * An admin, username `admin` and password `admin`.
 * An admin, username `staff` and password `staff`.
 
-## Documentation related to specific features
-
-* [Api controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/api/README.md)
-* [Authentication controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/auth/README.md)
-* [Clever integration](https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/clever_integration/README.md)
-* [Cms controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/cms/README.md)
-* [Google integration](https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/google_integration/README.md)
