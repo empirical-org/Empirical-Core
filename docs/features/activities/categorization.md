@@ -15,8 +15,11 @@ Activity categories comprise broad categories of activities, spanning activity c
 This is the secondary and tertiary level of organization used in the default order for the Activity Search.
 
 ### Topics, Sections, and Topic Categories
-Topics correlate roughly to Common Core standards. Each activity has a topic, to which it is joined through the topic_id on the activity table. These are used to sort activities on the 
+Topics correlate roughly to Common Core standards. Each activity has a topic, to which it is joined through the topic_id on the activity table. These are used to sort activities on the Common Core Standards report. They are commonly referred to as 'Standards' on the front end.
 
+Each topic has a section, which roughly correlates to the Common Core Grade Level standards. Topics are joined with sections through the section_id attribute on the topic table. Sections are commonly referred to as Standard Levels on the front end. They appear as a column on the Activity Search, although are not used in the default sorting order.
+
+Topics also have topic categories, which are rough groupings of activities which overlap in some, but not all, places with Activity Categories. They are joined by the topic_category_id attribute on the topics table. These are no longer used to sort activities.
 
 ## Organized Within
 ### Units
@@ -28,7 +31,7 @@ Activities can only be reordered in a unit if a teacher removes the activities a
 ### Unit Templates
 Activities are organized in unit templates, per a getter method on the Unit Template model, by activity category order number and then activity category order number.
 
-< This is also the order that the activities will be in within a unit created from this unit template.
+> This is also the order that the activities will be in within a unit created from this unit template.
 
 #### Reorganization
 Activities can be reorganized in unit templates by changing their activity category's order number and their activity category activity order number, but this will also impact everywhere else that these are used.
