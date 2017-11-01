@@ -1,6 +1,6 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+# Read about factories at https://github.com/thoughtbot/factory_bot
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :school do
     sequence(:nces_id) { |n| "UniqNCES#{n}" }
     lea_id "MyString"

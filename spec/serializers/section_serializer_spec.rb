@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SectionSerializer, type: :serializer do
-  let(:section)    { FactoryGirl.create(:section)}
+  let(:section)    { FactoryBot.create(:section)}
   let(:serializer) { SectionSerializer.new(section) }
 
   describe '#to_json output' do

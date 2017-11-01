@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ip_location do
     city "MyString"
 state "MyString"

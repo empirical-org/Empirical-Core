@@ -8,10 +8,10 @@ describe Concept, type: :model do
   end
 
   describe '.leaf_nodes' do
-    let!(:root_concept) { FactoryGirl.create(:concept, name: 'root') }
-    let!(:leaf1) { FactoryGirl.create(:concept, name: 'leaf1', parent: root_concept)}
-    let!(:mid_level_concept) { FactoryGirl.create(:concept, name: 'mid', parent: root_concept)}
-    let!(:leaf2) { FactoryGirl.create(:concept, name: 'leaf2', parent: mid_level_concept)}
+    let!(:root_concept) { FactoryBot.create(:concept, name: 'root') }
+    let!(:leaf1) { FactoryBot.create(:concept, name: 'leaf1', parent: root_concept)}
+    let!(:mid_level_concept) { FactoryBot.create(:concept, name: 'mid', parent: root_concept)}
+    let!(:leaf2) { FactoryBot.create(:concept, name: 'leaf2', parent: mid_level_concept)}
 
     subject do
       Concept.leaf_nodes
@@ -27,8 +27,8 @@ describe Concept, type: :model do
   end
 
   describe '.all_with_level' do
-    let!(:level_2_concept) {FactoryGirl.create(:concept, name: 'level_2_concept')}
-    let!(:level_1_concept) {FactoryGirl.create(:concept, name: 'level_1_concept', parent: level_2_concept)}
+    let!(:level_2_concept) {FactoryBot.create(:concept, name: 'level_2_concept')}
+    let!(:level_1_concept) {FactoryBot.create(:concept, name: 'level_1_concept', parent: level_2_concept)}
 
     subject do
       Concept.all_with_level

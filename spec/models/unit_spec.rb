@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe Unit, type: :model do
-  let!(:classroom) {FactoryGirl.create(:classroom)}
-  let!(:teacher) {FactoryGirl.create(:teacher)}
-  let!(:activity) {FactoryGirl.create(:activity)}
-  let!(:unit) {FactoryGirl.create :unit, user: teacher}
-  let!(:classroom_activity) {FactoryGirl.create(:classroom_activity_with_activity, classroom: classroom, unit: unit)}
+  let!(:classroom) {FactoryBot.create(:classroom)}
+  let!(:teacher) {FactoryBot.create(:teacher)}
+  let!(:activity) {FactoryBot.create(:activity)}
+  let!(:unit) {FactoryBot.create :unit, user: teacher}
+  let!(:classroom_activity) {FactoryBot.create(:classroom_activity_with_activity, classroom: classroom, unit: unit)}
 
   describe 'user_id field' do
     it 'should not raise an error' do

@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
-  let!(:teacher) { FactoryGirl.create(:teacher) }
-  let!(:student) {FactoryGirl.create(:student)}
-  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, students: [student]) }
-  let!(:unit) {FactoryGirl.create(:unit, user: teacher)}
-  let!(:unit2) {FactoryGirl.create(:unit, user: teacher)}
-  let!(:classroom_activity) { FactoryGirl.create(
+  let!(:teacher) { FactoryBot.create(:teacher) }
+  let!(:student) {FactoryBot.create(:student)}
+  let!(:classroom) { FactoryBot.create(:classroom, teacher: teacher, students: [student]) }
+  let!(:unit) {FactoryBot.create(:unit, user: teacher)}
+  let!(:unit2) {FactoryBot.create(:unit, user: teacher)}
+  let!(:classroom_activity) { FactoryBot.create(
     :classroom_activity_with_activity,
     unit: unit, classroom: classroom,
     assigned_student_ids: [student.id]
@@ -32,8 +32,8 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#index' do
-    let!(:activity) {FactoryGirl.create(:activity)}
-    let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity)}
+    let!(:activity) {FactoryBot.create(:activity)}
+    let!(:classroom_activity) {FactoryBot.create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity)}
 
     it 'should return json in the appropriate format' do
       response = get :index

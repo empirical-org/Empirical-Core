@@ -3,8 +3,8 @@ require 'rails_helper'
 describe JoinClassroomWorker, type: :worker do
   let(:worker) { AccessProgressReportWorker.new }
   let(:analytics) { SegmentAnalytics.new }
-  let(:teacher) { FactoryGirl.create(:teacher) }
-  let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
+  let(:teacher) { FactoryBot.create(:teacher) }
+  let(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
 
 
   it 'sends a segment.io event ' do

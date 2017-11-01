@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
-  let(:teacher) { FactoryGirl.create(:teacher) }
-  let!(:classroom) { FactoryGirl.create(:classroom_with_one_student, teacher: teacher) }
-  let(:activity) { FactoryGirl.create(:activity) }
-  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
+  let(:teacher) { FactoryBot.create(:teacher) }
+  let!(:classroom) { FactoryBot.create(:classroom_with_one_student, teacher: teacher) }
+  let(:activity) { FactoryBot.create(:activity) }
+  let(:classroom_activity) { FactoryBot.create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:classroom_for_report) { ProgressReports::Standards::Classroom.new(teacher).results({}).first }
   let(:serializer) { described_class.new(classroom_for_report) }
 

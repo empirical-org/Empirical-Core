@@ -4,33 +4,33 @@ describe 'TeachersData' do
 
   let!(:teachers_data_module) { TeachersData }
 
-  let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
+  let!(:teacher) { FactoryBot.create(:user, role: 'teacher') }
   let!(:teacher_ids) { [teacher.id] }
-  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let!(:student1) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
-  let!(:student2) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
+  let!(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
+  let!(:student1) { FactoryBot.create(:user, role: 'student', classrooms: [classroom]) }
+  let!(:student2) { FactoryBot.create(:user, role: 'student', classrooms: [classroom]) }
 
   let!(:time2) { Time.now }
   let!(:time1) { time2 - (10.minutes) }
   let!(:default_time_spent) { teachers_data_module::AVERAGE_TIME_SPENT }
 
 
-  let!(:activity_session1) { FactoryGirl.create(:activity_session,
+  let!(:activity_session1) { FactoryBot.create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
                                                 completed_at: time2) }
 
-  let!(:activity_session2) { FactoryGirl.create(:activity_session,
+  let!(:activity_session2) { FactoryBot.create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
                                                 completed_at: time2) }
 
-  let!(:concept1) { FactoryGirl.create(:concept) }
-  let!(:concept2) { FactoryGirl.create(:concept) }
-  let!(:concept_result1) { FactoryGirl.create(:concept_result, concept: concept1, activity_session: activity_session1) }
-  let!(:concept_result2) { FactoryGirl.create(:concept_result, concept: concept2, activity_session: activity_session2) }
+  let!(:concept1) { FactoryBot.create(:concept) }
+  let!(:concept2) { FactoryBot.create(:concept) }
+  let!(:concept_result1) { FactoryBot.create(:concept_result, concept: concept1, activity_session: activity_session1) }
+  let!(:concept_result2) { FactoryBot.create(:concept_result, concept: concept2, activity_session: activity_session2) }
 
   def subject
     teachers_data_module.run(teacher_ids).first

@@ -3,9 +3,9 @@ require 'rails_helper'
 describe ActivitiesController, type: :controller, redis: true do
   render_views
 
-  let(:student) { FactoryGirl.create(:student) }
-  let(:activity) { FactoryGirl.create(:activity) }
-  let(:activity_session) { FactoryGirl.create(:activity_session,
+  let(:student) { FactoryBot.create(:student) }
+  let(:activity) { FactoryBot.create(:activity) }
+  let(:activity_session) { FactoryBot.create(:activity_session,
                                               activity: activity,
                                               state: 'unstarted',
                                               user: student) }
@@ -13,8 +13,8 @@ describe ActivitiesController, type: :controller, redis: true do
 
 
   describe 'GET #search' do
-    let!(:activity1) { FactoryGirl.create(:activity, flags: ['production']) }
-    let!(:activity2) { FactoryGirl.create(:activity, flags: ['production']) }
+    let!(:activity1) { FactoryBot.create(:activity, flags: ['production']) }
+    let!(:activity2) { FactoryBot.create(:activity, flags: ['production']) }
     let(:parsed_body) { JSON.parse(response.body) }
 
     before do

@@ -11,14 +11,14 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
-  let(:activity_session) {FactoryGirl.build(:activity_session, completed_at: 5.minutes.ago)}
+  let(:activity_session) {FactoryBot.build(:activity_session, completed_at: 5.minutes.ago)}
 
   describe "#activity" do
 
   	context "when there is a direct activity association" do
 
-	  	let(:activity){ FactoryGirl.create(:activity) }
-		  let(:activity_session){ FactoryGirl.build(:activity_session,activity_id: activity.id) }
+	  	let(:activity){ FactoryBot.create(:activity) }
+		  let(:activity_session){ FactoryBot.build(:activity_session,activity_id: activity.id) }
 
   		it "must return the associated activity" do
   			expect(activity_session.activity).to eq activity
@@ -27,9 +27,9 @@ describe ActivitySession, type: :model, redis: :true do
 	end
 
   describe "#invalidate_activity_session_count_if_completed" do
-    let!(:student){ FactoryGirl.create(:student) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom_id: student.classrooms.first.id) }
-    let!(:activity_session){   FactoryGirl.create(:activity_session, classroom_activity_id: classroom_activity.id, state: 'not validated')}
+    let!(:student){ FactoryBot.create(:student) }
+    let!(:classroom_activity) { FactoryBot.create(:classroom_activity, classroom_id: student.classrooms.first.id) }
+    let!(:activity_session){   FactoryBot.create(:activity_session, classroom_activity_id: classroom_activity.id, state: 'not validated')}
 
     before(:each) do
       $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
@@ -51,10 +51,10 @@ describe ActivitySession, type: :model, redis: :true do
 
 	context "when there's not an associated activity but there's a classroom activity" do
 
-	    let!(:activity){ FactoryGirl.create(:activity) }
-	    let!(:student){ FactoryGirl.create(:student) }
-	    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, classroom_id: student.classrooms.first.id) }
-		  let(:activity_session){   FactoryGirl.build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
+	    let!(:activity){ FactoryBot.create(:activity) }
+	    let!(:student){ FactoryBot.create(:student) }
+	    let!(:classroom_activity) { FactoryBot.create(:classroom_activity, activity_id: activity.id, classroom_id: student.classrooms.first.id) }
+		  let(:activity_session){   FactoryBot.build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
 
   		it "must return the classroom activity" do
   			activity_session.activity_id=nil
@@ -71,7 +71,7 @@ describe ActivitySession, type: :model, redis: :true do
 
   describe "#activity_uid=" do
 
-  	let(:activity){ FactoryGirl.create(:activity) }
+  	let(:activity){ FactoryBot.create(:activity) }
 
   	it "must associate activity by uid" do
   		activity_session.activity_id=nil
@@ -104,20 +104,20 @@ describe ActivitySession, type: :model, redis: :true do
 
   describe "#by_teacher" do
     # This setup is very convoluted... the factories appear to be untrustworthy w/r/t generating extra records
-    let!(:current_teacher) { FactoryGirl.create(:teacher) }
-    let!(:current_teacher_student) { FactoryGirl.create(:student) }
-    let!(:current_teacher_classroom) { FactoryGirl.create(:classroom, teacher: current_teacher, students: [current_teacher_student]) }
-    let!(:current_teacher_classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: current_teacher_classroom)}
-    let!(:other_teacher) { FactoryGirl.create(:teacher) }
-    let!(:other_teacher_student) { FactoryGirl.create(:student) }
-    let!(:other_teacher_classroom) { FactoryGirl.create(:classroom, teacher: other_teacher, students: [other_teacher_student]) }
-    let!(:other_teacher_classroom_activity) { FactoryGirl.create(:classroom_activity_with_activity, classroom: other_teacher_classroom)}
+    let!(:current_teacher) { FactoryBot.create(:teacher) }
+    let!(:current_teacher_student) { FactoryBot.create(:student) }
+    let!(:current_teacher_classroom) { FactoryBot.create(:classroom, teacher: current_teacher, students: [current_teacher_student]) }
+    let!(:current_teacher_classroom_activity) { FactoryBot.create(:classroom_activity_with_activity, classroom: current_teacher_classroom)}
+    let!(:other_teacher) { FactoryBot.create(:teacher) }
+    let!(:other_teacher_student) { FactoryBot.create(:student) }
+    let!(:other_teacher_classroom) { FactoryBot.create(:classroom, teacher: other_teacher, students: [other_teacher_student]) }
+    let!(:other_teacher_classroom_activity) { FactoryBot.create(:classroom_activity_with_activity, classroom: other_teacher_classroom)}
 
     before do
       # Can't figure out why the setup above creates 2 activity sessions
       ActivitySession.destroy_all
-      2.times { FactoryGirl.create(:activity_session, classroom_activity: current_teacher_classroom_activity, user: current_teacher_student) }
-      3.times { FactoryGirl.create(:activity_session, classroom_activity: other_teacher_classroom_activity, user: other_teacher_student) }
+      2.times { FactoryBot.create(:activity_session, classroom_activity: current_teacher_classroom_activity, user: current_teacher_student) }
+      3.times { FactoryBot.create(:activity_session, classroom_activity: other_teacher_classroom_activity, user: other_teacher_student) }
     end
 
     it "only retrieves activity sessions for the students who have that teacher" do
@@ -158,7 +158,7 @@ describe ActivitySession, type: :model, redis: :true do
 
   describe "#owned_by?" do
 
-  	let(:user) {FactoryGirl.build(:user)}
+  	let(:user) {FactoryBot.build(:user)}
 
   	it "must return true if temporary true" do
   		activity_session.temporary=true
@@ -224,7 +224,7 @@ describe ActivitySession, type: :model, redis: :true do
   context "when completed scope" do
   	describe ".completed" do
   		before do
-			FactoryGirl.create_list(:activity_session_with_random_completed_date, 5)
+			FactoryBot.create_list(:activity_session_with_random_completed_date, 5)
   		end
   		it "must locate all the completed items" do
   			expect(ActivitySession.completed.count).to eq 5
@@ -253,7 +253,7 @@ describe ActivitySession, type: :model, redis: :true do
   	describe ".incomplete" do
 
   		before do
-			FactoryGirl.create_list(:activity_session_incompleted, 3)
+			FactoryBot.create_list(:activity_session_incompleted, 3)
   		end
 
   		it "must locate all the incompleted items" do
@@ -280,21 +280,21 @@ describe ActivitySession, type: :model, redis: :true do
   end
 
   describe '#determine_if_final_score' do
-    let!(:classroom) {FactoryGirl.create(:classroom)}
-    let!(:student) {FactoryGirl.create(:student)}
-    let!(:activity) {FactoryGirl.create(:activity)}
+    let!(:classroom) {FactoryBot.create(:classroom)}
+    let!(:student) {FactoryBot.create(:student)}
+    let!(:activity) {FactoryBot.create(:activity)}
 
-    let!(:classroom_activity)   {FactoryGirl.create(:classroom_activity, activity: activity, classroom: classroom)}
-    let!(:previous_final_score) {FactoryGirl.create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)}
+    let!(:classroom_activity)   {FactoryBot.create(:classroom_activity, activity: activity, classroom: classroom)}
+    let!(:previous_final_score) {FactoryBot.create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)}
 
     it 'updates when new activity session has higher percentage ' do
-      new_activity_session =  FactoryGirl.create(:activity_session, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      new_activity_session =  FactoryBot.create(:activity_session, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: 0.95
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([false, true])
     end
 
     it 'doesnt update when new activity session has lower percentage' do
-      new_activity_session =  FactoryGirl.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      new_activity_session =  FactoryBot.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
     end
 
@@ -302,10 +302,10 @@ describe ActivitySession, type: :model, redis: :true do
 
 
   describe '#validations' do
-    let!(:activity){ FactoryGirl.create(:activity) }
-    let!(:assigned_student){ FactoryGirl.create(:student) }
-    let!(:unassigned_student){ FactoryGirl.create(:student) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, activity_id: activity.id, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
+    let!(:activity){ FactoryBot.create(:activity) }
+    let!(:assigned_student){ FactoryBot.create(:student) }
+    let!(:unassigned_student){ FactoryBot.create(:student) }
+    let!(:classroom_activity) { FactoryBot.create(:classroom_activity, activity_id: activity.id, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
 
     it 'ensures that the student was correctly assigned' do
       act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)

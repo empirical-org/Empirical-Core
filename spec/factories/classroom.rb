@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :classroom do
     sequence(:name) { |i| "classroom #{i}" }
     teacher

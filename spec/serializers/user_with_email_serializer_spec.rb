@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UserWithEmailSerializer, type: :serializer do
-  let(:user) { FactoryGirl.create(:teacher) }
+  let(:user) { FactoryBot.create(:teacher) }
   let(:serializer)     { UserWithEmailSerializer.new(user) }
 
   describe '#to_json output' do

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Units::Updater do
   include_context 'Unit Assignments Variables'
 
-  let!(:unit) { FactoryGirl.create(:unit, user_id: teacher.id)}
+  let!(:unit) { FactoryBot.create(:unit, user_id: teacher.id)}
   # let activities_data = [{id: activity.id, due_date: nil}]
   # classroom_activity.update(unit_id: unit.id)
 

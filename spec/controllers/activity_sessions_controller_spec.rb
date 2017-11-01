@@ -4,16 +4,16 @@ describe ActivitySessionsController, type: :controller do
 
 
 
-  let!(:activity) { FactoryGirl.create(:activity) }
-  let!(:teacher) { FactoryGirl.create(:user) }
-  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher)}
-  let!(:user1) { FactoryGirl.create(:user, classcode: classroom.code) }
-  let!(:ca) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity)}
-  let!(:activity_session) { FactoryGirl.create(:activity_session, user: user1, activity: activity, classroom_activity: ca, state: 'unstarted') }
+  let!(:activity) { FactoryBot.create(:activity) }
+  let!(:teacher) { FactoryBot.create(:user) }
+  let!(:classroom) { FactoryBot.create(:classroom, teacher: teacher)}
+  let!(:user1) { FactoryBot.create(:user, classcode: classroom.code) }
+  let!(:ca) { FactoryBot.create(:classroom_activity, classroom: classroom, activity: activity)}
+  let!(:activity_session) { FactoryBot.create(:activity_session, user: user1, activity: activity, classroom_activity: ca, state: 'unstarted') }
 
   describe '#show' do
 
-    let!(:user2) { FactoryGirl.create(:user) }
+    let!(:user2) { FactoryBot.create(:user) }
 
     def subject
       get :play, {id: activity_session.id}
