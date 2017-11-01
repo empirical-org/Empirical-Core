@@ -4,8 +4,8 @@
         <description><![CDATA[Documentation for Quill.org functionality lives here.]]></description>
         <link>https://docs.quill.org/</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 31 Oct 2017 21:47:26 GMT</lastBuildDate>
-        <atom:link href="https://docs.quill.org/rss" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Wed, 01 Nov 2017 13:33:41 GMT</lastBuildDate>
+        <atom:link href="https://docs.quill.org/updates.rss" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Donald McKendrick]]></author>
         <managingEditor><![CDATA[donald@quill.org (Donald McKendrick)]]></managingEditor>
         <webMaster><![CDATA[donald@quill.org (Donald McKendrick)]]></webMaster>
