@@ -4,11 +4,11 @@ describe ProfilesController, type: :controller do
   render_views
 
   describe 'as a student' do
-    let(:student) { FactoryBot.create(:student) }
-    let(:activity) { FactoryBot.create(:activity) }
-    let(:unit) { FactoryBot.create(:unit) }
-    let(:classroom_activity) { FactoryBot.create(:classroom_activity, activity: activity, unit: unit) }
-    let!(:activity_session) { FactoryBot.create(:activity_session_incompleted,
+    let(:student) { create(:student) }
+    let(:activity) { create(:activity) }
+    let(:unit) { create(:unit) }
+    let(:classroom_activity) { create(:classroom_activity, activity: activity, unit: unit) }
+    let!(:activity_session) { create(:activity_session_incompleted,
                                                 classroom_activity: classroom_activity,
                                                 activity: activity,
                                                 state: 'unstarted',

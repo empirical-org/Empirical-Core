@@ -4,7 +4,7 @@ shared_context "calling the api" do
   render_views
 
   let(:application) { Doorkeeper::Application.create!(name: "MyApp", redirect_uri: "http://app.com") }
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
   let(:token) { Doorkeeper::AccessToken.create! application_id: application.id, resource_owner_id: user.id }
 
   before do
@@ -16,7 +16,7 @@ shared_examples "a simple api request" do
   let(:lwc_model_name) {controller.controller_name.classify.underscore}
 
   before do
-    FactoryBot.create_list(lwc_model_name.to_sym, 10)
+    create_list(lwc_model_name.to_sym, 10)
     get :index
   end
 

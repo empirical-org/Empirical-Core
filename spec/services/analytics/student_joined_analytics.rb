@@ -7,8 +7,8 @@ describe "StudentJoinedAnalytics" do
   let(:track_calls) { segment_analytics.backend.track_calls }
   let(:identify_calls) { segment_analytics.backend.identify_calls }
 
-  let(:teacher) { FactoryBot.create(:teacher) }
-  let(:student) { FactoryBot.create(:student) }
+  let(:teacher) { create(:teacher) }
+  let(:student) { create(:student) }
 
   it 'identifies student' do
     analytics.track(teacher, student)

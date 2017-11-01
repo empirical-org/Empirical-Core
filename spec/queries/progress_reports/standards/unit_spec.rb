@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::Unit do
-  let!(:classroom) {FactoryBot.create(:classroom)}
-  let!(:student) {FactoryBot.create(:student, classrooms: [classroom])}
-  let!(:classroom_activity) {FactoryBot.create(:classroom_activity_with_activity, classroom: classroom)}
-  let!(:unit) {FactoryBot.create :unit, classroom_activities: [classroom_activity]}
+  let!(:classroom) {create(:classroom)}
+  let!(:student) {create(:student, classrooms: [classroom])}
+  let!(:classroom_activity) {create(:classroom_activity_with_activity, classroom: classroom)}
+  let!(:unit) {create :unit, classroom_activities: [classroom_activity]}
 
   describe "getting units for the progress report" do
-    let!(:teacher) { FactoryBot.create(:teacher) }
+    let!(:teacher) { create(:teacher) }
     let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
     include_context 'Section Progress Report'

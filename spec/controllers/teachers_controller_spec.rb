@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe TeachersController, type: :controller do
 
-  let(:teacher) { FactoryBot.create(:teacher, :with_a_couple_classroms_with_students) }
+  let(:teacher) { create(:teacher, :with_a_couple_classroms_with_students) }
 
   before do
     session[:user_id] = teacher.id

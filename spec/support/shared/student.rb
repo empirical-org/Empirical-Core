@@ -1,13 +1,13 @@
 shared_examples_for "student" do
 
 
-  let(:classroom){ FactoryBot.build(:classroom, code: '101') }
-  let(:student){FactoryBot.build(:student)}
+  let(:classroom){ build(:classroom, code: '101') }
+  let(:student){build(:student)}
 
 
   context 'if username is not present' do
 
-    let!(:student){ FactoryBot.build(:student, username: nil) }
+    let!(:student){ build(:student, username: nil) }
 
     it 'should be valid' do
       expect(student).to be_valid
@@ -27,9 +27,9 @@ shared_examples_for "student" do
 
 
   describe "#activity_sessions" do
-    let!(:activity){ FactoryBot.create(:activity) }
-    let!(:student){ FactoryBot.create(:student) }
-    let!(:classroom_activity) { FactoryBot.create(:classroom_activity,activity_id: activity.id, classroom_id: student.classrooms.first.id) }
+    let!(:activity){ create(:activity) }
+    let!(:student){ create(:student) }
+    let!(:classroom_activity) { create(:classroom_activity,activity_id: activity.id, classroom_id: student.classrooms.first.id) }
 
     it "must returns an empty array when none is assigned" do
       expect(student.activity_sessions).to be_empty

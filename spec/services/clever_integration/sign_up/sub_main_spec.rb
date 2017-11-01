@@ -42,7 +42,7 @@ describe 'CleverIntegration::SignUp::SubMain' do
 
     context 'student pre-exists in our system' do
       let!(:preexisting_student) {
-        FactoryBot.create(:user, clever_id: 'student_id_1')
+        create(:user, clever_id: 'student_id_1')
       }
 
       it 'finds the pre-existing student (created when the teacher signed up (which must occur beforehand))' do
@@ -83,7 +83,7 @@ describe 'CleverIntegration::SignUp::SubMain' do
     context 'district pre-exists in our system' do
 
       let!(:district) {
-        FactoryBot.create(:district, clever_id: 'district_id_1')
+        create(:district, clever_id: 'district_id_1')
       }
 
       it 'creates the teacher' do

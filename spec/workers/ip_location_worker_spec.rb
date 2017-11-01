@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe IpLocationWorker, type: :worker do
   let(:worker) { IpLocationWorker.new }
-  let(:teacher) { FactoryBot.create(:teacher) }
+  let(:teacher) { create(:teacher) }
 
   # TODO: make a vcr recording of this
 

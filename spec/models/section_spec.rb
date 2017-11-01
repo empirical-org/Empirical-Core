@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Section, type: :model do
 
-	let(:section){ FactoryBot.build(:section) }
+	let(:section){ build(:section) }
 
   it_behaves_like 'uid'
 

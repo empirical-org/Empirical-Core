@@ -3,10 +3,10 @@ require 'rails_helper'
 describe Api::V1::ConceptsController, type: :controller do
 
   context 'POST #create' do
-    let!(:user) { FactoryBot.create(:staff) }
+    let!(:user) { create(:staff) }
     let!(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let!(:concept_name) { 'Concept1' }
-    let!(:parent_concept) { FactoryBot.create(:concept) }
+    let!(:parent_concept) { create(:concept) }
 
     def subject
       post :create, {concept: {name: concept_name, parent_uid: parent_concept.uid}}
@@ -38,8 +38,8 @@ describe Api::V1::ConceptsController, type: :controller do
   end
 
   context 'GET #index' do
-    let!(:concept1) { FactoryBot.create(:concept, name: 'Articles') }
-    let!(:concept2) { FactoryBot.create(:concept, name: 'The', parent: concept1) }
+    let!(:concept1) { create(:concept, name: 'Articles') }
+    let!(:concept2) { create(:concept, name: 'The', parent: concept1) }
     let(:parsed_body) { JSON.parse(response.body) }
 
     def subject

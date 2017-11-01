@@ -1,10 +1,10 @@
 shared_examples_for "teacher" do
 
-  let(:teacher) { FactoryBot.build(:classroom) }
+  let(:teacher) { build(:classroom) }
 
   context 'with an email' do
 
-    let!(:teacher) { FactoryBot.build(:teacher, email: nil) }
+    let!(:teacher) { build(:teacher, email: nil) }
 
     it 'requires to be present' do
       teacher.valid?
@@ -46,11 +46,11 @@ shared_examples_for "teacher" do
   end
 
   describe "default scope" do
-    let(:teacher){FactoryBot.create(:teacher)}
-    let(:user){FactoryBot.create(:user)}
-    let(:student){FactoryBot.create(:student)}
-    let(:admin){FactoryBot.create(:admin)}
-    let(:staff){FactoryBot.create(:staff)}
+    let(:teacher){create(:teacher)}
+    let(:user){create(:user)}
+    let(:student){create(:student)}
+    let(:admin){create(:admin)}
+    let(:staff){create(:staff)}
 
     it "must list only teacher users" do
       Teacher.all.each do |teacher|

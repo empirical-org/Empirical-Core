@@ -10,7 +10,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
   end
 
   it_behaves_like 'serializer' do
-    let!(:record_instance) { FactoryBot.create(:unit) }
+    let!(:record_instance) { create(:unit) }
 
     let!(:expected_serialized_keys) do
       %w(id
@@ -31,13 +31,13 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
   end
 
   context 'unit with nontrivial data' do
-    let!(:teacher) { FactoryBot.create(:user, role: 'teacher') }
-    let!(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
-    let!(:student) { FactoryBot.create(:user, role: 'student', classrooms: [classroom]) }
-    let!(:activity) { FactoryBot.create(:activity) }
+    let!(:teacher) { create(:user, role: 'teacher') }
+    let!(:classroom) { create(:classroom, teacher: teacher) }
+    let!(:student) { create(:user, role: 'student', classrooms: [classroom]) }
+    let!(:activity) { create(:activity) }
     let!(:due_date1) { Date.today }
-    let!(:unit) { FactoryBot.create(:unit) }
-    let!(:classroom_activity) { FactoryBot.create(:classroom_activity,
+    let!(:unit) { create(:unit) }
+    let!(:classroom_activity) { create(:classroom_activity,
                                                     classroom: classroom,
                                                     activity: activity,
                                                     assigned_student_ids: [],
