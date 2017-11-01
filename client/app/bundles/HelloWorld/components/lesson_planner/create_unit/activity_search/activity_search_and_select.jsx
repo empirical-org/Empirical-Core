@@ -105,7 +105,9 @@ export default React.createClass({
     });
     this.state.viewableActivities.forEach((activity) => {
       filterFields.forEach((field) => {
-        availableOptions[field].push(activity[field]);
+        if (activity[field].name || activity[field].alias) {
+          availableOptions[field].push(activity[field]);
+        }
       });
     });
     filterFields.forEach((field) => {
