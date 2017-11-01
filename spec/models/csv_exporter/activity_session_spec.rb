@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe CsvExporter::ActivitySession do
   include_context 'Activity Progress Report'
-  let(:teacher) { mr_kotter }
 
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {

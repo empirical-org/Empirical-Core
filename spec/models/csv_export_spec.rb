@@ -10,7 +10,7 @@ describe CsvExport, type: :model do
 
   before do
     csv_export.export_type = export_type
-    csv_export.teacher = mr_kotter
+    csv_export.teacher = teacher
     csv_export.filters = filters
   end
 
