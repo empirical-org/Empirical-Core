@@ -1,6 +1,9 @@
 # Summary
 
 * [Features](features/index.md)
+  * [Staff Panel](features/staff_index.md)
+    * [Users CMS](features/cms_users.md)
+    * [Schools CMS](features/cms_schools.md)
   * [Co-teachers](coteachers.md)
   * [Pinning. Locking, and Completing Classroom Activities](features/pinning_locking_and_completing_classroom_activities.md)
 * [Quill Tools](tools/index.md)
