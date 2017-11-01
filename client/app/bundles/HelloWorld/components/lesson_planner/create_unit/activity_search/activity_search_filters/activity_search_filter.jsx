@@ -58,7 +58,6 @@ export default React.createClass({
       if (option.id === this.props.showAllId) {
         options.splice(i, 1);
         options.unshift(option);
-        return;
       }
     }
     return options.map((option) => {
