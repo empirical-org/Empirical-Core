@@ -8,14 +8,14 @@ export default function (modelOptions, setStateByKey, server) {
   var results = {};
 
   var updateState = function () {
-    var total = _.extend(initialOptions, results);
+    var total = {...initialOptions, ...results}
     setStateByKey('options', total);
   }
 
   var updater = function (optionType) {
     return function (data) {
       results[optionType] = data[optionType];
-      if (_.keys(results).length == optionTypesObjArr.length) {
+      if (Object.keys(results).length == optionTypesObjArr.length) {
         updateState();
       }
     }
