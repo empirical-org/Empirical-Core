@@ -58,7 +58,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../coteachers.md" />
+    <link rel="next" href="activity_packs_editor.html" />
     
     
     <link rel="prev" href="cms_schools.html" />
@@ -172,12 +172,38 @@
             
         </li>
     
+        <li class="chapter " data-level="1.2.1.4" data-path="activity_packs_editor.html">
+            
+                <a href="activity_packs_editor.html">
+            
+                    
+                    Activity Packs Editor
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
         </li>
     
-        <li class="chapter " data-level="1.2.2" data-path="../coteachers.md">
+        <li class="chapter " data-level="1.2.2" data-path="unit_templates_index.md">
+            
+                <span>
+            
+                    
+                    Unit Templates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../coteachers.md">
             
                 <span>
             
@@ -190,7 +216,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="pinning_locking_and_completing_classroom_activities.html">
+        <li class="chapter " data-level="1.2.4" data-path="pinning_locking_and_completing_classroom_activities.html">
             
                 <a href="pinning_locking_and_completing_classroom_activities.html">
             
@@ -203,12 +229,51 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.4" data-path="activities/categorization.html">
+        <li class="chapter " data-level="1.2.5" data-path="activities/categorization.html">
             
                 <a href="activities/categorization.html">
             
                     
                     Activity Categorization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="unit_templates.html">
+            
+                <a href="unit_templates.html">
+            
+                    
+                    Unit Templates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="assigning_a_unit_template.html">
+            
+                <a href="assigning_a_unit_template.html">
+            
+                    
+                    Assigning A Unit Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="emails.html">
+            
+                <a href="emails.html">
+            
+                    
+                    Emails
             
                 </a>
             
@@ -305,7 +370,7 @@
                 <a href="../tools/integrating_an_activity.html">
             
                     
-                    Integrating a new Tool
+                    Integrating a New Tool
             
                 </a>
             
@@ -371,7 +436,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../conventions/making_a_node_module.html">
+        <li class="chapter " data-level="1.7.1" data-path="../conventions/contributing_to_docs.html">
+            
+                <a href="../conventions/contributing_to_docs.html">
+            
+                    
+                    Contributing to the Docs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../conventions/making_a_node_module.html">
             
                 <a href="../conventions/making_a_node_module.html">
             
@@ -450,33 +528,26 @@
                                 <h1 id="teacher-fixes">Teacher Fixes</h1>
 <p>Teacher fixes are located at <a href="https://quill.org/teacher_fix" target="_blank">https://quill.org/teacher_fix</a>.</p>
 <p>These pages are designed to fix issues that are frequently reported on Intercom for which no fix is currently available for the users to implement themselves.</p>
-<h2 id="unarchive-units">Unarchive Units</h2>
-<p><a href="https://quill.org/teacher_fix/unarchive_units" target="_blank">https://quill.org/teacher_fix/unarchive_units</a></p>
+<h2 id="unarchive-units"><a href="https://quill.org/teacher_fix/unarchive_units" target="_blank">Unarchive Units</a></h2>
 <p>Use when a teacher has purposefully or accidentally deleted an activity pack and wants it back.</p>
 <p>All archived units are selected by default. Unarchiving a unit will also unarchive all of that unit&apos;s classroom activities and activity sessions.</p>
 <p>If the input field for a unit name is outlined in red, that means that it shares a name with one of that teacher&apos;s visible units. If you are going to unarchive this unit, make sure you change the name. Appending a number to the unit&apos;s name is a good way to handle this.</p>
-<h2 id="restore-classroom-activities">Restore Classroom Activities</h2>
-<p><a href="https://www.quill.org/teacher_fix/recover_classroom_activities" target="_blank">https://www.quill.org/teacher_fix/recover_classroom_activities</a></p>
+<h2 id="restore-classroom-activities"><a href="https://www.quill.org/teacher_fix/recover_classroom_activities" target="_blank">Restore Classroom Activities</a></h2>
 <p>Use this when a teacher has archived and then unarchived a classroom and wants their data back.</p>
 <p>This method will unarchive all of the classroom activities and associated activity sessions for a given classroom, as well as any units (activity packs) that are associated with these classroom activities in the event that they have been hidden.</p>
-<h2 id="restore-activity-sessions">Restore Activity Sessions</h2>
-<p><a href="https://www.quill.org/teacher_fix/recover_activity_sessions" target="_blank">https://www.quill.org/teacher_fix/recover_activity_sessions</a></p>
+<h2 id="restore-activity-sessions"><a href="https://www.quill.org/teacher_fix/recover_activity_sessions" target="_blank">Restore Activity Sessions</a></h2>
 <p>Use as a first line of defense when teachers complain about missing activity sessions, frequently seen with the diagnostic.</p>
 <p>This method will unarchive all of the activity sessions for a given unit that may have been accidentally unassigned. The student ids from the unarchived activity sessions are pushed back into the classroom activity&apos;s assigned_student_ids array if they are absent.</p>
-<h2 id="merge-student-accounts">Merge Student Accounts</h2>
-<p><a href="https://www.quill.org/teacher_fix/merge_student_accounts" target="_blank">https://www.quill.org/teacher_fix/merge_student_accounts</a></p>
+<h2 id="merge-student-accounts"><a href="https://www.quill.org/teacher_fix/merge_student_accounts" target="_blank">Merge Student Accounts</a></h2>
 <p>This method will not work unless both students are in the same classroom, and the second student only belongs to this classroom. If you need help with a different case, ask a dev.</p>
 <p>Also please note that this method will transfer all of the second student&apos;s activities to the first student&apos;s account. It will not, however, delete the second student&apos;s account or remove it from the classroom.</p>
-<h2 id="merge-teacher-accounts">Merge Teacher Accounts</h2>
-<p><a href="https://www.quill.org/teacher_fix/merge_teacher_accounts" target="_blank">https://www.quill.org/teacher_fix/merge_teacher_accounts</a></p>
+<h2 id="merge-teacher-accounts"><a href="https://www.quill.org/teacher_fix/merge_teacher_accounts" target="_blank">Merge Teacher Accounts</a></h2>
 <p>This method will transfer all of the first teacher&apos;s classrooms and created units to the second teacher.</p>
 <p>Please note that it will not delete the first teacher&apos;s account, nor impact the second teacher&apos;s premium status or other account information.</p>
-<h2 id="move-student-from-one-class-to-another">Move Student from One Class to Another</h2>
-<p><a href="https://www.quill.org/teacher_fix/move_student" target="_blank">https://www.quill.org/teacher_fix/move_student</a></p>
+<h2 id="move-student-from-one-class-to-another"><a href="https://www.quill.org/teacher_fix/move_student" target="_blank">Move Student from One Class to Another</a></h2>
 <p>This method will transfer a student and their data from the class identified by class code 1 to the class identified by class code 2.</p>
 <p>Please note that if the classes have different teachers, all of the student&apos;s activities in the second classroom will belong to a new unit that is separate from anything that teacher may have assigned to the rest of the class.</p>
-<h2 id="unsync-user-with-google-classroom">Unsync User with Google Classroom</h2>
-<p><a href="https://www.quill.org/teacher_fix/google_unsync" target="_blank">https://www.quill.org/teacher_fix/google_unsync</a></p>
+<h2 id="unsync-user-with-google-classroom"><a href="https://www.quill.org/teacher_fix/google_unsync" target="_blank">Unsync User with Google Classroom</a></h2>
 <p>This method will sever an account&apos;s connection with Google Classroom, allowing them to log in normally.</p>
 <p>The new email field is optional, and can be left blank if the user does not wish to change their email.</p>
 
@@ -511,7 +582,7 @@
                 </a>
                 
                 
-                <a href="../coteachers.md" class="navigation navigation-next " aria-label="Next page: Co-teachers">
+                <a href="activity_packs_editor.html" class="navigation navigation-next " aria-label="Next page: Activity Packs Editor">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -522,7 +593,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Teacher Fixes","level":"1.2.1.3","depth":3,"next":{"title":"Co-teachers","level":"1.2.2","depth":2,"path":"coteachers.md","ref":"coteachers.md","articles":[]},"previous":{"title":"Schools CMS","level":"1.2.1.2","depth":3,"path":"features/cms_schools.md","ref":"features/cms_schools.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","rss","livereload"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"rss":{"categories":["Edtech","Rails","Javascript","Documentation"],"title":"Quill.org Documentation","description":"Documentation for Quill.org functionality lives here.","author":"Donald McKendrick","site_url":"https://docs.quill.org/","feed_url":"https://docs.quill.org/updates.rss","managingEditor":"donald@quill.org (Donald McKendrick)","webMaster":"donald@quill.org (Donald McKendrick)"},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/empirical-org/Empirical-Core/edit/develop/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Donald McKendrick","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Quill.org Docs","gitbook":"*","description":"Quill.org Docs on major functionality."},"file":{"path":"features/teacher_fixes.md","mtime":"2017-11-01T14:52:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-11-01T14:54:27.271Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Teacher Fixes","level":"1.2.1.3","depth":3,"next":{"title":"Activity Packs Editor","level":"1.2.1.4","depth":3,"path":"features/activity_packs_editor.md","ref":"features/activity_packs_editor.md","articles":[]},"previous":{"title":"Schools CMS","level":"1.2.1.2","depth":3,"path":"features/cms_schools.md","ref":"features/cms_schools.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","rss","livereload"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"rss":{"categories":["Edtech","Rails","Javascript","Documentation"],"title":"Quill.org Documentation","description":"Documentation for Quill.org functionality lives here.","author":"Donald McKendrick","site_url":"https://docs.quill.org/","feed_url":"https://docs.quill.org/updates.rss","managingEditor":"donald@quill.org (Donald McKendrick)","webMaster":"donald@quill.org (Donald McKendrick)"},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/empirical-org/Empirical-Core/edit/develop/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Donald McKendrick","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Quill.org Docs","gitbook":"*","description":"Quill.org Docs on major functionality."},"file":{"path":"features/teacher_fixes.md","mtime":"2017-11-01T20:04:23.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-11-01T15:58:33.803Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
