@@ -6,7 +6,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     include_context "calling the api"
 
     before do
-      @activity1 = FactoryBot.create(:activity)
+      @activity1 = create(:activity)
 
       get :show, format: :json, id: @activity1.uid
       @parsed_body = JSON.parse(response.body)
@@ -30,7 +30,7 @@ describe Api::V1::ActivitiesController, type: :controller do
   context 'PUT #update' do
     include_context "calling the api" # this handles the doorkeeper auth
 
-    let!(:activity) { FactoryBot.create(:activity) }
+    let!(:activity) { create(:activity) }
 
     before do
       put :update, format: :json, id: activity.uid, name: 'foobar'
@@ -46,9 +46,9 @@ describe Api::V1::ActivitiesController, type: :controller do
 
   context 'POST #create' do
     include_context 'calling the api'
-    let(:topic) { FactoryBot.create(:topic) }
-    let(:section) { FactoryBot.create(:section) }
-    let(:activity_classification) { FactoryBot.create(:activity_classification) }
+    let(:topic) { create(:topic) }
+    let(:section) { create(:section) }
+    let(:activity_classification) { create(:activity_classification) }
 
     subject do
       post :create, {
@@ -104,7 +104,7 @@ describe Api::V1::ActivitiesController, type: :controller do
       it 'responds with 422 Unprocessable Entity' do
         # So far the only way to create an invalid activity
         # is to give it a non-unique uid.
-        another_activity = FactoryBot.create(:activity)
+        another_activity = create(:activity)
         post :create, foobar: 'whatever', uid: another_activity.uid
         expect(response.status).to eq(422)
       end
@@ -118,13 +118,13 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
 
     it 'PUT #update returns 401 Unauthorized' do
-      activity = FactoryBot.create(:activity)
+      activity = create(:activity)
       put :update, format: :json, id: activity.uid
       expect(response.status).to eq(401)
     end
 
     it 'DELETE #destroy returns 401 Unauthorized' do
-      activity = FactoryBot.create(:activity)
+      activity = create(:activity)
       delete :destroy, format: :json, id: activity.uid
       expect(response.status).to eq(401)
     end

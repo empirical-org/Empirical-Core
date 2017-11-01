@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
-  let(:teacher) { FactoryBot.create(:teacher) }
-  let!(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
-  let!(:student) { FactoryBot.create(:user, role: 'student', classrooms: [classroom])}
-  let(:activity) { FactoryBot.create(:activity) }
-  let(:classroom_activity) { FactoryBot.create(:classroom_activity, classroom: classroom, activity: activity) }
+  let(:teacher) { create(:teacher) }
+  let!(:classroom) { create(:classroom, teacher: teacher) }
+  let!(:student) { create(:user, role: 'student', classrooms: [classroom])}
+  let(:activity) { create(:activity) }
+  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:student_for_report) { ProgressReports::Concepts::User.results(teacher, {}).first }
-  let(:concept) { FactoryBot.create(:concept) }
+  let(:concept) { create(:concept) }
   let(:serializer) { described_class.new(student_for_report) }
 
   before do

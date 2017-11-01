@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe LoginPdf do
   describe 'generate a login pdf' do
-    let(:arnold) { FactoryBot.create(:student) }
-    let(:clever_student) { FactoryBot.create(:student, clever_id: 'clever_id_1', email: 'clever@gmail.com') }
-    let(:google_student) { FactoryBot.create(:student, signed_up_with_google: true, email: 'googler@gmail.com') }
-    let(:non_email_student)  { FactoryBot.create(:student, email: nil)}
+    let(:arnold) { create(:student) }
+    let(:clever_student) { create(:student, clever_id: 'clever_id_1', email: 'clever@gmail.com') }
+    let(:google_student) { create(:student, signed_up_with_google: true, email: 'googler@gmail.com') }
+    let(:non_email_student)  { create(:student, email: nil)}
     let(:students) { [arnold, clever_student, google_student, non_email_student] }
-    let(:classroom) { FactoryBot.create(:classroom, students: students) }
+    let(:classroom) { create(:classroom, students: students) }
 
     before do
       pdf = LoginPdf.new(classroom)

@@ -1,10 +1,10 @@
 shared_context :ms_sorter_and_sort_fodder do
   let(:ms_sorter) do
-    FactoryBot.create :teacher, name: 'Sally Sorter',
+    create :teacher, name: 'Sally Sorter',
                               username: 'ms_sorter'
   end
   let(:sort_fodder) do
-    FactoryBot.create :classroom, name: 'Sort Fodder',
+    create :classroom, name: 'Sort Fodder',
                                 teacher: ms_sorter
   end
 
@@ -18,7 +18,7 @@ shared_context :ms_sorter_and_sort_fodder do
     # Going to need to skip validations, since there is now a validation for having both a first and last name.
     # There are still old records in the db with students that have only a first or last name, so we still want to test
     # that they are sorted appropriately.
-    student = FactoryBot.build(:user, hash2)
+    student = build(:user, hash2)
     student.save validate: false
     student
   end

@@ -115,7 +115,7 @@ RSpec.configure do |config|
 
   # some stuff that happens before all of the suite
   config.before(:suite) do
-    # FactoryBot.create(:topic) unless Topic.any?
+    # create(:topic) unless Topic.any?
     Rails.cache.clear
   end
 

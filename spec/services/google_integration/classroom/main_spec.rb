@@ -64,10 +64,10 @@
   #
   # context 'student' do
   #   let!(:extant_google_classroom) {
-  #     FactoryBot.create(:classroom, google_classroom_id: google_classroom_id.to_i)
+  #     create(:classroom, google_classroom_id: google_classroom_id.to_i)
   #   }
   #
-  #   let!(:user) { FactoryBot.create(:user, role: 'student') }
+  #   let!(:user) { create(:user, role: 'student') }
   #
   #   it 'associates student to her first google classroom' do
   #     subject
@@ -76,7 +76,7 @@
   # end
   #
   # context 'teacher' do
-  #   let!(:user) { FactoryBot.create(:user, role: 'teacher', google_id: '117520115627269298978') }
+  #   let!(:user) { create(:user, role: 'teacher', google_id: '117520115627269298978') }
   #   let!(:classrooms) { Classroom.where(google_classroom_id: [google_classroom_id.to_i, google_classroom_id_2.to_i]) }
   #
   #   it 'creates both classrooms' do

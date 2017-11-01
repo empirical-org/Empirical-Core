@@ -3,10 +3,10 @@ require 'rails_helper'
 describe StudentsClassroomsController, type: :controller do
   render_views
 
-  let(:student) { FactoryBot.create(:student) }
-  let(:classroom) { FactoryBot.create(:classroom)}
-  let(:classroom2) { FactoryBot.create(:classroom, code: 'merry-honey')}
-  let(:classroom3) { FactoryBot.create(:classroom, visible: false)}
+  let(:student) { create(:student) }
+  let(:classroom) { create(:classroom)}
+  let(:classroom2) { create(:classroom, code: 'merry-honey')}
+  let(:classroom3) { create(:classroom, visible: false)}
 
 
   describe 'POST #create workers' do

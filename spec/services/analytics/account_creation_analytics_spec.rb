@@ -8,7 +8,7 @@ describe "AccountCreationAnalytics" do
   let(:identify_calls) { segment_analytics.backend.identify_calls }
 
   context 'tracking teacher account creation' do
-    let(:teacher) { FactoryBot.create(:teacher) }
+    let(:teacher) { create(:teacher) }
 
     def subject
       analytics.track_teacher(teacher)
@@ -48,7 +48,7 @@ describe "AccountCreationAnalytics" do
   end
 
   context 'tracking student creating her own account' do
-    let(:student) { FactoryBot.create(:student) }
+    let(:student) { create(:student) }
 
     it 'identifies the new user and send an event' do
       analytics.track_student(student)

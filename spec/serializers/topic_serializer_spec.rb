@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe TopicSerializer, type: :serializer do
-  let(:topic)      { FactoryBot.create(:topic) }
+  let(:topic)      { create(:topic) }
   let(:serializer) { TopicSerializer.new(topic) }
 
   describe '#to_json output' do

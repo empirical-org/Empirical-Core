@@ -2,27 +2,27 @@ require 'rails_helper'
 
 describe 'ScorebookQuery' do
 
-  let!(:teacher) {FactoryBot.create(:user, role: 'teacher')}
-  let!(:student) {FactoryBot.create(:user, role: 'student')}
-  let!(:teacher1) {FactoryBot.create(:user, role: 'teacher')}
-  let!(:student1) {FactoryBot.create(:user, role: 'student')}
-  let!(:classroom1) {FactoryBot.create(:classroom, teacher: teacher, students: [student1])}
+  let!(:teacher) {create(:user, role: 'teacher')}
+  let!(:student) {create(:user, role: 'student')}
+  let!(:teacher1) {create(:user, role: 'teacher')}
+  let!(:student1) {create(:user, role: 'student')}
+  let!(:classroom1) {create(:classroom, teacher: teacher, students: [student1])}
 
-  let!(:classroom) {FactoryBot.create(:classroom, teacher: teacher, students: [student])}
-  let!(:section) {FactoryBot.create(:section)}
-  let!(:topic_category) {FactoryBot.create(:topic_category)}
-  let!(:topic) {FactoryBot.create(:topic, topic_category: topic_category, section: section)}
-  let!(:activity_classification) {FactoryBot.create :activity_classification}
+  let!(:classroom) {create(:classroom, teacher: teacher, students: [student])}
+  let!(:section) {create(:section)}
+  let!(:topic_category) {create(:topic_category)}
+  let!(:topic) {create(:topic, topic_category: topic_category, section: section)}
+  let!(:activity_classification) {create :activity_classification}
 
-  let!(:activity) {FactoryBot.create(:activity, topic: topic, classification: activity_classification)}
+  let!(:activity) {create(:activity, topic: topic, classification: activity_classification)}
 
-  let!(:unit) {FactoryBot.create(:unit)}
+  let!(:unit) {create(:unit)}
 
-  let!(:classroom_activity) {FactoryBot.create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
-  let!(:classroom_activity) {FactoryBot.create(:classroom_activity, activity: activity, classroom: classroom, unit: unit, assigned_student_ids: [student.id] )}
+  let!(:classroom_activity) {create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
+  let!(:classroom_activity) {create(:classroom_activity, activity: activity, classroom: classroom, unit: unit, assigned_student_ids: [student.id] )}
 
-  let!(:activity_session1) {FactoryBot.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: true)}
-  let!(:activity_session2) {FactoryBot.create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: false)}
+  let!(:activity_session1) {create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: true)}
+  let!(:activity_session2) {create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: false)}
 
 
 

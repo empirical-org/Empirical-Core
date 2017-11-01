@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::TopicSerializer, type: :serializer do
-  let(:teacher) { FactoryBot.create(:teacher) }
-  let!(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
-  let!(:student) { FactoryBot.create(:user, role: 'student', classrooms: [classroom])}
-  let!(:topic) { FactoryBot.create(:topic) }
-  let(:activity) { FactoryBot.create(:activity, topic: topic) }
-  let(:classroom_activity) { FactoryBot.create(:classroom_activity, classroom: classroom, activity: activity) }
+  let(:teacher) { create(:teacher) }
+  let!(:classroom) { create(:classroom, teacher: teacher) }
+  let!(:student) { create(:user, role: 'student', classrooms: [classroom])}
+  let!(:topic) { create(:topic) }
+  let(:activity) { create(:activity, topic: topic) }
+  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:topic_for_report) { ProgressReports::Standards::Topic.new(teacher).results({}).first }
   let(:serializer) do
     serializer = described_class.new(topic_for_report)

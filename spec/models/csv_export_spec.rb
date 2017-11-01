@@ -54,7 +54,7 @@ describe CsvExport, type: :model do
     end
 
     context 'standards: students by topic' do
-      let!(:topic) { FactoryBot.create(:topic)}
+      let!(:topic) { create(:topic)}
       let(:filters) { { topic_id: topic.id } }
       let(:export_type) { 'standards_topic_students' }
       it_behaves_like "CSV Export Type"

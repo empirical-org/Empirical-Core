@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::Concepts::StudentsController, type: :controller do
-  let!(:teacher) { FactoryBot.create(:teacher) }
+  let!(:teacher) { create(:teacher) }
   include_context 'Student Concept Progress Report'
   it_behaves_like 'Progress Report' do
     let(:result_key) { 'students' }

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe School, type: :model do
-  let!(:bk_school) { FactoryBot.create :school, name: "Brooklyn Charter School", zipcode: '11206'}
-  let!(:queens_school) { FactoryBot.create :school, name: "Queens Charter School", zipcode: '11385'}
-  let!(:bk_teacher) { FactoryBot.create(:teacher, school: bk_school) }
-  let!(:bk_teacher_colleague) { FactoryBot.create(:teacher, school: bk_school) }
-  let!(:queens_teacher) { FactoryBot.create(:teacher, school: queens_school) }
+  let!(:bk_school) { create :school, name: "Brooklyn Charter School", zipcode: '11206'}
+  let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
+  let!(:bk_teacher) { create(:teacher, school: bk_school) }
+  let!(:bk_teacher_colleague) { create(:teacher, school: bk_school) }
+  let!(:queens_teacher) { create(:teacher, school: queens_school) }
 
   describe 'validations' do
     before do

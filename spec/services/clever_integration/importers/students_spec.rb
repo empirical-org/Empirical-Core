@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'CleverIntegration::Importers::Students' do
 
   let!(:classroom) {
-    FactoryBot.create(:classroom, name: 'class1', code: 'nice-great')
+    create(:classroom, name: 'class1', code: 'nice-great')
   }
 
   let!(:classrooms) {

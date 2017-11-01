@@ -3,19 +3,19 @@ require 'rails_helper'
 include TeacherFixes
 
 describe TeacherFixes do
-  let! (:classroom) {FactoryBot.create(:classroom)}
-  let! (:student1) {FactoryBot.create(:student, classrooms: [classroom])}
-  let! (:student2) {FactoryBot.create(:student, classrooms: [classroom])}
-  let! (:student3) {FactoryBot.create(:student)}
-  let! (:classroom_activity1) {FactoryBot.create(:classroom_activity, classroom: classroom)}
-  let! (:classroom_activity2) {FactoryBot.create(:classroom_activity, classroom: classroom)}
-  let! (:classroom_activity3) {FactoryBot.create(:classroom_activity, classroom: classroom)}
-  let! (:final_score) {FactoryBot.create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity1.id, is_final_score: true)}
-  let! (:not_final_score) {FactoryBot.create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity1.id)}
-  let! (:lower_percentage) {FactoryBot.create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity2.id, percentage: 0.3)}
-  let! (:higher_percentage) {FactoryBot.create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity2.id, percentage: 0.8)}
-  let! (:started_earlier) {FactoryBot.create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity3.id, started_at: Time.now)}
-  let! (:started_later) {FactoryBot.create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity3.id, started_at: Time.now - 5)}
+  let! (:classroom) {create(:classroom)}
+  let! (:student1) {create(:student, classrooms: [classroom])}
+  let! (:student2) {create(:student, classrooms: [classroom])}
+  let! (:student3) {create(:student)}
+  let! (:classroom_activity1) {create(:classroom_activity, classroom: classroom)}
+  let! (:classroom_activity2) {create(:classroom_activity, classroom: classroom)}
+  let! (:classroom_activity3) {create(:classroom_activity, classroom: classroom)}
+  let! (:final_score) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity1.id, is_final_score: true)}
+  let! (:not_final_score) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity1.id)}
+  let! (:lower_percentage) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity2.id, percentage: 0.3)}
+  let! (:higher_percentage) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity2.id, percentage: 0.8)}
+  let! (:started_earlier) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity3.id, started_at: Time.now)}
+  let! (:started_later) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity3.id, started_at: Time.now - 5)}
 
   describe "#hide_extra_activity_sessions" do
     context "there is an activity session with a final score" do

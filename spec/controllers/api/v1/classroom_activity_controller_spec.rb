@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe Api::V1::ClassroomActivitiesController, type: :controller do
-  let(:other_teacher) { FactoryBot.create(:teacher) }
-  let(:teacher) { FactoryBot.create(:teacher) }
-  let(:classroom) {FactoryBot.create(:classroom_with_classroom_activities, teacher_id: teacher.id)}
+  let(:other_teacher) { create(:teacher) }
+  let(:teacher) { create(:teacher) }
+  let(:classroom) {create(:classroom_with_classroom_activities, teacher_id: teacher.id)}
 
 
 
