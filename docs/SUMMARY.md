@@ -1,10 +1,18 @@
 # Summary
 
 * [Features](features/index.md)
+  * [Staff Panel](features/staff_index.md)
+    * [Users CMS](features/cms_users.md)
+    * [Schools CMS](features/cms_schools.md)
   * [Co-teachers](coteachers.md)
   * [Pinning. Locking, and Completing Classroom Activities](features/pinning_locking_and_completing_classroom_activities.md)
   * [Activity Categorization](features/activities/categorization.md)
 * [Quill Tools](tools/index.md)
+  * [Quill Proofreader](tools/proofreader.md)
+  * [Quill Grammar](tools/grammar.md)
+  * [Quill Connect](tools/connect.md)
+  * [Quill Diagnostic](tools/diagnostic.md)
+  * [Quill Lessons](tools/lessons.md)  
   * [Integrating a new Tool](tools/integrating_an_activity.md)
 * [Libraries](libraries/index.md)
 * [Devops](devops/index.md)
