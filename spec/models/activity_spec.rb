@@ -183,7 +183,7 @@ describe Activity, type: :model, redis: :true do
   end
 
   describe "#set_activity_search_cache" do
-    let!(:cache_activity){ FactoryGirl.create(:activity) }
+    let!(:cache_activity){ FactoryGirl.create(:activity, activity_classification_id: 1) }
 
     it 'sets the default_activity_search for the cache' do
       $redis.del('default_activity_search')
