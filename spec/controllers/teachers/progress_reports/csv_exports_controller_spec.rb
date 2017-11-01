@@ -18,7 +18,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
 
     context 'when authenticated as a teacher' do
       before do
-        session[:user_id] = mr_kotter.id
+        session[:user_id] = teacher.id
       end
 
       let(:response_json) { JSON.parse(response.body)['csv_export'] }
@@ -29,7 +29,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
         }.to change(CsvExport, :count).by(1)
         expect(response_json['export_type']).to eq(export_type)
 
-        expect(response_json['teacher_id']).to eq(mr_kotter.id)
+        expect(response_json['teacher_id']).to eq(teacher.id)
       end
 
       it 'assigns filters from the request params' do

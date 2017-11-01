@@ -406,16 +406,12 @@ describe User, type: :model do
     context "with valid inputs" do
       it "has a first_name only" do
         user.last_name = nil
-        expect(user.name).to eq('Test')
+        expect(user.name).to eq(user.first_name)
       end
 
       it "has a last name only" do
         user.first_name = nil
-        expect(user.name).to eq('User')
-      end
-
-      it "has a full name" do
-        expect(user.name).to eq('Test User')
+        expect(user.name).to eq(user.last_name)
       end
     end
   end

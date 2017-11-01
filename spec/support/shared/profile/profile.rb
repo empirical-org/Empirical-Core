@@ -4,7 +4,7 @@ shared_context 'profile' do
   let!(:classroom1) { FactoryBot.create(:classroom, teacher: teacher1, name: 'class1') }
   let!(:classroom2) { FactoryBot.create(:classroom, teacher: teacher2, name: 'class2') }
   let!(:classroom3) { FactoryBot.create(:classroom, name: 'class3', code: 'coat-hanger') }
-  let!(:student) { FactoryBot.create(:arnold_horshack, classrooms: [classroom1, classroom2]) }
+  let!(:student) { FactoryBot.create(:student, classrooms: [classroom1, classroom2]) }
 
   let(:game1) { FactoryBot.create(:activity_classification, id: 1) }
   let(:game2) { FactoryBot.create(:activity_classification, id: 2) }

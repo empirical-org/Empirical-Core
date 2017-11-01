@@ -1,12 +1,12 @@
 shared_context 'Activity Progress Report' do
-  let(:mr_kotter) { FactoryBot.create :mr_kotter }
+  let(:teacher) { FactoryBot.create :teacher }
 
   let(:activity) { FactoryBot.create(:activity) }
-  let(:sweathogs) { FactoryBot.create(:sweathogs, teacher: mr_kotter) }
+  let(:sweathogs) { FactoryBot.create(:sweathogs, teacher: teacher) }
   # Absolutely no way that this could get confusing.
-  let(:sweatdogs) { FactoryBot.create(:classroom, name: "Sweatdogs", teacher: mr_kotter)}
-  let!(:horshack) { FactoryBot.create(:arnold_horshack, classrooms: [sweathogs]) }
-  let!(:barbarino) { FactoryBot.create(:vinnie_barbarino, classrooms: [sweatdogs]) }
+  let(:sweatdogs) { FactoryBot.create(:classroom, name: "Sweatdogs", teacher: teacher)}
+  let!(:horshack) { FactoryBot.create(:student, classrooms: [sweathogs]) }
+  let!(:barbarino) { FactoryBot.create(:student, classrooms: [sweatdogs]) }
   let(:sweathogs_classroom_activity) { FactoryBot.create(:classroom_activity,
     classroom: sweathogs, unit: sweathogs.units.first, activity: activity) }
   let(:sweatdogs_classroom_activity) { FactoryBot.create(:classroom_activity,
