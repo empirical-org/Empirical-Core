@@ -45,11 +45,11 @@ export default React.createClass({
     const field = this.props.data.field;
     // unique options
     const options = _.uniqWith(this.props.data.options, _.isEqual);
-    let showAllOption;
     if (field !== 'activity_classification') {
-      // Sort the options alphanumerically.
-      options.sort((a, b) => {
-        naturalCmp(a.name, b.name);
+      options.sort(function(a, b) {
+        let textA = a.name.toUpperCase();
+        let textB = b.name.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
       });
     }
     // ensure that the show all option is always on the top
