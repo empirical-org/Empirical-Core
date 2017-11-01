@@ -4,7 +4,7 @@
         <description><![CDATA[Documentation for Quill.org functionality lives here.]]></description>
         <link>https://docs.quill.org/</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 01 Nov 2017 13:50:46 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 01 Nov 2017 14:54:30 GMT</lastBuildDate>
         <atom:link href="https://docs.quill.org/updates.rss" rel="self" type="application/rss+xml"/>
         <author><![CDATA[Donald McKendrick]]></author>
         <managingEditor><![CDATA[donald@quill.org (Donald McKendrick)]]></managingEditor>
@@ -47,10 +47,24 @@
             <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
         </item>
         <item>
+            <title><![CDATA[Teacher Fixes]]></title>
+            <description><![CDATA[Teacher fixes are located at https://quill.org/teacher_fix.]]></description>
+            <link>https://docs.quill.org/features/teacher_fixes.html</link>
+            <guid isPermaLink="true">https://docs.quill.org/features/teacher_fixes.html</guid>
+            <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
+        </item>
+        <item>
             <title><![CDATA[Pinning, Locking, and Completing Classroom Activities]]></title>
             <description><![CDATA[NOTE: Pinned, locked, and completed are all attributes that exist on all classroom activities, not just lessons. However, since we are only using them in the context of lessons as of 10/31/17, this file will refer to their use in this context. It will need to be updated if and when these attributes become relevant to other classroom activities.]]></description>
             <link>https://docs.quill.org/features/pinning_locking_and_completing_classroom_activities.html</link>
             <guid isPermaLink="true">https://docs.quill.org/features/pinning_locking_and_completing_classroom_activities.html</guid>
+            <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[Activity Categorization]]></title>
+            <description><![CDATA[There are multiple ways to organize activities on Quill. Activities themselves are agnostic to their order, but they are often organized by means of order numbers on related tables. In addition, they are organized within the groupings of units and unit templates. For the purposes of this doc, these are designated by "organized by" (where another table is used to order activities) and "organized within".]]></description>
+            <link>https://docs.quill.org/features/activities/categorization.html</link>
+            <guid isPermaLink="true">https://docs.quill.org/features/activities/categorization.html</guid>
             <dc:creator><![CDATA[Donald McKendrick]]></dc:creator>
         </item>
         <item>

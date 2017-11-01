@@ -4,6 +4,7 @@
   * [Staff Panel](features/staff_index.md)
     * [Users CMS](features/cms_users.md)
     * [Schools CMS](features/cms_schools.md)
+    * [Teacher Fixes](features/teacher_fixes.md)
   * [Co-teachers](coteachers.md)
   * [Pinning. Locking, and Completing Classroom Activities](features/pinning_locking_and_completing_classroom_activities.md)
   * [Activity Categorization](features/activities/categorization.md)
