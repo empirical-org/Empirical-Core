@@ -162,7 +162,10 @@ export default React.createClass({
       }
       return (matchingFieldCount === sFFLength) && matchesSearchQuery;
     });
-    this.setState({ viewableActivities, }, this.updateFilterOptionsAfterChange);
+    this.setState({ viewableActivities,
+      maxPageNumber: Math.ceil(viewableActivities.length/resultsPerPage),
+      numberOfPages: Math.ceil(viewableActivities.length / resultsPerPage)
+      }, this.updateFilterOptionsAfterChange);
   },
 
   updateSort(field, asc_or_desc) {
