@@ -4,6 +4,15 @@ FactoryBot.define do
     teacher
     grade '8'
 
+    trait :with_a_couple_students do
+      students {
+        [
+          FactoryBot.create(:student),
+          FactoryBot.create(:student)
+        ]
+      }
+    end
+
     factory :classroom_with_one_student do
       after(:create) do |classroom, evaluator|
         create_list(:user, 1, classrooms: [classroom])
