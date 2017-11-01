@@ -1,7 +1,7 @@
 shared_examples_for "ownable" do
 
   let(:owner_name){ described_class.owner_name } 
-  let(:owner){ FactoryGirl.create(owner_name) }
+  let(:owner){ FactoryBot.create(owner_name) }
   
   let(:parent) do
     described_class.new( :"#{owner_name.to_s}_id" => owner.id )

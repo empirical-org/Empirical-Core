@@ -2,21 +2,21 @@ shared_context 'Student Concept Progress Report' do
   # Create 3 students
   # Create 2 concept tag, one displayed, the other not
   # Create a distribution of concept tag results for each student
-  let(:alice) { FactoryGirl.create(:student, name: "Alice Cool") }
-  let(:fred) { FactoryGirl.create(:student, name: "Fred Kewl") }
-  let(:zojirushi) { FactoryGirl.create(:student, name: "Zojirushi Kewel") }
+  let(:alice) { FactoryBot.create(:student, name: "Alice Cool") }
+  let(:fred) { FactoryBot.create(:student, name: "Fred Kewl") }
+  let(:zojirushi) { FactoryBot.create(:student, name: "Zojirushi Kewel") }
 
-  let(:concept) { FactoryGirl.create(:concept) }
-  let(:hidden_concept) { FactoryGirl.create(:concept, name: "Hidden") }
+  let(:concept) { FactoryBot.create(:concept) }
+  let(:hidden_concept) { FactoryBot.create(:concept, name: "Hidden") }
 
   # Boilerplate
-  let(:classroom) { FactoryGirl.create(:classroom,
+  let(:classroom) { FactoryBot.create(:classroom,
     name: "Bacon Weaving",
     teacher: teacher,
     students: [alice, fred, zojirushi]) }
-  let(:activity) { FactoryGirl.create(:activity) }
-  let(:unit) { FactoryGirl.create(:unit, user: teacher ) }
-  let(:classroom_activity) { FactoryGirl.create(:classroom_activity,
+  let(:activity) { FactoryBot.create(:activity) }
+  let(:unit) { FactoryBot.create(:unit, user: teacher ) }
+  let(:classroom_activity) { FactoryBot.create(:classroom_activity,
                                           classroom: classroom,
                                           activity: activity,
                                           assign_on_join: true,
@@ -24,14 +24,14 @@ shared_context 'Student Concept Progress Report' do
 
 
   # Create 2 activity session for each student, one with the concept tags, one without
-  let(:alice_session) { FactoryGirl.create(:activity_session,
+  let(:alice_session) { FactoryBot.create(:activity_session,
                                       classroom_activity: classroom_activity,
                                       user: alice,
                                       activity: activity,
                                       state: 'finished',
                                       percentage: 0.75) }
 
-  let(:fred_session) { FactoryGirl.create(:activity_session,
+  let(:fred_session) { FactoryBot.create(:activity_session,
                                       classroom_activity: classroom_activity,
                                       user: fred,
                                       activity: activity,
@@ -40,7 +40,7 @@ shared_context 'Student Concept Progress Report' do
 
   # Zojirushi has no concept tag results, so should not display
   # in the progress report
-  let(:zojirushi_session) { FactoryGirl.create(:activity_session,
+  let(:zojirushi_session) { FactoryBot.create(:activity_session,
                                       classroom_activity: classroom_activity,
                                       user: zojirushi,
                                       activity: activity,

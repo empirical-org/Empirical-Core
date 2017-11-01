@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UnitTemplate, redis: :true, type: :model do
-  let!(:unit_template) {FactoryGirl.create(:unit_template)}
+  let!(:unit_template) {FactoryBot.create(:unit_template)}
 
   describe '#around_save callback' do
 
@@ -73,9 +73,9 @@ describe UnitTemplate, redis: :true, type: :model do
 
 
   describe 'scope results' do
-    let!(:production_unit_template){ FactoryGirl.create(:unit_template, flag: 'production') }
-    let!(:beta_unit_template){ FactoryGirl.create(:unit_template, flag: 'beta') }
-    let!(:alpha_unit_template){ FactoryGirl.create(:unit_template, flag: 'alpha') }
+    let!(:production_unit_template){ FactoryBot.create(:unit_template, flag: 'production') }
+    let!(:beta_unit_template){ FactoryBot.create(:unit_template, flag: 'beta') }
+    let!(:alpha_unit_template){ FactoryBot.create(:unit_template, flag: 'alpha') }
     let!(:all_types){[production_unit_template, beta_unit_template, alpha_unit_template]}
 
     context 'the default scope' do

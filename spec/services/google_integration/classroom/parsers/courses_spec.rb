@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'GoogleIntegration::Classroom::Parsers::Courses' do
 
-  let!(:user) { FactoryGirl.create(:user, google_id: "117520115627269298978", role: 'teacher') }
-  let!(:imported_classroom) { FactoryGirl.create(:classroom, google_classroom_id: '455798942', teacher_id: user.id)}
+  let!(:user) { FactoryBot.create(:user, google_id: "117520115627269298978", role: 'teacher') }
+  let!(:imported_classroom) { FactoryBot.create(:classroom, google_classroom_id: '455798942', teacher_id: user.id)}
 
   let!(:response) {
     {courses:[{id:"455798942",
@@ -53,7 +53,7 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
   end
 
   describe 'when the user is a student' do
-    let!(:student) { FactoryGirl.create(:user, role: 'student') }
+    let!(:student) { FactoryBot.create(:user, role: 'student') }
 
     it 'only returns google classroom ids where the student is not the class owner' do
       expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response)).to eq([response[:courses][0][:id]])

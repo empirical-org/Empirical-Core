@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :activity do
 
@@ -9,9 +9,9 @@ FactoryGirl.define do
       instructions: "There are **two errors** in this passage. *To edit a word, click on it and re-type it.*"
     } }
 
-    topic { Topic.first || FactoryGirl.create(:topic) }
-    classification { ActivityClassification.first || FactoryGirl.create(:classification) }
-    activity_categories { [ActivityCategory.first || FactoryGirl.create(:activity_category)]}
+    topic { Topic.first || FactoryBot.create(:topic) }
+    classification { ActivityClassification.first || FactoryBot.create(:classification) }
+    activity_categories { [ActivityCategory.first || FactoryBot.create(:activity_category)]}
   end
 
 end

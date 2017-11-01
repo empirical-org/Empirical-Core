@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 describe ProgressReports::ActivitySessionSerializer, type: :serializer do
-  let(:activity_session)   { FactoryGirl.create(:activity_session,
+  let(:activity_session)   { FactoryBot.create(:activity_session,
     started_at: started_at,
     completed_at: completed_at,
     percentage: 0.25,
     classroom_activity: classroom_activity)
   }
-  let(:classroom) { FactoryGirl.create(:classroom) }
-  let(:activity) { FactoryGirl.create(:activity, topic: topic) }
-  let(:topic) { FactoryGirl.create(:topic, name: '5.1g. Foobar baz')}
-  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
+  let(:classroom) { FactoryBot.create(:classroom) }
+  let(:activity) { FactoryBot.create(:activity, topic: topic) }
+  let(:topic) { FactoryBot.create(:topic, name: '5.1g. Foobar baz')}
+  let(:classroom_activity) { FactoryBot.create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:started_at) { Time.zone.local(2015, 1, 1, 12, 15, 0) }
   let(:completed_at) { Time.zone.local(2015, 1, 1, 13, 0, 0) }
   let(:serializer) { ProgressReports::ActivitySessionSerializer.new(activity_session) }
@@ -45,7 +45,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     end
 
     context 'when the activity session is missing relevant info' do
-      let(:activity_session)   { FactoryGirl.create(:activity_session,
+      let(:activity_session)   { FactoryBot.create(:activity_session,
           completed_at: nil,
           percentage: nil,
           classroom_activity: classroom_activity)

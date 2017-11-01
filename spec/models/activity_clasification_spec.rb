@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ActivityClassification, type: :model do
 
-	let(:activity_classification){FactoryGirl.build(:activity_classification) }
+	let(:activity_classification){FactoryBot.build(:activity_classification) }
 
 	describe "can act as an uid class" do 
 
@@ -30,7 +30,7 @@ describe ActivityClassification, type: :model do
 
 				it "must be unique" do 
 					activity_classification.save!
-					second=FactoryGirl.build(:activity_classification, key: activity_classification.key)
+					second=FactoryBot.build(:activity_classification, key: activity_classification.key)
 					second.valid?
 					expect(second.errors[:key]).to include "has already been taken"
 				end

@@ -3,9 +3,9 @@ require 'rails_helper'
 describe UserLoginWorker, type: :worker do
   let(:worker) { UserLoginWorker.new }
   let(:analytics) { SegmentAnalytics.new }
-  let(:teacher) { FactoryGirl.create(:teacher) }
-  let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
+  let(:teacher) { FactoryBot.create(:teacher) }
+  let(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
+  let(:student) { FactoryBot.create(:student, classrooms: [classroom]) }
 
 
   it 'sends a segment.io event when a teacher logs in' do

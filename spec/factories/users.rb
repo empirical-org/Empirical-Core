@@ -1,6 +1,6 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+# Read about factories at https://github.com/thoughtbot/factory_bot
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:name) { |i| "Firstname Lastname#{i}" }
   sequence(:username) { |i| "Username#{i}" }
   sequence(:key) { |i| "key-#{i}" }
@@ -38,21 +38,21 @@ FactoryGirl.define do
       end
 
       factory :teacher_with_students do
-        classrooms_i_teach { [ FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)]),
-                       FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)])
+        classrooms_i_teach { [ FactoryBot.create(:classroom, students: [FactoryBot.create(:student)]),
+                       FactoryBot.create(:classroom, students: [FactoryBot.create(:student)])
            ] }
       end
 
       factory :teacher_with_students_with_activities do
         classrooms_i_teach {
-          [ FactoryGirl.create(:classroom,
-            students: [FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities)
+          [ FactoryBot.create(:classroom,
+            students: [FactoryBot.create(:student_with_many_activities),
+              FactoryBot.create(:student_with_many_activities),
+              FactoryBot.create(:student_with_many_activities),
+              FactoryBot.create(:student_with_many_activities),
+              FactoryBot.create(:student_with_many_activities),
+              FactoryBot.create(:student_with_many_activities),
+              FactoryBot.create(:student_with_many_activities)
             ])
            ]
          }
@@ -63,7 +63,7 @@ FactoryGirl.define do
     factory :student do
       role 'student'
       username
-      classrooms { [ FactoryGirl.create(:classroom) ] }
+      classrooms { [ FactoryBot.create(:classroom) ] }
 
       factory :arnold_horshack do
         name                  'Arnold Horshack'
@@ -83,7 +83,7 @@ FactoryGirl.define do
     factory :student_with_many_activities do
       role 'student'
       username
-      classrooms { [ FactoryGirl.create(:classroom) ] }
+      classrooms { [ FactoryBot.create(:classroom) ] }
 
       transient do
         activity_count 5
@@ -98,7 +98,7 @@ FactoryGirl.define do
     factory :student_with_one_activity do
       role 'student'
       username
-      classrooms { [ FactoryGirl.create(:classroom) ] }
+      classrooms { [ FactoryBot.create(:classroom) ] }
 
 
       after(:create) do |user, evaluator|
@@ -109,7 +109,7 @@ FactoryGirl.define do
     factory :student_with_one_assigned_activity do
       role 'student'
       username
-      classrooms { [ FactoryGirl.create(:classroom_with_one_student) ] }
+      classrooms { [ FactoryBot.create(:classroom_with_one_student) ] }
 
       after(:create) do |user, evaluator|
         create_list(:classroom_activity, 1, assigned_student_ids: [user.id], classroom: user.classrooms.first)

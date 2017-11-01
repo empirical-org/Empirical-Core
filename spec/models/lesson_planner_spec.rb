@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe LessonPlanner, type: :model do
 
-  let!(:activity) { FactoryGirl.create(:activity) }
-  let(:classroom) { FactoryGirl.build(:classroom) }
+  let!(:activity) { FactoryBot.create(:activity) }
+  let(:classroom) { FactoryBot.build(:classroom) }
   let(:lesson_planner){ LessonPlanner.new(classroom) }
 
 

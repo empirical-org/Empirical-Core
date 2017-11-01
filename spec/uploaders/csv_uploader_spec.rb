@@ -1,8 +1,8 @@
 # require 'rails_helper'
 
 # describe CsvUploader, type: :uploader do
-#   let(:teacher) { FactoryGirl.create(:teacher) }
-#   let(:csv_export) { FactoryGirl.create(:csv_export, teacher: teacher) }
+#   let(:teacher) { FactoryBot.create(:teacher) }
+#   let(:csv_export) { FactoryBot.create(:csv_export, teacher: teacher) }
 #   let(:uploader) { CsvUploader.new(csv_export, :csv_file) }
 
 #   describe 'filename' do

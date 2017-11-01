@@ -7,7 +7,7 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
     x.map(&:reload).map{ |y| { name: y.name, email: y.email } }
   end
 
-  let!(:classroom) { FactoryGirl.create(:classroom) }
+  let!(:classroom) { FactoryBot.create(:classroom) }
   let!(:classrooms) { [classroom] }
 
   let!(:students_requester) {
@@ -57,8 +57,8 @@ describe 'GoogleIntegration::Classroom::Creators::Students' do
       GoogleIntegration::Classroom::Creators::Students.run(classrooms, students_requester)
     end
 
-    let!(:activity) { FactoryGirl.create(:activity) }
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity, assign_on_join: true) }
+    let!(:activity) { FactoryBot.create(:activity) }
+    let!(:classroom_activity) { FactoryBot.create(:classroom_activity, classroom: classroom, activity: activity, assign_on_join: true) }
 
     xit 'assigns those activities to the new students' do
       expect(classroom_activity.assigned_student_ids.length).to eq(subject.count)

@@ -7,17 +7,17 @@ describe "FinishActivityAnalytics" do
   let(:track_calls) { segment_analytics.backend.track_calls }
   let(:identify_calls) { segment_analytics.backend.identify_calls }
 
-  let(:teacher) { FactoryGirl.create(:teacher) }
-  let(:student) { FactoryGirl.create(:student) }
+  let(:teacher) { FactoryBot.create(:teacher) }
+  let(:student) { FactoryBot.create(:student) }
 
   context 'tracking activity completion' do
-    let!(:classroom) { FactoryGirl.create(:classroom) }
+    let!(:classroom) { FactoryBot.create(:classroom) }
     # This object graph is kind of crazy and doesn't make all that much sense.
 
-    let!(:unit) {FactoryGirl.create(:unit)}
-    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, unit: unit) }
+    let!(:unit) {FactoryBot.create(:unit)}
+    let!(:classroom_activity) { FactoryBot.create(:classroom_activity, classroom: classroom, unit: unit) }
 
-    let!(:activity_session) { FactoryGirl.create(:activity_session,
+    let!(:activity_session) { FactoryBot.create(:activity_session,
                                                 state: 'finished',
                                                 classroom_activity: classroom_activity) }
 
@@ -31,7 +31,7 @@ describe "FinishActivityAnalytics" do
   end
 
   context 'tracking activity completion for sessions not associated with a teacher' do
-    let(:activity_session) { FactoryGirl.create(:activity_session, state: 'finished') }
+    let(:activity_session) { FactoryBot.create(:activity_session, state: 'finished') }
 
     it 'does nothing' do
       analytics.track(activity_session)

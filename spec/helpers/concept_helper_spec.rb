@@ -1,9 +1,9 @@
 require "rails_helper"
 
 describe ConceptHelper, type: :helper do
-  let!(:activity_session) { FactoryGirl.create(:activity_session) }
-  let(:punctuation_concept) { FactoryGirl.create(:concept, name: "Punctuation") }
-  let(:prepositions_concept) { FactoryGirl.create(:concept, name: "Prepositions")}
+  let!(:activity_session) { FactoryBot.create(:activity_session) }
+  let(:punctuation_concept) { FactoryBot.create(:concept, name: "Punctuation") }
+  let(:prepositions_concept) { FactoryBot.create(:concept, name: "Prepositions")}
 
   describe "#all_concept_stats" do
     before do

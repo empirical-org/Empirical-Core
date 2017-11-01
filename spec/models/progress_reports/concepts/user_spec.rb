@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ProgressReports::Concepts::User do
   include_context 'Concept Progress Report'
 
-  let!(:teacher) { FactoryGirl.create(:teacher) }
+  let!(:teacher) { FactoryBot.create(:teacher) }
   let(:section_ids) { [sections[0].id, sections[1].id] }
 
   subject { described_class.results(teacher, filters).to_a }

@@ -7,9 +7,9 @@ describe "JoinClassroomAnalytics" do
   let(:track_calls) { segment_analytics.backend.track_calls }
   let(:identify_calls) { segment_analytics.backend.identify_calls }
 
-  let(:teacher) { FactoryGirl.create(:teacher) }
-  let(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let(:student) { FactoryGirl.create(:student, classrooms: [classroom]) }
+  let(:teacher) { FactoryBot.create(:teacher) }
+  let(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
+  let(:student) { FactoryBot.create(:student, classrooms: [classroom]) }
 
 
   it 'identifies teacher' do

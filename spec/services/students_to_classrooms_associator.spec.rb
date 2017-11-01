@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'Associators:StudentsToClassrooms' do
 
-  let!(:teacher) {FactoryGirl.create(:teacher) }
-  let!(:student) {FactoryGirl.create(:student)}
-  let!(:classroom) {FactoryGirl.create(:classroom, teacher_id: teacher.id) }
+  let!(:teacher) {FactoryBot.create(:teacher) }
+  let!(:student) {FactoryBot.create(:student)}
+  let!(:classroom) {FactoryBot.create(:classroom, teacher_id: teacher.id) }
 
   describe 'when the classroom and student are both extent' do
     it "creates a new student classroom object" do

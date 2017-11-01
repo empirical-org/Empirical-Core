@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe Classroom, type: :model do
 
-  let(:classroom) { FactoryGirl.build(:classroom) }
-  let(:teacher) { FactoryGirl.create(:teacher)}
+  let(:classroom) { FactoryBot.build(:classroom) }
+  let(:teacher) { FactoryBot.create(:teacher)}
 
   context "when created" do
 
@@ -15,14 +15,14 @@ describe Classroom, type: :model do
     it "deletes the redis classrooms mini cache" do
       $redis.set("user_id:#{teacher.id}_classroom_minis", 'fake_data')
       expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq('fake_data')
-      classroom = FactoryGirl.create(:classroom, teacher_id: teacher.id)
+      classroom = FactoryBot.create(:classroom, teacher_id: teacher.id)
       expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq(nil)
     end
   end
 
   context "when is created" do
     before do
-      @classroom = FactoryGirl.build(:classroom, name: nil)
+      @classroom = FactoryBot.build(:classroom, name: nil)
     end
     it 'must have a name' do
       expect(@classroom.save).to be(false)
@@ -31,7 +31,7 @@ describe Classroom, type: :model do
 
   context "when is created" do
   	before do
-  		@classroom = FactoryGirl.create(:classroom)
+  		@classroom = FactoryBot.create(:classroom)
   	end
   	it "must generate a valid code" do
   		expect(@classroom.code).not_to be_empty
@@ -40,11 +40,11 @@ describe Classroom, type: :model do
 
   context "when is created" do
     before do
-      @classroom = FactoryGirl.create(:classroom)
+      @classroom = FactoryBot.create(:classroom)
     end
     it "must have a unique name" do
       pending("need to reflect and handle non-unique class name specs")
-      other_classroom = FactoryGirl.build(:classroom, teacher_id: @classroom.teacher_id, name: @classroom.name)
+      other_classroom = FactoryBot.build(:classroom, teacher_id: @classroom.teacher_id, name: @classroom.name)
       other_classroom.save
       expect(other_classroom.errors).to include(:name)
     end
@@ -70,12 +70,12 @@ describe Classroom, type: :model do
       expect(classroom.code).to be_nil
     end
     it "must generate a code after validations" do
-      classroom=FactoryGirl.create(:classroom)
+      classroom=FactoryBot.create(:classroom)
       expect(classroom.code).to_not be_nil
     end
 
     it "does not generate a code twice" do
-      classroom = FactoryGirl.create(:classroom)
+      classroom = FactoryBot.create(:classroom)
       old_code = classroom.code
       classroom.update_attributes(name: 'Testy Westy')
       expect(classroom.code).to eq(old_code)

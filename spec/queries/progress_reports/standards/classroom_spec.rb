@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::Classroom do
   describe "getting classrooms for the progress report" do
-    let!(:teacher) { FactoryGirl.create(:teacher) }
+    let!(:teacher) { FactoryBot.create(:teacher) }
     let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
     include_context 'Section Progress Report'
@@ -24,8 +24,8 @@ describe ProgressReports::Standards::Classroom do
     end
 
     it "ignores classrooms associated belonging to a different teacher (even if they share students with this teacher's classrooms" do
-      t = FactoryGirl.create(:user, role: 'teacher')
-      c = FactoryGirl.create(:classroom, teacher: t)
+      t = FactoryBot.create(:user, role: 'teacher')
+      c = FactoryBot.create(:classroom, teacher: t)
       s = teacher.students.first
       s.classrooms << c
 

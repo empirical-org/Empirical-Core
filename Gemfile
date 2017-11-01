@@ -159,8 +159,8 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem "factory_girl"
-  gem "factory_girl_rails"
+  gem "factory_bot"
+  gem "factory_bot_rails"
   gem "forgery"
   gem "database_cleaner"
   gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
@@ -172,6 +172,7 @@ group :test, :development do
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman'
+  gem 'faker'
 end
 
 group :test do

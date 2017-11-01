@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe Activity, type: :model, redis: :true do
 
-  let!(:activity){ FactoryGirl.build(:activity) }
+  let!(:activity){ FactoryBot.build(:activity) }
 
   describe 'validations' do
     it 'requires a unique uid' do
       activity.save!
-      invalid_activity = FactoryGirl.build(:activity, uid: activity.uid)
+      invalid_activity = FactoryBot.build(:activity, uid: activity.uid)
       invalid_activity.valid?
       expect(invalid_activity.errors).to include(:uid)
     end
@@ -40,13 +40,13 @@ describe Activity, type: :model, redis: :true do
 	  it "must set classification relationship" do
   	  	activity.classification=nil
 	  	expect(activity.classification).to_not be_present
-	  	expect(activity.classification_key=ActivityClassification.first.key || FactoryGirl.create(:classification).key).to be_present
+	  	expect(activity.classification_key=ActivityClassification.first.key || FactoryBot.create(:classification).key).to be_present
 	  end
 
   	describe "#classification_key"
   	  before do
   	  	activity.classification=nil
-  	  	activity.classification_key=ActivityClassification.first.key || FactoryGirl.create(:classification).key
+  	  	activity.classification_key=ActivityClassification.first.key || FactoryBot.create(:classification).key
   	  end
 	  it "must set classification relationship" do
 	  	expect(activity.classification_key).to be_present
@@ -68,7 +68,7 @@ describe Activity, type: :model, redis: :true do
 
   describe "#module_url" do
 
-    let!(:student){ FactoryGirl.build(:student) }
+    let!(:student){ FactoryBot.build(:student) }
 
     it "must add uid param of it's a valid student session" do
       activity.valid?
@@ -111,10 +111,10 @@ describe Activity, type: :model, redis: :true do
   end
 
   describe 'scope results' do
-    let!(:production_activity){ FactoryGirl.create(:activity, flag: 'production') }
-    let!(:beta_activity){ FactoryGirl.create(:activity, flag: 'beta') }
-    let!(:alpha_activity){ FactoryGirl.create(:activity, flag: 'alpha') }
-    let!(:archived_activity){ FactoryGirl.create(:activity, flag: 'archived') }
+    let!(:production_activity){ FactoryBot.create(:activity, flag: 'production') }
+    let!(:beta_activity){ FactoryBot.create(:activity, flag: 'beta') }
+    let!(:alpha_activity){ FactoryBot.create(:activity, flag: 'alpha') }
+    let!(:archived_activity){ FactoryBot.create(:activity, flag: 'archived') }
     let!(:all_types){[production_activity, beta_activity, alpha_activity, archived_activity]}
 
 
@@ -183,7 +183,7 @@ describe Activity, type: :model, redis: :true do
   end
 
   describe "#set_activity_search_cache" do
-    let!(:cache_activity){ FactoryGirl.create(:activity) }
+    let!(:cache_activity){ FactoryBot.create(:activity) }
 
     it 'sets the default_activity_search for the cache' do
       $redis.del('default_activity_search')

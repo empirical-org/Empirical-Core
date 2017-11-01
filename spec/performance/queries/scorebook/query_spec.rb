@@ -3,18 +3,18 @@
 
 # describe 'Scorebook' do
 
-#   let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
-#   let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-#   let!(:student) { FactoryGirl.create(:user, role: 'student', classcode: classroom.code) }
-#   let!(:activity) { FactoryGirl.create(:activity) }
-#   let!(:activity_sessions) { FactoryGirl.create_list(:activity_session, 200, user: student, activity: activity) }
+#   let!(:teacher) { FactoryBot.create(:user, role: 'teacher') }
+#   let!(:classroom) { FactoryBot.create(:classroom, teacher: teacher) }
+#   let!(:student) { FactoryBot.create(:user, role: 'student', classcode: classroom.code) }
+#   let!(:activity) { FactoryBot.create(:activity) }
+#   let!(:activity_sessions) { FactoryBot.create_list(:activity_session, 200, user: student, activity: activity) }
 
-#   let!(:concept) { FactoryGirl.create(:concept) }
+#   let!(:concept) { FactoryBot.create(:concept) }
 
 #   let!(:scorebook_query) { Scorebook::Query.new(teacher) }
 
 #   before do
-#     activity_sessions.map{ |as| FactoryGirl.create_list(:concept_result, 30, concept: concept, activity_session: as) }
+#     activity_sessions.map{ |as| FactoryBot.create_list(:concept_result, 30, concept: concept, activity_session: as) }
 #   end
 
 #   def subject

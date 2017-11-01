@@ -8,7 +8,7 @@ describe 'GoogleIntegration::Classroom::Creators::Classrooms' do
   end
 
   let!(:teacher) {
-    FactoryGirl.create(:user, role: 'teacher', google_id: 123456789)
+    FactoryBot.create(:user, role: 'teacher', google_id: 123456789)
   }
 
   let!(:courses) {
@@ -33,7 +33,7 @@ describe 'GoogleIntegration::Classroom::Creators::Classrooms' do
 
   context 'a classroom already exists for one of the courses' do
     let!(:extant) {
-      FactoryGirl.create(:classroom, google_classroom_id: 1)
+      FactoryBot.create(:classroom, google_classroom_id: 1)
     }
 
     let!(:expected) {

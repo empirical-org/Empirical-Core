@@ -80,7 +80,7 @@ RSpec.configure do |config|
 
     begin
       # validate factories
-      FactoryGirl.lint
+      FactoryBot.lint
     ensure
       # (re-?)clean the database after
       DatabaseCleaner.clean_with(:truncation)
@@ -115,14 +115,14 @@ RSpec.configure do |config|
 
   # some stuff that happens before all of the suite
   config.before(:suite) do
-    # FactoryGirl.create(:topic) unless Topic.any?
+    # FactoryBot.create(:topic) unless Topic.any?
     Rails.cache.clear
   end
 
   # user_params and sign_in methods
   config.include SessionHelper
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 end
 
 if defined?(Coveralls)
