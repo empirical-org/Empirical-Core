@@ -101,19 +101,18 @@ export default React.createClass({
     const availableOptions = {};
     // get all filter keys and then map them onto availableOptions as empty arrs
     filterFields.forEach((field) => {
-      availableOptions[field] = new Set();
+      availableOptions[field] = [];
     });
     this.state.viewableActivities.forEach((activity) => {
       filterFields.forEach((field) => {
-        availableOptions[field].add(activity[field]);
+        availableOptions[field].push(activity[field]);
       });
     });
     filterFields.forEach((field) => {
-      availableOptions[field] = Array.from(availableOptions[field]);
       if (field === 'activity_category') {
-        availableOptions[field].unshift([{ name: 'All Categories', id: showAllId, }]);
+        availableOptions[field].unshift({ name: 'All Categories', id: showAllId, });
       } else if (field === 'section') {
-        availableOptions[field].unshift([{ name: 'All Sections', id: showAllId, }]);
+        availableOptions[field].unshift({ name: 'All Sections', id: showAllId, });
       }
     });
     return availableOptions;
@@ -219,6 +218,7 @@ export default React.createClass({
       <section>
         <h1 className="explore-activities-header">Explore Activities & Create Activity Pack</h1>
         <ActivitySearchAndFilters
+          showAllId={showAllId}
           updateSearchQuery={this.updateSearchQuery}
           searchQuery={this.state.searchQuery}
           selectFilterOption={this.selectFilterOption}
