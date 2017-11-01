@@ -58,3 +58,6 @@ app/assets/webpack/vendor-bundle.js
 # Ignore NewRelic API keys
 /config/newrelic.yml
 
+# Ignore mock data so we're forced to regenerate it each time
+/client/__mockdata__/*
+
