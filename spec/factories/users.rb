@@ -18,10 +18,13 @@ FactoryBot.define do
     factory :teacher do
       role 'teacher'
 
-      factory :teacher_with_students do
-        classrooms_i_teach { [ FactoryBot.create(:classroom, students: [FactoryBot.create(:student)]),
-                       FactoryBot.create(:classroom, students: [FactoryBot.create(:student)])
-           ] }
+      trait :with_a_couple_classroms_with_students do
+        classrooms_i_teach {
+          [
+            FactoryBot.create(:classroom, :with_a_couple_students),
+            FactoryBot.create(:classroom, :with_a_couple_students)
+          ]
+        }
       end
 
       factory :teacher_with_students_with_activities do
