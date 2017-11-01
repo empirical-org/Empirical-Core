@@ -186,7 +186,7 @@ describe Activity, type: :model, redis: :true do
     let!(:cache_activity){ FactoryGirl.create(:activity, activity_classification_id: 1) }
 
     it 'sets the default_activity_search for the cache' do
-      $redis.del('default_activity_search')
+      $redis.flushdb
       cache_activity.update(flags: [])
       Activity.set_activity_search_cache
       expect(JSON.parse($redis.get('default_activity_search'))['activities'].first['uid']).to eq(cache_activity.uid)
