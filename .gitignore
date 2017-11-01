@@ -61,3 +61,5 @@ app/assets/webpack/vendor-bundle.js
 # Ignore mock data so we're forced to regenerate it each time
 /client/__mockdata__/*
 
+# GitBook
+_book/
