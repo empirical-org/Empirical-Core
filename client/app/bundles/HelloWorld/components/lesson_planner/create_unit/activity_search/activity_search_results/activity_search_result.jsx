@@ -19,10 +19,10 @@ export default React.createClass({
 
   render() {
     const selectedClass = this.props.selected ? 'selected' : '';
-    const toolTip = this.props.data.classification
+    const toolTip = this.props.data.activity_classification
     ? (<div
       ref="activateTooltip"
-      className={this.props.data.classification.gray_image_class}
+      className={this.props.data.activity_classification.gray_image_class}
       data-html="true"
       data-toggle="tooltip"
       data-placement="top"
