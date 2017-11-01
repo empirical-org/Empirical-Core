@@ -29,6 +29,7 @@ export default React.createClass({
       loading: true,
       filters: ActivitySearchFilterConfig(),
       sorts: ActivitySearchSortConfig,
+      maxPageNumber: 1,
       activeFilterOn: !!getParameterByName('tool'),
       error: null,
     };
@@ -78,6 +79,7 @@ export default React.createClass({
       activitySearchResults: data.activities,
       viewableActivities: data.activities,
       numberOfPages: Math.ceil(data.activities.length / resultsPerPage),
+      maxPageNumber: Math.ceil(data.activities.length / resultsPerPage),
       currentPage: 1,
       loading: false,
     };
@@ -107,9 +109,7 @@ export default React.createClass({
       });
     });
     filterFields.forEach((field) => {
-      debugger;
       availableOptions[field] = Array.from(availableOptions[field]);
-      debugger;
       if (field === 'activity_category') {
         availableOptions[field].unshift([{ name: 'All Categories', id: showAllId, }]);
       } else if (field === 'section') {
