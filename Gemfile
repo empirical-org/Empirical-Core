@@ -161,7 +161,6 @@ group :test, :development do
   gem "timecop"
   gem "factory_bot"
   gem "factory_bot_rails"
-  gem "forgery"
   gem "database_cleaner"
   gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
   gem 'guard'
