@@ -61,7 +61,7 @@ describe FirebaseApp, type: :model do
       it_behaves_like 'generating a token'
     end
 
-    context 'for an staff' do
+    context 'for a staff member' do
       let(:user) { create(:staff) }
 
       it_behaves_like 'generating a token'
