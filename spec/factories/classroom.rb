@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :classroom do
-    sequence(:name) { |i| "classroom #{i}" }
     teacher
-    grade '8'
+    name  { "#{teacher.name}'s Classroom'" }
+    grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
 
-    trait :with_a_couple_students do
+    factory :classroom_with_a_couple_students do
       students {
         [
           FactoryBot.create(:student),
@@ -14,9 +14,21 @@ FactoryBot.define do
     end
 
     factory :classroom_with_one_student do
-      after(:create) do |classroom, evaluator|
-        create_list(:user, 1, classrooms: [classroom])
-      end
+      students {
+        [FactoryBot.create(:student)]
+      }
+    end
+
+    factory :classroom_with_students_and_activities do
+      students {
+        [
+          FactoryBot.create(:student_with_many_activities),
+          FactoryBot.create(:student_with_many_activities),
+          FactoryBot.create(:student_with_many_activities),
+          FactoryBot.create(:student_with_many_activities),
+          FactoryBot.create(:student_with_many_activities)
+        ]
+      }
     end
 
     factory :sweathogs do
