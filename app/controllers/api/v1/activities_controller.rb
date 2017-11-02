@@ -70,10 +70,11 @@ class Api::V1::ActivitiesController < Api::ApiController
   end
 
   def uids_and_flags
-    uids_and_flags_arr = Activity.all.map do |activity|
-      { uid: activity.uid, flag: activity.flag }
+    uids_and_flags_obj = {}
+    Activity.all.each do |activity|
+      uids_and_flags_obj[activity.uid] = {flag: activity.flag}
     end
-    render json: uids_and_flags_arr
+    render json: uids_and_flags_obj
   end
 
   private
