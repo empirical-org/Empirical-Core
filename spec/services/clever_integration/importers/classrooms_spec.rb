@@ -10,7 +10,7 @@ describe 'CleverIntegration::Importers::Classrooms' do
 
   let!(:sections_response) {
     [
-      {id: '1',
+      {id: teacher.clever_id,
        name: 'section1',
        grade: '2'}
     ]
