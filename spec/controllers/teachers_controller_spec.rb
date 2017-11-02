@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe TeachersController, type: :controller do
 
-  let(:teacher) { create(:teacher_with_classrooms_students_and_activities) }
+  let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
 
   before do
     session[:user_id] = teacher.id

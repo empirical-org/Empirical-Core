@@ -348,7 +348,7 @@ describe User, type: :model do
           user = User.new(email: user_with_original_email.email)
           expect(user.save(validate: false)).to be
         end
-        it 'can not update it\'s email to an existing one' do
+        it 'cannot update its email to an existing one' do
           user = User.create(email: 'whatever@example.com', name: 'whatever whatever')
           user.save(validate: false)
           expect(user.update(email: user_with_original_email.email)).to_not be(false)

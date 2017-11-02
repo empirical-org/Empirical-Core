@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :user do
-    name      { Faker::Name.unique.name }
-    username  { name.gsub(' ', '-') }
-    password  { Faker::Internet.password }
-    email     { Faker::Internet.safe_email(name.gsub(' ', '.')) }
+    name       { Faker::Name.unique.name }
+    username   { name.gsub(' ', '-') }
+    password   { Faker::Internet.password }
+    email      { Faker::Internet.safe_email(name.gsub(' ', '.')) }
+    ip_address { Faker::Internet.public_ip_v4_address }
 
     factory :staff do
       role 'staff'
@@ -16,7 +17,20 @@ FactoryBot.define do
     factory :teacher do
       role 'teacher'
 
-      factory :teacher_with_classrooms_students_and_activities do
+      trait :signed_up_with_google do
+        signed_up_with_google true
+        google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
+        password { nil }
+        username { nil }
+      end
+
+      trait :signed_up_with_clever do
+        password { nil }
+        username { nil }
+        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
+      end
+
+      trait :with_classrooms_students_and_activities do
         classrooms_i_teach {
           [
             FactoryBot.create(:classroom_with_students_and_activities),
@@ -28,6 +42,19 @@ FactoryBot.define do
 
     factory :student do
       role 'student'
+
+      trait :signed_up_with_google do
+        signed_up_with_google true
+        google_id { (1..21).map{(1..9).to_a.sample}.join }
+        password { nil }
+        username { "#{name}@student" }
+      end
+
+      trait :signed_up_with_clever do
+        password { nil }
+        username { "#{name}@student" }
+        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
+      end
 
       trait :in_one_classroom do
         classrooms { [ FactoryBot.create(:classroom) ]}
