@@ -90,8 +90,9 @@ const Lesson = React.createClass({
           <Link to={'admin/lessons'}>Return to All Lessons</Link>
           <br />
           {this.renderEditLessonForm()}
-          <h4 className="title">{data[lessonID].name} - {data[lessonID].flag}</h4>
+          <h4 className="title">{data[lessonID].name}}</h4>
 
+          <h6 className="subtitle">{data[lessonID].flag}</h6>
           <h6 className="subtitle">{numberOfQuestions} Questions</h6>
           <h6 className="subtitle"><Link to={`play/lesson/${lessonID}`}>{`quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`}</Link></h6>
           <h6 className="subtitle"><Link to={`admin/lessons/${lessonID}/results`}>View Results</Link></h6>
