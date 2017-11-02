@@ -4,6 +4,14 @@ FactoryBot.define do
     name  { "#{teacher.name}'s Classroom'" }
     grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
 
+    trait :from_google do
+      google_classroom_id { (1..10).map{(1..9).to_a.sample}.join } # mock a google id
+    end
+
+    trait :from_clever do
+      clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
+    end
+
     factory :classroom_with_a_couple_students do
       students {
         [
