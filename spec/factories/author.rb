@@ -1,7 +1,6 @@
 FactoryBot.define do
-
   factory :author do
-    sequence(:name) {|i| "author #{i}"}
+    name { Faker::Name.unique.name }
+    avatar { Faker::Placeholdit.image }
   end
-
 end
