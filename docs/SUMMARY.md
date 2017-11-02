@@ -14,6 +14,7 @@
   * [Quill Lessons](tools/lessons.md)  
   * [Integrating a new Tool](tools/integrating_an_activity.md)
 * [Libraries](libraries/index.md)
+  * [Node Modules](libraries/node_modules.md)
 * [Devops](devops/index.md)
 * [Misc](misc/index.md)
   * [Setting up the development environment](misc/setting_up.md)
