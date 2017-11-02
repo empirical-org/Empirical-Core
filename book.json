@@ -7,7 +7,7 @@
     "readme": "README.md",
     "summary": "SUMMARY.md"
   },
-  "plugins": ["edit-link", "rss"],
+  "plugins": ["edit-link", "rss@git+https://github.com/ddmck/gitbook-plugin-rss"],
   "pluginsConfig": {
     "edit-link": {
         "base": "https://github.com/empirical-org/Empirical-Core/edit/develop/docs",
