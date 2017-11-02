@@ -2,7 +2,7 @@ class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
 
   def search
-    search_result = $redis.get("default_#{current_user.flag}_activity_search") || custom_search
+    search_result = $redis.get("default_#{current_user.flag ? current_user.flag + '_' : nil}activity_search") || custom_search
     render json: search_result
   end
 
