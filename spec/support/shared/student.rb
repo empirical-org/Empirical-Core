@@ -28,7 +28,7 @@ shared_examples_for "student" do
 
   describe "#activity_sessions" do
     let!(:activity){ create(:activity) }
-    let!(:student){ create(:student) }
+    let!(:student){ create(:student, :in_one_classroom) }
     let!(:classroom_activity) { create(:classroom_activity,activity_id: activity.id, classroom_id: student.classrooms.first.id) }
 
     it "must returns an empty array when none is assigned" do

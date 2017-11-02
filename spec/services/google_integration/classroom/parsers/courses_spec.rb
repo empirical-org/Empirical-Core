@@ -23,7 +23,7 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
   let!(:expected_result) {
     course = response[:courses][0]
     [
-      {id: course[:id].to_i, name: course[:name], ownerId: course[:ownerId], alreadyImported: true, creationTime: course[:creationTime], section: course[:section], grade: '8'}
+      {id: course[:id].to_i, name: course[:name], ownerId: course[:ownerId], alreadyImported: true, creationTime: course[:creationTime], section: course[:section], grade: imported_classroom.grade}
     ]
   }
 

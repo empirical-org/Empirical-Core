@@ -27,7 +27,7 @@ describe ActivitySession, type: :model, redis: :true do
 	end
 
   describe "#invalidate_activity_session_count_if_completed" do
-    let!(:student){ create(:student) }
+    let!(:student){ create(:student, :in_one_classroom) }
     let!(:classroom_activity) { create(:classroom_activity, classroom_id: student.classrooms.first.id) }
     let!(:activity_session){   create(:activity_session, classroom_activity_id: classroom_activity.id, state: 'not validated')}
 
@@ -52,7 +52,7 @@ describe ActivitySession, type: :model, redis: :true do
 	context "when there's not an associated activity but there's a classroom activity" do
 
 	    let!(:activity){ create(:activity) }
-	    let!(:student){ create(:student) }
+	    let!(:student){ create(:student, :in_one_classroom) }
 	    let!(:classroom_activity) { create(:classroom_activity, activity_id: activity.id, classroom_id: student.classrooms.first.id) }
 		  let(:activity_session){   build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
 
