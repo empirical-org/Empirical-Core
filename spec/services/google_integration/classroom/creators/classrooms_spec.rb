@@ -8,7 +8,7 @@ describe 'GoogleIntegration::Classroom::Creators::Classrooms' do
   end
 
   let!(:teacher) {
-    create(:user, role: 'teacher', google_id: 123456789)
+    create(:teacher, :signed_up_with_google)
   }
 
   let!(:courses) {

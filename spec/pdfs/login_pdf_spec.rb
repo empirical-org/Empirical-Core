@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe LoginPdf do
   describe 'generate a login pdf' do
-    let(:arnold) { create(:student) }
-    let(:clever_student) { create(:student, clever_id: 'clever_id_1', email: 'clever@gmail.com') }
-    let(:google_student) { create(:student, signed_up_with_google: true, email: 'googler@gmail.com') }
+    let(:student) { create(:student) }
+    let(:clever_student) { create(:student, :signed_up_with_clever) }
+    let(:google_student) { create(:student, :signed_up_with_google) }
     let(:non_email_student)  { create(:student, email: nil)}
-    let(:students) { [arnold, clever_student, google_student, non_email_student] }
+    let(:students) { [student, clever_student, google_student, non_email_student] }
     let(:classroom) { create(:classroom, students: students) }
 
     before do
@@ -16,7 +16,7 @@ describe LoginPdf do
     end
 
     it 'lists google students by email' do
-      expect(@text_analysis.strings).to include("googler@gmail.com")
+      expect(@text_analysis.strings).to include(google_student.email)
     end
 
     it 'tells google students to log in with google' do
@@ -28,7 +28,7 @@ describe LoginPdf do
     end
 
     it 'lists clever students by email' do
-      expect(@text_analysis.strings).to include("clever@gmail.com")
+      expect(@text_analysis.strings).to include(clever_student.email)
     end
 
     it 'tells clever students to log in with clever' do
@@ -40,7 +40,7 @@ describe LoginPdf do
     end
 
     it 'lists regular students by username' do
-      expect(@text_analysis.strings).to include(arnold.username)
+      expect(@text_analysis.strings).to include(student.username)
     end
 
     it 'shows email users the right password' do
