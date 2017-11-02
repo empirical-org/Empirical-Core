@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe ClassroomActivity, type: :model, redis: :true do
     let!(:activity_classification_3) { create(:activity_classification, id: 3)}
-    let!(:activity_classification_2) { create(:activity_classification, id: 2)}
-    let!(:activity_classification_6) { create(:activity_classification, id: 6, key: 'lessons')}
+    let!(:activity_classification_2) { create(:grammar)}
+    let!(:activity_classification_6) { create(:lesson)}
     let!(:activity) { create(:activity) }
     let!(:teacher) { create(:user, role: 'teacher') }
     let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
