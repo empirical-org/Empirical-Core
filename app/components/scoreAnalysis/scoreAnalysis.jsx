@@ -70,22 +70,23 @@ class ScoreAnalysis extends Component {
 
   formatData(props) {
     const { questions, diagnosticQuestions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
-    const validConcepts = _.map(concepts.data[0], con => con.uid);
-    const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, validConcepts, 'Sentence Combining')
-    const formattedDiagnosticQuestions = this.formatDataForQuestionType(diagnosticQuestions.data, scoreAnalysis, validConcepts, 'Diagnostic Question')
-    const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, validConcepts, 'Sentence Fragment')
-    const formattedFillInBlank = this.formatDataForQuestionType(fillInBlank.data, scoreAnalysis, validConcepts, 'Fill In Blank')
+    // const validConcepts = _.map(concepts.data[0], con => con.uid);
+    const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, 'Sentence Combining')
+    const formattedDiagnosticQuestions = this.formatDataForQuestionType(diagnosticQuestions.data, scoreAnalysis, 'Diagnostic Question')
+    const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, 'Sentence Fragment')
+    const formattedFillInBlank = this.formatDataForQuestionType(fillInBlank.data, scoreAnalysis, 'Fill In Blank')
     const formatted = [...formattedQuestions, ...formattedDiagnosticQuestions, ...formattedSentenceFragments, ...formattedFillInBlank]
-    this.setState({questionData: formatted})
+    this.setState({questionData: _.compact(formatted)})
   }
 
-  formatDataForQuestionType(questionData, scoreAnalysis, validConcepts, typeName) {
-    return _.map(hashToCollection(questionData).filter(e => validConcepts.includes(e.conceptID)), (question) => {
+  formatDataForQuestionType(questionData, scoreAnalysis, typeName) {
+    return _.map(hashToCollection(questionData), question => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData && scoreData.total_attempts >= this.state.minAttempts) {
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: `${question.key}-${typeName}`,
+          uid: question.key,
           questionType: typeName,
           prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
           responses: scoreData.responses || 0,
@@ -113,9 +114,9 @@ class ScoreAnalysis extends Component {
   getStatusFromPercentage(percentage) {
     if (percentage > 5) {
       return 'Very Weak'
-    } else if (percentage > 10) {
+    } else if (percentage > 2) {
       return 'Weak'
-    } else if (percentage > 5) {
+    } else if (percentage > 0.5) {
       return 'Okay'
     } else {
       return 'Strong'
@@ -244,7 +245,7 @@ class ScoreAnalysis extends Component {
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, question => (
-      <QuestionRow key={question.key} question={question} />
+      <QuestionRow key={question.key} question={question} uid={question.uid} />
     ));
   }
 
