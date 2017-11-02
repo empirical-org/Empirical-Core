@@ -14,7 +14,7 @@ const LessonForm = React.createClass({
       introURL: currentValues ? currentValues.introURL || '' : '',
       landingPageHtml: currentValues ? currentValues.landingPageHtml || '' : '',
       selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
-      flag: currentValues ? currentValues.flag : 'Alpha',
+      flag: currentValues ? currentValues.flag : 'alpha',
       questionType: 'questions',
     };
   },
@@ -82,7 +82,7 @@ const LessonForm = React.createClass({
     const concepts = this.props.concepts.data[0];
     console.log('Options: ', options);
     if (options.length > 0) {
-      options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, }) && (option.flag !== "Archive")); // filter out questions with no valid concept
+      options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, }) && (option.flag !== "archived")); // filter out questions with no valid concept
       const formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (<QuestionSelector
         key={questionType} options={formatted} placeholder="Search for a question"
@@ -126,10 +126,10 @@ const LessonForm = React.createClass({
           <label className="label">Flag</label>
           <span className="select">
             <select defaultValue={this.state.flag} onChange={this.handleSelect}>
-              <option value="Alpha">Alpha</option>
-              <option value="Beta">Beta</option>
-              <option value="Production">Production</option>
-              <option value="Archive">Archive</option>
+              <option value="alpha">alpha</option>
+              <option value="beta">beta</option>
+              <option value="production">production</option>
+              <option value="archived">archived</option>
             </select>
           </span>
         </p>

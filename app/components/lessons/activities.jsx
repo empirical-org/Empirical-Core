@@ -28,7 +28,7 @@ const Lessons = React.createClass({
     const q = this.props.questions.data;
 
     let keys = _.keys(data);
-    keys = _.filter(keys, key => data[key].flag === 'Production');
+    keys = _.filter(keys, key => data[key].flag === 'production');
 
     return keys.map((key) => {
       const questionsToDisplay = l[key].questions.map((question) => {

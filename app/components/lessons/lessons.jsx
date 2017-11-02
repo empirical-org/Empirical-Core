@@ -13,7 +13,7 @@ import FlagDropdown from '../shared/flagDropdown.jsx';
 const Lessons = React.createClass({
 
   getInitialState() {
-    return { 
+    return {
       lessonFlags: 'All Flags',
       showOnlyArchived: false,
     };
@@ -44,7 +44,7 @@ const Lessons = React.createClass({
       const { questions } = this.props;
       keys = _.filter(keys, key => (data[key].questions.filter((question) => {
         const currentQuestion = questions.data[question.key];
-        if (currentQuestion && currentQuestion.flag === "Archive") {
+        if (currentQuestion && currentQuestion.flag === "archived") {
           return question;
         }
       })).length > 0);
@@ -82,9 +82,9 @@ const Lessons = React.createClass({
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Lesson</button></h1>
           { this.renderModal() }
           <div style={{display: 'inline-block'}}>
-            <FlagDropdown flag={"All Flags"} handleFlagChange={this.handleSelect} isLessons={true}/> 
+            <FlagDropdown flag={"All Flags"} handleFlagChange={this.handleSelect} isLessons={true}/>
           </div>
-          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} /> 
+          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} />
           <div className="columns">
             <div className="column">
               <aside className="menu">

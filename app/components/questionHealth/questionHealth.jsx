@@ -61,7 +61,9 @@ class questionHealth extends Component {
     const sentenceCombiningKeys = Object.keys(sentenceCombiningQuestions)
     sentenceCombiningKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        sc.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = sentenceCombiningQuestions[uid].flag
+        sc.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(sc, 'sc')
@@ -72,7 +74,9 @@ class questionHealth extends Component {
     const diagnosticKeys = Object.keys(diagnosticQuestions)
     diagnosticKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        dq.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = diagnosticQuestions[uid].flag
+        dq.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(dq, 'dq')
@@ -83,7 +87,9 @@ class questionHealth extends Component {
     const sentenceFragmentKeys = Object.keys(sentenceFragmentQuestions)
     sentenceFragmentKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        sf.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = sentenceFragmentQuestions[uid].flag
+        sf.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(sf, 'sf')
@@ -94,7 +100,9 @@ class questionHealth extends Component {
     const fillInBlankKeys = Object.keys(fillInBlankQuestions)
     fillInBlankKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        fib.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = fillInBlankQuestions[uid].flag
+        fib.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(fib, 'fib')
@@ -212,7 +220,6 @@ class questionHealth extends Component {
       <a href={`/#/admin/datadash?questionType=${questionType}&status=o`}>See Okay</a>
     </div>
   }
-
 
   renderStrongRow(data, questionType) {
     const numberOfRelevantAnswers = data.strong.length

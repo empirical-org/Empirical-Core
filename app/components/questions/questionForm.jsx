@@ -12,7 +12,7 @@ export default React.createClass({
       itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
       concept: this.props.question.conceptID,
       instructions: this.props.question.instructions ? this.props.question.instructions : "",
-      flag: this.props.question.flag ? this.props.question.flag : "Alpha",
+      flag: this.props.question.flag ? this.props.question.flag : "alpha",
     }
   },
 
