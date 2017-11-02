@@ -21,8 +21,8 @@ describe 'ScorebookQuery' do
   let!(:classroom_activity) {create(:classroom_activity, activity: activity, classroom: classroom, unit: unit )}
   let!(:classroom_activity) {create(:classroom_activity, activity: activity, classroom: classroom, unit: unit, assigned_student_ids: [student.id] )}
 
-  let!(:activity_session1) {create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: true)}
-  let!(:activity_session2) {create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: false)}
+  let!(:activity_session1) {create(:activity_session, :finished, completed_at: Time.now, percentage: 1.0, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: true)}
+  let!(:activity_session2) {create(:activity_session, :finished, completed_at: Time.now, percentage: 0.2, user: student, classroom_activity: classroom_activity, activity: activity, is_final_score: false)}
 
 
 

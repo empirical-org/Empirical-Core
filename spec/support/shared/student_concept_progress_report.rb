@@ -24,27 +24,24 @@ shared_context 'Student Concept Progress Report' do
 
 
   # Create 2 activity session for each student, one with the concept tags, one without
-  let(:alice_session) { create(:activity_session,
+  let(:alice_session) { create(:activity_session, :finished,
                                       classroom_activity: classroom_activity,
                                       user: alice,
                                       activity: activity,
-                                      state: 'finished',
                                       percentage: 0.75) }
 
-  let(:fred_session) { create(:activity_session,
+  let(:fred_session) { create(:activity_session, :finished,
                                       classroom_activity: classroom_activity,
                                       user: fred,
                                       activity: activity,
-                                      state: 'finished',
                                       percentage: 0.75) }
 
   # Zojirushi has no concept tag results, so should not display
   # in the progress report
-  let(:zojirushi_session) { create(:activity_session,
+  let(:zojirushi_session) { create(:activity_session, :finished,
                                       classroom_activity: classroom_activity,
                                       user: zojirushi,
                                       activity: activity,
-                                      state: 'finished',
                                       percentage: 0.75) }
 
   let(:visible_students) { [alice, fred] }

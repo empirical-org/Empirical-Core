@@ -17,9 +17,8 @@ describe "FinishActivityAnalytics" do
     let!(:unit) {create(:unit)}
     let!(:classroom_activity) { create(:classroom_activity, classroom: classroom, unit: unit) }
 
-    let!(:activity_session) { create(:activity_session,
-                                                state: 'finished',
-                                                classroom_activity: classroom_activity) }
+    let!(:activity_session) { create(:activity_session, :finished,
+                                      classroom_activity: classroom_activity) }
 
     it 'sends an event' do
       analytics.track(activity_session)
@@ -31,7 +30,7 @@ describe "FinishActivityAnalytics" do
   end
 
   context 'tracking activity completion for sessions not associated with a teacher' do
-    let(:activity_session) { create(:activity_session, state: 'finished') }
+    let(:activity_session) { create(:activity_session, :finished, classroom_activity: nil) }
 
     it 'does nothing' do
       analytics.track(activity_session)

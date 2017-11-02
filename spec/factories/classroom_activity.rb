@@ -11,7 +11,7 @@ FactoryBot.define do
 
     factory :classroom_activity_with_activity_sessions do
       after(:create) do |ca|
-        create_list(:activity_session_with_random_completed_date, 5, classroom_activity: ca, state: 'finished')
+        create_list(:activity_session, 5, :finished, classroom_activity: ca)
       end
     end
   end
