@@ -16,7 +16,6 @@
     "rss": {
       "title": "Quill.org Documentation",
       "description": "Documentation for Quill.org functionality lives here.",
-      "author": "Donald McKendrick",
       "site_url": "https://docs.quill.org/",
       "feed_url": "https://docs.quill.org/updates.rss",
       "managingEditor": "donald@quill.org (Donald McKendrick)",
