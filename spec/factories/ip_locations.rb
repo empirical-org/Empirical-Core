@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :ip_location do
-    city "MyString"
-state "MyString"
-zip 1
+    country 'United States'
+    city    { Faker::Address.city }
+    state   { Faker::Address.state }
+    zip     { Faker::Address.zip }
   end
-
 end
