@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'CleverIntegration::Importers::Classrooms' do
 
   let!(:teacher) {
-    create(:user, name: 'John Smith', clever_id: '1')
+    create(:teacher, :signed_up_with_clever)
   }
 
   let!(:district_token) { '1' }
@@ -29,7 +29,7 @@ describe 'CleverIntegration::Importers::Classrooms' do
 
   def subject
     CleverIntegration::Importers::Classrooms.run(teacher, district_token, teacher_requester)
-    Classroom.find_by(clever_id: '1', name: 'section1', grade: '2')
+    Classroom.find_by(clever_id: teacher.clever_id, name: 'section1', grade: '2')
   end
 
   it 'creates a classroom' do
