@@ -8,7 +8,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
     let(:filters) { { unit_id: '123' } }
     subject do
       post :create, {
-        report_url: "/teachers/progress_reports/standards/classrooms/#{sweathogs.id}/students",
+        report_url: "/teachers/progress_reports/standards/classrooms/#{classroom_one.id}/students",
         csv_export: {
           export_type: export_type,
           filters: filters,
@@ -40,7 +40,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
       it 'parses additional filters from the report_url' do
         subject
         expect(response_json['filters']).to have_key('classroom_id')
-        expect(response_json['filters']['classroom_id'].to_i).to eq(sweathogs.id)
+        expect(response_json['filters']['classroom_id'].to_i).to eq(classroom_one.id)
       end
 
       it 'kicks off a background job to email generate/email the CSV' do
