@@ -13,30 +13,15 @@ FactoryBot.define do
     end
 
     factory :classroom_with_a_couple_students do
-      students {
-        [
-          FactoryBot.create(:student),
-          FactoryBot.create(:student)
-        ]
-      }
+      students { create_pair(:student) }
     end
 
     factory :classroom_with_one_student do
-      students {
-        [FactoryBot.create(:student)]
-      }
+      students { create_list(:student, 1) }
     end
 
     factory :classroom_with_students_and_activities do
-      students {
-        [
-          FactoryBot.create(:student_with_many_activities),
-          FactoryBot.create(:student_with_many_activities),
-          FactoryBot.create(:student_with_many_activities),
-          FactoryBot.create(:student_with_many_activities),
-          FactoryBot.create(:student_with_many_activities)
-        ]
-      }
+      students { create_list(:student_with_many_activities, 5) }
     end
 
     factory :classroom_with_classroom_activities do

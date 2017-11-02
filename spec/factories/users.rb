@@ -31,12 +31,7 @@ FactoryBot.define do
       end
 
       trait :with_classrooms_students_and_activities do
-        classrooms_i_teach {
-          [
-            FactoryBot.create(:classroom_with_students_and_activities),
-            FactoryBot.create(:classroom_with_students_and_activities)
-          ]
-        }
+        classrooms_i_teach { create_pair(:classroom_with_students_and_activities) }
       end
     end
 
@@ -57,11 +52,11 @@ FactoryBot.define do
       end
 
       trait :in_one_classroom do
-        classrooms { [ FactoryBot.create(:classroom) ]}
+        classrooms { [FactoryBot.create(:classroom)] }
       end
 
       factory :student_with_many_activities do
-        classrooms { [ FactoryBot.create(:classroom) ] }
+        classrooms { [FactoryBot.create(:classroom)] }
         transient do
           activity_count 5
         end
