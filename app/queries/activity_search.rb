@@ -2,14 +2,13 @@ class ActivitySearch
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
   def self.search(flag)
-    flags = ["'production' = ANY(activities.flags)"]
     case flag
     when 'alpha'
-      flags.concat(["('alpha' = ANY(activities.flags)", "'beta' = ANY(activities.flags)"])
+      flags = "'alpha', 'beta', 'production'"
     when 'beta'
-      flags << "'beta' = ANY(activities.flags)"
+      flags = "'beta', 'production'"
     else
-      flags.concat(["activities.flags = '{}'", "#{ActiveRecord::Base.sanitize(flag)} = ANY(activities.flags)"])
+      flags = "'production'"
     end
 
     ActiveRecord::Base.connection.execute("SELECT
@@ -31,7 +30,7 @@ class ActivitySearch
       LEFT JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
       WHERE sections.id IS NOT NULL
-      AND #{flags.join(' OR ')}
+      AND activities.flags && ARRAY[#{flags}]::varchar[]
       ORDER BY activity_classifications.order_number asc, activity_categories.order_number asc, activity_category_activities.order_number asc").to_a
   end
 end

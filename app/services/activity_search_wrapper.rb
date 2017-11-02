@@ -1,9 +1,7 @@
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
-  def initialize(search_query='', sort=nil, flag=nil, user_id=nil)
-    @search_query = search_query
-    @sort = sort
+  def initialize(flag=nil, user_id=nil)
     @activities = nil
     @activity_classifications = []
     @topics = []
