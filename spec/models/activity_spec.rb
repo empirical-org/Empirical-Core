@@ -57,6 +57,7 @@ describe Activity, type: :model, redis: :true do
   describe "#form_url" do
 
     it "must not include uid if hasn't been validated" do
+      activity.uid = nil
       expect(activity.form_url.to_s).not_to include "uid="
     end
 

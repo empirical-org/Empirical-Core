@@ -6,7 +6,6 @@ FactoryBot.define do
     topic                   { FactoryBot.create(:topic) }
     classification          { FactoryBot.create(:classification) }
     activity_categories     { create_pair(:activity_category) }
-    flags                   { ['production'] }
     repeatable              true
 
     factory :diagnostic_activity do
@@ -36,12 +35,12 @@ FactoryBot.define do
       end
     end
 
-    trait :archived do
-      flags ['archived']
+    trait :published do
+      flags ['production']
     end
 
-    trait :beta do
-      flags ['beta']
+    trait :archived do
+      flags ['archived']
     end
 
     trait :alpha do
