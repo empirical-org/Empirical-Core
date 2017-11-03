@@ -35,7 +35,7 @@ class ClassName extends Component {
         <div>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
-            <h4 style={{color: '#00c2a2'}} className="title">Question Flag: {data[questionID].flag}</h4>
+            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
           </div>
           <Cues
             getQuestion={this.getQuestion}
