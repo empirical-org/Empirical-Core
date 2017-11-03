@@ -8,8 +8,8 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     classroom_activity: classroom_activity)
   }
   let(:classroom) { create(:classroom) }
+  let(:topic) { create(:topic) }
   let(:activity) { create(:activity, topic: topic) }
-  let(:topic) { create(:topic, name: '5.1g. Foobar baz')}
   let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:started_at) { Time.zone.local(2015, 1, 1, 12, 15, 0) }
   let(:completed_at) { Time.zone.local(2015, 1, 1, 13, 0, 0) }
@@ -41,7 +41,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     it 'includes fields pre-formatted for display' do
       expect(parsed_session['display_completed_at']).to eq('01/01/2015')
       expect(parsed_session['display_score']).to eq('25%')
-      expect(parsed_session['standard']).to eq('5.1g.')
+      expect(parsed_session['standard']).to eq(topic.try(:name_prefix))
     end
 
     context 'when the activity session is missing relevant info' do
