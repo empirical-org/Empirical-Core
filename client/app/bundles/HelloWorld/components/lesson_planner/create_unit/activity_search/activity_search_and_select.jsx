@@ -138,7 +138,7 @@ export default React.createClass({
       }
       return filter;
     }, this);
-    this.setState({ filters, activeFilterOn: true, }, this.changeViewableActivities);
+    this.setState({ filters, activeFilterOn }, this.changeViewableActivities);
   },
 
   activityContainsSearchTerm(activity) {
