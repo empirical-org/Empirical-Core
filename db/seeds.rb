@@ -19,6 +19,9 @@ create(:add_school)
 create(:assign_entry_diagnostic)
 create(:build_your_own_activity_pack)
 
+# Import concepts table data from SQL
+ActiveRecord::Base.connection.execute(File.read('concepts.sql'))
+
 # Generate unit templates with activities
 
 

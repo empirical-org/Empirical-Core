@@ -7,7 +7,7 @@ FactoryBot.define do
     module_url    { Faker::Internet.url }
     form_url      { Faker::Internet.url }
     order_number  { Faker::Number.digit }
-    uid           { (1..22).map{[('A'..'Z').to_a, ('a'..'z').to_a, (1..9).to_a, '-', '_'].flatten.sample}.join  } # mock a uid
+    uid           { SecureRandom.urlsafe_base64 } # mock a uid
 
     # Because some of our activity classification code is currently hardcoded,
     # and because activity classifications are very static in our codebase,
