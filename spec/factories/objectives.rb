@@ -53,7 +53,8 @@ FactoryBot.define do
     factory :build_your_own_activity_pack do
       name              { 'Build Your Own Activity Pack' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369614' }
-      section           'Other'       action_url        { '/teachers/classrooms/lesson_planner' }
+      section           'Other'
+      action_url        { '/teachers/classrooms/lesson_planner' }
       section_placement { 6 }
     end
   end
