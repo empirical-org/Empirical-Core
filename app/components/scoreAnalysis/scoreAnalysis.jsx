@@ -9,6 +9,7 @@ import QuestionRow from './questionRow.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import { getParameterByName } from '../../libs/getParameterByName'
 import _ from 'underscore';
+import {oldFlagToNew} from '../../libs/flagMap'
 
 class ScoreAnalysis extends Component {
   constructor(props) {
@@ -23,7 +24,6 @@ class ScoreAnalysis extends Component {
     this.state = {
       sort: 'weakResponses',
       direction: 'dsc',
-      minAttempts: 150,
       questionType: questionType,
       status: status,
       questionData: []
@@ -35,7 +35,7 @@ class ScoreAnalysis extends Component {
     this.getAbbreviationFromQuestionType = this.getAbbreviationFromQuestionType.bind(this)
     this.getAbbreviationFromStatus = this.getAbbreviationFromStatus.bind(this)
     this.formatDataForQuestionType = this.formatDataForQuestionType.bind(this)
-    this.updateMinAttempts = this.updateMinAttempts.bind(this)
+    this.updateFlag = this.updateFlag.bind(this)
   }
 
   componentWillMount() {
@@ -82,19 +82,20 @@ class ScoreAnalysis extends Component {
   formatDataForQuestionType(questionData, scoreAnalysis, typeName) {
     return _.map(hashToCollection(questionData), question => {
       const scoreData = scoreAnalysis.data[question.key];
-      if (scoreData && scoreData.total_attempts >= this.state.minAttempts) {
+      if (scoreData) {
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: `${question.key}-${typeName}`,
           uid: question.key,
           questionType: typeName,
-          prompt: question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''),
+          prompt: question.prompt ? question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '') : '',
           responses: scoreData.responses || 0,
           weakResponses: percentageWeakResponses,
           status: this.getStatusFromPercentage(percentageWeakResponses),
           hasModelConcept: !!question.modelConceptUID,
           focusPoints: question.focusPoints ? Object.keys(question.focusPoints).length : 0,
           incorrectSequences: question.incorrectSequences ? Object.keys(question.incorrectSequences).length : 0,
+          flag: question.flag
         };
       }
     });
@@ -107,6 +108,9 @@ class ScoreAnalysis extends Component {
     }
     if (this.state.status) {
       filteredData = filteredData.filter((q) => q && q.status === this.state.status)
+    }
+    if (this.state.flag) {
+      filteredData = filteredData.filter((q) => q && q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag])
     }
     return _.compact(filteredData);
   }
@@ -131,6 +135,10 @@ class ScoreAnalysis extends Component {
     this.setState({status: this.getStatusFromAbbreviation(e.target.value)}, this.updateUrl)
   }
 
+  updateFlag(e) {
+    this.setState({flag: e.target.value})
+  }
+
   updateUrl() {
     let newUrl
     const questionTypeAbbrev = this.state.questionType ? this.getAbbreviationFromQuestionType(this.state.questionType) : null
@@ -145,10 +153,6 @@ class ScoreAnalysis extends Component {
       newUrl = `/admin/datadash`
     }
     this.props.router.push(newUrl)
-  }
-
-  updateMinAttempts(value) {
-    this.setState({minAttempts: value}, () => this.formatData(this.props))
   }
 
   getQuestionTypeFromAbbreviation(abbrev) {
@@ -215,6 +219,7 @@ class ScoreAnalysis extends Component {
     switch (this.state.sort) {
       case 'questionType':
       case 'prompt':
+      case 'flag':
         return this.sortAlphabetically(data);
       case 'responses':
       case 'weakResponses':
@@ -232,7 +237,11 @@ class ScoreAnalysis extends Component {
   }
 
   sortAlphabetically(data) {
-    return data.sort((a, b,) => a[this.state.sort].localeCompare(b[this.state.sort]))
+    return data.sort((a, b,) => {
+      const aSort = a[this.state.sort] ? a[this.state.sort] : ''
+      const bSort = b[this.state.sort] ? b[this.state.sort] : ''
+      return aSort.localeCompare(bSort)
+    })
   }
 
   sortByStatus(data) {
@@ -252,6 +261,7 @@ class ScoreAnalysis extends Component {
   renderOptions() {
     const innerDivStyle = {display: 'flex', alignItems: 'center', marginRight: '10px'}
     const labelStyle = {marginRight: '10px'}
+    const flagValue = this.state.flag ? this.state.flag : 'all'
     return <div style={{display: 'flex', marginBottom: '15px'}}>
       <div style={innerDivStyle}>
         <label style={labelStyle}>Question Type:</label>
@@ -274,15 +284,21 @@ class ScoreAnalysis extends Component {
         </select>
       </div>
       <div style={innerDivStyle}>
-        <label style={labelStyle} htmlFor="minAttempts">Attempt Threshold:</label>
-        <input type="number" step="10" min="0" value={this.state.minAttempts} ref="minAttempts" name="minAttempts" onChange={() => this.updateMinAttempts(this.refs.minAttempts.value)} style={{ fontSize: '1.25em', width: '100px', }} />
+          <label style={labelStyle}>Question Flag:</label>
+          <select value={flagValue} onChange={this.updateFlag}>
+            <option value="all">All</option>
+            <option value="archived">Archived</option>
+            <option value="alpha">Alpha</option>
+            <option value="beta">Beta</option>
+            <option value="production">Production</option>
+          </select>
       </div>
     </div>
   }
 
   render() {
     const { questions, scoreAnalysis, concepts, } = this.props;
-    if (this.state.questionData) {
+    if (this.state.questionData.length > 0) {
       return (
         <div>
           {this.renderOptions()}
@@ -297,6 +313,7 @@ class ScoreAnalysis extends Component {
                 <th onClick={this.clickSort.bind(this, 'focusPoints')}>Required #</th>
                 <th onClick={this.clickSort.bind(this, 'incorrectSequences')}>Incorrect #</th>
                 <th onClick={this.clickSort.bind(this, 'hasModelConcept')}>Model</th>
+                <th onClick={this.clickSort.bind(this, 'flag')}>Flag</th>
               </tr>
             </thead>
             <tbody>

@@ -11,6 +11,7 @@ const QuestionRow = props => (
     <td>{props.question.focusPoints}</td>
     <td>{props.question.incorrectSequences}</td>
     <td>{props.question.hasModelConcept.toString()}</td>
+    <td>{props.question.flag}</td>
   </tr>
 )
 

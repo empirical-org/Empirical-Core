@@ -1,8 +1,6 @@
-const flagMap = {
+export const oldFlagToNew = {
   'alpha': 'Alpha',
   'beta': 'Beta',
   'production': 'Production',
   'archived': 'Archive'
 }
-
-export default flagMap

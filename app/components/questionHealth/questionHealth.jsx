@@ -6,7 +6,7 @@ import {
 } from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
-import flagMap from '../../libs/flagMap'
+import {oldFlagToNew} from '../../libs/flagMap'
 import _ from 'lodash';
 
 class questionHealth extends Component {
@@ -62,11 +62,12 @@ class questionHealth extends Component {
   }
 
   updateFlag(e) {
-    this.setState({flag: e.target.value}, this.filterQuestionsByFlag)
+    const flag = e.target.value === 'all' ? null : e.target.value
+    this.setState({flag: flag}, this.filterQuestionsByFlag)
   }
 
   filterByFlag(q) {
-    return q.flag === this.state.flag || q.flag === flagMap[this.state.flag]
+    return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
   }
 
   filterQuestionsByFlag() {
@@ -76,10 +77,6 @@ class questionHealth extends Component {
       diagnosticQuestionData = _.pickBy(this.props.diagnosticQuestions.data, this.filterByFlag)
       sentenceFragmentData = _.pickBy(this.props.sentenceFragments.data, this.filterByFlag)
       fillInBlankQuestionData = _.pickBy(this.props.fillInBlank.data, this.filterByFlag)
-      // questionData = this.props.questions.data.filter(q => q.flag === this.state.flag)
-      // diagnosticQuestionData = this.props.diagnosticQuestions.data.filter(q => q.flag === this.state.flag)
-      // sentenceFragmentData = this.props.sentenceFragments.data.filter(q => q.flag === this.state.flag)
-      // fillInBlankQuestionData = this.props.fillInBlank.data.filter(q => q.flag === this.state.flag)
     } else {
       questionData = this.props.questions.data
       diagnosticQuestionData = this.props.diagnosticQuestions.data
