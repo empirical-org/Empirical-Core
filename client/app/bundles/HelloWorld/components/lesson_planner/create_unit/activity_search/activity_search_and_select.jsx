@@ -87,7 +87,7 @@ export default React.createClass({
   },
 
   updateFilterOptionsAfterChange() {
-    // Go through all the filters, and only display the options that are available based on the currently viewable activity set
+    // Go through all the filters, and only display the options that are available based on the viewableActivity array
     const availableOptions = this._findFilterOptionsBasedOnActivities();
     const newFilters = [...this.state.filters];
     newFilters.forEach((filter) => {
