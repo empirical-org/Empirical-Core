@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :activity_classification, aliases: [:classification] do
-    sequence(:id) { |n| 100 + n } # prevent id collisions by starting ids at 100
-    key           { Faker::Superhero.power.downcase } # We need a random word, and these words are fun.
-    app_name      { key }
-    name          { "Quill #{key.titleize}" }
-    module_url    { Faker::Internet.url }
-    form_url      { Faker::Internet.url }
-    order_number  { Faker::Number.digit }
-    uid           { SecureRandom.urlsafe_base64 } # mock a uid
+    sequence(:id)  { |n| 100 + n } # prevent id collisions by starting ids at 100
+    sequence(:key) { |n| "key#{n}" }
+    app_name       { key }
+    name           { "Quill #{key.titleize}" }
+    module_url     { Faker::Internet.url }
+    form_url       { Faker::Internet.url }
+    order_number   { Faker::Number.digit }
+    uid            { SecureRandom.urlsafe_base64 } # mock a uid
 
     # Because some of our activity classification code is currently hardcoded,
     # and because activity classifications are very static in our codebase,
