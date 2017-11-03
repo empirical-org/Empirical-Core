@@ -11,6 +11,36 @@ jest.mock('jquery', () => {
   return {ajax: jest.fn()}
 });
 
+
+  let diagnosticActivity = ()=> [
+    {
+      "name": "Sentence Structure Diagnostic",
+      "description": "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
+      "flags": "{production}",
+      "id": 413,
+      "uid": "fNAwNLJDkc2T8O5lBeJQwg",
+      "anonymous_path": "/activity_sessions/anonymous?activity_id=413",
+      "activity_classification": {
+        "alias": "Quill Diagnostic",
+        "description": "Identify Learning Gaps",
+        "gray_image_class": "icon-diagnostic-gray",
+        "key": "diagnostic",
+        "id": 4
+      },
+      "activity_category": {
+        "id": 30,
+        "name": "Diagnostics"
+      },
+      "activity_category_name": "Diagnostics",
+      "activity_category_id": 30,
+      "section": {
+        "id": 35,
+        "name": "Diagnostic"
+      },
+      "section_name": "Diagnostic"
+    }
+  ]
+
 describe('ActivitySearchAndSelect component', () => {
 
   it('should render', () => {
@@ -106,36 +136,10 @@ describe('ActivitySearchAndSelect component', () => {
 
   })
 
-  describe('when updateFilterOptionsAfterChange is called', () => {
 
-    let viewableActivities = [
-      {
-        "name": "Sentence Structure Diagnostic",
-        "description": "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
-        "flags": "{production}",
-        "id": 413,
-        "uid": "fNAwNLJDkc2T8O5lBeJQwg",
-        "anonymous_path": "/activity_sessions/anonymous?activity_id=413",
-        "activity_classification": {
-          "alias": "Quill Diagnostic",
-          "description": "Identify Learning Gaps",
-          "gray_image_class": "icon-diagnostic-gray",
-          "key": "diagnostic",
-          "id": 4
-        },
-        "activity_category": {
-          "id": 30,
-          "name": "Diagnostics"
-        },
-        "activity_category_name": "Diagnostics",
-        "activity_category_id": 30,
-        "section": {
-          "id": 35,
-          "name": "Diagnostic"
-        },
-        "section_name": "Diagnostic"
-      }
-    ]
+  describe('when updateFilterOptionsAfterChange is called', () => {
+    const viewableActivities = diagnosticActivity()
+
 
     it('sets the filters to only show options from the viewableActivities', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
@@ -172,5 +176,25 @@ describe('ActivitySearchAndSelect component', () => {
       ])
     })
   })
+
+  describe('_findFilterOptionsBasedOnActivities', ()=>{
+    it ('returns an array of availableOptions', ()=>{
+      const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
+      wrapper.setState({viewableActivities: diagnosticActivity()})
+      expect(wrapper.instance()._findFilterOptionsBasedOnActivities()).toEqual({"activity_category": [{"id": "showAllId", "name": "All Categories"}, {"id": 30, "name": "Diagnostics"}], "activity_classification": [{"alias": "Quill Diagnostic", "description": "Identify Learning Gaps", "gray_image_class": "icon-diagnostic-gray", "id": 4, "key": "diagnostic"}], "section": [{"id": "showAllId", "name": "All Sections"}, {"id": 35, "name": "Diagnostic"}]})
+    })
+  })
+
+  describe('selectFilterOption', ()=>{
+    it ('sets the passed option id to selected on the passed field', ()=>{
+      const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
+      wrapper.setState({viewableActivities: diagnosticActivity()})
+      const filterField = wrapper.state().filters[0].field
+      expect(wrapper.instance().selectFilterOption(filterField, '1')).toEqual('boo')
+    })
+  })
+
+
+
 
 });
