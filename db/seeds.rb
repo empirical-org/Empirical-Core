@@ -11,6 +11,14 @@ create(:grammar)
 create(:connect)
 create(:lesson)
 
+# Generate objectives
+create(:create_a_classroom)
+create(:add_students)
+create(:assign_featured_activity_pack)
+create(:add_school)
+create(:assign_entry_diagnostic)
+create(:build_your_own_activity_pack)
+
 # Generate unit templates with activities
 
 
