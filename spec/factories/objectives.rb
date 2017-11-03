@@ -13,7 +13,7 @@ FactoryBot.define do
     factory :create_a_classroom do
       name              { 'Create a Classroom' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369605' }
-      section           { 'Getting Started' }
+      section           'Getting Started'
       action_url        { '/teachers/classrooms/new' }
       section_placement { 1 }
     end
@@ -21,7 +21,7 @@ FactoryBot.define do
     factory :add_students do
       name              { 'Add Students' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369608' }
-      section           { 'Getting Started' }
+      section           'Getting Started'
       action_url        { '/teachers/add_students' }
       section_placement { 2 }
     end
@@ -29,7 +29,7 @@ FactoryBot.define do
     factory :assign_featured_activity_pack do
       name              { 'Assign Featured Activity Pack' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/843639' }
-      section           { 'Getting Started' }
+      section           'Getting Started'
       action_url        { '/activities/packs' }
       section_placement { 3 }
     end
@@ -37,7 +37,7 @@ FactoryBot.define do
     factory :add_school do
       name              { 'Add School' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/897621-add-your-school' }
-      section           { 'Getting Started' }
+      section           'Getting Started'
       action_url        { '/teachers/my_account' }
       section_placement { 5 }
     end
@@ -45,7 +45,7 @@ FactoryBot.define do
     factory :assign_entry_diagnostic do
       name              { 'Assign Entry Diagnostic' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/1144849' }
-      section           { 'Getting Started' }
+      section           'Getting Started'
       action_url        { '/teachers/classrooms/activity_planner/assign-a-diagnostic' }
       section_placement { 4 }
     end
@@ -53,8 +53,7 @@ FactoryBot.define do
     factory :build_your_own_activity_pack do
       name              { 'Build Your Own Activity Pack' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369614' }
-      section           { 'Other' }
-      action_url        { '/teachers/classrooms/lesson_planner' }
+      section           'Other'       action_url        { '/teachers/classrooms/lesson_planner' }
       section_placement { 6 }
     end
   end
