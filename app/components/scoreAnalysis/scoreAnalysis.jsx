@@ -26,7 +26,8 @@ class ScoreAnalysis extends Component {
       direction: 'dsc',
       questionType: questionType,
       status: status,
-      questionData: []
+      questionData: [],
+      flag: null
     };
 
     this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
@@ -71,15 +72,15 @@ class ScoreAnalysis extends Component {
   formatData(props) {
     const { questions, diagnosticQuestions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
     // const validConcepts = _.map(concepts.data[0], con => con.uid);
-    const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, 'Sentence Combining')
-    const formattedDiagnosticQuestions = this.formatDataForQuestionType(diagnosticQuestions.data, scoreAnalysis, 'Diagnostic Question')
-    const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, 'Sentence Fragment')
-    const formattedFillInBlank = this.formatDataForQuestionType(fillInBlank.data, scoreAnalysis, 'Fill In Blank')
+    const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, 'Sentence Combining', 'questions')
+    const formattedDiagnosticQuestions = this.formatDataForQuestionType(diagnosticQuestions.data, scoreAnalysis, 'Diagnostic Question', 'diagnostic-questions')
+    const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, 'Sentence Fragment', 'sentence-fragments')
+    const formattedFillInBlank = this.formatDataForQuestionType(fillInBlank.data, scoreAnalysis, 'Fill In Blank', 'fill-in-the-blanks')
     const formatted = [...formattedQuestions, ...formattedDiagnosticQuestions, ...formattedSentenceFragments, ...formattedFillInBlank]
     this.setState({questionData: _.compact(formatted)})
   }
 
-  formatDataForQuestionType(questionData, scoreAnalysis, typeName) {
+  formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
     return _.map(hashToCollection(questionData), question => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
@@ -95,7 +96,8 @@ class ScoreAnalysis extends Component {
           hasModelConcept: !!question.modelConceptUID,
           focusPoints: question.focusPoints ? Object.keys(question.focusPoints).length : 0,
           incorrectSequences: question.incorrectSequences ? Object.keys(question.incorrectSequences).length : 0,
-          flag: question.flag
+          flag: question.flag,
+          pathName: pathName
         };
       }
     });
