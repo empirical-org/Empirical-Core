@@ -6,7 +6,8 @@ import {
 } from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
-import _ from 'underscore';
+import flagMap from '../../libs/flagMap'
+import _ from 'lodash';
 
 class questionHealth extends Component {
   constructor(props) {
@@ -17,8 +18,12 @@ class questionHealth extends Component {
       sc: {},
       sf: {},
       dq: {},
-      fib: {}
+      fib: {},
+      flag: null
     }
+
+    this.updateFlag = this.updateFlag.bind(this)
+    this.filterByFlag = this.filterByFlag.bind(this)
   }
 
   componentWillMount() {
@@ -54,6 +59,37 @@ class questionHealth extends Component {
       }
     }
 
+  }
+
+  updateFlag(e) {
+    this.setState({flag: e.target.value}, this.filterQuestionsByFlag)
+  }
+
+  filterByFlag(q) {
+    return q.flag === this.state.flag || q.flag === flagMap[this.state.flag]
+  }
+
+  filterQuestionsByFlag() {
+    let questionData, diagnosticQuestionData, sentenceFragmentData, fillInBlankQuestionData
+    if (this.state.flag) {
+      questionData = _.pickBy(this.props.questions.data, this.filterByFlag)
+      diagnosticQuestionData = _.pickBy(this.props.diagnosticQuestions.data, this.filterByFlag)
+      sentenceFragmentData = _.pickBy(this.props.sentenceFragments.data, this.filterByFlag)
+      fillInBlankQuestionData = _.pickBy(this.props.fillInBlank.data, this.filterByFlag)
+      // questionData = this.props.questions.data.filter(q => q.flag === this.state.flag)
+      // diagnosticQuestionData = this.props.diagnosticQuestions.data.filter(q => q.flag === this.state.flag)
+      // sentenceFragmentData = this.props.sentenceFragments.data.filter(q => q.flag === this.state.flag)
+      // fillInBlankQuestionData = this.props.fillInBlank.data.filter(q => q.flag === this.state.flag)
+    } else {
+      questionData = this.props.questions.data
+      diagnosticQuestionData = this.props.diagnosticQuestions.data
+      sentenceFragmentData = this.props.sentenceFragments.data
+      fillInBlankQuestionData = this.props.fillInBlank.data
+    }
+    this.setSentenceCombiningQuestions(this.props.scoreAnalysis.data, questionData)
+    this.setDiagnosticQuestions(this.props.scoreAnalysis.data, diagnosticQuestionData)
+    this.setSentenceFragments(this.props.scoreAnalysis.data, sentenceFragmentData)
+    this.setFillInBlankQuestions(this.props.scoreAnalysis.data, fillInBlankQuestionData)
   }
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
@@ -128,10 +164,18 @@ class questionHealth extends Component {
         groupedScores.strong.push(q)
       }
     })
-    groupedScores.percentageWeak = Math.round((groupedScores.veryWeak.length + groupedScores.weak.length)/groupedScores.totalNumber * 100)
+    groupedScores.percentageWeak = this.getPercentageWeak(groupedScores.veryWeak.length, groupedScores.weak.length, groupedScores.totalNumber)
     groupedScores.status = this.getStatus(groupedScores.percentageWeak)
     groupedScores.name = this.getName(keyName)
     this.setState({[keyName]: groupedScores})
+  }
+
+  getPercentageWeak(veryWeakNumber, weakNumber, totalNumber) {
+    if (totalNumber) {
+      return Math.round((veryWeakNumber + weakNumber)/totalNumber * 100)
+    } else {
+      return 0
+    }
   }
 
   getStatus(percentage) {
@@ -176,6 +220,21 @@ class questionHealth extends Component {
       <span className="bold">{data.status}</span>
       <span>{data.percentageWeak}% of questions are weak</span>
     </div>
+  }
+
+  renderFlagDropdown() {
+    const selectedValue = this.state.flag ? this.state.flag : 'all'
+    const labelStyle = {marginRight: '10px'}
+    return <div style={{marginTop: '5px', }}>
+      <label style={labelStyle}>Question Flag:</label>
+      <select value={selectedValue} onChange={this.updateFlag}>
+      <option value="all">All</option>
+      <option value="archived">Archived</option>
+      <option value="alpha">Alpha</option>
+      <option value="beta">Beta</option>
+      <option value="production">Production</option>
+    </select>
+  </div>
   }
 
   renderQuestionTypeTable(questionType) {
@@ -237,6 +296,7 @@ class questionHealth extends Component {
     } else {
       return <div className="question-health">
         <h1>Data Dashboard - Health of Questions</h1>
+        {this.renderFlagDropdown()}
         {this.renderQuestionTypeStatusTable()}
         {this.renderQuestionTypeTable('sc')}
         {this.renderQuestionTypeTable('sf')}
