@@ -58,3 +58,5 @@ app/assets/webpack/vendor-bundle.js
 # Ignore NewRelic API keys
 /config/newrelic.yml
 
+# GitBook
+_book/
