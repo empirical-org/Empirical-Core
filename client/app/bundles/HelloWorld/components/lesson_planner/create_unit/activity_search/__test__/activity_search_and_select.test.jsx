@@ -195,14 +195,14 @@ describe('ActivitySearchAndSelect component', () => {
     })
   })
 
-  describe('activityContainsSearchTerm' ()=>{
+  describe('activityContainsSearchTerm', ()=>{
     const withHola = {spanish: 'hello is hola'}
     const withoutHola = {french: 'hello is bonjour'}
     it('checks all of an activities downcased values and returns if the search query is a substring of it', ()=>{
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
       wrapper.setState({searchQuery: 'hola'})
-      expect(wrapper.instance().activityContainsSearchTerm(withHola))toEqual(true)
-      expect(wrapper.instance().activityContainsSearchTerm(withoutHola))toEqual(false)
+      expect(wrapper.instance().activityContainsSearchTerm(withHola)).toEqual(true)
+      expect(wrapper.instance().activityContainsSearchTerm(withoutHola)).toEqual(false)
     })
   })
 
