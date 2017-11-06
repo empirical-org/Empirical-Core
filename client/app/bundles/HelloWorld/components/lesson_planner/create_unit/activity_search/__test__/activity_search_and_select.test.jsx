@@ -10,36 +10,113 @@ import ActivitySearchAndSelect from '../activity_search_and_select'
 jest.mock('jquery', () => {
   return {ajax: jest.fn()}
 });
+const commaUsageThirdGradeFilters = [
+  {
+    "field": "activity_category",
+    "alias": "Filter By Category",
+    "options": [
+      {
+        "name": "All Categories",
+        "id": "showAllId"
+      }, {
+        "id": 7,
+        "name": "Comma Usage"
+      }, {
+        "id": 7,
+        "name": "Comma Usage"
+      }, {
+        "id": 7,
+        "name": "Comma Usage"
+      }, {
+        "id": 7,
+        "name": "Comma Usage"
+      }
+    ],
+    "selected": 7
+  }, {
+    "field": "section",
+    "alias": "Filter by Standard",
+    "options": [
+      {
+        "name": "All Sections",
+        "id": "showAllId"
+      }, {
+        "id": 9,
+        "name": "3rd Grade CCSS"
+      }, {
+        "id": 9,
+        "name": "3rd Grade CCSS"
+      }, {
+        "id": 9,
+        "name": "3rd Grade CCSS"
+      }, {
+        "id": 9,
+        "name": "3rd Grade CCSS"
+      }
+    ],
+    "selected": 9
+  }, {
+    "field": "activity_classification",
+    "alias": "App",
+    "options": [
+      {
+        "alias": "Quill Grammar",
+        "description": "Practice Mechanics",
+        "gray_image_class": "icon-puzzle-gray",
+        "key": "sentence",
+        "id": 2
+      }, {
+        "alias": "Quill Grammar",
+        "description": "Practice Mechanics",
+        "gray_image_class": "icon-puzzle-gray",
+        "key": "sentence",
+        "id": 2
+      }, {
+        "alias": "Quill Proofreader",
+        "description": "Fix Errors in Passages",
+        "gray_image_class": "icon-flag-gray",
+        "key": "passage",
+        "id": 1
+      }, {
+        "alias": "Quill Proofreader",
+        "description": "Fix Errors in Passages",
+        "gray_image_class": "icon-flag-gray",
+        "key": "passage",
+        "id": 1
+      }
+    ],
+    "selected": null
+  }
+]
 
-
-  let diagnosticActivity = ()=> [
-    {
-      "name": "Sentence Structure Diagnostic",
-      "description": "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
-      "flags": "{production}",
-      "id": 413,
-      "uid": "fNAwNLJDkc2T8O5lBeJQwg",
-      "anonymous_path": "/activity_sessions/anonymous?activity_id=413",
-      "activity_classification": {
-        "alias": "Quill Diagnostic",
-        "description": "Identify Learning Gaps",
-        "gray_image_class": "icon-diagnostic-gray",
-        "key": "diagnostic",
-        "id": 4
-      },
-      "activity_category": {
-        "id": 30,
-        "name": "Diagnostics"
-      },
-      "activity_category_name": "Diagnostics",
-      "activity_category_id": 30,
-      "section": {
-        "id": 35,
-        "name": "Diagnostic"
-      },
-      "section_name": "Diagnostic"
-    }
-  ]
+let diagnosticActivity = () => [
+  {
+    "name": "Sentence Structure Diagnostic",
+    "description": "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
+    "flags": "{production}",
+    "id": 413,
+    "uid": "fNAwNLJDkc2T8O5lBeJQwg",
+    "anonymous_path": "/activity_sessions/anonymous?activity_id=413",
+    "activity_classification": {
+      "alias": "Quill Diagnostic",
+      "description": "Identify Learning Gaps",
+      "gray_image_class": "icon-diagnostic-gray",
+      "key": "diagnostic",
+      "id": 4
+    },
+    "activity_category": {
+      "id": 30,
+      "name": "Diagnostics"
+    },
+    "activity_category_name": "Diagnostics",
+    "activity_category_id": 30,
+    "section": {
+      "id": 35,
+      "name": "Diagnostic"
+    },
+    "section_name": "Diagnostic"
+  }
+]
 
 describe('ActivitySearchAndSelect component', () => {
 
@@ -136,10 +213,8 @@ describe('ActivitySearchAndSelect component', () => {
 
   })
 
-
   describe('when updateFilterOptionsAfterChange is called', () => {
     const viewableActivities = diagnosticActivity()
-
 
     it('sets the filters to only show options from the viewableActivities', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
@@ -177,16 +252,44 @@ describe('ActivitySearchAndSelect component', () => {
     })
   })
 
-  describe('_findFilterOptionsBasedOnActivities', ()=>{
-    it ('returns an array of availableOptions', ()=>{
+  describe('_findFilterOptionsBasedOnActivities', () => {
+    it('returns an array of availableOptions', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
       wrapper.setState({viewableActivities: diagnosticActivity()})
-      expect(wrapper.instance()._findFilterOptionsBasedOnActivities()).toEqual({"activity_category": [{"id": "showAllId", "name": "All Categories"}, {"id": 30, "name": "Diagnostics"}], "activity_classification": [{"alias": "Quill Diagnostic", "description": "Identify Learning Gaps", "gray_image_class": "icon-diagnostic-gray", "id": 4, "key": "diagnostic"}], "section": [{"id": "showAllId", "name": "All Sections"}, {"id": 35, "name": "Diagnostic"}]})
+      expect(wrapper.instance()._findFilterOptionsBasedOnActivities()).toEqual({
+        "activity_category": [
+          {
+            "id": "showAllId",
+            "name": "All Categories"
+          }, {
+            "id": 30,
+            "name": "Diagnostics"
+          }
+        ],
+        "activity_classification": [
+          {
+            "alias": "Quill Diagnostic",
+            "description": "Identify Learning Gaps",
+            "gray_image_class": "icon-diagnostic-gray",
+            "id": 4,
+            "key": "diagnostic"
+          }
+        ],
+        "section": [
+          {
+            "id": "showAllId",
+            "name": "All Sections"
+          }, {
+            "id": 35,
+            "name": "Diagnostic"
+          }
+        ]
+      })
     })
   })
 
-  describe('selectFilterOption', ()=>{
-    it ('sets the passed option id to selected on the passed field', ()=>{
+  describe('selectFilterOption', () => {
+    it('sets the passed option id to selected on the passed field', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
       wrapper.setState({viewableActivities: diagnosticActivity(), activitySearchResults: diagnosticActivity()})
       const filterField = wrapper.state().filters[0].field
@@ -195,10 +298,14 @@ describe('ActivitySearchAndSelect component', () => {
     })
   })
 
-  describe('activityContainsSearchTerm', ()=>{
-    const withHola = {spanish: 'hello is hola'}
-    const withoutHola = {french: 'hello is bonjour'}
-    it('checks all of an activities downcased values and returns if the search query is a substring of it', ()=>{
+  describe('activityContainsSearchTerm', () => {
+    const withHola = {
+      spanish: 'hello is hola'
+    }
+    const withoutHola = {
+      french: 'hello is bonjour'
+    }
+    it('checks all of an activities downcased values and returns if the search query is a substring of it', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
       wrapper.setState({searchQuery: 'hola'})
       expect(wrapper.instance().activityContainsSearchTerm(withHola)).toEqual(true)
@@ -206,7 +313,14 @@ describe('ActivitySearchAndSelect component', () => {
     })
   })
 
-
-
+  describe('changeViewableActivities', () => {
+    it('updates viewableActivities to match the selected filters', () => {
+      const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
+      wrapper.setState({activitySearchResults: allActivities(),  filters: commaUsageThirdGradeFilters})
+      wrapper.instance().changeViewableActivities()
+      expect(wrapper.state().viewableActivities.map((act)=>act.id)).toEqual([165, 180, 53, 55])
+    })
+    
+  })
 
 });
