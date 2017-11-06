@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-export default class CustomizeEdition extends React.Component {
+class CustomizeEdition extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -10,3 +10,12 @@ export default class CustomizeEdition extends React.Component {
     return <div>Customize Edition Page</div>
   }
 }
+
+function select(state) {
+  return {
+    customize: state.customize,
+    classroomLesson: state.classroomLessons
+  }
+}
+
+export default connect(select)(CustomizeEdition)

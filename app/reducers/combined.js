@@ -23,6 +23,7 @@ import classroomSessions from './classroomSessions';
 import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
 import classroomLessonsReviews from './classroomLessonsReviews'
+import customize from './customize'
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
@@ -49,6 +50,7 @@ const combinedReducers = combineReducers({
   sessions,
   massEdit,
   display,
+  customize,
   routing: routerReducer,
 });
 

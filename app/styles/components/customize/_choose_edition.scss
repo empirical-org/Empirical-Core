@@ -1,0 +1,20 @@
+.choose-edition {
+  width: 900px;
+  text-align: center;
+  margin: 90px auto;
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 12px;
+  }
+  .explanation {
+    font-size: 14px;
+    color: #969696;
+    span {
+      font-weight: 600;
+    	font-style: italic;
+    }
+  }
+
+}

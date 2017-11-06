@@ -13,13 +13,13 @@ const editionRoute = {
   },
 };
 
-const lessonRoute = {
+const chooseEditionRoute = {
   path: ':lessonID',
   onEnter: (nextState, replaceWith) => {
-    document.title = 'Customize Quill Lesson';
+    document.title = 'Choose Edition';
   },
   getComponent: (nextState, cb) => {
-    System.import(/* webpackChunkName: "customize-classroom-lesson" */'components/customize/lesson.tsx')
+    System.import(/* webpackChunkName: "customize-choose-edition" */'components/customize/chooseEdition.tsx')
     .then((component) => {
       cb(null, component.default);
     });
@@ -37,7 +37,7 @@ const route = {
   indexRoute,
   childRoutes: [
     editionRoute,
-    lessonRoute
+    chooseEditionRoute
   ],
   component: Passthrough,
 };
