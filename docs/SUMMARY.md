@@ -6,6 +6,7 @@
     * [Schools CMS](features/cms_schools.md)
   * [Connect Admin](features/connect_admin/index.md)
     * [Question Health](features/connect_admin/question_health.md)
+    * [Score Analysis](features/connect_admin/score_analysis.md)
   * [Co-teachers](features/coteachers.md)
   * [Pinning. Locking, and Completing Classroom Activities](features/pinning_locking_and_completing_classroom_activities.md)
 * [Quill Tools](tools/index.md)
