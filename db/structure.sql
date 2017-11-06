@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -539,6 +539,38 @@ CREATE SEQUENCE classrooms_id_seq
 --
 
 ALTER SEQUENCE classrooms_id_seq OWNED BY classrooms.id;
+
+
+--
+-- Name: classrooms_teachers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE classrooms_teachers (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    classroom_id integer NOT NULL,
+    role character varying NOT NULL,
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+);
+
+
+--
+-- Name: classrooms_teachers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE classrooms_teachers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: classrooms_teachers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE classrooms_teachers_id_seq OWNED BY classrooms_teachers.id;
 
 
 --
@@ -1694,6 +1726,13 @@ ALTER TABLE ONLY classrooms ALTER COLUMN id SET DEFAULT nextval('classrooms_id_s
 
 
 --
+-- Name: classrooms_teachers id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classrooms_teachers ALTER COLUMN id SET DEFAULT nextval('classrooms_teachers_id_seq'::regclass);
+
+
+--
 -- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2005,6 +2044,14 @@ ALTER TABLE ONLY classroom_activities
 
 ALTER TABLE ONLY classrooms
     ADD CONSTRAINT classrooms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: classrooms_teachers classrooms_teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classrooms_teachers
+    ADD CONSTRAINT classrooms_teachers_pkey PRIMARY KEY (id);
 
 
 --
@@ -2458,6 +2505,27 @@ CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_i
 
 
 --
+-- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_teachers_on_classroom_id ON classrooms_teachers USING btree (classroom_id);
+
+
+--
+-- Name: index_classrooms_teachers_on_role; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_teachers_on_role ON classrooms_teachers USING btree (role);
+
+
+--
+-- Name: index_classrooms_teachers_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_teachers_on_user_id ON classrooms_teachers USING btree (user_id);
+
+
+--
 -- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2812,6 +2880,13 @@ CREATE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
+
+
+--
+-- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON classrooms_teachers USING btree (user_id, classroom_id);
 
 
 --
@@ -3395,4 +3470,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171009162550');
 INSERT INTO schema_migrations (version) VALUES ('20171011202936');
 
 INSERT INTO schema_migrations (version) VALUES ('20171019150737');
+
+INSERT INTO schema_migrations (version) VALUES ('20171106201721');
+
+INSERT INTO schema_migrations (version) VALUES ('20171106203046');
 
