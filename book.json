@@ -1,0 +1,31 @@
+{
+  "root": "./docs",
+  "title": "Quill.org Docs",
+  "description": "Quill.org Docs on major functionality.",
+  "author": "Donald McKendrick",
+  "structure": {
+    "readme": "README.md",
+    "summary": "SUMMARY.md"
+  },
+  "plugins": ["edit-link", "rss@git+https://github.com/ddmck/gitbook-plugin-rss"],
+  "pluginsConfig": {
+    "edit-link": {
+        "base": "https://github.com/empirical-org/Empirical-Core/edit/develop/docs",
+        "label": "Edit This Page"
+    },
+    "rss": {
+      "title": "Quill.org Documentation",
+      "description": "Documentation for Quill.org functionality lives here.",
+      "site_url": "https://docs.quill.org/",
+      "feed_url": "https://docs.quill.org/updates.rss",
+      "managingEditor": "donald@quill.org (Donald McKendrick)",
+      "webMaster": "donald@quill.org (Donald McKendrick)",
+      "categories": [
+        "Edtech",
+        "Rails",
+        "Javascript",
+        "Documentation"
+      ]
+    }
+  }
+}

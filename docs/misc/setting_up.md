@@ -1,30 +1,4 @@
-## Documentation Table of Contents
-
-* [API Controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/api/README.md)
-* [Authentication Controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/auth/README.md)
-* [Clever Integration](https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/clever_integration/README.md)
-* [CMS controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/cms/README.md)
-* [Google Integration](https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/google_integration/README.md)
-
-
-
-# Welcome to Empirical Core
-
-Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
-
-|Front End|Back End|Travis CI|
-|---|---|---|
-|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg)](https://travis-ci.org/empirical-org/Empirical-Core)
-
-
-
-**Fork and Clone this repository to submit a Pull Request**.
-
-**Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/). The Mailing List, Chat, Issues, and Docs can all be accessed from the community page.
-
-**CLA:** [Please register an account & sign our CLA](http://community.quill.org/signup/cla/).
-
-## Empirical Easy Install
+# Empirical Easy Install
 
 *Here is a guide to Empirical Core that makes installation and setup easy.*
 
@@ -90,16 +64,3 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
 
 18. Run the command `bin/guard` so that [Guard](https://github.com/guard/guard-rspec) run
     specs when you save files.
-
-## Docs
-
-We use GitBook for documentation. To get it set up, run `gitbook init` and then either `gitbook serve` (to run the book on a server) or `gitbook build` (to build a static version of the book). To add docs, create markdown files in the /docs folder and then add a relative link to the file in docs/SUMMARY.md.
-
-## Pre-installed user accounts
-
-The installation comes with four users, though you can create as many more as you like. The pre-installed users are:
-
-* A teacher, username `teacher` and password `teacher`.
-* A student, username `student` and password `student`.
-* An admin, username `admin` and password `admin`.
-* An admin, username `staff` and password `staff`.
