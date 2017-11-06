@@ -189,4 +189,31 @@ describe ClassroomActivity, type: :model, redis: :true do
         expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to eq([lesson_1_data, lesson_2_data].to_json)
       end
     end
+
+    describe '#check_for_assign_on_join_and_update_students_array_if_true callback' do
+      context 'when assign_on_join is false' do
+        describe 'when the assigned students contain all the students in the classroom' do
+          it "sets the classroom activity to assign_on_join: true" do
+            expect(classroom_activity.assign_on_join).not_to eq(true)
+            classroom_activity.update(assigned_student_ids: [student.id])
+            expect(classroom_activity.assign_on_join).to eq(true)
+          end
+        end
+
+        describe 'when the assigned students do not contain all the students in the classroom' do
+          it "does not set the classroom activity to assign_on_join: true" do
+            expect(classroom_activity.assign_on_join).not_to eq(true)
+            classroom_activity.update(assigned_student_ids: [])
+            expect(classroom_activity.assign_on_join).not_to eq(true)
+          end
+        end
+      end
+
+      context 'when assign_on_join is true' do
+        it "updates the assigned student ids with all students in the classroom" do
+            classroom_activity.update(assigned_student_ids: [], assign_on_join: true)
+            expect(classroom_activity.assigned_student_ids).to eq([student.id])
+        end
+      end
+    end
 end
