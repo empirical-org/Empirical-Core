@@ -38,3 +38,6 @@ ActiveRecord::Base.connection.execute(File.read('concepts.sql'))
 
 
 # Generate a teacher from Clever with classes and students with activities
+
+# Generate Firebase apps
+create(:grammar_firebase_app)
