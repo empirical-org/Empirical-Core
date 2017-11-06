@@ -4,6 +4,8 @@
   * [Staff Panel](features/staff_index.md)
     * [Users CMS](features/cms_users.md)
     * [Schools CMS](features/cms_schools.md)
+  * [Connect Admin](features/connect_admin/index.md)
+    * [Question Health](features/connect_admin/question_health.md)
   * [Co-teachers](features/coteachers.md)
   * [Pinning. Locking, and Completing Classroom Activities](features/pinning_locking_and_completing_classroom_activities.md)
 * [Quill Tools](tools/index.md)
