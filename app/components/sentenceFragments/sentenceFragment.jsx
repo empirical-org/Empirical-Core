@@ -109,7 +109,10 @@ const SentenceFragment = React.createClass({
       return (
         <div>
           {this.renderEditForm()}
-          <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} style={{ marginBottom: 0, }} />
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
+            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
+          </div>
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>

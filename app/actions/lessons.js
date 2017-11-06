@@ -2,31 +2,36 @@ const C = require('../constants').default;
 import rootRef from '../libs/firebase';
 const	lessonsRef = rootRef.child('lessons');
 import { push } from 'react-router-redux';
+import {updateFlag} from './questions'
 
-const actions = {
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
-  startListeningToLessons() {
+
+  function startListeningToLessons() {
     return function (dispatch, getState) {
       lessonsRef.on('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_LESSONS_DATA, data: snapshot.val(), });
       });
     };
-  },
-  loadLessons() {
+  }
+
+  function loadLessons() {
     return function (dispatch, getState) {
       lessonsRef.once('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_LESSONS_DATA, data: snapshot.val(), });
       });
     };
-  },
-  startLessonEdit(cid) {
+  }
+
+  function startLessonEdit(cid) {
     return { type: C.START_LESSON_EDIT, cid, };
-  },
-  cancelLessonEdit(cid) {
+  }
+
+  function cancelLessonEdit(cid) {
     return { type: C.FINISH_LESSON_EDIT, cid, };
-  },
-  deleteLesson(cid) {
+  }
+
+  function deleteLesson(cid) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
       lessonsRef.child(cid).remove((error) => {
@@ -38,10 +43,12 @@ const actions = {
         }
       });
     };
-  },
-  submitLessonEdit(cid, content) {
+  }
+
+  function submitLessonEdit(cid, content, qids) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
+      dispatch(updateQuestionFlags(content, qids))
       lessonsRef.child(cid).set(content, (error) => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
         if (error) {
@@ -51,11 +58,23 @@ const actions = {
         }
       });
     };
-  },
-  toggleNewLessonModal() {
+  }
+
+  function updateQuestionFlags(content, qids) {
+    return function (dispatch) {
+      if (content.flag) {
+        qids.forEach(qid => {
+          dispatch(updateFlag(qid, content.flag))
+        })
+      }
+    };
+  }
+
+  function toggleNewLessonModal() {
     return { type: C.TOGGLE_NEW_LESSON_MODAL, };
-  },
-  submitNewLesson(content) {
+  }
+
+  function submitNewLesson(content) {
     return function (dispatch, getState) {
       dispatch({ type: C.AWAIT_NEW_LESSON_RESPONSE, });
       var newRef = lessonsRef.push(content, (error) => {
@@ -69,7 +88,16 @@ const actions = {
         }
       });
     };
-  },
-};
+  }
 
-export default actions;
+export default {
+  startListeningToLessons,
+  loadLessons,
+  startLessonEdit,
+  cancelLessonEdit,
+  deleteLesson,
+  submitLessonEdit,
+  updateQuestionFlags,
+  toggleNewLessonModal,
+  submitNewLesson
+};

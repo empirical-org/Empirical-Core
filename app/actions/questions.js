@@ -114,6 +114,16 @@ function deleteFocusPoint(qid, fpid) {
   };
 }
 
+function updateFlag(qid, flag) {
+  return dispatch => {
+    questionsRef.child(`${qid}/flag/`).set(flag, (error) => {
+      if (error) {
+        alert(`Flag update failed! ${error}`);
+      }
+    });
+  }
+}
+
 function submitNewIncorrectSequence(qid, data) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
@@ -304,5 +314,6 @@ module.exports = {
   updateResponses,
   setPageNumber,
   setStringFilter,
-  incrementRequestCount
+  incrementRequestCount,
+  updateFlag
 };
