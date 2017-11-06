@@ -188,9 +188,10 @@ describe('ActivitySearchAndSelect component', () => {
   describe('selectFilterOption', ()=>{
     it ('sets the passed option id to selected on the passed field', ()=>{
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
-      wrapper.setState({viewableActivities: diagnosticActivity()})
+      wrapper.setState({viewableActivities: diagnosticActivity(), activitySearchResults: diagnosticActivity()})
       const filterField = wrapper.state().filters[0].field
-      expect(wrapper.instance().selectFilterOption(filterField, '1')).toEqual('boo')
+      wrapper.instance().selectFilterOption(filterField, '1')
+      expect(wrapper.state().filters[0].selected).toEqual('1')
     })
   })
 
