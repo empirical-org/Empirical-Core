@@ -42,8 +42,5 @@ where
 - `concept_results` is an array of objects representing concept measurement from the activity. This will be given in more detail later.
 - `percentage` takes a floating point value between 0 and 1, representing the students percentage score.
 
-# To Do
-- Add screenshots to this page
-
 # Questions
 How can we improve this page? 
