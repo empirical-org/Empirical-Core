@@ -48,7 +48,7 @@
     "url": "https://github.com/shakacode/react_on_rails/issues"
   },
   "dependencies": {
-    "gitbook-plugin-rss": "^3.0.2",
+    "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "tabslet": "^1.7.3"
   },
   "devDependencies": {
