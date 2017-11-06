@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import Promise from 'promise-polyfill'; 
+import Promise from 'promise-polyfill';
 
 // To add to window
 if (!window.Promise) {
@@ -60,7 +60,8 @@ const rootRoute = {
     childRoutes: [
       require('./routers/Admin/index').default,
       require('./routers/Play/index').default,
-      require('./routers/Teach/index').default
+      require('./routers/Teach/index').default,
+      require('./routers/Customize/index').default
     ],
   }],
 };
