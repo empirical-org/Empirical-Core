@@ -135,8 +135,10 @@ export default React.createClass({
         name: s.activity_name,
         percentage: s.percentage,
         started: s.started ? Number(s.started) : 0,
+        started_at: s.started_at,
         completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
         marked_complete: s.marked_complete,
+        activity_description: s.activity_description,
         activity_classification_id: s.activity_classification_id, });
     });
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
