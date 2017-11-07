@@ -3,11 +3,50 @@ import { connect } from 'react-redux';
 import {
   getClassLessonFromFirebase
 } from '../../actions/classroomLesson'
+import {
+  createNewEdition,
+  saveEditionName
+} from '../../actions/customize'
+
+import EditionNamingModal from './editionNamingModal'
 
 class chooseEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
+    this.state = {
+      showNamingModal: false,
+      newEditionUid: '',
+      newEditionName: ''
+    }
     props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
+
+    this.makeNewEdition = this.makeNewEdition.bind(this)
+    this.openNamingModal = this.openNamingModal.bind(this)
+    this.updateName = this.updateName.bind(this)
+    this.saveName = this.saveName.bind(this)
+  }
+
+  makeNewEdition(editionUid:any) {
+    const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)
+    this.setState({newEditionUid}, this.openNamingModal)
+  }
+
+  openNamingModal() {
+    this.setState({showNamingModal: true})
+  }
+
+  updateName(e) {
+    this.setState({newEditionName: e.target.value})
+  }
+
+  saveName() {
+    saveEditionName(this.state.newEditionUid, this.state.newEditionName)
+  }
+
+  renderNamingModal() {
+    if (this.state.showNamingModal) {
+      return <EditionNamingModal saveName={this.saveName} updateName={this.updateName} name={this.state.newEditionName}/>
+    }
   }
 
   renderQuillEditions() {
@@ -22,7 +61,11 @@ class chooseEdition extends React.Component<any, any> {
   renderMyEditions() {
     const {editions} = this.props.customize
     if (Object.keys(editions).length > 0) {
-      const myEditions = Object.keys(editions).map((e, i) => this.renderEditionRow(editions[e], i, 'user'))
+      const myEditions = Object.keys(editions).map((e, i) => {
+        const edition = editions[e]
+        edition.key = e
+        return this.renderEditionRow(edition, i, 'user')
+      })
       return <div className="my-editions">
         <p>My Customized Editions</p>
         {myEditions}
@@ -41,7 +84,7 @@ class chooseEdition extends React.Component<any, any> {
       </div>
       <div className="action">
         {editLink}
-        <button className="customize">
+        <button className="customize" onClick={() => this.makeNewEdition(edition.key)}>
           <i className="fa fa-icon fa-magic"/>
           Customize Edition
         </button>
@@ -55,6 +98,7 @@ class chooseEdition extends React.Component<any, any> {
       <p className="explanation">By clicking <span>"Customize Edition"</span>, you will create a copy of the edition that you can customize it with your own content. You can update your own editions at any time by clicking on <span>"Edit Edition".</span></p>
       {this.renderQuillEditions()}
       {this.renderMyEditions()}
+      {this.renderNamingModal()}
     </div>
   }
 }

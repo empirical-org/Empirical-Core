@@ -1,6 +1,7 @@
 declare function require(name:string);
 import rootRef, { firebase } from '../libs/firebase';
 const editionsRef = rootRef.child('lessons_editions');
+const classroomLessonsRef = rootRef.child('classroom_lessons');
 import  C from '../constants';
 
 export function getCurrentUserFromLMS() {
@@ -29,6 +30,36 @@ export function getEditionsByUser(user_id) {
       dispatch(filterForUserEditions(user_id, snapshot.val()))
     });
   };
+}
+
+export function createNewEdition(editionUID, lessonUID, user_id) {
+  let newEditionData
+  const lessonData = []
+  if (editionUID) {
+    editionsRef.child(editionUID).once('value', (snapshot) => {
+      lessonData.push(snapshot.val())
+    })
+    newEditionData = {...lessonData[0], lesson_id: lessonUID, edition_id: editionUID, user_id}
+  } else {
+    newEditionData = classroomLessonsRef.child(lessonUID).once('value', (snapshot) => {
+      lessonData.push(snapshot.val())
+    })
+    newEditionData = {...lessonData[0], lesson_id: lessonUID, user_id}
+  }
+  const newEdition = editionsRef.push(newEditionData)
+  return newEdition.key
+}
+
+export function saveEditionName(editionUID, name) {
+  editionsRef.child(`${editionUID}/name`).set(name)
+  // const startTimeRef = classroomSessionsRef.child(`${classroom_activity_id}/startTime`);
+  // startTimeRef.once('value', (snapshot) => {
+  //   const startTime = snapshot.val()
+  //   if (!startTime) {
+  //     startTimeRef.set(firebase.database.ServerValue.TIMESTAMP)
+  //   }
+  // })
+
 }
 
 function filterForUserEditions(userId, editions) {
