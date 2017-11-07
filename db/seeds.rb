@@ -1,17 +1,43 @@
-ActiveRecord::Base.connection.execute(File.read('./db/seeds.sql'))
+require 'factory_bot_rails'
+include FactoryBot::Syntax::Methods
 
-[:admin, :teacher, :student, :staff].each do |role|
-  User.create(
-    name: "#{role.capitalize} #{role.capitalize}son",
-    email: "#{role}@quill.org",
-    password: role,
-    password_confirmation: role,
-    created_at: Time.now,
-    updated_at: Time.now,
-    classcode: nil,
-    active: true,
-    username: role,
-    token: nil,
-    role: role.to_s
-  ) unless User.find_by_role(role)
-end
+# Generate a staff user with a known username and password
+create(:staff, username: 'staff', password: 'staff')
+
+# Generate activity categories
+create(:diagnostic)
+create(:proofreader)
+create(:grammar)
+create(:connect)
+create(:lesson)
+
+# Generate objectives
+create(:create_a_classroom)
+create(:add_students)
+create(:assign_featured_activity_pack)
+create(:add_school)
+create(:assign_entry_diagnostic)
+create(:build_your_own_activity_pack)
+
+# Import concepts table data from SQL
+ActiveRecord::Base.connection.execute(File.read('concepts.sql'))
+
+# Generate unit templates with activities
+
+
+# Generate units
+
+
+# Generate classroom activities
+
+
+# Generate a teacher with classes and students with activities
+
+
+# Generate a teacher from Google Classroom with classes and students with activities
+
+
+# Generate a teacher from Clever with classes and students with activities
+
+# Generate Firebase apps
+create(:grammar_firebase_app)
