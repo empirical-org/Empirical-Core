@@ -33,20 +33,20 @@ export function getEditionsByUser(user_id) {
 }
 
 export function createNewEdition(editionUID, lessonUID, user_id) {
-  let newEditionData
-  const lessonData = []
+  let newEditionData, newEdition
   if (editionUID) {
-    editionsRef.child(editionUID).once('value', (snapshot) => {
-      lessonData.push(snapshot.val())
+    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id}
+    newEdition = editionsRef.push(newEditionData)
+    editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
+      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
-    newEditionData = {...lessonData[0], lesson_id: lessonUID, edition_id: editionUID, user_id}
   } else {
-    newEditionData = classroomLessonsRef.child(lessonUID).once('value', (snapshot) => {
-      lessonData.push(snapshot.val())
+    newEditionData = {lesson_id: lessonUID, user_id}
+    newEdition = editionsRef.push(newEditionData)
+    classroomLessonsRef.child(lessonUID).once('value', snapshot => {
+      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
-    newEditionData = {...lessonData[0], lesson_id: lessonUID, user_id}
   }
-  const newEdition = editionsRef.push(newEditionData)
   return newEdition.key
 }
 
@@ -62,14 +62,27 @@ export function saveEditionName(editionUID, name) {
 
 }
 
+export function archiveEdition(editionUID) {
+  const flagRef = editionsRef.child(`${editionUID}/flags`)
+  flagRef.once('value', (snapshot) => {
+    if (!snapshot.val()) {
+      flagRef.set(['archived'])
+    } else {
+      const newFlags = snapshot.val().push('archived')
+      flagRef.set(newFlags)
+    }
+  })
+}
+
 function filterForUserEditions(userId, editions) {
   return function (dispatch, getState) {
     if (editions && Object.keys(editions).length > 0) {
       const userEditions = {}
       const editionIds = Object.keys(editions)
       editionIds.forEach(id => {
-        if (editions[id].user_id === userId) {
-          userEditions[id] = editions[id]
+        const edition = editions[id]
+        if (edition.user_id === userId && (!edition.flags || !edition.flags.includes('archived'))) {
+          userEditions[id] = edition
         }
       })
       if (Object.keys(userEditions).length > 0) {

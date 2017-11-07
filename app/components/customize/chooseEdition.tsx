@@ -5,10 +5,12 @@ import {
 } from '../../actions/classroomLesson'
 import {
   createNewEdition,
-  saveEditionName
+  saveEditionName,
+  archiveEdition
 } from '../../actions/customize'
 
 import EditionNamingModal from './editionNamingModal'
+import EditionRow from './editionRow'
 
 class chooseEdition extends React.Component<any, any> {
   constructor(props) {
@@ -18,17 +20,28 @@ class chooseEdition extends React.Component<any, any> {
       newEditionUid: '',
       newEditionName: ''
     }
+
     props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
+    this.editEdition = this.editEdition.bind(this)
+    this.archiveEdition = this.archiveEdition.bind(this)
     this.openNamingModal = this.openNamingModal.bind(this)
     this.updateName = this.updateName.bind(this)
-    this.saveName = this.saveName.bind(this)
+    this.saveNameAndGoToCustomize = this.saveNameAndGoToCustomize.bind(this)
   }
 
-  makeNewEdition(editionUid:any) {
+  makeNewEdition(editionUid:string|null) {
     const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)
     this.setState({newEditionUid}, this.openNamingModal)
+  }
+
+  editEdition(editionUid:string) {
+    window.location.href = `${window.location.origin}/#/customize/${this.props.params.lessonID}/${this.state.editionUid}`
+  }
+
+  archiveEdition(editionUid:string) {
+    archiveEdition(editionUid)
   }
 
   openNamingModal() {
@@ -39,19 +52,29 @@ class chooseEdition extends React.Component<any, any> {
     this.setState({newEditionName: e.target.value})
   }
 
-  saveName() {
+  saveNameAndGoToCustomize() {
     saveEditionName(this.state.newEditionUid, this.state.newEditionName)
+    window.location.href = `${window.location.origin}/#/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
   }
 
   renderNamingModal() {
     if (this.state.showNamingModal) {
-      return <EditionNamingModal saveName={this.saveName} updateName={this.updateName} name={this.state.newEditionName}/>
+      return <EditionNamingModal saveNameAndGoToCustomize={this.saveNameAndGoToCustomize} updateName={this.updateName} name={this.state.newEditionName}/>
     }
   }
 
   renderQuillEditions() {
     const editions = {lesson: this.props.classroomLesson.data}
-    const quillEditions = Object.keys(editions).map((e, i) => this.renderEditionRow(editions[e], i, 'quill'))
+    const quillEditions = Object.keys(editions).map((e, i) => {
+      return <EditionRow
+                edition={editions[e]}
+                makeNewEdition={this.makeNewEdition}
+                editEdition={this.editEdition}
+                archiveEdition={this.archiveEdition}
+                creator='quill'
+                key={i}
+      />
+    })
     return <div className="quill-editions">
       <p>Quill Created Editions</p>
       {quillEditions}
@@ -61,35 +84,23 @@ class chooseEdition extends React.Component<any, any> {
   renderMyEditions() {
     const {editions} = this.props.customize
     if (Object.keys(editions).length > 0) {
-      const myEditions = Object.keys(editions).map((e, i) => {
+      const myEditions = Object.keys(editions).map((e) => {
         const edition = editions[e]
         edition.key = e
-        return this.renderEditionRow(edition, i, 'user')
+        return <EditionRow
+                  edition={edition}
+                  makeNewEdition={this.makeNewEdition}
+                  editEdition={this.editEdition}
+                  archiveEdition={this.archiveEdition}
+                  creator='user'
+                  key={e}
+        />
       })
       return <div className="my-editions">
         <p>My Customized Editions</p>
         {myEditions}
       </div>
     }
-  }
-
-  renderEditionRow(edition, index, creator) {
-    const name = edition.name ? edition.name : 'Generic Content'
-    const sampleQuestionSection = edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{edition.sample_question}</p> : null
-    const editLink = creator === 'user' ? <a href="">Edit Edition</a> : null
-    return <div className="edition" key={index}>
-      <div className="text">
-        {name}
-        {sampleQuestionSection}
-      </div>
-      <div className="action">
-        {editLink}
-        <button className="customize" onClick={() => this.makeNewEdition(edition.key)}>
-          <i className="fa fa-icon fa-magic"/>
-          Customize Edition
-        </button>
-      </div>
-    </div>
   }
 
   render() {

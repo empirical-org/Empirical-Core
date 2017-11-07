@@ -10,7 +10,7 @@ const EditionNamingModal: React.SFC<any> = (props) => {
           <p>Edition Name</p>
           <input value={props.name} onChange={props.updateName}/>
         </div>
-        <button onClick={props.saveName}>Start Customizing</button>
+        <button onClick={props.saveNameAndGoToCustomize}>Start Customizing</button>
      </div>
    </div>
 }
