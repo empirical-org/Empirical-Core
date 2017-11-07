@@ -302,10 +302,11 @@ describe ActivitySession, type: :model, redis: :true do
 
 
   describe '#validations' do
-    let!(:activity){ create(:activity) }
-    let!(:assigned_student){ create(:student) }
-    let!(:unassigned_student){ create(:student) }
-    let!(:classroom_activity) { create(:classroom_activity, activity_id: activity.id, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
+    let!(:assigned_student){ FactoryGirl.create(:student) }
+    let!(:unassigned_student){ FactoryGirl.create(:student) }
+    let!(:classroom){ FactoryGirl.create(:classroom, students: [assigned_student, unassigned_student])}
+    let!(:activity){ FactoryGirl.create(:activity) }
+    let!(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity_id: activity.id, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
 
     it 'ensures that the student was correctly assigned' do
       act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)
