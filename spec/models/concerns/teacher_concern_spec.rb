@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe User, type: :model do
   describe 'teacher concern' do
-      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
-      let!(:student) {FactoryGirl.create(:user, role: 'student')}
-      let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher, students: [student])}
-      let!(:teacher1) {FactoryGirl.create(:user, role: 'teacher')}
-      let!(:student1) {FactoryGirl.create(:user, role: 'student')}
-      let!(:classroom1) {FactoryGirl.create(:classroom, teacher: teacher, students: [student1])}
+      let!(:teacher) {create(:user, role: 'teacher')}
+      let!(:student) {create(:user, role: 'student')}
+      let!(:classroom) {create(:classroom, teacher: teacher, students: [student])}
+      let!(:teacher1) {create(:user, role: 'teacher')}
+      let!(:student1) {create(:user, role: 'student')}
+      let!(:classroom1) {create(:classroom, teacher: teacher, students: [student1])}
 
     it '#classrooms_i_teach_with_students' do
       classroom_hash = classroom.attributes
@@ -42,8 +42,8 @@ describe User, type: :model do
     end
 
     describe '#is_premium?' do
-      let!(:teacher_premium_test) {FactoryGirl.create(:user, role: 'teacher')}
-      let!(:classroom) {FactoryGirl.create(:classroom, teacher: teacher)}
+      let!(:teacher_premium_test) {create(:user, role: 'teacher')}
+      let!(:classroom) {create(:classroom, teacher: teacher)}
 
       context 'user has no associated subscription' do
         it 'returns false' do
@@ -54,19 +54,19 @@ describe User, type: :model do
       context 'user has an associated subscription' do
         context 'that has expired' do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
-          let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.yesterday-1, account_type: 'Teacher Paid')}
-          let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: teacher.id, subscription: subscription)}
+          let!(:subscription) {create(:subscription, account_limit: 1, expiration: Date.yesterday-1, account_type: 'Teacher Paid')}
+          let!(:user_subscription) {create(:user_subscription, user_id: teacher.id, subscription: subscription)}
           it 'returns false' do
             expect(teacher_premium_test.is_premium?).to be false
           end
         end
 
         context 'that has not expired' do
-          let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.tomorrow, account_type: 'Teacher Trial')}
-          let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: teacher_premium_test.id, subscription: subscription)}
-          let!(:student1) {FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
+          let!(:subscription) {create(:subscription, account_limit: 1, expiration: Date.tomorrow, account_type: 'Teacher Trial')}
+          let!(:user_subscription) {create(:user_subscription, user_id: teacher_premium_test.id, subscription: subscription)}
+          let!(:student1) {create(:user, role: 'student', classrooms: [classroom])}
           context 'that has passed its account limit' do
-            let!(:student2) {FactoryGirl.create(:user, role: 'student', classrooms: [classroom])}
+            let!(:student2) {create(:user, role: 'student', classrooms: [classroom])}
             it 'returns false' do
               expect(teacher.is_premium?).to be false
             end
@@ -82,19 +82,19 @@ describe User, type: :model do
     end
 
     describe '#updated_school' do
-      let!(:queens_teacher_2) { FactoryGirl.create(:teacher) }
-      let!(:queens_subscription) {FactoryGirl.create(:subscription)}
-      let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
-      let!(:queens_school_sub) {FactoryGirl.create(:school_subscription, subscription_id: queens_subscription.id, school_id: queens_school.id)}
-      let!(:brooklyn_school) { FactoryGirl.create :school, name: "Brooklyn Charter School", zipcode: '11237'}
-      let!(:school_with_no_subscription) { FactoryGirl.create :school, name: "Staten Island School", zipcode: '10000'}
-      let!(:queens_teacher) { FactoryGirl.create(:teacher) }
-      let!(:teacher_subscription) {FactoryGirl.create(:subscription)}
-      let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: queens_teacher.id, subscription_id: teacher_subscription.id)}
-      let!(:subscription) {FactoryGirl.create(:subscription)}
-      let!(:brooklyn_subscription) {FactoryGirl.create(:subscription)}
-      let!(:brooklyn_school_sub) {FactoryGirl.create(:school_subscription, subscription_id: brooklyn_subscription.id, school_id: brooklyn_school.id)}
-      let!(:queens_teacher_2_user_sub) {FactoryGirl.create(:user_subscription, user_id: queens_teacher_2.id, subscription_id: queens_subscription.id)}
+      let!(:queens_teacher_2) { create(:teacher) }
+      let!(:queens_subscription) {create(:subscription)}
+      let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
+      let!(:queens_school_sub) {create(:school_subscription, subscription_id: queens_subscription.id, school_id: queens_school.id)}
+      let!(:brooklyn_school) { create :school, name: "Brooklyn Charter School", zipcode: '11237'}
+      let!(:school_with_no_subscription) { create :school, name: "Staten Island School", zipcode: '10000'}
+      let!(:queens_teacher) { create(:teacher) }
+      let!(:teacher_subscription) {create(:subscription)}
+      let!(:user_subscription) {create(:user_subscription, user_id: queens_teacher.id, subscription_id: teacher_subscription.id)}
+      let!(:subscription) {create(:subscription)}
+      let!(:brooklyn_subscription) {create(:subscription)}
+      let!(:brooklyn_school_sub) {create(:school_subscription, subscription_id: brooklyn_subscription.id, school_id: brooklyn_school.id)}
+      let!(:queens_teacher_2_user_sub) {create(:user_subscription, user_id: queens_teacher_2.id, subscription_id: queens_subscription.id)}
 
       context "when the school has no subscription" do
 
@@ -145,29 +145,29 @@ describe User, type: :model do
 
     end
     describe '#premium_state' do
-      let!(:teacher) {FactoryGirl.create(:user, role: 'teacher')}
+      let!(:teacher) {create(:user, role: 'teacher')}
 
       context 'user is on a valid trial' do
-        let!(:trial_teacher) {FactoryGirl.create(:user, role: 'teacher')}
-        let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'Teacher Trial')}
-        let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: trial_teacher.id, subscription: subscription)}
+        let!(:trial_teacher) {create(:user, role: 'teacher')}
+        let!(:subscription) {create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'Teacher Trial')}
+        let!(:user_subscription) {create(:user_subscription, user_id: trial_teacher.id, subscription: subscription)}
         it "returns 'trial'" do
           expect(trial_teacher.premium_state).to eq('trial')
         end
       end
 
       context 'user is on a paid plan' do
-        let!(:paid_teacher) {FactoryGirl.create(:user, role: 'teacher')}
-        let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'Teacher Paid')}
-        let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: paid_teacher.id, subscription: subscription)}
+        let!(:paid_teacher) {create(:user, role: 'teacher')}
+        let!(:subscription) {create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'Teacher Paid')}
+        let!(:user_subscription) {create(:user_subscription, user_id: paid_teacher.id, subscription: subscription)}
         it "returns 'paid'" do
           expect(paid_teacher.premium_state).to eq('paid')
         end
       end
 
       context 'users trial is expired' do
-        let!(:subscription) {FactoryGirl.create(:subscription, account_limit: 1, expiration: Date.yesterday, account_type: 'Teacher Paid')}
-          let!(:user_subscription) {FactoryGirl.create(:user_subscription, user_id: teacher.id, subscription: subscription)}
+        let!(:subscription) {create(:subscription, account_limit: 1, expiration: Date.yesterday, account_type: 'Teacher Paid')}
+          let!(:user_subscription) {create(:user_subscription, user_id: teacher.id, subscription: subscription)}
         it "returns 'locked'" do
           expect(teacher.premium_state).to eq('locked')
         end
