@@ -7,6 +7,7 @@ import LoadingIndicator from '../../shared/loading_indicator';
 import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token'
+import _ from 'underscore';
 
 export default React.createClass({
 
@@ -20,15 +21,26 @@ export default React.createClass({
     }
   },
 
+  componentDidMount() {
+    window.onpopstate = () => {
+			this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id') });
+			this.getUnitsForCurrentClass();
+		};
+  },
+
   getClassrooms() {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
-      if (classrooms.length > 0) {
-        this.setState({ classrooms}, () => this.getUnits());
-      } else {
-        this.setState({ empty: true, loaded: true, });
-      }
+      this.handleClassrooms(classrooms);
     });
+  },
+
+  handleClassrooms(classrooms) {
+    if (classrooms.length > 0) {
+      this.setState({ classrooms }, () => this.getUnits());
+    } else {
+      this.setState({ empty: true, loaded: true, });
+    }
   },
 
   hashLinkScroll() {
@@ -185,7 +197,7 @@ export default React.createClass({
     }
     const allClassroomsClassroom = {name: 'All Classrooms'}
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms)
-    const classroomWithSelectedId = classrooms.find(classy => classy.id === this.state.selectedClassroomId)
+    const classroomWithSelectedId = classrooms.find(classy => classy.id === Number(this.state.selectedClassroomId))
     const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom
 
     return (
