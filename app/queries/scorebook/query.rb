@@ -11,7 +11,9 @@ class Scorebook::Query
         students.name AS name,
         activity.activity_classification_id,
         activity.name AS activity_name,
+        activity.description AS activity_description,
         MAX(acts.updated_at) AS updated_at,
+        MIN(acts.started_at) AS started_at,
         MAX(acts.percentage) AS percentage,
         SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) AS completed_attempts,
         SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS started,
@@ -34,7 +36,7 @@ class Scorebook::Query
      #{self.date_conditional_string(begin_date, end_date)}
      GROUP BY
       students.id,
-       students.name, ca.id, activity.activity_classification_id, activity.name
+       students.name, ca.id, activity.activity_classification_id, activity.name, activity.description
      ORDER BY split_part( students.name, ' ' , 2),
        CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
        MIN(acts.completed_at),
