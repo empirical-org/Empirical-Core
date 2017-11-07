@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import Static from '../play/static'
-import SlideHTMLEditor from './slideHTMLEditor'
+import MultipleTextEditor from '../../classroomLessons/admin/slideHTMLEditor'
+import StudentStatic from '../../classroomLessons/play/static'
 
-interface ExitProps {
+interface CustomizeStaticProps {
   question: CLIntF.QuestionData,
   save: Function
 }
 
-class AdminExit extends Component<ExitProps, any>{
+class CustomizeStatic extends Component<CustomizeStaticProps, any>{
   constructor(props){
     super(props);
 
@@ -19,6 +19,12 @@ class AdminExit extends Component<ExitProps, any>{
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.save = this.save.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(this.state.question, nextProps.question)) {
+      this.setState({question: nextProps.question})
+    }
   }
 
   handleTitleChange(e) {
@@ -46,11 +52,11 @@ class AdminExit extends Component<ExitProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
-        <div className="admin-slide-preview">
-          <div className="scaler">
-            <Static data={this.state.question} />
-          </div>
+      <div className="admin-slide-preview">
+        <div className="scaler">
+          <StudentStatic data={this.state.question} />
         </div>
+      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
@@ -58,9 +64,9 @@ class AdminExit extends Component<ExitProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">HTML</label>
+          <label className="label">Text</label>
           <div className="control">
-            <SlideHTMLEditor
+            <MultipleTextEditor
               text={this.state.question.play.html}
               handleTextChange={(e) => this.handleHTMLChange(e)}
             />
@@ -73,4 +79,4 @@ class AdminExit extends Component<ExitProps, any>{
 
 }
 
-export default AdminExit
+export default CustomizeStatic

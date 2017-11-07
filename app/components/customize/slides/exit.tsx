@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import Static from '../play/static'
-import SlideHTMLEditor from './slideHTMLEditor'
+import Static from '../../classroomLessons/play/static'
+import SlideHTMLEditor from '../../classroomLessons/admin/slideHTMLEditor'
 
 interface ExitProps {
   question: CLIntF.QuestionData,
   save: Function
 }
 
-class AdminExit extends Component<ExitProps, any>{
+class CustomizeExit extends Component<ExitProps, any>{
   constructor(props){
     super(props);
 
@@ -73,4 +73,4 @@ class AdminExit extends Component<ExitProps, any>{
 
 }
 
-export default AdminExit
+export default CustomizeExit

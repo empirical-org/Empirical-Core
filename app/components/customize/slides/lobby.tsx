@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import Static from '../play/static'
-import SlideHTMLEditor from './slideHTMLEditor'
+import StudentLobby from '../../ClassroomLessons/play/lobby'
+import MultipleTextEditor from '../../classroomLessons/admin/slideHTMLEditor'
 
-interface ExitProps {
+interface CustomizeLobbyProps {
   question: CLIntF.QuestionData,
   save: Function
 }
 
-class AdminExit extends Component<ExitProps, any>{
+class CustomizeLobby extends Component<CustomizeLobbyProps, any>{
   constructor(props){
     super(props);
 
@@ -48,7 +48,7 @@ class AdminExit extends Component<ExitProps, any>{
       <div style={{marginTop: 30, marginBottom: 30}}>
         <div className="admin-slide-preview">
           <div className="scaler">
-            <Static data={this.state.question} />
+            <StudentLobby title={this.state.question.teach.title} />
           </div>
         </div>
         <div className="field">
@@ -60,7 +60,7 @@ class AdminExit extends Component<ExitProps, any>{
         <div className="field">
           <label className="label">HTML</label>
           <div className="control">
-            <SlideHTMLEditor
+            <MultipleTextEditor
               text={this.state.question.play.html}
               handleTextChange={(e) => this.handleHTMLChange(e)}
             />
@@ -73,4 +73,4 @@ class AdminExit extends Component<ExitProps, any>{
 
 }
 
-export default AdminExit
+export default CustomizeLobby

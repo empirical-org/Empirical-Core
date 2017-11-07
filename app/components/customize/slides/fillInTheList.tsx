@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
-import StudentFillInTheList from '../play/listBlanks'
+import MultipleTextEditor from '../../classroomLessons/shared/multipleTextEditor'
+import StudentFillInTheList from '../../classroomLessons/play/listBlanks'
 
-interface AdminFillInTheListProps {
+interface CustomizeFillInTheListProps {
   question: CLIntF.QuestionData,
   save: Function
 }
 
-class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
+class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, any>{
   constructor(props){
     super(props);
 
@@ -143,4 +143,4 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
 
 }
 
-export default AdminFillInTheList
+export default CustomizeFillInTheList

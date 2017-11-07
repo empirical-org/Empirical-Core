@@ -2,7 +2,7 @@ declare function require(name:string);
 import rootRef, { firebase } from '../libs/firebase';
 const editionsRef = rootRef.child('lessons_editions');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
-import  C from '../constants';
+import C from '../constants';
 
 export function getCurrentUserFromLMS() {
   return function(dispatch) {
@@ -52,6 +52,7 @@ export function createNewEdition(editionUID, lessonUID, user_id) {
 
 export function saveEditionName(editionUID, name) {
   editionsRef.child(`${editionUID}/name`).set(name)
+  editionsRef.child(`${editionUID}/name`).set(firebase.database.ServerValue.TIMESTAMP)
   // const startTimeRef = classroomSessionsRef.child(`${classroom_activity_id}/startTime`);
   // startTimeRef.once('value', (snapshot) => {
   //   const startTime = snapshot.val()

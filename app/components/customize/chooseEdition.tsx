@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-  getClassLessonFromFirebase
-} from '../../actions/classroomLesson'
-import {
   createNewEdition,
   saveEditionName,
   archiveEdition
@@ -21,8 +18,6 @@ class chooseEdition extends React.Component<any, any> {
       newEditionName: ''
     }
 
-    props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
-
     this.makeNewEdition = this.makeNewEdition.bind(this)
     this.editEdition = this.editEdition.bind(this)
     this.archiveEdition = this.archiveEdition.bind(this)
@@ -37,7 +32,7 @@ class chooseEdition extends React.Component<any, any> {
   }
 
   editEdition(editionUid:string) {
-    window.location.href = `${window.location.origin}/#/customize/${this.props.params.lessonID}/${this.state.editionUid}`
+    this.props.router.push(`/customize/${this.props.params.lessonID}/${editionUid}`)
   }
 
   archiveEdition(editionUid:string) {
@@ -54,7 +49,7 @@ class chooseEdition extends React.Component<any, any> {
 
   saveNameAndGoToCustomize() {
     saveEditionName(this.state.newEditionUid, this.state.newEditionName)
-    window.location.href = `${window.location.origin}/#/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
+    this.props.router.push(`/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`)
   }
 
   renderNamingModal() {

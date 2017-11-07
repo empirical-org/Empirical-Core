@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import NavBar from '../navbar/navbar';
 import { connect } from 'react-redux';
+import {
+  getClassLessonFromFirebase
+} from '../../actions/classroomLesson'
 
 import {
   getCurrentUserFromLMS,
@@ -10,12 +13,18 @@ import {
 class Customize extends React.Component {
   constructor(props) {
     super(props)
-    this.props.dispatch(getCurrentUserFromLMS())
+    props.dispatch(getCurrentUserFromLMS())
+
+    if (props.params.lessonID) {
+      props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.customize.user_id !== this.props.customize.user_id) {
-      this.props.dispatch(getEditionsByUser(nextProps.customize.user_id))
+    if (nextProps.customize.user_id) {
+      if (nextProps.customize.user_id !== this.props.customize.user_id || nextProps.classroomLesson && Object.keys(nextProps.classroomLesson.data).length === 0) {
+        this.props.dispatch(getEditionsByUser(nextProps.customize.user_id))
+      }
     }
   }
 
@@ -31,6 +40,7 @@ class Customize extends React.Component {
 
 function select(state) {
   return {
+    classroomLesson: state.classroomLesson,
     customize: state.customize
   }
 }

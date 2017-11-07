@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
-import StudentFillInTheList from '../play/listBlanks'
+import MultipleTextEditor from '../../classroomLessons/shared/multipleTextEditor'
+import StudentModel from '../../classroomLessons/play/modelQuestion'
 
-interface AdminFillInTheListProps {
+interface CustomizeModelProps {
   question: CLIntF.QuestionData,
   save: Function
 }
 
-class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
+class CustomizeModel extends Component<CustomizeModelProps, any>{
   constructor(props){
     super(props);
 
@@ -21,8 +21,6 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
-    this.handleNBlanks = this.handleNBlanks.bind(this)
-    this.handleBlankLabelChange = this.handleBlankLabelChange.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -46,7 +44,7 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
       {},
       this.state.question
     );
-    _.set(newVals, 'play.prompt', e.target.value)
+    _.set(newVals, 'play.prompt', e)
     this.setState({question: newVals})
   }
 
@@ -56,15 +54,6 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
       this.state.question
     );
     _.set(newVals, 'play.instructions', e.target.value)
-    this.setState({question: newVals})
-  }
-
-  handleBlankLabelChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
-    _.set(newVals, 'play.blankLabel', e.target.value)
     this.setState({question: newVals})
   }
 
@@ -78,16 +67,6 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     this.setState({question: newVals})
   }
 
-  handleNBlanks(e) {
-      const newVals = Object.assign(
-        {},
-        this.state.question
-      );
-      const nBlanks = e.target.value.length > 0 ? Number(e.target.value) : e.target.value;
-      _.set(newVals, 'play.nBlanks', nBlanks)
-      this.setState({question: newVals})
-  }
-
   save() {
     this.props.save(this.state.question)
   }
@@ -96,10 +75,10 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
       <div className="admin-slide-preview">
-       <div className="scaler">
-         <StudentFillInTheList data={this.state.question} />
-       </div>
-     </div>
+        <div className="scaler">
+          <StudentModel data={this.state.question} />
+        </div>
+      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
@@ -109,7 +88,10 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
         <div className="field">
           <label className="label">Prompt</label>
           <div className="control">
-            <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
+            <MultipleTextEditor
+              text={this.state.question.play.prompt}
+              handleTextChange={(e) => this.handlePromptChange(e)}
+            />
           </div>
         </div>
         <div className="field">
@@ -124,18 +106,6 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
             <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
-        <div className="field">
-          <label className="label">Blank Label</label>
-          <div className="control">
-            <input value={this.state.question.play.blankLabel} onChange={this.handleBlankLabelChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Number of Blanks</label>
-          <div className="control">
-            <input value={this.state.question.play.nBlanks} onChange={this.handleNBlanks} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
         <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
     )
@@ -143,4 +113,4 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
 
 }
 
-export default AdminFillInTheList
+export default CustomizeModel
