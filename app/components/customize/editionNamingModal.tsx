@@ -5,12 +5,12 @@ const EditionNamingModal: React.SFC<any> = (props) => {
     <div className="name-modal-background" />
      <div className="name-modal">
         <h1>What would you like to name this lesson’s edition?</h1>
-        <p>You will see the name of your edition when you launch the lesson and it will help you identify this edition from the rest of the editions.</p>
-        <div>
+        <p className="explanation">You will see the name of your edition when you launch the lesson and it will help you identify this edition from the rest of the editions.</p>
+        <div className="name-section">
           <p>Edition Name</p>
-          <input value={props.name} onChange={props.updateName}/>
+          <input value={props.name} onChange={props.updateName} placeholder="Enter a name for your edition"/>
         </div>
-        <button onClick={props.saveNameAndGoToCustomize}>Start Customizing</button>
+        <button className={props.buttonClassName} onClick={props.saveNameAndGoToCustomize}>Start Customizing</button>
      </div>
    </div>
 }
