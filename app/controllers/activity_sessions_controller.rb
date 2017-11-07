@@ -1,4 +1,5 @@
 class ActivitySessionsController < ApplicationController
+  include HTTParty
   before_action :activity_session_from_id, only: [:play, :concept_results]
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
@@ -8,8 +9,13 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
 
   def play
-    # old_play_function
     @module_url = @activity.module_url(@activity_session)
+    if @activity.activity_classification_id == 6
+      classroom_activity_id = @activity_session.classroom_activity_id
+      url = "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_activity_id}/students.json"
+      options = {"#{@activity_session.uid}": current_user.name}
+      HTTParty.patch(url, body: options.to_json)
+    end
     redirect_to(@module_url.to_s)
   end
 
