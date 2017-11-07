@@ -25,7 +25,9 @@ class Cms::UnitTemplatesController < ApplicationController
   end
 
   def update
-    if @unit_template.update_attributes(unit_template_params)
+    params = unit_template_params
+    params['flag'] = nil if params['flag'] == 'production'
+    if @unit_template.update_attributes(params)
       render json: @unit_template
     else
       render json: {errors: @unit_template.errors}, status: 422

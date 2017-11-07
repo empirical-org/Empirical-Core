@@ -112,7 +112,7 @@
 		return (
 			<div className="no-pl">
 				<div className="button-select activity-filter-button-wrapper">
-					<button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+					<button type="button" className="select-mixin select-white button-select button-select-wrapper" data-toggle="dropdown">
 						{this.getFilterHeader()}
 					</button>
           <i className="fa fa-caret-down act-search-filter-fav"></i>

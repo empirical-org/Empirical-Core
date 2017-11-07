@@ -32,7 +32,8 @@ class Cms::AuthorsController < ApplicationController
       redirect_to cms_authors_path
     else
       flash[:error] = 'Something went wrong.'
-      render :update
+      @author = Author.find(params[:id])
+      render :edit
     end
   end
 

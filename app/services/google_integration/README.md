@@ -1,4 +1,4 @@
-We currently use google integration for two things
+We currently use google integration for two things:
 
 1. SSO : allowing users to sign up / log in with their google account (so they dont have to manually enter in their name and email, and they dont have to come up with a new password).
 2. CLASSROOM : allowing teachers to import the classrooms and students they already created on google classroom, so they dont have to manually recreate them in Quill.
