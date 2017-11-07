@@ -94,49 +94,44 @@ class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, any>
 
   render() {
     return (
-      <div style={{marginTop: 30, marginBottom: 30}}>
-      <div className="admin-slide-preview">
-       <div className="scaler">
-         <StudentFillInTheList data={this.state.question} />
-       </div>
-     </div>
-        <div className="field">
-          <label className="label">Title</label>
-          <div className="control">
-            <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+      <div className="slide">
+        <div className="form">
+          <div className="title-field field">
+            <label>Title</label>
+            <div className="control">
+              <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+            </div>
+          </div>
+          <div className="prompt-field field">
+            <label>Prompt</label>
+            <div className="control">
+              <MultipleTextEditor
+                text={this.state.question.play.prompt}
+                handleTextChange={(e) => this.handlePromptChange(e)}
+              />
+            </div>
+          </div>
+          <div className="instructions-field field">
+            <label>Instructions <span className="optional">(Optional)</span></label>
+            <div className="control">
+              <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
+            </div>
+          </div>
+          <div className="number-of-blanks-field field">
+            <label>Number of Blanks</label>
+            <div className="control">
+              <input value={this.state.question.play.nBlanks} onChange={this.handleNBlanks} className="input" type="text" placeholder="Text input"/>
+            </div>
           </div>
         </div>
-        <div className="field">
-          <label className="label">Prompt</label>
-          <div className="control">
-            <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
+        <div>
+          <p className="slide-title">{this.state.question.teach.title}</p>
+          <div className="preview">
+            <div className="scaler">
+              <StudentFillInTheList data={this.state.question} />
+            </div>
           </div>
         </div>
-        <div className="field">
-          <label className="label">Instructions (Optional)</label>
-          <div className="control">
-            <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Cues comma seperated (Optional)</label>
-          <div className="control">
-            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Blank Label</label>
-          <div className="control">
-            <input value={this.state.question.play.blankLabel} onChange={this.handleBlankLabelChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Number of Blanks</label>
-          <div className="control">
-            <input value={this.state.question.play.nBlanks} onChange={this.handleNBlanks} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
     )
   }

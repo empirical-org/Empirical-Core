@@ -51,28 +51,32 @@ class CustomizeStatic extends Component<CustomizeStaticProps, any>{
 
   render() {
     return (
-      <div style={{marginTop: 30, marginBottom: 30}}>
-      <div className="admin-slide-preview">
-        <div className="scaler">
-          <StudentStatic data={this.state.question} />
-        </div>
-      </div>
-        <div className="field">
-          <label className="label">Title</label>
-          <div className="control">
-            <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+      <div className="slide">
+        <div className="form">
+          <div className="title-field field">
+            <label>Title</label>
+            <div className="control">
+              <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+            </div>
+          </div>
+          <div className="prompt-field field">
+            <label>Text</label>
+            <div className="control">
+              <MultipleTextEditor
+                text={this.state.question.play.html}
+                handleTextChange={(e) => this.handleHTMLChange(e)}
+              />
+            </div>
           </div>
         </div>
-        <div className="field">
-          <label className="label">Text</label>
-          <div className="control">
-            <MultipleTextEditor
-              text={this.state.question.play.html}
-              handleTextChange={(e) => this.handleHTMLChange(e)}
-            />
+        <div>
+          <p className="slide-title">{this.state.question.teach.title}</p>
+          <div className="preview">
+            <div className="scaler">
+              <StudentStatic data={this.state.question} />
+            </div>
           </div>
         </div>
-        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
     )
   }

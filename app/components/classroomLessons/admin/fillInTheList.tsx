@@ -119,7 +119,7 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">Cues comma seperated (Optional)</label>
+          <label className="label">Cues comma separated (Optional)</label>
           <div className="control">
             <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
           </div>

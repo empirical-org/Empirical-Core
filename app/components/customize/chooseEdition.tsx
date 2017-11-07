@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash'
 import {
   createNewEdition,
   saveEditionName,
@@ -87,18 +88,20 @@ class chooseEdition extends React.Component<any, any> {
       const myEditions = Object.keys(editions).map((e) => {
         const edition = editions[e]
         edition.key = e
-        return <EditionRow
-                  edition={edition}
-                  makeNewEdition={this.makeNewEdition}
-                  editEdition={this.editEdition}
-                  archiveEdition={this.archiveEdition}
-                  creator='user'
-                  key={e}
-        />
+        if (edition.lesson_id === this.props.params.lessonID) {
+          return <EditionRow
+          edition={edition}
+          makeNewEdition={this.makeNewEdition}
+          editEdition={this.editEdition}
+          archiveEdition={this.archiveEdition}
+          creator='user'
+          key={e}
+          />
+        }
       })
       return <div className="my-editions">
         <p>My Customized Editions</p>
-        {myEditions}
+        {_.compact(myEditions)}
       </div>
     }
   }

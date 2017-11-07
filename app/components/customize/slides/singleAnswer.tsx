@@ -20,8 +20,6 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
-    this.handleCuesChange = this.handleCuesChange.bind(this)
-    this.handlePrefilledTextChange = this.handlePrefilledTextChange.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -57,14 +55,8 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
       {},
       this.state.question
     );
-    const formattedCues = e.target.value.split(',');
+    const formattedCues = e.target.value.split(', ');
     _.set(newVals, 'play.cues', formattedCues)
-    this.setState({question: newVals})
-  }
-
-  handlePrefilledTextChange(e) {
-    const newVals = {...this.state.question}
-    _.set(newVals, 'play.prefilledText', e.target.value)
     this.setState({question: newVals})
   }
 
@@ -74,46 +66,38 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
 
   render() {
     return (
-      <div style={{marginTop: 30, marginBottom: 30}}>
-      <div className="admin-slide-preview">
-        <div className="scaler">
-          <StudentSingleAnswer data={this.state.question} />
-        </div>
-      </div>
-        <div className="field">
-          <label className="label">Title</label>
-          <div className="control">
-            <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+      <div className="slide">
+        <div className="form">
+          <div className="title-field field">
+            <label>Title</label>
+            <div className="control">
+              <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+            </div>
+          </div>
+          <div className="prompt-field field">
+            <label>Prompt</label>
+            <div className="control">
+              <MultipleTextEditor
+                text={this.state.question.play.prompt}
+                handleTextChange={(e) => this.handlePromptChange(e)}
+              />
+            </div>
+          </div>
+          <div className="instructions-field field">
+            <label>Instructions <span className="optional">(Optional)</span></label>
+            <div className="control">
+              <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
+            </div>
           </div>
         </div>
-        <div className="field">
-          <label className="label">Prompt</label>
-          <div className="control">
-            <MultipleTextEditor
-              text={this.state.question.play.prompt}
-              handleTextChange={(e) => this.handlePromptChange(e)}
-            />
+        <div>
+          <p className="slide-title">{this.state.question.teach.title}</p>
+          <div className="preview">
+            <div className="scaler">
+              <StudentSingleAnswer data={this.state.question} />
+            </div>
           </div>
         </div>
-        <div className="field">
-          <label className="label">Instructions (Optional)</label>
-          <div className="control">
-            <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Prefilled Text (Optional)</label>
-          <div className="control">
-            <input value={this.state.question.play.prefilledText} onChange={this.handlePrefilledTextChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Cues comma seperated (Optional)</label>
-          <div className="control">
-            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
     )
   }
