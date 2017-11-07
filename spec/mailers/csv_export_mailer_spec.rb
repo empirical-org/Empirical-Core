@@ -4,8 +4,8 @@ describe CsvExportMailer, type: :mailer do
   include ERB::Util
 
   describe 'csv_download' do
-    let(:csv_export) { FactoryGirl.create(:csv_export, teacher: teacher) }
-    let(:teacher) { FactoryGirl.create(:teacher) }
+    let(:csv_export) { create(:csv_export, teacher: teacher) }
+    let(:teacher) { create(:teacher) }
     let(:mail) { CsvExportMailer.csv_download(csv_export) }
 
     before do

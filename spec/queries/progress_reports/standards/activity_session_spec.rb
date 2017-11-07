@@ -10,11 +10,11 @@ describe ProgressReports::Standards::ActivitySession do
   end
 
   it "filters correctly for teacher" do
-    a = FactoryGirl.create(:activity)
-    t = FactoryGirl.create(:teacher)
-    c = FactoryGirl.create(:classroom, teacher: t)
-    ca = FactoryGirl.create(:classroom_activity, activity: a, classroom: c)
-    as = FactoryGirl.create(:activity_session,
+    a = create(:activity)
+    t = create(:teacher)
+    c = create(:classroom, teacher: t)
+    ca = create(:classroom_activity, activity: a, classroom: c)
+    as = create(:activity_session,
                               state: 'finished',
                               completed_at: Time.now,
                               is_final_score: true,

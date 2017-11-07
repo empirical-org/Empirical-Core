@@ -1,9 +1,7 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
-FactoryGirl.define do
+FactoryBot.define do
   factory :district do
-    clever_id "MyString"
-    name "MyString"
-    token "MyString"
+    clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
+    token { (1..40).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever token
+    name { "#{Faker::Address.city} School District" }
   end
 end

@@ -3,7 +3,7 @@ include AsyncHelper
 
 describe FastAssignWorker, type: :worker do
   include_context "Unit Assignments Variables"
-  let!(:unit) {FactoryGirl.create(:unit, name: unit_template1.name, user_id: teacher.id)}
+  let!(:unit) {create(:unit, name: unit_template1.name, user_id: teacher.id)}
 
   context 'creates a new unit' do
     it "can create new units and classroom activities" do

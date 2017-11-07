@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
-  let!(:teacher) { FactoryGirl.create(:teacher) }
-  let!(:student) {FactoryGirl.create(:student)}
-  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, students: [student]) }
-  let!(:unit) {FactoryGirl.create(:unit, user: teacher)}
-  let!(:unit2) {FactoryGirl.create(:unit, user: teacher)}
-  let!(:classroom_activity) { FactoryGirl.create(
+  let!(:teacher) { create(:teacher) }
+  let!(:student) {create(:student)}
+  let!(:classroom) { create(:classroom, teacher: teacher, students: [student]) }
+  let!(:unit) {create(:unit, user: teacher)}
+  let!(:unit2) {create(:unit, user: teacher)}
+  let!(:classroom_activity) { create(
     :classroom_activity_with_activity,
     unit: unit, classroom: classroom,
     assigned_student_ids: [student.id]
@@ -32,8 +32,14 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#index' do
-    let!(:activity) {FactoryGirl.create(:activity)}
-    let!(:classroom_activity) {FactoryGirl.create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity)}
+    let!(:activity) {create(:activity)}
+    let!(:classroom_activity) {create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity, assigned_student_ids: [student.id])}
+    let!(:activity_session) {create(:activity_session,
+      activity: activity,
+      classroom_activity: classroom_activity,
+      user: student,
+      state: 'finished'
+    )}
 
     it 'should return json in the appropriate format' do
       response = get :index
@@ -84,7 +90,7 @@ describe Teachers::UnitsController, type: :controller do
         expect(res["classrooms"].first["name"]).to eq(classroom.name)
         expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
         expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
-        expect(res["classrooms"].first["classroom_activity"]).to eq({"id" => classroom_activity.id, "assigned_student_ids" => classroom_activity.assigned_student_ids, "assign_on_join" => false})
+        expect(res["classrooms"].first["classroom_activity"]).to eq({"id" => classroom_activity.id, "assigned_student_ids" => classroom_activity.assigned_student_ids, "assign_on_join" => true})
     end
 
 
