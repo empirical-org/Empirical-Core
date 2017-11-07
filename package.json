@@ -112,6 +112,7 @@
     "localforage": "^1.5.0",
     "moment": "^2.18.1",
     "pos": "^0.4.2",
+    "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.1.0",
     "raven-js": "^3.17.0",
     "react": "^15.6.1",

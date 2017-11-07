@@ -33,7 +33,10 @@ class ClassName extends Component {
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
       return (
         <div>
-          <h4 className="title" dangerouslySetInnerHTML={{ __html: this.getQuestion().prompt, }} style={{ marginBottom: 0, }} />
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
+            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
+          </div>
           <Cues
             getQuestion={this.getQuestion}
             displayArrowAndText={true}

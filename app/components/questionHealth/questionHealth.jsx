@@ -6,7 +6,8 @@ import {
 } from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
-import _ from 'underscore';
+import {oldFlagToNew} from '../../libs/flagMap'
+import _ from 'lodash';
 
 class questionHealth extends Component {
   constructor(props) {
@@ -17,8 +18,12 @@ class questionHealth extends Component {
       sc: {},
       sf: {},
       dq: {},
-      fib: {}
+      fib: {},
+      flag: null
     }
+
+    this.updateFlag = this.updateFlag.bind(this)
+    this.filterByFlag = this.filterByFlag.bind(this)
   }
 
   componentWillMount() {
@@ -56,12 +61,42 @@ class questionHealth extends Component {
 
   }
 
+  updateFlag(e) {
+    const flag = e.target.value === 'all' ? null : e.target.value
+    this.setState({flag: flag}, this.filterQuestionsByFlag)
+  }
+
+  filterByFlag(q) {
+    return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
+  }
+
+  filterQuestionsByFlag() {
+    let questionData, diagnosticQuestionData, sentenceFragmentData, fillInBlankQuestionData
+    if (this.state.flag) {
+      questionData = _.pickBy(this.props.questions.data, this.filterByFlag)
+      diagnosticQuestionData = _.pickBy(this.props.diagnosticQuestions.data, this.filterByFlag)
+      sentenceFragmentData = _.pickBy(this.props.sentenceFragments.data, this.filterByFlag)
+      fillInBlankQuestionData = _.pickBy(this.props.fillInBlank.data, this.filterByFlag)
+    } else {
+      questionData = this.props.questions.data
+      diagnosticQuestionData = this.props.diagnosticQuestions.data
+      sentenceFragmentData = this.props.sentenceFragments.data
+      fillInBlankQuestionData = this.props.fillInBlank.data
+    }
+    this.setSentenceCombiningQuestions(this.props.scoreAnalysis.data, questionData)
+    this.setDiagnosticQuestions(this.props.scoreAnalysis.data, diagnosticQuestionData)
+    this.setSentenceFragments(this.props.scoreAnalysis.data, sentenceFragmentData)
+    this.setFillInBlankQuestions(this.props.scoreAnalysis.data, fillInBlankQuestionData)
+  }
+
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
     const sc = []
     const sentenceCombiningKeys = Object.keys(sentenceCombiningQuestions)
     sentenceCombiningKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        sc.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = sentenceCombiningQuestions[uid].flag
+        sc.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(sc, 'sc')
@@ -72,7 +107,9 @@ class questionHealth extends Component {
     const diagnosticKeys = Object.keys(diagnosticQuestions)
     diagnosticKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        dq.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = diagnosticQuestions[uid].flag
+        dq.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(dq, 'dq')
@@ -83,7 +120,9 @@ class questionHealth extends Component {
     const sentenceFragmentKeys = Object.keys(sentenceFragmentQuestions)
     sentenceFragmentKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        sf.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = sentenceFragmentQuestions[uid].flag
+        sf.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(sf, 'sf')
@@ -94,7 +133,9 @@ class questionHealth extends Component {
     const fillInBlankKeys = Object.keys(fillInBlankQuestions)
     fillInBlankKeys.forEach((uid) => {
       if (analyzedQuestions[uid]) {
-        fib.push(analyzedQuestions[uid])
+        const scoredQuestion = analyzedQuestions[uid]
+        scoredQuestion.flag = fillInBlankQuestions[uid].flag
+        fib.push(scoredQuestion)
       }
     })
     this.analyzeQuestions(fib, 'fib')
@@ -109,7 +150,7 @@ class questionHealth extends Component {
       strong: []
     }
     scores.forEach((q) => {
-      const percentageUnmatched = q.common_unmatched_responses/q.responses * 100
+      const percentageUnmatched = Math.round(q.common_unmatched_responses/q.responses * 100)
       if (percentageUnmatched > 5) {
         groupedScores.veryWeak.push(q)
       } else if (percentageUnmatched > 2) {
@@ -120,10 +161,18 @@ class questionHealth extends Component {
         groupedScores.strong.push(q)
       }
     })
-    groupedScores.percentageWeak = Math.round((groupedScores.veryWeak.length + groupedScores.weak.length)/groupedScores.totalNumber * 100)
+    groupedScores.percentageWeak = this.getPercentageWeak(groupedScores.veryWeak.length, groupedScores.weak.length, groupedScores.totalNumber)
     groupedScores.status = this.getStatus(groupedScores.percentageWeak)
     groupedScores.name = this.getName(keyName)
     this.setState({[keyName]: groupedScores})
+  }
+
+  getPercentageWeak(veryWeakNumber, weakNumber, totalNumber) {
+    if (totalNumber) {
+      return Math.round((veryWeakNumber + weakNumber)/totalNumber * 100)
+    } else {
+      return 0
+    }
   }
 
   getStatus(percentage) {
@@ -170,6 +219,21 @@ class questionHealth extends Component {
     </div>
   }
 
+  renderFlagDropdown() {
+    const selectedValue = this.state.flag ? this.state.flag : 'all'
+    const labelStyle = {marginRight: '10px'}
+    return <div style={{marginTop: '5px', }}>
+      <label style={labelStyle}>Question Flag:</label>
+      <select value={selectedValue} onChange={this.updateFlag}>
+      <option value="all">All</option>
+      <option value="archived">Archived</option>
+      <option value="alpha">Alpha</option>
+      <option value="beta">Beta</option>
+      <option value="production">Production</option>
+    </select>
+  </div>
+  }
+
   renderQuestionTypeTable(questionType) {
     const data = this.state[questionType]
     return <div className="question-type-table">
@@ -213,7 +277,6 @@ class questionHealth extends Component {
     </div>
   }
 
-
   renderStrongRow(data, questionType) {
     const numberOfRelevantAnswers = data.strong.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
@@ -230,6 +293,7 @@ class questionHealth extends Component {
     } else {
       return <div className="question-health">
         <h1>Data Dashboard - Health of Questions</h1>
+        {this.renderFlagDropdown()}
         {this.renderQuestionTypeStatusTable()}
         {this.renderQuestionTypeTable('sc')}
         {this.renderQuestionTypeTable('sf')}

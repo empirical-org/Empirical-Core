@@ -25,12 +25,12 @@ const QuestionsList = React.createClass({
   renderQuestionLinks: function (questions) {
     let filtered;
     if (!this.props.showOnlyArchived) {
-      filtered = questions.filter((question) => 
-        question.flag !== "Archive"
+      filtered = questions.filter((question) =>
+        question.flag !== "archived"
       )
     } else {
-      filtered = questions.filter((question) => 
-        question.flag === "Archive"
+      filtered = questions.filter((question) =>
+        question.flag === "archived"
       )
     }
     return filtered.map((question) => {

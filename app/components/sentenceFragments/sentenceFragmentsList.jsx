@@ -8,12 +8,12 @@ export default React.createClass({
     }
     let filtered;
     if (!this.props.showOnlyArchived) {
-      filtered = questions.filter((question) => 
-        question.flag !== "Archive"
+      filtered = questions.filter((question) =>
+        question.flag !== "archived"
       )
     } else {
-      filtered = questions.filter((question) => 
-        question.flag === "Archive"
+      filtered = questions.filter((question) =>
+        question.flag === "archived"
       )
     }
     return filtered.map((sentenceFragment) => {

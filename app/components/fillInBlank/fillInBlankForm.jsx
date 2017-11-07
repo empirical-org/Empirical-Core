@@ -16,7 +16,7 @@ class FillInBlankForm extends Component {
       cues: '',
       newQuestionOptimalResponse: '',
       itemLevel: 'Select Item Level',
-      flag: 'Alpha',
+      flag: 'alpha',
     };
     this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
     this.handlePromptChange = this.handlePromptChange.bind(this);
@@ -77,7 +77,7 @@ class FillInBlankForm extends Component {
       itemLevel: this.state.itemLevel === "Select Item Level" ? "" : this.state.itemLevel,
       instructions: this.state.instructions,
       conceptID: this.state.conceptID,
-      flag: this.state.flag ? this.state.flag : 'Alpha',
+      flag: this.state.flag ? this.state.flag : 'alpha',
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
   }
@@ -90,7 +90,7 @@ class FillInBlankForm extends Component {
       instructions: '',
       itemLevel: 'Select Item Level',
       conceptID: null,
-      flag: 'Alpha',
+      flag: 'alpha',
     });
   }
 

@@ -16,7 +16,7 @@ const diagnosticQuestionForm = React.createClass({
         instructions: '',
         prefilledText: '',
         cues: '',
-        flag: 'Alpha',
+        flag: 'alpha',
       }
     }
     return {
@@ -26,7 +26,7 @@ const diagnosticQuestionForm = React.createClass({
       instructions: question.instructions ? question.instructions : '',
       prefilledText: question.prefilledText? question.prefilledText : '',
       cues: question.cues? question.cues : '',
-      flag: question.flag ? question.flag : 'Alpha',
+      flag: question.flag ? question.flag : 'alpha',
     }
   },
 

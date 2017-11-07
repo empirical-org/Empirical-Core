@@ -11,10 +11,10 @@ const FlagDropdown = React.createClass({
         <span className="select">
           <select defaultValue={this.props.flag} onChange={this.props.handleFlagChange}>
           {allFlags}
-          <option value="Alpha">Alpha</option>
-          <option value="Beta">Beta</option>
-          <option value="Production">Production</option>
-          <option value="Archive">Archive</option>
+          <option value="alpha">alpha</option>
+          <option value="beta">beta</option>
+          <option value="production">production</option>
+          <option value="archived">archived</option>
           </select>
         </span>
       </p>

@@ -16,7 +16,7 @@ const sentenceFragmentForm = React.createClass({
         instructions: '',
         conceptID: '',
         wordCountChange: {},
-        flag: 'Alpha'
+        flag: 'alpha'
       };
     } else {
       return {
@@ -27,7 +27,7 @@ const sentenceFragmentForm = React.createClass({
         instructions: fragment.instructions ? fragment.instructions : '',
         conceptID: fragment.conceptID,
         wordCountChange: fragment.wordCountChange || {},
-        flag: fragment.flag ? fragment.flag : 'Alpha',
+        flag: fragment.flag ? fragment.flag : 'alpha',
       };
     }
   },
