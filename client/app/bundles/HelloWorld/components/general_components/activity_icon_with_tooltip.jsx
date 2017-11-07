@@ -40,7 +40,7 @@ export default class ActivityIconWithTooltip extends React.Component {
       return cr
     })
     data.scores = crData.scores;
-    this.setState({tooltipData: data});
+    setTimeout(() => {this.setState({tooltipData: data})}, 200);
   }
 
   getActClassId() {
