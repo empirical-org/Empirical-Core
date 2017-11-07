@@ -5,11 +5,11 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
   context 'PUT #update' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
-    let(:user) { FactoryGirl.create(:student) }
+    let(:user) { create(:student) }
 
     before do
       allow(controller).to receive(:doorkeeper_token) {token}
-      @activity_session = FactoryGirl.create(:activity_session, user: user)
+      @activity_session = create(:activity_session, user: user)
     end
 
     context 'default behavior' do
@@ -37,9 +37,9 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
     context 'when concept results are included' do
       before do
-        @writing_concept = FactoryGirl.create(:concept, name: 'Creative Writing')
-        @climbing_concept = FactoryGirl.create(:concept, name: 'Competitive Ice-climbing')
-        @pie_fighting_concept = FactoryGirl.create(:concept, name: 'Ultimate Pie Fighting')
+        @writing_concept = create(:concept, name: 'Creative Writing')
+        @climbing_concept = create(:concept, name: 'Competitive Ice-climbing')
+        @pie_fighting_concept = create(:concept, name: 'Ultimate Pie Fighting')
       end
 
       def subject

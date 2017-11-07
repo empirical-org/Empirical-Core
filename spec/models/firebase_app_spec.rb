@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe FirebaseApp, type: :model do
 
-  let(:firebase_app){ FactoryGirl.create(:firebase_app) }
+  let(:firebase_app){ create(:firebase_app) }
 
   context "#token_for" do
     let(:generator) { double("Firebase::FirebaseTokenGenerator") }
@@ -36,7 +36,7 @@ describe FirebaseApp, type: :model do
     end
 
     context 'for a student' do
-      let(:user) { FactoryGirl.create(:student) }
+      let(:user) { create(:student) }
 
       it_behaves_like 'generating a token'
     end
@@ -56,13 +56,13 @@ describe FirebaseApp, type: :model do
     end
 
     context 'for a teacher' do
-      let(:user) { FactoryGirl.create(:teacher) }
+      let(:user) { create(:teacher) }
 
       it_behaves_like 'generating a token'
     end
 
-    context 'for an staff' do
-      let(:user) { FactoryGirl.create(:staff) }
+    context 'for a staff member' do
+      let(:user) { create(:staff) }
 
       it_behaves_like 'generating a token'
     end

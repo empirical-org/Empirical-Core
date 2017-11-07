@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe CsvExportWorker, type: :worker do
   let(:worker) { CsvExportWorker.new }
-  let(:csv_export) { FactoryGirl.create(:csv_export, teacher: teacher)}
-  let(:teacher) { FactoryGirl.create(:teacher) }
+  let(:csv_export) { create(:csv_export, teacher: teacher)}
+  let(:teacher) { create(:teacher) }
 
   subject { worker.perform(csv_export.id, teacher.id) }
 

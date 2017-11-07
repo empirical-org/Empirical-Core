@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory "Doorkeeper::Application", aliases: [:oauth_application] do
 

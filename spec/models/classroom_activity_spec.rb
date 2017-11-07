@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 describe ClassroomActivity, type: :model, redis: :true do
-    let!(:activity_classification_3) { FactoryGirl.create(:activity_classification, id: 3)}
-    let!(:activity_classification_2) { FactoryGirl.create(:activity_classification, id: 2)}
-    let!(:activity_classification_6) { FactoryGirl.create(:activity_classification, id: 6, key: 'lessons')}
-    let!(:activity) { FactoryGirl.create(:activity) }
-    let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
-    let!(:student) { FactoryGirl.create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
-    let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
-    let!(:classroom_2) { FactoryGirl.create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
-    let!(:unit) { FactoryGirl.create(:unit) }
+    let!(:activity_classification_3) { create(:activity_classification, id: 3)}
+    let!(:activity_classification_2) { create(:grammar)}
+    let!(:activity_classification_6) { create(:lesson)}
+    let!(:activity) { create(:activity) }
+    let!(:teacher) { create(:user, role: 'teacher') }
+    let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
+    let!(:classroom) { create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
+    let!(:classroom_2) { create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
+    let!(:unit) { create(:unit) }
     let(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
-    let(:activity_session) {FactoryGirl.create(:activity_session, classroom_activity_id: classroom_activity.id)}
-    let(:lessons_activity) { FactoryGirl.create(:activity, activity_classification_id: 6) }
+    let(:activity_session) {create(:activity_session, classroom_activity_id: classroom_activity.id)}
+    let(:lessons_activity) { create(:activity, activity_classification_id: 6) }
     let(:lessons_classroom_activity) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom, unit: unit) }
     let(:lessons_classroom_activity_2) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom_2, unit: unit) }
 
@@ -29,7 +29,7 @@ describe ClassroomActivity, type: :model, redis: :true do
                 @student.save!
             end
             it 'must return a list with one element' do
-                classroom_activity = FactoryGirl.build(:classroom_activity, assigned_student_ids: [@student.id])
+                classroom_activity = build(:classroom_activity, assigned_student_ids: [@student.id])
                 expect(classroom_activity.assigned_students.first).to eq(@student)
             end
         end

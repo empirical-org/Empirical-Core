@@ -14,12 +14,12 @@ See http://empirical-core.readme.io/v1.0 for documentation.
 * Write JavaScript, not CoffeeScript.
 * Always write tests (the test suite is really bare right now) and nothing is to be merged without tests.
 * Make pull requests on the develop branch.
-* Use a minimalist approach to using gems like devise, FactoryGirl, etc, unless they're absolutely needed.
+* Use a minimalist approach to using gems like devise, FactoryBot, etc, unless they're absolutely needed.
 
 
 ***
 
-*the text below is copied from https://github.com/thoughtbot/factory_girl_rails/blob/master/CONTRIBUTING.md. Using this as a good starting point:*
+*the text below is copied from https://github.com/thoughtbot/factory_bot_rails/blob/master/CONTRIBUTING.md. Using this as a good starting point:*
 
 We love pull requests. Here's a quick guide:
 

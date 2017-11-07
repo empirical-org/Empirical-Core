@@ -8,7 +8,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
     let(:filters) { { unit_id: '123' } }
     subject do
       post :create, {
-        report_url: "/teachers/progress_reports/standards/classrooms/#{sweathogs.id}/students",
+        report_url: "/teachers/progress_reports/standards/classrooms/#{classroom_one.id}/students",
         csv_export: {
           export_type: export_type,
           filters: filters,
@@ -18,7 +18,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
 
     context 'when authenticated as a teacher' do
       before do
-        session[:user_id] = mr_kotter.id
+        session[:user_id] = teacher.id
       end
 
       let(:response_json) { JSON.parse(response.body)['csv_export'] }
@@ -29,7 +29,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
         }.to change(CsvExport, :count).by(1)
         expect(response_json['export_type']).to eq(export_type)
 
-        expect(response_json['teacher_id']).to eq(mr_kotter.id)
+        expect(response_json['teacher_id']).to eq(teacher.id)
       end
 
       it 'assigns filters from the request params' do
@@ -40,7 +40,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
       it 'parses additional filters from the report_url' do
         subject
         expect(response_json['filters']).to have_key('classroom_id')
-        expect(response_json['filters']['classroom_id'].to_i).to eq(sweathogs.id)
+        expect(response_json['filters']['classroom_id'].to_i).to eq(classroom_one.id)
       end
 
       it 'kicks off a background job to email generate/email the CSV' do
