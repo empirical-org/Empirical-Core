@@ -33,7 +33,13 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#index' do
     let!(:activity) {create(:activity)}
-    let!(:classroom_activity) {create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity)}
+    let!(:classroom_activity) {create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity, assigned_student_ids: [student.id])}
+    let!(:activity_session) {create(:activity_session,
+      activity: activity,
+      classroom_activity: classroom_activity,
+      user: student,
+      state: 'finished'
+    )}
 
     it 'should return json in the appropriate format' do
       response = get :index
