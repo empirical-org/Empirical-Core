@@ -147,18 +147,6 @@ describe User, type: :model do
     describe '#premium_state' do
       let!(:teacher) {create(:user, role: 'teacher')}
 
-<<<<<<< HEAD
-      context 'user is part of an admin account' do
-        let!(:admin_account) {create(:admin_account)}
-        let!(:school_account) {create(:admin_accounts_teacher, admin_account_id: admin_account.id, teacher_id: teacher.id)}
-
-        it "returns 'school'" do
-          expect(teacher.premium_state).to eq('school')
-        end
-      end
-
-=======
->>>>>>> develop
       context 'user is on a valid trial' do
         let!(:trial_teacher) {create(:user, role: 'teacher')}
         let!(:subscription) {create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'Teacher Trial')}
