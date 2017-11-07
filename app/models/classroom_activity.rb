@@ -18,7 +18,7 @@ class ClassroomActivity < ActiveRecord::Base
     if: Proc.new { |ca| ca.pinned == true }
 
   before_validation :check_pinned
-  before_save :update_students_array_if_assign_on_join
+  before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_create :lock_if_lesson
   after_save :teacher_checkbox, :hide_appropriate_activity_sessions, :update_lessons_cache
 
@@ -26,14 +26,19 @@ class ClassroomActivity < ActiveRecord::Base
     User.where(id: assigned_student_ids)
   end
 
-  def update_students_array_if_assign_on_join
-    if self.assign_on_join
-      self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
+  def check_for_assign_on_join_and_update_students_array_if_true
+    student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
+    if self.assigned_student_ids&.any? && !self.assign_on_join && self.assigned_student_ids.length >= student_ids.length
+      # then maybe it should be assign on join, so we do a more thorough check
+      if (assigned_student_ids - student_ids).empty?
+        # then it should indeed be assigned to all
+        self.assign_on_join = true
+      end
     end
-    # old_version = ClassroomActivity.find_by_id(self.id)
-    # if self.assign_on_join && (!old_version || !old_version.assign_on_join)
-    #   self.assigned_student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
-    # end
+    if self.assign_on_join
+      # then we ensure that it has all the student ids
+      self.assigned_student_ids = student_ids
+    end
   end
 
   def assign_follow_up_lesson(locked=true)
