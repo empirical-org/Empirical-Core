@@ -10,24 +10,6 @@ class User < ActiveRecord::Base
 
   has_secure_password validations: false
 
-  has_many :admin_accounts_teachers,
-            class_name: "AdminAccountsTeachers",
-            foreign_key: :teacher_id,
-            dependent: :destroy
-
-  has_many :admin_accounts_admins,
-            class_name: "AdminAccountsAdmins",
-            foreign_key: :admin_id,
-            dependent: :destroy
-
-  has_many :admin_accounts_im_in, through: :admin_accounts_teachers, source: :admin_account, inverse_of: :teachers
-
-  has_many :admin_accounts, through: :admin_accounts_admins, source: :admin_account, inverse_of: :admins
-
-  has_many :teachers, through: :admin_accounts, source: :teachers, inverse_of: :my_admins
-
-  has_many :my_admins, through: :admin_accounts_im_in, source: :admins, inverse_of: :teachers
-
   has_many :checkboxes
   has_many :objectives, through: :checkboxes
   has_one :schools_users
@@ -284,6 +266,18 @@ class User < ActiveRecord::Base
 
   def send_lesson_plan_email(lessons, unit)
     UserMailer.lesson_plan_email(self, lessons, unit).deliver_now! if email.present?
+  end
+
+  def send_premium_user_subscription_email
+    UserMailer.premium_user_subscription_email(self).deliver_now! if email.present?
+  end
+
+  def send_premium_school_subscription_email(school, admin)
+    UserMailer.premium_school_subscription_email(self, school, admin).deliver_now! if email.present?
+  end
+
+  def send_new_admin_email(school)
+    UserMailer.new_admin_email(self, school).deliver_now! if email.present?
   end
 
   def subscribe_to_newsletter
