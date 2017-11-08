@@ -2,8 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { getComponent } from './helpers'
 import _ from 'lodash'
+import Slide from './slide'
 
-import {setWorkingEdition} from '../../actions/customize'
+import {
+  setWorkingEdition,
+  publishEdition
+} from '../../actions/customize'
 
 class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
@@ -17,6 +21,7 @@ class CustomizeEdition extends React.Component<any, any> {
     }
 
     this.updateQuestion = this.updateQuestion.bind(this)
+    this.publish = this.publish.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,6 +41,17 @@ class CustomizeEdition extends React.Component<any, any> {
     this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
   }
 
+  publish() {
+    publishEdition(this.props.params.editionID, this.state.edition)
+  }
+
+  renderPublishSection() {
+    return <div className="publish">
+      <p>Press <span>“Publish Customization”</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
+      <div className="publish-button" onClick={this.publish}>Publish Edition</div>
+    </div>
+  }
+
   renderSlides() {
     if (this.state.edition) {
       return this.state.edition.data.questions.slice(1).map((q, i) => this.renderSlide(q, i))
@@ -43,20 +59,13 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlide(q, i) {
-    const Component = getComponent(q.type)
-    return <div className="slide-container">
-      <div className='slide-header'>
-        <span className="slide-number">Slide {i + 1}</span>
-        <span className="line"></span>
-        <span className="hide">Hide</span>
-      </div>
-      <Component question={q.data} questionIndex={i+1} updateQuestion={this.updateQuestion} save={this.save}/>
-    </div>
+    return <Slide question={q} questionIndex={i+1} updateQuestion={this.updateQuestion}/>
   }
 
   render() {
     return <div className="customize-edition">
     {this.renderSlides()}
+    {this.renderPublishSection()}
     </div>
   }
 }

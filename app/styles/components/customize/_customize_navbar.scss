@@ -37,17 +37,8 @@
   .right {
     display: flex;
     align-items: center;
-    .publish-button {
-      cursor: pointer;
-      width: 137px;
-      justify-content: center;
-      align-items: center;
-      display: flex;
-      height: 35px;
-      border-radius: 3px;
-      font-weight: bold;
-      background-color: #014f92;
-      margin-left: 20px;
-    }
+  }
+  @media (max-width: 850px ) {
+    padding: 0px 10px;
   }
 }

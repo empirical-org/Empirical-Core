@@ -1,6 +1,6 @@
 .customize-edition {
   background-color: #ffffff;
-  padding: 100px;
+  padding: 0px 60px;
   .slide-container {
     .slide-header {
       justify-content: space-between;
@@ -24,6 +24,7 @@
         margin-left: 20px;
         font-size: 16px;
         color: #969696;
+        cursor: pointer;
       }
     }
     .slide {
@@ -77,5 +78,26 @@
         }
       }
     }
+  }
+  .publish {
+    margin-left: calc(50% - 50vw);
+    width: 100vw;
+    justify-content: flex-end;
+    height: 139px;
+    background-color: #fafafa;
+    display: flex;
+    padding: 0px 60px;
+    align-items: center;
+    p {
+      font-size: 16px;
+      font-style: italic;
+      color: #969696;
+    }
+    @media (max-width: 850px ) {
+      padding: 0px 10px;
+    }
+  }
+  @media (max-width: 850px ) {
+    padding: 0px 10px;
   }
 }

@@ -2,3 +2,18 @@
 @import 'customize/_name_modal.scss';
 @import 'customize/_customize_edition.scss';
 @import 'customize/_customize_navbar.scss';
+
+.publish-button {
+  cursor: pointer;
+  min-width: 137px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 35px;
+  border-radius: 3px;
+  font-weight: bold;
+  background-color: #014f92;
+  margin-left: 20px;
+  color: white;
+  font-size: 14px;
+}
