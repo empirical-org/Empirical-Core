@@ -21,20 +21,9 @@ class Classroom < ActiveRecord::Base
   has_many :classrooms_teachers
   has_many :teachers, through: :classrooms_teachers, source: :user
 
-  after_create :delete_classroom_minis_cache
-
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
-  after_commit :trigger_analytics_events_for_classroom_creation, on: :create
 
-  def x
-    c = self
-    if teacher.present?
-      "#{c.id},#{c.name},#{c.code},#{c.teacher.name},#{c.teacher.email},#{teacher.ip_address}"
-    else
-      "#{c.id},#{c.name},#{c.code},,,"
-    end
-  end
 
   def unique_topic_count
     if unique_topic_count_array.any?
@@ -43,6 +32,15 @@ class Classroom < ActiveRecord::Base
       val = nil
     end
     val
+  end
+
+  def teacher
+    User.find_by_sql(
+      "SELECT * FROM users
+      JOIN classrooms_teachers ON classrooms_teachers.user_id = users.id
+      WHERE classrooms_teachers.role = 'owner'
+      AND classrooms_teachers.classroom_id = #{self.id}"
+    ).first
   end
 
   def unique_topic_count_array
@@ -120,16 +118,6 @@ class Classroom < ActiveRecord::Base
   # Clever integration
   def clever_classroom
     Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
-  end
-
-  def delete_classroom_minis_cache
-    t_id = self.teacher&.id
-    t_id ? $redis.del("user_id:#{t_id}_classroom_minis") : nil
-  end
-
-  def trigger_analytics_events_for_classroom_creation
-    find_or_create_checkbox('Create a Classroom', self.teacher)
-    ClassroomCreationWorker.perform_async(self.id)
   end
 
 
