@@ -3,10 +3,13 @@ import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../../classroomLessons/shared/multipleTextEditor'
 import StudentFillInTheList from '../../classroomLessons/play/listBlanks'
+import TitleField from './slideComponents/titleField'
 
 interface CustomizeFillInTheListProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
+  clearSlide: Function,
+  resetSlide: Function,
   questionIndex: Number
 }
 
@@ -25,6 +28,12 @@ class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, any>
     this.handleNBlanks = this.handleNBlanks.bind(this)
     this.handleBlankLabelChange = this.handleBlankLabelChange.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(nextProps.question, this.state.question)) {
+      this.setState({question: nextProps.question})
+    }
   }
 
   updateQuestion(newVals, questionIndex) {
@@ -73,12 +82,13 @@ class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, any>
     return (
       <div className="slide">
         <div className="form">
-          <div className="title-field field">
-            <label>Title</label>
-            <div className="control">
-              <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
-            </div>
-          </div>
+        <TitleField
+          clearSlide={this.props.clearSlide}
+          questionIndex={this.props.questionIndex}
+          resetSlide={this.props.resetSlide}
+          title={this.state.question.teach.title}
+          handleTitleChange={this.handleTitleChange}
+        />
           <div className="prompt-field field">
             <label>Prompt</label>
             <div className="control">

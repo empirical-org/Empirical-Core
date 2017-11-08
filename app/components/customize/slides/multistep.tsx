@@ -3,10 +3,13 @@ import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../../classroomLessons/shared/multipleTextEditor'
 import StudentMultistep from '../../classroomLessons/play/multistep'
+import TitleField from './slideComponents/titleField'
 
 interface CustomizeMultistepProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
+  clearSlide: Function,
+  resetSlide: Function,
   questionIndex: Number
 }
 
@@ -24,6 +27,12 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
     this.handleCuesChange = this.handleCuesChange.bind(this)
     this.deleteStepLabel = this.deleteStepLabel.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(nextProps.question, this.state.question)) {
+      this.setState({question: nextProps.question})
+    }
   }
 
   updateQuestion(newVals, questionIndex) {
@@ -90,12 +99,13 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
             <StudentMultistep data={this.state.question} />
           </div>
         </div>
-        <div className="field">
-          <label className="label">Title</label>
-          <div className="control">
-            <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
+        <TitleField
+          clearSlide={this.props.clearSlide}
+          questionIndex={this.props.questionIndex}
+          resetSlide={this.props.resetSlide}
+          title={this.state.question.teach.title}
+          handleTitleChange={this.handleTitleChange}
+        />
         <div className="field">
           <label className="label">Prompt</label>
           <div className="control">

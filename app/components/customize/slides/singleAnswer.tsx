@@ -3,11 +3,14 @@ import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../../classroomLessons/shared/multipleTextEditor'
 import StudentSingleAnswer from '../../classroomLessons/play/singleAnswer'
+import TitleField from './slideComponents/titleField'
 
 interface SingleAnswerProps {
   question: CLIntF.QuestionData,
   questionIndex: Number,
-  updateQuestion: Function
+  updateQuestion: Function,
+  resetSlide: Function,
+  clearSlide: Function
 }
 
 class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
@@ -22,6 +25,12 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(nextProps.question, this.state.question)) {
+      this.setState({question: nextProps.question})
+    }
   }
 
   updateQuestion(newVals, questionIndex) {
@@ -57,12 +66,13 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
     return (
       <div className="slide">
         <div className="form">
-          <div className="title-field field">
-            <label>Title</label>
-            <div className="control">
-              <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
-            </div>
-          </div>
+          <TitleField
+            clearSlide={this.props.clearSlide}
+            questionIndex={this.props.questionIndex}
+            resetSlide={this.props.resetSlide}
+            title={this.state.question.teach.title}
+            handleTitleChange={this.handleTitleChange}
+          />
           <div className="prompt-field field">
             <label>Prompt</label>
             <div className="control">

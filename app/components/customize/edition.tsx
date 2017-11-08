@@ -22,6 +22,8 @@ class CustomizeEdition extends React.Component<any, any> {
 
     this.updateQuestion = this.updateQuestion.bind(this)
     this.publish = this.publish.bind(this)
+    this.resetSlide = this.resetSlide.bind(this)
+    this.clearSlide = this.clearSlide.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,7 +43,31 @@ class CustomizeEdition extends React.Component<any, any> {
     this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
   }
 
-  publish() {
+  resetSlide(questionIndex) {
+    const question = this.state.copiedEdition.data.questions[questionIndex].data
+    this.updateQuestion(question, questionIndex)
+  }
+
+  clearSlide(questionIndex) {
+    const question = _.merge({}, this.state.edition.data.questions[questionIndex].data)
+    const clearedSlide = {}
+    Object.keys(question.play).map((k) => {
+      if (Array.isArray(question.play[k])) {
+        clearedSlide[k] = ['']
+      } else if (k === 'html') {
+        clearedSlide[k] = '<p></p>'
+      } else if (typeof question.play[k] === 'string') {
+        clearedSlide[k] = ''
+      } else {
+        clearedSlide[k] = question.play[k]
+      }
+    })
+    question.play = clearedSlide
+    this.updateQuestion(question, questionIndex)
+  }
+
+  publish()
+  {
     publishEdition(this.props.params.editionID, this.state.edition)
   }
 
@@ -59,7 +85,14 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlide(q, i) {
-    return <Slide question={q} questionIndex={i+1} updateQuestion={this.updateQuestion}/>
+    return <Slide
+      key={i}
+      question={q}
+      questionIndex={i+1}
+      updateQuestion={this.updateQuestion}
+      clearSlide={this.clearSlide}
+      resetSlide={this.resetSlide}
+    />
   }
 
   render() {
