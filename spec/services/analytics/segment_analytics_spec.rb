@@ -11,7 +11,7 @@ describe 'SegmentAnalytics' do
 
 
   context 'tracking classroom creation' do
-    let(:classroom) { FactoryGirl.create(:classroom) }
+    let(:classroom) { create(:classroom) }
 
     it 'sends an event' do
       analytics.track_classroom_creation(classroom)
@@ -23,7 +23,7 @@ describe 'SegmentAnalytics' do
   end
 
   context 'tracking activity assignment' do
-    let(:teacher) { FactoryGirl.create(:teacher) }
+    let(:teacher) { create(:teacher) }
 
     it 'sends an event' do
       analytics.track_activity_assignment(teacher)
