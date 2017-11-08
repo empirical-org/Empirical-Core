@@ -7,6 +7,10 @@ class ClassroomsTeacher < ActiveRecord::Base
   after_create :delete_classroom_minis_cache
   after_commit :trigger_analytics_events_for_classroom_creation, on: :create
 
+  def teacher
+    self.user
+  end
+
   private
 
   def delete_classroom_minis_cache
