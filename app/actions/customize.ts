@@ -24,7 +24,7 @@ export function getCurrentUserFromLMS() {
   }
 }
 
-export function getEditionsByUser(user_id) {
+export function getEditionsByUser(user_id:Number) {
   return function (dispatch, getState) {
     editionsRef.on('value', (snapshot) => {
       dispatch(filterForUserEditions(user_id, snapshot.val()))
@@ -32,7 +32,7 @@ export function getEditionsByUser(user_id) {
   };
 }
 
-export function createNewEdition(editionUID, lessonUID, user_id) {
+export function createNewEdition(editionUID:string, lessonUID:string, user_id:Number) {
   let newEditionData, newEdition
   if (editionUID) {
     newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id}
@@ -41,7 +41,7 @@ export function createNewEdition(editionUID, lessonUID, user_id) {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id}
+    newEditionData = {lesson_id: lessonUID, user_id:Number}
     newEdition = editionsRef.push(newEditionData)
     classroomLessonsRef.child(lessonUID).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
@@ -50,20 +50,12 @@ export function createNewEdition(editionUID, lessonUID, user_id) {
   return newEdition.key
 }
 
-export function saveEditionName(editionUID, name) {
+export function saveEditionName(editionUID:string, name:string) {
   editionsRef.child(`${editionUID}/name`).set(name)
   editionsRef.child(`${editionUID}/name`).set(firebase.database.ServerValue.TIMESTAMP)
-  // const startTimeRef = classroomSessionsRef.child(`${classroom_activity_id}/startTime`);
-  // startTimeRef.once('value', (snapshot) => {
-  //   const startTime = snapshot.val()
-  //   if (!startTime) {
-  //     startTimeRef.set(firebase.database.ServerValue.TIMESTAMP)
-  //   }
-  // })
-
 }
 
-export function archiveEdition(editionUID) {
+export function archiveEdition(editionUID:string) {
   const flagRef = editionsRef.child(`${editionUID}/flags`)
   flagRef.once('value', (snapshot) => {
     if (!snapshot.val()) {
@@ -75,7 +67,19 @@ export function archiveEdition(editionUID) {
   })
 }
 
-function filterForUserEditions(userId, editions) {
+export function setWorkingEdition(edition) {
+  return { type: C.SET_WORKING_EDITION, edition };
+}
+
+export function publishEdition(editionUID:string, edition, callback?:Function) {
+  edition.last_published_at = firebase.database.ServerValue.TIMESTAMP
+  editionsRef.child(editionUID).set(edition)
+  if (callback) {
+    callback()
+  }
+}
+
+function filterForUserEditions(userId:Number, editions) {
   return function (dispatch, getState) {
     if (editions && Object.keys(editions).length > 0) {
       const userEditions = {}
@@ -93,7 +97,7 @@ function filterForUserEditions(userId, editions) {
   }
 }
 
-function setUserId(id) {
+function setUserId(id:Number) {
   return { type: C.SET_USER_ID, id };
 }
 

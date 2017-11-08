@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 const initialState = {
   user_id: null,
-  editions: {}
+  editions: {},
+  workingEdition: {}
 };
 
 export default function (currentstate, action) {
@@ -16,6 +17,10 @@ export default function (currentstate, action) {
     case C.SET_EDITIONS:
       return Object.assign({}, currentstate, {
         editions: action.editions,
+      });
+    case C.SET_WORKING_EDITION:
+      return Object.assign({}, currentstate, {
+        workingEdition: action.edition,
       });
     default: return currentstate || initialState;
   }

@@ -3,13 +3,17 @@ import { connect } from 'react-redux';
 import { getComponent } from './helpers'
 import _ from 'lodash'
 
+import {setWorkingEdition} from '../../actions/customize'
+
 class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
+    const edition = props.customize.editions[props.params.editionID]
+
     this.state = {
-      edition: props.customize.editions[props.params.editionID],
-      copiedEdition: props.customize.editions[props.params.editionID]
+      edition: edition,
+      copiedEdition: edition
     }
 
     this.updateQuestion = this.updateQuestion.bind(this)
@@ -19,7 +23,7 @@ class CustomizeEdition extends React.Component<any, any> {
     if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID], this.props.customize.editions[nextProps.params.editionID])) {
       const edition = nextProps.customize.editions[nextProps.params.editionID]
       if (this.state.edition === undefined) {
-        this.setState({copiedEdition: edition, edition: edition})
+        this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
       } else {
         this.setState({copiedEdition: edition})
       }
@@ -29,7 +33,7 @@ class CustomizeEdition extends React.Component<any, any> {
   updateQuestion(question, questionIndex) {
     const newEdition = _.merge({}, this.state.edition)
     newEdition.data.questions[questionIndex].data = question
-    this.setState({edition: newEdition})
+    this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
   }
 
   renderSlides() {

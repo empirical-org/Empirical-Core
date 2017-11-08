@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import TeacherLessonsNavbar from './teacherNavbar'
+import CustomizeNavbar from './customizeNavbar'
 
 const Navbar = React.createClass({
   getInitialState: function () {
@@ -35,6 +36,10 @@ const Navbar = React.createClass({
     return window.location.href.includes('teach/class-lessons');
   },
 
+  customize: function() {
+    return this.props.params.editionID
+  },
+
   renderLinks: function () {
     if (this.inLesson()) {
       return (
@@ -56,6 +61,8 @@ const Navbar = React.createClass({
   render: function () {
     if (this.quillLessons()) {
       return (<TeacherLessonsNavbar params={this.props.params}/>);
+    } else if (this.customize()) {
+      return <CustomizeNavbar params={this.props.params}/>
     } else {
       return (
         <header className="nav" style={{height: '65px'}}>
