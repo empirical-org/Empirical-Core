@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  include HTTParty
   before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
@@ -23,6 +24,13 @@ class PagesController < ApplicationController
   end
 
   def develop
+  end
+
+  def ideas
+    connect = HTTParty.get('https://trello.com/b/5B4Jalbc.json')
+    lessons = HTTParty.get('https://trello.com/b/cIRvYfE7.json')
+    @connect_json = JSON.parse(connect.body)
+    @lessons_json = JSON.parse(lessons.body)
   end
 
   def partners

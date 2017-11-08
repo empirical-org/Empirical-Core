@@ -1,0 +1,5 @@
+<h1><%=@lessons_json["name"]%></h1>
+<%@lessons_json["lists"].each do |list| %>
+  <h2><%=list["name"]%></h2>
+<%end%>
+<h1><%=@connect_json["name"]%></h1>
