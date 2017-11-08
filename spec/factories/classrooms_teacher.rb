@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :classrooms_teacher do
-    user {teacher}
-    classroom {classroom}
+    user {FactoryBot.create(:teacher)}
+    classroom {FactoryBot.create(:classroom)}
     role 'owner'
   end
 end
