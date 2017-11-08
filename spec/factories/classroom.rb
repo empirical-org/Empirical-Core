@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :classroom do
-    teacher
-    name  { "#{teacher.name}'s Classroom'" }
+    name  { " Classroom'" }
     grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
 
     trait :from_google do
@@ -27,6 +26,12 @@ FactoryBot.define do
     factory :classroom_with_classroom_activities do
       after(:create) do |classroom|
         create_list(:classroom_activity_with_activity_sessions, 5, classroom: classroom)
+      end
+    end
+
+    after(:create) do |classroom|
+      if classroom.classrooms_teachers.none?
+        create(:classrooms_teacher, classroom_id: classroom.id)
       end
     end
   end
