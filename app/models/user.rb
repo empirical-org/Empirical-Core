@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :admin_rights, through: :schools_admins, source: :school, foreign_key: :user_id
   has_many :classrooms_teachers
-  has_many :classrooms, through: :classrooms_teachers
+  has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
 
   has_and_belongs_to_many :districts
   has_one :ip_location
