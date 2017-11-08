@@ -1,24 +1,35 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { getComponent } from './helpers'
+import _ from 'lodash'
 
 class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
     this.state = {
-      edition: props.customize.editions[props.params.editionID]
+      edition: props.customize.editions[props.params.editionID],
+      copiedEdition: props.customize.editions[props.params.editionID]
     }
+
+    this.updateQuestion = this.updateQuestion.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID])) {
-      this.setState({edition: nextProps.customize.editions[nextProps.params.editionID]})
+    if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID], this.props.customize.editions[nextProps.params.editionID])) {
+      const edition = nextProps.customize.editions[nextProps.params.editionID]
+      if (this.state.edition === undefined) {
+        this.setState({copiedEdition: edition, edition: edition})
+      } else {
+        this.setState({copiedEdition: edition})
+      }
     }
   }
 
-  save() {
-
+  updateQuestion(question, questionIndex) {
+    const newEdition = _.merge({}, this.state.edition)
+    newEdition.data.questions[questionIndex].data = question
+    this.setState({edition: newEdition})
   }
 
   renderSlides() {
@@ -35,7 +46,7 @@ class CustomizeEdition extends React.Component<any, any> {
         <span className="line"></span>
         <span className="hide">Hide</span>
       </div>
-      <Component question={q.data} save={this.save}/>
+      <Component question={q.data} questionIndex={i+1} updateQuestion={this.updateQuestion} save={this.save}/>
     </div>
   }
 

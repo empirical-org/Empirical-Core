@@ -6,7 +6,8 @@ import StudentMultistep from '../../classroomLessons/play/multistep'
 
 interface CustomizeMultistepProps {
   question: CLIntF.QuestionData,
-  save: Function
+  updateQuestion: Function,
+  questionIndex: Number
 }
 
 class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
@@ -14,7 +15,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
     super(props);
 
     this.state = {
-      question: this.props.question
+      question: props.question
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -22,70 +23,52 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
     this.deleteStepLabel = this.deleteStepLabel.bind(this)
-    this.save = this.save.bind(this)
+    this.updateQuestion = this.updateQuestion.bind(this)
+  }
+
+  updateQuestion(newVals, questionIndex) {
+    this.setState({question: newVals}, () => this.props.updateQuestion(newVals, questionIndex))
   }
 
   handleTitleChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'teach.title', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handlePromptChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'play.prompt', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleInstructionsChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'play.instructions', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleCuesChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleStepLabelChange(e, i) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     const newStepLabels = this.state.question.play.stepLabels.slice()
     newStepLabels[i] = e.target.value
     _.set(newVals, 'play.stepLabels', newStepLabels)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   deleteStepLabel(i) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     const newStepLabels = this.state.question.play.stepLabels.slice()
     newStepLabels.splice(i, 1)
     _.set(newVals, 'play.stepLabels', newStepLabels)
-    this.setState({question: newVals})
-  }
-
-  save() {
-    this.props.save(this.state.question)
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   renderStepLabels() {
@@ -135,7 +118,6 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
           <label className="label">Step Labels</label>
           {this.renderStepLabels()}
         </div>
-        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>
     )
   }

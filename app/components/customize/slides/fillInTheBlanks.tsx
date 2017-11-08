@@ -6,73 +6,53 @@ import StudentFillInTheBlank from '../../classroomLessons/play/fillInTheBlank'
 
 interface CustomizeFillInTheBlanksProps {
   question: CLIntF.QuestionData,
-  save: Function,
+  updateQuestion: Function,
+  questionIndex: Number
 }
 
-interface CustomizeFillInTheBlanksState {
-  question: CLIntF.QuestionData
-}
-
-class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, CustomizeFillInTheBlanksState>{
+class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, any>{
   constructor(props){
     super(props);
 
     this.state = {
-      question: this.props.question
+      question: props.question
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
-    this.save = this.save.bind(this)
+    this.updateQuestion = this.updateQuestion.bind(this)
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!_.isEqual(this.state.question, nextProps.question)) {
-  //     this.setState({question: nextProps.question})
-  //   }
-  // }
-  //
-  handleTitleChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
-    _.set(newVals, 'teach.title', e.target.value)
+  updateQuestion(newVals, questionIndex) {
     this.setState({question: newVals})
+    this.props.updateQuestion(newVals, questionIndex)
+  }
+
+  handleTitleChange(e) {
+    const newVals = _.merge({}, this.state.question)
+    _.set(newVals, 'teach.title', e.target.value)
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handlePromptChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'play.prompt', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleInstructionsChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'play.instructions', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleCuesChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
-    this.setState({question: newVals})
-  }
-
-  save() {
-    this.props.save(this.state.question)
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   render() {
@@ -88,10 +68,7 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, 
           <div className="prompt-field field">
             <label>Prompt</label>
             <div className="control">
-              <MultipleTextEditor
-                text={this.state.question.play.prompt}
-                handleTextChange={(e) => this.handlePromptChange(e)}
-              />
+              <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
             </div>
           </div>
           <div className="instructions-field field">
@@ -110,7 +87,7 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, 
             </div>
           </div>
         </div>
-        <div>
+        <div className="slide-preview-container">
           <p className="slide-title">{this.state.question.teach.title}</p>
           <div className="preview">
             <div className="scaler">

@@ -1,6 +1,5 @@
 import * as IntF from '../classroomLessons/interfaces';
 import * as CLIntF from '../../interfaces/ClassroomLessons';
-import CustomizeLobby from './slides/lobby';
 import CustomizeStatic from './slides/static';
 import CustomizeModel from './slides/model';
 import CustomizeSingleAnswer from './slides/singleAnswer';
@@ -12,8 +11,6 @@ import CustomizeMultistep from './slides/multistep';
 
 export function getComponent(type: string) {
   switch (type) {
-    case 'CL-LB':
-      return CustomizeLobby
     case 'CL-ST':
       return CustomizeStatic
     case 'CL-MD':

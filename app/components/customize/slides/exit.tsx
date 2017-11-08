@@ -6,7 +6,8 @@ import SlideHTMLEditor from '../../classroomLessons/admin/slideHTMLEditor'
 
 interface ExitProps {
   question: CLIntF.QuestionData,
-  save: Function
+  updateQuestion: Function,
+  questionIndex: Number
 }
 
 class CustomizeExit extends Component<ExitProps, any>{
@@ -14,33 +15,27 @@ class CustomizeExit extends Component<ExitProps, any>{
     super(props);
 
     this.state = {
-      question: this.props.question
+      question: props.question
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
-    this.save = this.save.bind(this)
+    this.updateQuestion = this.updateQuestion.bind(this)
+  }
+
+  updateQuestion(newVals, questionIndex) {
+    this.setState({question: newVals}, () => this.props.updateQuestion(newVals, questionIndex))
   }
 
   handleTitleChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'teach.title', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleHTMLChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'play.html', e)
-    this.setState({question: newVals})
-  }
-
-  save() {
-    this.props.save(this.state.question)
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   render() {
@@ -63,7 +58,7 @@ class CustomizeExit extends Component<ExitProps, any>{
             </div>
           </div>
         </div>
-        <div>
+        <div className="slide-preview-container">
           <p className="slide-title">{this.state.question.teach.title}</p>
           <div className="preview">
             <div className="scaler">

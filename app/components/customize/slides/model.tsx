@@ -6,7 +6,8 @@ import StudentModel from '../../classroomLessons/play/modelQuestion'
 
 interface CustomizeModelProps {
   question: CLIntF.QuestionData,
-  save: Function
+  updateQuestion: Function,
+  questionIndex: Number
 }
 
 class CustomizeModel extends Component<CustomizeModelProps, any>{
@@ -14,55 +15,45 @@ class CustomizeModel extends Component<CustomizeModelProps, any>{
     super(props);
 
     this.state = {
-      question: this.props.question
+      question: props.question
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
-    this.save = this.save.bind(this)
+    this.updateQuestion = this.updateQuestion.bind(this)
+  }
+
+  updateQuestion(newVals, questionIndex) {
+    this.setState({question: newVals}, () => this.props.updateQuestion(newVals, questionIndex))
   }
 
   handleTitleChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'teach.title', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handlePromptChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
+    const timeStamp = Date.now()
     _.set(newVals, 'play.prompt', e)
-    this.setState({question: newVals})
+    console.log(Date.now() - timeStamp)
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleInstructionsChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'play.instructions', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleCuesChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
-    this.setState({question: newVals})
-  }
-
-  save() {
-    this.props.save(this.state.question)
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   render() {
@@ -100,7 +91,7 @@ class CustomizeModel extends Component<CustomizeModelProps, any>{
             </div>
           </div>
         </div>
-        <div>
+        <div className="slide-preview-container">
           <p className="slide-title">{this.state.question.teach.title}</p>
           <div className="preview">
             <div className="scaler">

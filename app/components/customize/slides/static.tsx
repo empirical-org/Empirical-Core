@@ -6,7 +6,8 @@ import StudentStatic from '../../classroomLessons/play/static'
 
 interface CustomizeStaticProps {
   question: CLIntF.QuestionData,
-  save: Function
+  updateQuestion: Function,
+  questionIndex: Number
 }
 
 class CustomizeStatic extends Component<CustomizeStaticProps, any>{
@@ -14,39 +15,27 @@ class CustomizeStatic extends Component<CustomizeStaticProps, any>{
     super(props);
 
     this.state = {
-      question: this.props.question
+      question: props.question
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
-    this.save = this.save.bind(this)
+    this.updateQuestion = this.updateQuestion.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.state.question, nextProps.question)) {
-      this.setState({question: nextProps.question})
-    }
+  updateQuestion(newVals, questionIndex) {
+    this.setState({question: newVals}, () => this.props.updateQuestion(newVals, questionIndex))
   }
 
   handleTitleChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'teach.title', e.target.value)
-    this.setState({question: newVals})
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleHTMLChange(e) {
-    const newVals = Object.assign(
-      {},
-      this.state.question
-    );
+    const newVals = _.merge({}, this.state.question)
     _.set(newVals, 'play.html', e)
-    this.setState({question: newVals})
-  }
-
-  save() {
-    this.props.save(this.state.question)
+    this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   render() {
@@ -69,7 +58,7 @@ class CustomizeStatic extends Component<CustomizeStaticProps, any>{
             </div>
           </div>
         </div>
-        <div>
+        <div className="slide-preview-container">
           <p className="slide-title">{this.state.question.teach.title}</p>
           <div className="preview">
             <div className="scaler">

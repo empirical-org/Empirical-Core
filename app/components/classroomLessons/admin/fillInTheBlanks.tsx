@@ -33,7 +33,7 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
   //     this.setState({question: nextProps.question})
   //   }
   // }
-  // 
+  //
   handleTitleChange(e) {
     const newVals = Object.assign(
       {},
