@@ -19,7 +19,7 @@ class Classroom < ActiveRecord::Base
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
 
   has_many :classrooms_teachers
-  has_many :users, through: :classrooms_teachers
+  has_many :teachers, through: :classrooms_teachers, source: :user
 
   after_create :delete_classroom_minis_cache
 
