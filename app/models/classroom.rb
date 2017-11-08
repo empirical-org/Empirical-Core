@@ -18,7 +18,8 @@ class Classroom < ActiveRecord::Base
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
 
-  belongs_to :teacher, class_name: 'User'
+  has_many :classrooms_teachers
+  has_many :users, through: :classrooms_teachers
 
   after_create :delete_classroom_minis_cache
 
