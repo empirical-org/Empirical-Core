@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 describe ProgressReports::ActivitySessionSerializer, type: :serializer do
-  let(:activity_session)   { FactoryGirl.create(:activity_session,
+  let(:activity_session)   { create(:activity_session,
     started_at: started_at,
     completed_at: completed_at,
     percentage: 0.25,
     classroom_activity: classroom_activity)
   }
-  let(:classroom) { FactoryGirl.create(:classroom) }
-  let(:activity) { FactoryGirl.create(:activity, topic: topic) }
-  let(:topic) { FactoryGirl.create(:topic, name: '5.1g. Foobar baz')}
-  let(:classroom_activity) { FactoryGirl.create(:classroom_activity, classroom: classroom, activity: activity) }
+  let(:classroom) { create(:classroom) }
+  let(:topic) { create(:topic) }
+  let(:activity) { create(:activity, topic: topic) }
+  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:started_at) { Time.zone.local(2015, 1, 1, 12, 15, 0) }
   let(:completed_at) { Time.zone.local(2015, 1, 1, 13, 0, 0) }
   let(:serializer) { ProgressReports::ActivitySessionSerializer.new(activity_session) }
@@ -41,11 +41,11 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     it 'includes fields pre-formatted for display' do
       expect(parsed_session['display_completed_at']).to eq('01/01/2015')
       expect(parsed_session['display_score']).to eq('25%')
-      expect(parsed_session['standard']).to eq('5.1g.')
+      expect(parsed_session['standard']).to eq(topic.try(:name_prefix))
     end
 
     context 'when the activity session is missing relevant info' do
-      let(:activity_session)   { FactoryGirl.create(:activity_session,
+      let(:activity_session)   { create(:activity_session,
           completed_at: nil,
           percentage: nil,
           classroom_activity: classroom_activity)

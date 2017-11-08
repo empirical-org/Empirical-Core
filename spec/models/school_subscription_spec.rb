@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SchoolSubscription, type: :model do
 
-let!(:school_sub) {FactoryGirl.create(:school_subscription)}
+let!(:school_sub) {create(:school_subscription)}
 
   context "validates" do
 
@@ -40,10 +40,10 @@ let!(:school_sub) {FactoryGirl.create(:school_subscription)}
 
 
   context '#update_schools_users' do
-    let!(:queens_school) { FactoryGirl.create :school, name: "Queens Charter School", zipcode: '11385'}
-    let!(:queens_teacher) { FactoryGirl.create(:teacher, school: queens_school) }
-    let!(:subscription) {FactoryGirl.create(:subscription)}
-    let!(:school_sub) {FactoryGirl.create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
+    let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
+    let!(:queens_teacher) { create(:teacher, school: queens_school) }
+    let!(:subscription) {create(:subscription)}
+    let!(:school_sub) {create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
 
 
     it "connects a premium account to school's users if they do not have one" do
