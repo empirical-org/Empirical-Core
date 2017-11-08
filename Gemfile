@@ -159,8 +159,8 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem "factory_bot"
-  gem "factory_bot_rails"
+  gem "factory_bot", require: false
+  gem "factory_bot_rails", require: false
   gem "database_cleaner"
   gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
   gem 'guard'
