@@ -53,6 +53,7 @@ module Teacher
   end
 
   def archived_classrooms
+    binding.pry
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 

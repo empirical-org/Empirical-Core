@@ -35,9 +35,9 @@ FactoryBot.define do
       activity_session { FactoryBot.create(:diagnostic_activity_session) }
     end
 
-    factory :lessons_slide do
-      question_type { 'lessons-slide' }
-      activity_session { FactoryBot.create(:lesson_activity_session) }
-    end
+    # factory :lessons_slide do
+    #   question_type { 'lessons-slide' }
+    #   activity_session { FactoryBot.create(:lesson_activity_session) }
+    # end
   end
 end
