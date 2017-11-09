@@ -29,6 +29,46 @@ module Teacher
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
+  def classrooms_i_teach
+    Classroom.find_by_sql(base_sql_for_teacher_classrooms)
+  end
+
+  def classrooms_i_own
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner'")
+  end
+
+  def classrooms_i_coteach
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'coteacher'")
+  end
+
+  def students
+    User.find_by_sql(
+      "SELECT students.* FROM users AS teacher
+      JOIN classrooms_teachers AS ct ON ct.user_id = teacher.id
+      JOIN classrooms ON classrooms.id = ct.classroom_id AND classrooms.visible = TRUE
+      JOIN students_classrooms AS sc ON sc.classroom_id = ct.classroom_id
+      JOIN users AS students ON students.id = sc.student_id
+      WHERE teacher.id = #{self.id}"
+    )
+  end
+
+  def archived_classrooms
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
+  end
+
+  def google_classrooms
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner' AND classrooms.google_classroom_id IS NOT null")
+  end
+
+  def classrooms_i_teach_with_students
+    classrooms_i_teach.map do |classroom|
+      classroom_as_h = classroom.attributes
+      classroom_as_h[:students] = classroom.students
+      classroom_as_h
+    end
+  end
+
+
   def get_classroom_minis_cache
     cache = $redis.get("user_id:#{self.id}_classroom_minis")
     cache ? JSON.parse(cache) : nil
@@ -85,10 +125,11 @@ module Teacher
   end
 
   def classrooms_i_teach_with_students
-    classrooms_i_teach.includes(:students).map do |classroom|
-      classroom_h = classroom.attributes
-      classroom_h[:students] = classroom.students.sort_by { |s| s.last_name }
-      classroom_h
+    # TODO rewrite this in SQL at some point in the future.
+    classrooms_i_teach.map do |classroom|
+      classroom_as_h = classroom.attributes
+      classroom_as_h[:students] = classroom.students
+      classroom_as_h
     end
   end
 
@@ -275,6 +316,15 @@ module Teacher
   def get_data_for_lessons_cache
     self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
   end
+
+  private
+
+  def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
+    base = "SELECT classrooms.* from classrooms_teachers AS ct
+    JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
+    WHERE ct.user_id = #{self.id}"
+  end
+
 
 
 end
