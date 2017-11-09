@@ -30,15 +30,15 @@ FactoryBot.define do
     end
 
     trait :with_no_teacher do
-      after(:commit) do |classroom|
-        ClassroomsTeacher.where(classroom_id: classroom.id).delete_all
+      after(:create) do |classroom|
+        ClassroomsTeacher.where(classroom: classroom).delete_all
       end
     end
 
-    after(:create) do |classroom|
-      if classroom.classrooms_teachers.none?
-        create(:classrooms_teacher, classroom_id: classroom.id)
-      end
-    end
+    # after(:create) do |classroom|
+    #   if classroom.classrooms_teachers.none?
+    #     create(:classrooms_teacher, classroom: classroom, user: create(:teacher))
+    #   end
+    # end
   end
 end
