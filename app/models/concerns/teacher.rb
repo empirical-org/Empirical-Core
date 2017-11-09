@@ -53,7 +53,6 @@ module Teacher
   end
 
   def archived_classrooms
-    binding.pry
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 
@@ -68,7 +67,6 @@ module Teacher
       classroom_as_h
     end
   end
-
 
   def get_classroom_minis_cache
     cache = $redis.get("user_id:#{self.id}_classroom_minis")
@@ -111,10 +109,6 @@ module Teacher
     # TODO: move setter to background worker
     set_classroom_minis_cache(info)
     info
-  end
-
-  def archived_classrooms
-    Classroom.unscoped.where(teacher_id: self.id, visible: false)
   end
 
   def google_classrooms
