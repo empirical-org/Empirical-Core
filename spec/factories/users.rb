@@ -21,29 +21,27 @@ FactoryBot.define do
         after(:create) do |teachert|
           classrooms = create_pair(:classroom, :with_no_teacher)
           classrooms.each do |classroomt|
-            create(:classrooms_teacher, user: teachert, classroom: classroomt)
+            create(:classrooms_teacher, user_id: teachert.id, classroom: classroomt)
           end
-          # create(:classrooms_teacher, user: teachert, classroom: create(:classroom, :with_no_teacher))
-          # create(:classrooms_teacher, user: teachert, classroom: create(:classroom, :with_no_teacher))
         end
       end
 
-      trait :signed_up_with_google do
-        signed_up_with_google true
-        google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
-        password { nil }
-        username { nil }
-      end
-
-      trait :signed_up_with_clever do
-        password { nil }
-        username { nil }
-        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
-      end
-
-      trait :with_classrooms_students_and_activities do
-        classrooms_i_teach { create_pair(:classroom_with_students_and_activities) }
-      end
+      # trait :signed_up_with_google do
+      #   signed_up_with_google true
+      #   google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
+      #   password { nil }
+      #   username { nil }
+      # end
+      #
+      # trait :signed_up_with_clever do
+      #   password { nil }
+      #   username { nil }
+      #   clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
+      # end
+      #
+      # trait :with_classrooms_students_and_activities do
+      #   classrooms_i_teach { create_pair(:classroom_with_students_and_activities) }
+      # end
     end
 
     factory :student do
