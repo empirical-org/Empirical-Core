@@ -1,8 +1,15 @@
 .customize-lessons-editor {
+  width: 573px;
+  height: 136px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  border: solid 1px #c0c0c0;
+  margin-top: 5px;
+  box-shadow: none;
   .buttons-toolbar {
     position: absolute;
     right: 0;
-    top: -20;
+    top: -25;
     .bold {
       font-weight: bold;
     }

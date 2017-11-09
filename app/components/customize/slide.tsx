@@ -2,44 +2,67 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { getComponent } from './helpers'
 import _ from 'lodash'
+import ScriptComponent from '../classroomLessons/shared/scriptComponent'
 
 export default class Slide extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
     this.state = {
-      show: true
+      showSlide: true,
+      showScript: false
     }
 
-    this.toggleShow = this.toggleShow.bind(this)
+    this.toggleShowScript = this.toggleShowScript.bind(this)
+    this.toggleShowSlide = this.toggleShowSlide.bind(this)
   }
 
-  toggleShow() {
-    this.setState({show: !this.state.show})
+  toggleShowSlide() {
+    this.setState({showSlide: !this.state.showSlide})
   }
 
-  renderComponent() {
-    if (this.state.show) {
+  toggleShowScript() {
+    this.setState({showScript: !this.state.showScript})
+  }
+
+  renderSlide() {
+    if (this.state.showSlide) {
       const Component = getComponent(this.props.question.type)
-      return <Component
-        question={this.props.question.data}
-        questionIndex={this.props.questionIndex}
-        updateQuestion={this.props.updateQuestion}
-        clearSlide={this.props.clearSlide}
-        resetSlide={this.props.resetSlide}
-        />
+      const showScriptButtonText = this.state.showScript ? 'Hide Step-By-Step Guide' : 'Show Step-By-Step Guide'
+      return <div>
+        <Component
+          question={this.props.question.data}
+          questionIndex={this.props.questionIndex}
+          updateQuestion={this.props.updateQuestion}
+          clearSlide={this.props.clearSlide}
+          resetSlide={this.props.resetSlide}
+          />
+          <div className="script-header" onClick={this.toggleShowScript}>
+            <img src="http://assets.quill.org/images/icons/show-steps.svg"/>
+            <p>{showScriptButtonText}</p>
+          </div>
+          {this.renderScript()}
+        </div>
+    }
+  }
+
+  renderScript() {
+    if (this.state.showScript) {
+      return <div className="script">
+        <ScriptComponent script={this.props.question.data.teach.script} />
+      </div>
     }
   }
 
   render() {
-    const Component = getComponent(this.props.question.type)
+    const showSlideButtonText = this.state.showSlide ? 'Hide' : 'Show'
     return <div className="slide-container" key={this.props.questionIndex}>
       <div className='slide-header'>
       <span className="slide-number">Slide {this.props.questionIndex}</span>
       <span className="line"></span>
-      <span onClick={this.toggleShow} className="hide">Hide</span>
+      <span onClick={this.toggleShowSlide} className="hide">{showSlideButtonText}</span>
       </div>
-      {this.renderComponent()}
+      {this.renderSlide()}
     </div>
   }
 }

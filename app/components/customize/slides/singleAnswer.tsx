@@ -85,7 +85,7 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
+              <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
             </div>
           </div>
         </div>

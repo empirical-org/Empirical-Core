@@ -1,5 +1,5 @@
-.name-modal-container {
-  .name-modal-background {
+.name-and-sample-question-modal-container {
+  .name-and-sample-question-modal-background {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -9,9 +9,9 @@
     background-color: #3f3f3f;
     opacity: 0.9;
   }
-  .name-modal {
+  .name-and-sample-question-modal {
     width: 551px;
-    height: 555px;
+    height: 674px;
     border-radius: 6px;
     background-color: #ffffff;
     position: fixed;
@@ -42,10 +42,8 @@
     	color: #3b3b3b;
       margin-bottom: 30px;
     }
-    .name-section {
+    .name-section, .sample-question-section {
       height: 120px;
-      background-color: #fafafa;
-      margin-bottom: 30px;
       padding: 20px 30px;
       width: 100%;
       p {
@@ -75,6 +73,14 @@
           color: #c0c0c0;
         }
       }
+    }
+    .fields {
+      margin-bottom: 30px;
+      background-color: #fafafa;
+    }
+    .dividing-line {
+      width: 470px;
+      border-bottom: solid 1px #e9e9e9;
     }
     button {
       width: 145px;

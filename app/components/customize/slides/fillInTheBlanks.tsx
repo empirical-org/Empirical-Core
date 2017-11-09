@@ -78,13 +78,13 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, 
           <div className="prompt-field field">
             <label>Prompt</label>
             <div className="control">
-              <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
+              <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text"/>
             </div>
           </div>
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
+              <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
             </div>
           </div>
           <div className="cues-field field">
@@ -93,7 +93,7 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, 
               <span>Make sure you separate words with commas “,”</span>
             </div>
             <div className="control">
-            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
+            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text"/>
             </div>
           </div>
         </div>

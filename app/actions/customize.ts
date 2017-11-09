@@ -33,15 +33,15 @@ export function getEditionsByUser(user_id:Number) {
 }
 
 export function createNewEdition(editionUID:string, lessonUID:string, user_id:Number) {
-  let newEditionData, newEdition
+  let newEditionData, newEdition;
   if (editionUID) {
-    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id}
+    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, sample_question: ''}
     newEdition = editionsRef.push(newEditionData)
     editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id:Number}
+    newEditionData = {lesson_id: lessonUID, user_id: user_id, sample_question: ''}
     newEdition = editionsRef.push(newEditionData)
     classroomLessonsRef.child(lessonUID).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
@@ -52,7 +52,6 @@ export function createNewEdition(editionUID:string, lessonUID:string, user_id:Nu
 
 export function saveEditionName(editionUID:string, name:string) {
   editionsRef.child(`${editionUID}/name`).set(name)
-  editionsRef.child(`${editionUID}/name`).set(firebase.database.ServerValue.TIMESTAMP)
 }
 
 export function archiveEdition(editionUID:string) {

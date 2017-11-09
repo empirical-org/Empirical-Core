@@ -7,6 +7,7 @@
       display: flex;
       align-items: center;
       margin-bottom: 30px;
+      padding-top: 50px;
       .slide-number {
         margin-right: 20px;
         min-width: 50px;
@@ -26,6 +27,19 @@
         color: #969696;
         cursor: pointer;
       }
+    }
+    .script-header {
+      display: flex;
+      font-size: 14px;
+      font-weight: 600;
+      color: #969696;
+      cursor: pointer;
+      img {
+        margin-right: 9px;
+      }
+    }
+    .script {
+      margin-top: 15px;
     }
     .slide {
       display: flex;
@@ -48,7 +62,10 @@
             }
           }
           .input {
+            border-radius: 3px;
+            border: solid 1px #c0c0c0;
             margin-top: 5px;
+            box-shadow: none;
           }
         }
         .title-field {
@@ -84,6 +101,7 @@
         overflow: hidden;
         background-color: #fafafa;
         .slide-title {
+          margin-bottom: 5px;
           font-size: 16px;
           text-align: left;
           color: #3b3b3b;
@@ -101,6 +119,7 @@
   }
   .publish {
     margin-left: calc(50% - 50vw);
+    margin-top: 50px;
     width: 100vw;
     justify-content: flex-end;
     height: 139px;

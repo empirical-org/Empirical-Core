@@ -24,7 +24,7 @@ const TitleField: React.SFC<titleFieldProps> = (props) => {
       </div>
     </div>
     <div className="control">
-      <input value={props.title} onChange={props.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+      <input value={props.title} onChange={props.handleTitleChange} className="input" type="text"/>
     </div>
   </div>
 }

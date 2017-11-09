@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { getComponent } from './helpers'
 import _ from 'lodash'
 import Slide from './slide'
+import CustomizeEditionHeader from './customizeEditionHeader'
+import NameAndSampleQuestionModal from './nameAndSampleQuestionModal'
 
 import {
   setWorkingEdition,
@@ -17,13 +19,18 @@ class CustomizeEdition extends React.Component<any, any> {
 
     this.state = {
       edition: edition,
-      copiedEdition: edition
+      copiedEdition: edition,
+      showEditModal: false
     }
 
     this.updateQuestion = this.updateQuestion.bind(this)
     this.publish = this.publish.bind(this)
     this.resetSlide = this.resetSlide.bind(this)
     this.clearSlide = this.clearSlide.bind(this)
+    this.showEditModal = this.showEditModal.bind(this)
+    this.updateName = this.updateName.bind(this)
+    this.updateSampleQuestion = this.updateSampleQuestion.bind(this)
+    this.closeEditModal = this.closeEditModal.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +50,26 @@ class CustomizeEdition extends React.Component<any, any> {
     this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
   }
 
+  updateName(e) {
+    const newEdition = _.merge({}, this.state.edition)
+    newEdition.name = e.target.value
+    this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
+  }
+
+  updateSampleQuestion(e) {
+    const newEdition = _.merge({}, this.state.edition)
+    newEdition.sample_question = e.target.value
+    this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
+  }
+
+  showEditModal() {
+    this.setState({showEditModal: true})
+  }
+
+  closeEditModal() {
+    this.setState({showEditModal: false})
+  }
+
   resetSlide(questionIndex) {
     const question = this.state.copiedEdition.data.questions[questionIndex].data
     this.updateQuestion(question, questionIndex)
@@ -52,10 +79,16 @@ class CustomizeEdition extends React.Component<any, any> {
     const question = _.merge({}, this.state.edition.data.questions[questionIndex].data)
     const clearedSlide = {}
     Object.keys(question.play).map((k) => {
-      if (Array.isArray(question.play[k])) {
+      if (k === 'cues') {
         clearedSlide[k] = ['']
       } else if (k === 'html') {
         clearedSlide[k] = '<p></p>'
+      } else if (k === 'stepLabels') {
+        const number = question.play[k].length
+        clearedSlide[k] = []
+        for (let i = 0; i < number; i++) {
+          clearedSlide[k].push('')
+        }
       } else if (typeof question.play[k] === 'string') {
         clearedSlide[k] = ''
       } else {
@@ -63,13 +96,14 @@ class CustomizeEdition extends React.Component<any, any> {
       }
     })
     question.play = clearedSlide
+    question.teach.title = ''
     this.updateQuestion(question, questionIndex)
   }
 
-  publish()
-  {
+  publish() {
     publishEdition(this.props.params.editionID, this.state.edition)
   }
+
 
   renderPublishSection() {
     return <div className="publish">
@@ -95,11 +129,35 @@ class CustomizeEdition extends React.Component<any, any> {
     />
   }
 
+  renderEditModal() {
+    if (this.state.showEditModal) {
+      return <NameAndSampleQuestionModal
+          updateName={this.updateName}
+          name={this.state.edition.name}
+          sampleQuestion={this.state.edition.sample_question}
+          updateSampleQuestion={this.updateSampleQuestion}
+          buttonClassName
+          closeEditModal={this.closeEditModal}
+      />
+    }
+  }
+
   render() {
-    return <div className="customize-edition">
-    {this.renderSlides()}
-    {this.renderPublishSection()}
-    </div>
+    if (this.state.edition) {
+      return <div className="customize-edition">
+        {this.renderEditModal()}
+        <CustomizeEditionHeader
+          lessonTitle={this.props.classroomLesson.data.title}
+          editionName={this.state.edition.name}
+          sampleQuestion={this.state.edition.sample_question}
+          showEditModal={this.showEditModal}
+        />
+      {this.renderSlides()}
+      {this.renderPublishSection()}
+      </div>
+    } else {
+      return <span/>
+    }
   }
 }
 

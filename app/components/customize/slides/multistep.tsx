@@ -25,7 +25,6 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
-    this.deleteStepLabel = this.deleteStepLabel.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
   }
 
@@ -72,20 +71,10 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
     this.updateQuestion(newVals, this.props.questionIndex)
   }
 
-  deleteStepLabel(i) {
-    const newVals = _.merge({}, this.state.question)
-    const newStepLabels = this.state.question.play.stepLabels.slice()
-    newStepLabels.splice(i, 1)
-    _.set(newVals, 'play.stepLabels', newStepLabels)
-    this.updateQuestion(newVals, this.props.questionIndex)
-  }
-
   renderStepLabels() {
-    return this.state.question.play.stepLabels.concat(['']).map((sl, i) => {
-      const deleteButton = i === this.state.question.play.stepLabels.length ? <span /> : <i className="fa fa-times" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.deleteStepLabel(i)}/>
+    return this.state.question.play.stepLabels.map((sl, i) => {
       return <div className="control" style={{display: 'flex'}} key={i}>
-      <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
-      {deleteButton}
+      <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text"/>
       </div>
     }
     )
@@ -93,40 +82,48 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
 
   render() {
     return (
-      <div style={{marginTop: 30, marginBottom: 30}}>
-        <div className="admin-slide-preview">
-          <div className="scaler">
-            <StudentMultistep data={this.state.question} />
+      <div className="slide">
+        <div className="form">
+          <TitleField
+            clearSlide={this.props.clearSlide}
+            questionIndex={this.props.questionIndex}
+            resetSlide={this.props.resetSlide}
+            title={this.state.question.teach.title}
+            handleTitleChange={this.handleTitleChange}
+          />
+          <div className="field">
+            <label>Prompt</label>
+            <div className="control">
+              <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text"/>
+            </div>
+          </div>
+          <div className="field">
+            <label>Instructions (Optional)</label>
+            <div className="control">
+              <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="spread-label">
+              <label>Joining Words <span className="optional">(Optional)</span></label>
+              <span>Make sure you separate words with commas “,”</span>
+            </div>
+            <div className="control">
+              <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text"/>
+            </div>
+          </div>
+          <div className="field">
+            <label>Field Labels</label>
+            {this.renderStepLabels()}
           </div>
         </div>
-        <TitleField
-          clearSlide={this.props.clearSlide}
-          questionIndex={this.props.questionIndex}
-          resetSlide={this.props.resetSlide}
-          title={this.state.question.teach.title}
-          handleTitleChange={this.handleTitleChange}
-        />
-        <div className="field">
-          <label className="label">Prompt</label>
-          <div className="control">
-            <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
+        <div className="slide-preview-container">
+          <p className="slide-title">{this.state.question.teach.title}</p>
+          <div className="preview">
+            <div className="scaler">
+              <StudentMultistep data={this.state.question} />
+            </div>
           </div>
-        </div>
-        <div className="field">
-          <label className="label">Instructions (Optional)</label>
-          <div className="control">
-            <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Cues comma separated (Optional)</label>
-          <div className="control">
-            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Step Labels</label>
-          {this.renderStepLabels()}
         </div>
       </div>
     )
