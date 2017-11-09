@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from './slideComponents/multipleTextEditor.jsx'
+import PromptField from './slideComponents/promptField'
 import StudentStatic from '../../classroomLessons/play/static'
 import TitleField from './slideComponents/titleField'
 
@@ -10,7 +10,8 @@ interface CustomizeStaticProps {
   updateQuestion: Function,
   clearSlide: Function,
   resetSlide: Function,
-  questionIndex: Number
+  questionIndex: Number,
+  incompletePrompt: Boolean
 }
 
 class CustomizeStatic extends Component<CustomizeStaticProps, any>{
@@ -23,6 +24,7 @@ class CustomizeStatic extends Component<CustomizeStaticProps, any>{
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
+    this.handleHTMLChange = this.handleHTMLChange.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,15 +60,11 @@ class CustomizeStatic extends Component<CustomizeStaticProps, any>{
             title={this.state.question.teach.title}
             handleTitleChange={this.handleTitleChange}
           />
-          <div className="prompt-field field">
-            <label>Text</label>
-            <div className="control">
-              <MultipleTextEditor
-                text={this.state.question.play.html}
-                handleTextChange={(e) => this.handleHTMLChange(e)}
-              />
-            </div>
-          </div>
+          <PromptField
+            incompletePrompt={this.props.incompletePrompt}
+            text={this.state.question.play.html}
+            handleTextChange={(e) => this.handleHTMLChange(e)}
+          />
         </div>
         <div className="slide-preview-container">
           <p className="slide-title">{this.state.question.teach.title}</p>

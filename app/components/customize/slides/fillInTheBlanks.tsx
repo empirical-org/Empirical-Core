@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from './slideComponents/multipleTextEditor.jsx'
+import PromptField from './slideComponents/promptField'
 import StudentFillInTheBlank from '../../classroomLessons/play/fillInTheBlank'
 import TitleField from './slideComponents/titleField'
 
 interface CustomizeFillInTheBlanksProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
-  resetSlide: Function,
   clearSlide: Function,
-  questionIndex: Number
+  resetSlide: Function,
+  questionIndex: Number,
+  incompletePrompt: Boolean
 }
 
 class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, any>{
@@ -75,12 +76,11 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, 
             title={this.state.question.teach.title}
             handleTitleChange={this.handleTitleChange}
           />
-          <div className="prompt-field field">
-            <label>Prompt</label>
-            <div className="control">
-              <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text"/>
-            </div>
-          </div>
+          <PromptField
+            incompletePrompt={this.props.incompletePrompt}
+            text={this.state.question.play.prompt}
+            handleTextChange={(e) => this.handlePromptChange(e)}
+          />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">

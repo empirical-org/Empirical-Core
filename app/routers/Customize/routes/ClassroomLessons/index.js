@@ -1,5 +1,18 @@
 import Passthrough from 'components/shared/passthrough.jsx';
 
+const successRoute = {
+  path: ':lessonID/:editionID/success',
+  onEnter: (nextState, replaceWith) => {
+    document.title = 'Customize Edition';
+  },
+  getComponent: (nextState, cb) => {
+    System.import(/* webpackChunkName: "customize-classroom-lesson-edition" */'components/customize/edition.tsx')
+    .then((component) => {
+      cb(null, component.default);
+    });
+  },
+};
+
 const editionRoute = {
   path: ':lessonID/:editionID',
   onEnter: (nextState, replaceWith) => {
@@ -36,6 +49,7 @@ const indexRoute = {
 const route = {
   indexRoute,
   childRoutes: [
+    successRoute,
     editionRoute,
     chooseEditionRoute
   ],

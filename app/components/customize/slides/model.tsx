@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from './slideComponents/multipleTextEditor.jsx'
+import PromptField from './slideComponents/promptField'
 import StudentModel from '../../classroomLessons/play/modelQuestion'
 import TitleField from './slideComponents/titleField'
 
@@ -10,7 +10,8 @@ interface CustomizeModelProps {
   updateQuestion: Function,
   clearSlide: Function,
   resetSlide: Function,
-  questionIndex: Number
+  questionIndex: Number,
+  incompletePrompt: Boolean
 }
 
 class CustomizeModel extends Component<CustomizeModelProps, any>{
@@ -76,15 +77,11 @@ class CustomizeModel extends Component<CustomizeModelProps, any>{
             title={this.state.question.teach.title}
             handleTitleChange={this.handleTitleChange}
           />
-          <div className="prompt-field field">
-            <label>Prompt</label>
-            <div className="control">
-              <MultipleTextEditor
-                text={this.state.question.play.prompt}
-                handleTextChange={(e) => this.handlePromptChange(e)}
-              />
-            </div>
-          </div>
+          <PromptField
+            incompletePrompt={this.props.incompletePrompt}
+            text={this.state.question.play.prompt}
+            handleTextChange={(e) => this.handlePromptChange(e)}
+          />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">

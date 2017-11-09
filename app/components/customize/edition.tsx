@@ -20,7 +20,9 @@ class CustomizeEdition extends React.Component<any, any> {
     this.state = {
       edition: edition,
       copiedEdition: edition,
-      showEditModal: false
+      showEditModal: false,
+      showSuccessModal: false,
+      incompleteQuestions: []
     }
 
     this.updateQuestion = this.updateQuestion.bind(this)
@@ -41,6 +43,9 @@ class CustomizeEdition extends React.Component<any, any> {
       } else {
         this.setState({copiedEdition: edition})
       }
+    }
+    if (!_.isEqual(nextProps.customize.incompleteQuestions, this.state.incompleteQuestions)) {
+      this.setState({incompleteQuestions: nextProps.customize.incompleteQuestions})
     }
   }
 
@@ -101,15 +106,34 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   publish() {
-    publishEdition(this.props.params.editionID, this.state.edition)
+    const slides = this.state.edition.data.questions.slice(1)
+    const incompleteQuestions = []
+    slides.forEach((s, i) => {
+      const q = s.data.play
+      if (q.prompt === '' || q.prompt && q.prompt.trim() === '') {
+        incompleteQuestions.push(i)
+      } else if (q.html && q.html === '<p></p>') {
+        incompleteQuestions.push(i)
+      }
+    })
+    this.setState({incompleteQuestions: incompleteQuestions})
+    if (incompleteQuestions.length === 0) {
+      this.props.dispatch(publishEdition(this.props.params.editionID, this.state.edition))
+    }
   }
 
-
   renderPublishSection() {
-    return <div className="publish">
+    if (!this.state.incompleteQuestions || this.state.incompleteQuestions.length === 0) {
+      return <div className="publish">
       <p>Press <span>“Publish Customization”</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
       <div className="publish-button" onClick={this.publish}>Publish Edition</div>
-    </div>
+      </div>
+    } else {
+      return <div className="publish">
+      <p className="error"><i className="fa fa-icon fa-exclamation-triangle"/>You have left one of the fields above empty. Please fill out all the required fields and click Publish Customization.</p>
+      <div className="publish-button" onClick={this.publish}>Publish Edition</div>
+      </div>
+    }
   }
 
   renderSlides() {
@@ -119,6 +143,7 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlide(q, i) {
+    const incompletePrompt = this.state.incompleteQuestions && this.state.incompleteQuestions.includes(i)
     return <Slide
       key={i}
       question={q}
@@ -126,6 +151,7 @@ class CustomizeEdition extends React.Component<any, any> {
       updateQuestion={this.updateQuestion}
       clearSlide={this.clearSlide}
       resetSlide={this.resetSlide}
+      incompletePrompt={incompletePrompt}
     />
   }
 

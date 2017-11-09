@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import Static from '../../classroomLessons/play/static'
-import SlideHTMLEditor from '../../classroomLessons/admin/slideHTMLEditor'
+import PromptField from './slideComponents/promptField'
 import TitleField from './slideComponents/titleField'
 
 interface ExitProps {
@@ -10,7 +10,8 @@ interface ExitProps {
   updateQuestion: Function,
   clearSlide: Function,
   resetSlide: Function,
-  questionIndex: Number
+  questionIndex: Number,
+  incompletePrompt: Boolean
 }
 
 class CustomizeExit extends Component<ExitProps, any>{
@@ -24,7 +25,7 @@ class CustomizeExit extends Component<ExitProps, any>{
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.question, this.state.question)) {
       this.setState({question: nextProps.question})
@@ -58,15 +59,11 @@ class CustomizeExit extends Component<ExitProps, any>{
             title={this.state.question.teach.title}
             handleTitleChange={this.handleTitleChange}
           />
-          <div className="prompt-field field">
-            <label>Text</label>
-            <div className="control">
-              <SlideHTMLEditor
-                text={this.state.question.play.html}
-                handleTextChange={(e) => this.handleHTMLChange(e)}
-              />
-            </div>
-          </div>
+          <PromptField
+            incompletePrompt={this.props.incompletePrompt}
+            text={this.state.question.play.prompt}
+            handleTextChange={(e) => this.handlePromptChange(e)}
+          />
         </div>
         <div className="slide-preview-container">
           <p className="slide-title">{this.state.question.teach.title}</p>

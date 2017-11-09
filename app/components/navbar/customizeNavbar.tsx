@@ -3,7 +3,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 const helpIcon = require('../../img/help_icon.svg')
 import { getParameterByName } from '../../libs/getParameterByName';
-import { publishEdition } from '../../actions/customize'
+import {
+  publishEdition,
+  setIncompleteQuestions
+ } from '../../actions/customize'
 import { formatDate } from '../customize/helpers'
 
 class CustomizeNavbar extends React.Component<any, any> {
@@ -18,7 +21,21 @@ class CustomizeNavbar extends React.Component<any, any> {
   }
 
   publish() {
-    publishEdition(this.props.params.editionID, this.props.customize.workingEdition)
+    const slides = this.props.customize.workingEdition.data.questions.slice(1)
+    const incompleteQuestions = []
+    slides.forEach((s, i) => {
+      const q = s.data.play
+      if (q.prompt === '' || q.prompt && q.prompt.trim() === '') {
+        incompleteQuestions.push(i)
+      } else if (q.html && q.html === '<p></p>' || q.html == '<p><br></p>') {
+        incompleteQuestions.push(i)
+      }
+    })
+    if (incompleteQuestions.length === 0) {
+      this.props.dispatch(publishEdition(this.props.params.editionID, this.props.customize.workingEdition))
+    } else {
+      this.props.dispatch(setIncompleteQuestions(incompleteQuestions))
+    }
   }
 
   lastPublishedAt() {

@@ -35,13 +35,13 @@ export function getEditionsByUser(user_id:Number) {
 export function createNewEdition(editionUID:string, lessonUID:string, user_id:Number) {
   let newEditionData, newEdition;
   if (editionUID) {
-    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, sample_question: ''}
+    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
     newEdition = editionsRef.push(newEditionData)
     editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id: user_id, sample_question: ''}
+    newEditionData = {lesson_id: lessonUID, user_id: user_id}
     newEdition = editionsRef.push(newEditionData)
     classroomLessonsRef.child(lessonUID).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
@@ -70,11 +70,19 @@ export function setWorkingEdition(edition) {
   return { type: C.SET_WORKING_EDITION, edition };
 }
 
+export function setIncompleteQuestions(incompleteQuestions) {
+  return { type: C.SET_INCOMPLETE_QUESTIONS, incompleteQuestions };
+}
+
 export function publishEdition(editionUID:string, edition, callback?:Function) {
-  edition.last_published_at = firebase.database.ServerValue.TIMESTAMP
-  editionsRef.child(editionUID).set(edition)
-  if (callback) {
-    callback()
+  return function(dispatch) {
+    dispatch(setIncompleteQuestions([]))
+    edition.last_published_at = firebase.database.ServerValue.TIMESTAMP
+    editionsRef.child(editionUID).set(edition)
+    if (callback) {
+      callback()
+    }
+
   }
 }
 

@@ -36,6 +36,7 @@ export default class Slide extends React.Component<any, any> {
           updateQuestion={this.props.updateQuestion}
           clearSlide={this.props.clearSlide}
           resetSlide={this.props.resetSlide}
+          incompletePrompt={this.props.incompletePrompt}
           />
           <div className="script-header" onClick={this.toggleShowScript}>
             <img src="http://assets.quill.org/images/icons/show-steps.svg"/>

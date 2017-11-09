@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from './slideComponents/multipleTextEditor.jsx'
 import StudentMultistep from '../../classroomLessons/play/multistep'
 import TitleField from './slideComponents/titleField'
+import PromptField from './slideComponents/promptField'
 
 interface CustomizeMultistepProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
   clearSlide: Function,
   resetSlide: Function,
-  questionIndex: Number
+  questionIndex: Number,
+  incompletePrompt: Boolean
 }
 
 class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
@@ -46,7 +47,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
 
   handlePromptChange(e) {
     const newVals = _.merge({}, this.state.question)
-    _.set(newVals, 'play.prompt', e.target.value)
+    _.set(newVals, 'play.prompt', e)
     this.updateQuestion(newVals, this.props.questionIndex)
   }
 
@@ -91,14 +92,13 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
             title={this.state.question.teach.title}
             handleTitleChange={this.handleTitleChange}
           />
+          <PromptField
+            incompletePrompt={this.props.incompletePrompt}
+            text={this.state.question.play.prompt}
+            handleTextChange={(e) => this.handlePromptChange(e)}
+          />
           <div className="field">
-            <label>Prompt</label>
-            <div className="control">
-              <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text"/>
-            </div>
-          </div>
-          <div className="field">
-            <label>Instructions (Optional)</label>
+            <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
               <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
             </div>

@@ -4,7 +4,8 @@ import _ from 'lodash';
 const initialState = {
   user_id: null,
   editions: {},
-  workingEdition: {}
+  workingEdition: {},
+  incompleteQuestions: []
 };
 
 export default function (currentstate, action) {
@@ -22,6 +23,10 @@ export default function (currentstate, action) {
       return Object.assign({}, currentstate, {
         workingEdition: action.edition,
       });
+    case C.SET_INCOMPLETE_QUESTIONS:
+    return Object.assign({}, currentstate, {
+        incompleteQuestions: action.incompleteQuestions,
+    });
     default: return currentstate || initialState;
   }
 }

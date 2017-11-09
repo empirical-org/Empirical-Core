@@ -44,6 +44,7 @@ function formatMonth(monthNumber) {
 }
 
 function formatDay(day) {
+  console.log(day)
   let numS = String(day);
   const numL = numS.length - 1;
   if (day >= 11 && day <= 19) {
@@ -75,5 +76,6 @@ function formatTime(date) {
     hour = hour - 12
     amOrPm = 'pm'
   }
+  minutes = minutes < 10 ? `0${minutes}` : minutes
   return `${hour}:${minutes} ${amOrPm}`
 }

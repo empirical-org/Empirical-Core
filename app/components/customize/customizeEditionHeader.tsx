@@ -46,7 +46,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
           <div className="vertical-line"/>
           <div className="sample-question">
             <p>Sample Question</p>
-            <h2>{this.props.sampleQuestion}</h2>
+            <h2>{this.props.sampleQuestion || <span>Enter a sample question</span>}</h2>
           </div>
         </div>
       </div>

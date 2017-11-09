@@ -5,7 +5,7 @@ import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 
-class MultipleTextEditor extends Component {
+class MultipleTextEditor extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
@@ -53,8 +53,9 @@ class MultipleTextEditor extends Component {
   render() {
     const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, MyIconButton} = this.state.components;
     const textBoxClass = this.state.hasFocus ? 'card-content hasFocus' : 'card-content';
+    const errorClass = this.props.incompletePrompt ? 'incomplete-prompt' : ''
     return (
-      <div className="customize-lessons-editor card is-fullwidth">
+      <div className={`customize-lessons-editor card is-fullwidth ${errorClass}`}>
         <div className="buttons-toolbar">
           <div className="buttons-wrapper">
             <BoldButton><MyIconButton className="bold" title="B" /></BoldButton>
@@ -76,34 +77,6 @@ class MultipleTextEditor extends Component {
         </div>
       </div>
     );
-
-    // return (
-    //   <div className="card is-fullwidth">
-    //     <header className="card-header">
-    //       <div className="myToolbar">
-    //         <p className="teacher-model-instructions">
-    //           {this.props.title}
-    //         </p>
-    //         <div className="buttons-wrapper">
-    //           <BoldButton />
-    //           <ItalicButton />
-    //           <UnderlineButton />
-    //         </div>
-    //       </div>
-    //     </header>
-    //     <div className={textBoxClass}>
-    //       <div className="content">
-    //         <Editor
-    //           editorState={this.state.text}
-    //           onChange={this.handleTextChange}
-    //           plugins={this.state.plugins}
-    //           onFocus={() => this.setState({ hasFocus: true, })}
-    //           onBlur={() => this.setState({ hasFocus: false, })}
-    //         />
-    //       </div>
-    //     </div>
-    //   </div>
-    // );
   }
 
 }

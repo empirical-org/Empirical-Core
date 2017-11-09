@@ -6,6 +6,9 @@
   border: solid 1px #c0c0c0;
   margin-top: 5px;
   box-shadow: none;
+  &.incomplete-prompt {
+    border: solid 1px #ff7370;
+  }
   .buttons-toolbar {
     position: absolute;
     right: 0;
