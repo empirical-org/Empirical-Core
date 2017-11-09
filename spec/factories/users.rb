@@ -17,11 +17,11 @@ FactoryBot.define do
     factory :teacher do
       role 'teacher'
 
-      factory :teacher_with_a_couple_classrooms do
-        after(:create) do |teachert|
-          classrooms = create_pair(:classroom, :with_no_teacher)
-          classrooms.each do |classroomt|
-            create(:classrooms_teacher, user_id: teachert.id, classroom: classroomt)
+      factory :teacher_with_a_couple_classrooms_with_one_student_each do
+        after(:create) do |teacher|
+          classrooms = create_pair(:classroom_with_one_student, :with_no_teacher)
+          classrooms.each do |classroom|
+            create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
           end
         end
       end

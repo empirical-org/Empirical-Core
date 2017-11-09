@@ -2,34 +2,33 @@ require 'rails_helper'
 
 describe User, type: :model do
   describe 'teacher concern' do
-    # let!(:student) { create(:user, role: 'student') }
-    # let!(:classroom) { create(:classroom) }
-    let!(:teacher) { create(:teacher_with_a_couple_classrooms) }
-    # let!(:classroom1) { create(:classrooms_teacher, user: teacher).classroom }
-    # let!(:classroom) { create(:classroom, students: [student]) }
-    # let!(:student1) { create(:user, role: 'student') }
-    # let!(:classroom1) { create(:classroom, students: [student1]) }
+    let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+    let!(:classroom) { teacher.classrooms_i_teach.first }
+    let!(:classroom1) { teacher.classrooms_i_teach.second }
+    let!(:student) { classroom.students.first }
+    let!(:student1) { classroom1.students.first }
 
-    it '#classrooms_i_teach_with_students' do
-      byebug
-      classroom_hash = classroom.attributes
-      classroom_hash[:students] = classroom.students
-      classroom1_hash = classroom1.attributes
-      classroom1_hash[:students] = classroom1.students
-      classrooms = teacher.classrooms_i_teach_with_students
-      # HACK: let's disregard the created_at and updated_at values
-      # to avoid a bunch of nasty temporal comparison issues...
-      classroom_hash['created_at'] = nil
-      classroom_hash['updated_at'] = nil
-      classroom1_hash['created_at'] = nil
-      classroom1_hash['updated_at'] = nil
-      classrooms[0]['created_at'] = nil
-      classrooms[0]['updated_at'] = nil
-      classrooms[1]['created_at'] = nil
-      classrooms[1]['updated_at'] = nil
+    describe '#classrooms_i_teach_with_students' do
+      it 'should return an array of classroom hashes with array of students on each' do
+        classroom_hash = classroom.attributes
+        classroom_hash[:students] = classroom.students
+        classroom1_hash = classroom1.attributes
+        classroom1_hash[:students] = classroom1.students
+        classrooms = teacher.classrooms_i_teach_with_students
+        # HACK: let's disregard the created_at and updated_at values
+        # to avoid a bunch of nasty temporal comparison issues...
+        classroom_hash['created_at'] = nil
+        classroom_hash['updated_at'] = nil
+        classroom1_hash['created_at'] = nil
+        classroom1_hash['updated_at'] = nil
+        classrooms[0]['created_at'] = nil
+        classrooms[0]['updated_at'] = nil
+        classrooms[1]['created_at'] = nil
+        classrooms[1]['updated_at'] = nil
 
-      expect(classrooms).to include(classroom_hash)
-      expect(classrooms).to include(classroom1_hash)
+        expect(classrooms).to include(classroom_hash)
+        expect(classrooms).to include(classroom1_hash)
+      end
     end
 
     # describe '#classrooms_i_own' do
