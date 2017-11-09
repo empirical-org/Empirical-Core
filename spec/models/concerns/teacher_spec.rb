@@ -3,9 +3,9 @@ require 'rails_helper'
 describe User, type: :model do
   describe 'teacher concern' do
     # let!(:student) { create(:user, role: 'student') }
-    let!(:classroom) { create(:classrooms_teacher).classroom }
-    let!(:teacher) { classroom.teacher }
-    let!(:classroom1) { create(:classrooms_teacher, user: teacher).classroom }
+    # let!(:classroom) { create(:classroom) }
+    let!(:teacher) { create(:teacher_with_a_couple_classrooms) }
+    # let!(:classroom1) { create(:classrooms_teacher, user: teacher).classroom }
     # let!(:classroom) { create(:classroom, students: [student]) }
     # let!(:student1) { create(:user, role: 'student') }
     # let!(:classroom1) { create(:classroom, students: [student1]) }

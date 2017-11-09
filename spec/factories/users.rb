@@ -17,6 +17,17 @@ FactoryBot.define do
     factory :teacher do
       role 'teacher'
 
+      factory :teacher_with_a_couple_classrooms do
+        after(:create) do |teachert|
+          classrooms = create_pair(:classroom, :with_no_teacher)
+          classrooms.each do |classroomt|
+            create(:classrooms_teacher, user: teachert, classroom: classroomt)
+          end
+          # create(:classrooms_teacher, user: teachert, classroom: create(:classroom, :with_no_teacher))
+          # create(:classrooms_teacher, user: teachert, classroom: create(:classroom, :with_no_teacher))
+        end
+      end
+
       trait :signed_up_with_google do
         signed_up_with_google true
         google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
