@@ -36,8 +36,8 @@ FactoryBot.define do
       activity { FactoryBot.create(:connect_activity) }
     end
 
-    factory :lesson_activity_session do
-      activity { FactoryBot.create(:lesson_activity) }
-    end
+    # factory :lesson_activity_session do
+    #   activity { FactoryBot.create(:lesson_activity) }
+    # end
   end
 end
