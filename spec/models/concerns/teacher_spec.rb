@@ -40,9 +40,11 @@ describe User, type: :model do
     end
 
     describe '#classrooms_i_coteach' do
+      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
+      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
       it 'should return all visible classrooms associated with the teacher through classrooms teacher and role coteacher' do
-        expect(teacher.classrooms_i_coteach).to match_array([cotaught_classroom])
-        cotaught_classroom.update(visible: false)
+        expect(teacher.classrooms_i_coteach).to match_array([co_taught_classroom])
+        co_taught_classroom.update(visible: false)
         expect(teacher.classrooms_i_coteach).to match_array([])
       end
     end
@@ -50,7 +52,6 @@ describe User, type: :model do
     describe '#archived_classrooms' do
       it 'returns an array of teachers archived classes if extant' do
         classroom.update(visible: false)
-        binding.pry
         expect(teacher.archived_classrooms).to eq([classroom])
       end
 
