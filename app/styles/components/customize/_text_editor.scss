@@ -1,0 +1,21 @@
+.customize-lessons-editor {
+  .buttons-toolbar {
+    position: absolute;
+    right: 0;
+    top: -20;
+    .bold {
+      font-weight: bold;
+    }
+    .italic {
+      font-style: italic;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+    span {
+      margin-left: 13px;
+      font-size: 14px;
+      color: #969696;
+    }
+  }
+}

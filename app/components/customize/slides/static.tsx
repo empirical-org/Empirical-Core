@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
-import MultipleTextEditor from '../../classroomLessons/admin/slideHTMLEditor'
+import MultipleTextEditor from './slideComponents/multipleTextEditor.jsx'
 import StudentStatic from '../../classroomLessons/play/static'
 import TitleField from './slideComponents/titleField'
 
