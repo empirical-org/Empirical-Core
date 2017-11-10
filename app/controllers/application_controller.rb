@@ -26,6 +26,16 @@ class ApplicationController < ActionController::Base
     admin!
   end
 
+  def classroom_owner!(classroom_id)
+    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'owner')
+    auth_failed
+  end
+
+  def classroom_coteacher!(classroom_id)
+    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'coteacher')
+    auth_failed
+  end
+
   def student!
     return if current_user.try(:student?)
     auth_failed
