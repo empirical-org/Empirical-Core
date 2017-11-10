@@ -35,8 +35,8 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
-    class_act_teacher = @classroom_activity&.classroom&.teacher
-    if !class_act_teacher || class_act_teacher != current_user then auth_failed end
+    classroom_id = @classroom_activity.classroom.id
+    classroom_teacher!(classroom_id)
   end
 
   def get_assigned_student_hash

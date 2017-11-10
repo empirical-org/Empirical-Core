@@ -26,6 +26,21 @@ module QuillAuthentication
     end
   end
 
+  def classroom_owner!(classroom_id)
+    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'owner')
+    auth_failed
+  end
+
+  def classroom_coteacher!(classroom_id)
+    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'coteacher')
+    auth_failed
+  end
+
+  def classroom_teacher!(classroom_id)
+    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user)
+    auth_failed
+  end
+
   def sign_in user
     remote_ip = (request.present? ? request.remote_ip : nil)
     if !session[:staff_id] || session[:staff_id] == user.id
