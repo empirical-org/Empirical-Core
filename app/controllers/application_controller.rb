@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include QuillAuthentication
+
   #helper CMS::Helper
 
   # FIXME: disabled till it's clear what this does
@@ -24,21 +25,6 @@ class ApplicationController < ActionController::Base
   def teacher!
     return if current_user.try(:teacher?)
     admin!
-  end
-
-  def classroom_owner!(classroom_id)
-    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'owner')
-    auth_failed
-  end
-
-  def classroom_coteacher!(classroom_id)
-    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user, role: 'coteacher')
-    auth_failed
-  end
-
-  def classroom_teacher!(classroom_id)
-    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user)
-    auth_failed
   end
 
   def student!
