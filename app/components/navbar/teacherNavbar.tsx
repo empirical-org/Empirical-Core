@@ -109,8 +109,12 @@ class TeacherNavbar extends React.Component<any, any> {
       if (icon === 'watchTeacher') {
         return (<Tooltip text={["Watch Teacher - ", <strong key="watch-teacher-on">On</strong>]} className={icon}/>)
       }
-    } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
+    } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown && !this.state.showCustomizeDropdown) {
       switch (icon) {
+        case 'customize':
+          if (this.state.tooltip === 'customize') {
+            return (this.customizeDropdown())
+          }
         case 'flag':
           if (this.state.tooltip === 'flag') {
             return (this.flagDropdown())
@@ -178,9 +182,9 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderCustomizeDropdown() {
-    // if (this.state.showCustomizeDropdown) {
+    if (this.state.showCustomizeDropdown) {
       return this.customizeDropdown()
-    // }
+    }
   }
 
   customizeDropdown() {
@@ -279,6 +283,9 @@ class TeacherNavbar extends React.Component<any, any> {
     let watchTeacherClass = watchTeacherState ? 'hover' : ''
     if (!this.state.showHelpDropdown && !watchTeacherState && !this.state.showFlagDropdown)
     switch (this.state.tooltip) {
+      case 'customize':
+        customizeClass = "hover"
+        break
       case 'projector':
         projectorClass = "hover"
         break
@@ -306,12 +313,15 @@ class TeacherNavbar extends React.Component<any, any> {
           <span className="toolbar">
             {this.presentStudentCount()}
             <div
+              onMouseEnter={(e) => this.showTooltip(e, 'customize')}
+              onMouseLeave={(e) => this.hideTooltip(e)}
               onClick={this.toggleCustomizeDropdown}
               onBlur={this.hideCustomizeDropdown}
               tabIndex={0}
             >
-              <i className="fa fa-icon fa-magic"/>
+              <i className={`${customizeClass} fa fa-icon fa-magic`}/>
               {this.renderCustomizeDropdown()}
+              {this.renderTooltip('customize')}
             </div>
             <div>
               {this.renderPDFLink()}
