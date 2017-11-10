@@ -303,6 +303,7 @@ class Cms::SchoolsController < ApplicationController
         schools_admins.id AS admin_id
       FROM schools_users
       LEFT JOIN users ON schools_users.user_id = users.id
+      LEFT JOIN classrooms_teachers ON
       LEFT JOIN classrooms ON schools_users.user_id = classrooms.teacher_id AND classrooms.visible = true
       LEFT JOIN students_classrooms ON classrooms.id =  students_classrooms.classroom_id
       LEFT JOIN activity_sessions ON students_classrooms.student_id = activity_sessions.user_id AND completed_at IS NOT NULL
