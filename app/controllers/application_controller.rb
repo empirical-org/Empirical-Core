@@ -36,6 +36,11 @@ class ApplicationController < ActionController::Base
     auth_failed
   end
 
+  def classroom_teacher!(classroom_id)
+    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user)
+    auth_failed
+  end
+
   def student!
     return if current_user.try(:student?)
     auth_failed
