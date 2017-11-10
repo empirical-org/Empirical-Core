@@ -110,7 +110,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def teacher_and_classroom_name
-    {teacher: classroom&.teacher&.name, classroom: classroom&.name}
+    {teacher: classroom&.owner&.name, classroom: classroom&.name}
   end
 
   def formatted_due_date

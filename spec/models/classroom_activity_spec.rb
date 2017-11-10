@@ -5,10 +5,10 @@ describe ClassroomActivity, type: :model, redis: :true do
     let!(:activity_classification_2) { create(:grammar)}
     let!(:activity_classification_6) { create(:lesson)}
     let!(:activity) { create(:activity) }
-    let!(:teacher) { create(:user, role: 'teacher') }
     let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
-    let!(:classroom) { create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
-    let!(:classroom_2) { create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
+    let!(:classroom) { create(:classroom, students: [student]) }
+    let!(:classroom_2) { create(:classroom) }
+    let!(:teacher) {classroom.teacher}
     let!(:unit) { create(:unit) }
     let(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
     let(:activity_session) {create(:activity_session, classroom_activity_id: classroom_activity.id)}
@@ -33,6 +33,12 @@ describe ClassroomActivity, type: :model, redis: :true do
                 expect(classroom_activity.assigned_students.first).to eq(@student)
             end
         end
+    end
+
+    describe '#teacher_and_classroom_name' do
+      it "returns a hash with the name of the owner and the classroom" do
+        expect(classroom_activity.teacher_and_classroom_name).to eq({teacher: teacher.name, classroom: classroom.name})
+      end
     end
 
     describe '#mark_all_activity_sessions_complete' do
