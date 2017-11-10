@@ -51,7 +51,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
 
-
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
     this.easyJoinDemo = this.easyJoinDemo.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -76,9 +75,9 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const student = getParameterByName('student');
     const npCSData = nextProps.classroomSessions.data
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.edition_id) {
-        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.edition_id))
-      } else {
+      if (nextProps.classroomSessions.data.edition_id && !nextProps.classroomLesson.hasreceiveddata) {
+        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
+      } else if (!nextProps.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
       }
     }

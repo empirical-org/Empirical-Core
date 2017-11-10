@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+const MakeCopy = 'https://assets.quill.org/images/icons/make-copy-edition.svg'
+const EditEdition = 'https://assets.quill.org/images/icons/edit-edition.svg'
+const DeleteEdition = 'https://assets.quill.org/images/icons/delete-edition.svg'
 
 class EditionRow extends React.Component<any, any> {
   constructor(props) {
@@ -23,7 +26,9 @@ class EditionRow extends React.Component<any, any> {
   }
 
   archiveEdition() {
-    this.props.archiveEdition(this.props.edition.key)
+    if (window.confirm('Are you sure you want to delete this edition? By deleting the edition, you will lose all the changes that you made to the slides.')) {
+      this.props.archiveEdition(this.props.edition.key)
+    }
   }
 
   toggleDropdown() {
@@ -34,7 +39,8 @@ class EditionRow extends React.Component<any, any> {
     return <div className="customize-dropdown">
       <div className="customize" onClick={this.toggleDropdown}>
         <i className="fa fa-icon fa-magic"/>
-        Customize Edition
+        Customize
+        <i className="fa fa-icon fa-caret-down"/>
       </div>
       <div className="action">
         {this.renderDropdown()}
@@ -45,10 +51,10 @@ class EditionRow extends React.Component<any, any> {
   renderDropdown() {
     if (this.state.showDropdown) {
       let options
-      const makeCopy = <div key="new" className="option" onClick={this.makeNewEdition}>Make Copy</div>
+      const makeCopy = <div key="new" className="option" onClick={this.makeNewEdition}><img src={MakeCopy}/>Make Copy</div>
       if (this.props.creator === 'user') {
-        const editEdition = <div key="edit" className="option" onClick={this.editEdition}>Edit Edition</div>
-        const archiveEdition = <div key="archive" className="option" onClick={this.archiveEdition}>Delete Edition</div>
+        const editEdition = <div key="edit" className="option" onClick={this.editEdition}><img src={EditEdition}/>Edit Edition</div>
+        const archiveEdition = <div key="archive" className="option" onClick={this.archiveEdition}><img src={DeleteEdition}/>Delete Edition</div>
         options = [makeCopy, editEdition, archiveEdition]
       } else {
         options = [makeCopy]
@@ -64,7 +70,7 @@ class EditionRow extends React.Component<any, any> {
     const sampleQuestionSection = this.props.edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{this.props.edition.sample_question}</p> : null
     return <div className="edition">
       <div className="text">
-        {name}
+        <p className="name">{name}</p>
         {sampleQuestionSection}
       </div>
       <div className="action">

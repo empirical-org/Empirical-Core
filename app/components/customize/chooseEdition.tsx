@@ -77,7 +77,7 @@ class chooseEdition extends React.Component<any, any> {
       />
     })
     return <div className="quill-editions">
-      <p>Quill Created Editions</p>
+      <p className="header">Quill Created Editions</p>
       {quillEditions}
     </div>
   }
@@ -100,7 +100,7 @@ class chooseEdition extends React.Component<any, any> {
         }
       })
       return <div className="my-editions">
-        <p>My Customized Editions</p>
+        <p className="header">My Customized Editions</p>
         {_.compact(myEditions)}
       </div>
     }

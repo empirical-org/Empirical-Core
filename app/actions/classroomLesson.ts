@@ -12,6 +12,7 @@ import lessonSlideBoilerplates from '../components/classroomLessons/shared/lesso
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
 
 export function getClassLessonFromFirebase(classroomLessonUid: string) {
+  console.log('getting a lesson')
   return function (dispatch) {
     console.log("Fetching")
     classroomLessonsRef.child(classroomLessonUid).once('value', (snapshot) => {
@@ -27,12 +28,13 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
 }
 
 export function getEditionFromFirebase(editionUid: string) {
+  console.log('getting an edition')
   return function (dispatch) {
     console.log("Fetching")
     editionsRef.child(editionUid).once('value', (snapshot) => {
       console.log("Fetched")
       if (snapshot.val()) {
-        dispatch(updateClassroomLesson(snapshot.val()));
+        dispatch(updateClassroomLesson(snapshot.val().data));
         dispatch(setLessonId(editionUid))
       } else {
         dispatch({type: C.NO_LESSON_ID, data: editionUid})

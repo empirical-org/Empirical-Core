@@ -3,11 +3,25 @@ import Passthrough from 'components/shared/passthrough.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import { createPreviewSession } from '../../../../actions/classroomSessions'
 
+const previewEditionRoute = {
+  path: ':lessonID/preview/:editionID',
+  onEnter: (nextState, replaceWith) => {
+    const classroomActivityId = createPreviewSession(nextState.params.editionID)
+    console.log('editionID', nextState.params.editionID)
+    console.log('classroomActivityId', classroomActivityId)
+    const modalQSValue = getParameterByName('modal')
+    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
+    if (classroomActivityId) {
+      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${nextState.params.lessonID}?&classroom_activity_id=${classroomActivityId}${modalQS}`;
+    }
+  }
+};
+
 const previewRoute = {
   path: ':lessonID/preview',
   onEnter: (nextState, replaceWith) => {
-    const editionID = getParameterByName('edition_id')
-    const classroomActivityId = createPreviewSession(edition_id)
+    console.log
+    const classroomActivityId = createPreviewSession()
     const modalQSValue = getParameterByName('modal')
     const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
     if (classroomActivityId) {
@@ -51,6 +65,7 @@ const route = {
   path: 'class-lessons',
   indexRoute,
   childRoutes: [
+    previewEditionRoute,
     markingLessonAsCompletedRoute,
     previewRoute,
     teachRoute
