@@ -23,7 +23,8 @@ import {
   startLesson
 } from 'actions/classroomSessions';
 import {
-  getClassLessonFromFirebase
+  getClassLessonFromFirebase,
+  getEditionFromFirebase
 } from 'actions/classroomLesson';
 import CLLobby from './lobby';
 import CLStatic from './static';
@@ -61,13 +62,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       // below is for spoofing if you log in with Amber M. account
       // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
       // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
-      this.props.dispatch(getClassLessonFromFirebase(lesson_id));
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
       registerTeacherPresence(ca_id)
 
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const lesson_id: string = this.props.params.lessonID
+    if (nextProps.classroomSessions.hasreceiveddata) {
+      if (!nextProps.classroomLesson.hasreceiveddata && nextProps.classroomSessions.data.edition_id) {
+        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
+      } else if (!nextProps.classroomLesson.hasreceiveddata) {
+        this.props.dispatch(getClassLessonFromFirebase(lesson_id));
+      }
+    }
+
   }
 
   handleKeyDown(event) {

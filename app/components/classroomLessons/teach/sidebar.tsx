@@ -64,7 +64,7 @@ class Sidebar extends React.Component<any, any> {
       return;
     }
     elem.scrollTop = y;
-    setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 65, count+1)}, 40);
+    setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 110, count+1)}, 40);
   }
 
   goToSlide(slide_id: string) {
