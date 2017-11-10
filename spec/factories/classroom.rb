@@ -35,10 +35,23 @@ FactoryBot.define do
       end
     end
 
-    # after(:create) do |classroom|
-    #   if classroom.classrooms_teachers.none?
-    #     create(:classrooms_teacher, classroom: classroom, user: create(:teacher))
-    #   end
-    # end
+    trait :with_coteacher do
+      after(:create) do |classroom|
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher), role: 'coteacher')
+      end
+    end
+
+    trait :with_a_couple_coteachers do
+      after(:create) do |classroom|
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher), role: 'coteacher')
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher), role: 'coteacher')
+      end
+    end
+
+    after(:create) do |classroom|
+      if classroom.classrooms_teachers.none?
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher))
+      end
+    end
   end
 end

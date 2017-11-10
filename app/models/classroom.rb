@@ -18,12 +18,17 @@ class Classroom < ActiveRecord::Base
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
 
-  has_many :classrooms_teachers
+  has_many :classrooms_teachers, foreign_key: 'classroom_id'
   has_many :teachers, through: :classrooms_teachers, source: :user
 
   before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
 
-
+  def self.create_with_join(classroom_attributes, teacher_id, role='owner')
+    classroom = Classroom.create(classroom_attributes)
+    if classroom.valid?
+      ClassroomsTeacher.create(user_id: teacher_id, classroom_id: classroom.id, role: role)
+    end
+  end
 
   def unique_topic_count
     if unique_topic_count_array.any?
@@ -34,8 +39,16 @@ class Classroom < ActiveRecord::Base
     val
   end
 
-  def teacher
+  def owner
     self.classrooms_teachers.includes(:user).find_by_role('owner')&.teacher
+  end
+
+  def teacher
+    self.owner
+  end
+
+  def coteachers
+    self.classrooms_teachers.includes(:user).where(role: 'coteacher').map(&:teacher)
   end
 
   def unique_topic_count_array
@@ -52,15 +65,12 @@ class Classroom < ActiveRecord::Base
 
   def self.setup_from_clever(section, teacher)
     c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
-
     c.update_attributes(
       name: section.name,
       teacher: teacher,
       grade: section.grade
     )
-
     c.import_students!
-
     c
   end
 
