@@ -6,49 +6,33 @@ describe Classroom, type: :model do
   let(:teacher) { create(:teacher)}
 
   context "when created" do
-
-
     it 'must be valid with valid info' do
     	expect(classroom).to be_valid
     end
-
-    it "deletes the redis classrooms mini cache" do
-      $redis.set("user_id:#{teacher.id}_classroom_minis", 'fake_data')
-      expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq('fake_data')
-      classroom = create(:classroom, teacher_id: teacher.id)
-      expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq(nil)
-    end
   end
 
-  context "when is created" do
-    before do
-      @classroom = build(:classroom, name: nil)
-    end
+  context 'validations' do
+
     it 'must have a name' do
-      expect(@classroom.save).to be(false)
+      classroom = build(:classroom, name: nil)
+      expect(classroom.save).to be(false)
     end
-  end
 
-  context "when is created" do
-  	before do
-  		@classroom = create(:classroom)
-  	end
-  	it "must generate a valid code" do
-  		expect(@classroom.code).not_to be_empty
-  	end
-  end
-
-  context "when is created" do
-    before do
-      @classroom = create(:classroom)
+    it "must generate a valid code" do
+      classroom = create(:classroom)
+      expect(classroom.code).not_to be_empty
     end
+
     it "must have a unique name" do
       pending("need to reflect and handle non-unique class name specs")
-      other_classroom = build(:classroom, teacher_id: @classroom.teacher_id, name: @classroom.name)
+      other_classroom = build(:classroom, teacher_id: classroom.teacher_id, name: classroom.name)
       other_classroom.save
       expect(other_classroom.errors).to include(:name)
     end
+
   end
+
+
 
 
   describe "#classroom_activity_for" do
