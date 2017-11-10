@@ -5,29 +5,109 @@ describe Classroom, type: :model do
   let(:classroom) { build(:classroom) }
   let(:teacher) { create(:teacher)}
 
-  context "when created" do
-    it 'must be valid with valid info' do
-    	expect(classroom).to be_valid
+  # context "when created" do
+  #   it 'must be valid with valid info' do
+  #   	expect(classroom).to be_valid
+  #   end
+  # end
+  #
+  # context 'validations' do
+  #   it 'must have a name' do
+  #     classroom = build(:classroom, name: nil)
+  #     expect(classroom.save).to be(false)
+  #   end
+  #
+  #   it "must generate a valid code" do
+  #     classroom = create(:classroom)
+  #     expect(classroom.code).not_to be_empty
+  #   end
+  #
+  #   it "must have a unique name" do
+  #     pending("need to reflect and handle non-unique class name specs")
+  #     other_classroom = build(:classroom, teacher_id: classroom.teacher_id, name: classroom.name)
+  #     other_classroom.save
+  #     expect(other_classroom.errors).to include(:name)
+  #   end
+  # end
+
+  describe "relations with teachers" do
+    let!(:classroom) { create(:classroom) }
+    let!(:classroom_with_no_teacher) {create(:classroom, :with_no_teacher)}
+    let!(:classroom_with_a_couple_coteachers) {create(:classroom, :with_a_couple_coteachers)}
+    # context "#classrooms_teachers" do
+    #   it "returns an array of classrooms_teacher objects if there are any" do
+    #     byebug
+    #     expect(classroom.classrooms_teachers.length).to eq(1)
+    #   end
+    #   it "returns an empty array if there are no associated classrooms_teachers" do
+    #     expect(classroom_with_no_teacher.classrooms_teachers).to eq([])
+    #   end
+    # end
+
+    context "#owner" do
+      it "returns the user who owns the classroom" do
+        expect(classroom.owner).to eq(ClassroomsTeacher.find_by_role_and_classroom_id('owner', classroom.id).teacher)
+      end
+    end
+
+    context "#coteachers" do
+      let!(:classroom_with_coteacher) {create(:classroom, :with_coteacher)}
+      it "returns all users who coteach the classroom (but do not own it)" do
+        single_coteacher_arr = [ClassroomsTeacher.find_by(classroom: classroom_with_coteacher, role: 'coteacher').teacher]
+        expect(classroom_with_coteacher.coteachers).to eq(single_coteacher_arr)
+        couple_coteacher_arr = ClassroomsTeacher.where(classroom: classroom_with_a_couple_coteachers, role: 'coteacher').map(&:teacher).flatten
+        expect(classroom_with_a_couple_coteachers.coteachers).to eq(couple_coteacher_arr)
+      end
+    end
+
+    context "#teachers" do
+      it "returns all users who teach the class (as owners or coteachers)" do
+        classroom_teachers = ClassroomsTeacher.where(classroom: classroom_with_a_couple_coteachers).map(&:teacher)
+        expect(classroom_with_a_couple_coteachers.teachers).to eq(classroom_teachers)
+      end
     end
   end
 
-  context 'validations' do
+  describe '#create_with_join' do
 
-    it 'must have a name' do
-      classroom = build(:classroom, name: nil)
-      expect(classroom.save).to be(false)
+    context 'when passed valid classrooms data' do
+      it "creates a classroom" do
+        old_count = Classroom.all.count
+        Classroom.create_with_join(classroom.attributes, teacher.id)
+        expect(Classroom.all.count).to eq(old_count + 1)
+      end
+
+      it "creates a ClassroomsTeacher" do
+        old_count = ClassroomsTeacher.all.count
+        Classroom.create_with_join(classroom.attributes, teacher.id)
+        expect(ClassroomsTeacher.all.count).to eq(old_count + 1)
+      end
+
+      it "makes the classroom teacher an owner if no third argument is passed" do
+        old_count = ClassroomsTeacher.all.count
+        Classroom.create_with_join(classroom.attributes, teacher.id)
+        expect(ClassroomsTeacher.all.count).to eq(old_count + 1)
+        expect(ClassroomsTeacher.last.role).to eq('owner')
+      end
     end
+    context 'when passed invalid classrooms data' do
+      def invalid_classroom_attributes
+        attributes = classroom.attributes
+        attributes.delete("name")
+        attributes
+      end
+      it "does not create a classroom" do
+        old_count = Classroom.all.count
+        Classroom.create_with_join(invalid_classroom_attributes, teacher.id)
+        expect(Classroom.all.count).to eq(old_count)
+      end
 
-    it "must generate a valid code" do
-      classroom = create(:classroom)
-      expect(classroom.code).not_to be_empty
-    end
+      it "does not create a ClassroomsTeacher" do
+        old_count = ClassroomsTeacher.all.count
+        Classroom.create_with_join(invalid_classroom_attributes, teacher.id)
+        expect(ClassroomsTeacher.all.count).to eq(old_count)
+      end
 
-    it "must have a unique name" do
-      pending("need to reflect and handle non-unique class name specs")
-      other_classroom = build(:classroom, teacher_id: classroom.teacher_id, name: classroom.name)
-      other_classroom.save
-      expect(other_classroom.errors).to include(:name)
     end
 
   end
