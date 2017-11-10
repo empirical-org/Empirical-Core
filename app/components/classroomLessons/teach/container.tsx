@@ -26,6 +26,10 @@ import {
   getClassLessonFromFirebase,
   getEditionFromFirebase
 } from 'actions/classroomLesson';
+import {
+  getCurrentUserFromLMS,
+  getEditionsByUser
+} from 'actions/customize'
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
@@ -50,7 +54,7 @@ import {
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
-
+    props.dispatch(getCurrentUserFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
@@ -65,7 +69,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
       registerTeacherPresence(ca_id)
-
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
@@ -79,7 +82,9 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         this.props.dispatch(getClassLessonFromFirebase(lesson_id));
       }
     }
-
+    if (nextProps.customize.user_id !== this.props.customize.user_id) {
+      this.props.dispatch(getEditionsByUser(nextProps.customize.user_id))
+    }
   }
 
   handleKeyDown(event) {
@@ -128,6 +133,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 
