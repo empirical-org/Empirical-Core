@@ -2,20 +2,20 @@ require 'rails_helper'
 
 describe Api::V1::ClassroomActivitiesController, type: :controller do
   let(:other_teacher) { create(:teacher) }
-  let(:teacher) { create(:teacher) }
-  let(:classroom) {create(:classroom_with_classroom_activities, teacher_id: teacher.id)}
+  let(:classroom) {create(:classroom_with_classroom_activities)}
+  let(:teacher) { classroom.teacher }
 
 
 
   context '#student_names' do
 
-    it 'does not authenticate a teacher who does not own the classroom activity' do
+    it 'does not authenticate a teacher who is not associated with the classroom activity' do
         session[:user_id] = other_teacher.id
         get :student_names, id: classroom.classroom_activities.first.id, format: 'json'
         expect(response.status).to be_in([303, 404])
     end
 
-    it 'authenticates a teacher who does own the classroom activity' do
+    it 'authenticates a teacher who is associated with the classroom activity classroom' do
         session[:user_id] = teacher.id
         get :student_names, id: classroom.classroom_activities.first.id, format: 'json'
         expect(response.status).not_to eq(303)
@@ -30,13 +30,13 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
 
   context '#teacher_and_classroom_name' do
 
-    it 'does not authenticate a teacher who does not own the classroom activity' do
+    it 'does not authenticate a teacher who is not associated with the classroom activity' do
         session[:user_id] = other_teacher.id
         get :teacher_and_classroom_name, id: classroom.classroom_activities.first.id, format: 'json'
         expect(response.status).to be_in([303, 404])
     end
 
-    it 'authenticates a teacher who does own the classroom activity' do
+    it 'authenticates a teacher who is associated with the classroom activity classroom' do
         session[:user_id] = teacher.id
         get :teacher_and_classroom_name, id: classroom.classroom_activities.first.id, format: 'json'
         expect(response.status).not_to eq(303)
