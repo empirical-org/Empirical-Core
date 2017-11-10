@@ -5,6 +5,8 @@ import _ from 'lodash'
 import Slide from './slide'
 import CustomizeEditionHeader from './customizeEditionHeader'
 import NameAndSampleQuestionModal from './nameAndSampleQuestionModal'
+import SuccessModal from './successModal'
+import {getParameterByName} from '../../libs/getParameterByName'
 
 import {
   setWorkingEdition,
@@ -21,7 +23,6 @@ class CustomizeEdition extends React.Component<any, any> {
       edition: edition,
       copiedEdition: edition,
       showEditModal: false,
-      showSuccessModal: false,
       incompleteQuestions: []
     }
 
@@ -33,6 +34,7 @@ class CustomizeEdition extends React.Component<any, any> {
     this.updateName = this.updateName.bind(this)
     this.updateSampleQuestion = this.updateSampleQuestion.bind(this)
     this.closeEditModal = this.closeEditModal.bind(this)
+    this.goToSuccessPage = this.goToSuccessPage.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -118,8 +120,18 @@ class CustomizeEdition extends React.Component<any, any> {
     })
     this.setState({incompleteQuestions: incompleteQuestions})
     if (incompleteQuestions.length === 0) {
-      this.props.dispatch(publishEdition(this.props.params.editionID, this.state.edition))
+      this.props.dispatch(publishEdition(this.props.params.editionID, this.state.edition, this.goToSuccessPage))
     }
+  }
+
+  goToSuccessPage() {
+    this.props.router.push(`/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`)
+  }
+
+  followUpLink() {
+    const {lessonID, editionID} = this.props.params
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    return classroomActivityID ? `teach/class-lessons/${lessonID}&classroom_activity_id=${classroomActivityID}` : `teach/class-lessons/${lessonID}/preview?&edition_id=${editionID}`
   }
 
   renderPublishSection() {
@@ -168,10 +180,22 @@ class CustomizeEdition extends React.Component<any, any> {
     }
   }
 
+  renderSuccessModal() {
+    if (window.location.href.indexOf('success') !== -1) {
+      return <SuccessModal
+        editionName={this.state.edition.name}
+        activityName={this.props.classroomLesson.data.title}
+        backLink={`customize/${this.props.params.lessonID}/${this.props.params.editionID}`}
+        editionLink={this.followUpLink()}
+      />
+    }
+  }
+
   render() {
     if (this.state.edition) {
       return <div className="customize-edition">
         {this.renderEditModal()}
+        {this.renderSuccessModal()}
         <CustomizeEditionHeader
           lessonTitle={this.props.classroomLesson.data.title}
           editionName={this.state.edition.name}

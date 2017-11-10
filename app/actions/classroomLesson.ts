@@ -3,6 +3,7 @@ import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 const reviewsRef = rootRef.child('reviews');
+const editionsRef = rootRef.child('lessons_editions');
 import _ from 'lodash'
 import * as IntF from 'components/classroomLessons/interfaces';
 
@@ -20,6 +21,21 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
         dispatch(setLessonId(classroomLessonUid))
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
+      }
+    });
+  };
+}
+
+export function getEditionFromFirebase(editionUid: string) {
+  return function (dispatch) {
+    console.log("Fetching")
+    editionsRef.child(editionUid).once('value', (snapshot) => {
+      console.log("Fetched")
+      if (snapshot.val()) {
+        dispatch(updateClassroomLesson(snapshot.val()));
+        dispatch(setLessonId(editionUid))
+      } else {
+        dispatch({type: C.NO_LESSON_ID, data: editionUid})
       }
     });
   };

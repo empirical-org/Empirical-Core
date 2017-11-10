@@ -44,7 +44,6 @@ function formatMonth(monthNumber) {
 }
 
 function formatDay(day) {
-  console.log(day)
   let numS = String(day);
   const numL = numS.length - 1;
   if (day >= 11 && day <= 19) {

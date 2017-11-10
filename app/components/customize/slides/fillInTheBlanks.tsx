@@ -48,7 +48,7 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, 
 
   handlePromptChange(e) {
     const newVals = _.merge({}, this.state.question)
-    _.set(newVals, 'play.prompt', e.target.value)
+    _.set(newVals, 'play.prompt', e)
     this.updateQuestion(newVals, this.props.questionIndex)
   }
 

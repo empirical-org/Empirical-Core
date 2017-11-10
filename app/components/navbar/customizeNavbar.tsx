@@ -32,7 +32,7 @@ class CustomizeNavbar extends React.Component<any, any> {
       }
     })
     if (incompleteQuestions.length === 0) {
-      this.props.dispatch(publishEdition(this.props.params.editionID, this.props.customize.workingEdition))
+      this.props.dispatch(publishEdition(this.props.params.editionID, this.props.customize.workingEdition, this.props.goToSuccessPage))
     } else {
       this.props.dispatch(setIncompleteQuestions(incompleteQuestions))
     }

@@ -6,7 +6,8 @@ import { createPreviewSession } from '../../../../actions/classroomSessions'
 const previewRoute = {
   path: ':lessonID/preview',
   onEnter: (nextState, replaceWith) => {
-    const classroomActivityId = createPreviewSession()
+    const editionID = getParameterByName('edition_id')
+    const classroomActivityId = createPreviewSession(edition_id)
     const modalQSValue = getParameterByName('modal')
     const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
     if (classroomActivityId) {

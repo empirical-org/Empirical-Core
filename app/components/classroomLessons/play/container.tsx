@@ -22,7 +22,10 @@ import CLMultistep from './multistep'
 import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
-import { getClassLessonFromFirebase } from '../../../actions/classroomLesson';
+import {
+  getClassLessonFromFirebase,
+  getEditionFromFirebase
+ } from '../../../actions/classroomLesson';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
@@ -60,7 +63,6 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     const student = getParameterByName('student');
     if (classroom_activity_id) {
       this.props.dispatch(startListeningToSession(classroom_activity_id));
-      this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
     }
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
   }
@@ -73,6 +75,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student');
     const npCSData = nextProps.classroomSessions.data
+    if (nextProps.classroomSessions.hasreceiveddata) {
+      if (nextProps.classroomSessions.edition_id) {
+        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.edition_id))
+      } else {
+        this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
+      }
+    }
     if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.followUpActivityName)) {
       switch(npCSData.followUpOption) {
         case "Small Group Instruction and Independent Practice":

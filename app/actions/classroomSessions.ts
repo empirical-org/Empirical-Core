@@ -452,8 +452,13 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
   };
 }
 
-export function createPreviewSession() {
-  const previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
+export function createPreviewSession(edition_id?:string) {
+  let previewSession
+  if (edition_id) {
+    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id })
+  } else {
+    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
+  }
   return previewSession.key
 }
 

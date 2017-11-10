@@ -33,15 +33,11 @@ class MultipleTextEditor extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.text !== this.props.text) {
+    if (nextProps.text !== stateToHTML(this.state.text.getCurrentContent())) {
         this.setState({
           text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || ''))),
         });
     }
-  }
-
-  getState() {
-    return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || '')));
   }
 
   handleTextChange(e) {

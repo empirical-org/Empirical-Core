@@ -18,6 +18,8 @@ class Customize extends React.Component {
     if (props.params.lessonID) {
       props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
     }
+
+    this.goToSuccessPage = this.goToSuccessPage.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,10 +30,14 @@ class Customize extends React.Component {
     }
   }
 
+  goToSuccessPage() {
+    this.props.router.push(`/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`)
+  }
+
   render() {
     return (
       <div>
-        <NavBar params={this.props.params}/>
+        <NavBar params={this.props.params} goToSuccessPage={this.goToSuccessPage}/>
         {this.props.children}
       </div>
     );

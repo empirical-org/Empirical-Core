@@ -23,6 +23,7 @@ class CustomizeExit extends Component<ExitProps, any>{
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
+    this.handleHTMLChange = this.handleHTMLChange.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
   }
 
@@ -61,8 +62,8 @@ class CustomizeExit extends Component<ExitProps, any>{
           />
           <PromptField
             incompletePrompt={this.props.incompletePrompt}
-            text={this.state.question.play.prompt}
-            handleTextChange={(e) => this.handlePromptChange(e)}
+            text={this.state.question.play.html}
+            handleTextChange={(e) => this.handleHTMLChange(e)}
           />
         </div>
         <div className="slide-preview-container">

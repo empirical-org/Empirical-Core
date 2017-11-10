@@ -47,9 +47,7 @@ class CustomizeModel extends Component<CustomizeModelProps, any>{
 
   handlePromptChange(e) {
     const newVals = _.merge({}, this.state.question)
-    const timeStamp = Date.now()
     _.set(newVals, 'play.prompt', e)
-    console.log(Date.now() - timeStamp)
     this.updateQuestion(newVals, this.props.questionIndex)
   }
 

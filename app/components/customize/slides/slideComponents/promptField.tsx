@@ -8,7 +8,6 @@ interface promptFieldProps {
 }
 
 const PromptField: React.SFC<any> = (props) => {
-  console.log(props)
   return <div className="prompt-field field">
     <label>Prompt</label>
     <div className="control">
