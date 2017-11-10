@@ -1,4 +1,18 @@
 import Passthrough from 'components/shared/passthrough.jsx';
+import { createNewEdition} from '../../../../actions/customize'
+import { getParameterByName } from 'libs/getParameterByName';
+
+const createNewEditionRoute = {
+  path: ':lessonID/create_new_edition/:editionID/:userID',
+  onEnter: (nextState, replaceWith) => {
+    const editionID = createNewEdition(nextState.params.editionID, nextState.params.lessonID, nextState.params.userID)
+    const classroomActivityIdQSVal = getParameterByName('classroom_activity_id')
+    const classroomActivityIdQS = classroomActivityIdQSVal ? `?&classroom_activity_id=${classroomActivityIdQSVal}` : ''
+    if (editionID) {
+      document.location.href = `${document.location.origin + document.location.pathname}#/customize/${nextState.params.lessonID}/${editionID}${classroomActivityIdQS}`
+    }
+  },
+};
 
 const successRoute = {
   path: ':lessonID/:editionID/success',
@@ -49,6 +63,7 @@ const indexRoute = {
 const route = {
   indexRoute,
   childRoutes: [
+    createNewEditionRoute,
     successRoute,
     editionRoute,
     chooseEditionRoute

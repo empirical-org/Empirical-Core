@@ -13,6 +13,10 @@ import {
   publishEdition
 } from '../../actions/customize'
 
+import {
+  setEditionId
+} from '../../actions/classroomSessions'
+
 class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -37,9 +41,17 @@ class CustomizeEdition extends React.Component<any, any> {
     this.goToSuccessPage = this.goToSuccessPage.bind(this)
   }
 
+  componentWillMount() {
+    const classroomActivityId = getParameterByName('classroom_activity_id')
+    if (classroomActivityId) {
+      setEditionId(classroomActivityId, this.props.params.editionID)
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID], this.props.customize.editions[nextProps.params.editionID])) {
       const edition = nextProps.customize.editions[nextProps.params.editionID]
+      debugger;
       if (this.state.edition === undefined) {
         this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
       } else {

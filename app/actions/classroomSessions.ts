@@ -362,6 +362,11 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
   });
 }
 
+export function setEditionId(classroom_activity_id: string, editionId: string|null): void {
+  const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
+  editionRef.set(editionId)
+}
+
 export function updateNoStudentError(student: string | null) {
   return function (dispatch) {
     dispatch({type: C.NO_STUDENT_ID, data: student})

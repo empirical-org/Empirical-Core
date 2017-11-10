@@ -7,8 +7,6 @@ const previewEditionRoute = {
   path: ':lessonID/preview/:editionID',
   onEnter: (nextState, replaceWith) => {
     const classroomActivityId = createPreviewSession(nextState.params.editionID)
-    console.log('editionID', nextState.params.editionID)
-    console.log('classroomActivityId', classroomActivityId)
     const modalQSValue = getParameterByName('modal')
     const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
     if (classroomActivityId) {

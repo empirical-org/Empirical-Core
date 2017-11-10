@@ -26,7 +26,7 @@ class TeacherNavbar extends React.Component<any, any> {
       tooltip: '',
       showHelpDropdown: false,
       showFlagDropdown: false,
-      showCustomizeDropdown: true
+      showCustomizeDropdown: false
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)
@@ -194,8 +194,7 @@ class TeacherNavbar extends React.Component<any, any> {
     if (editionID && Object.keys(this.props.customize.editions).indexOf(editionID) !== -1) {
       editLink = `customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityId}`
     } else {
-      const newEditionID = createNewEdition(editionID, this.props.params.lessonID, this.props.customize.user_id)
-      editLink = `customize/${this.props.params.lessonID}/${newEditionID}?&classroom_activity_id=${classroomActivityId}`
+      editLink = `customize/${this.props.params.lessonID}/create_new_edition/${editionID}/${this.props.customize.user_id}?&classroom_activity_id=${classroomActivityId}`
     }
     const switchLink = `customize/${this.props.params.lessonID}?&classroom_activity_id=${classroomActivityId}`
     return (
