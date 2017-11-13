@@ -28,6 +28,7 @@ class Classroom < ActiveRecord::Base
     if classroom.valid?
       ClassroomsTeacher.create(user_id: teacher_id, classroom_id: classroom.id, role: role)
     end
+    classroom
   end
 
   def unique_topic_count

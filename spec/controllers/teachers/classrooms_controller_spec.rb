@@ -5,6 +5,7 @@ describe Teachers::ClassroomsController, type: :controller do
   describe 'creating a classroom' do
     render_views
     let(:teacher) { create(:teacher) }
+    let(:classroom_attributes) {attributes_for(:classroom)}
 
     before do
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
@@ -19,8 +20,11 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'responds with a json object representing the classroom' do
-        post :create, classroom: {name: 'My Class', grade: '8', code: 'whatever-whatever'}
-        expect(JSON.parse(response.body)['classroom']['code']).to eq('whatever-whatever')
+        post :create, classroom: classroom_attributes
+        returned_class = JSON.parse(response.body)['classroom']
+        returned_name_and_grade = [returned_class['name'], returned_class['grade']]
+        passed_name_and_grade = [classroom_attributes[:name], classroom_attributes[:grade]]
+        expect(returned_name_and_grade).to eq(passed_name_and_grade)
     end
 
     it 'displays the form' do
@@ -32,8 +36,8 @@ describe Teachers::ClassroomsController, type: :controller do
   describe 'creating a login pdf' do
 
     let(:teacher) { create(:teacher) }
-    let(:different_teacher) { create(:teacher) }
-    let(:different_classroom) { create(:classroom, teacher: different_teacher) }
+    let(:different_classroom) { create(:classroom) }
+    let(:different_teacher) { different_classroom.teacher }
 
     before do
       session[:user_id] = teacher.id
