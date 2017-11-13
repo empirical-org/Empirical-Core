@@ -6,9 +6,12 @@ import {
   saveEditionName,
   archiveEdition
 } from '../../actions/customize'
-
+import {
+  setEditionId
+} from '../../actions/classroomSessions'
 import EditionNamingModal from './editionNamingModal'
 import EditionRow from './editionRow'
+import { getParameterByName } from '../../libs/getParameterByName'
 
 class chooseEdition extends React.Component<any, any> {
   constructor(props) {
@@ -16,7 +19,8 @@ class chooseEdition extends React.Component<any, any> {
     this.state = {
       showNamingModal: false,
       newEditionUid: '',
-      newEditionName: ''
+      newEditionName: '',
+      selectState: getParameterByName('preview') || getParameterByName('classroom_activity_id')
     }
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
@@ -25,6 +29,7 @@ class chooseEdition extends React.Component<any, any> {
     this.openNamingModal = this.openNamingModal.bind(this)
     this.updateName = this.updateName.bind(this)
     this.saveNameAndGoToCustomize = this.saveNameAndGoToCustomize.bind(this)
+    this.selectAction = this.selectAction.bind(this)
   }
 
   makeNewEdition(editionUid:string|null) {
@@ -53,6 +58,43 @@ class chooseEdition extends React.Component<any, any> {
     this.props.router.push(`/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`)
   }
 
+  selectAction(editionKey) {
+    const lessonId = this.props.params.lessonID
+    if (getParameterByName('preview')) {
+      const editionId = editionKey ? editionKey : ''
+      return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
+    } else if (getParameterByName('classroom_activity_id')) {
+      const classroomActivityId = getParameterByName('classroom_activity_id')
+      setEditionId(classroomActivityId, editionKey)
+      return this.props.router.push(`teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
+    }
+  }
+
+  renderLessonInfo() {
+    const lessonData = this.props.classroomLesson.data
+    const text = this.state.selectState ? 'You are launching this lesson:' : 'You are customizing this lesson:'
+    return <div className="lesson-info">
+      <p>{text}</p>
+      <h2 className="lesson-title"><span>Lesson {lessonData.lesson}:</span> {lessonData.title}</h2>
+    </div>
+  }
+
+  renderHeader() {
+    if (this.state.selectState) {
+      return <h1>Select Edition of Lesson</h1>
+    } else {
+      return <h1>Customize Edition of Lesson</h1>
+    }
+  }
+
+  renderExplanation() {
+    if (this.state.selectState) {
+      return <p className="explanation">By clicking <span>“Customize Edition”</span>, you will able to make a copy of the edition so that you can customize it with your own content. You can update your own editions at any time by clicking on <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
+    } else {
+      return <p className="explanation">By clicking <span>"Customize Edition"</span>, you will create a copy of the edition that you can customize it with your own content. You can update your own editions at any time by clicking on <span>"Edit Edition"</span>.</p>
+    }
+  }
+
   renderNamingModal() {
     if (this.state.showNamingModal) {
       const buttonClassName = this.state.newEditionName ? 'active' : 'inactive'
@@ -74,7 +116,8 @@ class chooseEdition extends React.Component<any, any> {
                 archiveEdition={this.archiveEdition}
                 creator='quill'
                 key={i}
-      />
+                selectAction={this.selectAction}
+              />
     })
     return <div className="quill-editions">
       <p className="header">Quill Created Editions</p>
@@ -90,12 +133,13 @@ class chooseEdition extends React.Component<any, any> {
         edition.key = e
         if (edition.lesson_id === this.props.params.lessonID) {
           return <EditionRow
-          edition={edition}
-          makeNewEdition={this.makeNewEdition}
-          editEdition={this.editEdition}
-          archiveEdition={this.archiveEdition}
-          creator='user'
-          key={e}
+            edition={edition}
+            makeNewEdition={this.makeNewEdition}
+            editEdition={this.editEdition}
+            archiveEdition={this.archiveEdition}
+            creator='user'
+            key={e}
+            selectAction={this.selectAction}
           />
         }
       })
@@ -108,8 +152,9 @@ class chooseEdition extends React.Component<any, any> {
 
   render() {
     return <div className="choose-edition">
-      <h1>Which edition would you like to customize?</h1>
-      <p className="explanation">By clicking <span>"Customize Edition"</span>, you will create a copy of the edition that you can customize it with your own content. You can update your own editions at any time by clicking on <span>"Edit Edition".</span></p>
+      {this.renderLessonInfo()}
+      {this.renderHeader()}
+      {this.renderExplanation()}
       {this.renderQuillEditions()}
       {this.renderMyEditions()}
       {this.renderNamingModal()}

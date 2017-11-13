@@ -31,26 +31,28 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
   }
 
   render() {
-    return <div className="customize-edition-header">
-      <div className="lesson-title-section">
-        <p>You are creating an edition of this lesson:</p>
-        <h1>{this.props.lessonTitle}</h1>
-      </div>
-      <div className="edition-name-and-sample-question-section">
-        <p onClick={this.props.showEditModal} className="edit"><i className="fa fa-icon fa-pencil"/>Edit</p>
-        <div className="edition-name-and-sample-question">
-          <div className="name">
-            <p>Edition Name</p>
-            <h2>{this.props.editionName || <span>Enter a name</span>}</h2>
-          </div>
-          <div className="vertical-line"/>
-          <div className="sample-question">
-            <p>Sample Question</p>
-            <h2>{this.props.sampleQuestion || <span>Enter a sample question</span>}</h2>
+    return <div className="customize-edition-header-container">
+      <div className='customize-edition-header'>
+        <div className="lesson-title-section">
+          <p>You are creating an edition of this lesson:</p>
+          <h1>{this.props.lessonTitle}</h1>
+        </div>
+        <div className="edition-name-and-sample-question-section">
+          <p onClick={this.props.showEditModal} className="edit"><i className="fa fa-icon fa-pencil"/>Edit</p>
+          <div className="edition-name-and-sample-question">
+            <div className="name">
+              <p>Edition Name</p>
+              <h2>{this.props.editionName || <span>Enter a name</span>}</h2>
+            </div>
+            <div className="vertical-line"/>
+            <div className="sample-question">
+              <p>Sample Question</p>
+              <h2>{this.props.sampleQuestion || <span>Enter a sample question</span>}</h2>
+            </div>
           </div>
         </div>
+        {this.renderNote()}
       </div>
-      {this.renderNote()}
     </div>
 
   }

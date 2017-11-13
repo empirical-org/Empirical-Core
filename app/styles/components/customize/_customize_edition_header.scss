@@ -1,8 +1,12 @@
-.customize-edition-header {
+.customize-edition-header-container {
   width: 100vw;
   background-color: #fafafa;
   margin-left: calc(50% - 50vw);
-  padding: 30px 60px;
+}
+.customize-edition-header {
+  max-width: 1200px;
+  padding: 30px 10px;
+  margin: auto;
   .lesson-title-section {
     h1 {
       font-size: 18px;

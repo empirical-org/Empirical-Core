@@ -7,7 +7,7 @@ import {
   publishEdition,
   setIncompleteQuestions
  } from '../../actions/customize'
-import { formatDate } from '../customize/helpers'
+import { formatDateTime } from '../customize/helpers'
 
 class CustomizeNavbar extends React.Component<any, any> {
   constructor(props) {
@@ -40,7 +40,7 @@ class CustomizeNavbar extends React.Component<any, any> {
 
   lastPublishedAt() {
     if (this.edition() && this.edition().last_published_at) {
-      const formattedTime = formatDate(this.edition().last_published_at)
+      const formattedTime = formatDateTime(this.edition().last_published_at)
       return <span>Last published on {formattedTime}</span>
     }
   }

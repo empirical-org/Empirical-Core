@@ -30,12 +30,12 @@ export function getComponent(type: string) {
   }
 }
 
-export function formatDate(dateNumber) {
-  const date = new Date(dateNumber)
-  const month = formatMonth(date.getMonth())
-  const day = formatDay(date.getDay())
-  const time = formatTime(date)
-  return `${month} ${day} at ${time}`
+export function formatDateTime(dateNumber) {
+  const datetime = new Date(dateNumber)
+  const month = formatMonth(datetime.getMonth())
+  const date = formatDate(datetime.getDate())
+  const time = formatTime(datetime)
+  return `${month} ${date} at ${time}`
 }
 
 function formatMonth(monthNumber) {
@@ -43,10 +43,10 @@ function formatMonth(monthNumber) {
   return months[monthNumber]
 }
 
-function formatDay(day) {
-  let numS = String(day);
+function formatDate(date) {
+  let numS = String(date);
   const numL = numS.length - 1;
-  if (day >= 11 && day <= 19) {
+  if (date >= 11 && date <= 19) {
     numS += 'th';
   } else if (numS[numL] === '1') {
     numS += 'st';

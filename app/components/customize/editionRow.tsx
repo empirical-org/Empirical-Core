@@ -65,6 +65,12 @@ class EditionRow extends React.Component<any, any> {
     }
   }
 
+  renderSelectButton() {
+    if (this.props.selectAction) {
+      return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="select-button">Select</button>
+    }
+  }
+
   render() {
     const name = this.props.edition.name ? this.props.edition.name : 'Generic Content'
     const sampleQuestionSection = this.props.edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{this.props.edition.sample_question}</p> : null
@@ -75,6 +81,7 @@ class EditionRow extends React.Component<any, any> {
       </div>
       <div className="action">
         {this.renderCustomizeDropdown()}
+        {this.renderSelectButton()}
       </div>
     </div>
   }

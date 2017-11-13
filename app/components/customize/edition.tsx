@@ -51,16 +51,16 @@ class CustomizeEdition extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID], this.props.customize.editions[nextProps.params.editionID])) {
       const edition = nextProps.customize.editions[nextProps.params.editionID]
-      if (this.state.edition === undefined) {
+      if (this.state.edition === undefined || !this.state.edition.data) {
         this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
       } else {
         this.setState({copiedEdition: edition})
       }
     }
-    if (this.state.edition === undefined && nextProps.customize.editions && nextProps.customize.editions[nextProps.params.editionID]) {
-      const edition = nextProps.customize.editions[nextProps.params.editionID]
-      this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
-    }
+    // if (this.state.edition === undefined && nextProps.customize.editions && nextProps.customize.editions[nextProps.params.editionID]) {
+    //   const edition = nextProps.customize.editions[nextProps.params.editionID]
+    //   this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
+    // }
     if (!_.isEqual(nextProps.customize.incompleteQuestions, this.state.incompleteQuestions)) {
       this.setState({incompleteQuestions: nextProps.customize.incompleteQuestions})
     }
@@ -150,21 +150,23 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderPublishSection() {
+    let text
     if (!this.state.incompleteQuestions || this.state.incompleteQuestions.length === 0) {
-      return <div className="publish">
-      <p>Press <span>“Publish Customization”</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
-      <div className="publish-button" onClick={this.publish}>Publish Edition</div>
-      </div>
+      text = <p>Press <span>“Publish Customization”</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
     } else {
-      return <div className="publish">
-      <p className="error"><i className="fa fa-icon fa-exclamation-triangle"/>You have left one of the fields above empty. Please fill out all the required fields and click Publish Customization.</p>
-      <div className="publish-button" onClick={this.publish}>Publish Edition</div>
-      </div>
+      text = <p className="error"><i className="fa fa-icon fa-exclamation-triangle"/>You have left one of the fields above empty. Please fill out all the required fields and click Publish Customization.</p>
     }
+    return <div className="publish-container">
+      <div className="publish">
+        {text}
+        <div className="publish-button" onClick={this.publish}>Publish Edition</div>
+      </div>
+    </div>
   }
 
   renderSlides() {
-    if (this.state.edition) {
+    console.log('this.state.edition', this.state.edition)
+    if (this.state.edition && this.state.edition.data) {
       return this.state.edition.data.questions.slice(1).map((q, i) => this.renderSlide(q, i))
     }
   }
@@ -208,17 +210,20 @@ class CustomizeEdition extends React.Component<any, any> {
 
   render() {
     if (this.state.edition) {
-      return <div className="customize-edition">
-        {this.renderEditModal()}
-        {this.renderSuccessModal()}
-        <CustomizeEditionHeader
-          lessonTitle={this.props.classroomLesson.data.title}
-          editionName={this.state.edition.name}
-          sampleQuestion={this.state.edition.sample_question}
-          showEditModal={this.showEditModal}
-        />
-      {this.renderSlides()}
-      {this.renderPublishSection()}
+
+      return <div className="customize-edition-container">
+        <div className="customize-edition">
+          {this.renderEditModal()}
+          {this.renderSuccessModal()}
+          <CustomizeEditionHeader
+            lessonTitle={this.props.classroomLesson.data.title}
+            editionName={this.state.edition.name}
+            sampleQuestion={this.state.edition.sample_question}
+            showEditModal={this.showEditModal}
+          />
+        {this.renderSlides()}
+        {this.renderPublishSection()}
+        </div>
       </div>
     } else {
       return <span/>
