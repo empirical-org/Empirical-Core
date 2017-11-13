@@ -2,13 +2,14 @@ require 'rails_helper'
 
 describe 'ScorebookQuery' do
 
-  let!(:teacher) {create(:user, role: 'teacher')}
-  let!(:student) {create(:user, role: 'student')}
-  let!(:teacher1) {create(:user, role: 'teacher')}
-  let!(:student1) {create(:user, role: 'student')}
-  let!(:classroom1) {create(:classroom, teacher: teacher, students: [student1])}
+  let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+  let!(:classroom) { teacher.classrooms_i_teach.first }
+  let!(:classroom1) { teacher.classrooms_i_teach.second }
+  let!(:student) { classroom.students.first }
+  let!(:student1) { classroom1.students.first }
 
-  let!(:classroom) {create(:classroom, teacher: teacher, students: [student])}
+  let!(:teacher1) {create(:teacher) }
+
   let!(:section) {create(:section)}
   let!(:topic_category) {create(:topic_category)}
   let!(:topic) {create(:topic, topic_category: topic_category, section: section)}
