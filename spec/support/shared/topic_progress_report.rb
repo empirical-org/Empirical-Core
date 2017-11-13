@@ -10,7 +10,8 @@ shared_context 'Topic Progress Report' do
   # When filtered by unassigned student, nothing displays
   let!(:teacher) { create(:teacher, name: 'Teacher Person', username: 'teacherperson') }
   let!(:section) { create(:section) }
-  let!(:full_classroom) { create(:classroom, name: "full", teacher: teacher) }
+  let!(:full_classroom) { create(:classroom, name: "full") }
+  let!(:teacher) {full_classroom.teacher}
   let!(:alice) { create(:student, name: "Alice Cool", classrooms: [full_classroom]) }
   let!(:fred) { create(:student, name: "Fred Kewl", classrooms: [full_classroom]) }
   let!(:zojirushi) { create(:student, name: "Zojirushi Kewel", classrooms: [full_classroom]) }
@@ -18,7 +19,8 @@ shared_context 'Topic Progress Report' do
   let!(:second_grade_topic) { create(:topic, section: section, name: "2nd Grade CCSS") }
   let!(:first_grade_topic) { create(:topic, section: section, name: "1st Grade CCSS") }
   let!(:hidden_topic) { create(:topic, section: section) }
-  let!(:empty_classroom) { create(:classroom, name: "empty", teacher: teacher) }
+  let!(:empty_classroom) { create(:classroom, :with_no_teacher) }
+  let!(:empty_classrooms_teacher) {create(:classrooms_teacher, classroom: empty_classroom, user: teacher)}
   let!(:unit1) { create(:unit) }
   let!(:empty_unit) { create(:unit) }
   let!(:activity_for_second_grade_topic) { create(:activity,
