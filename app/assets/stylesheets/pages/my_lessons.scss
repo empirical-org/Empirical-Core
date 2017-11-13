@@ -33,7 +33,6 @@
     }
   }
   #launch-lesson {
-    margin-right: 30px;
     height: 40px;
     color: white;
     font-size: 14px;
@@ -64,6 +63,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .customized-editions-tag {
+    width: 133px;
+    height: 23px;
+    border-radius: 11.5px;
+    background-color: #5aaef6;
+    margin-left: 10px;
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
   }
 }
 

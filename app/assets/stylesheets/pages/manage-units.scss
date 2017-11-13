@@ -196,20 +196,29 @@
       padding: 0;
       margin: 0 !important;
 
-      .supporting-info, .mark-completed {
+      .mark-completed {
         font-weight: 600;
-        margin-right: 8px;
+        margin-right: 20px;
+        color: #969696;
         i {
           margin-right: -6px;
         }
       }
 
-      .mark-completed {
-        color: #008473;
-      }
-
       .supporting-info {
         color: #585858;
+      }
+
+      .lessons-end-row {
+        display: flex;
+        align-items: center;
+        a {
+          margin-right: 20px;
+        }
+        i {
+          color: #027360;
+          font-size: 16px;
+        }
       }
 
       .report-link {
@@ -261,6 +270,7 @@
     justify-content: flex-start;
     align-items: center;
     div#activity-analysis-activity-name {
+      display: flex;
       .recommendations-button {
         display: inline-block;
         margin-left: 10px;

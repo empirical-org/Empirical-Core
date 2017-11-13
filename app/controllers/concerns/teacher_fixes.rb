@@ -38,12 +38,7 @@ module TeacherFixes
     classroom_1_id = classroom_1.id
     classroom_2_id = classroom_2.id
     user_id = user.id
-    classroom_activities = ClassroomActivity
-    .joins("JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id")
-    .joins("JOIN users ON activity_sessions.user_id = users.id")
-    .where("users.id = ?", user_id)
-    .where("classroom_activities.classroom_id = ?", classroom_1_id)
-    .group("classroom_activities.id")
+    classroom_activities = ClassroomActivity.joins("JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id").joins("JOIN users ON activity_sessions.user_id = users.id").where("users.id = ?", user_id).where("classroom_activities.classroom_id = ?", classroom_1_id).group("classroom_activities.id")
     if (classroom_1.teacher_id == classroom_2.teacher_id)
       classroom_activities.each do |ca|
         sibling_ca = ClassroomActivity.find_or_create_by(unit_id: ca.unit_id, activity_id: ca.activity_id, classroom_id: classroom_2_id)
