@@ -20,7 +20,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def classrooms_i_teach
     @classrooms = current_user.classrooms_i_teach
-    render json: @classrooms.order(:updated_at)
+    render json: @classrooms.sort_by { |c| c[:update_at] }
   end
 
   def regenerate_code
