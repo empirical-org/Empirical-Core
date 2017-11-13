@@ -3,8 +3,8 @@ require 'rails_helper'
 describe UserLoginWorker, type: :worker do
   let(:worker) { UserLoginWorker.new }
   let(:analytics) { SegmentAnalytics.new }
-  let(:teacher) { create(:teacher) }
-  let(:classroom) { create(:classroom, teacher: teacher) }
+  let(:classroom) { create(:classroom) }
+  let(:teacher) { classroom.teacher }
   let(:student) { create(:student, classrooms: [classroom]) }
 
 

@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
-  let!(:teacher) { create(:teacher) }
   let!(:student) {create(:student)}
-  let!(:classroom) { create(:classroom, teacher: teacher, students: [student]) }
+  let!(:classroom) { create(:classroom, students: [student]) }
+  let!(:teacher) { classroom.teacher }
   let!(:unit) {create(:unit, user: teacher)}
   let!(:unit2) {create(:unit, user: teacher)}
   let!(:classroom_activity) { create(
