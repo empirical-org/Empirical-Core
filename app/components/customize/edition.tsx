@@ -51,12 +51,15 @@ class CustomizeEdition extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID], this.props.customize.editions[nextProps.params.editionID])) {
       const edition = nextProps.customize.editions[nextProps.params.editionID]
-      debugger;
       if (this.state.edition === undefined) {
         this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
       } else {
         this.setState({copiedEdition: edition})
       }
+    }
+    if (this.state.edition === undefined && nextProps.customize.editions && nextProps.customize.editions[nextProps.params.editionID]) {
+      const edition = nextProps.customize.editions[nextProps.params.editionID]
+      this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
     }
     if (!_.isEqual(nextProps.customize.incompleteQuestions, this.state.incompleteQuestions)) {
       this.setState({incompleteQuestions: nextProps.customize.incompleteQuestions})

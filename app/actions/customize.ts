@@ -32,22 +32,26 @@ export function getEditionsByUser(user_id:Number) {
   };
 }
 
-export function createNewEdition(editionUID:string, lessonUID:string, user_id:Number) {
+export function createNewEdition(editionUID:string, lessonUID:string, user_id:Number, callback?:any) {
   let newEditionData, newEdition;
   if (editionUID) {
     newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
     newEdition = editionsRef.push(newEditionData)
-    editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
+      editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
   } else {
     newEditionData = {lesson_id: lessonUID, user_id: user_id}
     newEdition = editionsRef.push(newEditionData)
-    classroomLessonsRef.child(lessonUID).once('value', snapshot => {
+      classroomLessonsRef.child(lessonUID).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
   }
-  return newEdition.key
+  if (callback) {
+    callback(lessonUID, newEdition.key)
+  } else {
+    return newEdition.key
+  }
 }
 
 export function saveEditionName(editionUID:string, name:string) {

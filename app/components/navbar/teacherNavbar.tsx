@@ -42,6 +42,8 @@ class TeacherNavbar extends React.Component<any, any> {
     this.hideCustomizeDropdown = this.hideCustomizeDropdown.bind(this)
     this.flagDropdown = this.flagDropdown.bind(this)
     this.launchProjector = this.launchProjector.bind(this)
+    this.editOnClick = this.editOnClick.bind(this)
+    this.redirectToEdit = this.redirectToEdit.bind(this)
   }
 
   renderCustomizedEditionsTag() {
@@ -187,20 +189,30 @@ class TeacherNavbar extends React.Component<any, any> {
     }
   }
 
+  editOnClick() {
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    const lessonID = this.props.params.lessonID
+    const editionID = this.props.classroomSessions.data.edition_id
+    if (editionID && Object.keys(this.props.customize.editions).indexOf(editionID) !== -1) {
+      this.redirectToEdit(lessonID, editionID)
+    } else {
+      createNewEdition(editionID, lessonID, this.props.customize.user_id, this.redirectToEdit)
+    }
+  }
+
+  redirectToEdit(lessonID:string, editionID:string) {
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityID}`
+  }
+
   customizeDropdown() {
     const classroomActivityId = getParameterByName('classroom_activity_id')
     const editionID = this.props.classroomSessions.data.edition_id
-    let editLink
-    if (editionID && Object.keys(this.props.customize.editions).indexOf(editionID) !== -1) {
-      editLink = `customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityId}`
-    } else {
-      editLink = `customize/${this.props.params.lessonID}/create_new_edition/${editionID}/${this.props.customize.user_id}?&classroom_activity_id=${classroomActivityId}`
-    }
     const switchLink = `customize/${this.props.params.lessonID}?&classroom_activity_id=${classroomActivityId}`
     return (
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up"/>
-        <Link to={editLink}>Edit This Edition</Link>
+        <a onClick={this.editOnClick}>Edit This Edition</a>
         <Link to={switchLink}>Switch Edition</Link>
       </div>
     )
