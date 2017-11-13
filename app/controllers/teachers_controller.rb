@@ -72,8 +72,14 @@ class TeachersController < ApplicationController
   end
 
   def classrooms_i_teach_with_lessons
-    lesson_activity_ids = Activity.where(activity_classification_id: 6).ids
-    classrooms = current_user.classrooms_i_teach.includes(classroom_activities: [{activity: :classification}]).where(classroom_activities: {activity_id: lesson_activity_ids})
+    classrooms =  ActiveRecord::Base.connection.execute(
+      "SELECT * FROM classrooms
+       JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+       JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id
+       JOIN activities ON activities.id = classroom_activities.activity_id
+       WHERE activities.activity_classification_id = 6
+            AND classrooms_teachers.user_id = #{current_user.id}"
+    ).to_a
     render json: {classrooms: classrooms}
   end
 
