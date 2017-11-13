@@ -156,10 +156,13 @@ class chooseEdition extends React.Component<any, any> {
           />
         }
       })
-      return <div className="my-editions">
+      const compactedEditions = _.compact(myEditions)
+      if (compactedEditions.length > 0) {
+        return <div className="my-editions">
         <p className="header">My Customized Editions</p>
         {_.compact(myEditions)}
-      </div>
+        </div>
+      }
     }
   }
 
