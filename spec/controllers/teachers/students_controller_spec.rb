@@ -3,8 +3,8 @@ require 'rails_helper'
 
 describe Teachers::StudentsController, type: :controller do
   describe 'creating a student' do
-    let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom, teacher: teacher) }
+    let(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.teacher }
 
     before do
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?

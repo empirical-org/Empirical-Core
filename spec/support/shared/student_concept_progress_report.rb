@@ -12,8 +12,8 @@ shared_context 'Student Concept Progress Report' do
   # Boilerplate
   let(:classroom) { create(:classroom,
     name: "Bacon Weaving",
-    teacher: teacher,
     students: [alice, fred, zojirushi]) }
+  let(:teacher) {classroom.teacher}
   let(:activity) { create(:activity) }
   let(:unit) { create(:unit, user: teacher ) }
   let(:classroom_activity) { create(:classroom_activity,

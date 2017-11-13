@@ -1,7 +1,7 @@
 shared_context 'Unit Assignments Variables' do
   let!(:author) { create(:author) }
-  let!(:teacher) { create(:teacher) }
-  let!(:classroom) { create(:classroom, teacher: teacher) }
+  let!(:classroom) { create(:classroom)  }
+  let!(:teacher) { classroom.teacher}
   let!(:student) {create(:student)}
   let!(:student1) {create(:student)}
   let!(:student2) {create(:student)}
