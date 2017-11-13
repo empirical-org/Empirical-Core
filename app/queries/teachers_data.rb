@@ -15,6 +15,7 @@ module TeachersData
   def self.run(teacher_ids)
     teachers = User.arel_table
     classrooms = Classroom.arel_table
+    classrooms_teachers = ClassroomsTeacher.arel_table
     students_classrooms = StudentsClassrooms.arel_table
     students = User.arel_table.alias('students')
     activity_sessions = ActivitySession.arel_table
@@ -22,7 +23,8 @@ module TeachersData
 
     x = teachers.project(teachers[:id])
                 .where(teachers[:id].in(teacher_ids))
-                .join(classrooms, Arel::Nodes::OuterJoin).on(teachers[:id].eq(classrooms[:teacher_id]))
+                .join(classrooms_teachers, Arel::Nodes::OuterJoin).on(teachers[:id].eq(classrooms_teachers[:user_id]))
+                .join(classrooms, Arel::Nodes::OuterJoin).on(classrooms_teachers[:classroom_id].eq(classrooms[:id]))
                 .join(students_classrooms, Arel::Nodes::OuterJoin).on(classrooms[:id].eq(students_classrooms[:classroom_id]))
                 .join(students, Arel::Nodes::OuterJoin).on(students_classrooms[:student_id].eq(students[:id]))
                 .join(activity_sessions, Arel::Nodes::OuterJoin).on(students[:id].eq(activity_sessions[:user_id]))
@@ -36,7 +38,8 @@ module TeachersData
    y = teachers.project(teachers[:id].as('teacher_id'),
                         activity_sessions[:id].as('activity_session_id'))
                .where(teachers[:id].in(teacher_ids))
-               .join(classrooms).on(teachers[:id].eq(classrooms[:teacher_id]))
+               .join(classrooms_teachers).on(teachers[:id].eq(classrooms_teachers[:user_id]))
+               .join(classrooms).on(classrooms_teachers[:classroom_id].eq(classrooms[:id]))
                .join(students_classrooms).on(classrooms[:id].eq(students_classrooms[:classroom_id]))
                .join(students).on(students_classrooms[:student_id].eq(students[:id]))
                .join(activity_sessions).on(students[:id].eq(activity_sessions[:user_id]))
