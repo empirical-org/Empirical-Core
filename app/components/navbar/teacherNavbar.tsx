@@ -44,6 +44,7 @@ class TeacherNavbar extends React.Component<any, any> {
     this.launchProjector = this.launchProjector.bind(this)
     this.editOnClick = this.editOnClick.bind(this)
     this.redirectToEdit = this.redirectToEdit.bind(this)
+    this.redirectToSwitchEdition = this.redirectToSwitchEdition.bind(this)
   }
 
   renderCustomizedEditionsTag() {
@@ -205,15 +206,18 @@ class TeacherNavbar extends React.Component<any, any> {
     window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityID}`
   }
 
+  redirectToSwitchEdition() {
+    const lessonID = this.props.params.lessonID
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    window.location.href =`#/customize/${lessonID}?&classroom_activity_id=${classroomActivityID}`
+  }
+
   customizeDropdown() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    const editionID = this.props.classroomSessions.data.edition_id
-    const switchLink = `#/customize/${this.props.params.lessonID}?&classroom_activity_id=${classroomActivityId}`
     return (
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up"/>
         <a onClick={this.editOnClick}>Edit This Edition</a>
-        <a href={switchLink}>Switch Edition</a>
+        <a onClick={this.redirectToSwitchEdition}>Switch Edition</a>
       </div>
     )
   }
