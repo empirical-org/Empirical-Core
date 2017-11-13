@@ -50,19 +50,21 @@ class CustomizeNavbar extends React.Component<any, any> {
   }
 
   render() {
-    return <div className="customize-navbar">
-      <div className="left">
-        <span>Create Customized Edition</span>
-        <span className="vertical-line"></span>
-        <span>
-          <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson">
-            <img className="help" src={helpIcon}/>Help
-          </a>
-        </span>
-      </div>
-      <div className="right">
-        {this.lastPublishedAt()}
-        {this.renderPublishButton()}
+    return <div className="customize-navbar-container">
+      <div className="customize-navbar">
+        <div className="left">
+          <span>Create Customized Edition</span>
+          <span className="vertical-line"></span>
+          <span>
+            <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson">
+              <img className="help" src={helpIcon}/>Help
+            </a>
+          </span>
+        </div>
+        <div className="right">
+          {this.lastPublishedAt()}
+          {this.renderPublishButton()}
+        </div>
       </div>
     </div>
   }

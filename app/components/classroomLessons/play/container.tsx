@@ -80,6 +80,13 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
       } else if (!nextProps.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
       }
+      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
+        if (nextProps.classroomSessions.data.edition_id) {
+          this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
+        } else {
+          this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
+        }
+      }
     }
     if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.followUpActivityName)) {
       switch(npCSData.followUpOption) {

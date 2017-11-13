@@ -57,10 +57,6 @@ class CustomizeEdition extends React.Component<any, any> {
         this.setState({copiedEdition: edition})
       }
     }
-    // if (this.state.edition === undefined && nextProps.customize.editions && nextProps.customize.editions[nextProps.params.editionID]) {
-    //   const edition = nextProps.customize.editions[nextProps.params.editionID]
-    //   this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
-    // }
     if (!_.isEqual(nextProps.customize.incompleteQuestions, this.state.incompleteQuestions)) {
       this.setState({incompleteQuestions: nextProps.customize.incompleteQuestions})
     }
@@ -165,7 +161,6 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlides() {
-    console.log('this.state.edition', this.state.edition)
     if (this.state.edition && this.state.edition.data) {
       return this.state.edition.data.questions.slice(1).map((q, i) => this.renderSlide(q, i))
     }

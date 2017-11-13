@@ -362,12 +362,15 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
   });
 }
 
-export function setEditionId(classroom_activity_id: string, editionId: string|null): void {
+export function setEditionId(classroom_activity_id: string, editionId: string|null, callback?: Function): void {
   const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
   if (editionId) {
     editionRef.set(editionId)
   } else {
     editionRef.remove()
+  }
+  if (callback) {
+    callback()
   }
 }
 

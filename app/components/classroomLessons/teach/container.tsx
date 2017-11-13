@@ -24,7 +24,8 @@ import {
 } from 'actions/classroomSessions';
 import {
   getClassLessonFromFirebase,
-  getEditionFromFirebase
+  getEditionFromFirebase,
+  clearClassroomLessonFromStore
 } from 'actions/classroomLesson';
 import {
   getCurrentUserFromLMS,
@@ -63,23 +64,30 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const lesson_id: string = this.props.params.lessonID
     if (ca_id) {
       startLesson(ca_id)
-      // below is for spoofing if you log in with Amber M. account
-      // this.props.dispatch(getClassroomAndTeacherNameFromServer('341912', process.env.EMPIRICAL_BASE_URL))
-      // this.props.dispatch(loadStudentNames('341912', process.env.EMPIRICAL_BASE_URL))
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
       registerTeacherPresence(ca_id)
+    }
+    if (this.props.classroomLesson.hasreceiveddata) {
+      this.props.dispatch(clearClassroomLessonFromStore())
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
 
   componentWillReceiveProps(nextProps) {
-    const lesson_id: string = this.props.params.lessonID
+    const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (!nextProps.classroomLesson.hasreceiveddata && nextProps.classroomSessions.data.edition_id) {
+      if (nextProps.classroomSessions.data.edition_id && !nextProps.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
       } else if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLessonFromFirebase(lesson_id));
+        this.props.dispatch(getClassLessonFromFirebase(lessonId));
+      }
+      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
+        if (nextProps.classroomSessions.data.edition_id) {
+          this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
+        } else {
+          this.props.dispatch(getClassLessonFromFirebase(lessonId));
+        }
       }
     }
     if (nextProps.customize.user_id !== this.props.customize.user_id) {

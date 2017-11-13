@@ -38,7 +38,14 @@ class chooseEdition extends React.Component<any, any> {
   }
 
   editEdition(editionUid:string) {
-    this.props.router.push(`/customize/${this.props.params.lessonID}/${editionUid}`)
+    let route
+    const classroomActivityId = getParameterByName('classroom_activity_id')
+    if (classroomActivityId) {
+      route = `/customize/${this.props.params.lessonID}/${editionUid}?&classroom_activity_id=${classroomActivityId}`
+    } else {
+      route = `/customize/${this.props.params.lessonID}/${editionUid}`
+    }
+    return this.props.router.push(route)
   }
 
   archiveEdition(editionUid:string) {
@@ -55,7 +62,14 @@ class chooseEdition extends React.Component<any, any> {
 
   saveNameAndGoToCustomize() {
     saveEditionName(this.state.newEditionUid, this.state.newEditionName)
-    this.props.router.push(`/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`)
+    let route
+    const classroomActivityId = getParameterByName('classroom_activity_id')
+    if (classroomActivityId) {
+      route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}?&classroom_activity_id=${classroomActivityId}`
+    } else {
+      route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
+    }
+    this.props.router.push(route)
   }
 
   selectAction(editionKey) {
@@ -65,8 +79,7 @@ class chooseEdition extends React.Component<any, any> {
       return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
     } else if (getParameterByName('classroom_activity_id')) {
       const classroomActivityId = getParameterByName('classroom_activity_id')
-      setEditionId(classroomActivityId, editionKey)
-      return this.props.router.push(`teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
+      return setEditionId(classroomActivityId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
     }
   }
 

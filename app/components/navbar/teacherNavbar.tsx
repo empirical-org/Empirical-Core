@@ -208,12 +208,12 @@ class TeacherNavbar extends React.Component<any, any> {
   customizeDropdown() {
     const classroomActivityId = getParameterByName('classroom_activity_id')
     const editionID = this.props.classroomSessions.data.edition_id
-    const switchLink = `customize/${this.props.params.lessonID}?&classroom_activity_id=${classroomActivityId}`
+    const switchLink = `#/customize/${this.props.params.lessonID}?&classroom_activity_id=${classroomActivityId}`
     return (
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up"/>
         <a onClick={this.editOnClick}>Edit This Edition</a>
-        <Link to={switchLink}>Switch Edition</Link>
+        <a href={switchLink}>Switch Edition</a>
       </div>
     )
   }

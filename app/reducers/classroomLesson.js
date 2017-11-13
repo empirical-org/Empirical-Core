@@ -34,6 +34,8 @@ export default function (currentstate, action) {
       return Object.assign({}, currentstate, {
         id: action.id,
       });
+    case C.CLEAR_CLASSROOM_LESSON_DATA:
+      return initialState.lesson
     default: return currentstate || initialState.lesson;
   }
 }
