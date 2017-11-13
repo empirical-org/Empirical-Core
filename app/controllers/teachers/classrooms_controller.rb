@@ -30,7 +30,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def create
-    @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
+    @classroom = Classroom.create_with_join(classroom_params, current_user.id)
     if @classroom.valid?
       render json: {classroom: @classroom, toInviteStudents: current_user.students.empty?}
     else
