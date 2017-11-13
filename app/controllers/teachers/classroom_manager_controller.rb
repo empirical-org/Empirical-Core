@@ -37,15 +37,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    current_user.classrooms_i_teach.includes(:students).each do |classroom|
-      obj = {
-        classroom: classroom,
-        students: classroom.students.sort_by(&:sorting_name)
-      }
-      ( @classrooms_and_their_students ||= [] ).push obj
+    classrooms_and_their_students = current_user.classrooms_i_teach.map do |classroom|
+      {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
     end
     render json: {
-      classrooms_and_their_students: @classrooms_and_their_students
+      classrooms_and_their_students: classrooms_and_their_students
     }
   end
 
