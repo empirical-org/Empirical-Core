@@ -5,8 +5,7 @@ describe ActivitySessionsController, type: :controller do
 
 
   let!(:activity) { create(:activity) }
-  let!(:teacher) { create(:user) }
-  let!(:classroom) { create(:classroom, teacher: teacher)}
+  let!(:classroom) { create(:classroom)}
   let!(:user1) { create(:user, classcode: classroom.code) }
   let!(:ca) { create(:classroom_activity, classroom: classroom, activity: activity)}
   let!(:activity_session) { create(:activity_session, user: user1, activity: activity, classroom_activity: ca, state: 'unstarted') }

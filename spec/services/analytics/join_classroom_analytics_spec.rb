@@ -7,8 +7,8 @@ describe "JoinClassroomAnalytics" do
   let(:track_calls) { segment_analytics.backend.track_calls }
   let(:identify_calls) { segment_analytics.backend.identify_calls }
 
-  let(:teacher) { create(:teacher) }
-  let(:classroom) { create(:classroom, teacher: teacher) }
+  let(:classroom) { create(:classroom) }
+  let(:teacher) { classroom.teacher }
   let(:student) { create(:student, classrooms: [classroom]) }
 
 
