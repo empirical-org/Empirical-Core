@@ -66,7 +66,7 @@ class EditionRow extends React.Component<any, any> {
   }
 
   renderSelectButton() {
-    if (this.props.selectAction) {
+    if (this.props.selectState) {
       return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="select-button">Select</button>
     }
   }

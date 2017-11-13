@@ -130,6 +130,7 @@ class chooseEdition extends React.Component<any, any> {
                 creator='quill'
                 key={i}
                 selectAction={this.selectAction}
+                selectState={this.state.selectState}
               />
     })
     return <div className="quill-editions">
