@@ -9,7 +9,7 @@ shared_context 'Section Progress Report' do
     3.times do |i|
       student = create(:user, role: 'student')
       students << student
-      classroom = create(:classroom, teacher: teacher, students: [student])
+      classroom = create(:classroom, students: [student])
       classrooms << classroom
       section = create(:section, name: "Progress Report Section #{i}")
       sections << section

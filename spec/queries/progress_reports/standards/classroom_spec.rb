@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::Classroom do
   describe "getting classrooms for the progress report" do
-    let!(:teacher) { create(:teacher) }
     let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
     include_context 'Section Progress Report'
+    let(:teacher) {classrooms.first.teacher}
 
     subject { ProgressReports::Standards::Classroom.new(teacher).results(filters).to_a }
 
@@ -24,8 +24,8 @@ describe ProgressReports::Standards::Classroom do
     end
 
     it "ignores classrooms associated belonging to a different teacher (even if they share students with this teacher's classrooms" do
-      t = create(:user, role: 'teacher')
-      c = create(:classroom, teacher: t)
+      c = create(:classroom)
+      t = c.teacher
       s = teacher.students.first
       s.classrooms << c
 
