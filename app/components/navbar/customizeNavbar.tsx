@@ -27,7 +27,7 @@ class CustomizeNavbar extends React.Component<any, any> {
       const q = s.data.play
       if (q.prompt === '' || q.prompt && q.prompt.trim() === '') {
         incompleteQuestions.push(i)
-      } else if (q.html && q.html === '<p></p>' || q.html == '<p><br></p>') {
+      } else if (!q.prompt && q.html && q.html === '<p></p>' || q.html == '<p><br></p>') {
         incompleteQuestions.push(i)
       }
     })
