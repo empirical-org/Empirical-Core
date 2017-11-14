@@ -25,7 +25,7 @@ describe "FinishActivityAnalytics" do
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_COMPLETION)
-      expect(track_calls[0][:user_id]).to eq(activity_session.classroom_activity.classroom.teacher_id)
+      expect(track_calls[0][:user_id]).to eq(activity_session.classroom_activity.classroom.teacher.id)
     end
   end
 

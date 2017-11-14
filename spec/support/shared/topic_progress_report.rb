@@ -11,7 +11,7 @@ shared_context 'Topic Progress Report' do
   let!(:section) { create(:section) }
   let!(:full_classroom) { create(:classroom, name: "full") }
   let!(:teacher) {full_classroom.teacher}
-  let!(:alice) { create(:student, classrooms: [full_classroom]) }
+  let!(:alice) { create(:student, name: 'Alice Cool', classrooms: [full_classroom]) }
   let!(:fred) { create(:student, name: "Fred Kewl", classrooms: [full_classroom]) }
   let!(:zojirushi) { create(:student, name: "Zojirushi Kewel", classrooms: [full_classroom]) }
   let!(:unassigned_student) { create(:student, classrooms: []) }
