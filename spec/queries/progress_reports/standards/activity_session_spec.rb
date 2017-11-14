@@ -11,8 +11,8 @@ describe ProgressReports::Standards::ActivitySession do
 
   it "filters correctly for teacher" do
     a = create(:activity)
-    t = create(:teacher)
-    c = create(:classroom, teacher: t)
+    c = create(:classroom)
+    t = c.teacher
     ca = create(:classroom_activity, activity: a, classroom: c)
     as = create(:activity_session,
                               state: 'finished',
