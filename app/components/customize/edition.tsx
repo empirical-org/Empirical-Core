@@ -136,7 +136,10 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   goToSuccessPage() {
-    this.props.router.push(`/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`)
+    const classroomActivityId = getParameterByName('classroom_activity_id')
+    let link = `/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`
+    link = classroomActivityId ? link.concat(`?&classroom_activity_id=${classroomActivityId}`) : link
+    this.props.router.push(link)
   }
 
   followUpLink() {
@@ -194,10 +197,14 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderSuccessModal() {
     if (window.location.href.indexOf('success') !== -1) {
+      const classroomActivityId = getParameterByName('classroom_activity_id')
+      const backLink = classroomActivityId
+        ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_activity_id=${classroomActivityId}`
+        : `customize/${this.props.params.lessonID}/${this.props.params.editionID}`
       return <SuccessModal
         editionName={this.state.edition.name}
         activityName={this.props.classroomLesson.data.title}
-        backLink={`customize/${this.props.params.lessonID}/${this.props.params.editionID}`}
+        backLink={backLink}
         editionLink={this.followUpLink()}
       />
     }

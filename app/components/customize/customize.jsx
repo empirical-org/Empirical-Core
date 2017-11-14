@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   getClassLessonFromFirebase
 } from '../../actions/classroomLesson'
+import {getParameterByName} from '../../libs/getParameterByName'
 
 import {
   getCurrentUserFromLMS,
@@ -31,7 +32,10 @@ class Customize extends React.Component {
   }
 
   goToSuccessPage() {
-    this.props.router.push(`/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`)
+    const classroomActivityId = getParameterByName('classroom_activity_id')
+    let link = `/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`
+    link = classroomActivityId ? link.concat(`?&classroom_activity_id=${classroomActivityId}`) : link
+    this.props.router.push(link)
   }
 
   render() {
