@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-class LaunchEditionNavbar extends React.Component<any, any> {
+class LaunchEditionNavbar extends React.Component {
   constructor(props) {
     super(props);
   }

@@ -15,17 +15,27 @@ class MultipleTextEditor extends React.Component<any, any> {
       ItalicButton, BoldButton, UnderlineButton, BlockquoteButton
     } = richButtonsPlugin;
 
-    const MyIconButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
+    const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
       <a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
         <span
           className={`${className}`}
           title={title ? title : label}
-          style={{ color: isActive ? '#000' : '#777' }}>{title}</span>
+          style={{ color: isActive ? '#000' : '#777' }}>{title}
+        </span>
       </a>;
+
+      const BlockButton = ({className, toggleBlockType, isActive, label, blockType, title}) =>
+        <a onClick={toggleBlockType}>
+          <span
+            className={`${className}`}
+            title={title ? title : label}
+            style={{ color: isActive ? '#000' : '#777' }}>{title}
+          </span>
+        </a>;
 
     this.state = {
       text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || ''))),
-      components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, MyIconButton },
+      components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, InlineButton, BlockButton },
       plugins: [richButtonsPlugin],
       hasFocus: false
     };
@@ -47,17 +57,17 @@ class MultipleTextEditor extends React.Component<any, any> {
   }
 
   render() {
-    const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, MyIconButton} = this.state.components;
+    const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, InlineButton, BlockButton} = this.state.components;
     const textBoxClass = this.state.hasFocus ? 'card-content hasFocus' : 'card-content';
     const errorClass = this.props.incompletePrompt ? 'incomplete-prompt' : ''
     return (
       <div className={`customize-lessons-editor card is-fullwidth ${errorClass}`}>
         <div className="buttons-toolbar">
           <div className="buttons-wrapper">
-            <BoldButton><MyIconButton className="bold" title="B" /></BoldButton>
-            <ItalicButton><MyIconButton className="italic" title="I" /></ItalicButton>
-            <UnderlineButton><MyIconButton className="underline" title="U" /></UnderlineButton>
-            <BlockquoteButton><MyIconButton className="quote" title="Quote" /></BlockquoteButton>
+            <BoldButton><InlineButton className="bold" title="B" /></BoldButton>
+            <ItalicButton><InlineButton className="italic" title="I" /></ItalicButton>
+            <UnderlineButton><InlineButton className="underline" title="U" /></UnderlineButton>
+            <BlockquoteButton><BlockButton className="quote" title="Quote" /></BlockquoteButton>
           </div>
         </div>
         <div className={textBoxClass}>
@@ -67,7 +77,7 @@ class MultipleTextEditor extends React.Component<any, any> {
               onChange={this.handleTextChange}
               plugins={this.state.plugins}
               onFocus={() => this.setState({ hasFocus: true, })}
-              onBlur={() => this.setState({ hasFocus: false, })}
+              // onBlur={() => this.setState({ hasFocus: false, })}
             />
           </div>
         </div>

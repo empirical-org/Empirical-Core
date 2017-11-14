@@ -35,7 +35,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
       <div className='customize-edition-header'>
         <div className="lesson-title-section">
           <p>You are creating an edition of this lesson:</p>
-          <h1>{this.props.lessonTitle}</h1>
+          <h1><span>Lesson {this.props.lessonNumber}:</span>{this.props.lessonTitle}</h1>
         </div>
         <div className="edition-name-and-sample-question-section">
           <p onClick={this.props.showEditModal} className="edit"><i className="fa fa-icon fa-pencil"/>Edit</p>

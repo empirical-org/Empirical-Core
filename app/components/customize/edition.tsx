@@ -218,6 +218,7 @@ class CustomizeEdition extends React.Component<any, any> {
           {this.renderEditModal()}
           {this.renderSuccessModal()}
           <CustomizeEditionHeader
+            lessonNumber={this.props.classroomLesson.data.lesson}
             lessonTitle={this.props.classroomLesson.data.title}
             editionName={this.state.edition.name}
             sampleQuestion={this.state.edition.sample_question}
