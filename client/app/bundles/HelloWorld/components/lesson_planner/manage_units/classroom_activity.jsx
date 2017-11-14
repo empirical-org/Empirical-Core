@@ -39,6 +39,8 @@ export default React.createClass({
     return {
       startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
       showModal: false,
+      showCustomizeTooltip: false,
+      showLessonPlanTooltip: false
     };
   },
 
@@ -52,6 +54,14 @@ export default React.createClass({
   handleChange(date) {
     this.setState({ startDate: date, });
     this.props.updateDueDate(this.caId(), date.format());
+  },
+
+  toggleCustomizeTooltip() {
+    this.setState({showCustomizeTooltip: !this.state.showCustomizeTooltip})
+  },
+
+  toggleLessonPlanTooltip() {
+    this.setState({showLessonPlanTooltip: !this.state.showLessonPlanTooltip})
   },
 
   goToRecommendations() {
@@ -84,8 +94,6 @@ export default React.createClass({
         return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>;
       } else if (this.props.data.started) {
         return <a className="mark-completed" target="_blank" href={`/teachers/classroom_activities/${this.props.data.caId}/mark_lesson_as_completed/${this.activityId()}`}>Mark As Complete</a>
-      // } else if (this.props.data.supportingInfo) {
-      //   return <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/>Download Lesson Plan</a>
       }
     }
   },
@@ -108,6 +116,24 @@ export default React.createClass({
       return this.lessonFinalCell();
     }
     return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'} />;
+  },
+
+  renderCustomizeTooltip() {
+    if (this.state.showCustomizeTooltip) {
+      return <div className="customize-tooltip">
+        <i className="fa fa-caret-up"/>
+        Customize
+      </div>
+    }
+  },
+
+  renderLessonPlanTooltip() {
+    if (this.state.showLessonPlanTooltip) {
+      return <div className="lesson-plan-tooltip">
+        <i className="fa fa-caret-up"/>
+        Download Lesson Plan
+      </div>
+    }
   },
 
   caId() {
@@ -152,9 +178,25 @@ export default React.createClass({
   lessonFinalCell() {
     return <div className="lessons-end-row">
       {this.lessonCompletedOrLaunch()}
-      <a className="customize-lesson" target="_blank" href={`http://localhost:8080/#/customize/${this.props.data.activityUid}`}><i className="fa fa-icon fa-magic"/></a>
-      {/* <a className="customize-lesson" target="_blank" href={`${process.env.CONNECT_URL}/#/customize/${this.props.data.activityUid}`}><i className="fa fa-icon fa-magic"/></a> */}
-      <a className="supporting-info" target="_blank" href={`/activities/${this.activityId()}/supporting_info`}><i className="fa fa-file-pdf-o"/></a>
+      <a
+        className="customize-lesson"
+        target="_blank" href={`http://localhost:8080/#/customize/${this.props.data.activityUid}`}
+        onMouseEnter={this.toggleCustomizeTooltip}
+        onMouseLeave={this.toggleCustomizeTooltip}
+      >
+        <i className="fa fa-icon fa-magic"/>
+        {this.renderCustomizeTooltip()}
+      </a>
+      <a
+        className="supporting-info"
+        target="_blank"
+        href={`/activities/${this.activityId()}/supporting_info`}
+        onMouseEnter={this.toggleLessonPlanTooltip}
+        onMouseLeave={this.toggleLessonPlanTooltip}
+      >
+        <img src="https://assets.quill.org/images/icons/download-lesson-green-icon.svg"/>
+        {this.renderLessonPlanTooltip()}
+      </a>
     </div>
   },
 
