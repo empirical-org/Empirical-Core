@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::TopicSerializer, type: :serializer do
-  let(:teacher) { create(:teacher) }
-  let!(:classroom) { create(:classroom, teacher: teacher) }
-  let!(:student) { create(:user, role: 'student', classrooms: [classroom])}
+  let!(:classroom) { create(:classroom_with_a_couple_students) }
+  let!(:teacher) { classroom.teacher }
+  let!(:student) { classroom.students.first }
   let!(:topic) { create(:topic) }
   let(:activity) { create(:activity, topic: topic) }
   let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
