@@ -4,7 +4,6 @@ shared_context 'Section Progress Report' do
   let(:classrooms) { [] }
   let(:students) { [] }
   let(:topics) { [] }
-  let(:teacher) {create(:teacher)}
   before do
     ActivitySession.destroy_all
     3.times do |i|
