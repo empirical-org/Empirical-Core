@@ -18,7 +18,7 @@ class Teachers::ProgressReports::Standards::ClassroomTopicsController < Teachers
         render json: {
           topics: topics_json,
           units: units_with_completed_activities(cas),
-          classroom: current_user.classrooms_i_teach.find(params[:classroom_id]),
+          classroom: current_user.classrooms_i_teach.find{|classroom| classroom.id == params[:classroom_id].to_i},
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }
       end

@@ -104,20 +104,20 @@ describe ActivitySession, type: :model, redis: :true do
 
   describe "#by_teacher" do
     # This setup is very convoluted... the factories appear to be untrustworthy w/r/t generating extra records
-    let!(:current_teacher) { create(:teacher) }
-    let!(:current_teacher_student) { create(:student) }
-    let!(:current_teacher_classroom) { create(:classroom, teacher: current_teacher, students: [current_teacher_student]) }
-    let!(:current_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: current_teacher_classroom)}
-    let!(:other_teacher) { create(:teacher) }
-    let!(:other_teacher_student) { create(:student) }
-    let!(:other_teacher_classroom) { create(:classroom, teacher: other_teacher, students: [other_teacher_student]) }
-    let!(:other_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: other_teacher_classroom)}
+    let!(:current_classroom) { create(:classroom_with_one_student) }
+    let(:current_teacher) { current_classroom.teacher }
+    let!(:current_student) {current_classroom.students.first}
+    let!(:current_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: current_classroom)}
+    let!(:other_classroom) { create(:classroom_with_one_student) }
+    let(:other_teacher) { other_classroom.teacher }
+    let!(:other_student) {other_classroom.students.first}
+    let!(:other_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: other_classroom)}
 
     before do
       # Can't figure out why the setup above creates 2 activity sessions
       ActivitySession.destroy_all
-      2.times { create(:activity_session, classroom_activity: current_teacher_classroom_activity, user: current_teacher_student) }
-      3.times { create(:activity_session, classroom_activity: other_teacher_classroom_activity, user: other_teacher_student) }
+      2.times { create(:activity_session, classroom_activity: current_teacher_classroom_activity, user: current_student) }
+      3.times { create(:activity_session, classroom_activity: other_teacher_classroom_activity, user: other_student) }
     end
 
     it "only retrieves activity sessions for the students who have that teacher" do

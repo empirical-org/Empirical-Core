@@ -38,10 +38,8 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
       end
 
       it 'includes the student in the JSON' do
-        binding.pry
         subject
         expect(json).to have_key('student')
-        binding.pry
         expect(json['student']['name']).to eq(student.name)
       end
 
