@@ -7,6 +7,10 @@ describe ProgressReports::Standards::Classroom do
     include_context 'Section Progress Report'
     let(:teacher) {classrooms.first.teacher}
 
+    before do
+      ClassroomsTeacher.all.each{|ct| ct.update(user: teacher)}
+    end
+
     subject { ProgressReports::Standards::Classroom.new(teacher).results(filters).to_a }
 
     it "retrieves aggregated classroom data" do
