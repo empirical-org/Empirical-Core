@@ -31,9 +31,9 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
   end
 
   context 'unit with nontrivial data' do
-    let!(:teacher) { create(:user, role: 'teacher') }
-    let!(:classroom) { create(:classroom, teacher: teacher) }
-    let!(:student) { create(:user, role: 'student', classrooms: [classroom]) }
+    let!(:classroom) { create(:classroom_with_one_student) }
+    let(:teacher) { classroom.teacher }
+    let!(:student) {classroom.students.first}
     let!(:activity) { create(:activity) }
     let!(:due_date1) { Date.today }
     let!(:unit) { create(:unit) }
