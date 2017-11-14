@@ -68,9 +68,9 @@ class Classroom < ActiveRecord::Base
     c = Classroom.where(clever_id: section.id).includes(:units).first_or_initialize
     c.update_attributes(
       name: section.name,
-      teacher: teacher,
       grade: section.grade
     )
+    ClassroomsTeacher.create(user: teacher, role: 'owner', classroom: c)
     c.import_students!
     c
   end
