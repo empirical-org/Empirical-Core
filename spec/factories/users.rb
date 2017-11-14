@@ -26,19 +26,19 @@ FactoryBot.define do
         end
       end
 
-      # trait :signed_up_with_google do
-      #   signed_up_with_google true
-      #   google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
-      #   password { nil }
-      #   username { nil }
-      # end
-      #
-      # trait :signed_up_with_clever do
-      #   password { nil }
-      #   username { nil }
-      #   clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
-      # end
-      #
+      trait :signed_up_with_google do
+        signed_up_with_google true
+        google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
+        password { nil }
+        username { nil }
+      end
+
+      trait :signed_up_with_clever do
+        password { nil }
+        username { nil }
+        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
+      end
+
       # trait :with_classrooms_students_and_activities do
       #   classrooms_i_teach { create_pair(:classroom_with_students_and_activities) }
       # end
