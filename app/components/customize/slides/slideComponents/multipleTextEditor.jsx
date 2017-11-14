@@ -44,9 +44,9 @@ class MultipleTextEditor extends React.Component<any, any> {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.text !== stateToHTML(this.state.text.getCurrentContent())) {
-        this.setState({
-          text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || ''))),
-        });
+      this.setState({
+        text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || ''))),
+      });
     }
   }
 
@@ -77,7 +77,7 @@ class MultipleTextEditor extends React.Component<any, any> {
               onChange={this.handleTextChange}
               plugins={this.state.plugins}
               onFocus={() => this.setState({ hasFocus: true, })}
-              // onBlur={() => this.setState({ hasFocus: false, })}
+              onBlur={() => this.setState({ hasFocus: false, })}
             />
           </div>
         </div>

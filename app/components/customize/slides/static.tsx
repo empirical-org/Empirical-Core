@@ -31,24 +31,25 @@ class CustomizeStatic extends Component<CustomizeStaticProps, CustomizeStaticSta
     this.handleHTMLChange = this.handleHTMLChange.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.question, this.state.question)) {
-      this.setState({question: nextProps.question})
-    }
-  }
-
+  // componentWillReceiveProps(nextProps) {
+  //   if (!_.isEqual(nextProps.question, this.props.question)) {
+  //     this.setState({question: nextProps.question})
+  //   }
+  // }
+  //
   updateQuestion(newVals, questionIndex) {
-    this.setState({question: newVals}, () => this.props.updateQuestion(newVals, questionIndex))
+    // this.setState({question: newVals}, () => this.props.updateQuestion(newVals, questionIndex))
+    this.props.updateQuestion(newVals, questionIndex)
   }
 
   handleTitleChange(e) {
-    const newVals = _.merge({}, this.state.question)
+    const newVals = _.merge({}, this.props.question)
     _.set(newVals, 'teach.title', e.target.value)
     this.updateQuestion(newVals, this.props.questionIndex)
   }
 
   handleHTMLChange(e) {
-    const newVals = _.merge({}, this.state.question)
+    const newVals = _.merge({}, this.props.question)
     _.set(newVals, 'play.html', e)
     this.updateQuestion(newVals, this.props.questionIndex)
   }
@@ -61,20 +62,20 @@ class CustomizeStatic extends Component<CustomizeStaticProps, CustomizeStaticSta
             clearSlide={this.props.clearSlide}
             questionIndex={this.props.questionIndex}
             resetSlide={this.props.resetSlide}
-            title={this.state.question.teach.title}
+            title={this.props.question.teach.title}
             handleTitleChange={this.handleTitleChange}
           />
           <PromptField
             incompletePrompt={this.props.incompletePrompt}
-            text={this.state.question.play.html}
+            text={this.props.question.play.html}
             handleTextChange={(e) => this.handleHTMLChange(e)}
           />
         </div>
         <div className="slide-preview-container">
-          <p className="slide-title">{this.state.question.teach.title}</p>
+          <p className="slide-title">{this.props.question.teach.title}</p>
           <div className="preview">
             <div className="scaler">
-              <StudentStatic data={this.state.question} />
+              <StudentStatic data={this.props.question} />
             </div>
           </div>
         </div>
