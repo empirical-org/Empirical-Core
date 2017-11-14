@@ -154,6 +154,7 @@ class chooseEdition extends React.Component<any, any> {
             creator='user'
             key={e}
             selectAction={this.selectAction}
+            selectState={this.state.selectState}
           />
         }
       })

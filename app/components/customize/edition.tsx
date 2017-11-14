@@ -145,7 +145,7 @@ class CustomizeEdition extends React.Component<any, any> {
   followUpLink() {
     const {lessonID, editionID} = this.props.params
     const classroomActivityID = getParameterByName('classroom_activity_id')
-    return classroomActivityID ? `teach/class-lessons/${lessonID}&classroom_activity_id=${classroomActivityID}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
+    return classroomActivityID ? `teach/class-lessons/${lessonID}?&classroom_activity_id=${classroomActivityID}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
   }
 
   renderPublishSection() {
