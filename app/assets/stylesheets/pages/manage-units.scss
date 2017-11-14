@@ -101,10 +101,6 @@
   .edit-students {
     vertical-align: top;
   }
-  .fa-file-pdf-o {
-    padding-right: 10px;
-  }
-
   .fa-check-circle {
     padding-right: 5px;
   }
@@ -198,7 +194,7 @@
 
       .mark-completed {
         font-weight: 600;
-        margin-right: 20px;
+        margin-right: 45px;
         color: #969696;
         i {
           margin-right: -6px;
@@ -206,14 +202,51 @@
       }
 
       .supporting-info {
+        position: relative;
         color: #585858;
+      }
+
+      .customize-lesson {
+        position: relative;
+        height: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .customize-tooltip, .lesson-plan-tooltip {
+        position: absolute;
+        left: 0px;
+        top: 25px;
+        height: 23px;
+        color: white;
+        border-radius: 2px;
+        background-color: #348fdf;
+        font-size: 12px;
+        font-weight: 600;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        .fa-caret-up {
+          color: #348fdf;
+          position: absolute;
+          top: -10px;
+          left: 5px;
+        }
+      }
+
+      .customize-tooltip {
+        width: 78px;
+      }
+
+      .lesson-plan-tooltip {
+        width: 139px;
       }
 
       .lessons-end-row {
         display: flex;
         align-items: center;
         a {
-          margin-right: 20px;
+          margin-right: 15px;
         }
         i {
           color: #027360;

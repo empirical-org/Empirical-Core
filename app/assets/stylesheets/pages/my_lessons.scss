@@ -47,7 +47,6 @@
   .lesson-completed {
     margin-right: 8px;
     color: #82bf3c;
-    font-size: 16px;
     font-weight: 600;
     width: 160px;
   }
@@ -76,6 +75,9 @@
     justify-content: center;
     align-items: center;
     color: #ffffff;
+    @media (max-width: 991px) {
+      display: none;
+    }
   }
 }
 
