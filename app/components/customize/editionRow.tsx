@@ -4,7 +4,23 @@ const MakeCopy = 'https://assets.quill.org/images/icons/make-copy-edition.svg'
 const EditEdition = 'https://assets.quill.org/images/icons/edit-edition.svg'
 const DeleteEdition = 'https://assets.quill.org/images/icons/delete-edition.svg'
 
-class EditionRow extends React.Component<any, any> {
+interface EditionRowState {
+  showDropdown: boolean
+}
+
+interface EditionRowProps {
+  archiveEdition: Function,
+  classroomLesson: any,
+  creator: string,
+  customize: any,
+  editEdition: Function,
+  edition: any,
+  makeNewEdition: Function,
+  selectAction: Function,
+  selectState: string|boolean|null
+}
+
+class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
   constructor(props) {
     super(props)
     this.state = {

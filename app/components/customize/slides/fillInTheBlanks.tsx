@@ -4,6 +4,9 @@ import _ from 'lodash'
 import PromptField from './slideComponents/promptField'
 import StudentFillInTheBlank from '../../classroomLessons/play/fillInTheBlank'
 import TitleField from './slideComponents/titleField'
+interface CustomizeFillInTheBlanksState {
+  question: CLIntF.QuestionData,
+}
 
 interface CustomizeFillInTheBlanksProps {
   question: CLIntF.QuestionData,
@@ -14,7 +17,7 @@ interface CustomizeFillInTheBlanksProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, any>{
+class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps, CustomizeFillInTheBlanksState>{
   constructor(props){
     super(props);
 

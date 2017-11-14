@@ -13,7 +13,7 @@ import EditionNamingModal from './editionNamingModal'
 import EditionRow from './editionRow'
 import { getParameterByName } from '../../libs/getParameterByName'
 
-class chooseEdition extends React.Component<any, any> {
+class ChooseEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
     this.state = {
@@ -72,7 +72,7 @@ class chooseEdition extends React.Component<any, any> {
     this.props.router.push(route)
   }
 
-  selectAction(editionKey) {
+  selectAction(editionKey: string) {
     const lessonId = this.props.params.lessonID
     if (getParameterByName('preview')) {
       const editionId = editionKey ? editionKey : ''
@@ -187,4 +187,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(chooseEdition)
+export default connect(select)(ChooseEdition)

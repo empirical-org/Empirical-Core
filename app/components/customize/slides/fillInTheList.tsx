@@ -5,6 +5,10 @@ import PromptField from './slideComponents/promptField'
 import StudentFillInTheList from '../../classroomLessons/play/listBlanks'
 import TitleField from './slideComponents/titleField'
 
+interface CustomizeFillInTheListState {
+  question: CLIntF.QuestionData,
+}
+
 interface CustomizeFillInTheListProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
@@ -14,7 +18,7 @@ interface CustomizeFillInTheListProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, any>{
+class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, CustomizeFillInTheListState>{
   constructor(props){
     super(props);
 

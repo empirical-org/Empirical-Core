@@ -5,6 +5,10 @@ import StudentMultistep from '../../classroomLessons/play/multistep'
 import TitleField from './slideComponents/titleField'
 import PromptField from './slideComponents/promptField'
 
+interface CustomizeMultistepState {
+  question: CLIntF.QuestionData,
+}
+
 interface CustomizeMultistepProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
@@ -14,7 +18,7 @@ interface CustomizeMultistepProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeMultistep extends Component<CustomizeMultistepProps, any>{
+class CustomizeMultistep extends Component<CustomizeMultistepProps, CustomizeMultistepState>{
   constructor(props){
     super(props);
 

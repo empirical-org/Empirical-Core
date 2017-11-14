@@ -5,6 +5,10 @@ import PromptField from './slideComponents/promptField'
 import StudentModel from '../../classroomLessons/play/modelQuestion'
 import TitleField from './slideComponents/titleField'
 
+interface CustomizeModelState {
+  question: CLIntF.QuestionData,
+}
+
 interface CustomizeModelProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
@@ -14,7 +18,7 @@ interface CustomizeModelProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeModel extends Component<CustomizeModelProps, any>{
+class CustomizeModel extends Component<CustomizeModelProps, CustomizeModelState>{
   constructor(props){
     super(props);
 

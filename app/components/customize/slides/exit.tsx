@@ -14,7 +14,11 @@ interface ExitProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeExit extends Component<ExitProps, any>{
+interface ExitState {
+  question: CLIntF.QuestionData,
+}
+
+class CustomizeExit extends Component<ExitProps, ExitState>{
   constructor(props){
     super(props);
 

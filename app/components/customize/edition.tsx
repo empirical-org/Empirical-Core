@@ -7,6 +7,9 @@ import CustomizeEditionHeader from './customizeEditionHeader'
 import NameAndSampleQuestionModal from './nameAndSampleQuestionModal'
 import SuccessModal from './successModal'
 import {getParameterByName} from '../../libs/getParameterByName'
+import {
+  Question
+} from '../classroomLessons/interfaces'
 
 import {
   setWorkingEdition,
@@ -62,7 +65,7 @@ class CustomizeEdition extends React.Component<any, any> {
     }
   }
 
-  updateQuestion(question, questionIndex) {
+  updateQuestion(question: Question, questionIndex: number) {
     const newEdition = _.merge({}, this.state.edition)
     newEdition.data.questions[questionIndex].data = question
     this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
@@ -88,12 +91,12 @@ class CustomizeEdition extends React.Component<any, any> {
     this.setState({showEditModal: false})
   }
 
-  resetSlide(questionIndex) {
+  resetSlide(questionIndex: number) {
     const question = this.state.copiedEdition.data.questions[questionIndex].data
     this.updateQuestion(question, questionIndex)
   }
 
-  clearSlide(questionIndex) {
+  clearSlide(questionIndex: number) {
     const question = _.merge({}, this.state.edition.data.questions[questionIndex].data)
     const clearedSlide = {}
     Object.keys(question.play).map((k) => {
@@ -120,7 +123,7 @@ class CustomizeEdition extends React.Component<any, any> {
 
   publish() {
     const slides = this.state.edition.data.questions.slice(1)
-    const incompleteQuestions = []
+    const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {
       const q = s.data.play
       if (q.prompt === '' || q.prompt && q.prompt.trim() === '') {
@@ -169,7 +172,7 @@ class CustomizeEdition extends React.Component<any, any> {
     }
   }
 
-  renderSlide(q, i) {
+  renderSlide(q: Question, i: number) {
     const incompletePrompt = this.state.incompleteQuestions && this.state.incompleteQuestions.includes(i)
     return <Slide
       key={i}

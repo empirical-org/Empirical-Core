@@ -5,6 +5,10 @@ import PromptField from './slideComponents/promptField'
 import StudentSingleAnswer from '../../classroomLessons/play/singleAnswer'
 import TitleField from './slideComponents/titleField'
 
+interface SingleAnswerState {
+  question: CLIntF.QuestionData,
+}
+
 interface SingleAnswerProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
@@ -14,7 +18,7 @@ interface SingleAnswerProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeSingleAnswer extends Component<SingleAnswerProps, any>{
+class CustomizeSingleAnswer extends Component<SingleAnswerProps, SingleAnswerState>{
   constructor(props){
     super(props);
 

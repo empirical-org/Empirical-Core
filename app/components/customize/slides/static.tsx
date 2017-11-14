@@ -5,6 +5,10 @@ import PromptField from './slideComponents/promptField'
 import StudentStatic from '../../classroomLessons/play/static'
 import TitleField from './slideComponents/titleField'
 
+interface CustomizeStaticState {
+  question: CLIntF.QuestionData,
+}
+
 interface CustomizeStaticProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
@@ -14,7 +18,7 @@ interface CustomizeStaticProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeStatic extends Component<CustomizeStaticProps, any>{
+class CustomizeStatic extends Component<CustomizeStaticProps, CustomizeStaticState>{
   constructor(props){
     super(props);
 

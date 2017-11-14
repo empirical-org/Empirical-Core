@@ -3,6 +3,7 @@ import rootRef, { firebase } from '../libs/firebase';
 const editionsRef = rootRef.child('lessons_editions');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 import C from '../constants';
+import * as CustomizeIntf from '../interfaces/customize'
 
 export function getCurrentUserFromLMS() {
   return function(dispatch) {
@@ -32,7 +33,7 @@ export function getEditionsByUser(user_id:Number) {
   };
 }
 
-export function createNewEdition(editionUID:string, lessonUID:string, user_id:Number, callback?:any) {
+export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number, callback?:any) {
   let newEditionData, newEdition;
   if (editionUID) {
     newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
@@ -70,15 +71,15 @@ export function archiveEdition(editionUID:string) {
   })
 }
 
-export function setWorkingEdition(edition) {
+export function setWorkingEdition(edition:CustomizeIntf.Edition) {
   return { type: C.SET_WORKING_EDITION, edition };
 }
 
-export function setIncompleteQuestions(incompleteQuestions) {
+export function setIncompleteQuestions(incompleteQuestions:Array<number>|never) {
   return { type: C.SET_INCOMPLETE_QUESTIONS, incompleteQuestions };
 }
 
-export function publishEdition(editionUID:string, edition, callback?:Function) {
+export function publishEdition(editionUID:string, edition:CustomizeIntf.Edition, callback?:Function) {
   return function(dispatch) {
     dispatch(setIncompleteQuestions([]))
     edition.last_published_at = firebase.database.ServerValue.TIMESTAMP
@@ -90,14 +91,14 @@ export function publishEdition(editionUID:string, edition, callback?:Function) {
   }
 }
 
-function filterForUserEditions(userId:Number, editions) {
+function filterForUserEditions(userId:Number, editions:CustomizeIntf.Editions) {
   return function (dispatch, getState) {
     if (editions && Object.keys(editions).length > 0) {
       const userEditions = {}
       const editionIds = Object.keys(editions)
       editionIds.forEach(id => {
         const edition = editions[id]
-        if (edition.user_id === userId && (!edition.flags || !edition.flags.includes('archived'))) {
+        if (edition.user_id === userId && (!edition.flags || edition.flags.indexOf('archived') === -1)) {
           userEditions[id] = edition
         }
       })
@@ -112,6 +113,6 @@ function setUserId(id:Number) {
   return { type: C.SET_USER_ID, id };
 }
 
-function setEditions(editions) {
+function setEditions(editions:CustomizeIntf.Editions) {
   return { type: C.SET_EDITIONS, editions };
 }

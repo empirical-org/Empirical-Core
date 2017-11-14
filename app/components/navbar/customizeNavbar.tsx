@@ -22,7 +22,7 @@ class CustomizeNavbar extends React.Component<any, any> {
 
   publish() {
     const slides = this.props.customize.workingEdition.data.questions.slice(1)
-    const incompleteQuestions = []
+    const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {
       const q = s.data.play
       if (q.prompt === '' || q.prompt && q.prompt.trim() === '') {
