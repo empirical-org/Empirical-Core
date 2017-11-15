@@ -3,6 +3,6 @@ class CsvExportMailer < ActionMailer::Base
 
   def csv_download(csv_export)
     @download_url = csv_export.csv_file.url
-    mail to: csv_export.teacher.email, subject: 'Quill.org Teacher CSV Export'
+    mail to: csv_export.owner.email, subject: 'Quill.org Teacher CSV Export'
   end
 end

@@ -243,7 +243,7 @@ module PublicProgressReports
 
     def get_previously_assigned_recommendations_by_classroom(classroom_id, activity_id)
       classroom = Classroom.find(classroom_id)
-      teacher_id = classroom.teacher_id
+      teacher_id = classroom.owner.id
       diagnostic = Activity.find(activity_id)
       assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
         # one unit per teacher with this name.

@@ -4,12 +4,12 @@ class LoginPdf < Prawn::Document
   def initialize(classroom)
     super(margin: [22, 24, 22, 24])
     @classroom = classroom
-    StudentLoginPdfDownloadAnalyticsWorker.perform_async(classroom.teacher_id, classroom.id)
+    StudentLoginPdfDownloadAnalyticsWorker.perform_async(classroom.owner.id, classroom.id)
     render_login_pdf
   end
 
   def render_cover_page_header
-    render_text "<b>#{@classroom.teacher.name} - <color rgb='777777'>#{@classroom.name}</color></b>", 20
+    render_text "<b>#{@classroom.owner.name} - <color rgb='777777'>#{@classroom.name}</color></b>", 20
     move_down 14
     float do
       bounding_box([273, cursor], width: 279, height: 120) do

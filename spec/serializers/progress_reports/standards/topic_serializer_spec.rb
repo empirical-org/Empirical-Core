@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::TopicSerializer, type: :serializer do
   let!(:classroom) { create(:classroom_with_a_couple_students) }
-  let!(:teacher) { classroom.teacher }
+  let!(:teacher) { classroom.owner }
   let!(:student) { classroom.students.first }
   let!(:topic) { create(:topic) }
   let(:activity) { create(:activity, topic: topic) }

@@ -4,7 +4,7 @@ require 'rails_helper'
 describe Teachers::UnitsController, type: :controller do
   let!(:student) {create(:student)}
   let!(:classroom) { create(:classroom, students: [student]) }
-  let!(:teacher) { classroom.teacher }
+  let!(:teacher) { classroom.owner }
   let!(:unit) {create(:unit, user: teacher)}
   let!(:unit2) {create(:unit, user: teacher)}
   let!(:classroom_activity) { create(

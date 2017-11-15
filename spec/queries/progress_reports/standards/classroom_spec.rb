@@ -5,7 +5,7 @@ describe ProgressReports::Standards::Classroom do
     let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
     include_context 'Section Progress Report'
-    let(:teacher) {classrooms.first.teacher}
+    let(:teacher) {classrooms.first.owner}
 
     before do
       ClassroomsTeacher.all.each{|ct| ct.update(user: teacher)}
@@ -29,7 +29,7 @@ describe ProgressReports::Standards::Classroom do
 
     it "ignores classrooms associated belonging to a different teacher (even if they share students with this teacher's classrooms" do
       c = create(:classroom)
-      t = c.teacher
+      t = c.owner
       s = teacher.students.first
       s.classrooms << c
 

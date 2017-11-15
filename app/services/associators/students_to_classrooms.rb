@@ -8,7 +8,7 @@ module Associators::StudentsToClassrooms
         sc.visible = true
         if sc.save!
           update_classroom_activities(sc)
-          StudentJoinedClassroomWorker.perform_async(@@classroom.teacher_id, student.id)
+          StudentJoinedClassroomWorker.perform_async(@@classroom.owner.id, student.id)
         end
       end
       if !sc.visible
@@ -32,7 +32,7 @@ module Associators::StudentsToClassrooms
   end
 
   def self.legit_teacher
-    @@classroom.teacher
+    @@classroom.owner
   end
 
 end

@@ -14,7 +14,7 @@ class ActivityAuthorizer
   end
 
   def authorize_teacher
-    @activity_session.classroom_activity.classroom.teacher == @current_user
+    @activity_session.classroom_activity.classroom.owner == @current_user
   end
 
 end

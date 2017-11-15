@@ -73,7 +73,7 @@ private
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
-    if @classroom_activity.classroom.teacher != current_user then auth_failed end
+    if @classroom_activity.classroom.owner != current_user then auth_failed end
   end
 
   def authorize_student!

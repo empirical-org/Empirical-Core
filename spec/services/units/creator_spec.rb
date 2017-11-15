@@ -6,7 +6,7 @@ Sidekiq::Testing.fake!
 
 describe Units::Creator do
   let!(:classroom) { create(:classroom) }
-  let!(:teacher) { classroom.teacher }
+  let!(:teacher) { classroom.owner }
 
   describe 'unit_creator' do
 

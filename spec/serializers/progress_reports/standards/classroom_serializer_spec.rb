@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
   let!(:classroom) { create(:classroom_with_one_student) }
-  let(:teacher) { classroom.teacher }
+  let(:teacher) { classroom.owner }
   let(:activity) { create(:activity) }
   let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
   let(:classroom_for_report) { ProgressReports::Standards::Classroom.new(teacher).results({}).first }

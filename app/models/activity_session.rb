@@ -18,7 +18,8 @@ class ActivitySession < ActiveRecord::Base
   validate :correctly_assigned, :on => :create
 
 
-  ownable :user
+  # ownable :user
+  belongs_to :user
 
   before_create :set_state
   before_save   :set_completed_at
