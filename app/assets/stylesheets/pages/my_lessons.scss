@@ -64,7 +64,7 @@
     align-items: center;
   }
   .customized-editions-tag {
-    width: 133px;
+    width: 90px;
     height: 23px;
     border-radius: 11.5px;
     background-color: #5aaef6;
@@ -75,6 +75,7 @@
     justify-content: center;
     align-items: center;
     color: #ffffff;
+    padding-bottom: 2px;
     @media (max-width: 991px) {
       display: none;
     }

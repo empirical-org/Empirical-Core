@@ -72,7 +72,7 @@ export default React.createClass({
   renderCustomizedEditionsTag() {
     if (window.location.pathname.includes('lessons')) {
       if (this.props.data.hasEditions) {
-        return <div className="customized-editions-tag">Customized Editions</div>
+        return <div className="customized-editions-tag">Customized</div>
       }
     }
   },
