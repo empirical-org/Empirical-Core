@@ -46,14 +46,14 @@ describe Classroom, type: :model do
 
     context "#owner" do
       it "returns the user who owns the classroom" do
-        expect(classroom.owner).to eq(ClassroomsTeacher.find_by_role_and_classroom_id('owner', classroom.id).owner)
+        expect(classroom.owner).to eq(ClassroomsTeacher.find_by_role_and_classroom_id('owner', classroom.id).teacher)
       end
     end
 
     context "#coteachers" do
       let!(:classroom_with_coteacher) {create(:classroom, :with_coteacher)}
       it "returns all users who coteach the classroom (but do not own it)" do
-        single_coteacher_arr = [ClassroomsTeacher.find_by(classroom: classroom_with_coteacher, role: 'coteacher').owner]
+        single_coteacher_arr = [ClassroomsTeacher.find_by(classroom: classroom_with_coteacher, role: 'coteacher').teacher]
         expect(classroom_with_coteacher.coteachers).to eq(single_coteacher_arr)
         couple_coteacher_arr = ClassroomsTeacher.where(classroom: classroom_with_a_couple_coteachers, role: 'coteacher').map(&:teacher).flatten
         expect(classroom_with_a_couple_coteachers.coteachers).to eq(couple_coteacher_arr)

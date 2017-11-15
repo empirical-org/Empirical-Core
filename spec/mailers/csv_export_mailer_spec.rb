@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe CsvExportMailer, type: :mailer do
-  include ERB::Util
 
   describe 'csv_download' do
     let(:csv_export) { create(:csv_export, teacher: teacher) }

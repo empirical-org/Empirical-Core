@@ -136,14 +136,6 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
-  describe "#owner" do
-
-  	it "must be equal to user" do
-  		expect(activity_session.owner).to eq activity_session.user
-  	end
-
-  end
-
   describe "#anonymous=" do
 
   	it "must be equal to temporary" do
@@ -156,20 +148,6 @@ describe ActivitySession, type: :model, redis: :true do
   	end
   end
 
-  describe "#owned_by?" do
-
-  	let(:user) {build(:user)}
-
-  	it "must return true if temporary true" do
-  		activity_session.temporary=true
-  		expect(activity_session.owned_by? user).to be_truthy
-  	end
-
-  	it "must be true if temporary false and user eq owner" do
-  		expect(activity_session.owned_by? activity_session.user).to eq true
-  	end
-
-  end
 
   context "when before_create is fired" do
 
@@ -267,15 +245,6 @@ describe ActivitySession, type: :model, redis: :true do
   		end
 
   	end
-
-  end
-
-  describe "can act as ownable" do
-
-    context "when it's an ownable model" do
-
-      it_behaves_like "ownable"
-    end
 
   end
 
