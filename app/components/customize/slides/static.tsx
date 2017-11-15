@@ -5,10 +5,6 @@ import PromptField from './slideComponents/promptField'
 import StudentStatic from '../../classroomLessons/play/static'
 import TitleField from './slideComponents/titleField'
 
-interface CustomizeStaticState {
-  question: CLIntF.QuestionData,
-}
-
 interface CustomizeStaticProps {
   question: CLIntF.QuestionData,
   updateQuestion: Function,
@@ -18,27 +14,16 @@ interface CustomizeStaticProps {
   incompletePrompt: Boolean
 }
 
-class CustomizeStatic extends Component<CustomizeStaticProps, CustomizeStaticState>{
+class CustomizeStatic extends Component<CustomizeStaticProps, {}>{
   constructor(props){
     super(props);
-
-    this.state = {
-      question: props.question
-    }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
     this.handleHTMLChange = this.handleHTMLChange.bind(this)
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!_.isEqual(nextProps.question, this.props.question)) {
-  //     this.setState({question: nextProps.question})
-  //   }
-  // }
-  //
   updateQuestion(newVals, questionIndex) {
-    // this.setState({question: newVals}, () => this.props.updateQuestion(newVals, questionIndex))
     this.props.updateQuestion(newVals, questionIndex)
   }
 
