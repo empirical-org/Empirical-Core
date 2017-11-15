@@ -80,7 +80,7 @@ RSpec.configure do |config|
 
     begin
       # validate factories
-      # FactoryBot.lint
+      FactoryBot.lint
     ensure
       # (re-?)clean the database after
       DatabaseCleaner.clean_with(:truncation)
