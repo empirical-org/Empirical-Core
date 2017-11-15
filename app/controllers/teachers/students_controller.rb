@@ -60,7 +60,7 @@ protected
   #       consider absracting using inheritance e.g. Teachers::BaseClassroomController
   def authorize!
     @classroom = Classroom.find(params[:classroom_id])
-    auth_failed unless @classroom.teacher == current_user
+    auth_failed unless @classroom.owner == current_user
     params[:id] = params[:student_id] if params[:student_id].present?
     @student = @classroom.students.find(params[:id]) if params[:id].present?
   end

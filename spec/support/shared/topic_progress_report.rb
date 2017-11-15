@@ -10,7 +10,7 @@ shared_context 'Topic Progress Report' do
   # When filtered by unassigned student, nothing displays
   let!(:section) { create(:section) }
   let!(:full_classroom) { create(:classroom, name: "full") }
-  let!(:teacher) {full_classroom.teacher}
+  let!(:teacher) {full_classroom.owner}
   let!(:alice) { create(:student, name: 'Alice Cool', classrooms: [full_classroom]) }
   let!(:fred) { create(:student, name: "Fred Kewl", classrooms: [full_classroom]) }
   let!(:zojirushi) { create(:student, name: "Zojirushi Kewel", classrooms: [full_classroom]) }

@@ -44,7 +44,7 @@ module TeacherFixes
     .where("users.id = ?", user_id)
     .where("classroom_activities.classroom_id = ?", classroom_1_id)
     .group("classroom_activities.id")
-    if (classroom_1.teacher_id == classroom_2.teacher_id)
+    if (classroom_1.owner.id == classroom_2.owner.id)
       classroom_activities.each do |ca|
         sibling_ca = ClassroomActivity.find_or_create_by(unit_id: ca.unit_id, activity_id: ca.activity_id, classroom_id: classroom_2_id)
         ActivitySession.where(classroom_activity_id: ca.id, user_id: user_id).each { |as| as.update(classroom_activity_id: sibling_ca.id)}
@@ -52,7 +52,7 @@ module TeacherFixes
       end
     else
       new_unit_name = "#{user.name}'s Activities from #{classroom_1.name}"
-      unit = Unit.create(user_id: classroom_2.teacher_id, name: new_unit_name)
+      unit = Unit.create(user_id: classroom_2.owner.id, name: new_unit_name)
       classroom_activities.each do |ca|
         new_ca = ClassroomActivity.create(unit_id: unit.id, activity_id: ca.activity_id, classroom_id: classroom_2_id)
         ActivitySession.where(classroom_activity_id: ca.id, user_id: user_id).each { |as| as.update(classroom_activity_id: new_ca.id)}

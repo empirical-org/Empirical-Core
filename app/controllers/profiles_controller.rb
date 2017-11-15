@@ -69,7 +69,7 @@ protected
         name: @current_classroom.name,
         id: @current_classroom.id,
         teacher: {
-          name: @current_classroom.teacher.name
+          name: @current_classroom.owner.name
         }
       },
     }

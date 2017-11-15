@@ -113,7 +113,7 @@ describe 'CleverIntegration::SignUp::SubMain' do
 
       it 'associates classrooms to teacher' do
         subject
-        expect(classroom.teacher).to eq(teacher)
+        expect(classroom.owner).to eq(teacher)
       end
 
       # it 'creates students for teachers classrooms' do

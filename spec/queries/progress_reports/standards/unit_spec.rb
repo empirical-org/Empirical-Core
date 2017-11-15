@@ -6,7 +6,7 @@ describe ProgressReports::Standards::Unit do
     include_context 'Section Progress Report'
     let(:section_ids) { [sections[0].id, sections[1].id] }
     let(:filters) { {} }
-    let(:teacher) {classrooms.first.teacher}
+    let(:teacher) {classrooms.first.owner}
     before do
       ClassroomsTeacher.all.each{|ct| ct.update(user: teacher)}
     end

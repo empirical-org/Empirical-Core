@@ -50,7 +50,7 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: :true do
     )}
 
     it 'should get the right teacher' do
-      expect(classrooms_teacher.teacher).to eq(teacher)
+      expect(classrooms_teacher.owner).to eq(teacher)
     end
 
     it 'should get the right classroom' do

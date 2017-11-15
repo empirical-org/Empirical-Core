@@ -105,11 +105,11 @@ describe ActivitySession, type: :model, redis: :true do
   describe "#by_teacher" do
     # This setup is very convoluted... the factories appear to be untrustworthy w/r/t generating extra records
     let!(:current_classroom) { create(:classroom_with_one_student) }
-    let(:current_teacher) { current_classroom.teacher }
+    let(:current_teacher) { current_classroom.owner }
     let!(:current_student) {current_classroom.students.first}
     let!(:current_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: current_classroom)}
     let!(:other_classroom) { create(:classroom_with_one_student) }
-    let(:other_teacher) { other_classroom.teacher }
+    let(:other_teacher) { other_classroom.owner }
     let!(:other_student) {other_classroom.students.first}
     let!(:other_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: other_classroom)}
 

@@ -55,7 +55,7 @@ describe 'Sign up', type: :request do
 
   describe 'Create New Student Account (from teacher interface)' do
     let(:classroom)                 { create(:classroom) }
-    let(:teacher)                   { classroom.teacher }
+    let(:teacher)                   { classroom.owner }
     let(:student)                   { build(:student) }
 
     let(:student_first_name)        { student.first_name }

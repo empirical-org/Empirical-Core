@@ -34,7 +34,7 @@ class SegmentAnalytics
 
   def track_classroom_creation(classroom)
     track({
-      user_id: classroom.teacher_id,
+      user_id: classroom.owner.id,
       event: SegmentIo::Events::CLASSROOM_CREATION
     })
   end

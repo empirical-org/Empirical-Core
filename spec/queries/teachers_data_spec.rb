@@ -5,7 +5,7 @@ describe 'TeachersData' do
   let!(:teachers_data_module) { TeachersData }
 
   let!(:classroom) { create(:classroom_with_a_couple_students) }
-  let!(:teacher) { classroom.teacher }
+  let!(:teacher) { classroom.owner }
   let!(:teacher_ids) { [teacher.id] }
   let!(:student1) { classroom.students.first }
   let!(:student2) { classroom.students.second }

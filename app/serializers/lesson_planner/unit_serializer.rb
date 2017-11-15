@@ -16,7 +16,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
     if first_ca.nil?
       c = []
     else
-      c = first_ca.classroom.teacher.classrooms_i_teach
+      c = first_ca.classroom.owner.classrooms_i_teach
     end
 
     sc = classroom_activities.map(&:classroom).uniq

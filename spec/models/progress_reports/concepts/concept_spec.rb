@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ProgressReports::Concepts::Concept do
   include_context 'Concept Progress Report'
 
-  let!(:teacher) { classroom.teacher }
+  let!(:teacher) { classroom.owner }
   subject { described_class.results(teacher, filters).to_a }
 
   context 'no filters' do

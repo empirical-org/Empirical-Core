@@ -4,7 +4,7 @@ describe UserLoginWorker, type: :worker do
   let(:worker) { UserLoginWorker.new }
   let(:analytics) { SegmentAnalytics.new }
   let(:classroom) { create(:classroom) }
-  let(:teacher) { classroom.teacher }
+  let(:teacher) { classroom.owner }
   let(:student) { create(:student, classrooms: [classroom]) }
 
 

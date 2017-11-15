@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe Teachers::ClassroomActivitiesController, type: :controller do
   let(:classroom) { create(:classroom)}
-  let(:teacher) { classroom.teacher }
+  let(:teacher) { classroom.owner }
   let(:classroom_activity) { create(:classroom_activity, classroom_id: classroom.id)}
 
   before do

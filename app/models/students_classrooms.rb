@@ -9,7 +9,7 @@ class StudentsClassrooms < ActiveRecord::Base
   default_scope { where(visible: true)}
 
   def archived_classrooms_manager
-    {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.teacher.name, id: self.id}
+    {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.owner.name, id: self.id}
   end
 
 
@@ -23,12 +23,12 @@ class StudentsClassrooms < ActiveRecord::Base
 
   def checkbox
     if self.classroom
-      find_or_create_checkbox('Add Students', self.classroom.teacher)
+      find_or_create_checkbox('Add Students', self.classroom.owner)
     end
   end
 
   def invalidate_classroom_minis
-    $redis.del("user_id:#{self.classroom.teacher_id}_classroom_minis")
+    $redis.del("user_id:#{self.classroom.owner.id}_classroom_minis")
   end
 
 end

@@ -97,6 +97,6 @@ private
   def authorize!
     return unless params[:id].present?
     @classroom = Classroom.find(params[:id])
-    auth_failed unless @classroom.teacher == current_user
+    auth_failed unless @classroom.owner == current_user
   end
 end

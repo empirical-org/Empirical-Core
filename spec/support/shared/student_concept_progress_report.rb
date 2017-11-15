@@ -13,7 +13,7 @@ shared_context 'Student Concept Progress Report' do
   let(:classroom) { create(:classroom,
     name: "Bacon Weaving",
     students: [alice, fred, zojirushi]) }
-  let(:teacher) {classroom.teacher}
+  let(:teacher) {classroom.owner}
   let(:activity) { create(:activity) }
   let(:unit) { create(:unit, user: teacher ) }
   let(:classroom_activity) { create(:classroom_activity,

@@ -68,7 +68,7 @@ shared_context 'Concept Progress Report' do
   # Should not be visible on the report
   let!(:other_student) { create(:student) }
   let!(:other_classroom) { create(:classroom) }
-  let!(:other_teacher) { other_classroom.teacher }
+  let!(:other_teacher) { other_classroom.owner }
   let!(:other_unit) { create(:unit) }
   let!(:other_classroom_activity) { create(:classroom_activity,
     classroom: other_classroom,

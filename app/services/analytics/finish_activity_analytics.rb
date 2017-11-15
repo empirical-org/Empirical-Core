@@ -8,7 +8,7 @@ class FinishActivityAnalytics
   def track(activity_session)
     return if activity_session.classroom_activity.nil?
     return if activity_session.classroom_activity.classroom.nil?
-    teacher = activity_session.classroom_activity.classroom.teacher
+    teacher = activity_session.classroom_activity.classroom.owner
     return if teacher.nil?
 
     analytics_identify(teacher)

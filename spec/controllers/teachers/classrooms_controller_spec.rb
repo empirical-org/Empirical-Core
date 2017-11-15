@@ -37,7 +37,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
     let(:teacher) { create(:teacher) }
     let(:different_classroom) { create(:classroom) }
-    let(:different_teacher) { different_classroom.teacher }
+    let(:different_teacher) { different_classroom.owner }
 
     before do
       session[:user_id] = teacher.id

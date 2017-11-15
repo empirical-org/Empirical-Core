@@ -8,7 +8,7 @@ describe ClassroomActivity, type: :model, redis: :true do
     let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
     let!(:classroom) { create(:classroom, students: [student]) }
     let!(:classroom_2) { create(:classroom) }
-    let!(:teacher) {classroom.teacher}
+    let!(:teacher) {classroom.owner}
     let!(:unit) { create(:unit) }
     let(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
     let(:activity_session) {create(:activity_session, classroom_activity_id: classroom_activity.id)}
@@ -89,7 +89,7 @@ describe ClassroomActivity, type: :model, redis: :true do
             obj = Objective.create(name: 'Build Your Own Activity Pack')
             new_unit = Unit.create(name: 'There is no way a featured activity pack would have this name')
             classroom_activity.update(unit: new_unit)
-            expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
+            expect(classroom_activity.classroom.owner.checkboxes.last.objective).to eq(obj)
         end
 
         it 'creates a unit with a unit_template_id' do
@@ -97,13 +97,13 @@ describe ClassroomActivity, type: :model, redis: :true do
             obj = Objective.create(name: 'Assign Featured Activity Pack')
             new_unit = Unit.create(name: 'Adverbs', unit_template_id: ut.id)
             classroom_activity.update!(unit: new_unit)
-            expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
+            expect(classroom_activity.classroom.owner.checkboxes.last.objective).to eq(obj)
         end
 
         it 'assigns the entry diagnostic' do
             obj = Objective.create(name: 'Assign Entry Diagnostic')
             classroom_activity.update!(activity_id: 413)
-            expect(classroom_activity.classroom.teacher.checkboxes.last.objective).to eq(obj)
+            expect(classroom_activity.classroom.owner.checkboxes.last.objective).to eq(obj)
         end
     end
 
@@ -181,18 +181,18 @@ describe ClassroomActivity, type: :model, redis: :true do
 
       it "creates a redis key for the user if there isn't one" do
         lessons_classroom_activity
-        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to be
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.owner.id}_lessons_array")).to be
       end
 
       it "caches data about the assignment" do
         lesson_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
-        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to eq([lesson_data].to_json)
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
       end
 
       it "caches data about subsequent assignment" do
         lesson_1_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
         lesson_2_data = {"classroom_activity_id": lessons_classroom_activity_2.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
-        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to eq([lesson_1_data, lesson_2_data].to_json)
+        expect($redis.get("user_id:#{lessons_classroom_activity.classroom.owner.id}_lessons_array")).to eq([lesson_1_data, lesson_2_data].to_json)
       end
     end
 

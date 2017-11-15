@@ -191,7 +191,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         @classroom = Classroom.find(params[:classroom_id])
       end
       @classroom ||= Classroom.unscoped.find_by(teacher_id: current_user.id)
-      auth_failed unless @classroom.teacher == current_user
+      auth_failed unless @classroom.owner == current_user
     end
   end
 
