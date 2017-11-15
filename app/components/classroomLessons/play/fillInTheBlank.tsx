@@ -12,6 +12,7 @@ import {
   SelectedSubmissionsForQuestion
 } from '../interfaces';
 import promptSplitter from '../shared/promptSplitter'
+import htmlStrip from '../shared/htmlStrip'
 const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
@@ -103,7 +104,8 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   zipInputsAndText() {
     const boldInputs = this.state.inputVals.map((val) => `<strong>${val}</strong>&nbsp;`)
-    const zipped = _.zip(this.state.splitPrompt, boldInputs);
+    const strippedPrompts = this.state.splitPrompt.map(p => htmlStrip(p))
+    const zipped = _.zip(strippedPrompts, boldInputs);
     return _.flatten(zipped).join('');
   }
 
