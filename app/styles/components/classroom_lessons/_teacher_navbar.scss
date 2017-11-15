@@ -66,6 +66,9 @@
         background-color: #027360;
       }
     }
+    .fa-magic {
+      font-size: 23px;
+    }
     .help-icon {
       padding: 5px 10px;
     }
@@ -82,7 +85,7 @@
     i {
       color: white;
       position: absolute;
-      top: -14px;
+      top: -12px;
       right: 8px;
     }
     p {
@@ -121,7 +124,6 @@
 
   .customize-dropdown {
     left: 64px;
-    font-size: 23px;
     a {
       display: block;
       color: #027360;

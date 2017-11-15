@@ -11,6 +11,7 @@ import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion
 } from '../interfaces';
+import promptSplitter from '../shared/promptSplitter'
 const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
@@ -34,7 +35,7 @@ interface fillInTheBlankState {
 class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlankState> {
   constructor(props) {
     super(props)
-    const splitPrompt = props.data.play.prompt.split('___');
+    const splitPrompt = promptSplitter(props.data.play.prompt);
     this.state = {
       editing: false,
       submitted: false,
@@ -55,12 +56,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     // this will reset the state when a teacher resets a question
     const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
     if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {
-      const splitPrompt = nextProps.data.play.prompt.split('___');
+      const splitPrompt = promptSplitter(nextProps.data.play.prompt)
       this.setState({ submitted: false, editing: false, inputVals: this.generateInputs(splitPrompt) });
     }
 
     // this will update the prompt when it changes
-    const newSplitPrompt = nextProps.data.play.prompt.split('___');
+    const newSplitPrompt = promptSplitter(nextProps.data.play.prompt)
     if (!_.isEqual(newSplitPrompt,this.state.splitPrompt)) {
       this.setState({splitPrompt: newSplitPrompt, inputVals: this.generateInputs(newSplitPrompt)})
     }
@@ -137,7 +138,8 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const words = text.split(' ').filter(word => word !== '')
     const wordArray = []
     words.forEach((word, i) => {
-      wordArray.push(<span key={i}>{word}&nbsp;</span>)
+      let html = `${word}&nbsp;`
+      wordArray.push(<div key={i} dangerouslySetInnerHTML={{__html: html}}/>)
     })
     return wordArray
   }
