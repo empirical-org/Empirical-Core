@@ -105,6 +105,9 @@
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
+        &.open {
+          box-shadow: inset 0 1px 3px 0 #c0c0c0;
+        }
         .fa-magic {
           margin-right: 5px;
           font-size: 14px;

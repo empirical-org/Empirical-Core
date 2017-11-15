@@ -12,7 +12,7 @@ class LaunchEditionNavbar extends React.Component {
       return editions[e].lesson_id === this.props.params.lessonID
     })
     if (customEdition) {
-      return <div className="custom-editions-tag">Customized Editions</div>
+      return <div className="custom-editions-tag">Customized</div>
     }
   }
 

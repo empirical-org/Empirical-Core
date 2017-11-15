@@ -9,6 +9,9 @@
   &.incomplete-prompt {
     border: solid 1px #ff7370;
   }
+  &.editor-focused {
+    border: #5aaef6 1px solid;
+  }
   .buttons-toolbar {
     position: absolute;
     right: 0;

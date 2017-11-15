@@ -154,9 +154,9 @@ class CustomizeEdition extends React.Component<any, any> {
   renderPublishSection() {
     let text
     if (!this.state.incompleteQuestions || this.state.incompleteQuestions.length === 0) {
-      text = <p>Press <span>“Publish Customization”</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
+      text = <p>Press <span>“Publish Edition</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
     } else {
-      text = <p className="error"><i className="fa fa-icon fa-exclamation-triangle"/>You have left one of the fields above empty. Please fill out all the required fields and click Publish Customization.</p>
+      text = <p className="error"><i className="fa fa-icon fa-exclamation-triangle"/>You have left one of the fields above empty. Please fill out all the required fields and click Publish Edition.</p>
     }
     return <div className="publish-container">
       <div className="publish">

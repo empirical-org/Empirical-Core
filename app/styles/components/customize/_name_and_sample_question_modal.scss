@@ -23,7 +23,13 @@
     align-items: center;
     text-align: center;
     z-index: 100;
-    img {
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .illustration {
       margin: 45px 0px 40px;
     }
     span {
@@ -49,7 +55,7 @@
       p {
         font-size: 14px;
         text-align: left;
-        color: #969696;
+        margin-bottom: 5px;
       }
       input {
         width: 100%;
@@ -76,6 +82,7 @@
     }
     .fields {
       margin-bottom: 30px;
+      width: 100%;
       background-color: #fafafa;
     }
     .dividing-line {

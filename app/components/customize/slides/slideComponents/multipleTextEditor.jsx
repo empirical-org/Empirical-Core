@@ -60,8 +60,9 @@ class MultipleTextEditor extends React.Component<any, any> {
     const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, InlineButton, BlockButton} = this.state.components;
     const textBoxClass = this.state.hasFocus ? 'card-content hasFocus' : 'card-content';
     const errorClass = this.props.incompletePrompt ? 'incomplete-prompt' : ''
+    const editorFocusClass = this.state.hasFocus ? 'editor-focused' : ''
     return (
-      <div className={`customize-lessons-editor card is-fullwidth ${errorClass}`}>
+      <div className={`customize-lessons-editor card is-fullwidth ${errorClass} ${editorFocusClass}`}>
         <div className="buttons-toolbar">
           <div className="buttons-wrapper">
             <BoldButton><InlineButton className="bold" title="B" /></BoldButton>

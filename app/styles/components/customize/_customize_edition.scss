@@ -55,6 +55,9 @@
         .field {
           font-size: 14px;
           margin-bottom: 25px;
+          &:last-of-type {
+            margin-bottom: 10px;
+          }
           .optional {
             font-style: italic;
           }
@@ -98,6 +101,9 @@
     }
     .slide-preview-container {
       margin-left: 25px;
+      .slide-title {
+        margin-bottom: 5px;
+      }
       .preview {
         height: 240px;
         width: 432px;
@@ -105,12 +111,6 @@
         box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
         overflow: hidden;
         background-color: #fafafa;
-        .slide-title {
-          margin-bottom: 5px;
-          font-size: 16px;
-          text-align: left;
-          color: #3b3b3b;
-        }
         .scaler {
           width: 960px;
           height: 900px;
@@ -118,6 +118,9 @@
           transform-origin: top left;
           padding: 25px;
           pointer-events: none;
+          > div {
+            background-color: #fafafa;
+          }
         }
       }
     }

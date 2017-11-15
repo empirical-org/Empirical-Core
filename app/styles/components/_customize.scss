@@ -7,6 +7,15 @@
 @import 'customize/_text_editor.scss';
 @import 'customize/_customize_edition_header.scss';
 
+.customize-page {
+  div:focus {
+    outline: none;
+  }
+  button:focus {
+    outline: none;
+  }
+}
+
 .publish-button {
   cursor: pointer;
   min-width: 137px;

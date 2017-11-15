@@ -169,7 +169,7 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   render() {
-    return <div className="choose-edition">
+    return <div className="choose-edition customize-page">
       {this.renderLessonInfo()}
       {this.renderHeader()}
       {this.renderExplanation()}

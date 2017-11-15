@@ -31,6 +31,7 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
     this.editEdition = this.editEdition.bind(this)
     this.archiveEdition = this.archiveEdition.bind(this)
     this.toggleDropdown = this.toggleDropdown.bind(this)
+    this.hideDropdown = this.hideDropdown.bind(this)
   }
 
   makeNewEdition() {
@@ -51,9 +52,14 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
     this.setState({showDropdown: !this.state.showDropdown})
   }
 
+  hideDropdown() {
+    this.setState({showDropdown: false})
+  }
+
   renderCustomizeDropdown() {
-    return <div className="customize-dropdown">
-      <div className="customize" onClick={this.toggleDropdown}>
+    const customizeClass = this.state.showDropdown ? 'open' : ''
+    return <div className="customize-dropdown" tabIndex={0} onBlur={this.hideDropdown}>
+      <div className={`customize ${customizeClass}`} onClick={this.toggleDropdown}>
         <i className="fa fa-icon fa-magic"/>
         Customize
         <i className="fa fa-icon fa-caret-down"/>

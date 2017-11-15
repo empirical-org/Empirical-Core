@@ -53,7 +53,7 @@ class TeacherNavbar extends React.Component<any, any> {
       return editions[e].lesson_id === this.props.params.lessonID
     })
     if (customEdition) {
-      return <div className="custom-editions-tag">Customized Editions</div>
+      return <div className="custom-editions-tag">Customized</div>
     }
   }
 
@@ -216,8 +216,8 @@ class TeacherNavbar extends React.Component<any, any> {
     return (
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up"/>
-        <a onClick={this.editOnClick}>Edit This Edition</a>
-        <a onClick={this.redirectToSwitchEdition}>Switch Edition</a>
+        <a onClick={this.editOnClick}><p>Edit This Edition</p></a>
+        <a onClick={this.redirectToSwitchEdition}><p>Switch Edition</p></a>
       </div>
     )
   }
@@ -324,7 +324,7 @@ class TeacherNavbar extends React.Component<any, any> {
       <div>
         {this.previewBar()}
         <div className="lessons-teacher-navbar">
-          <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title} {this.renderCustomizedEditionsTag()}</p>
+          <div className="lesson-title"><p><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p> {this.renderCustomizedEditionsTag()}</div>
           <span className="toolbar">
             {this.presentStudentCount()}
             <div
