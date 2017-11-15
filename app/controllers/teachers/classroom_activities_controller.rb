@@ -28,7 +28,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     completed = UserMilestone.find_by(milestone_id: milestone.id, user_id: current_user.id)
     lesson = Activity.find_by(uid: params['lesson_uid']) || Activity.find_by(id: params['lesson_uid'])
     base_route = lesson.classification.form_url
-    lesson_url = "#{base_route}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    if (ActivitySession.find_by(classroom_activity_id: @classroom_activity.id, state: 'started'))
+      lesson_url = "#{base_route}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    else
+      lesson_url = "#{base_route}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    end
     if completed
       unlocked = @classroom_activity.update(locked: false, pinned: true)
       if unlocked
