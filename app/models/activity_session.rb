@@ -205,11 +205,6 @@ class ActivitySession < ActiveRecord::Base
     temporary
   end
 
-  def owned_by? user
-    return true if temporary
-    super
-  end
-
   def invalidate_activity_session_count_if_completed
     classroom_id = self.classroom_activity&.classroom_id
     if self.state == 'finished' && classroom_id
