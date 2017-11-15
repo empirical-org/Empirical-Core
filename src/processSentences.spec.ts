@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import {processSentences, uniqueWordsFromSentences} from  './processSentences'
 
 describe('The processSentences function', () => {
-  it('Should take an array of sentences and return \n seperated words in a list', () => {
+  it('Should take an array of sentences and return \n separated words in a list', () => {
     const sentences = [
       'Even though teams may disagree, they support each other.',
       'Teams may disagree even though they support each other.',

@@ -1,5 +1,9 @@
 import {processSentence} from './processSentence';
 
+/**
+ * Takes an array of sentences and returns a \n separated string of words.
+ * @param sentences - An array of strings that represent valid sentences.
+ */
 export function processSentences(sentences: string[]): string {
   return sentences
     .map(sentence => processSentence(sentence)) // process the individual sentences
