@@ -102,7 +102,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   zipInputsAndText() {
-    const boldInputs = this.state.inputVals.map((val) => `<strong>${val}</strong>`)
+    const boldInputs = this.state.inputVals.map((val) => `<strong>${val}</strong>&nbsp;`)
     const zipped = _.zip(this.state.splitPrompt, boldInputs);
     return _.flatten(zipped).join('');
   }
