@@ -191,7 +191,7 @@ describe ClassroomActivity, type: :model, redis: :true do
       end
 
       it "caches data about subsequent assignment" do
-        classroom_2.classrooms_teachers.destroy_all
+        classroom_2.teachers.destroy_all
         create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom_2.id)
         lesson_1_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
         lesson_2_data = {"classroom_activity_id": lessons_classroom_activity_2.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
