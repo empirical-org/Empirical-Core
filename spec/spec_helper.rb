@@ -23,14 +23,17 @@ def save_mock_data(response)
 end
 
 # This method can be called in any of our tests to convert a hash into a format
-# that allows is to be compared to a hash we generate from SQL. For example,
+# that allows it to be compared to a hash we generate from SQL. For example,
 # SQL will return 'f' instead of false. It's kinda hacky and shouldn't be
 # trusted in most circumstances. But, it's sufficient for most of our cases.
 def sanitize_hash_array_for_comparison_with_sql(array_of_hashes)
   array_of_hashes.map do |hash|
     hash.map do |key, value|
-      value = value.to_s.first if value.in? [true, false] # 't' for true, 'f' for false
-      value = value.to_s if value.is_a? Numeric # convert numeric values to strings
+      # Convert true and false to 't' and 'f'
+      value = value.to_s.first if value.in? [true, false]
+      # Convert numeric values to strings
+      value = value.to_s if value.is_a? Numeric
+      # Convert Times to have the right level of fidelity, and strip trailing zeroes
       value = value.strftime('%Y-%m-%d %T.%6N').gsub(/0*$/, '') if value.is_a? Time
       [key, value]
     end.to_h
