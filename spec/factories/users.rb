@@ -78,6 +78,19 @@ FactoryBot.define do
           create_list(:activity_session, evaluator.activity_count, user: user)
         end
       end
+
+      factory :student_in_two_classrooms_with_many_activities do
+        after(:create) do |student|
+          classrooms = create_pair(:classroom, students: [student])
+          classrooms.each do |classroom|
+            units = create_pair(:unit, user: classroom.owner)
+            units.each do |unit|
+              classroom_activities = create_pair(:classroom_activity, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
+              create(:activity_session, classroom_activity: classroom_activities.first, user: student, activity: classroom_activities.first.activity)
+            end
+          end
+        end
+      end
     end
   end
 end

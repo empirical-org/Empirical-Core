@@ -23,7 +23,7 @@ shared_context 'Section Progress Report' do
                                               activity: activity,
                                               unit: unit)
       3.times do |j|
-        activity_session = create(:activity_session, :finished,
+        activity_session = create(:activity_session, 
                                               classroom_activity: classroom_activity,
                                               user: student,
                                               activity: activity,
