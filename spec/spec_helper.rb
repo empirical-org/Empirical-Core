@@ -35,7 +35,7 @@ def sanitize_hash_array_for_comparison_with_sql(array_of_hashes)
       value = value.to_s if value.is_a? Numeric
       # Convert Times to have the right level of fidelity, and strip trailing zeroes
       value = value.strftime('%Y-%m-%d %T.%6N').gsub(/0*$/, '') if value.is_a? Time
-      [key, value]
+      [key.to_s, value]
     end.to_h
   end
 end
