@@ -71,7 +71,7 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
   }
 
   renderDropdown() {
-    if (this.state.showDropdown) {
+    const dropdownClass = this.state.showDropdown ? '' : 'hidden'
       let options
       const makeCopy = <div key="new" className="option" onClick={this.makeNewEdition}><img src={MakeCopy}/>Make Copy</div>
       if (this.props.creator === 'user') {
@@ -81,10 +81,9 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
       } else {
         options = [makeCopy]
       }
-      return <div className="dropdown">
+      return <div className={`dropdown ${dropdownClass}`}>
         {options}
       </div>
-    }
   }
 
   renderSelectButton() {

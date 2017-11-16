@@ -1,6 +1,8 @@
 .choose-edition {
-  width: 900px;
+  max-width: 900px;
+  width: 100%;
   margin: auto;
+  padding: 0px 30px;
   .lesson-info {
     margin-top: 25px;
     padding-bottom: 20px;
@@ -59,7 +61,6 @@
     border-top: solid 1px #e9e9e9;
   }
   .edition {
-    width: 900px;
     height: 80px;
     border-radius: 3px;
     background-color: #ffffff;
@@ -126,6 +127,9 @@
         top: 45;
         z-index: 99;
         cursor: pointer;
+        &.hidden {
+          display: none;
+        }
         .option {
           align-items: center;
           display: flex;
@@ -145,5 +149,4 @@
       }
     }
   }
-
 }
