@@ -56,11 +56,16 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def archived_classroom_manager_data
     begin
-    active = current_user.classrooms_i_teach
-      .map(&:archived_classrooms_manager)
-    inactive = Classroom.unscoped
-      .where(teacher_id: current_user.id, visible: false)
-      .map(&:archived_classrooms_manager)
+    active = []
+    inactive = []
+    ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
+      classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
+      if classroom.visible
+        active << classroom.archived_classrooms_manager
+      else
+        inactive << classroom.archived_classrooms_manager
+      end
+    end
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
@@ -186,12 +191,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def authorize!
-    if current_user.classrooms_i_teach.any?
-      if params[:classroom_id].present? and params[:classroom_id].length > 0
-        @classroom = Classroom.find(params[:classroom_id])
-      end
-      @classroom ||= Classroom.unscoped.find_by(teacher_id: current_user.id)
-      auth_failed unless @classroom.owner == current_user
+    if params[:classroom_id]
+      auth_failed unless ClassroomsTeacher.where(user_id: current_user.id, role: 'owner').map(&:classroom_id).include? params[:classroom_id]
     end
   end
 
