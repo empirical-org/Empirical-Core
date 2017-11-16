@@ -24,6 +24,24 @@ describe ProfilesController, type: :controller do
       expect(response.status).to eq(200)
     end
 
+    context '#students_classrooms_json' do
+      it 'should return a list of classes the current user is in' do
+        student = create(:student_in_two_classrooms_with_many_activities)
+        session[:user_id] = student.id
+        get :students_classrooms_json
+        student_classrooms = []
+        student.classrooms.each do |classroom|
+          student_classrooms << {
+            name: classroom.name,
+            teacher: classroom.owner.name,
+            id: classroom.id
+          }
+        end
+        expected_response = JSON.parse(response.body)['classrooms']
+        expect(expected_response).to eq(sanitize_hash_array_for_comparison_with_sql(student_classrooms))
+      end
+    end
+
     context "#student_profile_data" do
 
       it "returns an error when the current user has no classrooms" do

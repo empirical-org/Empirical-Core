@@ -79,7 +79,8 @@ protected
     ActiveRecord::Base.connection.execute(
     "SELECT classrooms.name AS name, teacher.name AS teacher, classrooms.id AS id FROM classrooms
       JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-      JOIN users AS teacher ON teacher.id = classrooms.teacher_id
+      JOIN classrooms_teachers ON classrooms_teachers.classroom_id = sc.classroom_id AND classrooms_teachers.role = 'owner'
+      JOIN users AS teacher ON teacher.id = classrooms_teachers.user_id
       WHERE sc.student_id = #{current_user.id}
       AND classrooms.visible = true
       ORDER BY sc.created_at ASC").to_a
