@@ -19,7 +19,7 @@ class SchoolsController < ApplicationController
       school = School.find_or_create_by(name: params[:school_id_or_type])
     end
     su = SchoolsUsers.find_or_create_by(user_id: current_user.id)
-    su.update!(school_id: school.id)
+    su.update(school_id: school.id)
     find_or_create_checkbox('Add School', current_user)
     render json: {}
   end

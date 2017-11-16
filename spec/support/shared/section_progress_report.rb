@@ -7,27 +7,26 @@ shared_context 'Section Progress Report' do
   before do
     ActivitySession.destroy_all
     3.times do |i|
-      student = FactoryGirl.create(:user, role: 'student')
+      student = create(:user, role: 'student')
       students << student
-      classroom = FactoryGirl.create(:classroom, teacher: teacher, students: [student])
+      classroom = create(:classroom, teacher: teacher, students: [student])
       classrooms << classroom
-      section = FactoryGirl.create(:section, name: "Progress Report Section #{i}")
+      section = create(:section, name: "Progress Report Section #{i}")
       sections << section
-      unit = FactoryGirl.create(:unit)
+      unit = create(:unit)
       units << unit
-      topic = FactoryGirl.create(:topic, section: section)
+      topic = create(:topic, section: section)
       topics << topic
-      activity = FactoryGirl.create(:activity, topic: topic)
-      classroom_activity = FactoryGirl.create(:classroom_activity,
+      activity = create(:activity, topic: topic)
+      classroom_activity = create(:classroom_activity,
                                               classroom: classroom,
                                               activity: activity,
                                               unit: unit)
       3.times do |j|
-        activity_session = FactoryGirl.create(:activity_session,
+        activity_session = create(:activity_session, :finished,
                                               classroom_activity: classroom_activity,
                                               user: student,
                                               activity: activity,
-                                              state: 'finished',
                                               percentage: i / 3.0)
       end
 

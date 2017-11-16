@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'CleverIntegration::Importers::School' do
 
   let!(:teacher) {
-    FactoryGirl.create(:user, name: 'John Smith', clever_id: '1')
+    create(:teacher, :signed_up_with_clever)
   }
 
   let!(:district_token) { '1' }
