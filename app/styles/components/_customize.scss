@@ -30,3 +30,15 @@
   color: white;
   font-size: 14px;
 }
+
+.back-button {
+  color: #027360;
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  i {
+    margin-right: 5px;
+    font-size: 12px;
+  }
+}

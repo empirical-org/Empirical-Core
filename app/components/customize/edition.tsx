@@ -28,7 +28,7 @@ class CustomizeEdition extends React.Component<any, any> {
 
     this.state = {
       edition: edition,
-      copiedEdition: edition,
+      originalEdition: edition,
       showEditModal: false,
       incompleteQuestions: []
     }
@@ -55,9 +55,9 @@ class CustomizeEdition extends React.Component<any, any> {
     if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID], this.props.customize.editions[nextProps.params.editionID])) {
       const edition = nextProps.customize.editions[nextProps.params.editionID]
       if (this.state.edition === undefined || !this.state.edition.data) {
-        this.setState({copiedEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
+        this.setState({originalEdition: edition, edition: edition}, () => nextProps.dispatch(setWorkingEdition(edition)))
       } else {
-        this.setState({copiedEdition: edition})
+        this.setState({originalEdition: edition})
       }
     }
     if (!_.isEqual(nextProps.customize.incompleteQuestions, this.state.incompleteQuestions)) {
@@ -92,7 +92,7 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   resetSlide(questionIndex: number) {
-    const question = this.state.copiedEdition.data.questions[questionIndex].data
+    const question = this.state.originalEdition.data.questions[questionIndex].data
     this.updateQuestion(question, questionIndex)
   }
 

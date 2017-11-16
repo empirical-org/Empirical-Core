@@ -83,6 +83,13 @@ class ChooseEdition extends React.Component<any, any> {
     }
   }
 
+  renderBackButton() {
+    return <div className="back-button" onClick={() => window.history.back()}>
+      <i className="fa fa-icon fa-chevron-left"/>
+      Back
+    </div>
+  }
+
   renderLessonInfo() {
     const lessonData = this.props.classroomLesson.data
     const text = this.state.selectState ? 'You are launching this lesson:' : 'You are customizing this lesson:'
@@ -170,6 +177,7 @@ class ChooseEdition extends React.Component<any, any> {
 
   render() {
     return <div className="choose-edition customize-page">
+      {this.renderBackButton()}
       {this.renderLessonInfo()}
       {this.renderHeader()}
       {this.renderExplanation()}
