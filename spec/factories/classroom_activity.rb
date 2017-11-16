@@ -14,5 +14,12 @@ FactoryBot.define do
         create_list(:activity_session, 5, :finished, classroom_activity: ca)
       end
     end
+
+    factory :lesson_classroom_activity_with_activity_sessions do
+      activity { FactoryBot.create(:lesson_activity, :with_follow_up)}
+      after(:create) do |ca|
+        create_list(:activity_session, 5, :finished, classroom_activity: ca)
+      end
+    end
   end
 end
