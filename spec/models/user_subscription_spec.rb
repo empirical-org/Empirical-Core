@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe UserSubscription, type: :model do
-let!(:user_1) {FactoryGirl.create(:user)}
-let!(:user_2) {FactoryGirl.create(:user)}
-let!(:new_sub) { FactoryGirl.create(:subscription)}
-let!(:old_sub) { FactoryGirl.create(:subscription)}
-let!(:user_sub) {FactoryGirl.create(:user_subscription, user_id: user_1.id, subscription_id: old_sub.id)}
+let!(:user_1) {create(:user)}
+let!(:user_2) {create(:user)}
+let!(:new_sub) { create(:subscription)}
+let!(:old_sub) { create(:subscription)}
+let!(:user_sub) {create(:user_subscription, user_id: user_1.id, subscription_id: old_sub.id)}
 
   context "validates" do
     describe "uniqueness of" do
