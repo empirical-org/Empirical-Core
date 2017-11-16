@@ -202,7 +202,7 @@ describe ActivitySession, type: :model, redis: :true do
   context "when completed scope" do
   	describe ".completed" do
   		before do
-			create_list(:activity_session, 5, :finished)
+			create_list(:activity_session, 5)
   		end
   		it "must locate all the completed items" do
   			expect(ActivitySession.completed.count).to eq 5
@@ -231,7 +231,7 @@ describe ActivitySession, type: :model, redis: :true do
   	describe ".incomplete" do
 
   		before do
-			create_list(:activity_session, 3)
+			     create_list(:activity_session, 3, :unstarted)
   		end
 
   		it "must locate all the incompleted items" do

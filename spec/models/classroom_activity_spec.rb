@@ -43,6 +43,7 @@ describe ClassroomActivity, type: :model, redis: :true do
 
     describe '#mark_all_activity_sessions_complete' do
       it 'marks all of a classroom activities activity sessions finished' do
+        activity_session.update(state: 'started')
         expect(activity_session.state).not_to eq('finished')
         classroom_activity.mark_all_activity_sessions_complete
         expect(activity_session.reload.state).to eq('finished')

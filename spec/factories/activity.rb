@@ -35,7 +35,7 @@ FactoryBot.define do
       end
     end
 
-    trait :published do
+    trait :production do
       flags ['production']
     end
 
