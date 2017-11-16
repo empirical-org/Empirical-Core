@@ -68,34 +68,46 @@ describe ProfilesController, type: :controller do
           })
         end
 
-        it 'returns student scores' do
+        it 'returns student scores in the correct order' do
+          # TODO test pinned and locked sort order (right now, these activities
+          # are neither pinned nor locked, so we're not testing that)
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
           relevant_classroom = student.classrooms.last
-          expect(scores.length).to eq(relevant_classroom.classroom_activities.length)
-          # binding.pry
-
-          # scores_array =
-          # {
-          #   "name"=>"Silver Fairy Tale Activity",
-          #   "description"=>"This is the description for the 'Silver Fairy Tale Activity' activity.",
-          #   "repeatable"=>"t",
-          #   "activity_classification_id"=>"107",
-          #   "unit_id"=>"4",
-          #   "unit_created_at"=>"2017-11-15 22:00:09.43224",
-          #   "unit_name"=>"Unit 4",
-          #   "ca_id"=>"7",
-          #   "marked_complete"=>"f"
-          #    "activity_id"=>nil,
-          #    "act_sesh_updated_at"=>nil,
-          #    "due_date"=>nil,
-          #    "classroom_activity_created_at"=>"2017-11-15 22:00:09.505332",
-          #    "locked"=>"f",
-          #    "pinned"=>"f",
-          #    "max_percentage"=>nil,
-          #    "resume_link"=>"0"
-          #  }
-          # expect(scores).to eq(scores_array)
+          scores_array = []
+          relevant_classroom.classroom_activities.reverse.each do |classroom_activity|
+            activity = classroom_activity.activity
+            unit = classroom_activity.unit
+            activity_session = classroom_activity.activity_sessions.find_by_user_id(student.id)
+            scores_array << {
+              'name' => activity.name,
+              'description' => activity.description,
+              'repeatable' => activity.repeatable,
+              'activity_classification_id' => activity.activity_classification_id,
+              'unit_id' => unit.id,
+              'unit_created_at' => unit.created_at,
+              'unit_name' => unit.name,
+              'ca_id' => classroom_activity.id,
+              'marked_complete' => classroom_activity.completed,
+              'activity_id' => activity.id,
+              'act_sesh_updated_at' => activity_session&.updated_at,
+              'due_date' => classroom_activity.due_date,
+              'classroom_activity_created_at' => classroom_activity.created_at,
+              'locked' => classroom_activity.locked,
+              'pinned' => classroom_activity.pinned,
+              'max_percentage' => activity_session&.percentage,
+              'resume_link' => activity_session&.state == 'started' ? 1 : 0
+            }
+          end
+          # This sort emulates the sort we are doing in the student_profile_data_sql method.
+          sorted_scores = scores_array.sort { |a, b|
+            [
+              b['pinned'], a['locked'], b['max_percentage'] == nil ? 1.01 : b['max_percentage'], a['unit_created_at'], a['classroom_activity_created_at']
+            ] <=> [
+              a['pinned'], b['locked'], a['max_percentage'] == nil ? 1.01 : a['max_percentage'], b['unit_created_at'], b['classroom_activity_created_at']
+            ]
+          }
+          expect(scores).to eq(sanitize_hash_array_for_comparison_with_sql(sorted_scores))
         end
 
         it 'returns next activity session' do

@@ -98,7 +98,7 @@ protected
        unit.name AS unit_name,
        ca.id AS ca_id,
        ca.completed AS marked_complete,
-       acts.activity_id,
+       ca.activity_id,
        MAX(acts.updated_at) AS act_sesh_updated_at,
        ca.due_date,
        ca.created_at AS classroom_activity_created_at,
