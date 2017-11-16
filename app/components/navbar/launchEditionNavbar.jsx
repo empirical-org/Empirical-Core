@@ -19,7 +19,7 @@ class LaunchEditionNavbar extends React.Component {
   render() {
     return (
       <div className="lessons-teacher-navbar">
-        <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title} {this.renderCustomizedEditionsTag()}</p>
+        <div className="lesson-title"><p><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p> {this.renderCustomizedEditionsTag()}</div>
       </div>
     );
   }
