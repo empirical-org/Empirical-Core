@@ -26,6 +26,16 @@ FactoryBot.define do
         end
       end
 
+      factory :teacher_with_a_couple_active_and_archived_classrooms do
+        after(:create) do |teacher|
+          classrooms = create_pair(:classroom, :with_no_teacher)
+          archived_classrooms = create_pair(:classroom, :with_no_teacher, :archived)
+          (classrooms + archived_classrooms).each do |classroom|
+            create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+          end
+        end
+      end
+
       trait :signed_up_with_google do
         signed_up_with_google true
         google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
