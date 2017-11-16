@@ -75,7 +75,7 @@ describe ProfilesController, type: :controller do
           scores = JSON.parse(response.body)['scores']
           relevant_classroom = student.classrooms.last
           scores_array = []
-          relevant_classroom.classroom_activities.reverse.each do |classroom_activity|
+          relevant_classroom.classroom_activities.each do |classroom_activity|
             activity = classroom_activity.activity
             unit = classroom_activity.unit
             activity_session = classroom_activity.activity_sessions.find_by_user_id(student.id)
@@ -113,7 +113,7 @@ describe ProfilesController, type: :controller do
         it 'returns next activity session' do
           get :student_profile_data
           response_body = JSON.parse(response.body)
-          expect(response_body['']).to eq()
+          expect(response_body['next_activity_session']).to eq(response_body['scores'].first)
         end
       end
     end
