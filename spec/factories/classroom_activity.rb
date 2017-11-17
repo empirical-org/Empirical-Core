@@ -15,8 +15,24 @@ FactoryBot.define do
       end
     end
 
+    trait :diagnostic do
+      activity { create(:diagnostic_activity, :production) }
+    end
+
+    trait :proofreader do
+      activity { create(:proofreader_activity, :production) }
+    end
+
+    trait :grammar do
+      activity { create(:grammar_activity, :production) }
+    end
+
+    trait :connect do
+      activity { create(:connect_activity, :production) }
+    end
+
     trait :lesson do
-      activity { create(:lesson_activity) }
+      activity { create(:lesson_activity, :production) }
     end
   end
 end
