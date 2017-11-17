@@ -40,10 +40,30 @@ When the user clicks 'Delete Edition', we fire a Redux action that puts an 'arch
 If the page is accessed by clicking on a launch or preview link from the LMS, or from the Switch Edition link inside a lesson, it will have a classroom_activity_id or preview query string passed to it. This tells the React component to render a version of the page with a 'Select' button for each edition component. If there is a classroom activity id parameter, pressing the select button will update the classroom lesson session associated with this classroom activity id to have an edition_id key with the selected edition, and direct the user back to the lesson. If there is a preview parameter, a new classroom lesson session will be created with the appropriate edition_id, and the user will be directed there.
 
 #### Customize Version
-If the page is accessed by clicking the customize link from the Launch Lessons page on the LMS, it will not have a classroom_activity_id or preview query string passed to it. The page will be rendered with only the customization dropdown, and not the Select button.
+If the page is accessed by clicking the customize link from the Launch Lessons page on the LMS, it will not have a classroom_activity_id or preview query string passed to it. The page will be rendered with only the Customize dropdown, and not the Select button.
 
 ### Customize Edition Page
+When the customize edition page is rendered, if it has a classroom activity id param, it fires the setEditionId Redux action to update the classroom lesson session with the edition_id from the URL.
 
-## What teachers can customize
+It finds the edition with the edition_id from the URL and sets that to the state of the component as both edition and originalEdition, which makes it possible to reset each question back to its condition at the start of the customization. It also fires a Redux action to clone the edition to the Customize reducer as 'workingEdition'. This gives the Customize Navbar access to information on this page, which is updated along with the edition in the component's state.
 
-## What teachers cannot customize
+#### Reset
+
+Teachers can click the Reset button at the top of the section for each slide to overwrite their changes with the version of the edition that is saved as the originalEdition in the state.
+
+#### Publishing an Edition
+
+Once the teacher is done making their edits, they can press either the Publish Edition button in the navbar or the one at the bottom of the page to save their changes. If any prompts are left empty, the edition will not be published and the teacher is prompted to add content to them with a message at the bottom of the page and a red border around the empty prompt.
+
+#### What teachers can customize
+- the name of the edition
+- the sample question
+- the title for each slide
+- the prompt for each slide
+- each optional field for each slide (instructions, cues, joining words, and/or number of blanks)
+
+#### What teachers cannot customize
+- the number of slides
+- the type of slides
+- the order of slides
+- the step by step guide shown to the teacher for each of the slides
