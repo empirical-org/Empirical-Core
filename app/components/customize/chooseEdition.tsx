@@ -94,7 +94,14 @@ class ChooseEdition extends React.Component<any, any> {
 
   renderLessonInfo() {
     const lessonData = this.props.classroomLesson.data
-    const text = this.state.selectState ? 'You are launching this lesson:' : 'You are customizing this lesson:'
+    let text
+    if (getParameterByName('preview')) {
+      text = 'You are previewing this lesson:'
+    } else if (getParameterByName('classroom_activity_id')) {
+      text = 'You are launching this lesson:'
+    } else {
+      text = 'You are customizing this lesson:'
+    }
     return <div className="lesson-info">
       <p>{text}</p>
       <h2 className="lesson-title"><span>Lesson {lessonData.lesson}:</span> {lessonData.title}</h2>
