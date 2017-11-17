@@ -84,10 +84,12 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderBackButton() {
-    return <div className="back-button" onClick={() => window.history.back()}>
+    if (window.history.length > 1) {
+      return <div className="back-button" onClick={() => window.history.back()}>
       <i className="fa fa-icon fa-chevron-left"/>
       Back
-    </div>
+      </div>
+    }
   }
 
   renderLessonInfo() {

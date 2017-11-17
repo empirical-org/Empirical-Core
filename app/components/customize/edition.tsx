@@ -151,6 +151,15 @@ class CustomizeEdition extends React.Component<any, any> {
     return classroomActivityID ? `teach/class-lessons/${lessonID}?&classroom_activity_id=${classroomActivityID}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
   }
 
+  renderBackButton() {
+    if (window.history.length > 1) {
+      return <div className="back-button" onClick={() => window.history.back()}>
+      <i className="fa fa-icon fa-chevron-left"/>
+      Back
+      </div>
+    }
+  }
+
   renderPublishSection() {
     let text
     if (!this.state.incompleteQuestions || this.state.incompleteQuestions.length === 0) {
@@ -218,6 +227,7 @@ class CustomizeEdition extends React.Component<any, any> {
 
       return <div className="customize-edition-container">
         <div className="customize-edition">
+          {this.renderBackButton()}
           {this.renderEditModal()}
           {this.renderSuccessModal()}
           <CustomizeEditionHeader

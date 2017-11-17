@@ -6,6 +6,12 @@
   padding: 0px 60px;
   max-width: 1300px;
   margin: auto;
+  .back-button {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding-left: 60px;
+    background-color: #fafafa;
+  }
   .slide-container {
     .slide-header {
       justify-content: space-between;
