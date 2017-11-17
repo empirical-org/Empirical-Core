@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
@@ -145,6 +144,20 @@ describe Teachers::UnitsController, type: :controller do
             activities_data: [{id: activity.id, due_date: nil}]
           }.to_json
       expect(response.status).to eq(422)
+    end
+  end
+
+  describe '#select_lesson_with_activity_id' do
+    let(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.teacher }
+    
+
+    it 'should redirect to the lesson if there is only one' do
+
+    end
+
+    it 'should redirect to the right place if there are multiple lessons' do
+
     end
   end
 

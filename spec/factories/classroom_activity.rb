@@ -14,5 +14,9 @@ FactoryBot.define do
         create_list(:activity_session, 5,  classroom_activity: ca)
       end
     end
+
+    trait :lesson do
+      activity { create(:lesson_activity) }
+    end
   end
 end

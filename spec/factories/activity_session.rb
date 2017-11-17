@@ -7,7 +7,7 @@ FactoryBot.define do
     percentage          { Faker::Number.decimal(0, 2).to_d }
     started_at          { created_at }
     state               'finished'
-    completed_at        Faker::Time.backward(365) # random time in past year
+    completed_at        { Faker::Time.backward(365) } # random time in past year
     is_final_score      true
     is_retry            false
     temporary           false
@@ -39,8 +39,8 @@ FactoryBot.define do
       activity { FactoryBot.create(:connect_activity) }
     end
 
-    # factory :lesson_activity_session do
-    #   activity { FactoryBot.create(:lesson_activity) }
-    # end
+    factory :lesson_activity_session do
+      activity { FactoryBot.create(:lesson_activity) }
+    end
   end
 end
