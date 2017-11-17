@@ -194,7 +194,7 @@ export default React.createClass({
         onMouseEnter={this.toggleLessonPlanTooltip}
         onMouseLeave={this.toggleLessonPlanTooltip}
       >
-        <img src="https://assets.quill.org/images/icons/download-lesson-green-icon.svg"/>
+        <img src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg"/>
         {this.renderLessonPlanTooltip()}
       </a>
     </div>
