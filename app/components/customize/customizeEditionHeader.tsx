@@ -29,7 +29,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
       return <div className="note">
         <div className="text">
           <h2>A note about creating your own lessons on Quill</h2>
-          <p>You can build your own lesson by creating a customized edition of a Quill Lesson. However, you cannot yet create a new lesson from scratch. The Quill team aims to launch this feature in September 2018. As a work around, Quill provides a <a href="">blank lesson</a> that you can use as a template. <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">Learn More</a>.</p>
+          <p>You can build your own lesson by creating a customized edition of a Quill Lesson. However, you cannot yet create a new lesson from scratch. The Quill team aims to launch this feature in September 2018. <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">Learn More</a>.</p>
         </div>
         <div className="image">
           <span onClick={this.closeNote}>Close</span>
