@@ -7,15 +7,15 @@ FactoryBot.define do
     percentage          { Faker::Number.decimal(0, 2).to_d }
     started_at          { created_at }
     state               'finished'
-    completed_at        { Faker::Time.backward(365) } # random time in past year
+    completed_at        { Faker::Time.backward(30) } # random time in past month
     is_final_score      true
     is_retry            false
     temporary           false
 
     after(:create) do |activity_session|
       StudentsClassrooms.find_or_create_by(student_id: activity_session.user.id, classroom_id: activity_session.classroom_activity.classroom.id )
+      create(:concept_result, activity_session: activity_session)
     end
-
 
     trait :retry do
       is_retry true
