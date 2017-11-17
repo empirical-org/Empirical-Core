@@ -61,15 +61,17 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   saveNameAndGoToCustomize() {
-    saveEditionName(this.state.newEditionUid, this.state.newEditionName)
-    let route
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    if (classroomActivityId) {
-      route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}?&classroom_activity_id=${classroomActivityId}`
-    } else {
-      route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
+    if (this.state.newEditionName) {
+      saveEditionName(this.state.newEditionUid, this.state.newEditionName)
+      let route
+      const classroomActivityId = getParameterByName('classroom_activity_id')
+      if (classroomActivityId) {
+        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}?&classroom_activity_id=${classroomActivityId}`
+      } else {
+        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
+      }
+      this.props.router.push(route)
     }
-    this.props.router.push(route)
   }
 
   selectAction(editionKey: string) {

@@ -88,7 +88,9 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   closeEditModal() {
-    this.setState({showEditModal: false})
+    if (this.state.edition.name) {
+      this.setState({showEditModal: false})
+    }
   }
 
   resetSlide(questionIndex: number) {
@@ -187,12 +189,13 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderEditModal() {
     if (this.state.showEditModal) {
+      const buttonClassName = this.state.edition.name ? 'active' : 'inactive'
       return <NameAndSampleQuestionModal
           updateName={this.updateName}
           name={this.state.edition.name}
           sampleQuestion={this.state.edition.sample_question}
           updateSampleQuestion={this.updateSampleQuestion}
-          buttonClassName
+          buttonClassName={buttonClassName}
           closeEditModal={this.closeEditModal}
       />
     }
@@ -216,7 +219,7 @@ class CustomizeEdition extends React.Component<any, any> {
   render() {
     if (this.state.edition) {
 
-      return <div className="customize-edition-container">
+      return <div className="customize-edition-container customize-page">
         <div className="customize-edition">
           {this.renderEditModal()}
           {this.renderSuccessModal()}
