@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import { EditorState, ContentState, convertFromHTML, convertToRaw } from 'draft-js';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
+const convertFromHTML = require('draft-convert').convertFromHTML
 
 class MultipleTextEditor extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class MultipleTextEditor extends React.Component {
         </a>;
 
     this.state = {
-      text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || ''))),
+      text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),
       components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, InlineButton, BlockButton },
       plugins: [richButtonsPlugin],
       hasFocus: false
@@ -45,7 +46,7 @@ class MultipleTextEditor extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.text !== stateToHTML(this.state.text.getCurrentContent())) {
       this.setState({
-        text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || ''))),
+        text: EditorState.createWithContent(convertFromHTML(nextProps.text || '')),
       });
     }
   }
