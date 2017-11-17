@@ -86,6 +86,7 @@ class Api::V1::ActivitiesController < Api::ApiController
     if !UserMilestone.find_by(milestone_id: milestone.id, user_id: current_user.id)
       UserMilestone.create(milestone_id: milestone.id, user_id: current_user.id)
     end
+    render json: {}
   end
 
   private
