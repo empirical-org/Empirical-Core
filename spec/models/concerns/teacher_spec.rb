@@ -180,5 +180,18 @@ describe User, type: :model do
         end
       end
     end
+
+    describe '#google_classrooms' do
+      let(:google_classroom) { create(:classroom, :from_google) }
+      let(:google_classroom_teacher) { google_classroom.teacher }
+
+      it "should return all the teacher's google classrooms" do
+        expect(google_classroom_teacher.google_classrooms).to eq([google_classroom])
+      end
+
+      it 'should return empty if there are no google classrooms' do
+        expect(teacher.google_classrooms).to eq([])
+      end
+    end
   end
 end
