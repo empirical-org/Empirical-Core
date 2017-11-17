@@ -84,6 +84,7 @@ export function publishEdition(editionUID:string, edition:CustomizeIntf.Edition,
     dispatch(setIncompleteQuestions([]))
     edition.last_published_at = firebase.database.ServerValue.TIMESTAMP
     editionsRef.child(editionUID).set(edition)
+    sendPublishEditionEventToLMS()
     if (callback) {
       callback()
     }
@@ -115,4 +116,12 @@ function setUserId(id:Number) {
 
 function setEditions(editions:CustomizeIntf.Editions) {
   return { type: C.SET_EDITIONS, editions };
+}
+
+function sendPublishEditionEventToLMS() {
+  fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/published_edition`, {
+    method: "POST",
+    mode: "cors",
+    credentials: 'include',
+  })
 }
