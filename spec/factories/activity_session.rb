@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :activity_session do
     activity            { FactoryBot.create(:activity, :production) }
     classroom_activity  { FactoryBot.create(:classroom_activity, activity: activity) }
-    user                { FactoryBot.create(:user) }
+    user                { FactoryBot.create(:student) }
     uid                 { SecureRandom.urlsafe_base64 }
     percentage          { Faker::Number.decimal(0, 2).to_d }
     started_at          { created_at }
@@ -11,6 +11,11 @@ FactoryBot.define do
     is_final_score      true
     is_retry            false
     temporary           false
+
+    after(:create) do |activity_session|
+      StudentsClassrooms.find_or_create_by(student_id: activity_session.user.id, classroom_id: activity_session.classroom_activity.classroom.id )
+    end
+
 
     trait :retry do
       is_retry true

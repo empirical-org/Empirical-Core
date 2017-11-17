@@ -29,6 +29,12 @@ FactoryBot.define do
       end
     end
 
+    factory :classroom_with_100_classroom_activities do
+      after(:create) do |classroom|
+        create_list(:classroom_activity_with_activity_sessions, 100, classroom: classroom)
+      end
+    end
+
     trait :with_no_teacher do
       after(:create) do |classroom|
         ClassroomsTeacher.where(classroom: classroom).delete_all
