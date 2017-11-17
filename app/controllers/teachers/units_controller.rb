@@ -88,11 +88,10 @@ class Teachers::UnitsController < ApplicationController
     activity_id = params[:activity_id].to_i
     classroom_activities = ActiveRecord::Base.connection.execute("
       SELECT classroom_activities.id from classroom_activities
-      	LEFT JOIN classrooms ON
-      		classroom_activities.classroom_id = classrooms.id
-      	WHERE classrooms.teacher_id = #{current_user.id.to_i}
-      		AND classroom_activities.activity_id = #{activity_id}
-      		AND classroom_activities.visible is TRUE").to_a
+        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
+        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
+          AND classroom_activities.activity_id = #{activity_id}
+          AND classroom_activities.visible is TRUE").to_a
     if classroom_activities.length == 1
       ca_id = classroom_activities.first["id"]
       lesson_uid = Activity.find(activity_id).uid
