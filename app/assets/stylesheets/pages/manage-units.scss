@@ -211,9 +211,7 @@
         height: 20px;
         display: flex;
         align-items: center;
-        &:hover {
-          text-decoration: none;
-        }
+        text-decoration: none !important;
       }
 
       .customize-tooltip, .lesson-plan-tooltip {
