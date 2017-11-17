@@ -15,6 +15,15 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
     this.setState({showNote: false})
   }
 
+  renderBackButton() {
+    if (window.history.length > 1) {
+      return <div className="back-button" onClick={() => window.history.back()}>
+      <i className="fa fa-icon fa-chevron-left"/>
+      Back
+      </div>
+    }
+  }
+
   renderNote() {
     if (this.state.showNote) {
       return <div className="note">
@@ -24,7 +33,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
         </div>
         <div className="image">
           <span onClick={this.closeNote}>Close</span>
-          <img src="https://assets.quill.org/images/illustrations/customization-tip.png"/>
+          <img src="https://assets.quill.org/images/illustrations/customization-tip-x2.png"/>
         </div>
       </div>
     }
@@ -33,6 +42,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
   render() {
     return <div className="customize-edition-header-container">
       <div className='customize-edition-header'>
+        {this.renderBackButton()}
         <div className="lesson-title-section">
           <p>You are creating an edition of this lesson:</p>
           <h1><span>Lesson {this.props.lessonNumber}:</span>{this.props.lessonTitle}</h1>
