@@ -8,7 +8,7 @@ class ProgressReports::Standards::Classroom
       .select("
         classrooms.name as name,
         classrooms.id as id,
-        classrooms.teacher_id,
+        classrooms_teacher.user_id AS teacher_id,
         COUNT(DISTINCT(user_info.id)) as total_student_count,
         #{ProficiencyEvaluator.proficient_and_not_sql}"
       )
