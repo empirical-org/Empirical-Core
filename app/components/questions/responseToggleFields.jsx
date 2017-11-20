@@ -53,7 +53,6 @@ export default React.createClass({
         </div>
         <div style={{ margin: '10 0 0 0', display: 'flex', flexWrap: 'wrap', }}>
           {this.props.labels.map((label, i) => this.renderToggleField(label, i))}
-          {this.renderToggleField('None Hint')}
         </div>
       </div>
     );
