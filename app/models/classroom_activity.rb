@@ -100,8 +100,8 @@ class ClassroomActivity < ActiveRecord::Base
     due_date.try(:to_formatted_s, :quill_default)
   end
 
-  def mark_all_activity_sessions_complete
-    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1, completed_at: Time.current)
+  def mark_all_activity_sessions_complete(data={})
+    ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1, completed_at: Time.current, data: data, is_final_score: true)
   end
 
   def activity_session_metadata

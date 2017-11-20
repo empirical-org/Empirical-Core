@@ -12,11 +12,19 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
   end
 
   def finish_lesson
-    @classroom_activity.mark_all_activity_sessions_complete
+    json = JSON.parse(params['json'])
+    data = json['edition_id'] ? {edition_id: json['edition_id']} : {}
+    @classroom_activity.mark_all_activity_sessions_complete(data)
     @classroom_activity.update(locked: true, pinned: false, completed: true)
-    @classroom_activity.save_concept_results(JSON.parse(params['json'])['concept_results'])
+    @classroom_activity.save_concept_results(json['concept_results'])
     @classroom_activity.delete_activity_sessions_with_no_concept_results
-    follow_up = JSON.parse(params['json'])['follow_up'] ? @classroom_activity.assign_follow_up_lesson(false) : false
+    if json['edition_id']
+      milestone = Milestone.find_by_name('Complete Customized Lesson')
+      if !UserMilestone.find_by(user_id: current_user.id, milestone_id: milestone.id)
+        UserMilestone.create(user_id: current_user.id, milestone_id: milestone.id)
+      end
+    end
+    follow_up = json['follow_up'] ? @classroom_activity.assign_follow_up_lesson(false) : false
     url = follow_up ? "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{follow_up&.id}/activity_from_classroom_activity" : "#{ENV['DEFAULT_URL']}"
     render json: {follow_up_url: url}
   end
