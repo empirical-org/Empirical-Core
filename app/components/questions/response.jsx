@@ -10,12 +10,13 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import massEdit from '../../actions/massEdit';
+import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
 import {
   deleteResponse,
   submitResponseEdit,
   incrementResponseCount,
   removeLinkToParentID,
-  addNewConceptResult,
+  updateConceptResults,
   deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -28,6 +29,7 @@ const feedbackStrings = C.FEEDBACK_STRINGS;
 export default React.createClass({
 
   getInitialState() {
+    const response = this.props.response
     let actions;
     if (this.props.mode === 'sentenceFragment') {
       actions = sentenceFragmentActions;
@@ -37,16 +39,17 @@ export default React.createClass({
       actions = questionActions;
     }
     return {
-      feedback: this.props.response.feedback || '',
+      feedback: response.feedback || '',
       selectedBoilerplate: '',
-      selectedBoilerplateCategory: this.props.response.selectedBoilerplateCategory || '',
-      selectedConcept: this.props.response.concept || '',
+      selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
+      selectedConcept: response.concept || '',
       actions,
       parent: null,
       newConceptResult: {
         conceptUID: '',
         correct: true,
       },
+      conceptResults: response.concept_results
     };
   },
 
@@ -100,23 +103,8 @@ export default React.createClass({
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
 
-  updateRematchedResponse(rid, vals) {
-    this.props.dispatch(submitResponseEdit(rid, vals, this.props.questionID));
-  },
-
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
-  },
-
-  generateFeedbackString(attempt) {
-    const errors = this.getErrorsForAttempt(attempt);
-    // add keys for react list elements
-    const errorComponents = _.values(_.mapObject(errors, (val, key) => {
-      if (val) {
-        return `You have made a ${feedbackStrings[key]}.`;
-      }
-    }));
-    return errorComponents[0];
   },
 
   markAsWeak(rid) {
@@ -135,10 +123,6 @@ export default React.createClass({
 
   rematchResponse(rid) {
     this.props.getMatchingResponse(rid);
-  },
-
-  chooseConcept(e) {
-    this.setState({ selectedBoilerplate: this.refs.concept.value, });
   },
 
   incrementResponse(rid) {
@@ -172,50 +156,19 @@ export default React.createClass({
     }
   },
 
-  conceptsFeedbackToOptions() {
-    return hashToCollection(this.props.conceptsFeedback.data).map(cfs => (
-      <option value={cfs.feedbackText}>{cfs.name}</option>
-      ));
-  },
-
-  selectConceptForResult(e) {
-    this.setState({
-      newConceptResult: Object.assign({},
-        this.state.newConceptResult,
-        {
-          conceptUID: e.value,
-        }
-      ),
-    });
-  },
-
-  markNewConceptResult() {
-    this.setState({
-      newConceptResult: Object.assign({},
-        this.state.newConceptResult,
-        {
-          correct: !this.state.newConceptResult.correct,
-        }
-      ),
-    });
-  },
-
-  saveNewConceptResult() {
-    const conceptResults = this.props.response.concept_results || {};
-    conceptResults[this.state.newConceptResult.conceptUID] = this.state.newConceptResult.correct;
-    this.props.dispatch(addNewConceptResult(this.props.response.key, { conceptResults, }, this.props.questionID));
+  updateConceptResults() {
+    const conceptResults = this.state.conceptResults || {};
+    this.props.dispatch(updateConceptResults(this.props.response.key, { conceptResults, }, this.props.questionID));
   },
 
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      let conceptResults = Object.assign({}, this.props.response.concept_results || {});
+      let conceptResults = Object.assign({}, this.state.conceptResults || {});
       delete conceptResults[crid];
-      if (Object.keys(conceptResults).length === 0) {
-        conceptResults = null;
-      }
-      this.props.dispatch(deleteConceptResult(this.props.response.key, { conceptResults, }, this.props.questionID));
+      this.setState({conceptResults: conceptResults})
     }
   },
+
   chooseBoilerplateCategory(e) {
     this.setState({ selectedBoilerplateCategory: e.target.value, });
   },
@@ -256,6 +209,20 @@ export default React.createClass({
     }
   },
 
+  toggleCheckboxCorrect(key) {
+    const data = this.state;
+    data.conceptResults[key] = !data.conceptResults[key]
+    this.setState(data);
+  },
+
+  handleConceptChange(e){
+    const concepts = this.state.conceptResults;
+    if (!concepts.hasOwnProperty(e.value)) {
+      concepts[e.value] = this.props.response.optimal;
+      this.setState({conceptResults: concepts});
+    }
+  },
+
   getParentResponse(parent_id) {
     const callback = (responses) => {
       this.setState({
@@ -293,46 +260,36 @@ export default React.createClass({
   },
 
   renderConceptResults(mode) {
-    if (this.props.response.concept_results) {
-      // return hashToCollection(this.props.response.conceptResults).map((cr) => {
-      const cr = this.props.response.concept_results;
-      const results = [];
-      for (const uid in cr) {
+    const conceptResults = Object.assign({}, this.state.conceptResults)
+    let components
+    if (conceptResults) {
+      if (mode === 'Editing') {
+      const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
+      components = Object.keys(conceptResultsPlus).map(uid => {
         const concept = _.find(this.props.concepts.data['0'], { uid, });
-        let deleteIcon;
-        if (mode === 'Editing') {
-          deleteIcon = <button onClick={this.deleteConceptResult.bind(null, uid)}>{'Delete'}</button>;
-        } else {
-          deleteIcon = <span />;
-        }
-
+          return <ConceptSelectorWithCheckbox
+            key={uid}
+            handleSelectorChange={this.handleConceptChange}
+            currentConceptUID={uid}
+            checked={conceptResults[uid]}
+            onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
+            selectorDisabled={uid === null || uid === 'null' ? false : true}
+            deleteConceptResult={() => this.deleteConceptResult(uid)}
+          />
+      });
+    } else {
+      components = Object.keys(conceptResults).map(uid => {
+        const concept = _.find(this.props.concepts.data['0'], { uid, });
         if (concept) {
-          results.push((
-            <li key={concept.id}>
-              {concept.displayName} {cr[uid] ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
-              {'\t'}
-              {deleteIcon}
-            </li>
-          ));
-        } else {
-          results.push((
-            <div />
-          ));
+          return  <li key={uid}>
+            {concept.displayName} {conceptResults[uid] ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+            {'\t'}
+          </li>
         }
-      }
-      return results;
+      });
     }
-    const concept = _.find(this.props.concepts.data['0'], { uid: this.props.conceptID, });
-    if (concept) {
-      return (
-        <li key={concept.id}>{concept.displayName} {this.props.response.optimal ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
-          <br /> <strong>*This concept is only a default display that has not yet been saved*</strong>
-        </li>
-      );
+      return _.values(components);
     }
-    return (
-      <div />
-    );
   },
 
   renderResponseContent(isEditing, response) {
@@ -370,7 +327,7 @@ export default React.createClass({
           (<br />),
           (<br />)
           ];
-      }  
+      }
     }
 
     if (this.props.showPathways) {
@@ -405,19 +362,8 @@ export default React.createClass({
 
           <div className="box">
             <label className="label">Concept Results</label>
-            <ul>
-              {this.renderConceptResults('Editing')}
-              {/* <li>Commas in lists (placeholder)</li>*/}
-            </ul>
-
-            <ConceptSelector currentConceptUID={this.state.newConceptResult.conceptUID} handleSelectorChange={this.selectConceptForResult} />
-            <p className="control">
-              <label className="checkbox">
-                <input onChange={this.markNewConceptResult} checked={this.state.newConceptResult.correct} type="checkbox" />
-                Correct?
-              </label>
-            </p>
-            <button className="button" onClick={this.saveNewConceptResult}>Save Concept Result</button>
+            {this.renderConceptResults('Editing')}
+            <button className="button" onClick={this.updateConceptResults}>Save Concept Results</button>
           </div>
 
           <p className="control">
@@ -485,10 +431,6 @@ export default React.createClass({
 
       </footer>
     );
-  },
-
-  responseIsCommonError(response) {
-    return (response.feedback.includes('punctuation') || response.feedback.includes('spelling')) || response.feedback.includes('typo');
   },
 
   renderResponseHeader(response) {

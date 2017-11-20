@@ -216,12 +216,12 @@ export function submitResponseEdit(rid, content, qid) {
   };
 }
 
-export function addNewConceptResult(rid, content, qid) {
+export function updateConceptResults(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     request.put({
       url: `${process.env.QUILL_CMS}/responses/${rid}`,
-      form: { response: rubyConvertedResponse, }, },
+      json: { response: rubyConvertedResponse, }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
