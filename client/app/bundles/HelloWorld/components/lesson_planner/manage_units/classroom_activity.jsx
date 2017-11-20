@@ -180,7 +180,7 @@ export default React.createClass({
       {this.lessonCompletedOrLaunch()}
       <a
         className="customize-lesson"
-        href={`http://localhost:8080/#/customize/${this.props.data.activityUid}`}
+        href={`https://connect.quill.org/#/customize/${this.props.data.activityUid}`}
         onMouseEnter={this.toggleCustomizeTooltip}
         onMouseLeave={this.toggleCustomizeTooltip}
       >
