@@ -1,21 +1,14 @@
 class ActivitySearch
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
-  def self.search(search_text, filters, sort, flag)
-    filter_string = ''
-    filters.each do |model_name, model_id|
-      filter_string.concat("AND #{model_name}.id = #{model_id}")
-    end
-
-    sanitized_search_text = search_text.length > 0 ? ActiveRecord::Base.sanitize("%#{search_text}%") : "\'%\'"
-
+  def self.search(flag)
     case flag
     when 'alpha'
-      scope = "AND ('alpha' = ANY(activities.flags) OR 'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags))"
+      flags = "'alpha', 'beta', 'production'"
     when 'beta'
-      scope = "AND ('beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags))"
+      flags = "'beta', 'production'"
     else
-      scope = "AND (activities.flags = '{}' OR 'production' = ANY(activities.flags)) OR '#{flag}' = ANY(activities.flags)"
+      flags = "'production'"
     end
 
     ActiveRecord::Base.connection.execute("SELECT
@@ -36,40 +29,8 @@ class ActivitySearch
       LEFT JOIN sections ON topics.section_id = sections.id
       LEFT JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       LEFT JOIN activity_categories ON activity_category_activities.activity_category_id = activity_categories.id
-      WHERE (activities.name ILIKE #{sanitized_search_text} OR activity_categories.name ILIKE #{sanitized_search_text} OR activities.description ILIKE #{sanitized_search_text})
-      AND sections.id IS NOT NULL
-      #{filter_string}
-      #{scope}
-      ORDER BY #{search_sort_sql(sort)}").to_a
-  end
-
-  private
-
-  def self.search_sort_sql(sort)
-    return 'activity_classifications.order_number asc, activity_categories.order_number asc, activity_category_activities.order_number asc' if sort.blank?
-
-    if sort['asc_or_desc'] == 'desc'
-      order = 'desc'
-    else
-      order = 'asc'
-    end
-
-    case sort['field']
-    when 'activity'
-      field = 'activities.name'
-    when 'activity_classification'
-      field = 'activity_classifications.order_number'
-      field2 = 'activity_categories.order_number'
-      field3 = 'activity_category_activities.order_number'
-    when 'section'
-      field = 'sections.position'
-    when 'activity_category'
-      field = 'activity_categories.order_number'
-      field2 = 'activity_category_activities.order_number'
-    end
-
-    return (field + ' ' + order + ', ' + field2 + ' ' + order + ', ' + field3 + ' ' + order) if field3
-    return (field + ' ' + order + ', ' + field2 + ' ' + order) if field2
-    field + ' ' + order
+      WHERE sections.id IS NOT NULL
+      AND activities.flags && ARRAY[#{flags}]::varchar[]
+      ORDER BY activity_classifications.order_number asc, activity_categories.order_number asc, activity_category_activities.order_number asc").to_a
   end
 end
