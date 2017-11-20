@@ -74,7 +74,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scorebook
-    @classrooms = Classroom.where(teacher_id: current_user.id).select('classrooms.id, classrooms.id AS value, classrooms.name')
+    @classrooms = classrooms_with_data
     if params['classroom_id']
       @classroom = @classrooms.find(params['classroom_id'])
     else
@@ -188,6 +188,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   private
+
+  def classrooms_with_data
+    ActiveRecord::Base.connection.execute(
+      "SELECT classrooms.id, classrooms.id AS value, classrooms.name from classrooms_teachers AS ct
+      JOIN classrooms ON ct.classroom_id = classrooms.id AND classrooms.visible = TRUE
+      WHERE ct.user_id = #{current_user.id}"
+    ).to_a
+  end
 
 
   def authorize!
