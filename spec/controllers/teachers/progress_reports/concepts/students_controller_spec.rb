@@ -16,12 +16,15 @@ describe Teachers::ProgressReports::Concepts::StudentsController, type: :control
       end
 
       it 'includes a list of students in the JSON' do
+        crs = alice.activity_sessions.map(&:concept_results).flatten.map(&:metadata)
+        crs_correct = 0
+        crs.each{|cr| crs_correct += cr["correct"]}
         subject
         alice_json = json['students'][0]
         expect(alice_json['name']).to eq(alice.name)
         expect(alice_json['total_result_count'].to_i).to eq(alice_session.concept_results.size)
-        expect(alice_json['correct_result_count'].to_i).to eq(1)
-        expect(alice_json['incorrect_result_count'].to_i).to eq(1)
+        expect(alice_json['correct_result_count'].to_i).to eq(crs_correct)
+        expect(alice_json['incorrect_result_count'].to_i).to eq(crs.length - crs_correct)
       end
     end
   end

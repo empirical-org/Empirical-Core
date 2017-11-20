@@ -41,7 +41,7 @@ describe 'TeachersData' do
   end
 
   it 'number_of_questions_completed works' do
-    expect(@result.number_of_questions_completed).to eq(2)
+    expect(@result.number_of_questions_completed).to eq(4)
   end
 
   it 'time_spent works' do
