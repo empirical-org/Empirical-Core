@@ -88,14 +88,10 @@ class IncorrectSequencesContainer extends Component {
   }
 
   sortCallback(sortInfo) {
-    console.log('Not supported yet.');
-    // if (sortInfo.draggingIndex !== null) {
-    //   const index = parseInt(sortInfo.draggingIndex);
-    //   const data = { order: index, };
-    //   const sequenceID = sortInfo.data.items[index].key;
-    //   // const focusPoint = this.getFocusPoints()[focusPointKey];
-    //   this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, sequenceID));
-    // }
+    const incorrectSequences = this.getSequences()
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
+    questionActions.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences)
   }
 
   render() {

@@ -154,6 +154,14 @@ function deleteIncorrectSequence(qid, seqid) {
   };
 }
 
+function updateIncorrectSequences(qid, data) {
+  questionsRef.child(`${qid}/incorrectSequences`).set(data, (error) => {
+    if (error) {
+      alert(`Order update failed! ${error}`);
+    }
+  });
+}
+
 function getFormattedSearchData(state) {
   const searchData = state.filters.formattedFilterData;
   searchData.text = state.filters.stringFilter;
@@ -297,6 +305,7 @@ module.exports = {
   submitNewIncorrectSequence,
   submitEditedIncorrectSequence,
   deleteIncorrectSequence,
+  updateIncorrectSequences,
   searchResponses,
   initializeSubscription,
   removeSubscription,
