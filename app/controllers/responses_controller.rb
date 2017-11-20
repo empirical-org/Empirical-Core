@@ -50,6 +50,7 @@ class ResponsesController < ApplicationController
       if new_vals[:concept_results].empty?
         new_vals[:concept_results] = nil
       else
+        binding.pry
         new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
       end
     end
@@ -186,7 +187,7 @@ class ResponsesController < ApplicationController
 
     def concept_results_to_boolean(concept_results)
       concept_results.each do |key, val|
-        concept_results[key] = val == 'true'
+        concept_results[key] = val == 'true' || val == true
       end
     end
 
