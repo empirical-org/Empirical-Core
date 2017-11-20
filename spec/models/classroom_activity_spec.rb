@@ -177,7 +177,7 @@ describe ClassroomActivity, type: :model, redis: :true do
 
     describe 'caching lessons upon assignemnt' do
       before(:each) do
-        $redis.flushdb
+        Redis.current.flushdb
       end
 
       it "creates a redis key for the user if there isn't one" do
