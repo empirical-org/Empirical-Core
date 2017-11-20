@@ -1,6 +1,7 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router'
 import Tooltip from '../classroomLessons/shared/tooltip'
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -8,6 +9,9 @@ import {
   removeWatchTeacherState,
   unpinActivityOnSaveAndExit
 } from '../../actions/classroomSessions';
+import {
+  createNewEdition
+} from '../../actions/customize';
 const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
 const exitIcon = 'http://assets.quill.org/images/icons/save_exit_icon.svg'
 const projectorIcon = 'http://assets.quill.org/images/icons/projector_icon.svg'
@@ -21,7 +25,8 @@ class TeacherNavbar extends React.Component<any, any> {
     this.state = {
       tooltip: '',
       showHelpDropdown: false,
-      showFlagDropdown: false
+      showFlagDropdown: false,
+      showCustomizeDropdown: false
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)
@@ -33,8 +38,23 @@ class TeacherNavbar extends React.Component<any, any> {
     this.toggleWatchTeacherMode = this.toggleWatchTeacherMode.bind(this)
     this.toggleFlagDropdown = this.toggleFlagDropdown.bind(this)
     this.hideFlagDropdown = this.hideFlagDropdown.bind(this)
+    this.toggleCustomizeDropdown = this.toggleCustomizeDropdown.bind(this)
+    this.hideCustomizeDropdown = this.hideCustomizeDropdown.bind(this)
     this.flagDropdown = this.flagDropdown.bind(this)
     this.launchProjector = this.launchProjector.bind(this)
+    this.editOnClick = this.editOnClick.bind(this)
+    this.redirectToEdit = this.redirectToEdit.bind(this)
+    this.redirectToSwitchEdition = this.redirectToSwitchEdition.bind(this)
+  }
+
+  renderCustomizedEditionsTag() {
+    const {editions} = this.props.customize
+    const customEdition = Object.keys(editions).find(e => {
+      return editions[e].lesson_id === this.props.params.lessonID
+    })
+    if (customEdition) {
+      return <div className="custom-editions-tag">Customized</div>
+    }
   }
 
   presentStudentCount() {
@@ -73,6 +93,14 @@ class TeacherNavbar extends React.Component<any, any> {
     this.setState({showFlagDropdown: false})
   }
 
+  toggleCustomizeDropdown() {
+    this.setState({showCustomizeDropdown: !this.state.showCustomizeDropdown})
+  }
+
+  hideCustomizeDropdown() {
+    this.setState({showCustomizeDropdown: false})
+  }
+
   launchProjector() {
     window.open(window.location.href.replace('teach', 'play').concat('&projector=true'), 'newwindow', `width=${window.innerWidth},height=${window.innerHeight}`)
   }
@@ -84,8 +112,12 @@ class TeacherNavbar extends React.Component<any, any> {
       if (icon === 'watchTeacher') {
         return (<Tooltip text={["Watch Teacher - ", <strong key="watch-teacher-on">On</strong>]} className={icon}/>)
       }
-    } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown) {
+    } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown && !this.state.showCustomizeDropdown) {
       switch (icon) {
+        case 'customize':
+          if (this.state.tooltip === 'customize') {
+            return (this.customizeDropdown())
+          }
         case 'flag':
           if (this.state.tooltip === 'flag') {
             return (this.flagDropdown())
@@ -148,6 +180,44 @@ class TeacherNavbar extends React.Component<any, any> {
         <i className="fa fa-caret-up"/>
         <a target="_blank" href={`${process.env.EMPIRICAL_BASE_URL}/tutorials/lessons?nocta=true`}><p>Tutorial</p></a>
         <a target="_blank" href="https://support.quill.org/using-quill-tools#quill-lessons"><p>Quill Lessons - Q&A</p></a>
+      </div>
+    )
+  }
+
+  renderCustomizeDropdown() {
+    if (this.state.showCustomizeDropdown) {
+      return this.customizeDropdown()
+    }
+  }
+
+  editOnClick() {
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    const lessonID = this.props.params.lessonID
+    const editionID = this.props.classroomSessions.data.edition_id
+    if (editionID && Object.keys(this.props.customize.editions).indexOf(editionID) !== -1) {
+      this.redirectToEdit(lessonID, editionID)
+    } else {
+      createNewEdition(editionID, lessonID, this.props.customize.user_id, this.redirectToEdit)
+    }
+  }
+
+  redirectToEdit(lessonID:string, editionID:string) {
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityID}`
+  }
+
+  redirectToSwitchEdition() {
+    const lessonID = this.props.params.lessonID
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    window.location.href =`#/customize/${lessonID}?&classroom_activity_id=${classroomActivityID}`
+  }
+
+  customizeDropdown() {
+    return (
+      <div className='customize-dropdown'>
+        <i className="fa fa-caret-up"/>
+        <a onClick={this.editOnClick}><p>Edit This Edition</p></a>
+        <a onClick={this.redirectToSwitchEdition}><p>Switch Edition</p></a>
       </div>
     )
   }
@@ -222,11 +292,15 @@ class TeacherNavbar extends React.Component<any, any> {
   render() {
     const { watchTeacherState } = this.props.classroomSessions.data
     let projectorClass, exitClass;
+    let customizeClass = this.state.showCustomizeDropdown ? 'hover' : ''
     let helpClass = this.state.showHelpDropdown ? 'hover' : ''
     let flagClass = this.state.showFlagDropdown ? 'hover' : ''
     let watchTeacherClass = watchTeacherState ? 'hover' : ''
     if (!this.state.showHelpDropdown && !watchTeacherState && !this.state.showFlagDropdown)
     switch (this.state.tooltip) {
+      case 'customize':
+        customizeClass = "hover"
+        break
       case 'projector':
         projectorClass = "hover"
         break
@@ -250,9 +324,20 @@ class TeacherNavbar extends React.Component<any, any> {
       <div>
         {this.previewBar()}
         <div className="lessons-teacher-navbar">
-          <p className="lesson-title"><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p>
+          <div className="lesson-title"><p><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p> {this.renderCustomizedEditionsTag()}</div>
           <span className="toolbar">
             {this.presentStudentCount()}
+            <div
+              onMouseEnter={(e) => this.showTooltip(e, 'customize')}
+              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.toggleCustomizeDropdown}
+              onBlur={this.hideCustomizeDropdown}
+              tabIndex={0}
+            >
+              <i className={`${customizeClass} fa fa-icon fa-magic`}/>
+              {this.renderCustomizeDropdown()}
+              {this.renderTooltip('customize')}
+            </div>
             <div>
               {this.renderPDFLink()}
             </div>
@@ -314,6 +399,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 

@@ -128,7 +128,7 @@ class FillInBlankForm extends Component {
         <p className="control">
           <textarea className="input" type="text" value={this.state.instructions} onChange={this.handleInstructionsChange}></textarea>
         </p>
-        <label className="label">Cues (seperated by commas, no spaces eg "however,therefore,hence")</label>
+        <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
           <input className="input" type="text" value={this.state.cues} onChange={this.handleCuesChange}></input>
         </p>

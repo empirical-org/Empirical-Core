@@ -97,7 +97,7 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
       <div style={{marginTop: 30, marginBottom: 30}}>
       <div className="admin-slide-preview">
        <div className="scaler">
-         <StudentFillInTheList data={this.state.question} />		
+         <StudentFillInTheList data={this.state.question} />
        </div>
      </div>
         <div className="field">
@@ -119,7 +119,7 @@ class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
           </div>
         </div>
         <div className="field">
-          <label className="label">Cues comma seperated (Optional)</label>
+          <label className="label">Cues comma separated (Optional)</label>
           <div className="control">
             <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
           </div>

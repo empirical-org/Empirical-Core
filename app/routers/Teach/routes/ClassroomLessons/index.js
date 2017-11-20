@@ -3,9 +3,22 @@ import Passthrough from 'components/shared/passthrough.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 import { createPreviewSession } from '../../../../actions/classroomSessions'
 
+const previewEditionRoute = {
+  path: ':lessonID/preview/:editionID',
+  onEnter: (nextState, replaceWith) => {
+    const classroomActivityId = createPreviewSession(nextState.params.editionID)
+    const modalQSValue = getParameterByName('modal')
+    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
+    if (classroomActivityId) {
+      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${nextState.params.lessonID}?&classroom_activity_id=${classroomActivityId}${modalQS}`;
+    }
+  }
+};
+
 const previewRoute = {
   path: ':lessonID/preview',
   onEnter: (nextState, replaceWith) => {
+    console.log
     const classroomActivityId = createPreviewSession()
     const modalQSValue = getParameterByName('modal')
     const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
@@ -50,6 +63,7 @@ const route = {
   path: 'class-lessons',
   indexRoute,
   childRoutes: [
+    previewEditionRoute,
     markingLessonAsCompletedRoute,
     previewRoute,
     teachRoute

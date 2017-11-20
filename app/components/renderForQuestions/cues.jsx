@@ -45,7 +45,7 @@ export default React.createClass({
     }
     //const arrow = this.props.displayArrowAndText ? (<div><img src={arrow} /> {this.renderExplanation()}</div>) : <span></span>
     if (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
-      const cueDivs = this.props.getQuestion().cues.map(cue => <Cue key={cue} cue={cue} />)
+      const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue key={`${i}${cue}`} cue={cue} />)
       return (
         <div className="cues">
           {cueDivs}

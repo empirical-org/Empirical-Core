@@ -90,7 +90,7 @@ const Concept = React.createClass({
         <p className="control">
           <textarea className="input" type="text" ref="instructions"></textarea>
         </p>
-        <label className="label">Cues (seperated by commas, no spaces eg "however,therefore,hence")</label>
+        <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
           <input className="input" type="text" ref="cues"></input>
         </p>

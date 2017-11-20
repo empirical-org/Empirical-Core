@@ -4,12 +4,12 @@ import _ from 'lodash'
 import Static from '../play/static'
 import SlideHTMLEditor from './slideHTMLEditor'
 
-interface SingleAnswerProps {
+interface ExitProps {
   question: CLIntF.QuestionData,
   save: Function
 }
 
-class AdminExit extends Component<SingleAnswerProps, any>{
+class AdminExit extends Component<ExitProps, any>{
   constructor(props){
     super(props);
 

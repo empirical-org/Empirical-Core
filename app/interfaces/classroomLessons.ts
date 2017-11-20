@@ -29,7 +29,7 @@ export interface TeachData {
   unit?: string;
   topic?: string;
   lesson?: number;
-  title?: string;
+  title: string;
   script: Array<ScriptItem>
 }
 

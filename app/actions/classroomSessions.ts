@@ -362,6 +362,18 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
   });
 }
 
+export function setEditionId(classroom_activity_id: string, editionId: string|null, callback?: Function): void {
+  const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
+  if (editionId) {
+    editionRef.set(editionId)
+  } else {
+    editionRef.remove()
+  }
+  if (callback) {
+    callback()
+  }
+}
+
 export function updateNoStudentError(student: string | null) {
   return function (dispatch) {
     dispatch({type: C.NO_STUDENT_ID, data: student})
@@ -452,8 +464,13 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
   };
 }
 
-export function createPreviewSession() {
-  const previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
+export function createPreviewSession(edition_id?:string) {
+  let previewSession
+  if (edition_id) {
+    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id })
+  } else {
+    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
+  }
   return previewSession.key
 }
 

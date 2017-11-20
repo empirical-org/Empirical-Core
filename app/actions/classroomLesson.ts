@@ -3,6 +3,7 @@ import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 const reviewsRef = rootRef.child('reviews');
+const editionsRef = rootRef.child('lessons_editions');
 import _ from 'lodash'
 import * as IntF from 'components/classroomLessons/interfaces';
 
@@ -11,15 +12,32 @@ import lessonSlideBoilerplates from '../components/classroomLessons/shared/lesso
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
 
 export function getClassLessonFromFirebase(classroomLessonUid: string) {
+  console.log('getting a lesson')
   return function (dispatch) {
     console.log("Fetching")
-    classroomLessonsRef.child(classroomLessonUid).once('value', (snapshot) => {
+    classroomLessonsRef.child(classroomLessonUid).on('value', (snapshot) => {
       console.log("Fetched")
       if (snapshot.val()) {
         dispatch(updateClassroomLesson(snapshot.val()));
         dispatch(setLessonId(classroomLessonUid))
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
+      }
+    });
+  };
+}
+
+export function getEditionFromFirebase(editionUid: string) {
+  console.log('getting an edition')
+  return function (dispatch) {
+    console.log("Fetching")
+    editionsRef.child(editionUid).on('value', (snapshot) => {
+      console.log("Fetched")
+      if (snapshot.val()) {
+        dispatch(updateClassroomLesson(snapshot.val().data));
+        dispatch(setLessonId(editionUid))
+      } else {
+        dispatch({type: C.NO_LESSON_ID, data: editionUid})
       }
     });
   };
@@ -165,4 +183,8 @@ export function updateClassroomLessonSlides(classroomLessonID, slides) {
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
   classroomLessonsRef.child(classroomLessonID).set(classroomLesson)
+}
+
+export function clearClassroomLessonFromStore() {
+  return ({type: C.CLEAR_CLASSROOM_LESSON_DATA})
 }

@@ -467,7 +467,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   determineCheckbox(checked: boolean) {
-    console.log(checked)
     if (checked) {
       return this.state.projecting ? <img src={checkedGreenCheckbox} /> : <img src={checkedGrayCheckbox} />
     } else {

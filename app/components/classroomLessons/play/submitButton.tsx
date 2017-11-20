@@ -6,7 +6,6 @@ class SubmitButton extends React.Component<{disabled: Boolean; onClick: Function
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="question-button-group">
         <button

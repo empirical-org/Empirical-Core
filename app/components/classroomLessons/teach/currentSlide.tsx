@@ -210,8 +210,9 @@ class CurrentSlide extends React.Component<any, any> {
     const follow_up = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
     const caId: string|null = getParameterByName('classroom_activity_id');
     const concept_results = generate(questions, submissions)
+    const edition_id: string|undefined = this.props.classroomSessions.data.edition_id
     const data = new FormData();
-    data.append( "json", JSON.stringify( {follow_up, concept_results} ) );
+    data.append( "json", JSON.stringify( {follow_up, concept_results, edition_id} ) );
     fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
       method: 'PUT',
       mode: 'cors',
