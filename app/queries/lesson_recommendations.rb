@@ -10,7 +10,7 @@ class LessonRecommendations
         ORDER BY activity_categories.order_number, activity_category_activities.order_number").to_a
       activities.map do |act|
         base_route = act['form_url']
-        url = "#{base_route}teach/class-lessons/#{act['uid']}/preview"
+        url = "#{base_route}customize/#{act['uid']}?&preview=true"
         {name: act['name'], url: url}
       end
     end

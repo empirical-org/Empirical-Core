@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReports::ActivitySessionsController, type: :controller do
-  let(:teacher) { FactoryGirl.create(:teacher) }
+  let(:teacher) { create(:teacher) }
   include_context 'Topic Progress Report'
   it_behaves_like 'Progress Report' do
     let(:default_filters) { {page: 1} }

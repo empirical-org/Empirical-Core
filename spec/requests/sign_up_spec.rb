@@ -63,7 +63,7 @@ describe 'Sign up', type: :request do
     let(:expected_student_email)    { "#{student_first_name}.#{student_last_name}@#{classroom.code}".downcase }
     let(:expected_student_password) { student_last_name }
 
-    before(:each) { sign_in(teacher.email, '123456') }
+    before(:each) { sign_in(teacher.email, teacher.password) }
 
     context "when the teacher enters the student's name correctly" do
       before do

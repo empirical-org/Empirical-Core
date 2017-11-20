@@ -101,10 +101,6 @@
   .edit-students {
     vertical-align: top;
   }
-  .fa-file-pdf-o {
-    padding-right: 10px;
-  }
-
   .fa-check-circle {
     padding-right: 5px;
   }
@@ -196,20 +192,70 @@
       padding: 0;
       margin: 0 !important;
 
-      .supporting-info, .mark-completed {
+      .mark-completed {
         font-weight: 600;
-        margin-right: 8px;
+        margin-right: 45px;
+        color: #969696;
         i {
           margin-right: -6px;
         }
       }
 
-      .mark-completed {
-        color: #008473;
+      .supporting-info {
+        position: relative;
+        color: #585858;
+        img {
+          height: 18px;
+        }
       }
 
-      .supporting-info {
-        color: #585858;
+      .customize-lesson {
+        position: relative;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        text-decoration: none !important;
+      }
+
+      .customize-tooltip, .lesson-plan-tooltip {
+        position: absolute;
+        left: 0px;
+        top: 25px;
+        height: 23px;
+        color: white;
+        border-radius: 2px;
+        background-color: #348fdf;
+        font-size: 12px;
+        font-weight: 600;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        .fa-caret-up {
+          color: #348fdf;
+          position: absolute;
+          top: -10px;
+          left: 5px;
+        }
+      }
+
+      .customize-tooltip {
+        width: 78px;
+      }
+
+      .lesson-plan-tooltip {
+        width: 139px;
+      }
+
+      .lessons-end-row {
+        display: flex;
+        align-items: center;
+        a {
+          margin-right: 15px;
+        }
+        i {
+          color: #027360;
+          font-size: 16px;
+        }
       }
 
       .report-link {
@@ -256,11 +302,12 @@
 }
 
   div.starting-row {
-    max-width: 500px;
+    max-width: 550px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     div#activity-analysis-activity-name {
+      display: flex;
       .recommendations-button {
         display: inline-block;
         margin-left: 10px;
