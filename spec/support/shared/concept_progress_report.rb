@@ -30,6 +30,7 @@ shared_context 'Concept Progress Report' do
                                         percentage: 0.75
                                         ) }
 
+
   let!(:correct_writing_result1) { create(:concept_result,
     activity_session: activity_session,
     concept: writing_concept,
