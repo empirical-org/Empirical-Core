@@ -156,9 +156,8 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should redirect to a lessons index if there are no lessons' do
-      non_lesson_classroom_activity = create(:classroom_activity, :diagnostic)
       get :select_lesson_with_activity_id, activity_id: activity.id
-      expect(response).to redirect_to("/teachers/classrooms/activity_planner/lessons_for_activity/#{non_lesson_classroom_activity.id}")
+      expect(response).to redirect_to("/teachers/classrooms/activity_planner/lessons_for_activity/#{activity.id}")
     end
 
     it 'should redirect to the lesson if there is only one lesson' do

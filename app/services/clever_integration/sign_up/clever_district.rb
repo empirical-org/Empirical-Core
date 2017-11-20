@@ -1,4 +1,4 @@
-module CleverIntegration::SignUp::District
+module CleverIntegration::SignUp::CleverDistrict
 
   def self.run(auth_hash)
     parsed_data = CleverIntegration::Parsers::DistrictFromAuth.run(auth_hash)

@@ -6,6 +6,7 @@ describe ProfilesController, type: :controller do
   describe 'as a student' do
     let(:classroom) {create(:classroom)}
     let(:student) { create(:student) }
+    let(:other_student) {create(:student)}
     let(:activity) { create(:activity) }
     let(:unit) { create(:unit) }
     let(:classroom_activity) { create(:classroom_activity, activity: activity, unit: unit) }
@@ -45,22 +46,25 @@ describe ProfilesController, type: :controller do
     context "#student_profile_data" do
 
       it "returns an error when the current user has no classrooms" do
+        # StudentsClassrooms.find(student_id: student.id).destroy
+        session[:user_id] = other_student.id
         get :student_profile_data
         expect(JSON.parse(response.body)['error']).to be
       end
 
       context 'when the student has a single classroom' do
         it "returns student, classroom, and teacher info when the current user has classrooms" do
-          StudentsClassrooms.create(student: student, classroom: classroom)
           get :student_profile_data
           response_body = JSON.parse(response.body)
+          expect(student.classrooms.count).to eq(1)
+          students_classroom = student.classrooms.first
           expect(response_body['student']).to eq({
             'name' => student.name,
             'classroom' => {
-              'name' => classroom.name,
-              'id' => classroom.id,
+              'name' => students_classroom.name,
+              'id' => students_classroom.id,
               'teacher' => {
-                'name' => classroom.teacher.name
+                'name' => students_classroom.teacher.name
               }
             }
           })
