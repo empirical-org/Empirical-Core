@@ -150,7 +150,8 @@ const Responses = React.createClass({
   },
 
   getPercentageWeakResponses() {
-    return this.state.health.common_matched_attempts > 0 ? ((this.state.health.common_unmatched_attempts || 0) / this.state.health.common_matched_attempts * 100).toFixed(2) : 0.0;
+    const { common_unmatched_responses, total_number_of_responses } = this.state.health
+    return common_unmatched_responses > 0 ? (common_unmatched_responses/total_number_of_responses * 100).toFixed(2) : 0.0
   },
 
   getErrorsForAttempt(attempt) {
