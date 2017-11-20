@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'GoogleIntegration::Classroom::Parsers::Courses' do
 
-  let!(:user) { create(:user, google_id: "117520115627269298978", role: 'teacher') }
-  let!(:imported_classroom) { create(:classroom, google_classroom_id: '455798942', teacher_id: user.id)}
+  let!(:imported_classroom) { create(:classroom, google_classroom_id: '455798942')}
+  let!(:user) { imported_classroom.teacher }
 
   let!(:response) {
     {courses:[{id:"455798942",
