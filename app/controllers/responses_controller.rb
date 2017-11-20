@@ -50,7 +50,6 @@ class ResponsesController < ApplicationController
       if new_vals[:concept_results].empty?
         new_vals[:concept_results] = nil
       else
-        binding.pry
         new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
       end
     end
