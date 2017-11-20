@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :activity_session do
-    activity            { FactoryBot.create(:activity, :production) }
-    classroom_activity  { FactoryBot.create(:classroom_activity, activity: activity) }
-    user                { FactoryBot.create(:student) }
+    activity            { create(:activity, :production) }
+    classroom_activity  { create(:classroom_activity, activity: activity) }
+    user                { create(:student) }
     uid                 { SecureRandom.urlsafe_base64 }
     percentage          { Faker::Number.decimal(0, 2).to_d }
     started_at          { created_at }
@@ -13,7 +13,12 @@ FactoryBot.define do
     temporary           false
 
     after(:create) do |activity_session|
-      StudentsClassrooms.find_or_create_by(student_id: activity_session.user.id, classroom_id: activity_session.classroom_activity.classroom.id )
+      unless activity_session.classroom_activity.nil?
+        classroom_activity = activity_session.classroom_activity
+      else # we'll do it live
+        classroom_activity = create(:classroom_activity, activity: activity_session.activity)
+      end
+      StudentsClassrooms.find_or_create_by(student_id: activity_session.user.id, classroom_id: classroom_activity.classroom.id )
       create(:concept_result, activity_session: activity_session)
     end
 
@@ -29,23 +34,23 @@ FactoryBot.define do
     end
 
     factory :diagnostic_activity_session do
-      activity { FactoryBot.create(:diagnostic_activity) }
+      activity { create(:diagnostic_activity) }
     end
 
     factory :proofreader_activity_session do
-      activity { FactoryBot.create(:proofreader_activity) }
+      activity { create(:proofreader_activity) }
     end
 
     factory :grammar_activity_session do
-      activity { FactoryBot.create(:grammar_activity) }
+      activity { create(:grammar_activity) }
     end
 
     factory :connect_activity_session do
-      activity { FactoryBot.create(:connect_activity) }
+      activity { create(:connect_activity) }
     end
 
     factory :lesson_activity_session do
-      activity { FactoryBot.create(:lesson_activity) }
+      activity { create(:lesson_activity) }
     end
   end
 end
