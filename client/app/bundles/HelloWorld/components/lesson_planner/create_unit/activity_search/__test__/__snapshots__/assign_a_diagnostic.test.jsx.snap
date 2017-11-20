@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitySearchAndSelect component should render 1`] = `
+<section>
+  <h1
+    className="explore-activities-header"
+  >
+    Explore Activities & Create Activity Pack
+  </h1>
+  <activity_search_filters
+    activeFilterOn={false}
+    clearFilters={[Function]}
+    data={
+      Array [
+        Object {
+          "alias": "Filter By Category",
+          "field": "activity_category",
+          "options": Array [],
+          "selected": null,
+        },
+        Object {
+          "alias": "Filter by Standard",
+          "field": "section",
+          "options": Array [],
+          "selected": null,
+        },
+        Object {
+          "alias": "App",
+          "field": "activity_classification",
+          "options": Array [],
+          "selected": null,
+        },
+      ]
+    }
+    selectFilterOption={[Function]}
+    showAllId="showAllId"
+    updateSearchQuery={[Function]}
+  />
+  <table
+    className="table activity-table search-and-select"
+  >
+    <thead>
+      <activity_search_sorts
+        sorts={
+          Array [
+            Object {
+              "alias": "App",
+              "asc_or_desc": "asc",
+              "field": "activity_classification",
+              "selected": false,
+            },
+            Object {
+              "alias": "Activity",
+              "asc_or_desc": "asc",
+              "field": "name",
+              "selected": false,
+            },
+            Object {
+              "alias": "Standard Level",
+              "asc_or_desc": "asc",
+              "field": "section",
+              "selected": false,
+            },
+            Object {
+              "alias": "Category",
+              "asc_or_desc": "asc",
+              "field": "activity_category",
+              "selected": false,
+            },
+          ]
+        }
+        updateSort={[Function]}
+      />
+    </thead>
+  </table>
+  <loading_indicator />
+  <selected_activities
+    errorMessage=""
+  />
+</section>
+`;

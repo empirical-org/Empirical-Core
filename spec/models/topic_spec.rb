@@ -2,14 +2,14 @@ require 'rails_helper'
 
 describe Topic, type: :model do
 
-	let!(:topic){FactoryGirl.create(:topic, name: "a")}
+	let!(:topic){create(:topic, name: "a")}
 
   it_behaves_like 'uid'
 
 	context "when the default order is by name" do
 
-		let!(:topic1){FactoryGirl.create(:topic, name: "c")}
-		let!(:topic2){FactoryGirl.create(:topic, name: "b")}
+		let!(:topic1){create(:topic, name: "c")}
+		let!(:topic2){create(:topic, name: "b")}
 
 		it "must be ordered correctly" do
 			expect(Topic.all.map{|x| x.name}).to eq ["a", "b", "c"]
@@ -31,7 +31,7 @@ describe Topic, type: :model do
 
 			it "must have a unique name" do
 				t=Topic.first
-				n=FactoryGirl.build(:topic, name: t.name)
+				n=build(:topic, name: t.name)
 				n.valid?
 				expect(n.errors[:name]).to include "has already been taken"
 			end

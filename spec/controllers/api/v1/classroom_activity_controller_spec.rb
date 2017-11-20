@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 describe Api::V1::ClassroomActivitiesController, type: :controller do
-  let(:other_teacher) { FactoryGirl.create(:teacher) }
-  let(:teacher) { FactoryGirl.create(:teacher) }
-  let(:classroom) {FactoryGirl.create(:classroom_with_classroom_activities, teacher_id: teacher.id)}
-
-
+  let(:other_teacher) { create(:teacher) }
+  let(:teacher) { create(:teacher) }
+  let(:classroom) {create(:classroom_with_lesson_classroom_activities, teacher_id: teacher.id)}
 
   context '#student_names' do
 
@@ -48,4 +46,33 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
         expect(JSON.parse(response.body)).to eq({"teacher"=>teacher.name, "classroom"=>classroom.name})
     end
   end
+
+  context '#finish_lesson' do
+
+    it 'does not authenticate a teacher who does not own the classroom activity' do
+        session[:user_id] = other_teacher.id
+        put :finish_lesson, id: classroom.classroom_activities.first.id, json: {concept_results: [], follow_up: true}.to_json, format: 'json'
+        expect(response.status).to be_in([303, 404])
+    end
+
+    it 'authenticates a teacher who does own the classroom activity' do
+        session[:user_id] = teacher.id
+        put :finish_lesson, id: classroom.classroom_activities.first.id, json: {concept_results: [], follow_up: true}.to_json, format: 'json'
+        expect(response.status).not_to eq(303)
+    end
+
+    it 'returns JSON object with follow up url if requested' do
+        session[:user_id] = teacher.id
+        put :finish_lesson, id: classroom.classroom_activities.first.id, json: {concept_results: [], follow_up: true}.to_json, format: 'json'
+        follow_up = classroom.classroom_activities.first.assign_follow_up_lesson(false)
+        expect(JSON.parse(response.body)).to eq({"follow_up_url"=> "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{follow_up&.id}/activity_from_classroom_activity"})
+    end
+
+    it 'returns JSON object with link to home if not requested' do
+        session[:user_id] = teacher.id
+        put :finish_lesson, id: classroom.classroom_activities.first.id, json: {concept_results: [], follow_up: false}.to_json, format: 'json'
+        expect(JSON.parse(response.body)).to eq({"follow_up_url"=> "#{ENV['DEFAULT_URL']}"})
+    end
+  end
+
 end

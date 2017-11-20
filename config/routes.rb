@@ -246,6 +246,7 @@ EmpiricalGrammar::Application.routes.draw do
       put 'classroom_activities/:id/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'users/profile', to: 'users#profile'
+      post 'published_edition' => 'activities#published_edition'
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.

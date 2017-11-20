@@ -2,7 +2,7 @@ class UserSubscription < ActiveRecord::Base
   validates :user_id, :subscription_id, presence: true
   belongs_to :user
   belongs_to :subscription
-  after_create :send_premium_emails
+  after_commit :send_premium_emails, on: :create
 
   def self.update_or_create(user_id, subscription_id)
     user_sub = self.find_or_initialize_by(user_id: user_id)

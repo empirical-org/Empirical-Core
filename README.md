@@ -8,9 +8,9 @@
 
 
 
-# Welcome to Empirical Core
+# Welcome to Empirical Core 
 
-Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
+Empirical Core is the Learning Management System that powers Quill.org, a free writing tool. 
 
 |Front End|Back End|Travis CI|
 |---|---|---|
