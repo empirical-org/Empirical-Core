@@ -6,22 +6,22 @@ module Units::Updater
   # and array of student ids.
 
   # TODO: rename this -- it isn't always the method called on the instance
-  def self.run(unit_id, activities_data, classrooms_data)
-    self.update_helper(unit_id, activities_data, classrooms_data)
+  def self.run(unit_id, activities_data, classrooms_data, current_user_id=nil)
+    self.update_helper(unit_id, activities_data, classrooms_data, current_user_id)
   end
 
-  def self.assign_unit_template_to_one_class(unit_id, classrooms_data, unit_template_id)
+  def self.assign_unit_template_to_one_class(unit_id, classrooms_data, unit_template_id, current_user_id=nil)
     classroom_array = [classrooms_data]
     # converted to array so we can map in helper function as we would otherwise
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
-    self.update_helper(unit_id, activities_data, classroom_array)
+    self.update_helper(unit_id, activities_data, classroom_array, current_user_id)
   end
 
-  def self.fast_assign_unit_template(teacher_id, unit_template, unit_id)
+  def self.fast_assign_unit_template(teacher_id, unit_template, unit_id, current_user_id=nil)
     activities_data = unit_template.activities.select('activities.id AS id, NULL as due_date')
     classrooms_data = User.find(teacher_id).classrooms_i_teach.map{|classroom| {id: classroom.id, student_ids: [], assign_on_join: true}}
-    self.update_helper(unit_id, activities_data, classrooms_data)
+    self.update_helper(unit_id, activities_data, classrooms_data, current_user_id)
   end
 
   private
@@ -49,7 +49,7 @@ module Units::Updater
   end
 
 
-  def self.update_helper(unit_id, activities_data, classrooms_data)
+  def self.update_helper(unit_id, activities_data, classrooms_data, current_user_id)
     extant_classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_id)
     new_cas = []
     hidden_cas_ids = []
@@ -75,7 +75,7 @@ module Units::Updater
     # necessary activity sessions are created in an after_create and after_save callback
     # in activity_sessions.rb
     # TODO: Assign Activity Worker should be labeled as an analytics worker
-    AssignActivityWorker.perform_async(unit.user_id)
+    AssignActivityWorker.perform_async(current_user_id)
   end
 
 end
