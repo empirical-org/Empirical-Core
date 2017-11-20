@@ -10,9 +10,9 @@ export default React.createClass({
     let appFilter;
     this.props.data.forEach((filter, index) => {
       if (index < 2) {
-        dropDowns.push(<ActivitySearchFilter key={filter.alias} selectFilterOption={this.props.selectFilterOption} data={filter} activeFilterOn={this.props.activeFilterOn} />);
+        dropDowns.push(<ActivitySearchFilter showAllId={this.props.showAllId} key={filter.alias} selectFilterOption={this.props.selectFilterOption} data={filter} activeFilterOn={this.props.activeFilterOn} />);
       } else {
-        appFilter = <ActivitySearchFilter key={filter.alias} selectFilterOption={this.props.selectFilterOption} data={filter} activeFilterOn={this.props.activeFilterOn} />;
+        appFilter = <ActivitySearchFilter showAllId={this.props.showAllId} key={filter.alias} selectFilterOption={this.props.selectFilterOption} data={filter} activeFilterOn={this.props.activeFilterOn} />;
       }
     });
     const clearAll = <button key="clear-all" type="button" className="clear-button select-mixin button-select button-select-wrapper" onClick={this.props.clearFilters}>Clear<img src="/images/x.svg" /></button>;
