@@ -30,6 +30,19 @@ describe User, type: :model do
         expect(classrooms).to include(classroom1_hash)
       end
     end
+    
+    describe '#classrooms_i_own_that_have_coteachers' do
+      
+      it 'returns an empty array if a user owns no classrooms with coteachers' do
+        expect(teacher.classrooms_i_own_that_have_coteachers).to eq([])
+      end
+      
+      it 'returns an array with classrooms, email addresses, and names if a user owns classrooms teachers' do
+        ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
+        coteacher = ct.user
+        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email])
+      end
+    end
 
     describe '#classrooms_i_own' do
       it 'should return all visible classrooms associated with the teacher through classrooms teacher and role owner' do

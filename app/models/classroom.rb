@@ -123,6 +123,10 @@ class Classroom < ActiveRecord::Base
   def clever_classroom
     Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
   end
+  
+  def with_students
+    classroom.attributes.merge({students: classroom.students})
+  end
 
 
 end
