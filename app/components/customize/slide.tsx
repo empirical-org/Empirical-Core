@@ -55,8 +55,9 @@ export default class Slide extends React.Component<any, any> {
 
   renderScript() {
     if (this.state.showScript) {
+      const filteredScript = this.props.question.data.teach.script.filter(s => s.type === 'STEP-HTML' || s.type === 'STEP-HTML-TIP')
       return <div className="script">
-        <ScriptComponent script={this.props.question.data.teach.script} />
+        <ScriptComponent script={filteredScript} />
       </div>
     }
   }
