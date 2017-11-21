@@ -213,10 +213,11 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   customizeDropdown() {
+    const editText = this.props.classroomSessions.data.edition_id ? 'Edit This Edition' : 'Make A Copy'
     return (
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up"/>
-        <a onClick={this.editOnClick}><p>Edit This Edition</p></a>
+        <a onClick={this.editOnClick}><p>{editText}</p></a>
         <a onClick={this.redirectToSwitchEdition}><p>Switch Edition</p></a>
       </div>
     )
