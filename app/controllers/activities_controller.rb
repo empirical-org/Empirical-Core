@@ -38,6 +38,12 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def customize_lesson
+    activity = Activity.find_by(id: params[:id]) || Activity.find_by(uid: params[:id])
+    base_url = activity.classification.form_url
+    redirect_to "#{base_url}customize/#{activity.uid}"
+  end
+
 protected
 
   def custom_search
