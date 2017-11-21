@@ -87,13 +87,15 @@ module Teacher
     end
     classrooms = ActiveRecord::Base.connection.execute("SELECT classrooms.name AS name, classrooms.id AS id, classrooms.code AS code, COUNT(DISTINCT sc.id) as student_count  FROM classrooms
 			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-			WHERE classrooms.visible = true AND classrooms.teacher_id = #{self.id}
+      LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+			WHERE classrooms.visible = true AND classrooms_teachers.user_id = #{self.id}
 			GROUP BY classrooms.name, classrooms.id"
     ).to_a
     counts = ActiveRecord::Base.connection.execute("SELECT classrooms.id AS id, COUNT(DISTINCT acts.id) FROM classrooms
           FULL OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
           FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
-          WHERE classrooms.teacher_id = #{self.id}
+          LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+          WHERE classrooms_teachers.user_id = #{self.id}
           AND classrooms.visible
           AND class_acts.visible
           AND acts.visible
