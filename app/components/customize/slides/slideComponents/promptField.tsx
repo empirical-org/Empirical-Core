@@ -4,7 +4,8 @@ import MultipleTextEditor from './multipleTextEditor.jsx'
 interface promptFieldProps {
   handleTextChange: any,
   text: string,
-  incompletePrompt: Boolean
+  incompletePrompt: Boolean,
+  showBlockquote: Boolean
 }
 
 const PromptField: React.SFC<any> = (props) => {
@@ -15,6 +16,7 @@ const PromptField: React.SFC<any> = (props) => {
         incompletePrompt={props.incompletePrompt}
         text={props.text}
         handleTextChange={(e) => props.handleTextChange(e)}
+        showBlockquote={props.showBlockquote}
       />
     </div>
   </div>

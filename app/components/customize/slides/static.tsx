@@ -54,6 +54,7 @@ class CustomizeStatic extends Component<CustomizeStaticProps, {}>{
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.html}
             handleTextChange={(e) => this.handleHTMLChange(e)}
+            showBlockquote={true}
           />
         </div>
         <div className="slide-preview-container">
