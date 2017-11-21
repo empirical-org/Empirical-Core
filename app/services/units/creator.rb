@@ -48,7 +48,7 @@ module Units::Creator
     unit.email_lesson_plan
     unit.hide_if_no_visible_classroom_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
-    AssignActivityWorker.perform_async(current_user_id)
+    AssignActivityWorker.perform_async(current_user_id || teacher.id)
   end
 
 
