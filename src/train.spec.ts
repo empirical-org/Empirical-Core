@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import {train} from './train'
+import {train} from './train';
 
 describe('The train function', () => {
     it('Should take \n seperated words in a list', () => {
