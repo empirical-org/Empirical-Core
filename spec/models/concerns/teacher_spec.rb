@@ -193,5 +193,37 @@ describe User, type: :model do
         expect(teacher.google_classrooms).to eq([])
       end
     end
+
+    describe '#get_classroom_minis_info' do
+      it 'returns an array of visible classrooms and their visible data' do
+        # Make a teacher and a couple classrooms, some of which are visible and some of which aren't
+        teacher = create(:teacher_with_a_couple_active_and_archived_classrooms)
+        first_classroom = teacher.classrooms_i_teach.first
+        second_classroom = teacher.classrooms_i_teach.second
+
+        # Make some classroom_activities for these classrooms
+        first_classroom_cas = create_list(:classroom_activity_with_activity_sessions, 5, classroom: first_classroom)
+        second_classroom_cas = create_list(:classroom_activity_with_activity_sessions, 3, classroom: second_classroom)
+
+        # Make some stuff not visible to ensure we're not returning it in the query.
+        first_classroom.activity_sessions.sample.update(visible: false)
+        second_classroom.activity_sessions.sample.update(visible: false)
+
+        # Update an activity session to make it not the final score.
+        first_classroom.activity_sessions.sample.update(is_final_score: false)
+
+        expected_response = teacher.classrooms_i_teach.map do |classroom|
+          {
+            activity_count: classroom.activity_sessions.where(is_final_score: true).length,
+            code: classroom.code,
+            id: classroom.id,
+            name: classroom.name,
+            student_count: classroom.students.length
+          }
+        end
+
+        expect(teacher.get_classroom_minis_info).to eq(sanitize_hash_array_for_comparison_with_sql(expected_response))
+      end
+    end
   end
 end
