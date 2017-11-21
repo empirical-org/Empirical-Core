@@ -179,7 +179,12 @@ class ClassroomActivity < ActiveRecord::Base
     act_seshes = self.activity_sessions
     if act_seshes
       act_seshes.each do |as|
-        if !validate_assigned_student(as.user_id)
+        # We are explicitly checking to ensure that the student here actually belongs
+        # in this classroom before running the validate_assigned_student method because
+        # if this is not true, validate_assigned_student starts an infinite loop! 😨
+        if !StudentsClassrooms.find_by(classroom_id: self.classroom_id, student_id: as.user_id)
+          as.update(visible: false)
+        elsif !validate_assigned_student(as.user_id)
           as.update(visible: false)
         end
       end
