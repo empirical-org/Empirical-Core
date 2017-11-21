@@ -45,4 +45,14 @@ describe('The train function', () => {
             forked: 1,
         });
     })
+
+    it('is treats different casess correctly', () => {
+        const dict = 'Misspelled\nmisspelled\nforked';
+        const dictionary = train(dict);
+        assert.deepEqual(dictionary, {
+            Misspelled: 1,
+            misspelled: 1,
+            forked: 1,
+        });
+    })
 });
