@@ -66,9 +66,8 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def classrooms_with_students_and_classroom_activities
-    unit_name = Unit.where(id: params[:id]).limit(1).pluck(:name).first
-    if unit_name
-      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id]), unit_name: unit_name}
+    if @unit.name
+      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id], @unit, current_user), unit_name: @unit.name}
     else
       render json: {errors: 'Unit not found'}, status: 422
     end
