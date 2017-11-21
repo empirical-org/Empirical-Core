@@ -5,7 +5,7 @@ module Units::Creator
     self.create_helper(teacher, name, activities_data, classrooms_data, unit_template_id, current_user_id)
   end
 
-  def self.fast_assign_unit_template(teacher_id, unit_template_id, current_user_id=nil))
+  def self.fast_assign_unit_template(teacher_id, unit_template_id, current_user_id=nil)
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
     # this call is unnecessary as we can do sql without it
@@ -16,7 +16,7 @@ module Units::Creator
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data, unit_template_id, current_user_id)
   end
 
-  def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom, current_user_id=nil))
+  def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom, current_user_id=nil)
     classroom_array = [classroom]
     # converted to array so we can map in helper function as we would otherwise
     # unit fix: pass whole teacher object
