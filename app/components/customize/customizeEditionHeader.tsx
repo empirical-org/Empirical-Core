@@ -40,6 +40,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
   }
 
   render() {
+    const errorClass = this.props.editionName ? '' : 'missing-name'
     return <div className="customize-edition-header-container">
       <div className='customize-edition-header'>
         {this.renderBackButton()}
@@ -49,7 +50,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
         </div>
         <div className="edition-name-and-sample-question-section">
           <p onClick={this.props.showEditModal} className="edit"><i className="fa fa-icon fa-pencil"/>Edit</p>
-          <div className="edition-name-and-sample-question" onClick={this.props.showEditModal}>
+          <div className={`edition-name-and-sample-question ${errorClass}`} onClick={this.props.showEditModal}>
             <div className="name">
               <p>Edition Name</p>
               <h2>{this.props.editionName || <span>Enter a name</span>}</h2>
