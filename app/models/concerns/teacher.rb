@@ -65,6 +65,20 @@ module Teacher
       classroom_as_h
     end
   end
+  
+  def classrooms_i_own_with_students
+    classrooms_i_own.map{|classroom| classroom.with_students} 
+  end
+  
+  def classrooms_i_own_that_have_coteachers
+    ActiveRecord::Base.connection.execute(
+      "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      JOIN classrooms_teachers AS coteachers_classrooms ON coteachers_classrooms.classroom_id = my_classrooms.classroom_id
+      JOIN classrooms ON coteachers_classrooms.classroom_id = classrooms.id
+      JOIN users AS coteacher ON coteachers_classrooms.user_id = coteacher.id
+      WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher'").to_a
+  end
+  
 
   def get_classroom_minis_cache
     cache = $redis.get("user_id:#{self.id}_classroom_minis")
