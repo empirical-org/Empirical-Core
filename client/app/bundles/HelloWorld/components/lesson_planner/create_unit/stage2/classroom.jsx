@@ -61,10 +61,10 @@
   renderStudentCountText: function() {
     const numberOfStudents = this.props.students.length
     const selectedStudentCount = this.selectedStudentCount()
-    if (numberOfStudents === 0 && this.props.allSelected) {
+    if (numberOfStudents === 0 && (this.props.allSelected || (this.props.classroom && this.props.classroom.checked))) {
       return '(Empty class - all added students will be assigned)'
     } else if (selectedStudentCount === 0) {
-      return '(0 students will be assigned)'
+      return ''
     } else if (selectedStudentCount === numberOfStudents) {
       return `(All ${numberOfStudents} will be assigned)`
     } else {
