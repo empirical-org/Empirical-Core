@@ -126,14 +126,14 @@ class CustomizeEdition extends React.Component<any, any> {
     const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {
       const q = s.data.play
-      if (q.prompt === '' || q.prompt && q.prompt.trim() === '') {
+      if (q.prompt === '' || q.prompt && q.prompt.trim() === '' || q.prompt === '<p></p>' || q.prompt == '<p><br></p>') {
         incompleteQuestions.push(i)
       } else if (!q.prompt && q.html && q.html === '<p></p>' || q.html == '<p><br></p>') {
         incompleteQuestions.push(i)
       }
     })
     this.setState({incompleteQuestions: incompleteQuestions})
-    if (incompleteQuestions.length === 0) {
+    if (incompleteQuestions.length === 0 && this.state.edition.name) {
       this.props.dispatch(publishEdition(this.props.params.editionID, this.state.edition, this.goToSuccessPage))
     }
   }
@@ -153,7 +153,7 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderPublishSection() {
     let text
-    if (!this.state.incompleteQuestions || this.state.incompleteQuestions.length === 0) {
+    if (this.state.edition.name && (!this.state.incompleteQuestions || this.state.incompleteQuestions.length === 0)) {
       text = <p>Press <span>"Publish Edition"</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
     } else {
       text = <p className="error"><i className="fa fa-icon fa-exclamation-triangle"/>You have left one of the fields above empty. Please fill out all the required fields and click Publish Edition.</p>
