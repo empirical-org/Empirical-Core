@@ -5,7 +5,7 @@ export function train(text: string, existingDictionary?: Dictionary): Dictionary
   if (typeof(text) !== 'string') {
     return {}
   }
-  const dictionary: Dictionary = existingDictionary || {};
+  const dictionary: Dictionary = existingDictionary ? Object.assign({}, existingDictionary) : {};
   let word, m;
   const r = /[a-z]+/gi;
   text = text;
