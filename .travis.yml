@@ -11,7 +11,7 @@ script:
   # - npm run lint
   - bundle exec rake spec
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
-  - npm run jest:silent
+  - npm run jest
   - bash <(curl -s https://codecov.io/bash) -cF jest
   - bundle exec brakeman
   - bundle exec teaspoon
