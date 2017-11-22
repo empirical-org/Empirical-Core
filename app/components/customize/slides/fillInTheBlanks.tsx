@@ -4,6 +4,7 @@ import _ from 'lodash'
 import PromptField from './slideComponents/promptField'
 import StudentFillInTheBlank from '../../classroomLessons/play/fillInTheBlank'
 import TitleField from './slideComponents/titleField'
+import CuesField from './slideComponents/cuesField'
 
 interface CustomizeFillInTheBlanksProps {
   question: CLIntF.QuestionData,
@@ -76,15 +77,10 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps>{
               <input value={this.props.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
             </div>
           </div>
-          <div className="cues-field field">
-            <div className="spread-label">
-              <label>Joining Words <span className="optional">(Optional)</span></label>
-              <span>Make sure you separate words with commas “,”</span>
-            </div>
-            <div className="control">
-            <input value={Object.values(this.props.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text"/>
-            </div>
-          </div>
+          <CuesField
+            cues={Object.values(this.props.question.play.cues || {})}
+            handleCuesChange={(e) => this.handleCuesChange(e)}
+          />
         </div>
         <div className="slide-preview-container">
           <p className="slide-title">{this.props.question.teach.title}</p>

@@ -4,6 +4,7 @@ import _ from 'lodash'
 import PromptField from './slideComponents/promptField'
 import StudentSingleAnswer from '../../classroomLessons/play/singleAnswer'
 import TitleField from './slideComponents/titleField'
+import CuesField from './slideComponents/cuesField'
 
 interface SingleAnswerProps {
   question: CLIntF.QuestionData,
@@ -21,6 +22,8 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
+    this.handleCuesChange = this.handleCuesChange.bind(this)
+    this.handlePrefilledTextChange = this.handlePrefilledTextChange.bind(this)
     this.updateQuestion = this.updateQuestion.bind(this)
   }
 
@@ -53,6 +56,12 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
     this.updateQuestion(newVals, this.props.questionIndex)
   }
 
+  handlePrefilledTextChange(e) {
+    const newVals = _.merge({}, this.props.question)
+    _.set(newVals, 'play.prefilledText', e.target.value)
+    this.updateQuestion(newVals, this.props.questionIndex)
+  }
+
   render() {
     return (
       <div className="slide">
@@ -73,6 +82,16 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
               <input value={this.props.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
+            </div>
+          </div>
+          <CuesField
+            cues={Object.values(this.props.question.play.cues || {})}
+            handleCuesChange={(e) => this.handleCuesChange(e)}
+          />
+          <div className="field">
+            <label>Prefilled Text <span className="optional">(Optional)</span></label>
+            <div className="control">
+              <input value={this.props.question.play.prefilledText} onChange={this.handlePrefilledTextChange} className="input" type="text"/>
             </div>
           </div>
         </div>
