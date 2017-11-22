@@ -35,12 +35,33 @@ export default React.createClass({
           context: this,
           cache: false,
           success(data) {
-            const showArchivedNotification = data.active.length === 0;
-            this.setState({ classrooms: data, loading: false, showArchivedNotification, });
+            this.formatCoteachers(data)
           },
         });
       }
     );
+  },
+
+  formatCoteachers(data){
+    const classroomsByCoteacher = {};
+    data.coteachers.forEach((coteacher)=> {
+      // get an array of the classrooms that each coteacher owns
+      classroomsByCoteacher[coteacher.coteacher_email] = classroomsByCoteacher[coteacher.coteacher_email] || []
+      // name is classroom name
+      classroomsByCoteacher[coteacher.coteacher_email].push(coteacher.name);
+    });
+    const newCoteachers = []
+    for (let email in classroomsByCoteacher) {
+      if (classroomsByCoteacher.hasOwnProperty(email)) {
+        const teacherMatch = data.coteachers.find((t)=>t.coteacher_email == email)
+        teacherMatch.classrooms = classroomsByCoteacher[email]
+        delete teacherMatch.name
+        newCoteachers.push(teacherMatch)
+      }
+    }
+    data.coteachers = newCoteachers
+    const showArchivedNotification = data.active.length === 0;
+    this.setState({ classrooms: data, loading: false, showArchivedNotification, });
   },
 
   classAction(status, id) {
@@ -94,6 +115,17 @@ export default React.createClass({
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
+      if (action === 'coteachers') {
+        return (
+          <tr key={cl.email}>
+            <td>{cl.coteacher_name}</td>
+            <td>{cl.coteacher_email}</td>
+            <td>{cl.status || 'Approved'}</td>
+            <td>{cl.classrooms}</td>
+            <td>'edit stuff'</td>
+          </tr>
+        )
+      }
       return (
         <tr key={cl.id}>
           <td>{cl.className}</td>
@@ -118,17 +150,28 @@ export default React.createClass({
   tableHeaders(action) {
     let content;
     if (this.props.role === 'teacher') {
-      const manageClass = action === 'Archive' ? 'Edit Students' : '';
-      content =
-       (<tr>
-         <th>Class Name</th>
-         <th>Classcode</th>
-         <th className="student-count">Student Count</th>
-         <th className="created-date">Date Created</th>
-         <th>{manageClass}</th>
-         <th />
-       </tr>)
-     ;
+      if (action === 'coteachers') {
+      content = (
+        <tr>
+          <th>Co-Teacher Name</th>
+          <th>Email Address</th>
+          <th>Status</th>
+          <th>Classes</th>
+        </tr>
+      )}
+      else {
+        const manageClass = action === 'Archive' ? 'Edit Students' : '';
+        content =
+        (<tr>
+          <th>Class Name</th>
+          <th>Classcode</th>
+          <th className="student-count">Student Count</th>
+          <th className="created-date">Date Created</th>
+          <th>{manageClass}</th>
+          <th />
+        </tr>)
+        ;
+      }
     } else if (this.props.role === 'student') {
       content =
        (<tr>
@@ -183,12 +226,30 @@ export default React.createClass({
     }
   },
 
+
+  coteachers(){
+    if (this.state.classrooms.coteachers.length) {
+      return (
+        <div>
+          <h1>My Co-Teachers</h1>
+          <table className="table">
+            {this.tableHeaders('coteachers')}
+            <tbody>
+              {this.mapClassrooms(this.state.classrooms.coteachers, 'coteachers')}
+            </tbody>
+          </table>
+        </div>
+      )
+    }
+  },
+
   stateSpecificComponents() {
     if (this.state.classrooms !== null) {
       return (
         <div className={this.props.role}>
           {this.activeOrArchived('active', 'Archive')}
           {this.activeOrArchived('inactive', 'Unarchive')}
+          {this.coteachers()}
         </div>
       );
     }
