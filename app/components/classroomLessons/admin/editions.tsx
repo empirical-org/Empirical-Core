@@ -86,18 +86,18 @@ class ShowClassroomLesson extends Component<any, any> {
   }
 
   renderEditionTable() {
-    if (Object.keys(this.state.editions).length > 1) {
+    if (Object.keys(this.state.editions).length > 0) {
       return <table className="table is-striped is-bordered">
-      <thead>
-      <tr>
-      <th onClick={this.clickSort.bind(this, 'user_id')}>User ID</th>
-      <th onClick={this.clickSort.bind(this, 'name')}>Name</th>
-      <th onClick={this.clickSort.bind(this, 'last_published_at')}>Last Published At</th>
-      </tr>
-      </thead>
-      <tbody>
-      {this.renderEditionRows()}
-      </tbody>
+        <thead>
+          <tr>
+            <th onClick={this.clickSort.bind(this, 'user_id')}>User ID</th>
+            <th onClick={this.clickSort.bind(this, 'name')}>Name</th>
+            <th onClick={this.clickSort.bind(this, 'last_published_at')}>Last Published At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderEditionRows()}
+        </tbody>
       </table>
     }
   }
@@ -110,9 +110,9 @@ class ShowClassroomLesson extends Component<any, any> {
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return <tr key={edition.key}>
-      <td>{edition.user_id}</td>
-      <td><a href={link}>{edition.name || 'No Name'}</a></td>
-      <td>{date}</td>
+        <td>{edition.user_id}</td>
+        <td><a href={link}>{edition.name || 'No Name'}</a></td>
+        <td>{date}</td>
       </tr>
     }
     );
