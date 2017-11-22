@@ -1,7 +1,6 @@
 'use strict'
 
  import React from 'react'
- import $ from 'jquery'
  import Student from './student'
  import Button from 'react-bootstrap/lib/Button';
  import Panel from 'react-bootstrap/lib/Panel';
@@ -10,7 +9,7 @@
  export default React.createClass({
 
   componentDidMount: function(){
-    $('body').scrollTop(0);
+    window.scrollTo(0, 0);
   },
 
   getInitialState: function(){
