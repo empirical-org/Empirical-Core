@@ -58,6 +58,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     begin
     active = []
     inactive = []
+    # TODO: easy performance fix could be done here
     ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
       classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
       if classroom.visible
@@ -69,7 +70,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
-      render json: {active: active, inactive: inactive}
+      render json: {active: active, inactive: inactive, coteachers: current_user.classrooms_i_own_that_have_coteachers}
     end
   end
 
