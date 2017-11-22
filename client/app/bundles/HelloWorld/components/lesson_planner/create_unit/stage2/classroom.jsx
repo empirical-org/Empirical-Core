@@ -18,7 +18,7 @@
 
 
   handleClassroomSelection: function(e) {
-    var checked = $(e.target).is(':checked');
+    var checked = e.target.checked;
     this.props.toggleClassroomSelection(this.props.classroom, checked);
   },
 
