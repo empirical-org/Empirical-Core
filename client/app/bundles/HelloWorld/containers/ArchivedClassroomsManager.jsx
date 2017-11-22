@@ -3,6 +3,7 @@ import $ from 'jquery';
 import _ from 'underscore';
 import NotificationBox from '../components/shared/notification_box.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
+import InviteCoteachers from '../components/classroom_management/invite_coteachers.jsx';
 
 export default React.createClass({
 
@@ -291,6 +292,7 @@ export default React.createClass({
         {this.optionSection()}
         {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
+        <InviteCoteachers />
       </div>
     );
   },
