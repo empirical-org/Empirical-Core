@@ -215,7 +215,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       return (
         <div>
         <h1 className="prompt">
-          {this.props.data.play.prompt}
+          <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
         </h1>
         {instructionsRow}
         {this.listBlanks()}
