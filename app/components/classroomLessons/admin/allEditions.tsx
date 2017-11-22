@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 import {hashToCollection} from '../../../libs/hashToCollection'
 
-class Editions extends Component<any, any> {
+class AllEditions extends Component<any, any> {
   constructor(props){
     super(props);
     this.state = {
@@ -18,11 +18,13 @@ class Editions extends Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.customize.editions && Object.keys(nextProps.customize.editions).length > 0) {
-      if (Object.keys(this.state.editions).length === 0) {
-        this.getEditions(nextProps)
-      } else if (!_.isEqual(this.props.customize.editions, nextProps.customize.editions)) {
-        this.getEditions(nextProps)
+    if (nextProps.classroomLessons.hasreceiveddata) {
+      if (nextProps.customize.editions && Object.keys(nextProps.customize.editions).length > 0) {
+        if (Object.keys(this.state.editions).length === 0) {
+          this.getEditions(nextProps)
+        } else if (!_.isEqual(this.props.customize.editions, nextProps.customize.editions)) {
+          this.getEditions(nextProps)
+        }
       }
     }
   }
@@ -31,21 +33,21 @@ class Editions extends Component<any, any> {
     const classroomLessonID = props.params.classroomLessonID
     const allEditions = props.customize.editions
     if (allEditions && Object.keys(allEditions).length > 0) {
-      const lessonEditions = {}
+      const editions = {}
       const editionIds = Object.keys(allEditions)
       editionIds.forEach(id => {
         const edition = allEditions[id]
-        if (edition.lesson_id === classroomLessonID) {
-          lessonEditions[id] = edition
-        }
+        edition.lessonName = props.classroomLessons.data[edition.lesson_id] ? props.classroomLessons.data[edition.lesson_id].title : ''
+        editions[id] = edition
       })
-      this.setState({editions: lessonEditions})
+      this.setState({editions: editions})
     }
   }
 
   sortData(data) {
     switch (this.state.sort) {
       case 'name':
+      case 'lessonName':
         return this.sortAlphabetically(data);
       case 'last_published_at':
       case 'user_id':
@@ -90,8 +92,9 @@ class Editions extends Component<any, any> {
       return <table className="table is-striped is-bordered">
         <thead>
           <tr>
+            <th onClick={this.clickSort.bind(this, 'lessonName')}>Lesson Name</th>
             <th onClick={this.clickSort.bind(this, 'user_id')}>User ID</th>
-            <th onClick={this.clickSort.bind(this, 'name')}>Name</th>
+            <th onClick={this.clickSort.bind(this, 'name')}>Edition Name</th>
             <th onClick={this.clickSort.bind(this, 'last_published_at')}>Last Published At</th>
           </tr>
         </thead>
@@ -110,6 +113,7 @@ class Editions extends Component<any, any> {
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return <tr key={edition.key}>
+        <td>{edition.lessonName}</td>
         <td>{edition.user_id}</td>
         <td><a href={link}>{edition.name || 'No Name'}</a></td>
         <td>{date}</td>
@@ -130,7 +134,7 @@ class Editions extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h4 className="title is-4">{this.classroomLesson().title} <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonID}/preview`}>Preview</a> </h4>
+            <h4 className="title is-4">All Lesson Editions</h4>
           </div>
           {this.renderEditionTable()}
           {this.renderMessage()}
@@ -151,4 +155,4 @@ function select(props) {
   };
 }
 
-export default connect(select)(Editions)
+export default connect(select)(AllEditions)

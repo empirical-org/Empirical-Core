@@ -7,6 +7,7 @@ export default {
   },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
+      System.import('./editions.js'),
       System.import('./show.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))

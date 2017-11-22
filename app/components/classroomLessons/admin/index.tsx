@@ -94,6 +94,12 @@ class ClassLessonsIndex extends Component<any, any> {
     }
   }
 
+  renderLinkToAllEditions() {
+    return <div className="all-editions-link">
+      <a href="#/admin/classroom-lessons/editions">See All Lesson Editions</a>
+    </div>
+  }
+
   addLesson() {
     addLesson(this.state.newLessonName, this.goToNewLesson)
   }
@@ -112,6 +118,7 @@ class ClassLessonsIndex extends Component<any, any> {
       <div className="admin-classroom-lessons-container">
         {this.renderAddClassroomLesson()}
         {this.renderClassroomLessonList()}
+        {this.renderLinkToAllEditions()}
       </div>
     );
   }
