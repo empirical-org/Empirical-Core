@@ -70,6 +70,7 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps>{
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.prompt}
             handleTextChange={(e) => this.handlePromptChange(e)}
+            blankInstructions={<span className="blank-instructions">Make sure you add "___" to create blanks between the words</span>}
           />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
