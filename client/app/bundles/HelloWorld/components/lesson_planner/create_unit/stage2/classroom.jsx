@@ -71,6 +71,15 @@
     }
   },
 
+  // If we have fewer than 4 students in this class, we want to unset our
+  // columns style. This is because with the way multicolumn css works, we will
+  // otherwise experience some strange formatting we don't want here.
+  shouldUnsetColumns: function() {
+    if(this.props.students.length < 4) {
+      return { columns: 'unset' }
+    }
+  },
+
   render: function() {
     var studentList = this.props.students.map(function(student) {
       return <Student
@@ -106,7 +115,7 @@
             </h4>
           </div>
           <Panel collapsible expanded={this.state.open} ref='studentList'>
-            <div className='panel-body student-panel-body'>
+            <div className='panel-body student-panel-body' style={this.shouldUnsetColumns()}>
               {studentList}
             </div>
           </Panel>
