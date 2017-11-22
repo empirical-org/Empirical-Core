@@ -112,6 +112,14 @@ export default React.createClass({
     </span>);
   },
 
+  editOrDelete(status){
+    if (status) {
+      return <td><i className="fa fa-times-circle" aria-hidden="true"></i>Delete</td>
+    } else {
+      return <td><i className="fa fa-pencil" aria-hidden="true"></i>Edit</td>
+    }
+  },
+
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
@@ -122,7 +130,7 @@ export default React.createClass({
             <td>{cl.coteacher_email}</td>
             <td>{cl.status || 'Approved'}</td>
             <td>{cl.classrooms}</td>
-            <td>'edit stuff'</td>
+            <td>{this.editOrDelete(cl.status)}</td>
           </tr>
         )
       }
@@ -157,6 +165,7 @@ export default React.createClass({
           <th>Email Address</th>
           <th>Status</th>
           <th>Classes</th>
+          <th />
         </tr>
       )}
       else {
@@ -217,7 +226,6 @@ export default React.createClass({
     const header = <h1>{`${section.charAt(0).toUpperCase() + section.slice(1)} Classes`}</h1>;
     if (classes.length > 0) {
       return (
-        // [header, this.displayClassrooms(this.state.classrooms[section], action)]
         <div>
           {header}
           {this.displayClassrooms(this.state.classrooms[section], action)}
