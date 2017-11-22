@@ -245,9 +245,14 @@ button:not(.select-mixin) {
   background-color: #ebebeb;
 }
 
-.student_column {
-  clear: none;
-  padding: 4px 0;
+.student-panel-body {
+  columns: 4 200px;
+
+  .student {
+    display: inline-block;
+    padding: 4px 0;
+    width: 200px;
+  }
 }
 
 

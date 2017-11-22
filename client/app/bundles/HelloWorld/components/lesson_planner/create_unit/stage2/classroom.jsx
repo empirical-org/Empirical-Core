@@ -106,7 +106,7 @@
             </h4>
           </div>
           <Panel collapsible expanded={this.state.open} ref='studentList'>
-            <div className='panel-body'>
+            <div className='panel-body student-panel-body'>
               {studentList}
             </div>
           </Panel>
