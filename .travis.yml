@@ -10,6 +10,7 @@ script:
   - npm run build:test
   # - npm run lint
   - bundle exec rake spec
+  - ps -ef | grep 'redis-server' | awk '{ print $2}' | xargs kill -9 # kill redis instances
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
   - npm run jest:silent
   - bash <(curl -s https://codecov.io/bash) -cF jest
