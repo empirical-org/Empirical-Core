@@ -38,7 +38,7 @@
 
   render: function() {
     return (
-      <div className="student_column col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+      <div className="student">
         {this.determineCheckbox()}
         <label htmlFor={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id} className="css-label">{this.props.student.name}</label>
       </div>
