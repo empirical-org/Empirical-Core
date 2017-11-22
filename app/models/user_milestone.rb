@@ -6,7 +6,7 @@ class UserMilestone < ActiveRecord::Base
   private
 
   def report_milestone_to_segment
-    :ReportMilestoneToSegmentWorker.perform_async(self.user_id, self.milestone.name)
+    ::ReportMilestoneToSegmentWorker.perform_async(self.user_id, self.milestone.name)
   end
 
 
