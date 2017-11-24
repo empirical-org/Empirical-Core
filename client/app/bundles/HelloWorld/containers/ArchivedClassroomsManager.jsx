@@ -113,11 +113,11 @@ export default React.createClass({
     </span>);
   },
 
-  editOrDelete(status){
+  editOrRemove(status){
     if (status) {
-      return <td><i className="fa fa-times-circle" aria-hidden="true"></i>Delete</td>
+      return <td className='edit-or-remove'><i className="fa fa-times-circle" aria-hidden="true"></i>Remove</td>
     } else {
-      return <td><i className="fa fa-pencil" aria-hidden="true"></i>Edit</td>
+      return <td className='edit-or-remove'><i className="fa fa-pencil" aria-hidden="true"></i>Edit</td>
     }
   },
 
@@ -131,7 +131,7 @@ export default React.createClass({
             <td>{cl.coteacher_email}</td>
             <td>{cl.status || 'Approved'}</td>
             <td>{cl.classrooms}</td>
-            <td>{this.editOrDelete(cl.status)}</td>
+            {this.editOrRemove(cl.status)}
           </tr>
         )
       }
@@ -292,7 +292,7 @@ export default React.createClass({
         {this.optionSection()}
         {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
-        <InviteCoteachers />
+        <InviteCoteachers classrooms={this.state.classrooms}/>
       </div>
     );
   },
