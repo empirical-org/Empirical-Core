@@ -36,6 +36,8 @@
     margin-bottom: 30px;
   }
   .table {
+    max-width: 950px;
+    width: 100%;
     border: solid 1px #cecece;
     background-color: white;
     font-size: 14px;
@@ -45,6 +47,10 @@
     }
     td {
       width: 30%;
+      i {
+        padding-right: 10px;
+        font-size: 10px;
+      }
     }
     tr td:last-of-type, .manage-class {
       text-align: right;
@@ -72,4 +78,57 @@
       }
     }
   }
+}
+
+.invite-coteachers {
+  border-top: solid 1px #e9e9e9;
+  padding-top: 43px;
+  .instructions {
+    padding-bottom: 30px;
+  }
+  .bold {
+    font-weight: 600;
+  }
+  p {
+    font-size: 16px;
+  }
+  th {
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+#coteacher-capability-chart {
+  background-color: #fff3df;
+  padding: 14px 22px;
+  h1 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-right: 100px;
+    li {
+      padding-left: 11px;
+      font-size: 14px;
+	    color: #3b3b3b;
+      span {
+        padding-left: 13px;
+      }
+    }
+    li:before {
+      content: "\f00c"; /* FontAwesome Unicode for check */
+      color: #82bf3c;
+      font-family: FontAwesome;
+      display: inline-block;
+      margin-left: -11px; /* same as padding-left set on li */
+      width: 11px; /* same as padding-left set on li */
+      padding-right: 24px;
+    }
+    .cant-do:before {
+      color: #ff4542;
+      content: "\f00d"; /* FontAwesome Unicode for X */
+    }
+  }
+
 }
