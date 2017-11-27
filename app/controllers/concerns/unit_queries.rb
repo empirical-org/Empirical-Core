@@ -3,7 +3,9 @@ module UnitQueries
   extend ActiveSupport::Concern
 
   def get_classrooms_with_students_and_classroom_activities(unit, current_user)
+    owns_unit = false
     if current_user.id == unit.user_id
+      owns_unit = true
       # then the user owns the unit, and can affect change amongst all classes they own
       classrooms = current_user.classrooms_i_own_with_students
     else
