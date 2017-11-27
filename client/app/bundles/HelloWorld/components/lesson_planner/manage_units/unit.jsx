@@ -35,9 +35,13 @@ export default React.createClass({
     this.props.editUnit(this.getUnitId());
   },
 
-  delete() {
-    if (!this.props.report && !this.props.lesson && this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
+  deleteOrLockedInfo() {
+    const firstCa = this.props.data.classroomActivities.values().next().value
+    const ownedByCurrentUser = firstCa.ownedByCurrentUser
+    if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete</span>;
+    } else if (!ownedByCurrentUser) {
+      return <span className='locked-unit'>  <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>Created By {firstCa.ownerName}</span>
     }
   },
 
@@ -184,7 +188,7 @@ export default React.createClass({
             {this.showOrEditName()}
           </span>
           {this.nameActionLink()}
-          {this.delete()}
+          {this.deleteOrLockedInfo()}
         </div>
         <div className="unit-label row">
           {this.assignedToText()}
