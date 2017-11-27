@@ -12,7 +12,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
       get :archived_classroom_manager_data
       expect(response.body).to eq({
         active: visible_classrooms.map(&:archived_classrooms_manager),
-        inactive: archived_classrooms.map(&:archived_classrooms_manager)
+        inactive: archived_classrooms.map(&:archived_classrooms_manager), 
+        coteachers: teacher.classrooms_i_own_that_have_coteachers
       }.to_json)
     end
   end

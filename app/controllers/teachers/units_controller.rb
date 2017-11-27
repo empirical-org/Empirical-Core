@@ -193,39 +193,44 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units_i_own_or_coteach(own_or_coteach_classrooms_array, report)
-    if report
-      completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+    # returns an empty array if own_or_coteach_classrooms_array is empty
+    if own_or_coteach_classrooms_array.any?
+      if report
+        completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+      else
+        completed = ''
+      end
+      own_or_coteach_string = "(#{own_or_coteach_classrooms_array.join(', ')})"
+      ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+         activities.name AS activity_name,
+         activities.supporting_info AS supporting_info,
+         classrooms.name AS class_name,
+         classrooms.id AS classroom_id,
+         activities.activity_classification_id,
+         ca.id AS classroom_activity_id,
+         ca.unit_id AS unit_id,
+         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS class_size,
+         ca.due_date,
+         activities.id AS activity_id,
+         activities.uid as activity_uid,
+         SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
+         EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
+         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
+      FROM units
+        INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
+        INNER JOIN activities ON ca.activity_id = activities.id
+        INNER JOIN classrooms ON ca.classroom_id = classrooms.id
+        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
+      WHERE ca.classroom_id IN #{own_or_coteach_string}
+        AND classrooms.visible = true
+        AND units.visible = true
+        AND ca.visible = true
+        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid
+        #{completed}
+        ").to_a
     else
-      completed = ''
+      []
     end
-    own_or_coteach_string = "(#{own_or_coteach_classrooms_array.join(', ')})"
-    ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
-       activities.name AS activity_name,
-       activities.supporting_info AS supporting_info,
-       classrooms.name AS class_name,
-       classrooms.id AS classroom_id,
-       activities.activity_classification_id,
-       ca.id AS classroom_activity_id,
-       ca.unit_id AS unit_id,
-       COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS class_size,
-       ca.due_date,
-       activities.id AS activity_id,
-       activities.uid as activity_uid,
-       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
-       EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
-       EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
-    FROM units
-      INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
-      INNER JOIN activities ON ca.activity_id = activities.id
-      INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-      LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
-    WHERE ca.classroom_id IN #{own_or_coteach_string}
-      AND classrooms.visible = true
-      AND units.visible = true
-      AND ca.visible = true
-      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid
-      #{completed}
-      ").to_a
   end
 
 end
