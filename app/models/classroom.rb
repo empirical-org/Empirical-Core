@@ -117,16 +117,17 @@ class Classroom < ActiveRecord::Base
     Unit.where(id: ids).update_all(visible: false)
   end
 
+  def with_students
+    self.attributes.merge({students: self.students})
+  end
+
   private
 
   # Clever integration
   def clever_classroom
     Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
   end
-  
-  def with_students
-    classroom.attributes.merge({students: classroom.students})
-  end
+
 
 
 end
