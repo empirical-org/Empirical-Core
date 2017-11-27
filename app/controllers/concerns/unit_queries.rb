@@ -2,17 +2,22 @@ module UnitQueries
 
   extend ActiveSupport::Concern
 
-  def get_classrooms_with_students_and_classroom_activities(unit_id)
-    # unit fix: make this more performant
-    unit = Unit.find(unit_id)
-    classrooms = User.find(unit.user_id).classrooms_i_teach_with_students
-    classrooms.each do |c|
-      classroom_activity = ClassroomActivity.select("id, assigned_student_ids, assign_on_join").
-                              where(classroom_id: c['id'], unit_id: unit.id).
-                              limit(1)
-      c[:classroom_activity] = classroom_activity.try(:first) || nil
+  def get_classrooms_with_students_and_classroom_activities(unit, current_user)
+    if current_user.id == unit.user_id
+      # then the user owns the unit, and can affect change amongst all classes they own
+      classrooms = current_user.classrooms_i_own_with_students
+    else
+      classrooms = current_user.classrooms_i_coteach_with_a_specific_teacher(unit.user_id)
     end
-    classrooms
+    if owns_unit
+      classrooms.each do |c|
+        classroom_activity = ClassroomActivity.select("id, assigned_student_ids, assign_on_join").
+                                where(classroom_id: c['id'], unit_id: unit.id).
+                                limit(1)
+        c[:classroom_activity] = classroom_activity.try(:first) || nil
+      end
+      classrooms
+    end
   end
 
   def get_classroom_activities_for_activity(activity_id)
