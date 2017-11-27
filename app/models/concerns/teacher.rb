@@ -59,11 +59,15 @@ module Teacher
   end
 
   def classrooms_i_teach_with_students
-    classrooms_i_teach.map do |classroom|
-      classroom_as_h = classroom.attributes
-      classroom_as_h[:students] = classroom.students
-      classroom_as_h
-    end
+    classrooms_i_teach.map{|classroom| classroom.with_students} 
+  end
+  
+  def classrooms_i_own_with_students
+    classrooms_i_own.map{|classroom| classroom.with_students} 
+  end
+  
+  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
+    ClassroomsTeachers.where()
   end
   
   def classrooms_i_own_with_students
@@ -131,6 +135,10 @@ module Teacher
 
   def transfer_account
     TransferAccountWorker.perform_async(self.id, new_user.id);
+  end
+  
+  def classrooms_i_own_with_students
+    classrooms_i_own.map{|classroom| classroom.with_students}
   end
 
   def classrooms_i_teach_with_students
@@ -333,6 +341,8 @@ module Teacher
     JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
     WHERE ct.user_id = #{self.id}"
   end
+  
+
 
 
 
