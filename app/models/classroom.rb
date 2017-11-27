@@ -118,6 +118,7 @@ class Classroom < ActiveRecord::Base
   end
 
   def with_students
+    self.reload 
     self.attributes.merge({students: self.students})
   end
 

@@ -5,21 +5,16 @@ module UnitQueries
   def get_classrooms_with_students_and_classroom_activities(unit, current_user)
     owns_unit = false
     if current_user.id == unit.user_id
-      owns_unit = true
       # then the user owns the unit, and can affect change amongst all classes they own
       classrooms = current_user.classrooms_i_own_with_students
     else
-      classrooms = current_user.classrooms_i_coteach_with_a_specific_teacher(unit.user_id)
+      classrooms = current_user.classrooms_i_coteach_with_a_specific_teacher_with_students(unit.user_id)
     end
-    if owns_unit
       classrooms.each do |c|
-        classroom_activity = ClassroomActivity.select("id, assigned_student_ids, assign_on_join").
-                                where(classroom_id: c['id'], unit_id: unit.id).
-                                limit(1)
+        classroom_activity = ClassroomActivity.select("id, assigned_student_ids, assign_on_join").where(classroom_id: c['id'], unit_id: unit.id).limit(1)
         c[:classroom_activity] = classroom_activity.try(:first) || nil
       end
-      classrooms
-    end
+    classrooms
   end
 
   def get_classroom_activities_for_activity(activity_id)
