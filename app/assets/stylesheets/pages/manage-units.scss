@@ -95,6 +95,20 @@
   .delete-unit {
     margin-left: auto;
   }
+  .locked-unit {
+    border-radius: 14px;
+    border: solid 1px #3b3b3b;
+    padding: 5px 10px;
+    position: relative;
+    top: 2px;
+    margin-left: 17px;
+    img {
+      margin-right: 8px;
+      margin-left: 3px;
+      position: relative;
+      top: -2px;
+    }
+  }
   .edit-unit {
       width: 200px;
   }
