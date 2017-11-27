@@ -125,7 +125,7 @@ class Classroom < ActiveRecord::Base
   end
   
   def with_students
-    classroom.attributes.merge{students: classroom.students}
+    classroom.attributes.merge({students: classroom.students})
   end
 
 
