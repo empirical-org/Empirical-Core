@@ -39,6 +39,14 @@ module Teacher
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'coteacher'")
   end
 
+  def affilliated_with_unit(unit_id)
+    ActiveRecord::Base.connection.execute("SELECT units.id FROM units
+      JOIN classroom_activities ON classroom_activities.unit_id = units.id
+      JOIN classrooms_teachers ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
+      WHERE classrooms_teachers.user_id = #{self.id} AND units.id = #{unit_id}
+      LIMIT(1)").to_a.any?
+  end
+
   def students
     User.find_by_sql(
       "SELECT students.* FROM users AS teacher
@@ -59,21 +67,17 @@ module Teacher
   end
 
   def classrooms_i_teach_with_students
-    classrooms_i_teach.map{|classroom| classroom.with_students} 
+    classrooms_i_teach.map{|classroom| classroom.with_students}
   end
-  
+
   def classrooms_i_own_with_students
-    classrooms_i_own.map{|classroom| classroom.with_students} 
+    classrooms_i_own.map{|classroom| classroom.with_students}
   end
-  
-  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
-    ClassroomsTeachers.where()
+
+  def classrooms_i_coteach_with_a_specific_teacher_with_students(specified_teacher_id)
+    classrooms_i_coteach_with_a_specific_teacher(specified_teacher_id).map{|classroom| classroom.with_students}
   end
-  
-  def classrooms_i_own_with_students
-    classrooms_i_own.map{|classroom| classroom.with_students} 
-  end
-  
+
   def classrooms_i_own_that_have_coteachers
     ActiveRecord::Base.connection.execute(
       "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email FROM classrooms_teachers AS my_classrooms
@@ -82,7 +86,7 @@ module Teacher
       JOIN users AS coteacher ON coteachers_classrooms.user_id = coteacher.id
       WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher'").to_a
   end
-  
+
 
   def get_classroom_minis_cache
     cache = $redis.get("user_id:#{self.id}_classroom_minis")
@@ -135,10 +139,6 @@ module Teacher
 
   def transfer_account
     TransferAccountWorker.perform_async(self.id, new_user.id);
-  end
-  
-  def classrooms_i_own_with_students
-    classrooms_i_own.map{|classroom| classroom.with_students}
   end
 
   def classrooms_i_teach_with_students
@@ -341,7 +341,16 @@ module Teacher
     JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
     WHERE ct.user_id = #{self.id}"
   end
-  
+
+  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
+    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
+                            JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
+                            JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
+                            WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
+                                  ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id}")
+  end
+
+
 
 
 
