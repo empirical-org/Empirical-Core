@@ -187,11 +187,18 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units(report)
+    units_i_own = units_i_own_or_coteach(current_user.classrooms_i_own.map(&:id), report)
+    units_i_coteach = units_i_own_or_coteach(current_user.classrooms_i_coteach.map(&:id), report)
+    units_i_own.concat(units_i_coteach)
+  end
+
+  def units_i_own_or_coteach(own_or_coteach_classrooms_array, report)
     if report
       completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
     else
       completed = ''
     end
+    own_or_coteach_string = "(#{own_or_coteach_classrooms_array.join(', ')})"
     ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
        activities.name AS activity_name,
        activities.supporting_info AS supporting_info,
@@ -212,7 +219,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN activities ON ca.activity_id = activities.id
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
-    WHERE units.user_id = #{current_user.id}
+    WHERE ca.classroom_id IN #{own_or_coteach_string}
       AND classrooms.visible = true
       AND units.visible = true
       AND ca.visible = true
