@@ -99,7 +99,12 @@ export default React.createClass({
     } else if (this.isLesson()) {
       return this.lessonCompletedOrLaunch();
     }
-    return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'} />;
+    if (this.props.data.ownedByCurrentUser) {
+      return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'} />;
+    } else {
+      return startDate ? <div className='due-date-input'>{startDate.format('l')}</div> : null;
+    }
+
   },
 
   caId() {
@@ -168,7 +173,8 @@ export default React.createClass({
 
   deleteRow() {
     if (!this.props.report && !(this.isLesson())) {
-      return <div className="pull-right"><img className="delete-classroom-activity h-pointer" onClick={this.hideClassroomActivity} src="/images/x.svg" /></div>;
+      const style = !this.props.data.ownedByCurrentUser ? {visibility: 'hidden'} : null;
+      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideClassroomActivity} src="/images/x.svg" /></div>;
     }
   },
 
