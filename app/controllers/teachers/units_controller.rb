@@ -187,13 +187,14 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units(report)
-    units_i_own = units_i_own_or_coteach(current_user.classrooms_i_own.map(&:id), report)
-    units_i_coteach = units_i_own_or_coteach(current_user.classrooms_i_coteach.map(&:id), report)
+    units_i_own = units_i_own_or_coteach('own', report)
+    units_i_coteach = units_i_own_or_coteach('coteach', report)
     units_i_own.concat(units_i_coteach)
   end
 
-  def units_i_own_or_coteach(own_or_coteach_classrooms_array, report)
+  def units_i_own_or_coteach(own_or_coteach, report)
     # returns an empty array if own_or_coteach_classrooms_array is empty
+    own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{own_or_coteach}").map(&:id)
     if own_or_coteach_classrooms_array.any?
       if report
         completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
@@ -215,7 +216,8 @@ class Teachers::UnitsController < ApplicationController
          activities.uid as activity_uid,
          SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
          EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
-         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
+         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,
+         '#{own_or_coteach}' AS own_or_coteach
       FROM units
         INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
         INNER JOIN activities ON ca.activity_id = activities.id
