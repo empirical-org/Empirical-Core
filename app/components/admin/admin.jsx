@@ -12,6 +12,9 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
 import {
+  startListeningToEditions
+} from '../../actions/customize'
+import {
   listenForClassroomLessonsFromFirebase,
   listenForclassroomLessonsReviewsFromFirebase
 } from '../../actions/classroomLesson';
@@ -36,6 +39,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(listenForClassroomLessonsFromFirebase());
     this.props.dispatch(listenForclassroomLessonsReviewsFromFirebase())
+    this.props.dispatch(startListeningToEditions())
   },
 
   render() {

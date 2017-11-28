@@ -33,6 +33,14 @@ export function getEditionsByUser(user_id:Number) {
   };
 }
 
+export function startListeningToEditions() {
+  return function (dispatch, getState) {
+    editionsRef.on('value', (snapshot) => {
+      dispatch(setEditions(snapshot.val()))
+    });
+  };
+}
+
 export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number, callback?:any) {
   let newEditionData, newEdition;
   if (editionUID) {

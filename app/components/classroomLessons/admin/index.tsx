@@ -56,6 +56,7 @@ class ClassLessonsIndex extends Component<any, any> {
               <span>{score}</span>
               <a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a>
               <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonId}/preview`}>Preview</a>
+              <a href={`/#/admin/classroom-lessons/${classroomLessonId}/editions`}>Editions</a>
             </span>
           </li>
         )
@@ -93,6 +94,12 @@ class ClassLessonsIndex extends Component<any, any> {
     }
   }
 
+  renderLinkToAllEditions() {
+    return <div className="all-editions-link">
+      <a href="#/admin/classroom-lessons/editions">See All Lesson Editions</a>
+    </div>
+  }
+
   addLesson() {
     addLesson(this.state.newLessonName, this.goToNewLesson)
   }
@@ -111,6 +118,7 @@ class ClassLessonsIndex extends Component<any, any> {
       <div className="admin-classroom-lessons-container">
         {this.renderAddClassroomLesson()}
         {this.renderClassroomLessonList()}
+        {this.renderLinkToAllEditions()}
       </div>
     );
   }
@@ -120,7 +128,8 @@ class ClassLessonsIndex extends Component<any, any> {
 function select(props) {
   return {
     classroomLessons: props.classroomLessons,
-    classroomLessonsReviews: props.classroomLessonsReviews
+    classroomLessonsReviews: props.classroomLessonsReviews,
+    customize: props.customize
   };
 }
 
