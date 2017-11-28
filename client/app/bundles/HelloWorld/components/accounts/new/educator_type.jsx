@@ -3,6 +3,7 @@ import React from 'react'
 import $ from 'jquery'
 import UsK12View from '../school/us_k12_view'
 import NotUsK12View from '../school/not_us_k12_view'
+import ScrollToTop from '../../shared/scroll_to_top'
 export default React.createClass({
 
   getInitialState: function() {
@@ -45,6 +46,7 @@ export default React.createClass({
     if (this.state.stage === 1) {
       return (
         <div className='educator-type'>
+          <ScrollToTop />
           <h3>Are you a faculty member at a U.S K-12 School?*</h3>
            <div className='option-wrapper'>
              <button className='button-green' onClick={() => this.goToStage(2)}>Yes</button>
