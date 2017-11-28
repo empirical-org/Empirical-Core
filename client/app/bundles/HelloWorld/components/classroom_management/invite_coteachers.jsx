@@ -23,11 +23,11 @@ export default class extends React.Component {
     const that = this;
     request.post(
       {
-        url: `${process.env.DEFAULT_URL}/coteacher_invitations`,
+        url: `${process.env.DEFAULT_URL}/pending_invitations/create_coteacher_invitation`,
         json: {
           authenticity_token: getAuthToken(),
           invitee_email: that.state.email,
-          classroom_ids: [219873]
+          classroom_ids: [43698]
         }
       },
       (error, httpStatus, body) => {

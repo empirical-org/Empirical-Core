@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_many :checkboxes
+  has_many :pending_invitations
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users

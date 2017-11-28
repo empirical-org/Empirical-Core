@@ -26,7 +26,12 @@ EmpiricalGrammar::Application.routes.draw do
   resources :charges
 
 
-  resources :coteacher_invitations, only: [:create]
+  resources :pending_invitations, only: [] do
+    collection do
+      post :create_coteacher_invitation
+    end
+  end
+
   resources :subscriptions
   resources :assessments
   resources :assignments
