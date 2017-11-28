@@ -4,33 +4,33 @@ describe 'TeachersData' do
 
   let!(:teachers_data_module) { TeachersData }
 
-  let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
+  let!(:teacher) { create(:user, role: 'teacher') }
   let!(:teacher_ids) { [teacher.id] }
-  let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher) }
-  let!(:student1) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
-  let!(:student2) { FactoryGirl.create(:user, role: 'student', classrooms: [classroom]) }
+  let!(:classroom) { create(:classroom, teacher: teacher) }
+  let!(:student1) { create(:user, role: 'student', classrooms: [classroom]) }
+  let!(:student2) { create(:user, role: 'student', classrooms: [classroom]) }
 
   let!(:time2) { Time.now }
   let!(:time1) { time2 - (10.minutes) }
   let!(:default_time_spent) { teachers_data_module::AVERAGE_TIME_SPENT }
 
 
-  let!(:activity_session1) { FactoryGirl.create(:activity_session,
+  let!(:activity_session1) { create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
                                                 completed_at: time2) }
 
-  let!(:activity_session2) { FactoryGirl.create(:activity_session,
+  let!(:activity_session2) { create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
                                                 completed_at: time2) }
 
-  let!(:concept1) { FactoryGirl.create(:concept) }
-  let!(:concept2) { FactoryGirl.create(:concept) }
-  let!(:concept_result1) { FactoryGirl.create(:concept_result, concept: concept1, activity_session: activity_session1) }
-  let!(:concept_result2) { FactoryGirl.create(:concept_result, concept: concept2, activity_session: activity_session2) }
+  let!(:concept1) { create(:concept) }
+  let!(:concept2) { create(:concept) }
+  let!(:concept_result1) { create(:concept_result, concept: concept1, activity_session: activity_session1) }
+  let!(:concept_result2) { create(:concept_result, concept: concept2, activity_session: activity_session2) }
 
   def subject
     teachers_data_module.run(teacher_ids).first

@@ -1,19 +1,10 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
-FactoryGirl.define do
-  sequence(:name) { |i| "Firstname Lastname#{i}" }
-  sequence(:username) { |i| "Username#{i}" }
-  sequence(:key) { |i| "key-#{i}" }
-  sequence(:description) { |i| "Description #{i}" }
-  sequence(:email) { |n| "user#{n}@example.com" }
-
+FactoryBot.define do
   factory :user do
-
-    name 'Test User'
-    role 'user'
-    password '123456'
-    sequence(:email) {|n| "user#{n}@gmail.com"}
-    sequence(:username) {|n| "username_is#{n}"}
+    name       { Faker::Name.unique.name }
+    username   { name.gsub(' ', '-') }
+    password   { Faker::Internet.password }
+    email      { Faker::Internet.safe_email(name.gsub(' ', '.')) }
+    ip_address { Faker::Internet.public_ip_v4_address }
 
     factory :staff do
       role 'staff'
@@ -26,95 +17,53 @@ FactoryGirl.define do
     factory :teacher do
       role 'teacher'
 
-      factory :mr_kotter do
-        name                  'Gabe Kotter'
-        username              'mrkotter'
-        email                 'gabe.kotter@jamesbuchananhigh.edu'
-        password              'sweathogs'
+      trait :signed_up_with_google do
+        signed_up_with_google true
+        google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
+        password { nil }
+        username { nil }
       end
 
-      factory :mr_woodman do
-        name 'Michael Woodman'
+      trait :signed_up_with_clever do
+        password { nil }
+        username { nil }
+        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
       end
 
-      factory :teacher_with_students do
-        classrooms_i_teach { [ FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)]),
-                       FactoryGirl.create(:classroom, students: [FactoryGirl.create(:student)])
-           ] }
+      trait :with_classrooms_students_and_activities do
+        classrooms_i_teach { create_pair(:classroom_with_students_and_activities) }
       end
-
-      factory :teacher_with_students_with_activities do
-        classrooms_i_teach {
-          [ FactoryGirl.create(:classroom,
-            students: [FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities),
-              FactoryGirl.create(:student_with_many_activities)
-            ])
-           ]
-         }
-      end
-
     end
 
     factory :student do
       role 'student'
-      username
-      classrooms { [ FactoryGirl.create(:classroom) ] }
 
-      factory :arnold_horshack do
-        name                  'Arnold Horshack'
-        username              'horshack'
-        password              'dingfelder'
-        email                 'ahorshack@coldmail.com'
+      trait :signed_up_with_google do
+        signed_up_with_google true
+        google_id { (1..21).map{(1..9).to_a.sample}.join }
+        password { nil }
+        username { "#{name}@student" }
       end
 
-      factory :vinnie_barbarino do
-        name                  'Vinnie Barbarino'
-        username              'vinnie_barbarino'
-        password              'sally'
-        email                 'vinnieb@geemail.com'
-      end
-    end
-
-    factory :student_with_many_activities do
-      role 'student'
-      username
-      classrooms { [ FactoryGirl.create(:classroom) ] }
-
-      transient do
-        activity_count 5
+      trait :signed_up_with_clever do
+        password { nil }
+        username { "#{name}@student" }
+        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
       end
 
-      after(:create) do |user, evaluator|
-        create_list(:activity_session, evaluator.activity_count, user: user)
+      trait :in_one_classroom do
+        classrooms { [FactoryBot.create(:classroom)] }
+      end
+
+      factory :student_with_many_activities do
+        classrooms { [FactoryBot.create(:classroom)] }
+        transient do
+          activity_count 5
+        end
+        after(:create) do |user, evaluator|
+          create_list(:activity_session, evaluator.activity_count, user: user)
+        end
       end
     end
-
-
-    factory :student_with_one_activity do
-      role 'student'
-      username
-      classrooms { [ FactoryGirl.create(:classroom) ] }
-
-
-      after(:create) do |user, evaluator|
-        create_list(:activity_session, 1, user: user)
-      end
-    end
-
-    factory :student_with_one_assigned_activity do
-      role 'student'
-      username
-      classrooms { [ FactoryGirl.create(:classroom_with_one_student) ] }
-
-      after(:create) do |user, evaluator|
-        create_list(:classroom_activity, 1, assigned_student_ids: [user.id], classroom: user.classrooms.first)
-      end
-    end
-
   end
 end

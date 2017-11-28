@@ -15,29 +15,31 @@ export default React.createClass({
   },
 
   detailOrNot() {
-    if (!this.props.data.concept_results || !this.props.data.concept_results.length) {
-      return null;
-    }
     let dateTitle,
-      dateBody;
-    const firstScore = this.props.data.scores[0]
-    const firstCr = this.props.data.concept_results[0];
-    if (firstScore && firstScore.completed_at) {
-      dateTitle = 'Completed';
-      dateBody = firstScore.completed_at;
+    dateBody;
+    if (!this.props.data.concept_results || !this.props.data.concept_results.length) {
+      if (this.props.data.started_at) {
+        dateTitle = 'Started'
+        dateBody = this.props.data.started_at
+      }
     } else {
-      dateTitle = 'Due';
-      dateBody = firstCr.due_date;
+      const firstScore = this.props.data.scores[0]
+      const firstCr = this.props.data.concept_results[0];
+      if (firstScore && firstScore.completed_at) {
+        dateTitle = 'Completed';
+        dateBody = firstScore.completed_at;
+      } else {
+        dateTitle = 'Due';
+        dateBody = firstCr.due_date;
+      }
     }
-    const obj = firstCr.description;
+    const obj = this.props.data.activity_description;
+    const objSection = obj ? <p><strong>Objectives:</strong>{` ${obj}`}</p> : <span/>
+    const dateSection = dateTitle ? <p><strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}</p> : <span/>
     return (
       <div className="activity-detail">
-        <p>
-          <strong>Objectives:</strong>{` ${obj}`}
-        </p>
-        <p>
-          <strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}
-        </p>
+        {objSection}
+        {dateSection}
       </div>
     );
   },

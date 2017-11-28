@@ -1,5 +1,5 @@
 shared_context :when_signed_in_as_a_student do
-  let(:vinnie) { FactoryGirl.create :vinnie_barbarino }
+  let(:vinnie) { create :student }
 
   before(:each) { sign_in_user vinnie }
 end

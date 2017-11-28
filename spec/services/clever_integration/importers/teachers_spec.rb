@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'CleverIntegration::Importers::Teachers' do
 
   let!(:district) {
-    FactoryGirl.create(:district, name: 'district1', clever_id: '1', token: '1')
+    create(:district, name: 'district1', clever_id: '1', token: '1')
   }
 
   let!(:teachers_response) {

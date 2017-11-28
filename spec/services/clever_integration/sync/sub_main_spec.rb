@@ -5,7 +5,7 @@ describe 'CleverIntegration::Sync::SubMain' do
   include_context 'clever'
 
   let!(:district) {
-    FactoryGirl.create(:district, clever_id: 'district_id_1', token: 'token1')
+    create(:district, clever_id: 'district_id_1', token: 'token1')
   }
 
   let!(:district_response) {

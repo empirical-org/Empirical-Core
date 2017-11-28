@@ -80,9 +80,14 @@ exports[`ScoreLegend component should render 1`] = `
         className="icons-description-wrapper"
       >
         <p
-          className="title title-single-line"
+          className="title"
         >
           Completed
+        </p>
+        <p
+          className="explanation"
+        >
+          Not Scored
         </p>
       </div>
     </div>
@@ -101,9 +106,14 @@ exports[`ScoreLegend component should render 1`] = `
         className="icons-description-wrapper"
       >
         <p
-          className="title title-single-line"
+          className="title"
         >
           In Progress
+        </p>
+        <p
+          className="explanation"
+        >
+          Not Finished
         </p>
       </div>
     </div>
@@ -117,9 +127,14 @@ exports[`ScoreLegend component should render 1`] = `
         className="icons-description-wrapper"
       >
         <p
-          className="title title-single-line"
+          className="title"
         >
           Not Started
+        </p>
+        <p
+          className="explanation"
+        >
+          Assigned
         </p>
       </div>
     </div>

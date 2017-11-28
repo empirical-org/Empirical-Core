@@ -32,7 +32,8 @@ export default React.createClass({
 								<div className="icon">
 									<div className="icon-wrapper icon-blue"></div>
 									<div className="icons-description-wrapper">
-										<p className="title title-single-line">Completed</p>
+										<p className="title">Completed</p>
+										<p className="explanation">Not Scored</p>
 									</div>
 								</div>
 								<div className="icon">
@@ -40,13 +41,15 @@ export default React.createClass({
 										<img className="in-progress-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
 									</div>
 									<div className="icons-description-wrapper">
-										<p className="title title-single-line">In Progress</p>
+										<p className="title">In Progress</p>
+										<p className="explanation">Not Finished</p>
 									</div>
 								</div>
 		            <div className="icon">
 		              <div className="icon-wrapper icon-unstarted"></div>
 		              <div className="icons-description-wrapper">
-		                <p className="title title-single-line">Not Started</p>
+		                <p className="title">Not Started</p>
+										<p className="explanation">Assigned</p>
 		              </div>
 		            </div>
 		          </div>

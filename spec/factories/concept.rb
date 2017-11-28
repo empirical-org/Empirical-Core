@@ -1,6 +1,6 @@
-FactoryGirl.define do
-
+FactoryBot.define do
   factory :concept do
-    sequence(:name) { |i| "concept #{i}" }
+    sequence(:name) { |i| "Concept #{i}" }
+    uid             { SecureRandom.urlsafe_base64 }
   end
 end

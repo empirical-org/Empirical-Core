@@ -41,6 +41,7 @@ export default React.createClass({
             selectOption={this.props.selectClassroom}
             selectedOption={this.props.selectedClassroom}
             placeholder={'Select a Classroom'}
+            icon="fa-group"
           />
         </div>
         <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
@@ -48,6 +49,7 @@ export default React.createClass({
             options={this.props.unitFilters}
             selectOption={this.props.selectUnit}
             selectedOption={this.props.selectedUnit}
+            icon="fa-book"
           />
         </div>
         <div className="col-xs-12 col-sm-6">
@@ -56,6 +58,7 @@ export default React.createClass({
             filterOptions={this.DATE_RANGE_FILTER_OPTIONS}
             beginDate={this.props.beginDate}
             endDate={this.props.endDate}
+            icon="fa-calendar"
           />
         </div>
       </div>

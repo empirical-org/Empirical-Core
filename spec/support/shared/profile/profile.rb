@@ -1,61 +1,61 @@
 shared_context 'profile' do
-  let(:teacher1) { FactoryGirl.create(:user, role: 'teacher', name: 'Teacher 1') }
-  let(:teacher2) { FactoryGirl.create(:user, role: 'teacher', name: 'Teacher 2') }
-  let!(:classroom1) { FactoryGirl.create(:classroom, teacher: teacher1, name: 'class1') }
-  let!(:classroom2) { FactoryGirl.create(:classroom, teacher: teacher2, name: 'class2') }
-  let!(:classroom3) { FactoryGirl.create(:classroom, name: 'class3', code: 'coat-hanger') }
-  let!(:student) { FactoryGirl.create(:arnold_horshack, classrooms: [classroom1, classroom2]) }
+  let(:teacher1) { create(:user, role: 'teacher', name: 'Teacher 1') }
+  let(:teacher2) { create(:user, role: 'teacher', name: 'Teacher 2') }
+  let!(:classroom1) { create(:classroom, teacher: teacher1, name: 'class1') }
+  let!(:classroom2) { create(:classroom, teacher: teacher2, name: 'class2') }
+  let!(:classroom3) { create(:classroom, name: 'class3', code: 'coat-hanger') }
+  let!(:student) { create(:student, classrooms: [classroom1, classroom2]) }
 
-  let(:game1) { FactoryGirl.create(:activity_classification, id: 1) }
-  let(:game2) { FactoryGirl.create(:activity_classification, id: 2) }
+  let(:game1) { create(:activity_classification, id: 1) }
+  let(:game2) { create(:activity_classification, id: 2) }
 
-  let(:activity) { FactoryGirl.create(:activity, classification: game2) }
-  let(:activity_1a) { FactoryGirl.create(:activity, classification: game1) }
-  let(:activity_1aa) { FactoryGirl.create(:activity, classification: game2) }
-  let!(:activity_1b) { FactoryGirl.create(:activity, classification: game2) }
-  let(:unit1) { FactoryGirl.create(:unit) }
-  let!(:classroom_activity) { FactoryGirl.create(:classroom_activity,
+  let(:activity) { create(:activity, classification: game2) }
+  let(:activity_1a) { create(:activity, classification: game1) }
+  let(:activity_1aa) { create(:activity, classification: game2) }
+  let!(:activity_1b) { create(:activity, classification: game2) }
+  let(:unit1) { create(:unit) }
+  let!(:classroom_activity) { create(:classroom_activity,
                                                   classroom: classroom2,
                                                   activity: activity,
                                                   unit: unit1) }
 
-  let!(:classroom_activity_1a) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity_1a) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_1a,
                                                     unit: unit1)}
 
 
-  let!(:classroom_activity_1aa) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity_1aa) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_1aa,
                                                     unit: unit1)}
 
-  let!(:classroom_activity_1b) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity_1b) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_1b,
                                                     unit: unit1)}
 
-  let(:activity2) { FactoryGirl.create(:activity, classification: game2) }
-  let(:activity_2a) { FactoryGirl.create(:activity, classification: game1) }
-  let(:activity_2aa) { FactoryGirl.create(:activity, classification: game2) }
-  let(:activity_2b) { FactoryGirl.create(:activity, classification: game2) }
+  let(:activity2) { create(:activity, classification: game2) }
+  let(:activity_2a) { create(:activity, classification: game1) }
+  let(:activity_2aa) { create(:activity, classification: game2) }
+  let(:activity_2b) { create(:activity, classification: game2) }
 
-  let!(:unit2) { FactoryGirl.create(:unit) }
-  let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity,
+  let!(:unit2) { create(:unit) }
+  let!(:classroom_activity2) { create(:classroom_activity,
                                                   classroom: classroom2,
                                                   activity: activity2,
                                                   unit: unit2,
                                                   assigned_student_ids: [],
                                                   due_date: Date.today + 3) }
 
-  let!(:classroom_activity_2a) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity_2a) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_2a,
                                                     unit: unit2,
                                                     assigned_student_ids: [],
                                                     due_date: Date.today + 100)}
 
-  let!(:classroom_activity_2aa) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity_2aa) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_2aa,
                                                     unit: unit2,
@@ -63,7 +63,7 @@ shared_context 'profile' do
                                                     due_date: Date.today + 100)}
 
 
-  let!(:classroom_activity_2b) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity_2b) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_2b,
                                                     unit: unit2,
@@ -73,10 +73,10 @@ shared_context 'profile' do
 
 
 
-  let(:activity3) { FactoryGirl.create(:activity, classification: game1) }
+  let(:activity3) { create(:activity, classification: game1) }
 
-  let!(:unit3) { FactoryGirl.create(:unit) }
-  let!(:classroom_activity3) { FactoryGirl.create(:classroom_activity,
+  let!(:unit3) { create(:unit) }
+  let!(:classroom_activity3) { create(:classroom_activity,
                                                   classroom: classroom1,
                                                   activity: activity3,
                                                   unit: unit3,

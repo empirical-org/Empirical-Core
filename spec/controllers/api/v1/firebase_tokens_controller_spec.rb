@@ -4,7 +4,7 @@ describe Api::V1::FirebaseTokensController, type: :controller do
 
   context 'POST #create' do
     let!(:app) { FirebaseApp.create!(name: 'foobar', secret: '12345abcde') }
-    let!(:user) { FactoryGirl.create(:student) }
+    let!(:user) { create(:student) }
 
     context 'when accessing anonymously' do
       before do

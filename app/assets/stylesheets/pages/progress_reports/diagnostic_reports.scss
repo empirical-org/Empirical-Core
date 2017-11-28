@@ -4,7 +4,8 @@
   max-width: 950px;
   padding-top: 44px;
   h1 {
-    font-size: 30px;
+    font-size: 24px;
+    font-weight: 700;
     margin-bottom: 15px;
   }
   .nav-elements {
@@ -178,16 +179,41 @@ $lightgray: #cecece;
   }
 }
 
+#individual-classroom-view {
+  table {
+    margin: 0;
+    width: 100%;
+
+    &:last-of-type tr {
+      border-top: 0;
+    }
+  }
+
+  .unstarted-row, .in-progress-row {
+    td:first-of-type {
+      text-decoration: none;
+    }
+    td:last-of-type {
+      text-align: left;
+    }
+  }
+}
 
 /* for shading by score*/
 .green-score-color {
-  background-color: #E7FEE8;
+  background-color: #e7fee8;
 }
 .red-score-color {
-  background-color: #feedf0;;
+  background-color: #feedf0;
 }
 .yellow-score-color {
   background-color: #fff6e2;
+}
+.unstarted-row {
+  background: #f7f5f5;
+}
+.in-progress-row {
+  background: #ffffff;
 }
 
 
@@ -215,23 +241,13 @@ $lightgray: #cecece;
     max-width: 660px;
   }
   th, td {
-    text-align: center;
+    text-align: left;
     &:first-of-type {
-      text-align: left;
       width: 48%;
     }
   }
   td:first-of-type {
     text-decoration: underline;
-  }
-  tbody {
-    td:not(:first-of-type) {
-      text-align: right;
-      padding-right: 3.5%;
-    }
-    td:nth-of-type(2) {
-      padding-right: 5.5%;
-    }
   }
 }
 
@@ -419,7 +435,7 @@ $lightgray: #cecece;
               align-items: center;
       border-bottom: none;
       &:not(.previously-assigned) {
-        cursor: pointer;  
+        cursor: pointer;
       }
       &.recommended {
         background-color: #eafcff;

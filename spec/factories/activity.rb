@@ -1,17 +1,50 @@
-FactoryGirl.define do
-
+FactoryBot.define do
   factory :activity do
+    name                    { "#{Faker::Color.color_name} #{Faker::Book.genre} Activity".titleize }
+    description             { "This is the description for the '#{name}' activity." }
+    uid                     { SecureRandom.urlsafe_base64 }
+    topic                   { FactoryBot.create(:topic) }
+    classification          { FactoryBot.create(:classification) }
+    activity_categories     { create_pair(:activity_category) }
+    repeatable              true
 
-    sequence(:name) { |i| "activity #{i}" }
-    description { Forgery(:lorem_ipsum).sentence }
-    data { {
-      body: "In 1914, Ernest Shackleton set {+off-of|1} on an exploration across the Antarctic. In 1915 his ship, Endurance, became trapped in the ice, and {+its-it's|2} crew was stuck.",
-      instructions: "There are **two errors** in this passage. *To edit a word, click on it and re-type it.*"
-    } }
+    factory :diagnostic_activity do
+      classification { ActivityClassification.find_by_key FactoryBot.attributes_for(:diagnostic)[:key] || FactoryBot.create(:diagnostic) }
+      repeatable false
+    end
 
-    topic { Topic.first || FactoryGirl.create(:topic) }
-    classification { ActivityClassification.first || FactoryGirl.create(:classification) }
-    activity_categories { [ActivityCategory.first || FactoryGirl.create(:activity_category)]}
+    factory :proofreader_activity do
+      classification { ActivityClassification.find_by_key FactoryBot.attributes_for(:proofreader)[:key] || FactoryBot.create(:proofreader) }
+    end
+
+    factory :grammar_activity do
+      classification { ActivityClassification.find_by_key FactoryBot.attributes_for(:grammar)[:key] || FactoryBot.create(:grammar) }
+    end
+
+    factory :connect_activity do
+      classification { ActivityClassification.find_by_key FactoryBot.attributes_for(:connect)[:key] || FactoryBot.create(:connect) }
+    end
+
+    factory :lesson_activity do
+      classification { ActivityClassification.find_by_key FactoryBot.attributes_for(:lesson)[:key] || FactoryBot.create(:lesson) }
+      repeatable false
+      supporting_info { "#{Faker::Internet.url}.pdf" }
+
+      trait :with_follow_up do
+        follow_up_activity { FactoryBot.create(:lesson_activity) }
+      end
+    end
+
+    trait :published do
+      flags ['production']
+    end
+
+    trait :archived do
+      flags ['archived']
+    end
+
+    trait :alpha do
+      flags ['alpha']
+    end
   end
-
 end
