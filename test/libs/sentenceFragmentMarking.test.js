@@ -3,7 +3,8 @@ import expect from 'expect';
 import { hashToCollection } from '../../app/libs/hashToCollection.js';
 import SFMarkingObj, { wordLengthCount } from '../../app/libs/sentenceFragment';
 import responses, {
-  optimalResponse
+  optimalResponse,
+  subOptimalResponse
 } from '../data/sentenceFragmentResponses';
 import validEndingPunctuation from '../../app/libs/validEndingPunctuation.js';
 import { getGradedResponses } from '../../app/libs/sharedResponseFunctions';
@@ -13,7 +14,7 @@ const questionUID = 'mockID';
 const fields = {
   prompt: 'Ran to the shop.',
   wordCountChange: { min: 1, max: 2, },
-  responses: hashToCollection(responses),
+  responses: hashToCollection({optimalResponse, subOptimalResponse}),
   questionUID,
 };
 

@@ -9,7 +9,7 @@ export const algoOptimalResponse = {
   text: 'You ran to the shop.',
   author: 'POS',
   optimal: true,
-  parentID: 'optimalResponse',
+  parent_id: 'optimalResponse',
 };
 
 export const ungradedResponse = {
@@ -27,7 +27,7 @@ export const algoSubOptimalResponse = {
   text: 'Ran to the shop slow.',
   author: 'POS',
   optimal: false,
-  parentID: 'subOptimalResponse',
+  parent_id: 'subOptimalResponse',
 };
 
 export default {
