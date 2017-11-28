@@ -1,4 +1,4 @@
-class PendingInvitations < ActiveRecord::Base
+class PendingInvitation < ActiveRecord::Base
 
   belongs_to :inviter, class_name: 'User', foreign_key: 'inviter_id'
 

@@ -677,39 +677,6 @@ ALTER SEQUENCE concepts_id_seq OWNED BY concepts.id;
 
 
 --
--- Name: coteacher_invitations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE coteacher_invitations (
-    id integer NOT NULL,
-    invitee_email character varying NOT NULL,
-    inviter_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: coteacher_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE coteacher_invitations_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: coteacher_invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE coteacher_invitations_id_seq OWNED BY coteacher_invitations.id;
-
-
---
 -- Name: csv_exports; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1091,6 +1058,40 @@ CREATE SEQUENCE page_areas_id_seq
 --
 
 ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
+
+
+--
+-- Name: pending_invitations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pending_invitations (
+    id integer NOT NULL,
+    invitee_email character varying NOT NULL,
+    inviter_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    invitation_type character varying
+);
+
+
+--
+-- Name: pending_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pending_invitations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pending_invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pending_invitations_id_seq OWNED BY pending_invitations.id;
 
 
 --
@@ -1789,13 +1790,6 @@ ALTER TABLE ONLY concepts ALTER COLUMN id SET DEFAULT nextval('concepts_id_seq':
 
 
 --
--- Name: coteacher_invitations id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY coteacher_invitations ALTER COLUMN id SET DEFAULT nextval('coteacher_invitations_id_seq'::regclass);
-
-
---
 -- Name: csv_exports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1870,6 +1864,13 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
+
+
+--
+-- Name: pending_invitations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pending_invitations ALTER COLUMN id SET DEFAULT nextval('pending_invitations_id_seq'::regclass);
 
 
 --
@@ -2121,14 +2122,6 @@ ALTER TABLE ONLY concepts
 
 
 --
--- Name: coteacher_invitations coteacher_invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY coteacher_invitations
-    ADD CONSTRAINT coteacher_invitations_pkey PRIMARY KEY (id);
-
-
---
 -- Name: csv_exports csv_exports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2214,6 +2207,14 @@ ALTER TABLE ONLY objectives
 
 ALTER TABLE ONLY page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pending_invitations pending_invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pending_invitations
+    ADD CONSTRAINT pending_invitations_pkey PRIMARY KEY (id);
 
 
 --
@@ -2597,27 +2598,6 @@ CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USI
 
 
 --
--- Name: index_coteacher_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_coteacher_invitations_on_invitee_email ON coteacher_invitations USING btree (invitee_email);
-
-
---
--- Name: index_coteacher_invitations_on_invitee_email_and_inviter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_coteacher_invitations_on_invitee_email_and_inviter_id ON coteacher_invitations USING btree (invitee_email, inviter_id);
-
-
---
--- Name: index_coteacher_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_coteacher_invitations_on_inviter_id ON coteacher_invitations USING btree (inviter_id);
-
-
---
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2692,6 +2672,27 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
+
+
+--
+-- Name: index_pending_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pending_invitations_on_invitee_email ON pending_invitations USING btree (invitee_email);
+
+
+--
+-- Name: index_pending_invitations_on_invitee_email_and_inviter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pending_invitations_on_invitee_email_and_inviter_id ON pending_invitations USING btree (invitee_email, inviter_id);
+
+
+--
+-- Name: index_pending_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pending_invitations_on_inviter_id ON pending_invitations USING btree (inviter_id);
 
 
 --
@@ -3536,4 +3537,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171106203046');
 INSERT INTO schema_migrations (version) VALUES ('20171108201608');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128192444');
 
