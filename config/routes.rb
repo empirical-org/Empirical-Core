@@ -26,6 +26,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :charges
 
 
+  resources :invite_coteachers
   resources :subscriptions
   resources :assessments
   resources :assignments
