@@ -235,6 +235,8 @@ EmpiricalGrammar::Application.routes.draw do
       resources :topic_categories,        only: [:index]
       resources :concepts,                only: [:index, :create]
       resources :users,                   only: [:index]
+      resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
+      resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       resource :firebase_tokens,          only: [:create]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
