@@ -677,6 +677,39 @@ ALTER SEQUENCE concepts_id_seq OWNED BY concepts.id;
 
 
 --
+-- Name: coteacher_classroom_invitations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE coteacher_classroom_invitations (
+    id integer NOT NULL,
+    pending_invitation_id integer NOT NULL,
+    classroom_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: coteacher_classroom_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE coteacher_classroom_invitations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: coteacher_classroom_invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE coteacher_classroom_invitations_id_seq OWNED BY coteacher_classroom_invitations.id;
+
+
+--
 -- Name: csv_exports; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1790,6 +1823,13 @@ ALTER TABLE ONLY concepts ALTER COLUMN id SET DEFAULT nextval('concepts_id_seq':
 
 
 --
+-- Name: coteacher_classroom_invitations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY coteacher_classroom_invitations ALTER COLUMN id SET DEFAULT nextval('coteacher_classroom_invitations_id_seq'::regclass);
+
+
+--
 -- Name: csv_exports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2122,6 +2162,14 @@ ALTER TABLE ONLY concepts
 
 
 --
+-- Name: coteacher_classroom_invitations coteacher_classroom_invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY coteacher_classroom_invitations
+    ADD CONSTRAINT coteacher_classroom_invitations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: csv_exports csv_exports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2350,6 +2398,13 @@ ALTER TABLE ONLY users
 --
 
 CREATE INDEX aut ON activities_unit_templates USING btree (activity_id, unit_template_id);
+
+
+--
+-- Name: classroom_invitee_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX classroom_invitee_index ON coteacher_classroom_invitations USING btree (pending_invitation_id, classroom_id);
 
 
 --
@@ -2595,6 +2650,20 @@ CREATE INDEX index_concept_results_on_activity_classification_id ON concept_resu
 --
 
 CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
+
+
+--
+-- Name: index_coteacher_classroom_invitations_on_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON coteacher_classroom_invitations USING btree (classroom_id);
+
+
+--
+-- Name: index_coteacher_classroom_invitations_on_pending_invitation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_coteacher_classroom_invitations_on_pending_invitation_id ON coteacher_classroom_invitations USING btree (pending_invitation_id);
 
 
 --
@@ -3539,4 +3608,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171108201608');
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128192444');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128211301');
 
