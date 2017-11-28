@@ -86,6 +86,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, {}>{
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.prompt}
             handleTextChange={(e) => this.handlePromptChange(e)}
+            showBlockquote={false}
           />
           <div className="field">
             <label>Instructions <span className="optional">(Optional)</span></label>

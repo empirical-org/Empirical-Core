@@ -80,11 +80,12 @@ class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, {}>{
           title={this.props.question.teach.title}
           handleTitleChange={this.handleTitleChange}
         />
-          <PromptField
-            incompletePrompt={this.props.incompletePrompt}
-            text={this.props.question.play.prompt}
-            handleTextChange={(e) => this.handlePromptChange(e)}
-          />
+        <PromptField
+          incompletePrompt={this.props.incompletePrompt}
+          text={this.props.question.play.prompt}
+          handleTextChange={(e) => this.handlePromptChange(e)}
+          showBlockquote={false}
+        />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
