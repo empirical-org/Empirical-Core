@@ -191,22 +191,16 @@ export default React.createClass({
       const sData = s.scores[0];
       scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
     });
+    
     if (this.state.loading) {
-      loadingIndicator = <LoadingIndicator />;
-    } else {
-      loadingIndicator = null;
-    }
-
-    if (this.state.missing) {
+      content = <LoadingIndicator />;
+    } else if (this.state.missing) {
       const onButtonClick = this.state.missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
       content = <EmptyProgressReport missing={this.state.missing} onButtonClick={onButtonClick} />;
     } else {
-      content =
-        (<div>
-          {scores}
-          {loadingIndicator}
-        </div>);
+      content = <div>{scores}</div>;
     }
+
     return (
       <div className="page-content-wrapper">
         <div className="tab-pane" id="scorebook">
