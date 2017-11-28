@@ -26,7 +26,7 @@ export default React.createClass({
 
   componentDidMount() {
     this.getRecommendationData(this.props.params.classroomId, this.props.params.activityId);
-    this.getPreviouslyAssignedRecommendationData(this.props.params.classroomId, this.props.params.activityId);
+    this.getPreviouslyAssignedRecommendationData(this.props.params.classroomId, this.props.params.activityId, false);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -36,7 +36,11 @@ export default React.createClass({
       assigned: false,
     });
     this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
-    this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
+    this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId, false);
+  },
+
+  setAssignedToFalseAfterFiveSeconds() {
+    setTimeout(() => this.setState({assigned: false}), 5000)
   },
 
   getRecommendationData(classroomId, activityId) {
@@ -46,23 +50,23 @@ export default React.createClass({
         recommendations: JSON.parse(JSON.stringify(data.recommendations)),
         students: data.students,
         loading: false,
-      }, that.getPreviouslyAssignedRecommendationData(classroomId, activityId));
+      }, that.getPreviouslyAssignedRecommendationData(classroomId, activityId, false));
     });
     $.get(`/teachers/progress_reports/lesson_recommendations_for_classroom/u/${that.props.params.unitId}/c/${classroomId}/a/${activityId}`, (data) => {
       that.setState({ lessonsRecommendations: data.lessonsRecommendations, });
     });
   },
 
-  getPreviouslyAssignedRecommendationData(classroomId, activityId) {
+  getPreviouslyAssignedRecommendationData(classroomId, activityId, assigned) {
     const that = this;
     $.get(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}`, ((data) => {
       that.setState({
         previouslyAssignedRecommendations: data.previouslyAssignedRecommendations,
-      }, that.setSelections(data.previouslyAssignedRecommendations));
+      }, that.setSelections(data.previouslyAssignedRecommendations, assigned));
     }));
   },
 
-  setSelections(previouslyAssignedRecommendations) {
+  setSelections(previouslyAssignedRecommendations, assigned) {
     const selections = this.state.recommendations.map((recommendation, i) => {
       const prevAssigned = previouslyAssignedRecommendations[i];
       const allAssignedStudents = _.uniq(recommendation.students.concat(prevAssigned.students));
@@ -72,7 +76,11 @@ export default React.createClass({
         students: allAssignedStudents,
       };
     });
-    this.setState({ selections, });
+    if (assigned) {
+      this.setState({ selections, assigned: assigned, assigning: false}, this.setAssignedToFalseAfterFiveSeconds);
+    } else {
+      this.setState({ selections })
+    }
   },
 
   studentWasAssigned(student, previouslyAssignedRecommendation) {
@@ -163,8 +171,7 @@ export default React.createClass({
       });
     } else {
       channel.bind('personalized-recommendations-assigned', (data) => {
-        that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId);
-        that.setState({ assigning: false, assigned: true, });
+        that.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId, true);
       });
     }
   },
