@@ -1,6 +1,8 @@
 import React from 'react';
-import CoteacherCapabilityChart from './coteacher_capability_chart.jsx'
+import CoteacherCapabilityChart from './coteacher_capability_chart.jsx';
+import getAuthToken from '../modules/get_auth_token';
 import request from 'request';
+
 
 export default class extends React.Component {
   constructor(props) {
@@ -21,16 +23,21 @@ export default class extends React.Component {
     const that = this;
     request.post(
       {
-        url: `${process.env.DEFAULT_URL}/coteacher_invitations/new`,
-        json: {invitee_email: that.state.email}
+        url: `${process.env.DEFAULT_URL}/coteacher_invitations`,
+        json: {
+          authenticity_token: getAuthToken(),
+          invitee_email: that.state.email,
+          classroom_ids: [219873]
+        }
       },
       (error, httpStatus, body) => {
-        console.log('httpStatus', httpStatus);
+        if(error) {
+          alert(error);
+        } else {
+          alert('Success!');
+        }
     });
   }
-
-  // validateEmail
-  // [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
 
   render() {
     return (
