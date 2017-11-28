@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'responses/mass_edit/show_many' => 'responses#show_many'
   put  'responses/mass_edit/edit_many' => 'responses#edit_many'
   post 'responses/mass_edit/delete_many' => 'responses#delete_many'
+  get  'responses/:question_uid/incorrect_sequences' => 'responses#get_incorrect_sequences'
   post 'questions/:question_uid/responses/search' => 'responses#search'
   post 'responses/batch_responses_for_lesson' => 'responses#batch_responses_for_lesson'
 
