@@ -16,11 +16,6 @@ class PendingInvitationsController < ApplicationController
     end
   end
 
-  def accept_pending_coteacher_invitation
-
-  end
-
-
   private
 
   def verify_current_user_owns_classrooms
@@ -31,6 +26,4 @@ class PendingInvitationsController < ApplicationController
     classroom_invitations = @classroom_ids.map{|id| {pending_invitation_id: @pending_invite.id, classroom_id: id}}
     CoteacherClassroomInvitation.bulk_insert(values: classroom_invitations)
   end
-
-
 end
