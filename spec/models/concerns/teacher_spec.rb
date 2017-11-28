@@ -30,13 +30,13 @@ describe User, type: :model do
         expect(classrooms).to include(classroom1_hash)
       end
     end
-    
+
     describe '#classrooms_i_own_that_have_coteachers' do
-      
+
       it 'returns an empty array if a user owns no classrooms with coteachers' do
         expect(teacher.classrooms_i_own_that_have_coteachers).to eq([])
       end
-      
+
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms teachers' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
@@ -236,6 +236,39 @@ describe User, type: :model do
         end
 
         expect(teacher.get_classroom_minis_info).to eq(sanitize_hash_array_for_comparison_with_sql(expected_response))
+      end
+    end
+
+    describe '#classrooms_i_coteach_with_a_specific_teacher_with_students' do
+      it 'should return classrooms and students if the teacher is a coteacher' do
+        coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').user
+        response = coteacher.classrooms_i_coteach_with_a_specific_teacher_with_students(teacher.id)
+        expect(response).to eq([Classroom.first.attributes.merge(students: classroom.students)])
+      end
+
+      it 'should return an empty array if user does not coteach with the teacher' do
+        other_teacher = create(:teacher)
+        response = other_teacher.classrooms_i_coteach_with_a_specific_teacher_with_students(teacher.id)
+        expect(response).to eq([])
+      end
+    end
+
+    describe '#affilliated_with_unit' do
+      let!(:unit) { create(:unit, user: teacher) }
+      let!(:ca) { create(:classroom_activity, unit: unit) }
+
+      it 'should return true if the teacher owns the unit' do
+        expect(teacher.affilliated_with_unit(unit.id)).to be
+      end
+
+      it 'should return true if the teacher is a coteacher of the classroom with the unit' do
+        coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').teacher
+        expect(coteacher.affilliated_with_unit(unit.id)).to be
+      end
+
+      it 'should return false if the teacher is not affiliated with the unit' do
+        random_teacher = create(:teacher)
+        expect(random_teacher.affilliated_with_unit(unit.id)).to_not be
       end
     end
   end
