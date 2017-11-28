@@ -121,13 +121,16 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   render() {
     const classroomActivityError = this.props.classroomSessions.error;
     const lessonError = this.props.classroomLesson.error;
+    const teachLessonContainerStyle = this.props.classroomSessions.data && this.props.classroomSessions.data.preview
+    ? {'height': 'calc(100vh - 113px)'}
+    : {'height': 'calc(100vh - 60px)'}
     if (classroomActivityError) {
       return <ErrorPage text={classroomActivityError} />
     } else if (lessonError) {
       return <ErrorPage text={lessonError} />
     }  else {
       return (
-        <div className="teach-lesson-container">
+        <div className="teach-lesson-container" style={teachLessonContainerStyle}>
           <WakeLock />
           <Sidebar/>
           <MainContentContainer/>
