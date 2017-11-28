@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 describe ClassroomActivity, type: :model, redis: :true do
-    let!(:activity_classification_3) { FactoryGirl.create(:activity_classification, id: 3)}
-    let!(:activity_classification_2) { FactoryGirl.create(:activity_classification, id: 2)}
-    let!(:activity_classification_6) { FactoryGirl.create(:activity_classification, id: 6, key: 'lessons')}
-    let!(:activity) { FactoryGirl.create(:activity) }
-    let!(:teacher) { FactoryGirl.create(:user, role: 'teacher') }
-    let!(:student) { FactoryGirl.create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
-    let!(:classroom) { FactoryGirl.create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
-    let!(:classroom_2) { FactoryGirl.create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
-    let!(:unit) { FactoryGirl.create(:unit) }
+    let!(:activity_classification_3) { create(:activity_classification, id: 3)}
+    let!(:activity_classification_2) { create(:grammar)}
+    let!(:activity_classification_6) { create(:lesson)}
+    let!(:activity) { create(:activity) }
+    let!(:teacher) { create(:user, role: 'teacher') }
+    let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
+    let!(:classroom) { create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
+    let!(:classroom_2) { create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
+    let!(:unit) { create(:unit) }
     let(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
-    let(:activity_session) {FactoryGirl.create(:activity_session, classroom_activity_id: classroom_activity.id)}
-    let(:lessons_activity) { FactoryGirl.create(:activity, activity_classification_id: 6) }
+    let(:activity_session) {create(:activity_session, classroom_activity_id: classroom_activity.id)}
+    let(:lessons_activity) { create(:activity, activity_classification_id: 6) }
     let(:lessons_classroom_activity) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom, unit: unit) }
     let(:lessons_classroom_activity_2) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom_2, unit: unit) }
 
@@ -29,7 +29,7 @@ describe ClassroomActivity, type: :model, redis: :true do
                 @student.save!
             end
             it 'must return a list with one element' do
-                classroom_activity = FactoryGirl.build(:classroom_activity, assigned_student_ids: [@student.id])
+                classroom_activity = build(:classroom_activity, assigned_student_ids: [@student.id])
                 expect(classroom_activity.assigned_students.first).to eq(@student)
             end
         end
@@ -187,6 +187,33 @@ describe ClassroomActivity, type: :model, redis: :true do
         lesson_1_data = {"classroom_activity_id": lessons_classroom_activity.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
         lesson_2_data = {"classroom_activity_id": lessons_classroom_activity_2.id, "activity_id": lessons_activity.id , "activity_name": lessons_activity.name, "unit_id": unit.id, "completed": false}
         expect($redis.get("user_id:#{lessons_classroom_activity.classroom.teacher_id}_lessons_array")).to eq([lesson_1_data, lesson_2_data].to_json)
+      end
+    end
+
+    describe '#check_for_assign_on_join_and_update_students_array_if_true callback' do
+      context 'when assign_on_join is false' do
+        describe 'when the assigned students contain all the students in the classroom' do
+          it "sets the classroom activity to assign_on_join: true" do
+            expect(classroom_activity.assign_on_join).not_to eq(true)
+            classroom_activity.update(assigned_student_ids: [student.id])
+            expect(classroom_activity.assign_on_join).to eq(true)
+          end
+        end
+
+        describe 'when the assigned students do not contain all the students in the classroom' do
+          it "does not set the classroom activity to assign_on_join: true" do
+            expect(classroom_activity.assign_on_join).not_to eq(true)
+            classroom_activity.update(assigned_student_ids: [])
+            expect(classroom_activity.assign_on_join).not_to eq(true)
+          end
+        end
+      end
+
+      context 'when assign_on_join is true' do
+        it "updates the assigned student ids with all students in the classroom" do
+            classroom_activity.update(assigned_student_ids: [], assign_on_join: true)
+            expect(classroom_activity.assigned_student_ids).to eq([student.id])
+        end
       end
     end
 end

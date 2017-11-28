@@ -4,7 +4,7 @@ require 'rails_helper'
 describe Teachers::ClassroomsController, type: :controller do
   describe 'creating a classroom' do
     render_views
-    let(:teacher) { FactoryGirl.create(:teacher) }
+    let(:teacher) { create(:teacher) }
 
     before do
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
@@ -31,9 +31,9 @@ describe Teachers::ClassroomsController, type: :controller do
 
   describe 'creating a login pdf' do
 
-    let(:teacher) { FactoryGirl.create(:teacher) }
-    let(:different_teacher) { FactoryGirl.create(:teacher) }
-    let(:different_classroom) { FactoryGirl.create(:classroom, teacher: different_teacher) }
+    let(:teacher) { create(:teacher) }
+    let(:different_teacher) { create(:teacher) }
+    let(:different_classroom) { create(:classroom, teacher: different_teacher) }
 
     before do
       session[:user_id] = teacher.id

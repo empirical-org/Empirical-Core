@@ -1,4 +1,4 @@
-# FactoryGirl.define do
+# FactoryBot.define do
 #   factory :checkbox do
 #     user_id 1
 #     objective_id 1

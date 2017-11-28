@@ -20,7 +20,7 @@ describe('ActivityDetails component', () => {
 
   it('should render the objective', () => {
     const wrapper = shallow(<ActivityDetails
-      data={Object.assign({}, baseData, { concept_results: [{ metadata: null, description: 'Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.', name: null, completed_at: null, due_date: '2016-11-04 00:00:00', }], })}
+      data={Object.assign({}, baseData, { activity_description: 'Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.', concept_results: [{ metadata: null, description: 'Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.', name: null, completed_at: null, due_date: '2016-11-04 00:00:00', }], })}
     />);
     expect(wrapper.find('.activity-detail-body').text()).toMatch('Objectives: Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.');
   });

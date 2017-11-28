@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe CsvExporter::ActivitySession do
   include_context 'Activity Progress Report'
-  let(:teacher) { mr_kotter }
 
   it_behaves_like 'CSV Exporter' do
     let(:expected_header_row) {
@@ -19,27 +18,27 @@ describe CsvExporter::ActivitySession do
     }
 
     let(:model_instance) {
-      horshack_session
+      student_one_session
     }
 
-    let(:filters) { { 'classroom_id' => sweathogs.id } }
+    let(:filters) { { 'classroom_id' => classroom_one.id } }
 
     let(:expected_data_row) {
       [
         'Activities: All Students',
-        horshack_session.user.name,
-        horshack_session.completed_at.to_formatted_s(:quill_default),
-        horshack_session.activity.name,
-        horshack_session.percentage_as_decimal,
-        horshack_session.activity.topic.section.name,
-        horshack_session.activity.topic.name,
+        student_one_session.user.name,
+        student_one_session.completed_at.to_formatted_s(:quill_default),
+        student_one_session.activity.name,
+        student_one_session.percentage_as_decimal,
+        student_one_session.activity.topic.section.name,
+        student_one_session.activity.topic.name,
         # Concept (Topic Category(?)) -
-        horshack_session.activity.classification.name
+        student_one_session.activity.classification.name
       ]
     }
 
     let(:expected_model_data_size) {
-      sweathogs_sessions.size
+      classroom_one_sessions.size
     }
   end
 end

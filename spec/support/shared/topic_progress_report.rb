@@ -8,29 +8,29 @@ shared_context 'Topic Progress Report' do
   # When filtered by empty_classroom, nothing displays
   # when filtered by empty_unit, nothing displays
   # When filtered by unassigned student, nothing displays
-  let!(:teacher) { FactoryGirl.create(:teacher, name: 'Teacher Person', username: 'teacherperson') }
-  let!(:section) { FactoryGirl.create(:section) }
-  let!(:full_classroom) { FactoryGirl.create(:classroom, name: "full", teacher: teacher) }
-  let!(:alice) { FactoryGirl.create(:student, name: "Alice Cool", classrooms: [full_classroom]) }
-  let!(:fred) { FactoryGirl.create(:student, name: "Fred Kewl", classrooms: [full_classroom]) }
-  let!(:zojirushi) { FactoryGirl.create(:student, name: "Zojirushi Kewel", classrooms: [full_classroom]) }
-  let!(:unassigned_student) { FactoryGirl.create(:student, classrooms: []) }
-  let!(:second_grade_topic) { FactoryGirl.create(:topic, section: section, name: "2nd Grade CCSS") }
-  let!(:first_grade_topic) { FactoryGirl.create(:topic, section: section, name: "1st Grade CCSS") }
-  let!(:hidden_topic) { FactoryGirl.create(:topic, section: section) }
-  let!(:empty_classroom) { FactoryGirl.create(:classroom, name: "empty", teacher: teacher) }
-  let!(:unit1) { FactoryGirl.create(:unit) }
-  let!(:empty_unit) { FactoryGirl.create(:unit) }
-  let!(:activity_for_second_grade_topic) { FactoryGirl.create(:activity,
+  let!(:teacher) { create(:teacher, name: 'Teacher Person', username: 'teacherperson') }
+  let!(:section) { create(:section) }
+  let!(:full_classroom) { create(:classroom, name: "full", teacher: teacher) }
+  let!(:alice) { create(:student, name: "Alice Cool", classrooms: [full_classroom]) }
+  let!(:fred) { create(:student, name: "Fred Kewl", classrooms: [full_classroom]) }
+  let!(:zojirushi) { create(:student, name: "Zojirushi Kewel", classrooms: [full_classroom]) }
+  let!(:unassigned_student) { create(:student, classrooms: []) }
+  let!(:second_grade_topic) { create(:topic, section: section, name: "2nd Grade CCSS") }
+  let!(:first_grade_topic) { create(:topic, section: section, name: "1st Grade CCSS") }
+  let!(:hidden_topic) { create(:topic, section: section) }
+  let!(:empty_classroom) { create(:classroom, name: "empty", teacher: teacher) }
+  let!(:unit1) { create(:unit) }
+  let!(:empty_unit) { create(:unit) }
+  let!(:activity_for_second_grade_topic) { create(:activity,
     name: '2nd Grade Activity', topic: second_grade_topic) }
-  let!(:classroom_activity1) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity1) { create(:classroom_activity,
                                             classroom: full_classroom,
                                             activity: activity_for_second_grade_topic,
                                             assign_on_join: true,
                                             unit: unit1) }
-  let!(:activity_for_first_grade_topic) { FactoryGirl.create(:activity,
+  let!(:activity_for_first_grade_topic) { create(:activity,
     name: '1st Grade Activity', topic: first_grade_topic) }
-  let!(:classroom_activity2) { FactoryGirl.create(:classroom_activity,
+  let!(:classroom_activity2) { create(:classroom_activity,
                                             classroom: full_classroom,
                                             activity: activity_for_first_grade_topic,
                                             assign_on_join: true,

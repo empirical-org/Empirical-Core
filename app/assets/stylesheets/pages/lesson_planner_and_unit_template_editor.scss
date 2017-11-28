@@ -157,6 +157,13 @@
   cursor: pointer;
   padding-left: 0px;
   padding-right: 15px;
+  .scorebook-dropdown-icon.fa {
+    float: left;
+    margin-right: 10px;
+    color: #000000;
+    font-size: 14px;
+    margin-top: 2px;
+  }
   .dropdown-menu {
     list-style-type: none;
     padding: 0;

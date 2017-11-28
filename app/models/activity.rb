@@ -95,7 +95,9 @@ class Activity < ActiveRecord::Base
   end
 
   def self.clear_activity_search_cache
-    $redis.del('default_activity_search')
+    %w(production_ beta_ alpha_).push('').each do |flag|
+      $redis.del("default_#{}activity_search")
+    end
   end
 
   def self.set_activity_search_cache

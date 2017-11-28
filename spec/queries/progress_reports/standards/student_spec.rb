@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ProgressReports::Standards::Student do
   describe 'getting users for the progress reports' do
 
-    let!(:teacher) { FactoryGirl.create(:teacher) }
+    let!(:teacher) { create(:teacher) }
     let(:section_ids) { [sections[0].id, sections[1].id] }
 
     describe 'for the standards report' do

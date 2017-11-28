@@ -1,10 +1,10 @@
 shared_context :ms_sorter_and_sort_fodder do
   let(:ms_sorter) do
-    FactoryGirl.create :teacher, name: 'Sally Sorter',
+    create :teacher, name: 'Sally Sorter',
                               username: 'ms_sorter'
   end
   let(:sort_fodder) do
-    FactoryGirl.create :classroom, name: 'Sort Fodder',
+    create :classroom, name: 'Sort Fodder',
                                 teacher: ms_sorter
   end
 
@@ -12,13 +12,13 @@ shared_context :ms_sorter_and_sort_fodder do
     # Going to need to skip validations, since there is now a validation for having both a first and last name.
     # There are still old records in the db with students that have only a first or last name, so we still want to test
     # that they are sorted appropriately.
-    attribs = FactoryGirl.attributes_for :student
+    attribs = FactoryBot.attributes_for :student
     hash1 = attribs.merge(hash)
     hash2 = hash1.merge({classrooms: [sort_fodder]})
     # Going to need to skip validations, since there is now a validation for having both a first and last name.
     # There are still old records in the db with students that have only a first or last name, so we still want to test
     # that they are sorted appropriately.
-    student = FactoryGirl.build(:user, hash2)
+    student = build(:user, hash2)
     student.save validate: false
     student
   end
