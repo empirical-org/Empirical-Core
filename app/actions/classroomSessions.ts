@@ -119,9 +119,6 @@ export function startListeningToCurrentSlide(classroom_activity_id: string) {
   };
 }
 
-
-
-
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
@@ -270,6 +267,18 @@ export function registerTeacherPresence(classroom_activity_id: string | null): v
       absentTeacherRef.set(false);
     }
   });
+}
+
+export function showSignupModal() {
+  return function (dispatch) {
+    dispatch({type: C.SHOW_SIGNUP_MODAL})
+  };
+}
+
+export function hideSignupModal() {
+  return function (dispatch) {
+    dispatch({type: C.HIDE_SIGNUP_MODAL})
+  };
 }
 
 export function unpinActivityOnSaveAndExit(classroom_activity_id) {
