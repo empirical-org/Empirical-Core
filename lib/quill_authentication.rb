@@ -99,7 +99,7 @@ module QuillAuthentication
 
   def multiple_classroom_owner?(classrooms_ids)
     owned = ClassroomsTeacher.where(user: current_user, role: 'owner', classroom_id: classrooms_ids.uniq).ids.length
-    owned == classroom_ids.length ? return : auth_failed
+    owned == classrooms_ids.length ? return : auth_failed
   end
 
   def signed_out_path
