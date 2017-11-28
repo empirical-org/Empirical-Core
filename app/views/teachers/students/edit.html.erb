@@ -105,7 +105,7 @@
 										<% end %>
 								<div class='form-row'>
 									<div>
-										<%= button_to "Remove From Classroom", teacher_hide_students_classroom_path(classroom_id: @classroom.id, student_id: @student.id),data: {confirm: 'Are you sure you want to delete this account?'}, method: 'post', class: 'delete-account remove-from-class btn btn-danger' %>
+										<%= button_to "Remove From Classroom", teacher_hide_students_classroom_path(classroom_id: @classroom.id, student_id: @student.id),data: {confirm: 'Are you sure you want to delete this account?'}, method: 'post', class: 'remove-from-class btn btn-danger' %>
 									</div>
 								</div>
 
