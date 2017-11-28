@@ -31,8 +31,8 @@ export default class extends React.Component {
         }
       },
       (error, httpStatus, body) => {
-        if(error) {
-          alert(error);
+        if(body.error) {
+          alert(body.error);
         } else {
           alert('Success!');
         }
