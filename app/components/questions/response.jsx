@@ -49,7 +49,7 @@ export default React.createClass({
         conceptUID: '',
         correct: true,
       },
-      conceptResults: response.concept_results
+      conceptResults: response.concept_results || {}
     };
   },
 
@@ -217,7 +217,7 @@ export default React.createClass({
 
   handleConceptChange(e){
     const concepts = this.state.conceptResults;
-    if (!concepts.hasOwnProperty(e.value)) {
+    if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = this.props.response.optimal;
       this.setState({conceptResults: concepts});
     }
