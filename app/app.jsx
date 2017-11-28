@@ -25,6 +25,7 @@ import Passthrough from './components/shared/passthrough.jsx';
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
+import quillNormalizer from './libs/quillNormalizer'
 
 Raven
   .config(
@@ -83,3 +84,5 @@ setTimeout(() => {
   store.dispatch(lessonActions.loadLessons());
   store.dispatch(levelActions.loadItemLevels());
 });
+
+String.prototype.quillNormalize = quillNormalizer

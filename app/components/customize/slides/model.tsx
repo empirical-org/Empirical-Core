@@ -69,6 +69,7 @@ class CustomizeModel extends Component<CustomizeModelProps, {}>{
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.prompt}
             handleTextChange={(e) => this.handlePromptChange(e)}
+            showBlockquote={true}
           />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>

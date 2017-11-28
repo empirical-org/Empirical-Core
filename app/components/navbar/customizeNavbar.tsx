@@ -25,13 +25,13 @@ class CustomizeNavbar extends React.Component<any, any> {
     const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {
       const q = s.data.play
-      if (q.prompt === '' || q.prompt && q.prompt.trim() === '') {
+      if (q.prompt === '' || q.prompt && q.prompt.trim() === '' || q.prompt === '<p></p>' || q.prompt == '<p><br></p>') {
         incompleteQuestions.push(i)
       } else if (!q.prompt && q.html && q.html === '<p></p>' || q.html == '<p><br></p>') {
         incompleteQuestions.push(i)
       }
     })
-    if (incompleteQuestions.length === 0) {
+    if (incompleteQuestions.length === 0 && this.props.customize.workingEdition.name) {
       this.props.dispatch(publishEdition(this.props.params.editionID, this.props.customize.workingEdition, this.props.goToSuccessPage))
     } else {
       this.props.dispatch(setIncompleteQuestions(incompleteQuestions))

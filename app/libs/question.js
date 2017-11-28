@@ -12,6 +12,7 @@ import {
   getFeedbackForMissingWord
 } from './algorithms/joiningWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
+import quillNormalize from './quillNormalizer'
 
 const jsDiff = require('diff');
 
@@ -20,10 +21,6 @@ const ERROR_TYPES = {
   MISSING_WORD: 'MISSING_WORD',
   ADDITIONAL_WORD: 'ADDITIONAL_WORD',
   INCORRECT_WORD: 'INCORRECT_WORD',
-};
-
-String.prototype.normalize = function () {
-  return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
 };
 
 const conceptResultTemplate = (conceptUID, correct = false) => ({
@@ -57,7 +54,10 @@ const getLowAdditionCount = (newString, oldString) => {
   return false;
 };
 
+String.prototype.quillNormalize = quillNormalize
+
 export default class Question {
+
   constructor(data) {
     this.prompt = data.prompt;
     this.sentences = data.sentences;
@@ -305,13 +305,13 @@ export default class Question {
 
   checkExactMatch(response) {
     return _.find(this.responses,
-      resp => resp.text.normalize() === response.normalize()
+      resp => resp.text.quillNormalize() === response.quillNormalize()
     );
   }
 
   checkCaseInsensitiveMatch(response) {
     return _.find(getOptimalResponses(this.responses),
-      resp => resp.text.normalize().toLowerCase() === response.normalize().toLowerCase()
+      resp => resp.text.quillNormalize().toLowerCase() === response.quillNormalize().toLowerCase()
     );
   }
 
@@ -330,37 +330,37 @@ export default class Question {
 
   checkPunctuationInsensitiveMatch(response) {
     return _.find(getOptimalResponses(this.responses),
-      resp => removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize())
+      resp => removePunctuation(resp.text.quillNormalize()) === removePunctuation(response.quillNormalize())
     );
   }
 
   checkPunctuationAndCaseInsensitiveMatch(response) {
     return _.find(getOptimalResponses(this.responses), (resp) => {
-      const supplied = removePunctuation(response.normalize()).toLowerCase();
-      const target = removePunctuation(resp.text.normalize()).toLowerCase();
+      const supplied = removePunctuation(response.quillNormalize()).toLowerCase();
+      const target = removePunctuation(resp.text.quillNormalize()).toLowerCase();
       return supplied === target;
     });
   }
 
   checkWhiteSpaceMatch(response) {
     return _.find(getOptimalResponses(this.responses),
-      resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize())
+      resp => removeSpaces(response.quillNormalize()) === removeSpaces(resp.text.quillNormalize())
     );
   }
 
   checkSmallTypoMatch(response) {
     return _.find(this.nonChildResponses(this.responses),
-      resp => getLowAdditionCount(response.normalize(), resp.text.normalize())
+      resp => getLowAdditionCount(response.quillNormalize(), resp.text.quillNormalize())
     );
   }
 
   checkChangeObjectRigidMatch(response) {
-    const fn = string => string.normalize();
+    const fn = string => string.quillNormalize();
     return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
   checkChangeObjectFlexibleMatch(response) {
-    const fn = string => removePunctuation(string.normalize()).toLowerCase();
+    const fn = string => removePunctuation(string.quillNormalize()).toLowerCase();
     return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
@@ -388,10 +388,10 @@ export default class Question {
     if (optimalResponses.length < 2) {
       return undefined;
     }
-    const lengthsOfResponses = optimalResponses.map(resp => resp.text.normalize().split(' ').length);
+    const lengthsOfResponses = optimalResponses.map(resp => resp.text.quillNormalize().split(' ').length);
     const minLength = _.min(lengthsOfResponses) - 1;
     if (response.split(' ').length < minLength) {
-      return _.sortBy(optimalResponses, resp => resp.text.normalize().length)[0];
+      return _.sortBy(optimalResponses, resp => resp.text.quillNormalize().length)[0];
     }
     return undefined;
   }
@@ -401,10 +401,10 @@ export default class Question {
     if (optimalResponses.length < 2) {
       return undefined;
     }
-    const lengthsOfResponses = optimalResponses.map(resp => resp.text.normalize().split(' ').length);
+    const lengthsOfResponses = optimalResponses.map(resp => resp.text.quillNormalize().split(' ').length);
     const maxLength = _.max(lengthsOfResponses) + 1;
     if (response.split(' ').length > maxLength) {
-      return _.sortBy(optimalResponses, resp => resp.text.normalize().length).reverse()[0];
+      return _.sortBy(optimalResponses, resp => resp.text.quillNormalize().length).reverse()[0];
     }
     return undefined;
   }
