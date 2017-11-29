@@ -34,7 +34,7 @@ export default class extends React.Component {
         if(body.error) {
           alert(body.error);
         } else {
-          alert('Success!');
+          this.props.onSuccess();
         }
     });
   }

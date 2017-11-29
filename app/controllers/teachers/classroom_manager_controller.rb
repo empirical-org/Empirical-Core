@@ -70,7 +70,12 @@ class Teachers::ClassroomManagerController < ApplicationController
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
-      render json: {active: active, inactive: inactive, coteachers: current_user.classrooms_i_own_that_have_coteachers}
+      render json: {
+        active: active,
+        inactive: inactive,
+        coteachers: current_user.classrooms_i_own_that_have_coteachers,
+        pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations
+      }
     end
   end
 
