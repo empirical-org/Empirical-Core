@@ -89,11 +89,11 @@ module Teacher
 
   def classrooms_i_own_that_have_pending_coteacher_invitations
     ActiveRecord::Base.connection.execute(
-      "SELECT classrooms.name AS name, pending_invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      "SELECT DISTINCT classrooms.name AS name, pending_invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms
       JOIN pending_invitations ON pending_invitations.inviter_id = my_classrooms.user_id
       JOIN coteacher_classroom_invitations ON pending_invitations.id = coteacher_classroom_invitations.pending_invitation_id
-      JOIN classrooms ON my_classrooms.classroom_id = classrooms.id
-      WHERE my_classrooms.user_id = #{self.id} AND pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}'").to_a
+      JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id
+      WHERE my_classrooms.user_id = #{self.id} AND pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}' AND my_classrooms.role = 'owner'").to_a
   end
 
 
