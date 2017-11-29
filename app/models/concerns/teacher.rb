@@ -87,6 +87,15 @@ module Teacher
       WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher'").to_a
   end
 
+  def classrooms_i_own_that_have_pending_coteacher_invitations
+    ActiveRecord::Base.connection.execute(
+      "SELECT classrooms.name AS name, pending_invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      JOIN pending_invitations ON pending_invitations.inviter_id = my_classrooms.user_id
+      JOIN coteacher_classroom_invitations ON pending_invitations.id = coteacher_classroom_invitations.pending_invitation_id
+      JOIN classrooms ON my_classrooms.classroom_id = classrooms.id
+      WHERE my_classrooms.user_id = #{self.id} AND pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}'").to_a
+  end
+
 
   def get_classroom_minis_cache
     cache = $redis.get("user_id:#{self.id}_classroom_minis")
