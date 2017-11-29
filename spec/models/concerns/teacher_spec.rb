@@ -43,6 +43,18 @@ describe User, type: :model do
         expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email])
       end
     end
+    describe '#classrooms_i_own_that_have_pending_coteacher_invitations' do
+
+      it 'returns an empty array if a user owns no classrooms with pending coteacher invitation' do
+        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq([])
+      end
+
+      it 'returns an array with classrooms, email addresses, and names if a user owns classrooms with pending coteacher invitation' do
+        coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
+        teacher = coteacher_classroom_invitation.pending_invitation.inviter
+        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.pending_invitation.invitee_email])
+      end
+    end
 
     describe '#classrooms_i_own' do
       it 'should return all visible classrooms associated with the teacher through classrooms teacher and role owner' do
