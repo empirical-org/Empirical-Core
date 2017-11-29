@@ -12,7 +12,25 @@ class PendingInvitationsController < ApplicationController
       assign_classrooms_to_invitee
       return render json: {invite_id: @pending_invite.id}
     rescue => e
-      return render json: { error: e.message }, status: 422, error: e.message
+      return render json: { error: e.message }, status: 422
+    end
+  end
+
+  def destroy_pending_invitations_to_specific_invitee
+    begin
+      PendingInvitation.find_by(invitation_type: params[:invitation_type], inviter_id: current_user.id, invitee_email: params[:invitee_email]).destroy
+      return render json: {}
+    rescue => e
+      return render json: { error: e.message }, status: 422
+    end
+  end
+
+  def destroy_pending_invitations_from_specific_inviter
+    begin
+      PendingInvitation.find_by(invitation_type: params[:invitation_type], inviter_id: params[:inviter_id], invitee_email: current_user.email).destroy
+      return render json: {}
+    rescue => e
+      return render json: { error: e.message }, status: 422
     end
   end
 

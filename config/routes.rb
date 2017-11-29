@@ -224,6 +224,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :pending_invitations, only: [] do
     collection do
       post :create_coteacher_invitation
+      delete :destroy_pending_invitations_to_specific_invitee
+      delete :destroy_pending_invitations_from_specific_inviter
     end
   end
 
