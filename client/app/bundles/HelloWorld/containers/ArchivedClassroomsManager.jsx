@@ -1,11 +1,8 @@
 import React from 'react';
-import request from 'request';
 import $ from 'jquery';
 import _ from 'underscore';
-import getAuthToken from '../components/modules/get_auth_token';
 import NotificationBox from '../components/shared/notification_box.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
-import InviteCoteachers from '../components/classroom_management/invite_coteachers.jsx';
 
 export default React.createClass({
 
@@ -38,49 +35,12 @@ export default React.createClass({
           context: this,
           cache: false,
           success(data) {
-            this.formatData(data)
+            const showArchivedNotification = data.active.length === 0;
+            this.setState({ classrooms: data, loading: false, showArchivedNotification, });
           },
         });
       }
     );
-  },
-
-  formatData(data){
-    const coteacherClassroomsAndTeachers = this.formatCoteachers(data.coteachers, true)
-    data.coteachers = coteacherClassroomsAndTeachers.coteachers
-    data.coteachersByClassroom = coteacherClassroomsAndTeachers.coteachersByClassroom
-    data.pending_coteachers = this.formatCoteachers(data.pending_coteachers)
-    const showArchivedNotification = data.active.length === 0;
-    this.setState({ classrooms: data, loading: false, showArchivedNotification, });
-  },
-
-  formatCoteachers(teachers, isCoteachers) {
-    const classroomsByCoteacher = {};
-    const coteachersByClassroom = {}
-    teachers.forEach((coteacher)=> {
-      if (isCoteachers) {
-        // get an array of the coteachers that each classroom has
-        coteachersByClassroom[coteacher.name] = coteachersByClassroom[coteacher.name] || []
-        // name is classroom name
-        coteachersByClassroom[coteacher.name].push(coteacher.coteacher_name)
-      }
-      // get an array of the classrooms that each coteacher owns
-      classroomsByCoteacher[coteacher.coteacher_email] = classroomsByCoteacher[coteacher.coteacher_email] || []
-      classroomsByCoteacher[coteacher.coteacher_email].push(coteacher.name);
-    });
-    const newCoteachers = []
-    for (let email in classroomsByCoteacher) {
-      if (classroomsByCoteacher.hasOwnProperty(email)) {
-        const teacherMatch = teachers.find((t)=>t.coteacher_email == email)
-        teacherMatch.classrooms = classroomsByCoteacher[email]
-        delete teacherMatch.name
-        newCoteachers.push(teacherMatch)
-      }
-    }
-    if (isCoteachers) {
-      return {coteachersByClassroom, coteachers: newCoteachers}
-    }
-    return newCoteachers
   },
 
   classAction(status, id) {
@@ -131,55 +91,12 @@ export default React.createClass({
     </span>);
   },
 
-  editOrRemove(action, coteacher_email){
-    if (action == 'pending_coteachers') {
-      return <td className='edit-or-remove' onClick={() => { this.removePendingCoteacher(coteacher_email) }}><i className="fa fa-times-circle" aria-hidden="true"></i>Remove</td>
-    } else {
-      return <td className='edit-or-remove'><i className="fa fa-pencil" aria-hidden="true"></i>Edit</td>
-    }
-  },
-
-  removePendingCoteacher(coteacher_email) {
-    request({
-      url: `${process.env.DEFAULT_URL}/pending_invitations/destroy_pending_invitations_to_specific_invitee`,
-      method: 'DELETE',
-      json: { invitee_email: coteacher_email, invitation_type: 'coteacher', authenticity_token: getAuthToken(), },
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
-        this.getClassrooms();
-      } else {
-        alert('Sadly, an error occurred.');
-      }
-    });
-  },
-
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
-      if (action === 'coteachers' || action == 'pending_coteachers') {
-        return (
-          <tr key={cl.email} className={`${action}_row`}>
-            <td>{cl.coteacher_name || '—'}</td>
-            <td>{cl.coteacher_email}</td>
-            <td>{cl.status || 'Approved'}</td>
-            <td>{cl.classrooms.map(classroom => <p key={`${classroom}-${cl.coteacher_email}`}>{classroom}</p>)}</td>
-            {this.editOrRemove(action, cl.coteacher_email)}
-          </tr>
-        )
-      }
-      const coteachersArr = this.state.classrooms.coteachersByClassroom[cl.className]
-      let coteacherCell;
-      if (coteachersArr && coteachersArr.length) {
-        coteacherCell = coteachersArr.map(coteacher =><p key={`${coteacher}-${cl.coteacher_email}-coteacher-list`}>{coteacher}</p>)
-      }
-
       return (
         <tr key={cl.id}>
           <td>{cl.className}</td>
-          <td>
-            {coteacherCell}
-          </td>
           <td>{cl.classcode}</td>
           <td className="student-count">{cl.studentCount}</td>
           <td className="created-date">{cl.createdDate}</td>
@@ -201,29 +118,17 @@ export default React.createClass({
   tableHeaders(action) {
     let content;
     if (this.props.role === 'teacher') {
-      if (action === 'coteachers') {
-      content = (
-        <tr>
-          <th>Co-Teacher Name</th>
-          <th>Email Address</th>
-          <th>Status</th>
-          <th>Classes</th>
-          <th />
-        </tr>
-      )}
-      else {
-        const manageClass = action === 'Archive' ? 'Edit Students' : '';
-        content =
-        (<tr>
-          <th>Class Name</th>
-          <th>Classcode</th>
-          <th className="student-count">Student Count</th>
-          <th className="created-date">Date Created</th>
-          <th>{manageClass}</th>
-          <th />
-        </tr>)
-        ;
-      }
+      const manageClass = action === 'Archive' ? 'Edit Students' : '';
+      content =
+       (<tr>
+         <th>Class Name</th>
+         <th>Classcode</th>
+         <th className="student-count">Student Count</th>
+         <th className="created-date">Date Created</th>
+         <th>{manageClass}</th>
+         <th />
+       </tr>)
+     ;
     } else if (this.props.role === 'student') {
       content =
        (<tr>
@@ -269,29 +174,12 @@ export default React.createClass({
     const header = <h1>{`${section.charAt(0).toUpperCase() + section.slice(1)} Classes`}</h1>;
     if (classes.length > 0) {
       return (
+        // [header, this.displayClassrooms(this.state.classrooms[section], action)]
         <div>
           {header}
           {this.displayClassrooms(this.state.classrooms[section], action)}
         </div>
       );
-    }
-  },
-
-
-  coteachers(){
-    if (this.state.classrooms.coteachers.length) {
-      return (
-        <div>
-          <h1>My Co-Teachers</h1>
-          <table className="table">
-            {this.tableHeaders('coteachers')}
-            <tbody>
-              {this.mapClassrooms(this.state.classrooms.pending_coteachers, 'pending_coteachers')}
-              {this.mapClassrooms(this.state.classrooms.coteachers, 'coteachers')}
-            </tbody>
-          </table>
-        </div>
-      )
     }
   },
 
@@ -301,7 +189,6 @@ export default React.createClass({
         <div className={this.props.role}>
           {this.activeOrArchived('active', 'Archive')}
           {this.activeOrArchived('inactive', 'Unarchive')}
-          {this.coteachers()}
         </div>
       );
     }
@@ -335,7 +222,6 @@ export default React.createClass({
         {this.optionSection()}
         {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
-        <InviteCoteachers onSuccess={this.getClassrooms} classrooms={this.state.classrooms}/>
       </div>
     );
   },
