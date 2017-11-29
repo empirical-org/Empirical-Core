@@ -6,6 +6,7 @@ describe CoteacherClassroomInvitationsController, type: :controller do
   let(:pending_invitation) { invite_one.pending_invitation }
   let(:invite_two) { create(:coteacher_classroom_invitation, classroom_id: teacher.classrooms_i_own.second.id, pending_invitation_id: pending_invitation.id) }
   let(:invited_teacher) { create(:teacher, email: pending_invitation.invitee_email) }
+  let(:unaffiliated_teacher) { create(:teacher) }
 
   describe '#accept_pending_coteacher_invitations' do
     context 'user is signed in' do
@@ -26,17 +27,33 @@ describe CoteacherClassroomInvitationsController, type: :controller do
           expect(response).to redirect_to dashboard_teachers_classrooms_path
         end
       end
-      #
-      # context 'post' do
-      #
-      # end
+
+      context 'post' do
+        it 'should accept one invitation' do
+          get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
+          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to eq([invite_one.classroom_id])
+        end
+
+        it 'should accept multiple invitations' do
+          get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id, invite_two.id]
+          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to eq([invite_one.classroom_id, invite_two.classroom_id])
+        end
+      end
     end
 
-    # context 'user is not signed in' do
-    #   it 'should redirect to the login page' do
-    #     get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
-    #     expect(response.status
-    #   end
-    # end
+    context 'user is not signed in' do
+      it 'should redirect to the login page' do
+        get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
+        expect(response).to redirect_to new_session_path
+      end
+    end
+
+    context 'user does not have access' do
+      it 'should redirect to the login page' do
+        session[:user_id] = unaffiliated_teacher.id
+        get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
+        expect(response).to redirect_to new_session_path
+      end
+    end
   end
 end
