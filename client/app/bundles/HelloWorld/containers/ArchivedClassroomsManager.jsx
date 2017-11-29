@@ -46,18 +46,26 @@ export default React.createClass({
   },
 
   formatData(data){
-    data.coteachers = this.formatCoteachers(data.coteachers)
+    const coteacherClassroomsAndTeachers = this.formatCoteachers(data.coteachers, true)
+    data.coteachers = coteacherClassroomsAndTeachers.coteachers
+    data.coteachersByClassroom = coteacherClassroomsAndTeachers.coteachersByClassroom
     data.pending_coteachers = this.formatCoteachers(data.pending_coteachers)
     const showArchivedNotification = data.active.length === 0;
     this.setState({ classrooms: data, loading: false, showArchivedNotification, });
   },
 
-  formatCoteachers(teachers) {
+  formatCoteachers(teachers, isCoteachers) {
     const classroomsByCoteacher = {};
+    const coteachersByClassroom = {}
     teachers.forEach((coteacher)=> {
+      if (isCoteachers) {
+        // get an array of the coteachers that each classroom has
+        coteachersByClassroom[coteacher.name] = coteachersByClassroom[coteacher.name] || []
+        // name is classroom name
+        coteachersByClassroom[coteacher.name].push(coteacher.coteacher_name)
+      }
       // get an array of the classrooms that each coteacher owns
       classroomsByCoteacher[coteacher.coteacher_email] = classroomsByCoteacher[coteacher.coteacher_email] || []
-      // name is classroom name
       classroomsByCoteacher[coteacher.coteacher_email].push(coteacher.name);
     });
     const newCoteachers = []
@@ -68,6 +76,9 @@ export default React.createClass({
         delete teacherMatch.name
         newCoteachers.push(teacherMatch)
       }
+    }
+    if (isCoteachers) {
+      return {coteachersByClassroom, coteachers: newCoteachers}
     }
     return newCoteachers
   },
@@ -157,9 +168,18 @@ export default React.createClass({
           </tr>
         )
       }
+      const coteachersArr = this.state.classrooms.coteachersByClassroom[cl.className]
+      let coteacherCell;
+      if (coteachersArr && coteachersArr.length) {
+        coteacherCell = coteachersArr.map(coteacher =><p key={`${coteacher}-${cl.coteacher_email}-coteacher-list`}>{coteacher}</p>)
+      }
+
       return (
         <tr key={cl.id}>
           <td>{cl.className}</td>
+          <td>
+            {coteacherCell}
+          </td>
           <td>{cl.classcode}</td>
           <td className="student-count">{cl.studentCount}</td>
           <td className="created-date">{cl.createdDate}</td>
