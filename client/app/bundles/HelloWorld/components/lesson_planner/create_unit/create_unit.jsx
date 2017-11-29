@@ -314,7 +314,7 @@ export default React.createClass({
       return (<UnitTemplatesAssigned data={this.state.assignSuccess} />);
     }
 
-    if(_.map(this.state.selectedActivities, activity => { return activity.classification.id }).includes(6)) {
+    if (_.map(this.state.selectedActivities, activity => activity.activity_classification.id).includes(6)) {
       // There is a lesson here, so we should send the teacher to the Lessons page.
       window.location.href = `/teachers/classrooms/activity_planner/lessons#${this.state.newUnitId}`;
     } else {
