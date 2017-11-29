@@ -35,6 +35,7 @@ export default class extends React.Component {
           alert(body.error);
         } else {
           this.props.onSuccess();
+          this.setState({email: ''});
         }
     });
   }
