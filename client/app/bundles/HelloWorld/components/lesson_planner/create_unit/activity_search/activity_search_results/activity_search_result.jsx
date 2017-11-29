@@ -36,7 +36,7 @@ export default React.createClass({
           <label htmlFor={`activity_${this.props.data.id}`} id={`activity_${this.props.data.id}`} className="css-label" />
         </td>
 
-        <td>
+        <td style={{display: 'flex', justifyContent: 'center'}}>
           {toolTip}
         </td>
 

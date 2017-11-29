@@ -7,8 +7,12 @@
   .selected-activities {
     display: table;
     border-bottom: none;
+    background-color: white;
     .deselect-activity {
       padding-right: 40px;
+    }
+    tr {
+      height: 56;
     }
   }
 }
