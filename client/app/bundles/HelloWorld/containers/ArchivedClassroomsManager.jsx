@@ -1,6 +1,8 @@
 import React from 'react';
+import request from 'request';
 import $ from 'jquery';
 import _ from 'underscore';
+import getAuthToken from '../components/modules/get_auth_token';
 import NotificationBox from '../components/shared/notification_box.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import InviteCoteachers from '../components/classroom_management/invite_coteachers.jsx';
@@ -36,16 +38,23 @@ export default React.createClass({
           context: this,
           cache: false,
           success(data) {
-            this.formatCoteachers(data)
+            this.formatData(data)
           },
         });
       }
     );
   },
 
-  formatCoteachers(data){
+  formatData(data){
+    data.coteachers = this.formatCoteachers(data.coteachers)
+    data.pending_coteachers = this.formatCoteachers(data.pending_coteachers)
+    const showArchivedNotification = data.active.length === 0;
+    this.setState({ classrooms: data, loading: false, showArchivedNotification, });
+  },
+
+  formatCoteachers(teachers) {
     const classroomsByCoteacher = {};
-    data.coteachers.forEach((coteacher)=> {
+    teachers.forEach((coteacher)=> {
       // get an array of the classrooms that each coteacher owns
       classroomsByCoteacher[coteacher.coteacher_email] = classroomsByCoteacher[coteacher.coteacher_email] || []
       // name is classroom name
@@ -54,15 +63,13 @@ export default React.createClass({
     const newCoteachers = []
     for (let email in classroomsByCoteacher) {
       if (classroomsByCoteacher.hasOwnProperty(email)) {
-        const teacherMatch = data.coteachers.find((t)=>t.coteacher_email == email)
+        const teacherMatch = teachers.find((t)=>t.coteacher_email == email)
         teacherMatch.classrooms = classroomsByCoteacher[email]
         delete teacherMatch.name
         newCoteachers.push(teacherMatch)
       }
     }
-    data.coteachers = newCoteachers
-    const showArchivedNotification = data.active.length === 0;
-    this.setState({ classrooms: data, loading: false, showArchivedNotification, });
+    return newCoteachers
   },
 
   classAction(status, id) {
@@ -113,25 +120,40 @@ export default React.createClass({
     </span>);
   },
 
-  editOrRemove(status){
-    if (status) {
-      return <td className='edit-or-remove'><i className="fa fa-times-circle" aria-hidden="true"></i>Remove</td>
+  editOrRemove(action, coteacher_email){
+    if (action == 'pending_coteachers') {
+      return <td className='edit-or-remove' onClick={() => { this.removePendingCoteacher(coteacher_email) }}><i className="fa fa-times-circle" aria-hidden="true"></i>Remove</td>
     } else {
       return <td className='edit-or-remove'><i className="fa fa-pencil" aria-hidden="true"></i>Edit</td>
     }
   },
 
+  removePendingCoteacher(coteacher_email) {
+    request({
+      url: `${process.env.DEFAULT_URL}/pending_invitations/destroy_pending_invitations_to_specific_invitee`,
+      method: 'DELETE',
+      json: { invitee_email: coteacher_email, invitation_type: 'coteacher', authenticity_token: getAuthToken(), },
+    },
+    (err, httpResponse, body) => {
+      if (httpResponse.statusCode === 200) {
+        this.getClassrooms();
+      } else {
+        alert('Sadly, an error occurred.');
+      }
+    });
+  },
+
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
-      if (action === 'coteachers') {
+      if (action === 'coteachers' || action == 'pending_coteachers') {
         return (
-          <tr key={cl.email}>
-            <td>{cl.coteacher_name}</td>
+          <tr key={cl.email} className={`${action}_row`}>
+            <td>{cl.coteacher_name || '—'}</td>
             <td>{cl.coteacher_email}</td>
             <td>{cl.status || 'Approved'}</td>
-            <td>{cl.classrooms}</td>
-            {this.editOrRemove(cl.status)}
+            <td>{cl.classrooms.map(classroom => <p key={`${classroom}-${cl.coteacher_email}`}>{classroom}</p>)}</td>
+            {this.editOrRemove(action, cl.coteacher_email)}
           </tr>
         )
       }
@@ -244,6 +266,7 @@ export default React.createClass({
           <table className="table">
             {this.tableHeaders('coteachers')}
             <tbody>
+              {this.mapClassrooms(this.state.classrooms.pending_coteachers, 'pending_coteachers')}
               {this.mapClassrooms(this.state.classrooms.coteachers, 'coteachers')}
             </tbody>
           </table>
@@ -292,7 +315,7 @@ export default React.createClass({
         {this.optionSection()}
         {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
-        <InviteCoteachers classrooms={this.state.classrooms}/>
+        <InviteCoteachers onSuccess={this.getClassrooms} classrooms={this.state.classrooms}/>
       </div>
     );
   },

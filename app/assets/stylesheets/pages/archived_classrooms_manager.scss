@@ -50,6 +50,7 @@
       i {
         padding-right: 10px;
         font-size: 10px;
+        vertical-align: middle;
       }
     }
     tr td:last-of-type, .manage-class {
@@ -65,6 +66,15 @@
         margin: 0;
         margin-right: 5px;
         padding: 0;
+      }
+    }
+
+    .pending_coteachers_row {
+      color: #969696;
+      font-style: italic;
+
+      td:last-of-type {
+        font-style: normal;
       }
     }
   }
