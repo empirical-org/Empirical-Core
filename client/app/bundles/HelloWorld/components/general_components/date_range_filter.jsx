@@ -46,6 +46,7 @@ export default React.createClass({
         daySize={30}
         navPrev={'‹'}
         navNext={'›'}
+        customInputIcon={<i className="fa fa-icon fa-calendar"/>}
       />
     );
   }
