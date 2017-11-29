@@ -67,16 +67,15 @@ module IncorrectSequenceCalculator
   def self.get_incorrect_sequences_for_question(uid)
     model = train_correct_sentences(Response.where(question_uid: uid, optimal: true).pluck(:text))
     counter = Hash.new(0)
-    puts Response.where(question_uid: uid, optimal: [false, nil]).count
-    Response.where(question_uid: uid, optimal: [false, nil]).where("count > ?", 1).pluck_in_batches(:text, batch_size: 250) do |batch|
-      counter = train_incorrect_sentences(batch.flatten, model, counter)
+    response_count = Response.where(question_uid: uid, optimal: [false, nil]).count > 250 ? 1 : 0
+    Response.where(question_uid: uid, optimal: [false, nil]).where("count > ?", response_count).pluck_in_batches(:text, :count, batch_size: 250) do |batch|
+      counter = train_incorrect_sentences(batch, model, counter)
     end
     amplify(counter, model)
-    return counter.sort_by {|k, v| v }.reverse.first(50).map{|k,v| k}
+    return counter.sort_by {|k, v| v }.reverse.first(100).map{|k,v| k}
   end
 
   def self.get_padded_words_array(sentence)
-    # byebug
     words = sentence.split(" ")
     words.map.with_index do |word, i|
       if i == 0
@@ -143,7 +142,7 @@ module IncorrectSequenceCalculator
 
   def self.train_incorrect_sentences(sentences=[], correct_substring_counts=Hash.new(0), counter=Hash.new(0))
     sentences.each do |sentence|
-      get_incorrect_substrings_of_sentence(sentence, correct_substring_counts).each { |subs| counter[subs] += 1 }
+      get_incorrect_substrings_of_sentence(sentence[0], correct_substring_counts).each { |subs| counter[subs] += sentence[1] }
     end
     counter
   end
@@ -151,8 +150,8 @@ module IncorrectSequenceCalculator
   def self.amplify(incorrect_substrings, correct_substrings)
     begin
       incorrect_substrings.each do |substring,v|
-        if v > 1
-          correct_substrings.each do |corsub, v|  
+        if v > 10
+          correct_substrings.each do |corsub, c|  
             if substring.slice(0...corsub.length) == corsub
               new_substring = " " + substring.slice(corsub.length..-1)
             elsif substring.slice(-corsub.length..-1) == corsub
@@ -160,7 +159,7 @@ module IncorrectSequenceCalculator
             end
             if new_substring && new_substring.strip != ""
               if incorrect_substrings[new_substring] != 0
-                incorrect_substrings[new_substring] += 1
+                incorrect_substrings[new_substring] += v
               end
             end
   
