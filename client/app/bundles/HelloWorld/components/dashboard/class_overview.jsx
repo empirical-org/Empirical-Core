@@ -28,7 +28,12 @@ export default React.createClass({
   },
 
   overviewMinis() {
-    return _.map(this.props.data, overviewObj => <OverviewMini overviewObj={overviewObj} key={overviewObj.header} />);
+    const minis = _.map(this.props.data, overviewObj => {
+      if (overviewObj.results && overviewObj.results !== 'insufficient data') {
+        return <OverviewMini overviewObj={overviewObj} key={overviewObj.header} />
+      }
+    });
+    return _.compact(minis)
   },
 
   betaMini() {
