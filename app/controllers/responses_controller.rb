@@ -1,6 +1,6 @@
 require 'modules/response_search'
 require 'modules/response_aggregator'
-
+require 'modules/incorrect_sequence_calculator'
 class ResponsesController < ApplicationController
   include ResponseSearch
   include ResponseAggregator
@@ -77,6 +77,10 @@ class ResponsesController < ApplicationController
 
   def get_grade_breakdown
     render json: optimality_counts_of_question(params[:question_uid])
+  end
+
+  def get_incorrect_sequences
+    render json: IncorrectSequenceCalculator.get_incorrect_sequences_for_question(params[:question_uid])
   end
 
   def increment_counts(response)
