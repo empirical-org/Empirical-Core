@@ -10,10 +10,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
       archived_classrooms = all_classrooms - visible_classrooms
       session[:user_id] = teacher.id
       get :archived_classroom_manager_data
+      binding.pry
       expect(response.body).to eq({
         active: visible_classrooms.map(&:archived_classrooms_manager),
-        inactive: archived_classrooms.map(&:archived_classrooms_manager), 
-        coteachers: teacher.classrooms_i_own_that_have_coteachers
+        inactive: archived_classrooms.map(&:archived_classrooms_manager),
+        coteachers: teacher.classrooms_i_own_that_have_coteachers,
+        pending_coteachers: teacher.classrooms_i_own_that_have_pending_coteacher_invitations
       }.to_json)
     end
   end
