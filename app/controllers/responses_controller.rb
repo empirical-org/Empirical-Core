@@ -186,7 +186,7 @@ class ResponsesController < ApplicationController
 
     def concept_results_to_boolean(concept_results)
       concept_results.each do |key, val|
-        concept_results[key] = val == 'true'
+        concept_results[key] = val == 'true' || val == true
       end
     end
 
