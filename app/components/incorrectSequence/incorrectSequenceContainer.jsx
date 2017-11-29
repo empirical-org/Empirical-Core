@@ -5,13 +5,39 @@ import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConce
 import questionActions from '../../actions/questions.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import SortableList from '../questions/sortableList/sortableList.jsx';
+import request from 'request'
 
 class IncorrectSequencesContainer extends Component {
   constructor() {
     super();
+
+    this.state = {
+      suggestedSequences: []
+    }
+
     this.deleteSequence = this.deleteSequence.bind(this);
     this.submitSequenceForm = this.submitSequenceForm.bind(this);
     this.sortCallback = this.sortCallback.bind(this);
+    this.getSuggestedSequences = this.getSuggestedSequences.bind(this);
+  }
+
+  componentWillMount() {
+    this.getSuggestedSequences()
+  }
+
+  getSuggestedSequences() {
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/responses/${this.props.params.questionID}/incorrect_sequences`,
+        method: 'GET',
+      },
+        (err, httpResponse, data) => {
+          debugger;
+          this.setState({
+            suggestedSequences: JSON.parse(data),
+          });
+        }
+      );
   }
 
   getQuestion() {
