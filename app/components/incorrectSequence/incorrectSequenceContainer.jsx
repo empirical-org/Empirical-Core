@@ -32,7 +32,6 @@ class IncorrectSequencesContainer extends Component {
         method: 'GET',
       },
         (err, httpResponse, data) => {
-          debugger;
           this.setState({
             suggestedSequences: JSON.parse(data),
           });
