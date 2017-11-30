@@ -9,12 +9,19 @@ class NewIncorrectSequencesContainer extends Component {
   constructor() {
     super();
 
-    this.state = {
-      suggestedSequences: []
-    }
-
+    // this.state = {
+    //   suggestedSequences: []
+    // }
+    //
     this.submitSequenceForm = this.submitSequenceForm.bind(this);
-    this.getSuggestedSequences = this.getSuggestedSequences.bind(this);
+    // this.getSuggestedSequences = this.getSuggestedSequences.bind(this);
+  }
+
+  componentWillMount() {
+    const qid = this.props.params.questionID
+    if (!this.props.generatedIncorrectSequences.suggested[qid]) {
+      this.props.dispatch(questionActions.getSuggestedSequences(qid))
+    }
   }
 
   submitSequenceForm(data) {
@@ -24,28 +31,32 @@ class NewIncorrectSequencesContainer extends Component {
   }
 
 
-  componentWillMount() {
-    this.getSuggestedSequences()
-  }
-
-  getSuggestedSequences() {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/${this.props.params.questionID}/incorrect_sequences`,
-        method: 'GET',
-      },
-        (err, httpResponse, data) => {
-          this.setState({
-            suggestedSequences: JSON.parse(data),
-          });
-        }
-      );
-    }
-
+  // componentWillMount() {
+  //   this.getSuggestedSequences()
+  // }
+  //
+  // getSuggestedSequences() {
+  //   request(
+  //     {
+  //       url: `${process.env.QUILL_CMS}/responses/${this.props.params.questionID}/incorrect_sequences`,
+  //       method: 'GET',
+  //     },
+  //       (err, httpResponse, data) => {
+  //         this.setState({
+  //           suggestedSequences: JSON.parse(data),
+  //         });
+  //       }
+  //     );
+  //   }
+  //
   render() {
     return (
       <div>
-        <IncorrectSequencesInputAndConceptSelectorForm itemLabel='Incorrect Sequence' onSubmit={this.submitSequenceForm} suggestedSequences={this.state.suggestedSequences}/>
+        <IncorrectSequencesInputAndConceptSelectorForm
+          itemLabel='Incorrect Sequence'
+          onSubmit={this.submitSequenceForm}
+          suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.params.questionID]}
+        />
         {this.props.children}
       </div>
     );
@@ -55,6 +66,7 @@ class NewIncorrectSequencesContainer extends Component {
 function select(props) {
   return {
     questions: props.questions,
+    generatedIncorrectSequences: props.generatedIncorrectSequences
   };
 }
 

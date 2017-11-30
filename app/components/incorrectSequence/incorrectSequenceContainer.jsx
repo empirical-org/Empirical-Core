@@ -11,32 +11,13 @@ class IncorrectSequencesContainer extends Component {
   constructor() {
     super();
 
-    this.state = {
-      suggestedSequences: []
-    }
-
     this.deleteSequence = this.deleteSequence.bind(this);
     this.submitSequenceForm = this.submitSequenceForm.bind(this);
     this.sortCallback = this.sortCallback.bind(this);
-    this.getSuggestedSequences = this.getSuggestedSequences.bind(this);
   }
 
   componentWillMount() {
-    this.getSuggestedSequences()
-  }
-
-  getSuggestedSequences() {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/${this.props.params.questionID}/incorrect_sequences`,
-        method: 'GET',
-      },
-        (err, httpResponse, data) => {
-          this.setState({
-            suggestedSequences: JSON.parse(data),
-          });
-        }
-      );
+    this.props.dispatch(questionActions.getSuggestedSequences(this.props.params.questionID))
   }
 
   getQuestion() {
@@ -136,6 +117,7 @@ class IncorrectSequencesContainer extends Component {
 function select(props) {
   return {
     questions: props.questions,
+    generatedIncorrectSequences: props.generatedIncorrectSequences
   };
 }
 

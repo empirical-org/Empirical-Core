@@ -238,6 +238,24 @@ function updateStringFilter(stringFilter, qid) {
   };
 }
 
+function getSuggestedSequences(qid) {
+  return (dispatch) => {
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequences`,
+        method: 'GET',
+      },
+      (err, httpResponse, data) => {
+        dispatch(setSuggestedSequences(qid, JSON.parse(data)))
+      }
+    );
+  }
+}
+
+function setSuggestedSequences(qid, seq) {
+  return {type: C.SET_SUGGESTED_SEQUENCES, qid, seq}
+}
+
 function startResponseEdit(qid, rid) {
   return { type: C.START_RESPONSE_EDIT, qid, rid, };
 }
@@ -324,5 +342,6 @@ module.exports = {
   setPageNumber,
   setStringFilter,
   incrementRequestCount,
-  updateFlag
+  updateFlag,
+  getSuggestedSequences
 };

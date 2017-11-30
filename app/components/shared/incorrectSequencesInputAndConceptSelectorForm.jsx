@@ -92,21 +92,42 @@ export default React.createClass({
     this.setState(data);
   },
 
-  addSuggestedSequence(text) {
-    let incorrectSequences = this.state.itemText
-    incorrectSequences += `${text}|||`
-    this.setState({itemText: incorrectSequences})
+  toggleSuggestedSequence(text) {
+    let newIncorrectSequences
+    const incorrectSequences = this.state.itemText.split('|||')
+    const index = incorrectSequences.indexOf(`${text}`)
+    if (index !== -1) {
+      incorrectSequences.splice(index, 1).join('|||')
+      newIncorrectSequences = incorrectSequences.join('|||')
+    } else {
+      newIncorrectSequences = incorrectSequences.join('|||') + `${text}|||`
+    }
+    this.setState({itemText: newIncorrectSequences})
   },
 
   renderSuggestedIncorrectSequences() {
-    return this.props.suggestedSequences.map(seq =>
-      <span
-        className="tag is-dark"
-        style={{margin: '5px'}}
-        key={seq}
-        onClick={() => this.addSuggestedSequence(seq)}
-      >{seq}</span>
-    )
+    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
+      const incorrectSequences = this.props.suggestedSequences.map((seq, i) => {
+        const incorrectSequences = this.state.itemText.split('|||')
+        const added = incorrectSequences.includes(`${seq}`)
+        const covered = _.any(incorrectSequences, inSeq => inSeq.length > 0 && seq.includes(inSeq));
+        let color
+        if (added) {
+          color = '#c0c0c0'
+        } else if (covered) {
+          color = '#969696'
+        } else {
+          color = '#3b3b3b'
+        }
+        return <span
+          className="tag"
+          style={{margin: '5px', backgroundColor: color, color: 'white'}}
+          key={i}
+          onClick={() => this.toggleSuggestedSequence(seq)}
+          >{seq}</span>
+      })
+      return <div style={{overflow:'scroll'}}>{incorrectSequences}</div>
+    }
   },
 
   render() {
