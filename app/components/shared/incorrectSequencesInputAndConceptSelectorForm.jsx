@@ -107,7 +107,7 @@ export default React.createClass({
 
   renderSuggestedIncorrectSequences() {
     if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      const incorrectSequences = this.props.suggestedSequences.map((seq, i) => {
+      const suggestedSequences = this.props.suggestedSequences.map((seq, i) => {
         const incorrectSequences = this.state.itemText.split('|||')
         const added = incorrectSequences.includes(`${seq}`)
         const covered = _.any(incorrectSequences, inSeq => inSeq.length > 0 && seq.includes(inSeq));
@@ -126,7 +126,40 @@ export default React.createClass({
           onClick={() => this.toggleSuggestedSequence(seq)}
           >{seq}</span>
       })
-      return <div style={{overflow:'scroll'}}>{incorrectSequences}</div>
+      return <div>
+        <label className="label">Suggested Sequences</label>
+        <div>
+          {suggestedSequences}
+        </div>
+      </div>
+    }
+  },
+
+  renderUsedIncorrectSequences() {
+    if (this.props.usedSequences && this.props.usedSequences.length > 0) {
+      const usedSequences = this.props.usedSequences.map((seq, i) => {
+        return <span
+          className="tag"
+          style={{margin: '5px', backgroundColor: '#c0c0c0', color: 'white'}}
+          key={i}
+          onClick={() => this.toggleSuggestedSequence(seq)}
+          >{seq}</span>
+        })
+        return <div>
+          <label className="label">Used Sequences</label>
+          <div>
+            {usedSequences}
+          </div>
+        </div>
+    }
+  },
+
+  renderSuggestedIncorrectSequencesSection() {
+    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
+      return <div style={{overflow:'scroll',maxHeight:'130px'}}>
+        {this.renderSuggestedIncorrectSequences()}
+        {this.renderUsedIncorrectSequences()}
+      </div>
     }
   },
 
@@ -137,7 +170,7 @@ export default React.createClass({
         <div className="control">
           <label className="label">{this.props.itemLabel} Text</label>
           {this.renderTextInputFields()}
-          {this.renderSuggestedIncorrectSequences()}
+          {this.renderSuggestedIncorrectSequencesSection()}
           <label className="label" style={{ marginTop: 10, }}>Feedback</label>
           <TextEditor text={this.state.itemFeedback || ""} handleTextChange={this.handleFeedbackChange} key={"feedback"}/>
           <label className="label" style={{ marginTop: 10, }}>Concepts</label>

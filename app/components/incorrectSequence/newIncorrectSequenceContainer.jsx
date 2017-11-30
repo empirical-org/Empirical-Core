@@ -56,6 +56,7 @@ class NewIncorrectSequencesContainer extends Component {
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
           suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.params.questionID]}
+          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
         />
         {this.props.children}
       </div>

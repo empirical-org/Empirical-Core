@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 const initialState = {
   generatedIncorrectSequences: {
-    suggested: {}
+    suggested: {},
+    used: {}
   }
 };
 
@@ -13,6 +14,10 @@ export default function (currentstate, action) {
     case C.SET_SUGGESTED_SEQUENCES:
       newstate = _.cloneDeep(currentstate);
       newstate.suggested[action.qid] = action.seq
+      return newstate;
+    case C.SET_USED_SEQUENCES:
+      newstate = _.cloneDeep(currentstate);
+      newstate.used[action.qid] = action.seq
       return newstate;
     default: return currentstate || initialState.generatedIncorrectSequences;
   }

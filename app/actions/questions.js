@@ -239,21 +239,41 @@ function updateStringFilter(stringFilter, qid) {
 }
 
 function getSuggestedSequences(qid) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     request(
       {
         url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequences`,
         method: 'GET',
       },
       (err, httpResponse, data) => {
-        dispatch(setSuggestedSequences(qid, JSON.parse(data)))
+        const suggestedSeqs = JSON.parse(data)
+        const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
+        const usedSeqs = []
+        Object.values(existingIncorrectSeqs).forEach(inSeq => {
+          const phrases = inSeq.text.split('|||')
+          phrases.forEach((p) => {
+            const index = suggestedSeqs.indexOf(p)
+            if (index !== 0) {
+              usedSeqs.push(p)
+              suggestedSeqs.splice(index, 1)
+            }
+          })
+        })
+        dispatch(setSuggestedSequences(qid, suggestedSeqs));
+        dispatch(setUsedSequences(qid, usedSeqs));
       }
     );
   }
 }
 
 function setSuggestedSequences(qid, seq) {
+  console.log('suggested sequences gets called')
   return {type: C.SET_SUGGESTED_SEQUENCES, qid, seq}
+}
+
+function setUsedSequences(qid, seq) {
+  console.log('used sequences gets called')
+  return {type: C.SET_USED_SEQUENCES, qid, seq}
 }
 
 function startResponseEdit(qid, rid) {

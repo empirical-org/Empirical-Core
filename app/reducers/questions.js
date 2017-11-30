@@ -7,7 +7,6 @@ const initialState = {
     submittingnew: false,
     states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
     data: {}, // this will contain firebase data,
-    suggestedSequences: {}
   },
 };
 

@@ -33,8 +33,9 @@ class EditIncorrectSequencesContainer extends Component {
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
-          onSubmit={this.submitSequenceForm}
+          onSubmit={this.submitForm}
           suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.params.questionID]}
+          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
           item={Object.assign(this.getIncorrectSequence(), { id: this.props.params.incorrectSequenceID, })}
         />
         {this.props.children}
