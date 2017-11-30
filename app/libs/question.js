@@ -420,7 +420,7 @@ export default class Question {
   checkIncorrectSequenceMatch(response) {
     return _.find(this.incorrectSequences, (incSeq) => {
       const options = incSeq.text.split('|||');
-      const anyMatches = _.any(options, opt => new RegExp(opt).test(response.toLowerCase()));
+      const anyMatches = _.any(options, opt => new RegExp(opt).test(response));
       return anyMatches;
     });
   }
