@@ -17,46 +17,46 @@ class ActiveRecord::Relation
     if columns.empty?
       raise "There must be at least one column to pluck"
     end
-    
+
     # the :id to start the query at
     batch_start = 1
-    
+
     # It's cool. We're only taking in symbols
     # no deep clone needed
     select_columns = columns.dup
-    
+
     # Find index of :id in the array
     remove_id_from_results = false
     id_index = columns.index(primary_key.to_sym)
-    
+
     # :id is still needed to calculate offsets
     # add it to the front of the array and remove it when yielding
     if id_index.nil?
       id_index = 0
       select_columns.unshift(primary_key)
-      
+
       remove_id_from_results = true
     end
-    
+
     loop do
       items = self.where(table[primary_key].gteq(batch_start))
                   .limit(batch_size)
                   .order(table[primary_key].asc)
                   .pluck(*select_columns)
-      
+
       break if items.empty?
-      
+
       # Use the last id to calculate where to offset queries
       last_item = items.last
       last_id = last_item.is_a?(Array) ? last_item[id_index] : last_item
-      
+
       # Remove :id column if not in *columns
       items.map! { |row| row[1..-1] } if remove_id_from_results
-      
+
       yield items
-      
+
       break if items.size < batch_size
-      
+
       batch_start = last_id + 1
     end
   end
@@ -72,7 +72,15 @@ module IncorrectSequenceCalculator
       counter = train_incorrect_sentences(batch, model, counter)
     end
     amplify(counter, model)
-    return counter.sort_by {|k, v| v }.reverse.first(100).map{|k,v| k}
+    return counter.sort_by {|k, v| v }.reverse.first(100).map do |k,v|
+      if k[0] != ' '
+        "^#{k}"
+      elsif k[-1] != ' '
+        "#{k}$"
+      else
+        k
+      end
+    end
   end
 
   def self.get_padded_words_array(sentence)
@@ -90,12 +98,12 @@ module IncorrectSequenceCalculator
 
   def self.get_substrings_of_sentence(sentence)
     padded = get_padded_words_array(sentence)
-    
+
     number_of_words = padded.length
     combinations = []
-    
+
     i = 0
-    
+
     until i == number_of_words
       inner = i
       until inner == number_of_words
@@ -103,20 +111,20 @@ module IncorrectSequenceCalculator
         combinations.push(phrase)
         inner += 1
       end
-      
+
       i+=1
     end
     combinations
   end
-  
+
   def self.get_incorrect_substrings_of_sentence(sentence, correct_substrings)
     padded = get_padded_words_array(sentence)
-    
+
     number_of_words = padded.length
     combinations = []
-    
+
     i = 0
-    
+
     until i == number_of_words
       inner = i
       until inner == number_of_words
@@ -126,12 +134,12 @@ module IncorrectSequenceCalculator
         end
         inner += 1
       end
-      
+
       i+=1
     end
     combinations
-    
-  end  
+
+  end
 
   def self.train_correct_sentences(sentences=[], model=Hash.new(0))
     sentences.each do |sentence|
@@ -151,7 +159,7 @@ module IncorrectSequenceCalculator
     begin
       incorrect_substrings.each do |substring,v|
         if v > 10
-          correct_substrings.each do |corsub, c|  
+          correct_substrings.each do |corsub, c|
             if substring.slice(0...corsub.length) == corsub
               new_substring = " " + substring.slice(corsub.length..-1)
             elsif substring.slice(-corsub.length..-1) == corsub
@@ -162,14 +170,14 @@ module IncorrectSequenceCalculator
                 incorrect_substrings[new_substring] += v
               end
             end
-  
+
           end
         end
       end
     rescue RuntimeError
       puts substring.gsub(" ", "_"), corsub.gsub(" ", "_"), new_substring.gsub(" ", "_")
-      raise 
+      raise
     end
-  end  
+  end
 
 end
