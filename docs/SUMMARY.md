@@ -17,6 +17,7 @@
   * [Assigning A Unit Template](features/assigning_a_unit_template.md)
   * [Emails](features/emails.md)
   * [Dashboard Cards](features/dashboard_cards.md)
+  * [Customizing Lessons](features/lessons_customization.md)
 * [Quill Tools](tools/index.md)
   * [Quill Proofreader](tools/proofreader.md)
   * [Quill Grammar](tools/grammar.md)
