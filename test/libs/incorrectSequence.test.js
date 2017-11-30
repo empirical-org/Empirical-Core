@@ -34,7 +34,7 @@ const data = {
       feedback: 'Inc 4',
     },
     {
-      text: '^emilia',
+      text: '^Emilia',
       feedback: 'Inc 5',
     },
     {
