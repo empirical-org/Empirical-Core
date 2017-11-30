@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :classroom do
-    name  { " Classroom'" }
+    name  { "#{['Period', 'Block', 'Class'].sample} #{(1..100).to_a.sample} (Class of #{Time.now.year + (0..3).to_a.sample})" }
     grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
 
     trait :from_google do
