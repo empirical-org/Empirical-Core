@@ -38,7 +38,6 @@ export default React.createClass({
 
   handleConceptChange(e) {
     const concepts = this.state.itemConcepts;
-    console.log(concepts);
     if (!concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = { correct: true, name: e.label, conceptUID: e.value, };
       this.setState({
@@ -121,12 +120,7 @@ export default React.createClass({
         } else {
           color = '#3b3b3b'
         }
-        const seqTag = <span
-          className="tag"
-          style={{margin: '5px', backgroundColor: color, color: 'white'}}
-          key={i}
-          onClick={() => this.toggleSuggestedSequence(seq)}
-          >{seq}</span>
+        const seqTag = this.renderSequenceTag(seq, color, i)
         covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
       })
       return <div>
@@ -140,14 +134,7 @@ export default React.createClass({
 
   renderUsedIncorrectSequences() {
     if (this.props.usedSequences && this.props.usedSequences.length > 0) {
-      const usedSequences = this.props.usedSequences.map((seq, i) => {
-        return <span
-          className="tag"
-          style={{margin: '5px', backgroundColor: '#c0c0c0', color: 'white'}}
-          key={i}
-          onClick={() => this.toggleSuggestedSequence(seq)}
-          >{seq}</span>
-        })
+      const usedSequences = this.props.usedSequences.map((seq, i) => this.renderSequenceTag(seq, '#c0c0c0', i))
         return <div>
           <label className="label">Previously Used Sequences</label>
           <div>
@@ -159,14 +146,7 @@ export default React.createClass({
 
   renderCoveredByUsedIncorrectSequences() {
     if (this.props.coveredSequences && this.props.coveredSequences.length > 0) {
-      const coveredSequences = this.props.coveredSequences.map((seq, i) => {
-        return <span
-          className="tag"
-          style={{margin: '5px', backgroundColor: '#969696', color: 'white'}}
-          key={i}
-          onClick={() => this.toggleSuggestedSequence(seq)}
-          >{seq}</span>
-        })
+      const coveredSequences = this.props.coveredSequences.map((seq, i) => this.renderSequenceTag(seq, '#969696', i))
         return <div>
           <label className="label">Covered by Previously Used Sequences</label>
           <div>
@@ -175,6 +155,16 @@ export default React.createClass({
         </div>
     }
   },
+
+  renderSequenceTag(seq, backgroundColor, i) {
+    return <span
+        className="tag"
+        style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
+        key={i}
+        onClick={() => this.toggleSuggestedSequence(seq)}>
+      {seq}
+      </span>
+   },
 
   renderSuggestedIncorrectSequencesSection() {
     if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
@@ -188,7 +178,7 @@ export default React.createClass({
 
   render() {
     return (
-      <div className="box">
+      <div className="box add-incorrect-sequence">
         <h4 className="title">{this.addOrEditItemLabel()}</h4>
         <div className="control">
           <label className="label">{this.props.itemLabel} Text</label>

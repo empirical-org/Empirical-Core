@@ -250,20 +250,22 @@ function getSuggestedSequences(qid) {
         const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
         const usedSeqs = []
         const coveredSeqs = []
-        Object.values(existingIncorrectSeqs).forEach(inSeq => {
-          const phrases = inSeq.text.split('|||')
-          phrases.forEach((p) => {
-            usedSeqs.push(p)
-            const index = suggestedSeqs.forEach((seq, i) => {
-              if (seq === p) {
-                suggestedSeqs.splice(i, 1)
-              } else if (seq.includes(p)) {
-                coveredSeqs.push(seq)
-                suggestedSeqs.splice(i, 1)
-              }
+        if (existingIncorrectSeqs) {
+          Object.values(existingIncorrectSeqs).forEach(inSeq => {
+            const phrases = inSeq.text.split('|||')
+            phrases.forEach((p) => {
+              usedSeqs.push(p)
+              const index = suggestedSeqs.forEach((seq, i) => {
+                if (seq === p) {
+                  suggestedSeqs.splice(i, 1)
+                } else if (seq.includes(p)) {
+                  coveredSeqs.push(seq)
+                  suggestedSeqs.splice(i, 1)
+                }
+              })
             })
           })
-        })
+        }
         dispatch(setSuggestedSequences(qid, suggestedSeqs));
         dispatch(setUsedSequences(qid, usedSeqs));
         dispatch(setCoveredSequences(qid, coveredSeqs));
