@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :classroom do
-    name  { " Classroom'" }
+    name  { "#{['Period', 'Block', 'Class'].sample} #{(1..100).to_a.sample} (Class of #{Time.now.year + (0..3).to_a.sample})" }
     grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
 
     trait :from_google do
@@ -34,6 +34,12 @@ FactoryBot.define do
         create_list(:classroom_activity_with_activity_sessions, 100, classroom: classroom)
       end
     end
+
+    factory :classroom_with_lesson_classroom_activities do
+       after(:create) do |classroom|
+         create_list(:lesson_classroom_activity_with_activity_sessions, 5, classroom: classroom)
+       end
+     end
 
     trait :with_no_teacher do
       after(:create) do |classroom|

@@ -265,22 +265,22 @@ describe User, type: :model do
       end
     end
 
-    describe '#affilliated_with_unit' do
+    describe '#affiliated_with_unit' do
       let!(:unit) { create(:unit, user: teacher) }
       let!(:ca) { create(:classroom_activity, unit: unit) }
 
       it 'should return true if the teacher owns the unit' do
-        expect(teacher.affilliated_with_unit(unit.id)).to be
+        expect(teacher.affiliated_with_unit(unit.id)).to be
       end
 
       it 'should return true if the teacher is a coteacher of the classroom with the unit' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').teacher
-        expect(coteacher.affilliated_with_unit(unit.id)).to be
+        expect(coteacher.affiliated_with_unit(unit.id)).to be
       end
 
       it 'should return false if the teacher is not affiliated with the unit' do
         random_teacher = create(:teacher)
-        expect(random_teacher.affilliated_with_unit(unit.id)).to_not be
+        expect(random_teacher.affiliated_with_unit(unit.id)).to_not be
       end
     end
   end
