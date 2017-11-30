@@ -162,7 +162,7 @@ export default React.createClass({
       const coveredSequences = this.props.coveredSequences.map((seq, i) => {
         return <span
           className="tag"
-          style={{margin: '5px', backgroundColor: '#c0c0c0', color: 'white'}}
+          style={{margin: '5px', backgroundColor: '#969696', color: 'white'}}
           key={i}
           onClick={() => this.toggleSuggestedSequence(seq)}
           >{seq}</span>
