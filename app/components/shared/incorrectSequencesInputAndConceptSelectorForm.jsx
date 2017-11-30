@@ -107,7 +107,9 @@ export default React.createClass({
 
   renderSuggestedIncorrectSequences() {
     if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      const suggestedSequences = this.props.suggestedSequences.map((seq, i) => {
+      const suggestedSequences = []
+      const coveredSequences = []
+      this.props.suggestedSequences.forEach((seq, i) => {
         const incorrectSequences = this.state.itemText.split('|||')
         const added = incorrectSequences.includes(`${seq}`)
         const covered = _.any(incorrectSequences, inSeq => inSeq.length > 0 && seq.includes(inSeq));
@@ -119,18 +121,19 @@ export default React.createClass({
         } else {
           color = '#3b3b3b'
         }
-        return <span
+        const seqTag = <span
           className="tag"
           style={{margin: '5px', backgroundColor: color, color: 'white'}}
           key={i}
           onClick={() => this.toggleSuggestedSequence(seq)}
           >{seq}</span>
+        covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
       })
       return <div>
         <label className="label">Suggested Sequences</label>
-        <div>
-          {suggestedSequences}
-        </div>
+        <div>{suggestedSequences}</div>
+        <label className="label">Covered Sequences</label>
+        <div>{coveredSequences}</div>
       </div>
     }
   },
