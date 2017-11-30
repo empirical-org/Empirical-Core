@@ -1,16 +1,12 @@
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
-  def initialize(search_query='', filters={}, sort=nil, flag=nil, user_id=nil)
-    @search_query = search_query
-    @filters = process_filters(filters)
-    @sort = sort
+  def initialize(flag=nil, user_id=nil)
     @activities = nil
     @activity_classifications = []
     @topics = []
     @activity_categories = []
     @sections = []
-    @number_of_pages = nil
     @flag = flag
     @user_id = user_id
   end
@@ -29,26 +25,16 @@ class ActivitySearchWrapper
       activity_classifications: @activity_classifications,
       activity_categories: @activity_categories,
       sections: @sections,
-      number_of_pages: @number_of_pages
     }
   end
 
-  private
-
-  def process_filters(filters)
-    filter_fields = [:activity_classifications, :activity_categories, :sections]
-    filters.reduce({}) do |acc, filter|
-      filter_value = filter[1]
-      # activityClassification -> activity_classifications
-      # Just for the record, this is a terrible hacky workaround.
-      model_name = filter_value['field'].to_s.pluralize.underscore.to_sym
-      model_id = filter_value['selected'].to_i
-      if filter_fields.include?(model_name) and !model_id.zero?
-        acc[model_name] = model_id
-      end
-      acc
-    end
+  def self.set_and_return_search_cache_data(flag = nil)
+    activity_search_json = ActivitySearchWrapper.new(flag).search.to_json
+    $redis.set("default_#{flag}_activity_search", activity_search_json)
+    activity_search_json
   end
+
+  private
 
   def get_custom_search_results
     get_activity_search
@@ -57,11 +43,10 @@ class ActivitySearchWrapper
   end
 
   def get_activity_search
-    @activities = ActivitySearch.search(@search_query, @filters, @sort, @flag)
+    @activities = ActivitySearch.search(@flag)
   end
 
   def get_formatted_search_results
-    @number_of_pages = (@activities.count.to_f/RESULTS_PER_PAGE.to_f).ceil
     @activities = @activities.map do |a|
       activity_id = a['activity_id'].to_i
       classification_id = a['classification_id'].to_i
@@ -72,16 +57,12 @@ class ActivitySearchWrapper
         id: activity_id,
         uid: a['activity_uid'],
         anonymous_path: Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: activity_id),
-        classification: {
-          id: classification_id,
-          alias: classification_alias(classification_id),
-          gray_image_class: gray_image_class(classification_id)
-        },
+        activity_classification: classification_hash(classification_id),
         activity_category: {id: a['activity_category_id'].to_i, name: a['activity_category_name']},
-        topic: {
-          name: a['topic_name'],
-          section: {id: a['section_id'].to_i, name: a['section_name']}
-        }
+        activity_category_name: a['activity_category_name'],
+        activity_category_id: a['activity_category_id'].to_i,
+        section: {id: a['section_id'].to_i, name: a['section_name']},
+        section_name: a['section_name']
       }
     end
   end
@@ -105,7 +86,7 @@ class ActivitySearchWrapper
       activity_classification_details = activity_classifications.map do |ac|
         ac_id = ac['id'].to_i
         {
-          alias: classification_alias(ac_id),
+          alias: classification_hash(ac_id)[:alias],
           id: ac_id,
           key: ac['key'],
           order: ac['order_number'].to_i
@@ -117,34 +98,46 @@ class ActivitySearchWrapper
     end
   end
 
-  def classification_alias(classification_id)
+  def classification_hash(classification_id)
     case classification_id
     when 1
-      'Quill Proofreader'
+      h = {
+        alias: 'Quill Proofreader',
+        description: 'Fix Errors in Passages',
+        gray_image_class: 'icon-flag-gray',
+        key: 'passage'
+      }
     when 2
-      'Quill Grammar'
+      h = {
+        alias: 'Quill Grammar',
+        description: 'Practice Mechanics',
+        gray_image_class: 'icon-puzzle-gray',
+        key: 'sentence'
+      }
     when 4
-      'Quill Diagnostic'
+      h = {
+        alias: 'Quill Diagnostic',
+        description: 'Identify Learning Gaps',
+        gray_image_class: 'icon-diagnostic-gray',
+        key: 'diagnostic'
+      }
     when 5
-      'Quill Connect'
+      h = {
+        alias: 'Quill Connect',
+        description: 'Combine Sentences',
+        gray_image_class: 'icon-connect-gray',
+        key: 'connect'
+      }
     when 6
-      'Quill Lessons'
+      h = {
+        alias: 'Quill Lessons',
+        description: 'Shared Group Lessons',
+        gray_image_class: 'icon-lessons-gray',
+        key: 'lessons'
+      }
     end
-  end
-
-  def gray_image_class(classification_id)
-    case classification_id
-    when 1
-      'icon-flag-gray'
-    when 2
-      'icon-puzzle-gray'
-    when 4
-      'icon-diagnostic-gray'
-    when 5
-      'icon-connect-gray'
-    when 6
-      'icon-lessons-gray'
-    end
+    h[:id] = classification_id
+    h
   end
 
 end
