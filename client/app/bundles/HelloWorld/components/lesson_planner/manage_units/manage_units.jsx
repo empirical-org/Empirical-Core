@@ -84,10 +84,7 @@ export default React.createClass({
       caId: u.classroom_activity_id,
       activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
-      dueDate: u.due_date,
-      ownedByCurrentUser: u.own_or_coteach === 'own',
-      ownerName: u.owner_name
-     });
+      dueDate: u.due_date, });
     return caObj;
   },
 
@@ -114,10 +111,7 @@ export default React.createClass({
           activityClassificationId: u.activity_classification_id,
 					classroomId: u.classroom_id,
           createdAt: u.ca_created_at,
-          dueDate: u.due_date,
-          ownedByCurrentUser: u.own_or_coteach === 'own',
-          ownerName: u.owner_name
-         });
+          dueDate: u.due_date, });
       }
     });
     return this.orderUnits(parsedUnits);

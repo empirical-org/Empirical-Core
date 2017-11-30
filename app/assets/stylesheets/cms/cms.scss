@@ -38,6 +38,10 @@
     height: 265px;
   }
 
+  input[readonly='readonly'] {
+    background: #ccc;
+  }
+
   .cms-checkbox-row {
     margin: -5px 0 5px;
 
