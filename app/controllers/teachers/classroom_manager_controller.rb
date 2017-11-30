@@ -37,7 +37,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    classrooms_and_their_students = current_user.classrooms_i_teach.map do |classroom|
+    classrooms_and_their_students = current_user.classrooms_i_own.map do |classroom|
       {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
     end
     render json: {
@@ -82,7 +82,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find(params['classroom_id'])
+      @classroom = @classrooms.find{|classroom| classroom["id"] == params['classroom_id']}
     else
       @classroom = @classrooms.first
     end
@@ -206,7 +206,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def authorize!
     if params[:classroom_id]
-      auth_failed unless ClassroomsTeacher.where(user_id: current_user.id, role: 'owner').map(&:classroom_id).include? params[:classroom_id]
+      auth_failed unless ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: params[:classroom_id].to_i)
     end
   end
 
