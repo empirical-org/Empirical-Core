@@ -173,6 +173,14 @@ export default React.createClass({
                 label={'Select Flag'} />;
   },
 
+  getOrderNumber: function () {
+    return <DropdownSelector
+      select={this.modules.indicatorGenerator.selector('order_number')}
+      defaultValue={this.state.model.order_number}
+      options={this.state.options.order_number}
+      label={'Select Order Number'} />;
+  },
+
   getAuthorSelect: function () {
     return <DropdownSelector
               select={this.modules.indicatorGenerator.selector('author_id')}
@@ -217,6 +225,7 @@ export default React.createClass({
         {this.getTimeDropdownSelect()}
         {this.getGradeCheckBoxes()}
         {this.getStatusFlag()}
+        {this.getOrderNumber()}
         <span>
           {this.getActivitySearchAndSelect()}
           {this.getErrorMessageAndButton()}
