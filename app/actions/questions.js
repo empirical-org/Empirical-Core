@@ -249,31 +249,39 @@ function getSuggestedSequences(qid) {
         const suggestedSeqs = JSON.parse(data)
         const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
         const usedSeqs = []
+        const coveredSeqs = []
         Object.values(existingIncorrectSeqs).forEach(inSeq => {
           const phrases = inSeq.text.split('|||')
           phrases.forEach((p) => {
-            const index = suggestedSeqs.indexOf(p)
-            if (index !== 0) {
-              usedSeqs.push(p)
-              suggestedSeqs.splice(index, 1)
-            }
+            usedSeqs.push(p)
+            const index = suggestedSeqs.forEach((seq, i) => {
+              if (seq === p) {
+                suggestedSeqs.splice(i, 1)
+              } else if (seq.includes(p)) {
+                coveredSeqs.push(seq)
+                suggestedSeqs.splice(i, 1)
+              }
+            })
           })
         })
         dispatch(setSuggestedSequences(qid, suggestedSeqs));
         dispatch(setUsedSequences(qid, usedSeqs));
+        dispatch(setCoveredSequences(qid, coveredSeqs));
       }
     );
   }
 }
 
 function setSuggestedSequences(qid, seq) {
-  console.log('suggested sequences gets called')
   return {type: C.SET_SUGGESTED_SEQUENCES, qid, seq}
 }
 
 function setUsedSequences(qid, seq) {
-  console.log('used sequences gets called')
   return {type: C.SET_USED_SEQUENCES, qid, seq}
+}
+
+function setCoveredSequences(qid, seq) {
+  return {type: C.SET_COVERED_SEQUENCES, qid, seq}
 }
 
 function startResponseEdit(qid, rid) {

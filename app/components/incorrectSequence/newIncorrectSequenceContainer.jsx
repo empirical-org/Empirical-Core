@@ -9,12 +9,7 @@ class NewIncorrectSequencesContainer extends Component {
   constructor() {
     super();
 
-    // this.state = {
-    //   suggestedSequences: []
-    // }
-    //
     this.submitSequenceForm = this.submitSequenceForm.bind(this);
-    // this.getSuggestedSequences = this.getSuggestedSequences.bind(this);
   }
 
   componentWillMount() {
@@ -30,25 +25,6 @@ class NewIncorrectSequencesContainer extends Component {
     window.history.back();
   }
 
-
-  // componentWillMount() {
-  //   this.getSuggestedSequences()
-  // }
-  //
-  // getSuggestedSequences() {
-  //   request(
-  //     {
-  //       url: `${process.env.QUILL_CMS}/responses/${this.props.params.questionID}/incorrect_sequences`,
-  //       method: 'GET',
-  //     },
-  //       (err, httpResponse, data) => {
-  //         this.setState({
-  //           suggestedSequences: JSON.parse(data),
-  //         });
-  //       }
-  //     );
-  //   }
-  //
   render() {
     return (
       <div>
@@ -57,6 +33,7 @@ class NewIncorrectSequencesContainer extends Component {
           onSubmit={this.submitSequenceForm}
           suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.params.questionID]}
           usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
+          coveredSequences={this.props.generatedIncorrectSequences.covered[this.props.params.questionID]}
         />
         {this.props.children}
       </div>

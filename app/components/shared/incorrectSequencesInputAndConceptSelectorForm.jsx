@@ -132,7 +132,7 @@ export default React.createClass({
       return <div>
         <label className="label">Suggested Sequences</label>
         <div>{suggestedSequences}</div>
-        <label className="label">Covered Sequences</label>
+        <label className="label">Covered by Selected Sequences</label>
         <div>{coveredSequences}</div>
       </div>
     }
@@ -149,9 +149,28 @@ export default React.createClass({
           >{seq}</span>
         })
         return <div>
-          <label className="label">Used Sequences</label>
+          <label className="label">Previously Used Sequences</label>
           <div>
             {usedSequences}
+          </div>
+        </div>
+    }
+  },
+
+  renderCoveredByUsedIncorrectSequences() {
+    if (this.props.coveredSequences && this.props.coveredSequences.length > 0) {
+      const coveredSequences = this.props.coveredSequences.map((seq, i) => {
+        return <span
+          className="tag"
+          style={{margin: '5px', backgroundColor: '#c0c0c0', color: 'white'}}
+          key={i}
+          onClick={() => this.toggleSuggestedSequence(seq)}
+          >{seq}</span>
+        })
+        return <div>
+          <label className="label">Covered by Previously Used Sequences</label>
+          <div>
+            {coveredSequences}
           </div>
         </div>
     }
@@ -162,6 +181,7 @@ export default React.createClass({
       return <div style={{overflow:'scroll',maxHeight:'130px'}}>
         {this.renderSuggestedIncorrectSequences()}
         {this.renderUsedIncorrectSequences()}
+        {this.renderCoveredByUsedIncorrectSequences()}
       </div>
     }
   },
