@@ -39,11 +39,11 @@ module Teacher
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'coteacher'")
   end
 
-  def affilliated_with_unit(unit_id)
+  def affiliated_with_unit(unit_id)
     ActiveRecord::Base.connection.execute("SELECT units.id FROM units
       JOIN classroom_activities ON classroom_activities.unit_id = units.id
       JOIN classrooms_teachers ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
-      WHERE classrooms_teachers.user_id = #{self.id} AND units.id = #{unit_id}
+      WHERE classrooms_teachers.user_id = #{self.id} AND units.id = #{unit_id.to_i}
       LIMIT(1)").to_a.any?
   end
 
@@ -356,7 +356,7 @@ module Teacher
                             JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
                             JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
                             WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
-                                  ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id}")
+                                  ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
   end
 
 

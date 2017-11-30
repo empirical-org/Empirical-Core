@@ -2,13 +2,13 @@ class CoteacherClassroomInvitationsController < ApplicationController
   before_action :signed_in!
 
   def accept_pending_coteacher_invitations
-    coteacher_invitations_to_accept = params[:coteacher_invitation_ids]
+    coteacher_invitations_to_accept = params[:coteacher_invitation_ids].map(&:to_i)
     classroom_ids = ActiveRecord::Base.connection.execute("
       SELECT coteacher_classroom_invitations.classroom_id
       FROM coteacher_classroom_invitations
       INNER JOIN pending_invitations
         ON pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}'
-        AND pending_invitations.invitee_email = '#{current_user.email}'
+        AND pending_invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)}
       WHERE coteacher_classroom_invitations.id IN (#{coteacher_invitations_to_accept.join(', ')})
     ").to_a.map{|classroom|classroom['classroom_id'].to_i}
     return auth_failed if classroom_ids.empty?

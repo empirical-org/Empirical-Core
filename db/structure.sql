@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.0
--- Dumped by pg_dump version 10.0
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -559,7 +559,6 @@ CREATE TABLE classrooms_teachers (
 --
 
 CREATE SEQUENCE classrooms_teachers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -694,7 +693,6 @@ CREATE TABLE coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE coteacher_classroom_invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1112,7 +1110,6 @@ CREATE TABLE pending_invitations (
 --
 
 CREATE SEQUENCE pending_invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1679,8 +1676,7 @@ CREATE TABLE users (
     send_newsletter boolean DEFAULT false,
     flag character varying,
     google_id character varying,
-    last_sign_in timestamp without time zone,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['temporary'::character varying, 'staff'::character varying, 'admin'::character varying, 'student'::character varying, 'teacher'::character varying, 'user'::character varying])::text[])) AND (role IS NOT NULL)))
+    last_sign_in timestamp without time zone
 );
 
 
@@ -2653,6 +2649,13 @@ CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USI
 
 
 --
+-- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
+
+
+--
 -- Name: index_coteacher_classroom_invitations_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3602,8 +3605,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171019150737');
 INSERT INTO schema_migrations (version) VALUES ('20171106201721');
 
 INSERT INTO schema_migrations (version) VALUES ('20171106203046');
-
-INSERT INTO schema_migrations (version) VALUES ('20171108201608');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 
