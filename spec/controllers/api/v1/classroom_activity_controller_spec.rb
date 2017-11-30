@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Api::V1::ClassroomActivitiesController, type: :controller do
   let(:other_teacher) { create(:teacher) }
-  let(:classroom) {create(:classroom_with_classroom_activities)}
+  let(:classroom) {create(:classroom_with_lesson_classroom_activities)}
   let(:teacher) { classroom.owner }
 
   context '#student_names' do
