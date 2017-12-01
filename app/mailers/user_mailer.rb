@@ -1,9 +1,21 @@
 class UserMailer < ActionMailer::Base
   default from: 'hello@quill.org'
 
+  COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
+
   def welcome_email user
     @user = user
     mail to: user.email, subject: 'Welcome to Quill!'
+  end
+
+  def pending_invitation_to_non_existing_user invitation_email_hash
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, accept_link: 'TODO!')
+    mail to: invitation_attributes_with_inviter_name, subject: "#{@inviter_name} has invited you to co-teach on Quill.org!"
+  end
+
+  def pending_invitation_to_existing_user invitation_email_hash
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: 'TODO!')
+    mail to: invitation_attributes_with_inviter_name, subject: "#{@inviter_name} has invited you to co-teach on Quill.org!"
   end
 
   def password_reset_email user
