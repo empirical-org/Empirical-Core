@@ -6,6 +6,7 @@ import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import TextEditor from '../questions/textEditor.jsx';
 import ResponseComponent from '../questions/responseComponent'
+import request from 'request'
 
 export default React.createClass({
 
@@ -20,12 +21,29 @@ export default React.createClass({
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
+      matchedCount: 0
     });
   },
 
   addOrEditItemLabel() {
     return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
   },
+
+  getNewAffectedCount() {
+    const qid = this.props.questionID
+    const usedSeqs = this.props.usedSequences
+    const newSeqs = this.state.itemText.split('|||')
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/responses/${qid}/affected_count`,
+        method: 'POST',
+        json: {data: {used_sequences: usedSeqs, new_sequences: newSeqs}},
+      },
+      (err, httpResponse, data) => {
+        this.setState({matchedCount: data.matchedCount})
+        }
+      );
+    },
 
   handleChange(stateKey, e) {
     const obj = {};
@@ -62,7 +80,7 @@ export default React.createClass({
 
   renderTextInputFields() {
     return this.state.itemText.split('|||').map(text => (
-      <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} type="text" value={text || ''} />
+      <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} onBlur={this.getNewAffectedCount} type="text" value={text || ''} />
     ));
   },
 
@@ -102,7 +120,7 @@ export default React.createClass({
     } else {
       newIncorrectSequences = incorrectSequences.join('|||') + `${text}|||`
     }
-    this.setState({itemText: newIncorrectSequences})
+    this.setState({itemText: newIncorrectSequences}, this.getNewAffectedCount)
   },
 
   returnAppropriateDataset() {
@@ -213,8 +231,9 @@ export default React.createClass({
           </p>
         </div>
         <div>
+          <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
-            incorrectSequences={this.state.itemText.split('|||')}
+            selectedIncorrectSequences={this.state.itemText.split('|||')}
             question={dataset}
             mode={mode}
             states={this.props.states}

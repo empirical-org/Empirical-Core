@@ -36,7 +36,7 @@ export default React.createClass({
     var responseListItems = this.props.responses.map((resp) => {
       if (resp && this.props.selectedIncorrectSequences) {
         const anyMatches = this.props.selectedIncorrectSequences.some(inSeq => inSeq.length > 0 && new RegExp(inSeq).test(resp.text))
-        if (anyMatches && !resp.feedback) {
+        if (anyMatches && !resp.parent_id && resp.optimal === null) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         } else {
           return (this.renderResponse(resp))
