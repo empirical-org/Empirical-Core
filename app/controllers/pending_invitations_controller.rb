@@ -6,8 +6,8 @@ class PendingInvitationsController < ApplicationController
       @classroom_ids = params[:classroom_ids]
       invitee_email = params[:invitee_email]
 
-      raise StandardError.new('Missing invitee email or classroom IDs') if @classroom_ids.empty? || invitee_email.empty?
-      raise StandardError.new('Invalid email address') unless invitee_email =~ /.+@.+\..+/i
+      raise StandardError.new("Please make sure you've entered a valid email and selected at least one classroom.") if @classroom_ids.empty? || invitee_email.empty?
+      raise StandardError.new("Please make sure you've entered a valid email.") unless invitee_email =~ /.+@.+\..+/i
       @pending_invite = PendingInvitation.find_or_create_by(inviter_id: current_user.id, invitee_email: invitee_email, invitation_type: PendingInvitation::TYPES[:coteacher])
       assign_classrooms_to_invitee
       return render json: {invite_id: @pending_invite.id}

@@ -84,7 +84,7 @@ module Teacher
       JOIN classrooms_teachers AS coteachers_classrooms ON coteachers_classrooms.classroom_id = my_classrooms.classroom_id
       JOIN classrooms ON coteachers_classrooms.classroom_id = classrooms.id
       JOIN users AS coteacher ON coteachers_classrooms.user_id = coteacher.id
-      WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher'").to_a
+      WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher' AND my_classrooms.role = 'owner'").to_a
   end
 
   def classrooms_i_own_that_have_pending_coteacher_invitations

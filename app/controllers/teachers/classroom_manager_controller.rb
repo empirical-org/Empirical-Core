@@ -70,10 +70,12 @@ class Teachers::ClassroomManagerController < ApplicationController
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
+      classrooms_i_own_that_have_coteachers = current_user.classrooms_i_own_that_have_coteachers
       render json: {
         active: active,
+        active_classrooms_i_own: current_user.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
         inactive: inactive,
-        coteachers: current_user.classrooms_i_own_that_have_coteachers,
+        coteachers: classrooms_i_own_that_have_coteachers,
         pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations
       }
     end
