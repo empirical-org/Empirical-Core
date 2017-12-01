@@ -383,3 +383,9 @@ button:not(.select-mixin) {
 
   }
 }
+
+// Overwrite our default input styling when it's
+// used within the React Select component.
+.Select-input > input, .Select-input > input:focus {
+  border: none;
+}

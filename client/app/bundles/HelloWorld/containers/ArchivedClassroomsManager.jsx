@@ -157,6 +157,7 @@ export default React.createClass({
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
+      console.log('action: ', action);
       if (action === 'coteachers' || action == 'pending_coteachers') {
         return (
           <tr key={cl.email} className={`${action}_row`}>
@@ -279,7 +280,7 @@ export default React.createClass({
 
 
   coteachers(){
-    if (this.state.classrooms.coteachers.length) {
+    if (this.state.classrooms.coteachers.length || this.state.classrooms.pending_coteachers.length) {
       return (
         <div>
           <h1>My Co-Teachers</h1>
@@ -335,7 +336,7 @@ export default React.createClass({
         {this.optionSection()}
         {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
-        <InviteCoteachers onSuccess={this.getClassrooms} classrooms={this.state.classrooms}/>
+        <InviteCoteachers onSuccess={this.getClassrooms} classrooms={this.state.classrooms ? this.state.classrooms.active_classrooms_i_own : []}/>
       </div>
     );
   },
