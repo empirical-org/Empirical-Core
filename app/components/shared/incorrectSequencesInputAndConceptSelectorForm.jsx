@@ -5,6 +5,7 @@ import _ from 'underscore';
 import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import TextEditor from '../questions/textEditor.jsx';
+import ResponseComponent from '../questions/responseComponent'
 
 export default React.createClass({
 
@@ -104,6 +105,20 @@ export default React.createClass({
     this.setState({itemText: newIncorrectSequences})
   },
 
+  returnAppropriateDataset() {
+    const questionID = this.props.questionID
+    const datasets = ['fillInBlank', 'sentenceFragments', 'diagnosticQuestions'];
+    let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
+    let mode = 'questions';
+    datasets.forEach((dataset) => {
+      if (this.props[dataset].data && this.props[dataset].data[questionID]) {
+        theDatasetYouAreLookingFor = this.props[dataset].data[questionID];
+        mode = dataset;
+      }
+    });
+    return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
+  },
+
   renderSuggestedIncorrectSequences() {
     if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
       const suggestedSequences = []
@@ -177,22 +192,35 @@ export default React.createClass({
   },
 
   render() {
+    const appropriateData = this.returnAppropriateDataset();
+    const { dataset, mode, } = appropriateData;
     return (
-      <div className="box add-incorrect-sequence">
-        <h4 className="title">{this.addOrEditItemLabel()}</h4>
-        <div className="control">
-          <label className="label">{this.props.itemLabel} Text</label>
-          {this.renderTextInputFields()}
-          {this.renderSuggestedIncorrectSequencesSection()}
-          <label className="label" style={{ marginTop: 10, }}>Feedback</label>
-          <TextEditor text={this.state.itemFeedback || ""} handleTextChange={this.handleFeedbackChange} key={"feedback"}/>
-          <label className="label" style={{ marginTop: 10, }}>Concepts</label>
-          {this.renderConceptSelectorFields()}
+      <div>
+        <div className="box add-incorrect-sequence">
+          <h4 className="title">{this.addOrEditItemLabel()}</h4>
+          <div className="control">
+            <label className="label">{this.props.itemLabel} Text</label>
+            {this.renderTextInputFields()}
+            {this.renderSuggestedIncorrectSequencesSection()}
+            <label className="label" style={{ marginTop: 10, }}>Feedback</label>
+            <TextEditor text={this.state.itemFeedback || ""} handleTextChange={this.handleFeedbackChange} key={"feedback"}/>
+            <label className="label" style={{ marginTop: 10, }}>Concepts</label>
+            {this.renderConceptSelectorFields()}
+          </div>
+          <p className="control">
+            <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
+            <button className={'button is-outlined is-info'} style={{ marginLeft: 5, }} onClick={() => window.history.back()}>Cancel</button>
+          </p>
         </div>
-        <p className="control">
-          <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-          <button className={'button is-outlined is-info'} style={{ marginLeft: 5, }} onClick={() => window.history.back()}>Cancel</button>
-        </p>
+        <div>
+          <ResponseComponent
+            incorrectSequences={this.state.itemText.split('|||')}
+            question={dataset}
+            mode={mode}
+            states={this.props.states}
+            questionID={this.props.questionID}
+          />
+        </div>
       </div>
     );
   },

@@ -29,15 +29,22 @@ class EditIncorrectSequencesContainer extends Component {
   }
 
   render() {
+    const {generatedIncorrectSequences, params, questions, fillInBlank, sentenceFragments, diagnosticQuestions, states} = this.props
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitForm}
-          suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.params.questionID]}
-          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
-          coveredSequences={this.props.generatedIncorrectSequences.covered[this.props.params.questionID]}
-          item={Object.assign(this.getIncorrectSequence(), { id: this.props.params.incorrectSequenceID, })}
+          suggestedSequences={generatedIncorrectSequences.suggested[params.questionID]}
+          usedSequences={generatedIncorrectSequences.used[params.questionID]}
+          coveredSequences={generatedIncorrectSequences.covered[params.questionID]}
+          item={Object.assign(this.getIncorrectSequence(), { id: params.incorrectSequenceID, })}
+          questions={questions}
+          questionID={params.questionID}
+          fillInBlank
+          sentenceFragments
+          diagnosticQuestions
+          states
         />
         {this.props.children}
       </div>
@@ -48,7 +55,11 @@ class EditIncorrectSequencesContainer extends Component {
 function select(props) {
   return {
     questions: props.questions,
-    generatedIncorrectSequences: props.generatedIncorrectSequences
+    generatedIncorrectSequences: props.generatedIncorrectSequences,
+    fillInBlank: props.fillInBlank,
+    sentenceFragments: props.sentenceFragments,
+    diagnosticQuestions: props.diagnosticQuestions,
+    states: props.states
   };
 }
 
