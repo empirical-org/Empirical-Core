@@ -68,7 +68,7 @@ class Classroom < ActiveRecord::Base
       name: section.name,
       grade: section.grade
     )
-    ClassroomsTeacher.create(user: teacher, role: 'owner', classroom: c)
+    ClassroomsTeacher.find_or_create_by(user: teacher, role: 'owner', classroom: c)
     c.import_students!
     c
   end
