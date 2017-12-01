@@ -229,6 +229,10 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :classrooms_teachers, only: [] do
+    get 'edit_coteacher_form', to: 'classrooms_teachers#edit_coteacher_form'
+  end
+
   resources :coteacher_classroom_invitations, only: [] do
     collection do
       post :accept_pending_coteacher_invitations, format: 'json'

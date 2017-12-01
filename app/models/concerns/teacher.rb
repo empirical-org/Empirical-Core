@@ -343,6 +343,14 @@ module Teacher
     self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
   end
 
+  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
+    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
+      JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
+      JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
+      WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
+      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
+  end
+
   private
 
   def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
@@ -351,13 +359,6 @@ module Teacher
     WHERE ct.user_id = #{self.id}"
   end
 
-  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
-    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
-                            JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
-                            JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
-                            WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
-                                  ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
-  end
 
 
 
