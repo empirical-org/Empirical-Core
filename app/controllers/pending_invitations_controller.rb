@@ -10,6 +10,7 @@ class PendingInvitationsController < ApplicationController
       raise StandardError.new("Please make sure you've entered a valid email.") unless invitee_email =~ /.+@.+\..+/i
       @pending_invite = PendingInvitation.find_or_create_by(inviter_id: current_user.id, invitee_email: invitee_email, invitation_type: PendingInvitation::TYPES[:coteacher])
       assign_classrooms_to_invitee
+      PendingInvitationEmailWorker.perform_async(@pending_invite.id)
       return render json: {invite_id: @pending_invite.id}
     rescue => e
       return render json: { error: e.message }, status: 422
@@ -41,7 +42,11 @@ class PendingInvitationsController < ApplicationController
   end
 
   def assign_classrooms_to_invitee
-    classroom_invitations = @classroom_ids.map{|id| {pending_invitation_id: @pending_invite.id, classroom_id: id}}
-    CoteacherClassroomInvitation.bulk_insert(values: classroom_invitations)
+    extant_invitations_for_classrooms = @pending_invite.coteacher_classroom_invitations.pluck(:classroom_id)
+    @classroom_ids.each do |id|
+      if extant_invitations_for_classrooms.none?
+        CoteacherClassroomInvitation.create(pending_invitation_id: @pending_invite.id, classroom_id: id)
+      end
+    end
   end
 end
