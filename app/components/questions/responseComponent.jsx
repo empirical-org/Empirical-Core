@@ -246,11 +246,11 @@ const Responses = React.createClass({
 
   renderResponses() {
     if (this.state.viewingResponses) {
-      const { questionID, } = this.props;
+      const { questionID, selectedIncorrectSequences} = this.props;
       const responsesWStatus = this.responsesWithStatus();
       const responses = _.sortBy(responsesWStatus, 'sortOrder');
-      // const responsesListItems = this.getResponsesForCurrentPage(this.getFilteredResponses(responses));
       return (<ResponseList
+        selectedIncorrectSequences={selectedIncorrectSequences}
         responses={responses}
         getResponse={this.getResponse}
         getChildResponses={this.getChildResponses}
