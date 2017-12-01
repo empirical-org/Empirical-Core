@@ -120,7 +120,7 @@ class ChooseEdition extends React.Component<any, any> {
 
   renderExplanation() {
     if (this.state.selectState) {
-      return <p className="explanation">By clicking <span>“Customize Edition”</span>, you will able to make a copy of the edition so that you can customize it with your own content. You can update your own editions at any time by clicking on <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
+      return <p className="explanation">By clicking <span>“Customize Edition”</span>, you will be able to make a copy of the edition so that you can customize it with your own content. You can update your own editions at any time by clicking on <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
     } else {
       return <p className="explanation">By clicking <span>"Customize Edition"</span>, you will create a copy of the edition that you can customize it with your own content. You can update your own editions at any time by clicking on <span>"Edit Edition"</span>.</p>
     }
