@@ -73,7 +73,7 @@ class TeachersController < ApplicationController
 
   def classrooms_i_teach_with_lessons
     classrooms =  ActiveRecord::Base.connection.execute(
-      "SELECT * FROM classrooms
+      "SELECT classrooms.* FROM classrooms
        JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
        JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id
        JOIN activities ON activities.id = classroom_activities.activity_id
