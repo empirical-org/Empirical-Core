@@ -247,7 +247,7 @@ describe User, type: :model do
           }
         end
 
-        expect(teacher.get_classroom_minis_info).to eq(sanitize_hash_array_for_comparison_with_sql(expected_response))
+        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_sql(expected_response))
       end
     end
 
