@@ -4,6 +4,7 @@ include TeacherFixes
 
 describe TeacherFixes do
   let! (:classroom) {create(:classroom)}
+  let! (:classroom2) {create(:classroom)}
   let! (:student1) {create(:student, classrooms: [classroom])}
   let! (:student2) {create(:student, classrooms: [classroom])}
   let! (:student3) {create(:student)}
@@ -65,6 +66,17 @@ describe TeacherFixes do
     end
     it 'returns false if the students are not in the same classroom' do
       expect(TeacherFixes::same_classroom?(student1.id, student3.id)).to be false
+    end
+  end
+
+  describe("#move_activity_sessions") do
+    it 'finds or creates a classroom activity for the new classroom with that student assigned' do
+      TeacherFixes::move_activity_sessions(student1, classroom, classroom2)
+      started_earlier.reload
+      new_ca = started_earlier.classroom_activity
+      expect(new_ca.classroom).to eq(classroom2)
+      expect(new_ca.assigned_student_ids).to include(student1.id)
+      # expect(TeacherFixes::same_classroom?(student1.id, student2.id)).to be true
     end
   end
 
