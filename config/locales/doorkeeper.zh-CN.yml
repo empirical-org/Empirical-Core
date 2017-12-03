@@ -1,0 +1,74 @@
+zh-CN:
+  activerecord:
+    errors:
+      models:
+        application:
+          attributes:
+            redirect_uri:
+              fragment_present: '不能包含分段。'
+              has_query_parameter: '不能包含查询参数。'
+              invalid_uri: '必须是一个合法的URI。'
+              relative_uri: '必须是一个绝对的URI。'
+  mongoid:
+    errors:
+      models:
+        application:
+          attributes:
+            redirect_uri:
+              fragment_present: 不能包含分段。'
+              has_query_parameter: '不能包含查询参数。'
+              invalid_uri: '必须是一个合法的URI。'
+              relative_uri: '必须是一个绝对的URI。'
+  mongo_mapper:
+    errors:
+      models:
+        application:
+          attributes:
+            redirect_uri:
+              fragment_present: 不能包含分段。'
+              has_query_parameter: '不能包含查询参数。'
+              invalid_uri: '必须是一个合法的URI。'
+              relative_uri: '必须是一个绝对的URI。'
+  doorkeeper:
+    errors:
+      messages:
+        # Common error messages
+        invalid_request: '请求中缺少必须的参数，或者包含不支持的参数值，或者非法。'
+        invalid_redirect_uri: '跳转URI非法。'
+        unauthorized_client: '客户未被授权使用这个方法发出请求。'
+        access_denied: '资源所有者或者授权服务器拒绝请求。'
+        invalid_scope: '请求的范围未知或非法。'
+        server_error: '授权服务器发生未知错误，不能接受请求。'
+        temporarily_unavailable: '授权服务器过载或者正在维护，不能接受请求。'
+
+        #configuration error messages
+        credential_flow_not_configured: '由于未配置Doorkeeper.configure.resource_owner_from_credentials，导致资源所有者密码流程失败。'
+        resource_owner_authenticator_not_configured: '由于未配置Doorkeeper.configure.resource_owner_authenticator，查找资源所有者失败。'
+
+        # Access grant errors
+        unsupported_response_type: '授权服务器不支持这种请求类型。'
+
+        # Access token errors
+        invalid_client: '由于未知客户，客户端未认证，或者未支持客户端认证方法，导致客户端认证失败。'
+        invalid_grant: '提供的授权凭证非法，失效，被撤销，和授权时凭证不匹配，或者是其他客户的授权凭证。'
+        unsupported_grant_type: '授权服务器不支持所提供的授权凭证类型。'
+
+        # Password Access token errors
+        invalid_resource_owner: '提供的资源所有者密码非法，或者无法找到该资源所有者'
+
+        invalid_token:
+          revoked: "访问令牌被收回"
+          expired: "访问令牌过期"
+          unknown: "访问令牌非法"
+
+    flash:
+      applications:
+        create:
+          notice: '应用程序已创建。'
+        destroy:
+          notice: '应用程序已删除。'
+        update:
+          notice: '应用程序已更新。'
+      authorized_applications:
+        destroy:
+          notice: '应用授权已收回。'
