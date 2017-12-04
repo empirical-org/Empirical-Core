@@ -64,7 +64,7 @@ describe ProfilesController, type: :controller do
               'name' => students_classroom.name,
               'id' => students_classroom.id,
               'teacher' => {
-                'name' => students_classroom.teacher.name
+                'name' => students_classroom.owner.name
               }
             }
           })
@@ -84,7 +84,7 @@ describe ProfilesController, type: :controller do
               'name' => classroom.name,
               'id' => classroom.id,
               'teacher' => {
-                'name' => classroom.teacher.name
+                'name' => classroom.owner.name
               }
             }
           })
