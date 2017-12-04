@@ -50,6 +50,25 @@ module Teacher
       ids
   end
 
+  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of
+    classrooms_teachers_ids = Set.new
+    coteacher_classroom_invitation_ids = Set.new
+    all_ids = ActiveRecord::Base.connection.execute("SELECT coteacher_classroom_invitations.id AS coteacher_classroom_invitation_id, classrooms_teachers.id AS classrooms_teachers_id FROM users
+      LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false
+      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
+      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{self.id} AND classrooms_teachers.role = 'coteacher'
+      WHERE users.id = #{self.id}")
+      all_ids.each do |row|
+        row.each do |k,v|
+          if k == 'coteacher_classroom_invitation_id'
+            coteacher_classroom_invitation_id << v
+          elsif k == 'classrooms_teachers_id'
+            coteacher_classroom_invitation_ids << v
+          end
+        end
+      end
+  end
+
   def affiliated_with_unit(unit_id)
     ActiveRecord::Base.connection.execute("SELECT units.id FROM units
       JOIN classroom_activities ON classroom_activities.unit_id = units.id
