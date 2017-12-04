@@ -6,6 +6,7 @@ describe 'TeachersData' do
 
   let!(:teacher) { create(:user, role: 'teacher') }
   let!(:teacher_ids) { [teacher.id] }
+  let!(:unit) { create(:unit, user_id: teacher.id)}
   let!(:classroom) { create(:classroom, teacher: teacher) }
   let!(:student1) { create(:user, role: 'student', classrooms: [classroom]) }
   let!(:student2) { create(:user, role: 'student', classrooms: [classroom]) }
@@ -14,18 +15,23 @@ describe 'TeachersData' do
   let!(:time1) { time2 - (10.minutes) }
   let!(:default_time_spent) { teachers_data_module::AVERAGE_TIME_SPENT }
 
-
+  let!(:classroom_activity) { create(:classroom_activity, classroom_id: classroom.id,
+                                                        unit: unit)}
   let!(:activity_session1) { create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
-                                                completed_at: time2) }
+                                                completed_at: time2,
+                                                classroom_activity: classroom_activity
+                                                ) }
 
   let!(:activity_session2) { create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
-                                                completed_at: time2) }
+                                                completed_at: time2,
+                                                classroom_activity: classroom_activity
+                                                ) }
 
   let!(:concept1) { create(:concept) }
   let!(:concept2) { create(:concept) }
