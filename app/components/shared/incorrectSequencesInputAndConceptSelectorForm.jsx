@@ -37,7 +37,7 @@ export default React.createClass({
       {
         url: `${process.env.QUILL_CMS}/responses/${qid}/affected_count`,
         method: 'POST',
-        json: {data: {used_sequences: usedSeqs, new_sequences: newSeqs}},
+        json: {data: {used_sequences: usedSeqs, selected_sequences: newSeqs}},
       },
       (err, httpResponse, data) => {
         this.setState({matchedCount: data.matchedCount})
@@ -156,11 +156,17 @@ export default React.createClass({
         const seqTag = this.renderSequenceTag(seq, color, i)
         covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
       })
-      return <div>
+      const suggestedSequencesDiv = suggestedSequences.length > 0 ? <div>
         <label className="label">Suggested Sequences</label>
         <div>{suggestedSequences}</div>
+      </div> : null
+      const coveredSequencesDiv = coveredSequences.length > 0 ? <div>
         <label className="label">Covered by Selected Sequences</label>
         <div>{coveredSequences}</div>
+      </div> : null
+      return <div>
+        {suggestedSequencesDiv}
+        {coveredSequencesDiv}
       </div>
     }
   },
@@ -201,7 +207,7 @@ export default React.createClass({
 
   renderSuggestedIncorrectSequencesSection() {
     if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      return <div style={{overflow:'scroll',maxHeight:'130px'}}>
+      return <div>
         {this.renderSuggestedIncorrectSequences()}
         {this.renderUsedIncorrectSequences()}
         {this.renderCoveredByUsedIncorrectSequences()}
