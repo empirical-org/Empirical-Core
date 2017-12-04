@@ -128,7 +128,7 @@ class TeacherFixController < ApplicationController
         classroom_2 = Classroom.find_by_code(params['class_code_2'])
         if classroom_1 && classroom_2
           if StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
-            StudentsClassrooms.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id)
+            StudentsClassrooms.unscoped.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id).update(visible: true)
             TeacherFixes::move_activity_sessions(user, classroom_1, classroom_2)
             StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id).destroy
             render json: {}, status: 200
