@@ -33,11 +33,16 @@ class ClassroomsTeachersController < ApplicationController
     negative_classroom_ids = partitioned_classrooms.second.collect { |classroom |classroom['id'].to_i }
 
     coteacher = User.find(params[:classrooms_teacher_id].to_i)
-    
-    new_invitations_that_are_not_associations = positive_classroom_ids - coteacher.classrooms_i_teach.map{|c| c.id}
+
+    new_invitations_that_are_not_associated = positive_classroom_ids - coteacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach
 
     # coteacher_relationships_to_destroy = coteacher_classroom_ids & negative_classroom_ids
     # coteacher_invitations_to_destroy = coteacher_classrooms_im_invited_to_teacher & negative_classroom_ids
+
+    if negative_classroom_ids.any?
+      Invitation.includes(:coteacher_classroom_invitation).where(inviter_id: current_user.id, invitee_email: coteacher.email).map(&:coteacher_classroom_invitations)
+      
+    end
 
     if new_invitations.any?
       invitation = Invitation.create(
@@ -49,6 +54,11 @@ class ClassroomsTeachersController < ApplicationController
         classroom_owner!(id)
         CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
       end
+    end
+
+
+    if condition
+
     end
 
     # TODO account for if there is no pending invitation but is an association
