@@ -131,11 +131,11 @@ export default React.createClass({
     </span>);
   },
 
-  editOrRemove(action, coteacher_email){
+  editOrRemove(action, coteacher_email, coteacher_id){
     if (action == 'pending_coteachers') {
       return <td className='edit-or-remove' onClick={() => { this.removePendingCoteacher(coteacher_email) }}><i className="fa fa-times-circle" aria-hidden="true"></i>Remove</td>
     } else {
-      return <td className='edit-or-remove'><i className="fa fa-pencil" aria-hidden="true"></i>Edit</td>
+      return <td className='edit-or-remove'><a href={`/classrooms_teachers/${coteacher_id}/edit_coteacher_form`}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</a></td>
     }
   },
 
@@ -157,7 +157,6 @@ export default React.createClass({
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
-      console.log('action: ', action);
       if (action === 'coteachers' || action == 'pending_coteachers') {
         return (
           <tr key={cl.email} className={`${action}_row`}>
@@ -165,7 +164,7 @@ export default React.createClass({
             <td>{cl.coteacher_email}</td>
             <td>{cl.status || 'Approved'}</td>
             <td>{cl.classrooms.map(classroom => <p key={`${classroom}-${cl.coteacher_email}`}>{classroom}</p>)}</td>
-            {this.editOrRemove(action, cl.coteacher_email)}
+            {this.editOrRemove(action, cl.coteacher_email, cl.coteacher_id)}
           </tr>
         )
       }
