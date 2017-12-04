@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'Dashboard', redis: :true do
   let(:classroom_with_sufficient_data) {create(:classroom_with_100_classroom_activities)}
-  let(:teacher_with_sufficient_data) {classroom_with_sufficient_data.teacher}
+  let(:teacher_with_sufficient_data) {classroom_with_sufficient_data.owner}
   let(:classroom_with_no_activities) {create(:classroom)}
-  let(:teacher_with_no_activities) {classroom_with_no_activities.teacher}
+  let(:teacher_with_no_activities) {classroom_with_no_activities.owner}
 
   before(:each) do
     $redis.flushdb
