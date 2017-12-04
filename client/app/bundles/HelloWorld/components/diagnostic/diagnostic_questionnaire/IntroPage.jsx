@@ -1,6 +1,5 @@
 import React from 'react'
 import $ from 'jquery'
-import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { Router, Route, Link, hashHistory } from 'react-router'
 

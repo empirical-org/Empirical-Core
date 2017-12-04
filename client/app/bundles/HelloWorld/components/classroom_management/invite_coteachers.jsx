@@ -2,7 +2,6 @@ import React from 'react';
 import CoteacherCapabilityChart from './coteacher_capability_chart.jsx';
 import getAuthToken from '../modules/get_auth_token';
 import request from 'request';
-import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Select from 'react-select';
 require('react-select/dist/react-select.css')
