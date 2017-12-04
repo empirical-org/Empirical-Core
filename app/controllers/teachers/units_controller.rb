@@ -138,7 +138,7 @@ class Teachers::UnitsController < ApplicationController
       INNER JOIN classrooms ON ca.classroom_id = classrooms.id
       LEFT JOIN students_classrooms AS sc ON sc.classroom_id = ca.classroom_id
     WHERE units.user_id = #{current_user.id}
-      AND sc.visible = true
+      AND (sc.visible = true OR sc.visible IS NULL)
       AND activities.activity_classification_id = 6
       AND classrooms.visible = true
       AND units.visible = true
