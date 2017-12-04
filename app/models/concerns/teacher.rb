@@ -39,6 +39,17 @@ module Teacher
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'coteacher'")
   end
 
+  def classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach
+    ids = Set.new
+    all_ids = ActiveRecord::Base.connection.execute("SELECT DISTINCT(coteacher_classroom_invitations.classroom_id) AS invitation_id, classrooms_teachers.classroom_id FROM users
+      LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false
+      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
+      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{self.id} AND classrooms_teachers.role = 'coteacher'
+      WHERE users.id = #{self.id}").to_a
+      all_ids.each{|row| row.each{|k,v| ids << v}}
+      ids
+  end
+
   def affiliated_with_unit(unit_id)
     ActiveRecord::Base.connection.execute("SELECT units.id FROM units
       JOIN classroom_activities ON classroom_activities.unit_id = units.id
@@ -93,7 +104,7 @@ module Teacher
       JOIN invitations ON invitations.inviter_id = my_classrooms.user_id
       JOIN coteacher_classroom_invitations ON invitations.id = coteacher_classroom_invitations.invitation_id
       JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id
-      WHERE my_classrooms.user_id = #{self.id} AND invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}' AND invitations.status = '#{Invitation::STATUSES[:pending]}' AND my_classrooms.role = 'owner'").to_a
+      WHERE my_classrooms.user_id = #{self.id} AND invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}' AND invitations.archived = false AND my_classrooms.role = 'owner'").to_a
   end
 
 

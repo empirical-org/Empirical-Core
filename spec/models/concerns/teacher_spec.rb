@@ -74,6 +74,21 @@ describe User, type: :model do
       end
     end
 
+    describe '#classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach' do
+      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
+      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+
+      let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
+      it "returns all the cotaught classrooms" do
+        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{|c| c.id.to_s})
+        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.superset?(cotaught_classroom_ids)).to be
+      end
+      it "returns all pending invitation to coteach classrooms" do
+        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.member?(coteacher_classroom_invitation.classroom_id.to_s)).to be
+      end
+    end
+
     describe '#archived_classrooms' do
       it 'returns an array of teachers archived classes if extant' do
         classroom.update(visible: false)
