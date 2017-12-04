@@ -208,7 +208,7 @@ describe User, type: :model do
 
     describe '#google_classrooms' do
       let(:google_classroom) { create(:classroom, :from_google) }
-      let(:google_classroom_teacher) { google_classroom.teacher }
+      let(:google_classroom_teacher) { google_classroom.owner }
 
       it "should return all the teacher's google classrooms" do
         expect(google_classroom_teacher.google_classrooms).to eq([google_classroom])
@@ -247,7 +247,7 @@ describe User, type: :model do
           }
         end
 
-        expect(teacher.get_classroom_minis_info).to eq(sanitize_hash_array_for_comparison_with_sql(expected_response))
+        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_sql(expected_response))
       end
     end
 
