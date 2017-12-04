@@ -152,7 +152,7 @@ describe Teachers::UnitsController, type: :controller do
 
     before(:each) do
       ClassroomActivity.destroy_all
-      session['user_id'] = classroom_activity.classroom.teacher.id
+      session['user_id'] = classroom_activity.classroom.owner.id
     end
 
     it 'should redirect to a lessons index if there are no lessons' do

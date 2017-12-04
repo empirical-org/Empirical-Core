@@ -35,7 +35,7 @@
     <% if @user.role == 'student' %>
       <p style='font-weight: 700;'>Belongs to Classes</p>
       <% @user.classrooms.each do |c| %>
-        <p><%= "#{c.name} - #{c.teacher.name}" %></p>
+        <p><%= "#{c.name} - #{c.owner.name}" %></p>
       <% end %>
       <br />
     <% end %>

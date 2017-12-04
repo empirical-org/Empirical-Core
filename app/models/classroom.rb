@@ -42,17 +42,13 @@ class Classroom < ActiveRecord::Base
     self.classrooms_teachers.includes(:user).find_by_role('owner')&.teacher
   end
 
-  def teacher
-    self.owner
-  end
-
   def coteachers
     self.classrooms_teachers.includes(:user).where(role: 'coteacher').map(&:teacher)
   end
 
   def unique_topic_count_array
     filters = {}
-    best_activity_sessions = ProgressReports::Standards::ActivitySession.new(teacher).results(filters)
+    best_activity_sessions = ProgressReports::Standards::ActivitySession.new(owner).results(filters)
     ActivitySession.from_cte('best_activity_sessions', best_activity_sessions)
       .select("COUNT(DISTINCT(activities.topic_id)) as topic_count")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')

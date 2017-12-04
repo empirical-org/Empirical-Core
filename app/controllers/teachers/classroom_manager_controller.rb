@@ -208,7 +208,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def authorize!
     if params[:classroom_id]
-      auth_failed unless ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: params[:classroom_id].to_i)
+      classroom_teacher!(params[:classroom_id])
     end
   end
 
