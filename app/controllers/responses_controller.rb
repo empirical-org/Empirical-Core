@@ -86,10 +86,10 @@ class ResponsesController < ApplicationController
   def get_affected_count
     used_sequences = params_for_get_affected_count[:used_sequences]
     selected_sequences = params_for_get_affected_count[:selected_sequences]
-    responses = Response.where(question_uid: params[:question_uid], parent_id: nil, optimal: nil)
+    responses = Response.where(question_uid: params[:question_uid], optimal: nil)
     matched_responses_count = 0
     responses.each do |response|
-      if used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text)} && selected_sequences.any? { |ss| Regexp.new(ss).match(response.text)}
+      if used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text)} && selected_sequences.any? { |ss| ss.length > 0 && Regexp.new(ss).match(response.text)}
         matched_responses_count += 1
       end
     end
