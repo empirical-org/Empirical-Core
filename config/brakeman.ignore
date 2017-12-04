@@ -109,16 +109,16 @@
       "file": "app/models/concerns/teacher.rb",
       "line": 96,
       "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"SELECT DISTINCT classrooms.name AS name, pending_invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms\\n      JOIN pending_invitations ON pending_invitations.inviter_id = my_classrooms.user_id\\n      JOIN coteacher_classroom_invitations ON pending_invitations.id = coteacher_classroom_invitations.pending_invitation_id\\n      JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id\\n      WHERE my_classrooms.user_id = #{self.id} AND pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}' AND my_classrooms.role = 'owner'\")",
+      "code": "ActiveRecord::Base.connection.execute(\"SELECT DISTINCT classrooms.name AS name, pending_invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms\\n      JOIN pending_invitations ON pending_invitations.inviter_id = my_classrooms.user_id\\n      JOIN coteacher_classroom_invitations ON pending_invitations.id = coteacher_classroom_invitations.pending_invitation_id\\n      JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id\\n      WHERE my_classrooms.user_id = #{self.id} AND pending_invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}' AND my_classrooms.role = 'owner'\")",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Teacher",
         "method": "classrooms_i_own_that_have_pending_coteacher_invitations"
       },
-      "user_input": "PendingInvitation::TYPES[:coteacher]",
+      "user_input": "Invitation::TYPES[:coteacher]",
       "confidence": "High",
-      "note": "False positive. PendingInvitation::TYPES[:coteacher] is a constant we control."
+      "note": "False positive. Invitation::TYPES[:coteacher] is a constant we control."
     },
     {
       "warning_type": "SQL Injection",

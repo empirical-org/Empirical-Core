@@ -26,5 +26,33 @@ class ClassroomsTeachersController < ApplicationController
     @selected_teacher_id = params[:classrooms_teacher_id].to_i
   end
 
+  def update_coteachers
+    coteacher = User.find(params[:classrooms_teacher_id].to_i)
 
+    partitioned_classrooms = params[:classrooms].partition { |classroom| classroom['checked'] }
+    positive_classroom_ids = partitioned_classrooms.first.collect { |classroom| classroom['id'].to_i }
+    negative_classroom_ids = partitioned_classrooms.second.collect { |classroom |classroom['id'].to_i }
+
+    #new_classroom_ids = positive_classroom_ids - coteacher.classrooms_i_teach_ids
+
+    coteacher_classroom_ids & negative_classroom_ids
+
+
+    if positive_classroom_ids.any?
+      invitation = Invitation.find_or_create_by(
+        invitee_email: coteacher.email,
+        inviter_id: current_user.id,
+        invitation_type: Invitation::TYPES[:coteacher]
+      )
+
+      positive_classroom_ids.each do |id|
+        classroom_owner!(id)
+        CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
+      end
+    end
+
+    # TODO account for if there is no pending invitation but is an association
+    # TODO handle negative_classroom_ids
+
+  end
 end

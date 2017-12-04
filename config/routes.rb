@@ -221,7 +221,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  resources :pending_invitations, only: [] do
+  resources :invitations, only: [] do
     collection do
       post :create_coteacher_invitation
       delete :destroy_pending_invitations_to_specific_invitee
@@ -231,6 +231,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :classrooms_teachers, only: [] do
     get 'edit_coteacher_form', to: 'classrooms_teachers#edit_coteacher_form'
+    post 'edit_coteacher_form', to: 'classrooms_teachers#update_coteachers'
   end
 
   resources :coteacher_classroom_invitations, only: [] do

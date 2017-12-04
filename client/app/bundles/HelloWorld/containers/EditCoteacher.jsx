@@ -1,12 +1,13 @@
 import React from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import request from 'request';
 
 export default React.createClass({
   getInitialState: function() {
     return {
       selectedCoteacher: null,
-      checkboxClassrooms: this.props.classrooms
+      checkboxClassrooms: this.props.classrooms,
     }
   },
 
@@ -28,7 +29,8 @@ export default React.createClass({
     })
     this.setState({
       selectedCoteacher: this.props.coteachers.find(ct => ct.id == coteacherId),
-      checkboxClassrooms
+      checkboxClassrooms,
+      changesToSave: false
     });
   },
 
@@ -40,7 +42,7 @@ export default React.createClass({
     const newCheckboxClassrooms = [...this.state.checkboxClassrooms]
     const matchingClassroom = newCheckboxClassrooms.find((c)=>c.id == e);
     matchingClassroom.checked = !matchingClassroom.checked;
-    this.setState({checkboxClassrooms: newCheckboxClassrooms})
+    this.setState({checkboxClassrooms: newCheckboxClassrooms, changesToSave: true})
   },
 
   showClassSelection: function() {
@@ -66,6 +68,25 @@ export default React.createClass({
     }
   },
 
+  saveChangesButton: function() {
+    const color = this.state.changesToSave ? 'green' : 'light-gray'
+    return <button className={`button-${color}`} disabled={!this.state.changesToSave} onClick={this.saveChanges}>Save Changes</button>
+  },
+
+  saveChanges: function() {
+
+    request({
+      url: `${process.env.DEFAULT_URL}/classrooms_teachers/${this.state.selectedCoteacher.id}/edit_coteacher_form`,
+      method: 'POST',
+      json: { classrooms: this.state.checkboxClassrooms, authenticity_token: ReactOnRails.authenticityToken(), },
+    },
+    (err, httpResponse, body) => {
+      if(httpResponse.status !== 200) {
+        alert('Oops! Saving failed. Please try again.');
+      }
+    });
+  },
+
   render: function() {
     return (
       <div>
@@ -75,6 +96,7 @@ export default React.createClass({
            {this.generateMenuItems()}
          </DropdownButton>
         {this.showClassSelection()}
+        {this.saveChangesButton()}
       </div>
     )
    }

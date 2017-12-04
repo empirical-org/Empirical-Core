@@ -180,6 +180,13 @@ button:not(.select-mixin) {
     background-color: #616161;
   }
 }
+.button-light-gray {
+  background-color: #c0c0c0;
+  color: #fff;
+  &:hover {
+    background-color: #c0c0c0;
+  }
+}
 
 .btn-orange {
   height: 40px;

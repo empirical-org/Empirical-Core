@@ -3,8 +3,8 @@ require 'rails_helper'
 describe CoteacherClassroomInvitationsController, type: :controller do
   let(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
   let(:invite_one) { create(:coteacher_classroom_invitation, classroom_id: teacher.classrooms_i_own.first.id) }
-  let(:pending_invitation) { invite_one.pending_invitation }
-  let(:invite_two) { create(:coteacher_classroom_invitation, classroom_id: teacher.classrooms_i_own.second.id, pending_invitation_id: pending_invitation.id) }
+  let!(:pending_invitation) { invite_one.invitation }
+  let(:invite_two) { create(:coteacher_classroom_invitation, classroom_id: teacher.classrooms_i_own.second.id, invitation_id: pending_invitation.id) }
   let(:invited_teacher) { create(:teacher, email: pending_invitation.invitee_email) }
   let(:unaffiliated_teacher) { create(:teacher) }
 

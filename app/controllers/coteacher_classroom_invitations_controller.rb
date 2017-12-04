@@ -3,17 +3,27 @@ class CoteacherClassroomInvitationsController < ApplicationController
 
   def accept_pending_coteacher_invitations
     coteacher_invitations_to_accept = params[:coteacher_invitation_ids].map(&:to_i)
-    classroom_ids = ActiveRecord::Base.connection.execute("
-      SELECT coteacher_classroom_invitations.classroom_id
+    classrooms = ActiveRecord::Base.connection.execute("
+      SELECT coteacher_classroom_invitations.classroom_id, invitations.id AS invitation_id
       FROM coteacher_classroom_invitations
-      INNER JOIN pending_invitations
-        ON pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}'
-        AND pending_invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)}
+      INNER JOIN invitations
+        ON invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}'
+        AND invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)}
+        AND invitations.status = '#{Invitation::STATUSES[:pending]}'
       WHERE coteacher_classroom_invitations.id IN (#{coteacher_invitations_to_accept.join(', ')})
-    ").to_a.map{|classroom|classroom['classroom_id'].to_i}
+    ").to_a
+    classroom_ids = Set.new
+    invitation_ids = Set.new
+    classrooms.each do |classroom|
+      classroom_ids << classroom['classroom_id'].to_i
+      invitation_ids << classroom['invitation_id'].to_i
+    end
     return auth_failed if classroom_ids.empty?
     classroom_ids.each do |classroom_id|
       ClassroomsTeacher.create(classroom_id: classroom_id, role: 'coteacher', user_id: current_user.id)
+    end
+    invitation_ids.each do |invitation_id|
+      Invitation.find(invitation_id).update(status: Invitation::STATUSES[:accepted])
     end
     respond_to do |format|
       format.html { return redirect_to dashboard_teachers_classrooms_path }
@@ -27,7 +37,7 @@ class CoteacherClassroomInvitationsController < ApplicationController
 
   # private
   # def delete_pending_coteacher_invitations
-  #   pending_invitation = PendingInvitation.find_by(invitee_email: current
+  #   invitation = Invitation.find_by(invitee_email: current
   # end
 
 end
