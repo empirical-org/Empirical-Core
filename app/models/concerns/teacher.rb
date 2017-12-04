@@ -80,7 +80,7 @@ module Teacher
 
   def classrooms_i_own_that_have_coteachers
     ActiveRecord::Base.connection.execute(
-      "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email, coteacher.id AS coteacher_id FROM classrooms_teachers AS my_classrooms
       JOIN classrooms_teachers AS coteachers_classrooms ON coteachers_classrooms.classroom_id = my_classrooms.classroom_id
       JOIN classrooms ON coteachers_classrooms.classroom_id = classrooms.id
       JOIN users AS coteacher ON coteachers_classrooms.user_id = coteacher.id
