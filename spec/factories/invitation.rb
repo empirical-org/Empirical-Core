@@ -6,7 +6,7 @@ FactoryBot.define do
 
     factory :pending_coteacher_invitation do
       invitation_type Invitation::TYPES[:coteacher]
-      status Invitation::STATUSES[:pending]
+      archived false
     end
   end
 end

@@ -27,25 +27,25 @@ class ClassroomsTeachersController < ApplicationController
   end
 
   def update_coteachers
-    coteacher = User.find(params[:classrooms_teacher_id].to_i)
 
     partitioned_classrooms = params[:classrooms].partition { |classroom| classroom['checked'] }
     positive_classroom_ids = partitioned_classrooms.first.collect { |classroom| classroom['id'].to_i }
     negative_classroom_ids = partitioned_classrooms.second.collect { |classroom |classroom['id'].to_i }
 
-    #new_classroom_ids = positive_classroom_ids - coteacher.classrooms_i_teach_ids
+    coteacher = User.find(params[:classrooms_teacher_id].to_i)
+    
+    new_invitations_that_are_not_associations = positive_classroom_ids - coteacher.classrooms_i_teach.map{|c| c.id}
 
-    coteacher_classroom_ids & negative_classroom_ids
+    # coteacher_relationships_to_destroy = coteacher_classroom_ids & negative_classroom_ids
+    # coteacher_invitations_to_destroy = coteacher_classrooms_im_invited_to_teacher & negative_classroom_ids
 
-
-    if positive_classroom_ids.any?
-      invitation = Invitation.find_or_create_by(
+    if new_invitations.any?
+      invitation = Invitation.create(
         invitee_email: coteacher.email,
         inviter_id: current_user.id,
         invitation_type: Invitation::TYPES[:coteacher]
       )
-
-      positive_classroom_ids.each do |id|
+      new_invitations.each do |id|
         classroom_owner!(id)
         CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
       end

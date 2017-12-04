@@ -863,8 +863,7 @@ CREATE TABLE invitations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     invitation_type character varying,
-    status character varying DEFAULT 'pending'::character varying,
-    CONSTRAINT check_status_is_valid CHECK ((((status)::text = ANY ((ARRAY['pending'::character varying, 'accepted'::character varying, 'rejected'::character varying])::text[])) AND (status IS NOT NULL)))
+    archived boolean DEFAULT false
 );
 
 
@@ -2711,13 +2710,6 @@ CREATE INDEX index_invitations_on_inviter_id ON invitations USING btree (inviter
 
 
 --
--- Name: index_invitations_on_status; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_invitations_on_status ON invitations USING btree (status);
-
-
---
 -- Name: index_ip_locations_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3625,4 +3617,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171204202718');
 INSERT INTO schema_migrations (version) VALUES ('20171204203843');
 
 INSERT INTO schema_migrations (version) VALUES ('20171204205938');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204220339');
 

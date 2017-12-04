@@ -9,7 +9,7 @@ class CoteacherClassroomInvitationsController < ApplicationController
       INNER JOIN invitations
         ON invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}'
         AND invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)}
-        AND invitations.status = '#{Invitation::STATUSES[:pending]}'
+        AND invitations.archived = false
       WHERE coteacher_classroom_invitations.id IN (#{coteacher_invitations_to_accept.join(', ')})
     ").to_a
     classroom_ids = Set.new
@@ -23,7 +23,9 @@ class CoteacherClassroomInvitationsController < ApplicationController
       ClassroomsTeacher.create(classroom_id: classroom_id, role: 'coteacher', user_id: current_user.id)
     end
     invitation_ids.each do |invitation_id|
-      Invitation.find(invitation_id).update(status: Invitation::STATUSES[:accepted])
+      if !CoteacherClassroomInvitation.exists?(invitation_id: invitation_id)
+        Invitation.find(invitation_id).update(archived: true)
+      end
     end
     respond_to do |format|
       format.html { return redirect_to dashboard_teachers_classrooms_path }
