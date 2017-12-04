@@ -34,16 +34,13 @@ export default React.createClass({
 
   render: function () {
     var responseListItems = this.props.responses.map((resp) => {
-      if (resp && this.props.selectedIncorrectSequences) {
+      if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
         const anyMatches = this.props.selectedIncorrectSequences.some(inSeq => inSeq.length > 0 && new RegExp(inSeq).test(resp.text))
-        if (anyMatches && !resp.parent_id && resp.optimal === null) {
+        if (anyMatches) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
-        } else {
-          return (this.renderResponse(resp))
         }
-      } else {
-        return (this.renderResponse(resp))
       }
+      return (this.renderResponse(resp))
     });
 
     return (
