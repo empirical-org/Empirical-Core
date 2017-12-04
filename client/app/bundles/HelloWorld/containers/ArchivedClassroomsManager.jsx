@@ -141,7 +141,7 @@ export default React.createClass({
 
   removePendingCoteacher(coteacher_email) {
     request({
-      url: `${process.env.DEFAULT_URL}/pending_invitations/destroy_pending_invitations_to_specific_invitee`,
+      url: `${process.env.DEFAULT_URL}/invitations/destroy_pending_invitations_to_specific_invitee`,
       method: 'DELETE',
       json: { invitee_email: coteacher_email, invitation_type: 'coteacher', authenticity_token: getAuthToken(), },
     },

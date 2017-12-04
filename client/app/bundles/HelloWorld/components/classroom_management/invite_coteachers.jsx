@@ -30,7 +30,7 @@ export default class extends React.Component {
     }
     const classroom_ids = selectedClassrooms.map(classroom => classroom.value);
     request.post({
-      url: `${process.env.DEFAULT_URL}/pending_invitations/create_coteacher_invitation`,
+      url: `${process.env.DEFAULT_URL}/invitations/create_coteacher_invitation`,
       json: {
         authenticity_token: getAuthToken(),
         invitee_email: that.state.email,

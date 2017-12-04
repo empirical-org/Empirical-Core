@@ -1,4 +1,4 @@
 class CoteacherClassroomInvitation < ActiveRecord::Base
-  belongs_to :pending_invitation
+  belongs_to :invitation
   belongs_to :classroom
 end

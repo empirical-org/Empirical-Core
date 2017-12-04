@@ -40,7 +40,7 @@ describe User, type: :model do
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms teachers' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
-        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email])
+        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email, "coteacher_id"=>coteacher.id.to_s])
       end
     end
     describe '#classrooms_i_own_that_have_pending_coteacher_invitations' do
@@ -51,8 +51,8 @@ describe User, type: :model do
 
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms with pending coteacher invitation' do
         coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
-        teacher = coteacher_classroom_invitation.pending_invitation.inviter
-        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.pending_invitation.invitee_email])
+        teacher = coteacher_classroom_invitation.invitation.inviter
+        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.invitation.invitee_email])
       end
     end
 
