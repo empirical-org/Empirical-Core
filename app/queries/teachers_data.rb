@@ -19,27 +19,24 @@ module TeachersData
       users.name,
       users.email,
       COUNT(DISTINCT students_classrooms.id) AS number_of_students,
-      COUNT(DISTINCT concept_results.id) AS number_of_questions_completed,
+      time_spent_query.number_of_questions_completed AS number_of_questions_completed,
       MAX(time_spent_query.time_spent) AS time_spent
     FROM users
-    LEFT OUTER JOIN units ON users.id = units.user_id
-    LEFT OUTER JOIN classroom_activities ON units.id = classroom_activities.unit_id
-    LEFT OUTER JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
-    LEFT OUTER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
     LEFT OUTER JOIN classrooms ON users.id = classrooms.teacher_id
     LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id
-    LEFT OUTER JOIN (SELECT acss_ids.teacher_id, #{time_spent}) AS time_spent FROM activity_sessions
-      INNER JOIN (SELECT users.id AS teacher_id, activity_sessions.id AS activity_session_id FROM users
+    LEFT OUTER JOIN (SELECT acss_ids.teacher_id, #{time_spent}) AS time_spent, SUM(acss_ids.number_of_questions_completed) AS number_of_questions_completed FROM activity_sessions
+      INNER JOIN (SELECT users.id AS teacher_id, COUNT(DISTINCT concept_results.id) AS number_of_questions_completed, activity_sessions.id AS activity_session_id FROM users
       INNER JOIN units ON users.id = units.user_id
       INNER JOIN classroom_activities ON units.id = classroom_activities.unit_id
       INNER JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
+      INNER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
       WHERE users.id IN (#{teacher_ids_str})
       AND activity_sessions.state = 'finished'
       GROUP BY users.id, activity_sessions.id) AS acss_ids ON activity_sessions.id = acss_ids.activity_session_id
       GROUP BY acss_ids.teacher_id
     ) AS time_spent_query ON users.id = time_spent_query.teacher_id
     WHERE users.id IN (#{teacher_ids_str})
-    GROUP BY users.id")
+    GROUP BY users.id, number_of_questions_completed")
   end
 
   private
