@@ -56,17 +56,25 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def archived_classroom_manager_data
     begin
-    active = []
-    inactive = []
-    # TODO: easy performance fix could be done here
-    ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
-      classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
-      if classroom.visible
-        active << classroom.archived_classrooms_manager
-      else
-        inactive << classroom.archived_classrooms_manager
+      invited_classrooms = ActiveRecord::Base.connection.execute("
+        SELECT coteacher_classroom_invitations.id AS classroom_invitation_id, users.name AS inviter_name, classrooms.name AS classroom_name, TRUE AS invitation
+        FROM invitations
+        JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
+        JOIN users ON users.id = invitations.inviter_id
+        JOIN classrooms ON classrooms.id = coteacher_classroom_invitations.classroom_id
+        WHERE invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)} AND invitations.archived = false;
+      ").to_a
+      active = invited_classrooms
+      inactive = []
+      # TODO: easy performance fix could be done here
+      ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
+        classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
+        if classroom.visible
+          active << classroom.archived_classrooms_manager
+        else
+          inactive << classroom.archived_classrooms_manager
+        end
       end
-    end
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
