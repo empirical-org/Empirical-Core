@@ -45,6 +45,9 @@
     thead {
       background-color: #e6e6e6;
     }
+    tr.pending-invation {
+
+    }
     td {
       width: 30%;
       i {
@@ -52,11 +55,8 @@
         font-size: 10px;
         vertical-align: middle;
       }
-      &.pending-invitation-row {
-        width: 100%;
-      }
     }
-    tr td:last-of-type, .manage-class {
+    tr td:last-of-type:not(.pending-invitation-row), .manage-class {
       text-align: right;
       color: #027360;
       cursor: pointer;
@@ -71,7 +71,17 @@
         padding: 0;
       }
     }
-
+    .pending-invitation-row {
+      text-align: left;
+      color: black;
+      a {
+        padding: 0 4px 0 4px;
+        font-weight: 600;
+        color: #027360;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
     .pending_coteachers_row, .pending-invitation-class-name {
       color: #969696;
       font-style: italic;
