@@ -222,7 +222,7 @@ export default React.createClass({
           <td>{cl.className}</td>
           <td>{cl.ownerName}</td>
           <td>{coteacherCell}</td>
-          <td>{cl.classcode}</td>
+          <td>{cl.from_google ?  <span className='google-classcode'>Synced from Google Classroom</span> : cl.classcode}</td>
           <td className="student-count">{cl.studentCount}</td>
           <td className="created-date">{cl.createdDate}</td>
           <td>{manageClass}</td>

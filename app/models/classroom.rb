@@ -70,7 +70,7 @@ class Classroom < ActiveRecord::Base
   end
 
   def archived_classrooms_manager
-    {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id, studentCount: self.students.count, classcode: self.code}
+    {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id, studentCount: self.students.count, classcode: self.code, ownerName: self.owner.name, from_google: !!self.google_classroom_id}
   end
 
   def import_students!
