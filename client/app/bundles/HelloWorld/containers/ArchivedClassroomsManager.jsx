@@ -155,6 +155,7 @@ export default React.createClass({
   },
 
   tableRows(cl, action) {
+    // classroom_invitation_id, inviter_name, class_name
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
       if (action === 'coteachers' || action == 'pending_coteachers') {
@@ -168,11 +169,25 @@ export default React.createClass({
           </tr>
         )
       }
+      if (cl.invitation) {
+        return (
+          <tr key={cl.email + cl.invite_id}>
+            <td className='pending-invitation-class-name'>{cl.class_name}</td>
+            <td className='pending-invitation-row' colSpan={5}>{cl.inviter_name} has invited you to co-teach this class.
+              (
+                  <a onClick={() => this.handleAccept(cl.classroom_invitation_id)}>Accept Invite </a>/
+                  <a onClick={() => this.handleReject(cl.classroom_invitation_id)}>Decline Invite </a>
+              )
+            </td>
+          </tr>
+        )
+      }
       const coteachersArr = this.state.classrooms.coteachersByClassroom[cl.className]
       let coteacherCell;
       if (coteachersArr && coteachersArr.length) {
         coteacherCell = coteachersArr.map(coteacher =><p key={`${coteacher}-${cl.coteacher_email}-coteacher-list`}>{coteacher}</p>)
       }
+
 
       return (
         <tr key={cl.id}>
