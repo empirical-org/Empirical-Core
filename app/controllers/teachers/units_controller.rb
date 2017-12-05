@@ -127,7 +127,7 @@ class Teachers::UnitsController < ApplicationController
        ca.due_date,
        activities.id AS activity_id,
        activities.uid as activity_uid,
-       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) AS completed_count,
+       ca.completed AS completed,
        SUM(CASE WHEN act_sesh.state = 'started' THEN 1 ELSE 0 END) AS started_count,
        EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
        EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at

@@ -16,7 +16,7 @@ export default React.createClass({
 	},
 
 	classrooms: function() {
-		return this.props.classrooms.map((classroom) => <MenuItem key={classroom.id} eventKey={classroom.id}>{classroom.name}</MenuItem>)
+		return this.props.classrooms.map((classroom) => <MenuItem key={classroom.id} eventKey={classroom.id}>{classroom ? classroom.name : ''}</MenuItem>)
 	},
 
   findClassroomById: function(id) {
@@ -33,7 +33,7 @@ export default React.createClass({
 
 	render: function() {
 		return (
-			<DropdownButton disabled={!this.props.classrooms.length} bsStyle='default' title={this.state.selectedClassroom.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
+			<DropdownButton disabled={!this.props.classrooms.length} bsStyle='default' title={this.state.selectedClassroom ? this.state.selectedClassroom.name : ''} id='select-classroom-dropdown' onSelect={this.handleSelect}>
 				{this.classrooms()}
 			</DropdownButton>
 		);
