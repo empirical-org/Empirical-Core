@@ -62,35 +62,29 @@ export default class extends React.Component {
             <span className='bold'>Teachers have Quill accounts?</span>
             When you submit their email address, they will join your class.</p>
         </div>
-        <table>
-          <tbody>
-            <thead>
-              <th>Email Address</th>
-              <th>Select Classes</th>
-              <tr>
-                <td>
-                  <input type="email" value={this.state.email} placeholder={'Email Address'} onChange={this.handleEmailChange}/>
-                </td>
-                <td>
-                  <Select
-                    name="form-field-name"
-                    value={this.state.value}
-                    multi={true}
-                    onChange={this.handleDropdownChange}
-                    options={this.props.classrooms}
-                    value={this.state.selectedClassrooms}
-                  />
-                </td>
-                <td>
-                  <button className='button-green' onClick={this.handleClick}>Add Coteacher</button>
-                </td>
-                <td className=''>{this.state.coteacher_invited
-                    ? 'Coteacher Invited!'
-                    : ''}</td>
-              </tr>
-            </thead>
-          </tbody>
-        </table>
+        <div className="flex-row space-between vertically-centered add-coteacher-row">
+          <div>
+            <div>Email</div>
+            <input type="email" value={this.state.email} placeholder={'Email Address'} onChange={this.handleEmailChange}/>
+          </div>
+          <div>
+            <div>Select Classes</div>
+              <Select
+                name="form-field-name"
+                value={this.state.value}
+                multi={true}
+                onChange={this.handleDropdownChange}
+                options={this.props.classrooms}
+                value={this.state.selectedClassrooms}
+              />
+          </div>
+          <button className='button-green' onClick={this.handleClick}>Add Coteacher</button>
+          <div>
+            {this.state.coteacher_invited
+                        ? 'Coteacher Invited!'
+                        : ''}
+          </div>
+        </div>
         <CoteacherCapabilityChart/>
       </div>
     );

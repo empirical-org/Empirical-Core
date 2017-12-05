@@ -9,13 +9,15 @@ class UserMailer < ActionMailer::Base
   end
 
   def invitation_to_non_existing_user invitation_email_hash
+    puts 'i was called!'
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, accept_link: 'TODO!')
-    mail to: invitation_attributes_with_inviter_name, subject: "#{@inviter_name} has invited you to co-teach on Quill.org!"
+    mail to: @email_hash[:invitee_email], subject: "#{@email_hash[:inviter_name]} has invited you to co-teach on Quill.org!"
   end
 
   def invitation_to_existing_user invitation_email_hash
+    puts 'i was called! as an existing user'
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: 'TODO!')
-    mail to: invitation_attributes_with_inviter_name, subject: "#{@inviter_name} has invited you to co-teach on Quill.org!"
+    mail to: @email_hash[:invitee_email], subject: "#{@email_hash[:inviter_name]} has invited you to co-teach on Quill.org!"
   end
 
   def password_reset_email user
