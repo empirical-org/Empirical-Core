@@ -202,7 +202,7 @@ export default React.createClass({
         return (
           <tr key={cl.classroom_invitation_id + 'invite'}>
             <td className='pending-invitation-class-name'>{cl.classroom_name}</td>
-            <td className='pending-invitation-row' colSpan={5}>{cl.inviter_name} has invited you to co-teach this class.
+            <td className='pending-invitation-row' colSpan={7}>{cl.inviter_name} has invited you to co-teach this class.
               (
                   <a onClick={() => this.handleAccept(cl.classroom_invitation_id)}>Accept Invite</a> /
                   <a onClick={() => this.handleReject(cl.classroom_invitation_id)}>Decline Invite</a>
@@ -220,9 +220,8 @@ export default React.createClass({
       return (
         <tr key={cl.id}>
           <td>{cl.className}</td>
-          <td>
-            {coteacherCell}
-          </td>
+          <td>{cl.ownerName}</td>
+          <td>{coteacherCell}</td>
           <td>{cl.classcode}</td>
           <td className="student-count">{cl.studentCount}</td>
           <td className="created-date">{cl.createdDate}</td>
@@ -232,6 +231,7 @@ export default React.createClass({
     } else if (this.props.role === 'student') {
       return (
         <tr key={cl.id}>
+          <td>{cl.ownerName}</td>
           <td>{cl.teacherName}</td>
           <td>{cl.className}</td>
           <td>{cl.joinDate}</td>
@@ -259,6 +259,8 @@ export default React.createClass({
         content =
         (<tr>
           <th>Class Name</th>
+          <th>Owner</th>
+          <th>Co-Teachers</th>
           <th>Classcode</th>
           <th className="student-count">Student Count</th>
           <th className="created-date">Date Created</th>
