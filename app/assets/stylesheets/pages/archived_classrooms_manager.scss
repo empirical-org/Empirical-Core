@@ -52,6 +52,9 @@
         font-size: 10px;
         vertical-align: middle;
       }
+      &.pending-invitation-row {
+        width: 100%;
+      }
     }
     tr td:last-of-type, .manage-class {
       text-align: right;
@@ -69,10 +72,9 @@
       }
     }
 
-    .pending_coteachers_row {
+    .pending_coteachers_row, .pending-invitation-class-name {
       color: #969696;
       font-style: italic;
-
       td:last-of-type {
         font-style: normal;
       }
