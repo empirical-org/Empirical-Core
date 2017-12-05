@@ -238,6 +238,9 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       post :accept_pending_coteacher_invitations, format: 'json'
       get :accept_pending_coteacher_invitations
+
+      post :reject_pending_coteacher_invitations, format: 'json'
+      get :reject_pending_coteacher_invitations
     end
   end
 
