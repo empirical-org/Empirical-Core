@@ -10,11 +10,14 @@ describe ClassroomActivity, type: :model, redis: :true do
     let!(:classroom) { create(:classroom, teacher: teacher, code: 'great', name: 'great', students: [student]) }
     let!(:classroom_2) { create(:classroom, teacher: teacher, code: 'gredat', name: 'gredat') }
     let!(:unit) { create(:unit) }
-    let(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
-    let(:activity_session) {create(:activity_session, classroom_activity_id: classroom_activity.id)}
+    let!(:classroom_activity) { ClassroomActivity.create(activity: activity, classroom: classroom, unit: unit) }
+    let!(:activity_session) {create(:activity_session, classroom_activity_id: classroom_activity.id, activity_id: classroom_activity.activity_id, user_id: student.id, state: 'unstarted')}
     let(:lessons_activity) { create(:activity, activity_classification_id: 6) }
     let(:lessons_classroom_activity) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom, unit: unit) }
     let(:lessons_classroom_activity_2) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom_2, unit: unit) }
+    let!(:classroom_activity_with_started_activity_session) { ClassroomActivity.create(activity: activity, classroom: classroom, assigned_student_ids: [student.id]) }
+    let!(:started_activity_session) { create(:activity_session, user_id: student.id, classroom_activity_id: classroom_activity_with_started_activity_session.id, activity_id: classroom_activity_with_started_activity_session.activity_id)}
+    let!(:classroom_activity_with_no_activity_session) { ClassroomActivity.create(activity: activity, classroom: classroom, assigned_student_ids: [student.id]) }
 
     describe '#assigned_students' do
         it 'must be empty if none assigned' do
@@ -214,6 +217,25 @@ describe ClassroomActivity, type: :model, redis: :true do
             classroom_activity.update(assigned_student_ids: [], assign_on_join: true)
             expect(classroom_activity.assigned_student_ids).to eq([student.id])
         end
+      end
+    end
+
+    describe '#find_or_create_started_activity_session' do
+      it "returns a started activity session if it exists" do
+        returned_activity_session = classroom_activity_with_started_activity_session.find_or_create_started_activity_session(student.id)
+        expect(returned_activity_session).to eq(started_activity_session)
+      end
+
+      it "finds an unstarted activity session if it exists, updates it to started, and returns it" do
+        returned_activity_session = classroom_activity.find_or_create_started_activity_session(student.id)
+        expect(returned_activity_session).to eq(activity_session)
+        expect(returned_activity_session.state).to eq('started')
+      end
+
+      it "creates a started activity session if neither a started nor an unstarted one exist" do
+        returned_activity_session = classroom_activity_with_no_activity_session.find_or_create_started_activity_session(student.id)
+        expect(returned_activity_session.user_id).to eq(student.id)
+        expect(returned_activity_session.state).to eq('started')
       end
     end
 end
