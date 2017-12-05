@@ -7,6 +7,8 @@ class ClassroomsTeacher < ActiveRecord::Base
   after_create :delete_classroom_minis_cache
   after_commit :trigger_analytics_events_for_classroom_creation, on: :create
 
+  ROLE_TYPES = {coteacher: 'coteacher', owner: 'owner'}
+
   def teacher
     self.user
   end
