@@ -9,13 +9,13 @@ class UserMailer < ActionMailer::Base
   end
 
   def invitation_to_non_existing_user invitation_email_hash
-    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, accept_link: 'TODO!')
-    mail to: @email_hash["invitee_email"], subject: "#{@email_hash[:inviter_name]} has invited you to co-teach on Quill.org!"
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, accept_link: accept_pending_coteacher_invitations_coteacher_classroom_invitations_path(@email_hash['coteacher_classroom_invitation_ids']))
+    mail to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
   def invitation_to_existing_user invitation_email_hash
-    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: 'TODO!')
-    mail to: @email_hash["invitee_email"], subject: "#{@email_hash[:inviter_name]} has invited you to co-teach on Quill.org!"
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_path)
+    mail to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
   def password_reset_email user
