@@ -4,7 +4,7 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize!
 
   def index
-    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty?
+    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
       redirect_to new_teachers_classroom_path
     else
       @classrooms = current_user.classrooms_i_teach
