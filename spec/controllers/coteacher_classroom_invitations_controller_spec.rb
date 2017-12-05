@@ -56,4 +56,55 @@ describe CoteacherClassroomInvitationsController, type: :controller do
       end
     end
   end
+
+  describe '#reject_pending_coteacher_invitations' do
+    context 'user is signed in' do
+      before do
+        session[:user_id] = invited_teacher.id
+      end
+
+      context 'get' do
+        it 'should reject one invitation' do
+          get :reject_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
+          expect { invite_one.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(response).to redirect_to dashboard_teachers_classrooms_path
+        end
+
+        it 'should reject multiple invitations' do
+          get :reject_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id, invite_two.id]
+          expect { invite_one.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { invite_two.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(response).to redirect_to dashboard_teachers_classrooms_path
+        end
+      end
+
+      context 'post' do
+        it 'should reject one invitation' do
+          get :reject_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
+          expect { invite_one.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+
+        it 'should reject multiple invitations' do
+          get :reject_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id, invite_two.id]
+          expect { invite_one.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { invite_two.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+    end
+
+    context 'user is not signed in' do
+      it 'should redirect to the login page' do
+        get :reject_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
+        expect(response).to redirect_to new_session_path
+      end
+    end
+
+    context 'user does not have access' do
+      it 'should redirect to the login page' do
+        session[:user_id] = unaffiliated_teacher.id
+        get :reject_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
+        expect(response).to redirect_to new_session_path
+      end
+    end
+  end
 end
