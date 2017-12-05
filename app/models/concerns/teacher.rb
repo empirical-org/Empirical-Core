@@ -98,6 +98,35 @@ module Teacher
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 
+  def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
+    if classroom_ids && classroom_ids.any?
+      # destroy the extant invitation and teacher relationships
+      self.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
+        if k == :classrooms_teachers_ids
+          ClassroomsTeacher.where(id: v).map(&:destroy)
+        elsif k ==  :coteacher_classroom_invitations_ids
+          CoteacherClassroomInvitation.where(id: v).map(&:destroy)
+        end
+      end
+    end
+  end
+
+  def handle_positive_classrooms_from_update_coteachers(classroom_ids, inviter_id)
+    if classroom_ids && classroom_ids.any?
+      new_classroom_ids = classroom_ids.map(&:to_i) - self.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.to_a.map(&:to_i)
+      if new_classroom_ids.any?
+        invitation = Invitation.create(
+          invitee_email: self.email,
+          inviter_id: inviter_id,
+          invitation_type: Invitation::TYPES[:coteacher]
+        )
+        new_classroom_ids.each do |id|
+          CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
+        end
+      end
+    end
+  end
+
   def google_classrooms
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner' AND classrooms.google_classroom_id IS NOT null")
   end
