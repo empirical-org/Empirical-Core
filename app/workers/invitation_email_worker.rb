@@ -5,7 +5,12 @@ class InvitationEmailWorker
     invitation = Invitation.find(invitation_id)
     email_vars = invitation.attributes
     email_vars[:inviter_name] = invitation.inviter.name
-    email_vars[:classroom_names] = invitation.coteacher_classroom_invitations.map(&:classroom).map(&:name)
+    email_vars[:classroom_names] = []
+    email_vars[:coteacher_classroom_invitation_ids] = []
+    invitation.coteacher_classroom_invitations.each do |ctc|
+      email_vars[:classroom_names] << ctc.classroom.name
+      email_vars[:coteacher_classroom_invitation_ids] << ctc.id
+    end
     invitee_in_db = User.find_by(email: invitation.invitee_email)
     if invitee_in_db
       email_vars[:invitee_first_name] = invitee_in_db.first_name
