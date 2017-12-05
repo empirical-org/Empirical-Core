@@ -121,7 +121,6 @@ export default React.createClass({
   },
 
   uponSignUp: function (data) {
-    debugger;
     let analytics = new AnalyticsWrapper()
     console.log(analytics);
     if (data.redirectPath) {
