@@ -110,7 +110,8 @@ module PublicProgressReports
         name: classroom.name,
         students: [],
         started_names: [],
-        unstarted_names: []
+        unstarted_names: [],
+        missed_names: []
       }
       classroom_activity.assigned_student_ids.each do |student_id|
         student = User.find_by(id: student_id)
@@ -121,6 +122,8 @@ module PublicProgressReports
           else
             if ActivitySession.find_by(user_id: student_id, state: 'started', classroom_activity_id: ca_id)
               scores[:started_names].push(student.name)
+            elsif classroom_activity.completed
+              scores[:missed_names].push(student.name)
             else
               scores[:unstarted_names].push(student.name)
             end
