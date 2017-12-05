@@ -71,7 +71,7 @@ module PublicProgressReports
       questions_arr
     end
 
-    def classrooms_with_students_that_completed_activity unit_id, activity_id
+    def classrooms_with_students_that_completed_activity(unit_id, activity_id)
       h = {}
       unit = Unit.find(unit_id)
       class_ids = current_user.classrooms_i_teach.map(&:id)
@@ -81,14 +81,16 @@ module PublicProgressReports
       class_acts.each do |ca|
         classroom = ca.classroom.attributes
         activity_sessions = ca.activity_sessions.completed
-        activity_sessions.each do |activity_session|
+        if activity_sessions || ca.completed
           class_id = classroom['id']
           h[class_id] ||= classroom
-          h[class_id][:students] ||= []
-          if h[class_id][:students].exclude? activity_session.user
-             h[class_id][:students] << activity_session.user
-          end
           h[class_id][:classroom_activity_id] = ca.id
+          activity_sessions.each do |activity_session|
+            h[class_id][:students] ||= []
+            if h[class_id][:students].exclude? activity_session.user
+               h[class_id][:students] << activity_session.user
+            end
+          end
         end
       end
 
