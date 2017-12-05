@@ -15,7 +15,6 @@ export default React.createClass({
     this.handleSelect(this.props.selected_teacher_id)
   },
 
-
   handleSelect: function(coteacherId) {
     const classroomsBelongingToSpecificTeacher = this.props.classroomsGroupedByCoteacherId[coteacherId]
     const checkboxClassrooms = this.state.checkboxClassrooms
@@ -81,8 +80,8 @@ export default React.createClass({
       json: { classrooms: this.state.checkboxClassrooms, authenticity_token: ReactOnRails.authenticityToken(), },
     },
     (err, httpResponse, body) => {
-      if(httpResponse.status !== 200) {
-        alert('Oops! Saving failed. Please try again.');
+      if(httpResponse.statusCode !== 200) {
+        alert(body.error_message);
       }
     });
   },

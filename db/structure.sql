@@ -2696,13 +2696,6 @@ CREATE INDEX index_invitations_on_invitee_email ON invitations USING btree (invi
 
 
 --
--- Name: index_invitations_on_invitee_email_and_inviter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_invitations_on_invitee_email_and_inviter_id ON invitations USING btree (invitee_email, inviter_id);
-
-
---
 -- Name: index_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3619,4 +3612,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171204203843');
 INSERT INTO schema_migrations (version) VALUES ('20171204205938');
 
 INSERT INTO schema_migrations (version) VALUES ('20171204220339');
+
+INSERT INTO schema_migrations (version) VALUES ('20171205181155');
 
