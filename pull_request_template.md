@@ -8,6 +8,8 @@ Adresses issue #
 
 **Has this branch been QA'd on staging?** yes/no
 
+**Have you updated the docs?** yes/no
+
 **Have the tests been updated?** yes/no
 
 **Reviewer:** @ddmck
