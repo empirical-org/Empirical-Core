@@ -121,9 +121,7 @@ export default React.createClass({
   },
 
   uponSignUp: function (data) {
-    debugger;
     let analytics = new AnalyticsWrapper()
-    console.log(analytics);
     if (data.redirectPath) {
       window.location = data.redirectPath;
     } else if (this.state.role === 'student') {

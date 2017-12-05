@@ -262,6 +262,15 @@ class User < ActiveRecord::Base
     UserMailer.account_created_email(self, temp_password, admin_name).deliver_now! if email.present?
   end
 
+  def send_invitation_to_non_existing_user(invitation_email_hash)
+    # must be called from inviter account
+    UserMailer.invitation_to_non_existing_user(invitation_email_hash).deliver_now! if email.present?
+  end
+
+  def send_invitation_to_existing_user(invitation_email_hash)
+    UserMailer.invitation_to_existing_user(invitation_email_hash).deliver_now! if email.present?
+  end
+
   def send_join_school_email(school)
     UserMailer.join_school_email(self, school).deliver_now! if email.present?
   end
