@@ -28,46 +28,13 @@ class ClassroomsTeachersController < ApplicationController
   end
 
   def update_coteachers
-
     partitioned_classrooms = params[:classrooms].partition { |classroom| classroom['checked'] }
     positive_classroom_ids = partitioned_classrooms.first.collect { |classroom| classroom['id'].to_i }
     negative_classroom_ids = partitioned_classrooms.second.collect { |classroom |classroom['id'].to_i }
-
     coteacher = User.find(params[:classrooms_teacher_id].to_i)
 
-    new_invitations_that_are_not_associated = positive_classroom_ids - coteacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach
-
-    # coteacher_relationships_to_destroy = coteacher_classroom_ids & negative_classroom_ids
-    # coteacher_invitations_to_destroy = coteacher_classrooms_im_invited_to_teacher & negative_classroom_ids
-
-
-
-    if negative_classroom_ids.any?
-      coteacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of.each do |k,v|
-        
-      end
-    end
-
-    if new_invitations.any?
-      invitation = Invitation.create(
-        invitee_email: coteacher.email,
-        inviter_id: current_user.id,
-        invitation_type: Invitation::TYPES[:coteacher]
-      )
-      new_invitations.each do |id|
-        classroom_owner!(id)
-        CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
-      end
-    end
-
-
-    if condition
-
-    end
-
-    # TODO account for if there is no pending invitation but is an association
-    # TODO handle negative_classroom_ids
-
+    coteacher.handle_negative_classrooms_from_update_coteachers(negative_classroom_ids)
+    coteacher.handle_positive_classrooms_from_update_coteachers(positive_classroom_ids, current_user.id)
   end
 
   private
