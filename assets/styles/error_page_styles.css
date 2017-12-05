@@ -91,3 +91,56 @@ button:hover {
   }
 
 }
+
+.four-oh-four {
+  margin-top: 80px;
+}
+
+.four-oh-four h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+.four-oh-four p {
+  font-family: AdelleSans, Helvetica, Arial;
+  font-size: 18px;
+}
+.four-oh-four .cta-links {
+  display: flex;
+  align-items: center;
+}
+.four-oh-four a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #027360;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.four-oh-four .explore-homepage {
+  width: 188px;
+  height: 40px;
+  border-radius: 3px;
+  background-color: #00c2a2;
+  font-size: 16px;
+  display: flex;
+  font-weight: bold;
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+}
+
+.four-oh-four .login-or-signup {
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.login-or-signup a {
+  margin-bottom: 0px;
+  display: inline;
+  font-size: 14px;
+}
+
+.four-oh-four .helpful-links {
+  font-size: 14px;
+}
