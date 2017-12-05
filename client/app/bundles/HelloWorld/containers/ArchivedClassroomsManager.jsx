@@ -154,6 +154,36 @@ export default React.createClass({
     });
   },
 
+  handleAccept(classroom_invitation_id) {
+    request({
+      url: `${process.env.DEFAULT_URL}/coteacher_classroom_invitations/accept_pending_coteacher_invitations`,
+      method: 'POST',
+      json: { coteacher_invitation_ids: [classroom_invitation_id], authenticity_token: getAuthToken(), },
+    },
+    (err, httpResponse, body) => {
+      if (httpResponse.statusCode === 200) {
+        this.getClassrooms();
+      } else {
+        alert('Sadly, an error occurred.');
+      }
+    });
+  },
+
+  handleReject(classroom_invitation_id) {
+    request({
+      url: `${process.env.DEFAULT_URL}/coteacher_classroom_invitations/reject_pending_coteacher_invitations`,
+      method: 'POST',
+      json: { coteacher_invitation_ids: [classroom_invitation_id], authenticity_token: getAuthToken(), },
+    },
+    (err, httpResponse, body) => {
+      if (httpResponse.statusCode === 200) {
+        this.getClassrooms();
+      } else {
+        alert('Sadly, an error occurred.');
+      }
+    });
+  },
+
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
@@ -174,8 +204,8 @@ export default React.createClass({
             <td className='pending-invitation-class-name'>{cl.classroom_name}</td>
             <td className='pending-invitation-row' colSpan={5}>{cl.inviter_name} has invited you to co-teach this class.
               (
-                  <a onClick={() => this.handleAccept(cl.classroom_invitation_id)}>Accept Invite </a>/
-                  <a onClick={() => this.handleReject(cl.classroom_invitation_id)}>Decline Invite </a>
+                  <a onClick={() => this.handleAccept(cl.classroom_invitation_id)}>Accept Invite</a> /
+                  <a onClick={() => this.handleReject(cl.classroom_invitation_id)}>Decline Invite</a>
               )
             </td>
           </tr>
