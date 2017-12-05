@@ -50,23 +50,29 @@ module Teacher
       ids
   end
 
-  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of
+  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
+    if classrooms_ids_to_check && classrooms_ids_to_check.any?
+      # if there are specific ids passed it will only return those that match
+      coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.join(', ')})"
+      classrooms_teacher_additional_join = "AND classrooms_teachers.classroom_id IN (#{classrooms_ids_to_check.join(', ')})"
+    end
     classrooms_teachers_ids = Set.new
     coteacher_classroom_invitation_ids = Set.new
     all_ids = ActiveRecord::Base.connection.execute("SELECT coteacher_classroom_invitations.id AS coteacher_classroom_invitation_id, classrooms_teachers.id AS classrooms_teachers_id FROM users
       LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false
-      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
-      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{self.id} AND classrooms_teachers.role = 'coteacher'
+      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id #{coteacher_classroom_invitation_additional_join}
+      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{self.id} AND classrooms_teachers.role = 'coteacher' #{classrooms_teacher_additional_join}
       WHERE users.id = #{self.id}")
       all_ids.each do |row|
         row.each do |k,v|
           if k == 'coteacher_classroom_invitation_id'
-            coteacher_classroom_invitation_id << v
+            coteacher_classroom_invitation_ids << v.to_i
           elsif k == 'classrooms_teachers_id'
-            coteacher_classroom_invitation_ids << v
+            classrooms_teachers_ids << v.to_i
           end
         end
       end
+      {coteacher_classroom_invitations_ids: coteacher_classroom_invitation_ids.to_a, classrooms_teachers_ids: classrooms_teachers_ids.to_a}
   end
 
   def affiliated_with_unit(unit_id)

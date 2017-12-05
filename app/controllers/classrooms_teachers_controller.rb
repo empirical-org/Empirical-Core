@@ -1,5 +1,6 @@
 class ClassroomsTeachersController < ApplicationController
   before_action :signed_in!
+  before_action :multi_classroom_auth, only: :update_coteachers
 
   def edit_coteacher_form
     classrooms_and_coteachers = ActiveRecord::Base.connection.execute("
@@ -39,9 +40,12 @@ class ClassroomsTeachersController < ApplicationController
     # coteacher_relationships_to_destroy = coteacher_classroom_ids & negative_classroom_ids
     # coteacher_invitations_to_destroy = coteacher_classrooms_im_invited_to_teacher & negative_classroom_ids
 
+
+
     if negative_classroom_ids.any?
-      Invitation.includes(:coteacher_classroom_invitation).where(inviter_id: current_user.id, invitee_email: coteacher.email).map(&:coteacher_classroom_invitations)
-      
+      coteacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of.each do |k,v|
+        
+      end
     end
 
     if new_invitations.any?
@@ -65,4 +69,13 @@ class ClassroomsTeachersController < ApplicationController
     # TODO handle negative_classroom_ids
 
   end
+
+  private
+
+  def multi_classroom_auth
+    uniqued_classroom_ids = params[:classrooms].uniq
+    ClassroomsTeacher.where(user_id: current_user.id, classroom_id: uniqued_classroom_ids, role: 'owner').length == uniqued_classroom_ids.length
+  end
+
+
 end
