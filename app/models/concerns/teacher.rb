@@ -416,6 +416,10 @@ module Teacher
       ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
   end
 
+  def has_outstanding_coteacher_invitation?
+    Invitation.exists?(invitee_email: self.email, archived: false)
+  end
+
   private
 
   def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
