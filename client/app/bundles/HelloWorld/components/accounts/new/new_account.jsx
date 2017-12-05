@@ -121,9 +121,12 @@ export default React.createClass({
   },
 
   uponSignUp: function (data) {
+    debugger;
     let analytics = new AnalyticsWrapper()
     console.log(analytics);
-    if (this.state.role === 'student') {
+    if (data.redirectPath) {
+      window.location = data.redirectPath;
+    } else if (this.state.role === 'student') {
       window.location = '/profile';
       analytics.track('Student created an account')
     } else if (this.state.role === 'teacher') {
