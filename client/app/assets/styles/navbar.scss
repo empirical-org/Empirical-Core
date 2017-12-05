@@ -11,6 +11,9 @@
     list-style-type: none;
     margin: 0;
     padding-left: 0px;
+    &.desktop-nav-list {
+      margin-bottom: 1px;
+    }
   }
 
   li {
