@@ -84,9 +84,12 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def find_or_create_started_activity_session(student_id)
-    started_activity = ActivitySession.find_by(state: 'started', classroom_activity_id: self.id, user_id: student_id)
-    if started_activity
-      started_activity
+    activity_session = ActivitySession.find_by(classroom_activity_id: self.id, user_id: student_id)
+    if activity_session && activity_session.state == 'started'
+      activity_session
+    elsif activity_session && activity_session.state == 'unstarted'
+      activity_session.update(state: 'started')
+      activity_session
     else
       ActivitySession.create(classroom_activity_id: self.id, user_id: student_id, activity_id: self.activity_id, state: 'started', started_at: Time.now)
     end
