@@ -1,27 +1,27 @@
 <p>
-  Hi <% @email_hash[:invitee_first_name] %>,
+  Hi <% @email_hash['invitee_first_name'] %>,
 </p>
 <p>
-  <% @email_hash[:inviter_name] %> has just invited you to co-teach the following
-  <% 'class'.pluralize(@email_hash[:classroom_names].length) %> on Quill:
+  <% @email_hash['inviter_name'] %> has just invited you to co-teach the following
+  <% 'class'.pluralize(@email_hash['classroom_names'].length) %> on Quill:
 </p>
 <ul>
-  <li><% @email_hash[:classroom_names].join('</li><li>') %></li>
+  <li><% @email_hash['classroom_names'].join('</li><li>') %></li>
 </ul>
 <p>
   You can accept this invitation below:
 </p>
 <p>
-  <% @email_hash[:accept_link] %>
+  <% @email_hash['accept_link'] %>
 </p>
 <p>
   Once you accept the invitation, you will see
-  <% @email_hash[:classroom_names].length > 1 ? 'these classes' : 'this class' %>
+  <% @email_hash['classroom_names'].length > 1 ? 'these classes' : 'this class' %>
   on your teacher dashboard and under Active Classes on the Manage Classes page.
 </p>
 <p>
   To learn more about co-teaching,
-  <% link_to 'here is an article', @email_hash[:support_article_link] %>
+  <% link_to 'here is an article', @email_hash['support_article_link'] %>
   that explains everything you need to know.
 </p>
 <p>
