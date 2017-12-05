@@ -1,11 +1,3 @@
-<script>
-  function unlockField(fieldName) {
-    document.getElementById(fieldName).removeAttribute('readonly');
-    document.getElementById(fieldName).focus();
-    // The first sibling is the empty text between the input field and edit link.
-    document.getElementById(fieldName).nextSibling.nextSibling.remove();
-  }
-</script>
 <div class='cms-form'>
   <%= form_for [:cms, @user] do |f| %>
     <div class='cms-form-row'>
@@ -14,8 +6,7 @@
     </div>
     <div class='cms-form-row'>
       <%= f.label :email %>
-      <%= f.text_field :email, autocomplete: 'off', readonly: true %>
-      <a href='#!' onclick="unlockField('user_email')">Edit</a>
+      <%= f.text_field :email, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :username %>
@@ -35,13 +26,11 @@
     </div>
     <div class='cms-form-row'>
       <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: 'new-password', readonly: true %>
-      <a href='#!' onclick="unlockField('user_password')">Edit</a>
+      <%= f.password_field :password, autocomplete: 'new-password' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, autocomplete: 'new-password', readonly: true %>
-      <a href='#!' onclick="unlockField('user_password_confirmation')">Edit</a>
+      <%= f.password_field :password_confirmation, autocomplete: 'new-password' %>
     </div>
     <div class='cms-submit-row'>
       <%= f.submit 'Save', class: 'button-green' %>

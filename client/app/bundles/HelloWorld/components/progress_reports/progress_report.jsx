@@ -72,6 +72,12 @@ export default  React.createClass({
     this.fetchData(true);
   },
 
+  componentWillUpdate: function(nextProps, nextState) {
+    if (this.state.loading !== nextState.loading) {
+      this.props.showInProgressAndUnstartedStudents(!nextState.loading)
+    }
+  },
+
   strippedResults: function(results) {
     return results.map((r) => {
       if(r.prompt) {
@@ -203,7 +209,6 @@ export default  React.createClass({
       return 'non-premium-student'
     }
   },
-
 
   render: function() {
     var pagination,
