@@ -10,8 +10,7 @@ export default React.createClass({
   },
   //
   componentDidMount: function(){
-    // debugger;
-    this.handleSelect(this.props.selected_teacher_id)
+    this.handleSelect(this.props.selected_teacher_id, true)
   },
 
   classroomsToShow: function(){
@@ -38,11 +37,22 @@ export default React.createClass({
     this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms})
   },
 
-  handleSelect: function(coteacherId) {
-    if (!this.state.selectedCoteacher != coteacherId) {
-      // this.getSelectedTeachersClassroomIds(coteacherId)
+  getSelectedTeachersClassroomIds: function(coteacherId){
+      const that = this;
+      request.get({
+        url: `${process.env.DEFAULT_URL}/classrooms_teachers/specific_coteacher_info/${coteacherId}`,
+      },
+      (e, r, response) => {
+        that.setState({selectedTeachersClassroomIds: JSON.parse(response)}, that.matchSelectedClassroomIds)
+      });
+  },
+
+  handleSelect: function(coteacherId, firstLoad) {
+    if (!firstLoad) {
+      this.getSelectedTeachersClassroomIds(coteacherId)
+    } else {
+      this.matchSelectedClassroomIds(coteacherId)
     }
-    this.matchSelectedClassroomIds(coteacherId)
   },
 
   generateMenuItems: function() {
@@ -85,6 +95,7 @@ export default React.createClass({
     const dropdownTitle = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
       <div>
+        {JSON.stringify(this.state.selectedTeachersClassroomIds)}
         <h1>Edit Co-Teachers</h1>
         <label>Select Co-Teacher:</label>
         <DropdownButton bsStyle='default' title={dropdownTitle} id='select-role-dropdown' onSelect={this.handleSelect}>
