@@ -13,9 +13,23 @@ export default React.createClass({
     return {};
   },
 
-  setDateFromFilter: function(beginDate) {
+  componentWillMount: function() {
+    if (this.props.dateFilterName) {
+      const filter = this.props.filterOptions.find(filter => filter.title === this.props.dateFilterName)
+      this.setDateFromFilter(filter)
+    }
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (this.props.dateFilterName !== nextProps.dateFilterName) {
+      const filter = nextProps.filterOptions.find(filter => filter.title === nextProps.dateFilterName)
+      this.setDateFromFilter(filter)
+    }
+  },
+
+  setDateFromFilter: function(filter) {
     this.setState({focusedInput: null});
-    this.props.selectDates(beginDate, moment().add(1, 'days'));
+    this.props.selectDates(filter.beginDate, moment(), filter.title);
   },
 
   renderFilterOptions: function () {
@@ -25,7 +39,7 @@ export default React.createClass({
           <DateRangeFilterOption
             key={filter.title}
             title={filter.title}
-            onClickFunction={() => { this.setDateFromFilter(filter.beginDate) }}
+            onClickFunction={() => { this.setDateFromFilter(filter) }}
           />
         )}
       </div>
@@ -37,7 +51,7 @@ export default React.createClass({
       <DateRangePicker
         startDate={this.props.beginDate}
         endDate={this.props.endDate}
-        onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate)}
+        onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate, null)}
         focusedInput={this.state.focusedInput}
         onFocusChange={focusedInput => this.setState({ focusedInput })}
         numberOfMonths={1}
