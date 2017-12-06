@@ -399,6 +399,7 @@ button:not(.select-mixin) {
 // used within the React Select component.
 .Select-input > input, .Select-input > input:focus {
   border: none;
+  line-height: 22px;
 }
 
 .Select--multi .Select-value {
@@ -409,7 +410,7 @@ button:not(.select-mixin) {
 
 .Select--multi .Select-value-icon {
   color: #42A890;
-  border-right: 1px solid rgba(0, 126, 255, 0.24);
+  border-right: 1px solid rgba(91, 193, 169, 0.24);
 }
 
 .Select--multi .Select-value-icon:hover,
@@ -425,4 +426,24 @@ button:not(.select-mixin) {
 .Select.is-focused:not(.is-open) > .Select-control {
   border-color: #5bc1a9;
   box-shadow: none;
+}
+
+.Select-control {
+  height: 40px;
+
+  .Select-placeholder {
+    line-height: 38px;
+  }
+
+  .Select-value {
+    line-height: 22px !important;
+
+    .Select-value-label {
+      line-height: 22px;
+    }
+  }
+
+  .Select-input {
+    height: 22px;
+  }
 }
