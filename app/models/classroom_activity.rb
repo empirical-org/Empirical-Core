@@ -110,7 +110,7 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def teacher_and_classroom_name
-    {teacher: classroom&.teacher&.name, classroom: classroom&.name}
+    {teacher: classroom&.owner&.name, classroom: classroom&.name}
   end
 
   def formatted_due_date
@@ -133,7 +133,6 @@ class ClassroomActivity < ActiveRecord::Base
     classification_id = self.activity.classification.id
     # if it is passage proofreader or sentence writing, we only want to show ones after this Date in certain reports
     # as previous to that date, concept results were not compatible with reports
-
     if [1,2].include?(classification_id)
       self.created_at > Date.parse('25-10-2016')
     else
@@ -156,11 +155,11 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   def teacher_checkbox
-    if self.classroom && self.classroom.teacher
-      teacher = self.classroom.teacher
+    if self.classroom && self.classroom.owner
+      owner = self.classroom.owner
       checkbox_name = checkbox_type
-      if teacher && self.unit && self.unit.name
-        find_or_create_checkbox(checkbox_name, teacher)
+      if owner && self.unit && self.unit.name
+        find_or_create_checkbox(checkbox_name, owner)
       end
     end
   end
@@ -255,12 +254,12 @@ class ClassroomActivity < ActiveRecord::Base
 
   def format_initial_lessons_cache
     # grab all classroom activities from the current ones's teacher, filter the lessons, then parse them
-    self.classroom.teacher.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
+    self.classroom.owner.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
   end
 
   def update_lessons_cache
     if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
-      lessons_cache = $redis.get("user_id:#{self.classroom.teacher_id}_lessons_array")
+      lessons_cache = $redis.get("user_id:#{self.classroom.owner.id}_lessons_array")
       if lessons_cache
         lessons_cache = JSON.parse(lessons_cache)
         formatted_lesson = lessons_cache_info_formatter
@@ -275,7 +274,7 @@ class ClassroomActivity < ActiveRecord::Base
       else
         lessons_cache = format_initial_lessons_cache
       end
-        $redis.set("user_id:#{self.classroom.teacher_id}_lessons_array", lessons_cache.to_json)
+        $redis.set("user_id:#{self.classroom.owner.id}_lessons_array", lessons_cache.to_json)
     end
   end
 
