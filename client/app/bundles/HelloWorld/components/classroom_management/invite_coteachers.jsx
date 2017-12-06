@@ -53,7 +53,7 @@ export default class extends React.Component {
   render() {
     return (
       <div className='invite-coteachers'>
-        <h1>Invite Coteachers</h1>
+        <h1>Invite Co-Teachers</h1>
         <div className='instructions'>
           <p>
             <span className='bold'>Teachers New to Quill?</span>
@@ -62,12 +62,12 @@ export default class extends React.Component {
             <span className='bold'>Teachers have Quill accounts?</span>
             When you submit their email address, they will join your class.</p>
         </div>
-        <div className="flex-row space-between vertically-centered add-coteacher-row">
+        <div className="flex-row space-between vertically-centered" style={{alignItems: 'flex-end'}}>
           <div>
             <div>Email</div>
             <input type="email" value={this.state.email} placeholder={'Email Address'} onChange={this.handleEmailChange}/>
           </div>
-          <div>
+          <div style={{flexGrow: 1, margin: '0 12px'}}>
             <div>Select Classes</div>
               <Select
                 name="form-field-name"
@@ -78,10 +78,12 @@ export default class extends React.Component {
                 value={this.state.selectedClassrooms}
               />
           </div>
-          <button className='button-green' onClick={this.handleClick}>Add Coteacher</button>
+          <div>
+            <button className='button-green' onClick={this.handleClick}>Add Co-Teacher</button>
+          </div>
           <div>
             {this.state.coteacher_invited
-                        ? 'Coteacher Invited!'
+                        ? 'Co-Teacher Invited!'
                         : ''}
           </div>
         </div>
