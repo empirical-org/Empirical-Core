@@ -23,6 +23,10 @@ class ClassroomsTeachersController < ApplicationController
     return render json: {message: 'Update Succeeded!'}
   end
 
+  def specific_coteacher_info
+    render json: { edit_info_for_specific_teacher: edit_info_for_specific_teacher(params[:coteacher_id])}
+  end
+
   private
 
   def multi_classroom_auth
