@@ -36,31 +36,23 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     end
 
     context 'when concept results are included' do
-      before do
-        @writing_concept = create(:concept, name: 'Creative Writing')
-        @climbing_concept = create(:concept, name: 'Competitive Ice-climbing')
-        @pie_fighting_concept = create(:concept, name: 'Ultimate Pie Fighting')
-      end
 
       def subject
+        @writing_concept = create(:concept, name: 'Creative Writing')
         results = [
-          {
-            concept_uid: @writing_concept.uid,
-            metadata: {
+          create(:concept_result, metadata: {
               foo: 'bar',
-            },
-          },
-          {
-            concept_uid: @climbing_concept.uid,
-            metadata: {
-              baz: 'foo'
-            }
-          },
-          {
-            concept_uid: @pie_fighting_concept.uid
-          }
+            }, activity_session_id: @activity_session.id, concept: @writing_concept
+          ),
+          create(:concept_result, metadata: {
+              baz: 'foo',
+            }, activity_session_id: @activity_session.id
+          ),
+          create(:concept_result,
+            activity_session_id: @activity_session.id
+          )
         ]
-        put :update, id: @activity_session.uid, concept_results: results
+        put :update, id: @activity_session.uid, concept_results:  JSON.parse(results.to_json)
       end
 
       it 'succeeds' do
@@ -71,19 +63,18 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       it 'stores the concept results' do
         subject
         @activity_session.reload
-        expect(@activity_session.concept_results.size).to eq(3)
+        expect(@activity_session.concept_results.size).to eq(4)
       end
 
       it 'saves the arbitrary metadata for the results' do
         subject
         @activity_session.reload
-        expect(@activity_session.concept_results.first.metadata).to eq({'foo' => 'bar'})
+        expect(@activity_session.concept_results.find{|x| x.metadata == {"foo"=>"bar"}}).to be
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
         subject
-        @activity_session.reload
-        expect(@activity_session.concept_results.first.concept.id).to eq(@writing_concept.id)
+        expect(ConceptResult.where(activity_session_id: @activity_session, concept_id: @writing_concept.id).count).to eq(1)
       end
     end
 
@@ -102,6 +93,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
       # this is no longer the case, as results should not be saved with nonexistent concept tag
       it 'does not save the concept result' do
+        @activity_session.concept_results.destroy_all
         response = subject
         expect(@activity_session.concept_results).to eq([])
       end

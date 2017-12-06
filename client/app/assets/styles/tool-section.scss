@@ -573,6 +573,9 @@ $tool-grey: #f8f9f9;
 }
 
 .tools-tabs {
+  .q-nav-bar ul.desktop-nav-list {
+    margin-bottom: 0px;
+  }
     li {
       &.active {
         border-top: 3px solid #027360;

@@ -12,7 +12,7 @@ module CleverIntegration::SignUp::SubMain
   private
 
   def self.district(auth_hash, requesters)
-    result = CleverIntegration::SignUp::District.run(auth_hash)
+    result = CleverIntegration::SignUp::CleverDistrict.run(auth_hash)
     result
   end
 
