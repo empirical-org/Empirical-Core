@@ -37,6 +37,6 @@ describe 'CleverIntegration::Importers::Classrooms' do
   end
 
   it 'associates classroom to teacher' do
-    expect(subject.teacher).to eq(teacher)
+    expect(subject.owner).to eq(teacher)
   end
 end
