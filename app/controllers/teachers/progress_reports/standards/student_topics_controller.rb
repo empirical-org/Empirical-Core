@@ -12,7 +12,7 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
         end
         render json: {
           topics: topics_json,
-          student: current_user.students.find(params[:student_id]),
+          student: current_user.students.find{|stud| stud.id == params[:student_id].to_i},
           units: ProgressReports::Standards::Unit.new(current_user).results({}),
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }

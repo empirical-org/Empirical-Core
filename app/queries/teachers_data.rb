@@ -22,7 +22,8 @@ module TeachersData
       time_spent_query.number_of_questions_completed AS number_of_questions_completed,
       MAX(time_spent_query.time_spent) AS time_spent
     FROM users
-    LEFT OUTER JOIN classrooms ON users.id = classrooms.teacher_id
+    LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+    LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
     LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id
     LEFT OUTER JOIN (SELECT acss_ids.teacher_id, #{time_spent}) AS time_spent, SUM(acss_ids.number_of_questions_completed) AS number_of_questions_completed FROM activity_sessions
       INNER JOIN (SELECT users.id AS teacher_id, COUNT(DISTINCT concept_results.id) AS number_of_questions_completed, activity_sessions.id AS activity_session_id FROM users

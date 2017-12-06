@@ -1,5 +1,4 @@
 shared_examples_for "Progress Report" do
-  render_views
 
   let(:default_filters) { {} }
 
