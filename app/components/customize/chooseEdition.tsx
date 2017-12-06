@@ -11,6 +11,7 @@ import {
 } from '../../actions/classroomSessions'
 import EditionNamingModal from './editionNamingModal'
 import EditionRow from './editionRow'
+import SignupModal from '../classroomLessons/teach/signupModal'
 import { getParameterByName } from '../../libs/getParameterByName'
 
 class ChooseEdition extends React.Component<any, any> {
@@ -20,7 +21,8 @@ class ChooseEdition extends React.Component<any, any> {
       showNamingModal: false,
       newEditionUid: '',
       newEditionName: '',
-      selectState: getParameterByName('preview') || getParameterByName('classroom_activity_id')
+      selectState: getParameterByName('preview') || getParameterByName('classroom_activity_id'),
+      showSignupModal: false
     }
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
@@ -30,11 +32,20 @@ class ChooseEdition extends React.Component<any, any> {
     this.updateName = this.updateName.bind(this)
     this.saveNameAndGoToCustomize = this.saveNameAndGoToCustomize.bind(this)
     this.selectAction = this.selectAction.bind(this)
+    this.hideSignupModal = this.hideSignupModal.bind(this)
   }
 
   makeNewEdition(editionUid:string|null) {
-    const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)
-    this.setState({newEditionUid}, this.openNamingModal)
+    if (this.props.customize.user_id) {
+      const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)
+      this.setState({newEditionUid}, this.openNamingModal)
+    } else {
+      this.setState({showSignupModal: true})
+    }
+  }
+
+  hideSignupModal() {
+    this.setState({showSignupModal: false})
   }
 
   editEdition(editionUid:string) {
@@ -186,8 +197,18 @@ class ChooseEdition extends React.Component<any, any> {
     }
   }
 
+  renderSignupModal() {
+    if (this.state.showSignupModal) {
+      return <SignupModal
+        closeModal={this.hideSignupModal}
+        goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
+      />
+    }
+  }
+
   render() {
     return <div className="choose-edition customize-page">
+      {this.renderSignupModal()}
       {this.renderBackButton()}
       {this.renderLessonInfo()}
       {this.renderHeader()}
