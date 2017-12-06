@@ -124,16 +124,18 @@
 }
 #coteacher-capability-chart {
   background-color: #fff3df;
-  padding: 14px 22px;
+  padding: 14px 22px 0;
   h1 {
     font-size: 18px;
     font-weight: 600;
+    margin: 4px auto 20px;
   }
   ul {
     list-style: none;
     padding: 0;
     margin-right: 100px;
     li {
+      margin-bottom: 5px;
       padding-left: 11px;
       font-size: 14px;
 	    color: #3b3b3b;

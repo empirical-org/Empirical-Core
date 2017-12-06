@@ -62,32 +62,38 @@ export default class extends React.Component {
             <span className='bold'>Teachers have Quill accounts?</span>
             When you submit their email address, they will join your class.</p>
         </div>
-        <div className="flex-row space-between vertically-centered" style={{alignItems: 'flex-end'}}>
-          <div>
-            <div>Email</div>
-            <input type="email" value={this.state.email} placeholder={'Email Address'} onChange={this.handleEmailChange}/>
+        <div style={{display: 'flex'}}>
+          <div style={{flexBasis: '50%', marginRight: 20}}>
+            <div>
+              <div>Email</div>
+              <input type="email" value={this.state.email} placeholder={'Email Address'} onChange={this.handleEmailChange} style={{width: '100%'}}/>
+            </div>
+            <br />
+            <div>
+              <div>Select Classes</div>
+                <Select
+                  name="form-field-name"
+                  value={this.state.value}
+                  multi={true}
+                  onChange={this.handleDropdownChange}
+                  options={this.props.classrooms}
+                  value={this.state.selectedClassrooms}
+                />
+            </div>
+            <br />
+            <div style={{marginBottom: 10}}>
+              <button className='button-green' onClick={this.handleClick}>Add Co-Teacher</button>
+            </div>
+            <div>
+              {this.state.coteacher_invited
+                          ? 'Co-Teacher Invited!'
+                          : ''}
+            </div>
           </div>
-          <div style={{flexGrow: 1, margin: '0 12px'}}>
-            <div>Select Classes</div>
-              <Select
-                name="form-field-name"
-                value={this.state.value}
-                multi={true}
-                onChange={this.handleDropdownChange}
-                options={this.props.classrooms}
-                value={this.state.selectedClassrooms}
-              />
-          </div>
-          <div>
-            <button className='button-green' onClick={this.handleClick}>Add Co-Teacher</button>
-          </div>
-          <div>
-            {this.state.coteacher_invited
-                        ? 'Co-Teacher Invited!'
-                        : ''}
+          <div style={{flexBasis: '50%', marginLeft: 20}}>
+            <CoteacherCapabilityChart/>
           </div>
         </div>
-        <CoteacherCapabilityChart/>
       </div>
     );
   }
