@@ -89,11 +89,18 @@ button:hover {
   .illustration {
     display: none;
   }
-
 }
 
 .four-oh-four {
   margin-top: 80px;
+}
+
+.four-oh-four .text {
+  max-width: 486px;
+}
+
+.four-oh-four img {
+  height: 300px;
 }
 
 .four-oh-four h1 {
@@ -101,7 +108,7 @@ button:hover {
   font-weight: bold;
 }
 .four-oh-four p {
-  font-family: AdelleSans, Helvetica, Arial;
+  font-family: adelle-sans, Helvetica, Arial;
   font-size: 18px;
 }
 .four-oh-four .cta-links {
@@ -143,4 +150,22 @@ button:hover {
 
 .four-oh-four .helpful-links {
   font-size: 14px;
+}
+
+.clever a {
+  display: inline;
+  color: #027360;
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.clever .dividing-line {
+  border-bottom: solid 1px #e9e9e9;
+  width: 140px;
+  margin: 15px 0px;
+}
+
+.clever .content {
+  align-items: center;
 }
