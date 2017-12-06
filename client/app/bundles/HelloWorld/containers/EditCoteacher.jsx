@@ -46,11 +46,11 @@ export default React.createClass({
   generateMenuItems: function() {
     return this.props.coteachers.map(c => <MenuItem key={c.id} eventKey={c.id}>{c.name}</MenuItem>)
   },
-  //
-  // handleDropdownChange(value) {
-  //   this.setState({ selectedClassrooms: value })
-  // }
-  //
+
+  handleDropdownChange(value) {
+    this.setState({ selectedClassrooms: value })
+  },
+  
   saveChangesButton: function() {
     const color = this.state.changesToSave
       ? 'green'
