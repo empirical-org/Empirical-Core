@@ -30,12 +30,12 @@ export default class MissedLessonRow extends React.Component {
       zIndex: 100,
       borderRadius: '3px',
       bottom: '-34px',
-      left: '85px',
+      left: '11px',
       alignItems: 'center',
       padding: '3px 0px 5px',
       justifyContent: 'center',
       position: 'absolute',
-      width: '200px'
+      width: '205px'
     }
     const caretStyle={
       position: 'relative',
