@@ -13,34 +13,23 @@ export default React.createClass({
     return {};
   },
 
-  componentWillMount: function() {
-    if (this.props.dateFilterName) {
-      const filter = this.props.filterOptions.find(filter => filter.title === this.props.dateFilterName)
-      this.setDateFromFilter(filter)
-    }
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    if (this.props.dateFilterName !== nextProps.dateFilterName) {
-      const filter = nextProps.filterOptions.find(filter => filter.title === nextProps.dateFilterName)
-      this.setDateFromFilter(filter)
-    }
-  },
-
   setDateFromFilter: function(filter) {
     this.setState({focusedInput: null});
-    this.props.selectDates(filter.beginDate, moment(), filter.title);
+    this.props.selectDates(filter.beginDate, null, filter.title);
   },
 
   renderFilterOptions: function () {
     return (
       <div className='calendar-prefill-options'>
-        {this.props.filterOptions.map(filter =>
-          <DateRangeFilterOption
+        {this.props.filterOptions.map(filter => {
+          const selected = this.props.dateFilterName === filter.title
+          return <DateRangeFilterOption
             key={filter.title}
             title={filter.title}
             onClickFunction={() => { this.setDateFromFilter(filter) }}
+            selected={selected}
           />
+        }
         )}
       </div>
     );
