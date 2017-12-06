@@ -50,6 +50,8 @@ module Teacher
       ids
   end
 
+
+
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
@@ -412,8 +414,24 @@ module Teacher
     Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
       JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
       JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
+      WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{teacher_id.to_i} AND
+      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{self.id}")
+  end
+
+  def classrooms_i_a_specific_user_coteaches_with_me(teacher_id)
+    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
+      JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
+      JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
       WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
       ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
+  end
+
+  def classroom_ids_i_have_invitited_a_specific_teacher_to_coteach(teacher_id)
+    Classroom.find_by_sql("SELECT cci.classroom_id FROM users
+      JOIN users AS coteachers ON coteachers.id = #{teacher_id}
+      JOIN invitations ON invitations.inviter_id = #{self.id}
+      JOIN coteacher_classroom_invitations AS cci ON cci.invitation_id = invitations.id
+      WHERE invitations.invitee_email = coteachers.email")
   end
 
   def has_outstanding_coteacher_invitation?

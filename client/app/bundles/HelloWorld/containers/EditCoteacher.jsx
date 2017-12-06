@@ -2,73 +2,59 @@ import React from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import request from 'request';
+import Select from 'react-select';
 
 export default React.createClass({
   getInitialState: function() {
-    return {
-      selectedCoteacher: null,
-      checkboxClassrooms: this.props.classrooms,
-    }
+    return {selectedCoteacher: this.props.selected_teacher_id, selectedTeachersClassroomIds: this.props.selected_teachers_classrooms}
   },
-
+  //
   componentDidMount: function(){
+    // debugger;
     this.handleSelect(this.props.selected_teacher_id)
   },
 
-  handleSelect: function(coteacherId) {
-    const classroomsBelongingToSpecificTeacher = this.props.classroomsGroupedByCoteacherId[coteacherId]
-    const checkboxClassrooms = this.state.checkboxClassrooms
-    classroomsBelongingToSpecificTeacher.forEach((classroomId) => {
-      let matchingClassroom = checkboxClassrooms.find(classy => classy.id === classroomId )
+  markExtantClassrooms: function(teacherClassrooms, invitation, classroomsToShow, selectedClassrooms){
+    this.props.classrooms.forEach((classroom)=>{
+      let name = classroom.name
+      const matchingClassroom = teacherClassrooms.find((id)=> classroom.id === id)
       if (matchingClassroom) {
-        matchingClassroom.checked = true
-      } else {
-        matchingClassroom.checked = false
+        name += invitation ? ' (pending)' : '';
+        selectedClassrooms.push({label: name, value: classroom.id})
       }
+      classroomsToShow.push({label: classroom.name, value: classroom.id})
     })
-    this.setState({
-      selectedCoteacher: this.props.coteachers.find(ct => ct.id == coteacherId),
-      checkboxClassrooms,
-      changesToSave: false
-    });
+    debugger;
+    console.log('hi');
+  },
+
+  matchSelectedClassroomIds: function() {
+    const classroomsToShow = [];
+    const selectedClassrooms = [];
+    this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.invited_to_coteach, true, classroomsToShow, selectedClassrooms)
+    this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.is_coteacher, false, classroomsToShow, selectedClassrooms)
+    this.setState({classroomsToShow, selectedClassrooms})
+  },
+
+  handleSelect: function(coteacherId) {
+    if (!this.state.selectedCoteacher != coteacherId) {
+      // this.getSelectedTeachersClassroomIds(coteacherId)
+    }
+    this.matchSelectedClassroomIds(coteacherId)
   },
 
   generateMenuItems: function() {
-    return this.props.coteachers.map(c=> <MenuItem key={c.id} eventKey={c.id}>{c.name}</MenuItem>)
+    return this.props.coteachers.map(c => <MenuItem key={c.id} eventKey={c.id}>{c.name}</MenuItem>)
   },
-
-  toggleCheckbox: function(e) {
-    const newCheckboxClassrooms = [...this.state.checkboxClassrooms]
-    const matchingClassroom = newCheckboxClassrooms.find((c)=>c.id == e);
-    matchingClassroom.checked = !matchingClassroom.checked;
-    this.setState({checkboxClassrooms: newCheckboxClassrooms, changesToSave: true})
-  },
-
-  showClassSelection: function() {
-    const selectedCoteacher = this.state.selectedCoteacher;
-    if(selectedCoteacher) {
-      return(
-        <div key={this.state.selectedCoteacher}>
-          <hr />
-          <h2>{selectedCoteacher.name}</h2>
-          <strong>Select/Unselect Classes:</strong>
-            {this.state.checkboxClassrooms.map(c => {
-              return(
-                <div>
-                  <div key={c.id + c.checked} className="donalito-checkbox" onClick={()=>this.toggleCheckbox(c.id)}>
-                    {c.checked ? <img className="recommendation-check" src="/images/recommendation_check.svg"></img> : null}
-                  </div>
-                  {c.name}
-                </div>
-              )
-            })}
-        </div>
-      );
-    }
-  },
-
+  //
+  // handleDropdownChange(value) {
+  //   this.setState({ selectedClassrooms: value })
+  // }
+  //
   saveChangesButton: function() {
-    const color = this.state.changesToSave ? 'green' : 'light-gray'
+    const color = this.state.changesToSave
+      ? 'green'
+      : 'light-gray'
     return <button className={`button-${color}`} disabled={!this.state.changesToSave} onClick={this.saveChanges}>Save Changes</button>
   },
 
@@ -87,16 +73,25 @@ export default React.createClass({
   },
 
   render: function() {
+    const dropdownTitle = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
       <div>
         <h1>Edit Co-Teachers</h1>
-         <label>Select Co-Teacher:</label>
-         <DropdownButton bsStyle='default' title={this.state.selectedCoteacher ? this.state.selectedCoteacher.name : 'Select Co-Teacher'} id='select-role-dropdown' onSelect={this.handleSelect}>
-           {this.generateMenuItems()}
-         </DropdownButton>
-        {this.showClassSelection()}
+        <label>Select Co-Teacher:</label>
+        <DropdownButton bsStyle='default' title={dropdownTitle} id='select-role-dropdown' onSelect={this.handleSelect}>
+          {this.generateMenuItems()}
+        </DropdownButton>
+        <div>
+          <div>Select Classes</div>
+          <Select name="form-field-name"
+             multi={true}
+             onChange={this.handleDropdownChange}
+            options={this.state.classroomsToShow}
+            value={this.state.selectedClassrooms}/>
+        </div>
         {this.saveChangesButton()}
       </div>
     )
-   }
- });
+
+  }
+});
