@@ -53,7 +53,7 @@ export default class extends React.Component {
   render() {
     return (
       <div className='invite-coteachers'>
-        <h1>Invite Coteachers</h1>
+        <h1>Invite Co-Teachers</h1>
         <div className='instructions'>
           <p>
             <span className='bold'>Teachers New to Quill?</span>
@@ -78,10 +78,10 @@ export default class extends React.Component {
                 value={this.state.selectedClassrooms}
               />
           </div>
-          <button className='button-green' onClick={this.handleClick}>Add Coteacher</button>
+          <button className='button-green' onClick={this.handleClick}>Add Co-Teacher</button>
           <div>
             {this.state.coteacher_invited
-                        ? 'Coteacher Invited!'
+                        ? 'Co-Teacher Invited!'
                         : ''}
           </div>
         </div>
