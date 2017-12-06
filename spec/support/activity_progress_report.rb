@@ -1,11 +1,11 @@
 shared_context 'Activity Progress Report' do
-  let(:teacher) { create :teacher }
+  let(:teacher) { create :teacher_with_a_couple_classrooms_with_one_student_each }
+  let(:classroom_one) { teacher.classrooms_i_teach.first }
+  let(:classroom_two) { teacher.classrooms_i_teach.second }
+  let!(:student_in_classroom_one) { classroom_one.students.first }
+  let!(:student_in_classroom_two) { classroom_two.students.first }
 
   let(:activity) { create(:activity) }
-  let(:classroom_one) { create(:classroom, name: 'Classroom One', teacher: teacher) }
-  let(:classroom_two) { create(:classroom, name: 'Classroom Two', teacher: teacher)}
-  let!(:student_in_classroom_one) { create(:student, classrooms: [classroom_one]) }
-  let!(:student_in_classroom_two) { create(:student, classrooms: [classroom_two]) }
   let(:classroom_one_activity) { create(:classroom_activity,
     classroom: classroom_one, unit: classroom_one.units.first, activity: activity) }
   let(:classroom_two_activity) { create(:classroom_activity,
