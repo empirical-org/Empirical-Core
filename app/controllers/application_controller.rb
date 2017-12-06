@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include QuillAuthentication
+
   #helper CMS::Helper
 
   # FIXME: disabled till it's clear what this does

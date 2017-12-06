@@ -11,13 +11,15 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_many :checkboxes
+  has_many :pending_invitations
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
 
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :admin_rights, through: :schools_admins, source: :school, foreign_key: :user_id
-
+  has_many :classrooms_teachers
+  has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
 
   has_and_belongs_to_many :districts
   has_one :ip_location

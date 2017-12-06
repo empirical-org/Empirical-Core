@@ -3,7 +3,7 @@ class AssignRecommendationsWorker
 
   def perform(unit_template_id, classroom_id, student_id_array, last, lesson, assign_on_join=false)
     classroom = Classroom.find(classroom_id)
-    teacher = classroom.teacher
+    teacher = classroom.owner
     # try to find by new unit_template_id first, and then old method if that fails
     unit = Unit.find_by(unit_template_id: unit_template_id, user_id: teacher.id) || Unit.find_by(name: UnitTemplate.find(unit_template_id).name, user_id: teacher.id)
     classroom_data = {id: classroom_id, student_ids: student_id_array, assign_on_join: assign_on_join}
