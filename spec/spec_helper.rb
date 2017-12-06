@@ -107,6 +107,12 @@ RSpec.configure do |config|
     ActionController::Base.perform_caching = caching
   end
 
+  # Allow Faker to reuse unique values between tests.
+  config.around(:each) do |example|
+    Faker::UniqueGenerator.clear
+    example.run
+  end
+
 
 
 
