@@ -446,4 +446,9 @@ button:not(.select-mixin) {
   .Select-input {
     height: 22px;
   }
+
+  & > *:last-child {
+    position: relative;
+    top: 2px;
+  }
 }
