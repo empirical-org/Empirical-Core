@@ -59,6 +59,7 @@ export default React.createClass({
             beginDate={this.props.beginDate}
             endDate={this.props.endDate}
             icon="fa-calendar"
+            dateFilterName={this.props.dateFilterName}
           />
         </div>
       </div>

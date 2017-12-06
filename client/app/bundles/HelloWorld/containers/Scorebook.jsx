@@ -58,7 +58,7 @@ export default React.createClass({
   setStateFromLocalStorage(callback) {
     this.setState({
       beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate')),
-      endDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))
+      dateFilterName: window.localStorage.getItem('scorebookDateFilterName')
     }, callback);
   },
 
@@ -162,14 +162,15 @@ export default React.createClass({
   );
   },
 
-  selectDates(val1, val2) {
-    window.localStorage.setItem('scorebookBeginDate', val1);
-    window.localStorage.setItem('scorebookEndDate', val2);
+  selectDates(beginDate, endDate, dateFilterName) {
+    window.localStorage.setItem('scorebookBeginDate', beginDate);
+    window.localStorage.setItem('scorebookDateFilterName', dateFilterName);
     this.setState({
       scores: new Map(),
       currentPage: 0,
-      beginDate: val1,
-      endDate: val2,
+      beginDate: beginDate,
+      endDate: endDate,
+      dateFilterName
     }, this.fetchData);
   },
 
@@ -191,7 +192,7 @@ export default React.createClass({
       const sData = s.scores[0];
       scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
     });
-    
+
     if (this.state.loading) {
       content = <LoadingIndicator />;
     } else if (this.state.missing) {
@@ -216,6 +217,7 @@ export default React.createClass({
                 selectDates={this.selectDates}
                 beginDate={this.state.beginDate}
                 endDate={this.state.endDate}
+                dateFilterName={this.state.dateFilterName}
               />
               <ScoreLegend />
               <AppLegend />
