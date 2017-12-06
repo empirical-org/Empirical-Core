@@ -2,8 +2,6 @@ class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
   before_filter :set_cache_buster, only: [:new]
 
-  include CheckboxCallback
-
   def new
     ClickSignUpWorker.perform_async
     session[:role] = nil

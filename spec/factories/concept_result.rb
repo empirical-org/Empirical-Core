@@ -1,7 +1,8 @@
-FactoryBot.define do
+  FactoryBot.define do
   factory :concept_result do
     concept
     activity_session
+    metadata {{"answer": Faker::Lorem.sentence, "correct": [0,1].sample}}
 
     # TODO: generate metadata.
 
@@ -35,9 +36,9 @@ FactoryBot.define do
       activity_session { FactoryBot.create(:diagnostic_activity_session) }
     end
 
-    factory :lessons_slide do
-      question_type { 'lessons-slide' }
-      activity_session { FactoryBot.create(:lesson_activity_session) }
-    end
+    # factory :lessons_slide do
+    #   question_type { 'lessons-slide' }
+    #   activity_session { FactoryBot.create(:lesson_activity_session) }
+    # end
   end
 end

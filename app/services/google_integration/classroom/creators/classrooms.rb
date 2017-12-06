@@ -13,6 +13,7 @@ module GoogleIntegration::Classroom::Creators::Classrooms
       if classroom.new_record?
         classroom.attributes = {name: course[:name] || "Classroom #{course[:id]}", teacher_id: teacher.id}
         classroom.save!
+        ClassroomsTeacher.create(classroom: classroom, user: teacher, role: 'owner')
       end
       classroom.update(grade: course[:grade], visible: true)
       classroom.reload
