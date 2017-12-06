@@ -73,12 +73,20 @@ export default React.createClass({
     };
   },
 
+  sortByLastName: function(names) {
+    return names.sort((a, b) => {
+      const aLast = a.split(' ')[1]
+      const bLast = b.split(' ')[1]
+      return aLast.localeCompare(bLast)
+    })
+  },
+
   onFetchSuccess: function(responseData) {
     this.setState({
       students: responseData.students,
-      startedNames: responseData.started_names,
-      unstartedNames: responseData.unstarted_names,
-      missedNames: responseData.missed_names
+      startedNames: this.sortByLastName(responseData.started_names),
+      unstartedNames: this.sortByLastName(responseData.unstarted_names),
+      missedNames: this.sortByLastName(responseData.missed_names)
     });
   },
 
