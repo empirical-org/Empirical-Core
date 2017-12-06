@@ -48,7 +48,9 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
       let(:activity_session)   { create(:activity_session,
           completed_at: nil,
           percentage: nil,
-          classroom_activity: classroom_activity)
+          classroom_activity: classroom_activity,
+          state: 'unstarted'
+        )
       }
       let(:topic) { nil }
 
