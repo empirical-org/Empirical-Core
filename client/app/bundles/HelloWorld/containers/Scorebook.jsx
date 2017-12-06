@@ -10,9 +10,37 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import AppLegend from '../components/scorebook/app_legend.jsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
-import moment from 'moment';
+import moment from 'moment'
 
 export default React.createClass({
+
+  DATE_RANGE_FILTER_OPTIONS: [
+    {
+      title: 'Today',
+      beginDate: moment()
+    },
+    {
+      title: 'This Week',
+      beginDate: moment().startOf('week')
+    },
+    {
+      title: 'This Month',
+      beginDate: moment().startOf('month')
+    },
+    {
+      title: 'Last 7 days',
+      beginDate: moment().subtract(7, 'days')
+    },
+    {
+      title: 'Last 30 days',
+      beginDate: moment().subtract(1, 'months')
+    },
+    {
+      title: 'All Time',
+      beginDate: null
+    },
+  ],
+
   mixins: [TableFilterMixin],
 
   getInitialState() {
@@ -51,15 +79,21 @@ export default React.createClass({
 
   formatDate(date) {
     if (date) {
-      return `${date.year()}-${date.month() + 1}-${date.date()}`;
+      const standardizedDate = moment.utc(date)
+      return `${standardizedDate.year()}-${standardizedDate.month() + 1}-${standardizedDate.date()}`;
     }
   },
 
   setStateFromLocalStorage(callback) {
-    this.setState({
-      beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate')),
-      dateFilterName: window.localStorage.getItem('scorebookDateFilterName')
-    }, callback);
+    const storedDateFilterName = window.localStorage.getItem('scorebookDateFilterName')
+    const dateFilterName = !storedDateFilterName || storedDateFilterName === 'null' ? null : storedDateFilterName
+    if (dateFilterName) {
+      const beginDate = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName).beginDate
+      window.localStorage.setItem('scorebookBeginDate', beginDate);
+      this.setState({beginDate, dateFilterName}, callback)
+    } else {
+      this.setState({beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))}, callback)
+    }
   },
 
   fetchData() {
@@ -116,6 +150,8 @@ export default React.createClass({
   },
 
   displayData(data) {
+    let num = 0
+    data.scores.forEach(s => s.user_id === "1637709" ? num++ : null)
     this.setState({
       classroomFilters: this.props.allClassrooms,
       is_last_page: data.is_last_page,
@@ -139,8 +175,10 @@ export default React.createClass({
         completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
         marked_complete: s.marked_complete,
         activity_description: s.activity_description,
-        activity_classification_id: s.activity_classification_id, });
+        activity_classification_id: s.activity_classification_id
+      });
     });
+    console.log(data.is_last_page)
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
   },
 
@@ -217,6 +255,7 @@ export default React.createClass({
                 selectDates={this.selectDates}
                 beginDate={this.state.beginDate}
                 endDate={this.state.endDate}
+                dateRangeFilterOptions={this.DATE_RANGE_FILTER_OPTIONS}
                 dateFilterName={this.state.dateFilterName}
               />
               <ScoreLegend />
