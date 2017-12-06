@@ -15,6 +15,7 @@ import {
   updateStudentSubmissionOrder,
   setPrompt,
   removeSelectedSubmissionOrder,
+  hideSignupModal
 } from '../../../actions/classroomSessions';
 import Spinner from 'components/shared/spinner'
 import CLLobby from './lobby';
@@ -24,6 +25,7 @@ import CLExit from './exit';
 import PreviewModal from './previewModal'
 import TimeoutModal from './timeoutModal'
 import CongratulationsModal from './congratulationsModal'
+import SignupModal from './signupModal'
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -68,6 +70,7 @@ class CurrentSlide extends React.Component<any, any> {
     this.closePreviewModal = this.closePreviewModal.bind(this)
     this.closeTimeoutModal = this.closeTimeoutModal.bind(this)
     this.closeCongratulationsModal = this.closeCongratulationsModal.bind(this)
+    this.closeSignupModal = this.closeSignupModal.bind(this)
     this.openStudentView = this.openStudentView.bind(this)
     this.finishLesson = this.finishLesson.bind(this)
     this.updateSelectedOptionKey = this.updateSelectedOptionKey.bind(this)
@@ -194,6 +197,10 @@ class CurrentSlide extends React.Component<any, any> {
     this.setState({showCongratulationsModal: false})
   }
 
+  closeSignupModal() {
+    this.props.dispatch(hideSignupModal())
+  }
+
   openStudentView() {
     const studentUrl: string = window.location.href.replace('teach', 'play')
     window.open(studentUrl, 'newwindow', `width=${window.innerWidth},height=${window.innerHeight}`)
@@ -255,6 +262,16 @@ class CurrentSlide extends React.Component<any, any> {
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
       return <CongratulationsModal closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId}/>
+    }
+  }
+
+  renderSignupModal() {
+    if (this.props.classroomSessions.showSignupModal) {
+      return <SignupModal
+        closeModal={this.closeSignupModal}
+        lessonId={this.props.lessonId}
+        goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
+      />
     }
   }
 
@@ -326,6 +343,7 @@ class CurrentSlide extends React.Component<any, any> {
         {this.renderPreviewModal()}
         {this.renderTimeoutModal()}
         {this.renderCongratulationsModal()}
+        {this.renderSignupModal()}
         {slide}
       </div>
     } else {

@@ -6,7 +6,8 @@ const initialState = {
   submittingnew: false,
   states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
   data: { current_slide: 0, }, // this will contain firebase data,
-  error: ''
+  error: '',
+  showSignupModal: false
 };
 
 export default function (currentState = initialState, action) {
@@ -45,6 +46,16 @@ export default function (currentState = initialState, action) {
         error: `No such student. Student with id '${action.data}' does not exist.`,
       });
       return newState;
+    case C.SHOW_SIGNUP_MODAL:
+      newState = Object.assign({}, currentState, {
+        showSignupModal: true
+      });
+      return newState
+    case C.HIDE_SIGNUP_MODAL:
+      newState = Object.assign({}, currentState, {
+        showSignupModal: false
+      });
+      return newState
     default: return currentState;
   }
 }
