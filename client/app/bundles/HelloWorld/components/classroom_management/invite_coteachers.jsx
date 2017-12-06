@@ -51,7 +51,6 @@ export default class extends React.Component {
   }
 
   render() {
-    debugger;
     return (
       <div className='invite-coteachers'>
         <h1>Invite Coteachers</h1>

@@ -6,7 +6,7 @@ import Select from 'react-select';
 
 export default React.createClass({
   getInitialState: function() {
-    return {selectedCoteacher: this.props.selected_teacher_id, selectedTeachersClassroomIds: this.props.selected_teachers_classrooms}
+    return {selectedCoteacher: this.props.selected_teacher_id, selectedTeachersClassroomIds: this.props.selected_teachers_classrooms, classroomsToShow: this.classroomsToShow()}
   },
   //
   componentDidMount: function(){
@@ -14,7 +14,13 @@ export default React.createClass({
     this.handleSelect(this.props.selected_teacher_id)
   },
 
-  markExtantClassrooms: function(teacherClassrooms, invitation, classroomsToShow, selectedClassrooms){
+  classroomsToShow: function(){
+    return this.props.classrooms.map((c)=>{
+      return {label: c.name, value: c.id}
+    })
+  },
+
+  markExtantClassrooms: function(teacherClassrooms, invitation, selectedClassrooms){
     this.props.classrooms.forEach((classroom)=>{
       let name = classroom.name
       const matchingClassroom = teacherClassrooms.find((id)=> classroom.id === id)
@@ -22,18 +28,14 @@ export default React.createClass({
         name += invitation ? ' (pending)' : '';
         selectedClassrooms.push({label: name, value: classroom.id})
       }
-      classroomsToShow.push({label: classroom.name, value: classroom.id})
     })
-    debugger;
-    console.log('hi');
   },
 
   matchSelectedClassroomIds: function() {
-    const classroomsToShow = [];
     const selectedClassrooms = [];
-    this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.invited_to_coteach, true, classroomsToShow, selectedClassrooms)
-    this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.is_coteacher, false, classroomsToShow, selectedClassrooms)
-    this.setState({classroomsToShow, selectedClassrooms})
+    this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.invited_to_coteach, true, selectedClassrooms)
+    this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.is_coteacher, false, selectedClassrooms)
+    this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms})
   },
 
   handleSelect: function(coteacherId) {
@@ -48,9 +50,16 @@ export default React.createClass({
   },
 
   handleDropdownChange(value) {
+    let that = this;
+    value.forEach((opt)=>{
+      let pending = new RegExp('pending').test(opt.label)
+      if (!that.state.originallySelectedClassrooms.find((c)=> c.value === opt.value) && !pending ) {
+        opt.label += ' (pending)'
+      }
+    })
     this.setState({ selectedClassrooms: value })
   },
-  
+
   saveChangesButton: function() {
     const color = this.state.changesToSave
       ? 'green'
@@ -85,6 +94,7 @@ export default React.createClass({
           <div>Select Classes</div>
           <Select name="form-field-name"
              multi={true}
+             onValueClick={this.handleDropdownClick}
              onChange={this.handleDropdownChange}
             options={this.state.classroomsToShow}
             value={this.state.selectedClassrooms}/>
