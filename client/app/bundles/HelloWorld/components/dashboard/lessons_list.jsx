@@ -99,7 +99,7 @@ export default class extends React.Component {
         </div>
         {this.renderAssignedLessons()}
       </div>
-    } else if (this.state.completedDiagnosticUnitInfo) {
+    } else if (this.state.completedDiagnosticUnitInfo && Object.keys(this.state.completedDiagnosticUnitInfo).length > 0) {
       const {unit_id, classroom_id, activity_id} = this.state.completedDiagnosticUnitInfo
       return <div className="inner-container">
         <div className="header-container flex-row space-between vertically-centered lesson-item">
