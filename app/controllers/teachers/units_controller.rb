@@ -13,9 +13,9 @@ class Teachers::UnitsController < ApplicationController
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms])
+      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms], current_user.id)
     else
-      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id])
+      Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id], current_user.id)
     end
     render json: {id: Unit.where(user: current_user).last.id}
   end
@@ -66,9 +66,8 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def classrooms_with_students_and_classroom_activities
-    unit_name = Unit.where(id: params[:id]).limit(1).pluck(:name).first
-    if unit_name
-      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(params[:id]), unit_name: unit_name}
+    if @unit.name
+      render json: {classrooms: get_classrooms_with_students_and_classroom_activities(@unit, current_user), unit_name: @unit.name}
     else
       render json: {errors: 'Unit not found'}, status: 422
     end
@@ -88,11 +87,10 @@ class Teachers::UnitsController < ApplicationController
     activity_id = params[:activity_id].to_i
     classroom_activities = ActiveRecord::Base.connection.execute("
       SELECT classroom_activities.id from classroom_activities
-      	LEFT JOIN classrooms ON
-      		classroom_activities.classroom_id = classrooms.id
-      	WHERE classrooms.teacher_id = #{current_user.id.to_i}
-      		AND classroom_activities.activity_id = #{activity_id}
-      		AND classroom_activities.visible is TRUE").to_a
+        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
+        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
+          AND classroom_activities.activity_id = #{activity_id}
+          AND classroom_activities.visible is TRUE").to_a
     if classroom_activities.length == 1
       ca_id = classroom_activities.first["id"]
       lesson_uid = Activity.find(activity_id).uid
@@ -175,7 +173,7 @@ class Teachers::UnitsController < ApplicationController
       @unit = Unit.find_by(id: params[:id])
       if @unit.nil?
         render json: {errors: 'Unit not found'}, status: 422
-      elsif @unit.user != current_user
+      elsif !current_user.affiliated_with_unit(@unit.id)
         auth_failed
       end
     end
@@ -189,38 +187,55 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units(report)
-    if report
-      completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+    units_i_own = units_i_own_or_coteach('own', report)
+    units_i_coteach = units_i_own_or_coteach('coteach', report)
+    units_i_own.concat(units_i_coteach)
+  end
+
+  def units_i_own_or_coteach(own_or_coteach, report)
+    # returns an empty array if own_or_coteach_classrooms_array is empty
+    own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{own_or_coteach}").map(&:id)
+    if own_or_coteach_classrooms_array.any?
+      if report
+        completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+      else
+        completed = ''
+      end
+      own_or_coteach_string = "(#{own_or_coteach_classrooms_array.join(', ')})"
+      ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+         activities.name AS activity_name,
+         activities.supporting_info AS supporting_info,
+         classrooms.name AS class_name,
+         classrooms.id AS classroom_id,
+         activities.activity_classification_id,
+         ca.id AS classroom_activity_id,
+         ca.unit_id AS unit_id,
+         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS class_size,
+         ca.due_date,
+         activities.id AS activity_id,
+         activities.uid as activity_uid,
+         SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
+         EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
+         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,
+         '#{own_or_coteach}' AS own_or_coteach,
+         unit_owner.name AS owner_name
+      FROM units
+        INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
+        INNER JOIN activities ON ca.activity_id = activities.id
+        INNER JOIN classrooms ON ca.classroom_id = classrooms.id
+        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
+        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+        JOIN users AS unit_owner ON unit_owner.id = units.user_id
+      WHERE ca.classroom_id IN #{own_or_coteach_string}
+        AND classrooms.visible = true
+        AND units.visible = true
+        AND ca.visible = true
+        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name
+        #{completed}
+        ").to_a
     else
-      completed = ''
+      []
     end
-    ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
-       activities.name AS activity_name,
-       activities.supporting_info AS supporting_info,
-       classrooms.name AS class_name,
-       classrooms.id AS classroom_id,
-       activities.activity_classification_id,
-       ca.id AS classroom_activity_id,
-       ca.unit_id AS unit_id,
-       COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS class_size,
-       ca.due_date,
-       activities.id AS activity_id,
-       activities.uid as activity_uid,
-       SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,
-       EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
-       EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at
-    FROM units
-      INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
-      INNER JOIN activities ON ca.activity_id = activities.id
-      INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-      LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
-    WHERE units.user_id = #{current_user.id}
-      AND classrooms.visible = true
-      AND units.visible = true
-      AND ca.visible = true
-      GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid
-      #{completed}
-      ").to_a
   end
 
 end

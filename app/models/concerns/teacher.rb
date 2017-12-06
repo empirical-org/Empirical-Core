@@ -8,8 +8,6 @@ module Teacher
   TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
 
   included do
-    has_many :classrooms_i_teach, foreign_key: 'teacher_id', class_name: "Classroom"
-    has_many :students, through: :classrooms_i_teach, class_name: "User"
     has_many :units
     has_one :user_subscription
     has_one :subscription, through: :user_subscription
@@ -28,6 +26,76 @@ module Teacher
   def has_classrooms?
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
+
+  def classrooms_i_teach
+    Classroom.find_by_sql(base_sql_for_teacher_classrooms)
+  end
+
+  def classrooms_i_own
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner'")
+  end
+
+  def classrooms_i_coteach
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'coteacher'")
+  end
+
+  def affiliated_with_unit(unit_id)
+    ActiveRecord::Base.connection.execute("SELECT units.id FROM units
+      JOIN classroom_activities ON classroom_activities.unit_id = units.id
+      JOIN classrooms_teachers ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
+      WHERE classrooms_teachers.user_id = #{self.id} AND units.id = #{unit_id.to_i}
+      LIMIT(1)").to_a.any?
+  end
+
+  def students
+    User.find_by_sql(
+      "SELECT students.* FROM users AS teacher
+      JOIN classrooms_teachers AS ct ON ct.user_id = teacher.id
+      JOIN classrooms ON classrooms.id = ct.classroom_id AND classrooms.visible = TRUE
+      JOIN students_classrooms AS sc ON sc.classroom_id = ct.classroom_id
+      JOIN users AS students ON students.id = sc.student_id
+      WHERE teacher.id = #{self.id}"
+    )
+  end
+
+  def archived_classrooms
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
+  end
+
+  def google_classrooms
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner' AND classrooms.google_classroom_id IS NOT null")
+  end
+
+  def classrooms_i_teach_with_students
+    classrooms_i_teach.map{|classroom| classroom.with_students}
+  end
+
+  def classrooms_i_own_with_students
+    classrooms_i_own.map{|classroom| classroom.with_students}
+  end
+
+  def classrooms_i_coteach_with_a_specific_teacher_with_students(specified_teacher_id)
+    classrooms_i_coteach_with_a_specific_teacher(specified_teacher_id).map{|classroom| classroom.with_students}
+  end
+
+  def classrooms_i_own_that_have_coteachers
+    ActiveRecord::Base.connection.execute(
+      "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      JOIN classrooms_teachers AS coteachers_classrooms ON coteachers_classrooms.classroom_id = my_classrooms.classroom_id
+      JOIN classrooms ON coteachers_classrooms.classroom_id = classrooms.id
+      JOIN users AS coteacher ON coteachers_classrooms.user_id = coteacher.id
+      WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher'").to_a
+  end
+
+  def classrooms_i_own_that_have_pending_coteacher_invitations
+    ActiveRecord::Base.connection.execute(
+      "SELECT DISTINCT classrooms.name AS name, pending_invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      JOIN pending_invitations ON pending_invitations.inviter_id = my_classrooms.user_id
+      JOIN coteacher_classroom_invitations ON pending_invitations.id = coteacher_classroom_invitations.pending_invitation_id
+      JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id
+      WHERE my_classrooms.user_id = #{self.id} AND pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}' AND my_classrooms.role = 'owner'").to_a
+  end
+
 
   def get_classroom_minis_cache
     cache = $redis.get("user_id:#{self.id}_classroom_minis")
@@ -50,13 +118,15 @@ module Teacher
     end
     classrooms = ActiveRecord::Base.connection.execute("SELECT classrooms.name AS name, classrooms.id AS id, classrooms.code AS code, COUNT(DISTINCT sc.id) as student_count  FROM classrooms
 			LEFT JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-			WHERE classrooms.visible = true AND classrooms.teacher_id = #{self.id}
+      LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+			WHERE classrooms.visible = true AND classrooms_teachers.user_id = #{self.id}
 			GROUP BY classrooms.name, classrooms.id"
     ).to_a
     counts = ActiveRecord::Base.connection.execute("SELECT classrooms.id AS id, COUNT(DISTINCT acts.id) FROM classrooms
           FULL OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
           FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
-          WHERE classrooms.teacher_id = #{self.id}
+          LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+          WHERE classrooms_teachers.user_id = #{self.id}
           AND classrooms.visible
           AND class_acts.visible
           AND acts.visible
@@ -72,12 +142,8 @@ module Teacher
     info
   end
 
-  def archived_classrooms
-    Classroom.unscoped.where(teacher_id: self.id, visible: false)
-  end
-
   def google_classrooms
-    Classroom.where(teacher_id: self.id).where.not(google_classroom_id: nil)
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND classrooms.google_classroom_id IS NOT NULL")
   end
 
   def transfer_account
@@ -85,10 +151,11 @@ module Teacher
   end
 
   def classrooms_i_teach_with_students
-    classrooms_i_teach.includes(:students).map do |classroom|
-      classroom_h = classroom.attributes
-      classroom_h[:students] = classroom.students.sort_by { |s| s.last_name }
-      classroom_h
+    # TODO rewrite this in SQL at some point in the future.
+    classrooms_i_teach.map do |classroom|
+      classroom_as_h = classroom.attributes
+      classroom_as_h[:students] = classroom.students
+      classroom_as_h
     end
   end
 
@@ -275,6 +342,26 @@ module Teacher
   def get_data_for_lessons_cache
     self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
   end
+
+  private
+
+  def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
+    base = "SELECT classrooms.* from classrooms_teachers AS ct
+    JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
+    WHERE ct.user_id = #{self.id}"
+  end
+
+  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
+    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
+                            JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
+                            JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
+                            WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
+                                  ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
+  end
+
+
+
+
 
 
 end
