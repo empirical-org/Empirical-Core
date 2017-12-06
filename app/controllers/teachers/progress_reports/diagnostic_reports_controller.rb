@@ -87,9 +87,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           ON  classrooms.id = classroom_activities.classroom_id
           AND classroom_activities.visible = TRUE
           AND activity_id IN (#{diagnostic_activity_ids.join(', ')})
-        JOIN activity_sessions
+        LEFT JOIN activity_sessions
           ON  classroom_activities.id = activity_sessions.classroom_activity_id
           AND activity_sessions.state = 'finished'
+          AND activity_sessions.visible = TRUE
         WHERE classrooms_teachers.user_id = #{current_user.id}
       ").to_a
       if cas.include?('finished')
