@@ -20,7 +20,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def classrooms_i_teach
     @classrooms = current_user.classrooms_i_teach
-    render json: @classrooms.order(:updated_at)
+    render json: @classrooms.sort_by { |c| c[:update_at] }
   end
 
   def regenerate_code
@@ -30,7 +30,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def create
-    @classroom = Classroom.create(classroom_params.merge(teacher: current_user))
+    @classroom = Classroom.create_with_join(classroom_params, current_user.id)
     if @classroom.valid?
       render json: {classroom: @classroom, toInviteStudents: current_user.students.empty?}
     else
@@ -97,6 +97,6 @@ private
   def authorize!
     return unless params[:id].present?
     @classroom = Classroom.find(params[:id])
-    auth_failed unless @classroom.teacher == current_user
+    classroom_owner!(@classroom.id)
   end
 end
