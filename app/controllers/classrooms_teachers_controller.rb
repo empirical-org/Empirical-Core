@@ -7,18 +7,6 @@ class ClassroomsTeachersController < ApplicationController
     @coteachers = @classrooms.map(&:coteachers).flatten.uniq
     @selected_teacher_id = params[:classrooms_teacher_id].to_i
     @selected_teachers_classrooms = edit_info_for_specific_teacher(@selected_teacher_id)
-    # @classrooms_grouped_by_coteacher_id = Hash.new {|h,k| h[k] = [] }
-    # @coteachers = Set.new
-    # @classrooms = classrooms_and_coteachers.map do |classy|
-    #   if classy["coteacher_id"]
-    #     @coteachers << {id: classy['coteacher_id'], name: classy['coteacher_name']}
-    #     @classrooms_grouped_by_coteacher_id[classy["coteacher_id"]].push(classy["classroom_id"])
-    #   end
-    #   {id: classy["classroom_id"], name: classy["classroom_name"]}
-    # end
-    # @classrooms.uniq!
-    # @classrooms
-    # @selected_teacher_id = params[:classrooms_teacher_id].to_i
   end
 
   def update_coteachers
@@ -43,7 +31,7 @@ class ClassroomsTeachersController < ApplicationController
   end
 
   def edit_info_for_specific_teacher(selected_teacher_id)
-    {is_coteacher: current_user.classrooms_i_coteach_with_a_specific_teacher(selected_teacher_id).map(&:id), invited_to_coteach: current_user.classroom_ids_i_have_invitited_a_specific_teacher_to_coteach(selected_teacher_id)}
+    {is_coteacher: current_user.classrooms_i_coteach_with_a_specific_teacher(selected_teacher_id).map(&:id), invited_to_coteach: current_user.classroom_ids_i_have_invited_a_specific_teacher_to_coteach(selected_teacher_id)}
   end
 
 
