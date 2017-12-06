@@ -97,7 +97,7 @@ class TeachersController < ApplicationController
       ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447, 602])
       unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
     rescue
-      unit_info = nil
+      unit_info = {}
     end
     render json: {unit_info: unit_info}
   end
