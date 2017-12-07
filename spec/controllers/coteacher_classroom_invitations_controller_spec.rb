@@ -5,7 +5,7 @@ describe CoteacherClassroomInvitationsController, type: :controller do
   let(:invite_one) { create(:coteacher_classroom_invitation, classroom_id: teacher.classrooms_i_own.first.id) }
   let!(:pending_invitation) { invite_one.invitation }
   let(:invite_two) { create(:coteacher_classroom_invitation, classroom_id: teacher.classrooms_i_own.second.id, invitation_id: pending_invitation.id) }
-  let(:invited_teacher) { create(:teacher, email: pending_invitation.invitee_email) }
+  let(:invited_teacher) { User.find_by_email(pending_invitation.invitee_email) }
   let(:unaffiliated_teacher) { create(:teacher) }
 
   describe '#accept_pending_coteacher_invitations' do
