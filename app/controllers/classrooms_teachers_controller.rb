@@ -24,6 +24,15 @@ class ClassroomsTeachersController < ApplicationController
     render json: { selectedTeachersClassroomIds: edit_info_for_specific_teacher(params[:coteacher_id])}
   end
 
+  def destroy
+    begin
+      ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: params[:classroom_id]).destroy
+    rescue => e
+      return render json: { error_message: e }, status: 422
+    end
+    return render json: {message: 'Deletion Succeeded!'}
+  end
+
   private
 
   def multi_classroom_auth
