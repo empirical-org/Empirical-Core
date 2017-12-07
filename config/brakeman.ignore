@@ -186,7 +186,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb",
-      "line": 89,
+      "line": 88,
       "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n        SELECT activity_sessions.state\\n        FROM classrooms_teachers\\n        JOIN classrooms\\n          ON  classrooms_teachers.classroom_id = classrooms.id\\n          AND classrooms.visible = TRUE\\n        JOIN classroom_activities\\n          ON  classrooms.id = classroom_activities.classroom_id\\n          AND classroom_activities.visible = TRUE\\n          AND classroom_activities.activity_id IN (#{[413, 447, 602].join(\", \")})\\n        LEFT JOIN activity_sessions\\n          ON  classroom_activities.id = activity_sessions.classroom_activity_id\\n          AND activity_sessions.state = 'finished'\\n          AND activity_sessions.visible = TRUE\\n        WHERE classrooms_teachers.user_id = #{current_user.id}\\n      \")",
       "render_path": null,
@@ -197,7 +197,7 @@
       },
       "user_input": "[413, 447, 602].join(\", \")",
       "confidence": "Medium",
-      "note": "We explicitly set this array ourselves."
+      "note": "DIAGNOSTIC_ACTIVITY_IDS is a constant we control, so this is a false positive."
     },
     {
       "warning_type": "Mass Assignment",
