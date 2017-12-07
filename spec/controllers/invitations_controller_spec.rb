@@ -3,7 +3,7 @@ require 'rails_helper'
 describe InvitationsController, type: :controller do
   let(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
   let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id)}
-  let(:invited_teacher) { create(:teacher, email: pending_coteacher_invitation.invitee_email) }
+  let(:invited_teacher) { User.find_by_email(pending_coteacher_invitation.invitee_email) }
 
   describe '#destroy_pending_invitations_to_specific_invitee' do
     context 'user is signed in' do

@@ -69,8 +69,10 @@ export default React.createClass({
   handleDropdownChange(value) {
     let that = this;
     value.forEach((opt)=>{
-      let pending = new RegExp('pending').test(opt.label)
-      if (!that.state.originallySelectedClassrooms.find((c)=> c.value === opt.value) && !pending ) {
+      // adds pending to any classroom that the teacher didn't already have a relationship with
+      // if pending is already within the object, we use the below regex to not add it twice
+      let allreadyPending = new RegExp('pending').test(opt.label)
+      if (!that.state.originallySelectedClassrooms.find((c)=> c.value === opt.value) && !allreadyPending ) {
         opt.label += ' (pending)'
       }
     })
@@ -95,7 +97,7 @@ export default React.createClass({
     return {negative_classroom_ids: negativeClassrooms, positive_classroom_ids: positiveClassrooms}
   },
 
-  saveChanges: function() {
+  saveChanges: function(redirect) {
     const classrooms = this.processClassroomsForSaving()
     request({
       url: `${process.env.DEFAULT_URL}/classrooms_teachers/${this.state.selectedCoteacher}/edit_coteacher_form`,
@@ -106,21 +108,29 @@ export default React.createClass({
       if(httpResponse.statusCode !== 200) {
         alert(body.error_message);
       } else {
-        alert('Update Successful!')
-        this.handleSelect(this.state.selectedCoteacher)
+        if (redirect) {
+          alert('Teacher Removed!')
+          window.location = redirect
+        } else {
+          alert('Update Successful!')
+          this.handleSelect(this.state.selectedCoteacher)
+        }
       }
     });
   },
 
   removeCoteacherConfirmation(){
-    // confirm('This will remove the coteacher from all classroom')
+    const confirmed = window.confirm('This will remove the coteacher from all classroom. You will need to reinvite the teacher before they can regain access.')
+    if (confirmed) {
+      // removes all classrooms from the teacher by updated selected classrooms, saves the change, and then redirects
+      this.setState({selectedClassrooms: []}, ()=> this.saveChanges(`${process.env.DEFAULT_URL}/teachers/classrooms`))
+    }
   },
 
   render: function() {
     const selectedTeacherName = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
       <div id='edit-coteacher'>
-        {JSON.stringify(this.state.selectedCoteacher)}
         <div className='edit-coteacher-container'>
           <h1>Edit Co-Teachers</h1>
             <label className='select-coteacher'>Select Co-Teacher:</label>
@@ -142,7 +152,7 @@ export default React.createClass({
             value={this.state.selectedClassrooms}/>
         </div>
         {this.saveChangesButton()}
-        <span className='remove-coteacher' onClick={this.removeCoTeacherConfirmation}>Remove Co-Teacher</span>
+        <span className='remove-coteacher' onClick={this.removeCoteacherConfirmation}>Remove Co-Teacher</span>
       </div>
     )
 
