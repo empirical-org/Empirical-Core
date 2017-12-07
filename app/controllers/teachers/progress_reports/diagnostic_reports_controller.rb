@@ -76,7 +76,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def diagnostic_status
-      diagnostic_activity_ids = [413, 447, 602]
       cas = ActiveRecord::Base.connection.execute("
         SELECT activity_sessions.state
         FROM classrooms_teachers
@@ -86,7 +85,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         JOIN classroom_activities
           ON  classrooms.id = classroom_activities.classroom_id
           AND classroom_activities.visible = TRUE
-          AND classroom_activities.activity_id IN (#{diagnostic_activity_ids.join(', ')})
+          AND classroom_activities.activity_id IN (#{Activity::DIAGNOSTIC_ACTIVITY_IDS.join(', ')})
         LEFT JOIN activity_sessions
           ON  classroom_activities.id = activity_sessions.classroom_activity_id
           AND activity_sessions.state = 'finished'
