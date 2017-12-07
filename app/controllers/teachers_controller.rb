@@ -71,6 +71,10 @@ class TeachersController < ApplicationController
     render json: {classrooms: current_user.classrooms_i_teach_with_students}
   end
 
+  def classrooms_i_own_with_students
+    render json: {classrooms: current_user.classrooms_i_own_with_students}
+  end
+
   def classrooms_i_teach_with_lessons
     classrooms =  ActiveRecord::Base.connection.execute(
       "SELECT classrooms.* FROM classrooms
