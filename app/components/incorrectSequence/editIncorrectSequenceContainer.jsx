@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
+import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.js';
+import request from 'request'
 
 class EditIncorrectSequencesContainer extends Component {
   constructor() {
     super();
     this.submitForm = this.submitForm.bind(this);
+  }
+
+  componentWillMount() {
+    const qid = this.props.params.questionID
+    if (!this.props.generatedIncorrectSequences.suggested[qid]) {
+      this.props.dispatch(questionActions.getSuggestedSequences(qid))
+    }
   }
 
   getIncorrectSequence() {
@@ -23,10 +31,13 @@ class EditIncorrectSequencesContainer extends Component {
   render() {
     return (
       <div>
-        <MultipleInputAndConceptSelectorForm
-          itemLabel='Focus Point'
-          item={Object.assign(this.getIncorrectSequence(), { id: this.props.params.incorrectSequenceID, })}
+        <IncorrectSequencesInputAndConceptSelectorForm
+          itemLabel='Incorrect Sequence'
           onSubmit={this.submitForm}
+          suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.params.questionID]}
+          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
+          coveredSequences={this.props.generatedIncorrectSequences.covered[this.props.params.questionID]}
+          item={Object.assign(this.getIncorrectSequence(), { id: this.props.params.incorrectSequenceID, })}
         />
         {this.props.children}
       </div>
@@ -37,6 +48,7 @@ class EditIncorrectSequencesContainer extends Component {
 function select(props) {
   return {
     questions: props.questions,
+    generatedIncorrectSequences: props.generatedIncorrectSequences
   };
 }
 

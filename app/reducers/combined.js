@@ -24,6 +24,7 @@ import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
 import classroomLessonsReviews from './classroomLessonsReviews'
 import customize from './customize'
+import generatedIncorrectSequences from './generatedIncorrectSequences'
 import { routerReducer } from 'react-router-redux';
 
 const combinedReducers = combineReducers({
@@ -51,6 +52,7 @@ const combinedReducers = combineReducers({
   massEdit,
   display,
   customize,
+  generatedIncorrectSequences,
   routing: routerReducer,
 });
 
