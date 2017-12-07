@@ -28,7 +28,7 @@ export default React.createClass({
 
   getClassrooms() {
     const that = this;
-    $.ajax('/teachers/classrooms_i_teach_with_students').done((data) => {
+    $.ajax('/teachers/classrooms_i_own_with_students').done((data) => {
       const classrooms = that.addClassroomProps(data.classrooms);
       that.setState({ classrooms, });
     }).fail(() => {
