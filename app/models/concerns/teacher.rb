@@ -202,6 +202,9 @@ module Teacher
     info = classrooms.map do |classy|
       count = counts.find { |elm| elm['id'] == classy['id'] }
       classy['activity_count'] = count  ? count['count'] : 0
+      has_coteacher = ClassroomsTeacher.where(classroom_id: classy['id']).length > 1
+      classy['has_coteacher'] = has_coteacher
+      classy['teacher_role'] = ClassroomsTeacher.find_by(classroom_id: classy['id'], user_id: self.id).role
       classy
     end
     # TODO: move setter to background worker
