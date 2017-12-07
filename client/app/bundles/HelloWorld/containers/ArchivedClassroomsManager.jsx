@@ -220,7 +220,7 @@ export default React.createClass({
           </tr>
         )
       }
-      const coteachersArr = this.state.classrooms.coteachersByClassroom[cl.className]
+      const coteachersArr = cl.coteacherNames
       let coteacherCell;
       if (coteachersArr && coteachersArr.length) {
         coteacherCell = coteachersArr.map(coteacher =><p key={`${coteacher}-${cl.coteacher_email}-coteacher-list`}>{coteacher}</p>)
