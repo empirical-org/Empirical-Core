@@ -347,15 +347,16 @@ describe User, type: :model do
 
         expected_response = teacher.classrooms_i_teach.map do |classroom|
           {
-            activity_count: classroom.activity_sessions.where(is_final_score: true).length,
-            code: classroom.code,
-            id: classroom.id,
             name: classroom.name,
-            student_count: classroom.students.length
+            id: classroom.id,
+            code: classroom.code,
+            student_count: classroom.students.length,
+            activity_count: classroom.activity_sessions.where(is_final_score: true).length,
+            has_coteacher: classroom.coteachers.any?,
+            teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role
           }
         end
-
-        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_sql(expected_response))
+        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))
       end
     end
 
