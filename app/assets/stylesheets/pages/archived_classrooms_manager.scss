@@ -56,7 +56,7 @@
         vertical-align: middle;
       }
     }
-    tr td:last-of-type:not(.pending-invitation-row), .manage-class {
+    tr td:last-of-type:not(.pending-invitation-row), .manage-class, .edit-or-remove a {
       text-align: right;
       color: #027360;
       cursor: pointer;
@@ -70,6 +70,9 @@
         margin-right: 5px;
         padding: 0;
       }
+    }
+    .edit-or-remove a {
+      padding-right: 0;
     }
     .pending-invitation-row {
       text-align: left;
@@ -123,7 +126,8 @@
   }
 }
 #coteacher-capability-chart {
-  background-color: #fff3df;
+  background: url(https://assets.quill.org/images/illustrations/customization-tip.png) #fff3df no-repeat right bottom;
+  background-size: 150px;
   padding: 14px 22px 0;
   h1 {
     font-size: 18px;
@@ -132,30 +136,28 @@
   }
   ul {
     list-style: none;
-    padding: 0;
     margin-right: 100px;
+    padding: 0;
     li {
+	    color: #3b3b3b;
+      font-size: 14px;
       margin-bottom: 5px;
       padding-left: 11px;
-      font-size: 14px;
-	    color: #3b3b3b;
       span {
         padding-left: 13px;
       }
+      &:before {
+        background: url('https://assets.quill.org/images/icons/check-mark-icon.svg') no-repeat center;
+        content: '';
+        left: -5px;
+        margin-left: -10px; /* same as padding-left set on li */
+        padding-right: 22px;
+        position: relative;
+        width: 11px; /* same as padding-left set on li */
+      }
     }
-    li:before {
-      content: "\f00c"; /* FontAwesome Unicode for check */
-      color: #82bf3c;
-      font-family: FontAwesome;
-      display: inline-block;
-      margin-left: -11px; /* same as padding-left set on li */
-      width: 11px; /* same as padding-left set on li */
-      padding-right: 24px;
-    }
-    .cant-do:before {
-      color: #ff4542;
-      content: "\f00d"; /* FontAwesome Unicode for X */
+    &.cant-do li:before {
+      background: url('https://assets.quill.org/images/icons/cross-mark-icon.svg') no-repeat center;
     }
   }
-
 }
