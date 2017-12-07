@@ -45,13 +45,22 @@ export default React.createClass({
     );
   },
 
+  hashLinkScroll() {
+    const hash = window.location.hash;
+    if (hash !== '') {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      element ? element.scrollIntoView() : null;
+    }
+  },
+
   formatData(data){
     const coteacherClassroomsAndTeachers = this.formatCoteachers(data.coteachers, true)
     data.coteachers = coteacherClassroomsAndTeachers.coteachers
     data.coteachersByClassroom = coteacherClassroomsAndTeachers.coteachersByClassroom
     data.pending_coteachers = this.formatCoteachers(data.pending_coteachers)
     const showArchivedNotification = data.active.length === 0;
-    this.setState({ classrooms: data, loading: false, showArchivedNotification, });
+    this.setState({ classrooms: data, loading: false, showArchivedNotification, }, this.hashLinkScroll);
   },
 
   formatCoteachers(teachers, isCoteachers) {
@@ -314,7 +323,7 @@ export default React.createClass({
     const header = <h1>{`${section.charAt(0).toUpperCase() + section.slice(1)} Classes`}</h1>;
     if (classes.length > 0) {
       return (
-        <div>
+        <div id={`${section}-classes`}>
           {header}
           {this.displayClassrooms(this.state.classrooms[section], action)}
         </div>
@@ -326,9 +335,9 @@ export default React.createClass({
   coteachers(){
     if (this.state.classrooms.coteachers.length || this.state.classrooms.pending_coteachers.length) {
       return (
-        <div>
+        <div id="my-coteachers">
           <h1>My Co-Teachers</h1>
-          <table className='table' id='my-coteachers'>
+          <table className='table'>
             {this.tableHeaders('coteachers')}
             <tbody>
               {this.mapClassrooms(this.state.classrooms.pending_coteachers, 'pending_coteachers')}
