@@ -7,7 +7,8 @@ import { getParameterByName } from '../../libs/getParameterByName';
 import {
   setWatchTeacherState,
   removeWatchTeacherState,
-  unpinActivityOnSaveAndExit
+  unpinActivityOnSaveAndExit,
+  showSignupModal
 } from '../../actions/classroomSessions';
 import {
   createNewEdition
@@ -43,6 +44,7 @@ class TeacherNavbar extends React.Component<any, any> {
     this.flagDropdown = this.flagDropdown.bind(this)
     this.launchProjector = this.launchProjector.bind(this)
     this.editOnClick = this.editOnClick.bind(this)
+    this.switchOnClick = this.switchOnClick.bind(this)
     this.redirectToEdit = this.redirectToEdit.bind(this)
     this.redirectToSwitchEdition = this.redirectToSwitchEdition.bind(this)
   }
@@ -191,24 +193,35 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   editOnClick() {
-    const classroomActivityID = getParameterByName('classroom_activity_id')
-    const lessonID = this.props.params.lessonID
-    const editionID = this.props.classroomSessions.data.edition_id
-    if (editionID && Object.keys(this.props.customize.editions).indexOf(editionID) !== -1) {
-      this.redirectToEdit(lessonID, editionID)
+    if (this.props.customize.user_id) {
+      const classroomActivityID = getParameterByName('classroom_activity_id')
+      const lessonID = this.props.params.lessonID
+      const editionID = this.props.classroomSessions.data.edition_id
+      if (editionID && Object.keys(this.props.customize.editions).indexOf(editionID) !== -1) {
+        this.redirectToEdit(lessonID, editionID, classroomActivityID)
+      } else {
+        createNewEdition(editionID, lessonID, this.props.customize.user_id, this.redirectToEdit)
+      }
     } else {
-      createNewEdition(editionID, lessonID, this.props.customize.user_id, this.redirectToEdit)
+      this.props.dispatch(showSignupModal())
     }
   }
 
-  redirectToEdit(lessonID:string, editionID:string) {
-    const classroomActivityID = getParameterByName('classroom_activity_id')
+  switchOnClick() {
+    if (this.props.customize.user_id) {
+      const lessonID = this.props.params.lessonID
+      const classroomActivityID = getParameterByName('classroom_activity_id')
+      this.redirectToSwitchEdition(lessonID, classroomActivityID)
+    } else {
+      this.props.dispatch(showSignupModal())
+    }
+  }
+
+  redirectToEdit(lessonID:string, editionID:string, classroomActivityID:string) {
     window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityID}`
   }
 
-  redirectToSwitchEdition() {
-    const lessonID = this.props.params.lessonID
-    const classroomActivityID = getParameterByName('classroom_activity_id')
+  redirectToSwitchEdition(lessonID:string, classroomActivityID:string) {
     window.location.href =`#/customize/${lessonID}?&classroom_activity_id=${classroomActivityID}`
   }
 
@@ -218,7 +231,7 @@ class TeacherNavbar extends React.Component<any, any> {
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up"/>
         <a onClick={this.editOnClick}><p>{editText}</p></a>
-        <a onClick={this.redirectToSwitchEdition}><p>Switch Edition</p></a>
+        <a onClick={this.switchOnClick}><p>Switch Edition</p></a>
       </div>
     )
   }
@@ -284,7 +297,7 @@ class TeacherNavbar extends React.Component<any, any> {
       const assignLink = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/assign_activities/create-unit?tool=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       return <div className="lessons-teacher-preview-bar">
-        <p><i className="fa fa-eye" />You are <span>previewing</span> the teacher's view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
+        <p><i className="fa fa-eye" />You are previewing the teacher's view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
         <a href={studentLink} target="_blank" className="student-link">Open Student View<i className="fa fa-external-link"/></a>
       </div>
     }
