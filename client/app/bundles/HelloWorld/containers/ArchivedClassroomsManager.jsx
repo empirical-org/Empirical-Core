@@ -328,7 +328,7 @@ export default React.createClass({
       return (
         <div>
           <h1>My Co-Teachers</h1>
-          <table className="table">
+          <table className='table' id='my-coteachers'>
             {this.tableHeaders('coteachers')}
             <tbody>
               {this.mapClassrooms(this.state.classrooms.pending_coteachers, 'pending_coteachers')}
