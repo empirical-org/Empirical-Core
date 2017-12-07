@@ -18,7 +18,7 @@ FactoryBot.define do
       else # we'll do it live
         classroom_activity = create(:classroom_activity, activity: activity_session.activity)
       end
-      StudentsClassrooms.find_or_create_by(student_id: activity_session.user.id, classroom_id: classroom_activity.classroom.id )
+      StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_activity.classroom_id )
       create(:concept_result, activity_session: activity_session)
     end
 
