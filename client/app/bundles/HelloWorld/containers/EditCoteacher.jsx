@@ -113,7 +113,7 @@ export default React.createClass({
   },
 
   removeCoteacherConfirmation(){
-
+    // confirm('This will remove the coteacher from all classroom')
   },
 
   render: function() {

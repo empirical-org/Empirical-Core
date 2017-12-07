@@ -426,7 +426,7 @@ module Teacher
       JOIN classrooms_teachers AS ct_i_own ON ct_i_own.classroom_id = classrooms.id
       JOIN classrooms_teachers AS ct_of_coteacher ON ct_of_coteacher.classroom_id = classrooms.id
       WHERE ct_i_own.role = 'owner' AND ct_i_own.user_id = #{self.id} AND
-      ct_of_coteacher.role = 'owner' AND ct_of_coteacher.user_id = #{teacher_id.to_i}")
+      ct_of_coteacher.role = 'coteacher' AND ct_of_coteacher.user_id = #{teacher_id.to_i}")
   end
 
   def classroom_ids_i_have_invited_a_specific_teacher_to_coteach(teacher_id)
