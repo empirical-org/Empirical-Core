@@ -11,12 +11,9 @@ class ClassroomsTeachersController < ApplicationController
 
   def update_coteachers
     begin
-      partitioned_classrooms = params[:classrooms].partition { |classroom| classroom['checked'] }
-      positive_classroom_ids = partitioned_classrooms.first.collect { |classroom| classroom['id'].to_i }
-      negative_classroom_ids = partitioned_classrooms.second.collect { |classroom |classroom['id'].to_i }
       coteacher = User.find(params[:classrooms_teacher_id].to_i)
-      coteacher.handle_negative_classrooms_from_update_coteachers(negative_classroom_ids)
-      coteacher.handle_positive_classrooms_from_update_coteachers(positive_classroom_ids, current_user.id)
+      coteacher.handle_negative_classrooms_from_update_coteachers(@classrooms[:negative_classroom_ids])
+      coteacher.handle_positive_classrooms_from_update_coteachers(@classrooms[:positive_classroom_ids], current_user.id)
     rescue => e
       return render json: { error_message: e }, status: 422
     end
@@ -30,7 +27,8 @@ class ClassroomsTeachersController < ApplicationController
   private
 
   def multi_classroom_auth
-    uniqued_classroom_ids = params[:classrooms].uniq
+    @classrooms = params[:classrooms]
+    uniqued_classroom_ids = @classrooms[:negative_classroom_ids].concat(@classrooms[:positive_classroom_ids]).uniq
     ClassroomsTeacher.where(user_id: current_user.id, classroom_id: uniqued_classroom_ids, role: 'owner').length == uniqued_classroom_ids.length
   end
 
