@@ -63,6 +63,23 @@ export default React.createClass({
     this.setState({ classrooms: data, loading: false, showArchivedNotification, }, this.hashLinkScroll);
   },
 
+  leaveClassroom(id) {
+    if (confirm('Are you sure you want to leave this classroom?')) {
+      request.delete(
+        {
+          url: `${process.env.DEFAULT_URL}/classrooms_teachers/destroy/${id}`,
+          json: { authenticity_token: getAuthToken(), },
+        }, (e, r, b) => {
+          if (e) {
+            console.log(e)
+          } else {
+            this.getClassrooms()
+          }
+        }
+      )
+    }
+  },
+
   formatCoteachers(teachers, isCoteachers) {
     const classroomsByCoteacher = {};
     const coteachersByClassroom = {}
@@ -129,15 +146,25 @@ export default React.createClass({
 
   finalContents(cl, action) {
     let displayed = action;
-    if (this.state.loading) {
-      displayed = [<LoadingIndicator key={`button-loading-indicator-for-${cl.id}`} />, <span key={`action-for-${cl.id}`}>{action}</span>];
+    const myClassroom = this.state.classrooms.active_classrooms_i_own.find(c => c.label === cl.className)
+    if (myClassroom) {
+      if (this.state.loading) {
+        displayed = [<LoadingIndicator key={`button-loading-indicator-for-${cl.id}`} />, <span key={`action-for-${cl.id}`}>{action}</span>];
+      }
+      return (<span
+        onClick={() => { this.classAction(action, cl.id); }}
+        className={`flex-row vertically-centered action-container ${action.toLowerCase()} ${cl.className.replace(/ /g, '')}`}
+        >
+          {displayed}
+        </span>);
+    } else {
+      return (<span
+        onClick={() => { this.leaveClassroom(cl.id) }}
+        className={`flex-row vertically-centered action-container ${cl.className.replace(/ /g, '')}`}
+        >
+          Leave Classroom
+        </span>);
     }
-    return (<span
-      onClick={() => { this.classAction(action, cl.id); }}
-      className={`flex-row vertically-centered action-container ${action.toLowerCase()} ${cl.className.replace(/ /g, '')}`}
-    >
-      {displayed}
-    </span>);
   },
 
   editOrRemove(action, coteacher_email, coteacher_id){

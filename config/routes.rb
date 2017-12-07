@@ -234,6 +234,7 @@ EmpiricalGrammar::Application.routes.draw do
     post 'edit_coteacher_form', to: 'classrooms_teachers#update_coteachers'
   end
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
+  delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
 
 
 
@@ -387,7 +388,7 @@ EmpiricalGrammar::Application.routes.draw do
     get "tutorials/#{tool}" => "pages#tutorials"
     get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
-  
+
   get 'teacher_fix' => 'teacher_fix#index'
   get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
   get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
