@@ -36,11 +36,11 @@ export default React.createClass({
     })
   },
 
-  matchSelectedClassroomIds: function() {
+  matchSelectedClassroomIds: function(coteacherId) {
     const selectedClassrooms = [];
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.invited_to_coteach, true, selectedClassrooms)
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.is_coteacher, false, selectedClassrooms)
-    this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms, firstLoad: false, changesToSave: false, classroomsToShow: this.classroomsToShow()})
+    this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms, firstLoad: false, changesToSave: false, classroomsToShow: this.classroomsToShow(), selectedCoteacher: coteacherId})
   },
 
   getSelectedTeachersClassroomIds: function(coteacherId){
@@ -49,7 +49,7 @@ export default React.createClass({
         url: `${process.env.DEFAULT_URL}/classrooms_teachers/specific_coteacher_info/${coteacherId}`,
       },
       (e, r, response) => {
-        that.setState(JSON.parse(response), that.matchSelectedClassroomIds)
+        that.setState(JSON.parse(response), ()=>that.matchSelectedClassroomIds(coteacherId))
       });
   },
 
@@ -112,10 +112,15 @@ export default React.createClass({
     });
   },
 
+  removeCoteacherConfirmation(){
+
+  },
+
   render: function() {
     const selectedTeacherName = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
       <div id='edit-coteacher'>
+        {JSON.stringify(this.state.selectedCoteacher)}
         <div className='edit-coteacher-container'>
           <h1>Edit Co-Teachers</h1>
             <label className='select-coteacher'>Select Co-Teacher:</label>
@@ -126,8 +131,7 @@ export default React.createClass({
 
         <div className='edit-classroom-container'>
           <h2>{selectedTeacherName}</h2>
-          <p>Classrooms that the coteacher is/will be invited to will say pending. Click the 'X' next to the classroom name to remove them from the classroom, or withdraw an invitation.</p>
-          <p>Changes will not take effect unless you click the 'Save Changes' button.</p>
+          <p>The classes that are selected in the dropdown are the current classes that the co-teacher has access to. To invite the co-teacher to more classes, select a new class from the dropdown and click on “Save Changes”. To remove a class, click on the “X” next to the class name and click “Save Changes.”</p>
           <h3>Invite To / Remove From Classes</h3>
           <Select
               name="form-field-name"
@@ -138,6 +142,7 @@ export default React.createClass({
             value={this.state.selectedClassrooms}/>
         </div>
         {this.saveChangesButton()}
+        <span className='remove-coteacher' onClick={this.removeCoTeacherConfirmation}>Remove Co-Teacher</span>
       </div>
     )
 
