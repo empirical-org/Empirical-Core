@@ -10,7 +10,6 @@ export default React.createClass({
     return {
       selectedCoteacher: this.props.selected_teacher_id,
       selectedTeachersClassroomIds: this.props.selected_teachers_classrooms,
-      classroomsToShow: this.classroomsToShow(),
       firstLoad: true,
       changesToSave: false
     }
@@ -42,7 +41,7 @@ export default React.createClass({
     console.log(this.state.selectedTeachersClassroomIds);
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.invited_to_coteach, true, selectedClassrooms)
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.is_coteacher, false, selectedClassrooms)
-    this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms, firstLoad: false, changesToSave: false})
+    this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms, firstLoad: false, changesToSave: false, classroomsToShow: this.classroomsToShow()})
   },
 
   getSelectedTeachersClassroomIds: function(coteacherId){
