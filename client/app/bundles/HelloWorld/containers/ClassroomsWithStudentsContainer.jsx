@@ -175,7 +175,7 @@ export default class extends React.Component {
     let url,
       unitName;
     if (this.state.newUnit) {
-      url = '/teachers/classrooms_i_teach_with_students';
+      url = '/teachers/classrooms_i_own_with_students';
       unitName = () => this.props.params.unitName;
     } else {
       url = `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`;

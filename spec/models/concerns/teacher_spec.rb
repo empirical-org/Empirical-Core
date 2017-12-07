@@ -15,19 +15,7 @@ describe User, type: :model do
         classroom1_hash = classroom1.attributes
         classroom1_hash[:students] = classroom1.students
         classrooms = teacher.classrooms_i_teach_with_students
-        # HACK: let's disregard the created_at and updated_at values
-        # to avoid a bunch of nasty temporal comparison issues...
-        classroom_hash['created_at'] = nil
-        classroom_hash['updated_at'] = nil
-        classroom1_hash['created_at'] = nil
-        classroom1_hash['updated_at'] = nil
-        classrooms[0]['created_at'] = nil
-        classrooms[0]['updated_at'] = nil
-        classrooms[1]['created_at'] = nil
-        classrooms[1]['updated_at'] = nil
-
-        expect(classrooms).to include(classroom_hash)
-        expect(classrooms).to include(classroom1_hash)
+        expect(classrooms).to eq([classroom_hash, classroom1_hash])
       end
     end
 
@@ -347,15 +335,16 @@ describe User, type: :model do
 
         expected_response = teacher.classrooms_i_teach.map do |classroom|
           {
-            activity_count: classroom.activity_sessions.where(is_final_score: true).length,
-            code: classroom.code,
-            id: classroom.id,
             name: classroom.name,
-            student_count: classroom.students.length
+            id: classroom.id,
+            code: classroom.code,
+            student_count: classroom.students.length,
+            activity_count: classroom.activity_sessions.where(is_final_score: true).length,
+            has_coteacher: classroom.coteachers.any?,
+            teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role
           }
         end
-
-        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_sql(expected_response))
+        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))
       end
     end
 

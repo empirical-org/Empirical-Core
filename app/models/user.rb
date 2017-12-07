@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
+  after_save  :update_invitee_email_address, if: Proc.new { self.email_changed? }
 
 
   has_secure_password validations: false
@@ -438,5 +439,9 @@ private
 
   def generate_username(classroom_id=nil)
     self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code(classroom_id))
+  end
+
+  def update_invitee_email_address
+    Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
   end
 end
