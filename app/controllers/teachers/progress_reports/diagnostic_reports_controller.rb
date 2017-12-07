@@ -77,8 +77,23 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     def diagnostic_status
       diagnostic_activity_ids = [413, 447, 602]
-      cas = current_user.classrooms_i_teach.includes(:students, :classroom_activities).where(classroom_activities: {activity_id: diagnostic_activity_ids}).map(&:classroom_activities).flatten
-      if cas.any? && cas.any?{|ca| ca.has_a_completed_session? && ca.from_valid_date_for_activity_analysis? }
+      cas = ActiveRecord::Base.connection.execute("
+        SELECT activity_sessions.state
+        FROM classrooms_teachers
+        JOIN classrooms
+          ON  classrooms_teachers.classroom_id = classrooms.id
+          AND classrooms.visible = TRUE
+        JOIN classroom_activities
+          ON  classrooms.id = classroom_activities.classroom_id
+          AND classroom_activities.visible = TRUE
+          AND classroom_activities.activity_id IN (#{diagnostic_activity_ids.join(', ')})
+        LEFT JOIN activity_sessions
+          ON  classroom_activities.id = activity_sessions.classroom_activity_id
+          AND activity_sessions.state = 'finished'
+          AND activity_sessions.visible = TRUE
+        WHERE classrooms_teachers.user_id = #{current_user.id}
+      ").to_a
+      if cas.include?('finished')
         diagnostic_status = 'completed'
       elsif cas.any?
         diagnostic_status = 'assigned'

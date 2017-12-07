@@ -23,7 +23,7 @@ describe('ClassReport component', () => {
   );
 
   it('returns the correct initial state', () => {
-    expect(wrapper.state()).toEqual({students: null});
+    expect(wrapper.state()).toEqual({showInProgressAndUnstartedStudents: false, students: null});
   });
 
   describe('overview boxes', () => {
@@ -126,13 +126,23 @@ describe('ClassReport component', () => {
     });
   });
 
-  it('startedRows render if there are started students', () => {
-    wrapper.setState({ startedNames: ['Example A', 'Example B', 'Example C'] })
+  it('startedRows render if there are started students and showInProgressAndUnstartedStudents is true', () => {
+    wrapper.setState({ startedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: true })
     expect(wrapper.find('.in-progress-row').length).toBe(3);
   });
 
-  it('unstartedRows render if there are unstarted students', () => {
-    wrapper.setState({ unstartedNames: ['Example A', 'Example B', 'Example C'] })
+  it('startedRows not to render if there are started students and showInProgressAndUnstartedStudents is false', () => {
+    wrapper.setState({ startedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: false  })
+    expect(wrapper.find('.in-progress-row').length).toBe(0);
+  });
+
+  it('unstartedRows render if there are unstarted students and showInProgressAndUnstartedStudents is true', () => {
+    wrapper.setState({ unstartedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: true  })
     expect(wrapper.find('.unstarted-row').length).toBe(3);
+  });
+
+  it('unstartedRows not to render if there are unstarted students and showInProgressAndUnstartedStudents is false', () => {
+    wrapper.setState({ unstartedNames: ['Example A', 'Example B', 'Example C'], showInProgressAndUnstartedStudents: false  })
+    expect(wrapper.find('.unstarted-row').length).toBe(0);
   });
 });
