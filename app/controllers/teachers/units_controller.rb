@@ -47,7 +47,7 @@ class Teachers::UnitsController < ApplicationController
     activities_data = ClassroomActivity.where(unit_id: params[:id]).pluck(:activity_id).map{|id| {id: id}}
     if activities_data.any?
       classroom_activities = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
-      Units::Updater.run(params[:id], activities_data, classroom_activities)
+      Units::Updater.run(params[:id], activities_data, classroom_activities, current_user.id)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -58,7 +58,7 @@ class Teachers::UnitsController < ApplicationController
     data = JSON.parse(params[:data],symbolize_names: true)
     classrooms_data = formatted_classrooms_data(params[:id])
     if classrooms_data.any?
-      Units::Updater.run(params[:id], data[:activities_data], classrooms_data)
+      Units::Updater.run(params[:id], data[:activities_data], classrooms_data, current_user.id)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
