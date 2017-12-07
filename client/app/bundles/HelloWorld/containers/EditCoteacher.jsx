@@ -38,7 +38,6 @@ export default React.createClass({
 
   matchSelectedClassroomIds: function() {
     const selectedClassrooms = [];
-    console.log(this.state.selectedTeachersClassroomIds);
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.invited_to_coteach, true, selectedClassrooms)
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.is_coteacher, false, selectedClassrooms)
     this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms, firstLoad: false, changesToSave: false, classroomsToShow: this.classroomsToShow()})
