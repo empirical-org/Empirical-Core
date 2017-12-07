@@ -35,9 +35,17 @@
   }
   .select-control {
     margin-top: 27px;
+    max-width: 500px;
   }
   .save-changes {
     margin-bottom: 27px;
+  }
+  .remove-coteacher {
+    padding-bottom: 20px;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #027360;
   }
 
 }
