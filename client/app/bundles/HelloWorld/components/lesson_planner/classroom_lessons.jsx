@@ -99,7 +99,9 @@ export default class ClassroomLessons extends React.Component {
       supportingInfo: u.supporting_info,
       completed: u.completed_count > 0,
       studentCount: studentCount,
-      started: u.started_count > 0
+      started: u.started_count > 0,
+      ownedByCurrentUser: u.own_or_coteach === 'own',
+      ownerName: u.owner_name
     });
     return caObj;
   }
