@@ -3,6 +3,7 @@ import CoteacherCapabilityChart from './coteacher_capability_chart.jsx';
 import getAuthToken from '../modules/get_auth_token';
 import request from 'request';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import AssigningIndicator from '../shared/button_loading_indicator';
 import Select from 'react-select';
 require('react-select/dist/react-select.css')
 
@@ -29,6 +30,7 @@ export default class extends React.Component {
       return alert('Please select at least one classroom first.');
     }
     const classroom_ids = selectedClassrooms.map(classroom => classroom.value);
+    this.setState({coteacherInvited: false, coteacherLoading: true});
     request.post({
       url: `${process.env.DEFAULT_URL}/invitations/create_coteacher_invitation`,
       json: {
@@ -37,11 +39,12 @@ export default class extends React.Component {
         classroom_ids: classroom_ids
       }
     }, (error, httpStatus, body) => {
+      this.setState({coteacherLoading: false});
       if (body.error) {
         alert(body.error);
       } else {
         this.props.onSuccess();
-        this.setState({email: ''});
+        this.setState({email: '', selectedClassrooms: [], coteacherInvited: true});
       }
     });
   }
@@ -56,10 +59,10 @@ export default class extends React.Component {
         <h1>Invite Co-Teachers</h1>
         <div className='instructions'>
           <p>
-            <span className='bold'>Teachers New to Quill?</span> Input their email address, and they will receive an invite to join your Quill class.
+            <span className='bold'>Teachers New to Quill?</span> Input their email address, and they will receive an invite to sign up for Quill and join your class.
           </p>
           <p>
-            <span className='bold'>Teachers have Quill accounts?</span> When you submit their email address, they will join your class.
+            <span className='bold'>Teachers have Quill accounts?</span> Submit the email address they use for Quill, and they will receive an invite to join your class.
           </p>
         </div>
         <div style={{display: 'flex'}}>
@@ -82,12 +85,10 @@ export default class extends React.Component {
             </div>
             <br />
             <div style={{marginBottom: 10}}>
-              <button className='button-green' onClick={this.handleClick}>Add Co-Teacher</button>
-            </div>
-            <div>
-              {this.state.coteacher_invited
-                          ? 'Co-Teacher Invited!'
-                          : ''}
+              <button className='button-green' style={{width: 155}} onClick={this.handleClick}>{this.state.coteacherLoading ? <AssigningIndicator /> : 'Add Co-Teacher'}</button>
+              <span className='coteacher-invite-status'>
+                {this.state.coteacherInvited ? 'Co-Teacher Invited!' : ''}
+              </span>
             </div>
           </div>
           <div style={{flexBasis: '50%', marginLeft: 20}}>
