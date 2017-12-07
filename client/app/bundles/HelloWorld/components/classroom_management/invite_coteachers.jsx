@@ -52,15 +52,15 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div className='invite-coteachers'>
+      <div className='invite-coteachers' id='invite-coteachers'>
         <h1>Invite Co-Teachers</h1>
         <div className='instructions'>
           <p>
-            <span className='bold'>Teachers New to Quill?</span>
-            Input their email address, and they will receive an invite to join your Quill class.</p>
+            <span className='bold'>Teachers New to Quill?</span> Input their email address, and they will receive an invite to join your Quill class.
+          </p>
           <p>
-            <span className='bold'>Teachers have Quill accounts?</span>
-            When you submit their email address, they will join your class.</p>
+            <span className='bold'>Teachers have Quill accounts?</span> When you submit their email address, they will join your class.
+          </p>
         </div>
         <div style={{display: 'flex'}}>
           <div style={{flexBasis: '50%', marginRight: 20}}>
