@@ -81,13 +81,17 @@ export default React.createClass({
     const color = this.state.changesToSave
       ? 'green'
       : 'light-gray'
-    return <button className={`button-${color}`} disabled={!this.state.changesToSave} onClick={this.saveChanges}>Save Changes</button>
+    return <button className={`save-changes button-${color}`} disabled={!this.state.changesToSave} onClick={this.saveChanges}>Save Changes</button>
   },
 
   processClassroomsForSaving() {
+    // preexistingRelationships gets all classrooms from current user that this teacher teaches or is invited to do so
+    const preexistingRelationships = this.state.selectedTeachersClassroomIds.is_coteacher.concat(this.state.selectedTeachersClassroomIds.invited_to_coteach)
     const selectedClassrooms = _.pluck(this.state.selectedClassrooms, 'value')
-    const positiveClassrooms = _.difference(selectedClassrooms, this.state.selectedTeachersClassroomIds);
-    const negativeClassrooms = _.difference(this.state.selectedTeachersClassroomIds, selectedClassrooms)[0];
+    // positive is classrooms to try to invite
+    const positiveClassrooms = _.difference(selectedClassrooms, preexistingRelationships);
+    // negative is classrooms to remove or withdraw the invitation from
+    const negativeClassrooms = _.difference(preexistingRelationships, selectedClassrooms);
     return {negative_classroom_ids: negativeClassrooms, positive_classroom_ids: positiveClassrooms}
   },
 
@@ -101,22 +105,32 @@ export default React.createClass({
     (err, httpResponse, body) => {
       if(httpResponse.statusCode !== 200) {
         alert(body.error_message);
+      } else {
+        alert('Update Successful!')
+        this.handleSelect(this.state.selectedCoteacher)
       }
     });
   },
 
   render: function() {
-    const dropdownTitle = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
+    const selectedTeacherName = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
       <div id='edit-coteacher'>
-        <h1>Edit Co-Teachers</h1>
-        <label>Select Co-Teacher:</label>
-        <DropdownButton bsStyle='default' title={dropdownTitle} id='select-role-dropdown' onSelect={this.handleSelect}>
-          {this.generateMenuItems()}
-        </DropdownButton>
-        <div>
-          <div>Select Classes</div>
-          <Select name="form-field-name"
+        <div className='edit-coteacher-container'>
+          <h1>Edit Co-Teachers</h1>
+            <label className='select-coteacher'>Select Co-Teacher:</label>
+              <DropdownButton bsStyle='default' title={selectedTeacherName} id='select-role-dropdown' onSelect={this.handleSelect}>
+                {this.generateMenuItems()}
+              </DropdownButton>
+        </div>
+
+        <div className='edit-classroom-container'>
+          <h2>{selectedTeacherName}</h2>
+          <p>Classrooms that the coteacher is/will be invited to will say pending. Click the 'X' next to the classroom name to remove them from the classroom, or withdraw an invitation.</p>
+          <p>Changes will not take effect unless you click the 'Save Changes' button.</p>
+          <h3>Invite To / Remove From Classes</h3>
+          <Select
+              name="form-field-name"
              multi={true}
              onValueClick={this.handleDropdownClick}
              onChange={this.handleDropdownChange}
