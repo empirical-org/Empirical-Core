@@ -6,11 +6,17 @@ import Select from 'react-select';
 
 export default React.createClass({
   getInitialState: function() {
-    return {selectedCoteacher: this.props.selected_teacher_id, selectedTeachersClassroomIds: this.props.selected_teachers_classrooms, classroomsToShow: this.classroomsToShow()}
+    return {
+      selectedCoteacher: this.props.selected_teacher_id,
+      selectedTeachersClassroomIds: this.props.selected_teachers_classrooms,
+      classroomsToShow: this.classroomsToShow(),
+      firstLoad: true,
+      changesToSave: false
+    }
   },
-  //
+
   componentDidMount: function(){
-    this.handleSelect(this.props.selected_teacher_id, true)
+    this.handleSelect(this.props.selected_teacher_id)
   },
 
   classroomsToShow: function(){
@@ -32,9 +38,10 @@ export default React.createClass({
 
   matchSelectedClassroomIds: function() {
     const selectedClassrooms = [];
+    console.log(this.state.selectedTeachersClassroomIds);
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.invited_to_coteach, true, selectedClassrooms)
     this.markExtantClassrooms(this.state.selectedTeachersClassroomIds.is_coteacher, false, selectedClassrooms)
-    this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms})
+    this.setState({selectedClassrooms, originallySelectedClassrooms: selectedClassrooms, firstLoad: false, changesToSave: false})
   },
 
   getSelectedTeachersClassroomIds: function(coteacherId){
@@ -43,12 +50,13 @@ export default React.createClass({
         url: `${process.env.DEFAULT_URL}/classrooms_teachers/specific_coteacher_info/${coteacherId}`,
       },
       (e, r, response) => {
-        that.setState({selectedTeachersClassroomIds: JSON.parse(response)}, that.matchSelectedClassroomIds)
+        that.setState(JSON.parse(response), that.matchSelectedClassroomIds)
       });
   },
 
-  handleSelect: function(coteacherId, firstLoad) {
-    if (!firstLoad) {
+  handleSelect: function(coteacherId) {
+    // if it is the first load we already have the information
+    if (!this.state.firstLoad) {
       this.getSelectedTeachersClassroomIds(coteacherId)
     } else {
       this.matchSelectedClassroomIds(coteacherId)
@@ -67,7 +75,7 @@ export default React.createClass({
         opt.label += ' (pending)'
       }
     })
-    this.setState({ selectedClassrooms: value })
+    this.setState({ selectedClassrooms: value, changesToSave: true })
   },
 
   saveChangesButton: function() {
@@ -78,7 +86,6 @@ export default React.createClass({
   },
 
   saveChanges: function() {
-
     request({
       url: `${process.env.DEFAULT_URL}/classrooms_teachers/${this.state.selectedCoteacher.id}/edit_coteacher_form`,
       method: 'POST',
@@ -92,6 +99,7 @@ export default React.createClass({
   },
 
   render: function() {
+    console.log(this.state.selectedClassrooms);
     const dropdownTitle = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
       <div>

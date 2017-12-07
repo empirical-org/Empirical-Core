@@ -24,7 +24,7 @@ class ClassroomsTeachersController < ApplicationController
   end
 
   def specific_coteacher_info
-    render json: { edit_info_for_specific_teacher: edit_info_for_specific_teacher(params[:coteacher_id])}
+    render json: { selectedTeachersClassroomIds: edit_info_for_specific_teacher(params[:coteacher_id])}
   end
 
   private
