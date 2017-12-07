@@ -16,7 +16,7 @@ describe ClassroomActivity, type: :model, redis: :true do
     let(:lessons_classroom_activity) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom, unit: unit) }
     let(:lessons_classroom_activity_2) { ClassroomActivity.create(activity: lessons_activity, classroom: classroom_2, unit: unit) }
     let!(:classroom_activity_with_started_activity_session) { ClassroomActivity.create(activity: activity, classroom: classroom, assigned_student_ids: [student.id]) }
-    let!(:started_activity_session) { create(:activity_session, user_id: student.id, classroom_activity_id: classroom_activity_with_started_activity_session.id, activity_id: classroom_activity_with_started_activity_session.activity_id)}
+    let!(:started_activity_session) { create(:activity_session, user_id: student.id, classroom_activity_id: classroom_activity_with_started_activity_session.id, activity_id: classroom_activity_with_started_activity_session.activity_id, state: 'started', started_at: Time.now)}
     let!(:classroom_activity_with_no_activity_session) { ClassroomActivity.create(activity: activity, classroom: classroom, assigned_student_ids: [student.id]) }
 
     describe '#assigned_students' do
