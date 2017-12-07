@@ -55,7 +55,7 @@ module Teacher
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
-      coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.join(', ')})"
+      coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
       classrooms_teacher_additional_join = "AND classrooms_teachers.classroom_id IN (#{classrooms_ids_to_check.join(', ')})"
     end
     classrooms_teachers_ids = Set.new
@@ -418,7 +418,7 @@ module Teacher
       JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
       JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
       WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
-      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id}")
+      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
   end
 
   def classrooms_i_own_that_a_specific_user_coteaches_with_me(teacher_id)
@@ -433,7 +433,7 @@ module Teacher
     ActiveRecord::Base.connection.execute("SELECT cci.classroom_id FROM invitations
     JOIN users AS coteachers ON coteachers.email = invitations.invitee_email
     JOIN coteacher_classroom_invitations AS cci ON cci.invitation_id = invitations.id
-    WHERE coteachers.id = #{teacher_id} AND invitations.inviter_id = #{self.id}").to_a.map{|res| res['classroom_id'].to_i}
+    WHERE coteachers.id = #{teacher_id.to_i} AND invitations.inviter_id = #{self.id}").to_a.map{|res| res['classroom_id'].to_i}
   end
 
   def has_outstanding_coteacher_invitation?
