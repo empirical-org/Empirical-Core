@@ -108,7 +108,7 @@ export default React.createClass({
   render: function() {
     const dropdownTitle = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
-      <div>
+      <div id='edit-coteacher'>
         <h1>Edit Co-Teachers</h1>
         <label>Select Co-Teacher:</label>
         <DropdownButton bsStyle='default' title={dropdownTitle} id='select-role-dropdown' onSelect={this.handleSelect}>
