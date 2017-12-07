@@ -359,16 +359,16 @@ describe User, type: :model do
       end
     end
 
-    describe '#classrooms_i_coteach_with_a_specific_teacher_with_students' do
+    describe '#classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students' do
       it 'should return classrooms and students if the teacher is a coteacher' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').user
-        response = coteacher.classrooms_i_coteach_with_a_specific_teacher_with_students(teacher.id)
+        response = coteacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
         expect(response).to eq([Classroom.first.attributes.merge(students: classroom.students)])
       end
 
       it 'should return an empty array if user does not coteach with the teacher' do
         other_teacher = create(:teacher)
-        response = other_teacher.classrooms_i_coteach_with_a_specific_teacher_with_students(teacher.id)
+        response = other_teacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
         expect(response).to eq([])
       end
     end

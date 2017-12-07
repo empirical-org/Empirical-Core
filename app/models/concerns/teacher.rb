@@ -141,8 +141,8 @@ module Teacher
     classrooms_i_own.map{|classroom| classroom.with_students}
   end
 
-  def classrooms_i_coteach_with_a_specific_teacher_with_students(specified_teacher_id)
-    classrooms_i_coteach_with_a_specific_teacher(specified_teacher_id).map{|classroom| classroom.with_students}
+  def classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(specified_teacher_id)
+    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map{|classroom| classroom.with_students}
   end
 
   def classrooms_i_own_that_have_coteachers
@@ -202,6 +202,9 @@ module Teacher
     info = classrooms.map do |classy|
       count = counts.find { |elm| elm['id'] == classy['id'] }
       classy['activity_count'] = count  ? count['count'] : 0
+      has_coteacher = ClassroomsTeacher.where(classroom_id: classy['id']).length > 1
+      classy['has_coteacher'] = has_coteacher
+      classy['teacher_role'] = ClassroomsTeacher.find_by(classroom_id: classy['id'], user_id: self.id).role
       classy
     end
     # TODO: move setter to background worker
@@ -410,20 +413,20 @@ module Teacher
     self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
   end
 
-  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
-    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
-      JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
-      JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
-      WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{teacher_id.to_i} AND
-      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{self.id}")
-  end
-
-  def classrooms_a_specific_user_coteaches_with_me(teacher_id)
+  def classrooms_i_am_the_coteacher_for_with_a_specific_teacher(teacher_id)
     Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
       JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
       JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
       WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
-      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
+      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id}")
+  end
+
+  def classrooms_i_own_that_a_specific_user_coteaches_with_me(teacher_id)
+    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
+      JOIN classrooms_teachers AS ct_i_own ON ct_i_own.classroom_id = classrooms.id
+      JOIN classrooms_teachers AS ct_of_coteacher ON ct_of_coteacher.classroom_id = classrooms.id
+      WHERE ct_i_own.role = 'owner' AND ct_i_own.user_id = #{self.id} AND
+      ct_of_coteacher.role = 'owner' AND ct_of_coteacher.user_id = #{teacher_id.to_i}")
   end
 
   def classroom_ids_i_have_invited_a_specific_teacher_to_coteach(teacher_id)

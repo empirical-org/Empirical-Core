@@ -2,19 +2,19 @@
   Hi there,
 </p>
 <p>
-  <% @email_hash['inviter_name'] %> has invited you to co-teach the following
-  <% 'class'.pluralize(@email_hash['classroom_names'].length) %> on Quill:
+  <%= @email_hash['inviter_name'] %> has invited you to co-teach the following
+  <%= 'class'.pluralize(@email_hash['classroom_names'].length) %> on Quill:
 </p>
 <ul>
-  <li><% @email_hash['classroom_names'].join('</li><li>') %></li>
+  <li><%= @email_hash['classroom_names'].join('</li><li>') %></li>
 </ul>
 <p>
   To accept the invitation, you first need to sign up with Quill below. If
   you already have an account on Quill but with a different email,
-  ask <% @email_hash['inviter_name'] %> to add you through the other email address.
+  ask <%= @email_hash['inviter_name'] %> to add you through the other email address.
 </p>
 <p>
-  <% @email_hash['join_link'] %>
+  <%= @email_hash['join_link'] %>
 </p>
 <p>
   Quill is a nonprofit, educational technology organization dedicated to
@@ -36,7 +36,7 @@
 </ul>
 <p>
   To learn more about co-teaching,
-  <% link_to 'here is an article', @email_hash['support_article_link'] %>
+  <%= link_to 'here is an article', @email_hash['support_article_link'] %>
   that explains everything you need to know. We’re excited that you have
   joined our community of learners, and welcome your questions and feedback!
 </p>
