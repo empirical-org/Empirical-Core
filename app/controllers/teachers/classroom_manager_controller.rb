@@ -83,7 +83,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         active: active,
         active_classrooms_i_own: current_user.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
         inactive: inactive,
-        coteachers: classrooms_i_own_that_have_coteachers,
+        coteachers: current_user.classrooms_i_own_that_have_coteachers,
         pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations
       }
     end

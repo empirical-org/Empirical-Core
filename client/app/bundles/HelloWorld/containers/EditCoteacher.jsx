@@ -3,6 +3,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import request from 'request';
 import Select from 'react-select';
+import _ from 'underscore'
 
 export default React.createClass({
   getInitialState: function() {
@@ -85,11 +86,19 @@ export default React.createClass({
     return <button className={`button-${color}`} disabled={!this.state.changesToSave} onClick={this.saveChanges}>Save Changes</button>
   },
 
+  processClassroomsForSaving() {
+    const selectedClassrooms = _.pluck(this.state.selectedClassrooms, 'value')
+    const positiveClassrooms = _.difference(selectedClassrooms, this.state.selectedTeachersClassroomIds);
+    const negativeClassrooms = _.difference(this.state.selectedTeachersClassroomIds, selectedClassrooms)[0];
+    return {negative_classroom_ids: negativeClassrooms, positive_classroom_ids: positiveClassrooms}
+  },
+
   saveChanges: function() {
+    const classrooms = this.processClassroomsForSaving()
     request({
-      url: `${process.env.DEFAULT_URL}/classrooms_teachers/${this.state.selectedCoteacher.id}/edit_coteacher_form`,
+      url: `${process.env.DEFAULT_URL}/classrooms_teachers/${this.state.selectedCoteacher}/edit_coteacher_form`,
       method: 'POST',
-      json: { classrooms: this.state.checkboxClassrooms, authenticity_token: ReactOnRails.authenticityToken(), },
+      json: { classrooms, authenticity_token: ReactOnRails.authenticityToken()},
     },
     (err, httpResponse, body) => {
       if(httpResponse.statusCode !== 200) {
@@ -99,11 +108,9 @@ export default React.createClass({
   },
 
   render: function() {
-    console.log(this.state.selectedClassrooms);
     const dropdownTitle = this.props.coteachers.find((ct) => ct.id == this.state.selectedCoteacher).name
     return (
       <div>
-        {JSON.stringify(this.state.selectedTeachersClassroomIds)}
         <h1>Edit Co-Teachers</h1>
         <label>Select Co-Teacher:</label>
         <DropdownButton bsStyle='default' title={dropdownTitle} id='select-role-dropdown' onSelect={this.handleSelect}>
