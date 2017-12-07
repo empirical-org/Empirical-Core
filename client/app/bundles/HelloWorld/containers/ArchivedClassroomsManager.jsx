@@ -201,7 +201,7 @@ export default React.createClass({
           <tr key={cl.email} className={`${action}_row`}>
             <td>{cl.coteacher_name || '—'}</td>
             <td>{cl.coteacher_email}</td>
-            <td>{cl.status || 'Approved'}</td>
+            <td>{action == 'pending_coteachers' ? 'Pending' : 'Approved'}</td>
             <td>{cl.classrooms.map(classroom => <p key={`${classroom}-${cl.coteacher_email}`}>{classroom}</p>)}</td>
             {this.editOrRemove(action, cl.coteacher_email, cl.coteacher_id)}
           </tr>
