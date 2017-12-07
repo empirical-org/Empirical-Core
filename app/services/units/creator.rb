@@ -12,7 +12,7 @@ module Units::Creator
     unit_template = UnitTemplate.find(unit_template_id)
     activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
     # unit fix: may be able to better optimize this one, but possibly not
-    classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
+    classrooms_data = teacher.classrooms_i_own.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data, unit_template_id, current_user_id)
   end
 
