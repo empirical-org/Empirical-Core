@@ -59,10 +59,10 @@ export default class extends React.Component {
         <h1>Invite Co-Teachers</h1>
         <div className='instructions'>
           <p>
-            <span className='bold'>Teachers New to Quill?</span> Input their email address, and they will receive an invite to join your Quill class.
+            <span className='bold'>Teachers New to Quill?</span> Input their email address, and they will receive an invite to sign up for Quill and join your class.
           </p>
           <p>
-            <span className='bold'>Teachers have Quill accounts?</span> When you submit their email address, they will join your class.
+            <span className='bold'>Teachers have Quill accounts?</span> Submit the email address they use for Quill, and they will receive an invite to join your class.
           </p>
         </div>
         <div style={{display: 'flex'}}>
