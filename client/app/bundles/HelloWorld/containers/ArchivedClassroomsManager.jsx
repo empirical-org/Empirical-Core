@@ -23,7 +23,7 @@ export default React.createClass({
       basePath = '/students_classrooms';
       getClassroomsPath = `${basePath}/classroom_manager_data`;
     }
-    return { loading: true, classrooms: null, basePath, getClassroomsPath, };
+    return { loading: true, classrooms: null, basePath, getClassroomsPath, myName: ''};
   },
 
   componentDidMount() {
@@ -60,7 +60,9 @@ export default React.createClass({
     data.coteachersByClassroom = coteacherClassroomsAndTeachers.coteachersByClassroom
     data.pending_coteachers = this.formatCoteachers(data.pending_coteachers)
     const showArchivedNotification = data.active.length === 0;
-    this.setState({ classrooms: data, loading: false, showArchivedNotification, }, this.hashLinkScroll);
+    const myName = data.my_name;
+    delete data['my_name']
+    this.setState({ classrooms: data, loading: false, showArchivedNotification, myName}, this.hashLinkScroll);
   },
 
   leaveClassroom(id) {
@@ -146,7 +148,7 @@ export default React.createClass({
 
   finalContents(cl, action) {
     let displayed = action;
-    const myClassroom = this.state.classrooms.active_classrooms_i_own.find(c => c.label === cl.className)
+    const myClassroom = cl.ownerName === this.state.myName
     if (myClassroom) {
       if (this.state.loading) {
         displayed = [<LoadingIndicator key={`button-loading-indicator-for-${cl.id}`} />, <span key={`action-for-${cl.id}`}>{action}</span>];
