@@ -241,10 +241,7 @@ export default React.createClass({
           <tr key={cl.classroom_invitation_id + 'invite'}>
             <td className='pending-invitation-class-name'>{cl.classroom_name}</td>
             <td className='pending-invitation-row' colSpan={7}>{cl.inviter_name} has invited you to co-teach this class.
-              (
-                  <a onClick={() => this.handleAccept(cl.classroom_invitation_id)}>Accept Invite</a> /
-                  <a onClick={() => this.handleReject(cl.classroom_invitation_id)}>Decline Invite</a>
-              )
+              (<a onClick={() => this.handleAccept(cl.classroom_invitation_id)}>Accept Invite</a> / <a onClick={() => this.handleReject(cl.classroom_invitation_id)}>Decline Invite</a>)
             </td>
           </tr>
         )

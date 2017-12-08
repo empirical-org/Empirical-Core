@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def invitation_to_non_existing_user invitation_email_hash
-    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_path).stringify_keys
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
     mail to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
