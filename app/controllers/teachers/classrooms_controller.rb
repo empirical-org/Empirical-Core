@@ -69,6 +69,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def units
+    @classroom = Classroom.find(params[:id])
     render json: {units: @classroom.units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)}
   end
 
@@ -103,7 +104,6 @@ private
 
   def authorize_teacher!
     return unless params[:id].present?
-    @classroom = Classroom.find(params[:id])
-    classroom_teacher!(@classroom.id)
+    classroom_teacher!(params[:id])
   end
 end
