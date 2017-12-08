@@ -227,13 +227,13 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def authorize_owner!
     if params[:classroom_id]
-      classroom_teacher!(params[:classroom_id])
+      classroom_owner!(params[:classroom_id])
     end
   end
 
   def authorize_teacher!
     if params[:classroom_id]
-      classroom_coteacher!(params[:classroom_id])
+      classroom_teacher!(params[:classroom_id])
     end
   end
 
