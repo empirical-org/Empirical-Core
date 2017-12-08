@@ -25,7 +25,6 @@ EmpiricalGrammar::Application.routes.draw do
   # for Stripe
   resources :charges
 
-
   resources :subscriptions
   resources :assessments
   resources :assignments
@@ -222,6 +221,20 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :pending_invitations, only: [] do
+    collection do
+      post :create_coteacher_invitation
+      delete :destroy_pending_invitations_to_specific_invitee
+      delete :destroy_pending_invitations_from_specific_inviter
+    end
+  end
+
+  resources :coteacher_classroom_invitations, only: [] do
+    collection do
+      post :accept_pending_coteacher_invitations, format: 'json'
+      get :accept_pending_coteacher_invitations
+    end
+  end
 
   # API routes
   namespace :api do

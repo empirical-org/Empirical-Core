@@ -24,7 +24,7 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
 
   def number_of_questions_completed
     x = object.try(:number_of_questions_completed)
-    x.present? ? x : 0
+    x.present? ? x.round : 0
   end
 
   def time_spent
