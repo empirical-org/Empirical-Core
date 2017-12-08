@@ -26,7 +26,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
         active_classrooms_i_own: teacher.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
         inactive: archived_classrooms.map(&:archived_classrooms_manager),
         coteachers: teacher.classrooms_i_own_that_have_coteachers,
-        pending_coteachers: teacher.classrooms_i_own_that_have_pending_coteacher_invitations
+        pending_coteachers: teacher.classrooms_i_own_that_have_pending_coteacher_invitations,
+        my_name: teacher.name
       }.to_json)
     end
   end
