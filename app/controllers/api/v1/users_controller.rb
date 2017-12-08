@@ -11,7 +11,10 @@ class Api::V1::UsersController < Api::ApiController
         JOIN classrooms_teachers AS A ON a.user_id = users.id
         JOIN classrooms_teachers AS B ON A.classroom_id = B.classroom_id
         WHERE B.user_id = #{current_user.id}
-        AND NOT A.user_id = #{current_user.id}").to_a
+        AND NOT A.user_id = #{current_user.id}").to_a.map do |e|
+          e['id'] = e['id'].to_i
+          e
+        end
       render json: {user: current_user, coteachers: coteachers}
     else
       render json: {user: current_user, coteachers: []}
