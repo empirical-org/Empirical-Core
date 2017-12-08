@@ -42,7 +42,7 @@ export function startListeningToEditions() {
   };
 }
 
-export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number, callback?:any) {
+export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number, classroomActivityId?:string, callback?:any) {
   let newEditionData, newEdition;
   if (editionUID) {
     newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
@@ -58,7 +58,7 @@ export function createNewEdition(editionUID:string|null, lessonUID:string, user_
     })
   }
   if (callback) {
-    callback(lessonUID, newEdition.key)
+    callback(lessonUID, newEdition.key, classroomActivityId)
   } else {
     return newEdition.key
   }

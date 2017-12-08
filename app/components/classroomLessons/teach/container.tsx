@@ -90,7 +90,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         }
       }
     }
-    if (nextProps.customize.user_id !== this.props.customize.user_id) {
+    if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
       let user_ids = []
       if (nextProps.customize.coteachers.length > 0) {
         user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
