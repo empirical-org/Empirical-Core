@@ -38,7 +38,16 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    classrooms_and_their_students = current_user.classrooms_i_own.map do |classroom|
+    classrooms_and_their_students = current_user.classrooms_own.map do |classroom|
+      {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
+    end
+    render json: {
+      classrooms_and_their_students: classrooms_and_their_students
+    }
+  end
+
+  def retrieve_classrooms_i_teach_for_custom_assigning_activities # in response to ajax request
+    classrooms_and_their_students = current_user.classrooms_i_teach.map do |classroom|
       {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
     end
     render json: {
