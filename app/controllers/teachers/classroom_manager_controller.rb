@@ -1,7 +1,8 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
-  before_filter :authorize!
+  before_filter :authorize_owner!, except: :scores
+  before_filter :authorize_teacher!, only: :scores
   include ScorebookHelper
 
   def lesson_planner
@@ -215,9 +216,15 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 
-  def authorize!
+  def authorize_owner!
     if params[:classroom_id]
       classroom_teacher!(params[:classroom_id])
+    end
+  end
+
+  def authorize_teacher!
+    if params[:classroom_id]
+      classroom_coteacher!(params[:classroom_id])
     end
   end
 
