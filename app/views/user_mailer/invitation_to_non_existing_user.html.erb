@@ -6,7 +6,9 @@
   <%= 'class'.pluralize(@email_hash['classroom_names'].length) %> on Quill:
 </p>
 <ul>
-  <li><%= @email_hash['classroom_names'].join('</li><li>') %></li>
+  <% @email_hash['classroom_names'].each do |name| %>
+    <li><%= name %></li>
+  <% end %>
 </ul>
 <p>
   To accept the invitation, you first need to sign up with Quill below. If
