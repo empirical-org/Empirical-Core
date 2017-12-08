@@ -20,8 +20,8 @@ const styles = {
   lessonEndRow: {
     display: 'flex',
     width: '100%',
-    maxWidth: '350px',
-    justifyContent: 'space-between',
+    maxWidth: '385px',
+    justifyContent: 'flex-dend',
     alignItems: 'center',
   },
   reportEndRow: {
@@ -39,6 +39,8 @@ export default React.createClass({
     return {
       startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
       showModal: false,
+      showCustomizeTooltip: false,
+      showLessonPlanTooltip: false
     };
   },
 
@@ -53,6 +55,41 @@ export default React.createClass({
     this.setState({ startDate: date, });
     this.props.updateDueDate(this.caId(), date.format());
   },
+
+  toggleCustomizeTooltip() {
+    this.setState({showCustomizeTooltip: !this.state.showCustomizeTooltip})
+  },
+
+  toggleLessonPlanTooltip() {
+    this.setState({showLessonPlanTooltip: !this.state.showLessonPlanTooltip})
+  },
+
+
+  renderCustomizedEditionsTag() {
+    if (window.location.pathname.includes('lessons')) {
+      if (this.props.data.hasEditions) {
+        return <div className="customized-editions-tag">Customized</div>
+      }
+    }
+  },
+
+  renderCustomizeTooltip() {
+  if (this.state.showCustomizeTooltip) {
+    return <div className="customize-tooltip">
+      <i className="fa fa-caret-up"/>
+      Customize
+    </div>
+  }
+},
+
+renderLessonPlanTooltip() {
+  if (this.state.showLessonPlanTooltip) {
+    return <div className="lesson-plan-tooltip">
+      <i className="fa fa-caret-up"/>
+      Download Lesson Plan
+    </div>
+  }
+},
 
   goToRecommendations() {
     const link = `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/recommendations`;
@@ -82,6 +119,31 @@ export default React.createClass({
     }
   },
 
+  lessonFinalCell() {
+  return <div className="lessons-end-row">
+    {this.lessonCompletedOrLaunch()}
+    <a
+      className="customize-lesson"
+      href={`/customize/${this.props.data.activityUid}`}
+      onMouseEnter={this.toggleCustomizeTooltip}
+      onMouseLeave={this.toggleCustomizeTooltip}
+    >
+      <i className="fa fa-icon fa-magic"/>
+      {this.renderCustomizeTooltip()}
+    </a>
+    <a
+      className="supporting-info"
+      target="_blank"
+      href={`/activities/${this.activityId()}/supporting_info`}
+      onMouseEnter={this.toggleLessonPlanTooltip}
+      onMouseLeave={this.toggleLessonPlanTooltip}
+    >
+      <img src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg"/>
+      {this.renderLessonPlanTooltip()}
+    </a>
+  </div>
+},
+
   urlForReport() {
     $.get(`/teachers/progress_reports/report_from_unit_and_activity/u/${this.unitId()}/a/${this.activityId()}`)
       .success((data) => window.location = data.url)
@@ -97,7 +159,7 @@ export default React.createClass({
     if (this.props.report) {
       return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.caId()}`} onClick={this.urlForReport}>View Report</a>];
     } else if (this.isLesson()) {
-      return this.lessonCompletedOrLaunch();
+       return this.lessonFinalCell();
     }
     if (this.props.data.ownedByCurrentUser) {
       return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'} />;
@@ -151,7 +213,7 @@ export default React.createClass({
       return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_activity/${this.props.data.caId}`}>View Report</a>
     }
     if (this.props.data.studentCount === 0) {
-      return <a onClick={this.noStudentsWarning} id="launch-lesson">{text}</a>;
+      return <a onClick={this.noStudentsWarning} id="launch-lesson">{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>;
     } else {
       if (this.props.data.started) {
         return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>;
@@ -219,6 +281,7 @@ export default React.createClass({
           </div>
           <div className="cell" id="activity-analysis-activity-name">
             {link}
+            {this.renderCustomizedEditionsTag()}
             {this.buttonForRecommendations()}
           </div>
         </div>
