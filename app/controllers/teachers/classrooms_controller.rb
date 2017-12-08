@@ -1,7 +1,8 @@
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
   before_filter :teacher!
-  before_filter :authorize!
+  before_filter :authorize_owner!, except: :units
+  before_filter :authorize_teacher!, only: :units
 
   def index
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
@@ -94,9 +95,15 @@ private
     params[:classroom].permit(:name, :code, :grade)
   end
 
-  def authorize!
+  def authorize_owner!
     return unless params[:id].present?
     @classroom = Classroom.find(params[:id])
     classroom_owner!(@classroom.id)
+  end
+
+  def authorize_teacher!
+    return unless params[:id].present?
+    @classroom = Classroom.find(params[:id])
+    classroom_teacher!(@classroom.id)
   end
 end
