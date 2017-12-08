@@ -12,8 +12,8 @@ shared_context 'Student Concept Progress Report' do
   # Boilerplate
   let(:classroom) { create(:classroom,
     name: "Bacon Weaving",
-    teacher: teacher,
     students: [alice, fred, zojirushi]) }
+  let(:teacher) {classroom.owner}
   let(:activity) { create(:activity) }
   let(:unit) { create(:unit, user: teacher ) }
   let(:classroom_activity) { create(:classroom_activity,
@@ -24,13 +24,13 @@ shared_context 'Student Concept Progress Report' do
 
 
   # Create 2 activity session for each student, one with the concept tags, one without
-  let(:alice_session) { create(:activity_session, :finished,
+  let(:alice_session) { create(:activity_session,
                                       classroom_activity: classroom_activity,
                                       user: alice,
                                       activity: activity,
                                       percentage: 0.75) }
 
-  let(:fred_session) { create(:activity_session, :finished,
+  let(:fred_session) { create(:activity_session,
                                       classroom_activity: classroom_activity,
                                       user: fred,
                                       activity: activity,
@@ -38,7 +38,7 @@ shared_context 'Student Concept Progress Report' do
 
   # Zojirushi has no concept tag results, so should not display
   # in the progress report
-  let(:zojirushi_session) { create(:activity_session, :finished,
+  let(:zojirushi_session) { create(:activity_session,
                                       classroom_activity: classroom_activity,
                                       user: zojirushi,
                                       activity: activity,
@@ -50,7 +50,7 @@ shared_context 'Student Concept Progress Report' do
   before do
     # Incorrect result for Alice
     alice_session.concept_results.create!(
-      concept: concept,
+      concept: create(:concept_with_grandparent),
       metadata: {
         "correct" => 0
       })

@@ -4,40 +4,42 @@ describe 'TeachersData' do
 
   let!(:teachers_data_module) { TeachersData }
 
-  let!(:teacher) { create(:user, role: 'teacher') }
+  let!(:classroom) { create(:classroom_with_a_couple_students) }
+  let!(:teacher) { classroom.owner }
   let!(:teacher_ids) { [teacher.id] }
-  let!(:classroom) { create(:classroom, teacher: teacher) }
-  let!(:student1) { create(:user, role: 'student', classrooms: [classroom]) }
-  let!(:student2) { create(:user, role: 'student', classrooms: [classroom]) }
+  let!(:unit) { create(:unit, user_id: teacher.id)}
+  let!(:student1) { classroom.students.first }
+  let!(:student2) { classroom.students.second }
 
   let!(:time2) { Time.now }
   let!(:time1) { time2 - (10.minutes) }
   let!(:default_time_spent) { teachers_data_module::AVERAGE_TIME_SPENT }
 
-
+  let!(:classroom_activity) { create(:classroom_activity, classroom_id: classroom.id,
+                                                        unit: unit)}
   let!(:activity_session1) { create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
-                                                completed_at: time2) }
+                                                completed_at: time2,
+                                                classroom_activity: classroom_activity
+                                                ) }
 
   let!(:activity_session2) { create(:activity_session,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
-                                                completed_at: time2) }
+                                                completed_at: time2,
+                                                classroom_activity: classroom_activity
+                                                ) }
 
   let!(:concept1) { create(:concept) }
   let!(:concept2) { create(:concept) }
   let!(:concept_result1) { create(:concept_result, concept: concept1, activity_session: activity_session1) }
   let!(:concept_result2) { create(:concept_result, concept: concept2, activity_session: activity_session2) }
 
-  def subject
-    teachers_data_module.run(teacher_ids).first
-  end
-
   before :each do
-    @result = subject
+    @result = teachers_data_module.run(teacher_ids).first
   end
 
   it 'number_of_students works' do
@@ -45,7 +47,7 @@ describe 'TeachersData' do
   end
 
   it 'number_of_questions_completed works' do
-    expect(@result.number_of_questions_completed).to eq(2)
+    expect(@result.number_of_questions_completed).to eq(4)
   end
 
   it 'time_spent works' do

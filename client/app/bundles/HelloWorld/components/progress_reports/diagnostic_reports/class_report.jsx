@@ -12,7 +12,8 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      students: null
+      students: null,
+      showInProgressAndUnstartedStudents: false
     }
   },
 
@@ -80,16 +81,22 @@ export default React.createClass({
   },
 
   startedAndUnstartedStudents: function() {
-    const startedRows = _.map(this.state.startedNames, name => <tr key={name} className='in-progress-row'><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
-    const unstartedRows = _.map(this.state.unstartedNames, name => <tr key={name} className='unstarted-row'><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
-    return (
-      <table className='student-report-box sortable-table'>
-        <tbody>
-          {startedRows}
-          {unstartedRows}
-        </tbody>
-      </table>
-    )
+    if (this.state.showInProgressAndUnstartedStudents) {
+      const startedRows = _.map(this.state.startedNames, name => <tr key={name} className='in-progress-row'><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
+      const unstartedRows = _.map(this.state.unstartedNames, name => <tr key={name} className='unstarted-row'><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
+      return (
+        <table className='student-report-box sortable-table'>
+          <tbody>
+            {startedRows}
+            {unstartedRows}
+          </tbody>
+        </table>
+      )
+    }
+   },
+
+   showInProgressAndUnstartedStudents(bool) {
+     this.setState({showInProgressAndUnstartedStudents: bool})
    },
 
   render: function() {
@@ -112,6 +119,7 @@ export default React.createClass({
                              onFetchSuccess={this.onFetchSuccess}
                              filterTypes={[]}
                              premiumStatus={this.props.premiumStatus}
+                             showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
                              />
           {this.startedAndUnstartedStudents()}
         </div>
