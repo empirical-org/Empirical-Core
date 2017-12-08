@@ -5,9 +5,9 @@ const classroomLessonsRef = rootRef.child('classroom_lessons');
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
 
-export function getCurrentUserFromLMS() {
+export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/users`, {
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/users/current_user_and_coteachers`, {
       method: "GET",
       mode: "cors",
       credentials: 'include',
@@ -20,15 +20,16 @@ export function getCurrentUserFromLMS() {
     }).then(response => {
       if (response && response.user) {
         dispatch(setUserId(response.user.id))
+        dispatch(setCoteachers(response.coteachers))
       }
     })
   }
 }
 
-export function getEditionsByUser(user_id:Number) {
+export function getEditionsForUserIds(userIds:Array<Number>) {
   return function (dispatch, getState) {
     editionsRef.on('value', (snapshot) => {
-      dispatch(filterForUserEditions(user_id, snapshot.val()))
+      dispatch(filterEditionsByUserIds(userIds, snapshot.val()))
     });
   };
 }
@@ -100,14 +101,14 @@ export function publishEdition(editionUID:string, edition:CustomizeIntf.Edition,
   }
 }
 
-function filterForUserEditions(userId:Number, editions:CustomizeIntf.Editions) {
+function filterEditionsByUserIds(userIds:Array<Number>, editions:CustomizeIntf.Editions) {
   return function (dispatch, getState) {
     if (editions && Object.keys(editions).length > 0) {
       const userEditions = {}
       const editionIds = Object.keys(editions)
       editionIds.forEach(id => {
         const edition = editions[id]
-        if (edition.user_id === userId && (!edition.flags || edition.flags.indexOf('archived') === -1)) {
+        if (userIds.indexOf(edition.user_id) !== -1 && (!edition.flags || edition.flags.indexOf('archived') === -1)) {
           userEditions[id] = edition
         }
       })
@@ -120,6 +121,10 @@ function filterForUserEditions(userId:Number, editions:CustomizeIntf.Editions) {
 
 function setUserId(id:Number) {
   return { type: C.SET_USER_ID, id };
+}
+
+function setCoteachers(coteachers:Array<any>) {
+  return { type: C.SET_COTEACHERS, coteachers };
 }
 
 function setEditions(editions:CustomizeIntf.Editions) {

@@ -28,8 +28,8 @@ import {
   clearClassroomLessonFromStore
 } from 'actions/classroomLesson';
 import {
-  getCurrentUserFromLMS,
-  getEditionsByUser
+  getCurrentUserAndCoteachersFromLMS,
+  getEditionsForUserIds
 } from 'actions/customize'
 import CLLobby from './lobby';
 import CLStatic from './static';
@@ -55,7 +55,7 @@ import {
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
-    props.dispatch(getCurrentUserFromLMS())
+    props.dispatch(getCurrentUserAndCoteachersFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
@@ -91,7 +91,12 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       }
     }
     if (nextProps.customize.user_id !== this.props.customize.user_id) {
-      this.props.dispatch(getEditionsByUser(nextProps.customize.user_id))
+      let user_ids = []
+      if (nextProps.customize.coteachers.length > 0) {
+        user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
+      }
+      user_ids.push(nextProps.customize.user_id)
+      this.props.dispatch(getEditionsForUserIds(user_ids))
     }
   }
 
