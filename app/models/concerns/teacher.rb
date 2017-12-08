@@ -410,7 +410,11 @@ module Teacher
   end
 
   def get_data_for_lessons_cache
-    self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
+    lesson_classroom_activities = []
+    self.classrooms_i_teach.each do |classroom|
+      classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.each{|ca| lesson_classroom_activities.push(ca.lessons_cache_info_formatter)}
+    end
+    lesson_classroom_activities
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher(teacher_id)
