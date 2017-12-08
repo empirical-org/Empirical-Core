@@ -186,6 +186,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
+        get :retrieve_classrooms_i_teach_for_custom_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_i_teach_for_custom_assigning_activities'
         post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'

@@ -142,7 +142,7 @@ export default React.createClass({
   fetchClassrooms() {
 		 const that = this;
     $.ajax({
-      url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
+      url: '/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities',
       context: this,
       success(data) {
         that.setState({
