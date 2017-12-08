@@ -97,7 +97,7 @@ export default React.createClass({
     return {negative_classroom_ids: negativeClassrooms, positive_classroom_ids: positiveClassrooms}
   },
 
-  saveChanges: function(redirect) {
+  saveChanges: function(shouldRedirect, redirectUrl) {
     const classrooms = this.processClassroomsForSaving()
     request({
       url: `${process.env.DEFAULT_URL}/classrooms_teachers/${this.state.selectedCoteacher}/edit_coteacher_form`,
@@ -108,7 +108,7 @@ export default React.createClass({
       if(httpResponse.statusCode !== 200) {
         alert(body.error_message);
       } else {
-        if (redirect) {
+        if (shouldRedirect && redirectUrl) {
           alert('Teacher Removed!')
           window.location = redirect
         } else {
@@ -123,7 +123,7 @@ export default React.createClass({
     const confirmed = window.confirm('This will remove the coteacher from all classroom. You will need to reinvite the teacher before they can regain access.')
     if (confirmed) {
       // removes all classrooms from the teacher by updated selected classrooms, saves the change, and then redirects
-      this.setState({selectedClassrooms: []}, ()=> this.saveChanges(`${process.env.DEFAULT_URL}/teachers/classrooms`))
+      this.setState({selectedClassrooms: []}, ()=> this.saveChanges(true, `${process.env.DEFAULT_URL}/teachers/classrooms`))
     }
   },
 
