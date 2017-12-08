@@ -10,7 +10,9 @@ class InvitationsController < ApplicationController
       raise StandardError.new("Please make sure you've entered a valid email.") unless invitee_email =~ /.+@.+\..+/i
       @pending_invite = Invitation.find_or_create_by(inviter_id: current_user.id, invitee_email: invitee_email, invitation_type: Invitation::TYPES[:coteacher], archived: false)
       assign_classrooms_to_invitee
-      InvitationEmailWorker.perform_async(@pending_invite.id)
+      if Rails.env.production? || invitee_email.match('quill.org')
+        InvitationEmailWorker.perform_async(@pending_invite.id)
+      end
       return render json: {invite_id: @pending_invite.id}
     rescue => e
       return render json: { error: e.message }, status: 422
