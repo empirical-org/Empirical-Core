@@ -43,7 +43,7 @@ export default  React.createClass({
   componentWillMount: function() {
     const that = this;
       $.ajax({
-        url: '/teachers/classrooms_i_own_with_students',
+        url: '/teachers/classrooms_i_teach_with_students',
         dataType: 'json',
         success: function(data) {
           that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });

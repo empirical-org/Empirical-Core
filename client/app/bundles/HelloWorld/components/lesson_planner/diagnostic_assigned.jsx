@@ -45,7 +45,7 @@ export default  React.createClass({
     const activityId = this.props.data.id;
     const that = this;
       $.ajax({
-        url: '/teachers/classrooms_i_own_with_students',
+        url: '/teachers/classrooms_i_teach_with_students',
         dataType: 'json',
         success: function(data) {
           that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });
