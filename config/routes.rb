@@ -16,5 +16,7 @@ Rails.application.routes.draw do
   # Stats controller
   get 'stats/question_health_index' => 'stats#question_health_index'
 
+  #fragments controller for passing events to nlp.quill.org
+  post 'fragments/is_sentence' => 'fragments#is_sentence'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
