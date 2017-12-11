@@ -3,10 +3,22 @@ export default React.createClass({
 
   manageClassGear() {
     return (
-      <a className="pull-right class-mini-edit-students" href={this.manageClassLink()}>
-        <span><img src="/images/person_icon.svg" />Edit Students</span>
-      </a>
+      <div className="class-mini-top">
+        {this.viewCoteachers()}
+        <a className="class-mini-edit-students" href={this.manageClassLink()}>
+          <span><img src="/images/person_icon.svg" />Edit Students</span>
+        </a>
+      </div>
     );
+  },
+
+  viewCoteachers() {
+    if (this.props.classObj.has_coteacher) {
+      const link = this.props.classObj.teacher_role === 'owner' ? '/teachers/classrooms#my-coteachers' : '/teachers/classrooms#active-classes'
+      return <a href={link}>View Co-Teachers</a>
+    } else {
+      return <span/>
+    }
   },
 
   manageClassLink() {
