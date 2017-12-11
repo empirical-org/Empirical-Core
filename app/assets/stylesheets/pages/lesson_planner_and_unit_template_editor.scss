@@ -193,6 +193,12 @@
       }
     }
   }
+  .button-text {
+    width: 141px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
 }
 .activity_link {
   color: #027360;
