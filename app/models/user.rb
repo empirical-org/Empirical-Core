@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
                                     on: :create
 
   validate  :validate_username_and_email,  on: :update
-  validate :username_cannot_be_an_email, on: :create
+  validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?
