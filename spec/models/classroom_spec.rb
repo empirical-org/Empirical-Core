@@ -5,30 +5,18 @@ describe Classroom, type: :model do
   let(:classroom) { build(:classroom) }
   let(:teacher) { create(:teacher)}
 
-  # context "when created" do
-  #   it 'must be valid with valid info' do
-  #   	expect(classroom).to be_valid
-  #   end
-  # end
-  #
-  # context 'validations' do
-  #   it 'must have a name' do
-  #     classroom = build(:classroom, name: nil)
-  #     expect(classroom.save).to be(false)
-  #   end
-  #
-  #   it "must generate a valid code" do
-  #     classroom = create(:classroom)
-  #     expect(classroom.code).not_to be_empty
-  #   end
-  #
-  #   it "must have a unique name" do
-  #     pending("need to reflect and handle non-unique class name specs")
-  #     other_classroom = build(:classroom, teacher_id: classroom.owner.id, name: classroom.name)
-  #     other_classroom.save
-  #     expect(other_classroom.errors).to include(:name)
-  #   end
-  # end
+  context 'validations' do
+    it 'must have a name' do
+      classroom = build(:classroom, name: nil)
+      expect(classroom.save).to be(false)
+    end
+
+    it "must generate a unique code" do
+      classroom = create(:classroom)
+      classroom_with_non_unique_code = build(:classroom, code: classroom.code)
+      expect(classroom_with_non_unique_code.save).to be(false)
+    end
+  end
 
   describe "#with_students" do
     describe "the classrooms attributes with a students key value as well" do
