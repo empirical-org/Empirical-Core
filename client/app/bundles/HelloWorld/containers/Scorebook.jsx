@@ -92,12 +92,22 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      const selectedUnit = { name: 'All Activity Packs', value: '', }
-      that.setState({
-        unitFilters: [selectedUnit].concat(parsedBody.units),
-        selectedUnit: selectedUnit,
-        missing: this.checkMissing(this.state.scores)
-      });
+      const units = parsedBody.units
+      if (units.length === 1) {
+        const selectedUnit = units[0]
+        that.setState({
+          unitFilters: units,
+          selectedUnit: selectedUnit,
+          missing: this.checkMissing(this.state.scores)
+        });
+      } else {
+        const selectedUnit = { name: 'All Activity Packs', value: '', }
+        that.setState({
+          unitFilters: [selectedUnit].concat(units),
+          selectedUnit: selectedUnit,
+          missing: this.checkMissing(this.state.scores)
+        });
+      }
     });
   },
 
