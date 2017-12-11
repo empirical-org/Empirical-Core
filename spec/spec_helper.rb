@@ -1,6 +1,6 @@
 require 'simplecov'
 require 'simplecov-json'
-SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
+# SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 SimpleCov.start do
   track_files '{app,lib}/**/*.rb'
   add_filter '/spec/'
