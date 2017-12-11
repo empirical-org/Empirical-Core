@@ -76,7 +76,6 @@ export default class extends React.Component {
               <div>Select Classes</div>
                 <Select
                   name="form-field-name"
-                  value={this.state.value}
                   multi={true}
                   onChange={this.handleDropdownChange}
                   options={this.props.classrooms}
