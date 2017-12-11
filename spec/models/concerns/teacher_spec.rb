@@ -15,19 +15,7 @@ describe User, type: :model do
         classroom1_hash = classroom1.attributes
         classroom1_hash[:students] = classroom1.students
         classrooms = teacher.classrooms_i_teach_with_students
-        # HACK: let's disregard the created_at and updated_at values
-        # to avoid a bunch of nasty temporal comparison issues...
-        classroom_hash['created_at'] = nil
-        classroom_hash['updated_at'] = nil
-        classroom1_hash['created_at'] = nil
-        classroom1_hash['updated_at'] = nil
-        classrooms[0]['created_at'] = nil
-        classrooms[0]['updated_at'] = nil
-        classrooms[1]['created_at'] = nil
-        classrooms[1]['updated_at'] = nil
-
-        expect(classrooms).to include(classroom_hash)
-        expect(classrooms).to include(classroom1_hash)
+        expect(classrooms).to eq([classroom_hash, classroom1_hash])
       end
     end
 
@@ -40,7 +28,7 @@ describe User, type: :model do
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms teachers' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
-        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email])
+        expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email, "coteacher_id"=>coteacher.id.to_s])
       end
     end
     describe '#classrooms_i_own_that_have_pending_coteacher_invitations' do
@@ -51,8 +39,8 @@ describe User, type: :model do
 
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms with pending coteacher invitation' do
         coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
-        teacher = coteacher_classroom_invitation.pending_invitation.inviter
-        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.pending_invitation.invitee_email])
+        teacher = coteacher_classroom_invitation.invitation.inviter
+        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.invitation.invitee_email])
       end
     end
 
@@ -72,6 +60,114 @@ describe User, type: :model do
         co_taught_classroom.update(visible: false)
         expect(teacher.classrooms_i_coteach).to match_array([])
       end
+    end
+
+    describe '#classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach' do
+      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
+      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+
+      let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
+      it "returns all the cotaught classrooms" do
+        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{|c| c.id.to_s})
+        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.superset?(cotaught_classroom_ids)).to be
+      end
+
+      it "returns all pending invitation to coteach classrooms" do
+        expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.member?(coteacher_classroom_invitation.classroom_id.to_s)).to be
+      end
+    end
+
+    describe '#ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of' do
+      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
+      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classrooms_teacher_2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
+
+      let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:pending_coteacher_invitation_2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
+      let!(:coteacher_classroom_invitation_2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation_2.id)}
+
+      context 'with no passed classroom ids' do
+        it "returns all the cotaught classrooms" do
+          expect(teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of[:classrooms_teachers_ids]).to include(co_taught_classrooms_teacher.id)
+        end
+
+        it "returns all pending invitation to coteach classrooms" do
+          expect(teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of[:coteacher_classroom_invitations_ids]).to include(pending_coteacher_invitation.id)
+        end
+      end
+
+      context 'with passed classroom ids' do
+        it "returns cotaught classrooms if their classroom id is in the list" do
+          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([co_taught_classrooms_teacher_2.classroom_id])
+          expect(results[:classrooms_teachers_ids]).to include(co_taught_classrooms_teacher_2.id)
+        end
+
+        it "does not return cotaught classrooms if their classroom id is in the list" do
+          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([co_taught_classrooms_teacher_2.classroom_id])
+          expect(results[:classrooms_teachers_ids]).to_not include(co_taught_classrooms_teacher.id)
+        end
+
+        it "returns coteacher classroom invitations if their classroom id is in the list" do
+          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([coteacher_classroom_invitation_2.classroom_id])
+          expect(results[:coteacher_classroom_invitations_ids]).to include(coteacher_classroom_invitation_2.id)
+        end
+
+        it "does not return cotaught classrooms if their classroom id is in the list" do
+          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([coteacher_classroom_invitation.classroom_id])
+          expect(results[:coteacher_classroom_invitations_ids]).to_not include(coteacher_classroom_invitation_2.id)
+        end
+      end
+    end
+
+    describe '#handle_negative_classrooms_from_update_coteachers and #handle_positive_classrooms_from_update_coteachers' do
+      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
+      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classrooms_teacher_2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
+
+      let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:pending_coteacher_invitation_2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
+      let!(:coteacher_classroom_invitation_2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation_2.id)}
+
+      context '#handle_negative_classrooms_from_update_coteachers' do
+
+        it "deletes only the passed classrooms from invitations, leaving other ones unaffected" do
+          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation.id)).to be
+          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation_2.id)).to be
+          teacher.handle_negative_classrooms_from_update_coteachers([coteacher_classroom_invitation.classroom_id])
+          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation.id)).to_not be
+          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation_2.id)).to be
+        end
+
+        it "deletes only the passed classroom from coteacher relations, leaving other ones unaffected" do
+          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher.id)).to be
+          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher_2.id)).to be
+          teacher.handle_negative_classrooms_from_update_coteachers([co_taught_classrooms_teacher.classroom_id])
+          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher.id)).to_not be
+          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher_2.id)).to be
+        end
+      end
+
+      context '#handle_positive_classrooms_from_update_coteachers' do
+
+        it "adds new invitations to classrooms the teacher has not been invited to" do
+          new_classroom = create(:classroom)
+          old_invitation_count = CoteacherClassroomInvitation.all.count
+          teacher.handle_positive_classrooms_from_update_coteachers([new_classroom.id], new_classroom.owner.id)
+          expect(CoteacherClassroomInvitation.all.count - old_invitation_count).to eq(1)
+        end
+
+        it "does not create additional invitations to classrooms the teacher has been invited to" do
+          old_invitation_count = CoteacherClassroomInvitation.all.count
+          teacher.handle_positive_classrooms_from_update_coteachers([co_taught_classroom.id], student.id)
+          expect(CoteacherClassroomInvitation.all.count - old_invitation_count).to eq(0)
+        end
+      end
+
+
+
     end
 
     describe '#archived_classrooms' do
@@ -239,28 +335,29 @@ describe User, type: :model do
 
         expected_response = teacher.classrooms_i_teach.map do |classroom|
           {
-            activity_count: classroom.activity_sessions.where(is_final_score: true).length,
-            code: classroom.code,
-            id: classroom.id,
             name: classroom.name,
-            student_count: classroom.students.length
+            id: classroom.id,
+            code: classroom.code,
+            student_count: classroom.students.length,
+            activity_count: classroom.activity_sessions.where(is_final_score: true).length,
+            has_coteacher: classroom.coteachers.any?,
+            teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role
           }
         end
-
-        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_sql(expected_response))
+        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))
       end
     end
 
-    describe '#classrooms_i_coteach_with_a_specific_teacher_with_students' do
+    describe '#classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students' do
       it 'should return classrooms and students if the teacher is a coteacher' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').user
-        response = coteacher.classrooms_i_coteach_with_a_specific_teacher_with_students(teacher.id)
+        response = coteacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
         expect(response).to eq([Classroom.first.attributes.merge(students: classroom.students)])
       end
 
       it 'should return an empty array if user does not coteach with the teacher' do
         other_teacher = create(:teacher)
-        response = other_teacher.classrooms_i_coteach_with_a_specific_teacher_with_students(teacher.id)
+        response = other_teacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
         expect(response).to eq([])
       end
     end

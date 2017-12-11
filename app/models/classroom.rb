@@ -70,7 +70,8 @@ class Classroom < ActiveRecord::Base
   end
 
   def archived_classrooms_manager
-    {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id, studentCount: self.students.count, classcode: self.code}
+    coteachers = self.coteachers.length > 0 ? self.coteachers.map(&:name) : []
+    {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id, studentCount: self.students.count, classcode: self.code, ownerName: self.owner.name, from_google: !!self.google_classroom_id, coteacherNames: coteachers}
   end
 
   def import_students!

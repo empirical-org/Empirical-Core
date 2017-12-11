@@ -103,6 +103,7 @@ EmpiricalGrammar::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.action_mailer.default_url_options = { host: 'staging.quill.org' }
+  Rails.application.routes.default_url_options[:host] = 'staging.quill.org'
 
   # condense logging in with lograge
   config.lograge.enabled = false
