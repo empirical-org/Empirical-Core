@@ -6,12 +6,13 @@ class User < ActiveRecord::Base
 
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
+  after_save  :update_invitee_email_address, if: Proc.new { self.email_changed? }
 
 
   has_secure_password validations: false
 
   has_many :checkboxes
-  has_many :pending_invitations
+  has_many :invitations
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
@@ -268,6 +269,15 @@ class User < ActiveRecord::Base
     UserMailer.account_created_email(self, temp_password, admin_name).deliver_now! if email.present?
   end
 
+  def send_invitation_to_non_existing_user(invitation_email_hash)
+    # must be called from inviter account
+    UserMailer.invitation_to_non_existing_user(invitation_email_hash).deliver_now! if email.present?
+  end
+
+  def send_invitation_to_existing_user(invitation_email_hash)
+    UserMailer.invitation_to_existing_user(invitation_email_hash).deliver_now! if email.present?
+  end
+
   def send_join_school_email(school)
     UserMailer.join_school_email(self, school).deliver_now! if email.present?
   end
@@ -435,5 +445,9 @@ private
 
   def generate_username(classroom_id=nil)
     self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code(classroom_id))
+  end
+
+  def update_invitee_email_address
+    Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
   end
 end
