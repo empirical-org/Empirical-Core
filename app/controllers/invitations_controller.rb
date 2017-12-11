@@ -46,7 +46,7 @@ class InvitationsController < ApplicationController
   def assign_classrooms_to_invitee
     extant_invitations_for_classrooms = @pending_invite.coteacher_classroom_invitations.pluck(:classroom_id)
     @classroom_ids.each do |id|
-      if extant_invitations_for_classrooms.none?
+      if extant_invitations_for_classrooms.exclude?(id)
         CoteacherClassroomInvitation.create(invitation_id: @pending_invite.id, classroom_id: id)
       end
     end
