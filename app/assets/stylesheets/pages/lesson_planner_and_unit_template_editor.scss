@@ -157,6 +157,7 @@
   cursor: pointer;
   padding-left: 0px;
   padding-right: 15px;
+  display: flex;
   .scorebook-dropdown-icon.fa {
     float: left;
     margin-right: 10px;
@@ -194,7 +195,7 @@
     }
   }
   .button-text {
-    width: 141px;
+    width: 184px;
     overflow: hidden;
     display: inline-block;
     text-overflow: ellipsis;
