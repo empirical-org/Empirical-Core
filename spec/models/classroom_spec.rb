@@ -30,6 +30,20 @@ describe Classroom, type: :model do
   #   end
   # end
 
+  describe "#with_students" do
+    describe "the classrooms attributes with a students key value as well" do
+      it "returns an empty students value if there are no students in the classroom" do
+        expect(classroom.with_students[:students]).to be_empty
+      end
+
+      it "returns the students in the classroom if they exist" do
+        classroom = create(:classroom_with_a_couple_students)
+        expect(classroom.with_students[:students].length).to eq(2)
+      end
+
+    end
+  end
+
   describe "relations with teachers" do
     let!(:classroom) { create(:classroom) }
     let!(:classroom_with_no_teacher) {create(:classroom, :with_no_teacher)}
