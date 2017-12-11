@@ -400,6 +400,9 @@ button:not(.select-mixin) {
 .Select-input > input, .Select-input > input:focus {
   border: none;
   line-height: 22px;
+  transition: none;
+  -moz-transition: none;
+  -webkit-transition: none;
 }
 
 .Select--multi .Select-value {
