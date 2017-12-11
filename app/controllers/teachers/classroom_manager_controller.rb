@@ -1,8 +1,8 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
-  before_filter :authorize_owner!, except: :scores
-  before_filter :authorize_teacher!, only: :scores
+  before_filter :authorize_owner!, except: [:scores, :scorebook]
+  before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
 
   def lesson_planner
