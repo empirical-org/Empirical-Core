@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTemplateComponent.jsx';
+import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTemplateComponentML.jsx';
 
 class PlaySentenceFragment extends Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
-import POSMatcher from '../../libs/sentenceFragment.js';
+import POSMatcher from '../../libs/sentenceFragmentML.js';
 import fragmentActions from '../../actions/sentenceFragments.js';
 
 const PlaySentenceFragment = React.createClass({
