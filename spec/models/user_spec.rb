@@ -376,6 +376,11 @@ describe User, type: :model do
         expect(user2.username).to eq(user1.username)
       end
 
+      it "is invalid when it is formatted like an email" do
+        user = build(:user, username: 'testing@example.com')
+        expect(user).to_not be_valid
+      end
+
       context "role is permanent" do
         it "is invalid without username and email" do
           user.safe_role_assignment "student"
