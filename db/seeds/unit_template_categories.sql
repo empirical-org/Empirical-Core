@@ -20,15 +20,13 @@ SET search_path = public, pg_catalog;
 -- Data for Name: unit_template_categories; Type: TABLE DATA; Schema: public; Owner: jaredsilver
 --
 
-COPY unit_template_categories (id, name, primary_color, secondary_color) FROM stdin;
-3	ELL	#348fdf	#014f92
-4	Elementary	#9c2bde	#560684
-5	Middle	#ea9a1a	#875a12
-6	High	#ff4542	#c51916
-7	University	#82bf3c	#457818
-8	Themed	#00c2a2	#027360
-9	Diagnostic	#00c2a2	#027360
-\.
+INSERT INTO unit_template_categories VALUES (3, 'ELL', '#348fdf', '#014f92');
+INSERT INTO unit_template_categories VALUES (4, 'Elementary', '#9c2bde', '#560684');
+INSERT INTO unit_template_categories VALUES (5, 'Middle', '#ea9a1a', '#875a12');
+INSERT INTO unit_template_categories VALUES (6, 'High', '#ff4542', '#c51916');
+INSERT INTO unit_template_categories VALUES (7, 'University', '#82bf3c', '#457818');
+INSERT INTO unit_template_categories VALUES (8, 'Themed', '#00c2a2', '#027360');
+INSERT INTO unit_template_categories VALUES (9, 'Diagnostic', '#00c2a2', '#027360');
 
 
 --
