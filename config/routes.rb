@@ -25,7 +25,6 @@ EmpiricalGrammar::Application.routes.draw do
   # for Stripe
   resources :charges
 
-
   resources :subscriptions
   resources :assessments
   resources :assignments
@@ -222,6 +221,20 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :pending_invitations, only: [] do
+    collection do
+      post :create_coteacher_invitation
+      delete :destroy_pending_invitations_to_specific_invitee
+      delete :destroy_pending_invitations_from_specific_inviter
+    end
+  end
+
+  resources :coteacher_classroom_invitations, only: [] do
+    collection do
+      post :accept_pending_coteacher_invitations, format: 'json'
+      get :accept_pending_coteacher_invitations
+    end
+  end
 
   # API routes
   namespace :api do
@@ -246,6 +259,7 @@ EmpiricalGrammar::Application.routes.draw do
       put 'classroom_activities/:id/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'users/profile', to: 'users#profile'
+      post 'published_edition' => 'activities#published_edition'
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -410,15 +424,13 @@ EmpiricalGrammar::Application.routes.draw do
   get 'diagnostic/:activityId' =>'activities#diagnostic' # placeholder til we find where this goes
   get 'diagnostic/:activityId/stage/:stage' => 'activities#diagnostic'
   get 'diagnostic/:activityId/success' => 'activities#diagnostic'
+  get 'customize/:id' => 'activities#customize_lesson'
   get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
   get 'student_demo' => 'students#student_demo'
 
-  patch 'verify_question' => 'chapter/practice#verify'
-  get   'verify_question' => 'chapter/practice#verify_status'
-  patch 'cheat'           => 'chapter/practice#cheat'
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'
 

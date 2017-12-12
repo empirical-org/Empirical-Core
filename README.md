@@ -8,13 +8,13 @@
 
 
 
-# Welcome to Empirical Core
+# Welcome to Empirical Core 
 
-Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
+Empirical Core is the Learning Management System that powers Quill.org, a free writing tool. 
 
 |Front End|Back End|Travis CI|
 |---|---|---|
-|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg)](https://travis-ci.org/empirical-org/Empirical-Core)
+|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg?branch=develop)](https://travis-ci.org/empirical-org/Empirical-Core)
 
 
 

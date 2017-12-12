@@ -4,7 +4,6 @@ import $ from 'jquery';
 
 import ActivitySearchAndFilters from './activity_search_filters/activity_search_filters';
 import ActivitySearchFilterConfig from './activity_search_filters/activity_search_filter_config';
-import ActivitySearchSort from './activity_search_sort/activity_search_sort';
 import ActivitySearchSortConfig from './activity_search_sort/activity_search_sort_config';
 import ActivitySearchSorts from './activity_search_sort/activity_search_sorts';
 import ActivitySearchResults from './activity_search_results/activity_search_results';
@@ -12,6 +11,10 @@ import Pagination from './pagination/pagination';
 import SelectedActivities from './selected_activities/selected_activities';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name';
+import naturalCmp from 'underscore.string/naturalCmp';
+
+const resultsPerPage = 50;
+const showAllId = 'showAllId';
 
 export default React.createClass({
   propTypes: {
@@ -24,20 +27,9 @@ export default React.createClass({
   defaultState() {
     return {
       loading: true,
-      activitySearchResults: [],
-      currentPageSearchResults: [],
-      currentPage: 1,
-      searchQuery: '',
-      numberOfPages: 1,
-      resultsPerPage: 12,
-      maxPageNumber: 4,
-      allFilterOptions: {
-        section: [],
-        activity_category: [],
-        activity_classification: [],
-      },
-      filters: ActivitySearchFilterConfig,
+      filters: ActivitySearchFilterConfig(),
       sorts: ActivitySearchSortConfig,
+      maxPageNumber: 1,
       activeFilterOn: !!getParameterByName('tool'),
       error: null,
     };
@@ -56,35 +48,18 @@ export default React.createClass({
     $.ajax({
       url: '/activities/search',
       context: this,
-      data: this.searchRequestData(),
       success: this.searchRequestSuccess,
       error: this.errorState,
     });
   },
 
-  searchRequestData() {
-    const filters = this.state.filters.map(filter => ({
-      field: filter.field,
-      selected: filter.selected,
-    }));
-
-    let currentSort;
-    _.each(this.state.sorts, (sort) => {
-      if (sort.selected) {
-        currentSort = {
-          field: sort.field,
-          asc_or_desc: sort.asc_or_desc,
-        };
+  selectedFiltersAndFields() {
+    return this.state.filters.reduce((selected, filter) => {
+      if (filter.selected && filter.selected !== showAllId) {
+        selected.push({ field: filter.field, selected: filter.selected, });
       }
-    });
-
-    return {
-      search: {
-        search_query: this.state.searchQuery,
-        filters,
-        sort: currentSort,
-      },
-    };
+      return selected;
+    }, []);
   },
 
   errorState(data) {
@@ -92,122 +67,61 @@ export default React.createClass({
   },
 
   clearFilters() {
-    const clearedFilters = this.state.filters.map((filter) => {
-      filter.selected = null;
-      return filter;
-    });
-    const that = this;
     this.setState({
-      filters: clearedFilters,
+      filters: ActivitySearchFilterConfig(),
       activeFilterOn: false,
-    },
-    () => { that.searchRequest(); });
-    this.updateSearchQuery('');
+      searchQuery: '',
+    }, this.changeViewableActivities);
   },
 
   searchRequestSuccess(data) {
     const hash = {
       activitySearchResults: data.activities,
-      numberOfPages: data.number_of_pages,
+      viewableActivities: data.activities,
+      numberOfPages: Math.ceil(data.activities.length / resultsPerPage),
+      maxPageNumber: Math.ceil(data.activities.length / resultsPerPage),
       currentPage: 1,
       loading: false,
     };
-    this.setInitialFilterOptions(data);
-    this.setState(hash, this.updateFilterOptionsAfterRequest);
+    this.setState(hash, this.updateFilterOptionsAfterChange);
   },
 
-  setInitialFilterOptions(data) {
-    // If the filter options have set already, do not override them.
-
-    const allEmpty = _.all(this.state.allFilterOptions, (options, field) => options.length === 0);
-    if (!allEmpty) {
-      return;
-    }
-    const newOptions = {};
-
-    _.each(this.state.allFilterOptions, function (options, field) {
-      const key = this.pluralize(field);
-      newOptions[field] = data[key];
-    }, this);
-    this.setState({ allFilterOptions: newOptions, });
-  },
-
-  updateFilterOptionsAfterRequest() {
-    // Go through all the filters,
-    // For each filter that is not currently selected,
-    // only display the options that are available based on the set
-    // of activity results that have been returned from the server.
-    // Otherwise, selected filters will display all available options.
+  updateFilterOptionsAfterChange() {
+    // Go through all the filters, and only display the options that are available based on the viewableActivity array
     const availableOptions = this._findFilterOptionsBasedOnActivities();
-
-    const newFilters = this.state.filters;
-    newFilters.forEach(function (filter) {
-      if (filter.selected) {
-        filter.options = this.state.allFilterOptions[filter.field];
-      } else {
-        filter.options = availableOptions[filter.field];
-      }
-    }, this);
+    const newFilters = [...this.state.filters];
+    newFilters.forEach((filter) => {
+      filter.options = availableOptions[filter.field];
+    });
     this.setState({ filters: newFilters, });
   },
 
-  // Return a hash of the filter options that are available based on the activities
-  // that were returned in the search results.
   _findFilterOptionsBasedOnActivities() {
-    // This function works like so:
-    // Gather all the IDs for properties of the activity that can be filtered.
-    // Create a unique set of those IDs (optimization).
-    // Go through the sets of filter options returned from the server and remove
-    // them from the list of available options if their IDs are not referenced
-    // by any of the activities.
-    // Return the remaining list.
-
-    let activityClassificationIds = [],
-      activityCategoryIds = [],
-      sectionIds = [];
-    _.each(this.state.activitySearchResults, (activity) => {
-      activityClassificationIds.push(activity.classification.id);
-      if (activity.activity_category) {
-        activityCategoryIds.push(activity.activity_category.id);
-      }
-      if (activity.topic.section) {
-        sectionIds.push(activity.topic.section.id);
+    const filterFields = this.state.filters.map(filter => filter.field);
+    const availableOptions = {};
+    // get all filter keys and then map them onto availableOptions as empty arrs
+    filterFields.forEach((field) => {
+      availableOptions[field] = [];
+    });
+    this.state.viewableActivities.forEach((activity) => {
+      filterFields.forEach((field) => {
+        if (activity[field].name || activity[field].alias) {
+          availableOptions[field].push(activity[field]);
+        }
+      });
+    });
+    filterFields.forEach((field) => {
+      if (field === 'activity_category') {
+        availableOptions[field].unshift({ name: 'All Categories', id: showAllId, });
+      } else if (field === 'section') {
+        availableOptions[field].unshift({ name: 'All Sections', id: showAllId, });
       }
     });
-    activityClassificationIds = _.uniq(activityClassificationIds);
-    activityCategoryIds = _.uniq(activityCategoryIds);
-    sectionIds = _.uniq(sectionIds);
-    const availableOptions = {};
-    availableOptions.activity_category = _.reject(this.state.allFilterOptions.activity_category,
-      option => !_.contains(activityCategoryIds, option.id));
-    availableOptions.section = _.reject(this.state.allFilterOptions.section,
-      option => !_.contains(sectionIds, option.id));
-    availableOptions.activity_classification = _.reject(this.state.allFilterOptions.activity_classification,
-      option => !_.contains(activityClassificationIds, Number(option.id)));
-
     return availableOptions;
   },
 
-  // Super bad pluralize function.
-  pluralize(str) {
-    if (str === 'activity_category') {
-      return 'activity_categories';
-    }
-    return `${str}s`;
-  },
-
-  determineCurrentPageSearchResults() {
-    let start,
-      end,
-      currentPageSearchResults;
-    start = (this.state.currentPage - 1) * this.state.resultsPerPage;
-    end = this.state.currentPage * this.state.resultsPerPage;
-    currentPageSearchResults = this.state.activitySearchResults.slice(start, end);
-    return currentPageSearchResults;
-  },
-
   updateSearchQuery(newQuery) {
-    this.setState({ searchQuery: newQuery, }, this.searchRequest);
+    this.setState({ searchQuery: newQuery, }, this.changeViewableActivities);
   },
 
   selectFilterOption(field, optionId) {
@@ -224,8 +138,34 @@ export default React.createClass({
       }
       return filter;
     }, this);
-    this.setState({ filters, activeFilterOn: activeFilterOn, });
-    this.searchRequest();
+    this.setState({ filters, activeFilterOn }, this.changeViewableActivities);
+  },
+
+  activityContainsSearchTerm(activity) {
+    const stringActivity = Object.values(activity).join(' ').toLowerCase();
+    return stringActivity.includes(this.state.searchQuery.toLowerCase());
+  },
+
+  changeViewableActivities() {
+    const selectedFiltersAndFields = this.selectedFiltersAndFields();
+    const sFFLength = selectedFiltersAndFields.length;
+    const viewableActivities = this.state.activitySearchResults.filter((activity) => {
+      let matchingFieldCount = 0;
+      selectedFiltersAndFields.forEach((filter) => {
+        if ((activity[filter.field].id || activity[filter.field]) === filter.selected) {
+          matchingFieldCount += 1;
+        }
+      });
+      let matchesSearchQuery = true;
+      if (this.state.searchQuery) {
+        matchesSearchQuery = this.activityContainsSearchTerm(activity);
+      }
+      return (matchingFieldCount === sFFLength) && matchesSearchQuery;
+    });
+    this.setState({ viewableActivities,
+      maxPageNumber: Math.ceil(viewableActivities.length/resultsPerPage),
+      numberOfPages: Math.ceil(viewableActivities.length / resultsPerPage)
+      }, this.updateFilterOptionsAfterChange);
   },
 
   updateSort(field, asc_or_desc) {
@@ -239,16 +179,35 @@ export default React.createClass({
       }
       return sort;
     }, this);
-    this.setState({ sorts, });
-    this.searchRequest();
+    this.setState({ sorts, }, this.sort);
+  },
+
+  sort() {
+    let visActs = [...this.state.viewableActivities];
+    this.state.sorts.forEach((sortObj) => {
+      // iterate through each sorter, and activate it
+      if (sortObj.selected) {
+        visActs = _.sortBy(visActs, obj => (obj[sortObj.field].name || obj[sortObj.field]));
+        if (sortObj.asc_or_desc === 'desc') {
+          // reverse sorter if necessary
+          visActs = visActs.reverse();
+        }
+      }
+    });
+    this.setState({ viewableActivities: visActs, });
   },
 
   selectPageNumber(number) {
     this.setState({ currentPage: number, });
   },
 
+  currentPageResults() {
+    const lowerBound = (this.state.currentPage - 1) * resultsPerPage;
+    const upperBound = (this.state.currentPage) * resultsPerPage;
+    return this.state.viewableActivities.slice(lowerBound, upperBound);
+  },
+
   render() {
-    const currentPageSearchResults = this.determineCurrentPageSearchResults();
     let table,
       loading,
       pagination;
@@ -258,13 +217,13 @@ export default React.createClass({
       table = <span>We're experiencing the following error: {this.state.error}</span>;
     } else {
       pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} />;
-      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={currentPageSearchResults} toggleActivitySelection={this.props.toggleActivitySelection} />;
+      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={this.currentPageResults()} toggleActivitySelection={this.props.toggleActivitySelection} />;
     }
     return (
       <section>
         <h1 className="explore-activities-header">Explore Activities & Create Activity Pack</h1>
-
         <ActivitySearchAndFilters
+          showAllId={showAllId}
           updateSearchQuery={this.updateSearchQuery}
           searchQuery={this.state.searchQuery}
           selectFilterOption={this.selectFilterOption}
@@ -272,7 +231,6 @@ export default React.createClass({
           clearFilters={this.clearFilters}
           activeFilterOn={this.state.activeFilterOn}
         />
-
         <table className="table activity-table search-and-select">
           <thead>
             <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
@@ -280,16 +238,12 @@ export default React.createClass({
           {table}
         </table>
         {loading}
-
         {pagination}
-
         <SelectedActivities
           clickContinue={this.props.clickContinue}
           errorMessage={this.props.errorMessage || ''}
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
-          sortable={this.props.sortable}
-          sortCallback={this.props.sortCallback}
         />
       </section>
     );

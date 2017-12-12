@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
+    "istanbul-lib-instrument": "^1.9.1",
     "tabslet": "^1.7.3"
   },
   "devDependencies": {
