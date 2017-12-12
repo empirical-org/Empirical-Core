@@ -20,223 +20,221 @@ SET search_path = public, pg_catalog;
 -- Data for Name: activities_unit_templates; Type: TABLE DATA; Schema: public; Owner: jaredsilver
 --
 
-COPY activities_unit_templates (unit_template_id, activity_id) FROM stdin;
-2	141
-2	138
-2	140
-2	139
-2	13
-3	77
-3	63
-3	168
-3	177
-3	169
-3	182
-3	176
-3	69
-4	109
-4	112
-4	110
-4	108
-4	113
-4	107
-4	111
-5	244
-5	252
-6	79
-6	103
-6	173
-6	144
-6	143
-6	172
-6	91
-7	47
-7	137
-7	136
-7	37
-8	149
-8	152
-8	148
-8	146
-8	179
-8	147
-10	130
-10	129
-10	128
-10	167
-10	132
-3	165
-8	251
-10	154
-5	260
-5	261
-11	263
-11	264
-11	265
-11	266
-11	268
-11	267
-11	262
-6	299
-6	301
-6	274
-6	275
-4	273
-7	300
-7	281
-7	282
-7	303
-7	291
-7	302
-7	293
-12	289
-12	290
-12	294
-12	296
-12	292
-12	277
-12	295
-12	278
-13	286
-13	287
-13	288
-13	307
-13	284
-13	285
-13	308
-8	283
-15	377
-15	384
-15	386
-15	391
-15	406
-17	378
-17	367
-17	379
-17	391
-17	411
-17	409
-17	397
-18	251
-18	364
-18	381
-18	394
-18	405
-18	408
-19	365
-19	376
-19	384
-19	387
-19	388
-20	413
-21	414
-21	415
-21	416
-21	417
-21	418
-21	419
-21	420
-21	421
-21	422
-38	559
-38	560
-38	561
-38	562
-39	564
-39	573
-22	424
-23	431
-23	432
-23	433
-40	568
-40	575
-24	434
-40	578
-41	565
-41	574
-42	563
-42	581
-26	445
-26	446
-27	442
-44	567
-44	572
-45	570
-45	577
-29	103
-29	299
-30	455
-30	457
-30	460
-30	462
-46	571
-30	464
-47	569
-31	477
-31	478
-31	481
-31	476
-32	473
-32	474
-32	475
-22	425
-22	426
-22	427
-47	582
-22	429
-22	428
-22	430
-24	435
-24	436
-24	437
-27	448
-27	450
-27	443
-27	449
-25	438
-25	439
-25	440
-25	441
-33	178
-33	181
-33	151
-33	254
-34	447
-47	583
-48	584
-48	585
-48	586
-37	484
-48	587
-50	599
-50	600
-43	566
-43	576
-43	579
-43	580
-51	602
-49	591
-49	592
-49	593
-49	594
-49	595
-49	596
-49	597
-49	598
-48	505
-48	524
-48	525
-48	527
-48	528
-52	503
-52	504
-52	516
-52	517
-52	605
-52	606
-52	607
-52	608
-\.
+INSERT INTO activities_unit_templates VALUES (2, 141);
+INSERT INTO activities_unit_templates VALUES (2, 138);
+INSERT INTO activities_unit_templates VALUES (2, 140);
+INSERT INTO activities_unit_templates VALUES (2, 139);
+INSERT INTO activities_unit_templates VALUES (2, 13);
+INSERT INTO activities_unit_templates VALUES (3, 77);
+INSERT INTO activities_unit_templates VALUES (3, 63);
+INSERT INTO activities_unit_templates VALUES (3, 168);
+INSERT INTO activities_unit_templates VALUES (3, 177);
+INSERT INTO activities_unit_templates VALUES (3, 169);
+INSERT INTO activities_unit_templates VALUES (3, 182);
+INSERT INTO activities_unit_templates VALUES (3, 176);
+INSERT INTO activities_unit_templates VALUES (3, 69);
+INSERT INTO activities_unit_templates VALUES (4, 109);
+INSERT INTO activities_unit_templates VALUES (4, 112);
+INSERT INTO activities_unit_templates VALUES (4, 110);
+INSERT INTO activities_unit_templates VALUES (4, 108);
+INSERT INTO activities_unit_templates VALUES (4, 113);
+INSERT INTO activities_unit_templates VALUES (4, 107);
+INSERT INTO activities_unit_templates VALUES (4, 111);
+INSERT INTO activities_unit_templates VALUES (5, 244);
+INSERT INTO activities_unit_templates VALUES (5, 252);
+INSERT INTO activities_unit_templates VALUES (6, 79);
+INSERT INTO activities_unit_templates VALUES (6, 103);
+INSERT INTO activities_unit_templates VALUES (6, 173);
+INSERT INTO activities_unit_templates VALUES (6, 144);
+INSERT INTO activities_unit_templates VALUES (6, 143);
+INSERT INTO activities_unit_templates VALUES (6, 172);
+INSERT INTO activities_unit_templates VALUES (6, 91);
+INSERT INTO activities_unit_templates VALUES (7, 47);
+INSERT INTO activities_unit_templates VALUES (7, 137);
+INSERT INTO activities_unit_templates VALUES (7, 136);
+INSERT INTO activities_unit_templates VALUES (7, 37);
+INSERT INTO activities_unit_templates VALUES (8, 149);
+INSERT INTO activities_unit_templates VALUES (8, 152);
+INSERT INTO activities_unit_templates VALUES (8, 148);
+INSERT INTO activities_unit_templates VALUES (8, 146);
+INSERT INTO activities_unit_templates VALUES (8, 179);
+INSERT INTO activities_unit_templates VALUES (8, 147);
+INSERT INTO activities_unit_templates VALUES (10, 130);
+INSERT INTO activities_unit_templates VALUES (10, 129);
+INSERT INTO activities_unit_templates VALUES (10, 128);
+INSERT INTO activities_unit_templates VALUES (10, 167);
+INSERT INTO activities_unit_templates VALUES (10, 132);
+INSERT INTO activities_unit_templates VALUES (3, 165);
+INSERT INTO activities_unit_templates VALUES (8, 251);
+INSERT INTO activities_unit_templates VALUES (10, 154);
+INSERT INTO activities_unit_templates VALUES (5, 260);
+INSERT INTO activities_unit_templates VALUES (5, 261);
+INSERT INTO activities_unit_templates VALUES (11, 263);
+INSERT INTO activities_unit_templates VALUES (11, 264);
+INSERT INTO activities_unit_templates VALUES (11, 265);
+INSERT INTO activities_unit_templates VALUES (11, 266);
+INSERT INTO activities_unit_templates VALUES (11, 268);
+INSERT INTO activities_unit_templates VALUES (11, 267);
+INSERT INTO activities_unit_templates VALUES (11, 262);
+INSERT INTO activities_unit_templates VALUES (6, 299);
+INSERT INTO activities_unit_templates VALUES (6, 301);
+INSERT INTO activities_unit_templates VALUES (6, 274);
+INSERT INTO activities_unit_templates VALUES (6, 275);
+INSERT INTO activities_unit_templates VALUES (4, 273);
+INSERT INTO activities_unit_templates VALUES (7, 300);
+INSERT INTO activities_unit_templates VALUES (7, 281);
+INSERT INTO activities_unit_templates VALUES (7, 282);
+INSERT INTO activities_unit_templates VALUES (7, 303);
+INSERT INTO activities_unit_templates VALUES (7, 291);
+INSERT INTO activities_unit_templates VALUES (7, 302);
+INSERT INTO activities_unit_templates VALUES (7, 293);
+INSERT INTO activities_unit_templates VALUES (12, 289);
+INSERT INTO activities_unit_templates VALUES (12, 290);
+INSERT INTO activities_unit_templates VALUES (12, 294);
+INSERT INTO activities_unit_templates VALUES (12, 296);
+INSERT INTO activities_unit_templates VALUES (12, 292);
+INSERT INTO activities_unit_templates VALUES (12, 277);
+INSERT INTO activities_unit_templates VALUES (12, 295);
+INSERT INTO activities_unit_templates VALUES (12, 278);
+INSERT INTO activities_unit_templates VALUES (13, 286);
+INSERT INTO activities_unit_templates VALUES (13, 287);
+INSERT INTO activities_unit_templates VALUES (13, 288);
+INSERT INTO activities_unit_templates VALUES (13, 307);
+INSERT INTO activities_unit_templates VALUES (13, 284);
+INSERT INTO activities_unit_templates VALUES (13, 285);
+INSERT INTO activities_unit_templates VALUES (13, 308);
+INSERT INTO activities_unit_templates VALUES (8, 283);
+INSERT INTO activities_unit_templates VALUES (15, 377);
+INSERT INTO activities_unit_templates VALUES (15, 384);
+INSERT INTO activities_unit_templates VALUES (15, 386);
+INSERT INTO activities_unit_templates VALUES (15, 391);
+INSERT INTO activities_unit_templates VALUES (15, 406);
+INSERT INTO activities_unit_templates VALUES (17, 378);
+INSERT INTO activities_unit_templates VALUES (17, 367);
+INSERT INTO activities_unit_templates VALUES (17, 379);
+INSERT INTO activities_unit_templates VALUES (17, 391);
+INSERT INTO activities_unit_templates VALUES (17, 411);
+INSERT INTO activities_unit_templates VALUES (17, 409);
+INSERT INTO activities_unit_templates VALUES (17, 397);
+INSERT INTO activities_unit_templates VALUES (18, 251);
+INSERT INTO activities_unit_templates VALUES (18, 364);
+INSERT INTO activities_unit_templates VALUES (18, 381);
+INSERT INTO activities_unit_templates VALUES (18, 394);
+INSERT INTO activities_unit_templates VALUES (18, 405);
+INSERT INTO activities_unit_templates VALUES (18, 408);
+INSERT INTO activities_unit_templates VALUES (19, 365);
+INSERT INTO activities_unit_templates VALUES (19, 376);
+INSERT INTO activities_unit_templates VALUES (19, 384);
+INSERT INTO activities_unit_templates VALUES (19, 387);
+INSERT INTO activities_unit_templates VALUES (19, 388);
+INSERT INTO activities_unit_templates VALUES (20, 413);
+INSERT INTO activities_unit_templates VALUES (21, 414);
+INSERT INTO activities_unit_templates VALUES (21, 415);
+INSERT INTO activities_unit_templates VALUES (21, 416);
+INSERT INTO activities_unit_templates VALUES (21, 417);
+INSERT INTO activities_unit_templates VALUES (21, 418);
+INSERT INTO activities_unit_templates VALUES (21, 419);
+INSERT INTO activities_unit_templates VALUES (21, 420);
+INSERT INTO activities_unit_templates VALUES (21, 421);
+INSERT INTO activities_unit_templates VALUES (21, 422);
+INSERT INTO activities_unit_templates VALUES (38, 559);
+INSERT INTO activities_unit_templates VALUES (38, 560);
+INSERT INTO activities_unit_templates VALUES (38, 561);
+INSERT INTO activities_unit_templates VALUES (38, 562);
+INSERT INTO activities_unit_templates VALUES (39, 564);
+INSERT INTO activities_unit_templates VALUES (39, 573);
+INSERT INTO activities_unit_templates VALUES (22, 424);
+INSERT INTO activities_unit_templates VALUES (23, 431);
+INSERT INTO activities_unit_templates VALUES (23, 432);
+INSERT INTO activities_unit_templates VALUES (23, 433);
+INSERT INTO activities_unit_templates VALUES (40, 568);
+INSERT INTO activities_unit_templates VALUES (40, 575);
+INSERT INTO activities_unit_templates VALUES (24, 434);
+INSERT INTO activities_unit_templates VALUES (40, 578);
+INSERT INTO activities_unit_templates VALUES (41, 565);
+INSERT INTO activities_unit_templates VALUES (41, 574);
+INSERT INTO activities_unit_templates VALUES (42, 563);
+INSERT INTO activities_unit_templates VALUES (42, 581);
+INSERT INTO activities_unit_templates VALUES (26, 445);
+INSERT INTO activities_unit_templates VALUES (26, 446);
+INSERT INTO activities_unit_templates VALUES (27, 442);
+INSERT INTO activities_unit_templates VALUES (44, 567);
+INSERT INTO activities_unit_templates VALUES (44, 572);
+INSERT INTO activities_unit_templates VALUES (45, 570);
+INSERT INTO activities_unit_templates VALUES (45, 577);
+INSERT INTO activities_unit_templates VALUES (29, 103);
+INSERT INTO activities_unit_templates VALUES (29, 299);
+INSERT INTO activities_unit_templates VALUES (30, 455);
+INSERT INTO activities_unit_templates VALUES (30, 457);
+INSERT INTO activities_unit_templates VALUES (30, 460);
+INSERT INTO activities_unit_templates VALUES (30, 462);
+INSERT INTO activities_unit_templates VALUES (46, 571);
+INSERT INTO activities_unit_templates VALUES (30, 464);
+INSERT INTO activities_unit_templates VALUES (47, 569);
+INSERT INTO activities_unit_templates VALUES (31, 477);
+INSERT INTO activities_unit_templates VALUES (31, 478);
+INSERT INTO activities_unit_templates VALUES (31, 481);
+INSERT INTO activities_unit_templates VALUES (31, 476);
+INSERT INTO activities_unit_templates VALUES (32, 473);
+INSERT INTO activities_unit_templates VALUES (32, 474);
+INSERT INTO activities_unit_templates VALUES (32, 475);
+INSERT INTO activities_unit_templates VALUES (22, 425);
+INSERT INTO activities_unit_templates VALUES (22, 426);
+INSERT INTO activities_unit_templates VALUES (22, 427);
+INSERT INTO activities_unit_templates VALUES (47, 582);
+INSERT INTO activities_unit_templates VALUES (22, 429);
+INSERT INTO activities_unit_templates VALUES (22, 428);
+INSERT INTO activities_unit_templates VALUES (22, 430);
+INSERT INTO activities_unit_templates VALUES (24, 435);
+INSERT INTO activities_unit_templates VALUES (24, 436);
+INSERT INTO activities_unit_templates VALUES (24, 437);
+INSERT INTO activities_unit_templates VALUES (27, 448);
+INSERT INTO activities_unit_templates VALUES (27, 450);
+INSERT INTO activities_unit_templates VALUES (27, 443);
+INSERT INTO activities_unit_templates VALUES (27, 449);
+INSERT INTO activities_unit_templates VALUES (25, 438);
+INSERT INTO activities_unit_templates VALUES (25, 439);
+INSERT INTO activities_unit_templates VALUES (25, 440);
+INSERT INTO activities_unit_templates VALUES (25, 441);
+INSERT INTO activities_unit_templates VALUES (33, 178);
+INSERT INTO activities_unit_templates VALUES (33, 181);
+INSERT INTO activities_unit_templates VALUES (33, 151);
+INSERT INTO activities_unit_templates VALUES (33, 254);
+INSERT INTO activities_unit_templates VALUES (34, 447);
+INSERT INTO activities_unit_templates VALUES (47, 583);
+INSERT INTO activities_unit_templates VALUES (48, 584);
+INSERT INTO activities_unit_templates VALUES (48, 585);
+INSERT INTO activities_unit_templates VALUES (48, 586);
+INSERT INTO activities_unit_templates VALUES (37, 484);
+INSERT INTO activities_unit_templates VALUES (48, 587);
+INSERT INTO activities_unit_templates VALUES (50, 599);
+INSERT INTO activities_unit_templates VALUES (50, 600);
+INSERT INTO activities_unit_templates VALUES (43, 566);
+INSERT INTO activities_unit_templates VALUES (43, 576);
+INSERT INTO activities_unit_templates VALUES (43, 579);
+INSERT INTO activities_unit_templates VALUES (43, 580);
+INSERT INTO activities_unit_templates VALUES (51, 602);
+INSERT INTO activities_unit_templates VALUES (49, 591);
+INSERT INTO activities_unit_templates VALUES (49, 592);
+INSERT INTO activities_unit_templates VALUES (49, 593);
+INSERT INTO activities_unit_templates VALUES (49, 594);
+INSERT INTO activities_unit_templates VALUES (49, 595);
+INSERT INTO activities_unit_templates VALUES (49, 596);
+INSERT INTO activities_unit_templates VALUES (49, 597);
+INSERT INTO activities_unit_templates VALUES (49, 598);
+INSERT INTO activities_unit_templates VALUES (48, 505);
+INSERT INTO activities_unit_templates VALUES (48, 524);
+INSERT INTO activities_unit_templates VALUES (48, 525);
+INSERT INTO activities_unit_templates VALUES (48, 527);
+INSERT INTO activities_unit_templates VALUES (48, 528);
+INSERT INTO activities_unit_templates VALUES (52, 503);
+INSERT INTO activities_unit_templates VALUES (52, 504);
+INSERT INTO activities_unit_templates VALUES (52, 516);
+INSERT INTO activities_unit_templates VALUES (52, 517);
+INSERT INTO activities_unit_templates VALUES (52, 605);
+INSERT INTO activities_unit_templates VALUES (52, 606);
+INSERT INTO activities_unit_templates VALUES (52, 607);
+INSERT INTO activities_unit_templates VALUES (52, 608);
 
 
 --

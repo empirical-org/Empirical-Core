@@ -20,24 +20,22 @@ SET search_path = public, pg_catalog;
 -- Data for Name: topic_categories; Type: TABLE DATA; Schema: public; Owner: jaredsilver
 --
 
-COPY topic_categories (id, name, created_at, updated_at, uid) FROM stdin;
-2	Verbs	2015-02-07 21:55:22.21102	2015-02-07 21:55:22.21102	De6U3Pdc1BPH--saQRD4Gg
-3	Conjunctions	2015-02-07 21:55:22.249368	2015-02-07 21:55:22.249368	fGn2blTaRcoblk8bIeScWQ
-4	Determiners	2015-02-07 21:55:22.272006	2015-02-07 21:55:22.272006	4Rc3UBDm6VYB8j3JperIXQ
-5	Prepositions	2015-02-07 21:55:22.293825	2015-02-07 21:55:22.293825	y6Xpj97lXmHvL1pzkGo2eA
-6	Capitalization	2015-02-07 21:55:22.316687	2015-02-07 21:55:22.316687	cs5kDcqpfSbJgoVaGaLmWA
-7	Comma Usage	2015-02-07 21:55:22.338552	2015-02-07 21:55:22.338552	TLW1IJn16_q8wV1_gPhc3g
-8	Adjectives & Adverbs	2015-02-07 21:55:22.408937	2015-02-07 21:55:22.408937	QmK_wU5xbweiZLhmiFtbag
-9	Nouns & Pronouns	2015-02-07 21:55:22.507801	2015-02-07 21:55:22.507801	vYPW93xXfCXI2mhazkYapw
-10	Commonly Confused Words	2015-02-07 21:55:22.588793	2015-02-07 21:55:22.588793	76ineK7GVTK1MmTvIhB4aA
-12	Punctuation	2015-02-07 21:55:22.833862	2015-02-07 21:55:22.833862	B-wseAnqbJzzw2-ixtWMcA
-11	Sentence Structure	2015-02-07 21:55:22.750074	2016-08-17 16:32:45.885758	hfTdMh4VsLg6hlSoXWVmTg
-17	Diagnostics	2016-09-21 15:54:00.644151	2016-09-21 15:56:02.889802	2VUn0bFN5xkjBaYzquDsAQ
-18	Complex Sentences	2016-10-11 03:26:34.092194	2016-10-11 03:26:34.092194	WbvHnyE1nIIv8CqzW5m2XQ
-19	Compound Sentences	2017-03-02 16:04:02.452009	2017-03-02 16:04:02.452009	8ypaPUKQBhriZphT5Ag5NA
-13	Formative Assessments	2015-02-07 21:55:22.856465	2017-08-15 18:09:58.682767	XSx6hcLxlSf1WKaJFWgsNA
-20	Fragments & Run-ons	2017-08-31 18:51:22.235915	2017-08-31 18:51:22.235915	Y85XqsicNrSAHsG9YDADMw
-\.
+INSERT INTO topic_categories VALUES (2, 'Verbs', '2015-02-07 21:55:22.21102', '2015-02-07 21:55:22.21102', 'De6U3Pdc1BPH--saQRD4Gg');
+INSERT INTO topic_categories VALUES (3, 'Conjunctions', '2015-02-07 21:55:22.249368', '2015-02-07 21:55:22.249368', 'fGn2blTaRcoblk8bIeScWQ');
+INSERT INTO topic_categories VALUES (4, 'Determiners', '2015-02-07 21:55:22.272006', '2015-02-07 21:55:22.272006', '4Rc3UBDm6VYB8j3JperIXQ');
+INSERT INTO topic_categories VALUES (5, 'Prepositions', '2015-02-07 21:55:22.293825', '2015-02-07 21:55:22.293825', 'y6Xpj97lXmHvL1pzkGo2eA');
+INSERT INTO topic_categories VALUES (6, 'Capitalization', '2015-02-07 21:55:22.316687', '2015-02-07 21:55:22.316687', 'cs5kDcqpfSbJgoVaGaLmWA');
+INSERT INTO topic_categories VALUES (7, 'Comma Usage', '2015-02-07 21:55:22.338552', '2015-02-07 21:55:22.338552', 'TLW1IJn16_q8wV1_gPhc3g');
+INSERT INTO topic_categories VALUES (8, 'Adjectives & Adverbs', '2015-02-07 21:55:22.408937', '2015-02-07 21:55:22.408937', 'QmK_wU5xbweiZLhmiFtbag');
+INSERT INTO topic_categories VALUES (9, 'Nouns & Pronouns', '2015-02-07 21:55:22.507801', '2015-02-07 21:55:22.507801', 'vYPW93xXfCXI2mhazkYapw');
+INSERT INTO topic_categories VALUES (10, 'Commonly Confused Words', '2015-02-07 21:55:22.588793', '2015-02-07 21:55:22.588793', '76ineK7GVTK1MmTvIhB4aA');
+INSERT INTO topic_categories VALUES (12, 'Punctuation', '2015-02-07 21:55:22.833862', '2015-02-07 21:55:22.833862', 'B-wseAnqbJzzw2-ixtWMcA');
+INSERT INTO topic_categories VALUES (11, 'Sentence Structure', '2015-02-07 21:55:22.750074', '2016-08-17 16:32:45.885758', 'hfTdMh4VsLg6hlSoXWVmTg');
+INSERT INTO topic_categories VALUES (17, 'Diagnostics', '2016-09-21 15:54:00.644151', '2016-09-21 15:56:02.889802', '2VUn0bFN5xkjBaYzquDsAQ');
+INSERT INTO topic_categories VALUES (18, 'Complex Sentences', '2016-10-11 03:26:34.092194', '2016-10-11 03:26:34.092194', 'WbvHnyE1nIIv8CqzW5m2XQ');
+INSERT INTO topic_categories VALUES (19, 'Compound Sentences', '2017-03-02 16:04:02.452009', '2017-03-02 16:04:02.452009', '8ypaPUKQBhriZphT5Ag5NA');
+INSERT INTO topic_categories VALUES (13, 'Formative Assessments', '2015-02-07 21:55:22.856465', '2017-08-15 18:09:58.682767', 'XSx6hcLxlSf1WKaJFWgsNA');
+INSERT INTO topic_categories VALUES (20, 'Fragments & Run-ons', '2017-08-31 18:51:22.235915', '2017-08-31 18:51:22.235915', 'Y85XqsicNrSAHsG9YDADMw');
 
 
 --
