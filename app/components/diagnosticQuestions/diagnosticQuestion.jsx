@@ -14,8 +14,6 @@ import Modal from '../modal/modal.jsx';
 const NavLink = activeComponent('li');
 
 import {
-  loadResponseDataAndListen,
-  stopListeningToResponses,
   listenToResponsesWithCallback
 } from '../../actions/responses.js';
 
@@ -31,7 +29,6 @@ const DiagnosticQuestion = React.createClass({
 
   componentWillMount() {
     const { questionID, } = this.props.params;
-    // this.props.dispatch(loadResponseDataAndListen(questionID));
     listenToResponsesWithCallback(
       questionID,
       (data) => {
@@ -41,12 +38,6 @@ const DiagnosticQuestion = React.createClass({
         });
       }
     );
-  },
-
-  componentWillUnmount() {
-    console.log('Unmounting');
-    const questionID = this.props.params.questionID;
-    this.props.dispatch(stopListeningToResponses(questionID));
   },
 
   startEditingDiagnosticQuestion() {

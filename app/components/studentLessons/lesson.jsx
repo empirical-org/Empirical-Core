@@ -5,7 +5,6 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
-import { loadResponseData } from '../../actions/responses';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
@@ -199,14 +198,6 @@ const Lesson = React.createClass({
     if (this.state.sessionID) {
       SessionActions.update(this.state.sessionID, lessonData);
     }
-  },
-
-  getResponsesForEachQuestion(playLesson) {
-    this.setState({ hasOrIsGettingResponses: true, }, () => {
-      _.each(playLesson, (q, i) => {
-        this.props.dispatch(loadResponseData(q.key));
-      });
-    });
   },
 
   render() {

@@ -24,6 +24,7 @@ export function updateData(questionId, responses) {
 }
 
 function responsesForQuestionRef(questionId) {
+  alert("This is being called kejnfkwjenfk");
   return responsesRef.orderByChild('questionUID').equalTo(questionId);
 }
 
@@ -53,66 +54,6 @@ function groupResponsesByQuestion(snapshot) {
     }
   }
   return groupedResponses;
-}
-
-export function loadAllResponseData() {
-  return (dispatch) => {
-    responsesRef.once('value', (snapshot) => {
-      const data = groupResponsesByQuestion(snapshot.val());
-      const status = getQuestionLoadedStatusForGroupedResponses(data);
-      dispatch({ type: 'BULK UPDATE', data: { data, status, }, });
-    });
-  };
-}
-
-export function loadResponseData(questionId) {
-  return (dispatch) => {
-    // dispatch(updateStatus(questionId, 'LOADING'));
-    responsesForQuestionRef(questionId).once('value', (snapshot) => {
-      dispatch(updateData(questionId, snapshot.val()));
-      // dispatch(updateStatus(questionId, 'LOADED'));
-    });
-  };
-}
-
-export function loadMultipleResponses(arrayOfQuestionIDs, cb) {
-  return (dispatch) => {
-    const newValues = {};
-    const it = makeIterator(arrayOfQuestionIDs);
-    const firstID = it.next().value;
-    const doneTask = (newResponseData) => {
-      dispatch({ type: 'BULK UPDATE', data: { data: newResponseData, status: {}, }, });
-      cb();
-    };
-    loadResponseDataAndCallback(firstID, newValues, it, doneTask);
-  };
-}
-
-function loadResponseDataAndCallback(questionId, dataHash, iterator, cb) {
-  if (questionId === undefined) {
-    cb(dataHash);
-  } else {
-    responsesForQuestionRef(questionId).once('value', (snapshot) => {
-      dataHash[questionId] = snapshot.val();
-      loadResponseDataAndCallback(iterator.next().value, dataHash, iterator, cb);
-    });
-  }
-}
-
-export function loadResponseDataAndListen(questionId) {
-  return (dispatch) => {
-    dispatch(updateStatus(questionId, 'LOADING'));
-    responsesForQuestionRef(questionId).on('value', (snapshot) => {
-      dispatch(updateData(questionId, snapshot.val()));
-      dispatch(updateStatus(questionId, 'LOADED'));
-    });
-  };
-}
-
-export function stopListeningToResponses(questionId) {
-  return () => {
-    responsesForQuestionRef(questionId).off('value');
-  };
 }
 
 export function submitResponse(content, prid, isFirstAttempt) {
@@ -275,6 +216,7 @@ export function deleteResponse(qid, rid) {
 }
 
 export function setUpdatedResponse(rid, content) {
+  alert("This is being called");
   return (dispatch) => {
     responsesRef.child(rid).set(content, (error) => {
       if (error) {
@@ -287,6 +229,7 @@ export function setUpdatedResponse(rid, content) {
 }
 
 export function incrementFirstAttemptCount(rid) {
+  alert("This is being called");
   return (dispatch) => {
     responsesRef.child(`${rid}/firstAttemptCount`).transaction(currentCount => currentCount + 1, (error) => {
       if (error) {
@@ -299,6 +242,7 @@ export function incrementFirstAttemptCount(rid) {
 }
 
 export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
+  alert("This is being called");
   return (dispatch) => {
     const responseRef = responsesRef.child(rid);
     responseRef.child('/count').transaction(currentCount => currentCount + 1, (error) => {
@@ -321,6 +265,7 @@ export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
 }
 
 export function incrementChildResponseCount(rid) {
+  alert("This is being called");
   return (dispatch) => {
     responsesRef.child(`${rid}/childCount`).transaction(currentCount => currentCount + 1, (error) => {
       if (error) {
@@ -333,6 +278,7 @@ export function incrementChildResponseCount(rid) {
 }
 
 export function removeLinkToParentID(rid) {
+  alert("This is being called");
   return (dispatch) => {
     responsesRef.child(`${rid}/parentID`).remove((error) => {
       if (error) {
@@ -364,6 +310,7 @@ export function getResponsesWithCallback(questionID, callback) {
 }
 
 export function listenToResponsesWithCallback(questionID, callback) {
+  alert("sdafsefsefsfef")
   responsesForQuestionRef(questionID).on('value', (snapshot) => {
     callback(snapshot.val());
     console.log('Listened to responses for ', questionID);
@@ -371,6 +318,7 @@ export function listenToResponsesWithCallback(questionID, callback) {
 }
 
 function gradedResponsesForQuestionRef(questionId) {
+  alert("This is being called sjfbsjhebfjs");
   return responsesRef.orderByChild('gradeIndex').equalTo(`human${questionId}`);
 }
 
@@ -423,6 +371,7 @@ export function getGradedResponsesWithoutCallback(questionID) {
 }
 
 export function findResponseByText(text, questionUID, cb) {
+  alert("This is being called askjenfalkwjenf");
   responsesRef.orderByChild('text').equalTo(text).once('value', (snapshot) => {
     const response = _.findWhere(hashToCollection(snapshot.val()), { questionUID, });
     cb(response);

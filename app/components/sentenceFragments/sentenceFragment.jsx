@@ -9,8 +9,6 @@ import { Link } from 'react-router';
 import icon from '../../img/question_icon.svg';
 
 import {
-  loadResponseDataAndListen,
-  stopListeningToResponses,
   listenToResponsesWithCallback
 } from '../../actions/responses.js';
 import activeComponent from 'react-router-active-component';
@@ -28,7 +26,6 @@ const SentenceFragment = React.createClass({
 
   componentWillMount() {
     const questionID = this.props.params.questionID;
-    // this.props.dispatch(loadResponseDataAndListen(questionID));
     listenToResponsesWithCallback(
       questionID,
       (data) => {
@@ -38,12 +35,6 @@ const SentenceFragment = React.createClass({
         });
       }
     );
-  },
-
-  componentWillUnmount() {
-    console.log('Unmounting');
-    const questionID = this.props.params.questionID;
-    this.props.dispatch(stopListeningToResponses(questionID));
   },
 
   getResponses() {

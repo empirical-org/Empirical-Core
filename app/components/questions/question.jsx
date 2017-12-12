@@ -5,8 +5,6 @@ import questionActions from '../../actions/questions';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import {
-  loadResponseDataAndListen,
-  stopListeningToResponses,
   listenToResponsesWithCallback
 } from '../../actions/responses';
 import Modal from '../modal/modal.jsx';

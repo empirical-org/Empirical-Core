@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import CarouselAnim from '../shared/carouselAnimation.jsx';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
-import { loadResponseData, loadMultipleResponses } from '../../actions/responses';
 import { hashToCollection } from '../../libs/hashToCollection';
 import diagnosticQuestions from './diagnosticQuestions.js';
 import researchDiagnosticQuestions from './researchDiagnosticQuestions.js';
