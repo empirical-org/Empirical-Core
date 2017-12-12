@@ -1,0 +1,49 @@
+<p>
+  Hi there,
+</p>
+<p>
+  <%= @email_hash['inviter_name'] %> has invited you to co-teach the following
+  <%= 'class'.pluralize(@email_hash['classroom_names'].length) %> on Quill:
+</p>
+<ul>
+  <% @email_hash['classroom_names'].each do |name| %>
+    <li><%= name %></li>
+  <% end %>
+</ul>
+<p>
+  To accept the invitation, you first need to sign up with Quill below. If
+  you already have an account on Quill but with a different email,
+  ask <%= @email_hash['inviter_name'] %> to add you through the other email address.
+</p>
+<p>
+  <%= @email_hash['join_link'] %>
+</p>
+<p>
+  Quill is a nonprofit, educational technology organization dedicated to
+  strengthening student writing. Quill provides 10-15 minute exercises that
+  help students build sentence construction skills. Students will receive
+  specific, automatic feedback and hints to help students improve it. The
+  personalized, immediate responses to student submissions enable students to
+  build their writing skills quickly, and allow teachers to prioritize
+  data-driven intervention by removing the need for hours of grading.
+</p>
+<p>
+  Here is a quick summary of what you can do as a co-teacher:
+</p>
+<ul>
+  <li>Manage your class and edit students</li>
+  <li>Assign activities to the class</li>
+  <li>Launch Quill Lessons with class</li>
+  <li>View diagnostic and basic reporting</li>
+</ul>
+<p>
+  To learn more about co-teaching,
+  <%= link_to 'here is an article', @email_hash['support_article_link'] %>
+  that explains everything you need to know. We’re excited that you have
+  joined our community of learners, and welcome your questions and feedback!
+</p>
+<p>
+  Enjoy,
+  <br />
+  The Quill Team
+</p>

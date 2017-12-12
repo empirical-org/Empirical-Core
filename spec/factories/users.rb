@@ -21,7 +21,7 @@ FactoryBot.define do
         after(:create) do |teacher|
           classrooms = create_pair(:classroom_with_one_student, :with_no_teacher)
           classrooms.each do |classroom|
-            create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
+            create(:classrooms_teacher, user_id: teacher.id, classroom: classroom, role: 'owner')
           end
         end
       end

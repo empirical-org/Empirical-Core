@@ -6,9 +6,9 @@ module UnitQueries
     owns_unit = false
     if current_user.id == unit.user_id
       # then the user owns the unit, and can affect change amongst all classes they own
-      classrooms = current_user.classrooms_i_own_with_students
+      classrooms = current_user.classrooms_i_teach_with_students
     else
-      classrooms = current_user.classrooms_i_coteach_with_a_specific_teacher_with_students(unit.user_id)
+      classrooms = current_user.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(unit.user_id)
     end
       classrooms.each do |c|
         classroom_activity = ClassroomActivity.select("id, assigned_student_ids, assign_on_join").where(classroom_id: c['id'], unit_id: unit.id).limit(1)
