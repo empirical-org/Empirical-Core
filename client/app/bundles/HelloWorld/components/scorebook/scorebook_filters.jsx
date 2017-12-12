@@ -41,7 +41,7 @@ export default React.createClass({
     }
 
     return (
-      <div className="row activity-page-dropdown-wrapper">
+      <div className="row activity-page-dropdown-wrapper scorebook-filters">
         <div style={dropdownStyle}>
           <DropdownFilter
             options={this.props.classroomFilters}
