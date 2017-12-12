@@ -89,7 +89,7 @@ export default React.createClass({
       caId: u.classroom_activity_id,
       activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
-			ownedByCurrentUser: u.own_or_coteach === 'own',
+			ownedByCurrentUser: u.owned_by_current_user === 't',
 			ownerName: u.owner_name,
       dueDate: u.due_date, });
     return caObj;
@@ -117,7 +117,7 @@ export default React.createClass({
           created_at: u.classroom_activity_created_at,
           activityClassificationId: u.activity_classification_id,
 					classroomId: u.classroom_id,
-					ownedByCurrentUser: u.own_or_coteach === 'own',
+					ownedByCurrentUser: u.owned_by_current_user === 't',
 					ownerName: u.owner_name,
           createdAt: u.ca_created_at,
           dueDate: u.due_date, });

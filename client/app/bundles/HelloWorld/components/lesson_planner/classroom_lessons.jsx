@@ -119,7 +119,7 @@ export default class ClassroomLessons extends React.Component {
       studentCount: studentCount,
       started: u.started_count > 0,
       hasEditions: hasEditions,
-      ownedByCurrentUser: u.own_or_coteach === 'own',
+      ownedByCurrentUser: u.owned_by_current_user === 't',
       ownerName: u.owner_name
     });
     return caObj;
@@ -155,7 +155,8 @@ export default class ClassroomLessons extends React.Component {
           completed: u.completed_count > 0,
           studentCount: studentCount,
           started: u.started_count > 0,
-          hasEditions: hasEditions
+          hasEditions: hasEditions,
+          ownedByCurrentUser: u.owned_by_current_user === 't'
         });
       }
     });
