@@ -19,10 +19,40 @@ create(:add_school)
 create(:assign_entry_diagnostic)
 create(:build_your_own_activity_pack)
 
-# Import concepts table data from SQL
-ActiveRecord::Base.connection.execute(File.read('concepts.sql'))
+# Generate milestones
 
-# Generate unit templates with activities
+
+# Import concepts
+ActiveRecord::Base.connection.execute(File.read('seeds/concepts.sql'))
+
+# Import activities
+ActiveRecord::Base.connection.execute(File.read('seeds/activities.sql'))
+
+# Import categories
+ActiveRecord::Base.connection.execute(File.read('seeds/categories.sql'))
+
+# Import activity categories
+ActiveRecord::Base.connection.execute(File.read('seeds/activity_categories.sql'))
+
+# Import activity category activities
+ActiveRecord::Base.connection.execute(File.read('seeds/activity_category_activities.sql'))
+
+# Import unit templates
+ActiveRecord::Base.connection.execute(File.read('seeds/unit_templates.sql'))
+
+# Import unit template categories
+ActiveRecord::Base.connection.execute(File.read('seeds/unit_template_categories.sql'))
+
+# Import activities unit templates
+ActiveRecord::Base.connection.execute(File.read('seeds/activities_unit_templates.sql'))
+
+# Import activities topics
+ActiveRecord::Base.connection.execute(File.read('seeds/topics.sql'))
+
+# Import activities topic categories
+ActiveRecord::Base.connection.execute(File.read('seeds/topic_categories.sql'))
+
+# Generate sections
 
 
 # Generate units
