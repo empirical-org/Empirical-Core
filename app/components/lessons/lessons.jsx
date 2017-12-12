@@ -14,7 +14,7 @@ const Lessons = React.createClass({
 
   getInitialState() {
     return {
-      lessonFlags: 'All Flags',
+      lessonFlags: 'production',
       showOnlyArchived: false,
     };
   },
@@ -82,7 +82,7 @@ const Lessons = React.createClass({
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Lesson</button></h1>
           { this.renderModal() }
           <div style={{display: 'inline-block'}}>
-            <FlagDropdown flag={"All Flags"} handleFlagChange={this.handleSelect} isLessons={true}/>
+            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true}/>
           </div>
           <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} />
           <div className="columns">
