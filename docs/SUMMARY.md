@@ -8,6 +8,7 @@
     * [Question Health](features/connect_admin/question_health.md)
     * [Score Analysis](features/connect_admin/score_analysis.md)
   * [Co-teachers](features/coteachers.md)
+  * [Invitations](features/invitations.md)
   * [Teacher Fixes](features/teacher_fixes.md)
   * [Activity Packs Editor](features/activity_packs_editor.md)
   * [Unit Templates](features/unit_templates_index.md)

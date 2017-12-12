@@ -1,0 +1,31 @@
+<p>
+  Hi <%= @email_hash['invitee_first_name'] %>,
+</p>
+<p>
+  <%= @email_hash['inviter_name'] %> has just invited you to co-teach the following
+  <%= 'class'.pluralize(@email_hash['classroom_names'].length) %> on Quill:
+</p>
+<ul>
+  <% @email_hash['classroom_names'].each do |name| %>
+    <li><%= name %></li>
+  <% end %>
+</ul>
+<p>
+  <%= link_to 'You can accept this invitation via the Manage Classes page.', @email_hash['accept_link'] %>
+</p>
+  <p></p>
+<p>
+  Once you accept the invitation, you will see
+  <%= @email_hash['classroom_names'].length > 1 ? 'these classes' : 'this class' %>
+  on your teacher dashboard and under Active Classes on the Manage Classes page.
+</p>
+<p>
+  To learn more about co-teaching,
+  <%= link_to 'here is an article', @email_hash['support_article_link'] %>
+  that explains everything you need to know.
+</p>
+<p>
+  Enjoy,
+  <br />
+  The Quill Team
+</p>
