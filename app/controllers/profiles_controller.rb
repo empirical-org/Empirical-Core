@@ -69,7 +69,7 @@ protected
         name: @current_classroom.name,
         id: @current_classroom.id,
         teacher: {
-          name: @current_classroom.teacher.name
+          name: @current_classroom.owner.name
         }
       },
     }
@@ -79,7 +79,8 @@ protected
     ActiveRecord::Base.connection.execute(
     "SELECT classrooms.name AS name, teacher.name AS teacher, classrooms.id AS id FROM classrooms
       JOIN students_classrooms AS sc ON sc.classroom_id = classrooms.id
-      JOIN users AS teacher ON teacher.id = classrooms.teacher_id
+      JOIN classrooms_teachers ON classrooms_teachers.classroom_id = sc.classroom_id AND classrooms_teachers.role = 'owner'
+      JOIN users AS teacher ON teacher.id = classrooms_teachers.user_id
       WHERE sc.student_id = #{current_user.id}
       AND classrooms.visible = true
       ORDER BY sc.created_at ASC").to_a
@@ -98,7 +99,7 @@ protected
        unit.name AS unit_name,
        ca.id AS ca_id,
        ca.completed AS marked_complete,
-       acts.activity_id,
+       ca.activity_id,
        MAX(acts.updated_at) AS act_sesh_updated_at,
        ca.due_date,
        ca.created_at AS classroom_activity_created_at,

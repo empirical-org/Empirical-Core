@@ -10,7 +10,7 @@ shared_context 'Concept Progress Report' do
 
   let!(:activity) { create(:activity) }
   let!(:student) { create(:student) }
-  let!(:classroom) { create(:classroom, teacher: teacher, students: [student]) }
+  let!(:classroom) { create(:classroom, students: [student]) }
   let!(:unit) { create(:unit) }
   let!(:classroom_activity) { create(:classroom_activity,
                                           classroom: classroom,
@@ -29,6 +29,7 @@ shared_context 'Concept Progress Report' do
                                         state: 'finished',
                                         percentage: 0.75
                                         ) }
+
 
   let!(:correct_writing_result1) { create(:concept_result,
     activity_session: activity_session,
@@ -66,9 +67,9 @@ shared_context 'Concept Progress Report' do
     }) }
 
   # Should not be visible on the report
-  let!(:other_teacher) { create(:teacher) }
   let!(:other_student) { create(:student) }
-  let!(:other_classroom) { create(:classroom, teacher: other_teacher) }
+  let!(:other_classroom) { create(:classroom) }
+  let!(:other_teacher) { other_classroom.owner }
   let!(:other_unit) { create(:unit) }
   let!(:other_classroom_activity) { create(:classroom_activity,
     classroom: other_classroom,

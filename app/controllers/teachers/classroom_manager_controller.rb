@@ -37,15 +37,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    current_user.classrooms_i_teach.includes(:students).each do |classroom|
-      obj = {
-        classroom: classroom,
-        students: classroom.students.sort_by(&:sorting_name)
-      }
-      ( @classrooms_and_their_students ||= [] ).push obj
+    classrooms_and_their_students = current_user.classrooms_i_own.map do |classroom|
+      {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
     end
     render json: {
-      classrooms_and_their_students: @classrooms_and_their_students
+      classrooms_and_their_students: classrooms_and_their_students
     }
   end
 
@@ -60,22 +56,33 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def archived_classroom_manager_data
     begin
-    active = current_user.classrooms_i_teach
-      .map(&:archived_classrooms_manager)
-    inactive = Classroom.unscoped
-      .where(teacher_id: current_user.id, visible: false)
-      .map(&:archived_classrooms_manager)
+    active = []
+    inactive = []
+    # TODO: easy performance fix could be done here
+    ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
+      classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
+      if classroom.visible
+        active << classroom.archived_classrooms_manager
+      else
+        inactive << classroom.archived_classrooms_manager
+      end
+    end
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
-      render json: {active: active, inactive: inactive}
+      render json: {
+        active: active,
+        inactive: inactive,
+        coteachers: current_user.classrooms_i_own_that_have_coteachers,
+        pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations
+      }
     end
   end
 
   def scorebook
-    @classrooms = Classroom.where(teacher_id: current_user.id).select('classrooms.id, classrooms.id AS value, classrooms.name')
+    @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find(params['classroom_id'])
+      @classroom = @classrooms.find{|classroom| classroom["id"] == params['classroom_id']}
     else
       @classroom = @classrooms.first
     end
@@ -188,14 +195,18 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   private
 
+  def classrooms_with_data
+    ActiveRecord::Base.connection.execute(
+      "SELECT classrooms.id, classrooms.id AS value, classrooms.name from classrooms_teachers AS ct
+      JOIN classrooms ON ct.classroom_id = classrooms.id AND classrooms.visible = TRUE
+      WHERE ct.user_id = #{current_user.id}"
+    ).to_a
+  end
+
 
   def authorize!
-    if current_user.classrooms_i_teach.any?
-      if params[:classroom_id].present? and params[:classroom_id].length > 0
-        @classroom = Classroom.find(params[:classroom_id])
-      end
-      @classroom ||= Classroom.unscoped.find_by(teacher_id: current_user.id)
-      auth_failed unless @classroom.teacher == current_user
+    if params[:classroom_id]
+      classroom_teacher!(params[:classroom_id])
     end
   end
 
