@@ -70,16 +70,8 @@ create(:grade_11_section)
 create(:grade_12_section)
 create(:university_section)
 
-# Generate classroom activities
-
-
 # Generate a teacher with classes and students with activities
-
-
-# Generate a teacher from Google Classroom with classes and students with activities
-
-
-# Generate a teacher from Clever with classes and students with activities
+create(:teacher, :with_classrooms_students_and_activities)
 
 # Generate Firebase apps
 create(:grammar_firebase_app)
