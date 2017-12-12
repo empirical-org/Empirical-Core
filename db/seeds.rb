@@ -4,7 +4,7 @@ include FactoryBot::Syntax::Methods
 # Generate a staff user with a known username and password
 create(:staff, username: 'staff', password: 'staff')
 
-# Generate activity categories
+# Generate activity classifications
 create(:diagnostic)
 create(:proofreader)
 create(:grammar)
@@ -20,7 +20,10 @@ create(:assign_entry_diagnostic)
 create(:build_your_own_activity_pack)
 
 # Generate milestones
-
+create(:view_lessons_tutorial_milestone)
+create(:complete_diagnostic_milestone)
+create(:publish_customized_lesson_milestone)
+create(:complete_customized_lesson_milestone)
 
 # Import concepts
 ActiveRecord::Base.connection.execute(File.read('seeds/concepts.sql'))
