@@ -53,6 +53,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def assign_selected_packs
+        Recommendations.new.send("recs_for_#{params[:activity_id]}").map do |rec|
+          Unit.unscoped.find_or_create_by(unit_template_id: rec[:activityPackId], name: rec[:recommendation], user_id: current_user.id)
+        end
         create_or_update_selected_packs
         render json: { data: 'Hi' }
     end
@@ -108,13 +111,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         if params[:whole_class]
           UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
         else
-          teacher_id = current_user.id
           selections_with_students = params[:selections].select do |ut|
             ut[:classrooms][0][:student_ids]&.compact&.any?
           end
           if selections_with_students.any?
             number_of_selections = selections_with_students.length
-            selections_with_students.reverse.each_with_index do |value, index|
+            selections_with_students.each_with_index do |value, index|
                 last = (number_of_selections - 1) == index
                 # this only accommodates one classroom at a time
                 classroom = value[:classrooms][0]

@@ -113,13 +113,13 @@ export default React.createClass({
           }
         ],
       }));
-      selections = { selections, };
+      const data = {selections, activity_id: this.props.params.activityId}
       $.ajax({
 		  	type: 'POST',
 		  	url: '/teachers/progress_reports/assign_selected_packs/',
 		  	dataType: 'json',
 		  	contentType: 'application/json',
-		  	data: JSON.stringify(selections),
+		  	data: JSON.stringify(data),
       })
 			.done(() => { this.initializePusher(); })
 			.fail(() => {
@@ -136,7 +136,7 @@ export default React.createClass({
       url: '/teachers/progress_reports/assign_selected_packs/',
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
+      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, activity_id: this.props.params.activityId}),
     })
     .done(() => {
       this.initializePusher(unitTemplateId);
