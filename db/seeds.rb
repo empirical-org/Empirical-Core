@@ -49,7 +49,7 @@ ActiveRecord::Base.connection.execute(File.read('seeds/unit_template_categories.
 # Import activities unit templates
 ActiveRecord::Base.connection.execute(File.read('seeds/activities_unit_templates.sql'))
 
-# Import activities topics
+# Import topics
 ActiveRecord::Base.connection.execute(File.read('seeds/topics.sql'))
 
 # Import activities topic categories
