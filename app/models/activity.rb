@@ -29,6 +29,8 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
+  DIAGNOSTIC_ACTIVITY_IDS = [413, 447, 602]
+
   def topic_uid= uid
     self.topic_id = Topic.find_by_uid(uid).id
   end
@@ -95,7 +97,9 @@ class Activity < ActiveRecord::Base
   end
 
   def self.clear_activity_search_cache
-    $redis.del('default_activity_search')
+    %w(production_ beta_ alpha_).push('').each do |flag|
+      $redis.del("default_#{}activity_search")
+    end
   end
 
   def self.set_activity_search_cache

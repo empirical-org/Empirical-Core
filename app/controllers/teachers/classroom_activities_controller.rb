@@ -28,7 +28,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     completed = UserMilestone.find_by(milestone_id: milestone.id, user_id: current_user.id)
     lesson = Activity.find_by(uid: params['lesson_uid']) || Activity.find_by(id: params['lesson_uid'])
     base_route = lesson.classification.form_url
-    lesson_url = "#{base_route}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    if (ActivitySession.find_by(classroom_activity_id: @classroom_activity.id, state: 'started'))
+      lesson_url = "#{base_route}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    else
+      lesson_url = "#{base_route}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    end
     if completed
       unlocked = @classroom_activity.update(locked: false, pinned: true)
       if unlocked
@@ -68,12 +72,12 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 private
 
   def find_or_create_lesson_activity_sessions_for_classroom
-    @classroom_activity.assigned_student_ids.each{|id| @classroom_activity.find_or_create_started_activity_session(id)}
+    @classroom_activity.assigned_student_ids.each{|id| ActivitySession.unscoped.find_or_create_by(classroom_activity_id: @classroom_activity.id, activity_id: @classroom_activity.activity_id, user_id: id).update(visible: true)}
   end
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
-    if @classroom_activity.classroom.teacher != current_user then auth_failed end
+    if @classroom_activity.classroom.owner != current_user then auth_failed end
   end
 
   def authorize_student!
