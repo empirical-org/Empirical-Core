@@ -99,7 +99,14 @@ class User < ActiveRecord::Base
   end
 
   def username_cannot_be_an_email
-    errors.add(:username, "cannot be in email format") if username =~ VALID_EMAIL_REGEX
+    if username =~ VALID_EMAIL_REGEX
+      if self.id
+        db_self = User.find(self.id)
+        errors.add(:username, "cannot be in email format") unless db_self.username == username
+      else
+        errors.add(:username, "cannot be in email format")
+      end
+    end
   end
 
   def safe_role_assignment role
