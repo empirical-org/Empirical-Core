@@ -53,8 +53,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def assign_selected_packs
-        Recommendations.new.send("recs_for_#{params[:activity_id]}").map do |rec|
-          Unit.unscoped.find_or_create_by(unit_template_id: rec[:activityPackId], name: rec[:recommendation], user_id: current_user.id)
+        if params[:selections]
+          params[:selections].map { |s| s['id']}.each do |ut_id|
+            ut = UnitTemplate.find(ut_id)
+            Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
+          end
         end
         create_or_update_selected_packs
         render json: { data: 'Hi' }
