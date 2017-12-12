@@ -70,9 +70,6 @@ create(:grade_11_section)
 create(:grade_12_section)
 create(:university_section)
 
-# Generate units
-
-
 # Generate classroom activities
 
 
