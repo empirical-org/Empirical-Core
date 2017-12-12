@@ -9,7 +9,8 @@ export default class extends React.Component {
     this.state = {
       lessons: null,
       showModal: false,
-      completedDiagnosticUnitInfo: null
+      completedDiagnosticUnitInfo: null,
+      loading: true
     };
 
     this.openModal = this.openModal.bind(this);
@@ -27,7 +28,7 @@ export default class extends React.Component {
       url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/lessons_units_and_activities`,
     },
     (e, r, lessons) => {
-      that.setState({ lessons: JSON.parse(lessons).data, });
+      that.setState({ lessons: JSON.parse(lessons).data, }, this.checkIfStillLoading);
     });
   }
 
@@ -37,8 +38,14 @@ export default class extends React.Component {
       url: `${process.env.DEFAULT_URL}/teachers/get_completed_diagnostic_unit_info`,
     },
     (e, r, body) => {
-      that.setState({ completedDiagnosticUnitInfo: JSON.parse(body).unit_info, });
+      that.setState({ completedDiagnosticUnitInfo: JSON.parse(body).unit_info, }, this.checkIfStillLoading);
     });
+  }
+
+  checkIfStillLoading() {
+    if (this.state.lessons && this.state.completedDiagnosticUnitInfo) {
+      this.setState({loading: false})
+    }
   }
 
   openModal(activityID) {
@@ -92,7 +99,7 @@ export default class extends React.Component {
         </div>
         {this.renderAssignedLessons()}
       </div>
-    } else if (this.state.completedDiagnosticUnitInfo) {
+    } else if (this.state.completedDiagnosticUnitInfo && Object.keys(this.state.completedDiagnosticUnitInfo).length > 0) {
       const {unit_id, classroom_id, activity_id} = this.state.completedDiagnosticUnitInfo
       return <div className="inner-container">
         <div className="header-container flex-row space-between vertically-centered lesson-item">
@@ -106,6 +113,8 @@ export default class extends React.Component {
           <p>Based on your class performance on the diagnostic, your students need instructions in concepts such as <span className="recommendation">Complex Sentences</span>, <span className="recommendation">Fragments</span> and <span className="recommendation">Compound Sentences</span>.</p>
         </div>
       </div>
+    } else if (this.state.loading) {
+      return <div className="inner-container"></div>
     } else {
       return <div className="inner-container">
         <div className="header-container flex-row space-between vertically-centered lesson-item">
