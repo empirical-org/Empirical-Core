@@ -19,6 +19,37 @@ describe User, type: :model do
       end
     end
 
+    describe '#classrooms_i_own_with_students' do
+      it 'should return an array of classroom hashes with array of students on each' do
+        classroom_hash = classroom.attributes
+        classroom_hash[:students] = classroom.students
+        classroom1_hash = classroom1.attributes
+        classroom1_hash[:students] = classroom1.students
+        classrooms = teacher.classrooms_i_own_with_students
+        expect(classrooms).to eq([classroom_hash, classroom1_hash])
+      end
+
+      it "should return an empty array if the teacher does not own any classrooms" do
+        ClassroomsTeacher.where(user_id: teacher.id).update_all(role: 'coteacher')
+        expect(teacher.classrooms_i_own_with_students).to eq([])
+      end
+    end
+
+    describe '#classrooms_i_own_that_a_specific_user_coteaches_with_me' do
+      it 'returns an empty array if a user owns no classrooms that the specific coteacher_id coteaches' do
+        ct = create(:classrooms_teacher, role: 'coteacher')
+        coteacher = ct.user
+        expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([])
+      end
+
+      it 'returns the classroom the user owns if they coteach that classroom with the coteacher_id ' do
+        ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
+        coteacher = ct.user
+        expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([classroom])
+      end
+
+    end
+
     describe '#classrooms_i_own_that_have_coteachers' do
 
       it 'returns an empty array if a user owns no classrooms with coteachers' do
@@ -31,6 +62,7 @@ describe User, type: :model do
         expect(teacher.classrooms_i_own_that_have_coteachers).to eq(["name"=> ct.classroom.name, "coteacher_name"=> coteacher.name, "coteacher_email"=>coteacher.email, "coteacher_id"=>coteacher.id.to_s])
       end
     end
+
     describe '#classrooms_i_own_that_have_pending_coteacher_invitations' do
 
       it 'returns an empty array if a user owns no classrooms with pending coteacher invitation' do
@@ -41,6 +73,37 @@ describe User, type: :model do
         coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
         teacher = coteacher_classroom_invitation.invitation.inviter
         expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(["name"=> coteacher_classroom_invitation.classroom.name, "coteacher_email"=>coteacher_classroom_invitation.invitation.invitee_email])
+      end
+    end
+
+
+
+
+    describe '#classroom_ids_i_have_invited_a_specific_teacher_to_coteach' do
+      it "returns an empty array if the user does not have any open invitations with the specified coteacher" do
+        coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
+        teacher = coteacher_classroom_invitation.invitation.inviter
+        invitee = User.find_by_email(coteacher_classroom_invitation.invitation.invitee_email)
+        expect(teacher.classroom_ids_i_have_invited_a_specific_teacher_to_coteach(invitee.id + 1)).to be_empty
+      end
+
+      it "returns the id of classrooms the user has invited a specific user to coteach" do
+        coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
+        teacher = coteacher_classroom_invitation.invitation.inviter
+        invitee = User.find_by_email(coteacher_classroom_invitation.invitation.invitee_email)
+        expect(teacher.classroom_ids_i_have_invited_a_specific_teacher_to_coteach(invitee.id)).to eq([coteacher_classroom_invitation.classroom.id])
+      end
+    end
+
+    describe '#has_outstanding_coteacher_invitation?' do
+      it "returns true if an outstanding invitation exists for the current user" do
+        pending_coteacher_invitation =  create(:pending_coteacher_invitation, invitee_email: teacher.email)
+        create(:coteacher_classroom_invitation, invitation: pending_coteacher_invitation)
+        expect(teacher.has_outstanding_coteacher_invitation?).to eq(true)
+      end
+
+      it "returns false if an outstanding invtation does not exist for the current user" do
+        expect(teacher.has_outstanding_coteacher_invitation?).to eq(false)
       end
     end
 
@@ -94,7 +157,7 @@ describe User, type: :model do
         end
 
         it "returns all pending invitation to coteach classrooms" do
-          expect(teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of[:coteacher_classroom_invitations_ids]).to include(pending_coteacher_invitation.id)
+          expect(teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of[:coteacher_classroom_invitations_ids]).to include(coteacher_classroom_invitation.id)
         end
       end
 
