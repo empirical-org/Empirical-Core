@@ -78,3 +78,8 @@ create(:teacher, :with_classrooms_students_and_activities, username: 'teacher', 
 
 # Generate Firebase apps
 create(:grammar_firebase_app)
+
+# Reset primary keys
+ActiveRecord::Base.connection.tables.each do |table|
+  ActiveRecord::Base.connection.reset_pk_sequence!(table)
+end
