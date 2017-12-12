@@ -5,7 +5,7 @@ export default class extends React.Component {
   render() {
     return (
       <div id='coteacher-capability-chart'>
-        <h1>What can coteachers do?</h1>
+        <h1>What can co-teachers do?</h1>
         <div className='flex-row'>
           <ul>
             <li>Manage your class and edit students</li>
