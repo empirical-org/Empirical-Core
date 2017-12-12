@@ -5,6 +5,13 @@ import _ from 'lodash'
 import {
   addLesson
 } from '../../../actions/classroomLesson'
+import {
+  startListeningToEditions
+} from '../../../actions/customize'
+import {
+  listenForClassroomLessonsFromFirebase,
+  listenForclassroomLessonsReviewsFromFirebase
+} from '../../../actions/classroomLesson';
 
 class ClassLessonsIndex extends Component<any, any> {
   constructor(props) {
@@ -18,6 +25,9 @@ class ClassLessonsIndex extends Component<any, any> {
     this.addLesson = this.addLesson.bind(this)
     this.changeNewLessonName = this.changeNewLessonName.bind(this)
     this.goToNewLesson = this.goToNewLesson.bind(this)
+    props.dispatch(listenForClassroomLessonsFromFirebase());
+    props.dispatch(listenForclassroomLessonsReviewsFromFirebase())
+    props.dispatch(startListeningToEditions())
   }
 
   componentWillReceiveProps(nextProps) {
