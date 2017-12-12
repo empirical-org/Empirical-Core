@@ -12,7 +12,7 @@ script:
   - bundle exec rake spec
   - ps -ef | grep 'redis-server' | head -n 3 | awk '{ print $2}' | xargs kill -9 # kill the three redis instances
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
-  - npm run jest --runInBand
+  - npm run jest --maxWorkers=4
   - bash <(curl -s https://codecov.io/bash) -cF jest
   - bundle exec brakeman
   - bundle exec teaspoon
