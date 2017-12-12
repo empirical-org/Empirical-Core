@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :activity_category do
-
-    name 'An Activity Category'
-    order_number 0
-
+    name { Faker::Book.title }
+    sequence(:order_number)
   end
 end

@@ -56,7 +56,19 @@ ActiveRecord::Base.connection.execute(File.read('seeds/topics.sql'))
 ActiveRecord::Base.connection.execute(File.read('seeds/topic_categories.sql'))
 
 # Generate sections
-
+create(:grade_1_section)
+create(:grade_2_section)
+create(:grade_3_section)
+create(:grade_4_section)
+create(:grade_5_section)
+create(:grade_6_section)
+create(:grade_7_section)
+create(:grade_8_section)
+create(:grade_9_section)
+create(:grade_10_section)
+create(:grade_11_section)
+create(:grade_12_section)
+create(:university_section)
 
 # Generate units
 
