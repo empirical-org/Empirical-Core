@@ -71,7 +71,7 @@ create(:grade_12_section)
 create(:university_section)
 
 # Generate a teacher with classes and students with activities
-create(:teacher, :with_classrooms_students_and_activities)
+create(:teacher, :with_classrooms_students_and_activities, username: 'teacher', password: 'teacher')
 
 # Generate Firebase apps
 create(:grammar_firebase_app)
