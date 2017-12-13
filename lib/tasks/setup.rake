@@ -19,8 +19,14 @@ namespace :empirical do
     puts "** Loading Structure..."
     Rake::Task['db:structure:load'].invoke
 
+    puts "** Starting Redis..."
+    `redis-server --port 6379 &`
+
     puts "** Seeding database..."
     Rake::Task["db:seed"].invoke
+
+    puts "** Killing Redis..."
+    `ps -ef | grep 'redis-server' | head -n 1 | awk '{ print $2}' | xargs kill -9`
 
     puts "** Setup complete!"
   end
