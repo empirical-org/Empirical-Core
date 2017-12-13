@@ -623,6 +623,19 @@ describe User, type: :model do
 
   end
 
+  describe '#update_invitee_email_address' do
+    let!(:invite_one) { create(:invitation) }
+    let!(:old_email) { invite_one.invitee_email }
+    let!(:invite_two) { create(:invitation, invitee_email: old_email) }
+
+    it 'should update invitee email address in invitations table if email changed' do
+      new_email = Faker::Internet.safe_email
+      User.find_by_email(old_email).update(email: new_email)
+      expect(Invitation.where(invitee_email: old_email).count).to be(0)
+      expect(Invitation.where(invitee_email: new_email).count).to be(2)
+    end
+  end
+
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
 end

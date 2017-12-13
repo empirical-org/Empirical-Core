@@ -33,9 +33,16 @@ export default React.createClass({
   ],
 
   render() {
+    const dropdownStyle = {
+      'width': '250px',
+      'position': 'relative',
+      'display': 'inline-block',
+      'marginRight': '20px'
+    }
+
     return (
-      <div className="row activity-page-dropdown-wrapper">
-        <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 ">
+      <div className="row activity-page-dropdown-wrapper scorebook-filters">
+        <div style={dropdownStyle}>
           <DropdownFilter
             options={this.props.classroomFilters}
             selectOption={this.props.selectClassroom}
@@ -44,7 +51,7 @@ export default React.createClass({
             icon="fa-group"
           />
         </div>
-        <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div style={dropdownStyle}>
           <DropdownFilter
             options={this.props.unitFilters}
             selectOption={this.props.selectUnit}
@@ -52,7 +59,7 @@ export default React.createClass({
             icon="fa-book"
           />
         </div>
-        <div className="col-xs-12 col-sm-6">
+        <div style={dropdownStyle}>
           <DateRangeFilter
             selectDates={this.props.selectDates}
             filterOptions={this.DATE_RANGE_FILTER_OPTIONS}
