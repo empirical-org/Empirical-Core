@@ -14,7 +14,7 @@ script:
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
   - npm run jest
   - bash <(curl -s https://codecov.io/bash) -cF jest
-  - bundle exec brakeman
+  - bundle exec brakeman -z
   - bundle exec teaspoon
 before_script:
   - cp config/database.yml.travis config/database.yml

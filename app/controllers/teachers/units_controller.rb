@@ -197,7 +197,8 @@ class Teachers::UnitsController < ApplicationController
          EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
          EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,
          '#{own_or_coteach}' AS own_or_coteach,
-         unit_owner.name AS owner_name
+         unit_owner.name AS owner_name,
+         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
       FROM units
         INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
         INNER JOIN activities ON ca.activity_id = activities.id
@@ -210,7 +211,7 @@ class Teachers::UnitsController < ApplicationController
         AND units.visible = true
         AND ca.visible = true
         #{lessons}
-        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name
+        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id
         #{completed}
         ").to_a
     else
