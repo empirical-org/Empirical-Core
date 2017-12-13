@@ -4,11 +4,11 @@ describe 'ActivitiesListByClassroom' do
   let(:classroom) {create(:classroom_with_classroom_activities)}
 
   it "returns a row for each student that completed an activity session" do
-    expect(ProgressReports::ActivitiesListByClassroom.results(classroom.id).length).to eq(classroom.students.length)
+    expect(ProgressReports::ActivitiesListByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id)).length).to eq(classroom.students.length)
   end
 
   it "returns the average score and activity count for each student that completed activity sessions" do
-    results = ProgressReports::ActivitiesListByClassroom.results(classroom.id)
+    results = ProgressReports::ActivitiesListByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))
     results.each do |res|
       activity_session_percentage = ActivitySession.where(user_id: res['student_id']).pluck(:percentage)
       expect(activity_session_percentage.length).to eq(res['activity_count'].to_i)
