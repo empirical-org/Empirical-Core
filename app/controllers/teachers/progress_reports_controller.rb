@@ -37,13 +37,11 @@ class Teachers::ProgressReportsController < ApplicationController
     render 'landing_page'
   end
 
-  def activities_list_by_classroom
-    render 'activities_list_by_classroom'
+  def activities_scores_by_classroom
+    render 'activities_scores_by_classroom'
   end
 
-  def activities_list_by_classroosm_data
-    activities_list_by_classroom()
-  end
+
 
   private
 
