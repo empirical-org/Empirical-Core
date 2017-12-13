@@ -1,0 +1,56 @@
+.my-activities-unit {
+  .assigned-activities {
+    background-color: #ffffff;
+  }
+  .unit-header-row {
+    min-height: 130px;
+    margin: 0px !important;
+    background-color: #fafafa;
+    border-right: solid 1px #c0c0c0;
+    border-radius: 6px 6px 0px 0px;
+    border-left: solid 1px #c0c0c0;
+    padding: 18px 20px 30px;
+    border-top: solid 1px #c0c0c0;
+    position: relative;
+    align-items: flex-start !important;
+    .left {
+      display: flex;
+      flex: 3;
+      flex-direction: column;
+      .unit-name {
+        font-weight: bold;
+        color: #3b3b3b;
+        margin-bottom: 30px;
+      }
+      .delete-unit {
+        margin-left: 15px;
+      }
+    }
+    .right {
+      flex: 2;
+      .assigned-to {
+        font-size: 14px;
+        font-weight: 600;
+        span {
+          display: inline-block;
+          margin-bottom: 20px;
+          color: #969696;
+        }
+        ul {
+          padding-left: 0px;
+          list-style: none;
+          color: #3b3b3b;
+          li {
+            margin-bottom: 14px;
+          }
+        }
+      }
+    }
+    .edit-students {
+      position: absolute;
+      right: 22px;
+      top: 14px;
+      width: inherit;
+    }
+  }
+}

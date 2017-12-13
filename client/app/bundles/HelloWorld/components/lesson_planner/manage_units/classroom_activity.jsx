@@ -162,7 +162,7 @@ renderLessonPlanTooltip() {
        return this.lessonFinalCell();
     }
     if (this.props.data.ownedByCurrentUser) {
-      return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Optional'} />;
+      return <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} />;
     } else {
       return startDate ? <div className='due-date-input'>{startDate.format('l')}</div> : null;
     }
