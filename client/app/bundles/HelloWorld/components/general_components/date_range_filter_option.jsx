@@ -8,8 +8,9 @@ export default React.createClass({
   },
 
   render: function() {
+    const selected = this.props.selected ? 'selected' : ''
     return (
-      <div className='calendar-prefill-option' onClick={this.props.onClickFunction}>{this.props.title}</div>
+      <div className={`calendar-prefill-option ${selected}`} onClick={this.props.onClickFunction}>{this.props.title}</div>
     );
   }
 })

@@ -21,6 +21,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
       active_classrooms = sanitize_hash_array_for_comparison_with_sql(active_classrooms) + visible_classrooms.map(&:archived_classrooms_manager)
       session[:user_id] = teacher.id
       get :archived_classroom_manager_data
+
+      save_mock_data(response)
+
       expect(response.body).to eq({
         active: active_classrooms,
         active_classrooms_i_own: teacher.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
