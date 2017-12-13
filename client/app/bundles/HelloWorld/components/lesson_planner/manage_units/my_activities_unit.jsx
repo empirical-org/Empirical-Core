@@ -11,6 +11,7 @@ export default React.createClass({
       unitName: (this.props.data.unitName || this.props.data.unit.name),
       savedUnitName: (this.props.data.unitName || this.props.data.unit.name),
       error: false,
+      showTooltip: false
     };
   },
 
@@ -26,7 +27,7 @@ export default React.createClass({
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
     const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
-    const classroomList = classrooms.map((c, i) => <li key={i}>{c}</li>)
+    const classroomList = classrooms.map((c, i) => <li key={i}>{c.name} ({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</li>)
     return <div className="assigned-to">
       <span>Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
       <ul>
@@ -45,7 +46,15 @@ export default React.createClass({
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete Activity Pack</span>;
     } else if (!ownedByCurrentUser) {
-      return <span className='locked-unit'>  <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>Created By {firstCa.ownerName}</span>
+      return <span
+        className='locked-unit'
+        onMouseEnter={this.toggleTooltip}
+        onMouseLeave={this.toggleTooltip}
+        >
+          <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>
+          Created By {firstCa.ownerName}
+          {this.renderTooltip()}
+        </span>
     }
   },
 
@@ -74,10 +83,18 @@ export default React.createClass({
     request.put('/teachers/units', { name: this.state.unitName, });
   },
 
-  dueDate() {
-    if (!this.props.report && !this.props.lesson) {
-      return <span className="due-date-header">Due Date</span>;
-    }
+  toggleTooltip() {
+    this.setState({showTooltip: !this.state.showTooltip})
+  },
+
+  renderTooltip() {
+  const visible = this.state.showTooltip ? 'visible' : 'invisible'
+    const ownerName = this.props.data.classroomActivities.values().next().value.ownerName
+    return <div className={`tooltip ${visible}`}>
+      <i className="fa fa-caret-up"/>
+      <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
+      <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
+    </div>
   },
 
   changeToEdit() {

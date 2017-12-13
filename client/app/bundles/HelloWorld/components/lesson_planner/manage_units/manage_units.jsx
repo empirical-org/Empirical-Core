@@ -61,7 +61,7 @@ export default React.createClass({
   getUnitsForCurrentClass() {
     if (this.state.selectedClassroomId) {
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
-      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.includes(selectedClassroom.name));
+      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.findIndex(c => c.name === selectedClassroom.name) !== -1);
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
       this.setState({units: this.state.allUnits, loaded: true})
@@ -69,9 +69,9 @@ export default React.createClass({
   },
 
   generateNewCaUnit(u) {
+    const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
     const caObj = {
-      studentCount: Number(u.array_length ? u.array_length : u.class_size),
-      classrooms: [u.class_name],
+      classrooms: [classroom],
       classroomActivities: new Map(),
       unitId: u.unit_id,
       unitCreated: u.unit_created_at,
@@ -99,10 +99,10 @@ export default React.createClass({
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
       } else {
         const caUnit = parsedUnits[u.unit_id];
-        if (!caUnit.classrooms.includes(u.class_name)) {
+        if (caUnit.classrooms.findIndex(c => c.name === u.class_name) === -1) {
           // add the info and student count from the classroom if it hasn't already been done
-          caUnit.classrooms.push(u.class_name);
-          caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
+          const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
+          caUnit.classrooms.push(classroom);
         }
         // add the activity info if it doesn't exist
         caUnit.classroomActivities.set(u.activity_id,
