@@ -205,7 +205,7 @@ export default React.createClass({
     });
 
     if (this.state.loading) {
-      content = <LoadingIndicator />;
+      content = <div>{scores}<LoadingIndicator /></div>;
     } else if (this.state.missing) {
       const onButtonClick = this.state.missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
       content = <EmptyProgressReport missing={this.state.missing} onButtonClick={onButtonClick} />;
