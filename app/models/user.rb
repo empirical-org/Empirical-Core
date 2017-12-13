@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
                                     on: :create
 
   validate  :validate_username_and_email,  on: :update
+  validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?
@@ -59,6 +60,7 @@ class User < ActiveRecord::Base
 
   ROLES      = %w(student teacher temporary user admin staff)
   SAFE_ROLES = %w(student teacher temporary)
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   default_scope -> { where('users.role != ?', 'temporary') }
 
@@ -94,6 +96,17 @@ class User < ActiveRecord::Base
 
   def validate_username?
     validate_username.present? ? validate_username : false
+  end
+
+  def username_cannot_be_an_email
+    if username =~ VALID_EMAIL_REGEX
+      if self.id
+        db_self = User.find(self.id)
+        errors.add(:username, "cannot be in email format") unless db_self.username == username
+      else
+        errors.add(:username, "cannot be in email format")
+      end
+    end
   end
 
   def safe_role_assignment role
