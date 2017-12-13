@@ -1,5 +1,5 @@
 class ProgressReports::ActivitiesListByClassroom
-  def self.results(classroom_id)
+  def self.results(classroom_ids)
     ActiveRecord::Base.connection.execute(
       "SELECT students.id AS student_id, students.name, AVG(activity_sessions.percentage) AS average_score, COUNT(activity_sessions.id) AS activity_count FROM classroom_activities
       JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id

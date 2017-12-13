@@ -134,6 +134,7 @@ EmpiricalGrammar::Application.routes.draw do
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
+    get 'progress_reports/activities_list_by_classroom' => 'progress_reports#activities_list_by_classroom'
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
