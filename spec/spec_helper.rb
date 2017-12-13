@@ -1,6 +1,9 @@
 require 'simplecov'
 require 'simplecov-json'
-SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::JSONFormatter,
+])
 SimpleCov.start do
   track_files '{app,lib}/**/*.rb'
   add_filter '/spec/'
@@ -17,9 +20,11 @@ require 'fileutils'
 # as a param, and this will automagically save the mock data in a file that
 # matches the request path name.
 # Ex: '/api/v1/cool_path' will be saved as 'api_v1_cool_path.json'
-def save_mock_data(response)
+def save_mock_data(response, condition=nil)
+  # If there is no folder for holding our mock data, create it.
   FileUtils.mkdir_p 'client/__mockdata__'
-  File.write("client/__mockdata__/#{response.request.fullpath.gsub('/', '_')[1..-1]}.json", response.body)
+  condition = "_#{condition.downcase.gsub(/[^0-9a-z_]/, '_')}" if condition
+  File.write("client/__mockdata__/#{response.request.fullpath.gsub('/', '_')[1..-1]}#{condition}.json", response.body)
 end
 
 # This method can be called in any of our tests to convert a hash into a format
@@ -35,6 +40,20 @@ def sanitize_hash_array_for_comparison_with_sql(array_of_hashes)
       value = value.to_s if value.is_a? Numeric
       # Convert Times to have the right level of fidelity, and strip trailing zeroes
       value = value.strftime('%Y-%m-%d %T.%6N').gsub(/0*$/, '') if value.is_a? Time
+      [key.to_s, value]
+    end.to_h
+  end
+end
+
+# This method can be called in any of our tests to convert a hash into a format
+# that allows it to be compared to a hash we pull back from Redis. Please note
+# that this is should not be trusted to be correct. Rather, it should be added
+# to and amended as necessary.
+def sanitize_hash_array_for_comparison_with_redis(array_of_hashes)
+  array_of_hashes.map do |hash|
+    hash.map do |key, value|
+      # Convert numeric values to strings
+      value = value.to_s if value.is_a? Numeric
       [key.to_s, value]
     end.to_h
   end

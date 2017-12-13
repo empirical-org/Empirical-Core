@@ -24,10 +24,9 @@ describe 'Dashboard', redis: :true do
     end
 
     it "returns the lowest scoring student" do
-      lowest_student = {score: 100}
       results = Dashboard.queries(teacher_with_sufficient_data)
       ca_ids = ClassroomActivity.where(classroom_id: classroom_with_sufficient_data.id).ids
-      name_of_lowest = ActivitySession.where(classroom_activity_id: ca_ids).order('percentage').limit(1).first.user.name
+      name_of_lowest = ActivitySession.where(classroom_activity_id: ca_ids).order('percentage asc').limit(1).first.user.name
       expect(results.to_s).to include(name_of_lowest)
     end
   end
