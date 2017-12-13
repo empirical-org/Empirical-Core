@@ -11,7 +11,8 @@ export default React.createClass({
       unitName: (this.props.data.unitName || this.props.data.unit.name),
       savedUnitName: (this.props.data.unitName || this.props.data.unit.name),
       error: false,
-      showTooltip: false
+      showTooltip: false,
+      classroomActivities: (this.props.data.classroomActivities || this.props.data.classroom_activities)
     };
   },
 
@@ -41,7 +42,7 @@ export default React.createClass({
   },
 
   deleteOrLockedInfo() {
-    const firstCa = this.props.data.classroomActivities.values().next().value
+    const firstCa = this.state.classroomActivities.values().next().value
     const ownedByCurrentUser = firstCa.ownedByCurrentUser
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete Activity Pack</span>;
@@ -59,7 +60,7 @@ export default React.createClass({
   },
 
   editName() {
-    if(this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
+    if(this.state.classroomActivities.values().next().value.ownedByCurrentUser) {
       let text,
         classy,
         inlineStyle;
@@ -89,7 +90,7 @@ export default React.createClass({
 
   renderTooltip() {
   const visible = this.state.showTooltip ? 'visible' : 'invisible'
-    const ownerName = this.props.data.classroomActivities.values().next().value.ownerName
+    const ownerName = this.state.classroomActivities.values().next().value.ownerName
     return <div className={`tooltip ${visible}`}>
       <i className="fa fa-caret-up"/>
       <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
@@ -158,29 +159,25 @@ export default React.createClass({
   },
 
   addClassroomActivityRow() {
-    if(this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
+    if(this.state.classroomActivities.values().next().value.ownedByCurrentUser) {
       return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
     }
   },
 
+  updateAllDueDates(date) {
+    const newClassroomActivities = new Map(this.state.classroomActivities)
+    console.log('outside the loop', newClassroomActivities)
+    this.state.classroomActivities.forEach((v, k) => {
+      console.log('inside the loop', newClassroomActivities)
+      this.props.updateDueDate(v.caId, date)
+      // newClassroomActivities[k].dueDate = moment(date)
+    })
+    this.setState({classroomActivities: newClassroomActivities})
+  },
+
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
-    if (this.props.data.classroom_activities) {
-      this.props.data.classroom_activities.forEach((ca) => {
-        classroomActivitiesArr.push(
-          <ClassroomActivity
-            key={`${ca.id}-${this.props.data.unit.id}`}
-            report={this.props.report}
-            lesson={this.props.lesson}
-            updateDueDate={this.props.updateDueDate}
-            hideClassroomActivity={this.props.hideClassroomActivity}
-            unitId={this.props.data.unit.id}
-            data={ca}
-          />
-        );
-      });
-    } else if (this.props.data.classroomActivities) {
-      for (const [key, ca] of this.props.data.classroomActivities) {
+      for (const [key, ca] of this.state.classroomActivities) {
         classroomActivitiesArr.push(
           <ClassroomActivity
             key={`${this.props.data.unitId}-${key}`}
@@ -190,15 +187,15 @@ export default React.createClass({
             hideClassroomActivity={this.props.hideClassroomActivity}
             unitId={this.props.data.unitId}
             data={ca}
+            updateAllDueDates={this.updateAllDueDates}
           />
         );
-      }
     }
     return classroomActivitiesArr;
   },
 
   render() {
-    if (this.props.data.classroomActivities.size === 0) {
+    if (this.state.classroomActivities.size === 0) {
       return null;
     }
 

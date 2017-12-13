@@ -195,12 +195,23 @@
     text-align: center;
     float: right;
   }
-
-  .due-date-input {
-    text-align: center;
-    width: 150px;
-    margin-right: 30px;
-    padding: 9px 10px;
+  .due-date-field {
+    position: relative;
+    .due-date-input {
+      text-align: left;
+      width: 180px;
+      margin-right: 30px;
+      padding: 9px 10px;
+    }
+    .apply-to-all {
+      font-size: 12px;
+      font-weight: 600;
+      color: #027360;
+      position: absolute;
+      cursor: pointer;
+      top: 11px;
+      right: 40px;
+    }
   }
 
   .assigned-activities {
