@@ -29,11 +29,6 @@ const data = {
 };
 
 describe('Scorebook component', () => {
-  it('should render', () => {
-    const wrapper = shallow(<Scorebook />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
   describe('if state.missing has a value', () => {
     const wrapper = shallow(<Scorebook />);
     wrapper.setState({ missing: 'activities', });
@@ -180,18 +175,18 @@ describe('Scorebook component', () => {
     const wrapper = shallow(<Scorebook />);
     const beginDate = moment();
     const endDate = moment();
+    const dateFilterName = 'All Time'
     wrapper.instance().fetchData = jest.fn();
 
     it('should set scorebookBeginDate as a stringified Moment object', () => {
-      wrapper.instance().selectDates(beginDate, null);
+      wrapper.instance().selectDates(beginDate, null, null);
       expect(window.localStorage.getItem('scorebookBeginDate')).toBe(beginDate);
-      expect(window.localStorage.getItem('scorebookEndDate')).toBe(null);
     });
 
-    it('should set scorebookEndDate as a stringified Moment object', () => {
-      wrapper.instance().selectDates(null, endDate);
-      expect(window.localStorage.getItem('scorebookEndDate')).toBe(endDate);
+    it('should set scoreBookDateFilterName as a string', () => {
+      wrapper.instance().selectDates(null, null, dateFilterName);
       expect(window.localStorage.getItem('scorebookBeginDate')).toBe(null);
+      expect(window.localStorage.getItem('scorebookDateFilterName')).toBe(dateFilterName);
     });
 
     it('should set state and call fetchData on callback', () => {
