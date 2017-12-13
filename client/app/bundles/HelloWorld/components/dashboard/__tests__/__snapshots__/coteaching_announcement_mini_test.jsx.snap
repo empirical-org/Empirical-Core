@@ -51,8 +51,9 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
         src="https://assets.quill.org/images/illustrations/high-five-illustrationx2.png"
         style={
           Object {
-            "marginTop": "7px",
-            "width": "67px",
+            "marginBottom": 11,
+            "marginTop": 13,
+            "width": 57,
           }
         }
       />
@@ -66,7 +67,7 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
         }
       }
     >
-      You can now add co-teachers to your classes. Co-teachers can manage classes, assign activities and view reports.
+      You can now invite co-teachers to your classes. Co-teachers can manage classes, assign activities and view reports.
     </p>
     <a
       href="/teachers/classrooms#invite-coteachers"
@@ -88,7 +89,7 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
           }
         }
       >
-        Add Co-Teachers
+        Invite Co-Teachers
       </button>
     </a>
     <a
