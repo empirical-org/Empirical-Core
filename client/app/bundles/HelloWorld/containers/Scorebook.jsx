@@ -19,13 +19,14 @@ export default React.createClass({
     this.modules = {
       scrollify: new Scrollify(),
     };
+    const allActivityPacksUnit = {
+      name: 'All Activity Packs',
+      value: '',
+    }
     return {
       units: [],
       classrooms: this.props.allClassrooms,
-      selectedUnit: {
-        name: 'All Activity Packs',
-        value: '',
-      },
+      selectedUnit: allActivityPacksUnit,
       selectedClassroom: this.props.selectedClassroom,
       classroomFilters: this.props.allClassrooms,
       unitFilters: [],
@@ -91,11 +92,22 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      that.setState({
-        unitFilters: parsedBody.units,
-        selectedUnit: { name: 'All Activity Packs', value: '', },
-        missing: this.checkMissing(this.state.scores)
-      });
+      const units = parsedBody.units
+      if (units.length === 1) {
+        const selectedUnit = units[0]
+        that.setState({
+          unitFilters: units,
+          selectedUnit: selectedUnit,
+          missing: this.checkMissing(this.state.scores)
+        });
+      } else {
+        const selectedUnit = { name: 'All Activity Packs', value: '', }
+        that.setState({
+          unitFilters: [selectedUnit].concat(units),
+          selectedUnit: selectedUnit,
+          missing: this.checkMissing(this.state.scores)
+        });
+      }
     });
   },
 
@@ -191,7 +203,7 @@ export default React.createClass({
       const sData = s.scores[0];
       scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
     });
-    
+
     if (this.state.loading) {
       content = <LoadingIndicator />;
     } else if (this.state.missing) {
