@@ -37,17 +37,16 @@ include_context "Unit Assignments Variables"
           # expect(units_have_a_corresponding_classroom_activities?(unit_template_ids)).to eq(true)
       end
 
-      it 'creates units but does not create new classroom activities if passed no students ids' do
+      it 'does not create new units or classroom activities if passed no students ids' do
         data = {"selections":[
                   {"id":unit_template1.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]},
                   {"id":unit_template2.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]},
                   {"id":unit_template3.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]},
                   {"id":unit_template4.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]}
-                ]
-                }
+                ]}
         post "assign_selected_packs", (data)
         unit_template_ids = data[:selections].map{ |sel| sel[:id] }
-        expect(unit_templates_have_a_corresponding_unit?(unit_template_ids)).to eq(true)
+        expect(unit_templates_have_a_corresponding_unit?(unit_template_ids)).to eq(false)
         expect(units_have_a_corresponding_classroom_activities?(unit_template_ids)).to eq(false)
       end
 
