@@ -104,7 +104,7 @@ export default React.createClass({
   assignSelectedPacks() {
     this.setState({ assigning: true, }, () => {
       const classroomId = this.props.params.classroomId;
-      let selections = this.state.selections.map(activityPack => ({
+      const selectionsArr = this.state.selections.map(activityPack => ({
         id: activityPack.activity_pack_id,
         classrooms: [
           {
@@ -113,6 +113,7 @@ export default React.createClass({
           }
         ],
       }));
+      const selections = {selections: selectionsArr}
       $.ajax({
 		  	type: 'POST',
 		  	url: '/teachers/progress_reports/assign_selected_packs/',
@@ -122,9 +123,9 @@ export default React.createClass({
       })
 			.done(() => { this.initializePusher(); })
 			.fail(() => {
-  alert('We had trouble processing your request. Please check your network connection and try again.');
-  this.setState({ assigning: false, });
-});
+        alert('We had trouble processing your request. Please check your network connection and try again.');
+        this.setState({ assigning: false, });
+      });
     });
   },
 
