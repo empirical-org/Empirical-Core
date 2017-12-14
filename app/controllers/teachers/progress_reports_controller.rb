@@ -41,6 +41,10 @@ class Teachers::ProgressReportsController < ApplicationController
     render 'activities_scores_by_classroom'
   end
 
+  def student_overview
+    render 'student_overview'
+  end
+
 
 
   private
