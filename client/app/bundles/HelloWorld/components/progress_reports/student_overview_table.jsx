@@ -38,13 +38,13 @@ export default class extends React.Component {
   }
 
   greenArrow(row) {
-    if (row.completed_at && ['6', '4'].indexOf(row.activity_classification.id === -1)) {
+    if (row.completed_at && ['6', '4'].indexOf(row.activity_classification_id) === -1) {
       return 'green arrow'
     }
   }
 
   score(row) {
-    if (row.activity_classification_id === 'diagnostic' && row.completed_at) {
+    if (row.completed_at && ['6', '4'].indexOf(row.activity_classification_id) > -1) {
       return 'Completed'
     } else if (row.percentage) {
       return Math.round(row.percentage * 100) + '%'
