@@ -35,7 +35,7 @@ class UserEditions extends Component<any, any> {
       const editionIds = Object.keys(allEditions)
       editionIds.forEach(id => {
         const edition = allEditions[id]
-        if (edition.lesson_id === classroomLessonID) {
+        if (edition.lesson_id === classroomLessonID && edition.user_id !== 'quill-staff') {
           lessonEditions[id] = edition
         }
       })
@@ -132,7 +132,7 @@ class UserEditions extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h4 className="title is-4">{this.classroomLesson().title} <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonID}/preview`}>Preview</a> </h4>
+            <h4 className="title is-4"><a href={`/#/admin/classroom-lessons/${classroomLessonID}`}>{this.classroomLesson().title}</a> User Editions</h4>
           </div>
           {this.renderEditionTable()}
           {this.renderMessage()}

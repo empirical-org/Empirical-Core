@@ -155,6 +155,8 @@ class ShowClassroomLesson extends Component<any, any> {
           </div>
           {this.renderAddEdition()}
           {this.renderEditionsList()}
+          <br />
+          <a className='button is-info' style={{fontSize: 16}} href={`/#/admin/classroom-lessons/${classroomLessonID}/editions`}>User Editions</a>
         </div>
       )
     } else {
