@@ -2,7 +2,7 @@
 
 exports[`DateRangeFilterOption should match snapshot 1`] = `
 <div
-  className="calendar-prefill-option"
+  className="calendar-prefill-option "
   onClick={[Function]}
 >
   Example Title

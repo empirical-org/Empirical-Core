@@ -84,7 +84,7 @@ export default class extends React.Component {
             </div>
             <br />
             <div style={{marginBottom: 10}}>
-              <button className='button-green' style={{width: 155}} onClick={this.handleClick}>{this.state.coteacherLoading ? <AssigningIndicator /> : 'Add Co-Teacher'}</button>
+              <button className='button-green' style={{width: 170}} onClick={this.handleClick}>{this.state.coteacherLoading ? <AssigningIndicator /> : 'Invite Co-Teacher'}</button>
               <span className='coteacher-invite-status'>
                 {this.state.coteacherInvited ? 'Co-Teacher Invited!' : ''}
               </span>
