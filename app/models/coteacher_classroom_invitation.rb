@@ -2,7 +2,8 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
   belongs_to :invitation
   belongs_to :classroom
 
-  before_save :prevent_saving_if_classrooms_teacher_association_exists
+  before_save   :prevent_saving_if_classrooms_teacher_association_exists
+  after_save    :trigger_analytics
   after_destroy :update_parent_invitation
 
   private
@@ -24,5 +25,11 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
       WHERE invitations.id = #{self.invitation_id};
     ").to_a
     return false if classrooms_teachers.any?
+  end
+
+  def trigger_analytics
+    invitation = self.invitation
+    UserMilestone.create(user_id: invitation.inviter_id, milestone: Milestone.find_by_name(Milestone::TYPES[:invite_a_coteacher]))
+    CoteacherAnalytics.new.track_coteacher_invitation(invitation.inviter_id, invitation.invitee_email)
   end
 end
