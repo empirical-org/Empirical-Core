@@ -55,8 +55,8 @@ class ClassLessonsIndex extends Component<any, any> {
             <span>
               <span>{score}</span>
               <a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a>
-              <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonId}/preview`}>Preview</a>
-              <a href={`/#/admin/classroom-lessons/${classroomLessonId}/editions`}>Editions</a>
+              |
+              <a href={`/#/admin/classroom-lessons/${classroomLessonId}/editions`}>User Editions</a>
             </span>
           </li>
         )
@@ -96,7 +96,7 @@ class ClassLessonsIndex extends Component<any, any> {
 
   renderLinkToAllEditions() {
     return <div className="all-editions-link">
-      <a href="#/admin/classroom-lessons/editions">See All Lesson Editions</a>
+      <a href="#/admin/classroom-lessons/editions">See All User-Created Lesson Editions</a>
     </div>
   }
 

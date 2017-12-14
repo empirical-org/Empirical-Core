@@ -6,12 +6,10 @@ import {
   slideTypeKeys
 } from './helpers'
 import {
-  addSlide,
   deleteLesson,
-  updateClassroomLessonSlides,
-  updateClassroomLessonDetails,
-  deleteClassroomLessonSlide
+  updateClassroomLessonDetails
 } from '../../../actions/classroomLesson'
+import { createNewEdition } from '../../../actions/customize'
 import EditLessonDetails from './editLessonDetails'
 import SortableList from '../../questions/sortableList/sortableList.jsx';
 
@@ -20,15 +18,14 @@ class ShowClassroomLesson extends Component<any, any> {
     super(props);
 
     this.state = {
-      newSlideType: 'CL-ST'
+      newEditionName: ''
     }
 
-    this.addSlide = this.addSlide.bind(this)
     this.deleteLesson = this.deleteLesson.bind(this)
-    this.updateSlideOrder = this.updateSlideOrder.bind(this)
-    this.selectNewSlideType = this.selectNewSlideType.bind(this)
-    this.goToNewSlide = this.goToNewSlide.bind(this)
     this.saveLessonDetails = this.saveLessonDetails.bind(this)
+    this.changeNewEditionName = this.changeNewEditionName.bind(this)
+    this.addEdition = this.addEdition.bind(this)
+    this.copyEdition = this.copyEdition.bind(this)
   }
 
   componentDidMount() {
@@ -65,14 +62,6 @@ class ShowClassroomLesson extends Component<any, any> {
     return this.props.classroomLessons.data[this.props.params.classroomLessonID]
   }
 
-  goToNewSlide(slideID) {
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/slide/${slideID}`
-  }
-
-  addSlide() {
-    addSlide(this.props.params.classroomLessonID, this.classroomLesson(), this.state.newSlideType, this.goToNewSlide)
-  }
-
   deleteLesson() {
     const confirmation = window.confirm('Are you sure you want to delete this lesson?')
     if (confirmation) {
@@ -85,69 +74,16 @@ class ShowClassroomLesson extends Component<any, any> {
     updateClassroomLessonDetails(this.props.params.classroomLessonID, lesson)
   }
 
-  selectNewSlideType(e) {
-    this.setState({newSlideType: e.target.value})
+  addEdition() {
+    createNewEdition(null, this.props.params.classroomLessonID, 'quill-staff', null, this.state.newEditionName)
   }
 
-  updateSlideOrder(sortInfo) {
-    const originalSlides = this.classroomLesson().questions
-    const newOrder = sortInfo.data.items.map(item => item.key);
-    const firstSlide = originalSlides[0]
-    const middleSlides = newOrder.map((key) => originalSlides[key])
-    const lastSlide = originalSlides[originalSlides.length - 1]
-    const newSlides = [firstSlide].concat(middleSlides).concat([lastSlide])
-    updateClassroomLessonSlides(this.props.params.classroomLessonID, newSlides)
+  copyEdition(editionID) {
+    createNewEdition(editionID, this.props.params.classroomLessonID, 'quill-staff', null, null)
   }
 
-  deleteSlide(slideID) {
-    const confirmation = window.confirm('Are you sure you want to delete this slide?')
-    if (confirmation) {
-      const {classroomLessonID} = this.props.params;
-      const slides = this.classroomLesson().questions
-      deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
-    }
-  }
-
-  renderSortableMiddleSlides() {
-    if (this.props.classroomLessons.hasreceiveddata) {
-      const questions = this.classroomLesson().questions
-      const classroomLessonID = this.props.params.classroomLessonID
-      const slides = Object.keys(questions).slice(1, -1).map(key => this.renderSlide(questions, classroomLessonID, key))
-      return <SortableList data={slides} sortCallback={this.updateSlideOrder} />
-    }
-  }
-
-  renderSlide(questions, classroomLessonID, key) {
-    const exitSlideIndex = questions.length - 1
-    const deleteSlideButton = key === 0 || key === exitSlideIndex ? <span /> : <span className="slide-delete" onClick={() => this.deleteSlide(key)}>Delete Slide</span>
-    return (
-      <div key={key} className="box slide-box">
-        <span className="slide-type">{getComponentDisplayName(questions[key].type)}</span>
-        <span className="slide-title">{questions[key].data.teach.title}</span>
-        {deleteSlideButton}
-        <span className="slide-edit"><a href={`/#/admin/classroom-lessons/${classroomLessonID}/slide/${key}`}>Edit Slide</a></span>
-      </div>
-    )
-  }
-
-  renderAddSlide() {
-    if (this.props.classroomLessons.hasreceiveddata) {
-      const options = slideTypeKeys.map(key => <option key={key} value={key}>{getComponentDisplayName(key)}</option>)
-      return (
-        <div className="add-new-slide-form">
-          <p className="control has-addons">
-            <span className="select is-large">
-              <select value={this.state.newSlideType} onChange={this.selectNewSlideType}>
-                {options}
-              </select>
-            </span>
-            <a className="button is-primary is-large" onClick={this.addSlide}>
-              Add Slide
-            </a>
-          </p>
-        </div>
-      )
-    }
+  changeNewEditionName(e) {
+    this.setState({newEditionName: e.target.value})
   }
 
   renderPercentage() {
@@ -156,6 +92,53 @@ class ShowClassroomLesson extends Component<any, any> {
     }
   }
 
+  renderEditionsList() {
+    const editions = Object.keys(this.props.customize.editions).map(e => {
+      const edition = this.props.customize.editions[e]
+      if (edition.user_id === 'quill-staff' && edition.lesson_id === this.props.params.classroomLessonID) {
+        return <li>
+          <div>{edition.name}</div>
+          <div>
+            <span style={{margin: '0px 5px'}} onClick={() => this.props.router.push(`admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)}>Edit</span>
+            |
+            <span style={{margin: '0px 5px'}} onClick={() => this.props.router.push(`teach/class-lessons/${edition.lesson_id}/preview/${e}`)}>Preview</span>
+            |
+            <span style={{margin: '0px 5px'}} onClick={() => this.copyEdition(e)}>Make A Copy</span>
+          </div>
+        </li>
+      }
+    })
+    const components = _.compact(editions)
+    return (
+      <div>
+        <h5 className="title is-5">Quill Editions</h5>
+        <ul className="classroom-lessons-index">
+          {components.length > 0 ? components : 'No editions yet! Create one above.'}
+        </ul>
+      </div>
+    )
+  }
+
+  renderAddEdition() {
+    return (
+      <div className="add-new-lesson-form">
+        <h5 className="title is-5">Create a new edition</h5>
+        <p className="control has-addons">
+          <input
+            className="input is-expanded"
+            type="text"
+            placeholder="Generic Edition"
+            value={this.state.newEditionName}
+            onChange={this.changeNewEditionName}
+          />
+          <a className="button is-info" onClick={this.addEdition}>
+            Add New Edition
+          </a>
+        </p>
+      </div>
+    )
+    }
+
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
       const questions = this.classroomLesson().questions
@@ -163,15 +146,11 @@ class ShowClassroomLesson extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h4 className="title is-4">{this.classroomLesson().title} <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonID}/preview`}>Preview</a> </h4>
             <h5 className="title is-5">{this.renderPercentage()}</h5>
             <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} deleteLesson={this.deleteLesson} />
           </div>
-          <h5 className="title is-5">{questions.length} Slides</h5>
-          {this.renderSlide(questions, classroomLessonID, 0)}
-          {this.renderSortableMiddleSlides()}
-          {this.renderAddSlide()}
-          {this.renderSlide(questions, classroomLessonID, questions.length - 1)}
+          {this.renderAddEdition()}
+          {this.renderEditionsList()}
         </div>
       )
     } else {
@@ -184,7 +163,8 @@ class ShowClassroomLesson extends Component<any, any> {
 function select(props) {
   return {
     classroomLessons: props.classroomLessons,
-    classroomLessonsReviews: props.classroomLessonsReviews
+    classroomLessonsReviews: props.classroomLessonsReviews,
+    customize: props.customize
   };
 }
 

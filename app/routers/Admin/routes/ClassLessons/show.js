@@ -1,7 +1,7 @@
 import ShowClassroomLesson from 'components/classroomLessons/admin/show';
 import ShowClassroomLessonSlide from 'components/classroomLessons/admin/showSlide';
 import ShowClassroomLessonScriptItem from 'components/classroomLessons/admin/showScriptItem';
-import ShowClassroomLessonEditions from 'components/classroomLessons/admin/editions';
+import ShowClassroomLessonUserEditions from 'components/classroomLessons/admin/userEditions';
 import Passthrough from 'components/shared/passthrough';
 
 export default {
@@ -13,7 +13,7 @@ export default {
   childRoutes: [
     {
       path: 'editions',
-      component: ShowClassroomLessonEditions
+      component: ShowClassroomLessonUserEditions
     },
     {
       path: 'slide/:slideID',

@@ -1,4 +1,4 @@
-import ShowEditions from 'components/classroomLessons/admin/allEditions';
+import ShowEditions from 'components/classroomLessons/admin/allUserEditions';
 import Passthrough from 'components/shared/passthrough';
 
 export default {

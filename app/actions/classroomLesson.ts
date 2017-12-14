@@ -109,8 +109,8 @@ export function addSlide(classroomLessonUid: string, classroomLesson: IntF.Class
   }
 }
 
-export function deleteClassroomLessonSlide(classroomLessonID, slideID, slides) {
-  const slidesRef = classroomLessonsRef.child(`${classroomLessonID}/questions/`)
+export function deleteEditionSlide(editionID, slideID, slides) {
+  const slidesRef = editionsRef.child(`${editionID}/data/questions/`)
   const newArray = _.compact(Object.keys(slides).map(slideKey => {
     if (slideKey != slideID ) {
       return slides[slideKey]
@@ -169,20 +169,29 @@ export function saveClassroomLessonScriptItem(classroomLessonID, slideID, script
 export function deleteLesson(classroomLessonID) {
   classroomLessonsRef.child(classroomLessonID).remove();
 }
+
+export function deleteEdition(editionID) {
+  editionsRef.child(editionID).remove();
+}
+
 export function updateSlideScriptItems(classroomLessonID, slideID, scriptItems) {
   classroomLessonsRef
     .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/`)
     .set(scriptItems)
 }
 
-export function updateClassroomLessonSlides(classroomLessonID, slides) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/`)
+export function updateEditionSlides(editionID, slides) {
+  editionsRef
+    .child(`${editionID}/data/questions/`)
     .set(slides)
 }
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
   classroomLessonsRef.child(classroomLessonID).set(classroomLesson)
+}
+
+export function updateEditionDetails(editionID, edition) {
+  editionsRef.child(editionID).set(edition)
 }
 
 export function clearClassroomLessonFromStore() {
