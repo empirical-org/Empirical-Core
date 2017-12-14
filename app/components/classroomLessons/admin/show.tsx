@@ -75,11 +75,11 @@ class ShowClassroomLesson extends Component<any, any> {
   }
 
   addEdition() {
-    createNewEdition(null, this.props.params.classroomLessonID, 'quill-staff', null, this.state.newEditionName)
+    createNewAdminEdition(null, this.props.params.classroomLessonID, 'quill-staff', null, this.state.newEditionName)
   }
 
   copyEdition(editionID) {
-    createNewEdition(editionID, this.props.params.classroomLessonID, 'quill-staff', null, null)
+    createNewAdminEdition(editionID, this.props.params.classroomLessonID, 'quill-staff', null, null)
   }
 
   changeNewEditionName(e) {

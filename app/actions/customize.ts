@@ -72,7 +72,7 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name}
+    newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name, flags: ['alpha']}
     newEdition = editionsRef.push(newEditionData)
       classroomLessonsRef.child(lessonUID).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())

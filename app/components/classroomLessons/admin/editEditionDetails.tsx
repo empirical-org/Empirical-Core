@@ -29,6 +29,12 @@ export default class EditLessonDetails extends Component<any, any> {
     this.setState({edition: newLesson})
   }
 
+  handleFlagChange(e, key) {
+    const newLesson = _.merge({}, this.state.edition)
+    newLesson[key] = [e.target.value]
+    this.setState({edition: newLesson})
+  }
+
   render() {
     return <div style={{marginTop: 30, marginBottom: 30}}>
       <div className="field">
@@ -41,6 +47,17 @@ export default class EditLessonDetails extends Component<any, any> {
         <label className="label">Sample Question</label>
         <div className="control">
         <input value={this.state.edition.sample_question} onChange={(e) => this.handleEditionDetailsChange(e, 'sample_question')} className="input" type="text" placeholder="Sample Question"/>
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">Flag</label>
+        <div className="control">
+        <select value={this.state.edition.flags ? this.state.edition.flags[0] : 'production'} onChange={(e) => this.handleFlagChange(e, 'flag')}>
+          <option value='archived'>Archived</option>
+          <option value='production'>Production</option>
+          <option value='alpha'>Alpha</option>
+          <option value='beta'>Beta</option>
+        </select>
         </div>
       </div>
       <div className="control is-grouped" style={{marginTop: 10}}>
