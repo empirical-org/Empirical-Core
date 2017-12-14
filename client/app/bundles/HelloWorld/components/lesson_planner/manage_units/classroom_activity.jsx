@@ -45,13 +45,9 @@ export default React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    console.log('this.props.data.due_date', this.props.data.due_date)
-    console.log('this.props.data.dueDate', this.props.data.dueDate)
-    console.log('nextProps.data.due_date', nextProps.data.due_date)
-    console.log('nextProps.data.dueDate', nextProps.data.dueDate)
-    if (this.props.data.due_date !== nextProps.data.due_date || this.props.data.dueDate !== nextProps.data.dueDate) {
-      const newDueDate = nextProps.data.due_date || nextProps.data.dueDate
-      const formattedNewDueDate = newDueDate ? moment(newDueDate) : undefined
+    const newDueDate = nextProps.data.dueDate
+    const formattedNewDueDate = newDueDate ? moment(newDueDate) : undefined
+    if (formattedNewDueDate !== this.state.startDate) {
       this.setState({startDate: formattedNewDueDate})
     }
   },
@@ -175,7 +171,7 @@ renderLessonPlanTooltip() {
     if (this.props.data.ownedByCurrentUser) {
       return <span className="due-date-field">
         <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} />
-        {startDate ? <span className="apply-to-all" onClick={() => this.props.updateAllDueDates(startDate)}>Apply to All</span> : null}
+        {startDate && this.props.isFirst ? <span className="apply-to-all" onClick={() => this.props.updateAllDueDates(startDate)}>Apply to All</span> : null}
       </span>
     } else {
       return startDate ? <div className='due-date-input'>{startDate.format('l')}</div> : null

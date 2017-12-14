@@ -3,6 +3,7 @@ import _ from 'underscore';
 import ClassroomActivity from './classroom_activity';
 import Pluralize from 'pluralize';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
+import moment from 'moment'
 
 export default React.createClass({
   getInitialState() {
@@ -166,18 +167,21 @@ export default React.createClass({
 
   updateAllDueDates(date) {
     const newClassroomActivities = new Map(this.state.classroomActivities)
-    console.log('outside the loop', newClassroomActivities)
+    const caIds = []
     this.state.classroomActivities.forEach((v, k) => {
-      console.log('inside the loop', newClassroomActivities)
-      this.props.updateDueDate(v.caId, date)
-      // newClassroomActivities[k].dueDate = moment(date)
+      caIds.push(v.caId)
+      const classroomActivity = newClassroomActivities.get(k)
+      classroomActivity.dueDate = moment(date)
+      newClassroomActivities.set(k, classroomActivity)
     })
     this.setState({classroomActivities: newClassroomActivities})
+    this.props.updateMultipleDueDates(caIds, date)
   },
 
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
       for (const [key, ca] of this.state.classroomActivities) {
+        const isFirst = this.state.classroomActivities.values().next().value.caId === ca.caId
         classroomActivitiesArr.push(
           <ClassroomActivity
             key={`${this.props.data.unitId}-${key}`}
@@ -188,6 +192,7 @@ export default React.createClass({
             unitId={this.props.data.unitId}
             data={ca}
             updateAllDueDates={this.updateAllDueDates}
+            isFirst={isFirst}
           />
         );
     }

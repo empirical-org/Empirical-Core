@@ -14,6 +14,7 @@ export default React.createClass({
     lesson={this.props.lesson}
     updateDueDate={this.props.updateDueDate}
     data={data}
+    updateMultipleDueDates={this.props.updateMultipleDueDates}
   			/>);
     }, this);
     return (

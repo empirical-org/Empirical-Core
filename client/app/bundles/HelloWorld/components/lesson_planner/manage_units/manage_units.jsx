@@ -173,6 +173,12 @@ export default React.createClass({
     });
   },
 
+  updateMultipleDueDates(ca_ids, date) {
+    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/update_multiple_due_dates`, {
+      json: {classroom_activity_ids: ca_ids,  due_date: date, authenticity_token: getAuthToken()},
+    });
+  },
+
   switchClassrooms(classroom) {
     if (classroom.id) {
       window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`)
@@ -199,6 +205,7 @@ export default React.createClass({
                 hideClassroomActivity={this.hideClassroomActivity}
                 hideUnit={this.hideUnit}
                 data={this.state.units}
+                updateMultipleDueDates={this.updateMultipleDueDates}
               />
     }
     const allClassroomsClassroom = {name: 'All Classrooms'}
