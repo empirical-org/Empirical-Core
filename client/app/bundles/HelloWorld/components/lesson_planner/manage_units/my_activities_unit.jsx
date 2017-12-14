@@ -29,13 +29,23 @@ export default React.createClass({
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
     const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
-    const classroomList = classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
+    const classroomList = this.classroomList(classrooms)
     return <div className="assigned-to">
       <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
       <ul>
         {classroomList}
       </ul>
     </div>;
+  },
+
+  classroomList(classrooms) {
+    if (classrooms.length >= 4 && !this.state.showAllClassrooms) {
+      const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
+      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down"/></li>)
+      return classroomsArray
+    } else {
+      return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
+    }
   },
 
   editUnit() {
