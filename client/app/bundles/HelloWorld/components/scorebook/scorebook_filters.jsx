@@ -5,33 +5,6 @@ import moment from 'moment';
 
 export default React.createClass({
 
-  DATE_RANGE_FILTER_OPTIONS: [
-    {
-      title: 'Today',
-      beginDate: moment()
-    },
-    {
-      title: 'This Week',
-      beginDate: moment().startOf('week')
-    },
-    {
-      title: 'This Month',
-      beginDate: moment().startOf('month')
-    },
-    {
-      title: 'Last 7 days',
-      beginDate: moment().subtract(7, 'days')
-    },
-    {
-      title: 'Last 30 days',
-      beginDate: moment().subtract(1, 'months')
-    },
-    {
-      title: 'All Time',
-      beginDate: null
-    },
-  ],
-
   render() {
     const dropdownStyle = {
       'width': '250px',
@@ -62,10 +35,11 @@ export default React.createClass({
         <div style={dropdownStyle}>
           <DateRangeFilter
             selectDates={this.props.selectDates}
-            filterOptions={this.DATE_RANGE_FILTER_OPTIONS}
+            filterOptions={this.props.dateRangeFilterOptions}
             beginDate={this.props.beginDate}
             endDate={this.props.endDate}
             icon="fa-calendar"
+            dateFilterName={this.props.dateFilterName}
           />
         </div>
       </div>
