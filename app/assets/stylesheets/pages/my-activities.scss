@@ -87,6 +87,10 @@
             span {
               font-weight: 600;
             }
+            &.see-all {
+              color: #027360;
+              cursor: pointer;
+            }
           }
         }
       }
