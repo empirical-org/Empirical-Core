@@ -120,10 +120,10 @@ export function deleteEditionSlide(editionID, slideID, slides) {
   slidesRef.set(newArray);
 }
 
-export function addScriptItem(classroomLessonUid: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
+export function addScriptItem(editionID: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
-  const slideRef = classroomLessonsRef.child(`${classroomLessonUid}/questions/${slideID}`)
+  const slideRef = editionsRef.child(`${editionID}/data/questions/${slideID}`)
   slideRef.set(newSlide)
   if (cb) {
     cb(newSlide.data.teach.script.length - 1)
