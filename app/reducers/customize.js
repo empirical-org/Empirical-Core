@@ -5,7 +5,8 @@ const initialState = {
   user_id: null,
   editions: {},
   workingEdition: {},
-  incompleteQuestions: []
+  incompleteQuestions: [],
+  coteachers: []
 };
 
 export default function (currentstate, action) {
@@ -14,6 +15,10 @@ export default function (currentstate, action) {
     case C.SET_USER_ID:
       return Object.assign({}, currentstate, {
         user_id: action.id,
+      });
+    case C.SET_COTEACHERS:
+      return Object.assign({}, currentstate, {
+        coteachers: action.coteachers,
       });
     case C.SET_EDITIONS:
       return Object.assign({}, currentstate, {

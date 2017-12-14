@@ -168,14 +168,16 @@ class ChooseEdition extends React.Component<any, any> {
     </div>
   }
 
-  renderMyEditions() {
-    const {editions} = this.props.customize
+  renderMyEditionsAndCoteacherEditions() {
+    const {editions, user_id} = this.props.customize
     if (Object.keys(editions).length > 0) {
-      const myEditions = Object.keys(editions).map((e) => {
+      const myEditions = []
+      const coteacherEditions = []
+      Object.keys(editions).forEach((e) => {
         const edition = editions[e]
         edition.key = e
-        if (edition.lesson_id === this.props.params.lessonID) {
-          return <EditionRow
+        if (edition.user_id === user_id && edition.lesson_id === this.props.params.lessonID) {
+          const editionRow = <EditionRow
             edition={edition}
             makeNewEdition={this.makeNewEdition}
             editEdition={this.editEdition}
@@ -185,15 +187,38 @@ class ChooseEdition extends React.Component<any, any> {
             selectAction={this.selectAction}
             selectState={this.state.selectState}
           />
+          myEditions.push(editionRow)
+        } else if (edition.user_id !== user_id && edition.lesson_id === this.props.params.lessonID) {
+          const editionRow = <EditionRow
+            edition={edition}
+            makeNewEdition={this.makeNewEdition}
+            creator='coteacher'
+            key={e}
+            selectAction={this.selectAction}
+            selectState={this.state.selectState}
+          />
+          coteacherEditions.push(editionRow)
         }
       })
-      const compactedEditions = _.compact(myEditions)
-      if (compactedEditions.length > 0) {
-        return <div className="my-editions">
-        <p className="header">My Customized Editions</p>
-        {_.compact(myEditions)}
+      const compactedMyEditions = _.compact(myEditions)
+      const compactedCoteacherEditions = _.compact(coteacherEditions)
+      let myEditionSection, coteacherEditionSection
+      if (compactedCoteacherEditions.length > 0) {
+        coteacherEditionSection = <div className="coteacher-editions">
+        <p className="header">Co-Teacher Customized Editions</p>
+        {compactedCoteacherEditions}
         </div>
       }
+      if (compactedMyEditions.length > 0) {
+        myEditionSection = <div className="my-editions">
+        <p className="header">My Customized Editions</p>
+        {compactedMyEditions}
+        </div>
+      }
+      return <div>
+        {myEditionSection}
+        {coteacherEditionSection}
+      </div>
     }
   }
 
@@ -214,7 +239,7 @@ class ChooseEdition extends React.Component<any, any> {
       {this.renderHeader()}
       {this.renderExplanation()}
       {this.renderQuillEditions()}
-      {this.renderMyEditions()}
+      {this.renderMyEditionsAndCoteacherEditions()}
       {this.renderNamingModal()}
     </div>
   }

@@ -43,7 +43,7 @@ class TeacherNavbar extends React.Component<any, any> {
     this.hideCustomizeDropdown = this.hideCustomizeDropdown.bind(this)
     this.flagDropdown = this.flagDropdown.bind(this)
     this.launchProjector = this.launchProjector.bind(this)
-    this.editOnClick = this.editOnClick.bind(this)
+    this.renderEditLink = this.renderEditLink.bind(this)
     this.switchOnClick = this.switchOnClick.bind(this)
     this.redirectToEdit = this.redirectToEdit.bind(this)
     this.redirectToSwitchEdition = this.redirectToSwitchEdition.bind(this)
@@ -192,19 +192,24 @@ class TeacherNavbar extends React.Component<any, any> {
     }
   }
 
-  editOnClick() {
+  renderEditLink() {
+    let action, editText
     if (this.props.customize.user_id) {
       const classroomActivityID = getParameterByName('classroom_activity_id')
       const lessonID = this.props.params.lessonID
       const editionID = this.props.classroomSessions.data.edition_id
-      if (editionID && Object.keys(this.props.customize.editions).indexOf(editionID) !== -1) {
-        this.redirectToEdit(lessonID, editionID, classroomActivityID)
+      if (editionID && this.props.customize.editions[editionID] && this.props.customize.editions[editionID].user_id === this.props.customize.user_id) {
+        action = () => {this.redirectToEdit(lessonID, editionID, classroomActivityID)}
+        editText = 'Edit This Edition'
       } else {
-        createNewEdition(editionID, lessonID, this.props.customize.user_id, this.redirectToEdit)
+        action = () => {createNewEdition(editionID, lessonID, this.props.customize.user_id, classroomActivityID, this.redirectToEdit)}
+        editText = 'Make A Copy'
       }
     } else {
-      this.props.dispatch(showSignupModal())
+      action = () => {this.props.dispatch(showSignupModal())}
+      editText = 'Make A Copy'
     }
+    return <a onClick={action}><p>{editText}</p></a>
   }
 
   switchOnClick() {
@@ -230,7 +235,7 @@ class TeacherNavbar extends React.Component<any, any> {
     return (
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up"/>
-        <a onClick={this.editOnClick}><p>{editText}</p></a>
+        {this.renderEditLink()}
         <a onClick={this.switchOnClick}><p>Switch Edition</p></a>
       </div>
     )
