@@ -29,9 +29,9 @@ export default class EditLessonDetails extends Component<any, any> {
     this.setState({edition: newLesson})
   }
 
-  handleFlagChange(e, key) {
+  handleFlagChange(e) {
     const newLesson = _.merge({}, this.state.edition)
-    newLesson[key] = [e.target.value]
+    newLesson.flags = [e.target.value]
     this.setState({edition: newLesson})
   }
 
@@ -52,11 +52,10 @@ export default class EditLessonDetails extends Component<any, any> {
       <div className="field">
         <label className="label">Flag</label>
         <div className="control">
-        <select value={this.state.edition.flags ? this.state.edition.flags[0] : 'production'} onChange={(e) => this.handleFlagChange(e, 'flag')}>
+        <select value={this.state.edition.flags ? this.state.edition.flags[0] : 'production'} onChange={(e) => this.handleFlagChange(e)}>
           <option value='archived'>Archived</option>
           <option value='production'>Production</option>
           <option value='alpha'>Alpha</option>
-          <option value='beta'>Beta</option>
         </select>
         </div>
       </div>

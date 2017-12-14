@@ -148,61 +148,61 @@ class ChooseEdition extends React.Component<any, any> {
     }
   }
 
-  renderQuillEditions() {
-    const editions = {lesson: this.props.classroomLesson.data}
-    const quillEditions = Object.keys(editions).map((e, i) => {
-      return <EditionRow
-                edition={editions[e]}
-                makeNewEdition={this.makeNewEdition}
-                editEdition={this.editEdition}
-                archiveEdition={this.archiveEdition}
-                creator='quill'
-                key={i}
-                selectAction={this.selectAction}
-                selectState={this.state.selectState}
-              />
-    })
-    return <div className="quill-editions">
-      <p className="header">Quill Created Editions</p>
-      {quillEditions}
-    </div>
-  }
-
-  renderMyEditionsAndCoteacherEditions() {
+  renderEditions() {
     const {editions, user_id} = this.props.customize
     if (Object.keys(editions).length > 0) {
+      const quillEditions = []
       const myEditions = []
       const coteacherEditions = []
       Object.keys(editions).forEach((e) => {
         const edition = editions[e]
         edition.key = e
-        if (edition.user_id === user_id && edition.lesson_id === this.props.params.lessonID) {
-          const editionRow = <EditionRow
-            edition={edition}
-            makeNewEdition={this.makeNewEdition}
-            editEdition={this.editEdition}
-            archiveEdition={this.archiveEdition}
-            creator='user'
-            key={e}
-            selectAction={this.selectAction}
-            selectState={this.state.selectState}
-          />
-          myEditions.push(editionRow)
-        } else if (edition.user_id !== user_id && edition.lesson_id === this.props.params.lessonID) {
-          const editionRow = <EditionRow
-            edition={edition}
-            makeNewEdition={this.makeNewEdition}
-            creator='coteacher'
-            key={e}
-            selectAction={this.selectAction}
-            selectState={this.state.selectState}
-          />
-          coteacherEditions.push(editionRow)
+        if (edition.lesson_id === this.props.params.lessonID) {
+          if (edition.user_id === user_id) {
+            const editionRow = <EditionRow
+              edition={edition}
+              makeNewEdition={this.makeNewEdition}
+              editEdition={this.editEdition}
+              archiveEdition={this.archiveEdition}
+              creator='user'
+              key={e}
+              selectAction={this.selectAction}
+              selectState={this.state.selectState}
+              />
+            myEditions.push(editionRow)
+          } else if (edition.user_id === 'quill-staff') {
+            const editionRow = <EditionRow
+              edition={edition}
+              makeNewEdition={this.makeNewEdition}
+              creator='quill'
+              key={e}
+              selectAction={this.selectAction}
+              selectState={this.state.selectState}
+            />
+            quillEditions.push(editionRow)
+          } else {
+            const editionRow = <EditionRow
+              edition={edition}
+              makeNewEdition={this.makeNewEdition}
+              creator='coteacher'
+              key={e}
+              selectAction={this.selectAction}
+              selectState={this.state.selectState}
+            />
+            coteacherEditions.push(editionRow)
+          }
         }
       })
+      const compactedQuillEditions = _.compact(quillEditions)
       const compactedMyEditions = _.compact(myEditions)
       const compactedCoteacherEditions = _.compact(coteacherEditions)
-      let myEditionSection, coteacherEditionSection
+      let quillEditionSection, myEditionSection, coteacherEditionSection
+      if (compactedQuillEditions.length > 0) {
+        quillEditionSection = <div className="quill-editions">
+        <p className="header">Quill Created Editions</p>
+        {compactedQuillEditions}
+        </div>
+      }
       if (compactedCoteacherEditions.length > 0) {
         coteacherEditionSection = <div className="coteacher-editions">
         <p className="header">Co-Teacher Customized Editions</p>
@@ -216,6 +216,7 @@ class ChooseEdition extends React.Component<any, any> {
         </div>
       }
       return <div>
+        {quillEditionSection}
         {myEditionSection}
         {coteacherEditionSection}
       </div>
@@ -238,8 +239,7 @@ class ChooseEdition extends React.Component<any, any> {
       {this.renderLessonInfo()}
       {this.renderHeader()}
       {this.renderExplanation()}
-      {this.renderQuillEditions()}
-      {this.renderMyEditionsAndCoteacherEditions()}
+      {this.renderEditions()}
       {this.renderNamingModal()}
     </div>
   }

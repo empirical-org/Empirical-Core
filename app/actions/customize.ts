@@ -42,16 +42,16 @@ export function startListeningToEditions() {
   };
 }
 
-export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, callback?:any, name?:string) {
+export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, classroomActivityId?:string, callback?:any) {
   let newEditionData, newEdition;
   if (editionUID) {
-    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, name: name}
+    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
     newEdition = editionsRef.push(newEditionData)
       editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
     })
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name}
+    newEditionData = {lesson_id: lessonUID, user_id: user_id}
     newEdition = editionsRef.push(newEditionData)
       classroomLessonsRef.child(lessonUID).once('value', snapshot => {
       editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
@@ -123,14 +123,15 @@ export function publishEdition(editionUID:string, edition:CustomizeIntf.Edition,
   }
 }
 
-function filterEditionsByUserIds(userIds:Array<Number>, editions:CustomizeIntf.Editions) {
+function filterEditionsByUserIds(userIds:Array<Number|string>, editions:CustomizeIntf.Editions) {
   return function (dispatch, getState) {
     if (editions && Object.keys(editions).length > 0) {
+      const allowedIds = userIds.concat('quill-staff')
       const userEditions = {}
       const editionIds = Object.keys(editions)
       editionIds.forEach(id => {
         const edition = editions[id]
-        if (userIds.indexOf(edition.user_id) !== -1 && (!edition.flags || edition.flags.indexOf('archived') === -1)) {
+        if (allowedIds.indexOf(edition.user_id) !== -1 && (!edition.flags || edition.flags.indexOf('archived') === -1 && edition.flags.indexOf('alpha') === -1)) {
           userEditions[id] = edition
         }
       })

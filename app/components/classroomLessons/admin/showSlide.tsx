@@ -121,6 +121,7 @@ class ShowEditionSlide extends Component<any, any> {
             lesson={this.props.params.classroomLessonID}
             slide={this.props.params.slideID}
             updateScriptItemOrder={this.updateScriptItemOrder}
+            editionID={this.props.params.editionID}
           />
           {this.renderAddScriptItem()}
         </div>
