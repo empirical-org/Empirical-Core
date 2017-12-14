@@ -31,6 +31,10 @@ class ShowAdminEdition extends Component<any, any> {
     this.saveEditionDetails = this.saveEditionDetails.bind(this)
   }
 
+  classroomLesson() {
+    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
+  }
+
   edition() {
     return this.props.customize.editions[this.props.params.editionID]
   }
@@ -121,12 +125,13 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   render() {
-    if (Object.keys(this.props.customize.editions).length > 0 && this.edition()) {
+    if (Object.keys(this.props.customize.editions).length > 0 && this.edition() && this.props.classroomLessons.hasreceiveddata) {
       const questions = this.edition().data.questions
       const editionId = this.props.params.editionID
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
+            <h4 className="title is-4">Lesson: <a href={`/#/admin/classroom-lessons/${this.props.params.classroomLessonID}`}>{this.classroomLesson().title} </a> </h4>
             <h4 className="title is-4">Edition: {this.edition().name} <a target="_blank" href={`/#/teach/class-lessons/${this.props.params.classroomLessonID}/preview/${this.props.params.editionID}`}>Preview</a> </h4>
             <EditEditionDetails edition={this.edition()} save={this.saveEditionDetails} deleteEdition={this.deleteEdition} />
           </div>

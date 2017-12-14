@@ -149,9 +149,9 @@ export function addLesson(lessonName, cb) {
   }
 }
 
-export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData, cb) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/${slideID}/data`)
+export function saveEditionSlide(editionID, slideID, slideData, cb) {
+  editionsRef
+    .child(`${editionID}/data/questions/${slideID}/data`)
     .set(slideData)
   if (cb) {
     cb()
@@ -175,9 +175,9 @@ export function deleteEdition(editionID) {
   editionsRef.child(editionID).remove();
 }
 
-export function updateSlideScriptItems(classroomLessonID, slideID, scriptItems) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/`)
+export function updateSlideScriptItems(editionID, slideID, scriptItems) {
+  editionsRef
+    .child(`${editionID}/data/questions/${slideID}/data/teach/script/`)
     .set(scriptItems)
 }
 

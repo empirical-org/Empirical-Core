@@ -9,7 +9,7 @@ import {
   deleteLesson,
   updateClassroomLessonDetails
 } from '../../../actions/classroomLesson'
-import { createNewEdition } from '../../../actions/customize'
+import { createNewAdminEdition } from '../../../actions/customize'
 import EditLessonDetails from './editLessonDetails'
 import SortableList from '../../questions/sortableList/sortableList.jsx';
 
@@ -48,6 +48,10 @@ class ShowClassroomLesson extends Component<any, any> {
     }
   }
 
+  classroomLesson() {
+    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
+  }
+
   scoreReviews(reviews) {
     const reviewKeys = Object.keys(reviews)
     if (reviewKeys.length > 0) {
@@ -56,10 +60,6 @@ class ShowClassroomLesson extends Component<any, any> {
       const percentage = Math.round((numberPoints/numberPointsPoss) * 100)
       this.setState({reviewPercentage: percentage})
     };
-  }
-
-  classroomLesson() {
-    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
   }
 
   deleteLesson() {
@@ -141,7 +141,6 @@ class ShowClassroomLesson extends Component<any, any> {
 
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
-      const questions = this.classroomLesson().questions
       const classroomLessonID = this.props.params.classroomLessonID
       return (
         <div className="admin-classroom-lessons-container">

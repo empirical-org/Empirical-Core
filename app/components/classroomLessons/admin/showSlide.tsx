@@ -10,14 +10,15 @@ import {
   addScriptItem
 } from '../../../actions/classroomLesson'
 import * as IntF from '../interfaces';
+import * as CustomizeIntF from 'app/interfaces/customize'
 import Script from './script'
 import {
-  saveClassroomLessonSlide,
-  deleteClassroomLessonSlide,
+  saveEditionSlide,
+  deleteEditionSlide,
   updateSlideScriptItems
 } from 'actions/classroomLesson'
 
-class ShowClassroomLessonSlide extends Component<any, any> {
+class ShowEditionSlide extends Component<any, any> {
   constructor(props){
     super(props);
 
@@ -39,8 +40,12 @@ class ShowClassroomLessonSlide extends Component<any, any> {
     return getClassroomLesson(this.props.classroomLessons.data, this.props.params.classroomLessonID)
   }
 
+  edition(): CustomizeIntF.Edition {
+    return this.props.customize.editions[this.props.params.editionID]
+  }
+
   currentSlide() {
-    return this.classroomLesson().questions[this.props.params.slideID]
+    return this.edition().data.questions[this.props.params.slideID]
   }
 
   alertSave() {
@@ -48,23 +53,23 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   }
 
   save(newValues) {
-    const {classroomLessonID, slideID} = this.props.params;
-    saveClassroomLessonSlide(classroomLessonID, slideID, newValues, this.alertSave)
+    const {editionID, slideID} = this.props.params;
+    saveEditionSlide(editionID, slideID, newValues, this.alertSave)
   }
 
   deleteSlide() {
-    const {classroomLessonID, slideID} = this.props.params;
-    const slides = this.classroomLesson().questions
-    deleteClassroomLessonSlide(classroomLessonID, slideID, slides)
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/`
+    const {classroomLessonID, editionID, slideID} = this.props.params;
+    const slides = this.edition().data.questions
+    deleteEditionSlide(editionID, slideID, slides)
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
   }
 
   goToNewScriptItem(scriptItemID) {
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/slide/${this.props.params.slideID}/scriptItem/${scriptItemID}`
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/editions/${this.props.params.editionID}/slide/${this.props.params.slideID}/scriptItem/${scriptItemID}`
   }
 
   addScriptItem() {
-    addScriptItem(this.props.params.classroomLessonID, this.props.params.slideID, this.currentSlide(), this.state.newScriptItemType, this.goToNewScriptItem)
+    addScriptItem(this.props.params.editionID, this.props.params.slideID, this.currentSlide(), this.state.newScriptItemType, this.goToNewScriptItem)
   }
 
   selectNewScriptItemType(e) {
@@ -72,7 +77,7 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   }
 
   renderAddScriptItem() {
-    if (this.props.classroomLessons.hasreceiveddata) {
+    if (Object.keys(this.props.customize.editions).length > 0 && this.edition()) {
       const options = scriptItemTypeKeys.map(key => <option key={key} value={key}>{key}</option>)
       return (
         <div className="add-new-slide-form">
@@ -95,17 +100,17 @@ class ShowClassroomLessonSlide extends Component<any, any> {
   updateScriptItemOrder(sortInfo) {
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newScriptItems = newOrder.map((key) => this.currentSlide().data.teach.script[key])
-    const {classroomLessonID, slideID} = this.props.params;
-    updateSlideScriptItems(classroomLessonID, slideID, newScriptItems)
+    const {editionID, slideID} = this.props.params;
+    updateSlideScriptItems(editionID, slideID, newScriptItems)
   }
 
   render() {
-    if (this.props.classroomLessons.hasreceiveddata) {
+    if (Object.keys(this.props.customize.editions).length > 0 && this.edition()) {
       const Component = getComponent(this.currentSlide().type)
       return (
         <div className="admin-classroom-lessons-container">
-          <h4 className="title is-4">Lesson: <a href={`${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/`}>
-            {this.classroomLesson().title}
+          <h4 className="title is-4">Edition: <a href={`${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/editions/${this.props.params.editionID}`}>
+            {this.edition().name}
           </a></h4>
           <h5 className="title is-5">Slide: {this.currentSlide().data.teach.title}</h5>
           <h5 className="title is-5">Slide Type: {getComponentDisplayName(this.currentSlide().type)}</h5>
@@ -130,8 +135,9 @@ class ShowClassroomLessonSlide extends Component<any, any> {
 
 function select(props) {
   return {
-    classroomLessons: props.classroomLessons
+    classroomLessons: props.classroomLessons,
+    customize: props.customize
   };
 }
 
-export default connect(select)(ShowClassroomLessonSlide)
+export default connect(select)(ShowEditionSlide)

@@ -63,6 +63,28 @@ export function createNewEdition(editionUID:string|null, lessonUID:string, user_
   }
 }
 
+export function createNewAdminEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, callback?:any, name?:string) {
+  let newEditionData, newEdition;
+  if (editionUID) {
+    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, name: name, flags: ['alpha']}
+    newEdition = editionsRef.push(newEditionData)
+      editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
+      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
+    })
+  } else {
+    newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name}
+    newEdition = editionsRef.push(newEditionData)
+      classroomLessonsRef.child(lessonUID).once('value', snapshot => {
+      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
+    })
+  }
+  if (callback) {
+    callback(lessonUID, newEdition.key)
+  } else {
+    return newEdition.key
+  }
+}
+
 export function saveEditionName(editionUID:string, name:string) {
   editionsRef.child(`${editionUID}/name`).set(name)
 }
