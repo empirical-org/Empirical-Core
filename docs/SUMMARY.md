@@ -37,3 +37,6 @@
   * [Contributing to the Docs](conventions/contributing_to_docs.md)
   * [Making a Node Module](conventions/making_a_node_module.md)
 * [APIs](apis/index.md)
+  * [Activities Endpoints](apis/activities_endpoints.md)
+  * [Classroom Activity Endpoints](apis/classroom_activity_endpoints.md)
+  * [Users Endpoints](apis/users_endpoints.md)
