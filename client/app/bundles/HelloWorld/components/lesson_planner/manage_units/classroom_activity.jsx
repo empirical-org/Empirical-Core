@@ -20,7 +20,7 @@ const styles = {
   lessonEndRow: {
     display: 'flex',
     width: '100%',
-    maxWidth: '385px',
+    maxWidth: '390px',
     justifyContent: 'flex-dend',
     alignItems: 'center',
   },

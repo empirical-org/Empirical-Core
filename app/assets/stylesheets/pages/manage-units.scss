@@ -202,6 +202,10 @@
       width: 180px;
       margin-right: 30px;
       padding: 9px 10px;
+      border: 1px solid #c0c0c0;
+    }
+    .due_date_input::placeholder {
+      color: #c0c0c0;
     }
     .apply-to-all {
       font-size: 12px;

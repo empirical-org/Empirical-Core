@@ -73,10 +73,9 @@
       flex: 2;
       .assigned-to {
         font-size: 14px;
-        font-weight: 600;
-        span {
+        .heading {
           display: inline-block;
-          margin-bottom: 20px;
+          margin-bottom: 8px;
           color: #969696;
         }
         ul {
@@ -84,7 +83,10 @@
           list-style: none;
           color: #3b3b3b;
           li {
-            margin-bottom: 14px;
+            margin-bottom: 5px;
+            span {
+              font-weight: 600;
+            }
           }
         }
       }

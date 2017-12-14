@@ -29,9 +29,9 @@ export default React.createClass({
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
     const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
-    const classroomList = classrooms.map((c, i) => <li key={i}>{c.name} ({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</li>)
+    const classroomList = classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
     return <div className="assigned-to">
-      <span>Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
+      <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
       <ul>
         {classroomList}
       </ul>
