@@ -29,7 +29,7 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
 
   def trigger_analytics
     invitation = self.invitation
-    UserMilestone.create(user_id: invitation.inviter_id, milestone: Milestone.find_by_name(Milestone::TYPES[:invite_a_coteacher]))
+    UserMilestone.create(user_id: invitation.inviter_id, milestone_id: Milestone.find_by_name(Milestone::TYPES[:invite_a_coteacher]).id)
     CoteacherAnalytics.new.track_coteacher_invitation(invitation.inviter_id, invitation.invitee_email)
   end
 end
