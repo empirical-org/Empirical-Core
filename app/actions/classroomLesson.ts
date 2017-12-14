@@ -130,8 +130,8 @@ export function addScriptItem(classroomLessonUid: string, slideID: string, slide
   }
 }
 
-export function deleteScriptItem(classroomLessonID, slideID, scriptItemID, script) {
-  const scriptRef = classroomLessonsRef.child(`${classroomLessonID}/questions/${slideID}/data/teach/script`)
+export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
+  const scriptRef = editionsRef.child(`${editionID}/data/questions/${slideID}/data/teach/script`)
   const newArray = _.compact(Object.keys(script).map(scriptKey => {
     if (scriptKey != scriptItemID ) {
       return script[scriptKey]
@@ -158,9 +158,9 @@ export function saveEditionSlide(editionID, slideID, slideData, cb) {
   }
 }
 
-export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, cb) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
+export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, cb) {
+  editionsRef
+    .child(`${editionID}/data/questions/${slideID}/data/teach/script/${scriptItemID}/`)
     .set(scriptItem)
   if (cb) {
     cb()
