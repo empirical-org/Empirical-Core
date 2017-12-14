@@ -61,6 +61,7 @@ describe Teachers::ClassroomsController, type: :controller do
     it 'does not allow transferring a classroom not owned by current user' do
       session[:user_id] = unaffiliated_user.id
       post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+      expect(response.status).to eq(303)
       expect(classroom.owner).to eq(owner)
     end
 
