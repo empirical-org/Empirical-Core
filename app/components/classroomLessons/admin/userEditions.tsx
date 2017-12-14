@@ -93,6 +93,7 @@ class UserEditions extends Component<any, any> {
             <th onClick={this.clickSort.bind(this, 'user_id')}>User ID</th>
             <th onClick={this.clickSort.bind(this, 'name')}>Name</th>
             <th onClick={this.clickSort.bind(this, 'last_published_at')}>Last Published At</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -113,6 +114,7 @@ class UserEditions extends Component<any, any> {
         <td>{edition.user_id}</td>
         <td><a href={link}>{edition.name || 'No Name'}</a></td>
         <td>{date}</td>
+        <td><a href={window.location.href + '/' + edition.key}>Edit</a></td>
       </tr>
     }
     );
