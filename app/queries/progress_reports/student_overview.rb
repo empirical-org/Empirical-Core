@@ -6,6 +6,7 @@ class ProgressReports::StudentOverview
        JOIN units ON units.id = classroom_activities.unit_id
        JOIN activities ON activities.id = classroom_activities.activity_id
        WHERE classroom_activities.classroom_id = #{ActiveRecord::Base.sanitize(classroom_id)} AND #{ActiveRecord::Base.sanitize(student_id)} = ANY (classroom_activities.assigned_student_ids::int[])
-       GROUP BY units.name, activity_sessions.completed_at, activities.name, activity_sessions.percentage, classroom_activities.completed, activity_sessions.id").to_a
+       GROUP BY units.name, activity_sessions.completed_at, activities.name, activity_sessions.percentage, classroom_activities.completed, activity_sessions.id
+       ORDER BY activity_sessions.completed_at").to_a
   end
 end

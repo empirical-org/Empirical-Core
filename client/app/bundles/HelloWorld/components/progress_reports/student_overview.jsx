@@ -2,6 +2,7 @@ import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
 import getParameterByName from '../modules/get_parameter_by_name'
+import StudentOveriewTable from './student_overview_table.jsx'
 
 export default class extends React.Component {
 
@@ -26,6 +27,8 @@ export default class extends React.Component {
     });
   }
 
+
+
 	render() {
     let errors
     if (this.state.errors) {
@@ -37,7 +40,7 @@ export default class extends React.Component {
     return (
     <div>
       {errors}
-      'BONJOUR!'
+			<StudentOveriewTable reportData={this.state.reportData}/>
       <CSVLink data={this.state.reportData} target="_blank">Link Report</CSVLink>
     </div>
   	)}
