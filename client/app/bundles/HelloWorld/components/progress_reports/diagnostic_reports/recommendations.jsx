@@ -103,30 +103,33 @@ export default React.createClass({
 
   assignSelectedPacks() {
     this.setState({ assigning: true, }, () => {
-      const classroomId = this.props.params.classroomId;
-      let selections = this.state.selections.map(activityPack => ({
-        id: activityPack.activity_pack_id,
-        classrooms: [
-          {
-            id: classroomId,
-            student_ids: activityPack.students,
-          }
-        ],
-      }));
-      selections = { selections, };
       $.ajax({
 		  	type: 'POST',
 		  	url: '/teachers/progress_reports/assign_selected_packs/',
 		  	dataType: 'json',
 		  	contentType: 'application/json',
-		  	data: JSON.stringify(selections),
+		  	data: JSON.stringify(this.formatSelectionsForAssignment()),
       })
 			.done(() => { this.initializePusher(); })
 			.fail(() => {
-  alert('We had trouble processing your request. Please check your network connection and try again.');
-  this.setState({ assigning: false, });
-});
+        alert('We had trouble processing your request. Please check your network connection and try again.');
+        this.setState({ assigning: false, });
+      });
     });
+  },
+
+  formatSelectionsForAssignment() {
+    const classroomId = this.props.params.classroomId;
+    const selectionsArr = this.state.selections.map(activityPack => ({
+      id: activityPack.activity_pack_id,
+      classrooms: [
+        {
+          id: classroomId,
+          student_ids: activityPack.students,
+        }
+      ],
+    }));
+    return {selections: selectionsArr}
   },
 
   assignToWholeClass(unitTemplateId) {
@@ -136,7 +139,7 @@ export default React.createClass({
       url: '/teachers/progress_reports/assign_selected_packs/',
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
+      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId}),
     })
     .done(() => {
       this.initializePusher(unitTemplateId);
