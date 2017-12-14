@@ -6,6 +6,7 @@ const reviewsRef = rootRef.child('reviews');
 const editionsRef = rootRef.child('lessons_editions');
 import _ from 'lodash'
 import * as IntF from 'components/classroomLessons/interfaces';
+import * as CustomizeIntF from 'app/interfaces/customize'
 
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
@@ -98,14 +99,14 @@ export function updateClassroomLessonsReviews(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})
 }
 
-export function addSlide(classroomLessonUid: string, classroomLesson: IntF.ClassroomLesson, slideType: string, cb:Function|undefined) {
-  const lessonRef = classroomLessonsRef.child(classroomLessonUid);
-  const newLesson: IntF.ClassroomLesson = _.merge({}, classroomLesson)
+export function addSlide(editionUid: string, edition: CustomizeIntF.Edition, slideType: string, cb:Function|undefined) {
+  const editionRef = editionsRef.child(editionUid);
+  const newEdition: CustomizeIntF.Edition = _.merge({}, edition)
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
-  newLesson.questions.splice(-1, 0, newSlide)
-  lessonRef.set(newLesson);
+  newEdition.data.questions.splice(-1, 0, newSlide)
+  editionRef.set(newEdition);
   if (cb) {
-    cb(Number(newLesson.questions.length) - 2)
+    cb(Number(newEdition.data.questions.length) - 2)
   }
 }
 

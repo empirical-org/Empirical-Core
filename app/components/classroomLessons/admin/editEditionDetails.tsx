@@ -48,7 +48,7 @@ export default class EditLessonDetails extends Component<any, any> {
           <button className="button is-primary" onClick={() => this.props.save(this.state.edition)}>Save Changes</button>
         </p>
         <p className="control">
-          <button className="button is-danger" onClick={this.props.deleteLesson}>Delete Edition</button>
+          <button className="button is-danger" onClick={this.props.deleteEdition}>Delete Edition</button>
         </p>
       </div>
     </div>

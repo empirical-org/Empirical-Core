@@ -146,6 +146,7 @@ class ShowClassroomLesson extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
+            <h5 className="title is-4">Lesson: {this.classroomLesson().title}</h5>
             <h5 className="title is-5">{this.renderPercentage()}</h5>
             <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} deleteLesson={this.deleteLesson} />
           </div>
