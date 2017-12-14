@@ -407,7 +407,7 @@ export default React.createClass({
           <p>On this page, you can archive and unarchive classes. You can also click on <strong>Edit Students</strong> to reset students’ passwords below.</p>
           <div className="cta-box">
             <a href="/teachers/classrooms/new" className="q-button cta-button bg-white">Create a Class</a>
-            <a href="/teachers/classrooms/new" className="q-button cta-button bg-white">Sync with Google Classroom</a>
+            <a href="/teachers/classrooms/google_sync" className="q-button cta-button bg-white">Sync with Google Classroom</a>
           </div>
         </div>
       </div>);
