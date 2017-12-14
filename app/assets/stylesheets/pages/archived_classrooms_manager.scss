@@ -130,8 +130,7 @@
   }
 }
 #coteacher-capability-chart {
-  background: url(https://assets.quill.org/images/illustrations/customization-tip.png) #fff3df no-repeat right bottom;
-  background-size: 150px;
+  background: #fff3df;
   padding: 14px 22px 0;
   h1 {
     font-size: 18px;
@@ -140,28 +139,17 @@
   }
   ul {
     list-style: none;
-    margin-right: 100px;
     padding: 0;
     li {
+      background: url('https://assets.quill.org/images/icons/check-mark-icon.svg') no-repeat top 4px left;
 	    color: #3b3b3b;
       font-size: 14px;
       margin-bottom: 5px;
-      padding-left: 11px;
-      span {
-        padding-left: 13px;
-      }
-      &:before {
-        background: url('https://assets.quill.org/images/icons/check-mark-icon.svg') no-repeat center;
-        content: '';
-        left: -5px;
-        margin-left: -10px; /* same as padding-left set on li */
-        padding-right: 22px;
-        position: relative;
-        width: 11px; /* same as padding-left set on li */
-      }
+      padding-left: 26px;
     }
-    &.cant-do li:before {
-      background: url('https://assets.quill.org/images/icons/cross-mark-icon.svg') no-repeat center;
+    &.cant-do li {
+      background: url('https://assets.quill.org/images/icons/cross-mark-icon.svg') no-repeat top 4px left 2px;
+      line-height: 1.3;
     }
   }
 }
