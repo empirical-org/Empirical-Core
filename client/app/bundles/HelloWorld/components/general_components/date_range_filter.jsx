@@ -13,20 +13,23 @@ export default React.createClass({
     return {};
   },
 
-  setDateFromFilter: function(beginDate) {
+  setDateFromFilter: function(filter) {
     this.setState({focusedInput: null});
-    this.props.selectDates(beginDate, moment().add(1, 'days'));
+    this.props.selectDates(filter.beginDate, null, filter.title);
   },
 
   renderFilterOptions: function () {
     return (
       <div className='calendar-prefill-options'>
-        {this.props.filterOptions.map(filter =>
-          <DateRangeFilterOption
+        {this.props.filterOptions.map(filter => {
+          const selected = this.props.dateFilterName === filter.title
+          return <DateRangeFilterOption
             key={filter.title}
             title={filter.title}
-            onClickFunction={() => { this.setDateFromFilter(filter.beginDate) }}
+            onClickFunction={() => { this.setDateFromFilter(filter) }}
+            selected={selected}
           />
+        }
         )}
       </div>
     );
@@ -37,7 +40,7 @@ export default React.createClass({
       <DateRangePicker
         startDate={this.props.beginDate}
         endDate={this.props.endDate}
-        onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate)}
+        onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate, null)}
         focusedInput={this.state.focusedInput}
         onFocusChange={focusedInput => this.setState({ focusedInput })}
         numberOfMonths={1}
