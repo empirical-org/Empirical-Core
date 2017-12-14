@@ -9,6 +9,7 @@ import ConceptsConceptsProgressReport from '../components/progress_reports/conce
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'
 import LandingPageContainer from './LandingPageContainer.jsx'
 import ActivitiesScoresByClassroomProgressReport from '../components/progress_reports/activities_scores_by_classroom_progress_report.jsx'
+import StudentOverview from '../components/progress_reports/student_overview.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
 import React from 'react'
@@ -36,6 +37,7 @@ var renderRightComponentHack = function() {
     '.progress-reports-concepts-concepts': ConceptsConceptsProgressReport,
     '.progress-reports-landing-page-container': LandingPageContainer,
     '.progress-reports-activities-scores-by-classroom': ActivitiesScoresByClassroomProgressReport,
+    '.progress-reports-student-overview': StudentOverview,
   };
 
   _.each(progressReportMapping, function(component, rootNodeSelector) {
