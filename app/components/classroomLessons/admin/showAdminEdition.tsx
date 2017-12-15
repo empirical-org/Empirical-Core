@@ -14,6 +14,7 @@ import {
 } from '../../../actions/classroomLesson'
 import EditEditionDetails from './editEditionDetails'
 import SortableList from '../../questions/sortableList/sortableList.jsx';
+import { getEditionQuestions } from '../../../actions/customize'
 
 class ShowAdminEdition extends Component<any, any> {
   constructor(props){
@@ -29,6 +30,8 @@ class ShowAdminEdition extends Component<any, any> {
     this.selectNewSlideType = this.selectNewSlideType.bind(this)
     this.goToNewSlide = this.goToNewSlide.bind(this)
     this.saveEditionDetails = this.saveEditionDetails.bind(this)
+
+    this.props.dispatch(getEditionQuestions(this.props.params.editionID))
   }
 
   classroomLesson() {
@@ -37,6 +40,14 @@ class ShowAdminEdition extends Component<any, any> {
 
   edition() {
     return this.props.customize.editions[this.props.params.editionID]
+  }
+
+  loaded() {
+    return Object.keys(this.props.customize.editions).length > 0 && this.edition() && this.editionQuestions() && this.editionQuestions().length > 0
+  }
+
+  editionQuestions() {
+    return this.props.customize.editionQuestions ? this.props.customize.editionQuestions.questions : null
   }
 
   goToNewSlide(slideID) {
@@ -64,7 +75,7 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   updateSlideOrder(sortInfo) {
-    const originalSlides = this.edition().data.questions
+    const originalSlides = this.editionQuestions()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const firstSlide = originalSlides[0]
     const middleSlides = newOrder.map((key) => originalSlides[key])
@@ -77,14 +88,14 @@ class ShowAdminEdition extends Component<any, any> {
     const confirmation = window.confirm('Are you sure you want to delete this slide?')
     if (confirmation) {
       const {editionID} = this.props.params;
-      const slides = this.edition().data.questions
+      const slides = this.editionQuestions()
       deleteEditionSlide(editionID, slideID, slides)
     }
   }
 
   renderSortableMiddleSlides() {
-    if (Object.keys(this.props.customize.editions).length > 0 && this.edition()) {
-      const questions = this.edition().data.questions
+    if (this.loaded()) {
+      const questions = this.editionQuestions()
       const editionId = this.props.params.editionID
       const slides = Object.keys(questions).slice(1, -1).map(key => this.renderSlide(questions, editionId, key))
       return <SortableList data={slides} sortCallback={this.updateSlideOrder} />
@@ -105,7 +116,7 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   renderAddSlide() {
-    if (Object.keys(this.props.customize.editions).length > 0 && this.edition()) {
+    if (this.loaded()) {
       const options = slideTypeKeys.map(key => <option key={key} value={key}>{getComponentDisplayName(key)}</option>)
       return (
         <div className="add-new-slide-form">
@@ -125,8 +136,8 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   render() {
-    if (Object.keys(this.props.customize.editions).length > 0 && this.edition() && this.props.classroomLessons.hasreceiveddata) {
-      const questions = this.edition().data.questions
+    if (this.loaded() && this.props.classroomLessons.hasreceiveddata) {
+      const questions = this.editionQuestions()
       const editionId = this.props.params.editionID
       return (
         <div className="admin-classroom-lessons-container">

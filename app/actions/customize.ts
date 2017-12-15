@@ -1,6 +1,7 @@
 declare function require(name:string);
 import rootRef, { firebase } from '../libs/firebase';
-const editionsRef = rootRef.child('lessons_editions');
+const editionQuestionsRef = rootRef.child('lesson_edition_questions');
+const editionMetadataRef = rootRef.child('lesson_edition_metadata');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
@@ -34,10 +35,18 @@ export function getEditionsForUserIds(userIds:Array<Number>) {
   };
 }
 
-export function startListeningToEditions() {
+export function startListeningToeditionMetadata() {
   return function (dispatch, getState) {
-    editionsRef.on('value', (snapshot) => {
-      dispatch(setEditions(snapshot.val()))
+    editionMetadataRef.on('value', (snapshot) => {
+      dispatch(seteditionMetadata(snapshot.val()))
+    });
+  };
+}
+
+export function getEditionQuestions(editionID:string) {
+  return function (dispatch, getState) {
+    editionQuestionsRef.child(editionID).on('value', (snapshot) => {
+      dispatch(setEditionQuestions(snapshot.val()))
     });
   };
 }
@@ -136,7 +145,7 @@ function filterEditionsByUserIds(userIds:Array<Number|string>, editions:Customiz
         }
       })
       if (Object.keys(userEditions).length > 0) {
-        dispatch(setEditions(userEditions))
+        dispatch(seteditionMetadata(userEditions))
       }
     }
   }
@@ -150,8 +159,12 @@ function setCoteachers(coteachers:Array<any>) {
   return { type: C.SET_COTEACHERS, coteachers };
 }
 
-function setEditions(editions:CustomizeIntf.Editions) {
-  return { type: C.SET_EDITIONS, editions };
+function seteditionMetadata(editionMetadata:CustomizeIntf.editionMetadata) {
+  return { type: C.SET_EDITION_METADATA, editionMetadata };
+}
+
+function setEditionQuestions(editionQuestions:CustomizeIntf.EditionQuestions) {
+  return { type: C.SET_EDITION_QUESTIONS, editionQuestions };
 }
 
 function sendPublishEditionEventToLMS() {

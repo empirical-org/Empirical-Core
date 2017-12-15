@@ -12,7 +12,7 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
 import {
-  startListeningToEditions
+  startListeningToeditionMetadata
 } from '../../actions/customize'
 import {
   listenForClassroomLessonsFromFirebase,
@@ -39,7 +39,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(listenForClassroomLessonsFromFirebase());
     this.props.dispatch(listenForclassroomLessonsReviewsFromFirebase())
-    this.props.dispatch(startListeningToEditions())
+    this.props.dispatch(startListeningToeditionMetadata())
   },
 
   render() {

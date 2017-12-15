@@ -1,7 +1,6 @@
 import * as CLIntF from './classroomLessons'
 
-export interface Edition {
-  data: CLIntF.ClassroomLesson,
+export interface EditionMetadata {
   key: string,
   last_published_at: number,
   lesson_id: string,
@@ -11,6 +10,10 @@ export interface Edition {
   flags?: Array<string>,
 }
 
-export interface Editions {
-  [key:string]: Edition;
+export interface EditionQuestions {
+  questions: CLIntF.Questions
+}
+
+export interface editionMetadata {
+  [key:string]: EditionMetadata;
 }

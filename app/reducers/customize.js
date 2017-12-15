@@ -20,9 +20,13 @@ export default function (currentstate, action) {
       return Object.assign({}, currentstate, {
         coteachers: action.coteachers,
       });
-    case C.SET_EDITIONS:
+    case C.SET_EDITION_METADATA:
       return Object.assign({}, currentstate, {
-        editions: action.editions,
+        editions: action.editionMetadata,
+      });
+    case C.SET_EDITION_QUESTIONS:
+      return Object.assign({}, currentstate, {
+        editionQuestions: action.editionQuestions,
       });
     case C.SET_WORKING_EDITION:
       return Object.assign({}, currentstate, {
