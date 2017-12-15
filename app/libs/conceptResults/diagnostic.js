@@ -19,7 +19,7 @@ export function getConceptResultsForQuestion(question) {
 }
 
 export function getNestedConceptResultsForAllQuestions(questions) {
-  return questions.map(question => getConceptResultsForQuestion(question));
+  return questions.filter(qs => qs.type !== 'TL').map(question => getConceptResultsForQuestion(question));
 }
 
 export function embedQuestionNumbers(nestedConceptResultArray) {
