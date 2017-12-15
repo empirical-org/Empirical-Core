@@ -35,7 +35,7 @@
       font-size: 24px;
       color: #3b3b3b;
       font-weight: 500;
-
+      width: 130px;
       .unit-container {
         min-height: 76px;
       }
@@ -44,6 +44,23 @@
     .activity-image,
     .unit-name {
       padding-left: 25px;
+    }
+
+    .activity-image {
+      max-width: 50px;
+      div {
+        background-position: center;
+        background-size: 70%;
+        height: 30px;
+        width: 30px;
+        border-radius: 3px;
+        &.icon-1, &.icon-2, &.icon-2-lightgray, &.icon-1-lightgray {
+          background-size: 60%;
+        }
+      }
+      .icon-unstarted {
+        background-color: white;
+      }
     }
 
     .average-score-container {
@@ -68,7 +85,10 @@
 
     .activity-name {
       width: 40%;
-      color: #027360;
+      a {
+        color: #027360;
+        text-decoration: none;
+      }
     }
 
     .small-font {

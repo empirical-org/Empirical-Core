@@ -1,9 +1,10 @@
 import React from 'react'
 import _ from 'underscore'
 import moment from 'moment'
+import gradeColor from '../modules/grade_color.js'
 
 export default class extends React.Component {
-  //
+
   constructor(props) {
     super(props)
   }
@@ -21,43 +22,57 @@ export default class extends React.Component {
       rows.push(this.tableRow(row))
     })
     if (cumulativeScore > 0) {
+      this.props.calculateCountAndAverage(cumulativeScore, applicableScoreRowCount)
       averageScore = cumulativeScore / applicableScoreRowCount
     }
     return {averageScore, rows}
   }
 
-  activityImage(activity_classification_id) {
-    // i believe there is a module for this
-    return activity_classification_id
+  activityImage(activity_classification_id, color) {
+    if (color === 'unstarted') {
+      return <div className={`icon-${color} icon-${activity_classification_id}-lightgray`}></div>
+    }
+    return <div className={`icon-${color} icon-${activity_classification_id}`}></div>
   }
 
   completedStatus(row) {
     if (row.completed_at) {
       return moment.unix(row.completed_at).format('MM-DD-YYYY')
+    } else if (row.activity_classification_id === '6' && row.is_a_completed_lesson === 't') {
+      return 'Missed Lesson'
     }
+    return 'Not Started'
   }
 
   greenArrow(row) {
     if (row.completed_at && ['6', '4'].indexOf(row.activity_classification_id) === -1) {
-      return 'green arrow'
+      return (<a href={`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${row.classroom_activity_id}/user/${this.props.studentId}`}>
+        <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+      </a>)
     }
   }
 
   score(row) {
     if (row.completed_at && ['6', '4'].indexOf(row.activity_classification_id) > -1) {
-      return 'Completed'
+      return {content: 'Completed', color: 'blue'}
     } else if (row.percentage) {
-      return Math.round(row.percentage * 100) + '%'
+      return {
+        content: Math.round(row.percentage * 100) + '%',
+        color: gradeColor(parseFloat(row.percentage))
+      }
+    } else {
+      return {content: undefined, color: 'unstarted'}
     }
   }
 
   tableRow(row) {
+    const scoreInfo = this.score(row)
     return (
       <tr>
-        <td>{this.activityImage(row.activity_classification_id)}</td>
-        <td>{row.name}</td>
+        <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
+        <td className='activity-name'><a href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a></td>
         <td>{this.completedStatus(row)}</td>
-        <td>{this.score(row)}</td>
+        <td className='score'>{scoreInfo.content}</td>
         <td className='green-arrow'>{this.greenArrow(row)}</td>
       </tr>
     )
@@ -72,7 +87,7 @@ export default class extends React.Component {
         <table className='student-overview-table'>
           <tbody>
             <tr className='header-row'>
-              <th className='unit-name' colSpan='2'><div className='container flex-row vertically-centered'><div>{constantData.unit_name}</div></div></th>
+              <th className='unit-name' colSpan='2'>{constantData.unit_name}</th>
               <th className='small-font'>Date Completed</th>
               <th className='small-font'>Score</th>
               <th className='average-score-container'>
@@ -82,7 +97,7 @@ export default class extends React.Component {
                 <div>
                   {averageScore
                     ? Math.round(averageScore * 100) + '%'
-                    : 'N/A'}
+                    : '—'}
                 </div>
               </th>
             </tr>
