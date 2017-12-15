@@ -1,53 +1,112 @@
-.student-overview-table {
-  max-width: 950px;
-  width: 100%;
-  margin: auto;
-  border-radius: 6px;
-  background-color: #ffffff;
-  margin-top: 21px;
+#student-overview {
+  .student-overview-table {
+    max-width: 950px;
+    width: 100%;
+    margin: auto;
+    border-radius: 6px;
+    background-color: #ffffff;
+    margin-top: 21px;
 
-  tr {
-    height: 50px;
-    border: solid 1px #e9e9e9;
+    tr {
+      height: 50px;
+      border: solid 1px #e9e9e9;
 
-    &:hover:not(:first-of-type) {
-      background-color: #f9fffe;
+      &:not(:first-of-type) {
+        font-size: 14px;
+        color: #666666;
+
+        &:hover {
+          background-color: #f9fffe;
+
+          .activity_name {
+            color: #00c2a2;
+          }
+        }
+      }
+
+      &.header-row {
+        height: 76px;
+        background-color: #fafafa;
+      }
     }
-    &.header-row {
+
+    .unit-name {
       min-height: 76px;
-      background-color: #fafafa;
+      font-size: 24px;
+      color: #3b3b3b;
+      font-weight: 500;
+
+      .unit-container {
+        min-height: 76px;
+      }
+    }
+
+    .activity-image,
+    .unit-name {
+      padding-left: 25px;
+    }
+
+    .average-score-container {
+      font-size: 20px;
+      font-weight: 600;
+      color: #3b3b3b;
+      min-width: 100px;
+
+      .average-score-label {
+        font-size: 14px;
+        color: #969696;
+        padding-bottom: 4px;
+        margin-top: 8px;
+      }
+    }
+
+    .average-score-container,
+    .green-arrow {
+      text-align: right;
+      padding-right: 17px;
+    }
+
+    .activity-name {
+      width: 40%;
+      color: #027360;
+    }
+
+    .small-font {
+      font-size: 12px;
+      color: #707070;
+      vertical-align: bottom;
+      padding-bottom: 5px;
+    }
+
+    .score {
+      width: 136px;
     }
   }
-  .unit-name {
-    min-height: 76px;
-    font-size: 24px;
-    color: #3b3b3b;
-    font-weight: 500;
-    .container {
-      min-height: 76px;
+
+  .overview-header-table {
+    margin: auto;
+    max-width: 950px;
+    width: 100%;
+    background-color: #f7f5f5;
+    border-radius: 6px;;
+    box-shadow: 0 1px 2px 0 #e9e9e9;
+    .student-name {
+      font-size: 30px;
+      font-weight: 800;
+    }
+    .yellow-text {
+        font-size: 18px;
+        font-weight: 600;
+        color: #ea9a1a;
+    }
+    .gray-text {
+      font-size: 16px;
+      color: #707070;
+    }
+    .bottom {
+      width: 100%;
+      border-top: solid 1px #e9e9e9;
+      background-color: #fff;
     }
   }
-
-  .average-score-container {
-    font-size: 20px;
-    font-weight: 600;
-    color: #3b3b3b;
-    min-width: 100px;
-    .average-score-label {
-      font-size: 14px;
-      color: #969696;
-    }
-  }
-
-  .green-arrow, .average-score-container {
-    text-align: right;
-    padding-right: 17px;
-  }
-
-  .small-font {
-    font-size: 12px;
-    color: #707070;
-  }
-
-
 }
