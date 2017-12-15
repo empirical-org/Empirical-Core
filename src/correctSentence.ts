@@ -24,8 +24,6 @@ function correctWord(dictionary: Dictionary, word: string): string {
   return [start, correct(dictionary, middle), end].join('');
 }
 
-
-
 export function removeSpecialCharsFromStart(word: string): string[] {
   let index = 0;
   while (specialChars.indexOf(word[index]) !== -1) {
