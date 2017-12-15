@@ -4,6 +4,7 @@ import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 const reviewsRef = rootRef.child('reviews');
 const editionMetadataRef = rootRef.child('lesson_edition_metadata');
+const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
 import * as IntF from 'components/classroomLessons/interfaces';
 import * as CustomizeIntF from 'app/interfaces/customize'
@@ -99,19 +100,19 @@ export function updateClassroomLessonsReviews(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})
 }
 
-export function addSlide(editionUid: string, edition: CustomizeIntF.Edition, slideType: string, cb:Function|undefined) {
-  const editionRef = editionMetadataRef.child(editionUid);
-  const newEdition: CustomizeIntF.Edition = _.merge({}, edition)
+export function addSlide(editionUid: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, cb:Function|undefined) {
+  const editionQuestionRef = editionQuestionsRef.child(editionUid);
+  const newEdition: CustomizeIntF.Edition = _.merge({}, editionQuestions)
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
-  newEdition.data.questions.splice(-1, 0, newSlide)
-  editionRef.set(newEdition);
+  newEdition.questions.splice(-1, 0, newSlide)
+  editionQuestionRef.set(newEdition);
   if (cb) {
-    cb(Number(newEdition.data.questions.length) - 2)
+    cb(Number(newEdition.questions.length) - 2)
   }
 }
 
 export function deleteEditionSlide(editionID, slideID, slides) {
-  const slidesRef = editionMetadataRef.child(`${editionID}/data/questions/`)
+  const slidesRef = editionQuestionsRef.child(`${editionID}/questions/`)
   const newArray = _.compact(Object.keys(slides).map(slideKey => {
     if (slideKey != slideID ) {
       return slides[slideKey]
@@ -150,8 +151,8 @@ export function addLesson(lessonName, cb) {
 }
 
 export function saveEditionSlide(editionID, slideID, slideData, cb) {
-  editionMetadataRef
-    .child(`${editionID}/data/questions/${slideID}/data`)
+  editionQuestionsRef
+    .child(`${editionID}/questions/${slideID}/data`)
     .set(slideData)
   if (cb) {
     cb()
@@ -159,8 +160,8 @@ export function saveEditionSlide(editionID, slideID, slideData, cb) {
 }
 
 export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, cb) {
-  editionMetadataRef
-    .child(`${editionID}/data/questions/${slideID}/data/teach/script/${scriptItemID}/`)
+  editionQuestionsRef
+    .child(`${editionID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
     .set(scriptItem)
   if (cb) {
     cb()
@@ -173,17 +174,18 @@ export function deleteLesson(classroomLessonID) {
 
 export function deleteEdition(editionID) {
   editionMetadataRef.child(editionID).remove();
+  editionQuestionsRef.child(editionID).remove();
 }
 
 export function updateSlideScriptItems(editionID, slideID, scriptItems) {
-  editionMetadataRef
-    .child(`${editionID}/data/questions/${slideID}/data/teach/script/`)
+  editionQuestionsRef
+    .child(`${editionID}/questions/${slideID}/data/teach/script/`)
     .set(scriptItems)
 }
 
 export function updateEditionSlides(editionID, slides) {
-  editionMetadataRef
-    .child(`${editionID}/data/questions/`)
+  editionQuestionsRef
+    .child(`${editionID}/questions/`)
     .set(slides)
 }
 

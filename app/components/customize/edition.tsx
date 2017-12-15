@@ -66,9 +66,9 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   updateQuestion(question: Question, questionIndex: number) {
-    const newEdition = _.merge({}, this.state.edition)
-    newEdition.data.questions[questionIndex].data = question
-    this.setState({edition: newEdition}, () => this.props.dispatch(setWorkingEdition(newEdition)))
+    const newEditionQuestions = _.merge({}, this.state.edition)
+    newEditionQuestions.questions[questionIndex].data = question
+    this.setState({editionQuestions: newEditionQuestions}, () => this.props.dispatch(setWorkingEdition(newEdition)))
   }
 
   updateName(e) {
@@ -167,8 +167,8 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlides() {
-    if (this.state.edition && this.state.edition.data) {
-      return this.state.edition.data.questions.slice(1).map((q, i) => this.renderSlide(q, i))
+    if (this.state.editionQuestions) {
+      return this.state.editionQuestions.questions.slice(1).map((q, i) => this.renderSlide(q, i))
     }
   }
 

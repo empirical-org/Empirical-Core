@@ -17,6 +17,7 @@ import {
   deleteEditionSlide,
   updateSlideScriptItems
 } from 'actions/classroomLesson'
+import { getEditionQuestions } from '../../../actions/customize'
 
 class ShowEditionSlide extends Component<any, any> {
   constructor(props){
@@ -34,6 +35,8 @@ class ShowEditionSlide extends Component<any, any> {
     this.updateScriptItemOrder = this.updateScriptItemOrder.bind(this)
     this.goToNewScriptItem = this.goToNewScriptItem.bind(this)
     this.alertSave = this.alertSave.bind(this)
+
+    this.props.dispatch(getEditionQuestions(this.props.params.editionID))
   }
 
   classroomLesson(): IntF.ClassroomLesson {
@@ -44,8 +47,12 @@ class ShowEditionSlide extends Component<any, any> {
     return this.props.customize.editions[this.props.params.editionID]
   }
 
+  editionQuestions() {
+    return this.props.customize.editionQuestions ? this.props.customize.editionQuestions.questions : null;
+  }
+
   currentSlide() {
-    return this.edition().data.questions[this.props.params.slideID]
+    return this.editionQuestions() ? this.editionQuestions()[this.props.params.slideID] : null
   }
 
   alertSave() {
@@ -59,7 +66,7 @@ class ShowEditionSlide extends Component<any, any> {
 
   deleteSlide() {
     const {classroomLessonID, editionID, slideID} = this.props.params;
-    const slides = this.edition().data.questions
+    const slides = this.editionQuestions()
     deleteEditionSlide(editionID, slideID, slides)
     window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
   }
@@ -105,7 +112,7 @@ class ShowEditionSlide extends Component<any, any> {
   }
 
   render() {
-    if (Object.keys(this.props.customize.editions).length > 0 && this.edition()) {
+    if (Object.keys(this.props.customize.editions).length > 0 && this.edition() && this.editionQuestions() && this.editionQuestions().length > 0) {
       const Component = getComponent(this.currentSlide().type)
       return (
         <div className="admin-classroom-lessons-container">

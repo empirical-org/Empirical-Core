@@ -55,7 +55,7 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   addSlide() {
-    addSlide(this.props.params.editionID, this.edition(), this.state.newSlideType, this.goToNewSlide)
+    addSlide(this.props.params.editionID, this.props.customize.editionQuestions, this.state.newSlideType, this.goToNewSlide)
   }
 
   deleteEdition() {
