@@ -55,15 +55,15 @@ export function createNewEdition(editionUID:string|null, lessonUID:string, user_
   let newEditionData, newEdition;
   if (editionUID) {
     newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
-    newEdition = editionsRef.push(newEditionData)
-      editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
-      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
+    newEdition = editionMetadataRef.push(newEditionData)
+      editionQuestionsRef.child(`${editionUID}`).once('value', snapshot => {
+      editionQuestionsRef.child(`${newEdition.key}`).set(snapshot.val())
     })
   } else {
     newEditionData = {lesson_id: lessonUID, user_id: user_id}
-    newEdition = editionsRef.push(newEditionData)
+    newEdition = editionMetadataRef.push(newEditionData)
       classroomLessonsRef.child(lessonUID).once('value', snapshot => {
-      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
+      editionQuestionsRef.child(`${newEdition.key}/questions`).set(snapshot.val().questions)
     })
   }
   if (callback) {
@@ -77,15 +77,15 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
   let newEditionData, newEdition;
   if (editionUID) {
     newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, name: name, flags: ['alpha']}
-    newEdition = editionsRef.push(newEditionData)
-      editionsRef.child(`${editionUID}/data`).once('value', snapshot => {
-      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
+    newEdition = editionMetadataRef.push(newEditionData)
+      editionQuestionsRef.child(`${editionUID}`).once('value', snapshot => {
+      editionQuestionsRef.child(`${newEdition.key}`).set(snapshot.val())
     })
   } else {
     newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name, flags: ['alpha']}
-    newEdition = editionsRef.push(newEditionData)
+    newEdition = editionMetadataRef.push(newEditionData)
       classroomLessonsRef.child(lessonUID).once('value', snapshot => {
-      editionsRef.child(`${newEdition.key}/data`).set(snapshot.val())
+      editionQuestionsRef.child(`${newEdition.key}/questions`).set(snapshot.val().questions)
     })
   }
   if (callback) {
@@ -96,11 +96,11 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
 }
 
 export function saveEditionName(editionUID:string, name:string) {
-  editionsRef.child(`${editionUID}/name`).set(name)
+  editionMetadataRef.child(`${editionUID}/name`).set(name)
 }
 
 export function archiveEdition(editionUID:string) {
-  const flagRef = editionsRef.child(`${editionUID}/flags`)
+  const flagRef = editionMetadataRef.child(`${editionUID}/flags`)
   flagRef.once('value', (snapshot) => {
     if (!snapshot.val()) {
       flagRef.set(['archived'])
