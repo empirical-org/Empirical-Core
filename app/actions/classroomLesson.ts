@@ -124,7 +124,7 @@ export function deleteEditionSlide(editionID, slideID, slides) {
 export function addScriptItem(editionID: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
-  const slideRef = editionMetadataRef.child(`${editionID}/data/questions/${slideID}`)
+  const slideRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}`)
   slideRef.set(newSlide)
   if (cb) {
     cb(newSlide.data.teach.script.length - 1)
@@ -132,7 +132,7 @@ export function addScriptItem(editionID: string, slideID: string, slide: IntF.Qu
 }
 
 export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
-  const scriptRef = editionMetadataRef.child(`${editionID}/data/questions/${slideID}/data/teach/script`)
+  const scriptRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}/data/teach/script`)
   const newArray = _.compact(Object.keys(script).map(scriptKey => {
     if (scriptKey != scriptItemID ) {
       return script[scriptKey]

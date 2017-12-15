@@ -9,6 +9,7 @@ import {
   saveEditionScriptItem,
   deleteScriptItem
 } from 'actions/classroomLesson'
+import { getEditionQuestions } from '../../../actions/customize'
 
 import * as IntF from '../interfaces';
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
@@ -22,18 +23,24 @@ class showScriptItem extends Component<any, any> {
     this.save = this.save.bind(this)
     this.saveAlert = this.saveAlert.bind(this)
     this.delete = this.delete.bind(this)
+
+    this.props.dispatch(getEditionQuestions(this.props.params.editionID))
   }
 
   classroomLesson(): IntF.ClassroomLesson {
     return this.props.classroomLessons.data[this.props.params.classroomLessonID]
   }
 
-  edition(): CustomizeIntF.Edition {
+  edition(): CustomizeIntF.EditionMetadata {
     return this.props.customize.editions[this.props.params.editionID]
   }
 
+  editionQuestions(): CustomizeIntF.EditionQuestions {
+    return this.props.customize.editionQuestions ? this.props.customize.editionQuestions.questions : null
+  }
+
   currentSlide(): IntF.Question {
-    return this.edition().data.questions[this.props.params.slideID]
+    return this.editionQuestions()[this.props.params.slideID]
   }
 
   getCurrentScriptItem(): CLIntF.ScriptItem {
@@ -58,7 +65,7 @@ class showScriptItem extends Component<any, any> {
   }
 
   render() {
-    if (this.props.classroomLessons.hasreceiveddata && Object.keys(this.props.customize.editions).length > 0 && this.edition() {
+    if (this.props.classroomLessons.hasreceiveddata && this.editionQuestions() && this.editionQuestions().length > 0) {
       const {editionID, classroomLessonID, slideID, scriptItemID} = this.props.params;
       const editionLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
       const slideLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
