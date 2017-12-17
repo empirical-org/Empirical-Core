@@ -4,8 +4,6 @@
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "src/index.js",
   "scripts": {
-    "temp": "./cov.sh",
-    "codecov": "NODE_ENV=test YOURPACKAGE_COVERAGE=1 mocha --opts mocha.opts --require blanket --reporter mocha-lcov-reporter; codecov --token=6ff848fa-52df-4bd9-ac0d-e0058d35d660",
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
     "test:singular": "mocha --compilers js:babel-register $FILE --watch --reporter dot",
