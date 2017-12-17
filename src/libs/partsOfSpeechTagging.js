@@ -1,4 +1,4 @@
-import pos from 'pos';
+import * as pos from 'pos';
 import _ from 'underscore';
 
 export function getPartsOfSpeech (input) {
