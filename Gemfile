@@ -27,6 +27,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
+gem 'rack-attack'
 
 # EMAIL
 gem 'premailer-rails'
@@ -63,7 +64,6 @@ gem 'ttfunk'
 gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
-
 
 # WEBSOCKETS
 gem 'pusher'

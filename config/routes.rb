@@ -309,6 +309,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
+  get '/clever/no_classroom', to: 'clever#no_classroom'
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'schools#select_school'
