@@ -60,6 +60,8 @@ module EmpiricalGrammar
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
     config.action_dispatch.perform_deep_munge = false
 
+    config.middleware.use Rack::Attack
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         # localhost dev...
