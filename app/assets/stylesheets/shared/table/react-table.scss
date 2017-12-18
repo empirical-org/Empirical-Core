@@ -1,0 +1,27 @@
+.ReactTable {
+  &.progress-report {
+    max-width: 950px;
+    width: 100%;
+    margin: auto;
+
+    .rt-th {
+      background-color: #fafafa;
+      height: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #3b3b3b;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .rt-tr-group {
+      background-color: white;
+
+      &:hover {
+        background-color: #f9fffe;
+      }
+    }
+  }
+}
