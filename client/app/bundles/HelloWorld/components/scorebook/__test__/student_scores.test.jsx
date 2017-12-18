@@ -25,7 +25,7 @@ describe('StudentScores component', () => {
     expect(wrapper.find(ActivityIconWithTooltip).length).toEqual(numberOfResults);
   });
 
-  it('should have a link to the list overview page', () => {
+  it('should have a link to the Data Export page', () => {
     expect(wrapper.find('.student-header a').prop('href')).toMatch('/teachers/progress_reports/activity_sessions?student_id=666&classroom_id=42');
   });
 });
