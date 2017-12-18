@@ -11,9 +11,6 @@ export default class extends React.Component {
     this.state = {
       loading: true,
       errors: false,
-			validActivityCount: 0,
-			cumulativeScore: 0,
-			averageScore: null
     }
 		this.calculateCountAndAverage = this.calculateCountAndAverage.bind(this)
 	}
@@ -27,13 +24,9 @@ export default class extends React.Component {
     },
     (e, r, body) => {
       const data = JSON.parse(body)
-      that.setState({loading: false, errors: body.errors, studentData: data.student_data, reportData: data.report_data});
+      that.setState({loading: false, errors: body.errors, studentData: data.student_data, reportData: data.report_data, classroomName: data.classroom_name});
     });
   }
-
-	csvButton(){
-		return <td><button>CSV</button></td>
-	}
 
 	grayAndYellowStat(grayContent,yellowContent){
 		return (<td>
@@ -63,12 +56,12 @@ export default class extends React.Component {
 		return (
 		 <table className='overview-header-table'>
 			 <tbody>
-				 <tr>
+				 <tr className='top'>
 					 <td className='student-name'>
 						 {this.state.studentData.name}
 					 </td>
 					 {this.grayAndYellowStat('Class', this.state.classroomName)}
-					 {this.csvButton()}
+					 <td className='csv-link'><CSVLink data={this.state.reportData} target="_blank"><button className='btn button-green'>Download Report</button></CSVLink></td>
 				 </tr>
 				 <tr className='bottom'>
 					 {this.grayAndYellowStat('Overall Score:', countAndAverage.average || '--')}
@@ -78,8 +71,6 @@ export default class extends React.Component {
 			 </tbody>
 		</table>)
 	}
-
-
 
 	render() {
     let errors
@@ -91,10 +82,9 @@ export default class extends React.Component {
     }
     return (
     <div id='student-overview'>
-      {errors}
+			<a href="/" className='navigate-back'><img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>Back to Activity Scores</a>
 			{this.studentOverviewSection()}
 			<StudentOveriewTable reportData={this.state.reportData} studentId={this.state.studentData.id} calculateCountAndAverage={this.calculateCountAndAverage}/>
-      <CSVLink data={this.state.reportData} target="_blank">Link Report</CSVLink>
     </div>
   	)}
 

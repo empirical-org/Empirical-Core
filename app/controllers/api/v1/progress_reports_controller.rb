@@ -7,9 +7,9 @@ class Api::V1::ProgressReportsController < Api::ApiController
   end
 
   def student_overview_data
-    student = User.find(params[:student_id])
-    render json: {report_data: ProgressReports::StudentOverview.results(params[:classroom_id], params[:student_id]),
-                  student_data: {name: student.name, id: student.id}}
+    student = User.find(params[:student_id].to_i)
+    render json: {report_data: ProgressReports::StudentOverview.results(params[:classroom_id].to_i, params[:student_id].to_i),
+                  student_data: {name: student.name, id: student.id}, classroom_name: Classroom.find(params[:classroom_id].to_i).name}
   end
 
   private
