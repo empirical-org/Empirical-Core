@@ -550,7 +550,9 @@ CREATE TABLE classrooms_teachers (
     user_id integer NOT NULL,
     classroom_id integer NOT NULL,
     role character varying NOT NULL,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -681,7 +683,7 @@ ALTER SEQUENCE concepts_id_seq OWNED BY concepts.id;
 
 CREATE TABLE coteacher_classroom_invitations (
     id integer NOT NULL,
-    pending_invitation_id integer NOT NULL,
+    invitation_id integer NOT NULL,
     classroom_id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -848,6 +850,40 @@ CREATE SEQUENCE firebase_apps_id_seq
 --
 
 ALTER SEQUENCE firebase_apps_id_seq OWNED BY firebase_apps.id;
+
+
+--
+-- Name: invitations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE invitations (
+    id integer NOT NULL,
+    invitee_email character varying NOT NULL,
+    inviter_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    invitation_type character varying,
+    archived boolean DEFAULT false
+);
+
+
+--
+-- Name: invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE invitations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE invitations_id_seq OWNED BY invitations.id;
 
 
 --
@@ -1089,39 +1125,6 @@ CREATE SEQUENCE page_areas_id_seq
 --
 
 ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
-
-
---
--- Name: pending_invitations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pending_invitations (
-    id integer NOT NULL,
-    invitee_email character varying NOT NULL,
-    inviter_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    invitation_type character varying
-);
-
-
---
--- Name: pending_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE pending_invitations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pending_invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE pending_invitations_id_seq OWNED BY pending_invitations.id;
 
 
 --
@@ -1591,6 +1594,63 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
+    active boolean DEFAULT false,
+    username character varying(255),
+    token character varying(255),
+    ip_address inet,
+    clever_id character varying(255),
+    signed_up_with_google boolean DEFAULT false,
+    send_newsletter boolean DEFAULT false,
+    flag character varying,
+    google_id character varying,
+    last_sign_in timestamp without time zone
+);
+
+
+--
+-- Name: untitled_materialized_view; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW untitled_materialized_view AS
+ SELECT ((sum(a.total_students) / sum(b.total_students)) * (( SELECT count(DISTINCT s.id) AS students
+           FROM ((((((users t
+             LEFT JOIN ip_locations ON ((ip_locations.user_id = t.id)))
+             LEFT JOIN classrooms ON ((t.id = classrooms.teacher_id)))
+             LEFT JOIN users s ON (((classrooms.code)::text = (s.classcode)::text)))
+             LEFT JOIN activity_sessions ON ((s.id = activity_sessions.user_id)))
+             LEFT JOIN schools_users ON ((t.id = schools_users.user_id)))
+             LEFT JOIN schools ON ((schools_users.school_id = schools.id)))
+          WHERE (((activity_sessions.state)::text = 'finished'::text) AND (activity_sessions.completed_at < date_trunc('DAY'::text, (('now'::text)::date - '1 year'::interval))) AND ((ip_locations.country IS NULL) OR ((ip_locations.country)::text = 'United States'::text)))))::numeric)
+   FROM ( SELECT count(DISTINCT students.id) AS total_students
+           FROM ((((schools s
+             JOIN schools_users ON ((schools_users.school_id = s.id)))
+             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
+             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
+             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
+          WHERE ((schools_users.school_id IS NOT NULL) AND (s.free_lunches >= 40))) a,
+    ( SELECT count(DISTINCT students.id) AS total_students
+           FROM ((((schools s
+             JOIN schools_users ON ((schools_users.school_id = s.id)))
+             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
+             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
+             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
+          WHERE (schools_users.school_id IS NOT NULL)) b
+  WITH NO DATA;
+
+
+--
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1652,32 +1712,6 @@ CREATE SEQUENCE user_subscriptions_id_seq
 --
 
 ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
-
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_digest character varying(255),
-    role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    classcode character varying(255),
-    active boolean DEFAULT false,
-    username character varying(255),
-    token character varying(255),
-    ip_address inet,
-    clever_id character varying(255),
-    signed_up_with_google boolean DEFAULT false,
-    send_newsletter boolean DEFAULT false,
-    flag character varying,
-    google_id character varying,
-    last_sign_in timestamp without time zone
-);
 
 
 --
@@ -1854,6 +1888,13 @@ ALTER TABLE ONLY firebase_apps ALTER COLUMN id SET DEFAULT nextval('firebase_app
 
 
 --
+-- Name: invitations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY invitations ALTER COLUMN id SET DEFAULT nextval('invitations_id_seq'::regclass);
+
+
+--
 -- Name: ip_locations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1900,13 +1941,6 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
-
-
---
--- Name: pending_invitations id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pending_invitations ALTER COLUMN id SET DEFAULT nextval('pending_invitations_id_seq'::regclass);
 
 
 --
@@ -2198,11 +2232,11 @@ ALTER TABLE ONLY firebase_apps
 
 
 --
--- Name: ip_locations ip_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: invitations invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ip_locations
-    ADD CONSTRAINT ip_locations_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY invitations
+    ADD CONSTRAINT invitations_pkey PRIMARY KEY (id);
 
 
 --
@@ -2251,14 +2285,6 @@ ALTER TABLE ONLY objectives
 
 ALTER TABLE ONLY page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
-
-
---
--- Name: pending_invitations pending_invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pending_invitations
-    ADD CONSTRAINT pending_invitations_pkey PRIMARY KEY (id);
 
 
 --
@@ -2400,7 +2426,7 @@ CREATE INDEX aut ON activities_unit_templates USING btree (activity_id, unit_tem
 -- Name: classroom_invitee_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX classroom_invitee_index ON coteacher_classroom_invitations USING btree (pending_invitation_id, classroom_id);
+CREATE UNIQUE INDEX classroom_invitee_index ON coteacher_classroom_invitations USING btree (invitation_id, classroom_id);
 
 
 --
@@ -2663,10 +2689,10 @@ CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON coteacher_
 
 
 --
--- Name: index_coteacher_classroom_invitations_on_pending_invitation_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_coteacher_classroom_invitations_on_invitation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_coteacher_classroom_invitations_on_pending_invitation_id ON coteacher_classroom_invitations USING btree (pending_invitation_id);
+CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON coteacher_classroom_invitations USING btree (invitation_id);
 
 
 --
@@ -2688,6 +2714,20 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users
 --
 
 CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
+
+
+--
+-- Name: index_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_invitations_on_invitee_email ON invitations USING btree (invitee_email);
+
+
+--
+-- Name: index_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_invitations_on_inviter_id ON invitations USING btree (inviter_id);
 
 
 --
@@ -2744,27 +2784,6 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
-
-
---
--- Name: index_pending_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pending_invitations_on_invitee_email ON pending_invitations USING btree (invitee_email);
-
-
---
--- Name: index_pending_invitations_on_invitee_email_and_inviter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_pending_invitations_on_invitee_email_and_inviter_id ON pending_invitations USING btree (invitee_email, inviter_id);
-
-
---
--- Name: index_pending_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pending_invitations_on_inviter_id ON pending_invitations USING btree (inviter_id);
 
 
 --
@@ -3041,24 +3060,10 @@ CREATE UNIQUE INDEX unique_index_schools_on_ppin ON schools USING btree (ppin) W
 
 
 --
--- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
-
-
---
 -- Name: unique_index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
-
-
---
--- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
 
 
 --
@@ -3611,4 +3616,16 @@ INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 INSERT INTO schema_migrations (version) VALUES ('20171128192444');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128211301');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204202718');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204203843');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204205938');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204220339');
+
+INSERT INTO schema_migrations (version) VALUES ('20171205181155');
+
+INSERT INTO schema_migrations (version) VALUES ('20171214152937');
 

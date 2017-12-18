@@ -1,7 +1,6 @@
 'use strict'
 
  import React from 'react'
- import $ from 'jquery'
  import Student from './student'
  import Button from 'react-bootstrap/lib/Button';
  import Panel from 'react-bootstrap/lib/Panel';
@@ -10,7 +9,7 @@
  export default React.createClass({
 
   componentDidMount: function(){
-    $('body').scrollTop(0);
+    window.scrollTo(0, 0);
   },
 
   getInitialState: function(){
@@ -19,7 +18,7 @@
 
 
   handleClassroomSelection: function(e) {
-    var checked = $(e.target).is(':checked');
+    var checked = e.target.checked;
     this.props.toggleClassroomSelection(this.props.classroom, checked);
   },
 
@@ -72,6 +71,15 @@
     }
   },
 
+  // If we have fewer than 4 students in this class, we want to unset our
+  // columns style. This is because with the way multicolumn css works, we will
+  // otherwise experience some strange formatting we don't want here.
+  shouldUnsetColumns: function() {
+    if(this.props.students.length < 4) {
+      return { columns: 'unset' }
+    }
+  },
+
   render: function() {
     var studentList = this.props.students.map(function(student) {
       return <Student
@@ -107,7 +115,7 @@
             </h4>
           </div>
           <Panel collapsible expanded={this.state.open} ref='studentList'>
-            <div className='panel-body'>
+            <div className='panel-body student-panel-body' style={this.shouldUnsetColumns()}>
               {studentList}
             </div>
           </Panel>
