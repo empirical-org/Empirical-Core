@@ -54,6 +54,14 @@ export default class extends React.Component {
     return csvData
   }
 
+	sortByLastName(name1, name2) {
+    // using props.children because we have react elements being passed
+    // rather than straight names due to us having styled them
+		const lastName1 = _.last(name1.props.children.split(' '))
+		const lastName2 = _.last(name2.props.children.split(' '))
+		return lastName1 > lastName2 ? 1 : -1
+	}
+
   columns() {
     return (
 		 [
@@ -61,7 +69,7 @@ export default class extends React.Component {
 					Header: 'Student',
 					accessor: 'name',
 					resizable: false,
-					classname: 'maybe'
+					sortMethod: this.sortByLastName,
 				}, {
 					Header: "Activities Completed",
 					accessor: 'activity_count',
