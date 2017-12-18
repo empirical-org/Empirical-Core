@@ -227,6 +227,7 @@ export default  React.createClass({
     if (this.state.loading) {
       mainSection = <LoadingIndicator/>;
     } else {
+      debugger;
       mainSection = <SortableTable onNonPremiumStudentPage={this.studentPageBlur()} rows={visibleResults} colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} sortHandler={this.handleSort()} currentSort={this.state.currentSort}/>;
     }
     if (!this.props.hideFaqLink) {
