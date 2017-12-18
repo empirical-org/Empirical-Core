@@ -58,19 +58,28 @@ export default class extends React.Component {
 		 [
 				{
 					Header: 'Student',
-					accessor: 'name'
+					accessor: 'name',
+					resizable: false,
 				}, {
 					Header: "Activities Completed",
-					accessor: 'activity_count'
+					accessor: 'activity_count',
+					resizable: false,
 				}, {
 					Header: "Overall Score",
-					accessor: 'average_score'
+					accessor: 'average_score',
+					resizable: false,
+					sortMethod: (a,b) => {
+						return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%'))) ? 1 : -1;
+					}
 				}, {
 					Header: "Classroom",
-					accessor: 'classroom_name'
+					accessor: 'classroom_name',
+					resizable: false,
 				}, {
 					Header: "",
 					accessor: 'green_arrow',
+					resizable: false,
+					sortable: false,
 					Cell: props => props.value
 				}
 			]
@@ -95,6 +104,8 @@ export default class extends React.Component {
   				showPaginationTop= {false}
   				showPaginationBottom= {false}
   				showPageSizeOptions= {false}
+					defaultPageSize={this.state.classroomsData.length}
+					className='progress-report'
 					/>
       </div>
     )
