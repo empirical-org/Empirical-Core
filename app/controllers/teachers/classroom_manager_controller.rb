@@ -1,7 +1,8 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
-  before_filter :authorize!
+  before_filter :authorize_owner!, except: [:scores, :scorebook]
+  before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
 
   def lesson_planner
@@ -37,7 +38,16 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    classrooms_and_their_students = current_user.classrooms_i_own.map do |classroom|
+    classrooms_and_their_students = current_user.classrooms_own.map do |classroom|
+      {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
+    end
+    render json: {
+      classrooms_and_their_students: classrooms_and_their_students
+    }
+  end
+
+  def retrieve_classrooms_i_teach_for_custom_assigning_activities # in response to ajax request
+    classrooms_and_their_students = current_user.classrooms_i_teach.map do |classroom|
       {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
     end
     render json: {
@@ -56,25 +66,36 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def archived_classroom_manager_data
     begin
-    active = []
-    inactive = []
-    # TODO: easy performance fix could be done here
-    ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
-      classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
-      if classroom.visible
-        active << classroom.archived_classrooms_manager
-      else
-        inactive << classroom.archived_classrooms_manager
+      invited_classrooms = ActiveRecord::Base.connection.execute("
+        SELECT coteacher_classroom_invitations.id AS classroom_invitation_id, users.name AS inviter_name, classrooms.name AS classroom_name, TRUE AS invitation
+        FROM invitations
+        JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
+        JOIN users ON users.id = invitations.inviter_id
+        JOIN classrooms ON classrooms.id = coteacher_classroom_invitations.classroom_id
+        WHERE invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)} AND invitations.archived = false;
+      ").to_a
+      active = invited_classrooms
+      inactive = []
+      # TODO: easy performance fix could be done here
+      ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
+        classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
+        if classroom.visible
+          active << classroom.archived_classrooms_manager
+        else
+          inactive << classroom.archived_classrooms_manager
+        end
       end
-    end
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
+      classrooms_i_own_that_have_coteachers = current_user.classrooms_i_own_that_have_coteachers
       render json: {
         active: active,
+        active_classrooms_i_own: current_user.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
         inactive: inactive,
         coteachers: current_user.classrooms_i_own_that_have_coteachers,
-        pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations
+        pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations,
+        my_name: current_user.name
       }
     end
   end
@@ -204,7 +225,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
 
-  def authorize!
+  def authorize_owner!
+    if params[:classroom_id]
+      classroom_owner!(params[:classroom_id])
+    end
+  end
+
+  def authorize_teacher!
     if params[:classroom_id]
       classroom_teacher!(params[:classroom_id])
     end

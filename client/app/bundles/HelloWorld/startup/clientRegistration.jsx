@@ -26,6 +26,7 @@ import TeacherFixApp from './TeacherFixAppClient'
 import ActivityCategoriesApp from './ActivityCategoriesAppClient'
 import ActivityCategoryApp from './ActivityCategoryAppClient'
 import ActivityClassificationsApp from './ActivityClassificationsAppClient'
+import EditCoteacherApp from './EditCoteacherAppClient'
 
 require('../../../assets/styles/home.scss')
 
@@ -38,4 +39,4 @@ ReactOnRails.register({  TeacherGuideApp, DashboardApp,
   AdminsEditorApp, PublicActivityPacksApp, AddStudentApp,
   DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp,
   GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp, TutorialsApp, TeacherFixApp,
-  ActivityCategoriesApp, ActivityCategoryApp, ActivityClassificationsApp});
+  ActivityCategoriesApp, ActivityCategoryApp, ActivityClassificationsApp, EditCoteacherApp});

@@ -376,6 +376,17 @@ describe User, type: :model do
         expect(user2.username).to eq(user1.username)
       end
 
+      it "is invalid when it is formatted like an email" do
+        user = build(:user, username: 'testing@example.com')
+        expect(user).to_not be_valid
+      end
+
+      it "email formatting is not enforced on usernames when other fields are changed" do
+        user = build(:user, username: 'testing@example.com')
+        user.save(validate: false)
+        expect(user.update(password: 'password')).to be
+      end
+
       context "role is permanent" do
         it "is invalid without username and email" do
           user.safe_role_assignment "student"
@@ -621,6 +632,19 @@ describe User, type: :model do
     end
 
 
+  end
+
+  describe '#update_invitee_email_address' do
+    let!(:invite_one) { create(:invitation) }
+    let!(:old_email) { invite_one.invitee_email }
+    let!(:invite_two) { create(:invitation, invitee_email: old_email) }
+
+    it 'should update invitee email address in invitations table if email changed' do
+      new_email = Faker::Internet.safe_email
+      User.find_by_email(old_email).update(email: new_email)
+      expect(Invitation.where(invitee_email: old_email).count).to be(0)
+      expect(Invitation.where(invitee_email: new_email).count).to be(2)
+    end
   end
 
   it 'does not care about all the validation stuff when the user is temporary'

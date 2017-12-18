@@ -32,6 +32,7 @@ class AccountsController < ApplicationController
       ip = request.remote_ip
       AccountCreationCallbacks.new(@user, ip).trigger
       @user.subscribe_to_newsletter
+      return render json: { redirectPath: teachers_classrooms_path } if @user.has_outstanding_coteacher_invitation?
       render json: @user
     else
       render json: {errors: @user.errors}, status: 422

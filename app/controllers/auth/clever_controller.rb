@@ -26,6 +26,6 @@ class Auth::CleverController < ApplicationController
   end
 
   def user_failure(data)
-    login_failure(data)
+    redirect_to '/clever/no_classroom'
   end
 end

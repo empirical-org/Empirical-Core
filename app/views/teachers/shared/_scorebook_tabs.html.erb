@@ -30,6 +30,7 @@
           <%= link_to 'School', teachers_admin_dashboard_path, role: 'tab', class: 'mobile'  %>
         </li>
       <% end %>
+      
       <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
         <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
           <%= link_to raw(premium_tab_copy), premium_path, role: 'tab' %>
