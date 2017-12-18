@@ -19,6 +19,15 @@ describe('ResultsPage container', () => {
 
   const wrapperAnonymous = shallow(<ResultsPage anonymous={true} />);
 
+  const wrapperDiagnostic = shallow(
+    <ResultsPage
+        activityName='Diagnostic'
+        percentage={94}
+        activityType='diagnostic'
+        results={{foo: 'bar'}}
+      />
+)
+
   it('should render ResultsIcon component with correct percentage and activity type', () => {
     expect(wrapperNotAnonymous.find(ResultsIcon).exists()).toBe(true);
     expect(wrapperNotAnonymous.find(ResultsIcon).props().percentage).toBe(94);
@@ -39,9 +48,13 @@ describe('ResultsPage container', () => {
     expect(wrapperNotAnonymous.find('a').text()).toMatch('Back to Your Dashboard');
   });
 
-  it('should render StudentResultsTables component with correct results', () => {
+  it('should render StudentResultsTables component with correct results if it is not a diagnostic', () => {
     expect(wrapperNotAnonymous.find(StudentResultsTables).exists()).toBe(true);
     expect(wrapperNotAnonymous.find(StudentResultsTables).props().results.foo).toBe('bar');
+  });
+
+  it('should not render StudentResultsTables component if it is a diagnostic', () => {
+    expect(wrapperDiagnostic.find(StudentResultsTables).exists()).toBe(false);
   });
 
 });

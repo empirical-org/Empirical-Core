@@ -39,6 +39,18 @@ export default React.createClass({
     );
   },
 
+  resultsSection: function() {
+    if (this.props.activityType === 'diagnostic') {
+      return <span/>
+    } else {
+      return <div className='bottom-section'>
+                <div className='results-wrapper'>
+                  <StudentResultsTables results={this.props.results}/>
+                </div>
+              </div>
+    }
+  },
+
   render: function() {
     return (
       <div
@@ -51,11 +63,7 @@ export default React.createClass({
             activityType={this.props.activityType}/>
           {this.headerMessage()}
         </div>
-        <div className='bottom-section'>
-          <div className='results-wrapper'>
-            <StudentResultsTables results={this.props.results}/>
-          </div>
-        </div>
+        {this.resultsSection()}
       </div>
     );
   }
