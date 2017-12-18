@@ -6,7 +6,7 @@ export default React.createClass({
   miniList() {
     return [
       {
-        title: 'Visual Overview',
+        title: 'Activity Summary',
         href: '/teachers/classrooms/scorebook',
         img: `${process.env.CDN_URL}/images/shared/visual_overview.svg`,
         bodyText: 'Quickly see which activities your students have completed with color coded icons that show level of proficiency.',
