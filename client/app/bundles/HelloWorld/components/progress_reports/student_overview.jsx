@@ -42,13 +42,24 @@ export default class extends React.Component {
 		</td>)
 	}
 
-	calculateCountAndAverage(unitCumulativeScore, unitValidActivityCount){
-		// const validActivityCount = this.state.validActivityCount + unitValidActivityCount;
-		// const cumulativeScore = this.state.cumulativeScore + unitCumulativeScore
-		// this.setState({validActivityCount, cumulativeScore, averageScore: cumulativeScore/validActivityCount})
+	calculateCountAndAverage(){
+		let count = 0;
+		let cumulativeScore = 0;
+		this.state.reportData.forEach((row) => {
+			if (row.percentage) {
+				count += 1;
+				cumulativeScore += parseFloat(row.percentage);
+			}
+		})
+		let average = Math.round((cumulativeScore / count) * 100) + '%'
+		return {count, average}
 	}
 
 	studentOverviewSection(){
+		let countAndAverage
+		if (this.state.reportData) {
+			countAndAverage = this.calculateCountAndAverage()
+		}
 		return (
 		 <table className='overview-header-table'>
 			 <tbody>
@@ -60,9 +71,9 @@ export default class extends React.Component {
 					 {this.csvButton()}
 				 </tr>
 				 <tr className='bottom'>
-					 {this.grayAndYellowStat('Overall Score:', this.state.averageScore || '--')}
-					 {this.grayAndYellowStat('Activities Completed:', this.state.validActivityCount)}
-					 {this.grayAndYellowStat('I DON"T KNOW WHAT THIS THING IS!', this.state.averageScore || '--')}
+					 {this.grayAndYellowStat('Overall Score:', countAndAverage.average || '--')}
+					 {this.grayAndYellowStat('Activities Completed:', countAndAverage.count || '--')}
+					 {this.grayAndYellowStat()}
 				 </tr>
 			 </tbody>
 		</table>)
