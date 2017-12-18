@@ -140,6 +140,11 @@ $chevroncolor: #027360;
 			border-color: darken($quillbluebgreen, 10%);
 			color: darken($quillbluebgreen, 10%);
 		}
+
+		&.selected {
+			color: white;
+			background-color: $quillbluebgreen;
+		}
 	}
 }
 
