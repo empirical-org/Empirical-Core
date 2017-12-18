@@ -16,7 +16,7 @@ export default class extends React.Component {
           <ul className='cant-do'>
             <li>Archive Classes</li>
             <li>Edit/Archive Activity Packs</li>
-            <li>View Premium reporting (unless they have a Premium account)</li>
+            <li>Share your Premium subscription &amp; features</li>
           </ul>
         </div>
       </div>
