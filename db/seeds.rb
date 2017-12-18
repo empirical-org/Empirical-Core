@@ -2,7 +2,7 @@ require 'factory_bot_rails'
 include FactoryBot::Syntax::Methods
 
 # Generate a staff user with a known username and password
-create(:staff, username: 'staff', password: 'staff')
+create(:staff, username: 'staff', password: 'password')
 
 # Generate activity classifications
 create(:diagnostic)
@@ -73,8 +73,31 @@ create(:grade_11_section)
 create(:grade_12_section)
 create(:university_section)
 
-# Generate a teacher with classes and students with activities
-create(:teacher, :with_classrooms_students_and_activities, username: 'teacher', password: 'teacher')
+# Generate a teacher with a few classes and students
+teacher = create(:teacher, username: 'teacher', password: 'password')
+classrooms = create_list(:classroom, 3, :with_no_teacher)
+classrooms.each do |classroom|
+  create(:classrooms_teacher, classroom: classroom, user: teacher)
+  classroom.students = create_list(:student, 20)
+end
+
+# Generate a shared diagnostic unit and a couple other units for the classrooms
+diagnostic_unit = create(:unit, :sentence_structure_diagnostic, user_id: teacher.id)
+diagnostic_activity = Activity.find(Activity::DIAGNOSTIC_ACTIVITY_IDS.first)
+classrooms.each do |classroom|
+  diagnostic_classroom_activity = create(:classroom_activity, activity: diagnostic_activity, unit: diagnostic_unit, classroom: classroom, assigned_student_ids: classroom.students.map(&:id))
+  classroom_activities = create_pair(:classroom_activity, unit: create(:unit, user_id: teacher.id), classroom: classroom, assigned_student_ids: classroom.students.map(&:id))
+  classroom.students.each do |student|
+    create(:activity_session, activity: diagnostic_activity, classroom_activity: diagnostic_classroom_activity, user: student)
+    create(:activity_session, activity: classroom_activities.first.activity, classroom_activity: classroom_activities.first, user: student)
+  end
+end
+
+# Generate a student in a few classes
+student = create(:student, username: 'student', password: 'password')
+classrooms.each do |classroom|
+  classroom.students << student
+end
 
 # Generate Firebase apps
 create(:grammar_firebase_app)
