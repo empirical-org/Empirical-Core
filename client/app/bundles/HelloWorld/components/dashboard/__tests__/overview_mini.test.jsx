@@ -7,23 +7,6 @@ import LoadingIndicator from '../../shared/loading_indicator';
 
 describe('OverviewMini component', () => {
 
-  it('should render results card svg if results are insufficient data', () => {
-    const wrapper = shallow(
-      <OverviewMini overviewObj={{
-          results: 'insufficient data'
-      }} />
-    );
-    expect(wrapper.find('img').exists()).toBe(true);
-    expect(wrapper.find('img').prop('src')).toBe('http://assets.quill.org/images/shared/results_card.svg');
-  });
-
-  it('should render a loading indicator if there are no results', () => {
-    const wrapper = shallow(
-      <OverviewMini overviewObj={{results: null}} />
-    );
-    expect(wrapper.find(LoadingIndicator).exists()).toBe(true);
-  });
-
   it('should show keys with results', () => {
     const wrapper = shallow(
       <OverviewMini overviewObj={{
@@ -62,7 +45,7 @@ describe('OverviewMini component', () => {
 
   it('should render header text', () => {
     const wrapper = shallow(
-      <OverviewMini overviewObj={{header: 'I am Groot'}} />
+      <OverviewMini overviewObj={{header: 'I am Groot', results: 'some stuff here'}}/>
     );
     expect(wrapper.find('h4').text()).toBe('I am Groot');
   });
