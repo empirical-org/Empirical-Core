@@ -2,6 +2,7 @@ import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
 import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 import _ from 'underscore'
 
@@ -87,7 +88,14 @@ export default class extends React.Component {
     return (
       <div>
         <CSVLink data={this.state.csvData} target="_blank">Link Report</CSVLink>
-        <ReactTable data={this.state.classroomsData} columns={this.columns()}/>
+        <ReactTable
+					data={this.state.classroomsData}
+					columns={this.columns()}
+					showPagination= {false}
+  				showPaginationTop= {false}
+  				showPaginationBottom= {false}
+  				showPageSizeOptions= {false}
+					/>
       </div>
     )
   }
