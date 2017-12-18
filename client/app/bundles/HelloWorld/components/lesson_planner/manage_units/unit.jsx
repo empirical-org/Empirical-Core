@@ -35,26 +35,31 @@ export default React.createClass({
     this.props.editUnit(this.getUnitId());
   },
 
-  delete() {
-    if (!this.props.report && !this.props.lesson) {
+  deleteOrLockedInfo() {
+    const firstCa = this.props.data.classroomActivities.values().next().value
+    const ownedByCurrentUser = firstCa.ownedByCurrentUser
+    if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete</span>;
+    } else if (!ownedByCurrentUser) {
+      return <span className='locked-unit'>  <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>Created By {firstCa.ownerName}</span>
     }
   },
 
   editName() {
-    let text,
-      classy,
-      inlineStyle;
-    if (this.state.errors) {
-      text = `${this.state.errors}. Click here to try again.`;
-      classy = 'errors h-pointer';
-      inlineStyle = { paddingTop: '4px', };
-    } else {
-      classy = 'edit-unit';
-      text = 'Edit Name';
+    if(this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
+      let text,
+        classy,
+        inlineStyle;
+      if (this.state.errors) {
+        text = `${this.state.errors}. Click here to try again.`;
+        classy = 'errors h-pointer';
+        inlineStyle = { paddingTop: '4px', };
+      } else {
+        classy = 'edit-unit';
+        text = 'Edit Name';
+      }
+      return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>;
     }
-
-    return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>;
   },
 
   submitName() {
@@ -132,7 +137,9 @@ export default React.createClass({
   },
 
   addClassroomActivityRow() {
-    return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
+    if(this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
+      return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
+    }
   },
 
   renderClassroomActivities() {
@@ -181,7 +188,7 @@ export default React.createClass({
             {this.showOrEditName()}
           </span>
           {this.nameActionLink()}
-          {this.delete()}
+          {this.deleteOrLockedInfo()}
         </div>
         <div className="unit-label row">
           {this.assignedToText()}
