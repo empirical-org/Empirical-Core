@@ -197,7 +197,7 @@ class Teachers::UnitsController < ApplicationController
          SUM(CASE WHEN act_sesh.state = 'started' THEN 1 ELSE 0 END) AS started_count,
          EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
          EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,
-         '#{own_or_coteach}' AS own_or_coteach,
+         #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,
          unit_owner.name AS owner_name,
          CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
       FROM units

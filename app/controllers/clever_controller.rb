@@ -7,4 +7,9 @@ class CleverController < ApplicationController
       clever_scope: QuillClever.scope
     }
   end
+
+  def no_classroom
+    render 'clever/no_classroom'
+  end
+  
 end
