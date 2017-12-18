@@ -30,9 +30,10 @@ export default class extends React.Component {
 
   formatClassroomsData(data) {
     return data.map((row) => {
+			row.name = <span className='green-text'>{row.name}</span>
       row.average_score = `${Math.round(parseFloat(row.average_score) * 100)}%`
       row.green_arrow = (
-        <a href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
+        <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )
@@ -60,6 +61,7 @@ export default class extends React.Component {
 					Header: 'Student',
 					accessor: 'name',
 					resizable: false,
+					classname: 'maybe'
 				}, {
 					Header: "Activities Completed",
 					accessor: 'activity_count',
@@ -72,7 +74,7 @@ export default class extends React.Component {
 						return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%'))) ? 1 : -1;
 					}
 				}, {
-					Header: "Classroom",
+					Header: "Class",
 					accessor: 'classroom_name',
 					resizable: false,
 				}, {
@@ -80,6 +82,8 @@ export default class extends React.Component {
 					accessor: 'green_arrow',
 					resizable: false,
 					sortable: false,
+					className: 'hi',
+					width: 80,
 					Cell: props => props.value
 				}
 			]
@@ -105,7 +109,7 @@ export default class extends React.Component {
   				showPaginationBottom= {false}
   				showPageSizeOptions= {false}
 					defaultPageSize={this.state.classroomsData.length}
-					className='progress-report'
+					className='progress-report has-green-arrow'
 					/>
       </div>
     )
