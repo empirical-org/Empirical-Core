@@ -1,8 +1,10 @@
 #student-overview {
+  max-width: 950px;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 245px;
   .student-overview-table {
-    max-width: 950px;
     width: 100%;
-    margin: auto;
     border-radius: 6px;
     background-color: #ffffff;
     margin-top: 21px;
@@ -104,12 +106,21 @@
   }
 
   .overview-header-table {
-    margin: auto;
-    max-width: 950px;
     width: 100%;
     background-color: #f7f5f5;
     border-radius: 6px;;
     box-shadow: 0 1px 2px 0 #e9e9e9;
+    margin-top: 21px;
+    td {
+      height: 84px;
+      padding-left: 24px;
+    }
+    .top {
+      background-color: #fafafa;
+    }
+    .csv-link {
+      text-align: center;
+    }
     .student-name {
       font-size: 30px;
       font-weight: 800;
@@ -118,6 +129,7 @@
         font-size: 18px;
         font-weight: 600;
         color: #ea9a1a;
+        padding-top: 5px;
     }
     .gray-text {
       font-size: 16px;
@@ -128,5 +140,16 @@
       border-top: solid 1px #e9e9e9;
       background-color: #fff;
     }
+  }
+
+  .navigate-back {
+    img {
+      height: 12px;
+      margin-right: 5px;
+      transform: rotate(180deg);
+    }
+    font-size: 14px;
+     font-weight: 700;
+    color: #027360;
   }
 }
