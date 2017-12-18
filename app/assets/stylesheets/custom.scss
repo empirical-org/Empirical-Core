@@ -180,6 +180,13 @@ button:not(.select-mixin) {
     background-color: #616161;
   }
 }
+.button-light-gray {
+  background-color: #c0c0c0;
+  color: #fff;
+  &:hover {
+    background-color: #c0c0c0;
+  }
+}
 
 .btn-orange {
   height: 40px;
@@ -245,9 +252,14 @@ button:not(.select-mixin) {
   background-color: #ebebeb;
 }
 
-.student_column {
-  clear: none;
-  padding: 4px 0;
+.student-panel-body {
+  columns: 4 200px;
+
+  .student {
+    display: inline-block;
+    padding: 4px 0;
+    width: 200px;
+  }
 }
 
 
@@ -381,5 +393,70 @@ button:not(.select-mixin) {
   margin: 75px auto;
   .nc-icon {
 
+  }
+}
+
+/* ==========================================================================
+   React Select Custom Styles
+   ========================================================================== */
+
+// Overwrite our default input styling when it's
+// used within the React Select component.
+.Select-input > input, .Select-input > input:focus {
+  border: none;
+  line-height: 22px;
+  transition: none;
+  -moz-transition: none;
+  -webkit-transition: none;
+}
+
+.Select--multi .Select-value {
+  background-color: rgba(91, 193, 169, 0.08);
+  border: 1px solid rgba(91, 193, 169, 0.24);
+  color: #288E76;
+}
+
+.Select--multi .Select-value-icon {
+  color: #42A890;
+  border-right: 1px solid rgba(91, 193, 169, 0.24);
+}
+
+.Select--multi .Select-value-icon:hover,
+.Select--multi .Select-value-icon:focus {
+  background-color: rgba(91, 193, 169, 0.24);
+  color: #288E76;
+}
+
+.Select-option.is-focused {
+  background-color: rgba(91, 193, 169, 0.08);
+}
+
+.Select.is-focused:not(.is-open) > .Select-control {
+  border-color: #5bc1a9;
+  box-shadow: none;
+}
+
+.Select-control {
+  height: 40px;
+
+  .Select-placeholder {
+    line-height: 38px;
+  }
+
+  .Select-value {
+    line-height: 22px !important;
+
+    .Select-value-label {
+      line-height: 22px;
+    }
+  }
+
+  .Select-input {
+    height: 38px;
+  }
+
+  & > *:last-child {
+    position: relative;
+    top: 2px;
   }
 }

@@ -2,7 +2,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   include QuillAuthentication
   require 'pusher'
   respond_to :json
-  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "activity_from_classroom_activity"]
+  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "activity_from_classroom_activity", "update_multiple_due_dates"]
   before_filter :teacher!, :except => ["activity_from_classroom_activity"]
   before_filter :student!, :only => ["activity_from_classroom_activity"]
   before_filter :authorize_student!, :only => ["activity_from_classroom_activity"]
@@ -69,15 +69,20 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {data: get_lessons_units_and_activities}
   end
 
+  def update_multiple_due_dates
+    ClassroomActivity.where(id: params[:classroom_activity_ids]).update_all(due_date: params[:due_date])
+    render json: {}
+  end
+
 private
 
   def find_or_create_lesson_activity_sessions_for_classroom
-    @classroom_activity.assigned_student_ids.each{|id| @classroom_activity.find_or_create_started_activity_session(id)}
+    @classroom_activity.assigned_student_ids.each{|id| ActivitySession.unscoped.find_or_create_by(classroom_activity_id: @classroom_activity.id, activity_id: @classroom_activity.activity_id, user_id: id).update(visible: true)}
   end
 
   def authorize!
     @classroom_activity = ClassroomActivity.find params[:id]
-    if @classroom_activity.classroom.teacher != current_user then auth_failed end
+    if @classroom_activity.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
   end
 
   def authorize_student!

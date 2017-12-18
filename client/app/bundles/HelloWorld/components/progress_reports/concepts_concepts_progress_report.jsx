@@ -87,11 +87,6 @@ export default React.createClass({
                          onFetchSuccess={this.onFetchSuccess}
                          filterTypes={[]}
                          premiumStatus={this.props.premiumStatus}>
-           <section className="alert alert-warning">
-             <p>
-               We're upgrading this page since we have changed our scoring logic. <a href="http://support.quill.org/knowledgebase/articles/1125256">Learn More <i className="fa fa-long-arrow-right"></i></a>
-             </p>
-           </section>
         <h2>{this.state.student.name}</h2>
       </ProgressReport>
     );

@@ -1,13 +1,8 @@
 class Api::V1::ActivitiesController < Api::ApiController
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy]
-  before_action :find_activity, except: [:index, :create, :uids_and_flags]
-
-  def index
-    # FIXME: original API doesn't support index
-    @activities = Activity.all
-  end
-
+  before_action :find_activity, except: [:create, :uids_and_flags]
+  
   # GET
   def show
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}

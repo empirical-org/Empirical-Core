@@ -1,15 +1,14 @@
 FactoryBot.define do
   factory :classroom do
-    teacher
-    name  { "#{teacher.name}'s Classroom'" }
+    name  { "#{['Period', 'Block', 'Class'].sample} #{(1..100).to_a.sample} (Class of #{Time.now.year + (0..3).to_a.sample})" }
     grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
 
     trait :from_google do
-      google_classroom_id { (1..10).map{(1..9).to_a.sample}.join } # mock a google id
+      google_classroom_id { (1..10).map { (1..9).to_a.sample }.join } # mock a google id
     end
 
     trait :from_clever do
-      clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
+      clever_id { (1..24).map { (('a'..'f').to_a + (1..9).to_a).sample }.join } # mock a clever id
     end
 
     factory :classroom_with_a_couple_students do
@@ -30,9 +29,44 @@ FactoryBot.define do
       end
     end
 
-    factory :classroom_with_lesson_classroom_activities do
+    factory :classroom_with_35_classroom_activities do
       after(:create) do |classroom|
-        create_list(:lesson_classroom_activity_with_activity_sessions, 5, classroom: classroom)
+        create_list(:classroom_activity_with_activity_sessions, 35, classroom: classroom)
+      end
+    end
+
+    factory :classroom_with_lesson_classroom_activities do
+       after(:create) do |classroom|
+         create_list(:lesson_classroom_activity_with_activity_sessions, 5, classroom: classroom)
+       end
+     end
+
+    trait :with_no_teacher do
+      after(:create) do |classroom|
+        ClassroomsTeacher.where(classroom: classroom).delete_all
+      end
+    end
+
+    trait :with_coteacher do
+      after(:create) do |classroom|
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher), role: 'coteacher')
+      end
+    end
+
+    trait :with_a_couple_coteachers do
+      after(:create) do |classroom|
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher), role: 'coteacher')
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher), role: 'coteacher')
+      end
+    end
+
+    trait :archived do
+      visible false
+    end
+
+    after(:create) do |classroom|
+      if classroom.classrooms_teachers.none?
+        create(:classrooms_teacher, classroom: classroom, user: create(:teacher))
       end
     end
   end

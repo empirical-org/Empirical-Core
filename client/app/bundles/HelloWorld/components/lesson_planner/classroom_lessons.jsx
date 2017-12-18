@@ -95,7 +95,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   generateNewCaUnit(u) {
-    const studentCount = Number(u.array_length ? u.array_length : u.class_size)
+    const studentCount = Number(u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size)
     const hasEditions = this.state.lessonUidsWithEditions.indexOf(u.activity_uid) !== -1
     const caObj = {
       studentCount: studentCount,
@@ -118,7 +118,9 @@ export default class ClassroomLessons extends React.Component {
       completed: u.completed_count > 0,
       studentCount: studentCount,
       started: u.started_count > 0,
-      hasEditions: hasEditions
+      hasEditions: hasEditions,
+      ownedByCurrentUser: u.owned_by_current_user === 't',
+      ownerName: u.owner_name
     });
     return caObj;
   }
@@ -132,7 +134,7 @@ export default class ClassroomLessons extends React.Component {
       } else {
         const caUnit = parsedUnits[u.unit_id];
         const hasEditions = this.state.lessonUidsWithEditions.indexOf(u.activity_uid) !== -1
-        const studentCount = Number(u.array_length ? u.array_length : u.class_size)
+        const studentCount = Number(u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size)
         if (!caUnit.classrooms.has(u.class_name)) {
           // add the info and student count from the classroom if it hasn't already been done
           caUnit.classrooms.add(u.class_name);
@@ -153,7 +155,8 @@ export default class ClassroomLessons extends React.Component {
           completed: u.completed_count > 0,
           studentCount: studentCount,
           started: u.started_count > 0,
-          hasEditions: hasEditions
+          hasEditions: hasEditions,
+          ownedByCurrentUser: u.owned_by_current_user === 't'
         });
       }
     });

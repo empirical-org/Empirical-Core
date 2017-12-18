@@ -111,18 +111,19 @@ module PublicProgressReports
         unstarted_names: []
       }
       classroom_activity.assigned_student_ids.each do |student_id|
-        student = User.find(student_id)
-        final_activity_session = ActivitySession.find_by(user_id: student_id, is_final_score: true, classroom_activity_id: ca_id)
-        if final_activity_session
-          scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
-        else
-          if ActivitySession.find_by(user_id: student_id, state: 'started', classroom_activity_id: ca_id)
-            scores[:started_names].push(student.name)
+        student = User.find_by(id: student_id)
+        if student
+          final_activity_session = ActivitySession.find_by(user_id: student_id, is_final_score: true, classroom_activity_id: ca_id)
+          if final_activity_session
+            scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
           else
-            scores[:unstarted_names].push(student.name)
+            if ActivitySession.find_by(user_id: student_id, state: 'started', classroom_activity_id: ca_id)
+              scores[:started_names].push(student.name)
+            else
+              scores[:unstarted_names].push(student.name)
+            end
           end
         end
-
       end
       scores
     end
@@ -243,7 +244,7 @@ module PublicProgressReports
 
     def get_previously_assigned_recommendations_by_classroom(classroom_id, activity_id)
       classroom = Classroom.find(classroom_id)
-      teacher_id = classroom.teacher_id
+      teacher_id = classroom.owner.id
       diagnostic = Activity.find(activity_id)
       assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
         # one unit per teacher with this name.
