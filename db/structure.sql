@@ -550,7 +550,9 @@ CREATE TABLE classrooms_teachers (
     user_id integer NOT NULL,
     classroom_id integer NOT NULL,
     role character varying NOT NULL,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -3624,4 +3626,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171204205938');
 INSERT INTO schema_migrations (version) VALUES ('20171204220339');
 
 INSERT INTO schema_migrations (version) VALUES ('20171205181155');
+
+INSERT INTO schema_migrations (version) VALUES ('20171214152937');
 
