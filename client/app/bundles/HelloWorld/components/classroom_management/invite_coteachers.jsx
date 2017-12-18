@@ -44,7 +44,7 @@ export default class extends React.Component {
         alert(body.error);
       } else {
         this.props.onSuccess();
-        this.setState({email: '', selectedClassrooms: [], coteacherInvited: true});
+        this.setState({email: '', selectedClassrooms: [], coteacherInvited: true}, window.setTimeout(() => { this.setState({coteacherInvited: false}) }, 3000));
       }
     });
   }
