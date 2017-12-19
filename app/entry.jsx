@@ -44,17 +44,6 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-// const rootRoute = {
-//   childRoutes: [{
-//     path: '/',
-//     childRoutes: [
-//       require('./routers/Admin/index').default,
-//       require('./routers/Play/index').default,
-//       require('./routers/Teach/index').default
-//     ],
-//   }],
-// };
-
 render((
   <AppContainer>
     <Provider store={store} >

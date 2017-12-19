@@ -28,8 +28,6 @@ import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
 import {
-  loadResponseDataAndListen,
-  stopListeningToResponses,
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';

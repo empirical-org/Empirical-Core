@@ -9,7 +9,6 @@ import Question from '../../libs/question';
 import QuestionsList from './questionsList.jsx';
 import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
-import { loadAllResponseData } from '../../actions/responses';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 import ArchivedButton from '../shared/archivedButton.jsx';
@@ -258,7 +257,6 @@ const Questions = React.createClass({
       return (
         <section className="section">
           <div className="container">
-            <button onClick={this.props.dispatch.bind(null, loadAllResponseData())}>Load all responses</button>
             <button onClick={this.rematchAllQuestions}>Rematch all Questions</button>
             { this.renderModal() }
             { this.renderSearchBox() }

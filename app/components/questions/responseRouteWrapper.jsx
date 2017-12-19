@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  loadResponseDataAndListen,
-  stopListeningToResponses,
   listenToResponsesWithCallback
 } from '../../actions/responses';
 import ResponseComponent from './responseComponent.jsx';
@@ -18,22 +16,6 @@ const ResponseComponentWrapper = React.createClass({
   componentWillMount() {
     const { questionID, } = this.props.params;
     console.log('PARAMS: ', this.props.params);
-    // this.props.dispatch(loadResponseDataAndListen(questionID));
-    // listenToResponsesWithCallback(
-    //   questionID,
-    //   (data) => {
-    //     this.setState({
-    //       responses: data,
-    //       loadedResponses: true,
-    //     });
-    //   }
-    // );
-  },
-
-  componentWillUnmount() {
-    console.log('Unmounting');
-    const { questionID, } = this.props.params;
-    this.props.dispatch(stopListeningToResponses(questionID));
   },
 
   getResponses() {
