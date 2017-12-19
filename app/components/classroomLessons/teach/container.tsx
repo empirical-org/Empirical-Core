@@ -29,7 +29,8 @@ import {
 import {
   getCurrentUserAndCoteachersFromLMS,
   getEditionsForUserIds,
-  getEditionQuestions
+  getEditionQuestions,
+  clearEditionQuestions
 } from 'actions/customize'
 import MainContentContainer from './mainContentContainer';
 import CLStudentSingleAnswer from '../play/singleAnswer';
@@ -66,6 +67,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
     if (this.props.classroomLesson.hasreceiveddata) {
       this.props.dispatch(clearClassroomLessonFromStore())
+      this.props.dispatch(clearEditionQuestions())
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
@@ -73,7 +75,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length < 1) {
+      if (nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
       if (!nextProps.classroomLesson.hasreceiveddata) {

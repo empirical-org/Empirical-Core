@@ -44,10 +44,17 @@ export function startListeningToEditionMetadata() {
 }
 
 export function getEditionQuestions(editionID:string) {
+  console.log('i am getting called with this edition id:', editionID)
   return function (dispatch, getState) {
     editionQuestionsRef.child(editionID).on('value', (snapshot) => {
       dispatch(setEditionQuestions(snapshot.val()))
     });
+  };
+}
+
+export function clearEditionQuestions(editionID:string) {
+  return function (dispatch, getState) {
+    dispatch(setEditionQuestions({})
   };
 }
 
@@ -168,7 +175,7 @@ function setEditionMetadata(editionMetadata:CustomizeIntf.EditionsMetadata) {
   return { type: C.SET_EDITION_METADATA, editionMetadata };
 }
 
-function setEditionQuestions(editionQuestions:CustomizeIntf.EditionQuestions) {
+function setEditionQuestions(editionQuestions:CustomizeIntf.EditionQuestions|{}) {
   return { type: C.SET_EDITION_QUESTIONS, editionQuestions };
 }
 
