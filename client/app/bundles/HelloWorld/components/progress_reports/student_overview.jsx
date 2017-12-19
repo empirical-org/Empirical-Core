@@ -51,9 +51,12 @@ export default class extends React.Component {
 	}
 
 	studentOverviewSection(){
-		let countAndAverage
+		let countAndAverage, lastActive
 		if (this.state.reportData) {
 			countAndAverage = this.calculateCountAndAverage()
+		}
+		if (this.state.studentData.last_active) {
+			lastActive = moment(this.state.studentData.last_active).format("MM/DD/YYYY")
 		}
 		return (
 		 <table className='overview-header-table'>
@@ -68,7 +71,7 @@ export default class extends React.Component {
 				 <tr className='bottom'>
 					 {this.grayAndYellowStat('Overall Score:', countAndAverage.average || '--')}
 					 {this.grayAndYellowStat('Activities Completed:', countAndAverage.count || '--')}
-					 {this.grayAndYellowStat('Last Active:', this.state.studentData.last_active || '--', 'last-active' )}
+					 {this.grayAndYellowStat('Last Active:', lastActive || '--', 'last-active' )}
 				 </tr>
 			 </tbody>
 		</table>)
