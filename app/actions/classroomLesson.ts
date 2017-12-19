@@ -71,7 +71,7 @@ export function listenForClassroomLessonsFromFirebase() {
   }
 }
 
-export function listenForclassroomLessonsReviewsFromFirebase() {
+export function listenForClassroomLessonsReviewsFromFirebase() {
   return function (dispatch) {
     reviewsRef.on('value', (snapshot) => {
       if (snapshot.val()) {
@@ -102,7 +102,7 @@ export function updateClassroomLessonsReviews(data) {
 
 export function addSlide(editionUid: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, cb:Function|undefined) {
   const editionQuestionRef = editionQuestionsRef.child(editionUid);
-  const newEdition: CustomizeIntF.Edition = _.merge({}, editionQuestions)
+  const newEdition: CustomizeIntF.EditionQuestions = _.merge({}, editionQuestions)
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
   newEdition.questions.splice(-1, 0, newSlide)
   editionQuestionRef.set(newEdition);

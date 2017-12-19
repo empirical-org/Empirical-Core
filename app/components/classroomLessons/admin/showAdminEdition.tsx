@@ -43,7 +43,7 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   loaded() {
-    return Object.keys(this.props.customize.editions).length > 0 && this.edition() && this.editionQuestions() && this.editionQuestions().length > 0
+    return this.props.customize.editions && Object.keys(this.props.customize.editions).length > 0 && this.edition() && this.editionQuestions() && this.editionQuestions().length > 0
   }
 
   editionQuestions() {

@@ -1,7 +1,9 @@
+import AdminClassroomLessonsContainer from 'components/classroomLessons/admin/container';
 import ClassroomLessonsIndex from 'components/classroomLessons/admin/index';
 
 export default {
   path: 'classroom-lessons',
+  component: AdminClassroomLessonsContainer,
   indexRoute: {
     component: ClassroomLessonsIndex,
   },

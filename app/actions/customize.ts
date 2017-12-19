@@ -29,16 +29,16 @@ export function getCurrentUserAndCoteachersFromLMS() {
 
 export function getEditionsForUserIds(userIds:Array<Number>) {
   return function (dispatch, getState) {
-    editionsRef.on('value', (snapshot) => {
+    editionMetadataRef.on('value', (snapshot) => {
       dispatch(filterEditionsByUserIds(userIds, snapshot.val()))
     });
   };
 }
 
-export function startListeningToeditionMetadata() {
+export function startListeningToEditionMetadata() {
   return function (dispatch, getState) {
     editionMetadataRef.on('value', (snapshot) => {
-      dispatch(seteditionMetadata(snapshot.val()))
+      dispatch(setEditionMetadata(snapshot.val()))
     });
   };
 }
@@ -111,7 +111,7 @@ export function archiveEdition(editionUID:string) {
   })
 }
 
-export function setWorkingEdition(edition:CustomizeIntf.Edition) {
+export function setWorkingEdition(edition:CustomizeIntf.EditionQuestions) {
   return { type: C.SET_WORKING_EDITION, edition };
 }
 
@@ -119,7 +119,7 @@ export function setIncompleteQuestions(incompleteQuestions:Array<number>|never) 
   return { type: C.SET_INCOMPLETE_QUESTIONS, incompleteQuestions };
 }
 
-export function publishEdition(editionUID:string, edition:CustomizeIntf.Edition, callback?:Function) {
+export function publishEdition(editionUID:string, edition:CustomizeIntf.EditionQuestions, callback?:Function) {
   return function(dispatch) {
     dispatch(setIncompleteQuestions([]))
     edition.last_published_at = firebase.database.ServerValue.TIMESTAMP
@@ -145,7 +145,7 @@ function filterEditionsByUserIds(userIds:Array<Number|string>, editions:Customiz
         }
       })
       if (Object.keys(userEditions).length > 0) {
-        dispatch(seteditionMetadata(userEditions))
+        dispatch(setEditionMetadata(userEditions))
       }
     }
   }
@@ -159,7 +159,7 @@ function setCoteachers(coteachers:Array<any>) {
   return { type: C.SET_COTEACHERS, coteachers };
 }
 
-function seteditionMetadata(editionMetadata:CustomizeIntf.editionMetadata) {
+function setEditionMetadata(editionMetadata:CustomizeIntf.editionMetadata) {
   return { type: C.SET_EDITION_METADATA, editionMetadata };
 }
 
