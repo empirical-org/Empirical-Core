@@ -78,9 +78,8 @@ We use GitBook for documentation. To get it set up, run `gitbook init` and then 
 
 ## Pre-installed user accounts
 
-The installation comes with four users, though you can create as many more as you like. The pre-installed users are:
+The installation comes with some pre-populated data to help you get started:
 
-* A teacher, username `teacher` and password `teacher`.
-* A student, username `student` and password `student`.
-* An admin, username `admin` and password `admin`.
-* An admin, username `staff` and password `staff`.
+* A teacher, with username `teacher` and password `password`.
+* A student, username `student` and password `password`.
+* A staff member, with username `staff` and password `password`.
