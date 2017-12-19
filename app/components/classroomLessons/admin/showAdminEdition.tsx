@@ -51,7 +51,7 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   goToNewSlide(slideID) {
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.editionID}/slide/${slideID}`
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/editions/${this.props.params.editionID}/slide/${slideID}`
   }
 
   addSlide() {

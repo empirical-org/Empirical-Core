@@ -2,7 +2,7 @@ import * as React from 'react';
 import Textarea from 'react-textarea-autosize';
 
 interface TextEditorProps {
-  value: string | null;
+  value?: string;
   hasError?: boolean;
   disabled?: boolean;
   index: string|number;

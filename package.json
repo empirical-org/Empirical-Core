@@ -91,6 +91,9 @@
     "webpack-error-notification": "^0.1.6"
   },
   "dependencies": {
+    "@types/react-router": "^4.0.19",
+    "@types/react-router-dom": "^4.2.3",
+    "@types/react-textarea-autosize": "^4.3.1",
     "@types/request": "^2.0.0",
     "@types/underscore": "^1.8.1",
     "actioncable": "^5.1.1",
@@ -125,6 +128,7 @@
     "react-remarkable": "^1.1.1",
     "react-router": "^3.0.5",
     "react-router-active-component": "^4.0.0",
+    "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-select": "^1.0.0-rc.5",
     "react-select-search": "^0.5.5",

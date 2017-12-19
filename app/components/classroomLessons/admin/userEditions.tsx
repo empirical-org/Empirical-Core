@@ -109,7 +109,7 @@ class UserEditions extends Component<any, any> {
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, e => {
-      const edition:CustomizeIntF.EditionMetadata = e
+      const edition:CustomizeIntF.EditionMetadata|any = e
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return <tr key={edition.key}>

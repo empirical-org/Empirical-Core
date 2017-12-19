@@ -206,7 +206,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     }
   }
 
-  renderPrompt(elements: Array<JSX.Element>) {
+  renderPrompt(elements: Array<JSX.Element>|undefined) {
     return <div className="prompt">{elements}</div>
   }
 

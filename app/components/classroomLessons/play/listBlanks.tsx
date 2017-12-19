@@ -27,7 +27,7 @@ interface ListBlankProps {
 }
 interface ListBlankState {
   isSubmittable: Boolean;
-  answers: { [key:string]: string|null };
+  answers: { [key:string]: string };
   errors: Boolean;
   answerCount: number;
   submitted: Boolean;
@@ -152,6 +152,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   textEditListComponents(i){
+    const disabled:boolean = Boolean(!this.state.isSubmittable && this.state.submitted)
     return (
       <div className={`list-component`} key={`${i}`}>
         <span className="list-number">{`${i + 1}:`}</span>
@@ -160,7 +161,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
           value={this.state.answers[i]}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
-          disabled={!this.state.isSubmittable && this.state.submitted}
+          disabled={disabled}
           />
       </div>
     )
