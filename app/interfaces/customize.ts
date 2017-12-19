@@ -8,6 +8,7 @@ export interface EditionMetadata {
   sample_question: string,
   user_id: number,
   flags?: Array<string>,
+  lessonName?: string
 }
 
 export interface EditionQuestions {

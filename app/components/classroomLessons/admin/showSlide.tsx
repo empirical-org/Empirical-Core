@@ -43,7 +43,7 @@ class ShowEditionSlide extends Component<any, any> {
     return getClassroomLesson(this.props.classroomLessons.data, this.props.params.classroomLessonID)
   }
 
-  edition(): CustomizeIntF.Edition {
+  edition(): CustomizeIntF.EditionMetadata {
     return this.props.customize.editions[this.props.params.editionID]
   }
 

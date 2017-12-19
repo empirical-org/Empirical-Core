@@ -11,7 +11,7 @@ import * as CustomizeIntf from 'interfaces/customize'
 
 interface SingleAnswerProps {
   data: ClassroomLessonSession,
-  editionData: CustomizeIntf.EditionData,
+  editionData: CustomizeIntf.EditionQuestions,
   toggleStudentFlag: Function,
   toggleSelected: Function,
   startDisplayingAnswers: Function,
@@ -53,7 +53,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   render() {
     const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models, selected_submission_order, prompts} = this.props.data;
-    const promptNotEmpty = prompts && textEditorInputNotEmpty(prompts[current_slide]);
+    const promptNotEmpty = prompts && prompts[current_slide] && textEditorInputNotEmpty(prompts[current_slide]);
     const showHeaderText: string = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
     return (
       <div className="teacher-single-answer">

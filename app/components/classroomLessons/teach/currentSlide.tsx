@@ -232,7 +232,9 @@ class CurrentSlide extends React.Component<any, any> {
       }
       return response.json();
     }).then((response) => {
-      redirectAssignedStudents(caId, this.state.selectedOptionKey, response.follow_up_url)
+      if (caId) {
+        redirectAssignedStudents(caId, this.state.selectedOptionKey, response.follow_up_url)
+      }
       this.setState({completed: true, showTimeoutModal: false, showCongratulationsModal: true})
     }).catch((error) => {
       console.log('error', error)

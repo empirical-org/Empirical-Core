@@ -65,7 +65,7 @@ class showScriptItem extends Component<any, any> {
   }
 
   render() {
-    if (this.props.classroomLessons.hasreceiveddata && this.editionQuestions() && this.editionQuestions().length > 0) {
+    if (this.props.classroomLessons.hasreceiveddata && this.editionQuestions()) {
       const {editionID, classroomLessonID, slideID, scriptItemID} = this.props.params;
       const editionLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
       const slideLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`

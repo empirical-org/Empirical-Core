@@ -119,7 +119,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
     const selected: Array<JSX.Element> = Object.keys(selected_submissions).map((key, index) => {
-      const html = submissions[key].data
+      const html:any = submissions[key] ? submissions[key].data : null
       return (
       <li key={`li-${index}`}>
         <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>

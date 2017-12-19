@@ -76,11 +76,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     return inputs;
   }
 
-  getPromptElements() {
+  getPromptElements(): Array<JSX.Element>|undefined {
     if (this.state.splitPrompt) {
       const { splitPrompt } = this.state;
       const l = splitPrompt.length;
-      const splitPromptWithInput: Array<JSX.Element> = [];
+      const splitPromptWithInput: Array<JSX.Element|Array<JSX.Element>> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section));
@@ -89,7 +89,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
           splitPromptWithInput.push(this.renderText(section));
         }
       });
-      return splitPromptWithInput;
+      return _.flatten(splitPromptWithInput);
     }
   }
 
@@ -138,7 +138,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   renderText(text: string) {
     const words = text.split(' ').filter(word => word !== '')
-    const wordArray = []
+    const wordArray:Array<JSX.Element> = []
     words.forEach((word, i) => {
       let html = `${word}&nbsp;`
       wordArray.push(<div key={i} dangerouslySetInnerHTML={{__html: html}}/>)
@@ -206,7 +206,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     }
   }
 
-  renderPrompt(elements: Array<JSX.Element> | undefined) {
+  renderPrompt(elements: Array<JSX.Element>) {
     return <div className="prompt">{elements}</div>
   }
 

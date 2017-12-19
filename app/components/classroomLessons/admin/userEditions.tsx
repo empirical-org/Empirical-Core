@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import {hashToCollection} from '../../../libs/hashToCollection'
+import * as CustomizeIntF from 'app/interfaces/customize'
 
 class UserEditions extends Component<any, any> {
   constructor(props){
@@ -34,8 +35,8 @@ class UserEditions extends Component<any, any> {
       const lessonEditions = {}
       const editionIds = Object.keys(allEditions)
       editionIds.forEach(id => {
-        const edition = allEditions[id]
-        if (edition.lesson_id === classroomLessonID && edition.user_id !== 'quill-staff') {
+        const edition: CustomizeIntF.EditionMetadata = allEditions[id]
+        if (edition.lesson_id === classroomLessonID && String(edition.user_id) !== 'quill-staff') {
           lessonEditions[id] = edition
         }
       })
@@ -104,10 +105,11 @@ class UserEditions extends Component<any, any> {
   }
 
   renderEditionRows() {
-    const data = hashToCollection(this.state.editions)
+    const data: Array<CustomizeIntF.EditionMetadata> = hashToCollection(this.state.editions)
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
-    return _.map(directed, edition => {
+    return _.map(directed, e => {
+      const edition:CustomizeIntF.EditionMetadata = e
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return <tr key={edition.key}>

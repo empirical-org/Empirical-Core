@@ -3,25 +3,26 @@ import { connect } from 'react-redux';
 const MakeCopy = 'https://assets.quill.org/images/icons/make-copy-edition-icon.svg'
 const EditEdition = 'https://assets.quill.org/images/icons/edit-edition-icon.svg'
 const DeleteEdition = 'https://assets.quill.org/images/icons/delete-edition-icon.svg'
+import * as CustomizeIntf from 'interfaces/customize'
 
 interface EditionRowState {
   showDropdown: boolean
 }
 
-interface EditionRowProps {
+interface EditionRowProps extends React.Props<any> {
+  edition: CustomizeIntf.EditionMetadata,
   archiveEdition: Function,
   classroomLesson: any,
   creator: string,
   customize: any,
   editEdition: Function,
-  edition: any,
   makeNewEdition: Function,
   selectAction: Function,
   selectState: string|boolean|null
 }
 
-class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
-  constructor(props) {
+class EditionRow extends React.Component<any, any> {
+  constructor(props:EditionRowProps) {
     super(props)
     this.state = {
       showDropdown: false

@@ -107,10 +107,11 @@ class AllUserEditions extends Component<any, any> {
   }
 
   renderEditionRows() {
-    const data = hashToCollection(this.state.editions)
+    const data: Array<CustomizeIntf.EditionMetadata> = hashToCollection(this.state.editions)
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
-    return _.map(directed, edition => {
+    return _.map(directed, e => {
+      const edition:CustomizeIntf.EditionMetadata = e
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return <tr key={edition.key}>

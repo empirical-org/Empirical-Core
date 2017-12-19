@@ -90,7 +90,7 @@ class Sidebar extends React.Component<any, any> {
     const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
     if (hasreceiveddata && data && lessonDataLoaded) {
       const questions = editionData.questions;
-      const length = questions ? questions.length -1 : 0;
+      const length = questions ? Number(questions.length) - 1 : 0;
       const currentSlide = data.current_slide;
       const components: JSX.Element[] = [];
       let counter = 0;

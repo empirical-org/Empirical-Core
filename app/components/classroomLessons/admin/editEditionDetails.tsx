@@ -1,10 +1,5 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
-import {
-  addSlide,
-  deleteLesson,
-  updateEditionSlides
-} from '../../../actions/edition'
 
 export default class EditLessonDetails extends Component<any, any> {
   constructor(props){

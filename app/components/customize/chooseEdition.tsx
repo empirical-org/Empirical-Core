@@ -13,6 +13,7 @@ import EditionNamingModal from './editionNamingModal'
 import EditionRow from './editionRow'
 import SignupModal from '../classroomLessons/teach/signupModal'
 import { getParameterByName } from '../../libs/getParameterByName'
+import * as CustomizeIntF from 'app/interfaces/customize'
 
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {
@@ -87,11 +88,11 @@ class ChooseEdition extends React.Component<any, any> {
 
   selectAction(editionKey: string) {
     const lessonId = this.props.params.lessonID
+    const classroomActivityId = getParameterByName('classroom_activity_id')
     if (getParameterByName('preview')) {
       const editionId = editionKey ? editionKey : ''
       return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
-    } else if (getParameterByName('classroom_activity_id')) {
-      const classroomActivityId = getParameterByName('classroom_activity_id')
+    } else if (classroomActivityId) {
       return setEditionId(classroomActivityId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
     }
   }
@@ -151,11 +152,11 @@ class ChooseEdition extends React.Component<any, any> {
   renderEditions() {
     const {editions, user_id} = this.props.customize
     if (Object.keys(editions).length > 0) {
-      const quillEditions = []
-      const myEditions = []
-      const coteacherEditions = []
+      const quillEditions:Array<JSX.Element>  = []
+      const myEditions:Array<JSX.Element> = []
+      const coteacherEditions:Array<JSX.Element>  = []
       Object.keys(editions).forEach((e) => {
-        const edition = editions[e]
+        const edition:CustomizeIntF.EditionMetadata = editions[e]
         edition.key = e
         if (edition.lesson_id === this.props.params.lessonID) {
           if (edition.user_id === user_id) {
@@ -170,7 +171,7 @@ class ChooseEdition extends React.Component<any, any> {
               selectState={this.state.selectState}
               />
             myEditions.push(editionRow)
-          } else if (edition.user_id === 'quill-staff') {
+          } else if (String(edition.user_id) === 'quill-staff') {
             const editionRow = <EditionRow
               edition={edition}
               makeNewEdition={this.makeNewEdition}

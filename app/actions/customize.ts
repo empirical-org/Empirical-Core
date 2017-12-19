@@ -44,7 +44,6 @@ export function startListeningToEditionMetadata() {
 }
 
 export function getEditionQuestions(editionID:string) {
-  console.log('i am getting called with this edition id:', editionID)
   return function (dispatch, getState) {
     editionQuestionsRef.child(editionID).on('value', (snapshot) => {
       dispatch(setEditionQuestions(snapshot.val()))
@@ -52,10 +51,10 @@ export function getEditionQuestions(editionID:string) {
   };
 }
 
-export function clearEditionQuestions(editionID:string) {
-  return function (dispatch, getState) {
-    dispatch(setEditionQuestions({})
-  };
+export function clearEditionQuestions() {
+  return function(dispatch, getState) {
+    dispatch(setEditionQuestions({}))
+  }
 }
 
 export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, classroomActivityId?:string, callback?:any) {

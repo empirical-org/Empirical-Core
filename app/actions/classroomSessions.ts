@@ -15,6 +15,7 @@ import {
 import {
  ClassroomLesson
 } from 'interfaces/classroomLessons';
+import * as CustomizeIntf from 'interfaces/customize'
 
 
 export function startListeningToSession(classroom_activity_id: string) {
@@ -143,7 +144,7 @@ export function registerPresence(classroom_activity_id: string, student_id: stri
   });
 }
 
-export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson) {
+export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
   const { current_slide } = state;
   const { questions } = lesson;
   const slides = Object.keys(questions);
@@ -154,7 +155,7 @@ export function goToNextSlide(classroom_activity_id: string, state: ClassroomLes
   }
 }
 
-export function goToPreviousSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson) {
+export function goToPreviousSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
   const { current_slide } = state;
   const { questions } = lesson;
   const slides = Object.keys(questions);
@@ -432,8 +433,9 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string|
   };
 }
 
-export function loadFollowUpNameAndSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
+export function loadFollowUpNameAndSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string|undefined) {
   return function (dispatch) {
+    const coreUrl = baseUrl ? baseUrl : process.env.EMPIRICAL_BASE_URL
     fetch(`${baseUrl}/api/v1/activities/${lesson_id}/follow_up_activity_name_and_supporting_info`, {
       method: 'GET',
       mode: 'cors',
