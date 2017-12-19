@@ -7,6 +7,7 @@ class ActivitySessionsController < ApplicationController
 
   before_action :activity_session_authorize!, only: [:play, :result]
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
+  after_action  :update_student_last_active, only: [:play, :result]
 
   def play
     @module_url = @activity.module_url(@activity_session)
@@ -66,6 +67,12 @@ class ActivitySessionsController < ApplicationController
   def activity_session_authorize_teacher!
     if !ActivityAuthorizer.new(current_user, @activity_session).authorize_teacher
       render_error(404)
+    end
+  end
+
+  def update_student_last_active
+    if current_user && current_user.role == 'student'
+      UpdateStudentLastActiveWorker.perform_async(current_user.id, DateTime.now)
     end
   end
 end
