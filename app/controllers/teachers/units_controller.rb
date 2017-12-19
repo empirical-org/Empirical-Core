@@ -188,7 +188,8 @@ class Teachers::UnitsController < ApplicationController
          activities.activity_classification_id,
          ca.id AS classroom_activity_id,
          ca.unit_id AS unit_id,
-         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS class_size,
+         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS number_of_assigned_students,
+         COUNT(DISTINCT students_classrooms.id) AS class_size,
          ca.due_date,
          activities.id AS activity_id,
          activities.uid as activity_uid,
@@ -196,13 +197,14 @@ class Teachers::UnitsController < ApplicationController
          SUM(CASE WHEN act_sesh.state = 'started' THEN 1 ELSE 0 END) AS started_count,
          EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
          EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,
-         '#{own_or_coteach}' AS own_or_coteach,
+         #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,
          unit_owner.name AS owner_name,
          CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
       FROM units
         INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
         INNER JOIN activities ON ca.activity_id = activities.id
         INNER JOIN classrooms ON ca.classroom_id = classrooms.id
+        INNER JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id
         LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
         LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
         JOIN users AS unit_owner ON unit_owner.id = units.user_id
@@ -210,6 +212,7 @@ class Teachers::UnitsController < ApplicationController
         AND classrooms.visible = true
         AND units.visible = true
         AND ca.visible = true
+        AND students_classrooms.visible = true
         #{lessons}
         GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id
         #{completed}

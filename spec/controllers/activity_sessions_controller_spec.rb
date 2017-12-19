@@ -55,6 +55,12 @@ describe ActivitySessionsController, type: :controller do
       it 'responds with 302 redirect' do
         expect(response).to be_redirect
       end
+
+      it 'calls the update_last_activity_date function' do
+        
+        expect(controller).to receive(:update_student_last_active)
+        get :play, {id: activity_session.id}
+      end
     end
   end
 
