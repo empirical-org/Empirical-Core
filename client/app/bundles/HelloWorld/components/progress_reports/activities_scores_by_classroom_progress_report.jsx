@@ -4,6 +4,7 @@ import {CSVDownload, CSVLink} from 'react-csv'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 import moment from 'moment'
 
 import _ from 'underscore'
@@ -140,7 +141,7 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <div>LOADING</div>
+      return <LoadingSpinner/>
     }
     const filteredClassroomsData = this.filteredClassroomsData()
     return (
