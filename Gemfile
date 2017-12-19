@@ -42,7 +42,7 @@ gem 'validates_email_format_of'
 gem 'responders'
 
 # UPLOADS
-gem 'carrierwave'
+gem 'carrierwave', '=0.11.2'
 gem 'fog-aws'
 
 # TIME
