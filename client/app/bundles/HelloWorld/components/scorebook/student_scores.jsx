@@ -13,8 +13,6 @@ export default React.createClass({
   },
 
   calculateAverageScore() {
-    // We want to ignore classroom lessons and diagnostic activities since these values will always be 100%.
-    const nonRelevantActivityClassificationIds = [4, 6];
     let totalScore = 0;
     let relevantScores = 0;
     this.props.data.scores.forEach(score => {
@@ -26,8 +24,6 @@ export default React.createClass({
     const averageScore = totalScore / relevantScores;
     if(averageScore) {
       return `${Math.round(averageScore * 100)}% Avg. Score`;
-    } else {
-      return '';
     }
   },
 
