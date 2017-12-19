@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 # CORE DEPS
-gem 'rails'
+gem 'rails', '=4.2.7.1'
 gem 'puma', '~> 3.10.0'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -42,7 +42,7 @@ gem 'responders'
 
 # UPLOADS
 gem 'carrierwave'
-gem 'fog', require: 'fog/aws/storage'
+gem 'fog-aws'
 
 # TIME
 gem 'time_difference'
@@ -75,7 +75,7 @@ gem 'addressable'
 
 # QUEUE/CACHE
 gem 'sidekiq'
-gem 'sidekiq-retries'
+gem 'sidekiq-retries', require: false
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
@@ -181,7 +181,7 @@ group :test do
   gem "webmock"
   gem "codeclimate-test-reporter", require: nil
   gem 'simplecov'
-  gem 'simplecov-json'
+  gem 'simplecov-json', require: false
   gem 'codecov'
 end
 
