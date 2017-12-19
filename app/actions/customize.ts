@@ -111,19 +111,24 @@ export function archiveEdition(editionUID:string) {
   })
 }
 
-export function setWorkingEdition(edition:CustomizeIntf.EditionQuestions) {
-  return { type: C.SET_WORKING_EDITION, edition };
+export function setWorkingEditionQuestions(questions:CustomizeIntf.EditionQuestions) {
+  return { type: C.SET_WORKING_EDITION_QUESTIONS, questions };
+}
+
+export function setWorkingEditionMetadata(metadata:CustomizeIntf.EditionMetadata) {
+  return { type: C.SET_WORKING_EDITION_METADATA, metadata };
 }
 
 export function setIncompleteQuestions(incompleteQuestions:Array<number>|never) {
   return { type: C.SET_INCOMPLETE_QUESTIONS, incompleteQuestions };
 }
 
-export function publishEdition(editionUID:string, edition:CustomizeIntf.EditionQuestions, callback?:Function) {
+export function publishEdition(editionUID:string, editionMetadata: CustomizeIntf.EditionMetadata, editionQuestions:CustomizeIntf.EditionQuestions, callback?:Function) {
   return function(dispatch) {
     dispatch(setIncompleteQuestions([]))
-    edition.last_published_at = firebase.database.ServerValue.TIMESTAMP
-    editionsRef.child(editionUID).set(edition)
+    editionMetadata.last_published_at = firebase.database.ServerValue.TIMESTAMP
+    editionMetadataRef.child(editionUID).set(editionMetadata)
+    editionQuestionsRef.child(editionUID).set(editionQuestions)
     sendPublishEditionEventToLMS()
     if (callback) {
       callback()
@@ -159,7 +164,7 @@ function setCoteachers(coteachers:Array<any>) {
   return { type: C.SET_COTEACHERS, coteachers };
 }
 
-function setEditionMetadata(editionMetadata:CustomizeIntf.editionMetadata) {
+function setEditionMetadata(editionMetadata:CustomizeIntf.EditionsMetadata) {
   return { type: C.SET_EDITION_METADATA, editionMetadata };
 }
 

@@ -14,6 +14,6 @@ export interface EditionQuestions {
   questions: CLIntF.Questions
 }
 
-export interface editionMetadata {
+export interface EditionsMetadata {
   [key:string]: EditionMetadata;
 }
