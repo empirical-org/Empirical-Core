@@ -3,6 +3,10 @@
   margin: auto;
   padding-top: 20px;
   padding-bottom: 245px;
+
+  .last-active {
+    padding-left: 86px;
+  }
   .student-overview-table {
     width: 100%;
     border-radius: 6px;
@@ -149,7 +153,7 @@
       transform: rotate(180deg);
     }
     font-size: 14px;
-     font-weight: 700;
+    font-weight: 700;
     color: #027360;
   }
 }

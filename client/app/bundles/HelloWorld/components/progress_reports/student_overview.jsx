@@ -2,7 +2,9 @@ import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
 import getParameterByName from '../modules/get_parameter_by_name'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 import StudentOveriewTable from './student_overview_table.jsx'
+import moment from 'moment'
 
 export default class extends React.Component {
 
@@ -28,8 +30,8 @@ export default class extends React.Component {
     });
   }
 
-	grayAndYellowStat(grayContent,yellowContent){
-		return (<td>
+	grayAndYellowStat(grayContent,yellowContent, optionalClassName){
+		return (<td className={optionalClassName}>
 			<div className='gray-text'>{grayContent}</div>
 			<div className='yellow-text'>{yellowContent}</div>
 		</td>)
@@ -66,7 +68,7 @@ export default class extends React.Component {
 				 <tr className='bottom'>
 					 {this.grayAndYellowStat('Overall Score:', countAndAverage.average || '--')}
 					 {this.grayAndYellowStat('Activities Completed:', countAndAverage.count || '--')}
-					 {this.grayAndYellowStat()}
+					 {this.grayAndYellowStat('Last Active:', this.state.studentData.last_active || '--', 'last-active' )}
 				 </tr>
 			 </tbody>
 		</table>)
@@ -78,11 +80,11 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <div>LOADING</div>
+      return <LoadingSpinner/>
     }
     return (
     <div id='student-overview'>
-			<a href="/" className='navigate-back'><img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>Back to Activity Scores</a>
+			<a href="/teachers/progress_reports/activities_scores_by_classroom" className='navigate-back'><img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>Back to Activity Scores</a>
 			{this.studentOverviewSection()}
 			<StudentOveriewTable reportData={this.state.reportData} studentId={this.state.studentData.id} calculateCountAndAverage={this.calculateCountAndAverage}/>
     </div>
