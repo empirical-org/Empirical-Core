@@ -97,6 +97,9 @@ end
 student = create(:student, username: 'student', password: 'password')
 classrooms.each do |classroom|
   classroom.students << student
+  classroom.classroom_activities.each do |classroom_activity|
+    classroom_activity.assigned_student_ids << student.id
+  end
 end
 
 # Generate Firebase apps
