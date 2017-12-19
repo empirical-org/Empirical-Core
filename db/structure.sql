@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 10.0
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1679,7 +1679,8 @@ CREATE TABLE users (
     send_newsletter boolean DEFAULT false,
     flag character varying,
     google_id character varying,
-    last_sign_in timestamp without time zone
+    last_sign_in timestamp without time zone,
+    last_active timestamp without time zone
 );
 
 
@@ -3625,4 +3626,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171204220339');
 INSERT INTO schema_migrations (version) VALUES ('20171205181155');
 
 INSERT INTO schema_migrations (version) VALUES ('20171214152937');
+
+INSERT INTO schema_migrations (version) VALUES ('20171218222306');
 

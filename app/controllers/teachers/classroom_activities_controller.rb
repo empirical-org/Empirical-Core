@@ -2,7 +2,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   include QuillAuthentication
   require 'pusher'
   respond_to :json
-  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "activity_from_classroom_activity"]
+  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "activity_from_classroom_activity", "update_multiple_due_dates"]
   before_filter :teacher!, :except => ["activity_from_classroom_activity"]
   before_filter :student!, :only => ["activity_from_classroom_activity"]
   before_filter :authorize_student!, :only => ["activity_from_classroom_activity"]
@@ -67,6 +67,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 
   def lessons_units_and_activities
     render json: {data: get_lessons_units_and_activities}
+  end
+
+  def update_multiple_due_dates
+    ClassroomActivity.where(id: params[:classroom_activity_ids]).update_all(due_date: params[:due_date])
+    render json: {}
   end
 
 private
