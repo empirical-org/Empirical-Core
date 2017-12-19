@@ -77,6 +77,9 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
+      if (!nextProps.classroomSessions.data.edition_id) {
+        window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
+      }
       if (nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
