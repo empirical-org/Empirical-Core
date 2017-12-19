@@ -484,10 +484,11 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    react_on_rails (6.10.1)
+    react_on_rails (6.1.1)
       addressable
       connection_pool
       execjs (~> 2.5)
+      foreman
       rails (>= 3.2)
       rainbow (~> 2.1)
     redcarpet (3.4.0)
@@ -751,7 +752,7 @@ DEPENDENCIES
   rails_admin (= 1.2.0)
   ranked-model
   ransack
-  react_on_rails (~> 6)
+  react_on_rails (= 6.1.1)
   redcarpet
   redis
   redis-namespace
