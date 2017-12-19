@@ -4,6 +4,7 @@ import {CSVDownload, CSVLink} from 'react-csv'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
+import moment from 'moment'
 
 import _ from 'underscore'
 
@@ -96,6 +97,17 @@ export default class extends React.Component {
             : -1;
         }
       }, {
+				Header: "Last Active",
+				accessor: 'last_active',
+				resizable: false,
+				Cell: props => props.value ? moment(props.value).format("MM/DD/YYYY") : '',
+				sortMethod: (a,b) => {
+					const aEpoch = a ? moment(a).unix() : 0;
+					const bEpoch = b ? moment(b).unix() : 0;
+					return aEpoch > bEpoch ? 1 : -1;
+				}
+			},
+			{
         Header: "Class",
         accessor: 'classroom_name',
         resizable: false
