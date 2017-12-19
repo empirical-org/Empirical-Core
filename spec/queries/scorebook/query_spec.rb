@@ -36,21 +36,21 @@ describe 'ScorebookQuery' do
     it 'returns activities completed between the specified dates' do
       begin_date = activity_session1.completed_at - 1.days
       end_date = activity_session1.completed_at + 1.days
-      results = Scorebook::Query.run(classroom.id, 1, nil, begin_date, end_date)
+      results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
       expect(results.map{|res| res['id']}).to include(activity_session1.id.to_s)
     end
 
     it 'does not return activities completed after the specified end date' do
       begin_date = activity_session1.completed_at + 1.days
       end_date = activity_session1.completed_at + 2.days
-      results = Scorebook::Query.run(classroom.id, 1, nil, begin_date, end_date)
+      results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
       expect(results.map{|res| res['id']}).not_to include(activity_session1.id.to_s)
     end
 
     it 'does not return activities completed before the specified start date' do
       begin_date = activity_session1.completed_at - 2.days
       end_date = activity_session1.completed_at - 1.days
-      results = Scorebook::Query.run(classroom.id, 1, nil, begin_date, end_date)
+      results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
       expect(results.map{|res| res['id']}).not_to include(activity_session1.id.to_s)
     end
   end

@@ -1,0 +1,105 @@
+.my-activities-unit {
+  .assigned-activities {
+    background-color: #ffffff;
+  }
+  .unit-header-row {
+    min-height: 130px;
+    margin: 0px !important;
+    background-color: #fafafa;
+    border-right: solid 1px #c0c0c0;
+    border-radius: 6px 6px 0px 0px;
+    border-left: solid 1px #c0c0c0;
+    padding: 18px 20px 30px;
+    border-top: solid 1px #c0c0c0;
+    position: relative;
+    align-items: flex-start !important;
+    .left {
+      display: flex;
+      flex: 3;
+      flex-direction: column;
+      margin-top: -5px;
+      @media (max-width: 990px) {
+        flex: 2;
+      }
+      .unit-name {
+        font-weight: bold;
+        color: #3b3b3b;
+        margin-bottom: 30px;
+        min-height: 40px;
+        input {
+          font-weight: normal;
+        }
+      }
+      .delete-unit {
+        margin-left: 15px;
+      }
+      .locked-unit {
+        margin-left: 0px;
+        bottom: 10px;
+        top: inherit;
+        .tooltip {
+          position: absolute;
+          left: 6px;
+          top: 40px;
+          color: white;
+          border-radius: 2px;
+          background-color: #348fdf;
+          font-size: 12px;
+          font-weight: 600;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 105px;
+          width: 400px;
+          padding: 10px 15px;
+          &.visible {
+            opacity: 100;
+          }
+          .fa-caret-up {
+            color: #348fdf;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 16px;
+          }
+          p:first-of-type {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+    .right {
+      flex: 2;
+      .assigned-to {
+        font-size: 14px;
+        .heading {
+          display: inline-block;
+          margin-bottom: 8px;
+          color: #969696;
+        }
+        ul {
+          padding-left: 0px;
+          list-style: none;
+          color: #3b3b3b;
+          li {
+            margin-bottom: 5px;
+            span {
+              font-weight: 600;
+            }
+            &.see-all {
+              color: #027360;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .edit-students {
+      position: absolute;
+      right: 22px;
+      top: 14px;
+      width: inherit;
+    }
+  }
+}
