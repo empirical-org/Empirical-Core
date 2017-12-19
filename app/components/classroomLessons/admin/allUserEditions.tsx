@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import {hashToCollection} from '../../../libs/hashToCollection'
+import * as CustomizeIntf from 'interfaces/customize'
 
 class AllUserEditions extends Component<any, any> {
   constructor(props){
@@ -31,12 +32,12 @@ class AllUserEditions extends Component<any, any> {
 
   getEditions(props) {
     const classroomLessonID = props.params.classroomLessonID
-    const allEditions = props.customize.editions
+    const allEditions: CustomizeIntf.EditionsMetadata = props.customize.editions
     if (allEditions && Object.keys(allEditions).length > 0) {
       const editions = {}
       const editionIds = Object.keys(allEditions)
       editionIds.forEach(id => {
-        const edition = allEditions[id]
+        const edition: CustomizeIntf.EditionMetadata = allEditions[id]
         edition.lessonName = props.classroomLessons.data[edition.lesson_id] ? props.classroomLessons.data[edition.lesson_id].title : ''
         editions[id] = edition
       })

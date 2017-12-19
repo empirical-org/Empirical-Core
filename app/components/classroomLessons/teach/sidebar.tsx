@@ -20,6 +20,7 @@ import {
 import {
   ClassroomLesson
 } from 'interfaces/classroomLessons';
+import * as CustomizeIntf from 'interfaces/customize'
 const studentIcon = require('../../../img/student_icon.svg')
 
 class Sidebar extends React.Component<any, any> {
@@ -86,8 +87,9 @@ class Sidebar extends React.Component<any, any> {
     const { data, hasreceiveddata, }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+    const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
     if (hasreceiveddata && data && lessonDataLoaded) {
-      const questions = lessonData.questions;
+      const questions = editionData.questions;
       const length = questions.length -1;
       const currentSlide = data.current_slide;
       const components: JSX.Element[] = [];
@@ -96,7 +98,7 @@ class Sidebar extends React.Component<any, any> {
         counter += 1;
         const activeClass = currentSlide === slide ? 'active' : '';
         let thumb;
-        let title = lessonData.questions[slide].data.teach.title
+        let title = editionData.questions[slide].data.teach.title
         let titleSection = title ? <span> - {title}</span> : <span/>
         let prompt = data.prompts && data.prompts[slide] ? data.prompts[slide] : null;
         let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
@@ -184,7 +186,8 @@ class Sidebar extends React.Component<any, any> {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
-    classroomLesson: props.classroomLesson
+    classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 

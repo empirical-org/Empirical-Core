@@ -11,10 +11,11 @@ const Navbar = React.createClass({
   render() {
     const data = this.props.classroomSessions.data;
     const lessonData = this.props.classroomLesson.data;
+    const editionData = this.props.customize.editionQuestions;
     let slideName
-    if (lessonData && lessonData.questions && data) {
+    if (editionData && editionData.questions && data) {
       if (data.current_slide > 0) {
-        slideName = [<span>Slide {parseInt(data.current_slide)}</span>, `: ${lessonData.questions[data.current_slide].data.teach.title}`]
+        slideName = [<span>Slide {parseInt(data.current_slide)}</span>, `: ${editionData.questions[data.current_slide].data.teach.title}`]
       } else {
         slideName = "Lobby"
       }
@@ -43,6 +44,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 

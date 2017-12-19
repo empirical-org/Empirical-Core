@@ -60,7 +60,7 @@ class CustomizeEdition extends React.Component<any, any> {
         this.setState({editionMetadata: editionMetadata}, () => nextProps.dispatch(setWorkingEditionMetadata(editionMetadata)))
       }
     }
-    if (!_.isEqual(nextProps.customize.editionQuestions, this.props.customize.editionQuestions)) {
+    if (!_.isEqual(nextProps.customize.editionQuestions, this.props.customize.editionQuestions) || this.state.editionQuestions === undefined) {
       const editionQuestions = nextProps.customize.editionQuestions
       if (this.state.editionQuestions === undefined || !this.state.editionQuestions.questions) {
         this.setState({originalEditionQuestions: editionQuestions, editionQuestions: editionQuestions}, () => nextProps.dispatch(setWorkingEditionQuestions(editionQuestions)))

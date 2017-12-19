@@ -65,7 +65,7 @@ class ExitSlide extends React.Component<any, any> {
       <div className='teacher-exit'>
         <div className="header">
           <h1>
-            <span>Slide {this.props.data.current_slide}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+            <span>Slide {this.props.data.current_slide}:</span> {this.props.editionData.questions[this.props.data.current_slide].data.teach.title}
           </h1>
         </div>
         <ScriptComponent

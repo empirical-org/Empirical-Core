@@ -29,22 +29,6 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
   };
 }
 
-export function getEditionFromFirebase(editionUid: string) {
-  console.log('getting an edition')
-  return function (dispatch) {
-    console.log("Fetching")
-    editionMetadataRef.child(editionUid).on('value', (snapshot) => {
-      console.log("Fetched")
-      if (snapshot.val()) {
-        dispatch(updateClassroomLesson(snapshot.val().data));
-        dispatch(setLessonId(editionUid))
-      } else {
-        dispatch({type: C.NO_LESSON_ID, data: editionUid})
-      }
-    });
-  };
-}
-
 export function updateClassroomLesson(data) {
   return {
     type: C.RECEIVE_CLASSROOM_LESSON_DATA,

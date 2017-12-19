@@ -36,6 +36,7 @@ import {
   ClassroomLesson,
   ScriptItem
 } from 'interfaces/classroomLessons';
+import * as CustomizeIntf from 'interfaces/customize'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 class CurrentSlide extends React.Component<any, any> {
@@ -88,8 +89,8 @@ class CurrentSlide extends React.Component<any, any> {
     }
     if (nextProps.classroomSessions.hasreceiveddata && nextProps.classroomLesson.hasreceiveddata) {
       const data: ClassroomLessonSession = nextProps.classroomSessions.data;
-      const lessonData: ClassroomLesson = nextProps.classroomLesson.data;
-      const script: Array<ScriptItem> = lessonData && lessonData.questions ? lessonData.questions[data.current_slide].data.teach.script : []
+      const editionData: CustomizeIntf.EditionQuestions = nextProps.customize.editionQuestions;
+      const script: Array<ScriptItem> = editionData && editionData.questions ? editionData.questions[data.current_slide].data.teach.script : []
       this.setState({
         numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       })
@@ -212,7 +213,7 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   finishLesson() {
-    const questions = this.props.classroomLesson.data.questions
+    const questions = this.props.customize.editionQuestions.questions
     const submissions = this.props.classroomSessions.data.submissions
     const follow_up = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
     const caId: string|null = getParameterByName('classroom_activity_id');
@@ -278,6 +279,7 @@ class CurrentSlide extends React.Component<any, any> {
   render() {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+    const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
     const lessonId: string = this.props.classroomLesson.id
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
@@ -290,7 +292,7 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-ST':
           slide = <CLStatic
               data={data}
-              lessonData={lessonData}
+              editionData={editionData}
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
@@ -303,7 +305,7 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-MS':
           slide = <CLSingleAnswer
               data={data}
-              lessonData={lessonData}
+              editionData={editionData}
               toggleStudentFlag={this.toggleStudentFlag}
               toggleSelected={this.toggleSelected}
               startDisplayingAnswers={this.startDisplayingAnswers}
@@ -322,9 +324,9 @@ class CurrentSlide extends React.Component<any, any> {
         case 'CL-EX':
           slide = <CLExit
               data={data}
+              editionData={editionData}
               selectedOptionKey={this.state.selectedOptionKey}
               updateSelectedOptionKey={this.updateSelectedOptionKey}
-              lessonData={lessonData}
               script={current.data.teach.script}
               flaggedStudents={data.flaggedStudents}
               students={data.students}
@@ -361,6 +363,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson : props.classroomLesson,
+    customize: props.customize
   };
 }
 

@@ -7,10 +7,11 @@ import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
+import * as CustomizeIntf from 'interfaces/customize'
 
 interface SingleAnswerProps {
   data: ClassroomLessonSession,
-  lessonData: ClassroomLesson,
+  editionData: CustomizeIntf.EditionData,
   toggleStudentFlag: Function,
   toggleSelected: Function,
   startDisplayingAnswers: Function,
@@ -58,17 +59,17 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       <div className="teacher-single-answer">
         <div className="header">
           <h1>
-            <span>Slide {this.props.data.current_slide}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+            <span>Slide {this.props.data.current_slide}:</span> {this.props.editionData.questions[this.props.data.current_slide].data.teach.title}
           </h1>
           <p onClick={this.props.toggleOnlyShowHeaders}>
             {showHeaderText}
           </p>
         </div>
         <ScriptComponent
-          script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
+          script={this.props.editionData.questions[this.props.data.current_slide].data.teach.script}
           prompt={promptNotEmpty ? prompts[current_slide] : ''}
-          cues={this.props.lessonData.questions[current_slide].data.play.cues || undefined}
-          lessonPrompt={this.props.lessonData.questions[current_slide].data.play.prompt}
+          cues={this.props.editionData.questions[current_slide].data.play.cues || undefined}
+          lessonPrompt={this.props.editionData.questions[current_slide].data.play.prompt}
           selected_submission_order={selected_submission_order}
           selected_submissions={selected_submissions}
           submissions={submissions}
@@ -89,7 +90,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           toggleStudentFlag={this.props.toggleStudentFlag}
           saveModel={this.props.saveModel}
           clearStudentSubmission={this.props.clearStudentSubmission}
-          slideType={this.props.lessonData.questions[this.props.data.current_slide].type}
+          slideType={this.props.editionData.questions[this.props.data.current_slide].type}
           savePrompt={this.props.savePrompt}
           clearSelectedSubmissionOrder={this.props.clearSelectedSubmissionOrder}
         />

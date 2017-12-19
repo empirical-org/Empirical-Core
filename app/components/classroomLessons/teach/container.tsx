@@ -24,18 +24,13 @@ import {
 } from 'actions/classroomSessions';
 import {
   getClassLessonFromFirebase,
-  getEditionFromFirebase,
   clearClassroomLessonFromStore
 } from 'actions/classroomLesson';
 import {
   getCurrentUserAndCoteachersFromLMS,
-  getEditionsForUserIds
+  getEditionsForUserIds,
+  getEditionQuestions
 } from 'actions/customize'
-import CLLobby from './lobby';
-import CLStatic from './static';
-import CLSingleAnswer from './singleAnswer';
-import CLStudentLobby from '../play/lobby';
-import CLStudentStatic from '../play/static';
 import MainContentContainer from './mainContentContainer';
 import CLStudentSingleAnswer from '../play/singleAnswer';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -51,6 +46,7 @@ import {
 import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
+import * as CustomizeIntf from 'interfaces/customize'
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
@@ -77,17 +73,14 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.data.edition_id && !nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-      } else if (!nextProps.classroomLesson.hasreceiveddata) {
+      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length < 1) {
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+      }
+      if (!nextProps.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getClassLessonFromFirebase(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
-        if (nextProps.classroomSessions.data.edition_id) {
-          this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-        } else {
-          this.props.dispatch(getClassLessonFromFirebase(lessonId));
-        }
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
     }
     if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
@@ -106,11 +99,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       if (ca_id) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, lessonData)
-          : goToPreviousSlide(ca_id, sessionData, lessonData)
+          ? goToNextSlide(ca_id, sessionData, editionData)
+          : goToPreviousSlide(ca_id, sessionData, editionData)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }

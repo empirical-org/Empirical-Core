@@ -23,9 +23,11 @@ import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
 import {
-  getClassLessonFromFirebase,
-  getEditionFromFirebase
+  getClassLessonFromFirebase
  } from '../../../actions/classroomLesson';
+import {
+ getEditionQuestions
+} from '../../../actions/customize';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
@@ -74,18 +76,16 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student');
     const npCSData = nextProps.classroomSessions.data
+    const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.data.edition_id && !nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-      } else if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
+      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length < 1) {
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+      }
+      if (!nextProps.classroomLesson.hasreceiveddata) {
+        this.props.dispatch(getClassLessonFromFirebase(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
-        if (nextProps.classroomSessions.data.edition_id) {
-          this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-        } else {
-          this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
-        }
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
     }
     if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.followUpActivityName)) {
@@ -309,6 +309,7 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 

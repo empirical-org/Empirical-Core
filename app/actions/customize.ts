@@ -137,7 +137,7 @@ export function publishEdition(editionUID:string, editionMetadata: CustomizeIntf
   }
 }
 
-function filterEditionsByUserIds(userIds:Array<Number|string>, editions:CustomizeIntf.Editions) {
+function filterEditionsByUserIds(userIds:Array<Number|string>, editions:CustomizeIntf.EditionsMetadata) {
   return function (dispatch, getState) {
     if (editions && Object.keys(editions).length > 0) {
       const allowedIds = userIds.concat('quill-staff')
