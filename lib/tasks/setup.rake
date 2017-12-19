@@ -23,8 +23,8 @@ namespace :empirical do
     Rake::Task['db:structure:load'].invoke
 
     puts "** Starting Redis..."
-    `redis-server --port 6379 &`
-    `redis-server --port 7654 &`
+    `redis-server --port 6379 --daemonize yes`
+    `redis-server --port 7654 --daemonize yes`
 
     puts "** Seeding database..."
     Rake::Task["db:seed"].invoke
@@ -36,7 +36,7 @@ namespace :empirical do
     `npm install && cd ./client/ && npm install && cd ..`
 
     puts "** Building the vendor bundle..."
-    `npm run build:dev:client && npm run build:dev:server`
+    `npm run build:test`
 
     puts "** Setup complete!"
   end
