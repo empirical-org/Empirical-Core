@@ -1,5 +1,6 @@
 import React from 'react';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
+import { shouldCountForScoring } from '../../../../modules/activity_classifications.js';
 
 export default React.createClass({
   propTypes: {
@@ -17,7 +18,7 @@ export default React.createClass({
     let totalScore = 0;
     let relevantScores = 0;
     this.props.data.scores.forEach(score => {
-      if(!nonRelevantActivityClassificationIds.includes(score.activity_classification_id) && score.percentage) {
+      if(shouldCountForScoring(score.activity_classification_id) && score.percentage) {
         relevantScores++;
         totalScore += parseFloat(score.percentage);
       }
