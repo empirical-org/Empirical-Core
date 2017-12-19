@@ -37,6 +37,7 @@ import {
 import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from 'interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
@@ -140,11 +141,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       if (ca_id) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, lessonData)
-          : goToPreviousSlide(ca_id, sessionData, lessonData)
+          ? goToNextSlide(ca_id, sessionData, editionData)
+          : goToPreviousSlide(ca_id, sessionData, editionData)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }
@@ -182,8 +183,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     this.setState({showProjectorModal: false})
   }
 
-  renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
-    const current = lessonData.questions[data.current_slide];
+  renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson, editionData: CustomizeIntf.EditionQuestions) {
+    const current = editionData.questions[data.current_slide];
     const prompt = data.prompts && data.prompts[data.current_slide] ? data.prompts[data.current_slide] : null;
     const model: string|null = data.models && data.models[data.current_slide] ? data.models[data.current_slide] : null;
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
@@ -272,13 +273,15 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
      } else {
        const lessonData: ClassroomLesson = this.props.classroomLesson.data;
        const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+       const editionDataLoaded: boolean = Object.keys(editionData).length > 0;
        // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
        // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
        const absentTeacher = this.props.classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
        const watchTeacher = this.props.classroomSessions.data.watchTeacherState && !this.state.projector ? <CLWatchTeacher /> : null
 
-       if (hasreceiveddata && lessonDataLoaded) {
-         const component = this.renderCurrentSlide(data, lessonData);
+       if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
+         const component = this.renderCurrentSlide(data, lessonData, editionData);
          if (component) {
            return (
              <div>
