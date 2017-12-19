@@ -2,11 +2,15 @@ import React from 'react'
 import _ from 'underscore'
 import moment from 'moment'
 import gradeColor from '../modules/grade_color.js'
+import userIsPremium from '../modules/user_is_premium'
 
 export default class extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      userIsPremium: userIsPremium()
+    }
   }
 
   activityTableRowsAndAverageScore(unit) {
@@ -16,13 +20,13 @@ export default class extends React.Component {
     let averageScore;
     unit.forEach((row) => {
       if (row.percentage) {
+        // TODO: calculate this to avoid lessons and diagnostics
         cumulativeScore += parseFloat(row.percentage);
         applicableScoreRowCount += 1;
       }
       rows.push(this.tableRow(row))
     })
     if (cumulativeScore > 0) {
-      this.props.calculateCountAndAverage(cumulativeScore, applicableScoreRowCount)
       averageScore = cumulativeScore / applicableScoreRowCount
     }
     return {averageScore, rows}
@@ -67,12 +71,13 @@ export default class extends React.Component {
 
   tableRow(row) {
     const scoreInfo = this.score(row)
+    const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
     return (
       <tr>
         <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
         <td className='activity-name'><a href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a></td>
         <td>{this.completedStatus(row)}</td>
-        <td className='score'>{scoreInfo.content}</td>
+        <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
         <td className='green-arrow'>{this.greenArrow(row)}</td>
       </tr>
     )
@@ -82,6 +87,7 @@ export default class extends React.Component {
     const constantData = unit[0]
     const activityTableRowsAndAverageScore = this.activityTableRowsAndAverageScore(unit)
     const averageScore = activityTableRowsAndAverageScore.averageScore
+    const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
     return (
       <div className='average-score'>
         <table className='student-overview-table'>
@@ -94,7 +100,7 @@ export default class extends React.Component {
                 <div className='average-score-label'>
                   Average Score:
                 </div>
-                <div>
+                <div className={`${blurIfNotPremium}`}>
                   {averageScore
                     ? Math.round(averageScore * 100) + '%'
                     : '—'}
