@@ -118,6 +118,7 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get 'lessons_activities_cache'
         get 'lessons_units_and_activities'
+        put 'update_multiple_due_dates'
         put ':id/hide' => 'classroom_activities#hide'
         get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
@@ -314,6 +315,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
+  get '/clever/no_classroom', to: 'clever#no_classroom'
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'schools#select_school'
