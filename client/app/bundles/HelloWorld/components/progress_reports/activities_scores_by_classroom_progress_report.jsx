@@ -6,6 +6,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
+import {sortInnerLinkTextByLastNameForReactTableCell} from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
 
 import _ from 'underscore'
@@ -67,23 +68,13 @@ export default class extends React.Component {
     return csvData
   }
 
-  sortByLastName(name1, name2) {
-    // using props.children because we have react elements being passed
-    // rather than straight names due to us having styled them
-    const lastName1 = _.last(name1.props.children.props.children.split(' '))
-    const lastName2 = _.last(name2.props.children.props.children.split(' '))
-    return lastName1 > lastName2
-      ? 1
-      : -1
-  }
-
   columns() {
     return ([
       {
         Header: 'Student',
         accessor: 'nameUrl',
         resizable: false,
-        sortMethod: this.sortByLastName,
+        sortMethod: sortInnerLinkTextByLastNameForReactTableCell,
         Cell: props => props.value
       }, {
         Header: "Activities Completed",
@@ -167,9 +158,9 @@ export default class extends React.Component {
 						defaultSorted={[{id: 'last_active', desc: true}]}
 					  showPaginationTop={false}
 						showPaginationBottom={false}
-						 showPageSizeOptions={false}
-							defaultPageSize={filteredClassroomsData.length}
-						 className='progress-report has-green-arrow'/></div>
+						showPageSizeOptions={false}
+						defaultPageSize={filteredClassroomsData.length}
+						className='progress-report has-green-arrow'/></div>
       </div>
     )
   }
