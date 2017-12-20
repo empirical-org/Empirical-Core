@@ -284,8 +284,9 @@ class CurrentSlide extends React.Component<any, any> {
     const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
     const lessonId: string = this.props.classroomLesson.id
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
-    if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded) {
-      const current = lessonData.questions[parseInt(data.current_slide) || 0];
+    const editionDataLoaded: boolean = editionData.questions && editionData.questions.length > 0
+    if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
+      const current = editionData.questions[parseInt(data.current_slide) || 0];
       let slide
       switch (current.type) {
         case 'CL-LB':
