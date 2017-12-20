@@ -5,6 +5,7 @@ import getParameterByName from '../modules/get_parameter_by_name'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import StudentOveriewTable from './student_overview_table.jsx'
 import moment from 'moment'
+import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js'
 
 export default class extends React.Component {
 
@@ -41,7 +42,7 @@ export default class extends React.Component {
 		let count = 0;
 		let cumulativeScore = 0;
 		this.state.reportData.forEach((row) => {
-			if (row.percentage) {
+			if (row.percentage && notLessonsOrDiagnostic(row.activity_classification_id)) {
 				count += 1;
 				cumulativeScore += parseFloat(row.percentage);
 			}
