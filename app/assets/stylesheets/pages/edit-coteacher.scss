@@ -1,0 +1,52 @@
+#edit-coteacher {
+  h1{
+    margin-top: 30px;
+    margin-bottom: 25px;
+  	font-size: 24px;
+    font-weight: 800;
+  }
+  .select-coteacher {
+    font-size: 14px;
+    color: #3b3b3b;
+    font-weight: 400;
+    margin-right: 20px;
+  }
+  .edit-coteacher-container {
+    width: 100%;
+    border-bottom: solid 1px #c0c0c0;
+    padding-bottom: 25px;
+  }
+  .edit-classroom-container  {
+    margin-bottom: 27px;
+  }
+  h2 {
+    margin-top: 27px;
+    font-size: 24px;
+    margin-bottom: 27px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 27px;
+    margin-bottom: 27px;
+  }
+  p {
+    padding-top: 5px;
+  }
+  .select-control {
+    margin-top: 27px;
+    max-width: 500px;
+  }
+  .save-changes {
+    margin-bottom: 27px;
+  }
+  .remove-coteacher {
+    padding-bottom: 20px;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #027360;
+    cursor: pointer;
+  }
+
+}

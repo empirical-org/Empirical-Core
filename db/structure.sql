@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.5
--- Dumped by pg_dump version 9.6.5
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -550,6 +550,8 @@ CREATE TABLE classrooms_teachers (
     user_id integer NOT NULL,
     classroom_id integer NOT NULL,
     role character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
@@ -681,7 +683,7 @@ ALTER SEQUENCE concepts_id_seq OWNED BY concepts.id;
 
 CREATE TABLE coteacher_classroom_invitations (
     id integer NOT NULL,
-    pending_invitation_id integer NOT NULL,
+    invitation_id integer NOT NULL,
     classroom_id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -848,6 +850,40 @@ CREATE SEQUENCE firebase_apps_id_seq
 --
 
 ALTER SEQUENCE firebase_apps_id_seq OWNED BY firebase_apps.id;
+
+
+--
+-- Name: invitations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE invitations (
+    id integer NOT NULL,
+    invitee_email character varying NOT NULL,
+    inviter_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    invitation_type character varying,
+    archived boolean DEFAULT false
+);
+
+
+--
+-- Name: invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE invitations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE invitations_id_seq OWNED BY invitations.id;
 
 
 --
@@ -1089,39 +1125,6 @@ CREATE SEQUENCE page_areas_id_seq
 --
 
 ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
-
-
---
--- Name: pending_invitations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pending_invitations (
-    id integer NOT NULL,
-    invitee_email character varying NOT NULL,
-    inviter_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    invitation_type character varying
-);
-
-
---
--- Name: pending_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE pending_invitations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pending_invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE pending_invitations_id_seq OWNED BY pending_invitations.id;
 
 
 --
@@ -1676,7 +1679,8 @@ CREATE TABLE users (
     send_newsletter boolean DEFAULT false,
     flag character varying,
     google_id character varying,
-    last_sign_in timestamp without time zone
+    last_sign_in timestamp without time zone,
+    last_active timestamp without time zone
 );
 
 
@@ -1854,6 +1858,13 @@ ALTER TABLE ONLY firebase_apps ALTER COLUMN id SET DEFAULT nextval('firebase_app
 
 
 --
+-- Name: invitations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY invitations ALTER COLUMN id SET DEFAULT nextval('invitations_id_seq'::regclass);
+
+
+--
 -- Name: ip_locations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1900,13 +1911,6 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
-
-
---
--- Name: pending_invitations id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pending_invitations ALTER COLUMN id SET DEFAULT nextval('pending_invitations_id_seq'::regclass);
 
 
 --
@@ -2198,6 +2202,14 @@ ALTER TABLE ONLY firebase_apps
 
 
 --
+-- Name: invitations invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY invitations
+    ADD CONSTRAINT invitations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ip_locations ip_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2251,14 +2263,6 @@ ALTER TABLE ONLY objectives
 
 ALTER TABLE ONLY page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
-
-
---
--- Name: pending_invitations pending_invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pending_invitations
-    ADD CONSTRAINT pending_invitations_pkey PRIMARY KEY (id);
 
 
 --
@@ -2400,7 +2404,7 @@ CREATE INDEX aut ON activities_unit_templates USING btree (activity_id, unit_tem
 -- Name: classroom_invitee_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX classroom_invitee_index ON coteacher_classroom_invitations USING btree (pending_invitation_id, classroom_id);
+CREATE UNIQUE INDEX classroom_invitee_index ON coteacher_classroom_invitations USING btree (invitation_id, classroom_id);
 
 
 --
@@ -2663,10 +2667,10 @@ CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON coteacher_
 
 
 --
--- Name: index_coteacher_classroom_invitations_on_pending_invitation_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_coteacher_classroom_invitations_on_invitation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_coteacher_classroom_invitations_on_pending_invitation_id ON coteacher_classroom_invitations USING btree (pending_invitation_id);
+CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON coteacher_classroom_invitations USING btree (invitation_id);
 
 
 --
@@ -2688,6 +2692,20 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users
 --
 
 CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
+
+
+--
+-- Name: index_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_invitations_on_invitee_email ON invitations USING btree (invitee_email);
+
+
+--
+-- Name: index_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_invitations_on_inviter_id ON invitations USING btree (inviter_id);
 
 
 --
@@ -2744,27 +2762,6 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
-
-
---
--- Name: index_pending_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pending_invitations_on_invitee_email ON pending_invitations USING btree (invitee_email);
-
-
---
--- Name: index_pending_invitations_on_invitee_email_and_inviter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_pending_invitations_on_invitee_email_and_inviter_id ON pending_invitations USING btree (invitee_email, inviter_id);
-
-
---
--- Name: index_pending_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pending_invitations_on_inviter_id ON pending_invitations USING btree (inviter_id);
 
 
 --
@@ -3611,4 +3608,18 @@ INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 INSERT INTO schema_migrations (version) VALUES ('20171128192444');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128211301');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204202718');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204203843');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204205938');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204220339');
+
+INSERT INTO schema_migrations (version) VALUES ('20171205181155');
+
+INSERT INTO schema_migrations (version) VALUES ('20171214152937');
+
+INSERT INTO schema_migrations (version) VALUES ('20171218222306');
 

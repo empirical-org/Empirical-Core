@@ -39,6 +39,44 @@ module Teacher
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'coteacher'")
   end
 
+  def classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach
+    ids = Set.new
+    all_ids = ActiveRecord::Base.connection.execute("SELECT DISTINCT(coteacher_classroom_invitations.classroom_id) AS invitation_id, classrooms_teachers.classroom_id FROM users
+      LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false
+      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
+      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{self.id} AND classrooms_teachers.role = 'coteacher'
+      WHERE users.id = #{self.id}").to_a
+      all_ids.each{|row| row.each{|k,v| ids << v}}
+      ids
+  end
+
+
+
+  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
+    if classrooms_ids_to_check && classrooms_ids_to_check.any?
+      # if there are specific ids passed it will only return those that match
+      coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
+      classrooms_teacher_additional_join = "AND classrooms_teachers.classroom_id IN (#{classrooms_ids_to_check.join(', ')})"
+    end
+    classrooms_teachers_ids = Set.new
+    coteacher_classroom_invitation_ids = Set.new
+    all_ids = ActiveRecord::Base.connection.execute("SELECT coteacher_classroom_invitations.id AS coteacher_classroom_invitation_id, classrooms_teachers.id AS classrooms_teachers_id FROM users
+      LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false
+      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id #{coteacher_classroom_invitation_additional_join}
+      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{self.id} AND classrooms_teachers.role = 'coteacher' #{classrooms_teacher_additional_join}
+      WHERE users.id = #{self.id}")
+      all_ids.each do |row|
+        row.each do |k,v|
+          if k == 'coteacher_classroom_invitation_id'
+            coteacher_classroom_invitation_ids << v.to_i
+          elsif k == 'classrooms_teachers_id'
+            classrooms_teachers_ids << v.to_i
+          end
+        end
+      end
+      {coteacher_classroom_invitations_ids: coteacher_classroom_invitation_ids.to_a, classrooms_teachers_ids: classrooms_teachers_ids.to_a}
+  end
+
   def affiliated_with_unit(unit_id)
     ActiveRecord::Base.connection.execute("SELECT units.id FROM units
       JOIN classroom_activities ON classroom_activities.unit_id = units.id
@@ -62,6 +100,35 @@ module Teacher
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 
+  def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
+    if classroom_ids && classroom_ids.any?
+      # destroy the extant invitation and teacher relationships
+      self.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
+        if k == :classrooms_teachers_ids
+          ClassroomsTeacher.where(id: v).map(&:destroy)
+        elsif k ==  :coteacher_classroom_invitations_ids
+          CoteacherClassroomInvitation.where(id: v).map(&:destroy)
+        end
+      end
+    end
+  end
+
+  def handle_positive_classrooms_from_update_coteachers(classroom_ids, inviter_id)
+    if classroom_ids && classroom_ids.any?
+      new_classroom_ids = classroom_ids.map(&:to_i) - self.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.to_a.map(&:to_i)
+      if new_classroom_ids.any?
+        invitation = Invitation.create(
+          invitee_email: self.email,
+          inviter_id: inviter_id,
+          invitation_type: Invitation::TYPES[:coteacher]
+        )
+        new_classroom_ids.each do |id|
+          CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
+        end
+      end
+    end
+  end
+
   def google_classrooms
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner' AND classrooms.google_classroom_id IS NOT null")
   end
@@ -74,26 +141,26 @@ module Teacher
     classrooms_i_own.map{|classroom| classroom.with_students}
   end
 
-  def classrooms_i_coteach_with_a_specific_teacher_with_students(specified_teacher_id)
-    classrooms_i_coteach_with_a_specific_teacher(specified_teacher_id).map{|classroom| classroom.with_students}
+  def classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(specified_teacher_id)
+    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map{|classroom| classroom.with_students}
   end
 
   def classrooms_i_own_that_have_coteachers
     ActiveRecord::Base.connection.execute(
-      "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      "SELECT classrooms.name AS name, coteacher.name AS coteacher_name, coteacher.email AS coteacher_email, coteacher.id AS coteacher_id FROM classrooms_teachers AS my_classrooms
       JOIN classrooms_teachers AS coteachers_classrooms ON coteachers_classrooms.classroom_id = my_classrooms.classroom_id
       JOIN classrooms ON coteachers_classrooms.classroom_id = classrooms.id
       JOIN users AS coteacher ON coteachers_classrooms.user_id = coteacher.id
-      WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher'").to_a
+      WHERE my_classrooms.user_id = #{self.id} AND coteachers_classrooms.role = 'coteacher' AND my_classrooms.role = 'owner'").to_a
   end
 
   def classrooms_i_own_that_have_pending_coteacher_invitations
     ActiveRecord::Base.connection.execute(
-      "SELECT DISTINCT classrooms.name AS name, pending_invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms
-      JOIN pending_invitations ON pending_invitations.inviter_id = my_classrooms.user_id
-      JOIN coteacher_classroom_invitations ON pending_invitations.id = coteacher_classroom_invitations.pending_invitation_id
+      "SELECT DISTINCT classrooms.name AS name, invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms
+      JOIN invitations ON invitations.inviter_id = my_classrooms.user_id
+      JOIN coteacher_classroom_invitations ON invitations.id = coteacher_classroom_invitations.invitation_id
       JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id
-      WHERE my_classrooms.user_id = #{self.id} AND pending_invitations.invitation_type = '#{PendingInvitation::TYPES[:coteacher]}' AND my_classrooms.role = 'owner'").to_a
+      WHERE my_classrooms.user_id = #{self.id} AND invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}' AND invitations.archived = false AND my_classrooms.role = 'owner'").to_a
   end
 
 
@@ -135,6 +202,9 @@ module Teacher
     info = classrooms.map do |classy|
       count = counts.find { |elm| elm['id'] == classy['id'] }
       classy['activity_count'] = count  ? count['count'] : 0
+      has_coteacher = ClassroomsTeacher.where(classroom_id: classy['id']).length > 1
+      classy['has_coteacher'] = has_coteacher
+      classy['teacher_role'] = ClassroomsTeacher.find_by(classroom_id: classy['id'], user_id: self.id).role
       classy
     end
     # TODO: move setter to background worker
@@ -340,7 +410,38 @@ module Teacher
   end
 
   def get_data_for_lessons_cache
-    self.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
+    lesson_classroom_activities = []
+    self.classrooms_i_teach.each do |classroom|
+      classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.each{|ca| lesson_classroom_activities.push(ca.lessons_cache_info_formatter)}
+    end
+    lesson_classroom_activities
+  end
+
+  def classrooms_i_am_the_coteacher_for_with_a_specific_teacher(teacher_id)
+    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
+      JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
+      JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
+      WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
+      ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
+  end
+
+  def classrooms_i_own_that_a_specific_user_coteaches_with_me(teacher_id)
+    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
+      JOIN classrooms_teachers AS ct_i_own ON ct_i_own.classroom_id = classrooms.id
+      JOIN classrooms_teachers AS ct_of_coteacher ON ct_of_coteacher.classroom_id = classrooms.id
+      WHERE ct_i_own.role = 'owner' AND ct_i_own.user_id = #{self.id} AND
+      ct_of_coteacher.role = 'coteacher' AND ct_of_coteacher.user_id = #{teacher_id.to_i}")
+  end
+
+  def classroom_ids_i_have_invited_a_specific_teacher_to_coteach(teacher_id)
+    ActiveRecord::Base.connection.execute("SELECT cci.classroom_id FROM invitations
+    JOIN users AS coteachers ON coteachers.email = invitations.invitee_email
+    JOIN coteacher_classroom_invitations AS cci ON cci.invitation_id = invitations.id
+    WHERE coteachers.id = #{teacher_id.to_i} AND invitations.inviter_id = #{self.id}").to_a.map{|res| res['classroom_id'].to_i}
+  end
+
+  def has_outstanding_coteacher_invitation?
+    Invitation.exists?(invitee_email: self.email, archived: false)
   end
 
   private
@@ -351,13 +452,6 @@ module Teacher
     WHERE ct.user_id = #{self.id}"
   end
 
-  def classrooms_i_coteach_with_a_specific_teacher(teacher_id)
-    Classroom.find_by_sql("SELECT classrooms.* FROM classrooms
-                            JOIN classrooms_teachers AS ct_i_coteach ON ct_i_coteach.classroom_id = classrooms.id
-                            JOIN classrooms_teachers AS ct_of_owner ON ct_of_owner.classroom_id = classrooms.id
-                            WHERE ct_i_coteach.role = 'coteacher' AND ct_i_coteach.user_id = #{self.id} AND
-                                  ct_of_owner.role = 'owner' AND ct_of_owner.user_id = #{teacher_id.to_i}")
-  end
 
 
 

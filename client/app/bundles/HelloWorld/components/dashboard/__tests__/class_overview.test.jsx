@@ -9,24 +9,36 @@ import OverviewMini from '../overview_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';
 import PremiumMini from '../premium_mini';
-import QuillLessonsAnnouncement from '../quill_lessons_announcement_mini.jsx';
+import CoteachingAnnouncement from '../coteaching_announcement_mini.jsx';
 import LessonsList from '../lessons_list.jsx';
 import DiagnosticMini from '../diagnostic_mini.jsx'
 
 describe('ClassOverview component', () => {
   describe('overview minis', () => {
-    it('should render OverviewMinis with overviewObj for each in data', () => {
+    it('should render OverviewMinis with overviewObj for each in data with results', () => {
       const wrapper = shallow(
         <ClassOverview
           data={[
-            {header: 'arbitrary-data'},
-            {header: 'different-arbitrary-data'}
+            {header: 'arbitrary-data', results: {stuff: 'things'}},
+            {header: 'different-arbitrary-data', results: {things: 'stuff'}}
           ]}
         />
       );
       expect(wrapper.find(OverviewMini).length).toBe(2);
       expect(wrapper.find(OverviewMini).at(0).props().overviewObj.header).toBe('arbitrary-data');
       expect(wrapper.find(OverviewMini).at(1).props().overviewObj.header).toBe('different-arbitrary-data');
+    });
+
+    it('should not render OverviewMinis with overviewObj for any in data without results', () => {
+      const wrapper = shallow(
+        <ClassOverview
+          data={[
+            {header: 'arbitrary-data', results: 'insufficient data'},
+            {header: 'different-arbitrary-data'}
+          ]}
+        />
+      );
+      expect(wrapper.find(OverviewMini).length).toBe(0);
     });
 
     it('should render TeacherGuide only if displayTeacherGuide is true in state', () => {
@@ -47,12 +59,12 @@ describe('ClassOverview component', () => {
     expect(wrapper.find(PremiumPromo).exists()).toBe(true);
   });
 
-  describe('QuillLessonsAnnouncement', () => {
-    it('should render QuillLessonsAnnouncement', () => {
+  describe('CoteachingAnnouncement', () => {
+    it('should render CoteachingAnnouncement', () => {
       const wrapper = shallow(
         <ClassOverview/>
       );
-      expect(wrapper.find(QuillLessonsAnnouncement).exists()).toBe(true);
+      expect(wrapper.find(CoteachingAnnouncement).exists()).toBe(true);
     });
   })
 

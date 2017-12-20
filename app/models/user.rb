@@ -6,12 +6,13 @@ class User < ActiveRecord::Base
 
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
+  after_save  :update_invitee_email_address, if: Proc.new { self.email_changed? }
 
 
   has_secure_password validations: false
 
   has_many :checkboxes
-  has_many :pending_invitations
+  has_many :invitations
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
@@ -43,6 +44,7 @@ class User < ActiveRecord::Base
                                     on: :create
 
   validate  :validate_username_and_email,  on: :update
+  validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?
@@ -58,6 +60,7 @@ class User < ActiveRecord::Base
 
   ROLES      = %w(student teacher temporary user admin staff)
   SAFE_ROLES = %w(student teacher temporary)
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   default_scope -> { where('users.role != ?', 'temporary') }
 
@@ -93,6 +96,17 @@ class User < ActiveRecord::Base
 
   def validate_username?
     validate_username.present? ? validate_username : false
+  end
+
+  def username_cannot_be_an_email
+    if username =~ VALID_EMAIL_REGEX
+      if self.id
+        db_self = User.find(self.id)
+        errors.add(:username, "cannot be in email format") unless db_self.username == username
+      else
+        errors.add(:username, "cannot be in email format")
+      end
+    end
   end
 
   def safe_role_assignment role
@@ -262,6 +276,15 @@ class User < ActiveRecord::Base
     UserMailer.account_created_email(self, temp_password, admin_name).deliver_now! if email.present?
   end
 
+  def send_invitation_to_non_existing_user(invitation_email_hash)
+    # must be called from inviter account
+    UserMailer.invitation_to_non_existing_user(invitation_email_hash).deliver_now! if email.present?
+  end
+
+  def send_invitation_to_existing_user(invitation_email_hash)
+    UserMailer.invitation_to_existing_user(invitation_email_hash).deliver_now! if email.present?
+  end
+
   def send_join_school_email(school)
     UserMailer.join_school_email(self, school).deliver_now! if email.present?
   end
@@ -429,5 +452,9 @@ private
 
   def generate_username(classroom_id=nil)
     self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code(classroom_id))
+  end
+
+  def update_invitee_email_address
+    Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
   end
 end
