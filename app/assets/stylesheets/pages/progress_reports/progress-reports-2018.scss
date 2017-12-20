@@ -1,0 +1,48 @@
+.progress-reports-2018 {
+  max-width: 950px;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 180px;
+  .header-and-info {
+    max-width: 603px;
+    h1 {
+      font-size: 24px;
+      color: #3b3b3b;
+      font-weight: 800;
+      padding-bottom: 13px;
+    }
+  }
+
+  .how-we-grade {
+     color: #027360;
+     text-decoration: none;
+     i {
+       padding-left: 10px;
+     }
+  }
+
+  .dropdown-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.activities-scores-by-classroom {
+  .csv-and-how-we-grade a {
+    display: block;
+  }
+  .btn {
+    margin-bottom: 11px;
+  }
+  .activity-scores-overview {
+    padding-bottom: 13px;
+  }
+}
+
+.non-premium-blur {
+  -webkit-filter: blur(5px);
+ -moz-filter: blur(5px);
+ -o-filter: blur(5px);
+ -ms-filter: blur(5px);
+ filter: blur(5px);
+}

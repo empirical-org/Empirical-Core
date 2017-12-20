@@ -1,4 +1,4 @@
-export function shouldCountForScoring(activityClassificationID) {
+export default function shouldCountForScoring(activityClassificationID) {
   /*
     This function acts as a single source of truth for determining which
     activity classifications should count when calculating aggregate scores.
@@ -11,11 +11,11 @@ export function shouldCountForScoring(activityClassificationID) {
     aggregate scores, the activity classification ID should be added to the
     array below.
   */
-  
+
   const nonRelevantActivityClassificationIds = [
     4, // Diagnostic
     6, // Lessons
   ];
 
-  return !nonRelevantActivityClassificationIds.includes(activityClassificationID);
+  return !nonRelevantActivityClassificationIds.includes(Number(activityClassificationID));
 }

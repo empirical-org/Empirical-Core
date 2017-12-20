@@ -173,6 +173,7 @@ export default class ClassroomLessons extends React.Component {
     if (this.state.empty) {
       return this.renderEmptyState();
     } else if (this.state.loaded) {
+      
       return (
         <div id="lesson_planner">
           <div className="container my-lessons manage-units">
