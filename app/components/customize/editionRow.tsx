@@ -11,11 +11,11 @@ interface EditionRowState {
 
 interface EditionRowProps {
   edition: CustomizeIntf.EditionMetadata,
-  archiveEdition: Function,
+  archiveEdition?: Function,
   classroomLesson: any,
   creator: string,
   customize: any,
-  editEdition: Function,
+  editEdition?: Function,
   makeNewEdition: Function,
   selectAction: Function,
   selectState: string|boolean|null
@@ -40,11 +40,13 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
   }
 
   editEdition() {
-    this.props.editEdition(this.props.edition.key)
+    if (this.props.editEdition) {
+      this.props.editEdition(this.props.edition.key)
+    }
   }
 
   archiveEdition() {
-    if (window.confirm('Are you sure you want to delete this edition? By deleting the edition, you will lose all the changes that you made to the slides.')) {
+    if (window.confirm('Are you sure you want to delete this edition? By deleting the edition, you will lose all the changes that you made to the slides.') && this.props.archiveEdition) {
       this.props.archiveEdition(this.props.edition.key)
     }
   }

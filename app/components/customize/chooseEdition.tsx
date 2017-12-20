@@ -161,22 +161,22 @@ class ChooseEdition extends React.Component<any, any> {
         if (edition.lesson_id === this.props.params.lessonID) {
           if (edition.user_id === user_id) {
             const editionRow = <EditionRow
+              key={e}
               edition={edition}
               makeNewEdition={this.makeNewEdition}
               editEdition={this.editEdition}
               archiveEdition={this.archiveEdition}
               creator='user'
-              key={e}
               selectAction={this.selectAction}
               selectState={this.state.selectState}
               />
             myEditions.push(editionRow)
           } else if (String(edition.user_id) === 'quill-staff') {
             const editionRow = <EditionRow
+              key={e}
               edition={edition}
               makeNewEdition={this.makeNewEdition}
               creator='quill'
-              key={e}
               selectAction={this.selectAction}
               selectState={this.state.selectState}
             />
