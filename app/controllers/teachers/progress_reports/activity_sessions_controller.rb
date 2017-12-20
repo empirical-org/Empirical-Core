@@ -3,6 +3,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     respond_to do |format|
       format.html
       format.json do
+        # TODO optimize this. It is insanely slow. 🐌
         query = ::ProgressReports::ActivitySession.new(current_user).results(params)
         page_count = (query.count / ActivitySession::RESULTS_PER_PAGE.to_f).ceil
         activity_sessions = query.paginate(params[:page], ActivitySession::RESULTS_PER_PAGE)
