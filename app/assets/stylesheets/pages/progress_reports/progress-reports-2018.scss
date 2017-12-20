@@ -15,10 +15,11 @@
 
   .how-we-grade {
      color: #027360;
+     display: block;
+     float: none;
+     margin-top: 10px;
+     text-align: right;
      text-decoration: none;
-     i {
-       padding-left: 10px;
-     }
   }
 
   .dropdown-container {
@@ -34,7 +35,7 @@
   .btn {
     margin-bottom: 11px;
   }
-  .activity-scores-overview {
+  .meta-overview {
     padding-bottom: 13px;
   }
 }

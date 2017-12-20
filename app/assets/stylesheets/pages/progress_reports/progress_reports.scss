@@ -90,7 +90,6 @@ a.progress-reports-nav {
 
 
 .container.progress-report {
-  padding-top: 50px;
   margin-bottom: 130px;
 }
 
@@ -234,8 +233,22 @@ a.progress-reports-nav {
 }
 
 .progress-report-filters {
-  margin-top: 0px;
-  margin-bottom: 19px;
+  display: flex;
+  margin: 20px 0;
+
+  & > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 10px;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
 }
 
 .circle {
