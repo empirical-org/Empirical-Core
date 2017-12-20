@@ -165,7 +165,7 @@ export default class extends React.Component {
 						columns={this.columns()}
 						showPagination={false}
 						defaultSorted={[{id: 'last_active', desc: true}]}
-					 showPaginationTop={false}
+					  showPaginationTop={false}
 						showPaginationBottom={false}
 						 showPageSizeOptions={false}
 							defaultPageSize={filteredClassroomsData.length}
