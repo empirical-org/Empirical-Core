@@ -18,38 +18,35 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      loading: true,
-      pageNumber: 1,
-      classroomFilters: [],
-      studentFilters: [],
-      unitFilters: [],
-      csvData: [],
+      loadingFilterOptions: true,
+      currentPage: 1,
+      csvData: []
     }
   },
 
   componentDidMount: function() {
-    this.setState({ loading: true });
+    this.fetchData();
+  },
+
+  fetchData: function() {
+    this.setState({ loadingNewTableData: true });
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json?page=${this.state.currentPage}`
     }, (e, r, body) => {
-      const data = JSON.parse(body)
-      // const csvData = this.formatDataForCSV(data)
-      // const classroomsData = this.formatClassroomsData(data)
+      const data = JSON.parse(body);
       that.setState({
-        loading: false,
-        // classroomsData,
-        // csvData,
-        // classroomNames
+        loadingFilterOptions: false,
+        loadingNewTableData: false,
         results: data.activity_sessions,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classes'),
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
       }, () => {
         this.setState({
-          selectedClassroom: this.state.classroomFilters[0],
-          selectedStudent: this.state.studentFilters[0],
-          selectedUnit: this.state.unitFilters[0]
+          selectedClassroom: this.state.selectedClassroom || this.state.classroomFilters[0],
+          selectedStudent: this.state.selectedStudent || this.state.studentFilters[0],
+          selectedUnit: this.state.selectedUnit || this.state.unitFilters[0]
         })
       });
     });
@@ -119,11 +116,11 @@ export default React.createClass({
   },
 
   onFilterChange: function() {
-    this.setState({currentPage: 1});
+    this.setState({loading: true,}, this.fetchData);
   },
 
   renderFiltersAndTable: function() {
-    if(this.state.loading) {
+    if(this.state.loadingFilterOptions) {
       return <LoadingSpinner />
     }
 
@@ -142,6 +139,7 @@ export default React.createClass({
           filterTypes={['unit', 'classroom', 'student']}
         />
         <ReactTable
+          loading={this.state.loadingNewTableData}
           data={this.state.results}
           columns={this.columnDefinitions()}
           showPagination={true}
@@ -152,6 +150,7 @@ export default React.createClass({
           defaultPageSize={25}
           resizable={false}
           className='progress-report'
+          manual={true}
         />
       </div>
     );
