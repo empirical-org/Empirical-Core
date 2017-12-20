@@ -1,8 +1,25 @@
 .ReactTable {
   &.progress-report {
+    border: none;
     max-width: 950px;
     width: 100%;
     margin: auto;
+
+    .rt-table {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .pagination-bottom {
+      height: 40px;
+
+      .-pagination {
+        background: #fafafa;
+        border-top: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: none;
+        padding: 8px;
+      }
+    }
 
     .rt-th {
       background-color: #fafafa;
