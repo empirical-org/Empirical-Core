@@ -72,7 +72,7 @@ export default React.createClass({
         accessor: 'student_name',
         resizeable: false,
         Cell: props => props.value,
-        className: this.isPremium() ? '' : 'non-premium-blur'
+        className: this.nonPremiumBlur()
       },
       {
         Header: 'Date',
@@ -91,7 +91,7 @@ export default React.createClass({
         accessor: 'display_score',
         resizeable: false,
         Cell: props => props.value,
-        className: this.isPremium() ? '' : 'non-premium-blur'
+        className: this.nonPremiumBlur()
       },
       {
         Header: 'Standard',
@@ -185,8 +185,8 @@ export default React.createClass({
     );
   },
 
-  isPremium: function() {
-    return this.props.premiumStatus == 'paid';
+  nonPremiumBlur: function() {
+    return this.props.premiumStatus == 'paid' ? '' : 'non-premium-blur';
   },
 
   render: function() {
