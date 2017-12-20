@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 import moment from 'moment'
 import gradeColor from '../modules/grade_color.js'
+import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js'
 import userIsPremium from '../modules/user_is_premium'
 
 export default class extends React.Component {
@@ -19,8 +20,7 @@ export default class extends React.Component {
     let applicableScoreRowCount = 0;
     let averageScore;
     unit.forEach((row) => {
-      if (row.percentage) {
-        // TODO: calculate this to avoid lessons and diagnostics
+      if (row.percentage && notLessonsOrDiagnostic(row.activity_classification_id)) {
         cumulativeScore += parseFloat(row.percentage);
         applicableScoreRowCount += 1;
       }
@@ -49,7 +49,7 @@ export default class extends React.Component {
   }
 
   greenArrow(row) {
-    if (row.completed_at && ['6', '4'].indexOf(row.activity_classification_id) === -1) {
+    if (row.completed_at && notLessonsOrDiagnostic(row.activity_classification_id)) {
       return (<a href={`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${row.classroom_activity_id}/user/${this.props.studentId}`}>
         <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
       </a>)
@@ -57,7 +57,7 @@ export default class extends React.Component {
   }
 
   score(row) {
-    if (row.completed_at && ['6', '4'].indexOf(row.activity_classification_id) > -1) {
+    if (row.completed_at && !notLessonsOrDiagnostic(row.activity_classification_id)) {
       return {content: 'Completed', color: 'blue'}
     } else if (row.percentage) {
       return {
@@ -70,7 +70,7 @@ export default class extends React.Component {
   }
 
   tableRow(row) {
-    const scoreInfo = this.score(row)
+    const scoreInfo = this.score(row);
     const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
     return (
       <tr>
