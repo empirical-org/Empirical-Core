@@ -147,7 +147,7 @@ export default class extends React.Component {
     const filteredClassroomsData = this.filteredClassroomsData()
     return (
       <div className='activities-scores-by-classroom progress-reports-2018'>
-        <div className="activity-scores-overview flex-row space-between">
+        <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Activity Scores</h1>
             <p>View the overall average score for each student in an active classroom. Click on an individual student to view their scores by activity pack and activity.</p>
