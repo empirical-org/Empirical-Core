@@ -153,9 +153,7 @@ export default class extends React.Component {
             <p>View the overall average score for each student in an active classroom. Click on an individual student to view their scores by activity pack and activity.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVLink data={this.state.csvData} target="_blank">
-              <button className='btn button-green'>Download Report</button>
-            </CSVLink>
+            <CSVDownloadForProgressReport data={this.state.csvData}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
         </div>

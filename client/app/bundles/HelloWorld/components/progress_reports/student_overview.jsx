@@ -1,7 +1,6 @@
 import React from 'react'
 import request from 'request'
-import {CSVDownload, CSVLink} from 'react-csv'
-// import CSVDownloadForProgressReport from 'csv_download_for_progress_report.jsx'
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import getParameterByName from '../modules/get_parameter_by_name'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import StudentOveriewTable from './student_overview_table.jsx'
@@ -60,9 +59,12 @@ export default class extends React.Component {
 	}
 
 	studentOverviewSection(){
-		let countAndAverage, lastActive
+		let countAndAverage, lastActive, downloadReportOrLoadingIndicator
 		if (this.state.reportData) {
 			countAndAverage = this.calculateCountAndAverage()
+			downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport data={this.state.reportData}/>
+		} else {
+			downloadReportOrLoadingIndicator = <LoadingSpinner/>
 		}
 		if (this.state.studentData.last_active) {
 			lastActive = moment(this.state.studentData.last_active).format("MM/DD/YYYY")
@@ -76,7 +78,7 @@ export default class extends React.Component {
 					 </td>
 					 {this.grayAndYellowStat('Class', this.state.classroomName)}
 					 <td className='csv-link'>
-						 <CSVLink data={this.state.reportData} target="_blank"><button className='btn button-green'>Download Report</button></CSVLink>
+						 {downloadReportOrLoadingIndicator}
 					 </td>
 				 </tr>
 				 <tr className='bottom'>
