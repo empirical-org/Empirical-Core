@@ -168,7 +168,16 @@ button:not(.select-mixin) {
 
 .button-select {
   text-align: left;
+  transition: color, border-color 0.3s ease;
   width: 100%;
+
+  &.actively-selected .button-select-wrapper {
+    color: #00c2a2;
+    border-color: #00c2a2;
+    .fa {
+      color: #00c2a2;
+    }
+  }
 }
 
 .button-gray {
