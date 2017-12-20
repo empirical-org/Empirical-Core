@@ -5,6 +5,7 @@ const editionMetadataRef = rootRef.child('lesson_edition_metadata');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
+import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 
 export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {
@@ -91,7 +92,8 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
     newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name, flags: ['alpha']}
     newEdition = editionMetadataRef.push(newEditionData)
       classroomLessonsRef.child(lessonUID).once('value', snapshot => {
-      editionQuestionsRef.child(`${newEdition.key}/questions`).set(snapshot.val().questions)
+        const questions = snapshot.val().questions ? snapshot.val().questions : [lessonSlideBoilerplates['CL-LB'], lessonSlideBoilerplates['CL-EX']]
+        editionQuestionsRef.child(`${newEdition.key}/questions`).set(questions)
     })
   }
   if (callback) {
