@@ -7,7 +7,7 @@ export interface ClassroomLessonSession {
   modes: Modes;
   submissions: Submissions;
   selected_submissions: SelectedSubmissions;
-  selected_submission_order: Array<string>;
+  selected_submission_order: SelectedSubmissionOrder;
   timestamps: Timestamps;
   flaggedStudents: FlaggedStudents;
   public: Boolean | null;
@@ -91,4 +91,8 @@ export interface Questions {
 export interface Question {
   type: string;
   data: CLIntF.QuestionData;
+}
+
+export interface SelectedSubmissionOrder {
+  [key:number]: Array<string>
 }
