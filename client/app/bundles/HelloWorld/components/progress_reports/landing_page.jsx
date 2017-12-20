@@ -25,7 +25,7 @@ export default React.createClass({
         flag: null,
       }, {
         title: 'Activity Scores',
-        href: '#TODO',
+        href: '/teachers/progress_reports/activity_scores',
         img: `${process.env.CDN_URL}/images/illustrations/activity-scores-illustration.svg`,
         bodyText: 'View and download the overall score and the individual scores on each activity in an activity pack as a CSV.',
         flag: null,
