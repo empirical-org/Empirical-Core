@@ -157,4 +157,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(AllUserEditions)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(AllUserEditions);

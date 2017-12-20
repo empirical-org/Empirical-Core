@@ -43,7 +43,7 @@ import {
 } from '../shared/scriptTagStrip';
 import Spinner from 'components/shared/spinner'
 
-class PlayLessonClassroomContainer extends React.Component<any, any> {
+class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
@@ -316,4 +316,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(PlayLessonClassroomContainer);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(PlayClassroomLessonContainer);

@@ -17,13 +17,13 @@ class AdminClassLessonsContainer extends Component<any, any> {
   constructor(props) {
     super(props);
 
-    props.dispatch(listenForClassroomLessonsFromFirebase());
-    props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
-    props.dispatch(startListeningToEditionMetadata())
+    this.props.dispatch(listenForClassroomLessonsFromFirebase());
+    this.props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
+    this.props.dispatch(startListeningToEditionMetadata())
   }
 
   render() {
-    return this.props.children
+    return <div>{this.props.children}</div>
   }
 
 }
@@ -36,4 +36,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(AdminClassLessonsContainer);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(AdminClassLessonsContainer);

@@ -12,7 +12,7 @@ export interface EditionMetadata {
 }
 
 export interface EditionQuestions {
-  questions: CLIntF.Questions
+  questions: Array<CLIntF.Question>
 }
 
 export interface EditionsMetadata {

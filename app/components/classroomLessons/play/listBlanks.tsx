@@ -117,18 +117,20 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   renderClassAnswersList() {
     const { selected_submissions, submissions, } = this.props;
-    const selected = Object.keys(selected_submissions).map((key, index) => {
-      const text = submissions ? submissions[key].data : null
-      return (
-      <li key={`li-${index}`}>
-        <span className='li-number'>{index + 1}</span> {text}
-      </li>);
-    });
-    return (
-      <ul className="class-answer-list">
-        {selected}
-      </ul>
-    );
+    if (selected_submissions && Object.keys(selected_submissions).length > 0) {
+      const selected = Object.keys(selected_submissions).map((key, index) => {
+        const text = submissions ? submissions[key].data : null
+        return (
+          <li key={`li-${index}`}>
+          <span className='li-number'>{index + 1}</span> {text}
+          </li>);
+        });
+        return (
+          <ul className="class-answer-list">
+          {selected}
+          </ul>
+        );
+    }
   }
 
 

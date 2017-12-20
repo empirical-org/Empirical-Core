@@ -78,5 +78,8 @@ function select(props) {
   };
 }
 
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
 
-export default connect(select)(CustomizeNavbar);
+export default connect(select, dispatch => ({dispatch}), mergeProps)(CustomizeNavbar);

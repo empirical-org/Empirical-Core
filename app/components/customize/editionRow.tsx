@@ -9,7 +9,7 @@ interface EditionRowState {
   showDropdown: boolean
 }
 
-interface EditionRowProps extends React.Props<any> {
+interface EditionRowProps {
   edition: CustomizeIntf.EditionMetadata,
   archiveEdition: Function,
   classroomLesson: any,
@@ -21,8 +21,8 @@ interface EditionRowProps extends React.Props<any> {
   selectState: string|boolean|null
 }
 
-class EditionRow extends React.Component<any, any> {
-  constructor(props:EditionRowProps) {
+class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
+  constructor(props: EditionRowProps) {
     super(props)
     this.state = {
       showDropdown: false
@@ -125,4 +125,8 @@ function select(state) {
   }
 }
 
-export default connect(select)(EditionRow)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(EditionRow)

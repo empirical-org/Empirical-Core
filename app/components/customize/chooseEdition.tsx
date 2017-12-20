@@ -183,10 +183,10 @@ class ChooseEdition extends React.Component<any, any> {
             quillEditions.push(editionRow)
           } else {
             const editionRow = <EditionRow
+              key={e}
               edition={edition}
               makeNewEdition={this.makeNewEdition}
               creator='coteacher'
-              key={e}
               selectAction={this.selectAction}
               selectState={this.state.selectState}
             />
@@ -253,4 +253,8 @@ function select(state) {
   }
 }
 
-export default connect(select)(ChooseEdition)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(ChooseEdition)
