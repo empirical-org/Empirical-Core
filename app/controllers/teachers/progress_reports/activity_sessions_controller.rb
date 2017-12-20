@@ -3,7 +3,10 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     respond_to do |format|
       format.html
       format.json do
-        activity_sessions = ::ProgressReports::ActivitySession.new(current_user).results(params)
+        # TODO optimize this. It is insanely slow. 🐌
+        query = ::ProgressReports::ActivitySession.new(current_user).results(params)
+        page_count = (query.count / ActivitySession::RESULTS_PER_PAGE.to_f).ceil
+        activity_sessions = query.paginate(params[:page], ActivitySession::RESULTS_PER_PAGE)
         activity_session_json = activity_sessions.map do |activity_session|
           ::ProgressReports::ActivitySessionSerializer.new(activity_session).as_json(root: false)
         end
@@ -14,6 +17,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           activity_sessions: activity_session_json,
           classrooms: classrooms,
           students: students,
+          page_count: page_count,
+          teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),
           units: units
         }
       end
