@@ -33,10 +33,8 @@ export default class extends React.Component {
       const data = JSON.parse(body).data
       const csvData = this.formatDataForCSV(data)
       const classroomsData = data;
-      debugger;
       // gets unique classroom names
       const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
-      // classroomNames = ['1','2']
       classroomNames.unshift(showAllClassroomKey)
       that.setState({loading: false, errors: body.errors, classroomsData, csvData, classroomNames});
     });
@@ -151,5 +149,4 @@ export default class extends React.Component {
       </div>
     )
   }
-
 }
