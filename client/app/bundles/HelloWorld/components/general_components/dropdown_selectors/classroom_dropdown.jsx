@@ -16,15 +16,27 @@ export default React.createClass({
 	},
 
 	classrooms: function() {
-		return this.props.classrooms.map((classroom) => <MenuItem key={classroom.id} eventKey={classroom.id}>{classroom.name}</MenuItem>)
+		return this.props.classrooms.map((classroom) => {
+			if (!classroom.id) {
+        // then we don't need ids
+				return (<MenuItem key={classroom} eventKey={classroom}>{classroom}</MenuItem>)
+			}
+			return <MenuItem key={classroom.id} eventKey={classroom.id}>{classroom.name}</MenuItem>
+		})
 	},
 
-  findClassroomById: function(id) {
-    return this.props.classrooms.find((c) => c.id === id)
+  findClassroomByIdOrName: function(idOrName) {
+    return this.props.classrooms.find((c) => {
+			if (!c.id) {
+        // then we're matching on name
+				return c === idOrName
+			}
+			return c.id === id}
+		)
   },
 
 	handleSelect: function(classroomId) {
-		let classroom = this.findClassroomById(classroomId)
+		let classroom = this.findClassroomByIdOrName(classroomId)
 		this.setState({selectedClassroom: classroom})
     if (this.props.callback) {
       this.props.callback(classroom)
@@ -32,8 +44,9 @@ export default React.createClass({
 	},
 
 	render: function() {
+		const title = this.state.selectedClassroom.name || this.state.selectedClassroom
 		return (
-			<DropdownButton disabled={!this.props.classrooms.length} bsStyle='default' title={this.state.selectedClassroom.name} id='select-classroom-dropdown' onSelect={this.handleSelect}>
+			<DropdownButton disabled={!this.props.classrooms.length} bsStyle='default' title={title} id='select-classroom-dropdown' onSelect={this.handleSelect}>
 				{this.classrooms()}
 			</DropdownButton>
 		);
