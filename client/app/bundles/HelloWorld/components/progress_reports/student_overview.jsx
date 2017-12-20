@@ -42,13 +42,20 @@ export default class extends React.Component {
 	calculateCountAndAverage(){
 		let count = 0;
 		let cumulativeScore = 0;
+		let countForAverage = 0;
+		let average;
 		this.state.reportData.forEach((row) => {
-			if (row.percentage && notLessonsOrDiagnostic(row.activity_classification_id)) {
+			if (row.percentage) {
 				count += 1;
-				cumulativeScore += parseFloat(row.percentage);
+				if (notLessonsOrDiagnostic(row.activity_classification_id)) {
+					cumulativeScore += parseFloat(row.percentage);
+					countForAverage += 1;
+				}
 			}
 		})
-		let average = Math.round((cumulativeScore / count) * 100) + '%'
+		if (countForAverage > 0) {
+			average = Math.round((cumulativeScore / countForAverage) * 100) + '%'
+		}
 		return {count, average}
 	}
 
