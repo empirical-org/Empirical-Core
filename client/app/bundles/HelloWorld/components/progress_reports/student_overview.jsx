@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
+// import CSVDownloadForProgressReport from 'csv_download_for_progress_report.jsx'
 import getParameterByName from '../modules/get_parameter_by_name'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import StudentOveriewTable from './student_overview_table.jsx'
@@ -67,7 +68,9 @@ export default class extends React.Component {
 						 {this.state.studentData.name}
 					 </td>
 					 {this.grayAndYellowStat('Class', this.state.classroomName)}
-					 <td className='csv-link'><CSVLink data={this.state.reportData} target="_blank"><button className='btn button-green'>Download Report</button></CSVLink></td>
+					 <td className='csv-link'>
+						 <CSVLink data={this.state.reportData} target="_blank"><button className='btn button-green'>Download Report</button></CSVLink>
+					 </td>
 				 </tr>
 				 <tr className='bottom'>
 					 {this.grayAndYellowStat('Overall Score:', countAndAverage.average || '--')}
