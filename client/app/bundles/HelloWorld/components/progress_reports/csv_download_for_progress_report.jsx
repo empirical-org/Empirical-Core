@@ -3,7 +3,7 @@ import {CSVDownload, CSVLink} from 'react-csv'
 import userIsPremium from '../modules/user_is_premium'
 
 export default class extends React.Component {
-
+  //
   constructor(props) {
     super(props)
     this.state = {
@@ -16,14 +16,14 @@ export default class extends React.Component {
   }
 
   render() {
-    if (this.state.userIsPremium) {
+    if (this.state.userIsPremium && this.props.data) {
       return (
-        <CSVLink data={this.props.csvData} target="_blank">
-          <button className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
+        <CSVLink data={this.props.data} target="_blank">
+          <button style={{display: 'block'}} className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
         </CSVLink>
       )
     } else {
-      return <button onClick={this.handleClick} className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
+      return <button style={{display: 'block'}} onClick={this.handleClick} className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
     }
   }
 
