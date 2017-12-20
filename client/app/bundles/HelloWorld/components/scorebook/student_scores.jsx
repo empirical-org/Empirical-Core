@@ -33,7 +33,7 @@ export default React.createClass({
         <header className="student-header">
           <h3 className="student-name">{this.props.data.name}</h3>
           <p className="average-score">{this.calculateAverageScore()}</p>
-          <a className="activity-scores-link" target="_blank" href={`/teachers/progress_reports/activity_sessions?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`}>View Activity Scores <i className="fa fa-star" /></a>
+          <a className="activity-scores-link" target="_blank" href={`/teachers/progress_reports/student_overview?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`}>View Activity Scores <i className="fa fa-star" /></a>
         </header>
         <div className="flex-row vertically-centered">
           {this.handleScores()}
