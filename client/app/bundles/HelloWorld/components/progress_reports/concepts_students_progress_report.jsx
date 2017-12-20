@@ -5,6 +5,7 @@ import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 
 
@@ -35,7 +36,7 @@ export default class extends React.Component {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
-        // sortMethod: this.sortByLastName,
+        sortMethod: sortByLastName,
         Cell: row => (<a href={row.original['concepts_href']}>{row.original['name']}</a>)
       }, {
         Header: 'Questions',
