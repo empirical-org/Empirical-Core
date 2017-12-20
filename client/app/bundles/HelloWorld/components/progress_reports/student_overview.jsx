@@ -1,6 +1,5 @@
 import React from 'react'
 import request from 'request'
-import {CSVDownload, CSVLink} from 'react-csv'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import getParameterByName from '../modules/get_parameter_by_name'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
