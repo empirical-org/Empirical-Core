@@ -19,8 +19,9 @@ export default React.createClass({
   getInitialState: function() {
     return {
       loadingFilterOptions: true,
-      currentPage: 1,
-      csvData: []
+      currentPage: 0,
+      csvData: [],
+      currentSort: {}
     }
   },
 
@@ -28,17 +29,27 @@ export default React.createClass({
     this.fetchData();
   },
 
+  requestParams: function() {
+    return Object.assign({},
+      { page: this.state.currentPage + 1 },
+      this.state.currentFilters,
+      this.state.currentSort
+    );
+  },
+
   fetchData: function() {
     this.setState({ loadingNewTableData: true });
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json?page=${this.state.currentPage}`
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`,
+      qs: this.requestParams()
     }, (e, r, body) => {
       const data = JSON.parse(body);
       that.setState({
         loadingFilterOptions: false,
         loadingNewTableData: false,
         results: data.activity_sessions,
+        numPages: data.page_count,
         classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classes'),
         studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
         unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
@@ -60,42 +71,36 @@ export default React.createClass({
         accessor: 'student_name',
         resizeable: false,
         Cell: props => props.value
-        // sortByField: 'student_name'
       },
       {
         Header: 'Date',
         accessor: 'display_completed_at',
         resizeable: false,
         Cell: props => props.value
-        // sortByField: 'completed_at'
       },
       {
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
         Cell: props => props.value
-        // sortByField: 'activity_name'
       },
       {
         Header: 'Score',
         accessor: 'display_score',
         resizeable: false,
         Cell: props => props.value
-        // sortByField: 'percentage'
       },
       {
         Header: 'Standard',
         accessor: 'standard',
         resizeable: false,
         Cell: props => props.value
-        // sortByField: 'standard'
       },
       {
         Header: 'Tool',
         accessor: 'activity_classification_name',
         resizeable: false,
         Cell: props => props.value
-        // sortByField: 'activity_classification_name'
       }
     ];
   },
@@ -117,6 +122,23 @@ export default React.createClass({
 
   onFilterChange: function() {
     this.setState({loading: true,}, this.fetchData);
+  },
+
+  reactTableSortedChange: function(state, instance) {
+    this.setState({
+      // We want to revert to the first page if changing anything other than the page.
+      currentPage: 0,
+      currentSort: {
+        sort_param: state.sorted[0].id,
+        sort_descending: state.sorted[0].desc,
+      }
+    }, this.fetchData);
+  },
+
+  reactTablePageChange: function(state, instance) {
+    this.setState({
+      currentPage: state,
+    }, this.fetchData);
   },
 
   renderFiltersAndTable: function() {
@@ -151,6 +173,10 @@ export default React.createClass({
           resizable={false}
           className='progress-report'
           manual={true}
+          pages={this.state.numPages}
+          page={this.state.currentPage}
+          onPageChange={this.reactTablePageChange}
+          onSortedChange={this.reactTableSortedChange}
         />
       </div>
     );
