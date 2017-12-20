@@ -6,7 +6,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import {sortByLastName} from '../../../../modules/sortingMethods.js'
+import {sortByLastName, sortFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
 
 import _ from 'underscore'
@@ -72,22 +72,16 @@ export default class extends React.Component {
         Header: "Overall Score",
         accessor: 'average_score',
         resizable: false,
-        sortMethod: (a, b) => {
-          return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%')))
-            ? 1
-            : -1;
-        },
-        Cell: props => `${Math.round(parseFloat(props.value) * 100)}%`
+        Cell: props => {
+          const value = Math.round(parseFloat(props.value) * 100);
+          return isNaN(value) ? '--' : value + '%';
+        }
       }, {
 				Header: "Last Active",
 				accessor: 'last_active',
 				resizable: false,
 				Cell: props => props.value ? moment(props.value).format("MM/DD/YYYY") : '',
-				sortMethod: (a,b) => {
-					const aEpoch = a ? moment(a).unix() : 0;
-					const bEpoch = b ? moment(b).unix() : 0;
-					return aEpoch > bEpoch ? 1 : -1;
-				}
+				sortMethod: sortFromSQLTimeStamp,
 			},
 			{
         Header: "Class",

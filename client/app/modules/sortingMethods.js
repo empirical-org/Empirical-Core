@@ -1,15 +1,16 @@
 import _ from 'underscore'
-
-export function sortInnerLinkTextByLastNameForReactTableCell(fullCell1,fullCell2){
-  const fullName1 = fullCell1.props.children.props.children
-  const fullName2 = fullCell2.props.children.props.children
-  return sortByLastName(fullName1, fullName2);
-}
+import moment from 'moment'
 
 export function sortByLastName(fullName1, fullName2){
   const lastName1 = _.last(fullName1.split(' '))
   const lastName2 = _.last(fullName2.split(' '))
   return sort(lastName1, lastName2);
+}
+
+export function sortFromSQLTimeStamp(timeStamp1, timeStamp2) {
+  const epoch1 = timeStamp1 ? moment(timeStamp1).unix() : 0;
+  const epoch2 = timeStamp2 ? moment(timeStamp2).unix() : 0;
+  return sort(epoch1, epoch2)
 }
 
 export function sort(param1, param2) {
