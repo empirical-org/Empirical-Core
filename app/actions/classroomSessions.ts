@@ -106,7 +106,7 @@ export function getLessonData(ca_id: string, lesson_id: string) {
 }
 
 export function getPreviewData(ca_id: string, lesson_id: string) {
-  const baseUrl = process.env.EMPIRICAL_BASE_URL ? process.env.EMPIRICAL_BASE_URL : 'https://quill.org/'
+  const baseUrl:string = process.env.EMPIRICAL_BASE_URL ? String(process.env.EMPIRICAL_BASE_URL) : 'https://quill.org/'
   return function(dispatch) {
     dispatch(loadSupportingInfo(lesson_id, ca_id, baseUrl))
   }
