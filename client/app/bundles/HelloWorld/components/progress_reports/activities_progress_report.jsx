@@ -1,9 +1,42 @@
 "use strict";
 import React from 'react'
-import ProgressReport from './progress_report.jsx'
-
+import { CSVDownload, CSVLink } from 'react-csv'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
+import request from 'request'
 
 export default React.createClass({
+
+  getInitialState: function() {
+    return {
+      csvData: [],
+      loading: true,
+      errors: false
+    }
+  },
+
+  componentDidMount: function() {
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json"`
+    }, (e, r, body) => {
+      // const data = JSON.parse(body).data
+      // const csvData = this.formatDataForCSV(data)
+      // const classroomsData = this.formatClassroomsData(data)
+      // // gets unique classroom names
+      // const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
+      // classroomNames.unshift(showAllClassroomKey)
+      that.setState({
+        loading: false,
+        errors: body.errors,
+        // classroomsData,
+        // csvData,
+        // classroomNames
+      });
+    });
+  },
+
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired,
     premiumStatus: React.PropTypes.string.isRequired
@@ -68,19 +101,31 @@ export default React.createClass({
     };
   },
 
+  renderTable: function() {
+    if(this.state.loading) {
+      return <LoadingSpinner />
+    }
+
+    return("Table.")
+  },
+
   render: function() {
     return (
-      <ProgressReport columnDefinitions={this.columnDefinitions}
-                         pagination={true}
-                         sourceUrl={this.props.sourceUrl}
-                         sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'activity_sessions'}
-                         exportCsv={'activity_sessions'}
-                         filterTypes={['unit', 'classroom', 'student']}
-                         premiumStatus={this.props.premiumStatus}>
-        <h2>Activities: All Students</h2>
-        <p className="description">View all of the activities your students have completed. Filter by classroom, unit, or student.</p>
-      </ProgressReport>
+      <div className='progress-reports-2018'>
+        <div className='activity-scores-overview flex-row space-between'>
+          <div className='header-and-info'>
+            <h1>Data Export</h1>
+            <p>You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."</p>
+          </div>
+          <div className='csv-and-how-we-grade'>
+            <CSVLink data={this.state.csvData} target='_blank'>
+              <button className='btn button-green'>Download Report</button>
+            </CSVLink>
+            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
+          </div>
+        </div>
+        {this.renderTable()}
+      </div>
     );
   }
 });

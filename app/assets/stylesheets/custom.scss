@@ -78,9 +78,7 @@
 
 @media screen and (max-width: 1200px) {
   .how-we-grade {
-    float: left !important;
     text-align: left;
-    margin-top: 15px;
   }
 }
 
@@ -225,11 +223,7 @@ button:not(.select-mixin) {
 
 .how-we-grade {
   float: right;
-  &:hover .fa {
-    color: #747474;
-  }
   .fa {
-    color: #cecece;
     margin-left: 10px;
   }
 }
