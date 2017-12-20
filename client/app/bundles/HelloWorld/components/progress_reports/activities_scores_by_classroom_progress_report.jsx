@@ -6,7 +6,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import {sortInnerLinkTextByLastNameForReactTableCell} from '../../../../modules/sortingMethods.js'
+import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
 
 import _ from 'underscore'
@@ -32,27 +32,14 @@ export default class extends React.Component {
     }, (e, r, body) => {
       const data = JSON.parse(body).data
       const csvData = this.formatDataForCSV(data)
-      const classroomsData = this.formatClassroomsData(data)
+      const classroomsData = data;
+      debugger;
       // gets unique classroom names
       const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
+      // classroomNames = ['1','2']
       classroomNames.unshift(showAllClassroomKey)
       that.setState({loading: false, errors: body.errors, classroomsData, csvData, classroomNames});
     });
-  }
-
-  formatClassroomsData(data) {
-    return data.map((row) => {
-      row.name = <span className='green-text'>{row.name}</span>
-      row.average_score = `${Math.round(parseFloat(row.average_score) * 100)}%`
-      row.activity_count = Number(row.activity_count)
-      row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
-          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
-        </a>
-      )
-      row.nameUrl = <a href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>{row.name}</a>
-      return row
-    })
   }
 
   formatDataForCSV(data) {
@@ -72,14 +59,15 @@ export default class extends React.Component {
     return ([
       {
         Header: 'Student',
-        accessor: 'nameUrl',
+        accessor: 'name',
         resizable: false,
-        sortMethod: sortInnerLinkTextByLastNameForReactTableCell,
-        Cell: props => props.value
+        sortMethod: sortByLastName,
+        Cell: row => (<a href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>{row.original.name}</a>)
       }, {
         Header: "Activities Completed",
         accessor: 'activity_count',
-        resizable: false
+        resizable: false,
+        Cell: props => Number(props.value)
       }, {
         Header: "Overall Score",
         accessor: 'average_score',
@@ -88,7 +76,8 @@ export default class extends React.Component {
           return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%')))
             ? 1
             : -1;
-        }
+        },
+        Cell: props => `${Math.round(parseFloat(props.value) * 100)}%`
       }, {
 				Header: "Last Active",
 				accessor: 'last_active',
@@ -111,7 +100,11 @@ export default class extends React.Component {
         sortable: false,
         className: 'hi',
         width: 80,
-        Cell: props => props.value
+        Cell: row => (
+          <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          </a>
+        )
       }
     ])
   }
