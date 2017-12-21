@@ -9,6 +9,8 @@ import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token'
 import _ from 'underscore';
 
+const allClassroomKey = 'All Classrooms'
+
 export default React.createClass({
 
   getInitialState() {
@@ -59,7 +61,7 @@ export default React.createClass({
   },
 
   getUnitsForCurrentClass() {
-    if (this.state.selectedClassroomId) {
+    if (this.state.selectedClassroomId != allClassroomKey) {
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
       const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.findIndex(c => c.name === selectedClassroom.name) !== -1);
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
@@ -208,11 +210,10 @@ export default React.createClass({
                 updateMultipleDueDates={this.updateMultipleDueDates}
               />
     }
-    const allClassroomsClassroom = {name: 'All Classrooms'}
+    const allClassroomsClassroom = {name: allClassroomKey, id: allClassroomKey}
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms)
     const classroomWithSelectedId = classrooms.find(classy => classy.id === Number(this.state.selectedClassroomId))
     const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom
-
     return (
       <span>
         {/* TODO: fix this so it links to the activity type selection page
