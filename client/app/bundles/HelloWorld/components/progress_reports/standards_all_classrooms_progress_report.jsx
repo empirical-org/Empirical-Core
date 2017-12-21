@@ -1,105 +1,174 @@
 import React from 'react'
-import ProgressReport from './progress_report.jsx'
+import request from 'request'
+import {CSVDownload, CSVLink} from 'react-csv'
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
+import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
+import moment from 'moment'
 
+import _ from 'underscore'
 
-export default  React.createClass({
-  propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired,
-    premiumStatus: React.PropTypes.string.isRequired
-  },
+const showAllClassroomKey = 'All Classrooms'
 
-  columnDefinitions: function() {
-    return [
-      {
-        name: 'Class Name',
-        field: 'name',
-        sortByField: 'name',
-        className: 'class-name-column'
-      },
-      {
-        name: '',
-        field: '',
-        sortByField: '',
-        className: 'student-view-column',
-        customCell: function(row) {
-          return (
-            <a className="student-view" href={row['students_href']}>Sort by Student</a>
-          );
-        }
-      },
-      {
-        name: '',
-        field: '',
-        sortByField: '',
-        className: 'standard-view-column',
-        customCell: function(row) {
-          return (
-            <a className="standard-view" href={row['topics_href']}>Sort by Standard</a>
-          );
-        }
-      },
-      {
-        name: 'Students',
-        field: 'total_student_count',
-        sortByField: 'total_student_count',
-        className: 'students-column'
-      },
-      {
-        name: 'Proficient',
-        field: 'proficient_student_count',
-        sortByField: 'proficient_student_count',
-        className: 'proficient-column',
-        customCell: function(row) {
-          return <span>{row['proficient_student_count']} students</span>;
-        }
-      },
-      {
-        name: 'Not Yet Proficient',
-        field: 'not_proficient_student_count',
-        sortByField: 'not_proficient_student_count',
-        className: 'not-proficient-column',
-        customCell: function(row) {
-          return <span>{row['not_proficient_student_count']} students</span>
-        }
-      },
-      {
-        name: 'Standards',
-        field: 'total_standard_count',
-        sortByField: 'total_standard_count',
-        className: 'standards-column'
-      }
-    ];
-  },
+export default class extends React.Component {
 
-  sortDefinitions: function() {
-    return {
-      config: {
-        name: 'natural',
-        total_student_count: 'numeric',
-        proficient_student_count: 'numeric',
-        not_proficient_student_count: 'numeric',
-        total_standard_count: 'numeric'
-      },
-      default: {
-        field: 'name',
-        direction: 'asc'
-      }
-    };
-  },
-
-  render: function() {
-    return (
-      <ProgressReport columnDefinitions={this.columnDefinitions}
-                         pagination={false}
-                         sourceUrl={this.props.sourceUrl}
-                         sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'classrooms'}
-                         exportCsv={'standards_classrooms'}
-                         filterTypes={[]}
-                         premiumStatus={this.props.premiumStatus}>
-        <h2>Standards: All Classrooms</h2>
-        <p className="description">Select Sort by Student to see how each student is performing. Select Sort by Standard to see how the entire class is performing on each each standard.</p>
-      </ProgressReport>
-    );
+  constructor() {
+    super()
+    this.state = {
+      loading: true,
+      errors: false,
+      selectedClassroom: showAllClassroomKey
+    }
+    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
-});
+
+  componentDidMount() {
+    debugger;
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`
+    }, (e, r, body) => {
+      const data = JSON.parse(body)
+      debugger;
+      const csvData = this.formatDataForCSV(data)
+      const classroomsData = this.formatClassroomsData(data)
+      // gets unique classroom names
+      const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
+      classroomNames.unshift(showAllClassroomKey)
+      that.setState({loading: false, errors: body.errors, classroomsData, csvData, classroomNames});
+    });
+  }
+
+  formatClassroomsData(data) {
+    return data.map((row) => {
+      row.name = <span className='green-text'>{row.name}</span>
+      row.average_score = `${Math.round(parseFloat(row.average_score) * 100)}%`
+      row.activity_count = Number(row.activity_count)
+      row.green_arrow = (
+        <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
+          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+        </a>
+      )
+      row.nameUrl = <a href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>{row.name}</a>
+      return row
+    })
+  }
+
+  formatDataForCSV(data) {
+    const csvData = [
+      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['classroom_name'], row['name'], row['average_score'] * 100,
+        row['activity_count']
+      ])
+    })
+    return csvData
+  }
+
+  sortByLastName(name1, name2) {
+    // using props.children because we have react elements being passed
+    // rather than straight names due to us having styled them
+    const lastName1 = _.last(name1.props.children.props.children.split(' '))
+    const lastName2 = _.last(name2.props.children.props.children.split(' '))
+    return lastName1 > lastName2
+      ? 1
+      : -1
+  }
+
+  columns() {
+    return ([
+      {
+        Header: 'Standard Level',
+        accessor: 'standard_level',
+        resizable: false,
+        sortMethod: this.sortByLastName,
+        Cell: props => props.value
+      }, {
+        Header: "Standard Name",
+        accessor: 'standard_name',
+        resizable: false
+      }, {
+        Header: "Students",
+        accessor: 'number_of_students',
+        resizable: false,
+        sortMethod: (a, b) => {
+          return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%')))
+            ? 1
+            : -1;
+        }
+      }, {
+				Header: "Proficient",
+				accessor: 'proficient',
+				resizable: false,
+				Cell: props => props.value ? moment(props.value).format("MM/DD/YYYY") : '',
+				sortMethod: (a,b) => {
+					const aEpoch = a ? moment(a).unix() : 0;
+					const bEpoch = b ? moment(b).unix() : 0;
+					return aEpoch > bEpoch ? 1 : -1;
+				}
+			}, {
+        Header: "",
+        accessor: 'green_arrow',
+        resizable: false,
+        sortable: false,
+        className: 'hi',
+        width: 80,
+        Cell: props => props.value
+      }
+    ])
+  }
+
+  switchClassrooms(classroom) {
+    this.setState({selectedClassroom: classroom})
+  }
+
+  filteredClassroomsData() {
+    if (this.state.selectedClassroom === showAllClassroomKey) {
+      return this.state.classroomsData
+    }
+    return this.state.classroomsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
+  }
+
+  render() {
+    let errors
+    if (this.state.errors) {
+      errors = <div className='errors'>{this.state.errors}</div>
+    }
+    if (this.state.loading) {
+      return <LoadingSpinner/>
+    }
+    const filteredClassroomsData = this.filteredClassroomsData()
+    return (
+      <div className='activities-scores-by-classroom progress-reports-2018'>
+        <div className="meta-overview flex-row space-between">
+          <div className='header-and-info'>
+            <h1>Standards Report</h1>
+            <p>Filter by classroom and student to see student mastery on the Common Core standards. You can export the data by download a CSV report.</p>
+          </div>
+          <div className='csv-and-how-we-grade'>
+            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
+          </div>
+        </div>
+        <div className='dropdown-container'>
+          <ClassroomDropdown classrooms={this.state.classroomNames} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
+        </div>
+				<div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
+					<ReactTable data={filteredClassroomsData}
+						columns={this.columns()}
+						showPagination={false}
+						defaultSorted={[{id: 'last_active', desc: true}]}
+					  showPaginationTop={false}
+						showPaginationBottom={false}
+						 showPageSizeOptions={false}
+							defaultPageSize={filteredClassroomsData.length}
+						 className='progress-report has-green-arrow'/></div>
+      </div>
+    )
+  }
+
+}
