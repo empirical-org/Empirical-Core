@@ -7,6 +7,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
+import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -31,7 +32,7 @@ export default class extends React.Component {
       const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
       const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
       const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
-      that.setState({loading: false, errors: body.errors, reportData: data.students, dropdownClassrooms, classroomsWithStudentIds});
+      that.setState({loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds});
     });
   }
 
@@ -45,7 +46,13 @@ export default class extends React.Component {
     return {dropdownClassrooms, classroomsWithStudentIds }
   }
 
-  switchClassrooms(){}
+  switchClassrooms(classroom){
+    this.setState({selectedClassroom: classroom}, this.filterReportsData)
+  }
+
+  filterReportsData(){
+    console.log('filtering!');
+  }
 
   columns() {
     return ([
@@ -85,9 +92,6 @@ export default class extends React.Component {
       }
     ])
   }
-  // <div className='dropdown-container'>
-  //   <ClassroomDropdown classrooms={this.state.classroomNames} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
-  // </div>
 
   render() {
     if (this.state.loading || !this.state.reportData) {
@@ -103,6 +107,9 @@ export default class extends React.Component {
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.csvData}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
+          </div>
+          <div className='dropdown-container'>
+            <ClassroomDropdown classrooms={this.state.dropdownClassrooms} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
           </div>
         </div>
         <ReactTable data={this.state.reportData} columns={this.columns()} showPagination={false} defaultSorted={[{
