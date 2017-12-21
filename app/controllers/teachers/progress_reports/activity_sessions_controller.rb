@@ -8,6 +8,10 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
         sort_string = 'ORDER BY completed_at DESC'
 
+        classroom_activities_filter = params[:classroom_id] ? " AND classroom_activities.classroom_id = #{params[:classroom_id]}" : ''
+        student_filter = params[:student_id] ? " AND activity_sessions.user_id = #{params[:student_id]}" : ''
+        # todo unit
+
         activity_sessions = ActiveRecord::Base.connection.execute("
           SELECT
           	activity_classifications.name AS activity_classification_name,
@@ -20,9 +24,11 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           FROM classrooms_teachers
           JOIN classroom_activities
           	ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
+            #{classroom_activities_filter}
           JOIN activity_sessions
           	ON activity_sessions.classroom_activity_id = classroom_activities.id
            AND activity_sessions.state = 'finished'
+           #{student_filter}
           JOIN activities
           	ON activities.id = classroom_activities.activity_id
           JOIN activity_classifications
@@ -37,8 +43,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
         page_count = (ActiveRecord::Base.connection.execute("
           SELECT count(activity_sessions.id) FROM classrooms_teachers
-          JOIN classroom_activities ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
-          JOIN activity_sessions ON activity_sessions.classroom_activity_id = classroom_activities.id
+          JOIN classroom_activities ON classroom_activities.classroom_id = classrooms_teachers.classroom_id #{classroom_activities_filter}
+          JOIN activity_sessions ON activity_sessions.classroom_activity_id = classroom_activities.id #{student_filter}
           WHERE classrooms_teachers.user_id = #{current_user.id}
         ").to_a[0]['count'].to_i / PAGE_SIZE).ceil
 
