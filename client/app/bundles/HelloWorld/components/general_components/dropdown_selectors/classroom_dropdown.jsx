@@ -31,7 +31,7 @@ export default React.createClass({
         // then we're matching on name
 				return c === idOrName
 			}
-			return c.id === id}
+			return c.id === idOrName}
 		)
   },
 

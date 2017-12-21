@@ -23,8 +23,21 @@
   }
 
   .dropdown-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 21px;
+    margin-bottom: 21px;
+  }
+
+}
+
+.concept-student-concepts {
+  .header-and-info {
+      h1 {
+        padding-bottom: 0;
+      }
+      min-height: 54px;
+  }
+  .meta-overview {
+    margin-bottom: 31px;
   }
 }
 
@@ -40,10 +53,28 @@
   }
 }
 
+.navigate-back {
+  img {
+    height: 12px;
+    margin-right: 5px;
+    transform: rotate(180deg);
+  }
+  font-size: 14px;
+  font-weight: 700;
+  color: #027360;
+}
+
 .non-premium-blur {
   -webkit-filter: blur(5px);
  -moz-filter: blur(5px);
  -o-filter: blur(5px);
  -ms-filter: blur(5px);
  filter: blur(5px);
+ -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+           user-select: none; /* Non-prefixed version, currently
+                                 supported by Chrome and Opera */
 }
