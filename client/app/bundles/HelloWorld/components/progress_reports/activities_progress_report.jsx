@@ -3,7 +3,6 @@ import React from 'react'
 import request from 'request'
 import ReactTable from 'react-table'
 import moment from 'moment'
-import { CSVDownload, CSVLink } from 'react-csv'
 import ProgressReportFilters from './progress_report_filters.jsx'
 import 'react-table/react-table.css'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
@@ -128,17 +127,17 @@ export default React.createClass({
   },
 
   selectClassroom: function(classroom) {
-    this.setState({selectedClassroom: classroom})
+    this.setState({ selectedClassroom: classroom, });
     this.filterByField('classroom_id', classroom.value, this.onFilterChange);
   },
 
   selectStudent: function(student) {
-    this.setState({selectedStudent: student})
+    this.setState({ selectedStudent: student, });
     this.filterByField('student_id', student.value, this.onFilterChange);
   },
 
   selectUnit: function(unit) {
-    this.setState({selectedUnit: unit})
+    this.setState({ selectedUnit: unit, });
     this.filterByField('unit_id', unit.value, this.onFilterChange);
   },
 
@@ -208,6 +207,13 @@ export default React.createClass({
     return this.props.premiumStatus == 'paid' ? '' : 'non-premium-blur';
   },
 
+  downloadReport: function() {
+    if(this.props.premiumStatus == 'paid') {
+      return window.open('/teachers/progress_reports/activity_sessions.csv');
+    }
+    alert('Downloadable reports are a Premium feature. You can visit Quill.org/premium to upgrade now!');
+  },
+
   render: function() {
     return (
       <div className='progress-reports-2018'>
@@ -217,9 +223,7 @@ export default React.createClass({
             <p>You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVLink data={this.state.csvData} target='_blank'>
-              <button className='btn button-green'>Download Report</button>
-            </CSVLink>
+            <button style={{display: 'block'}} className='btn button-green' onClick={this.downloadReport}>Download Report</button>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>
