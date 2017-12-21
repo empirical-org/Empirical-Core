@@ -6,13 +6,9 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       format.html
       format.json do
 
-        classroom_activities_filter = !params[:classroom_id].blank? ? " AND classroom_activities.classroom_id = #{params[:classroom_id]}" : ''
+        classroom_activities_filter = !params[:classroom_id].blank? ? "AND classroom_activities.classroom_id = #{params[:classroom_id]}" : ''
         student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id]}" : ''
         unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id]}" : ''
-
-        # Do we need to be able to sort by student name?
-        # If so, we will need to significantly slow down
-        # the query by joining against the users table.
 
         case(params[:sort_param])
         when 'activity_name'
@@ -30,6 +26,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
         activity_sessions = ActiveRecord::Base.connection.execute("
           SELECT
+            activity_sessions.id AS activity_session_id,
           	activity_classifications.name AS activity_classification_name,
           	classrooms_teachers.classroom_id AS classroom_id,
           	EXTRACT(EPOCH FROM activity_sessions.completed_at) AS completed_at,
@@ -46,10 +43,16 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
             #{classroom_activities_filter}
             #{unit_filter}
             AND classroom_activities.visible = TRUE
+          JOIN students_classrooms
+            ON students_classrooms.classroom_id = classrooms.id
+            AND students_classrooms.visible = TRUE
+          JOIN users
+            ON users.id = students_classrooms.student_id
           JOIN activity_sessions
           	ON activity_sessions.classroom_activity_id = classroom_activities.id
-           AND activity_sessions.state = 'finished'
-           AND activity_sessions.visible = TRUE
+            AND activity_sessions.state = 'finished'
+            AND activity_sessions.visible = TRUE
+            AND activity_sessions.user_id = users.id
            #{student_filter}
           JOIN activities
           	ON activities.id = classroom_activities.activity_id
@@ -69,14 +72,21 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
             ON classrooms.id = classrooms_teachers.classroom_id
             AND classrooms.visible = TRUE
           JOIN classroom_activities
-            ON classroom_activities.classroom_id = classrooms.id
+          	ON classroom_activities.classroom_id = classrooms.id
             #{classroom_activities_filter}
             #{unit_filter}
             AND classroom_activities.visible = TRUE
+          JOIN students_classrooms
+            ON students_classrooms.classroom_id = classrooms.id
+            AND students_classrooms.visible = TRUE
+          JOIN users
+            ON users.id = students_classrooms.student_id
           JOIN activity_sessions
-            ON activity_sessions.classroom_activity_id = classroom_activities.id
+          	ON activity_sessions.classroom_activity_id = classroom_activities.id
+            AND activity_sessions.state = 'finished'
             AND activity_sessions.visible = TRUE
-            #{student_filter}
+            AND activity_sessions.user_id = users.id
+           #{student_filter}
           WHERE classrooms_teachers.user_id = #{current_user.id}
         ").to_a[0]['count'].to_i / PAGE_SIZE).ceil
 
