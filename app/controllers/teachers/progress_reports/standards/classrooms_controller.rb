@@ -6,11 +6,8 @@ class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::Pro
       end
 
       format.json do
-        classrooms = ::ProgressReports::Standards::Classroom.new(current_user).results(params)
-        classroom_json = classrooms.map do |classroom|
-          ::ProgressReports::Standards::ClassroomSerializer.new(classroom).as_json(root: false)
-        end
         render json: {
+          ::ProgressReports::Standards::AllClassroomsTopic.new(current_user)
           classrooms: classroom_json,
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }
