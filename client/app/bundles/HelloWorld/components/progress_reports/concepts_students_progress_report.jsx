@@ -47,11 +47,13 @@ export default class extends React.Component {
   }
 
   switchClassrooms(classroom){
-    this.setState({selectedClassroom: classroom}, this.filterReportsData)
+    this.setState({selectedClassroom: classroom}, this.filterReportData)
   }
 
-  filterReportsData(){
-    console.log('filtering!');
+  filterReportData(){
+    const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
+    const filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
+    this.setState({filteredReportData})
   }
 
   columns() {
@@ -97,6 +99,7 @@ export default class extends React.Component {
     if (this.state.loading || !this.state.reportData) {
       return <LoadingSpinner/>
     }
+    console.log(this.state.filteredReportData.length);
     return (
       <div className='progress-reports-2018'>
         <div className="meta-overview flex-row space-between">
@@ -112,11 +115,13 @@ export default class extends React.Component {
             <ClassroomDropdown classrooms={this.state.dropdownClassrooms} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
           </div>
         </div>
-        <ReactTable data={this.state.reportData} columns={this.columns()} showPagination={false} defaultSorted={[{
-            id: 'last_active',
-            desc: true
-          }
-        ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.reportData.length} className='progress-report has-green-arrow'/>
+        <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
+          <ReactTable data={this.state.filteredReportData} columns={this.columns()} showPagination={false} defaultSorted={[{
+              id: 'last_active',
+              desc: true
+            }
+          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.filteredReportData.length} className='progress-report has-green-arrow'/>
+        </div>
       </div>
     )
   }
