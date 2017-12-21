@@ -452,7 +452,8 @@ module Teacher
     ActiveRecord::Base.connection.execute("
       SELECT DISTINCT(users.id), users.name
       FROM classrooms_teachers
-      JOIN students_classrooms ON students_classrooms.classroom_id = classrooms_teachers.classroom_id AND students_classrooms.visible = TRUE
+      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
+      JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible = TRUE
       JOIN users ON users.id = students_classrooms.student_id
       WHERE classrooms_teachers.user_id = #{self.id};
     ").to_a
@@ -463,6 +464,7 @@ module Teacher
       SELECT DISTINCT(units.id), units.name
       FROM classrooms_teachers
       JOIN classrooms_teachers AS all_affiliated_classrooms ON all_affiliated_classrooms.classroom_id = classrooms_teachers.classroom_id
+      JOIN classrooms ON classrooms.id = all_affiliated_classrooms.classroom_id AND classrooms.visible = TRUE
       JOIN units ON all_affiliated_classrooms.user_id = units.user_id AND units.visible = TRUE
       WHERE classrooms_teachers.user_id = #{self.id};
     ").to_a

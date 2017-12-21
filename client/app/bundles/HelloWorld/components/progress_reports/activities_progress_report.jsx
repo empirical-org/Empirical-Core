@@ -151,8 +151,8 @@ export default React.createClass({
       // We want to revert to the first page if changing anything other than the page.
       currentPage: 0,
       currentSort: {
-        sort_param: state.sorted[0].id,
-        sort_descending: state.sorted[0].desc,
+        sort_param: state[0].id,
+        sort_descending: state[0].desc,
       }
     }, this.fetchData);
   },
