@@ -19,64 +19,64 @@ export default class extends React.Component {
     this.state = {
       loading: true,
       errors: false,
-      selectedClassroom: showAllClassroomKey
+      selectedClassroom: showAllClassroomKey,
+      classrooms: []
     }
     this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
-    debugger;
+    this.getData()
+  }
+
+  getData() {
     const that = this;
+    let qs
+    if (this.state.selectedClassroom !== showAllClassroomKey) {
+      const classroom = this.state.classrooms.find(c => c.name === this.state.selectedClassroom)
+      qs = classroom ? {classroom_id: classroom.id} : null
+    }
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`, qs
     }, (e, r, body) => {
-      const data = JSON.parse(body)
-      debugger;
-      const csvData = this.formatDataForCSV(data)
-      const classroomsData = this.formatClassroomsData(data)
+      const data = JSON.parse(body).data
+      console.log(data)
+        const csvData = this.formatDataForCSV(data)
+      const standardsData = this.formatStandardsData(data)
       // gets unique classroom names
-      const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
-      classroomNames.unshift(showAllClassroomKey)
-      that.setState({loading: false, errors: body.errors, classroomsData, csvData, classroomNames});
+      const classrooms = JSON.parse(body).classrooms
+      const students = JSON.parse(body).students
+      classrooms.unshift({name: showAllClassroomKey})
+      that.setState({loading: false, errors: body.errors, standardsData, csvData, classrooms, students});
     });
   }
 
-  formatClassroomsData(data) {
+  formatStandardsData(data) {
     return data.map((row) => {
-      row.name = <span className='green-text'>{row.name}</span>
-      row.average_score = `${Math.round(parseFloat(row.average_score) * 100)}%`
-      row.activity_count = Number(row.activity_count)
+      row.standard_level = <span className='green-text'>{row.name}</span>
+      row.standard_name = row.section_name
+      row.number_of_students = Number(row.total_student_count)
+      row.proficient = `${row.proficient_count} of ${row.total_student_count}`
+      row.activities = Number(row.total_activity_count)
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )
-      row.nameUrl = <a href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>{row.name}</a>
       return row
     })
   }
 
   formatDataForCSV(data) {
     const csvData = [
-      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
+      ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
     ]
     data.forEach((row) => {
       csvData.push([
-        row['classroom_name'], row['name'], row['average_score'] * 100,
-        row['activity_count']
+        row['name'], row['section_name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
       ])
     })
     return csvData
-  }
-
-  sortByLastName(name1, name2) {
-    // using props.children because we have react elements being passed
-    // rather than straight names due to us having styled them
-    const lastName1 = _.last(name1.props.children.props.children.split(' '))
-    const lastName2 = _.last(name2.props.children.props.children.split(' '))
-    return lastName1 > lastName2
-      ? 1
-      : -1
   }
 
   columns() {
@@ -85,8 +85,7 @@ export default class extends React.Component {
         Header: 'Standard Level',
         accessor: 'standard_level',
         resizable: false,
-        sortMethod: this.sortByLastName,
-        Cell: props => props.value
+        // sortMethod: this.sortByLastName,
       }, {
         Header: "Standard Name",
         accessor: 'standard_name',
@@ -95,22 +94,27 @@ export default class extends React.Component {
         Header: "Students",
         accessor: 'number_of_students',
         resizable: false,
-        sortMethod: (a, b) => {
-          return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%')))
-            ? 1
-            : -1;
-        }
-      }, {
+        // sortMethod: (a, b) => {
+        //   return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%')))
+        //     ? 1
+        //     : -1;
+        }, {
 				Header: "Proficient",
 				accessor: 'proficient',
 				resizable: false,
-				Cell: props => props.value ? moment(props.value).format("MM/DD/YYYY") : '',
-				sortMethod: (a,b) => {
-					const aEpoch = a ? moment(a).unix() : 0;
-					const bEpoch = b ? moment(b).unix() : 0;
-					return aEpoch > bEpoch ? 1 : -1;
-				}
-			}, {
+				// sortMethod: (a,b) => {
+				// 	const aEpoch = a ? moment(a).unix() : 0;
+				// 	const bEpoch = b ? moment(b).unix() : 0;
+				// 	return aEpoch > bEpoch ? 1 : -1;
+				}, {
+				Header: "Activities",
+				accessor: 'activities',
+				resizable: false,
+				// sortMethod: (a,b) => {
+				// 	const aEpoch = a ? moment(a).unix() : 0;
+				// 	const bEpoch = b ? moment(b).unix() : 0;
+				// 	return aEpoch > bEpoch ? 1 : -1;
+				}, {
         Header: "",
         accessor: 'green_arrow',
         resizable: false,
@@ -123,14 +127,11 @@ export default class extends React.Component {
   }
 
   switchClassrooms(classroom) {
-    this.setState({selectedClassroom: classroom})
+    this.setState({selectedClassroom: classroom}, () => this.getData())
   }
 
-  filteredClassroomsData() {
-    if (this.state.selectedClassroom === showAllClassroomKey) {
-      return this.state.classroomsData
-    }
-    return this.state.classroomsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
+  filteredData() {
+    return this.state.standardsData
   }
 
   render() {
@@ -141,13 +142,13 @@ export default class extends React.Component {
     if (this.state.loading) {
       return <LoadingSpinner/>
     }
-    const filteredClassroomsData = this.filteredClassroomsData()
+    const filteredData = this.filteredData()
     return (
       <div className='activities-scores-by-classroom progress-reports-2018'>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Standards Report</h1>
-            <p>Filter by classroom and student to see student mastery on the Common Core standards. You can export the data by download a CSV report.</p>
+            <p>Filter by classroom and student to see student mastery on the Common Core standards. You can export the data by downloading a CSV report.</p>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.csvData}/>
@@ -155,17 +156,17 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='dropdown-container'>
-          <ClassroomDropdown classrooms={this.state.classroomNames} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
+          <ClassroomDropdown classrooms={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
         </div>
-				<div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
-					<ReactTable data={filteredClassroomsData}
+				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
+					<ReactTable data={filteredData}
 						columns={this.columns()}
 						showPagination={false}
-						defaultSorted={[{id: 'last_active', desc: true}]}
+						defaultSorted={[{id: 'standard_level', desc: true}]}
 					  showPaginationTop={false}
 						showPaginationBottom={false}
 						 showPageSizeOptions={false}
-							defaultPageSize={filteredClassroomsData.length}
+							defaultPageSize={filteredData.length}
 						 className='progress-report has-green-arrow'/></div>
       </div>
     )
