@@ -7,6 +7,7 @@ import 'react-table/react-table.css'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import moment from 'moment'
+import userIsPremium from '../modules/user_is_premium'
 
 import _ from 'underscore'
 
@@ -21,7 +22,8 @@ export default class extends React.Component {
       loading: true,
       errors: false,
       selectedClassroom: showAllClassroomKey,
-      classrooms: []
+      classrooms: [],
+      userIsPremium: userIsPremium()
     }
     this.switchClassrooms = this.switchClassrooms.bind(this)
   }
@@ -75,13 +77,14 @@ export default class extends React.Component {
     ]
     data.forEach((row) => {
       csvData.push([
-        row['name'], row['section_name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
+        row['section_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
       ])
     })
     return csvData
   }
 
   columns() {
+    const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
     return ([
       {
         Header: 'Standard Level',
@@ -104,6 +107,7 @@ export default class extends React.Component {
 				Header: "Proficient",
 				accessor: 'proficient',
 				resizable: false,
+        className: blurIfNotPremium
 				// sortMethod: (a,b) => {
 				// 	const aEpoch = a ? moment(a).unix() : 0;
 				// 	const bEpoch = b ? moment(b).unix() : 0;
