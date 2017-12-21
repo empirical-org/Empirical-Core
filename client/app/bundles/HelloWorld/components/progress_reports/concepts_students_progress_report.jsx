@@ -53,9 +53,13 @@ export default class extends React.Component {
   }
 
   filterReportData(){
-    const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
-    const filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
-    this.setState({filteredReportData})
+    if (this.state.selectedClassroom.id === showAllClassroomKey) {
+      this.setState({filteredReportData: this.state.reportData})
+    } else {
+      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
+      const filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
+      this.setState({filteredReportData})
+    }
   }
 
   columns() {
@@ -109,7 +113,6 @@ export default class extends React.Component {
     if (this.state.loading || !this.state.reportData) {
       return <LoadingSpinner/>
     }
-    console.log(this.state.filteredReportData.length);
     return (
       <div className='progress-reports-2018'>
         <div className="meta-overview flex-row space-between">
@@ -118,7 +121,7 @@ export default class extends React.Component {
             <p>Each time a student correctly demonstrates a concept or creates an error, Quill generates a concept result. This report provides an aggregate picture of student progress on each concept.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <CSVDownloadForProgressReport data={this.state.filteredReportData}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
           <div className='dropdown-container'>
