@@ -93,7 +93,8 @@ export default React.createClass({
         Header: 'Date',
         accessor: 'completed_at',
         resizeable: false,
-        Cell: props => moment.unix(Number(props.value)).format('M/D/YY')
+        Cell: props => moment.unix(Number(props.value)).format('M/D/YY'),
+        maxWidth: 90
       },
       {
         Header: 'Activity',
@@ -106,19 +107,22 @@ export default React.createClass({
         accessor: 'percentage',
         resizeable: false,
         Cell: props => `${Math.round(props.value * 100)}%`,
-        className: this.nonPremiumBlur()
+        className: this.nonPremiumBlur(),
+        maxWidth: 90
       },
       {
         Header: 'Standard',
         accessor: 'standard',
         resizeable: false,
-        Cell: props => props.value.split(' ')[0]
+        Cell: props => props.value.split(' ')[0],
+        maxWidth: 90
       },
       {
         Header: 'Tool',
         accessor: 'activity_classification_name',
         resizeable: false,
-        Cell: props => props.value
+        Cell: props => props.value,
+        maxWidth: 150
       }
     ];
   },
