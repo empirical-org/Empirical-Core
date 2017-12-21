@@ -143,7 +143,7 @@ export default React.createClass({
   },
 
   onFilterChange: function() {
-    this.setState({loading: true,}, this.fetchData);
+    this.setState({loading: true, currentPage: 0}, this.fetchData);
   },
 
   reactTableSortedChange: function(state, instance) {
