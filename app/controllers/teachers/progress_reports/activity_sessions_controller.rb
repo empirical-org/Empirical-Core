@@ -26,6 +26,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         end
         sort_direction = params[:sort_descending] && params[:sort_descending] != 'true' ? 'ASC' : 'DESC'
 
+        # Note to maintainers: if you update this query, please be sure to
+        # also update the page count query below if applicable.
         activity_sessions = ActiveRecord::Base.connection.execute("
           SELECT
             activity_sessions.id AS activity_session_id,
