@@ -5,166 +5,137 @@ import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
+import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
+import userIsPremium from '../modules/user_is_premium'
 
+const showAllClassroomKey = 'All Classrooms'
 
 export default class extends React.Component {
 
-	constructor(props){
-		super()
+  constructor(props) {
+    super()
     this.state = {
       loading: true,
       errors: false,
+      selectedClassroom: showAllClassroomKey,
+      userIsPremium: userIsPremium()
     }
-	}
+    this.switchClassrooms = this.switchClassrooms.bind(this)
+  }
 
-  componentDidMount(){
+  componentDidMount() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
-    },
-    (e, r, body) => {
+      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
+    }, (e, r, body) => {
       const data = JSON.parse(body)
-      that.setState({loading: false, errors: body.errors, reportData: data.students});
+      const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
+      const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
+      const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
+      that.setState({loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds});
     });
   }
 
+  parseClassrooms(classrooms){
+    const classroomsWithStudentIds = {}
+    const dropdownClassrooms = [{id: showAllClassroomKey, name: showAllClassroomKey}];
+    classrooms.forEach((c)=>{
+      classroomsWithStudentIds[c.id] = c.student_ids;
+      dropdownClassrooms.push({id: c.id, name: c.name})
+    })
+    return {dropdownClassrooms, classroomsWithStudentIds }
+  }
+
+  switchClassrooms(classroom){
+    this.setState({selectedClassroom: classroom}, this.filterReportData)
+  }
+
+  filterReportData(){
+    if (this.state.selectedClassroom.id === showAllClassroomKey) {
+      this.setState({filteredReportData: this.state.reportData})
+    } else {
+      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
+      const filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
+      this.setState({filteredReportData})
+    }
+  }
+
   columns() {
+    const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
     return ([
       {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
-        // sortMethod: this.sortByLastName,
-        Cell: row => (<a href={row.original['concepts_href']}>{row.original['name']}</a>)
+        sortMethod: sortByLastName,
+        Cell: row => (
+          <a href={row.original['concepts_href']}>{row.original['name']}</a>
+        )
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
-        resizable: false
+        resizable: false,
       }, {
         Header: 'Correct',
         accessor: 'correct_result_count',
-        resizable: false
+        className: blurIfNotPremium,
+        resizable: false,
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
+        className: blurIfNotPremium,
         resizable: false
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
-        resizable: false
+        resizable: false,
+        className: blurIfNotPremium,
+        Cell: props => props.value + '%'
       }, {
         Header: "",
         accessor: 'green_arrow',
         resizable: false,
         sortable: false,
-        className: 'hi',
         width: 80,
-        Cell: props => props.value
+        Cell: row => (
+          <a className='green-arrow' href={row.original['concepts_href']}>
+            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          </a>
+        )
       }
     ])
   }
 
-  render(){
+  render() {
     if (this.state.loading || !this.state.reportData) {
       return <LoadingSpinner/>
     }
-    return (<div>
-      <div>state:{JSON.stringify(this.state)}</div>
-      <div>props:{JSON.stringify(this.props)}</div>
-        <ReactTable data={this.state.reportData}
-          columns={this.columns()}
-          showPagination={false}
-          defaultSorted={[{id: 'last_active', desc: true}]}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
-          defaultPageSize={this.state.reportData.length}
-          className='progress-report has-green-arrow'/>
-    </div>)
+    return (
+      <div className='progress-reports-2018'>
+        <div className="meta-overview flex-row space-between">
+          <div className='header-and-info'>
+            <h1>Concept Results</h1>
+            <p>Each time a student correctly demonstrates a concept or creates an error, Quill generates a concept result. This report provides an aggregate picture of student progress on each concept.</p>
+          </div>
+          <div className='csv-and-how-we-grade'>
+            <CSVDownloadForProgressReport data={this.state.filteredReportData}/>
+            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
+          </div>
+          <div className='dropdown-container'>
+            <ClassroomDropdown classrooms={this.state.dropdownClassrooms} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
+          </div>
+        </div>
+        <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
+          <ReactTable data={this.state.filteredReportData} columns={this.columns()} showPagination={false} defaultSorted={[{
+              id: 'total_result_count',
+              desc: true
+            }
+          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.filteredReportData.length} className='progress-report has-green-arrow'/>
+        </div>
+      </div>
+    )
   }
 
 };
-
-  // getInitialState: function() {
-  //   return {
-  //     students: {}
-  //   }
-  // },
-  //
-  // columnDefinitions: function() {
-  //   return [
-  //     {
-  //       name: 'Name',
-  //       field: 'name',
-  //       sortByField: 'name',
-  //       customCell: function(row) {
-  //         return (
-  //           <a className="concepts-view" href={row['concepts_href']}>{row['name']}</a>
-  //         );
-  //       }
-  //     },
-  //     {
-  //       name: 'Questions',
-  //       field: 'total_result_count',
-  //       sortByField: 'total_result_count'
-  //     },
-  //     {
-  //       name: 'Correct',
-  //       field: 'correct_result_count',
-  //       sortByField: 'correct_result_count'
-  //     },
-  //     {
-  //       name: 'Incorrect',
-  //       field: 'incorrect_result_count',
-  //       sortByField: 'incorrect_result_count'
-  //     },
-  //     {
-  //       name: 'Percentage',
-  //       field: 'percentage',
-  //       sortByField: 'percentage',
-  //       customCell: function(row) {
-  //         return row['percentage'] + '%';
-  //       }
-  //     }
-  //   ];
-  // },
-  //
-  // sortDefinitions: function() {
-  //   return {
-  //     config: {
-  //       name: 'lastName',
-  //       total_result_count: 'numeric',
-  //       correct_result_count: 'numeric',
-  //       incorrect_result_count: 'numeric',
-  //       percentage: 'numeric'
-  //     },
-  //     default: {
-  //       field: 'name',
-  //       direction: 'asc'
-  //     }
-  //   };
-  // },
-  //
-  // onFetchSuccess: function(responseData) {
-  //   this.setState({
-  //     students: responseData.students
-  //   });
-  // },
-  //
-  // render: function() {
-  //   return (
-  //     <ProgressReport columnDefinitions={this.columnDefinitions}
-  //                        pagination={false}
-  //                        sourceUrl={this.props.sourceUrl}
-  //                        sortDefinitions={this.sortDefinitions}
-  //                        jsonResultsKey={'students'}
-  //                        onFetchSuccess={this.onFetchSuccess}
-  //                        filterTypes={[]}
-  //                        premiumStatus={this.props.premiumStatus}
-  //                        >
-  //       <h2>Results by Student</h2>
-  //       <br></br>
-  //     </ProgressReport>
-  //   );
-  // }

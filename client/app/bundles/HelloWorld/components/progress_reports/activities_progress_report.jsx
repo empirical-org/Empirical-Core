@@ -1,12 +1,13 @@
 "use strict";
 import React from 'react'
+import request from 'request'
+import ReactTable from 'react-table'
+import moment from 'moment'
 import { CSVDownload, CSVLink } from 'react-csv'
 import ProgressReportFilters from './progress_report_filters.jsx'
-import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
-import request from 'request'
 
 export default React.createClass({
   mixins: [TableFilterMixin],
@@ -18,38 +19,61 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      loading: true,
-      pageNumber: 1,
-      classroomFilters: [],
-      studentFilters: [],
-      unitFilters: [],
+      loadingFilterOptions: true,
+      currentPage: 0,
       csvData: [],
+      currentSort: {},
+      premium: false
     }
   },
 
   componentDidMount: function() {
-    this.setState({ loading: true });
+    this.fetchData();
+  },
+
+  requestParams: function() {
+    let params = Object.assign({},
+      { page: this.state.currentPage + 1 },
+      this.state.currentFilters,
+      this.state.currentSort
+    );
+
+    if(this.state.filtersLoaded) {
+      params = Object.assign(params, {without_filters: true});
+    }
+
+    return params;
+  },
+
+  fetchData: function() {
+    this.setState({ loadingNewTableData: true });
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`,
+      qs: this.requestParams()
     }, (e, r, body) => {
-      const data = JSON.parse(body)
-      // const csvData = this.formatDataForCSV(data)
-      // const classroomsData = this.formatClassroomsData(data)
-      that.setState({
-        loading: false,
-        // classroomsData,
-        // csvData,
-        // classroomNames
+      const data = JSON.parse(body);
+      let newState = {
+        loadingFilterOptions: false,
+        loadingNewTableData: false,
         results: data.activity_sessions,
-        classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classes'),
-        studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
-        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
-      }, () => {
+        numPages: data.page_count,
+      };
+
+      if(!this.state.filtersLoaded) {
+        newState = Object.assign(newState, {
+          classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classes'),
+          studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
+          unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
+          filtersLoaded: true
+        });
+      }
+
+      that.setState(newState, () => {
         this.setState({
-          selectedClassroom: this.state.classroomFilters[0],
-          selectedStudent: this.state.studentFilters[0],
-          selectedUnit: this.state.unitFilters[0]
+          selectedClassroom: this.state.selectedClassroom || this.state.classroomFilters[0],
+          selectedStudent: this.state.selectedStudent || this.state.studentFilters[0],
+          selectedUnit: this.state.selectedUnit || this.state.unitFilters[0]
         })
       });
     });
@@ -60,45 +84,45 @@ export default React.createClass({
     return [
       {
         Header: 'Student',
-        accessor: 'student_name',
+        accessor: 'student_id',
         resizeable: false,
-        Cell: props => props.value
-        // sortByField: 'student_name'
+        Cell: props => this.state.studentFilters.find(student => student.value == props.value).name,
+        className: this.nonPremiumBlur()
       },
       {
         Header: 'Date',
-        accessor: 'display_completed_at',
+        accessor: 'completed_at',
         resizeable: false,
-        Cell: props => props.value
-        // sortByField: 'completed_at'
+        Cell: props => moment.unix(Number(props.value)).format('M/D/YY'),
+        maxWidth: 90
       },
       {
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
         Cell: props => props.value
-        // sortByField: 'activity_name'
       },
       {
         Header: 'Score',
-        accessor: 'display_score',
+        accessor: 'percentage',
         resizeable: false,
-        Cell: props => props.value
-        // sortByField: 'percentage'
+        Cell: props => `${Math.round(props.value * 100)}%`,
+        className: this.nonPremiumBlur(),
+        maxWidth: 90
       },
       {
         Header: 'Standard',
         accessor: 'standard',
         resizeable: false,
-        Cell: props => props.value
-        // sortByField: 'standard'
+        Cell: props => props.value.split(' ')[0],
+        maxWidth: 90
       },
       {
         Header: 'Tool',
         accessor: 'activity_classification_name',
         resizeable: false,
-        Cell: props => props.value
-        // sortByField: 'activity_classification_name'
+        Cell: props => props.value,
+        maxWidth: 150
       }
     ];
   },
@@ -119,11 +143,28 @@ export default React.createClass({
   },
 
   onFilterChange: function() {
-    this.setState({currentPage: 1});
+    this.setState({loading: true,}, this.fetchData);
+  },
+
+  reactTableSortedChange: function(state, instance) {
+    this.setState({
+      // We want to revert to the first page if changing anything other than the page.
+      currentPage: 0,
+      currentSort: {
+        sort_param: state[0].id,
+        sort_descending: state[0].desc,
+      }
+    }, this.fetchData);
+  },
+
+  reactTablePageChange: function(state, instance) {
+    this.setState({
+      currentPage: state,
+    }, this.fetchData);
   },
 
   renderFiltersAndTable: function() {
-    if(this.state.loading) {
+    if(this.state.loadingFilterOptions) {
       return <LoadingSpinner />
     }
 
@@ -142,6 +183,7 @@ export default React.createClass({
           filterTypes={['unit', 'classroom', 'student']}
         />
         <ReactTable
+          loading={this.state.loadingNewTableData}
           data={this.state.results}
           columns={this.columnDefinitions()}
           showPagination={true}
@@ -152,9 +194,18 @@ export default React.createClass({
           defaultPageSize={25}
           resizable={false}
           className='progress-report'
+          manual={true}
+          pages={this.state.numPages}
+          page={this.state.currentPage}
+          onPageChange={this.reactTablePageChange}
+          onSortedChange={this.reactTableSortedChange}
         />
       </div>
     );
+  },
+
+  nonPremiumBlur: function() {
+    return this.props.premiumStatus == 'paid' ? '' : 'non-premium-blur';
   },
 
   render: function() {
