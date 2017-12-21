@@ -26,6 +26,19 @@
     margin-top: 21px;
     margin-bottom: 21px;
   }
+
+}
+
+.concept-student-concepts {
+  .header-and-info {
+      h1 {
+        padding-bottom: 0;
+      }
+      min-height: 54px;
+  }
+  .meta-overview {
+    margin-bottom: 31px;
+  }
 }
 
 .activities-scores-by-classroom {
@@ -38,6 +51,17 @@
   .meta-overview {
     padding-bottom: 13px;
   }
+}
+
+.navigate-back {
+  img {
+    height: 12px;
+    margin-right: 5px;
+    transform: rotate(180deg);
+  }
+  font-size: 14px;
+  font-weight: 700;
+  color: #027360;
 }
 
 .non-premium-blur {

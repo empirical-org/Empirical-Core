@@ -98,7 +98,6 @@ export default class extends React.Component {
         accessor: 'green_arrow',
         resizable: false,
         sortable: false,
-        className: 'hi',
         width: 80,
         Cell: row => (
           <a className='green-arrow' href={row.original['concepts_href']}>
