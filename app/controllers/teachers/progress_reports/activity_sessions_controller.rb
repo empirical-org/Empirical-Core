@@ -11,6 +11,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id]}" : ''
 
         case(params[:sort_param])
+        when 'student_id'
+          sort_field = 'sorting_name'
         when 'activity_name'
           sort_field = 'activity_name'
         when 'percentage'
@@ -33,7 +35,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           	activity_sessions.percentage AS percentage,
           	topics.name AS standard,
           	activity_sessions.user_id AS student_id,
-            activities.name AS activity_name
+            activities.name AS activity_name,
+            substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
           FROM classrooms_teachers
           JOIN classrooms
             ON classrooms.id = classrooms_teachers.classroom_id

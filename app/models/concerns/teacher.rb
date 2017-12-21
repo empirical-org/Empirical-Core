@@ -451,13 +451,13 @@ module Teacher
 
   def ids_and_names_of_affiliated_students
     ActiveRecord::Base.connection.execute("
-      SELECT DISTINCT(users.id), users.name
+      SELECT DISTINCT(users.id), users.name, substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
       FROM classrooms_teachers
       JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
       JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible = TRUE
       JOIN users ON users.id = students_classrooms.student_id
       WHERE classrooms_teachers.user_id = #{self.id}
-      ORDER BY users.name ASC;
+      ORDER BY sorting_name ASC;
     ").to_a
   end
 
