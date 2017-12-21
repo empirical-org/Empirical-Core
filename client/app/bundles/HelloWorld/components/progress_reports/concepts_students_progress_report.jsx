@@ -8,6 +8,7 @@ import 'react-table/react-table.css'
 import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
+import userIsPremium from '../modules/user_is_premium'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -18,7 +19,8 @@ export default class extends React.Component {
     this.state = {
       loading: true,
       errors: false,
-      selectedClassroom: showAllClassroomKey
+      selectedClassroom: showAllClassroomKey,
+      userIsPremium: userIsPremium()
     }
     this.switchClassrooms = this.switchClassrooms.bind(this)
   }
@@ -57,6 +59,7 @@ export default class extends React.Component {
   }
 
   columns() {
+    const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
     return ([
       {
         Header: 'Student',
@@ -69,19 +72,22 @@ export default class extends React.Component {
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
-        resizable: false
+        resizable: false,
       }, {
         Header: 'Correct',
         accessor: 'correct_result_count',
-        resizable: false
+        className: blurIfNotPremium,
+        resizable: false,
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
+        className: blurIfNotPremium,
         resizable: false
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
+        className: blurIfNotPremium,
         Cell: props => props.value + '%'
       }, {
         Header: "",
@@ -90,7 +96,11 @@ export default class extends React.Component {
         sortable: false,
         className: 'hi',
         width: 80,
-        Cell: props => props.value
+        Cell: row => (
+          <a className='green-arrow' href={row.original['concepts_href']}>
+            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          </a>
+        )
       }
     ])
   }
