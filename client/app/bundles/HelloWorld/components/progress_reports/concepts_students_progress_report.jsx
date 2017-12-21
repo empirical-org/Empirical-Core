@@ -37,7 +37,9 @@ export default class extends React.Component {
         accessor: 'name',
         resizable: false,
         sortMethod: sortByLastName,
-        Cell: row => (<a href={row.original['concepts_href']}>{row.original['name']}</a>)
+        Cell: row => (
+          <a href={row.original['concepts_href']}>{row.original['name']}</a>
+        )
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
@@ -53,7 +55,8 @@ export default class extends React.Component {
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
-        resizable: false
+        resizable: false,
+        Cell: props => props.value + '%'
       }, {
         Header: "",
         accessor: 'green_arrow',
