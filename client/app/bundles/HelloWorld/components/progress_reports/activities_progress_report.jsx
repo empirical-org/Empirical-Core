@@ -31,11 +31,17 @@ export default React.createClass({
   },
 
   requestParams: function() {
-    return Object.assign({},
+    let params = Object.assign({},
       { page: this.state.currentPage + 1 },
       this.state.currentFilters,
       this.state.currentSort
     );
+
+    if(this.state.filtersLoaded) {
+      params = Object.assign(params, {without_filters: true});
+    }
+
+    return params;
   },
 
   fetchData: function() {
@@ -46,15 +52,23 @@ export default React.createClass({
       qs: this.requestParams()
     }, (e, r, body) => {
       const data = JSON.parse(body);
-      that.setState({
+      let newState = {
         loadingFilterOptions: false,
         loadingNewTableData: false,
         results: data.activity_sessions,
         numPages: data.page_count,
-        classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classes'),
-        studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
-        unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
-      }, () => {
+      };
+
+      if(!this.state.filtersLoaded) {
+        newState = Object.assign(newState, {
+          classroomFilters: this.getFilterOptions(data.classrooms, 'name', 'id', 'All Classes'),
+          studentFilters: this.getFilterOptions(data.students, 'name', 'id', 'All Students'),
+          unitFilters: this.getFilterOptions(data.units, 'name', 'id', 'All Activity Packs'),
+          filtersLoaded: true
+        });
+      }
+
+      that.setState(newState, () => {
         this.setState({
           selectedClassroom: this.state.selectedClassroom || this.state.classroomFilters[0],
           selectedStudent: this.state.selectedStudent || this.state.studentFilters[0],
