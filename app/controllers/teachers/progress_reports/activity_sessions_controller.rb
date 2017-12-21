@@ -7,6 +7,10 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     respond_to do |format|
       format.html
       format.csv do
+        unless current_user.is_premium?
+          flash[:warning] = 'Downloadable reports are only available to Premium users.'
+          return redirect_to premium_path
+        end
         return_data(false)
       end
       format.json do
