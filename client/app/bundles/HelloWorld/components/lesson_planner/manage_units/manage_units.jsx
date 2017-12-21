@@ -4,7 +4,7 @@ import Units from './my_activities_units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
-import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
+import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token'
 import _ from 'underscore';
@@ -222,10 +222,10 @@ export default React.createClass({
         <ManageUnitsHeader />
         <div className="classroom-selector">
           <p>Select a classroom: </p>
-          <ClassroomDropdown
-            classrooms={classrooms}
+          <ItemDropdown
+            items={classrooms}
             callback={this.switchClassrooms}
-            selectedClassroom={selectedClassroom}
+            selectedItem={selectedClassroom}
           />
         </div>
         {content}

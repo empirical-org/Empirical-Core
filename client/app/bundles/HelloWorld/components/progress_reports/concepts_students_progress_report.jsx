@@ -7,7 +7,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
+import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
 
 const showAllClassroomKey = 'All Classrooms'
@@ -124,7 +124,7 @@ export default class extends React.Component {
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
           <div className='dropdown-container'>
-            <ClassroomDropdown classrooms={this.state.dropdownClassrooms} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
+            <ItemDropdown items={this.state.dropdownClassrooms} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
           </div>
         </div>
         <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>

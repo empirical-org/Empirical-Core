@@ -4,7 +4,7 @@ import {CSVDownload, CSVLink} from 'react-csv'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown'
+import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import {sortByLastName, sortFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
@@ -133,7 +133,7 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='dropdown-container'>
-          <ClassroomDropdown classrooms={this.state.classroomNames} callback={this.switchClassrooms} selectedClassroom={this.state.selectedClassroom}/>
+          <ItemDropdown items={this.state.classroomNames} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
         </div>
 				<div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
 					<ReactTable data={filteredClassroomsData}

@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Router, Route, Link, hashHistory } from 'react-router'
-import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown.jsx';
+import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
 import NavButtonGroup from './nav_button_group.jsx';
 import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx';
 import $ from 'jquery';
@@ -61,10 +61,10 @@ export default React.createClass({
           <h1>{this.props.selectedActivity.name}</h1>
           <p>{this.props.selectedActivity.description}</p>
           <div className="nav-elements">
-            <ClassroomDropdown
-              classrooms={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
+            <ItemDropdown
+              items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
               callback={this.props.dropdownCallback}
-              selectedClassroom={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
+              selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
             />
             <NavButtonGroup
               params={this.props.params}
