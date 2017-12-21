@@ -439,6 +439,35 @@ module Teacher
     Invitation.exists?(invitee_email: self.email, archived: false)
   end
 
+  def ids_and_names_of_affiliated_classrooms
+    ActiveRecord::Base.connection.execute("
+      SELECT classrooms.id, classrooms.name
+      FROM classrooms_teachers
+      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
+      WHERE classrooms_teachers.user_id = #{self.id};
+    ").to_a
+  end
+
+  def ids_and_names_of_affiliated_students
+    ActiveRecord::Base.connection.execute("
+      SELECT users.id, users.name
+      FROM classrooms_teachers
+      JOIN students_classrooms ON students_classrooms.classroom_id = classrooms_teachers.classroom_id
+      JOIN users ON users.id = students_classrooms.student_id
+      WHERE classrooms_teachers.user_id = #{self.id};
+    ").to_a
+  end
+
+  def ids_and_names_of_affiliated_units
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT(units.id), units.name
+      FROM classrooms_teachers
+      JOIN classrooms_teachers AS all_affiliated_classrooms ON all_affiliated_classrooms.classroom_id = classrooms_teachers.classroom_id
+      JOIN units ON all_affiliated_classrooms.user_id = units.user_id
+      WHERE classrooms_teachers.user_id = #{self.id};
+    ").to_a
+  end
+
   private
 
   def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
