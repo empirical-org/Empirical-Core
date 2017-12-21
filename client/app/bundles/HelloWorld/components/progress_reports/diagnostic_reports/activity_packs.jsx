@@ -3,7 +3,7 @@ import request from 'request';
 import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx'
-import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
+import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 
 'use strict'
@@ -169,10 +169,10 @@ export default React.createClass({
 					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
 					<div className="classroom-selector">
 						<p>Select a classroom:</p>
-						<ClassroomDropdown
-							classrooms={classrooms}
+						<ItemDropdown
+							items={classrooms}
 							callback={this.switchClassrooms}
-							selectedClassroom={selectedClassroom}
+							selectedItem={selectedClassroom}
 						/>
 					</div>
 					<Units report={Boolean(true)} data={this.state.units}/>
