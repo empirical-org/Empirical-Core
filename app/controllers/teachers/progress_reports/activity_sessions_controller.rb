@@ -4,22 +4,21 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       format.html
       format.json do
         # TODO optimize this. It is insanely slow. 🐌
+        # TODO only return filters on first call. 👋
         query = ::ProgressReports::ActivitySession.new(current_user).results(params)
         page_count = (query.count / ActivitySession::RESULTS_PER_PAGE.to_f).ceil
         activity_sessions = query.paginate(params[:page], ActivitySession::RESULTS_PER_PAGE)
         activity_session_json = activity_sessions.map do |activity_session|
           ::ProgressReports::ActivitySessionSerializer.new(activity_session).as_json(root: false)
         end
-        classrooms = ProgressReports::Standards::Classroom.new(current_user).results({})
-        students = ProgressReports::Standards::Student.new(current_user).results({})
-        units = ProgressReports::Standards::Unit.new(current_user).results({})
+
         render json: {
+          classrooms: current_user.ids_and_names_of_affiliated_classrooms,
+          students: current_user.ids_and_names_of_affiliated_students,
+          units: current_user.ids_and_names_of_affiliated_units,
           activity_sessions: activity_session_json,
-          classrooms: classrooms,
-          students: students,
           page_count: page_count,
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),
-          units: units
         }
       end
     end
