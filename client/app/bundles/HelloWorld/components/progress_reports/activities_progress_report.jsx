@@ -1,12 +1,13 @@
 "use strict";
 import React from 'react'
+import request from 'request'
+import ReactTable from 'react-table'
+import moment from 'moment'
 import { CSVDownload, CSVLink } from 'react-csv'
 import ProgressReportFilters from './progress_report_filters.jsx'
-import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
-import request from 'request'
 
 export default React.createClass({
   mixins: [TableFilterMixin],
@@ -83,16 +84,16 @@ export default React.createClass({
     return [
       {
         Header: 'Student',
-        accessor: 'student_name',
+        accessor: 'student_id',
         resizeable: false,
-        Cell: props => props.value,
+        Cell: props => this.state.studentFilters.find(student => student.value == props.value).name,
         className: this.nonPremiumBlur()
       },
       {
         Header: 'Date',
-        accessor: 'display_completed_at',
+        accessor: 'completed_at',
         resizeable: false,
-        Cell: props => props.value
+        Cell: props => moment.unix(Number(props.value)).format('M/D/YY')
       },
       {
         Header: 'Activity',
@@ -102,16 +103,16 @@ export default React.createClass({
       },
       {
         Header: 'Score',
-        accessor: 'display_score',
+        accessor: 'percentage',
         resizeable: false,
-        Cell: props => props.value,
+        Cell: props => `${Math.round(props.value * 100)}%`,
         className: this.nonPremiumBlur()
       },
       {
         Header: 'Standard',
         accessor: 'standard',
         resizeable: false,
-        Cell: props => props.value
+        Cell: props => props.value.split(' ')[0]
       },
       {
         Header: 'Tool',
