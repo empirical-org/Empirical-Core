@@ -8,9 +8,9 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
         sort_string = 'ORDER BY completed_at DESC'
 
-        classroom_activities_filter = params[:classroom_id] ? " AND classroom_activities.classroom_id = #{params[:classroom_id]}" : ''
-        student_filter = params[:student_id] ? " AND activity_sessions.user_id = #{params[:student_id]}" : ''
-        # todo unit
+        classroom_activities_filter = !params[:classroom_id].blank? ? " AND classroom_activities.classroom_id = #{params[:classroom_id]}" : ''
+        student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id]}" : ''
+        unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id]}" : ''
 
         activity_sessions = ActiveRecord::Base.connection.execute("
           SELECT
@@ -25,9 +25,12 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           JOIN classroom_activities
           	ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
             #{classroom_activities_filter}
+            #{unit_filter}
+            AND classroom_activities.visible = TRUE
           JOIN activity_sessions
           	ON activity_sessions.classroom_activity_id = classroom_activities.id
            AND activity_sessions.state = 'finished'
+           AND activity_sessions.visible = TRUE
            #{student_filter}
           JOIN activities
           	ON activities.id = classroom_activities.activity_id
@@ -43,8 +46,15 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
         page_count = (ActiveRecord::Base.connection.execute("
           SELECT count(activity_sessions.id) FROM classrooms_teachers
-          JOIN classroom_activities ON classroom_activities.classroom_id = classrooms_teachers.classroom_id #{classroom_activities_filter}
-          JOIN activity_sessions ON activity_sessions.classroom_activity_id = classroom_activities.id #{student_filter}
+          JOIN classroom_activities
+            ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
+            #{classroom_activities_filter}
+            #{unit_filter}
+            AND classroom_activities.visible = TRUE
+          JOIN activity_sessions
+            ON activity_sessions.classroom_activity_id = classroom_activities.id
+            AND activity_sessions.visible = TRUE
+            #{student_filter}
           WHERE classrooms_teachers.user_id = #{current_user.id}
         ").to_a[0]['count'].to_i / PAGE_SIZE).ceil
 
