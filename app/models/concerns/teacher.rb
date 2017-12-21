@@ -137,6 +137,10 @@ module Teacher
     classrooms_i_teach.map{|classroom| classroom.with_students}
   end
 
+  def classrooms_i_teach_with_student_ids
+    classrooms_i_teach.map{|classroom| classroom.with_students_ids}
+  end
+
   def classrooms_i_own_with_students
     classrooms_i_own.map{|classroom| classroom.with_students}
   end
@@ -218,15 +222,6 @@ module Teacher
 
   def transfer_account
     TransferAccountWorker.perform_async(self.id, new_user.id);
-  end
-
-  def classrooms_i_teach_with_students
-    # TODO rewrite this in SQL at some point in the future.
-    classrooms_i_teach.map do |classroom|
-      classroom_as_h = classroom.attributes
-      classroom_as_h[:students] = classroom.students
-      classroom_as_h
-    end
   end
 
   def classroom_activities(includes_value = nil)
