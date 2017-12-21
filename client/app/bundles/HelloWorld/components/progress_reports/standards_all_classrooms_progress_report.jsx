@@ -11,6 +11,7 @@ import moment from 'moment'
 import _ from 'underscore'
 
 const showAllClassroomKey = 'All Classrooms'
+const showAllStudentsKey = 'All Students'
 
 export default class extends React.Component {
 
@@ -45,8 +46,9 @@ export default class extends React.Component {
       const standardsData = this.formatStandardsData(data)
       // gets unique classroom names
       const classrooms = JSON.parse(body).classrooms
-      const students = JSON.parse(body).students
+      const students = [...new Set(JSON.parse(body).students)]
       classrooms.unshift({name: showAllClassroomKey})
+      students.unshift({name: showAllStudentsKey})
       that.setState({loading: false, errors: body.errors, standardsData, csvData, classrooms, students});
     });
   }
@@ -130,6 +132,9 @@ export default class extends React.Component {
     this.setState({selectedClassroom: classroom}, () => this.getData())
   }
 
+  goToStudentPage(student) {
+  }
+
   filteredData() {
     return this.state.standardsData
   }
@@ -157,6 +162,7 @@ export default class extends React.Component {
         </div>
         <div className='dropdown-container'>
           <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
+          <ItemDropdown style={{marginLeft: '20px'}} items={this.state.students.map(s => s.name)} callback={this.goToStudentPage}/>
         </div>
 				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
 					<ReactTable data={filteredData}
@@ -165,9 +171,9 @@ export default class extends React.Component {
 						defaultSorted={[{id: 'standard_level', desc: true}]}
 					  showPaginationTop={false}
 						showPaginationBottom={false}
-						 showPageSizeOptions={false}
-							defaultPageSize={filteredData.length}
-						 className='progress-report has-green-arrow'/></div>
+						showPageSizeOptions={false}
+						defaultPageSize={filteredData.length}
+						className='progress-report has-green-arrow'/></div>
       </div>
     )
   }
