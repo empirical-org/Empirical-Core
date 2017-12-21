@@ -21,7 +21,8 @@ export default React.createClass({
       loadingFilterOptions: true,
       currentPage: 0,
       csvData: [],
-      currentSort: {}
+      currentSort: {},
+      premium: false
     }
   },
 
@@ -70,7 +71,8 @@ export default React.createClass({
         Header: 'Student',
         accessor: 'student_name',
         resizeable: false,
-        Cell: props => props.value
+        Cell: props => props.value,
+        className: this.nonPremiumBlur()
       },
       {
         Header: 'Date',
@@ -88,7 +90,8 @@ export default React.createClass({
         Header: 'Score',
         accessor: 'display_score',
         resizeable: false,
-        Cell: props => props.value
+        Cell: props => props.value,
+        className: this.nonPremiumBlur()
       },
       {
         Header: 'Standard',
@@ -180,6 +183,10 @@ export default React.createClass({
         />
       </div>
     );
+  },
+
+  nonPremiumBlur: function() {
+    return this.props.premiumStatus == 'paid' ? '' : 'non-premium-blur';
   },
 
   render: function() {
