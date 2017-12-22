@@ -355,7 +355,7 @@ button:not(.select-mixin) {
 }
 
 .button-yellow {
-  background-color: #ea9a1a;
+  background-color: $darkorange;
   color: #fff;
   &:hover {
     background-color: #e09215;

@@ -41,7 +41,7 @@
   }
   .get-premium {
     color: white;
-    background-color: #f8a724;
+    background-color: $orange;
     width: 137px;
   }
   .add-school {
@@ -68,7 +68,7 @@
     i {
       margin-top: 3px;
       margin-right: 5px;
-      color: #ea9a1a;
+      color: $darkorange;
       font-size: 21px;
     }
     a {
@@ -137,7 +137,7 @@
   // }
   // button.get-premium {
   //   margin-top: 0px;
-  //   background-color: #EA9A1A;
+  //   background-color: $darkorange;
   // }
   // .row.school-checkbox {
   //   //padding-top: 0 !important;

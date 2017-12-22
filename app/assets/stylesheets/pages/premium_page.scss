@@ -1,7 +1,7 @@
 .premium-tab {
-  background-color: #EA9A1A !important;
+  background-color: $darkorange !important;
   a {
-    background-color: #EA9A1A !important;
+    background-color: $darkorange !important;
     color: #FFFFFF !important;
     padding-left: 40px;
     padding-right: 40px;
@@ -127,7 +127,7 @@ li.premium-tab > a:hover {
       font-weight: 600;
       border-top-left-radius: 7px;
       border-top-right-radius: 7px;
-      background-color: #f8a724;
+      background-color: $orange;
       color: white;
       font-size: 12px;
       position: absolute;
@@ -225,14 +225,14 @@ li.premium-tab > a:hover {
       color: $quillblue;
     }
     .empty-purple {
-      border: 2px solid #9c2bde;
-      color: #9c2bde;
+      border: 2px solid $purple;
+      color: $purple;
     }
     .green {
       background-color: $quillgreen;
     }
     .purple {
-      background-color: #9c2bde;
+      background-color: $purple;
     }
     .button-container {
       padding-left: 22px;
@@ -281,7 +281,7 @@ li.premium-tab > a:hover {
 
 }
 #second-preview-section {
-  background-color: #EA9A1A;
+  background-color: $darkorange;
   color: white;
   padding-top: 100px;
   .super-title {
@@ -295,7 +295,7 @@ li.premium-tab > a:hover {
     margin-top: 44px;
     margin-bottom: 64px;
     .try-the-demo {
-      color: #EA9A1A;
+      color: $darkorange;
       background-color: white;
     }
   }
@@ -338,7 +338,7 @@ li.premium-tab > a:hover {
       background-color: #737373;
     }
     th.quill-premium-table-header {
-      background-color: #EA9A1A;
+      background-color: $darkorange;
       border-top-right-radius: 6px;
     }
     th.features-table-header,
@@ -386,12 +386,12 @@ li.premium-tab > a:hover {
     margin-bottom: 48px;
     .book-a-demo {
       color: white;
-      background-color: #EA9A1A;
+      background-color: $darkorange;
       margin-right: 31px;
     }
     .get-a-quote {
-      color: #EA9A1A;
-      border: 2px solid #EA9A1A;
+      color: $darkorange;
+      border: 2px solid $darkorange;
     }
   }
   .span-dash {

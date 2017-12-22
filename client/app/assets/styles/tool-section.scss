@@ -215,11 +215,11 @@ $tool-grey: #f8f9f9;
     }
 
     .bg-connect-yellow {
-        background-color: #ea9a1a;
+        background-color: $darkorange;
     }
 
     .text-connect-yellow {
-        color: #ea9a1a;
+        color: $darkorange;
     }
 
     .boy-playing-quill {
@@ -740,7 +740,7 @@ $tool-grey: #f8f9f9;
 }
 
 .bg-tool-orange {
-    background-color: #EA9A1A;
+    background-color: $darkorange;
 }
 
 .bg-tool-red {
@@ -760,7 +760,7 @@ $tool-grey: #f8f9f9;
 }
 
 .text-orange {
-    color: #EA9A1A;
+    color: $darkorange;
 }
 
 .text-red {
