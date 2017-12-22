@@ -20,7 +20,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
   end
 
   private
-  def return_data(paginated)
+  def return_data(return_json)
     classroom_activities_filter = !params[:classroom_id].blank? ? "AND classroom_activities.classroom_id = #{params[:classroom_id]}" : ''
     student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id]}" : ''
     unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id]}" : ''
@@ -41,8 +41,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
     sort_direction = params[:sort_descending] && params[:sort_descending] != 'true' ? 'ASC' : 'DESC'
 
-    query_limit = paginated ? "LIMIT #{PAGE_SIZE}" : ''
-    query_offset = paginated ? "OFFSET #{PAGE_SIZE * (params['page'].to_i - 1)}" : ''
+    query_limit = return_json ? "LIMIT #{PAGE_SIZE}" : ''
+    query_offset = return_json ? "OFFSET #{PAGE_SIZE * (params['page'].to_i - 1)}" : ''
 
     # Note to maintainers: if you update this query, please be sure to
     # also update the page count query below if applicable.
@@ -89,10 +89,9 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       ORDER BY #{sort_field} #{sort_direction}
       #{query_limit}
       #{query_offset}
-      ;
     ").to_a;
 
-    if(paginated)
+    if(return_json)
       page_count = (ActiveRecord::Base.connection.execute("
         SELECT count(activity_sessions.id) FROM classrooms_teachers
         JOIN classrooms
@@ -115,7 +114,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           AND activity_sessions.user_id = users.id
          #{student_filter}
         WHERE classrooms_teachers.user_id = #{current_user.id}
-      ").to_a[0]['count'].to_i / PAGE_SIZE).ceil
+      ").to_a[0]['count'].to_f / PAGE_SIZE).ceil
 
       unless(params[:without_filters])
         render json: {
