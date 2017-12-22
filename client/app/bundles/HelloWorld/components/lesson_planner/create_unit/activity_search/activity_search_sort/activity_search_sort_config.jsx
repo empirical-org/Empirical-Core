@@ -1,26 +1,26 @@
 export default [
   {
+    field: 'activity_category',
+    alias: 'Concept',
+    selected: false,
+    asc_or_desc: 'asc',
+  },
+  {
     field: 'activity_classification',
-    alias: 'App',
+    alias: 'Tool',
     selected: false,
     asc_or_desc: 'asc',
   },
   {
     field: 'name',
-    alias: 'Activity',
+    alias: 'Activity Name',
     selected: false,
     asc_or_desc: 'asc',
   },
   {
-    field: 'section',
-    alias: 'Standard Level',
-    selected: false,
+    field: 'checked',
+    alias: '',
     asc_or_desc: 'asc',
-  },
-  {
-    field: 'activity_category',
-    alias: 'Category',
-    selected: false,
-    asc_or_desc: 'asc',
+    className: 'scorebook-icon-check'
   }
 ];
