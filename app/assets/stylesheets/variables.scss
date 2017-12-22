@@ -28,8 +28,6 @@ $mediumdarkgray: rgb(150, 150, 150);
 $lightgray2: #f4f2f2;
 $darkgray: #3b3b3b;
 
-// Generated from css -> scss conversion
-
 $color_tapa_approx: #737373;
 $white_20: rgba(255, 255, 255, 0.2);
 $black_40: rgba(0, 0, 0, 0.4);
@@ -41,15 +39,6 @@ $color_mine_shaft_approx: #333333;
 $color_oracle_approx: #2e7c6a;
 $color_rusty_nail_approx: #875a12;
 $color_thunderbird_approx: #c51916;
-
-
-// TODO: The variables below are ported from the old design.
-// Please deprecate and remove these.
-
-$skyblue:        #409cc8;
-$skyblue-darker: #b5e2ff;
-$yellow:         #fcd000;
-$pink:           #d90053;
 
 $missed-color: #d54141;
 $missed-color-light: #ffeade;
@@ -64,18 +53,5 @@ $spinner-size:       30px;
 $spinner-speed:      0.75s;
 $spinner-thickness:  8px;
 
-.con-skyblue        { background: $skyblue; }
-.con-skyblue-darker { background: $skyblue-darker; }
-.con-yellow         { background: $yellow; }
-.con-pink           { background: $pink; }
-.con-white          { background: $white; }
-.con-darkblue       { background: $darkblue; }
-.con-darkgrey       { background: $darkgray; }
-
-$header-font: "Comfortaa", cursive;
-
-$baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-$headingsFontFamily: $header-font;
-$headingsFontWeight: normal;
 $family-sans-serif: "adelle-sans", "Helvetica", "Arial", sans-serif;
 $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
