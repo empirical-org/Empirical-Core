@@ -92,3 +92,19 @@
            user-select: none; /* Non-prefixed version, currently
                                  supported by Chrome and Opera */
 }
+
+.proficient-indicator, .not-proficient-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.proficient-indicator {
+  background-color: #82bf3c;
+}
+
+.not-proficient-indicator {
+  background-color: #ff4542;
+}

@@ -51,10 +51,10 @@ export default class extends React.Component {
   //
   formattedStudentData(data) {
     return data.map((row) => {
-      row.name = <span className='green-text'>{row.name}</span>
+      row.name = row.name
       row.total_activity_count = Number(row.total_activity_count)
-      row.average_score = `${row.average_score * 100}%`
-      row.proficiency_status = row.proficient_standard_count > 0 ? 'Proficient' : 'Not Yet Proficient'
+      row.average_score = Number(row.average_score * 100)
+      row.proficiency_status = row.proficient_standard_count > 0 ? <span><span className="proficient-indicator"/>Proficient</span> : <span><span className="not-proficient-indicator"/>Not Yet Proficient</span>
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
@@ -70,7 +70,7 @@ export default class extends React.Component {
     ]
     data.forEach((row) => {
       csvData.push([
-        row['name'], row['name'], row['total_activity_count'], row['average_score'], row['proficient_standard_count'] > 0 ? 'Proficient' : 'Not Yet Proficient'
+        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['proficient_standard_count'] > 0 ? 'Proficient' : 'Not Yet Proficient'
       ])
     })
     return csvData
@@ -83,19 +83,22 @@ export default class extends React.Component {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
-        // sortMethod: sortByLastName,
+        sortMethod: sortByLastName,
         Cell: row => (
-          <a href={row.original['concepts_href']}>{row.original['name']}</a>
+          <a href={row.original['concepts_href']}><span className='green-text'>{row.original['name']}</span></a>
         )
       }, {
         Header: 'Activities',
         accessor: 'total_activity_count',
-        resizable: false,
+        resizable: false
       }, {
         Header: 'Average',
         accessor: 'average_score',
         className: blurIfNotPremium,
         resizable: false,
+        Cell: row => (
+          `${row.original['average_score']}%`
+        )
       }, {
         Header: 'Proficiency Status',
         accessor: 'proficiency_status',
