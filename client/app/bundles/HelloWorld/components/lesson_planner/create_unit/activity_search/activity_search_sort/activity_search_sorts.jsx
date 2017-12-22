@@ -11,7 +11,6 @@ export default React.createClass({
 
     return (
       <tr>
-        <th className="scorebook-icon-check" />
         {sorts}
       </tr>
     );
