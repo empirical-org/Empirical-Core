@@ -45,9 +45,9 @@ describe('AddStudent container', () => {
     });
 
     it('should pass classrooms to classrooms prop', () => {
-      expect(wrapper.find(ItemDropdown).props().classrooms).toHaveLength(2);
-      expect(wrapper.find(ItemDropdown).props().classrooms[0].name).toBe('English 200');
-      expect(wrapper.find(ItemDropdown).props().classrooms[1].name).toBe('English 404');
+      expect(wrapper.find(ItemDropdown).props().items).toHaveLength(2);
+      expect(wrapper.find(ItemDropdown).props().items[0].name).toBe('English 200');
+      expect(wrapper.find(ItemDropdown).props().items[1].name).toBe('English 404');
     });
 
     it('should have a working updateClassroom callback', () => {
