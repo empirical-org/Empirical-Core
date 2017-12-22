@@ -194,6 +194,16 @@ a.progress-reports-nav {
     a {
       color: $quillforestgreen;
     }
+    &.standards-breadcrumb {
+      font-size: 14px;
+      font-weight: 600;
+      color: #027360;
+      margin: 20px 0px 0px;
+      box-shadow: 0 0 black;
+      a {
+        text-decoration: none;
+      }
+    }
   }
 
   .export-csv {
