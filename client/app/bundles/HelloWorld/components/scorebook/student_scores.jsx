@@ -1,6 +1,6 @@
 import React from 'react';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
-import { shouldCountForScoring } from '../../../../modules/activity_classifications.js';
+import shouldCountForScoring from '../../../../modules/activity_classifications.js';
 
 export default React.createClass({
   propTypes: {
