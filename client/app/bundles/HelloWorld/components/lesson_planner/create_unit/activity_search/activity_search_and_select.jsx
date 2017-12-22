@@ -185,9 +185,13 @@ export default React.createClass({
   sort() {
     let visActs = [...this.state.viewableActivities];
     this.state.sorts.forEach((sortObj) => {
-      // iterate through each sorter, and activate it
+      // iterate through each sorter, and activate it;
       if (sortObj.selected) {
-        visActs = _.sortBy(visActs, obj => (obj[sortObj.field].name || obj[sortObj.field]));
+        if (sortObj.field === 'checked') {
+          visActs = _.sortBy(visActs, obj => (obj.selected))
+        } else {
+          visActs = _.sortBy(visActs, obj => (obj[sortObj.field].name || obj[sortObj.field].checked || obj[sortObj.field]));
+        }
         if (sortObj.asc_or_desc === 'desc') {
           // reverse sorter if necessary
           visActs = visActs.reverse();
