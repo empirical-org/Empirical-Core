@@ -18,5 +18,5 @@
 ## Other Colors
 
 @colors {
-  $darkgreen2 $darkblue $darkorange $red
+  $darkgreen $darkblue $darkorange $red
 }
