@@ -50,7 +50,7 @@ class ProgressReports::Standards::NewTopic
 
   def topic_conditional(topic_id)
     if topic_id
-      "AND activities.topic_id = #{filters["topic_id"]}"
+      "AND activities.topic_id = #{topic_id}"
     end
   end
 end
