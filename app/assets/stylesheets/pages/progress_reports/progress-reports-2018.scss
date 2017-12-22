@@ -10,6 +10,9 @@
       color: #3b3b3b;
       font-weight: 800;
       padding-bottom: 13px;
+      span {
+        font-weight: normal;
+      }
     }
   }
 
@@ -53,6 +56,17 @@
   }
 }
 
+.individual-standard {
+  padding-top: 0px;
+  .meta-overview {
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .header-and-info {
+    max-width: 720px;
+  }
+}
+
 .navigate-back {
   img {
     height: 12px;
@@ -77,4 +91,20 @@
        -ms-user-select: none; /* Internet Explorer/Edge */
            user-select: none; /* Non-prefixed version, currently
                                  supported by Chrome and Opera */
+}
+
+.proficient-indicator, .not-proficient-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.proficient-indicator {
+  background-color: #82bf3c;
+}
+
+.not-proficient-indicator {
+  background-color: #ff4542;
 }
