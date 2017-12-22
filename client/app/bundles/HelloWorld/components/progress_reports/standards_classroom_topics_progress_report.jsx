@@ -89,6 +89,7 @@ export default  React.createClass({
   },
 
   render: function() {
+    debugger;
     return (
       <ProgressReport columnDefinitions={this.columnDefinitions}
                          pagination={false}

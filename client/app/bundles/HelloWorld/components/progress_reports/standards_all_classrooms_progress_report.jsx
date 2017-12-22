@@ -63,7 +63,7 @@ export default class extends React.Component {
       row.proficient = `${row.proficient_count} of ${row.total_student_count}`
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
+        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/topics/${row.id}/students`}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )
@@ -90,7 +90,6 @@ export default class extends React.Component {
         Header: 'Standard Level',
         accessor: 'standard_level',
         resizable: false,
-        // sortMethod: this.sortByLastName,
       }, {
         Header: "Standard Name",
         accessor: 'standard_name',
@@ -99,27 +98,15 @@ export default class extends React.Component {
         Header: "Students",
         accessor: 'number_of_students',
         resizable: false,
-        // sortMethod: (a, b) => {
-        //   return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%')))
-        //     ? 1
-        //     : -1;
         }, {
 				Header: "Proficient",
 				accessor: 'proficient',
 				resizable: false,
         className: blurIfNotPremium
-				// sortMethod: (a,b) => {
-				// 	const aEpoch = a ? moment(a).unix() : 0;
-				// 	const bEpoch = b ? moment(b).unix() : 0;
-				// 	return aEpoch > bEpoch ? 1 : -1;
 				}, {
 				Header: "Activities",
 				accessor: 'activities',
 				resizable: false,
-				// sortMethod: (a,b) => {
-				// 	const aEpoch = a ? moment(a).unix() : 0;
-				// 	const bEpoch = b ? moment(b).unix() : 0;
-				// 	return aEpoch > bEpoch ? 1 : -1;
 				}, {
         Header: "",
         accessor: 'green_arrow',

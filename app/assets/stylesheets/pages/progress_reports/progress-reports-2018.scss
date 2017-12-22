@@ -10,6 +10,9 @@
       color: #3b3b3b;
       font-weight: 800;
       padding-bottom: 13px;
+      span {
+        font-weight: normal;
+      }
     }
   }
 
@@ -50,6 +53,17 @@
   }
   .meta-overview {
     padding-bottom: 13px;
+  }
+}
+
+.individual-standard {
+  padding-top: 0px;
+  .meta-overview {
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .header-and-info {
+    max-width: 720px;
   }
 }
 
