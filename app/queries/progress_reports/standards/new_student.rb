@@ -6,7 +6,7 @@ class ProgressReports::Standards::NewStudent
 
   def results(filters)
     topic_id = filters ? filters["topic_id"] : nil
-    ::User.with(best_activity_sessions:
+    results = ::User.with(best_activity_sessions:
      ("SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
           JOIN classroom_activities ON activity_sessions.classroom_activity_id = classroom_activities.id
           JOIN activities ON classroom_activities.activity_id = activities.id
@@ -15,9 +15,7 @@ class ProgressReports::Standards::NewStudent
           WHERE activity_sessions.is_final_score
           #{topic_conditional(topic_id)}
           AND activity_sessions.visible
-          AND classroom_activities.visible"))
-      .with(best_per_topic_user: ProgressReports::Standards::Student.best_per_topic_user)
-      .select(<<-SQL
+          AND classroom_activities.visible")).with(best_per_topic_user: ProgressReports::Standards::Student.best_per_topic_user).select(<<-SQL
         users.id,
         users.name,
         #{User.sorting_name_sql},
@@ -46,6 +44,7 @@ class ProgressReports::Standards::NewStudent
       )
       .group('users.id, sorting_name')
       .order('sorting_name asc')
+      results
   end
 
   # Helper method used as CTE in other queries. Do not attempt to use this by itself
@@ -59,7 +58,7 @@ class ProgressReports::Standards::NewStudent
 
   def topic_conditional(topic_id)
     if topic_id
-      "AND activities.topic_id = #{filters["topic_id"]}"
+      "AND activities.topic_id = #{topic_id}"
     end
   end
 end
