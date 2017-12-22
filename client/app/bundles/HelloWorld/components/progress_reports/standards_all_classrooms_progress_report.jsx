@@ -7,10 +7,12 @@ import 'react-table/react-table.css'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import moment from 'moment'
+import userIsPremium from '../modules/user_is_premium'
 
 import _ from 'underscore'
 
 const showAllClassroomKey = 'All Classrooms'
+const showAllStudentsKey = 'All Students'
 
 export default class extends React.Component {
 
@@ -20,7 +22,8 @@ export default class extends React.Component {
       loading: true,
       errors: false,
       selectedClassroom: showAllClassroomKey,
-      classrooms: []
+      classrooms: [],
+      userIsPremium: userIsPremium()
     }
     this.switchClassrooms = this.switchClassrooms.bind(this)
   }
@@ -45,8 +48,9 @@ export default class extends React.Component {
       const standardsData = this.formatStandardsData(data)
       // gets unique classroom names
       const classrooms = JSON.parse(body).classrooms
-      const students = JSON.parse(body).students
+      const students = [...new Set(JSON.parse(body).students)]
       classrooms.unshift({name: showAllClassroomKey})
+      students.unshift({name: showAllStudentsKey})
       that.setState({loading: false, errors: body.errors, standardsData, csvData, classrooms, students});
     });
   }
@@ -59,7 +63,7 @@ export default class extends React.Component {
       row.proficient = `${row.proficient_count} of ${row.total_student_count}`
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
+        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/topics/${row.id}/students`}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )
@@ -73,19 +77,19 @@ export default class extends React.Component {
     ]
     data.forEach((row) => {
       csvData.push([
-        row['name'], row['section_name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
+        row['section_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
       ])
     })
     return csvData
   }
 
   columns() {
+    const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
     return ([
       {
         Header: 'Standard Level',
         accessor: 'standard_level',
         resizable: false,
-        // sortMethod: this.sortByLastName,
       }, {
         Header: "Standard Name",
         accessor: 'standard_name',
@@ -94,26 +98,15 @@ export default class extends React.Component {
         Header: "Students",
         accessor: 'number_of_students',
         resizable: false,
-        // sortMethod: (a, b) => {
-        //   return Number(a.substr(0, a.indexOf('%'))) > Number(b.substr(0, b.indexOf('%')))
-        //     ? 1
-        //     : -1;
         }, {
 				Header: "Proficient",
 				accessor: 'proficient',
 				resizable: false,
-				// sortMethod: (a,b) => {
-				// 	const aEpoch = a ? moment(a).unix() : 0;
-				// 	const bEpoch = b ? moment(b).unix() : 0;
-				// 	return aEpoch > bEpoch ? 1 : -1;
+        className: blurIfNotPremium
 				}, {
 				Header: "Activities",
 				accessor: 'activities',
 				resizable: false,
-				// sortMethod: (a,b) => {
-				// 	const aEpoch = a ? moment(a).unix() : 0;
-				// 	const bEpoch = b ? moment(b).unix() : 0;
-				// 	return aEpoch > bEpoch ? 1 : -1;
 				}, {
         Header: "",
         accessor: 'green_arrow',
@@ -128,6 +121,9 @@ export default class extends React.Component {
 
   switchClassrooms(classroom) {
     this.setState({selectedClassroom: classroom}, () => this.getData())
+  }
+
+  goToStudentPage(student) {
   }
 
   filteredData() {
@@ -157,6 +153,7 @@ export default class extends React.Component {
         </div>
         <div className='dropdown-container'>
           <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
+          <ItemDropdown style={{marginLeft: '20px'}} items={this.state.students.map(s => s.name)} callback={this.goToStudentPage}/>
         </div>
 				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
 					<ReactTable data={filteredData}
@@ -165,9 +162,9 @@ export default class extends React.Component {
 						defaultSorted={[{id: 'standard_level', desc: true}]}
 					  showPaginationTop={false}
 						showPaginationBottom={false}
-						 showPageSizeOptions={false}
-							defaultPageSize={filteredData.length}
-						 className='progress-report has-green-arrow'/></div>
+						showPageSizeOptions={false}
+						defaultPageSize={filteredData.length}
+						className='progress-report has-green-arrow'/></div>
       </div>
     )
   }
