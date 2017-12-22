@@ -45,7 +45,7 @@
 min-height: 112px;
             }
             &:hover {
-                outline: solid 2.5px #00c2a2;
+                outline: solid 2.5px $quillgreen;
             }
             p {
               font-size: 14px;
@@ -86,7 +86,7 @@ min-height: 112px;
       text-align: left;
       margin-bottom: 25px;
       &:hover {
-        outline: solid 2.5px #00c2a2;
+        outline: solid 2.5px $quillgreen;
       }
       h1 {
         margin-top: 0px;

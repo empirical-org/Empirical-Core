@@ -1,6 +1,6 @@
 #dashboard {
     padding: 40px 20px;
-    $link-color: #027360;
+    $link-color: $quillforestgreen;
     max-width: 1020px;
     margin: auto;
     text-overflow: ellipsis;
@@ -373,14 +373,14 @@
     }
     a {
       font-size: 14px;
-      color: #027360;
+      color: $quillforestgreen;
     }
   }
   .image-container {
     width: 36px;
     height: 36px;
     border-radius: 3px;
-    border: solid 1px #027360;
+    border: solid 1px $quillforestgreen;
     img {
       height: 22px;
     }
@@ -392,7 +392,7 @@
   span {
     padding-left: 12px;
     font-size: 14px;
-    color: #027360;
+    color: $quillforestgreen;
   }
   .no-assigned-lessons {
     color: #969696;

@@ -43,7 +43,7 @@
           top: 40px;
           color: white;
           border-radius: 2px;
-          background-color: #348fdf;
+          background-color: $quillblue;
           font-size: 12px;
           font-weight: 600;
           display: flex;
@@ -57,7 +57,7 @@
             opacity: 100;
           }
           .fa-caret-up {
-            color: #348fdf;
+            color: $quillblue;
             position: absolute;
             top: -10px;
             left: 10px;
@@ -88,7 +88,7 @@
               font-weight: 600;
             }
             &.see-all {
-              color: #027360;
+              color: $quillforestgreen;
               cursor: pointer;
             }
           }

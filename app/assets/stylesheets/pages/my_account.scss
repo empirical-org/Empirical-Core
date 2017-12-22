@@ -72,7 +72,7 @@
       font-size: 21px;
     }
     a {
-      color: #027360;
+      color: $quillforestgreen;
       text-decoration: underline;
       font-size: 16px;
     }
@@ -90,7 +90,7 @@
   .delete-account, .switch-account-type {
     cursor: pointer;
     font-weight: 600;
-    color: #027360;
+    color: $quillforestgreen;
     text-decoration: underline;
   }
   // a {

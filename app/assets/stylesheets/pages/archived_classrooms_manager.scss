@@ -47,7 +47,7 @@
     font-size: 14px;
     margin-bottom: 30px;
     thead {
-      background-color: #e6e6e6;
+      background-color: $quillnavbargray;
     }
     tr.pending-invation {
 
@@ -62,7 +62,7 @@
     }
     tr td:last-of-type:not(.pending-invitation-row), .manage-class, .edit-or-remove a {
       text-align: right;
-      color: #027360;
+      color: $quillforestgreen;
       cursor: pointer;
       padding-right: 13px;
       min-width: 117px;
@@ -84,7 +84,7 @@
       a {
         padding: 0;
         font-weight: 600;
-        color: #027360;
+        color: $quillforestgreen;
         text-decoration: none;
         cursor: pointer;
       }
@@ -130,7 +130,7 @@
   }
   .coteacher-invite-status {
     margin-left: 15px;
-    color: #027360;
+    color: $quillforestgreen;
   }
 }
 #coteacher-capability-chart {

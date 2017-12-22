@@ -116,7 +116,7 @@ select {
 .select-white {
   background: #fff;
   &:focus {
-    outline: #00c2a2;
+    outline: $quillgreen;
   }
 }
 

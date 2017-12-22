@@ -324,7 +324,7 @@ li.premium-tab > a:hover {
       color: black;
       font-weight: 500;
       width: 417px;
-      background-color: #E6E6E6;
+      background-color: $quillnavbargray;
       border-top-left-radius: 6px;
     }
     th.quill-table-header,
@@ -483,8 +483,8 @@ li.premium-tab > a:hover {
     font-size: 16px;
   }
   .q-button {
-    border-color: #00c2a2;
-    color: #00c2a2;
+    border-color: $quillgreen;
+    color: $quillgreen;
     padding-top: 9px;
     margin-bottom: 5px;
   	font-size: 14px;

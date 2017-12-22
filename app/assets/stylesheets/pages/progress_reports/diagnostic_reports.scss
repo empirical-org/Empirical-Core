@@ -20,7 +20,7 @@
 
 /* should be moved into select-classroom-dropdown file*/
 $darkgray3: #7e7e7e;
-$quillgreen: #00c2a2;
+$quillgreen: $quillgreen;
 $lightgray: #cecece;
 /* for report-navbar.scss*/
 #report-button-group {
@@ -379,7 +379,7 @@ $lightgray: #cecece;
     }
     a {
 
-      color: #027360;
+      color: $quillforestgreen;
     }
   }
 

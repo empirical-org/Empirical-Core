@@ -17,7 +17,7 @@
             }
         }
         &.active a {
-            border-top: 3px solid #027360;
+            border-top: 3px solid $quillforestgreen;
             border-bottom: none;
             position: relative;
             font-weight: 600;
@@ -53,7 +53,7 @@
                 color: #000;
                 height: 35px;
                 &.active {
-                    background: #e6e6e6;
+                    background: $quillnavbargray;
                 }
             }
         }
@@ -97,7 +97,7 @@
         display: none;
     }
     #teacher-nav-tabs li.active {
-      border-top: 3px solid #027360;
+      border-top: 3px solid $quillforestgreen;
     }
     #teacher-nav-tabs li a.mobile {
       border-bottom: none;

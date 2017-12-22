@@ -2765,7 +2765,7 @@ fieldset[disabled] .btn {
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
   color: #333333;
-  background-color: #e6e6e6;
+  background-color: $quillnavbargray;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -3623,7 +3623,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom: 1px solid transparent;
   border-top: 2px solid transparent;
   border-radius: none;
-  background: #e6e6e6;
+  background: $quillnavbargray;
 }
 // .nav-tabs > li > a:hover {
 //   border-bottom: 1px solid transparent;
@@ -3636,7 +3636,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #000000;
   background-color: #fff;
   border-right: 1px solid #cecece;
-  border-top: 3px solid #027360;
+  border-top: 3px solid $quillforestgreen;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4354,7 +4354,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #000000;
-  background-color: #e6e6e6;
+  background-color: $quillnavbargray;
   border-color: #cecece;
   cursor: default;
 }
@@ -4983,7 +4983,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #e6e6e6;
+  background-color: $quillnavbargray;
   border: 1px solid #cecece;
   border-radius: 5px;
 }
@@ -5185,14 +5185,14 @@ a.list-group-item-danger.active:focus {
 }
 .panel-default > .panel-heading {
   color: #333333;
-  background-color: #e6e6e6;
+  background-color: $quillnavbargray;
   border-color: #cecece;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #cecece;
 }
 .panel-default > .panel-heading .badge {
-  color: #e6e6e6;
+  color: $quillnavbargray;
   background-color: #333333;
 }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
@@ -6234,7 +6234,7 @@ button.close {
   height: 21px;
   width: 21px;
   border-radius: 5px;
-  background: #e6e6e6;
+  background: $quillnavbargray;
   border: 1px solid #cecece;
 }
 .button-mixin {

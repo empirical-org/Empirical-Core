@@ -49,7 +49,7 @@
   height: 21px;
   width: 21px;
   border-radius: 5px;
-  background: #e6e6e6;
+  background: $quillnavbargray;
   border: 1px solid #cecece;
 }
 
@@ -195,7 +195,7 @@ button:not(.select-mixin) {
 }
 
 .button-green {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   color: #fff;
   &:hover {
     background-color: #44b49a;
@@ -347,7 +347,7 @@ button:not(.select-mixin) {
 }
 
 .button-marine {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   color: #fff;
   &:hover {
     background-color: #009e84;
@@ -363,7 +363,7 @@ button:not(.select-mixin) {
 }
 
 .button-blue {
-  background-color: #348fdf;
+  background-color: $quillblue;
   color: #fff;
   &:hover {
     background-color: #217dcf;
@@ -374,14 +374,14 @@ button:not(.select-mixin) {
   background-color: white;
   font-size: 14px;
   thead {
-    background-color: #e6e6e6;
+    background-color: $quillnavbargray;
   }
   td {
     width: 30%;
   }
   tr td:last-of-type {
     text-align: right;
-    color: #027360;
+    color: $quillforestgreen;
     cursor: pointer;
     padding-right: 13px;
   }

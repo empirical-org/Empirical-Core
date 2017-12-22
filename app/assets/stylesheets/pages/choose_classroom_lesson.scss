@@ -11,7 +11,7 @@
         margin-top: 3px;
         font-size: 14px;
         font-weight: 600;
-        color: #027360;
+        color: $quillforestgreen;
         margin-left: 15px;
         cursor: pointer;
       }
@@ -43,7 +43,7 @@
         cursor: pointer;
         border: solid 1px #c0c0c0;
         &.selected {
-          border: solid 1px #00c2a2;
+          border: solid 1px $quillgreen;
         }
         span {
           font-weight: 600;
@@ -73,7 +73,7 @@
       max-width: 750px;
       color: #3b3b3b;
       a {
-        color: #027360;
+        color: $quillforestgreen;
       }
     }
     button {

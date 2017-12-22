@@ -454,7 +454,7 @@ $tool-grey: #f8f9f9;
   }
   h2 {
     font-weight: 600;
-    color: #00c2a2;
+    color: $quillgreen;
   }
   p {
     max-width: 460px;
@@ -578,7 +578,7 @@ $tool-grey: #f8f9f9;
   }
     li {
       &.active {
-        border-top: 3px solid #027360;
+        border-top: 3px solid $quillforestgreen;
         border-bottom: none;
       }
       a:hover {
@@ -684,7 +684,7 @@ $tool-grey: #f8f9f9;
         }
 
         .ell-press-announcement {
-          color: #027360 !important;
+          color: $quillforestgreen !important;
         }
 
         .content-wrapper {

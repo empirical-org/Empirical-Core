@@ -11,7 +11,7 @@
     margin-bottom: 0;
   }
   .header {
-    background-color: #e6e6e6;
+    background-color: $quillnavbargray;
     padding: 12px 24px;
     color: #000;
     font-weight: bold;
@@ -33,7 +33,7 @@
       border-bottom: 0;
     }
     a {
-      color: #027360;
+      color: $quillforestgreen;
     }
   }
   a {

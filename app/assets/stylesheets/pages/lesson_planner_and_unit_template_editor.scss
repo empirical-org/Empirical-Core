@@ -56,7 +56,7 @@
     background-color: #ffefef;
     border: solid 1px rgba(255, 115, 112, 0.72);
     i {
-      color: #ff4542;
+      color: $quillred;
     }
   }
 
@@ -110,21 +110,21 @@
       width: 326px;
       &.name-error {
         background-color: #ffeded;
-        border: solid 1px #ff4542;
+        border: solid 1px $quillred;
         &::placeholder {
-          color: #ff4542;
+          color: $quillred;
         }
         &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-          color: #ff4542;
+          color: $quillred;
         }
         &::-moz-placeholder { /* Firefox 19+ */
-          color: #ff4542;
+          color: $quillred;
         }
         &:-ms-input-placeholder { /* IE 10+ */
-          color: #ff4542;
+          color: $quillred;
         }
         &:-moz-placeholder { /* Firefox 18- */
-          color: #ff4542;
+          color: $quillred;
         }
 
       }
@@ -209,7 +209,7 @@
   }
 }
 .activity_link {
-  color: #027360;
+  color: $quillforestgreen;
 }
 .scorebook-icon-check {
   background-image: url("https://assets.quill.org/images/scorebook/icon-check.png");
@@ -253,7 +253,7 @@
       }
     .messageBox {
       color: white;
-      background-color: #00C2A2;
+      background-color: $quillgreen;
       padding: 1em;
       margin-bottom: 2em;
     }
@@ -315,6 +315,6 @@
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .select-by-student-button {
-    background-color: #e6e6e6;
+    background-color: $quillnavbargray;
   }
 }

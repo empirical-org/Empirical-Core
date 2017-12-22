@@ -1,5 +1,5 @@
+@import './app-variables.scss';
 @import './bootstrap-carousel.scss';
-@import '../../../../app/assets/stylesheets/variables.scss';
 @import './navbar.scss';
 @import '/notification_bar.scss';
 @import './typography.scss';
@@ -102,7 +102,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
+$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbargray, quillforestgreen: $quillforestgreen, quillblue: $quillblue, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
 
 @each $name, $color in $list {
   .text-#{$name} {
@@ -431,7 +431,7 @@ nav.q-navbar-home {
 .q-hero-footer {
   // min-height: 92px;
   text-align: center;
-  background-color: #027360;
+  background-color: $quillforestgreen;
   p {
     font-size: 20px;
     letter-spacing: 0.1px;

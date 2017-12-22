@@ -1,7 +1,7 @@
 .google-classroom-modal {
     text-align: center;
     .fa-exclamation-triangle {
-      color: #ff4542;
+      color: $quillred;
       padding-right: 0.5em
     }
     .fa-check {
@@ -94,7 +94,7 @@
        -webkit-box-align: center;
            -ms-flex-align: center;
                align-items: center;
-       color: #ff4542;
+       color: $quillred;
        i {
          padding-right: 3.5px;
        }

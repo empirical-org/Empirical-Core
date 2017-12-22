@@ -27,7 +27,7 @@
       a {
         display: block;
         float: left;
-        background: #e6e6e6;
+        background: $quillnavbargray;
         text-align: center;
         padding: 6px 38px;
         position: relative;
@@ -50,7 +50,7 @@
           content: "";
           border-top: 16px solid transparent;
           border-bottom: 16px solid transparent;
-          border-left: 16px solid #e6e6e6;
+          border-left: 16px solid $quillnavbargray;
           position: absolute;
           right: -16px;
           top: 0;
@@ -94,7 +94,7 @@
       a:hover {
         background: #fff;
         &:after:not(.active) {
-          border-left-color: #e6e6e6;
+          border-left-color: $quillnavbargray;
         }
       }
     }

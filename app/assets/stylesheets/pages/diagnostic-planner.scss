@@ -1,4 +1,4 @@
-$green: #00c2a2;
+$green: $quillgreen;
 #diagnostic-planner-status-bar {
   input[type=checkbox].css-checkbox + label.css-label {
     padding-left: 34px;
@@ -148,7 +148,7 @@ $green: #00c2a2;
             height: 21px;
             width: 21px;
             border-radius: 5px;
-            background: #e6e6e6;
+            background: $quillnavbargray;
             border: 1px solid #cecece;
         }
     }
@@ -173,7 +173,7 @@ $green: #00c2a2;
     }
     #assign-page {
         a {
-            color: #027360;
+            color: $quillforestgreen;
         }
         li a {
             color: #000;

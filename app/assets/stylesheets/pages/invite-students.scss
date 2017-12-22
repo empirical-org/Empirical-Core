@@ -196,7 +196,7 @@
     margin-top: 20px;
     border-collapse: separate;
     a {
-      color: #027360;
+      color: $quillforestgreen;
     }
     thead {
       background: #f7f5f5;
@@ -205,7 +205,7 @@
         border-bottom: none;
         border-top: 1px solid #cecece !important;
         cursor: default;
-        background-color: #e6e6e6;
+        background-color: $quillnavbargray;
         padding: 8px 12px;
         transition: 0.1s ease-out;
         -moz-transition: 0.1s ease-out;
@@ -216,7 +216,7 @@
           font-size: 1.3em;
         }
         &.active {
-          background: #e6e6e6;
+          background: $quillnavbargray;
         }
         &:nth-child(1) {
           width: 30%;
