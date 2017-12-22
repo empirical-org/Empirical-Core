@@ -58,11 +58,11 @@
 }
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
-  border-top: 3px solid #875A12 !important;
+  border-top: 3px solid $color_rusty_nail_approx !important;
 }
 .premium-tab a.active,
 .premium-tab a:hover {
-  border-top: 3px solid #875A12 !important;
+  border-top: 3px solid $color_rusty_nail_approx !important;
 }
 .preview-section {
   text-align: center;
@@ -89,7 +89,7 @@ li.premium-tab > a:hover {
 }
 
 #premium-pricing-guide {
-  color: #333333;
+  color: $color_mine_shaft_approx;
   padding: 60 0 0 0px;
   & > .row > div {
     margin-bottom: 2%;
@@ -110,7 +110,7 @@ li.premium-tab > a:hover {
   }
   .pricing-mini {
     background: white;
-    border: 1px solid #cecece;
+    border: 1px solid $lightgray;
     font-size: 15px;
     @media (max-width: 990px) {
       max-width: 383px;
@@ -164,7 +164,7 @@ li.premium-tab > a:hover {
       }
     }
     .pricing-info {
-      color: #333333;
+      color: $color_mine_shaft_approx;
       min-height: 350px;
       @media (max-width: 990px) {
         min-height: 0;
@@ -285,7 +285,7 @@ li.premium-tab > a:hover {
   color: white;
   padding-top: 100px;
   .super-title {
-    color: #875A12;
+    color: $color_rusty_nail_approx;
   }
   .copy {
     margin-top: 43px;
@@ -313,7 +313,7 @@ li.premium-tab > a:hover {
 #features-preview-table {
   table {
     margin: 137px auto 99px;
-    border: 1px solid #CECECE;
+    border: 1px solid $lightgray;
     border-radius: 6px;
     border-collapse: separate !important;
     th {
@@ -324,7 +324,7 @@ li.premium-tab > a:hover {
       color: black;
       font-weight: 500;
       width: 417px;
-      background-color: $quillnavbargray;
+      background-color: $verylightgray;
       border-top-left-radius: 6px;
     }
     th.quill-table-header,
@@ -335,7 +335,7 @@ li.premium-tab > a:hover {
       text-align: center;
     }
     th.quill-table-header {
-      background-color: #737373;
+      background-color: $color_tapa_approx;
     }
     th.quill-premium-table-header {
       background-color: $darkorange;
@@ -361,7 +361,7 @@ li.premium-tab > a:hover {
       }
     }
     td {
-      border-top: 1px solid #CECECE;
+      border-top: 1px solid $lightgray;
     }
     td.has_checkmark {
       background-image: image-url('premium_preview/check.png');
@@ -370,8 +370,8 @@ li.premium-tab > a:hover {
       background-size: 24px 18px;
     }
     td:nth-child(2) {
-      border-left: 1px solid #CECECE;
-      border-right: 1px solid #CECECE;
+      border-left: 1px solid $lightgray;
+      border-right: 1px solid $lightgray;
     }
   }
 }
@@ -379,7 +379,7 @@ li.premium-tab > a:hover {
   padding-bottom: 132px;
   color: #3C3B3B;
   .title {
-    color: #333333;
+    color: $color_mine_shaft_approx;
   }
   .preview-btns {
     margin-top: 37px;
@@ -474,7 +474,7 @@ li.premium-tab > a:hover {
   padding-left: 18px;
   padding-right: 20px;
 	background-color: #ffffff;
-	border: solid 1px #cecece;
+	border: solid 1px $lightgray;
   .bold-segment {
     font-weight: 700;
     padding-right: 5px;

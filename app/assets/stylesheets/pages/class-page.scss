@@ -16,29 +16,29 @@
     }
     thead {
       background: #f7f5f5;
-      border: 1px solid #cecece;
+      border: 1px solid $lightgray;
       tr th {
         border-bottom: none;
-        border-top: 1px solid #cecece !important;
+        border-top: 1px solid $lightgray !important;
         cursor: pointer;
-        background-color: $quillnavbargray;
+        background-color: $verylightgray;
         padding: 8px 12px;
         transition: 0.1s ease-out;
         -moz-transition: 0.1s ease-out;
         -webkit-transition: 0.1s ease-out;
         .fa {
           float: right;
-          color: #737373;
+          color: $color_tapa_approx;
           font-size: 1.3em;
         }
         &.active {
-          background: $quillnavbargray;
+          background: $verylightgray;
         }
         &:nth-child(1) {
           width: 26%;
           border-top-left-radius: 5px;
           text-align: left;
-          border-left: 1px solid #cecece;
+          border-left: 1px solid $lightgray;
         }
         &:nth-child(2) {
           width: 26%;
@@ -51,7 +51,7 @@
           width: 20%;
           text-align: center;
           border-top-right-radius: 5px;
-          border-right: 1px solid #cecece;
+          border-right: 1px solid $lightgray;
         }
       }
     }
@@ -62,18 +62,18 @@
         padding: 20px 12px;
         &:nth-child(1) {
           text-align: left;
-          border-left: 1px solid #cecece;
+          border-left: 1px solid $lightgray;
         }
         &:nth-child(2), &:nth-child(3) {
           text-align: left;
         }
         &:nth-child(4) {
           text-align: right;
-          border-right: 1px solid #cecece;
+          border-right: 1px solid $lightgray;
         }
       }
       &:last-child td {
-        border-bottom: 1px solid #cecece;
+        border-bottom: 1px solid $lightgray;
         &:first-child {
           border-bottom-left-radius: 5px;
         }

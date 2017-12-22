@@ -59,13 +59,13 @@
     }
     &.disabled > {
       .bs-wizard-dot {
-        background-color: #cecece;
+        background-color: $lightgray;
         &:after {
           opacity: 0;
         }
       }
       .progress {
-        background-color: #cecece;
+        background-color: $lightgray;
       }
     }
     &:first-child > .progress {

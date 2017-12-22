@@ -11,7 +11,7 @@
         padding-top: 36px;
         padding-bottom: 16px;
         width: 100%;
-        border-top: 1px solid #cecece;
+        border-top: 1px solid $lightgray;
         font-weight: 700;
     }
     @media (max-width: 1000px) {
@@ -72,7 +72,7 @@
     .premium-container,
     .resources-container {
         h4 {
-            border-bottom: 1px solid #cecece;
+            border-bottom: 1px solid $lightgray;
         }
     }
     .resources-container {
@@ -82,7 +82,7 @@
         }
         p {
             width: 280px;
-            border-top: 1px solid #cecece;
+            border-top: 1px solid $lightgray;
             line-height: 19px;
             padding-top: 5px;
         }
@@ -116,7 +116,7 @@
         }
         p {
             width: 271px;
-            color: #333333;
+            color: $color_mine_shaft_approx;
             line-height: 22px;
             margin-top: 37px;
         }
@@ -125,7 +125,7 @@
         margin: auto;
         width: 300px;
         height: 270px;
-        border: 1px solid #cecece;
+        border: 1px solid $lightgray;
         background-color: #ffffff;
         margin-bottom: 40px;
         &.premium-promo {
@@ -200,14 +200,14 @@
         }
         .button-white.class-mini-btn {
             background-color: white;
-            border: 1px solid #737373;
+            border: 1px solid $color_tapa_approx;
         }
         .classroom_name {
             font-weight: bold;
             margin: auto;
             width: 280px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #cecece;
+            border-bottom: 1px solid $lightgray;
             margin-bottom: 12px;
             margin-top: 7px;
             white-space: nowrap;
@@ -253,7 +253,7 @@
             margin: 11px auto 12px;
             width: 280px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #cecece;
+            border-bottom: 1px solid $lightgray;
             p {
                 margin-top: 5px;
                 color: #646464;
@@ -267,7 +267,7 @@
           margin: auto;
           padding: 16px 0px;
           width: 280px;
-          border-bottom: solid 1px #cecece;
+          border-bottom: solid 1px $lightgray;
           & + p {
             font-size: 14px;
             margin: auto;
@@ -281,8 +281,8 @@
             width: 233px;
             margin-top: 9px;
             background-color: white;
-            border: 1px solid #737373;
-            color: #333333;
+            border: 1px solid $color_tapa_approx;
+            color: $color_mine_shaft_approx;
             &.beta {
               margin-top: 28px;
               width: 160px;
@@ -315,7 +315,7 @@
         background-color: white;
         margin: 0 auto;
         cursor: pointer;
-        border: dashed 1px #cecece;
+        border: dashed 1px $lightgray;
         max-width: 298px;
         height: 120px;
         display: -webkit-box;
@@ -358,7 +358,7 @@
   margin-bottom: 40px;
   .inner-container {
     padding: 0 20 8 20px;
-    border: 1px solid #cecece;
+    border: 1px solid $lightgray;
     max-width: 638px;
     height: 270px;
     margin: auto;
@@ -395,20 +395,20 @@
     color: $quillforestgreen;
   }
   .no-assigned-lessons {
-    color: #969696;
+    color: $mediumdarkgray;
     line-height: 1.57;
     padding-top: 25px;
     a {
-      color: #969696;
+      color: $mediumdarkgray;
       text-decoration: underline;
     }
     img {
       margin-bottom: 15px;
     }
     &.completed-diagnostic {
-      color: #3b3b3b;
+      color: $darkgray;
       .recommendation {
-        color: #3b3b3b;
+        color: $darkgray;
         background-color: #e3fdff;
         padding-left: 1px;
         padding-right: 1px;

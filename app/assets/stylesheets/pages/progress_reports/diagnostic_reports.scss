@@ -21,7 +21,7 @@
 /* should be moved into select-classroom-dropdown file*/
 $darkgray3: #7e7e7e;
 $quillgreen: $quillgreen;
-$lightgray: #cecece;
+$lightgray: $lightgray;
 /* for report-navbar.scss*/
 #report-button-group {
     margin-right: 40px;
@@ -77,7 +77,7 @@ $lightgray: #cecece;
 }
 /* for the individual student reports*/
 @mixin gray-border {
-    border: solid 1px #cecece;
+    border: solid 1px $lightgray;
 }
 .individual-student-activity-view {
   padding-bottom: 91px;
@@ -127,7 +127,7 @@ $lightgray: #cecece;
         tr {
             height: 30px;
             padding-left: 8px;
-            border-bottom: solid 0.5px #cecece;
+            border-bottom: solid 0.5px $lightgray;
             &:first-of-type:not(.directions):not(.feedback) {
               height: 0px;
             }
@@ -171,7 +171,7 @@ $lightgray: #cecece;
 .student-report-box {
   td {
       height: 30px;
-      border-bottom: solid 0.5px #cecece;
+      border-bottom: solid 0.5px $lightgray;
     }
   tr.student-report-headers td {
     height: 0px;
@@ -302,7 +302,7 @@ $lightgray: #cecece;
       width: 40px;
       border-radius: 4px;
       background-color: #eafcff;
-      border: solid 1px #cecece;
+      border: solid 1px $lightgray;
       margin-right: 9px;
     }
     .assigned-recommendations-key-icon {
@@ -315,7 +315,7 @@ $lightgray: #cecece;
     .assigned-activity-pack-text {
       margin-left: 10px;
       p:nth-of-type(2) {
-        color: #737373;
+        color: $color_tapa_approx;
       }
     }
   }
@@ -403,7 +403,7 @@ $lightgray: #cecece;
       font-size: 12px;
       line-height: 1.25;
       background-color: #ffffff;
-      border: solid 1px #cecece;
+      border: solid 1px $lightgray;
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -428,7 +428,7 @@ $lightgray: #cecece;
       line-height: 1.25;
       overflow: hidden;
       background-color: #ffffff;
-      border: solid 1px #cecece;
+      border: solid 1px $lightgray;
       border-left: none;
       -webkit-box-align: center;
           -ms-flex-align: center;
@@ -448,7 +448,7 @@ $lightgray: #cecece;
       }
       &.previously-assigned {
         p {
-          color: #737373 !important;
+          color: $color_tapa_approx !important;
         }
         i {
           font-size: 18px;
@@ -476,7 +476,7 @@ $lightgray: #cecece;
 
     &:last-of-type {
       .recommendations-table-row-name, .recommendations-table-row-item {
-          border-bottom: solid 1px #cecece;
+          border-bottom: solid 1px $lightgray;
       }
       .recommendations-table-row-name {
         /* border-top: none;*/

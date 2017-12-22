@@ -27,7 +27,7 @@
       a {
         display: block;
         float: left;
-        background: $quillnavbargray;
+        background: $verylightgray;
         text-align: center;
         padding: 6px 38px;
         position: relative;
@@ -35,7 +35,7 @@
         color: #000;
         font-size: 14px;
         text-decoration: none;
-        border: 1px solid #cecece;
+        border: 1px solid $lightgray;
         &:hover {
           color: #000;
         }
@@ -50,7 +50,7 @@
           content: "";
           border-top: 16px solid transparent;
           border-bottom: 16px solid transparent;
-          border-left: 16px solid $quillnavbargray;
+          border-left: 16px solid $verylightgray;
           position: absolute;
           right: -16px;
           top: 0;
@@ -70,7 +70,7 @@
           content: "";
           border-top: 16px solid transparent;
           border-bottom: 16px solid transparent;
-          border-left: 16px solid #cecece;
+          border-left: 16px solid $lightgray;
           position: absolute;
           left: 0;
           top: 0;
@@ -94,7 +94,7 @@
       a:hover {
         background: #fff;
         &:after:not(.active) {
-          border-left-color: $quillnavbargray;
+          border-left-color: $verylightgray;
         }
       }
     }

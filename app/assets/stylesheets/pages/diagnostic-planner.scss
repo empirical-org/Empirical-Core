@@ -93,7 +93,7 @@ $green: $quillgreen;
             }
         }
         .connector-line {
-            border: 1px solid #cecece;
+            border: 1px solid $lightgray;
             height: 1px;
             -ms-flex-item-align: center;
                 align-self: center;
@@ -148,8 +148,8 @@ $green: $quillgreen;
             height: 21px;
             width: 21px;
             border-radius: 5px;
-            background: $quillnavbargray;
-            border: 1px solid #cecece;
+            background: $verylightgray;
+            border: 1px solid $lightgray;
         }
     }
     label h3 {
@@ -163,7 +163,7 @@ $green: $quillgreen;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        border-bottom: solid 1px #cecece;
+        border-bottom: solid 1px $lightgray;
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center;
@@ -181,7 +181,7 @@ $green: $quillgreen;
         #subtext:after {
             display: block;
             content: '';
-            background: #cecece;
+            background: $lightgray;
             width: 40px;
             height: 2px;
             margin: 7px auto;

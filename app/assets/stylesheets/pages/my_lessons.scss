@@ -101,14 +101,14 @@
     h1 {
       font-size: 30px;
       font-weight: 600;
-      color: #3b3b3b;
+      color: $darkgray;
     }
     p {
       line-height: 1.62;
       font-size: 16px;
       &:first-of-type {
         margin: 15px 0px;
-        color: #969696;
+        color: $mediumdarkgray;
       }
       &:nth-of-type(2) {
         color: #515151;

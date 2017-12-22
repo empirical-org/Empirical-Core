@@ -46,7 +46,7 @@
   }
 
   #features {
-    color: #3b3b3b;
+    color: $darkgray;
     margin-top: 22px;
     h2 {
       margin-bottom: 10px;
@@ -71,7 +71,7 @@
           margin-bottom: 15px;
           margin-top: 10px;
           height: 1px;
-          border-top: solid 1px #3b3b3b;
+          border-top: solid 1px $darkgray;
         }
         .contact {
           margin-top: 15px;
@@ -263,7 +263,7 @@
       .need-access {
         font-size: 14px;
         font-style: italic;
-        color: #969696;
+        color: $mediumdarkgray;
         a {
           text-decoration: underline;
         }

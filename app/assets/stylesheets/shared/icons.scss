@@ -41,7 +41,7 @@
 }
 
 .icon-gray {
-  background: #b7b7b7;
+  background: $gray;
 }
 
 .icon-blue {
@@ -55,7 +55,7 @@
 
 .icon-unstarted {
   background-color: #f6f3f3;
-  border: solid 1px #969696;
+  border: solid 1px $mediumdarkgray;
 }
 
 .icon-pencil {

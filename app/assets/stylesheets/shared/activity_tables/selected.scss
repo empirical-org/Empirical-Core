@@ -22,7 +22,7 @@
     }
 
     &:last-child td {
-      border-bottom: 1px solid #cecece;
+      border-bottom: 1px solid $lightgray;
       &:nth-child(1) {
         border-bottom-left-radius: 5px;
       }
@@ -39,7 +39,7 @@
         text-align: left !important;
       }
       &:nth-child(3) {
-        border-right: 1px solid #cecece;
+        border-right: 1px solid $lightgray;
         width: 5%;
       }
     }

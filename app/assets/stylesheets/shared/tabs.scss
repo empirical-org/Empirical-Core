@@ -7,7 +7,7 @@
         a {
             text-decoration: none;
             border-top: 3px solid transparent;
-            border-bottom: 1px solid #cecece;
+            border-bottom: 1px solid $lightgray;
             padding-left: 34px;
             padding-right: 34px;
             font-size: 15px;
@@ -36,7 +36,7 @@
 .tab-subnavigation-wrapper {
     padding: 8px 0;
     background: #fff;
-    border-bottom: 1px solid #cecece;
+    border-bottom: 1px solid $lightgray;
     min-height: 48px;
     ul {
         padding: 0;
@@ -53,7 +53,7 @@
                 color: #000;
                 height: 35px;
                 &.active {
-                    background: $quillnavbargray;
+                    background: $verylightgray;
                 }
             }
         }
@@ -64,7 +64,7 @@
     $orange: #eda41b;
     a:not(.default) {
         border: 1px solid $orange;
-        color: #875a12;
+        color: $color_rusty_nail_approx;
         &.active {
             background: $orange;
             color: white;

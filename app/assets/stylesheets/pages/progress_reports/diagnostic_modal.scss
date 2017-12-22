@@ -42,7 +42,7 @@
     p {
         font-size: 14px;
         line-height: 1.5;
-        color: #333333;
+        color: $color_mine_shaft_approx;
     }
     .circle {
         border-radius: 50%;
@@ -125,7 +125,7 @@
 }
 button.button-transparent {
     padding: 10px 25px;
-    border: solid 1px #737373;
+    border: solid 1px $color_tapa_approx;
     color: black;
     margin-top: 27px;
     background-color: inherit;

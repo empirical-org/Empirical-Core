@@ -42,7 +42,7 @@
        max-width: 144px;
        width: 100%;
        float: right;
-       border: 1px solid #737373;
+       border: 1px solid $color_tapa_approx;
        font-weight: bold;
        font-size: 16px;
      }
@@ -52,7 +52,7 @@
          margin-bottom: 20px;
        }
        input[type=submit] {
-         border: solid 1px #3b3b3b;
+         border: solid 1px $darkgray;
          margin-left: 0;
          float: none;
        }

@@ -8,11 +8,11 @@
 }
 
 #activity-planner #activities_table .tooltip.top .tooltip-arrow {
-  border-top-color: #cecece;
+  border-top-color: $lightgray;
 }
 
 .tooltip.bottom .tooltip-arrow {
-  border-bottom-color: #cecece;
+  border-bottom-color: $lightgray;
 }
 
 .react-lightbox, .react-lightbox-modal {

@@ -34,7 +34,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0px 30px;
-      color: #969696;
+      color: $mediumdarkgray;
       margin-bottom: 15px;
       img {
         margin-right: 30px;
@@ -47,7 +47,7 @@
         }
         span {
           font-weight: 600;
-          color: #3b3b3b;
+          color: $darkgray;
         }
       }
       .completed-text {
@@ -71,7 +71,7 @@
     p {
       font-size: 16px;
       max-width: 750px;
-      color: #3b3b3b;
+      color: $darkgray;
       a {
         color: $quillforestgreen;
       }

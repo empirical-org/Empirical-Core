@@ -11,7 +11,7 @@
 }
 
 .border-mixin {
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
 }
 
 .page-content-wrapper {
@@ -20,12 +20,12 @@
 
 .section-mixin {
   padding: 30px 0px;
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid $lightgray;
 }
 
 .input-mixin {
   border-radius: 5px;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   color: #000;
   font-size: 14px;
   padding: 9px 12px;
@@ -33,7 +33,7 @@
 
 .select-mixin {
   border-radius: 5px;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   color: #000;
   font-size: 14px;
   padding: 9px 14px;
@@ -49,8 +49,8 @@
   height: 21px;
   width: 21px;
   border-radius: 5px;
-  background: $quillnavbargray;
-  border: 1px solid #cecece;
+  background: $verylightgray;
+  border: 1px solid $lightgray;
 }
 
 .button-mixin {
@@ -60,7 +60,7 @@
 }
 
 .fa-caret-mixin {
-  color: #737373;
+  color: $color_tapa_approx;
   font-size: 1.3em;
 }
 
@@ -148,7 +148,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 section {
   padding: 30px 0;
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid $lightgray;
 }
 
 button:not(.select-mixin) {
@@ -174,7 +174,7 @@ button:not(.select-mixin) {
 }
 
 .button-gray {
-  background-color: #737373;
+  background-color: $color_tapa_approx;
   color: #fff;
   &:hover {
     background-color: #616161;
@@ -229,7 +229,7 @@ button:not(.select-mixin) {
     color: #747474;
   }
   .fa {
-    color: #cecece;
+    color: $lightgray;
     margin-left: 10px;
   }
 }
@@ -339,7 +339,7 @@ button:not(.select-mixin) {
 }
 
 .button-red {
-  background-color: #fc3e3b;
+  background-color: $color_coral_red_approx;
   color: #fff;
   &:hover {
     background-color: #fc2f2c;
@@ -370,11 +370,11 @@ button:not(.select-mixin) {
   }
 }
 .quill-table {
-  border: solid 1px #cecece;
+  border: solid 1px $lightgray;
   background-color: white;
   font-size: 14px;
   thead {
-    background-color: $quillnavbargray;
+    background-color: $verylightgray;
   }
   td {
     width: 30%;

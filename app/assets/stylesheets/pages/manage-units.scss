@@ -115,7 +115,7 @@
 
   .locked-unit {
     border-radius: 14px;
-    border: solid 1px #3b3b3b;
+    border: solid 1px $darkgray;
     padding: 5px 10px;
     position: relative;
     top: 2px;
@@ -159,14 +159,14 @@
     margin-top: 12px;
     text-align: left !important;
     border-bottom: none;
-    border-top: 1px solid #cecece !important;
-    background-color: $quillnavbargray;
+    border-top: 1px solid $lightgray !important;
+    background-color: $verylightgray;
     padding: 8px 12px;
     width: 100% !important;
     border-top-left-radius: 5px;
-    border-left: 1px solid #cecece;
+    border-left: 1px solid $lightgray;
     border-top-right-radius: 5px;
-    border-right: 1px solid #cecece;
+    border-right: 1px solid $lightgray;
     padding-left: 17px;
     margin-left: 0;
 
@@ -245,11 +245,11 @@
     }
 
     .row:last-child {
-      border-bottom: 1px solid #cecece;
+      border-bottom: 1px solid $lightgray;
     }
 
     .row {
-      border: 1px solid #cecece;
+      border: 1px solid $lightgray;
       border-bottom: none;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -277,7 +277,7 @@
       .mark-completed {
         font-weight: 600;
         margin-right: 45px;
-        color: #969696;
+        color: $mediumdarkgray;
 
         i {
           margin-right: -6px;
@@ -346,14 +346,14 @@
         margin-right: 30px;
         text-decoration: none;
         font-weight: 600;
-        color: #3b3b3b;
+        color: $darkgray;
         justify-content: center;
         align-items: center;
         display: flex;
         height: 40px;
         border-radius: 3px;
         background-color: #ffffff;
-        border: solid 1px #3b3b3b;
+        border: solid 1px $darkgray;
       }
 
       .cell:first-child {

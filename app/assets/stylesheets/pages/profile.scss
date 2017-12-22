@@ -57,9 +57,9 @@
       padding: 0px;
     }
     .classroom-box {
-      border-left: solid 1px #cecece;
+      border-left: solid 1px $lightgray;
       width: 162px;
-      border-bottom: solid 1px #cecece;
+      border-bottom: solid 1px $lightgray;
     }
   }
 
@@ -73,11 +73,11 @@
       font-size: 14px;
       line-height: 1.4;
       width: 161px;
-      border-right: solid 1px #cecece;
+      border-right: solid 1px $lightgray;
       text-overflow: ellipsis;
       color: black;
       &:first-of-type {
-        border-left: solid 1px #cecece;
+        border-left: solid 1px $lightgray;
       }
       &.active {
         font-weight: 600;
@@ -136,7 +136,7 @@
       span {
         font-size: 24px;
       	font-weight: 600;
-        color: #3b3b3b;
+        color: $darkgray;
       }
     }
     .dividing-line {
