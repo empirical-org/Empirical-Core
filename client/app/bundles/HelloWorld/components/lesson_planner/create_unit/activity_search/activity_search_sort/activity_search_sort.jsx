@@ -21,7 +21,7 @@ export default React.createClass({
     }
 
     return (
-      <th className="sorter" onClick={this.clickSort}>
+      <th className={`sorter ${this.props.data.className}`} onClick={this.clickSort}>
         {this.props.data.alias}
         <i className={arrowClass} />
       </th>
