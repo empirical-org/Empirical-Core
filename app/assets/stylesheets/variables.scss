@@ -1,33 +1,29 @@
+// Generic colors
+$white: #fff;
+$black: #000;
+
+// Quill brand colors
 $quillgreen: #00c2a2;
 $quillforestgreen: #027360;
 $quillblue: #348fdf;
 $quillred: #ff4542;
 $quillnavbar: #e6e6e6;
-
-$white: #fff;
-$black: #000;
 $orange: #f8a724;
-
 $red: #e8522c;
 $darkred: #ff3d3d;
-
 $purple: #9c2bde;
 $lessonspurple: #a51070;
-
 $darkorange: #EA9A1A;
 $darkblue: #0f4c7a;
-
 $green: #58b146;
 $darkgreen: #027360;
 $darkgreen2: #0a980a;
-
 $gray: #b7b7b7;
 $verylightgray: rgb(230,230,230);
 $lightgray: #cecece;
 $mediumdarkgray: rgb(150, 150, 150);
 $lightgray2: #f4f2f2;
 $darkgray: #3b3b3b;
-
 $color_tapa_approx: #737373;
 $white_20: rgba(255, 255, 255, 0.2);
 $black_40: rgba(0, 0, 0, 0.4);
@@ -39,7 +35,6 @@ $color_mine_shaft_approx: #333333;
 $color_oracle_approx: #2e7c6a;
 $color_rusty_nail_approx: #875a12;
 $color_thunderbird_approx: #c51916;
-
 $missed-color: #d54141;
 $missed-color-light: #ffeade;
 $found-color: #78ca47;
@@ -48,10 +43,11 @@ $introduced-color: #9060c7;
 $introduced-color-light: #f5deff;
 $tried-color: #ffba00;
 $tried-color-light: #fff9d6;
-$spinner-color:      #ffffff;
-$spinner-size:       30px;
-$spinner-speed:      0.75s;
-$spinner-thickness:  8px;
+$spinner-color: #ffffff;
+$spinner-size: 30px;
+$spinner-speed: 0.75s;
+$spinner-thickness: 8px;
 
+// Fonts
 $family-sans-serif: "adelle-sans", "Helvetica", "Arial", sans-serif;
 $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
