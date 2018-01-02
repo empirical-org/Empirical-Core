@@ -3,9 +3,11 @@ import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 const reviewsRef = rootRef.child('reviews');
-const editionsRef = rootRef.child('lessons_editions');
+const editionMetadataRef = rootRef.child('lesson_edition_metadata');
+const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
 import * as IntF from 'components/classroomLessons/interfaces';
+import * as CustomizeIntF from 'app/interfaces/customize'
 
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
@@ -22,22 +24,6 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
         dispatch(setLessonId(classroomLessonUid))
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
-      }
-    });
-  };
-}
-
-export function getEditionFromFirebase(editionUid: string) {
-  console.log('getting an edition')
-  return function (dispatch) {
-    console.log("Fetching")
-    editionsRef.child(editionUid).on('value', (snapshot) => {
-      console.log("Fetched")
-      if (snapshot.val()) {
-        dispatch(updateClassroomLesson(snapshot.val().data));
-        dispatch(setLessonId(editionUid))
-      } else {
-        dispatch({type: C.NO_LESSON_ID, data: editionUid})
       }
     });
   };
@@ -69,7 +55,7 @@ export function listenForClassroomLessonsFromFirebase() {
   }
 }
 
-export function listenForclassroomLessonsReviewsFromFirebase() {
+export function listenForClassroomLessonsReviewsFromFirebase() {
   return function (dispatch) {
     reviewsRef.on('value', (snapshot) => {
       if (snapshot.val()) {
@@ -98,19 +84,19 @@ export function updateClassroomLessonsReviews(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})
 }
 
-export function addSlide(classroomLessonUid: string, classroomLesson: IntF.ClassroomLesson, slideType: string, cb:Function|undefined) {
-  const lessonRef = classroomLessonsRef.child(classroomLessonUid);
-  const newLesson: IntF.ClassroomLesson = _.merge({}, classroomLesson)
+export function addSlide(editionUid: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, cb:Function|undefined) {
+  const editionQuestionRef = editionQuestionsRef.child(editionUid);
+  const newEdition: CustomizeIntF.EditionQuestions = _.merge({}, editionQuestions)
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
-  newLesson.questions.splice(-1, 0, newSlide)
-  lessonRef.set(newLesson);
+  newEdition.questions.splice(-1, 0, newSlide)
+  editionQuestionRef.set(newEdition);
   if (cb) {
-    cb(Number(newLesson.questions.length) - 2)
+    cb(Number(newEdition.questions.length) - 2)
   }
 }
 
-export function deleteClassroomLessonSlide(classroomLessonID, slideID, slides) {
-  const slidesRef = classroomLessonsRef.child(`${classroomLessonID}/questions/`)
+export function deleteEditionSlide(editionID, slideID, slides) {
+  const slidesRef = editionQuestionsRef.child(`${editionID}/questions/`)
   const newArray = _.compact(Object.keys(slides).map(slideKey => {
     if (slideKey != slideID ) {
       return slides[slideKey]
@@ -119,18 +105,18 @@ export function deleteClassroomLessonSlide(classroomLessonID, slideID, slides) {
   slidesRef.set(newArray);
 }
 
-export function addScriptItem(classroomLessonUid: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
+export function addScriptItem(editionID: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
-  const slideRef = classroomLessonsRef.child(`${classroomLessonUid}/questions/${slideID}`)
+  const slideRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}`)
   slideRef.set(newSlide)
   if (cb) {
     cb(newSlide.data.teach.script.length - 1)
   }
 }
 
-export function deleteScriptItem(classroomLessonID, slideID, scriptItemID, script) {
-  const scriptRef = classroomLessonsRef.child(`${classroomLessonID}/questions/${slideID}/data/teach/script`)
+export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
+  const scriptRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}/data/teach/script`)
   const newArray = _.compact(Object.keys(script).map(scriptKey => {
     if (scriptKey != scriptItemID ) {
       return script[scriptKey]
@@ -148,18 +134,18 @@ export function addLesson(lessonName, cb) {
   }
 }
 
-export function saveClassroomLessonSlide(classroomLessonID, slideID, slideData, cb) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/${slideID}/data`)
+export function saveEditionSlide(editionID, slideID, slideData, cb) {
+  editionQuestionsRef
+    .child(`${editionID}/questions/${slideID}/data`)
     .set(slideData)
   if (cb) {
     cb()
   }
 }
 
-export function saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, cb) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
+export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, cb) {
+  editionQuestionsRef
+    .child(`${editionID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
     .set(scriptItem)
   if (cb) {
     cb()
@@ -169,20 +155,30 @@ export function saveClassroomLessonScriptItem(classroomLessonID, slideID, script
 export function deleteLesson(classroomLessonID) {
   classroomLessonsRef.child(classroomLessonID).remove();
 }
-export function updateSlideScriptItems(classroomLessonID, slideID, scriptItems) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/${slideID}/data/teach/script/`)
+
+export function deleteEdition(editionID) {
+  editionMetadataRef.child(editionID).remove();
+  editionQuestionsRef.child(editionID).remove();
+}
+
+export function updateSlideScriptItems(editionID, slideID, scriptItems) {
+  editionQuestionsRef
+    .child(`${editionID}/questions/${slideID}/data/teach/script/`)
     .set(scriptItems)
 }
 
-export function updateClassroomLessonSlides(classroomLessonID, slides) {
-  classroomLessonsRef
-    .child(`${classroomLessonID}/questions/`)
+export function updateEditionSlides(editionID, slides) {
+  editionQuestionsRef
+    .child(`${editionID}/questions/`)
     .set(slides)
 }
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
   classroomLessonsRef.child(classroomLessonID).set(classroomLesson)
+}
+
+export function updateEditionDetails(editionID, edition) {
+  editionMetadataRef.child(editionID).set(edition)
 }
 
 export function clearClassroomLessonFromStore() {

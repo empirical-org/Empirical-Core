@@ -1,7 +1,8 @@
 import ShowClassroomLesson from 'components/classroomLessons/admin/show';
-import ShowClassroomLessonSlide from 'components/classroomLessons/admin/showSlide';
-import ShowClassroomLessonScriptItem from 'components/classroomLessons/admin/showScriptItem';
-import ShowClassroomLessonEditions from 'components/classroomLessons/admin/editions';
+import ShowAdminEdition from 'components/classroomLessons/admin/showAdminEdition'
+import ShowEditionSlide from 'components/classroomLessons/admin/showSlide';
+import ShowEditionScriptItem from 'components/classroomLessons/admin/showScriptItem';
+import ShowClassroomLessonUserEditions from 'components/classroomLessons/admin/userEditions';
 import Passthrough from 'components/shared/passthrough';
 
 export default {
@@ -13,15 +14,19 @@ export default {
   childRoutes: [
     {
       path: 'editions',
-      component: ShowClassroomLessonEditions
+      component: ShowClassroomLessonUserEditions
     },
     {
-      path: 'slide/:slideID',
-      component: ShowClassroomLessonSlide,
+      path: 'editions/:editionID',
+      component: ShowAdminEdition
     },
     {
-      path: 'slide/:slideID/scriptItem/:scriptItemID',
-      component: ShowClassroomLessonScriptItem,
+      path: 'editions/:editionID/slide/:slideID',
+      component: ShowEditionSlide,
+    },
+    {
+      path: 'editions/:editionID/slide/:slideID/scriptItem/:scriptItemID',
+      component: ShowEditionScriptItem,
     }
   ],
 };

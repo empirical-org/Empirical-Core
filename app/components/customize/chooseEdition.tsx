@@ -13,6 +13,7 @@ import EditionNamingModal from './editionNamingModal'
 import EditionRow from './editionRow'
 import SignupModal from '../classroomLessons/teach/signupModal'
 import { getParameterByName } from '../../libs/getParameterByName'
+import * as CustomizeIntF from 'app/interfaces/customize'
 
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {
@@ -87,11 +88,11 @@ class ChooseEdition extends React.Component<any, any> {
 
   selectAction(editionKey: string) {
     const lessonId = this.props.params.lessonID
+    const classroomActivityId = getParameterByName('classroom_activity_id')
     if (getParameterByName('preview')) {
       const editionId = editionKey ? editionKey : ''
       return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
-    } else if (getParameterByName('classroom_activity_id')) {
-      const classroomActivityId = getParameterByName('classroom_activity_id')
+    } else if (classroomActivityId) {
       return setEditionId(classroomActivityId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
     }
   }
@@ -148,61 +149,61 @@ class ChooseEdition extends React.Component<any, any> {
     }
   }
 
-  renderQuillEditions() {
-    const editions = {lesson: this.props.classroomLesson.data}
-    const quillEditions = Object.keys(editions).map((e, i) => {
-      return <EditionRow
-                edition={editions[e]}
-                makeNewEdition={this.makeNewEdition}
-                editEdition={this.editEdition}
-                archiveEdition={this.archiveEdition}
-                creator='quill'
-                key={i}
-                selectAction={this.selectAction}
-                selectState={this.state.selectState}
-              />
-    })
-    return <div className="quill-editions">
-      <p className="header">Quill Created Editions</p>
-      {quillEditions}
-    </div>
-  }
-
-  renderMyEditionsAndCoteacherEditions() {
+  renderEditions() {
     const {editions, user_id} = this.props.customize
     if (Object.keys(editions).length > 0) {
-      const myEditions = []
-      const coteacherEditions = []
+      const quillEditions:Array<JSX.Element>  = []
+      const myEditions:Array<JSX.Element> = []
+      const coteacherEditions:Array<JSX.Element>  = []
       Object.keys(editions).forEach((e) => {
-        const edition = editions[e]
+        const edition:CustomizeIntF.EditionMetadata = editions[e]
         edition.key = e
-        if (edition.user_id === user_id && edition.lesson_id === this.props.params.lessonID) {
-          const editionRow = <EditionRow
-            edition={edition}
-            makeNewEdition={this.makeNewEdition}
-            editEdition={this.editEdition}
-            archiveEdition={this.archiveEdition}
-            creator='user'
-            key={e}
-            selectAction={this.selectAction}
-            selectState={this.state.selectState}
-          />
-          myEditions.push(editionRow)
-        } else if (edition.user_id !== user_id && edition.lesson_id === this.props.params.lessonID) {
-          const editionRow = <EditionRow
-            edition={edition}
-            makeNewEdition={this.makeNewEdition}
-            creator='coteacher'
-            key={e}
-            selectAction={this.selectAction}
-            selectState={this.state.selectState}
-          />
-          coteacherEditions.push(editionRow)
+        if (edition.lesson_id === this.props.params.lessonID) {
+          if (edition.user_id === user_id) {
+            const editionRow = <EditionRow
+              key={e}
+              edition={edition}
+              makeNewEdition={this.makeNewEdition}
+              editEdition={this.editEdition}
+              archiveEdition={this.archiveEdition}
+              creator='user'
+              selectAction={this.selectAction}
+              selectState={this.state.selectState}
+              />
+            myEditions.push(editionRow)
+          } else if (String(edition.user_id) === 'quill-staff') {
+            const editionRow = <EditionRow
+              key={e}
+              edition={edition}
+              makeNewEdition={this.makeNewEdition}
+              creator='quill'
+              selectAction={this.selectAction}
+              selectState={this.state.selectState}
+            />
+            quillEditions.push(editionRow)
+          } else {
+            const editionRow = <EditionRow
+              key={e}
+              edition={edition}
+              makeNewEdition={this.makeNewEdition}
+              creator='coteacher'
+              selectAction={this.selectAction}
+              selectState={this.state.selectState}
+            />
+            coteacherEditions.push(editionRow)
+          }
         }
       })
+      const compactedQuillEditions = _.compact(quillEditions)
       const compactedMyEditions = _.compact(myEditions)
       const compactedCoteacherEditions = _.compact(coteacherEditions)
-      let myEditionSection, coteacherEditionSection
+      let quillEditionSection, myEditionSection, coteacherEditionSection
+      if (compactedQuillEditions.length > 0) {
+        quillEditionSection = <div className="quill-editions">
+        <p className="header">Quill Created Editions</p>
+        {compactedQuillEditions}
+        </div>
+      }
       if (compactedCoteacherEditions.length > 0) {
         coteacherEditionSection = <div className="coteacher-editions">
         <p className="header">Co-Teacher Customized Editions</p>
@@ -216,6 +217,7 @@ class ChooseEdition extends React.Component<any, any> {
         </div>
       }
       return <div>
+        {quillEditionSection}
         {myEditionSection}
         {coteacherEditionSection}
       </div>
@@ -238,8 +240,7 @@ class ChooseEdition extends React.Component<any, any> {
       {this.renderLessonInfo()}
       {this.renderHeader()}
       {this.renderExplanation()}
-      {this.renderQuillEditions()}
-      {this.renderMyEditionsAndCoteacherEditions()}
+      {this.renderEditions()}
       {this.renderNamingModal()}
     </div>
   }
@@ -252,4 +253,8 @@ function select(state) {
   }
 }
 
-export default connect(select)(ChooseEdition)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(ChooseEdition)

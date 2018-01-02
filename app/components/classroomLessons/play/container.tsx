@@ -23,9 +23,11 @@ import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
 import {
-  getClassLessonFromFirebase,
-  getEditionFromFirebase
+  getClassLessonFromFirebase
  } from '../../../actions/classroomLesson';
+import {
+ getEditionQuestions
+} from '../../../actions/customize';
 import { getParameterByName } from 'libs/getParameterByName';
 import {
   ClassroomLessonSessions,
@@ -35,12 +37,13 @@ import {
 import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from 'interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
 import Spinner from 'components/shared/spinner'
 
-class PlayLessonClassroomContainer extends React.Component<any, any> {
+class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,26 +75,24 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const student = getParameterByName('student');
+    const student = getParameterByName('student') ? getParameterByName('student') : '';
     const npCSData = nextProps.classroomSessions.data
+    const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.data.edition_id && !nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-      } else if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
+      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length < 1) {
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+      }
+      if (!nextProps.classroomLesson.hasreceiveddata) {
+        this.props.dispatch(getClassLessonFromFirebase(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
-        if (nextProps.classroomSessions.data.edition_id) {
-          this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-        } else {
-          this.props.dispatch(getClassLessonFromFirebase(this.props.params.lessonID));
-        }
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
     }
     if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.followUpActivityName)) {
       switch(npCSData.followUpOption) {
         case "Small Group Instruction and Independent Practice":
-          if (Object.keys(npCSData.flaggedStudents).includes(student)) {
+          if (typeof(student) === 'string' && Object.keys(npCSData.flaggedStudents).indexOf(student) !== -1) {
             this.setState({flaggedStudentCompletionScreen: true})
           } else {
             window.location.href = npCSData.followUpUrl
@@ -103,7 +104,7 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
         case "All Students Practice Later":
         case "No Follow Up Practice":
         default:
-          window.location.href = process.env.EMPIRICAL_BASE_URL
+          window.location.href = process.env.EMPIRICAL_BASE_URL ? String(process.env.EMPIRICAL_BASE_URL) : ''
           break
       }
     }
@@ -140,11 +141,11 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       if (ca_id) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, lessonData)
-          : goToPreviousSlide(ca_id, sessionData, lessonData)
+          ? goToNextSlide(ca_id, sessionData, editionData)
+          : goToPreviousSlide(ca_id, sessionData, editionData)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }
@@ -182,8 +183,8 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
     this.setState({showProjectorModal: false})
   }
 
-  renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson) {
-    const current = lessonData.questions[data.current_slide];
+  renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson, editionData: CustomizeIntf.EditionQuestions) {
+    const current = editionData.questions[data.current_slide];
     const prompt = data.prompts && data.prompts[data.current_slide] ? data.prompts[data.current_slide] : null;
     const model: string|null = data.models && data.models[data.current_slide] ? data.models[data.current_slide] : null;
     const mode: string|null = data.modes && data.modes[data.current_slide] ? data.modes[data.current_slide] : null;
@@ -272,13 +273,15 @@ class PlayLessonClassroomContainer extends React.Component<any, any> {
      } else {
        const lessonData: ClassroomLesson = this.props.classroomLesson.data;
        const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
+       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+       const editionDataLoaded: boolean = Object.keys(editionData).length > 0;
        // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
        // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
        const absentTeacher = this.props.classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
        const watchTeacher = this.props.classroomSessions.data.watchTeacherState && !this.state.projector ? <CLWatchTeacher /> : null
 
-       if (hasreceiveddata && lessonDataLoaded) {
-         const component = this.renderCurrentSlide(data, lessonData);
+       if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
+         const component = this.renderCurrentSlide(data, lessonData, editionData);
          if (component) {
            return (
              <div>
@@ -309,7 +312,12 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
+    customize: props.customize
   };
 }
 
-export default connect(select)(PlayLessonClassroomContainer);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(PlayClassroomLessonContainer);

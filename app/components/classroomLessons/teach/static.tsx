@@ -6,10 +6,11 @@ import {
 import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
+import * as CustomizeIntf from 'interfaces/customize'
 
 interface StaticProps {
   data: ClassroomLessonSession,
-  lessonData: ClassroomLesson,
+  editionData: CustomizeIntf.EditionQuestions,
   toggleOnlyShowHeaders: React.EventHandler<React.MouseEvent<HTMLParagraphElement>>,
   updateToggledHeaderCount: Function,
   onlyShowHeaders?: boolean
@@ -28,7 +29,7 @@ class Static extends Component<StaticProps, StaticState> {
       <div className="teacher-static">
         <div className="header">
           <h1>
-            <span>Slide {this.props.data.current_slide}:</span> {this.props.lessonData.questions[this.props.data.current_slide].data.teach.title}
+            <span>Slide {this.props.data.current_slide}:</span> {this.props.editionData.questions[this.props.data.current_slide].data.teach.title}
           </h1>
           <p onClick={this.props.toggleOnlyShowHeaders}>
             {showHeaderText}
@@ -36,7 +37,7 @@ class Static extends Component<StaticProps, StaticState> {
         </div>
         <ul>
           <ScriptComponent
-            script={this.props.lessonData.questions[this.props.data.current_slide].data.teach.script}
+            script={this.props.editionData.questions[this.props.data.current_slide].data.teach.script}
             onlyShowHeaders={this.props.onlyShowHeaders}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
           />

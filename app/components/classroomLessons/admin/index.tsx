@@ -6,11 +6,11 @@ import {
   addLesson
 } from '../../../actions/classroomLesson'
 import {
-  startListeningToEditions
+  startListeningToEditionMetadata
 } from '../../../actions/customize'
 import {
   listenForClassroomLessonsFromFirebase,
-  listenForclassroomLessonsReviewsFromFirebase
+  listenForClassroomLessonsReviewsFromFirebase
 } from '../../../actions/classroomLesson';
 
 class ClassLessonsIndex extends Component<any, any> {
@@ -26,8 +26,8 @@ class ClassLessonsIndex extends Component<any, any> {
     this.changeNewLessonName = this.changeNewLessonName.bind(this)
     this.goToNewLesson = this.goToNewLesson.bind(this)
     props.dispatch(listenForClassroomLessonsFromFirebase());
-    props.dispatch(listenForclassroomLessonsReviewsFromFirebase())
-    props.dispatch(startListeningToEditions())
+    props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
+    props.dispatch(startListeningToEditionMetadata())
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,8 +65,8 @@ class ClassLessonsIndex extends Component<any, any> {
             <span>
               <span>{score}</span>
               <a href={`/#/admin/classroom-lessons/${classroomLessonId}`}>Edit</a>
-              <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonId}/preview`}>Preview</a>
-              <a href={`/#/admin/classroom-lessons/${classroomLessonId}/editions`}>Editions</a>
+              |
+              <a href={`/#/admin/classroom-lessons/${classroomLessonId}/editions`}>User Editions</a>
             </span>
           </li>
         )
@@ -106,7 +106,7 @@ class ClassLessonsIndex extends Component<any, any> {
 
   renderLinkToAllEditions() {
     return <div className="all-editions-link">
-      <a href="#/admin/classroom-lessons/editions">See All Lesson Editions</a>
+      <a href="#/admin/classroom-lessons/editions">See All User-Created Lesson Editions</a>
     </div>
   }
 
@@ -143,4 +143,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(ClassLessonsIndex);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(ClassLessonsIndex);

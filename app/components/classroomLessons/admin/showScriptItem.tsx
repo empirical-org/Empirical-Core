@@ -6,12 +6,14 @@ import {
   getClassroomLessonSlide
 } from './helpers';
 import {
-  saveClassroomLessonScriptItem,
+  saveEditionScriptItem,
   deleteScriptItem
 } from 'actions/classroomLesson'
+import { getEditionQuestions } from '../../../actions/customize'
 
 import * as IntF from '../interfaces';
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
+import * as CustomizeIntF from '../../../interfaces/Customize';
 
 import EditScriptItem from './editScriptItem';
 
@@ -21,24 +23,34 @@ class showScriptItem extends Component<any, any> {
     this.save = this.save.bind(this)
     this.saveAlert = this.saveAlert.bind(this)
     this.delete = this.delete.bind(this)
+
+    this.props.dispatch(getEditionQuestions(this.props.params.editionID))
   }
 
   classroomLesson(): IntF.ClassroomLesson {
     return this.props.classroomLessons.data[this.props.params.classroomLessonID]
   }
 
+  edition(): CustomizeIntF.EditionMetadata {
+    return this.props.customize.editions[this.props.params.editionID]
+  }
+
+  editionQuestions(): CustomizeIntF.EditionQuestions {
+    return this.props.customize.editionQuestions ? this.props.customize.editionQuestions.questions : null
+  }
+
   currentSlide(): IntF.Question {
-    return this.classroomLesson().questions[this.props.params.slideID]
+    return this.editionQuestions()[this.props.params.slideID]
   }
 
   getCurrentScriptItem(): CLIntF.ScriptItem {
-    const {classroomLessonID, slideID, scriptItemID} = this.props.params;
-    return getClassroomLessonScriptItem(this.props.classroomLessons.data, classroomLessonID, slideID, scriptItemID)
+    const {editionID, slideID, scriptItemID} = this.props.params;
+    return this.currentSlide().data.teach.script[scriptItemID]
   }
 
   save(scriptItem: CLIntF.ScriptItem) {
-    const {classroomLessonID, slideID, scriptItemID} = this.props.params;
-    saveClassroomLessonScriptItem(classroomLessonID, slideID, scriptItemID, scriptItem, this.saveAlert)
+    const {editionID, slideID, scriptItemID} = this.props.params;
+    saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, this.saveAlert)
   }
 
   saveAlert() {
@@ -46,20 +58,20 @@ class showScriptItem extends Component<any, any> {
   }
 
   delete() {
-    const {classroomLessonID, slideID, scriptItemID} = this.props.params;
-    const script = getClassroomLessonSlide(this.props.classroomLessons.data, classroomLessonID, slideID).data.teach.script;
-    deleteScriptItem(classroomLessonID, slideID, scriptItemID, script)
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/slide/${slideID}`
+    const {classroomLessonID, editionID, slideID, scriptItemID} = this.props.params;
+    const script = this.currentSlide().data.teach.script;
+    deleteScriptItem(editionID, slideID, scriptItemID, script)
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
   }
 
   render() {
-    if (this.props.classroomLessons.hasreceiveddata) {
-      const {classroomLessonID, slideID, scriptItemID} = this.props.params;
-      const lessonLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}`
-      const slideLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/slide/${slideID}`
+    if (this.props.classroomLessons.hasreceiveddata && this.editionQuestions()) {
+      const {editionID, classroomLessonID, slideID, scriptItemID} = this.props.params;
+      const editionLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
+      const slideLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
       return (
         <div className="admin-classroom-lessons-container">
-          <h4 className="title is-4">Lesson: <a href={lessonLink}>{this.classroomLesson().title}</a></h4>
+          <h4 className="title is-4">Edition: <a href={editionLink}>{this.edition().name}</a></h4>
           <h5 className="title is-5">Slide: <a href={slideLink}>{this.currentSlide().data.teach.title}</a></h5>
           <h5 className="title is-5">Script Item #{Number(scriptItemID) + 1}</h5>
           <EditScriptItem scriptItem={this.getCurrentScriptItem()} save={this.save} delete={this.delete}/>
@@ -77,8 +89,13 @@ class showScriptItem extends Component<any, any> {
 
 function select(props) {
   return {
-    classroomLessons: props.classroomLessons
+    classroomLessons: props.classroomLessons,
+    customize: props.customize
   };
 }
 
-export default connect(select)(showScriptItem)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(showScriptItem);

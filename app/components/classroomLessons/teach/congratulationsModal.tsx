@@ -16,7 +16,10 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
 
   selectEmoji(value:number) {
     this.setState({selectedEmoji: value})
-    saveReview(this.props.lessonId, getParameterByName('classroom_activity_id'), value)
+    const classroomActivityId = getParameterByName('classroom_activity_id')
+    if (classroomActivityId) {
+      saveReview(this.props.lessonId, classroomActivityId, value)
+    }
   }
 
   renderFeedbackResponse() {

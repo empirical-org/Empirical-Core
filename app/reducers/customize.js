@@ -4,9 +4,11 @@ import _ from 'lodash';
 const initialState = {
   user_id: null,
   editions: {},
-  workingEdition: {},
+  workingEditionMetadata: {},
+  workingEditionQuestions: {},
   incompleteQuestions: [],
-  coteachers: []
+  coteachers: [],
+  editionQuestions: {}
 };
 
 export default function (currentstate, action) {
@@ -20,13 +22,21 @@ export default function (currentstate, action) {
       return Object.assign({}, currentstate, {
         coteachers: action.coteachers,
       });
-    case C.SET_EDITIONS:
+    case C.SET_EDITION_METADATA:
       return Object.assign({}, currentstate, {
-        editions: action.editions,
+        editions: action.editionMetadata,
       });
-    case C.SET_WORKING_EDITION:
+    case C.SET_EDITION_QUESTIONS:
       return Object.assign({}, currentstate, {
-        workingEdition: action.edition,
+        editionQuestions: action.editionQuestions,
+      });
+    case C.SET_WORKING_EDITION_QUESTIONS:
+      return Object.assign({}, currentstate, {
+        workingEditionQuestions: action.questions,
+      });
+    case C.SET_WORKING_EDITION_METADATA:
+      return Object.assign({}, currentstate, {
+        workingEditionMetadata: action.metadata,
       });
     case C.SET_INCOMPLETE_QUESTIONS:
     return Object.assign({}, currentstate, {

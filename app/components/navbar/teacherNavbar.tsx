@@ -194,10 +194,10 @@ class TeacherNavbar extends React.Component<any, any> {
 
   renderEditLink() {
     let action, editText
-    if (this.props.customize.user_id) {
-      const classroomActivityID = getParameterByName('classroom_activity_id')
-      const lessonID = this.props.params.lessonID
-      const editionID = this.props.classroomSessions.data.edition_id
+    const classroomActivityID = getParameterByName('classroom_activity_id')
+    if (this.props.customize.user_id && classroomActivityID) {
+      const lessonID:string = this.props.params.lessonID
+      const editionID:string = this.props.classroomSessions.data.edition_id
       if (editionID && this.props.customize.editions[editionID] && this.props.customize.editions[editionID].user_id === this.props.customize.user_id) {
         action = () => {this.redirectToEdit(lessonID, editionID, classroomActivityID)}
         editText = 'Edit This Edition'
@@ -214,9 +214,11 @@ class TeacherNavbar extends React.Component<any, any> {
 
   switchOnClick() {
     if (this.props.customize.user_id) {
-      const lessonID = this.props.params.lessonID
+      const lessonID: string = this.props.params.lessonID
       const classroomActivityID = getParameterByName('classroom_activity_id')
-      this.redirectToSwitchEdition(lessonID, classroomActivityID)
+      if (classroomActivityID) {
+        this.redirectToSwitchEdition(lessonID, classroomActivityID)
+      }
     } else {
       this.props.dispatch(showSignupModal())
     }
@@ -422,4 +424,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(TeacherNavbar);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(TeacherNavbar);

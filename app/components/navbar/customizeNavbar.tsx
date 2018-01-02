@@ -16,12 +16,12 @@ class CustomizeNavbar extends React.Component<any, any> {
     this.publish = this.publish.bind(this)
   }
 
-  edition() {
+  editionMetadata() {
     return this.props.customize.editions[this.props.params.editionID]
   }
 
   publish() {
-    const slides = this.props.customize.workingEdition.data.questions.slice(1)
+    const slides = this.props.customize.workingEditionQuestions.questions.slice(1)
     const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {
       const q = s.data.play
@@ -31,16 +31,16 @@ class CustomizeNavbar extends React.Component<any, any> {
         incompleteQuestions.push(i)
       }
     })
-    if (incompleteQuestions.length === 0 && this.props.customize.workingEdition.name) {
-      this.props.dispatch(publishEdition(this.props.params.editionID, this.props.customize.workingEdition, this.props.goToSuccessPage))
+    if (incompleteQuestions.length === 0 && this.props.customize.workingEditionMetadata.name) {
+      this.props.dispatch(publishEdition(this.props.params.editionID, this.props.customize.workingEditionMetadata, this.props.customize.workingEditionQuestions, this.props.goToSuccessPage))
     } else {
       this.props.dispatch(setIncompleteQuestions(incompleteQuestions))
     }
   }
 
   lastPublishedAt() {
-    if (this.edition() && this.edition().last_published_at) {
-      const formattedTime = formatDateTime(this.edition().last_published_at)
+    if (this.editionMetadata() && this.editionMetadata().last_published_at) {
+      const formattedTime = formatDateTime(this.editionMetadata().last_published_at)
       return <span>Last published on {formattedTime}</span>
     }
   }
@@ -78,5 +78,8 @@ function select(props) {
   };
 }
 
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
 
-export default connect(select)(CustomizeNavbar);
+export default connect(select, dispatch => ({dispatch}), mergeProps)(CustomizeNavbar);

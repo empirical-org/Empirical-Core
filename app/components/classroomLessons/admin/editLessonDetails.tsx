@@ -3,7 +3,7 @@ import _ from 'lodash'
 import {
   addSlide,
   deleteLesson,
-  updateClassroomLessonSlides
+  updateEditionSlides
 } from '../../../actions/classroomLesson'
 
 export default class EditLessonDetails extends Component<any, any> {
@@ -53,18 +53,6 @@ export default class EditLessonDetails extends Component<any, any> {
         <label className="label">Unit</label>
         <div className="control">
         <input value={this.state.classroomLesson.unit} onChange={(e) => this.handleLessonDetailsChange(e, 'unit')} className="input" type="text" placeholder="Unit Name"/>
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Edition Name</label>
-        <div className="control">
-        <input value={this.state.classroomLesson.name} onChange={(e) => this.handleLessonDetailsChange(e, 'name')} className="input" type="text" placeholder="Edition Name"/>
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Sample Question</label>
-        <div className="control">
-        <input value={this.state.classroomLesson.sample_question} onChange={(e) => this.handleLessonDetailsChange(e, 'sample_question')} className="input" type="text" placeholder="Sample Question"/>
         </div>
       </div>
       <div className="control is-grouped" style={{marginTop: 10}}>

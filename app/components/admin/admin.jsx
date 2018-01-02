@@ -32,8 +32,8 @@ const adminContainer = React.createClass({
     this.props.dispatch(lessonActions.startListeningToLessons());
     this.props.dispatch(levelActions.startListeningToItemLevels());
     // this.props.dispatch(listenForClassroomLessonsFromFirebase());
-    // this.props.dispatch(listenForclassroomLessonsReviewsFromFirebase())
-    // this.props.dispatch(startListeningToEditions())
+    // this.props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
+    // this.props.dispatch(startListeningToEditionMetadata())
   },
 
   render() {

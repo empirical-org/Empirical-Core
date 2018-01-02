@@ -1,5 +1,7 @@
+declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
@@ -24,18 +26,14 @@ import {
 } from 'actions/classroomSessions';
 import {
   getClassLessonFromFirebase,
-  getEditionFromFirebase,
   clearClassroomLessonFromStore
 } from 'actions/classroomLesson';
 import {
   getCurrentUserAndCoteachersFromLMS,
-  getEditionsForUserIds
+  getEditionsForUserIds,
+  getEditionQuestions,
+  clearEditionQuestions
 } from 'actions/customize'
-import CLLobby from './lobby';
-import CLStatic from './static';
-import CLSingleAnswer from './singleAnswer';
-import CLStudentLobby from '../play/lobby';
-import CLStudentStatic from '../play/static';
 import MainContentContainer from './mainContentContainer';
 import CLStudentSingleAnswer from '../play/singleAnswer';
 import { getParameterByName } from 'libs/getParameterByName';
@@ -51,6 +49,7 @@ import {
 import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
+import * as CustomizeIntf from 'interfaces/customize'
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
@@ -62,7 +61,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentDidMount() {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     const lesson_id: string = this.props.params.lessonID
-    if (ca_id) {
+    if (ca_id ) {
       startLesson(ca_id)
       this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id));
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
@@ -70,6 +69,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
     if (this.props.classroomLesson.hasreceiveddata) {
       this.props.dispatch(clearClassroomLessonFromStore())
+      this.props.dispatch(clearEditionQuestions())
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
@@ -77,21 +77,21 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.data.edition_id && !nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-      } else if (!nextProps.classroomLesson.hasreceiveddata) {
+      if (!nextProps.classroomSessions.data.edition_id) {
+        window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
+      }
+      if (nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+      }
+      if (!nextProps.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getClassLessonFromFirebase(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
-        if (nextProps.classroomSessions.data.edition_id) {
-          this.props.dispatch(getEditionFromFirebase(nextProps.classroomSessions.data.edition_id))
-        } else {
-          this.props.dispatch(getClassLessonFromFirebase(lessonId));
-        }
+        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
     }
     if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
-      let user_ids = []
+      let user_ids:Array<number> = []
       if (nextProps.customize.coteachers.length > 0) {
         user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
       }
@@ -106,11 +106,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-      const lessonData: ClassroomLesson = this.props.classroomLesson.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       if (ca_id) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, lessonData)
-          : goToPreviousSlide(ca_id, sessionData, lessonData)
+          ? goToNextSlide(ca_id, sessionData, editionData)
+          : goToPreviousSlide(ca_id, sessionData, editionData)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }
@@ -153,4 +153,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(TeachClassroomLessonContainer);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(TeachClassroomLessonContainer);

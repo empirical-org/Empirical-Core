@@ -3,25 +3,26 @@ import { connect } from 'react-redux';
 const MakeCopy = 'https://assets.quill.org/images/icons/make-copy-edition-icon.svg'
 const EditEdition = 'https://assets.quill.org/images/icons/edit-edition-icon.svg'
 const DeleteEdition = 'https://assets.quill.org/images/icons/delete-edition-icon.svg'
+import * as CustomizeIntf from 'interfaces/customize'
 
 interface EditionRowState {
   showDropdown: boolean
 }
 
 interface EditionRowProps {
-  archiveEdition: Function,
+  edition: CustomizeIntf.EditionMetadata,
+  archiveEdition?: Function,
   classroomLesson: any,
   creator: string,
   customize: any,
-  editEdition: Function,
-  edition: any,
+  editEdition?: Function,
   makeNewEdition: Function,
   selectAction: Function,
   selectState: string|boolean|null
 }
 
 class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
-  constructor(props) {
+  constructor(props: EditionRowProps) {
     super(props)
     this.state = {
       showDropdown: false
@@ -39,11 +40,13 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
   }
 
   editEdition() {
-    this.props.editEdition(this.props.edition.key)
+    if (this.props.editEdition) {
+      this.props.editEdition(this.props.edition.key)
+    }
   }
 
   archiveEdition() {
-    if (window.confirm('Are you sure you want to delete this edition? By deleting the edition, you will lose all the changes that you made to the slides.')) {
+    if (window.confirm('Are you sure you want to delete this edition? By deleting the edition, you will lose all the changes that you made to the slides.') && this.props.archiveEdition) {
       this.props.archiveEdition(this.props.edition.key)
     }
   }
@@ -124,4 +127,8 @@ function select(state) {
   }
 }
 
-export default connect(select)(EditionRow)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(EditionRow)

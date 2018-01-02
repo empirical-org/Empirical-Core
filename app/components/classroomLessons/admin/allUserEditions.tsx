@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import {hashToCollection} from '../../../libs/hashToCollection'
+import * as CustomizeIntf from 'interfaces/customize'
 
-class AllEditions extends Component<any, any> {
+class AllUserEditions extends Component<any, any> {
   constructor(props){
     super(props);
     this.state = {
@@ -31,12 +32,12 @@ class AllEditions extends Component<any, any> {
 
   getEditions(props) {
     const classroomLessonID = props.params.classroomLessonID
-    const allEditions = props.customize.editions
+    const allEditions: CustomizeIntf.EditionsMetadata = props.customize.editions
     if (allEditions && Object.keys(allEditions).length > 0) {
       const editions = {}
       const editionIds = Object.keys(allEditions)
       editionIds.forEach(id => {
-        const edition = allEditions[id]
+        const edition: CustomizeIntf.EditionMetadata = allEditions[id]
         edition.lessonName = props.classroomLessons.data[edition.lesson_id] ? props.classroomLessons.data[edition.lesson_id].title : ''
         editions[id] = edition
       })
@@ -106,10 +107,11 @@ class AllEditions extends Component<any, any> {
   }
 
   renderEditionRows() {
-    const data = hashToCollection(this.state.editions)
+    const data: Array<CustomizeIntf.EditionMetadata> = hashToCollection(this.state.editions)
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
-    return _.map(directed, edition => {
+    return _.map(directed, e => {
+      const edition:CustomizeIntf.EditionMetadata|any = e
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return <tr key={edition.key}>
@@ -155,4 +157,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(AllEditions)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(AllUserEditions);

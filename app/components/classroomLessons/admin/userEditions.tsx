@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import {hashToCollection} from '../../../libs/hashToCollection'
+import * as CustomizeIntF from 'app/interfaces/customize'
 
-class Editions extends Component<any, any> {
+class UserEditions extends Component<any, any> {
   constructor(props){
     super(props);
     this.state = {
@@ -34,8 +35,8 @@ class Editions extends Component<any, any> {
       const lessonEditions = {}
       const editionIds = Object.keys(allEditions)
       editionIds.forEach(id => {
-        const edition = allEditions[id]
-        if (edition.lesson_id === classroomLessonID) {
+        const edition: CustomizeIntF.EditionMetadata = allEditions[id]
+        if (edition.lesson_id === classroomLessonID && String(edition.user_id) !== 'quill-staff') {
           lessonEditions[id] = edition
         }
       })
@@ -93,6 +94,7 @@ class Editions extends Component<any, any> {
             <th onClick={this.clickSort.bind(this, 'user_id')}>User ID</th>
             <th onClick={this.clickSort.bind(this, 'name')}>Name</th>
             <th onClick={this.clickSort.bind(this, 'last_published_at')}>Last Published At</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -103,16 +105,18 @@ class Editions extends Component<any, any> {
   }
 
   renderEditionRows() {
-    const data = hashToCollection(this.state.editions)
+    const data: Array<CustomizeIntF.EditionMetadata> = hashToCollection(this.state.editions)
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
-    return _.map(directed, edition => {
+    return _.map(directed, e => {
+      const edition:CustomizeIntF.EditionMetadata|any = e
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
       return <tr key={edition.key}>
         <td>{edition.user_id}</td>
         <td><a href={link}>{edition.name || 'No Name'}</a></td>
         <td>{date}</td>
+        <td><a href={window.location.href + '/' + edition.key}>Edit</a></td>
       </tr>
     }
     );
@@ -130,7 +134,7 @@ class Editions extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h4 className="title is-4">{this.classroomLesson().title} <a target="_blank" href={`/#/teach/class-lessons/${classroomLessonID}/preview`}>Preview</a> </h4>
+            <h4 className="title is-4"><a href={`/#/admin/classroom-lessons/${classroomLessonID}`}>{this.classroomLesson().title}</a> User Editions</h4>
           </div>
           {this.renderEditionTable()}
           {this.renderMessage()}
@@ -151,4 +155,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(Editions)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(UserEditions);
