@@ -37,6 +37,7 @@ namespace :empirical do
     `npm install && cd ./client/ && npm install && cd ..`
 
     puts "\n✏️  Setup complete."
-    puts "\n✏️  Welcome to the Quill.org open source community!\n\n"
+    puts "\n✏️  Welcome to the Quill.org open source community!"
+    puts "\n✏️  We can't wait to see what you build.\n\n"
   end
 end
