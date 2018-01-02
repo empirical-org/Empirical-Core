@@ -30,6 +30,14 @@
     margin-bottom: 21px;
   }
 
+  .download-report-button {
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-weight: bold;
+    color: #00c2a2;
+    border: solid 1px #00c2a2;
+  }
+
 }
 
 .concept-student-concepts {
@@ -113,12 +121,4 @@
   .dropdown {
     margin-right: 20px;
   }
-}
-
-.download-report-button {
-  border-radius: 6px;
-  background-color: #ffffff;
-  font-weight: bold;
-  color: #00c2a2;
-  border: solid 1px #00c2a2;
 }
