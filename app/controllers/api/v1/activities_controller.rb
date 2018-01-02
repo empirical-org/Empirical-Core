@@ -1,8 +1,8 @@
 class Api::V1::ActivitiesController < Api::ApiController
 
-  doorkeeper_for :create, :update, :destroy
+  before_action :doorkeeper_authorize!, only: [:create, :update, :destroy]
   before_action :find_activity, except: [:create, :uids_and_flags]
-
+  
   # GET
   def show
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}
