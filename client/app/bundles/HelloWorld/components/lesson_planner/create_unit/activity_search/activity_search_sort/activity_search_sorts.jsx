@@ -6,7 +6,8 @@ export default React.createClass({
 
   render() {
     const sorts = _.map(this.props.sorts, function (sort) {
-      return <ActivitySearchSort key={sort.alias} updateSort={this.props.updateSort} data={sort} />;
+      // only pass update sort if the object has a sort path -- otherwise it should not be sortable
+      return <ActivitySearchSort key={sort.alias} updateSort={sort.sortPath ? this.props.updateSort : null} data={sort} />;
     }, this);
 
     return (

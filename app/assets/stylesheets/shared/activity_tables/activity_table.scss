@@ -23,7 +23,7 @@ table.activity-table {
 
   tbody tr {
     &.selected {
-      background-color: white;
+      background-color: #f9fffe;
     }
     &:first-of-type {
       border-top: none;
@@ -43,4 +43,14 @@ table.activity-table {
       opacity: 1;
     }
   }
+  // .with-green-hover {
+  //   tr:hover {
+  //     &:hover {
+  //       background-color: #f9fffe;
+  //       .green-text {
+  //         color: #00c2a2;
+  //       }
+  //     }
+  //   }
+  // }
 }

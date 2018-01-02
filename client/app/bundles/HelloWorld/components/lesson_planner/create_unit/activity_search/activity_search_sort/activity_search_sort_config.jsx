@@ -23,8 +23,8 @@ export default [
   {
     field: 'checked',
     alias: '',
-    asc_or_desc: 'asc',
-    sortPath: 'selected',
+    // asc_or_desc: 'asc',
+    // sortPath: 'selected',
     className: 'scorebook-icon-check'
   }
 ];

@@ -340,7 +340,7 @@ export default React.createClass({
     }
     return (
       <span>
-        <div className="container" id="activity-planner" className="menu-aligned-left">
+        <div className="container" id="activity-planner">
           {stageSpecificComponents}
         </div>
       </span>
