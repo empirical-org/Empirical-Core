@@ -39,9 +39,11 @@ describe('ArchivedClassroomsManager container', () => {
     });
   });
 
-  it('should render link to add a class', () => {
-    expect(wrapper.find('.q-button').text()).toBe('Create a Class');
-    expect(wrapper.find('.q-button').prop('href')).toBe('/teachers/classrooms/new');
+  it('should render links to add a class and sync with google classroom', () => {
+    expect(wrapper.find('.q-button').at(0).text()).toBe('Create a Class');
+    expect(wrapper.find('.q-button').at(0).prop('href')).toBe('/teachers/classrooms/new');
+    expect(wrapper.find('.q-button').at(1).text()).toBe('Sync with Google Classroom');
+    expect(wrapper.find('.q-button').at(1).prop('href')).toBe('/teachers/classrooms/google_sync');
   });
 
   it('should render loading if no classrooms have loaded', () => {

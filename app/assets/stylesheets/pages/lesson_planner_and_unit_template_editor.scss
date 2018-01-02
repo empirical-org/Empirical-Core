@@ -157,8 +157,12 @@
   cursor: pointer;
   padding-right: 15px;
   padding-left: 0px;
-  display: flex;
+  .DateRangePickerInput__calendar-icon {
+    padding: 0;
+    margin-left: 14px;
+  }
   &.scorebook-filters {
+    display: flex;
     padding-left: 15px;
   }
   .scorebook-dropdown-icon.fa {
