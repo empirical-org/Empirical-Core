@@ -126,8 +126,12 @@
     }
   }
   .press-cta {
-    text-align: center;
     margin-top: 77px;
+    text-align: center;
+
+    a.cta-button {
+      height: auto;
+    }
   }
 
   @media only screen and (max-width : 850px) {
