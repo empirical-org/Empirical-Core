@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 10.0
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -207,7 +207,8 @@ CREATE TABLE activity_classifications (
     app_name character varying(255),
     order_number integer DEFAULT 999999999,
     instructor_mode boolean DEFAULT false,
-    locked_by_default boolean DEFAULT false
+    locked_by_default boolean DEFAULT false,
+    scored boolean DEFAULT true
 );
 
 
@@ -3628,4 +3629,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171205181155');
 INSERT INTO schema_migrations (version) VALUES ('20171214152937');
 
 INSERT INTO schema_migrations (version) VALUES ('20171218222306');
+
+INSERT INTO schema_migrations (version) VALUES ('20180102151559');
 
