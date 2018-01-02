@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import _l from 'lodash';
 import $ from 'jquery';
 
 import ActivitySearchAndFilters from './activity_search_filters/activity_search_filters';
@@ -185,9 +186,9 @@ export default React.createClass({
   sort() {
     let visActs = [...this.state.viewableActivities];
     this.state.sorts.forEach((sortObj) => {
-      // iterate through each sorter, and activate it
+      // iterate through each sorter, and activate it;
       if (sortObj.selected) {
-        visActs = _.sortBy(visActs, obj => (obj[sortObj.field].name || obj[sortObj.field]));
+        visActs = _.sortBy(visActs, obj => _l.get(obj, sortObj.sortPath))
         if (sortObj.asc_or_desc === 'desc') {
           // reverse sorter if necessary
           visActs = visActs.reverse();
@@ -231,7 +232,7 @@ export default React.createClass({
           clearFilters={this.clearFilters}
           activeFilterOn={this.state.activeFilterOn}
         />
-        <table className="table activity-table search-and-select">
+      <table className="table activity-table search-and-select green-rows-on-hover">
           <thead>
             <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
           </thead>

@@ -60,20 +60,6 @@
     }
   }
 
-  &.menu-aligned-left {
-    padding: 0;
-    margin: auto;
-    max-width: 965px;
-    .container:first-of-type {
-      padding: 0;
-    }
-    .section-header {
-      display: inline-block;
-      margin-right: 20px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-  }
   section {
     border-bottom: none;
     &.name-the-unit {
