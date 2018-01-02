@@ -27,7 +27,7 @@ namespace :empirical do
     `redis-server --daemonize yes`
     `redis-server --port 7654 --daemonize yes`
 
-    puts "\n🗄  Seeding database...\n\n"
+    puts "\n🗄  Seeding database...\n"
     # Something wonky is happening with our redis config, which is causing the
     # seed task to fail on the first try. Let's just run it again if something
     # goes wrong until we figure out why. Note: this is bad practice.
