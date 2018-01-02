@@ -140,7 +140,7 @@ export default class extends React.Component {
     }
     const filteredData = this.filteredData()
     return (
-      <div className='activities-scores-by-classroom progress-reports-2018'>
+      <div className='standards-all-classrooms progress-reports-2018 '>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Standards Report</h1>
@@ -153,7 +153,7 @@ export default class extends React.Component {
         </div>
         <div className='dropdown-container'>
           <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
-          <ItemDropdown style={{marginLeft: '20px'}} items={this.state.students.map(s => s.name)} callback={this.goToStudentPage}/>
+          <ItemDropdown items={this.state.students.map(s => s.name)} callback={this.goToStudentPage}/>
         </div>
 				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
 					<ReactTable data={filteredData}

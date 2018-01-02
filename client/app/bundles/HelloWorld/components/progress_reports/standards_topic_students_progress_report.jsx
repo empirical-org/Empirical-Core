@@ -54,7 +54,7 @@ export default class extends React.Component {
       row.name = row.name
       row.total_activity_count = Number(row.total_activity_count)
       row.average_score = Number(row.average_score * 100)
-      row.proficiency_status = row.proficient_standard_count > 0 ? <span><span className="proficient-indicator"/>Proficient</span> : <span><span className="not-proficient-indicator"/>Not Yet Proficient</span>
+      row.proficiency_status = row.proficiency_status
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
@@ -101,9 +101,13 @@ export default class extends React.Component {
         )
       }, {
         Header: 'Proficiency Status',
-        accessor: 'proficiency_status',
+        accessor: 'proficient_standard_count',
         className: blurIfNotPremium,
-        resizable: false
+        resizable: false,
+        Cell: row => (
+          <span><span className={row.original['proficient_standard_count'] > 0 ? 'proficient-indicator' : 'not-proficient-indicator'}/>{row.original['proficient_standard_count'] > 0 ? 'Proficient' : 'Not Yet Proficient'}</span>
+        )
+
       }, {
         Header: "",
         accessor: 'green_arrow',
