@@ -32,23 +32,10 @@ export default class extends React.Component {
       const studentData = this.formattedStudentData(data.students)
       const csvData = this.formatDataForCSV(data.students)
       const topic = data.topics[0]
-      // const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
-      // const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
-      // const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
       that.setState({loading: false, errors: body.errors, studentData, csvData, topic});
     });
   }
 
-  // parseClassrooms(classrooms){
-  //   const classroomsWithStudentIds = {}
-  //   const dropdownClassrooms = [{id: showAllClassroomKey, name: showAllClassroomKey}];
-  //   classrooms.forEach((c)=>{
-  //     classroomsWithStudentIds[c.id] = c.student_ids;
-  //     dropdownClassrooms.push({id: c.id, name: c.name})
-  //   })
-  //   return {dropdownClassrooms, classroomsWithStudentIds }
-  // }
-  //
   formattedStudentData(data) {
     return data.map((row) => {
       row.name = row.name
@@ -56,7 +43,7 @@ export default class extends React.Component {
       row.average_score = Number(row.average_score * 100)
       row.proficiency_status = row.proficiency_status
       row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
+        <a className='green-arrow' href={row.student_topics_href}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )
@@ -70,7 +57,7 @@ export default class extends React.Component {
     ]
     data.forEach((row) => {
       csvData.push([
-        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['proficient_standard_count'] > 0 ? 'Proficient' : 'Not Yet Proficient'
+        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
       ])
     })
     return csvData
@@ -101,11 +88,11 @@ export default class extends React.Component {
         )
       }, {
         Header: 'Proficiency Status',
-        accessor: 'proficient_standard_count',
+        accessor: 'mastery_status',
         className: blurIfNotPremium,
         resizable: false,
         Cell: row => (
-          <span><span className={row.original['proficient_standard_count'] > 0 ? 'proficient-indicator' : 'not-proficient-indicator'}/>{row.original['proficient_standard_count'] > 0 ? 'Proficient' : 'Not Yet Proficient'}</span>
+          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'}/>{row.original['mastery_status']}</span>
         )
 
       }, {
@@ -113,12 +100,7 @@ export default class extends React.Component {
         accessor: 'green_arrow',
         resizable: false,
         sortable: false,
-        width: 80,
-        Cell: row => (
-          <a className='green-arrow' href={row.original['concepts_href']}>
-            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
-          </a>
-        )
+        width: 80
       }
     ])
   }
