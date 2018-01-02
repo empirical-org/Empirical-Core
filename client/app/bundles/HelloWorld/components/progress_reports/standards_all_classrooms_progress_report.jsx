@@ -26,6 +26,7 @@ export default class extends React.Component {
       userIsPremium: userIsPremium()
     }
     this.switchClassrooms = this.switchClassrooms.bind(this)
+    this.goToStudentPage = this.goToStudentPage.bind(this)
   }
 
   componentDidMount() {
@@ -123,7 +124,11 @@ export default class extends React.Component {
     this.setState({selectedClassroom: classroom}, () => this.getData())
   }
 
-  goToStudentPage(student) {
+  goToStudentPage(studentName) {
+    const student = this.state.students.find(s => s.name === studentName)
+    if (student) {
+      window.location.href = `/teachers/progress_reports/standards/classrooms/0/students/${student.id}/topics`
+    }
   }
 
   filteredData() {
