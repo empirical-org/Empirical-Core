@@ -1,0 +1,30 @@
+table.activity-table.search-and-select {
+  th {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3b3b3b;
+  }
+  tbody tr {
+    background-color: white;
+    &.selected, &.hover {
+      background-color: #f9fffe;
+    }
+    td {
+      &:nth-child(1) {
+        text-align: left;
+        color: #3b3b3b;
+        padding-left: 14px;
+      }
+      &:nth-child(2) {
+        text-align: left;
+        padding-right: 4%;
+      }
+      &:nth-child(3) {
+        text-align: left;
+      }
+      &:nth-child(4) {
+        text-align: center;
+      }
+    }
+  }
+}
