@@ -76,7 +76,7 @@ gem 'addressable'
 # QUEUE/CACHE
 gem 'sidekiq'
 gem 'sidekiq-retries', require: false
-gem 'redis', '=3.3.1'
+gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
