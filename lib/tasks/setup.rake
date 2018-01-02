@@ -46,5 +46,6 @@ namespace :empirical do
     puts "\n✏️  Setup complete."
     puts "\n✏️  Welcome to the Quill.org open source community!"
     puts "\n✏️  We can't wait to see what you build.\n\n"
+    `open https://docs.quill.org`
   end
 end
