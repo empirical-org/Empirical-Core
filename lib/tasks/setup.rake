@@ -28,7 +28,14 @@ namespace :empirical do
     `redis-server --port 7654 --daemonize yes`
 
     puts "\n🗄  Seeding database...\n\n"
-    Rake::Task["db:seed"].invoke
+    # Something wonky is happening with our redis config, which is causing the
+    # seed task to fail on the first try. Let's just run it again if something
+    # goes wrong until we figure out why. Note: this is bad practice.
+    begin
+      Rake::Task["db:seed"].invoke
+    rescue
+      Rake::Task["db:seed"].invoke
+    end
 
     puts "\n📮 Killing Redis..."
     `ps -ef | grep 'redis-server' | head -n 2 | awk '{ print $2}' | xargs kill -9`
