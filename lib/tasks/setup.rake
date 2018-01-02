@@ -24,7 +24,7 @@ namespace :empirical do
     Rake::Task['db:structure:load'].invoke
 
     puts "\n📮 Starting Redis..."
-    `redis-server --port 6379 --daemonize yes`
+    `redis-server --daemonize yes`
     `redis-server --port 7654 --daemonize yes`
 
     puts "\n🗄  Seeding database...\n\n"
