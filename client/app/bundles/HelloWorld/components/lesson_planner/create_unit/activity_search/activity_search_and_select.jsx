@@ -232,7 +232,7 @@ export default React.createClass({
           clearFilters={this.clearFilters}
           activeFilterOn={this.state.activeFilterOn}
         />
-        <table className="table activity-table search-and-select">
+      <table className="table activity-table search-and-select green-rows-on-hover">
           <thead>
             <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
           </thead>

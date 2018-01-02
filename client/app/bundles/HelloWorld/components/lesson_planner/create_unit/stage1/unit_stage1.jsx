@@ -55,7 +55,7 @@ export default React.createClass({
   render() {
     const error = this.props.errorMessage ? <span><i className="fa fa-exclamation-triangle" />{this.props.errorMessage}</span> : '';
     return (
-      <div className="container">
+      <div>
         <ActivitySearchAndSelect
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
