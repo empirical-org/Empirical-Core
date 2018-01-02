@@ -58,7 +58,7 @@ class Scorebook::Query
   end
 
   def self.date_conditional_string(begin_date, end_date)
-    new_end_date = end_date ? end_date + 1 : end_date
+    new_end_date = end_date ? (Date.parse(end_date) + 1.days).to_s : end_date
     sanitized_begin_date = self.sanitize_date(begin_date)
     sanitized_end_date = self.sanitize_date(new_end_date)
     return unless sanitized_begin_date || sanitized_end_date
