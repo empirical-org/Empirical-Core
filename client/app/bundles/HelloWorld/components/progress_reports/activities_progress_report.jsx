@@ -105,7 +105,7 @@ export default React.createClass({
         Header: 'Score',
         accessor: 'percentage',
         resizeable: false,
-        Cell: props => `${Math.round(props.value * 100)}%`,
+        Cell: props => props.value >= 0 ? `${Math.round(props.value * 100)}%` : 'Completed',
         className: this.nonPremiumBlur(),
         maxWidth: 90
       },
