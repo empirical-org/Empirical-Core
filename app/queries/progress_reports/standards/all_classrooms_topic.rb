@@ -5,9 +5,6 @@ class ProgressReports::Standards::AllClassroomsTopic
   end
 
   def results(classroom_id, student_id)
-    puts 'here are the arguments'
-    puts classroom_id
-    puts student_id
     ActiveRecord::Base.connection.execute("WITH final_activity_sessions AS
      (SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
           JOIN classroom_activities ON activity_sessions.classroom_activity_id = classroom_activities.id
@@ -39,7 +36,7 @@ class ProgressReports::Standards::AllClassroomsTopic
 
   def classroom_joins(classroom_id)
     if !classroom_id
-      "JOIN classrooms ON classroom_activities.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id}"
+      "JOIN classrooms ON classroom_activities.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id} AND classrooms.visible = true"
     end
   end
 

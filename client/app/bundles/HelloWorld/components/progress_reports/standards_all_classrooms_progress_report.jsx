@@ -8,6 +8,7 @@ import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import moment from 'moment'
 import userIsPremium from '../modules/user_is_premium'
+import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
 
 import _ from 'underscore'
 
@@ -26,6 +27,7 @@ export default class extends React.Component {
       userIsPremium: userIsPremium()
     }
     this.switchClassrooms = this.switchClassrooms.bind(this)
+    this.goToStudentPage = this.goToStudentPage.bind(this)
   }
 
   componentDidMount() {
@@ -57,7 +59,7 @@ export default class extends React.Component {
 
   formatStandardsData(data) {
     return data.map((row) => {
-      row.standard_level = <span className='green-text'>{row.name}</span>
+      row.standard_level = row.name
       row.standard_name = row.section_name
       row.number_of_students = Number(row.total_student_count)
       row.proficient = `${row.proficient_count} of ${row.total_student_count}`
@@ -89,10 +91,15 @@ export default class extends React.Component {
       {
         Header: 'Standard Level',
         accessor: 'standard_level',
+        sortMethod: sortByStandardLevel,
         resizable: false,
+        Cell: row => (
+          <span className='green-text'>{row.original['name']}</span>
+        )
       }, {
         Header: "Standard Name",
         accessor: 'standard_name',
+        sortMethod: sortByStandardLevel,
         resizable: false
       }, {
         Header: "Students",
@@ -123,7 +130,11 @@ export default class extends React.Component {
     this.setState({selectedClassroom: classroom}, () => this.getData())
   }
 
-  goToStudentPage(student) {
+  goToStudentPage(studentName) {
+    const student = this.state.students.find(s => s.name === studentName)
+    if (student) {
+      window.location.href = `/teachers/progress_reports/standards/classrooms/0/students/${student.id}/topics`
+    }
   }
 
   filteredData() {
@@ -140,7 +151,7 @@ export default class extends React.Component {
     }
     const filteredData = this.filteredData()
     return (
-      <div className='activities-scores-by-classroom progress-reports-2018'>
+      <div className='standards-all-classrooms progress-reports-2018 '>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Standards Report</h1>
@@ -153,13 +164,13 @@ export default class extends React.Component {
         </div>
         <div className='dropdown-container'>
           <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
-          <ItemDropdown style={{marginLeft: '20px'}} items={this.state.students.map(s => s.name)} callback={this.goToStudentPage}/>
+          <ItemDropdown items={this.state.students.map(s => s.name)} callback={this.goToStudentPage}/>
         </div>
 				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
 					<ReactTable data={filteredData}
 						columns={this.columns()}
 						showPagination={false}
-						defaultSorted={[{id: 'standard_level', desc: true}]}
+						defaultSorted={[{id: 'standard_level', desc: false}]}
 					  showPaginationTop={false}
 						showPaginationBottom={false}
 						showPageSizeOptions={false}

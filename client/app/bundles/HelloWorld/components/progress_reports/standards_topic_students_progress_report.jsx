@@ -32,31 +32,18 @@ export default class extends React.Component {
       const studentData = this.formattedStudentData(data.students)
       const csvData = this.formatDataForCSV(data.students)
       const topic = data.topics[0]
-      // const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
-      // const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
-      // const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
       that.setState({loading: false, errors: body.errors, studentData, csvData, topic});
     });
   }
 
-  // parseClassrooms(classrooms){
-  //   const classroomsWithStudentIds = {}
-  //   const dropdownClassrooms = [{id: showAllClassroomKey, name: showAllClassroomKey}];
-  //   classrooms.forEach((c)=>{
-  //     classroomsWithStudentIds[c.id] = c.student_ids;
-  //     dropdownClassrooms.push({id: c.id, name: c.name})
-  //   })
-  //   return {dropdownClassrooms, classroomsWithStudentIds }
-  // }
-  //
   formattedStudentData(data) {
     return data.map((row) => {
       row.name = row.name
       row.total_activity_count = Number(row.total_activity_count)
       row.average_score = Number(row.average_score * 100)
-      row.proficiency_status = row.proficient_standard_count > 0 ? <span><span className="proficient-indicator"/>Proficient</span> : <span><span className="not-proficient-indicator"/>Not Yet Proficient</span>
+      row.proficiency_status = row.proficiency_status
       row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.classroom_id}&student_id=${row.student_id}`}>
+        <a className='green-arrow' href={row.student_topics_href}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )
@@ -70,7 +57,7 @@ export default class extends React.Component {
     ]
     data.forEach((row) => {
       csvData.push([
-        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['proficient_standard_count'] > 0 ? 'Proficient' : 'Not Yet Proficient'
+        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
       ])
     })
     return csvData
@@ -101,20 +88,19 @@ export default class extends React.Component {
         )
       }, {
         Header: 'Proficiency Status',
-        accessor: 'proficiency_status',
+        accessor: 'mastery_status',
         className: blurIfNotPremium,
-        resizable: false
+        resizable: false,
+        Cell: row => (
+          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'}/>{row.original['mastery_status']}</span>
+        )
+
       }, {
         Header: "",
         accessor: 'green_arrow',
         resizable: false,
         sortable: false,
-        width: 80,
-        Cell: row => (
-          <a className='green-arrow' href={row.original['concepts_href']}>
-            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
-          </a>
-        )
+        width: 80
       }
     ])
   }
@@ -147,101 +133,3 @@ export default class extends React.Component {
   }
 
 };
-
-// 'use strict';
-// import React from 'react'
-// import ProgressReport from './progress_report.jsx'
-// import MasteryStatus from './mastery_status.jsx'
-//
-//
-// export default  React.createClass({
-//   propTypes: {
-//     sourceUrl: React.PropTypes.string.isRequired,
-//     premiumStatus: React.PropTypes.string.isRequired
-//   },
-//
-//   getInitialState: function() {
-//     return {
-//       topic: {}
-//     };
-//   },
-//
-//   columnDefinitions: function() {
-//     return [
-//       {
-//         name: 'Student Name',
-//         field: 'name',
-//         sortByField: 'sorting_name',
-//         className: 'student-name-column',
-//         customCell: function(row) {
-//           return (
-//             <a className="student-view" href={row['student_topics_href']}>{row['name']}</a>
-//           );
-//         }
-//       },
-//       {
-//         name: 'Activities',
-//         field: 'total_activity_count',
-//         sortByField: 'total_activity_count',
-//         className: 'activities-column'
-//       },
-//       {
-//         name: 'Average',
-//         field: 'average_score',
-//         sortByField: 'average_score',
-//         className: 'average-score-column',
-//         customCell: function(row) {
-//           return Math.round(row['average_score'] * 100) + '%';
-//         }
-//       },
-//       {
-//         name: 'Mastery Status',
-//         field: 'average_score',
-//         sortByField: 'average_score',
-//         className: 'average-score-column',
-//         customCell: function(row) {
-//           return <MasteryStatus score={row['average_score']} />;
-//         }
-//       }
-//     ];
-//   },
-//
-//   sortDefinitions: function() {
-//     return {
-//       config: {
-//         sorting_name: 'natural',
-//         total_activity_count: 'numeric',
-//         average_score: 'numeric'
-//       },
-//       default: {
-//         field: 'sorting_name',
-//         direction: 'asc'
-//       }
-//     };
-//   },
-//
-//   onFetchSuccess: function(responseData) {
-//     if (responseData.topics && responseData.topics.length) {
-//       this.setState({
-//         topic: responseData.topics[0]
-//       });
-//     }
-//   },
-//
-//   render: function() {
-//     console.log('this is the individual standard file')
-//     return (
-//       <ProgressReport columnDefinitions={this.columnDefinitions}
-//                          pagination={false}
-//                          sourceUrl={this.props.sourceUrl}
-//                          sortDefinitions={this.sortDefinitions}
-//                          jsonResultsKey={'students'}
-//                          exportCsv={'standards_topic_students'}
-//                          onFetchSuccess={this.onFetchSuccess}
-//                          filterTypes={['unit']}
-//                          premiumStatus={this.props.premiumStatus}>
-//         <h2>Standard: {this.state.topic.name}</h2>
-//       </ProgressReport>
-//     );
-//   }
-// });
