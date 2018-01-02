@@ -1,43 +1,42 @@
 namespace :empirical do
   task :setup do
-    puts "** Starting setup..."
+    puts "\n✏️  Let's get your development environment set up, shall we?"
+    puts "\n✏️  Note: this may take a few minutes, so please be patient."
 
-    puts "** Creating tmp directories..."
+    puts "\n📁 Creating tmp directories..."
     Rake::Task["tmp:create"].invoke
 
     unless File.exist?("config/database.yml")
-      puts "** Copying DB Credentials..."
+      puts "\n🗄  Copying DB Credentials..."
       `cp config/database.yml.example config/database.yml`
     end
 
-    puts '** Copying env variables...'
+    puts "\n🤫 Copying env variables..."
     `cp .env-sample .env`
 
-    puts "** Dropping database..."
+    puts "\n🗄  Dropping database...\n\n"
     Rake::Task["db:drop"].invoke
 
-    puts "** Creating database..."
+    puts "\n🗄  Creating database..."
     Rake::Task["db:create"].invoke
 
-    puts "** Loading structure..."
+    puts "\n⚙️  Loading structure..."
     Rake::Task['db:structure:load'].invoke
 
-    puts "** Starting Redis..."
+    puts "\n📮 Starting Redis..."
     `redis-server --port 6379 --daemonize yes`
     `redis-server --port 7654 --daemonize yes`
 
-    puts "** Seeding database..."
+    puts "\n🗄  Seeding database...\n\n"
     Rake::Task["db:seed"].invoke
 
-    puts "** Killing Redis..."
+    puts "\n📮 Killing Redis..."
     `ps -ef | grep 'redis-server' | head -n 2 | awk '{ print $2}' | xargs kill -9`
 
-    puts "** Installing NPM packages..."
+    puts "\n📦 Installing NPM packages...\n\n"
     `npm install && cd ./client/ && npm install && cd ..`
 
-    puts "** Building the vendor bundle..."
-    `npm run build:test`
-
-    puts "** Setup complete!"
+    puts "\n✏️  Setup complete."
+    puts "\n✏️  Welcome to the Quill.org open source community!\n\n"
   end
 end
