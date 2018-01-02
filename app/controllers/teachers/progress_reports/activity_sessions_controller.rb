@@ -53,7 +53,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         classrooms_teachers.classroom_id AS classroom_id,
         EXTRACT(EPOCH FROM activity_sessions.completed_at) AS completed_at,
         activity_sessions.completed_at AS visual_date,
-        activity_sessions.percentage AS percentage,
+        (CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS percentage,
         topics.name AS standard,
         activity_sessions.user_id AS student_id,
         activities.name AS activity_name,
