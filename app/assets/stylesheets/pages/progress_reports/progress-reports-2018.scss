@@ -56,7 +56,7 @@
   }
 }
 
-.individual-standard {
+.individual-standard, .individual-student {
   padding-top: 0px;
   .meta-overview {
     margin-bottom: 20px;
@@ -107,4 +107,10 @@
 
 .not-proficient-indicator {
   background-color: #ff4542;
+}
+
+.standards-all-classrooms {
+  .dropdown {
+    margin-right: 20px;
+  }
 }
