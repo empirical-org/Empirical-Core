@@ -8,7 +8,7 @@ import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import moment from 'moment'
 import userIsPremium from '../modules/user_is_premium'
-
+import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
 import _ from 'underscore'
 
 export default class extends React.Component {
@@ -42,7 +42,7 @@ export default class extends React.Component {
 
   formatStandardsData(data) {
     return data.map((row) => {
-      row.standard_level = <span className='green-text'>{row.name}</span>
+      row.standard_level = row.name
       row.standard_name = row.section_name
       row.activities = Number(row.total_activity_count)
       row.average_score = Number(row.average_score * 100)
@@ -74,10 +74,15 @@ export default class extends React.Component {
       {
         Header: 'Standard Level',
         accessor: 'standard_level',
+        sortMethod: sortByStandardLevel,
         resizable: false,
+        Cell: row => (
+          <span className='green-text'>{row.original['name']}</span>
+        )
       }, {
         Header: "Standard Name",
         accessor: 'standard_name',
+        sortMethod: sortByStandardLevel,
         resizable: false
       }, {
         Header: 'Activities',
@@ -133,7 +138,7 @@ export default class extends React.Component {
             <h1><span>Standards Report:</span> {this.state.student.name}</h1>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <CSVDownloadForProgressReport className="download-report-button" data={this.state.csvData}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
         </div>
@@ -141,7 +146,7 @@ export default class extends React.Component {
 					<ReactTable data={filteredData}
 						columns={this.columns()}
 						showPagination={false}
-						defaultSorted={[{id: 'standard_level', desc: true}]}
+						defaultSorted={[{id: 'standard_level', desc: false}]}
 					  showPaginationTop={false}
 						showPaginationBottom={false}
 						showPageSizeOptions={false}
