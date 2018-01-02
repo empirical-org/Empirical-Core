@@ -401,10 +401,15 @@ export default React.createClass({
 
   optionSection() {
     return (
-      <div className="archive-options-container flex-row vertically-centered space-between">
-        <p>On this page, you can archive and unarchive classes and you can
-          reset students’ passwords below.</p>
-        <a href="/teachers/classrooms/new" className="q-button cta-button bg-white">Create a Class</a>
+      <div className="archive-options-container">
+        <h1 className='main-title'>Manage Classes</h1>
+        <div className="flex-row vertically-centered space-between">
+          <p>On this page, you can archive and unarchive classes. You can also click on <strong>Edit Students</strong> to reset students’ passwords below.</p>
+          <div className="cta-box">
+            <a href="/teachers/classrooms/new" className="q-button cta-button bg-white">Create a Class</a>
+            <a href="/teachers/classrooms/google_sync" className="q-button cta-button bg-white">Sync with Google Classroom</a>
+          </div>
+        </div>
       </div>);
   },
 

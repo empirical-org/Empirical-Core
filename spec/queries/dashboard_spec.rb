@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Dashboard', redis: :true do
-  let(:classroom_with_sufficient_data) {create(:classroom_with_100_classroom_activities)}
+  let(:classroom_with_sufficient_data) {create(:classroom_with_35_classroom_activities)}
   let(:teacher_with_sufficient_data) {classroom_with_sufficient_data.owner}
   let(:classroom_with_no_activities) {create(:classroom)}
   let(:teacher_with_no_activities) {classroom_with_no_activities.owner}
@@ -17,7 +17,7 @@ describe 'Dashboard', redis: :true do
     end
   end
 
-  context 'when there are more than 30 completed activities activities' do
+  context 'when there are more than 30 completed activities' do
     it "returns the 5 students" do
       results = Dashboard.queries(teacher_with_sufficient_data)
       expect(results.map{|x| x[:results].length}.uniq).to eq( [5])
@@ -42,7 +42,5 @@ describe 'Dashboard', redis: :true do
       $redis.set('user_id:1_difficult_concepts', "fake cache")
       expect($redis.get("user_id:1_difficult_concepts")).to eq("fake cache")
     end
-
-
   end
 end
