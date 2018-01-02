@@ -2,16 +2,16 @@ table.activity-table.search-and-select {
   thead {
     tr th {
       &:nth-child(1) {
-        // width: 43%;
+        width: 34%;
       }
       &:nth-child(2) {
         width: 10%;
       }
       &:nth-child(3) {
-        // width: 51%;
+        width: 49%;
       }
       &:nth-child(4) {
-        width: 5%;
+        width: 7%;
       }
     }
   }
