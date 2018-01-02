@@ -73,12 +73,14 @@ create(:grade_11_section)
 create(:grade_12_section)
 create(:university_section)
 
-# Generate a teacher with a few classes and students
+# Generate a known teacher with a few classes and students, as well as a known student in those classes
 teacher = create(:teacher, username: 'teacher', password: 'password')
 classrooms = create_list(:classroom, 3, :with_no_teacher)
+student = create(:student, username: 'student', password: 'password')
 classrooms.each do |classroom|
   create(:classrooms_teacher, classroom: classroom, user: teacher)
-  classroom.students = create_list(:student, 20)
+  classroom.students = create_list(:student, 19)
+  classroom.students << student
 end
 
 # Generate a shared diagnostic unit and a couple other units for the classrooms
@@ -90,15 +92,6 @@ classrooms.each do |classroom|
   classroom.students.each do |student|
     create(:activity_session, activity: diagnostic_activity, classroom_activity: diagnostic_classroom_activity, user: student)
     create(:activity_session, activity: classroom_activities.first.activity, classroom_activity: classroom_activities.first, user: student)
-  end
-end
-
-# Generate a student in a few classes
-student = create(:student, username: 'student', password: 'password')
-classrooms.each do |classroom|
-  classroom.students << student
-  classroom.classroom_activities.each do |classroom_activity|
-    classroom_activity.assigned_student_ids << student.id
   end
 end
 
