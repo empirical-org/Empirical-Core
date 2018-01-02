@@ -21,19 +21,32 @@ export default class extends React.Component {
       errors: false,
       userIsPremium: userIsPremium()
     }
+
+    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
-    const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
-    }, (e, r, body) => {
-      const data = JSON.parse(body)
-      const studentData = this.formattedStudentData(data.students)
-      const csvData = this.formatDataForCSV(data.students)
-      const topic = data.topics[0]
-      that.setState({loading: false, errors: body.errors, studentData, csvData, topic});
-    });
+    this.getData()
+  }
+
+  getData() {
+    this.setState({loading: true}, () => {
+      const that = this;
+      const selectedTopicId = this.state.topic ? this.state.topic.id : null
+      const selectedClassroomId = this.state.selectedClassroom ? this.state.selectedClassroom.id : null
+      const url = selectedTopicId && selectedClassroomId ? `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${selectedTopicId}/students.json` : `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
+      request.get({
+        url: url
+      }, (e, r, body) => {
+        const data = JSON.parse(body)
+        const studentData = this.formattedStudentData(data.students)
+        const csvData = this.formatDataForCSV(data.students)
+        const topic = data.topics[0]
+        const classrooms = JSON.parse(body).classrooms
+        classrooms.unshift({name: showAllClassroomKey})
+        that.setState({loading: false, errors: body.errors, studentData, csvData, topic, classrooms: data.classrooms, selectedClassroom: data.selected_classroom});
+      });
+    })
   }
 
   formattedStudentData(data) {
@@ -105,8 +118,12 @@ export default class extends React.Component {
     ])
   }
 
+  switchClassrooms(classroomName) {
+    const classroom = this.state.classrooms.find(c => c.name === classroomName)
+    this.setState({selectedClassroom: classroom}, this.getData)
+  }
+
   render() {
-    console.log('indivudal standards file')
     if (this.state.loading || !this.state.studentData) {
       return <LoadingSpinner/>
     }
@@ -120,10 +137,13 @@ export default class extends React.Component {
             <CSVDownloadForProgressReport data={this.state.csvData}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
+          <div className='dropdown-container'>
+            <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom.name}/>
+          </div>
         </div>
         <div key={`concept-progress-report-length-${this.state.studentData.length}`}>
           <ReactTable data={this.state.studentData} columns={this.columns()} showPagination={false} defaultSorted={[{
-              id: 'name',
+              id: 'average_score',
               desc: false
             }
           ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.studentData.length} className='progress-report has-green-arrow'/>
