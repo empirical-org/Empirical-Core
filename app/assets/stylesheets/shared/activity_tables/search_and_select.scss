@@ -45,6 +45,14 @@
 .activity-filter-drop-downs {
   button {
     overflow: hidden;
+    background: white;
+    &.select-mixin {
+      &:active, &:focus {
+        border-color: #00c2a2;
+      }
+      outline: none;
+    }
+
   }
   .button-select {
     height: 40px;
@@ -52,9 +60,6 @@
     margin-right: 15px;
     white-space: nowrap;
     text-overflow: ellipsis;
-    &:focus {
-      outline: none;
-    }
   }
   .activity-filter-button-wrapper.open {
     position: relative;
