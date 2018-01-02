@@ -20,10 +20,10 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
   end
 
   private
-  def return_data(return_json)
-    classroom_activities_filter = !params[:classroom_id].blank? ? "AND classroom_activities.classroom_id = #{params[:classroom_id]}" : ''
-    student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id]}" : ''
-    unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id]}" : ''
+  def return_data(should_return_json)
+    classroom_activities_filter = !params[:classroom_id].blank? ? "AND classroom_activities.classroom_id = #{params[:classroom_id].to_i}" : ''
+    student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id].to_i}" : ''
+    unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id].to_i}" : ''
 
     case(params[:sort_param])
     when 'student_id'
@@ -41,8 +41,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     end
     sort_direction = params[:sort_descending] && params[:sort_descending] != 'true' ? 'ASC' : 'DESC'
 
-    query_limit = return_json ? "LIMIT #{PAGE_SIZE}" : ''
-    query_offset = return_json ? "OFFSET #{PAGE_SIZE * (params['page'].to_i - 1)}" : ''
+    query_limit = should_return_json ? "LIMIT #{PAGE_SIZE}" : ''
+    query_offset = should_return_json ? "OFFSET #{PAGE_SIZE * (params['page'].to_i - 1)}" : ''
 
     # Note to maintainers: if you update this query, please be sure to
     # also update the page count query below if applicable.
@@ -91,7 +91,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       #{query_offset}
     ").to_a;
 
-    if(return_json)
+    if(should_return_json)
       page_count = (ActiveRecord::Base.connection.execute("
         SELECT count(activity_sessions.id) FROM classrooms_teachers
         JOIN classrooms
