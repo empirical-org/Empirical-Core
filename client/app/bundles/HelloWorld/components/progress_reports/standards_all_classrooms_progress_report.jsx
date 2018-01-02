@@ -45,8 +45,7 @@ export default class extends React.Component {
       url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`, qs
     }, (e, r, body) => {
       const data = JSON.parse(body).data
-      console.log(data)
-        const csvData = this.formatDataForCSV(data)
+      const csvData = this.formatDataForCSV(data)
       const standardsData = this.formatStandardsData(data)
       // gets unique classroom names
       const classrooms = JSON.parse(body).classrooms
@@ -164,7 +163,7 @@ export default class extends React.Component {
         </div>
         <div className='dropdown-container'>
           <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
-          <ItemDropdown items={this.state.students.map(s => s.name)} callback={this.goToStudentPage}/>
+          <ItemDropdown items={_.uniq(this.state.students.map(s => s.name))} callback={this.goToStudentPage}/>
         </div>
 				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
 					<ReactTable data={filteredData}
