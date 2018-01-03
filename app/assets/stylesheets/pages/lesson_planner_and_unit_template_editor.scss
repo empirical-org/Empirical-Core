@@ -13,10 +13,17 @@
 }
 #activity-planner,
 #unit-template-editor {
-  .explore-activities-header {
-    margin-bottom: 30px;
-    font-weight: 700;
-    font-size: 24px;
+  .header-and-link {
+    padding-bottom: 30px;
+    .explore-activities-header {
+      font-weight: 700;
+      font-size: 24px;
+    }
+    a {
+      color: #027360;
+      text-decoration: none;
+    }
+
   }
   .name-and-assign-activity-pack {
     margin-top: 35px;
