@@ -97,3 +97,25 @@ With Lessons we started providing additonal information on how to deliver conten
 Type: string
 
 Example: https://assets.quill.org/supporting_info/teaching-commas.pdf
+
+## Relations
+
+has_and_belongs_to_many => unit_templates
+
+belongs_to => activity_classifications
+
+belongs_to => topics
+
+has_one => sections through topic
+
+belongs_to => activities
+
+has_many => classroom_activities
+
+has_many => classrooms through classroom_activities
+
+has_many => units through classroom_activities
+
+has_many => activity_category_activities
+
+has_many => activity_categories through activity_category_activities
