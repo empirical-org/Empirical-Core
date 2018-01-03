@@ -427,7 +427,7 @@ describe User, type: :model do
 
     describe '#affiliated_with_unit' do
       let!(:unit) { create(:unit, user: teacher) }
-      let!(:ca) { create(:classroom_activity, unit: unit) }
+      let!(:ca) { create(:classroom_activity, unit: unit, classroom: classroom) }
 
       it 'should return true if the teacher owns the unit' do
         expect(teacher.affiliated_with_unit(unit.id)).to be
