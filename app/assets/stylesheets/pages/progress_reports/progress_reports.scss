@@ -257,3 +257,8 @@ a.progress-reports-nav {
     @extend .icon-red;
   }
 }
+
+.activity-progress-report-container .dropdown-menu {
+  width: 91%;
+  margin-left: 15px;
+}
