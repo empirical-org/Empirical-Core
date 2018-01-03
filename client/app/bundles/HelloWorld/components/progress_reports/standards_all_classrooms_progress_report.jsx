@@ -57,6 +57,7 @@ export default class extends React.Component {
   }
 
   formatStandardsData(data) {
+    const selectedClassroomId = this.state.selectedClassroom !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroom).id : 0
     return data.map((row) => {
       row.standard_level = row.name
       row.standard_name = row.section_name
@@ -64,7 +65,7 @@ export default class extends React.Component {
       row.proficient = `${row.proficient_count} of ${row.total_student_count}`
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/topics/${row.id}/students`}>
+        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`}>
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )

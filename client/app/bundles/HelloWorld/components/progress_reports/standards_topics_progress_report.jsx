@@ -146,7 +146,7 @@ export default class extends React.Component {
 					<ReactTable data={filteredData}
 						columns={this.columns()}
 						showPagination={false}
-						defaultSorted={[{id: 'standard_level', desc: false}]}
+						defaultSorted={[{id: 'average_score', desc: false}]}
 					  showPaginationTop={false}
 						showPaginationBottom={false}
 						showPageSizeOptions={false}
