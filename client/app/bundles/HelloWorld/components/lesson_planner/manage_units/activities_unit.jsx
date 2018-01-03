@@ -30,12 +30,12 @@ export default React.createClass({
     // and we need to do a number of things with it that are better with an array
     const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
     const classroomList = this.classroomList(classrooms)
-    return <div className="assigned-to">
+    return (<div className="assigned-to">
       <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
       <ul>
         {classroomList}
       </ul>
-    </div>;
+    </div>);
   },
 
   classroomList(classrooms) {
@@ -215,7 +215,7 @@ export default React.createClass({
     }
 
     return (
-      <section className="my-activities-unit">
+      <section className="activities-unit">
         <div className="row unit-header-row" id={this.getUnitId()}>
           <div className="left">
             <span className="unit-name">

@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import Units from './my_activities_units';
+import Units from './activities_units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
