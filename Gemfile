@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 # CORE DEPS
-gem 'rails'
+gem 'rails', '=4.2.7.1'
 gem 'puma', '~> 3.10.0'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -27,6 +27,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
+gem 'rack-attack'
 
 # EMAIL
 gem 'premailer-rails'
@@ -41,8 +42,8 @@ gem 'validates_email_format_of'
 gem 'responders'
 
 # UPLOADS
-gem 'carrierwave'
-gem 'fog', require: 'fog/aws/storage'
+gem 'carrierwave', '=0.11.2'
+gem 'fog-aws'
 
 # TIME
 gem 'time_difference'
@@ -64,7 +65,6 @@ gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
 
-
 # WEBSOCKETS
 gem 'pusher'
 
@@ -75,7 +75,7 @@ gem 'addressable'
 
 # QUEUE/CACHE
 gem 'sidekiq'
-gem 'sidekiq-retries'
+gem 'sidekiq-retries', require: false
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
@@ -108,7 +108,7 @@ gem 'haml-rails'
 gem 'es5-shim-rails'
 # gem 'react-rails', '~> 1.6', '>= 1.6.2'
 # gem 'react-rails-hot-loader'
-gem "react_on_rails", "~> 6"
+gem "react_on_rails", "=6.1.1"
 
 # ASSET/UI
 gem 'therubyracer', require: false
@@ -181,7 +181,7 @@ group :test do
   gem "webmock"
   gem "codeclimate-test-reporter", require: nil
   gem 'simplecov'
-  gem 'simplecov-json'
+  gem 'simplecov-json', require: false
   gem 'codecov'
 end
 
