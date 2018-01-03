@@ -19,7 +19,7 @@ export default React.createClass({
 		return this.props.items.map((item) => {
 			if (!item.id) {
         // then we don't need ids
-				return (<MenuItem key={item} eventKey={item}>{item}</MenuItem>)
+				return (<MenuItem key={item} eventKey={item}>{item.name || item}</MenuItem>)
 			}
 			return <MenuItem key={item.id} eventKey={item.id}>{item.name}</MenuItem>
 		})
