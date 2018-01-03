@@ -84,7 +84,7 @@
   height: 40px;
 }
 
-.icon-diagnostic-gray {
+.icon-diagnostic-gray, .icon-4-gray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic-gray.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -105,6 +105,20 @@
   height: 40px;
 }
 
+.icon-puzzle-green-no-border, .icon-2-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/grammar-forest-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-diagnostic-green-no-border, .icon-4-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/diagnostic-forest-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
 .icon-diagnostic-green {
   background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic-green-new.svg");
   background-repeat: no-repeat;
@@ -119,6 +133,13 @@
   height: 40px;
 }
 
+.icon-connect-green-no-border, .icon-5-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/connect-forest-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
 .icon-flag-green, .icon-1-green {
   background-image: url("https://assets.quill.org/images/scorebook/icon-flag-green.svg");
   background-repeat: no-repeat;
@@ -126,8 +147,21 @@
   height: 40px;
 }
 
+.icon-flag-green-no-border, .icon-1-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/proofreader-forest-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
 .icon-lessons-green, .icon-6-green {
   background-image: url("https://assets.quill.org/images/scorebook/icon-lessons-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+.icon-lessons-green-no-border, .icon-6-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/lessons-forest-green.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
