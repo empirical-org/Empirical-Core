@@ -420,7 +420,7 @@ GEM
       rack
     rack-cache (1.6.1)
       rack (>= 0.4)
-    rack-cors (1.0.2)
+    rack-cors (0.4.0)
     rack-heartbeat (1.1.0)
       rack
     rack-host-redirect (1.3.0)
@@ -749,7 +749,7 @@ DEPENDENCIES
   quiet_assets
   rack-attack
   rack-cache (~> 1.6.1)
-  rack-cors
+  rack-cors (= 0.4.0)
   rack-heartbeat
   rack-host-redirect
   rails (= 4.2.7.1)
