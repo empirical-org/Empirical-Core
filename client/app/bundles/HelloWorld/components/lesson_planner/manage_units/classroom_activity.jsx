@@ -209,7 +209,7 @@ renderLessonPlanTooltip() {
     const classification = this.classification()
     if (classification) {
       // then we're coming from the index and have an id
-      return `icon-${activityFromClassificationId(classification)}-green`
+      return `icon-${activityFromClassificationId(classification)}-green-no-border`
     }
     // it is stupid that we are passing this in some of this components use create_activity_sessions
     //  but don't have time to deprecate it right now
