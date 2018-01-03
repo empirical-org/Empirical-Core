@@ -161,7 +161,15 @@ renderLessonPlanTooltip() {
 
   finalCell() {
     const startDate = this.state.startDate
-    if (this.props.report) {
+    if (this.props.activityReport) {
+      return (
+        <div>
+          <span># of # students</span>
+          <span>##%</span>
+          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        </div>
+      );
+    } else if (this.props.report) {
       return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.caId()}`} onClick={this.urlForReport}>View Report</a>]
     } else if (this.isLesson()) {
        return this.lessonFinalCell()
@@ -265,6 +273,10 @@ renderLessonPlanTooltip() {
         completed={this.props.data.completed}
       />)
     }
+  },
+
+  renderOuterLink(content) {
+    return this.props.activityReport ? <a href={this.urlForReport()}>{content}</a> : content;
   },
 
   render() {

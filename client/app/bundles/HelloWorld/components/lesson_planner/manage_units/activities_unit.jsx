@@ -196,6 +196,7 @@ export default React.createClass({
           <ClassroomActivity
             key={`${this.props.data.unitId}-${key}`}
             report={this.props.report}
+            activityReport={this.props.activityReport}
             lesson={this.props.lesson}
             updateDueDate={this.props.updateDueDate}
             hideClassroomActivity={this.props.hideClassroomActivity}

@@ -175,7 +175,7 @@ export default React.createClass({
 							selectedItem={selectedClassroom}
 						/>
 					</div>
-					<Units report={Boolean(true)} data={this.state.units}/>
+					<Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units}/>
 				</div>
 			);
 		}
