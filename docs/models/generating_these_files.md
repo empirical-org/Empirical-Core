@@ -1,0 +1,1 @@
+print MODELNAME.first.attributes.map {|k,v| "#### #{k}\nDescription Goes Here\n\nType: #{v.class}\n\nExample: #{v}\n\nDefaults To: \n\nAllowed Values: \n\n"}.join()
