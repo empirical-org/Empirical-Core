@@ -275,10 +275,6 @@ renderLessonPlanTooltip() {
     }
   },
 
-  renderOuterLink(content) {
-    return this.props.activityReport ? <a href={this.urlForReport()}>{content}</a> : content;
-  },
-
   render() {
     let link,
       endRow
@@ -293,7 +289,7 @@ renderLessonPlanTooltip() {
       endRow = styles.endRow
     }
     return (
-      <div className="row" style={styles.row}>
+      <div className="row" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
         {this.renderModal()}
         <div className="starting-row">
           <div className="cell">
