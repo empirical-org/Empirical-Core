@@ -23,7 +23,7 @@ export default React.createClass({
 
     ? (<div
       ref="activateTooltip"
-      className={this.props.data.activity_classification.gray_image_class}
+      className={`icon-${this.props.data.activity_classification.id}-green-no-border`}
       data-html="true"
       data-toggle="tooltip"
       data-placement="top"
