@@ -23,6 +23,7 @@ export default React.createClass({
     e.stopPropagation();
     this.refs.activateTooltip.getDOMNode().tooltip('show');
   },
+
   tooltipTriggerStop(e) {
     e.stopPropagation();
     this.refs.activateTooltip.getDOMNode().tooltip('hide');
