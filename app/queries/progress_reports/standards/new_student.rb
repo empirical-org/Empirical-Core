@@ -65,7 +65,7 @@ class ProgressReports::Standards::NewStudent
   end
 
   def classroom_conditional(classroom_id)
-    if classroom_id && classroom_id != 0
+    if classroom_id && classroom_id != 0 && classroom_id != '0'
       "AND classrooms.id = #{classroom_id}"
     end
   end
