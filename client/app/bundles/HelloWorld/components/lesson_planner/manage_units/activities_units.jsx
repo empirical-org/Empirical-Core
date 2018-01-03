@@ -11,6 +11,7 @@ export default React.createClass({
     hideClassroomActivity={this.props.hideClassroomActivity}
     hideUnit={this.props.hideUnit}
     report={this.props.report}
+    activityReport={this.props.activityReport}
     lesson={this.props.lesson}
     updateDueDate={this.props.updateDueDate}
     data={data}
