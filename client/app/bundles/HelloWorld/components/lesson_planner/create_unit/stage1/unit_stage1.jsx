@@ -61,6 +61,7 @@ export default React.createClass({
           toggleActivitySelection={this.props.toggleActivitySelection}
           clickContinue={this.props.clickContinue}
           errorMessage={this.props.errorMessage}
+          unitName={this.props.unitName}
         />
         <div className="error-message-and-button">
           <div className={this.determineErrorMessageClass()}>{error}</div>

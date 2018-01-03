@@ -248,6 +248,7 @@ export default React.createClass({
           errorMessage={this.props.errorMessage || ''}
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
+          unitName={this.props.unitName}
         />
       </section>
     );
