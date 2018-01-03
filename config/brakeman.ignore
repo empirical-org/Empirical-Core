@@ -1,6 +1,26 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "03d0b6e7b0c96b52bb82e90e1a899d92b3508b26ffe0bbbf50a9bd643441de79",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/teachers/units_controller.rb",
+      "line": 211,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"SELECT units.name AS unit_name,\\n         activities.name AS activity_name,\\n         activities.supporting_info AS supporting_info,\\n         classrooms.name AS class_name,\\n         classrooms.id AS classroom_id,\\n         activities.activity_classification_id,\\n         ca.id AS classroom_activity_id,\\n         ca.unit_id AS unit_id,\\n         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS number_of_assigned_students,\\n         COUNT(DISTINCT students_classrooms.id) AS class_size,\\n         ca.due_date,\\n         activities.id AS activity_id,\\n         activities.uid as activity_uid,\\n         SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,\\n         SUM(CASE WHEN act_sesh.state = 'started' THEN 1 ELSE 0 END) AS started_count,\\n         EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,\\n         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,\\n         #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,\\n         unit_owner.name AS owner_name,\\n         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user\\n      FROM units\\n        INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id\\n        INNER JOIN activities ON ca.activity_id = activities.id\\n        INNER JOIN classrooms ON ca.classroom_id = classrooms.id\\n        INNER JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id\\n        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id\\n        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id\\n        JOIN users AS unit_owner ON unit_owner.id = units.user_id\\n      WHERE ca.classroom_id IN #{\"(#{current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id).join(\", \")})\"}\\n        AND classrooms.visible = true\\n        AND units.visible = true\\n        AND ca.visible = true\\n        AND students_classrooms.visible = true\\n        #{(\"AND activities.activity_classification_id = 6\" or \"\")}\\n        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id\\n        #{(\"HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0\" or \"\")}\\n        \")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::UnitsController",
+        "method": "units_i_own_or_coteach"
+      },
+      "user_input": "current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id)",
+      "confidence": "High",
+      "note": "We explicitly set the own_or_coteach string ourselves."
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
       "fingerprint": "0c65aabdc743af40ef19d0591ab0826da78480c9408e8537b487f19144b9f2b4",
@@ -8,7 +28,7 @@
       "message": "Parameters should be whitelisted for mass assignment",
       "file": "app/controllers/cms/activity_classifications_controller.rb",
       "line": 46,
-      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:activity_classification).permit!",
       "render_path": null,
       "location": {
@@ -28,7 +48,7 @@
       "message": "Possible SQL injection",
       "file": "app/models/concerns/teacher.rb",
       "line": 65,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"SELECT coteacher_classroom_invitations.id AS coteacher_classroom_invitation_id, classrooms_teachers.id AS classrooms_teachers_id FROM users\\n      LEFT JOIN invitations ON invitations.invitee_email = users.email AND invitations.archived = false\\n      LEFT JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id #{\"AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(\", \")})\"}\\n      LEFT JOIN classrooms_teachers ON classrooms_teachers.user_id = #{self.id} AND classrooms_teachers.role = 'coteacher' #{\"AND classrooms_teachers.classroom_id IN (#{classrooms_ids_to_check.join(\", \")})\"}\\n      WHERE users.id = #{self.id}\")",
       "render_path": null,
       "location": {
@@ -48,7 +68,7 @@
       "message": "Possible unprotected redirect",
       "file": "app/controllers/pages_controller.rb",
       "line": 40,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Activity.with_classification.find_by_uid(\"-K0rnIIF_iejGqS3XPJ8\").anonymous_module_url.to_s)",
       "render_path": null,
       "location": {
@@ -68,7 +88,7 @@
       "message": "Possible unprotected redirect",
       "file": "app/controllers/teachers/units_controller.rb",
       "line": 97,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(\"/teachers/classroom_activities/#{ActiveRecord::Base.connection.execute(\"\\n      SELECT classroom_activities.id from classroom_activities\\n        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id\\n        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}\\n          AND classroom_activities.activity_id = #{params[:activity_id].to_i}\\n          AND classroom_activities.visible is TRUE\").to_a.first[\"id\"]}/launch_lesson/#{Activity.find(params[:activity_id].to_i).uid}\")",
       "render_path": null,
       "location": {
@@ -88,7 +108,7 @@
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/users_controller.rb",
       "line": 229,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n      \\tCOUNT(users.id) AS count\\n      FROM users\\n      LEFT JOIN schools_users ON users.id = schools_users.user_id\\n      LEFT JOIN schools ON schools_users.school_id = schools.id\\n      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id\\n      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id\\n      #{where_query_string_builder}\\n    \")",
       "render_path": null,
       "location": {
@@ -108,7 +128,7 @@
       "message": "Possible SQL injection",
       "file": "app/models/concerns/teacher.rb",
       "line": 39,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Classroom.find_by_sql(\"#{base_sql_for_teacher_classrooms} AND ct.role = 'coteacher'\")",
       "render_path": null,
       "location": {
@@ -128,7 +148,7 @@
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/schools_controller.rb",
       "line": 185,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n        schools.name AS school_name,\\n        schools.leanm AS district_name,\\n        COALESCE(schools.city, schools.mail_city) AS school_city,\\n        COALESCE(schools.state, schools.mail_state) AS school_state,\\n        COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,\\n        schools.free_lunches || '%' AS frl,\\n        COUNT(DISTINCT schools_users.id) AS number_teachers,\\n        subscriptions.account_type AS premium_status,\\n        COUNT(DISTINCT schools_admins.id) AS number_admins,\\n        schools.id AS id\\n      FROM schools\\n      LEFT JOIN schools_users ON schools_users.school_id = schools.id\\n      LEFT JOIN schools_admins ON schools_admins.school_id = schools.id\\n      LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id\\n      LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id\\n      #{where_query_string_builder}\\n      GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id\\n      #{having_string}\\n      #{pagination_query_string}\\n    \")",
       "render_path": null,
       "location": {
@@ -143,32 +163,12 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "66a97696ecc832b4d60b43cc9b6e981a7387257166bdd6b6e434bd72f0849c8d",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/teachers/units_controller.rb",
-      "line": 209,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"SELECT units.name AS unit_name,\\n         activities.name AS activity_name,\\n         activities.supporting_info AS supporting_info,\\n         classrooms.name AS class_name,\\n         classrooms.id AS classroom_id,\\n         activities.activity_classification_id,\\n         ca.id AS classroom_activity_id,\\n         ca.unit_id AS unit_id,\\n         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS class_size,\\n         ca.due_date,\\n         activities.id AS activity_id,\\n         activities.uid as activity_uid,\\n         SUM(CASE WHEN act_sesh.state = 'finished' THEN 1 ELSE 0 END) as completed_count,\\n         SUM(CASE WHEN act_sesh.state = 'started' THEN 1 ELSE 0 END) AS started_count,\\n         EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,\\n         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,\\n         #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,\\n         unit_owner.name AS owner_name,\\n         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user\\n      FROM units\\n        INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id\\n        INNER JOIN activities ON ca.activity_id = activities.id\\n        INNER JOIN classrooms ON ca.classroom_id = classrooms.id\\n        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id\\n        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id\\n        JOIN users AS unit_owner ON unit_owner.id = units.user_id\\n      WHERE ca.classroom_id IN #{\"(#{current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id).join(\", \")})\"}\\n        AND classrooms.visible = true\\n        AND units.visible = true\\n        AND ca.visible = true\\n        #{(\"AND activities.activity_classification_id = 6\" or \"\")}\\n        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id\\n        #{(\"HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0\" or \"\")}\\n        \")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Teachers::UnitsController",
-        "method": "units_i_own_or_coteach"
-      },
-      "user_input": "current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id)",
-      "confidence": "High",
-      "note": "We are simply joining IDs into a SQL array here."
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
       "fingerprint": "7fc42c944ffecaa466c482b3482508510e611d002a86016d15d1b1b00e242360",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/concerns/teacher.rb",
       "line": 163,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"SELECT DISTINCT classrooms.name AS name, invitations.invitee_email AS coteacher_email FROM classrooms_teachers AS my_classrooms\\n      JOIN invitations ON invitations.inviter_id = my_classrooms.user_id\\n      JOIN coteacher_classroom_invitations ON invitations.id = coteacher_classroom_invitations.invitation_id\\n      JOIN classrooms ON coteacher_classroom_invitations.classroom_id = classrooms.id\\n      WHERE my_classrooms.user_id = #{self.id} AND invitations.invitation_type = '#{Invitation::TYPES[:coteacher]}' AND invitations.archived = false AND my_classrooms.role = 'owner'\")",
       "render_path": null,
       "location": {
@@ -188,7 +188,7 @@
       "message": "'protect_from_forgery' should be called in Api::ApiController",
       "file": "app/controllers/api/api_controller.rb",
       "line": 1,
-      "link": "http://brakemanscanner.org/docs/warning_types/cross-site_request_forgery/",
+      "link": "https://brakemanscanner.org/docs/warning_types/cross-site_request_forgery/",
       "code": null,
       "render_path": null,
       "location": {
@@ -207,7 +207,7 @@
       "message": "Possible SQL injection",
       "file": "app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb",
       "line": 94,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n        SELECT activity_sessions.state\\n        FROM classrooms_teachers\\n        JOIN classrooms\\n          ON  classrooms_teachers.classroom_id = classrooms.id\\n          AND classrooms.visible = TRUE\\n        JOIN classroom_activities\\n          ON  classrooms.id = classroom_activities.classroom_id\\n          AND classroom_activities.visible = TRUE\\n          AND classroom_activities.activity_id IN (#{[413, 447, 602].join(\", \")})\\n        LEFT JOIN activity_sessions\\n          ON  classroom_activities.id = activity_sessions.classroom_activity_id\\n          AND activity_sessions.state = 'finished'\\n          AND activity_sessions.visible = TRUE\\n        WHERE classrooms_teachers.user_id = #{current_user.id}\\n      \")",
       "render_path": null,
       "location": {
@@ -227,7 +227,7 @@
       "message": "Parameters should be whitelisted for mass assignment",
       "file": "app/controllers/teachers/students_controller.rb",
       "line": 69,
-      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:user).except!(:role).permit!",
       "render_path": null,
       "location": {
@@ -247,7 +247,7 @@
       "message": "Possible SQL injection",
       "file": "app/models/concerns/teacher.rb",
       "line": 100,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Classroom.find_by_sql(\"#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false\")",
       "render_path": null,
       "location": {
@@ -266,8 +266,8 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/activity_sessions_controller.rb",
-      "line": 30,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Activity.find(params[:activity_id]).anonymous_module_url.to_s)",
       "render_path": null,
       "location": {
@@ -287,7 +287,7 @@
       "message": "Possible SQL injection",
       "file": "app/models/concerns/teacher.rb",
       "line": 35,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Classroom.find_by_sql(\"#{base_sql_for_teacher_classrooms} AND ct.role = 'owner'\")",
       "render_path": null,
       "location": {
@@ -307,7 +307,7 @@
       "message": "Parameters should be whitelisted for mass assignment",
       "file": "app/controllers/cms/activities_controller.rb",
       "line": 67,
-      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:activity).permit!",
       "render_path": null,
       "location": {
@@ -326,8 +326,8 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/activity_sessions_controller.rb",
-      "line": 29,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "line": 30,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(\"#{ENV[\"DEFAULT_URL\"]}/preview_lesson/#{Activity.find(params[:activity_id]).uid}\")",
       "render_path": null,
       "location": {
@@ -347,7 +347,7 @@
       "message": "Possible SQL injection",
       "file": "app/models/concerns/teacher.rb",
       "line": 216,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Classroom.find_by_sql(\"#{base_sql_for_teacher_classrooms} AND classrooms.google_classroom_id IS NOT NULL\")",
       "render_path": null,
       "location": {
@@ -360,6 +360,26 @@
       "note": "base_sql_for_teacher_classrooms is a method that returns the base sql for this query. It is not user generated."
     },
     {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "e435145b4e187373125c5b2f917313afc7d4877391805ba4fc2bbd365e88d671",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/models/concerns/teacher.rb",
+      "line": 246,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.permit(:id, :name, :role, :username, :authenticity_token, :email, :password, :school_options_do_not_apply, :school_id, :original_selected_school_id)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teacher",
+        "method": "update_teacher"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "note": "We explicitly set the role to teacher unless it equals student."
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "e4bb4824d018e765f6594e574f9aa2d7917dcdbced36a18b9bffd8e6dbf37910",
@@ -367,7 +387,7 @@
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/users_controller.rb",
       "line": 170,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n      \\tusers.name AS name,\\n      \\tusers.email AS email,\\n      \\tusers.role AS role,\\n      \\tsubscriptions.account_type AS subscription,\\n      \\tTO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,\\n        schools.name AS school,\\n        schools.id AS school_id,\\n      \\tusers.id AS id\\n      FROM users\\n      LEFT JOIN schools_users ON users.id = schools_users.user_id\\n      LEFT JOIN schools ON schools_users.school_id = schools.id\\n      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id\\n      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id\\n      #{where_query_string_builder}\\n      #{pagination_query_string}\\n    \")",
       "render_path": null,
       "location": {
@@ -387,7 +407,7 @@
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/schools_controller.rb",
       "line": 255,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT count(*) as count FROM\\n        (SELECT\\n        \\tCOUNT(schools.id) AS count\\n        FROM schools\\n        LEFT JOIN schools_users ON schools_users.school_id = schools.id\\n        LEFT JOIN schools_admins ON schools_admins.school_id = schools.id\\n        LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id\\n        LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id\\n        #{where_query_string_builder}\\n        GROUP BY schools.id\\n        #{having_string}) as subquery\\n    \")",
       "render_path": null,
       "location": {
@@ -407,7 +427,7 @@
       "message": "Possible SQL injection",
       "file": "app/controllers/coteacher_classroom_invitations_controller.rb",
       "line": 13,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT coteacher_classroom_invitations.classroom_id, invitations.id AS invitation_id\\n      FROM coteacher_classroom_invitations\\n      INNER JOIN invitations\\n        ON invitations.invitation_type = '#{\"coteacher\"}'\\n        AND invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)}\\n        AND invitations.archived = false\\n      WHERE coteacher_classroom_invitations.id IN (#{params[:coteacher_invitation_ids].map(&:to_i).join(\", \")})\\n    \")",
       "render_path": null,
       "location": {
@@ -420,6 +440,6 @@
       "note": "We are explicitly ensuring that these are all integers before continuing."
     }
   ],
-  "updated": "2017-12-13 21:06:27 -0500",
-  "brakeman_version": "3.7.2"
+  "updated": "2018-01-02 16:35:01 -0500",
+  "brakeman_version": "4.1.1"
 }

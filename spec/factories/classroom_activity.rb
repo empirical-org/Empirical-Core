@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :classroom_activity do
-    to_create {|instance| instance.save(validate: false) }
-    unit {Unit.first || FactoryBot.create(:unit)}
-    classroom {Classroom.first || FactoryBot.create(:classroom)}
-    assign_on_join false
-    activity {FactoryBot.create(:activity, :production)}
+    unit            { create(:unit) }
+    classroom       { create(:classroom) }
+    assign_on_join  false
+    activity        { create(:activity, :production) }
+
 	  factory :classroom_activity_with_activity do
-	  	activity { Activity.first || FactoryBot.create(:activity) }
+	     activity { Activity.first || create(:activity) }
 	  end
 
     factory :classroom_activity_with_activity_sessions do
@@ -16,7 +16,7 @@ FactoryBot.define do
     end
 
     factory :lesson_classroom_activity_with_activity_sessions do
-       activity { FactoryBot.create(:lesson_activity, :with_follow_up)}
+       activity { create(:lesson_activity, :with_follow_up) }
        after(:create) do |ca|
          create_list(:activity_session, 5, classroom_activity: ca)
        end
