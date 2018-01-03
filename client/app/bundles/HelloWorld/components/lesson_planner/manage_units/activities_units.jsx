@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import Unit from './my_activities_unit';
+import Unit from './activities_unit';
 
 export default React.createClass({
 
