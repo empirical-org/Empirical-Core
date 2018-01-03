@@ -38,6 +38,33 @@
     border: solid 1px #00c2a2;
   }
 
+  .-sort-asc, .-sort-desc {
+    box-shadow: none !important;
+  }
+
+  .-sort-asc {
+    div::after {
+      position: absolute;
+      top: 12px;
+      font-size: 18px;
+      right: 15px;
+      color: #969696;
+      font-family: FontAwesome;
+      content: "\f0d7";
+    }
+  }
+
+  .-sort-desc {
+    div::after {
+      position: absolute;
+      top: 12px;
+      font-size: 18px;
+      right: 15px;
+      color: #969696;
+      font-family: FontAwesome;
+      content: "\f0d8";
+    }
+  }
 }
 
 .concept-student-concepts {

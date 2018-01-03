@@ -33,7 +33,7 @@ export default class extends React.Component {
     this.setState({loading: true}, () => {
       const that = this;
       const selectedTopicId = this.state.topic ? this.state.topic.id : null
-      const selectedClassroomId = this.state.selectedClassroom ? this.state.selectedClassroom.id : null
+      const selectedClassroomId = this.state.selectedClassroom && this.state.selectedClassroom.id ? this.state.selectedClassroom.id : 0
       const url = selectedTopicId && selectedClassroomId ? `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${selectedTopicId}/students.json` : `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
       request.get({
         url: url
@@ -43,8 +43,10 @@ export default class extends React.Component {
         const csvData = this.formatDataForCSV(data.students)
         const topic = data.topics[0]
         const classrooms = JSON.parse(body).classrooms
-        classrooms.unshift({name: showAllClassroomKey})
-        that.setState({loading: false, errors: body.errors, studentData, csvData, topic, classrooms: data.classrooms, selectedClassroom: data.selected_classroom});
+        const allClassrooms = {name: showAllClassroomKey}
+        const selectedClassroom = data.selected_classroom ? data.selected_classroom : allClassrooms
+        classrooms.unshift(allClassrooms)
+        that.setState({loading: false, errors: body.errors, studentData, csvData, topic, classrooms, selectedClassroom});
       });
     })
   }
