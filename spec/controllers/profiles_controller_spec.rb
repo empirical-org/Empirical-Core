@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe ProfilesController, type: :controller do
-  render_views
-
   describe 'as a student' do
     let(:classroom) {create(:classroom)}
     let(:student) { create(:student) }
