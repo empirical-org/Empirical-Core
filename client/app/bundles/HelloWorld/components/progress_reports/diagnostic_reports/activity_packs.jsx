@@ -1,6 +1,6 @@
 import React from 'react'
 import request from 'request';
-import Units from '../../lesson_planner/manage_units/units.jsx'
+import Units from '../../lesson_planner/manage_units/activities_units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx'
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
@@ -74,9 +74,9 @@ export default React.createClass({
 	},
 
 	generateNewCaUnit(u) {
+		const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
     const caObj = {
-      studentCount: Number(u.array_length ? u.array_length : u.class_size),
-      classrooms: [u.class_name],
+      classrooms: [classroom],
       classroomActivities: new Map(),
       unitId: u.unit_id,
       unitCreated: u.unit_created_at,
@@ -103,10 +103,10 @@ export default React.createClass({
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
       } else {
         const caUnit = parsedUnits[u.unit_id];
-        if (!caUnit.classrooms.includes(u.class_name)) {
+				if (caUnit.classrooms.findIndex(c => c.name === u.class_name) === -1) {
           // add the info and student count from the classroom if it hasn't already been done
-          caUnit.classrooms.push(u.class_name);
-          caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
+          const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
+          caUnit.classrooms.push(classroom);
         }
         // add the activity info if it doesn't exist
         caUnit.classroomActivities.set(u.activity_id,
@@ -182,7 +182,6 @@ export default React.createClass({
 	},
 
 	render: function() {
-
 		return (
 			<div className="container manage-units">
 				{this.stateBasedComponent()}
