@@ -222,7 +222,10 @@ export default React.createClass({
     }
     return (
       <section>
-        <h1 className="explore-activities-header">Explore Activities & Create Activity Pack</h1>
+        <div className='flex-row space-between vertically-centered header-and-link'>
+          <h1 className="explore-activities-header">Explore Activities & Create Activity Pack</h1>
+          <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">Common Core Standards vs. Students’ Levels<i className="fa fa-long-arrow-right"></i></a>
+        </div>
         <ActivitySearchAndFilters
           showAllId={showAllId}
           updateSearchQuery={this.updateSearchQuery}
