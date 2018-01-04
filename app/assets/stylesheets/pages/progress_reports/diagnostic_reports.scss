@@ -536,6 +536,14 @@ $lightgray: #cecece;
     }
 }
 
+.assigned-activities .row:hover {
+  background-color: $row-hover-green-white;
+
+  div.starting-row div#activity-analysis-activity-name a, div.starting-row div#activity-analysis-activity-name span {
+    color: $quillgreen;
+  }
+}
+
 .assigned-activities .row:first-of-type .activity-analysis-row-right {
   *::before {
     color: $anothergray;
@@ -561,14 +569,6 @@ $lightgray: #cecece;
 }
 
 .activity-analysis-row-right {
-  .number-of-students {
-
-  }
-
-  .average-score {
-
-  }
-
   .chevron-right {
     margin-right: 5px;
   }
