@@ -59,8 +59,8 @@ export default class extends React.Component {
   formatStandardsData(data) {
     const selectedClassroomId = this.state.selectedClassroom !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroom).id : 0
     return data.map((row) => {
-      row.standard_level = row.name
-      row.standard_name = row.section_name
+      row.standard_level = row.section_name
+      row.standard_name = row.name
       row.number_of_students = Number(row.total_student_count)
       row.proficient = `${row.proficient_count} of ${row.total_student_count}`
       row.activities = Number(row.total_activity_count)
@@ -69,6 +69,7 @@ export default class extends React.Component {
           <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
         </a>
       )
+      row.link = `/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`
       return row
     })
   }
@@ -87,33 +88,58 @@ export default class extends React.Component {
 
   columns() {
     const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
+    const selectedClassroomId = this.state.selectedClassroom !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroom).id : 0
     return ([
       {
         Header: 'Standard Level',
         accessor: 'standard_level',
         sortMethod: sortByStandardLevel,
         resizable: false,
-        Cell: row => (
-          <span className='green-text'>{row.original['name']}</span>
+        width: 150,
+        Cell: (row, selectedClassroomId) => (
+          <a href={row.original['link']} style={{width: '100%', display: 'inline-block'}}>
+            {row.original['section_name']}
+          </a>
         )
       }, {
         Header: "Standard Name",
         accessor: 'standard_name',
         sortMethod: sortByStandardLevel,
-        resizable: false
+        resizable: false,
+        minWidth: 300,
+        Cell: (row, selectedClassroomId) => (
+          <a href={row.original['link']} className="row-link-disguise">
+            {row.original['name']}
+          </a>
+        )
       }, {
         Header: "Students",
         accessor: 'number_of_students',
         resizable: false,
+        Cell: (row, selectedClassroomId) => (
+          <a href={row.original['link']} className="row-link-disguise">
+            {row.original['number_of_students']}
+          </a>
+        )
         }, {
 				Header: "Proficient",
 				accessor: 'proficient',
 				resizable: false,
-        className: blurIfNotPremium
+        className: blurIfNotPremium,
+        Cell: (row, selectedClassroomId) => (
+          <a href={row.original['link']} className="row-link-disguise">
+            {row.original['proficient']}
+          </a>
+        )
 				}, {
 				Header: "Activities",
 				accessor: 'activities',
 				resizable: false,
+        Cell: (row, selectedClassroomId) => (
+          <a href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`} className="row-link-disguise">
+            {row.original['activities']}
+          </a>
+        )
 				}, {
         Header: "",
         accessor: 'green_arrow',

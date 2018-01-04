@@ -188,6 +188,17 @@ export default React.createClass({
     this.props.updateMultipleDueDates(caIds, date)
   },
 
+  numberOfStudentsAssignedToUnit() {
+    const dclassy = this.props.data.classrooms;
+    // ensure classrooms is always an array as sometimes it is passed as a set
+    const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
+    let numberOfStudentsAssignedToUnit = 0;
+    classrooms.forEach(c => {
+      numberOfStudentsAssignedToUnit += Number(c.assignedStudentCount);
+    });
+    return numberOfStudentsAssignedToUnit;
+  },
+
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
       for (const [key, ca] of this.state.classroomActivities) {
@@ -204,6 +215,7 @@ export default React.createClass({
             data={ca}
             updateAllDueDates={this.updateAllDueDates}
             isFirst={isFirst}
+            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
           />
         );
     }

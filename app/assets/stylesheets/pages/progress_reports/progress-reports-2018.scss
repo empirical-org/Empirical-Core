@@ -11,6 +11,15 @@
   margin: auto;
   padding-top: 30px;
   padding-bottom: 180px;
+
+  .rt-table {
+    border-radius: 6px;
+  }
+
+  .rt-thead {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+  }
+
   .header-and-info {
     max-width: 603px;
     h1 {
@@ -47,7 +56,7 @@
       position: absolute;
       top: 12px;
       font-size: 18px;
-      right: 15px;
+      right: 20px;
       color: #969696;
       font-family: FontAwesome;
       content: "\f0d7";
@@ -65,6 +74,12 @@
       content: "\f0d8";
     }
   }
+
+  .row-link-disguise {
+    width: 100%;
+    display: inline-block;
+    color: black;
+  }
 }
 
 .concept-student-concepts {
@@ -76,6 +91,9 @@
   }
   .meta-overview {
     margin-bottom: 31px;
+  }
+  .ReactTable.progress-report .rt-tr-group:hover {
+    background-color: white;
   }
 }
 
@@ -99,6 +117,7 @@
   }
   .header-and-info {
     max-width: 720px;
+    min-width: 575px;
   }
 }
 
@@ -109,7 +128,7 @@
     transform: rotate(180deg);
   }
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: #027360;
 }
 

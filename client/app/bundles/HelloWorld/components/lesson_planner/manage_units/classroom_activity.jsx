@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
+import Pluralize from 'pluralize';
 import activityFromClassificationId from '../../modules/activity_from_classification_id.js'
 
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal'
@@ -28,7 +29,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '150px',
     marginRight: '15px',
   },
 }
@@ -160,21 +160,19 @@ renderLessonPlanTooltip() {
   },
 
   finalCell() {
-    const startDate = this.state.startDate
     if (this.props.activityReport) {
-      return (
-        <div>
-          <span># of # students</span>
-          <span>##%</span>
-          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-        </div>
-      );
+      return [
+        <span key='number-of-students' className='number-of-students'>{this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
+        <span key='average-score' className='average-score'>##%</span>,
+        <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+      ]
     } else if (this.props.report) {
       return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.caId()}`} onClick={this.urlForReport}>View Report</a>]
     } else if (this.isLesson()) {
        return this.lessonFinalCell()
     }
     if (this.props.data.ownedByCurrentUser) {
+      const startDate = this.state.startDate
       return <span className="due-date-field">
         <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} />
         {startDate && this.props.isFirst ? <span className="apply-to-all" onClick={() => this.props.updateAllDueDates(startDate)}>Apply to All</span> : null}
@@ -280,7 +278,7 @@ renderLessonPlanTooltip() {
       endRow
     if (this.props.report) {
       link = <a onClick={this.urlForReport} target="_new">{this.activityName()}</a>
-      endRow = styles.reportEndRow
+      endRow = Object.assign({}, styles.reportEndRow, {width: this.props.activityReport ? '350px' : '150px'})
     } else if (this.isLesson()) {
       link = <span onClick={this.openModal}>{this.activityName()}</span>
       endRow = styles.lessonEndRow
@@ -301,7 +299,7 @@ renderLessonPlanTooltip() {
             {this.buttonForRecommendations()}
           </div>
         </div>
-        <div className="cell" style={endRow}>
+        <div className={this.props.activityReport ? 'cell activity-analysis-row-right' : 'cell'} style={endRow}>
           {this.renderLessonsAction()}
           {this.finalCell()}
           {this.deleteRow()}
