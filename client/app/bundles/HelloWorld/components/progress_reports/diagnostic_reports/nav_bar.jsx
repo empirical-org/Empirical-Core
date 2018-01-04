@@ -3,6 +3,8 @@ import React from 'react';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
 import NavButtonGroup from './nav_button_group.jsx';
 import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx';
+import blackIconAppName from '../../modules/get_black_icon_app_name_from_classification.js'
+import l from 'lodash'
 import $ from 'jquery';
 
 export default React.createClass({
@@ -55,10 +57,20 @@ export default React.createClass({
   },
 
   render() {
+    let appName, image, previewLink
+    if (l.has(this.props.selectedActivity, 'selectedActivity.classification.id')) {
+      appName = blackIconAppName(this.props.selectedActivity.classification.id)
+      image = <img src={`https://assets.quill.org/images/icons/${appName}`} alt={`${appName}-icon`}/>
+      preview = <a href={`/activity_sessions/anonymous?activity_id=${this.props.selectedActivity.id}`}>Preview Activity</a>
+    }
     return (
       <div className="diagnostic-nav-container">
         <div id="reports-navbar">
-          <h1>{this.props.selectedActivity.name}</h1>
+          <div className='name-and-preview flex-row name-and-preview flex-row vertically-centered'>
+
+            <h1>{this.props.selectedActivity.name}</h1>
+          </div>
+
           <p>{this.props.selectedActivity.description}</p>
           <div className="nav-elements">
             <ItemDropdown

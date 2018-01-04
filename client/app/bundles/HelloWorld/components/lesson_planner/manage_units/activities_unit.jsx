@@ -199,17 +199,6 @@ export default React.createClass({
     return numberOfStudentsAssignedToUnit;
   },
 
-  numberOfStudentsWhoCompletedActivity() {
-    const dclassy = this.props.data.classrooms;
-    // ensure classrooms is always an array as sometimes it is passed as a set
-    const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
-    let numberOfStudentsWhoCompletedActivity = 0;
-    classrooms.forEach(c => {
-      numberOfStudentsWhoCompletedActivity += Number(c.completedCount);
-    });
-    return numberOfStudentsWhoCompletedActivity;
-  },
-
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
       for (const [key, ca] of this.state.classroomActivities) {
@@ -227,7 +216,6 @@ export default React.createClass({
             updateAllDueDates={this.updateAllDueDates}
             isFirst={isFirst}
             numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
-            numberOfStudentsWhoCompletedActivity={this.numberOfStudentsWhoCompletedActivity()}
           />
         );
     }
