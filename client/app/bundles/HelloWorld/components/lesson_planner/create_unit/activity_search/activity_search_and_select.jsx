@@ -14,7 +14,7 @@ import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name';
 import naturalCmp from 'underscore.string/naturalCmp';
 
-const resultsPerPage = 50;
+const resultsPerPage = 25;
 const showAllId = 'showAllId';
 
 export default React.createClass({
