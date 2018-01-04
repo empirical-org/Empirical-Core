@@ -58,20 +58,24 @@ export default React.createClass({
 
   render() {
     let appName, image, previewLink
-    if (l.has(this.props.selectedActivity, 'selectedActivity.classification.id')) {
+    if (l.has(this.props.selectedActivity, 'classification.id')) {
       appName = blackIconAppName(this.props.selectedActivity.classification.id)
-      image = <img src={`https://assets.quill.org/images/icons/${appName}`} alt={`${appName}-icon`}/>
-      preview = <a href={`/activity_sessions/anonymous?activity_id=${this.props.selectedActivity.id}`}>Preview Activity</a>
+      image = <img src={`https://assets.quill.org/images/icons/${appName}-black.svg`} alt={`${appName}-icon`}/>
+      previewLink = <a href={`/activity_sessions/anonymous?activity_id=${this.props.selectedActivity.id}`}>Preview Activity</a>
     }
     return (
       <div className="diagnostic-nav-container">
         <div id="reports-navbar">
           <div className='name-and-preview flex-row name-and-preview flex-row vertically-centered'>
-
+            {image}
             <h1>{this.props.selectedActivity.name}</h1>
+            {previewLink}
           </div>
 
-          <p>{this.props.selectedActivity.description}</p>
+          <p className='description'> 
+            <img src='https://assets.quill.org/images/icons/info-black.svg' alt="info-icon"/>
+            {this.props.selectedActivity.description}
+          </p>
           <div className="nav-elements">
             <ItemDropdown
               items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
