@@ -1,6 +1,7 @@
 .assign-dates {
   margin-bottom: 200px;
-  padding-top: 10px;
+  padding-top: 30px;
+  border-top: solid 1px #c0c0c0;
 }
 .fake-border {
   width: 99.4%;
@@ -28,8 +29,11 @@
   .name-and-assign-activity-pack {
     margin-top: 35px;
     h1 {
-      font-size: 30px;
+      font-size: 24px;
       font-weight: bold;
+    }
+    .section-header {
+      font-size: 18px;
     }
   }
   .automatic-assign-note, .unselecting-students-note {
