@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
+import Pluralize from 'pluralize';
 import activityFromClassificationId from '../../modules/activity_from_classification_id.js'
 
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal'
@@ -159,10 +160,9 @@ renderLessonPlanTooltip() {
   },
 
   finalCell() {
-    const startDate = this.state.startDate
     if (this.props.activityReport) {
       return [
-        <span key='number-of-students' className='number-of-students'># of # students</span>,
+        <span key='number-of-students' className='number-of-students'>{this.props.numberOfStudentsWhoCompletedActivity} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
         <span key='average-score' className='average-score'>##%</span>,
         <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ]
@@ -172,6 +172,7 @@ renderLessonPlanTooltip() {
        return this.lessonFinalCell()
     }
     if (this.props.data.ownedByCurrentUser) {
+      const startDate = this.state.startDate
       return <span className="due-date-field">
         <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} />
         {startDate && this.props.isFirst ? <span className="apply-to-all" onClick={() => this.props.updateAllDueDates(startDate)}>Apply to All</span> : null}
