@@ -1,4 +1,22 @@
 table.activity-table.search-and-select {
+  thead {
+    tr th {
+      &:nth-child(1) {
+        padding-left: 20px;
+        width: 34%;
+      }
+      &:nth-child(2) {
+        padding-left: 15px;
+        width: 10%;
+      }
+      &:nth-child(3) {
+        width: 49%;
+      }
+      &:nth-child(4) {
+        width: 7%;
+      }
+    }
+  }
   th {
     font-size: 14px;
     font-weight: 600;

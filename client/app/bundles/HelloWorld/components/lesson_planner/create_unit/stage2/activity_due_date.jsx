@@ -44,7 +44,7 @@ export default React.createClass({
         <td>
           <DatePicker selected={this.state.startDate} minDate={moment()} onChange={this.handleChange} placeholderText="Optional" />
         </td>
-        <td className="icon-x-gray" onClick={this.removeActivity} />
+        <td onClick={this.removeActivity}><img src="/images/x.svg"/></td>
       </tr>
     );
   },

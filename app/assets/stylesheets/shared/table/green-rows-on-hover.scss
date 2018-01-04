@@ -1,6 +1,6 @@
 .green-rows-on-hover {
   tr {
-    &:not(:first-of-type) {
+    &:not(:first-of-type), &:first-of-type {
       font-size: 14px;
       color: #666666;
 

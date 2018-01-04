@@ -10,8 +10,6 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
   end
 
   context 'GET #index' do
-    render_views
-
     subject { get :index, student_id: student.id }
     before do
       session[:user_id] = teacher.id
