@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe StudentsClassroomsController, type: :controller do
-  render_views
-
   let(:student) { create(:student) }
   let(:classroom) { create(:classroom)}
   let(:classroom2) { create(:classroom, code: 'merry-honey')}

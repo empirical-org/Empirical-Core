@@ -4,7 +4,7 @@ class ProgressReports::Standards::Classroom
   end
 
   def results(filters)
-    Classroom.with(user_info: ProgressReports::Standards::Student.new(@teacher).results(filters))
+    ::Classroom.with(user_info: ProgressReports::Standards::Student.new(@teacher).results(filters))
       .select("
         classrooms.name as name,
         classrooms.id as id,

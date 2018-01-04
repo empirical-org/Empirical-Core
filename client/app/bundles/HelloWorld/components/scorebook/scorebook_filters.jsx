@@ -5,37 +5,20 @@ import moment from 'moment';
 
 export default React.createClass({
 
-  DATE_RANGE_FILTER_OPTIONS: [
-    {
-      title: 'Today',
-      beginDate: moment()
-    },
-    {
-      title: 'This Week',
-      beginDate: moment().startOf('week')
-    },
-    {
-      title: 'This Month',
-      beginDate: moment().startOf('month')
-    },
-    {
-      title: 'Last 7 days',
-      beginDate: moment().subtract(7, 'days')
-    },
-    {
-      title: 'Last 30 days',
-      beginDate: moment().subtract(1, 'months')
-    },
-    {
-      title: 'All Time',
-      beginDate: null
-    },
-  ],
-
   render() {
+    const datepickerDropdownStyle = {
+      'position': 'relative',
+      'display': 'inline-block',
+      'marginRight': '20px'
+    }
+
+    const inputDropdownStyle = Object.assign({}, datepickerDropdownStyle, {
+      'width': '250px'
+    });
+
     return (
-      <div className="row activity-page-dropdown-wrapper">
-        <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 ">
+      <div className="row activity-page-dropdown-wrapper scorebook-filters">
+        <div style={inputDropdownStyle}>
           <DropdownFilter
             options={this.props.classroomFilters}
             selectOption={this.props.selectClassroom}
@@ -44,7 +27,7 @@ export default React.createClass({
             icon="fa-group"
           />
         </div>
-        <div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div style={inputDropdownStyle}>
           <DropdownFilter
             options={this.props.unitFilters}
             selectOption={this.props.selectUnit}
@@ -52,13 +35,14 @@ export default React.createClass({
             icon="fa-book"
           />
         </div>
-        <div className="col-xs-12 col-sm-6">
+        <div style={datepickerDropdownStyle}>
           <DateRangeFilter
             selectDates={this.props.selectDates}
-            filterOptions={this.DATE_RANGE_FILTER_OPTIONS}
+            filterOptions={this.props.dateRangeFilterOptions}
             beginDate={this.props.beginDate}
             endDate={this.props.endDate}
             icon="fa-calendar"
+            dateFilterName={this.props.dateFilterName}
           />
         </div>
       </div>

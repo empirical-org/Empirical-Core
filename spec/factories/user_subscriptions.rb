@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user_subscription do
-    user_id 1
-    subscription_id 1
+    user_id          { create(:user).id }
+    subscription_id  { create(:subscription).id }
   end
 end
