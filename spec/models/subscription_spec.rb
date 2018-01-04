@@ -2,24 +2,24 @@ require 'rails_helper'
 
 describe Subscription, type: :model do
   describe "start premium when subscription" do
-    let!(:user) { create(:user) }
     let!(:subscription) { create(:subscription) }
+    let!(:user) { User.find(subscription.user_id) }
     let!(:user_subscription) {create(:user_subscription, user: user, subscription: subscription)}
 
     context "updates the expirary to the later of one year from today or July 1, 2018 if" do
       it "is a trial user" do
         subscription.update(account_type: 'Teacher Trial')
         Subscription.start_premium(user.id)
-        july_1_2017 = Date.new(2017, 7, 1)
-        expected_date = [Date.today, july_1_2017].max + 365
+        july_1_2018 = Date.new(2018, 7, 1)
+        expected_date = [subscription.expiration + 365, july_1_2018].max
         expect(subscription.reload.expiration).to eq(expected_date)
       end
 
       it "is a paid user" do
         subscription.update(account_type: 'Teacher Paid')
         Subscription.start_premium(user.id)
-        july_1_2017 = Date.new(2017, 7, 1)
-        expected_date = [Date.today, july_1_2017].max + 365
+        july_1_2018 = Date.new(2018, 7, 1)
+        expected_date = [subscription.expiration + 365, july_1_2018].max
         expect(subscription.reload.expiration).to eq(expected_date)
       end
 
