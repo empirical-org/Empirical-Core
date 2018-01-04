@@ -142,8 +142,16 @@ export default React.createClass({
 		if(!this.state.loaded) {
 			return <LoadingSpinner />;
 		}
+
+		let content;
+
+		const allClassroomsClassroom = { name: 'All Classrooms' }
+		const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
+		const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
+		const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
+
 		if(this.state.units.length === 0 && this.state.selectedClassroomId) {
-			return (
+			content = (
 				<EmptyProgressReport
 					missing='activitiesForSelectedClassroom'
 					onButtonClick={() => {
@@ -153,31 +161,26 @@ export default React.createClass({
 				/>
 			);
 		} else if(this.state.units.length === 0) {
-			return (
-				<EmptyProgressReport missing='activities'/>
-			);
+			content = <EmptyProgressReport missing='activities' />
 		} else {
-			const allClassroomsClassroom = { name: 'All Classrooms' }
-			const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-			const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
-			const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
-
-			return (
-				<div className='activity-analysis'>
-					<h1>Activity Analysis</h1>
-					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
-					<div className="classroom-selector">
-						<p>Select a classroom:</p>
-						<ItemDropdown
-							items={classrooms}
-							callback={this.switchClassrooms}
-							selectedItem={selectedClassroom}
-						/>
-					</div>
-					<Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units}/>
-				</div>
-			);
+			content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units}/>
 		}
+
+		return (
+			<div className='activity-analysis'>
+				<h1>Activity Analysis</h1>
+				<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
+				<div className="classroom-selector">
+					<p>Select a classroom:</p>
+					<ItemDropdown
+						items={classrooms}
+						callback={this.switchClassrooms}
+						selectedItem={selectedClassroom}
+					/>
+				</div>
+				{content}
+			</div>
+		)
 	},
 
 	render: function() {
