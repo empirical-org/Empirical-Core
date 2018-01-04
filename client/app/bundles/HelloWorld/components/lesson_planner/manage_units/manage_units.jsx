@@ -61,7 +61,7 @@ export default React.createClass({
   getUnitsForCurrentClass() {
     if (this.state.selectedClassroomId) {
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
-      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.findIndex(c => c.name === selectedClassroom.name) !== -1);
+      const unitsInCurrentClassroom = this.state.allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
       this.setState({units: this.state.allUnits, loaded: true})
