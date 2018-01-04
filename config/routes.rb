@@ -463,7 +463,10 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews' => "rails/mailers#index"
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
+  get "/donate" => redirect("https://community.quill.org/donate")
   # catch-all 404
   get '*path', to: 'application#routing_error'
+
+
 
 end

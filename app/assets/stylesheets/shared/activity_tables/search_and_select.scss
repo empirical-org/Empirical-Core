@@ -55,10 +55,12 @@
   }
   .button-select {
     height: 40px;
-    width: 220px;
     margin-right: 15px;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    width: 220px;
+    &:focus {
+      outline: none;
+    }
   }
   .activity-filter-button-wrapper.open {
     position: relative;
@@ -80,8 +82,10 @@
     }
   }
   .act-search-filter-fav {
+    left: 100%;
+    margin-left: -22px;
     position: relative;
-    right: 36px;
+    top: -26px;
   }
   img {
     padding-left: 8px;

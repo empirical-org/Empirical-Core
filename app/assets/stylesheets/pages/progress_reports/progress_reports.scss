@@ -280,3 +280,8 @@ a.progress-reports-nav {
     @extend .icon-red;
   }
 }
+
+.activity-progress-report-container .dropdown-menu {
+  margin-left: 15px;
+  width: calc(100% - 30px);
+}
