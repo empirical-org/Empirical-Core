@@ -155,8 +155,16 @@
 .activity-page-dropdown-wrapper {
   margin-top: 15px;
   cursor: pointer;
-  padding-left: 0px;
   padding-right: 15px;
+  padding-left: 0px;
+  .DateRangePickerInput__calendar-icon {
+    padding: 0;
+    margin-left: 14px;
+  }
+  &.scorebook-filters {
+    display: flex;
+    padding-left: 15px;
+  }
   .scorebook-dropdown-icon.fa {
     float: left;
     margin-right: 10px;
@@ -165,12 +173,11 @@
     margin-top: 2px;
   }
   .dropdown-menu {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    min-width: 94%;
     border-radius: 5px;
     font-size: 14px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     a {
       padding: 5px 14px;
       display: block;
@@ -192,6 +199,12 @@
         background: #f0f0f0;
       }
     }
+  }
+  .button-text {
+    width: 184px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
   }
 }
 .activity_link {

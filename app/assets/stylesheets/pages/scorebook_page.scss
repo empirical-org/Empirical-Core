@@ -55,10 +55,6 @@
 		font-size: 11px;
 	}
 
-	.dropdown-menu {
-		margin-left: 15px;
-	}
-
 	.overview-section {
 		margin: 0 auto;
 		max-width: 950px;
@@ -139,6 +135,11 @@ $chevroncolor: #027360;
 		&:hover {
 			border-color: darken($quillbluebgreen, 10%);
 			color: darken($quillbluebgreen, 10%);
+		}
+
+		&.selected {
+			color: white;
+			background-color: $quillbluebgreen;
 		}
 	}
 }
