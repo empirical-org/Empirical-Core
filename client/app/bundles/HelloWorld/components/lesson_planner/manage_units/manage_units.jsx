@@ -64,7 +64,7 @@ export default React.createClass({
     if (this.state.selectedClassroomId && this.state.selectedClassroomId != allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
-      const unitsInCurrentClassroom = this.state.allUnits.filter(unit=> unit.classrooms.find(c=> c.name === selectedClassroom.name))
+      const unitsInCurrentClassroom = this.state.allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
       this.setState({units: this.state.allUnits, loaded: true})
