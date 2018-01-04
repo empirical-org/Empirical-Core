@@ -74,7 +74,8 @@ export default React.createClass({
 	},
 
 	generateNewCaUnit(u) {
-		const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
+		const assignedStudentCount = this.assignedStudentCount(u);
+		const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: assignedStudentCount}
     const caObj = {
       classrooms: [classroom],
       classroomActivities: new Map(),
@@ -91,13 +92,17 @@ export default React.createClass({
 			classroomId: u.classroom_id,
 			ownedByCurrentUser: u.owned_by_current_user === 't',
 			ownerName: u.owner_name,
-      dueDate: u.due_date, });
+      dueDate: u.due_date,
+			numberOfAssignedStudents: assignedStudentCount,
+			completedCount: u.completed_count
+		});
     return caObj;
   },
 
   parseUnits(data) {
     const parsedUnits = {};
     data.forEach((u) => {
+			const assignedStudentCount = this.assignedStudentCount(u);
       if (!parsedUnits[u.unit_id]) {
         // if this unit doesn't exist yet, go create it with the info from the first ca
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
@@ -105,26 +110,43 @@ export default React.createClass({
         const caUnit = parsedUnits[u.unit_id];
 				if (caUnit.classrooms.findIndex(c => c.name === u.class_name) === -1) {
           // add the info and student count from the classroom if it hasn't already been done
-          const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
+          const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: assignedStudentCount}
           caUnit.classrooms.push(classroom);
         }
-        // add the activity info if it doesn't exist
-        caUnit.classroomActivities.set(u.activity_id,
-          caUnit.classroomActivities[u.activity_id] || {
-          name: u.activity_name,
-          caId: u.classroom_activity_id,
-					activityId: u.activity_id,
-          created_at: u.classroom_activity_created_at,
-          activityClassificationId: u.activity_classification_id,
-					classroomId: u.classroom_id,
-					ownedByCurrentUser: u.owned_by_current_user === 't',
-					ownerName: u.owner_name,
-          createdAt: u.ca_created_at,
-          dueDate: u.due_date, });
+        // if the activity info already exists, add to the completed count
+				// otherwise, add the activity info if it doesn't already exist
+				let completedCount;
+				if(caUnit.classroomActivities.has(u.activity_id)) {
+					completedCount = Number(caUnit.classroomActivities.get(u.activity_id).completedCount) + Number(u.completed_count)
+				} else {
+					completedCount = Number(u.completed_count)
+				}
+				caUnit.classroomActivities.set(u.activity_id, this.classroomActivityData(u, assignedStudentCount, completedCount));
       }
     });
     return this.orderUnits(parsedUnits);
   },
+
+	classroomActivityData(u, assignedStudentCount, completedCount) {
+		return {
+			name: u.activity_name,
+			caId: u.classroom_activity_id,
+			activityId: u.activity_id,
+			created_at: u.classroom_activity_created_at,
+			activityClassificationId: u.activity_classification_id,
+			classroomId: u.classroom_id,
+			ownedByCurrentUser: u.owned_by_current_user === 't',
+			ownerName: u.owner_name,
+			createdAt: u.ca_created_at,
+			dueDate: u.due_date,
+			numberOfAssignedStudents: assignedStudentCount,
+			completedCount: completedCount
+		}
+	},
+
+	assignedStudentCount(u) {
+		return u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size;
+	},
 
   orderUnits(units) {
     const unitsArr = [];
@@ -142,8 +164,16 @@ export default React.createClass({
 		if(!this.state.loaded) {
 			return <LoadingSpinner />;
 		}
+
+		let content;
+
+		const allClassroomsClassroom = { name: 'All Classrooms' }
+		const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
+		const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
+		const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
+
 		if(this.state.units.length === 0 && this.state.selectedClassroomId) {
-			return (
+			content = (
 				<EmptyProgressReport
 					missing='activitiesForSelectedClassroom'
 					onButtonClick={() => {
@@ -153,31 +183,26 @@ export default React.createClass({
 				/>
 			);
 		} else if(this.state.units.length === 0) {
-			return (
-				<EmptyProgressReport missing='activities'/>
-			);
+			content = <EmptyProgressReport missing='activities' />
 		} else {
-			const allClassroomsClassroom = { name: 'All Classrooms' }
-			const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-			const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
-			const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
-
-			return (
-				<div className='activity-analysis'>
-					<h1>Activity Analysis</h1>
-					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
-					<div className="classroom-selector">
-						<p>Select a classroom:</p>
-						<ItemDropdown
-							items={classrooms}
-							callback={this.switchClassrooms}
-							selectedItem={selectedClassroom}
-						/>
-					</div>
-					<Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units}/>
-				</div>
-			);
+			content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units}/>
 		}
+
+		return (
+			<div className='activity-analysis'>
+				<h1>Activity Analysis</h1>
+				<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
+				<div className="classroom-selector">
+					<p>Select a classroom:</p>
+					<ItemDropdown
+						items={classrooms}
+						callback={this.switchClassrooms}
+						selectedItem={selectedClassroom}
+					/>
+				</div>
+				{content}
+			</div>
+		)
 	},
 
 	render: function() {

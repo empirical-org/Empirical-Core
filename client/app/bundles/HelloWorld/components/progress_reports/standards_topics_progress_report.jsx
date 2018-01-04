@@ -42,8 +42,8 @@ export default class extends React.Component {
 
   formatStandardsData(data) {
     return data.map((row) => {
-      row.standard_level = row.name
-      row.standard_name = row.section_name
+      row.standard_level = row.section_name
+      row.standard_name = row.name
       row.activities = Number(row.total_activity_count)
       row.average_score = Number(row.average_score * 100)
       row.mastery_status = row.mastery_status
@@ -76,23 +76,27 @@ export default class extends React.Component {
         accessor: 'standard_level',
         sortMethod: sortByStandardLevel,
         resizable: false,
+        width: 150,
         Cell: row => (
-          <span className='green-text'>{row.original['name']}</span>
+          <span className='green-text'>{row.original['section_name']}</span>
         )
       }, {
         Header: "Standard Name",
         accessor: 'standard_name',
         sortMethod: sortByStandardLevel,
+        minWidth: 200,
         resizable: false
       }, {
         Header: 'Activities',
         accessor: 'total_activity_count',
+        width: 115,
         resizable: false
       }, {
         Header: 'Average',
         accessor: 'average_score',
         className: blurIfNotPremium,
         resizable: false,
+        width: 100,
         Cell: row => (
           `${row.original['average_score']}%`
         )
@@ -101,6 +105,7 @@ export default class extends React.Component {
         accessor: 'mastery_status',
         className: blurIfNotPremium,
         resizable: false,
+        width: 165,
         Cell: row => (
           <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'}/>{row.original['mastery_status']}</span>
         )
