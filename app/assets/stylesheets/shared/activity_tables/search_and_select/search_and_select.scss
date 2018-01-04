@@ -25,7 +25,7 @@ table.activity-table.search-and-select {
   tbody tr {
     background-color: white;
     &.selected, &.hover {
-      background-color: #f9fffe;
+      background-color: $row-hover-green-white;
     }
     td {
       &:nth-child(1) {
