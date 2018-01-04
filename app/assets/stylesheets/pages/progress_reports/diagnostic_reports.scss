@@ -536,3 +536,41 @@ $lightgray: #cecece;
       margin-top: 0px;
     }
 }
+
+.assigned-activities .row:first-of-type .activity-analysis-row-right {
+  *::before {
+    color: $anothergray;
+    cursor: auto;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    top: -44px;
+  }
+
+  .number-of-students::before {
+    content: 'Completion';
+    margin-right: -65px;
+    width: 65px;
+  }
+
+  .average-score::before {
+    content: 'Avg. Score';
+    margin-right: -59px;
+    width: 59px;
+  }
+}
+
+.activity-analysis-row-right {
+  .number-of-students {
+
+  }
+
+  .average-score {
+
+  }
+
+  .chevron-right {
+    margin-right: 5px;
+  }
+}
