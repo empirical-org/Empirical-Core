@@ -108,7 +108,7 @@ export default class extends React.Component {
         resizable: false,
         minWidth: 300,
         Cell: (row, selectedClassroomId) => (
-          <a href={row.original['link']} style={{width: '100%', display: 'inline-block', color: 'black'}}>
+          <a href={row.original['link']} className="row-link-disguise">
             {row.original['name']}
           </a>
         )
@@ -117,7 +117,7 @@ export default class extends React.Component {
         accessor: 'number_of_students',
         resizable: false,
         Cell: (row, selectedClassroomId) => (
-          <a href={row.original['link']} style={{width: '100%', display: 'inline-block', color: 'black'}}>
+          <a href={row.original['link']} className="row-link-disguise">
             {row.original['number_of_students']}
           </a>
         )
@@ -127,7 +127,7 @@ export default class extends React.Component {
 				resizable: false,
         className: blurIfNotPremium,
         Cell: (row, selectedClassroomId) => (
-          <a href={row.original['link']} style={{width: '100%', display: 'inline-block', color: 'black'}}>
+          <a href={row.original['link']} className="row-link-disguise">
             {row.original['proficient']}
           </a>
         )
@@ -136,7 +136,7 @@ export default class extends React.Component {
 				accessor: 'activities',
 				resizable: false,
         Cell: (row, selectedClassroomId) => (
-          <a href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`} style={{width: '100%', display: 'inline-block', color: 'black'}}>
+          <a href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`} className="row-link-disguise">
             {row.original['activities']}
           </a>
         )

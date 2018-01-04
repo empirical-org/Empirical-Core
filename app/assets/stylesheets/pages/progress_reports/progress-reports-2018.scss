@@ -74,6 +74,12 @@
       content: "\f0d8";
     }
   }
+
+  .row-link-disguise {
+    width: 100%;
+    display: inline-block;
+    color: black;
+  }
 }
 
 .concept-student-concepts {
@@ -85,6 +91,9 @@
   }
   .meta-overview {
     margin-bottom: 31px;
+  }
+  .ReactTable.progress-report .rt-tr-group:hover {
+    background-color: white;
   }
 }
 
@@ -119,7 +128,7 @@
     transform: rotate(180deg);
   }
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: #027360;
 }
 
