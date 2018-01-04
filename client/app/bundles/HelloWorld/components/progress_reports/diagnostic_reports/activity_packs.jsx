@@ -74,7 +74,8 @@ export default React.createClass({
 	},
 
 	generateNewCaUnit(u) {
-		const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
+		const assignedStudentCount = this.assignedStudentCount(u);
+		const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: assignedStudentCount, completedCount: u.completed_count}
     const caObj = {
       classrooms: [classroom],
       classroomActivities: new Map(),
@@ -91,13 +92,16 @@ export default React.createClass({
 			classroomId: u.classroom_id,
 			ownedByCurrentUser: u.owned_by_current_user === 't',
 			ownerName: u.owner_name,
-      dueDate: u.due_date, });
+      dueDate: u.due_date,
+			completedCount: u.completed_count,
+		});
     return caObj;
   },
 
   parseUnits(data) {
     const parsedUnits = {};
     data.forEach((u) => {
+			const assignedStudentCount = this.assignedStudentCount(u);
       if (!parsedUnits[u.unit_id]) {
         // if this unit doesn't exist yet, go create it with the info from the first ca
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
@@ -105,7 +109,7 @@ export default React.createClass({
         const caUnit = parsedUnits[u.unit_id];
 				if (caUnit.classrooms.findIndex(c => c.name === u.class_name) === -1) {
           // add the info and student count from the classroom if it hasn't already been done
-          const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
+          const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: assignedStudentCount, completedCount: u.completed_count}
           caUnit.classrooms.push(classroom);
         }
         // add the activity info if it doesn't exist
@@ -120,11 +124,18 @@ export default React.createClass({
 					ownedByCurrentUser: u.owned_by_current_user === 't',
 					ownerName: u.owner_name,
           createdAt: u.ca_created_at,
-          dueDate: u.due_date, });
+          dueDate: u.due_date,
+					completedCount: u.completed_count,
+					numberOfAssignedStudents: assignedStudentCount,
+				});
       }
     });
     return this.orderUnits(parsedUnits);
   },
+
+	assignedStudentCount(u) {
+		return u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size;
+	},
 
   orderUnits(units) {
     const unitsArr = [];
