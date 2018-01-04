@@ -77,22 +77,33 @@ export default class extends React.Component {
         Header: 'Questions',
         accessor: 'total_result_count',
         resizable: false,
+        Cell: row => (
+          <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['total_result_count']}</a>
+        )
       }, {
         Header: 'Correct',
         accessor: 'correct_result_count',
         className: blurIfNotPremium,
         resizable: false,
+        Cell: row => (
+          <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['correct_result_count']}</a>
+        )
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         className: blurIfNotPremium,
-        resizable: false
+        resizable: false,
+        Cell: row => (
+          <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['incorrect_result_count']}</a>
+        )
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
         className: blurIfNotPremium,
-        Cell: props => props.value + '%'
+        Cell: row => (
+          <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['percentage']}%</a>
+        )
       }, {
         Header: "",
         accessor: 'green_arrow',

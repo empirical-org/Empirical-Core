@@ -72,7 +72,7 @@ export default class extends React.Component {
         <a href="/teachers/progress_reports/concepts/students" className='navigate-back'><img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>Back to Concept Results</a>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info flex-row vertically-centered'>
-            <h1>Concept Results for {this.state.studentName}</h1>
+            <h1><span>Concept Results:</span> {this.state.studentName}</h1>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.reportData}/>
