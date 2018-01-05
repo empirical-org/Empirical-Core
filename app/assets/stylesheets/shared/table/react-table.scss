@@ -58,7 +58,7 @@
       background-color: white;
 
       &:hover {
-        background-color: #f9fffe;
+        background-color: $row-hover-green-white;
         .green-text {
           color: #00c2a2;
         }
