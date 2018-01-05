@@ -30,7 +30,7 @@ namespace :staff do
       new_data = @previous_staff_account_data.find { |acc| acc['id'] === id.to_s }
       @keys.each do |key|
         unless old_data[key] === new_data[key]
-          body << "#{key}: #{old_data[key]} => #{new_data[key]}\n\n"
+          body << "ID ##{id} #{key}: #{old_data[key]} => #{new_data[key]}\n\n"
         end
       end
     end
