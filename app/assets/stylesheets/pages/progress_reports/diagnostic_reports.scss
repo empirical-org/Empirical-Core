@@ -572,4 +572,13 @@ $lightgray: #cecece;
   .chevron-right {
     margin-right: 5px;
   }
+
+  .activity-analysis-pie-chart {
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px $quillblue inset;
+    margin-right: 10px;
+    transform: rotate(-90deg);
+    vertical-align: text-bottom;
+    width: 18px;
+  }
 }
