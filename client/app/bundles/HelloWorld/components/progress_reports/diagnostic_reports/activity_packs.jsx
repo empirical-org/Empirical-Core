@@ -94,7 +94,8 @@ export default React.createClass({
 			ownerName: u.owner_name,
       dueDate: u.due_date,
 			numberOfAssignedStudents: assignedStudentCount,
-			completedCount: u.completed_count
+			completedCount: u.completed_count,
+			cumulativeScore: u.classroom_cumulative_score
 		});
     return caObj;
   },
@@ -115,19 +116,21 @@ export default React.createClass({
         }
         // if the activity info already exists, add to the completed count
 				// otherwise, add the activity info if it doesn't already exist
-				let completedCount;
+				let completedCount, cumulativeScore;
 				if(caUnit.classroomActivities.has(u.activity_id)) {
 					completedCount = Number(caUnit.classroomActivities.get(u.activity_id).completedCount) + Number(u.completed_count)
+					cumulativeScore = Number(caUnit.classroomActivities.get(u.activity_id).cumulativeScore) + Number(u.classroom_cumulative_score)
 				} else {
+					cumulativeScore = Number(u.classroom_cumulative_score)
 					completedCount = Number(u.completed_count)
 				}
-				caUnit.classroomActivities.set(u.activity_id, this.classroomActivityData(u, assignedStudentCount, completedCount));
+				caUnit.classroomActivities.set(u.activity_id, this.classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore));
       }
     });
     return this.orderUnits(parsedUnits);
   },
 
-	classroomActivityData(u, assignedStudentCount, completedCount) {
+	classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore) {
 		return {
 			name: u.activity_name,
 			caId: u.classroom_activity_id,
@@ -140,6 +143,7 @@ export default React.createClass({
 			createdAt: u.ca_created_at,
 			dueDate: u.due_date,
 			numberOfAssignedStudents: assignedStudentCount,
+			cumulativeScore: cumulativeScore,
 			completedCount: completedCount
 		}
 	},
