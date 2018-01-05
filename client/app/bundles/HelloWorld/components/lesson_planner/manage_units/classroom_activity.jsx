@@ -163,7 +163,7 @@ renderLessonPlanTooltip() {
     if (this.props.activityReport) {
       return [
         <span key='number-of-students' className='number-of-students'>{this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
-        <span key='average-score' className='average-score'>##%</span>,
+        <span key='average-score' className='average-score'>{(this.props.data.cumulativeScore/this.props.data.completedCount).toPrecision(2)}%</span>,
         <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ]
     } else if (this.props.report) {
