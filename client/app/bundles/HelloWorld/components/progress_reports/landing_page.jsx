@@ -10,6 +10,7 @@ export default React.createClass({
         href: '/teachers/classrooms/scorebook',
         img: `${process.env.CDN_URL}/images/shared/visual_overview.svg`,
         bodyText: 'Quickly see which activities your students have completed with color coded icons that show level of proficiency.',
+        pStyle: {padding: '0px 2px'},
         flag: null,
       }, {
         title: 'Activity Analysis',
@@ -25,10 +26,12 @@ export default React.createClass({
         flag: null,
       }, {
         title: 'Activity Scores',
-        href: '/teachers/progress_reports/activity_scores',
+        premium: true,
+        href: '/teachers/progress_reports/activities_scores_by_classroom',
         img: `${process.env.CDN_URL}/images/illustrations/activity-scores-illustration.svg`,
         bodyText: 'View and download the overall score and the individual scores on each activity in an activity pack as a CSV.',
         flag: null,
+        pStyle: {padding: '0px 7px'}
       }, {
         title: 'Concepts',
         premium: true,
@@ -50,6 +53,7 @@ export default React.createClass({
         img: `${process.env.CDN_URL}/images/shared/list_overview.svg`,
         bodyText: 'You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."',
         flag: null,
+        pStyle: {marginTop: '-17px'}
       }
     ];
   },
@@ -64,7 +68,7 @@ export default React.createClass({
           <div className="img-wrapper">
             <img src={mini.img} />
           </div>
-          <p>{mini.bodyText}</p>
+          <p style={mini.pStyle ? mini.pStyle : {}}>{mini.bodyText}</p>
         </a>
       </GenericMini>
     );
