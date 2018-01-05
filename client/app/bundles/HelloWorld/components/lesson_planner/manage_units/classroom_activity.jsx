@@ -162,7 +162,7 @@ renderLessonPlanTooltip() {
   finalCell() {
     if (this.props.activityReport) {
       return [
-        <span key='number-of-students' className='number-of-students'>{this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
+        <span key='number-of-students' className='number-of-students'>{this.renderPieChart()} {this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
         <span key='average-score' className='average-score'>##%</span>,
         <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ]
@@ -180,7 +180,18 @@ renderLessonPlanTooltip() {
     } else {
       return startDate ? <div className='due-date-input'>{startDate.format('l')}</div> : null
     }
+  },
 
+  renderPieChart() {
+    const rawPercent = this.props.data.completedCount / this.props.numberOfStudentsAssignedToUnit;
+    const percent = rawPercent > 100 ? 100 : Math.round(rawPercent * 100) / 100;
+    const largeArcFlag = percent > .5 ? 1 : 0;
+    const pathData = `M 1 0 A 1 1 0 ${largeArcFlag} 1 ${Math.cos(2 * Math.PI * percent)} ${Math.sin(2 * Math.PI * percent)} L 0 0`
+    return (
+      <svg viewBox='-1 -1 2 2' className='activity-analysis-pie-chart'>
+        <path d={pathData} fill='#348fdf'></path>
+      </svg>
+    )
   },
 
   caId() {
