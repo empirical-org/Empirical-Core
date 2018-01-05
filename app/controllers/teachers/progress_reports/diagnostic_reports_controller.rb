@@ -82,8 +82,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           format.html { redirect_to act_sesh_report[:url] }
           format.json { render json: act_sesh_report.to_json }
         end
-
-
     end
 
     def diagnostic_status
