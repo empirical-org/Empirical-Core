@@ -33,6 +33,10 @@ class Customize extends React.Component {
         user_ids.push(nextProps.customize.user_id)
         this.props.dispatch(getEditionsForUserIds(user_ids))
       }
+    } else {
+      if (Object.keys(nextProps.customize.editions).length === 0) {
+        this.props.dispatch(getEditionsForUserIds([]))
+      }
     }
   }
 
