@@ -22,7 +22,7 @@
         color: #666666;
 
         &:hover {
-          background-color: #f9fffe;
+          background-color: $row-hover-green-white;
 
           .activity_name {
             color: #00c2a2;
