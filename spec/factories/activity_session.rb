@@ -4,7 +4,7 @@ FactoryBot.define do
     classroom_activity  { create(:classroom_activity, activity: activity) }
     user                { create(:student) }
     uid                 { SecureRandom.urlsafe_base64 }
-    percentage          { Faker::Number.decimal(0, 2).to_d }
+    percentage          { Faker::Number.decimal(0, 2) }
     started_at          { created_at }
     state               'finished'
     completed_at        { Faker::Time.backward(30) } # random time in past month
