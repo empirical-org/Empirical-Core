@@ -1,6 +1,6 @@
 {
   "name": "quill-spellchecker",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Spellchecker for Quill.",
   "repository": "github:empirical-org/quill-spellchecker",
   "main": "dist/lib.js",
@@ -27,6 +27,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^2.0.3",
     "mocha": "^3.2.0",
+    "phantomjs-polyfill-object-assign": "0.0.2",
     "rollup": "^0.41.4",
     "rollup-plugin-typescript": "^0.8.1",
     "style-loader": "^0.16.1",

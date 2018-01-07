@@ -3,7 +3,7 @@ import {edits} from './edits'
 import {max} from './max';
 import {countKeys} from './countKeys'
 
-export function correct(dictionary: Dictionary, potentialWord: string) {
+export function correct(dictionary: Dictionary, potentialWord: string): string {
   if (dictionary.hasOwnProperty(potentialWord)) {
       return potentialWord
   }
