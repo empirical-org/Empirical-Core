@@ -2,6 +2,7 @@
   "name": "quill-spellchecker",
   "version": "0.0.6",
   "description": "Spellchecker for Quill.",
+  "repository": "github:empirical-org/quill-spellchecker",
   "main": "dist/lib.js",
   "module": "dist/lib.js",
   "scripts": {
