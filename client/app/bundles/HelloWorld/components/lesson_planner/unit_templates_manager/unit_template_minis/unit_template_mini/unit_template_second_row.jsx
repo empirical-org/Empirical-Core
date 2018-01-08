@@ -41,12 +41,12 @@
     return (
       <div className='row white-row'>
           <div className='row info-row'>
-            <div style={{flex: 1}}>
+            <div style={{flex: 3}}>
               <div className='author'>
                 {this.sayAttribution()}
               </div>
             </div>
-            <div style={{flex: 1}}>
+            <div style={{flex: 4}}>
               <div className='activities-count'>
                 <i className='fa fa-th-list'></i>
                 {this.sayActivitiesCount()}
