@@ -43,6 +43,12 @@
 		.row {
 			margin-top: 0;
 		}
+		@media only screen and (max-width: 500px) {
+			padding-right: 0px;
+	    text-align: center;
+	    width: 90%;
+			margin: auto;
+		}
 	}
 
 	.col-md-4 {
@@ -91,5 +97,12 @@
 	li {
 		background-color: #fff;
 		border-right: none !important;
+	}
+}
+
+#mission {
+	padding-right: 0%;
+	img {
+		width: 100%;
 	}
 }
