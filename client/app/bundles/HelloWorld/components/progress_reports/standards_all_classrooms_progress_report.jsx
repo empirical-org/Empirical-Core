@@ -167,6 +167,26 @@ export default class extends React.Component {
     return this.state.standardsData
   }
 
+
+    tableOrEmptyMessage(filteredData){
+      if (filteredData.length) {
+        return (
+          <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
+  					<ReactTable data={filteredData}
+  						columns={this.columns()}
+  						showPagination={false}
+  						defaultSorted={[{id: 'standard_level', desc: false}]}
+  					  showPaginationTop={false}
+  						showPaginationBottom={false}
+  						showPageSizeOptions={false}
+  						defaultPageSize={filteredData.length}
+  						className='progress-report has-green-arrow'/></div>
+        )
+      } else {
+        return <h3>No Results to Report</h3>
+      }
+    }
+
   render() {
     let errors
     if (this.state.errors) {
@@ -192,16 +212,7 @@ export default class extends React.Component {
           <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
           <ItemDropdown items={_.uniq(this.state.students.map(s => s.name))} callback={this.goToStudentPage}/>
         </div>
-				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
-					<ReactTable data={filteredData}
-						columns={this.columns()}
-						showPagination={false}
-						defaultSorted={[{id: 'standard_level', desc: false}]}
-					  showPaginationTop={false}
-						showPaginationBottom={false}
-						showPageSizeOptions={false}
-						defaultPageSize={filteredData.length}
-						className='progress-report has-green-arrow'/></div>
+        {this.tableOrEmptyMessage(filteredData)}
       </div>
     )
   }
