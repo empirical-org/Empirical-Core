@@ -30,4 +30,24 @@
       }
     }
   }
+
+  .small-screen-unit-templates-container {
+    @media only screen and (max-width: 800px) {
+      margin-left: auto;
+      margin-right: auto;
+      .small-screen-unit-template-container {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        .unit-template-mini {
+          margin-left: 0px;
+        }
+        .pull-right {
+          float: none !important;
+        }
+      }
+    }
+  }
 }
