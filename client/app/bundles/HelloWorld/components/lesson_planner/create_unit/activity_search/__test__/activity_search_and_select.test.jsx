@@ -130,7 +130,7 @@ describe('ActivitySearchAndSelect component', () => {
     const data = {
       activities: allActivities()
     }
-    const resultsPerPage = 50
+    const resultsPerPage = 25
 
     it('calculates a numberOfPages and maxPageNumber based on activity count', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
