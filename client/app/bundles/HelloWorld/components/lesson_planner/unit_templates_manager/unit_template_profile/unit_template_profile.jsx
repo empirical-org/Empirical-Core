@@ -123,7 +123,7 @@
             </div>
 
             <div className='row'>
-              <div className='col-xs-12 no-pl'>
+              <div className='col-xs-12'>
                 <h2>{"What's Inside The Pack"}</h2>
               </div>
             </div>
@@ -132,11 +132,12 @@
                 <UnitTemplateProfileActivityTable data={this.state.data}/>
               </div>
             </div>
-
+            <div>
               <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId} authenticated={!this.state.data.non_authenticated}/>
-              <div className='row'>
-                <Link to={this.indexLink()}><button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button></Link>
-              </div>
+              <Link to={this.indexLink()}>
+                <button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button>
+              </Link>
+            </div>
             </div>
           </div>
           )

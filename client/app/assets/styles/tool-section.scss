@@ -193,6 +193,7 @@ $tool-grey: #f8f9f9;
 
       .icon-button, .learn-more-button {
           display: block;
+          margin-right: 0px !important;
       }
 
     }
@@ -588,6 +589,9 @@ $tool-grey: #f8f9f9;
 
     .icon-button {
         display: block;
+    }
+    .learn-more-button {
+      margin-right: 0px;
     }
 }
 

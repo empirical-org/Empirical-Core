@@ -18,7 +18,7 @@
       className = 'col-xs-6 no-pl';
     }
     return (
-      <div key={model.id} className={className}>
+      <div key={model.id} className={`${className} small-screen-unit-template-container`}>
         <UnitTemplateMini data={model}  index={index} signedInTeacher={this.props.authenticated}/>
       </div>
     );
@@ -31,15 +31,15 @@
     });
     var cols = _.map(relatedModels.slice(0, 2), this.miniView);
     return (
-      <span>
-        <div className='row'>
-          <div className='col-xs-12 no-pl'>
+      <span style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}} className='row'>
+          <div className='col-xs-12'>
             <h2>
               Related Activity Packs:
             </h2>
           </div>
         </div>
-        <div className='row'>
+        <div>
           {cols}
         </div>
       </span>
