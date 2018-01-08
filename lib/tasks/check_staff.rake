@@ -1,7 +1,7 @@
 namespace :staff do
   desc 'Check whether there have been changes to staff accounts, and send an alert if anything has changed'
   task :check => :environment do
-    @keys = %w(id name email username created_at updated_at google_id signed_up_with_google)
+    @keys = %w(id name email username created_at google_id signed_up_with_google)
     current_staff_accounts = ActiveRecord::Base.connection.execute("SELECT * FROM users WHERE role='staff'").to_a
     @current_staff_account_data = current_staff_accounts.map do |account|
       hash = {}
@@ -30,7 +30,7 @@ namespace :staff do
       new_data = @previous_staff_account_data.find { |acc| acc['id'] === id.to_s }
       @keys.each do |key|
         unless old_data[key] === new_data[key]
-          body << "#{key}: #{old_data[key]} => #{new_data[key]}\n\n"
+          body << "ID ##{id} #{key}: #{old_data[key]} => #{new_data[key]}\n\n"
         end
       end
     end
