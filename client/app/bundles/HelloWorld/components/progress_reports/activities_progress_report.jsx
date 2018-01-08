@@ -162,46 +162,56 @@ export default React.createClass({
     }, this.fetchData);
   },
 
+  tableOrEmptyMessage: function(){
+    let tableOrEmptyMessage
+    if (this.state.results.length) {
+      tableOrEmptyMessage = <ReactTable
+              loading={this.state.loadingNewTableData}
+              data={this.state.results}
+              columns={this.columnDefinitions()}
+              showPagination={true}
+              defaultSorted={[{id: 'completed_at', desc: true}]}
+              showPaginationTop={false}
+              showPaginationBottom={true}
+              showPageSizeOptions={false}
+              defaultPageSize={Math.min(this.state.results.length, 25)}
+              resizable={false}
+              className='progress-report'
+              manual={true}
+              pages={this.state.numPages}
+              page={this.state.currentPage}
+              onPageChange={this.reactTablePageChange}
+              onSortedChange={this.reactTableSortedChange}
+            />
+      } else {
+        tableOrEmptyMessage = <h3>No Results to Report</h3>
+      }
+      return (
+        <div>
+          <ProgressReportFilters
+            classroomFilters={this.state.classroomFilters}
+            studentFilters={this.state.studentFilters}
+            unitFilters={this.state.unitFilters}
+            selectClassroom={this.selectClassroom}
+            selectedClassroom={this.state.selectedClassroom}
+            selectStudent={this.selectStudent}
+            selectedStudent={this.state.selectedStudent}
+            selectUnit={this.selectUnit}
+            selectedUnit={this.state.selectedUnit}
+            filterTypes={['unit', 'classroom', 'student']}
+            />
+          {tableOrEmptyMessage}
+        </div>
+      )
+  },
+
   renderFiltersAndTable: function() {
     if(this.state.loadingFilterOptions) {
       return <LoadingSpinner />
     }
-
-    return (
-      <div>
-        <ProgressReportFilters
-          classroomFilters={this.state.classroomFilters}
-          studentFilters={this.state.studentFilters}
-          unitFilters={this.state.unitFilters}
-          selectClassroom={this.selectClassroom}
-          selectedClassroom={this.state.selectedClassroom}
-          selectStudent={this.selectStudent}
-          selectedStudent={this.state.selectedStudent}
-          selectUnit={this.selectUnit}
-          selectedUnit={this.state.selectedUnit}
-          filterTypes={['unit', 'classroom', 'student']}
-        />
-        <ReactTable
-          loading={this.state.loadingNewTableData}
-          data={this.state.results}
-          columns={this.columnDefinitions()}
-          showPagination={true}
-          defaultSorted={[{id: 'completed_at', desc: true}]}
-          showPaginationTop={false}
-          showPaginationBottom={true}
-          showPageSizeOptions={false}
-          defaultPageSize={25}
-          resizable={false}
-          className='progress-report'
-          manual={true}
-          pages={this.state.numPages}
-          page={this.state.currentPage}
-          onPageChange={this.reactTablePageChange}
-          onSortedChange={this.reactTableSortedChange}
-        />
-      </div>
-    );
+    return (this.tableOrEmptyMessage())
   },
+
 
   nonPremiumBlur: function() {
     return this.props.premiumStatus == 'paid' ? '' : 'non-premium-blur';

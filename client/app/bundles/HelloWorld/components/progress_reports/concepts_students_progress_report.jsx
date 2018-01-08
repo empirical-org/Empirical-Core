@@ -119,6 +119,22 @@ export default class extends React.Component {
     ])
   }
 
+  tableOrEmptyMessage(){
+    if (this.state.filteredReportData.length) {
+      return (
+        <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
+          <ReactTable data={this.state.filteredReportData} columns={this.columns()} showPagination={false} defaultSorted={[{
+              id: 'total_result_count',
+              desc: true
+            }
+          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.filteredReportData.length} className='progress-report has-green-arrow'/>
+        </div>
+      )
+    } else {
+      return <h3>No Results to Report</h3>
+    }
+  }
+
   render() {
     if (this.state.loading || !this.state.reportData) {
       return <LoadingSpinner/>
@@ -138,13 +154,7 @@ export default class extends React.Component {
             <ItemDropdown items={this.state.dropdownClassrooms} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
           </div>
         </div>
-        <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
-          <ReactTable data={this.state.filteredReportData} columns={this.columns()} showPagination={false} defaultSorted={[{
-              id: 'total_result_count',
-              desc: true
-            }
-          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.filteredReportData.length} className='progress-report has-green-arrow'/>
-        </div>
+        {this.tableOrEmptyMessage()}
       </div>
     )
   }
