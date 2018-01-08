@@ -42,12 +42,12 @@
   .table {
     max-width: 950px;
     width: 100%;
-    border: solid 1px #cecece;
+    border: solid 1px $lightgray;
     background-color: white;
     font-size: 14px;
     margin-bottom: 30px;
     thead {
-      background-color: #e6e6e6;
+      background-color: $verylightgray;
     }
     tr.pending-invation {
 
@@ -62,7 +62,7 @@
     }
     tr td:last-of-type:not(.pending-invitation-row), .manage-class, .edit-or-remove a {
       text-align: right;
-      color: #027360;
+      color: $quillforestgreen;
       cursor: pointer;
       padding-right: 13px;
       min-width: 117px;
@@ -84,13 +84,13 @@
       a {
         padding: 0;
         font-weight: 600;
-        color: #027360;
+        color: $quillforestgreen;
         text-decoration: none;
         cursor: pointer;
       }
     }
     .pending_coteachers_row, .pending-invitation-class-name {
-      color: #969696;
+      color: $mediumdarkgray;
       font-style: italic;
       td:last-of-type {
         font-style: normal;
@@ -130,7 +130,7 @@
   }
   .coteacher-invite-status {
     margin-left: 15px;
-    color: #027360;
+    color: $quillforestgreen;
   }
 }
 #coteacher-capability-chart {
@@ -146,7 +146,7 @@
     padding: 0;
     li {
       background: url('https://assets.quill.org/images/icons/check-mark-icon.svg') no-repeat top 4px left;
-	    color: #3b3b3b;
+	    color: $darkgray;
       font-size: 14px;
       margin-bottom: 5px;
       padding-left: 26px;

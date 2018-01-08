@@ -1,7 +1,7 @@
 .google-classroom-modal {
     text-align: center;
     .fa-exclamation-triangle {
-      color: #ff4542;
+      color: $quillred;
       padding-right: 0.5em
     }
     .fa-check {
@@ -44,7 +44,7 @@
      min-height: 30px;
      width: 418px;
      input[type=text] {
-       border: 1px solid #737373;
+       border: 1px solid $color_tapa_approx;
        max-width: 264px;
        width: 100%;
        float: left;
@@ -94,7 +94,7 @@
        -webkit-box-align: center;
            -ms-flex-align: center;
                align-items: center;
-       color: #ff4542;
+       color: $quillred;
        i {
          padding-right: 3.5px;
        }
@@ -103,14 +103,14 @@
 
    .archive-warning, .sync-success {
      .subheader {
-       color: #737373;
+       color: $color_tapa_approx;
        font-size: 18px;
        margin-bottom: 30px;
      }
      button {
        &.close-modal {
          border-radius: 6px;
-         border: solid 1px #737373;
+         border: solid 1px $color_tapa_approx;
          padding: 9px 34px;
          width: 126px;
          height: 40px;

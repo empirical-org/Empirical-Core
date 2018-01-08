@@ -1,7 +1,7 @@
 .premium-tab {
-  background-color: #EA9A1A !important;
+  background-color: $darkorange !important;
   a {
-    background-color: #EA9A1A !important;
+    background-color: $darkorange !important;
     color: #FFFFFF !important;
     padding-left: 40px;
     padding-right: 40px;
@@ -58,11 +58,11 @@
 }
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
-  border-top: 3px solid #875A12 !important;
+  border-top: 3px solid $color_rusty_nail_approx !important;
 }
 .premium-tab a.active,
 .premium-tab a:hover {
-  border-top: 3px solid #875A12 !important;
+  border-top: 3px solid $color_rusty_nail_approx !important;
 }
 .preview-section {
   text-align: center;
@@ -89,7 +89,7 @@ li.premium-tab > a:hover {
 }
 
 #premium-pricing-guide {
-  color: #333333;
+  color: $color_mine_shaft_approx;
   padding: 60 0 0 0px;
   & > .row > div {
     margin-bottom: 2%;
@@ -110,7 +110,7 @@ li.premium-tab > a:hover {
   }
   .pricing-mini {
     background: white;
-    border: 1px solid #cecece;
+    border: 1px solid $lightgray;
     font-size: 15px;
     @media (max-width: 990px) {
       max-width: 383px;
@@ -127,7 +127,7 @@ li.premium-tab > a:hover {
       font-weight: 600;
       border-top-left-radius: 7px;
       border-top-right-radius: 7px;
-      background-color: #f8a724;
+      background-color: $orange;
       color: white;
       font-size: 12px;
       position: absolute;
@@ -164,7 +164,7 @@ li.premium-tab > a:hover {
       }
     }
     .pricing-info {
-      color: #333333;
+      color: $color_mine_shaft_approx;
       min-height: 350px;
       @media (max-width: 990px) {
         min-height: 0;
@@ -225,14 +225,14 @@ li.premium-tab > a:hover {
       color: $quillblue;
     }
     .empty-purple {
-      border: 2px solid #9c2bde;
-      color: #9c2bde;
+      border: 2px solid $purple;
+      color: $purple;
     }
     .green {
       background-color: $quillgreen;
     }
     .purple {
-      background-color: #9c2bde;
+      background-color: $purple;
     }
     .button-container {
       padding-left: 22px;
@@ -281,11 +281,11 @@ li.premium-tab > a:hover {
 
 }
 #second-preview-section {
-  background-color: #EA9A1A;
+  background-color: $darkorange;
   color: white;
   padding-top: 100px;
   .super-title {
-    color: #875A12;
+    color: $color_rusty_nail_approx;
   }
   .copy {
     margin-top: 43px;
@@ -295,7 +295,7 @@ li.premium-tab > a:hover {
     margin-top: 44px;
     margin-bottom: 64px;
     .try-the-demo {
-      color: #EA9A1A;
+      color: $darkorange;
       background-color: white;
     }
   }
@@ -313,7 +313,7 @@ li.premium-tab > a:hover {
 #features-preview-table {
   table {
     margin: 137px auto 99px;
-    border: 1px solid #CECECE;
+    border: 1px solid $lightgray;
     border-radius: 6px;
     border-collapse: separate !important;
     th {
@@ -324,7 +324,7 @@ li.premium-tab > a:hover {
       color: black;
       font-weight: 500;
       width: 417px;
-      background-color: #E6E6E6;
+      background-color: $verylightgray;
       border-top-left-radius: 6px;
     }
     th.quill-table-header,
@@ -335,10 +335,10 @@ li.premium-tab > a:hover {
       text-align: center;
     }
     th.quill-table-header {
-      background-color: #737373;
+      background-color: $color_tapa_approx;
     }
     th.quill-premium-table-header {
-      background-color: #EA9A1A;
+      background-color: $darkorange;
       border-top-right-radius: 6px;
     }
     th.features-table-header,
@@ -361,7 +361,7 @@ li.premium-tab > a:hover {
       }
     }
     td {
-      border-top: 1px solid #CECECE;
+      border-top: 1px solid $lightgray;
     }
     td.has_checkmark {
       background-image: image-url('premium_preview/check.png');
@@ -370,8 +370,8 @@ li.premium-tab > a:hover {
       background-size: 24px 18px;
     }
     td:nth-child(2) {
-      border-left: 1px solid #CECECE;
-      border-right: 1px solid #CECECE;
+      border-left: 1px solid $lightgray;
+      border-right: 1px solid $lightgray;
     }
   }
 }
@@ -379,19 +379,19 @@ li.premium-tab > a:hover {
   padding-bottom: 132px;
   color: #3C3B3B;
   .title {
-    color: #333333;
+    color: $color_mine_shaft_approx;
   }
   .preview-btns {
     margin-top: 37px;
     margin-bottom: 48px;
     .book-a-demo {
       color: white;
-      background-color: #EA9A1A;
+      background-color: $darkorange;
       margin-right: 31px;
     }
     .get-a-quote {
-      color: #EA9A1A;
-      border: 2px solid #EA9A1A;
+      color: $darkorange;
+      border: 2px solid $darkorange;
     }
   }
   .span-dash {
@@ -474,7 +474,7 @@ li.premium-tab > a:hover {
   padding-left: 18px;
   padding-right: 20px;
 	background-color: #ffffff;
-	border: solid 1px #cecece;
+	border: solid 1px $lightgray;
   .bold-segment {
     font-weight: 700;
     padding-right: 5px;
@@ -483,8 +483,8 @@ li.premium-tab > a:hover {
     font-size: 16px;
   }
   .q-button {
-    border-color: #00c2a2;
-    color: #00c2a2;
+    border-color: $quillgreen;
+    color: $quillgreen;
     padding-top: 9px;
     margin-bottom: 5px;
   	font-size: 14px;

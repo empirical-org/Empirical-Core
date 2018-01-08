@@ -24,7 +24,7 @@
   .mini-content {
     background: white;
 padding: 2%;
-border: solid 1px #cecece;
+border: solid 1px $lightgray;
     h3 {
       font-size: 16px;
       padding-top: 5px;
@@ -53,7 +53,7 @@ border: solid 1px #cecece;
       width: 0%;
       &.help-info{
         text-align: center;
-        a{    border: 1px solid #cecece;
+        a{    border: 1px solid $lightgray;
       text-transform: uppercase;
       padding: 4px 9px;
       border-radius: 11%;
@@ -77,7 +77,7 @@ border: solid 1px #cecece;
     margin-right: 3px;
     }
   #graph-section {
-    border-right: 1px solid #cecece;
+    border-right: 1px solid $lightgray;
     padding-right: 7.5%;
   }
 }
@@ -139,7 +139,7 @@ border: solid 1px #cecece;
     width: 4%;
   }
   .help-info a {
-    color: #027360;
+    color: $quillforestgreen;
   }
   .placement-number {
     color: #979797;
@@ -427,7 +427,7 @@ color: #8b8b8b;
   cursor: pointer;
   line-height: 5em;
   font-size: 0.2em;
-  color: #00c2a2;
+  color: $quillgreen;
   font-weight: 600;
   display: block;
   text-align: center;

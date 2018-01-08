@@ -22,7 +22,7 @@ footer {
     margin: 0 auto;
   }
   .footer-contacts {
-    color: #333333 !important;
+    color: $color_mine_shaft_approx !important;
     font-size: 18px;
     width: 100%;
     max-width: 633px;
@@ -30,7 +30,7 @@ footer {
   }
   .footer-contacts li {
     a {
-      color: #333333;
+      color: $color_mine_shaft_approx;
     }
     text-align: center;
     @media (max-width: 700px) {
@@ -74,7 +74,7 @@ footer {
         color: #3f729b;
       }
       .fa-github-alt:hover {
-        color: #333;
+        color: $color_mine_shaft_approx;
       }
     }
   }

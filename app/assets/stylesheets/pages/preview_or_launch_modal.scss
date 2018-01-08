@@ -6,7 +6,7 @@
   left: 0;
   z-index: 99;
   opacity: 0.89;
-  background-color: #969696;
+  background-color: $mediumdarkgray;
 }
 .preview-or-launch-modal {
   width: 650px;
@@ -30,12 +30,12 @@
     font-size: 22px;
     font-weight: 600;
     text-align: center;
-    color: #3b3b3b;
+    color: $darkgray;
   }
   p {
     font-size: 14px;
     text-align: center;
-    color: #969696;
+    color: $mediumdarkgray;
     margin-top: 15px;
     margin-bottom: 30px;
   }

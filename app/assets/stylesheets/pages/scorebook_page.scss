@@ -66,7 +66,7 @@
 		margin-bottom: 26px;
 
 		a {
-			color: #3b3b3b;
+			color: $darkgray;
 
 			&:hover {
 				color: #000;
@@ -110,9 +110,9 @@
 // significantly in order to make it do what we want it to do.
 
 $accentcolor: #00a699;
-$quillbluebgreen: #00c2a2;
+$quillbluebgreen: $quillgreen;
 $backgroundgray: #fafafa;
-$chevroncolor: #027360;
+$chevroncolor: $quillforestgreen;
 
 // This style is for the list of options beneath the calendar.
 .calendar-prefill-options {

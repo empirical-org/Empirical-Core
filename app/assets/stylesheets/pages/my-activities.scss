@@ -23,7 +23,7 @@
       }
       .unit-name {
         font-weight: bold;
-        color: #3b3b3b;
+        color: $darkgray;
         margin-bottom: 30px;
         min-height: 40px;
         input {
@@ -43,7 +43,7 @@
           top: 40px;
           color: white;
           border-radius: 2px;
-          background-color: #348fdf;
+          background-color: $quillblue;
           font-size: 12px;
           font-weight: 600;
           display: flex;
@@ -57,7 +57,7 @@
             opacity: 100;
           }
           .fa-caret-up {
-            color: #348fdf;
+            color: $quillblue;
             position: absolute;
             top: -10px;
             left: 10px;
@@ -76,19 +76,19 @@
         .heading {
           display: inline-block;
           margin-bottom: 8px;
-          color: #969696;
+          color: $mediumdarkgray;
         }
         ul {
           padding-left: 0px;
           list-style: none;
-          color: #3b3b3b;
+          color: $darkgray;
           li {
             margin-bottom: 5px;
             span {
               font-weight: 600;
             }
             &.see-all {
-              color: #027360;
+              color: $quillforestgreen;
               cursor: pointer;
             }
           }

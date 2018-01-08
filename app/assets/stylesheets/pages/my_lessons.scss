@@ -6,7 +6,7 @@
     border-top: solid 1px #c0c0c0;
     padding-top: 20px;
     a {
-      color: #027360;
+      color: $quillforestgreen;
       font-weight: 600;
       text-decoration: underline;
     }
@@ -27,7 +27,7 @@
       font-weight: 600;
     }
     a {
-      color: #027360;
+      color: $quillforestgreen;
       font-weight: 600;
       text-decoration: underline;
     }
@@ -39,7 +39,7 @@
     font-weight: bold;
     width: 145px;
     border-radius: 3px;
-    background-color: #00c2a2;
+    background-color: $quillgreen;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,9 +55,9 @@
     height: 40px;
     border-radius: 3px;
     background-color: #ffffff;
-    border: solid 1px #00c2a2;
+    border: solid 1px $quillgreen;
     font-weight: bold;
-    color: #00c2a2 !important;
+    color: $quillgreen !important;
     margin-right: 30px;
     display: flex;
     justify-content: center;
@@ -101,14 +101,14 @@
     h1 {
       font-size: 30px;
       font-weight: 600;
-      color: #3b3b3b;
+      color: $darkgray;
     }
     p {
       line-height: 1.62;
       font-size: 16px;
       &:first-of-type {
         margin: 15px 0px;
-        color: #969696;
+        color: $mediumdarkgray;
       }
       &:nth-of-type(2) {
         color: #515151;
@@ -129,7 +129,7 @@
           width: 168px;
         }
         &:nth-of-type(2) {
-          border: solid 1px #00c2a2;
+          border: solid 1px $quillgreen;
           border-radius: 3px;
           width: 140px;
           margin-left: 15px;

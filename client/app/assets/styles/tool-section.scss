@@ -215,11 +215,11 @@ $tool-grey: #f8f9f9;
     }
 
     .bg-connect-yellow {
-        background-color: #ea9a1a;
+        background-color: $darkorange;
     }
 
     .text-connect-yellow {
-        color: #ea9a1a;
+        color: $darkorange;
     }
 
     .boy-playing-quill {
@@ -454,7 +454,7 @@ $tool-grey: #f8f9f9;
   }
   h2 {
     font-weight: 600;
-    color: #00c2a2;
+    color: $quillgreen;
   }
   p {
     max-width: 460px;
@@ -578,7 +578,7 @@ $tool-grey: #f8f9f9;
   }
     li {
       &.active {
-        border-top: 3px solid #027360;
+        border-top: 3px solid $quillforestgreen;
         border-bottom: none;
       }
       a:hover {
@@ -684,7 +684,7 @@ $tool-grey: #f8f9f9;
         }
 
         .ell-press-announcement {
-          color: #027360 !important;
+          color: $quillforestgreen !important;
         }
 
         .content-wrapper {
@@ -740,7 +740,7 @@ $tool-grey: #f8f9f9;
 }
 
 .bg-tool-orange {
-    background-color: #EA9A1A;
+    background-color: $darkorange;
 }
 
 .bg-tool-red {
@@ -760,7 +760,7 @@ $tool-grey: #f8f9f9;
 }
 
 .text-orange {
-    color: #EA9A1A;
+    color: $darkorange;
 }
 
 .text-red {
@@ -1012,7 +1012,7 @@ $tool-grey: #f8f9f9;
     }
   }
   .tool-carousel {
-    background-color: #f1f2f2;
+    background-color: $color_concrete_approx;
   }
 }
 

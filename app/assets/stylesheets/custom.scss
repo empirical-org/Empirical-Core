@@ -11,7 +11,7 @@
 }
 
 .border-mixin {
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
 }
 
 .page-content-wrapper {
@@ -20,12 +20,12 @@
 
 .section-mixin {
   padding: 30px 0px;
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid $lightgray;
 }
 
 .input-mixin {
   border-radius: 5px;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   color: #000;
   font-size: 14px;
   padding: 9px 12px;
@@ -33,7 +33,7 @@
 
 .select-mixin {
   border-radius: 5px;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   color: #000;
   font-size: 14px;
   padding: 9px 14px;
@@ -49,8 +49,8 @@
   height: 21px;
   width: 21px;
   border-radius: 5px;
-  background: #e6e6e6;
-  border: 1px solid #cecece;
+  background: $verylightgray;
+  border: 1px solid $lightgray;
 }
 
 .button-mixin {
@@ -60,7 +60,7 @@
 }
 
 .fa-caret-mixin {
-  color: #737373;
+  color: $color_tapa_approx;
   font-size: 1.3em;
 }
 
@@ -148,7 +148,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 section {
   padding: 30px 0;
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid $lightgray;
 }
 
 button:not(.select-mixin) {
@@ -174,7 +174,7 @@ button:not(.select-mixin) {
 }
 
 .button-gray {
-  background-color: #737373;
+  background-color: $color_tapa_approx;
   color: #fff;
   &:hover {
     background-color: #616161;
@@ -195,7 +195,7 @@ button:not(.select-mixin) {
 }
 
 .button-green {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   color: #fff;
   &:hover {
     background-color: #44b49a;
@@ -229,7 +229,7 @@ button:not(.select-mixin) {
     color: #747474;
   }
   .fa {
-    color: #cecece;
+    color: $lightgray;
     margin-left: 10px;
   }
 }
@@ -339,7 +339,7 @@ button:not(.select-mixin) {
 }
 
 .button-red {
-  background-color: #fc3e3b;
+  background-color: $color_coral_red_approx;
   color: #fff;
   &:hover {
     background-color: #fc2f2c;
@@ -347,7 +347,7 @@ button:not(.select-mixin) {
 }
 
 .button-marine {
-  background-color: #00c2a2;
+  background-color: $quillgreen;
   color: #fff;
   &:hover {
     background-color: #009e84;
@@ -355,7 +355,7 @@ button:not(.select-mixin) {
 }
 
 .button-yellow {
-  background-color: #ea9a1a;
+  background-color: $darkorange;
   color: #fff;
   &:hover {
     background-color: #e09215;
@@ -363,25 +363,25 @@ button:not(.select-mixin) {
 }
 
 .button-blue {
-  background-color: #348fdf;
+  background-color: $quillblue;
   color: #fff;
   &:hover {
     background-color: #217dcf;
   }
 }
 .quill-table {
-  border: solid 1px #cecece;
+  border: solid 1px $lightgray;
   background-color: white;
   font-size: 14px;
   thead {
-    background-color: #e6e6e6;
+    background-color: $verylightgray;
   }
   td {
     width: 30%;
   }
   tr td:last-of-type {
     text-align: right;
-    color: #027360;
+    color: $quillforestgreen;
     cursor: pointer;
     padding-right: 13px;
   }

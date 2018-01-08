@@ -119,7 +119,7 @@
   width: 21px;
   //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
   border-radius: 5px;
-  background: $quillnavbar;
+  background: $verylightgray;
   border: 1px solid $lightgray;
 }
 .button-mixin {
@@ -674,7 +674,7 @@
   }
 
   .teacher-stories {
-    background-color: #348fdf;
+    background-color: $quillblue;
     color: $white;
     .tabs-teacher-stories {
       #teacher-subheader {

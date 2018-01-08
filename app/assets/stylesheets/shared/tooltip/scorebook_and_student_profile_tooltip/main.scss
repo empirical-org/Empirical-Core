@@ -5,11 +5,11 @@
     top: -20px;
     left: 146px;
     font-size: 34px;
-    color: #f4f2f2;
+    color: $lightgray2;
     &.border-color {
       top: -22px;
       z-index: -10;
-      color: #cecece;
+      color: $lightgray;
     }
   }
 
@@ -35,7 +35,7 @@
 
       .tooltip-message {
         font-size: 13px;
-        color: #969696;
+        color: $mediumdarkgray;
       }
 
 
@@ -50,7 +50,7 @@
         }
 
         .correct-answer {
-          color: $darkgreen2;
+          color: $darkgreen;
         }
         .incorrect-answer {
           color: $darkred;

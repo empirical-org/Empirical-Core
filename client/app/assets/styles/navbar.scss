@@ -40,7 +40,7 @@
         top: 0;
         left: 0;
         &.premium-tab {
-          background-color: #875A12
+          background-color: $color_rusty_nail_approx
         }
         &:not(.premium-tab) {
           background-color: #027e6b;
@@ -107,7 +107,7 @@
         cursor: pointer;
 
         &:hover {
-          color: #3b3b3b;
+          color: $darkgray;
           box-shadow:
             0 .05em .25em 0 rgba(0, 0, 0, .35),
             inset 0 0 0 2em rgba(0, 0, 0, .3)

@@ -29,33 +29,33 @@
 }
 
 .icon-green {
-  background: #58b146;
+  background: $green;
 }
 
 .icon-orange {
-  background: #f8a724;
+  background: $orange;
 }
 
 .icon-red {
-  background: #e8522c;
+  background: $red;
 }
 
 .icon-gray {
-  background: #b7b7b7;
+  background: $gray;
 }
 
 .icon-blue {
-  background-color: #348fdf;
+  background-color: $quillblue;
 }
 
 .icon-progress {
   background-color: #ffffff;
-  border: solid 1px #348fdf;
+  border: solid 1px $quillblue;
 }
 
 .icon-unstarted {
   background-color: #f6f3f3;
-  border: solid 1px #969696;
+  border: solid 1px $mediumdarkgray;
 }
 
 .icon-pencil {

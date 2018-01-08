@@ -1,4 +1,4 @@
-$green: #00c2a2;
+$green: $quillgreen;
 #diagnostic-planner-status-bar {
   input[type=checkbox].css-checkbox + label.css-label {
     padding-left: 34px;
@@ -93,7 +93,7 @@ $green: #00c2a2;
             }
         }
         .connector-line {
-            border: 1px solid #cecece;
+            border: 1px solid $lightgray;
             height: 1px;
             -ms-flex-item-align: center;
                 align-self: center;
@@ -148,8 +148,8 @@ $green: #00c2a2;
             height: 21px;
             width: 21px;
             border-radius: 5px;
-            background: #e6e6e6;
-            border: 1px solid #cecece;
+            background: $verylightgray;
+            border: 1px solid $lightgray;
         }
     }
     label h3 {
@@ -163,7 +163,7 @@ $green: #00c2a2;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        border-bottom: solid 1px #cecece;
+        border-bottom: solid 1px $lightgray;
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center;
@@ -173,7 +173,7 @@ $green: #00c2a2;
     }
     #assign-page {
         a {
-            color: #027360;
+            color: $quillforestgreen;
         }
         li a {
             color: #000;
@@ -181,7 +181,7 @@ $green: #00c2a2;
         #subtext:after {
             display: block;
             content: '';
-            background: #cecece;
+            background: $lightgray;
             width: 40px;
             height: 2px;
             margin: 7px auto;

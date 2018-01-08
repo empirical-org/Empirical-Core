@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .fake-border {
-  border-top: 1px solid #cecece;
+  border-top: 1px solid $lightgray;
 }
 
 .no-border {
@@ -19,7 +19,7 @@
 }
 
 .errors {
-  color: #e8522c;
+  color: $red;
   a {
     color: $quillgreen
   }

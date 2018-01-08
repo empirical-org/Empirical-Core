@@ -1,5 +1,5 @@
 #premium-banner {
-  color: #333333;
+  color: $color_mine_shaft_approx;
   font-size: 14px;
   padding-top: 27px;
   background-image: url(/images/star_pattern_5.png);
@@ -14,7 +14,7 @@
     font-weight: 700;
   }
   a {
-    color: #027360;
+    color: $quillforestgreen;
   }
   .row > div {
     margin-bottom: 24px;

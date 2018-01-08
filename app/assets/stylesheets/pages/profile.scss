@@ -57,9 +57,9 @@
       padding: 0px;
     }
     .classroom-box {
-      border-left: solid 1px #cecece;
+      border-left: solid 1px $lightgray;
       width: 162px;
-      border-bottom: solid 1px #cecece;
+      border-bottom: solid 1px $lightgray;
     }
   }
 
@@ -73,11 +73,11 @@
       font-size: 14px;
       line-height: 1.4;
       width: 161px;
-      border-right: solid 1px #cecece;
+      border-right: solid 1px $lightgray;
       text-overflow: ellipsis;
       color: black;
       &:first-of-type {
-        border-left: solid 1px #cecece;
+        border-left: solid 1px $lightgray;
       }
       &.active {
         font-weight: 600;
@@ -92,11 +92,11 @@
           height: 3px;
           margin: 0 auto;
           margin-top: auto;
-          background-color: #027360;
+          background-color: $quillforestgreen;
         }
       }
       &.dropdown-tab {
-        color: #00c2a2;
+        color: $quillgreen;
         position: relative;
         i {
           font-weight: bold;
@@ -136,7 +136,7 @@
       span {
         font-size: 24px;
       	font-weight: 600;
-        color: #3b3b3b;
+        color: $darkgray;
       }
     }
     .dividing-line {
@@ -195,7 +195,7 @@
       right: 13px;
       width: 405px;
       border-radius: 3px;
-      background-color: #348fdf;
+      background-color: $quillblue;
       z-index: 100;
       color: white;
       .tooltip-header {
@@ -203,7 +203,7 @@
       }
       i {
         position: absolute;
-        color: #348fdf;
+        color: $quillblue;
         top: 51px;
         right: 6px;
         font-size: 30px;

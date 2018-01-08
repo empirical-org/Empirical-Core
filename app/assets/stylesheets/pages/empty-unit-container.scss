@@ -25,9 +25,9 @@
     margin-right: 15px;
     &:nth-of-type(2) {
       background: white;
-      border: 1px solid #00c2a2;
+      border: 1px solid $quillgreen;
       min-width: 176px;
-      color: #00c2a2;
+      color: $quillgreen;
     }
   }
   img {

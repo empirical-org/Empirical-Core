@@ -1342,7 +1342,7 @@ kbd {
   padding: 2px 4px;
   font-size: 90%;
   color: #ffffff;
-  background-color: #333333;
+  background-color: $color_mine_shaft_approx;
   border-radius: 3px;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
@@ -1359,7 +1359,7 @@ pre {
   line-height: 1.42857143;
   word-break: break-all;
   word-wrap: break-word;
-  color: #333333;
+  color: $color_mine_shaft_approx;
   background-color: #f5f5f5;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -2063,7 +2063,7 @@ th {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
-  border-top: 1px solid #cecece;
+  border-top: 1px solid $lightgray;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
@@ -2290,7 +2290,7 @@ legend {
   margin-bottom: 20px;
   font-size: 21px;
   line-height: inherit;
-  color: #333333;
+  color: $color_mine_shaft_approx;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -2734,7 +2734,7 @@ select[multiple].input-lg {
 }
 .btn:hover,
 .btn:focus {
-  color: #333333;
+  color: $color_mine_shaft_approx;
   text-decoration: none;
 }
 .btn:active,
@@ -2755,7 +2755,7 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #333333;
+  color: $color_mine_shaft_approx;
   background-color: #ffffff;
   border-color: #cccccc;
 }
@@ -2764,8 +2764,8 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  color: #333333;
-  background-color: #e6e6e6;
+  color: $color_mine_shaft_approx;
+  background-color: $verylightgray;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -2793,7 +2793,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-default .badge {
   color: #ffffff;
-  background-color: #333333;
+  background-color: $color_mine_shaft_approx;
 }
 .btn-primary {
   color: #ffffff;
@@ -3148,7 +3148,7 @@ tbody.collapse.in {
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
-  color: #333333;
+  color: $color_mine_shaft_approx;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
@@ -3609,7 +3609,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid $lightgray;
 }
 .nav-tabs > li {
   float: left;
@@ -3618,17 +3618,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li > a {
   margin-right: 0;
   line-height: 1.42857143;
-  border-top: 1px solid #cecece;
+  border-top: 1px solid $lightgray;
   border-bottom-color: transparent;
-  border-right: 1px solid #cecece;
+  border-right: 1px solid $lightgray;
   border-bottom: 1px solid transparent;
   border-top: 2px solid transparent;
   border-radius: none;
-  background: #e6e6e6;
+  background: $verylightgray;
 }
 // .nav-tabs > li > a:hover {
 //   border-bottom: 1px solid transparent;
-//   border-right: 1px solid #cecece;
+//   border-right: 1px solid $lightgray;
 // }
 .nav-tabs > li > a:hover,
 .nav-tabs > li.active > a,
@@ -3636,8 +3636,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:focus {
   color: #000000;
   background-color: #fff;
-  border-right: 1px solid #cecece;
-  border-top: 3px solid #027360;
+  border-right: 1px solid $lightgray;
+  border-top: 3px solid $quillforestgreen;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4106,7 +4106,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #333333;
+  color: $color_mine_shaft_approx;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
@@ -4147,7 +4147,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #333333;
+    color: $color_mine_shaft_approx;
     background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
@@ -4167,14 +4167,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #777777;
 }
 .navbar-default .navbar-link:hover {
-  color: #333333;
+  color: $color_mine_shaft_approx;
 }
 .navbar-default .btn-link {
   color: #777777;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
-  color: #333333;
+  color: $color_mine_shaft_approx;
 }
 .navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
@@ -4218,11 +4218,11 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   background-color: transparent;
 }
 .navbar-inverse .navbar-toggle {
-  border-color: #333333;
+  border-color: $color_mine_shaft_approx;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #333333;
+  background-color: $color_mine_shaft_approx;
 }
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #ffffff;
@@ -4320,7 +4320,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   text-decoration: none;
   color: #000000;
   background-color: #f7f5f5;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -4355,8 +4355,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #000000;
-  background-color: #e6e6e6;
-  border-color: #cecece;
+  background-color: $verylightgray;
+  border-color: $lightgray;
   cursor: default;
 }
 .pagination > .disabled > span,
@@ -4838,7 +4838,7 @@ a.list-group-item {
   color: #555555;
 }
 a.list-group-item .list-group-item-heading {
-  color: #333333;
+  color: $color_mine_shaft_approx;
 }
 a.list-group-item:hover,
 a.list-group-item:focus {
@@ -4984,8 +4984,8 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #e6e6e6;
-  border: 1px solid #cecece;
+  background-color: $verylightgray;
+  border: 1px solid $lightgray;
   border-radius: 5px;
 }
 .panel-body {
@@ -5182,22 +5182,22 @@ a.list-group-item-danger.active:focus {
   border-bottom: 1px solid #dddddd;
 }
 .panel-default {
-  border-color: #cecece;
+  border-color: $lightgray;
 }
 .panel-default > .panel-heading {
-  color: #333333;
-  background-color: #e6e6e6;
-  border-color: #cecece;
+  color: $color_mine_shaft_approx;
+  background-color: $verylightgray;
+  border-color: $lightgray;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #cecece;
+  border-top-color: $lightgray;
 }
 .panel-default > .panel-heading .badge {
-  color: #e6e6e6;
-  background-color: #333333;
+  color: $verylightgray;
+  background-color: $color_mine_shaft_approx;
 }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #cecece;
+  border-bottom-color: $lightgray;
 }
 .panel-primary {
   border-color: #000000;
@@ -5522,7 +5522,7 @@ button.close {
   text-decoration: none;
   background-color: #fff;
   border-radius: 5px;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   font-size: 12px;
 }
 
@@ -5574,7 +5574,7 @@ button.close {
   right: 0;
   margin-top: -10px;
   border-width: 10px 0 10px 10px;
-  border-left-color: #58b146;
+  border-left-color: $green;
 }
 .tooltip.bottom .tooltip-arrow {
   top: 0;
@@ -6206,22 +6206,22 @@ button.close {
   list-style: none;
 }
 .border-mixin {
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
 }
 .section-mixin {
   padding: 30px 0;
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid $lightgray;
 }
 .input-mixin {
   border-radius: 5px;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   color: #000;
   font-size: 14px;
   padding: 9px 12px;
 }
 .select-mixin, .gray-button {
   border-radius: 5px;
-  border: 1px solid #cecece;
+  border: 1px solid $lightgray;
   color: #000;
   font-size: 14px;
   padding: 9px 14px;
@@ -6235,8 +6235,8 @@ button.close {
   height: 21px;
   width: 21px;
   border-radius: 5px;
-  background: #e6e6e6;
-  border: 1px solid #cecece;
+  background: $verylightgray;
+  border: 1px solid $lightgray;
 }
 .button-mixin {
   padding: 13px 25px 10px 25px;
@@ -6244,7 +6244,7 @@ button.close {
   border-radius: 5px;
 }
 .fa-caret-mixin {
-  color: #737373;
+  color: $color_tapa_approx;
   font-size: 1.3em;
 }
 .transition-mixin {
