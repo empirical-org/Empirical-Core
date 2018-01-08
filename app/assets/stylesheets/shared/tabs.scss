@@ -93,7 +93,7 @@
     }
 }
 @media (max-width: 871px) {
-    #teacher-nav-tabs li a:not(.mobile) {
+    #teacher-nav-tabs .full-screen:not(.mobile) {
         display: none;
     }
     #teacher-nav-tabs li.active {
@@ -120,6 +120,29 @@
             }
         }
     }
+    #teacher-nav-tabs .small-screen {
+        display: block;
+
+        .q-nav-bar .desktop-nav-list {
+          display: flex;
+          flex-wrap: nowrap;
+          max-width: 100%;
+
+          li {
+            flex-grow: 1;
+            text-align: center;
+            a {
+              padding-left: 0;
+              padding-right: 0;
+              font-size: 13px !important;
+              border-bottom: none;
+              border-top: none;
+            }
+
+          }
+
+        }
+    }
 }
 
 @media (max-width: 993px) {
@@ -144,4 +167,10 @@
         }
       }
     }
+}
+
+@media only screen and (min-width: 872px) {
+  #teacher-nav-tabs .small-screen {
+    display: none;
+  }
 }
