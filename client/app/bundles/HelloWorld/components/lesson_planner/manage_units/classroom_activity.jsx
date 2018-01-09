@@ -159,11 +159,22 @@ renderLessonPlanTooltip() {
     return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`
   },
 
+  calculateAverageScore() {
+    const averageScore = this.props.data.cumulativeScore / this.props.data.completedCount;
+    if(isNaN(averageScore)) {
+      return '—';
+    } else if(Math.round(averageScore).toString().length === 2) {
+      return `${averageScore.toPrecision(2)}%`;
+    } else {
+      return `${averageScore}%`;
+    }
+  },
+
   finalCell() {
     if (this.props.activityReport) {
       return [
         <span key='number-of-students' className='number-of-students'>{this.renderPieChart()} {this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
-        <span key='average-score' className='average-score'>{(this.props.data.cumulativeScore/this.props.data.completedCount).toPrecision(2)}%</span>,
+        <span key='average-score' className='average-score'>{this.calculateAverageScore()}</span>,
         <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ]
     } else if (this.props.report) {
