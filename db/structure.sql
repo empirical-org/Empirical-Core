@@ -562,7 +562,6 @@ CREATE TABLE classrooms_teachers (
 --
 
 CREATE SEQUENCE classrooms_teachers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -697,7 +696,6 @@ CREATE TABLE coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE coteacher_classroom_invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -875,7 +873,6 @@ CREATE TABLE invitations (
 --
 
 CREATE SEQUENCE invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
