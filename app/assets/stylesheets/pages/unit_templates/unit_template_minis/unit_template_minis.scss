@@ -52,3 +52,11 @@
     }
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .small-screen-unit-template-container {
+    .author-picture {
+      display: none;
+    }
+  }
+}
