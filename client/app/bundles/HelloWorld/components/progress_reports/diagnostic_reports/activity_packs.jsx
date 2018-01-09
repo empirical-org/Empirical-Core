@@ -70,7 +70,7 @@ export default React.createClass({
 	},
 
 	setAllUnits(data) {
-		this.setState({ allUnits: this.parseUnits(data)}, this.getUnitsForCurrentClass);
+		this.setState({ allUnits: this.parseUnits(data), loaded: true}, this.getUnitsForCurrentClass);
 	},
 
 	generateNewCaUnit(u) {
