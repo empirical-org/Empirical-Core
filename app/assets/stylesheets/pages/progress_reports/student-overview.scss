@@ -9,13 +9,19 @@
   }
   .student-overview-table {
     width: 100%;
-    border-radius: 6px;
     background-color: #ffffff;
     margin-top: 21px;
-
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px #E9E9E6;
     tr {
       height: 50px;
-      border: solid 1px #e9e9e9;
+      border-right: solid 1px #E9E9E6;
+      border-top: solid 1px #E9E9E6;
+      border-bottom: solid 1px #E9E9E6;
+
+      &:first-of-type, &:last-of-type {
+        border: none;
+      }
 
       &:not(:first-of-type) {
         font-size: 14px;
@@ -42,6 +48,7 @@
       color: #3b3b3b;
       font-weight: 500;
       width: 130px;
+      border-radius: 6px;
       .unit-container {
         min-height: 76px;
       }
@@ -74,7 +81,7 @@
       font-weight: 600;
       color: #3b3b3b;
       min-width: 100px;
-
+      border-radius: 6px;
       .average-score-label {
         font-size: 14px;
         color: #969696;
