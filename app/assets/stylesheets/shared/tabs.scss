@@ -75,6 +75,14 @@
         i {
             color: $orange;
         }
+      &:hover {
+        text-decoration: none;
+        background: $orange;
+        color: white;
+        i {
+            color: white;
+        }
+      }
     }
 }
 .student-subnavigation {
