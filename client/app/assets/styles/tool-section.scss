@@ -321,6 +321,9 @@ $tool-grey: #f8f9f9;
 
         .carousel-indicators {
             bottom: 5px;
+            @media only screen and (max-width: 500px) {
+              bottom: -13px;
+            }
 
             li {
                 background-color: #cacaca;
