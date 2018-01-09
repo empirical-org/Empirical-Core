@@ -104,35 +104,30 @@ class ActivitySearchWrapper
       h = {
         alias: 'Quill Proofreader',
         description: 'Fix Errors in Passages',
-        gray_image_class: 'icon-flag-gray',
         key: 'passage'
       }
     when 2
       h = {
         alias: 'Quill Grammar',
         description: 'Practice Mechanics',
-        gray_image_class: 'icon-puzzle-gray',
         key: 'sentence'
       }
     when 4
       h = {
         alias: 'Quill Diagnostic',
         description: 'Identify Learning Gaps',
-        gray_image_class: 'icon-diagnostic-gray',
         key: 'diagnostic'
       }
     when 5
       h = {
         alias: 'Quill Connect',
         description: 'Combine Sentences',
-        gray_image_class: 'icon-connect-gray',
         key: 'connect'
       }
     when 6
       h = {
         alias: 'Quill Lessons',
         description: 'Shared Group Lessons',
-        gray_image_class: 'icon-lessons-gray',
         key: 'lessons'
       }
     end
