@@ -31,7 +31,7 @@
     });
     var cols = _.map(relatedModels.slice(0, 2), this.miniView);
     return (
-      <span style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <span className="related-activity-packs" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <div style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}} className='row'>
           <div className='col-xs-12'>
             <h2>
