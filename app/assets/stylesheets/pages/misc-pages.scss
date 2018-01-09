@@ -45,9 +45,14 @@
 		}
 		@media only screen and (max-width: 500px) {
 			padding-right: 0px;
-	    text-align: center;
+			padding-left: 0px;
+	    text-align: left;
 	    width: 90%;
 			margin: auto;
+			.row {
+				margin-left: 0px;
+				margin-right: 0px;
+			}
 		}
 	}
 
