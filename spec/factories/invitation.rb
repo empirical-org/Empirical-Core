@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :invitation do
+    sequence(:id)
     invitee_email { create(:user).email }
     inviter_id { create(:teacher).id }
 
