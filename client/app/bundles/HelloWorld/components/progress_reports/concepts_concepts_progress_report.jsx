@@ -1,94 +1,93 @@
 // The progress report shows all concepts for a given student.
 import React from 'react'
-import ProgressReport from './progress_report.jsx'
+import request from 'request'
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
+import userIsPremium from '../modules/user_is_premium'
 
+export default class extends React.Component {
 
-export default React.createClass({
-  propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired,
-    premiumStatus: React.PropTypes.string.isRequired
-  },
-
-  getInitialState: function() {
-    return {
-      concepts: {},
-      student: {}
+  constructor(props) {
+    super()
+    this.state = {
+      loading: true,
+      errors: false,
+      userIsPremium: userIsPremium()
     }
-  },
-
-  columnDefinitions: function() {
-    return [
-      {
-        name: 'Category',
-        field: 'level_2_concept_name',
-        sortByField: 'level_2_concept_name'
-      },
-      {
-        name: 'Name',
-        field: 'concept_name',
-        sortByField: 'concept_name'
-      },
-      {
-        name: 'Questions',
-        field: 'total_result_count',
-        sortByField: 'total_result_count'
-      },
-      {
-        name: 'Correct',
-        field: 'correct_result_count',
-        sortByField: 'correct_result_count'
-      },
-      {
-        name: 'Incorrect',
-        field: 'incorrect_result_count',
-        sortByField: 'incorrect_result_count'
-      },
-      {
-        name: 'Percentage',
-        field: 'percentage',
-        sortByField: 'percentage',
-        customCell: function(row) {
-          return row['percentage'] + '%';
-        }
-      }
-    ];
-  },
-
-  sortDefinitions: function() {
-    return {
-      config: {
-        level_2_concept_name: 'natural',
-        concept_name: 'natural',
-        total_result_count: 'numeric',
-        correct_result_count: 'numeric',
-        incorrect_result_count: 'numeric',
-        percentage: 'numeric'
-      },
-      default: {
-        field: 'concept_name',
-        direction: 'asc'
-      }
-    };
-  },
-
-  onFetchSuccess: function(responseData) {
-    this.setState({
-      student: responseData.student
-    });
-  },
-
-  render: function() {
-    return (
-      <ProgressReport columnDefinitions={this.columnDefinitions}
-                         pagination={false}
-                         sourceUrl={this.props.sourceUrl}
-                         sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'concepts'}
-                         onFetchSuccess={this.onFetchSuccess}
-                         filterTypes={[]}
-                         premiumStatus={this.props.premiumStatus}>
-        <h2>{this.state.student.name}</h2>
-      </ProgressReport>
-    );
   }
-});
+
+  componentDidMount() {
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
+    }, (e, r, body) => {
+      const data = JSON.parse(body)
+      that.setState({loading: false, errors: body.errors, reportData: data.concepts, studentName: data.student.name});
+    });
+  }
+
+  columns() {
+    const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
+    return ([
+      {
+        Header: 'Category',
+        accessor: 'level_2_concept_name',
+        resizable: false,
+      }, {
+        Header: 'Name',
+        accessor: 'concept_name',
+        resizable: false,
+      }, {
+        Header: 'Questions',
+        accessor: 'total_result_count',
+        resizable: false
+      }, {
+        Header: 'Correct',
+        accessor: 'correct_result_count',
+        resizable: false,
+        className: blurIfNotPremium,
+      }, {
+        Header: 'Incorrect',
+        accessor: 'incorrect_result_count',
+        resizable: false,
+        className: blurIfNotPremium,
+      }, {
+        Header: 'Percentage',
+        accessor: 'percentage',
+        resizable: false,
+        className: blurIfNotPremium,
+        Cell: props => props.value + '%'
+      },
+    ])
+  }
+
+  render() {
+    if (this.state.loading || !this.state.reportData) {
+      return <LoadingSpinner/>
+    }
+    return (
+      <div className='progress-reports-2018 concept-student-concepts' concept-student-concepts>
+        <a href="/teachers/progress_reports/concepts/students" className='navigate-back'><img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>Back to Concept Results</a>
+        <div className="meta-overview flex-row space-between">
+          <div className='header-and-info flex-row vertically-centered'>
+            <h1><span>Concept Results:</span> {this.state.studentName}</h1>
+          </div>
+          <div className='csv-and-how-we-grade'>
+            <CSVDownloadForProgressReport data={this.state.reportData}/>
+            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
+          </div>
+        </div>
+        <div key={`concepts-concepts-progress-report-length-${this.state.reportData.length}`}>
+          <ReactTable data={this.state.reportData} columns={this.columns()} showPagination={false} defaultSorted={[{
+              id: 'total_result_count',
+              desc: true
+            }
+          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.reportData.length} className='progress-report has-green-arrow'/>
+        </div>
+      </div>
+    )
+  }
+
+};
