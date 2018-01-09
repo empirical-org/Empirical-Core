@@ -44,8 +44,9 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
 
       it 'fetches classroom and student data for the filter options' do
         get :index, page: 1, format: :json
-        expect(json['classrooms'].size).to eq(1)
-        expect(json['students'].size).to eq(visible_students.size)
+        expect(json['classrooms']).to eq(teacher.ids_and_names_of_affiliated_classrooms)
+        expect(json['students']).to eq(teacher.ids_and_names_of_affiliated_students)
+        expect(json['units']).to eq(teacher.ids_and_names_of_affiliated_units)
       end
     end
   end
