@@ -46,7 +46,7 @@
                 {this.sayAttribution()}
               </div>
             </div>
-            <div style={{flex: 4}}>
+            <div style={{flex: 5}}>
               <div className='activities-count'>
                 <i className='fa fa-th-list'></i>
                 {this.sayActivitiesCount()}
