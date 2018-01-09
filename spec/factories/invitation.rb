@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :invitation do
-    sequence(:id) { |n| n } # not sure why this would be necessary; something in our configuration is likely broken
     invitee_email { create(:user).email }
     inviter_id { create(:teacher).id }
 
