@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
+import Pluralize from 'pluralize';
 import activityFromClassificationId from '../../modules/activity_from_classification_id.js'
 
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal'
@@ -28,7 +29,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '150px',
     marginRight: '15px',
   },
 }
@@ -159,22 +159,50 @@ renderLessonPlanTooltip() {
     return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`
   },
 
+  calculateAverageScore() {
+    const averageScore = this.props.data.cumulativeScore / this.props.data.completedCount;
+    if(isNaN(averageScore)) {
+      return '—';
+    } else if(Math.round(averageScore).toString().length === 2) {
+      return `${averageScore.toPrecision(2)}%`;
+    } else {
+      return `${averageScore}%`;
+    }
+  },
+
   finalCell() {
-    const startDate = this.state.startDate
-    if (this.props.report) {
+    if (this.props.activityReport) {
+      return [
+        <span key='number-of-students' className='number-of-students'>{this.renderPieChart()} {this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
+        <span key='average-score' className='average-score'>{this.calculateAverageScore()}</span>,
+        <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+      ]
+    } else if (this.props.report) {
       return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.caId()}`} onClick={this.urlForReport}>View Report</a>]
     } else if (this.isLesson()) {
        return this.lessonFinalCell()
     }
     if (this.props.data.ownedByCurrentUser) {
+      const startDate = this.state.startDate
       return <span className="due-date-field">
         <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} />
         {startDate && this.props.isFirst ? <span className="apply-to-all" onClick={() => this.props.updateAllDueDates(startDate)}>Apply to All</span> : null}
       </span>
     } else {
-      return startDate ? <div className='due-date-input'>{startDate.format('l')}</div> : null
+      return this.state.startDate ? <div className='due-date-input'>{startDate.format('l')}</div> : null
     }
+  },
 
+  renderPieChart() {
+    const rawPercent = this.props.data.completedCount / this.props.numberOfStudentsAssignedToUnit;
+    const percent = rawPercent > 100 ? 100 : Math.round(rawPercent * 100) / 100;
+    const largeArcFlag = percent > .5 ? 1 : 0;
+    const pathData = `M 1 0 A 1 1 0 ${largeArcFlag} 1 ${Math.cos(2 * Math.PI * percent)} ${Math.sin(2 * Math.PI * percent)} L 0 0`
+    return (
+      <svg viewBox='-1 -1 2 2' className='activity-analysis-pie-chart'>
+        <path d={pathData} fill='#348fdf'></path>
+      </svg>
+    )
   },
 
   caId() {
@@ -209,7 +237,7 @@ renderLessonPlanTooltip() {
     const classification = this.classification()
     if (classification) {
       // then we're coming from the index and have an id
-      return `icon-${activityFromClassificationId(classification)}-green`
+      return `icon-${activityFromClassificationId(classification)}-green-no-border`
     }
     // it is stupid that we are passing this in some of this components use create_activity_sessions
     //  but don't have time to deprecate it right now
@@ -272,7 +300,7 @@ renderLessonPlanTooltip() {
       endRow
     if (this.props.report) {
       link = <a onClick={this.urlForReport} target="_new">{this.activityName()}</a>
-      endRow = styles.reportEndRow
+      endRow = Object.assign({}, styles.reportEndRow, {width: this.props.activityReport ? '350px' : '150px'})
     } else if (this.isLesson()) {
       link = <span onClick={this.openModal}>{this.activityName()}</span>
       endRow = styles.lessonEndRow
@@ -281,7 +309,7 @@ renderLessonPlanTooltip() {
       endRow = styles.endRow
     }
     return (
-      <div className="row" style={styles.row}>
+      <div className="row" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
         {this.renderModal()}
         <div className="starting-row">
           <div className="cell">
@@ -293,7 +321,7 @@ renderLessonPlanTooltip() {
             {this.buttonForRecommendations()}
           </div>
         </div>
-        <div className="cell" style={endRow}>
+        <div className={this.props.activityReport ? 'cell activity-analysis-row-right' : 'cell'} style={endRow}>
           {this.renderLessonsAction()}
           {this.finalCell()}
           {this.deleteRow()}

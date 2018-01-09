@@ -247,7 +247,7 @@ describe.skip('ManageUnits component', () => {
 
     });
 
-    it('renders a ClassroomDropdown component with correct props', () => {
+    it('renders a ItemDropdown component with correct props', () => {
 
     });
   });
