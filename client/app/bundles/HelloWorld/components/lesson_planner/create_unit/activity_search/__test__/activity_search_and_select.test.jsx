@@ -62,25 +62,21 @@ const commaUsageThirdGradeFilters = [
       {
         "alias": "Quill Grammar",
         "description": "Practice Mechanics",
-        "gray_image_class": "icon-puzzle-gray",
         "key": "sentence",
         "id": 2
       }, {
         "alias": "Quill Grammar",
         "description": "Practice Mechanics",
-        "gray_image_class": "icon-puzzle-gray",
         "key": "sentence",
         "id": 2
       }, {
         "alias": "Quill Proofreader",
         "description": "Fix Errors in Passages",
-        "gray_image_class": "icon-flag-gray",
         "key": "passage",
         "id": 1
       }, {
         "alias": "Quill Proofreader",
         "description": "Fix Errors in Passages",
-        "gray_image_class": "icon-flag-gray",
         "key": "passage",
         "id": 1
       }
@@ -100,7 +96,6 @@ let diagnosticActivity = () => [
     "activity_classification": {
       "alias": "Quill Diagnostic",
       "description": "Identify Learning Gaps",
-      "gray_image_class": "icon-diagnostic-gray",
       "key": "diagnostic",
       "id": 4
     },
@@ -135,7 +130,7 @@ describe('ActivitySearchAndSelect component', () => {
     const data = {
       activities: allActivities()
     }
-    const resultsPerPage = 50
+    const resultsPerPage = 25
 
     it('calculates a numberOfPages and maxPageNumber based on activity count', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
@@ -243,7 +238,6 @@ describe('ActivitySearchAndSelect component', () => {
           {
             "alias": "Quill Diagnostic",
             "description": "Identify Learning Gaps",
-            "gray_image_class": "icon-diagnostic-gray",
             "id": 4,
             "key": "diagnostic"
           }
@@ -270,7 +264,6 @@ describe('ActivitySearchAndSelect component', () => {
           {
             "alias": "Quill Diagnostic",
             "description": "Identify Learning Gaps",
-            "gray_image_class": "icon-diagnostic-gray",
             "id": 4,
             "key": "diagnostic"
           }
@@ -320,7 +313,7 @@ describe('ActivitySearchAndSelect component', () => {
       wrapper.instance().changeViewableActivities()
       expect(wrapper.state().viewableActivities.map((act)=>act.id)).toEqual([165, 180, 53, 55])
     })
-    
+
   })
 
 });
