@@ -20,9 +20,10 @@ export default React.createClass({
   render() {
     const selectedClass = this.props.selected ? 'selected' : '';
     const toolTip = this.props.data.activity_classification
+
     ? (<div
       ref="activateTooltip"
-      className={this.props.data.activity_classification.gray_image_class}
+      className={`icon-${this.props.data.activity_classification.id}-green-no-border`}
       data-html="true"
       data-toggle="tooltip"
       data-placement="top"
@@ -31,24 +32,21 @@ export default React.createClass({
     : <span />;
     return (
       <tr onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className={`tooltip-trigger ${selectedClass}`}>
-        <td>
-          <input type="checkbox" checked={this.props.selected} onChange={this.callToggleActivitySelection} id={`activity_${this.props.data.id}`} data-model-id={this.props.data.id} className="css-checkbox" />
-          <label htmlFor={`activity_${this.props.data.id}`} id={`activity_${this.props.data.id}`} className="css-label" />
-        </td>
-
+        <td>{this.props.data.activity_category ? this.props.data.activity_category.name : ''}</td>
         <td>
           {toolTip}
         </td>
-
         <td className="activity_name">
           <a className="activity_link" href={this.props.data.anonymous_path} target="_new">
             {this.props.data.name}
           </a>
         </td>
 
-        <td>{this.props.data.section.name}</td>
 
-        <td>{this.props.data.activity_category ? this.props.data.activity_category.name : ''}</td>
+        <td>
+          <input type="checkbox" checked={this.props.selected} onChange={this.callToggleActivitySelection} id={`activity_${this.props.data.id}`} data-model-id={this.props.data.id} className="css-checkbox" />
+          <label htmlFor={`activity_${this.props.data.id}`} id={`activity_${this.props.data.id}`} className="css-label" />
+        </td>
       </tr>
     );
   },

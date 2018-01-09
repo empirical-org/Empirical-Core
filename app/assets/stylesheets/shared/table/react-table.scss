@@ -1,0 +1,77 @@
+.ReactTable {
+  &.progress-report {
+    border: none;
+    max-width: 950px;
+    width: 100%;
+    margin: auto;
+
+    .rt-table {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .pagination-bottom {
+      height: 40px;
+
+      .-pagination {
+        background: #fafafa;
+        border-top: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: none;
+        padding: 8px;
+      }
+    }
+
+    .rt-th {
+      background-color: #fafafa;
+      height: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #3b3b3b;
+      text-align: left;
+      padding-left: 14px;
+      display: flex;
+      align-items: center;
+      &:focus {
+        outline: none;
+      }
+
+
+
+    }
+
+    &.has-green-arrow {
+      .rt-th {
+        &:last-of-type{
+          border-left: none;
+        }
+        &:nth-last-of-type(2) {
+          border-right: none;
+        }
+      }
+    }
+
+    .green-text {
+      color: #027360;
+    }
+
+    .rt-tr-group {
+      background-color: white;
+
+      &:hover {
+        background-color: $row-hover-green-white;
+        .green-text {
+          color: #00c2a2;
+        }
+      }
+    }
+
+    .green-arrow {
+      text-align: right;
+      padding: 20px;
+    }
+
+    .rt-td {
+      padding-left: 10px;
+    }
+  }
+}

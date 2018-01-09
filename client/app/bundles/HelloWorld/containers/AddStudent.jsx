@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import ClassroomDropdown from '../components/general_components/dropdown_selectors/classroom_dropdown.jsx';
+import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import $ from 'jquery';
 import ClassroomsStudentsTable from '../components/general_components/classrooms_students_table.jsx';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
@@ -130,7 +130,7 @@ export default React.createClass({
     return (
       <div className="invite-students">
         <div className="container">
-          <div className="classroom-dropdown-row">Select Classroom: <ClassroomDropdown classrooms={this.props.classrooms} callback={this.updateClassroom} /></div>
+          <div className="classroom-dropdown-row">Select Classroom: <ItemDropdown items={this.props.classrooms} callback={this.updateClassroom} /></div>
           <div className="option-boxes">
             <div className="box-section"><StudentCreatesAccountSection key="student-section" classCode={this.state.selectedClassroom.code} /></div>
             <div className="box-section"><GoogleClassroomCreatesAccountSection
