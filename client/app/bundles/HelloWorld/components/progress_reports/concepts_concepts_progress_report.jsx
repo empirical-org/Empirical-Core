@@ -35,6 +35,7 @@ export default class extends React.Component {
         Header: 'Category',
         accessor: 'level_2_concept_name',
         resizable: false,
+        width: 200
       }, {
         Header: 'Name',
         accessor: 'concept_name',
@@ -42,23 +43,27 @@ export default class extends React.Component {
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
-        resizable: false
+        resizable: false,
+        width: 120
       }, {
         Header: 'Correct',
         accessor: 'correct_result_count',
         resizable: false,
         className: blurIfNotPremium,
+        width: 120
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         resizable: false,
         className: blurIfNotPremium,
+        width: 120
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
         className: blurIfNotPremium,
-        Cell: props => props.value + '%'
+        Cell: props => props.value + '%',
+        width: 120
       },
     ])
   }
