@@ -10,7 +10,7 @@ gem 'puma', '~> 3.10.0'
 gem 'dotenv-rails'
 
 # DB/MODEL
-gem 'pg'
+gem 'pg', '0.18.4'
 gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'

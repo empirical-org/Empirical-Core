@@ -1,10 +1,20 @@
 require 'firebase_token_generator'
+require "jwt"
 
 class FirebaseApp < ActiveRecord::Base
 
   def token_for(user)
     payload = create_payload(user)
     token_generator.create_token(payload)
+  end
+
+  def connect_token_for(user)
+    payload = create_connect_payload(user)
+    private_key = OpenSSL::PKey::RSA.new(pkey)
+    puts private_key
+    puts payload
+    JWT.encode(payload, private_key, "RS256")
+    # token_generator.create_token(payload)
   end
 
   private
@@ -23,6 +33,34 @@ class FirebaseApp < ActiveRecord::Base
       payload[:teacher] = true
     elsif user.student?
       payload[:student] = true
+    end
+    payload
+  end
+
+  def create_connect_payload(user)
+    user_id = user.present? ? user.id.to_s : 'anonymous'
+    now_seconds = Time.now.to_i
+    payload = {
+      uid: "custom#{user_id}",
+      iss: ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
+      sub: ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
+      aud: "https//identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit",
+      iat: now_seconds,
+      exp: now_seconds+(60*60), # Maximum expiration time is one hour,
+      alg: "RS256",
+      claims: {}
+  }
+
+    if user.nil?
+      payload[:claims][:anonymous] = true
+    elsif user.staff?
+      payload[:claims][:staff] = true
+    elsif user.admin?
+      payload[:claims][:admin] = true
+    elsif user.teacher?
+      payload[:claims][:teacher] = true
+    elsif user.student?
+      payload[:claims][:student] = true
     end
     payload
   end
