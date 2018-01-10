@@ -49,7 +49,7 @@ export default class extends React.Component {
   }
 
   greenArrow(row) {
-    if (row.completed_at && notLessonsOrDiagnostic(row.activity_classification_id)) {
+    if (row.completed_at) {
       return (<a href={`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${row.classroom_activity_id}/user/${this.props.studentId}`}>
         <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
       </a>)
@@ -72,8 +72,10 @@ export default class extends React.Component {
   tableRow(row) {
     const scoreInfo = this.score(row);
     const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
+    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${row.classroom_activity_id}/user/${this.props.studentId}` : () => {}
+
     return (
-      <tr>
+      <tr onClick={onClickFunction} className={row.completed_at ? 'clickable' : ''}>
         <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
         <td className='activity-name'><a href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a></td>
         <td>{this.completedStatus(row)}</td>
