@@ -127,7 +127,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby'
+gem 'clever-ruby', '~> 0.13.2'
 
 group :production, :staging do
   gem 'rails_12factor'

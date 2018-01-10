@@ -5,6 +5,7 @@ class InvitationEmailWorker
     invitation = Invitation.find(invitation_id)
     email_vars = invitation.attributes
     email_vars[:inviter_name] = invitation.inviter.name
+    email_vars[:inviter_email] = invitation.inviter.email
     email_vars[:classroom_names] = []
     email_vars[:coteacher_classroom_invitation_ids] = []
     invitation.coteacher_classroom_invitations.each do |ctc|
