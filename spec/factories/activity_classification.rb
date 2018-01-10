@@ -23,6 +23,7 @@ FactoryBot.define do
       order_number 0
       form_url 'https://connect.quill.org/#/play/diagnostic/'
       module_url 'https://connect.quill.org/#/play/diagnostic/'
+      scored false
     end
 
     factory :proofreader do
@@ -69,6 +70,7 @@ FactoryBot.define do
       module_url 'https://connect.quill.org/#/play/class-lessons/'
       instructor_mode true
       locked_by_default true
+      scored false
     end
 
   end

@@ -81,8 +81,8 @@ describe 'Sign up', type: :request do
       end
 
       it 'generates username' do
-        expect(response.body).to include(student_first_name)
-        expect(response.body).to include(student_last_name)
+        expect(response.body).to include(student_first_name.capitalize)
+        expect(response.body).to include(student_last_name.capitalize)
         expect(response.body).to include(expected_student_email)
       end
 

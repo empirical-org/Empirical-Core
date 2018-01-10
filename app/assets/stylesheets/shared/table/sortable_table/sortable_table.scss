@@ -22,6 +22,9 @@ table.sortable-table {
     th {
       border: 1px solid $lightgray;
       &.sorter {
+        font-size: 14px;
+        font-weight: 600;
+        color: #3b3b3b;
         padding-left: 11px;
         padding-right: 11px;
       }

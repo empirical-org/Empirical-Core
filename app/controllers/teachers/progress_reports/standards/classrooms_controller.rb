@@ -6,15 +6,32 @@ class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::Pro
       end
 
       format.json do
-        classrooms = ::ProgressReports::Standards::Classroom.new(current_user).results(params)
-        classroom_json = classrooms.map do |classroom|
-          ::ProgressReports::Standards::ClassroomSerializer.new(classroom).as_json(root: false)
-        end
+        classroom_id = params[:classroom_id]
+        student_id = nil
+        data = ::ProgressReports::Standards::AllClassroomsTopic.new(current_user).results(classroom_id, student_id)
         render json: {
-          classrooms: classroom_json,
-          teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
+          data: data,
+          teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),
+          classrooms: current_user.classrooms_i_teach,
+          students: student_names_and_ids(classroom_id)
         }
       end
     end
   end
+end
+
+private
+
+def student_names_and_ids(classroom_id)
+  if classroom_id
+    classroom_conditional = "AND classrooms.id = #{classroom_id}"
+  end
+    ActiveRecord::Base.connection.execute("SELECT DISTINCT students.name, students.id, substring(students.name, '([^[:space:]]+)(?:,|$)') AS last_name FROM users AS teacher
+    JOIN classrooms_teachers AS ct ON ct.user_id = teacher.id
+    JOIN classrooms ON classrooms.id = ct.classroom_id AND classrooms.visible = TRUE
+    JOIN students_classrooms AS sc ON sc.classroom_id = ct.classroom_id
+    JOIN users AS students ON students.id = sc.student_id
+    WHERE teacher.id = #{current_user.id}
+    #{classroom_conditional}
+    ORDER BY substring(students.name, '([^[:space:]]+)(?:,|$)')").to_a
 end

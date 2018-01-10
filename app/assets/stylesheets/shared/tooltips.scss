@@ -15,6 +15,17 @@
   border-bottom-color: #cecece;
 }
 
+.tooltip-arrow::after {
+  left: -10px;
+  content: "\f0d7";
+  font-size: 37px;
+  position: absolute;
+  bottom: -20px; 
+  color: #c0c0c0;
+  z-index: -1;
+  font-family: "FontAwesome";
+}
+
 .react-lightbox, .react-lightbox-modal {
   height: 200px;
   width: 200px;
