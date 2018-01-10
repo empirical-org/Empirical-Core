@@ -136,7 +136,7 @@ export default class extends React.Component {
 				accessor: 'activities',
 				resizable: false,
         Cell: (row, selectedClassroomId) => (
-          <a href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`} className="row-link-disguise">
+          <a href={row.original['link']} className="row-link-disguise">
             {row.original['activities']}
           </a>
         )
@@ -145,7 +145,6 @@ export default class extends React.Component {
         accessor: 'green_arrow',
         resizable: false,
         sortable: false,
-        className: 'hi',
         width: 80,
         Cell: props => props.value
       }
