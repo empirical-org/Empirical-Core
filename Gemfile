@@ -21,7 +21,7 @@ gem 'atomic_arrays'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem 'doorkeeper', '1.4.1' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
+gem 'doorkeeper', '~> 4.2.0'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'
