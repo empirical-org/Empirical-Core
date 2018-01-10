@@ -280,7 +280,9 @@ export default React.createClass({
     model.dueDates[activity.id] = dueDate;
     this.setState({ model, });
   },
+
   toggleActivitySelection(activity) {
+    activity.selected = !activity.selected
     const indexOfActivity = this.state.selectedActivities.findIndex(act => act.id === activity.id);
     const newActivityArray = this.state.selectedActivities.slice();
     if (indexOfActivity === -1) {
@@ -338,7 +340,7 @@ export default React.createClass({
     }
     return (
       <span>
-        <div className="container" id="activity-planner" className="menu-aligned-left">
+        <div className="container" id="activity-planner">
           {stageSpecificComponents}
         </div>
       </span>
