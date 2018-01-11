@@ -8,6 +8,7 @@ import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import {sortByLastName, sortFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
+import EmptyStateForReport from './empty_state_for_report'
 
 import _ from 'underscore'
 
@@ -125,7 +126,7 @@ export default class extends React.Component {
           className='progress-report has-green-arrow'/>
         </div>)
     } else {
-      return <h3>No Results to Report</h3>
+      return <EmptyStateForReport/>
     }
   }
 

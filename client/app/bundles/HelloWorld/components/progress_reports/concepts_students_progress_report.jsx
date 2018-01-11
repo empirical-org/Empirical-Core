@@ -9,6 +9,7 @@ import {sortByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
+import EmptyStateForReport from './empty_state_for_report'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -131,7 +132,7 @@ export default class extends React.Component {
         </div>
       )
     } else {
-      return <h3>No Results to Report</h3>
+      return <EmptyStateForReport/>
     }
   }
 
