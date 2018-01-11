@@ -1,5 +1,18 @@
-<h1><%=@lessons_json["name"]%></h1>
-<%@lessons_json["lists"].each do |list| %>
+<div class='ideas-page'>
+  <h1>Lessons</h1>
+  <%@lessons_json.each do |list| %>
   <h2><%=list["name"]%></h2>
-<%end%>
-<h1><%=@connect_json["name"]%></h1>
+  <%list["cards"].each do |card| %>
+  <a href="<%=card['url']%>"><%=card['name']%></a>
+  <br>
+  <%end%>
+  <%end%>
+  <h1>Connect</h1>
+  <%@connect_json.each do |list| %>
+  <h2><%=list["name"]%></h2>
+  <%list["cards"].each do |card| %>
+  <a href="<%=card['url']%>"><%=card['name']%></a>
+  <br>
+  <%end%>
+  <%end%>
+</div>
