@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactOnRails from 'react-on-rails';
-import request from 'request';
 
 class PasswordInfo extends Component {
   passwordHintBox() {

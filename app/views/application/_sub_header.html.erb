@@ -19,13 +19,18 @@
 				<li><%= link_to "Tools", "/tools/lessons"%></li>
 				<li><%= link_to "Resources", teacher_resources_path%></li>
 				<li class="active"><%= link_to "Our Story", mission_path %></li>
+				<li><%= link_to "Donate", "https://community.quill.org/donate/", target: "_blank" %></li>
 			<% end %>
 
 			<%- if current_user.nil? %>
 				<li><%= link_to "Login", new_session_path  %></li>
 			<%- else %>
 				<%- if current_user.role == 'teacher' %>
-					<li><%= link_to "Profile", profile_path, class: "sign-up-btn" %></li>
+					<%- if request.path.include?('teachers') %>
+						<li><%= link_to "My Dashboard", profile_path, class: "sign-up-btn" %></li>
+					<%- else %>
+						<li><%= link_to "My Dashboard", profile_path, class: "sign-up-btn white-fill" %></li>
+					<%- end %>
 				<%- end %>
 				<%- if current_user.role == 'student' %>
 					<li><%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path %></li>

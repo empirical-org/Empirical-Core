@@ -50,6 +50,7 @@ EmpiricalGrammar::Application.configure do
   config.sass.line_numbers = true
   config.sass.debug_info = true
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  Rails.application.routes.default_url_options[:host] =  'localhost:3000'
 
   # Image Uploads (see paperclip gem)
   Paperclip.options[:command_path] = "/usr/local/bin/"
@@ -69,4 +70,5 @@ EmpiricalGrammar::Application.configure do
     config.action_controller.perform_caching = false
   end
 
+  config.reload_plugins = true if Rails.env.development?
 end

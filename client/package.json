@@ -54,6 +54,7 @@
     "react-on-rails": "=6.5.0",
     "react-redux": "^4.4.1",
     "react-router": "^2.0.1",
+    "react-select": "^1.1.0",
     "react-sortable": "^1.2.0",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
@@ -127,7 +128,9 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less|scss)$": "<rootDir>/__mocks__/styleMock.js"
     },
-    "collectCoverageFrom" : ["app/**/*.{js,jsx}"]
+    "collectCoverageFrom": [
+      "app/**/*.{js,jsx}"
+    ]
   },
   "author": "Empirical",
   "license": "ISC"

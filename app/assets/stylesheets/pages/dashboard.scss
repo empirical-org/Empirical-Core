@@ -203,7 +203,7 @@
             border: 1px solid #737373;
         }
         .classroom_name {
-            font-weight: 600;
+            font-weight: bold;
             margin: auto;
             width: 280px;
             padding-bottom: 10px;
@@ -219,22 +219,29 @@
             height: 66px;
             margin-bottom: 15px;
         }
-        .class-mini-edit-students {
-            padding: 12px;
-            padding-top: 10px;
-            font-size: 12px;
-            line-height: 0.92;
+        .class-mini-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 12px;
+          padding-top: 10px;
+          font-size: 12px;
+          line-height: 0.92;
+          color: $quillforestgreen;
+          a {
             color: $quillforestgreen;
-            img {
-              padding-bottom: 2px;
-              margin-right: 4px;
-            }
+            font-weight: 600;
+          }
+          img {
+            padding-bottom: 2px;
+            margin-right: 4px;
+          }
         }
+        // .class-mini-edit-students {
+        // }
         .class_icon {
-            margin-top: 31px;
-            margin-left: 113px;
             width: 35px;
-            height: 32px;
+            height: 30px;
         }
         .plus_icon {
             padding-top: 96px;
@@ -366,7 +373,7 @@
     }
     a {
       font-size: 14px;
-      color: #00c2a2;
+      color: #027360;
     }
   }
   .image-container {
@@ -379,7 +386,8 @@
     }
   }
   .q-button {
-      font-size: 14px;
+    font-weight: bold;
+    font-size: 14px;
   }
   span {
     padding-left: 12px;

@@ -53,6 +53,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def assign_selected_packs
+        if params[:selections]
+          params[:selections].map { |s| s['id']}.each do |ut_id|
+            ut = UnitTemplate.find(ut_id)
+            Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
+          end
+        end
         create_or_update_selected_packs
         render json: { data: 'Hi' }
     end
@@ -76,9 +82,23 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def diagnostic_status
-      diagnostic_activity_ids = [413, 447, 602]
-      cas = current_user.classrooms_i_teach.includes(:students, :classroom_activities).where(classroom_activities: {activity_id: diagnostic_activity_ids}).map(&:classroom_activities).flatten
-      if cas.any? && cas.any?{|ca| ca.has_a_completed_session? && ca.from_valid_date_for_activity_analysis? }
+      cas = ActiveRecord::Base.connection.execute("
+        SELECT activity_sessions.state
+        FROM classrooms_teachers
+        JOIN classrooms
+          ON  classrooms_teachers.classroom_id = classrooms.id
+          AND classrooms.visible = TRUE
+        JOIN classroom_activities
+          ON  classrooms.id = classroom_activities.classroom_id
+          AND classroom_activities.visible = TRUE
+          AND classroom_activities.activity_id IN (#{Activity::DIAGNOSTIC_ACTIVITY_IDS.join(', ')})
+        LEFT JOIN activity_sessions
+          ON  classroom_activities.id = activity_sessions.classroom_activity_id
+          AND activity_sessions.state = 'finished'
+          AND activity_sessions.visible = TRUE
+        WHERE classrooms_teachers.user_id = #{current_user.id}
+      ").to_a
+      if cas.include?('finished')
         diagnostic_status = 'completed'
       elsif cas.any?
         diagnostic_status = 'assigned'
@@ -94,13 +114,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         if params[:whole_class]
           UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
         else
-          teacher_id = current_user.id
           selections_with_students = params[:selections].select do |ut|
             ut[:classrooms][0][:student_ids]&.compact&.any?
           end
           if selections_with_students.any?
             number_of_selections = selections_with_students.length
-            selections_with_students.reverse.each_with_index do |value, index|
+            selections_with_students.each_with_index do |value, index|
                 last = (number_of_selections - 1) == index
                 # this only accommodates one classroom at a time
                 classroom = value[:classrooms][0]

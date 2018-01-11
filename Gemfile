@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 # CORE DEPS
-gem 'rails'
+gem 'rails', '=4.2.7.1'
 gem 'puma', '~> 3.10.0'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -27,6 +27,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
+gem 'rack-attack'
 
 # EMAIL
 gem 'premailer-rails'
@@ -41,8 +42,8 @@ gem 'validates_email_format_of'
 gem 'responders'
 
 # UPLOADS
-gem 'carrierwave'
-gem 'fog', require: 'fog/aws/storage'
+gem 'carrierwave', '=0.11.2'
+gem 'fog-aws'
 
 # TIME
 gem 'time_difference'
@@ -64,7 +65,6 @@ gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
 
-
 # WEBSOCKETS
 gem 'pusher'
 
@@ -75,7 +75,7 @@ gem 'addressable'
 
 # QUEUE/CACHE
 gem 'sidekiq'
-gem 'sidekiq-retries'
+gem 'sidekiq-retries', require: false
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
@@ -108,7 +108,7 @@ gem 'haml-rails'
 gem 'es5-shim-rails'
 # gem 'react-rails', '~> 1.6', '>= 1.6.2'
 # gem 'react-rails-hot-loader'
-gem "react_on_rails", "~> 6"
+gem "react_on_rails", "=6.1.1"
 
 # ASSET/UI
 gem 'therubyracer', require: false
@@ -118,7 +118,7 @@ gem 'kaminari'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
-gem 'rack-cors',  require: 'rack/cors'
+gem 'rack-cors',  '0.4.0', require: 'rack/cors'
 gem 'rack-host-redirect'
 
 # DEPLOYMENT
@@ -127,7 +127,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby'
+gem 'clever-ruby', '~> 0.13.2'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -159,8 +159,8 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem "factory_bot"
-  gem "factory_bot_rails"
+  gem "factory_bot", require: false
+  gem "factory_bot_rails", require: false
   gem "database_cleaner"
   gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
   gem 'guard'
@@ -181,7 +181,7 @@ group :test do
   gem "webmock"
   gem "codeclimate-test-reporter", require: nil
   gem 'simplecov'
-  gem 'simplecov-json'
+  gem 'simplecov-json', require: false
   gem 'codecov'
 end
 

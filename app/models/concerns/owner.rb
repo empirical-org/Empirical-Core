@@ -8,7 +8,7 @@ module Owner
       self.owner_name = owner_name
 
       if owner_name == :owner
-        belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+        belongs_to :owner, class_name: 'User', foreign_key: 'owner.id'
       else
         belongs_to owner_name
       end

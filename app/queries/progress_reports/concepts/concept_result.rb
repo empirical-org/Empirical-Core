@@ -7,8 +7,8 @@ class ProgressReports::Concepts::ConceptResult
       concept_results.concept_id
     SELECT
     ).joins({activity_session: {classroom_activity: :classroom}})
-      .where("activity_sessions.state = ?", "finished")
-      .where("classrooms.teacher_id = ?", teacher.id) # Always by teacher
+     .joins("INNER JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id")
+      .where("activity_sessions.state = ? AND classrooms_teachers.user_id = ?", "finished", teacher.id)
 
     if filters[:classroom_id].present?
       query = query.where("classrooms.id = ?", filters[:classroom_id])

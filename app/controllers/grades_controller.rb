@@ -51,7 +51,7 @@ class GradesController < ApplicationController
   def authorize!
     return unless params[:classroom_activity_id].present?
     classroom_activity = ClassroomActivity.includes(:classroom).find(params[:classroom_activity_id])
-    auth_failed unless classroom_activity.classroom.teacher == current_user
+    classroom_teacher!(classroom_activity.classroom_id)
   end
 
 end

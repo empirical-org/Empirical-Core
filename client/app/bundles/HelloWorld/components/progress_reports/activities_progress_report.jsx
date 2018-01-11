@@ -70,17 +70,19 @@ export default React.createClass({
 
   render: function() {
     return (
-      <ProgressReport columnDefinitions={this.columnDefinitions}
-                         pagination={true}
-                         sourceUrl={this.props.sourceUrl}
-                         sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'activity_sessions'}
-                         exportCsv={'activity_sessions'}
-                         filterTypes={['unit', 'classroom', 'student']}
-                         premiumStatus={this.props.premiumStatus}>
-        <h2>Activities: All Students</h2>
-        <p className="description">View all of the activities your students have completed. Filter by classroom, unit, or student.</p>
-      </ProgressReport>
+      <div className="activity-progress-report-container">
+        <ProgressReport columnDefinitions={this.columnDefinitions}
+                           pagination={true}
+                           sourceUrl={this.props.sourceUrl}
+                           sortDefinitions={this.sortDefinitions}
+                           jsonResultsKey={'activity_sessions'}
+                           exportCsv={'activity_sessions'}
+                           filterTypes={['unit', 'classroom', 'student']}
+                           premiumStatus={this.props.premiumStatus}>
+          <h2>Activities: All Students</h2>
+          <p className="description">View all of the activities your students have completed. Filter by classroom, unit, or student.</p>
+        </ProgressReport>
+      </div>
     );
   }
 });
