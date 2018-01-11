@@ -17,13 +17,9 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: empiricalgrammar_test
           POSTGRES_PASSWORD: ""
+      - image: node:8
       - image: redis:4
-      - image: redis:4
-        ports:
-          - '6378'
-      - image: redis:4
-        ports:
-          - '7654'
+      # TODO: add the two other redis instances
     steps:
       # Check out the branch.
       - checkout
