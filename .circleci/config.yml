@@ -4,7 +4,7 @@ jobs:
     parallelism: 1
     working_directory: ~/empirical-core
     docker:
-      - image: ruby:2.3
+      - image: circleci/ruby:2.3-node
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -17,7 +17,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: empiricalgrammar_test
           POSTGRES_PASSWORD: ""
-      - image: circleci/node:8
       - image: redis:4
       # TODO: add the two other redis instances
     steps:
