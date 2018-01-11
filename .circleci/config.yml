@@ -22,9 +22,9 @@ jobs:
     steps:
       # Install node and nvm
       - run:
-          command: sudo apt-get install nodejs
+          command: apt-get install nodejs
       - run:
-          command: sudo apt-get install npm
+          command: apt-get install npm
 
       # Check out the branch.
       - checkout
