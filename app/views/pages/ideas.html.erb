@@ -3,7 +3,7 @@
   <%@lessons_json.each do |list| %>
   <h2><%=list["name"]%></h2>
   <%list["cards"].each do |card| %>
-  <a href="<%=card['url']%>"><%=card['name']%></a>
+  <a href="<%=card['url']%>" target='_blank'><%=card['name']%></a>
   <br>
   <%end%>
   <%end%>
@@ -11,7 +11,7 @@
   <%@connect_json.each do |list| %>
   <h2><%=list["name"]%></h2>
   <%list["cards"].each do |card| %>
-  <a href="<%=card['url']%>"><%=card['name']%></a>
+  <a href="<%=card['url']%>" target='_blank'><%=card['name']%></a>
   <br>
   <%end%>
   <%end%>
