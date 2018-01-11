@@ -17,7 +17,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: empiricalgrammar_test
           POSTGRES_PASSWORD: ""
-      - image: node:8
+      - image: circleci/node:8
       - image: redis:4
       # TODO: add the two other redis instances
     steps:
