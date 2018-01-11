@@ -82,7 +82,7 @@ jobs:
       # Load the database structure. TODO: do we have to run db:create first?
       - run:
           name: Load Database Structure
-          command: bin/rails db:structure:load --trace
+          command: rake db:structure:load --trace
 
       # Run RSpec
       - run: bundle exec rspec
