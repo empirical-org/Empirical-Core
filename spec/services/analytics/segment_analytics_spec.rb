@@ -18,7 +18,7 @@ describe 'SegmentAnalytics' do
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::CLASSROOM_CREATION)
-      expect(track_calls[0][:user_id]).to eq(classroom.teacher_id)
+      expect(track_calls[0][:user_id]).to eq(classroom.owner.id)
     end
   end
 
@@ -26,7 +26,7 @@ describe 'SegmentAnalytics' do
     let(:teacher) { create(:teacher) }
 
     it 'sends an event' do
-      analytics.track_activity_assignment(teacher)
+      analytics.track_activity_assignment(teacher.id)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_ASSIGNMENT)

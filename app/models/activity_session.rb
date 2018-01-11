@@ -18,7 +18,8 @@ class ActivitySession < ActiveRecord::Base
   validate :correctly_assigned, :on => :create
 
 
-  ownable :user
+  # ownable :user
+  belongs_to :user
 
   before_create :set_state
   before_save   :set_completed_at
@@ -57,10 +58,10 @@ class ActivitySession < ActiveRecord::Base
   def self.by_teacher(teacher)
     self.joins(
       " JOIN classroom_activities ca ON activity_sessions.classroom_activity_id = ca.id
+        JOIN classrooms_teachers ON ca.classroom_id = classrooms_teachers.classroom_id
         JOIN classrooms ON ca.classroom_id = classrooms.id
-        JOIN users teachers ON classrooms.teacher_id = teachers.id
       "
-    ).where("teachers.id = ?", teacher.id)
+    ).where("classrooms_teachers.user_id = ?", teacher.id)
   end
 
   def self.with_filters(query, filters)
@@ -202,11 +203,6 @@ class ActivitySession < ActiveRecord::Base
 
   def anonymous
     temporary
-  end
-
-  def owned_by? user
-    return true if temporary
-    super
   end
 
   def invalidate_activity_session_count_if_completed

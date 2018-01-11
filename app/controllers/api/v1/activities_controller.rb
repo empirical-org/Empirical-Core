@@ -1,12 +1,7 @@
 class Api::V1::ActivitiesController < Api::ApiController
 
   doorkeeper_for :create, :update, :destroy
-  before_action :find_activity, except: [:index, :create, :uids_and_flags]
-
-  def index
-    # FIXME: original API doesn't support index
-    @activities = Activity.all
-  end
+  before_action :find_activity, except: [:create, :uids_and_flags]
 
   # GET
   def show
@@ -75,6 +70,18 @@ class Api::V1::ActivitiesController < Api::ApiController
       uids_and_flags_obj[activity.uid] = {flag: activity.flag}
     end
     render json: uids_and_flags_obj
+  end
+
+  def published_edition
+    objective = Objective.find_by_name('Publish Customized Lesson')
+    milestone = Milestone.find_by_name('Publish Customized Lesson')
+    if !Checkbox.find_by(objective_id: objective.id, user_id: current_user.id)
+      Checkbox.create(objective_id: objective.id, user_id: current_user.id)
+    end
+    if !UserMilestone.find_by(milestone_id: milestone.id, user_id: current_user.id)
+      UserMilestone.create(milestone_id: milestone.id, user_id: current_user.id)
+    end
+    render json: {}
   end
 
   private

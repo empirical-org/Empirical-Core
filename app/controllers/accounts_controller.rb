@@ -2,8 +2,6 @@ class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
   before_filter :set_cache_buster, only: [:new]
 
-  include CheckboxCallback
-
   def new
     ClickSignUpWorker.perform_async
     session[:role] = nil
@@ -34,6 +32,7 @@ class AccountsController < ApplicationController
       ip = request.remote_ip
       AccountCreationCallbacks.new(@user, ip).trigger
       @user.subscribe_to_newsletter
+      return render json: { redirectPath: teachers_classrooms_path } if @user.has_outstanding_coteacher_invitation?
       render json: @user
     else
       render json: {errors: @user.errors}, status: 422

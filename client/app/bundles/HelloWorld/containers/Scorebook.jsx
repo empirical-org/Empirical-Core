@@ -10,22 +10,51 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import AppLegend from '../components/scorebook/app_legend.jsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
-import moment from 'moment';
+import moment from 'moment'
 
 export default React.createClass({
+
+  DATE_RANGE_FILTER_OPTIONS: [
+    {
+      title: 'Today',
+      beginDate: moment()
+    },
+    {
+      title: 'This Week',
+      beginDate: moment().startOf('week')
+    },
+    {
+      title: 'This Month',
+      beginDate: moment().startOf('month')
+    },
+    {
+      title: 'Last 7 days',
+      beginDate: moment().subtract(7, 'days')
+    },
+    {
+      title: 'Last 30 days',
+      beginDate: moment().subtract(1, 'months')
+    },
+    {
+      title: 'All Time',
+      beginDate: null
+    },
+  ],
+
   mixins: [TableFilterMixin],
 
   getInitialState() {
     this.modules = {
       scrollify: new Scrollify(),
     };
+    const allActivityPacksUnit = {
+      name: 'All Activity Packs',
+      value: '',
+    }
     return {
       units: [],
       classrooms: this.props.allClassrooms,
-      selectedUnit: {
-        name: 'All Activity Packs',
-        value: '',
-      },
+      selectedUnit: allActivityPacksUnit,
       selectedClassroom: this.props.selectedClassroom,
       classroomFilters: this.props.allClassrooms,
       unitFilters: [],
@@ -51,15 +80,21 @@ export default React.createClass({
 
   formatDate(date) {
     if (date) {
-      return `${date.year()}-${date.month() + 1}-${date.date()}`;
+      const standardizedDate = moment.utc(date)
+      return `${standardizedDate.year()}-${standardizedDate.month() + 1}-${standardizedDate.date()}`;
     }
   },
 
   setStateFromLocalStorage(callback) {
-    this.setState({
-      beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate')),
-      endDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookEndDate'))
-    }, callback);
+    const storedDateFilterName = window.localStorage.getItem('scorebookDateFilterName')
+    const dateFilterName = !storedDateFilterName || storedDateFilterName === 'null' ? null : storedDateFilterName
+    if (dateFilterName) {
+      const beginDate = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName).beginDate
+      window.localStorage.setItem('scorebookBeginDate', beginDate);
+      this.setState({beginDate, dateFilterName}, callback)
+    } else {
+      this.setState({beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))}, callback)
+    }
   },
 
   fetchData() {
@@ -91,11 +126,22 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      that.setState({
-        unitFilters: parsedBody.units,
-        selectedUnit: { name: 'All Activity Packs', value: '', },
-        missing: this.checkMissing(this.state.scores)
-      });
+      const units = parsedBody.units
+      if (units.length === 1) {
+        const selectedUnit = units[0]
+        that.setState({
+          unitFilters: units,
+          selectedUnit: selectedUnit,
+          missing: this.checkMissing(this.state.scores)
+        });
+      } else {
+        const selectedUnit = { name: 'All Activity Packs', value: '', }
+        that.setState({
+          unitFilters: [selectedUnit].concat(units),
+          selectedUnit: selectedUnit,
+          missing: this.checkMissing(this.state.scores)
+        });
+      }
     });
   },
 
@@ -116,6 +162,8 @@ export default React.createClass({
   },
 
   displayData(data) {
+    let num = 0
+    data.scores.forEach(s => s.user_id === "1637709" ? num++ : null)
     this.setState({
       classroomFilters: this.props.allClassrooms,
       is_last_page: data.is_last_page,
@@ -139,8 +187,10 @@ export default React.createClass({
         completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
         marked_complete: s.marked_complete,
         activity_description: s.activity_description,
-        activity_classification_id: s.activity_classification_id, });
+        activity_classification_id: s.activity_classification_id
+      });
     });
+    console.log(data.is_last_page)
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
   },
 
@@ -162,14 +212,15 @@ export default React.createClass({
   );
   },
 
-  selectDates(val1, val2) {
-    window.localStorage.setItem('scorebookBeginDate', val1);
-    window.localStorage.setItem('scorebookEndDate', val2);
+  selectDates(beginDate, endDate, dateFilterName) {
+    window.localStorage.setItem('scorebookBeginDate', beginDate);
+    window.localStorage.setItem('scorebookDateFilterName', dateFilterName);
     this.setState({
       scores: new Map(),
       currentPage: 0,
-      beginDate: val1,
-      endDate: val2,
+      beginDate: beginDate,
+      endDate: endDate,
+      dateFilterName
     }, this.fetchData);
   },
 
@@ -191,22 +242,16 @@ export default React.createClass({
       const sData = s.scores[0];
       scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
     });
-    if (this.state.loading) {
-      loadingIndicator = <LoadingIndicator />;
-    } else {
-      loadingIndicator = null;
-    }
 
-    if (this.state.missing) {
+    if (this.state.loading) {
+      content = <div>{scores}<LoadingIndicator /></div>;
+    } else if (this.state.missing) {
       const onButtonClick = this.state.missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
       content = <EmptyProgressReport missing={this.state.missing} onButtonClick={onButtonClick} />;
     } else {
-      content =
-        (<div>
-          {scores}
-          {loadingIndicator}
-        </div>);
+      content = <div>{scores}</div>;
     }
+
     return (
       <div className="page-content-wrapper">
         <div className="tab-pane" id="scorebook">
@@ -222,6 +267,8 @@ export default React.createClass({
                 selectDates={this.selectDates}
                 beginDate={this.state.beginDate}
                 endDate={this.state.endDate}
+                dateRangeFilterOptions={this.DATE_RANGE_FILTER_OPTIONS}
+                dateFilterName={this.state.dateFilterName}
               />
               <ScoreLegend />
               <AppLegend />

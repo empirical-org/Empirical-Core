@@ -5,8 +5,7 @@ describe ActivitySessionsController, type: :controller do
 
 
   let!(:activity) { create(:activity) }
-  let!(:teacher) { create(:user) }
-  let!(:classroom) { create(:classroom, teacher: teacher)}
+  let!(:classroom) { create(:classroom)}
   let!(:user1) { create(:user, classcode: classroom.code) }
   let!(:ca) { create(:classroom_activity, classroom: classroom, activity: activity)}
   let!(:activity_session) { create(:activity_session, user: user1, activity: activity, classroom_activity: ca, state: 'unstarted') }
@@ -55,6 +54,12 @@ describe ActivitySessionsController, type: :controller do
 
       it 'responds with 302 redirect' do
         expect(response).to be_redirect
+      end
+
+      it 'calls the update_last_activity_date function' do
+        
+        expect(controller).to receive(:update_student_last_active)
+        get :play, {id: activity_session.id}
       end
     end
   end

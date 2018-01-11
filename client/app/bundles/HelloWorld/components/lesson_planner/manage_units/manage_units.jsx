@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import Units from './units';
+import Units from './my_activities_units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
@@ -61,7 +61,7 @@ export default React.createClass({
   getUnitsForCurrentClass() {
     if (this.state.selectedClassroomId) {
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
-      const unitsInCurrentClassroom = _.reject(this.state.allUnits, unit => !unit.classrooms.includes(selectedClassroom.name));
+      const unitsInCurrentClassroom = this.state.allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
       this.setState({units: this.state.allUnits, loaded: true})
@@ -69,9 +69,9 @@ export default React.createClass({
   },
 
   generateNewCaUnit(u) {
+    const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
     const caObj = {
-      studentCount: Number(u.array_length ? u.array_length : u.class_size),
-      classrooms: [u.class_name],
+      classrooms: [classroom],
       classroomActivities: new Map(),
       unitId: u.unit_id,
       unitCreated: u.unit_created_at,
@@ -84,7 +84,10 @@ export default React.createClass({
       caId: u.classroom_activity_id,
       activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
-      dueDate: u.due_date, });
+      dueDate: u.due_date,
+      ownedByCurrentUser: u.owned_by_current_user === 't',
+      ownerName: u.owner_name
+     });
     return caObj;
   },
 
@@ -96,10 +99,10 @@ export default React.createClass({
         parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
       } else {
         const caUnit = parsedUnits[u.unit_id];
-        if (!caUnit.classrooms.includes(u.class_name)) {
+        if (caUnit.classrooms.findIndex(c => c.name === u.class_name) === -1) {
           // add the info and student count from the classroom if it hasn't already been done
-          caUnit.classrooms.push(u.class_name);
-          caUnit.studentCount += Number(u.array_length ? u.array_length : u.class_size);
+          const classroom = {name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size}
+          caUnit.classrooms.push(classroom);
         }
         // add the activity info if it doesn't exist
         caUnit.classroomActivities.set(u.activity_id,
@@ -111,7 +114,10 @@ export default React.createClass({
           activityClassificationId: u.activity_classification_id,
 					classroomId: u.classroom_id,
           createdAt: u.ca_created_at,
-          dueDate: u.due_date, });
+          dueDate: u.due_date,
+          ownedByCurrentUser: u.owned_by_current_user === 't',
+          ownerName: u.owner_name
+         });
       }
     });
     return this.orderUnits(parsedUnits);
@@ -167,6 +173,12 @@ export default React.createClass({
     });
   },
 
+  updateMultipleDueDates(ca_ids, date) {
+    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/update_multiple_due_dates`, {
+      json: {classroom_activity_ids: ca_ids,  due_date: date, authenticity_token: getAuthToken()},
+    });
+  },
+
   switchClassrooms(classroom) {
     if (classroom.id) {
       window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`)
@@ -193,6 +205,7 @@ export default React.createClass({
                 hideClassroomActivity={this.hideClassroomActivity}
                 hideUnit={this.hideUnit}
                 data={this.state.units}
+                updateMultipleDueDates={this.updateMultipleDueDates}
               />
     }
     const allClassroomsClassroom = {name: 'All Classrooms'}

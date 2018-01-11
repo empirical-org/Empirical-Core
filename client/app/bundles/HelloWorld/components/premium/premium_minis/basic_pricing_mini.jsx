@@ -16,7 +16,7 @@ export default React.createClass({
           <h4>forever</h4>
           </div>
           <ul className='text-left'>
-            <li>All four of our writing tools</li>
+            <li>All five of our writing tools</li>
             <li>Our entire library of activities</li>
             <li>Basic student reporting</li>
             <li>Clever and Google Classroom integrations</li>
