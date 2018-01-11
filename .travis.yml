@@ -17,7 +17,7 @@ script:
   - bundle exec brakeman -z
   - bundle exec teaspoon
 before_script:
-  - bash script/install-postgres-10.sh
+  - bash script/install-postgres-on-travis.sh
   - cp config/database.yml.travis config/database.yml
   # run redis instances and send them to the background
   - redis-server &
