@@ -26,39 +26,39 @@ jobs:
       # Restore and update gemfile dependencies.
       - restore_cache:
           keys:
-            - empirical-core-gemfile-{{ checksum "Gemfile.lock" }}
-            - empirical-core-gemfile-
+            - empirical-core-dep-gemfile-{{ checksum "Gemfile.lock" }}
+            - empirical-core-dep-gemfile-
       - run:
           name: Bundle Install
           command: bundle install --path vendor/bundle
       - save_cache:
-          key: empirical-core-gemfile-{{ checksum "Gemfile.lock" }}
+          key: empirical-core-dep-gemfile-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       # Restore and update NPM dependencies.
       - restore_cache:
           keys:
-            - empirical-core-package-lock-{{ checksum "package-lock.json" }}
-            - empirical-core-package-lock-
+            - empirical-core-dep-package-lock-{{ checksum "package-lock.json" }}
+            - empirical-core-dep-package-lock-
       - run:
           name: NPM Install
           command: npm install
       - save_cache:
-          key: empirical-core-package-lock-{{ checksum "package-lock.json" }}
+          key: empirical-core-dep-package-lock-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
 
       # Restore and update client NPM dependencies.
       - restore_cache:
           keys:
-            - empirical-core-client-package-lock-{{ checksum "client/package-lock.json" }}
-            - empirical-core-client-package-lock-
+            - empirical-core-dep-client-package-lock-{{ checksum "client/package-lock.json" }}
+            - empirical-core-dep-client-package-lock-
       - run:
           name: Client NPM Install
           command: cd client && npm install && cd ..
       - save_cache:
-          key: empirical-core-client-package-lock-{{ checksum "client/package-lock.json" }}
+          key: empirical-core-dep-client-package-lock-{{ checksum "client/package-lock.json" }}
           paths:
             - client/node_modules
 
