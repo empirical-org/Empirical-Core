@@ -1,0 +1,104 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    working_directory: ~/empirical-core
+    docker:
+      - image: circleci/ruby:2.3-node
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
+          RAILS_ENV: test
+      - image: circleci/postgres:10.1
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: empiricalgrammar_test
+          POSTGRES_PASSWORD: ""
+      - image: redis:4
+      # TODO: add the two other redis instances
+    steps:
+      # Check out the branch.
+      - checkout
+
+      # Restore and update gemfile dependencies.
+      - restore_cache:
+          keys:
+            - empirical-core-dep-gemfile-{{ checksum "Gemfile.lock" }}
+            - empirical-core-dep-gemfile-
+      - run:
+          name: Bundle Install
+          command: bundle install --path vendor/bundle
+      - save_cache:
+          key: empirical-core-dep-gemfile-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Restore and update NPM dependencies.
+      - restore_cache:
+          keys:
+            - empirical-core-dep-package-lock-{{ checksum "package-lock.json" }}
+            - empirical-core-dep-package-lock-
+      - run:
+          name: NPM Install
+          command: npm install
+      - save_cache:
+          key: empirical-core-dep-package-lock-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+
+      # Restore and update client NPM dependencies.
+      - restore_cache:
+          keys:
+            - empirical-core-dep-client-package-lock-{{ checksum "client/package-lock.json" }}
+            - empirical-core-dep-client-package-lock-
+      - run:
+          name: Client NPM Install
+          command: cd client && npm install && cd ..
+      - save_cache:
+          key: empirical-core-dep-client-package-lock-{{ checksum "client/package-lock.json" }}
+          paths:
+            - client/node_modules
+
+      # Start postgres.
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # Start redis.
+      - run:
+          name: Wait for Redis (default)
+          command: dockerize -wait tcp://localhost:6379 -timeout 1m
+      # TODO: create images with these ports exposed.
+      # - run:
+      #     name: Wait for Redis (6378)
+      #     command: dockerize -wait tcp://localhost:6378 -timeout 1m
+      # - run:
+      #     name: Wait for Redis (7654)
+      #     command: dockerize -wait tcp://localhost:7654 -timeout 1m
+
+      # Set up the database.
+      - run:
+          name: Copy Database Config File
+          command: cp config/database.yml.travis config/database.yml
+      - run:
+          name: Create Database
+          command: rake db:create --trace
+      - run:
+          name: Load Database Structure
+          command: rake db:structure:load --trace
+
+      # Run RSpec
+      - run: bundle exec rspec
+
+      # Run Jest
+      - run: npm run jest
+
+      # Run Brakeman
+      - run: bundle exec brakeman -z
+
+      # Report to CodeCov
+      - run: bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
+      - run: bash <(curl -s https://codecov.io/bash) -cF jest
