@@ -71,12 +71,13 @@ jobs:
       - run:
           name: Wait for Redis (default)
           command: dockerize -wait tcp://localhost:6379 -timeout 1m
-      - run:
-          name: Wait for Redis (6378)
-          command: dockerize -wait tcp://localhost:6378 -timeout 1m
-      - run:
-          name: Wait for Redis (7654)
-          command: dockerize -wait tcp://localhost:7654 -timeout 1m
+      # TODO: create images with these ports exposed.
+      # - run:
+      #     name: Wait for Redis (6378)
+      #     command: dockerize -wait tcp://localhost:6378 -timeout 1m
+      # - run:
+      #     name: Wait for Redis (7654)
+      #     command: dockerize -wait tcp://localhost:7654 -timeout 1m
 
       # Load the database structure. TODO: do we have to run db:create first?
       - run:
