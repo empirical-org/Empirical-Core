@@ -80,6 +80,11 @@ jobs:
       #     command: dockerize -wait tcp://localhost:7654 -timeout 1m
 
       # Load the database structure. TODO: do we have to run db:create first?
+
+      - run:
+          name: Copy Database Config File
+          command: cp config/database.yml.travis config/database.yml
+
       - run:
           name: Load Database Structure
           command: rake db:structure:load --trace
