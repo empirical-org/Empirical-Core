@@ -24,81 +24,81 @@ jobs:
       - image: redis:3 # TODO: make sure this version is reflective of what we use.
         environment:
           PORT: 7654
-  steps:
-    # Check out the branch.
-    - checkout
+    steps:
+      # Check out the branch.
+      - checkout
 
-    # Restore and update gemfile dependencies.
-    - restore_cache:
-      keys:
-        - empirical-core-{{ checksum "Gemfile.lock" }}
-        - empirical-core-
-    - run:
-      name: Bundle Install
-      command: bundle install --path vendor/bundle
-    - save_cache:
-      key: empirical-core-{{ checksum "Gemfile.lock" }}
-      paths:
-        - vendor/bundle
+      # Restore and update gemfile dependencies.
+      - restore_cache:
+          keys:
+            - empirical-core-{{ checksum "Gemfile.lock" }}
+            - empirical-core-
+      - run:
+          name: Bundle Install
+          command: bundle install --path vendor/bundle
+      - save_cache:
+          key: empirical-core-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
-    # Restore and update NPM dependencies.
-    - restore_cache:
-      keys:
-        - empirical-core-package-lock-{{ checksum "package-lock.json" }}
-        - empirical-core-package-lock-
-    - run:
-      name: NPM Install
-      command: npm install
-    - save_cache:
-      key: empirical-core-package-lock-{{ checksum "package-lock.json" }}
-      paths:
-        - ./node_modules
+      # Restore and update NPM dependencies.
+      - restore_cache:
+          keys:
+            - empirical-core-package-lock-{{ checksum "package-lock.json" }}
+            - empirical-core-package-lock-
+      - run:
+          name: NPM Install
+          command: npm install
+      - save_cache:
+          key: empirical-core-package-lock-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
 
-    # Restore and update client NPM dependencies.
-    - restore_cache:
-      keys:
-        - empirical-core-client-package-lock-{{ checksum "client/package-lock.json" }}
-        - empirical-core-client-package-lock-
-    - run:
-      name: Client NPM Install
-      command: cd client && npm install && cd ..
-    - save_cache:
-      key: empirical-core-client-package-lock-{{ checksum "client/package-lock.json" }}
-      paths:
-        - client/node_modules
+      # Restore and update client NPM dependencies.
+      - restore_cache:
+          keys:
+            - empirical-core-client-package-lock-{{ checksum "client/package-lock.json" }}
+            - empirical-core-client-package-lock-
+      - run:
+          name: Client NPM Install
+          command: cd client && npm install && cd ..
+      - save_cache:
+          key: empirical-core-client-package-lock-{{ checksum "client/package-lock.json" }}
+          paths:
+            - client/node_modules
 
-    # Start postgres.
-    - run:
-      name: Wait for DB
-      command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      # Start postgres.
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-    # Start redis
-    - run:
-      name: Wait for Redis (default)
-      command: dockerize -wait tcp://localhost:6379 -timeout 1m
-    - run:
-        name: Wait for Redis (6378)
-      command: dockerize -wait tcp://localhost:6378 -timeout 1m
-    - run:
-      name: Wait for Redis (7654)
-      command: dockerize -wait tcp://localhost:7654 -timeout 1m
+      # Start redis
+      - run:
+          name: Wait for Redis (default)
+          command: dockerize -wait tcp://localhost:6379 -timeout 1m
+      - run:
+          name: Wait for Redis (6378)
+          command: dockerize -wait tcp://localhost:6378 -timeout 1m
+      - run:
+          name: Wait for Redis (7654)
+          command: dockerize -wait tcp://localhost:7654 -timeout 1m
 
-    # Load the database structure. TODO: do we have to run db:create first?
-    - run:
-      name: Load Database Structure
-      command: bin/rails db:structure:load --trace
+      # Load the database structure. TODO: do we have to run db:create first?
+      - run:
+          name: Load Database Structure
+          command: bin/rails db:structure:load --trace
 
-    # Run RSpec
-    - run: bundle exec rspec
+      # Run RSpec
+      - run: bundle exec rspec
 
-    # TODO: kill redis instances?
+      # TODO: kill redis instances?
 
-    # Run Jest
-    - run: npm run jest
+      # Run Jest
+      - run: npm run jest
 
-    # Run Brakeman
-    - run: bundle exec brakeman -z
+      # Run Brakeman
+      - run: bundle exec brakeman -z
 
-    # Report to CodeCov
-    - run: bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
-    - run: bash <(curl -s https://codecov.io/bash) -cF jest
+      # Report to CodeCov
+      - run: bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
+      - run: bash <(curl -s https://codecov.io/bash) -cF jest
