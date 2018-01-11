@@ -26,13 +26,13 @@ jobs:
       # Restore and update gemfile dependencies.
       - restore_cache:
           keys:
-            - empirical-core-{{ checksum "Gemfile.lock" }}
-            - empirical-core-
+            - empirical-core-gemfile-{{ checksum "Gemfile.lock" }}
+            - empirical-core-gemfile-
       - run:
           name: Bundle Install
           command: bundle install --path vendor/bundle
       - save_cache:
-          key: empirical-core-{{ checksum "Gemfile.lock" }}
+          key: empirical-core-gemfile-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
