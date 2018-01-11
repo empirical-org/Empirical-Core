@@ -19,11 +19,11 @@ jobs:
           POSTGRES_PASSWORD: ""
       - image: redis:4
       - image: redis:4
-          ports:
-            - '6378'
+        ports:
+          - '6378'
       - image: redis:4
-          ports:
-            - '7654'
+        ports:
+          - '7654'
     steps:
       # Check out the branch.
       - checkout
