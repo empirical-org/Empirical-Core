@@ -9,11 +9,13 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import moment from 'moment'
 import userIsPremium from '../modules/user_is_premium'
 import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
+import EmptyStateForReport from './empty_state_for_report'
 
 import _ from 'underscore'
 
 const showAllClassroomKey = 'All Classrooms'
 const showAllStudentsKey = 'All Students'
+
 
 export default class extends React.Component {
 
@@ -182,7 +184,7 @@ export default class extends React.Component {
   						className='progress-report has-green-arrow'/></div>
         )
       } else {
-        return <h3>No Results to Report</h3>
+        return <EmptyStateForReport/>
       }
     }
 
