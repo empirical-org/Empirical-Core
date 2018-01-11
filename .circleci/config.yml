@@ -4,7 +4,7 @@ jobs:
     parallelism: 1
     working_directory: ~/empirical-core
     docker:
-      - image: ruby:2.3.6
+      - image: circleci/ruby:2.3-node
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -20,23 +20,19 @@ jobs:
       - image: redis:4
       # TODO: add the two other redis instances
     steps:
-      # Install node and nvm
-      - run:
-          command: git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install 7.0.0
-
       # Check out the branch.
       - checkout
 
       # Restore and update gemfile dependencies.
       - restore_cache:
           keys:
-            - empirical-core-{{ checksum "Gemfile.lock" }}
-            - empirical-core-
+            - empirical-core-gemfile-{{ checksum "Gemfile.lock" }}
+            - empirical-core-gemfile-
       - run:
           name: Bundle Install
           command: bundle install --path vendor/bundle
       - save_cache:
-          key: empirical-core-{{ checksum "Gemfile.lock" }}
+          key: empirical-core-gemfile-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 

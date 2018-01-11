@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.6'
+ruby '2.3.0'
 
 # CORE DEPS
 gem 'rails', '=4.2.7.1'
