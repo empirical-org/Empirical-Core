@@ -79,11 +79,13 @@ jobs:
       #     name: Wait for Redis (7654)
       #     command: dockerize -wait tcp://localhost:7654 -timeout 1m
 
-      # Load the database structure. TODO: do we have to run db:create first?
-
       - run:
           name: Copy Database Config File
           command: cp config/database.yml.travis config/database.yml
+
+      - run:
+          name: Create Database
+          command: rake db:create --trace
 
       - run:
           name: Load Database Structure
@@ -91,8 +93,6 @@ jobs:
 
       # Run RSpec
       - run: bundle exec rspec
-
-      # TODO: kill redis instances?
 
       # Run Jest
       - run: npm run jest
