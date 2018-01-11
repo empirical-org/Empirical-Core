@@ -26,7 +26,6 @@ export default class extends React.Component {
   }
 
   switchClassrooms(classroom){
-    this.setState({loading: true})
     window.location = `${process.env.DEFAULT_URL}/teachers/classrooms/${classroom.id}/students`
   }
 
