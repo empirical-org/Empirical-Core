@@ -102,10 +102,8 @@ form.class-page {
 }
 
 .delete-class {
+  margin-left: 5%;
   color: #027360;
-  margin-top: 35px;
-  display: inline-block;
-  float: right;
 }
 
 .edit_classroom {
@@ -123,7 +121,6 @@ form.class-page {
 }
 
 #student-table {
-  border-top: 1px solid #c0c0c0;
   padding: 0;
   div {
     margin-bottom: 30px;
