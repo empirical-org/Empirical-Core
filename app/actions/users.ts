@@ -11,7 +11,6 @@ export function firebaseAuth() {
       json: { app: process.env.FIREBASE_APP_NAME}, },
       (error, httpStatus, body) => {
         if (body && body.token) {
-          debugger;
           firebase.auth().signInWithCustomToken(body.token).catch(function(error) {
             console.log(error.message)
           })
