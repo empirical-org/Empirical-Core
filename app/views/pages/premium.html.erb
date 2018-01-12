@@ -1,0 +1,8 @@
+<% if (current_user && current_user.role == 'teacher') %>
+  <%= render 'teachers/shared/scorebook_tabs' %>
+<% else %>
+  <% @active_tab = 'Premium' %>
+  <%= render 'pages/shared/discover_tabs', active_tab: @active_tab %>
+<% end %>
+<%= render 'pages/shared/premium_subtabs' %>
+<%= render 'pages/shared/premium_main' %>

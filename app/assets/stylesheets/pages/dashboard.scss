@@ -441,3 +441,9 @@
 .best-practices-container, .resources-container {
   cursor: pointer;
 }
+
+.mini-star-icon {
+  @media only screen and (max-width: 500px) {
+    display: none;
+  }
+}
