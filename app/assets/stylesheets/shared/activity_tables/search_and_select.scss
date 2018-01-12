@@ -18,8 +18,7 @@
 
 .drop-down-filters-and-search {
   margin-left: 15px;
-  margin-bottom: 10px;
-
+  font-size: 14px;
   #search_activities_input {
     border-bottom-right-radius: 0;
     border-right-width: 0;
@@ -37,7 +36,7 @@
     padding: 0;
     background-color: #00c2a2;
     .fa-search {
-      font-size: 18spx;
+      font-size: 18px;
     }
   }
 }
@@ -45,6 +44,14 @@
 .activity-filter-drop-downs {
   button {
     overflow: hidden;
+    background: white;
+    &.select-mixin {
+      &:active, &:focus {
+        border-color: #00c2a2;
+      }
+      outline: none;
+    }
+
   }
   .button-select {
     height: 40px;

@@ -137,6 +137,10 @@ module Teacher
     classrooms_i_teach.map{|classroom| classroom.with_students}
   end
 
+  def classrooms_i_teach_with_student_ids
+    classrooms_i_teach.map{|classroom| classroom.with_students_ids}
+  end
+
   def classrooms_i_own_with_students
     classrooms_i_own.map{|classroom| classroom.with_students}
   end
@@ -218,15 +222,6 @@ module Teacher
 
   def transfer_account
     TransferAccountWorker.perform_async(self.id, new_user.id);
-  end
-
-  def classrooms_i_teach_with_students
-    # TODO rewrite this in SQL at some point in the future.
-    classrooms_i_teach.map do |classroom|
-      classroom_as_h = classroom.attributes
-      classroom_as_h[:students] = classroom.students
-      classroom_as_h
-    end
   end
 
   def classroom_activities(includes_value = nil)
@@ -442,6 +437,40 @@ module Teacher
 
   def has_outstanding_coteacher_invitation?
     Invitation.exists?(invitee_email: self.email, archived: false)
+  end
+
+  def ids_and_names_of_affiliated_classrooms
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT(classrooms.id), classrooms.name
+      FROM classrooms_teachers
+      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
+      WHERE classrooms_teachers.user_id = #{self.id}
+      ORDER BY classrooms.name ASC;
+    ").to_a
+  end
+
+  def ids_and_names_of_affiliated_students
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT(users.id), users.name, substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
+      FROM classrooms_teachers
+      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
+      JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible = TRUE
+      JOIN users ON users.id = students_classrooms.student_id
+      WHERE classrooms_teachers.user_id = #{self.id}
+      ORDER BY sorting_name ASC;
+    ").to_a
+  end
+
+  def ids_and_names_of_affiliated_units
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT(units.id), units.name
+      FROM classrooms_teachers
+      JOIN classrooms_teachers AS all_affiliated_classrooms ON all_affiliated_classrooms.classroom_id = classrooms_teachers.classroom_id
+      JOIN classrooms ON classrooms.id = all_affiliated_classrooms.classroom_id AND classrooms.visible = TRUE
+      JOIN units ON all_affiliated_classrooms.user_id = units.user_id AND units.visible = TRUE
+      WHERE classrooms_teachers.user_id = #{self.id}
+      ORDER BY units.name ASC;
+    ").to_a
   end
 
   private

@@ -26,6 +26,6 @@ describe('StudentScores component', () => {
   });
 
   it('should have a link to the list overview page', () => {
-    expect(wrapper.find('.student-header a').prop('href')).toMatch('/teachers/progress_reports/activity_sessions?student_id=666&classroom_id=42');
+    expect(wrapper.find('.student-header a').prop('href')).toMatch('/teachers/progress_reports/student_overview?student_id=666&classroom_id=42');
   });
 });
