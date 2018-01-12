@@ -1,0 +1,8 @@
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+  .bg-quillgreen, .tab-subnavigation-wrapper, .premium-banner-container, #premium-banner, .navigate-back, footer, .csv-and-how-we-grade, .caret, .green-arrow {
+    display: none;
+  }
+}

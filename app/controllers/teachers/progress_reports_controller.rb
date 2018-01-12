@@ -37,6 +37,16 @@ class Teachers::ProgressReportsController < ApplicationController
     render 'landing_page'
   end
 
+  def activities_scores_by_classroom
+    render 'activities_scores_by_classroom'
+  end
+
+  def student_overview
+    render 'student_overview'
+  end
+
+
+
   private
 
   # def handle_expired_trial
