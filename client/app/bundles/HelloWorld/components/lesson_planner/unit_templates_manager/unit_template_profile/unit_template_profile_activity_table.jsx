@@ -42,7 +42,7 @@
             {act.topic.topic_category.name}
           </td>
           <td>
-            <a href={that.findAnonymousPath(act.id)} target="_blank" className="button-green full-width preview-button">Preview Activity</a>
+            <a href={that.findAnonymousPath(act.id)} target="_blank" className="button-green full-width preview-button">Preview</a>
           </td>
         </tr>
       )
@@ -54,7 +54,7 @@
       <table className='table activity-table activity-pack'>
         <thead>
           <tr>
-          <th>App</th>
+          <th style={{textAlign: 'center'}}>App</th>
           <th>Activity</th>
           <th>Concept</th>
           <th></th>
