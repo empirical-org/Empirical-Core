@@ -1,13 +1,15 @@
 import React from 'react';
 import request from 'request';
-import Units from './my_activities_units';
+import Units from './activities_units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
 import EmptyAssignedUnits from './EmptyAssignedUnits.jsx';
 import LoadingIndicator from '../../shared/loading_indicator';
-import ClassroomDropdown from '../../general_components/dropdown_selectors/classroom_dropdown';
+import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token'
 import _ from 'underscore';
+
+const allClassroomKey = 'All Classrooms'
 
 export default React.createClass({
 
@@ -59,7 +61,8 @@ export default React.createClass({
   },
 
   getUnitsForCurrentClass() {
-    if (this.state.selectedClassroomId) {
+    if (this.state.selectedClassroomId && this.state.selectedClassroomId != allClassroomKey) {
+      // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId))
       const unitsInCurrentClassroom = this.state.allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
@@ -208,11 +211,10 @@ export default React.createClass({
                 updateMultipleDueDates={this.updateMultipleDueDates}
               />
     }
-    const allClassroomsClassroom = {name: 'All Classrooms'}
+    const allClassroomsClassroom = {name: allClassroomKey, id: allClassroomKey}
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms)
     const classroomWithSelectedId = classrooms.find(classy => classy.id === Number(this.state.selectedClassroomId))
     const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom
-
     return (
       <span>
         {/* TODO: fix this so it links to the activity type selection page
@@ -222,10 +224,10 @@ export default React.createClass({
         <ManageUnitsHeader />
         <div className="classroom-selector">
           <p>Select a classroom: </p>
-          <ClassroomDropdown
-            classrooms={classrooms}
+          <ItemDropdown
+            items={classrooms}
             callback={this.switchClassrooms}
-            selectedClassroom={selectedClassroom}
+            selectedItem={selectedClassroom}
           />
         </div>
         {content}

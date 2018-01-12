@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import AddStudent from '../AddStudent.jsx';
 
 import $ from 'jquery'
-import ClassroomDropdown from '../../components/general_components/dropdown_selectors/classroom_dropdown.jsx'
+import ItemDropdown from '../../components/general_components/dropdown_selectors/item_dropdown.jsx'
 import ClassroomsStudentsTable from '../../components/general_components/classrooms_students_table.jsx'
 import LoadingSpinner from '../../components/shared/loading_indicator.jsx'
 import StudentCreatesAccountSection from '../../components/invite_users/add_students/StudentCreatesAccountSection.jsx'
@@ -39,20 +39,20 @@ describe('AddStudent container', () => {
     );
   });
 
-  describe('ClassroomDropdown component', () => {
+  describe('ItemDropdown component', () => {
     it('should render', () => {
-      expect(wrapper.find(ClassroomDropdown).exists()).toBe(true);
+      expect(wrapper.find(ItemDropdown).exists()).toBe(true);
     });
 
     it('should pass classrooms to classrooms prop', () => {
-      expect(wrapper.find(ClassroomDropdown).props().classrooms).toHaveLength(2);
-      expect(wrapper.find(ClassroomDropdown).props().classrooms[0].name).toBe('English 200');
-      expect(wrapper.find(ClassroomDropdown).props().classrooms[1].name).toBe('English 404');
+      expect(wrapper.find(ItemDropdown).props().items).toHaveLength(2);
+      expect(wrapper.find(ItemDropdown).props().items[0].name).toBe('English 200');
+      expect(wrapper.find(ItemDropdown).props().items[1].name).toBe('English 404');
     });
 
     it('should have a working updateClassroom callback', () => {
       wrapper.instance().retrieveStudents = jest.fn();
-      wrapper.find(ClassroomDropdown).props().callback(classroom);
+      wrapper.find(ItemDropdown).props().callback(classroom);
       expect(wrapper.state().selectedClassroom).toBe(classroom);
       expect(wrapper.state().loading).toBe(true);
       expect(wrapper.instance().retrieveStudents.mock.calls).toHaveLength(1);
