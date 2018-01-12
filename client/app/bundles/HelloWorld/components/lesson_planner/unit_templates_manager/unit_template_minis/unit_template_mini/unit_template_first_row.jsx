@@ -32,13 +32,13 @@
     return (
       <div style={{backgroundColor: this.getBackgroundColor()}} className={this.getClassName()}>
         <div className='col-xs-12'>
-          <div className='row'>
-            <div className='col-xs-8'>
+          <div className='row' style={{padding: '0px 15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div style={{flex: 1}}>
               <div className='standards-count'>
                 {this.sayNumberOfStandards()}
               </div>
             </div>
-            <div className='col-xs-4 text-right'>
+            <div className='text-right' style={{flex: 1}}>
               <CategoryLabel
                   data={this.props.data.unit_template_category}
                   extraClassName='float-right'
