@@ -1,0 +1,82 @@
+{
+  "rules":   {
+    ".read": true,
+    ".write": false,
+    "sessions": {
+        ".indexOn": "lessonID"
+      },
+    "v2": {
+      "classroom_lesson_sessions": {
+        "$classroom_lesson_session_id": {
+          "submissions": {
+            ".write": "root.child('v2/classroom_lesson_sessions'+$classroom_lesson_session_id+'preview').exists() || root.child('v2/classroom_lesson_sessions'+$classroom_lesson_session_id+'students'+auth.uid).exists()"
+          }
+        }
+      },
+      "classroom_lessons": {
+        ".write": true
+      },
+      "concept-feedback": {
+        ".write": true
+      },
+      "concepts": {
+        ".write": true
+      },
+      "datadash": {
+        ".write": true
+      },
+      "diagnosticQuestions": {
+        ".write": "auth.token.staff === true"
+      },
+      "fillInBlankQuestions": {
+        ".write": "auth.token.staff === true"
+      },
+      "flag": {
+        ".write": true
+      },
+      "item-levels": {
+        ".write": true
+      },
+      "lesson_edition_metadata": {
+        ".write": true,
+        ".indexOn": ["user_id", "lesson_id"]
+      },
+      "lesson_edition_questions": {
+        ".write": true
+      },
+      "lessons": {
+        ".write": "auth.token.staff === true"
+      },
+      "lessons_editions": {
+        ".write": true
+      },
+      "pathways": {
+        ".write": true
+      },
+      "questions": {
+        ".indexOn": ["prompt"],
+        ".write": "auth.token.staff === true"
+      },
+      "responses": {
+        ".indexOn": ["questionUID", "gradeIndex", "text", "createdAt"],
+        ".write": true
+      },
+      "reviews": {
+        ".indexOn": ["value", "activity_id"],
+        ".write": true
+      },
+      "savedSessions": {
+        ".write": true
+      },
+      "sentenceFragments": {
+        ".write": true
+      },
+      "sessions": {
+        ".write": true
+      },
+      "timeouts": {
+        ".write": true
+      }
+    }
+  }
+}
