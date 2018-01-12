@@ -3607,9 +3607,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a > img {
   max-width: none;
 }
-.nav-tabs {
-  border-bottom: 1px solid #cecece;
-}
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
@@ -3827,16 +3824,16 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
-@media (min-width: 992px) {
+@media (min-width: 500px) and (max-width: 992px) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
   .container-fluid > .navbar-collapse {
-    margin-right: 0;
-    margin-left: 0;
+    margin-right: -15px;
+    margin-left: -15px;
   }
 }
 .navbar-static-top {
