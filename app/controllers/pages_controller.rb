@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  include HTTParty
   before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
@@ -23,6 +24,13 @@ class PagesController < ApplicationController
   end
 
   def develop
+  end
+
+  def ideas
+    connect = HTTParty.get('https://trello.com/1/boards/5B4Jalbc/lists?fields=name,id')
+    lessons = HTTParty.get('https://trello.com/1/boards/cIRvYfE7/lists?fields=name,id')
+    @connect_json = add_cards(JSON.parse(connect.body))
+    @lessons_json = add_cards(JSON.parse(lessons.body))
   end
 
   def partners
@@ -130,5 +138,12 @@ class PagesController < ApplicationController
     when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       @beta_flag = current_user && current_user.flag == 'beta'
     end
+  end
+
+  private
+
+  def add_cards(list_response)
+    list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
+    list_response
   end
 end
