@@ -65,7 +65,7 @@ describe Classroom, type: :model do
     context "#teachers" do
       it "returns all users who teach the class (as owners or coteachers)" do
         classroom_teachers = ClassroomsTeacher.where(classroom: classroom_with_a_couple_coteachers).map(&:teacher)
-        expect(classroom_with_a_couple_coteachers.teachers).to eq(classroom_teachers)
+        expect(classroom_with_a_couple_coteachers.teachers).to match_array(classroom_teachers)
       end
     end
   end

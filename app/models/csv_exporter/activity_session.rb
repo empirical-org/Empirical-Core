@@ -1,6 +1,6 @@
 module CsvExporter
   class ActivitySession
-    PAGE_TITLE = 'Activities: All Students'
+    PAGE_TITLE = 'Data Export'
 
     def header_row
       # Student, Date, Activity, Score, Standard, App

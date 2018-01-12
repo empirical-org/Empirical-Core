@@ -65,12 +65,26 @@
 		display: flex;
 		margin-bottom: 26px;
 
-		a {
-			color: #3b3b3b;
+		.average-score {
+			color: #666666;
+		}
+
+		a.activity-scores-link {
+			border: solid 1px $orange;
+			border-radius: 15px;
+			color: $color_rusty_nail_approx;
+			margin-left: 10px;
+			padding: 4px 12px 4px 14px;
 
 			&:hover {
-				color: #000;
 				text-decoration: none;
+			}
+
+			.fa {
+				color: $orange;
+				font-size: 16px;
+				margin-left: 8px;
+				vertical-align: middle;
 			}
 		}
 	}

@@ -13,17 +13,19 @@ export default React.createClass({
   },
 
   render() {
-    let arrowClass;
-    if (this.props.data.asc_or_desc == 'desc') {
-      arrowClass = 'fa fa-caret-down';
-    } else {
-      arrowClass = 'fa fa-caret-up';
+    let arrowIfSortable, arrowDirection;
+    if (this.props.data.sortPath) {
+      if (this.props.data.asc_or_desc == 'desc') {
+        arrowDirection = 'down';
+      } else {
+        arrowDirection = 'up';
+      }
+      arrowIfSortable = <i className= {`fa fa-caret-${arrowDirection}`} />
     }
-
     return (
-      <th className="sorter" onClick={this.clickSort}>
+      <th className={`sorter ${this.props.data.className}`} onClick={this.clickSort}>
         {this.props.data.alias}
-        <i className={arrowClass} />
+        {arrowIfSortable}
       </th>
     );
   },
