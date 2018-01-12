@@ -40,7 +40,7 @@ class FirebaseApp < ActiveRecord::Base
     payload = {
       iss: ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
       sub: ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
-      uid: "custom#{user_id}",
+      uid: user_id,
       aud: "https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit",
       iat: now_seconds,
       exp: now_seconds+(60*60), # Maximum expiration time is one hour,

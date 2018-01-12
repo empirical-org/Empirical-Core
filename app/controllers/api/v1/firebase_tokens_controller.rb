@@ -9,7 +9,7 @@ class Api::V1::FirebaseTokensController < Api::ApiController
   end
 
   def create_for_connect
-    app = FirebaseApp.find_by_name!(params[:app])
+    app = FirebaseApp.find_by_name!(JSON.parse(params['json'])['app'])
     render json: {
       token: app.connect_token_for(current_user)
     }
