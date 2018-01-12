@@ -8,11 +8,6 @@ describe Teachers::ProgressReports::Standards::StudentTopicsController, type: :c
     let(:result_key) { 'topics' }
     let(:expected_result_count) { 2 }
 
-    it_behaves_like "filtering progress reports by Unit" do
-      let(:filter_value) { empty_unit.id }
-      let(:expected_result_count) { 0 }
-    end
-
     it_behaves_like "exporting to CSV"
   end
 end

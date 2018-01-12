@@ -62,7 +62,7 @@ export default React.createClass({
     }
     return options.map((option) => {
       if (field === 'activity_classification') {
-        return (<FilterButton key={`${option.id}-activity`} handleFilterButtonClick={this.handleFilterButtonClick} data={option} active={this.state.activeFilterId === option.id} />);
+        return (<FilterButton className='hey' key={`${option.id}-activity`} handleFilterButtonClick={this.handleFilterButtonClick} data={option} active={this.state.activeFilterId === option.id} />);
       }
       return (
         <FilterOption key={`${option.id}-${option.name}`} selectFilterOption={this.selectFilterOption} data={option} />
