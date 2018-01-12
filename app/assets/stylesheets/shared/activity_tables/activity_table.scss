@@ -23,7 +23,7 @@ table.activity-table {
 
   tbody tr {
     &.selected {
-      background-color: white;
+      background-color: $row-hover-green-white;
     }
     &:first-of-type {
       border-top: none;

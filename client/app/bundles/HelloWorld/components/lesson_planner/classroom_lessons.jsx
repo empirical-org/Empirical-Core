@@ -2,7 +2,7 @@ import React from 'react';
 import request from 'request';
 import Units from './manage_units/units';
 import LoadingIndicator from '../shared/loading_indicator';
-import ClassroomDropdown from '../general_components/dropdown_selectors/classroom_dropdown';
+import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 
 export default class ClassroomLessons extends React.Component {
   constructor(props) {
@@ -173,14 +173,15 @@ export default class ClassroomLessons extends React.Component {
     if (this.state.empty) {
       return this.renderEmptyState();
     } else if (this.state.loaded) {
+
       return (
         <div id="lesson_planner">
           <div className="container my-lessons manage-units">
             {this.renderHeader()}
-            <ClassroomDropdown
-              classrooms={this.state.classrooms}
+            <ItemDropdown
+              items={this.state.classrooms}
               callback={this.switchClassrooms}
-              selectedClassroom={this.state.classrooms.find(classy => classy.id === this.state.selectedClassroomId)}
+              selectedItem={this.state.classrooms.find(classy => classy.id === this.state.selectedClassroomId)}
             />
             <Units
               data={this.parseUnits(this.state.lessons)}

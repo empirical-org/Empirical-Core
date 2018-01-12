@@ -25,7 +25,7 @@ describe CsvExporter::ActivitySession do
 
     let(:expected_data_row) {
       [
-        'Activities: All Students',
+        'Data Export',
         student_one_session.user.name,
         student_one_session.completed_at.to_formatted_s(:quill_default),
         student_one_session.activity.name,

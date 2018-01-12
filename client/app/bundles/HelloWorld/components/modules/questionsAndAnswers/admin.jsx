@@ -39,7 +39,7 @@ const admin = () => [
   {
     question: 'How does Premium Reporting Work?',
     answer: [
-            <p>Teachers and administrators will continue to have access to basic reporting features, including the Visual Overview, Activity Analysis and Diagnostic reports. <a href="https://support.quill.org/getting-started-for-teachers/viewing-reports/where-can-i-see-my-student-scores-and-answers">Here’s a guide</a> on standard reports.</p>,
+            <p>Teachers and administrators will continue to have access to basic reporting features, including the Activity Summary, Activity Analysis and Diagnostic reports. <a href="https://support.quill.org/getting-started-for-teachers/viewing-reports/where-can-i-see-my-student-scores-and-answers">Here’s a guide</a> on standard reports.</p>,
             <p>Premium teacher reports are available to teachers within their account and administrators via a link in the Administrator Dashboard. Those reports include List Overview, Concepts and Common Core Standards reporting. You will be able to download and print each of the premium reports to share with your colleagues, administrators or parents. <a href="https://support.quill.org/quill-premium">Here’s a guide</a> on Premium Reports.</p>
   ]
   },

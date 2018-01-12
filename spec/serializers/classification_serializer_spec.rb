@@ -15,7 +15,6 @@ describe ClassificationSerializer, type: :serializer do
          created_at
          updated_at
          green_image_class
-         gray_image_class
          alias
          scorebook_icon_class)
     end
