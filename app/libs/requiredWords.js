@@ -115,5 +115,5 @@ function normalizeString(string = '') {
 }
 
 function removePunctuation(string = '') {
-  return string.replace(/[.,?!;"]/g, '');
+  return string.replace(/[.,?!;"()]/g, '');
 }
