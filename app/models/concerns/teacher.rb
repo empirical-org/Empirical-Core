@@ -50,8 +50,6 @@ module Teacher
       ids
   end
 
-
-
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
@@ -436,7 +434,7 @@ module Teacher
   end
 
   def has_outstanding_coteacher_invitation?
-    Invitation.exists?(invitee_email: self.email, archived: false)
+    Invitation.exists?(invitee_email: self.email, invitation_type: Invitation::TYPES[:coteacher], archived: false)
   end
 
   def ids_and_names_of_affiliated_classrooms
