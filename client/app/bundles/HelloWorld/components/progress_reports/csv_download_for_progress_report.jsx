@@ -22,7 +22,7 @@ export default class extends React.Component {
   }
 
   render() {
-    // if (this.state.userIsPremium && this.props.data) {
+    if (this.state.userIsPremium && this.props.data) {
       let dropdown, style, c
       if (this.state.showDropdown) {
         style = {
@@ -31,7 +31,7 @@ export default class extends React.Component {
           backgroundColor:'#fff',
           color: '#00c2a2'
         }
-        dropdown = (<div className='dropdown-content'>
+        dropdown = (<div className='dropdown-content' onBlur={this.toggleDropdown}>
                       Download report as:
                       <span className='pull-right'>
                       <div><i className="fa  fa-caret-up gray-caret" aria-hidden="true"></i></div>
@@ -39,7 +39,7 @@ export default class extends React.Component {
                     </span>
 
                       <div className='button-wrapper'>
-                        <button onClick={window.print}><img src="https://assets.quill.org/images/icons/pdf-icon.svg" alt="print"/>Print</button>
+                        <button onClick={window.print} name='test'><img src="https://assets.quill.org/images/icons/pdf-icon.svg" alt="print"/>Print</button>
                             <CSVLink data={this.props.data} target="_blank">
                               <button><img src="https://assets.quill.org/images/icons/csv-icon.svg" alt="csv"/>CSV</button>
                             </CSVLink>
@@ -52,9 +52,9 @@ export default class extends React.Component {
           {dropdown}
         </div>
       )
-    // } else {
-    //   return <button style={{display: 'block'}} onClick={this.handleClick} className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
-    // }
+    } else {
+      return <button style={{display: 'block'}} onClick={this.handleClick} className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
+    }
   }
 
 }
