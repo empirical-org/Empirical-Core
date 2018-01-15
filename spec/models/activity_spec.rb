@@ -181,6 +181,11 @@ describe Activity, type: :model, redis: :true do
       Activity.clear_activity_search_cache
       expect($redis.get('default_activity_search')).to eq nil
     end
+
+    it 'deletes the default_activity_search when a new activity is created.' do
+      expect(Activity).to receive(:clear_activity_search_cache)
+      activity.save
+    end
   end
 
   describe "#set_activity_search_cache" do
