@@ -183,6 +183,7 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'codecov'
+  gem 'test_after_commit'
 end
 
 # Memory profiling
