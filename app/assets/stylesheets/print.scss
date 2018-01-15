@@ -2,7 +2,13 @@
   a[href]:after {
     content: none !important;
   }
-  .bg-quillgreen, .tab-subnavigation-wrapper, .premium-banner-container, #premium-banner, .navigate-back, footer, .csv-and-how-we-grade, .caret, .green-arrow {
+  .bg-quillgreen, .tab-subnavigation-wrapper, .premium-banner-container, #premium-banner, .navigate-back, footer, .csv-and-how-we-grade, .caret, .green-arrow, .csv-link{
     display: none;
+  }
+  .activity-image:first-child {
+    background-image: none !important;
+  }
+  table{
+      page-break-inside: avoid;
   }
 }
