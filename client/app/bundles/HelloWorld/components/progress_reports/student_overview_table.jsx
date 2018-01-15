@@ -49,7 +49,7 @@ export default class extends React.Component {
   }
 
   greenArrow(row) {
-    if (row.completed_at && notLessonsOrDiagnostic(row.activity_classification_id)) {
+    if (row.completed_at) {
       return (<a href={`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${row.classroom_activity_id}/user/${this.props.studentId}`}>
         <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
       </a>)
@@ -58,7 +58,7 @@ export default class extends React.Component {
 
   score(row) {
     if (row.completed_at && !notLessonsOrDiagnostic(row.activity_classification_id)) {
-      return {content: 'Completed', color: 'blue'}
+      return {content: 'Not Scored', color: 'blue'}
     } else if (row.percentage) {
       return {
         content: Math.round(row.percentage * 100) + '%',
@@ -106,7 +106,7 @@ export default class extends React.Component {
                 <div className={`${blurIfNotPremium}`}>
                   {averageScore
                     ? Math.round(averageScore * 100) + '%'
-                    : '—'}
+                    : 'Not Scored'}
                 </div>
               </th>
             </tr>
