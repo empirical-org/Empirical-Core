@@ -1,6 +1,7 @@
 'use strict'
 
  import React from 'react'
+ import ReactTable from 'react-table'
 
  export default  React.createClass({
   propTypes: {
@@ -8,62 +9,45 @@
     actions: React.PropTypes.object
   },
 
-  findImageClass: function(key) {
-    let image
-    switch (key) {
-      case 'passage':
-        image = 'flag'
-        break
-      case 'sentence':
-        image = 'puzzle'
-        break
-      default:
-        image = key
-    }
-    return `icon-${image}-gray`
+  columnDefinitions: function() {
+    // Student, Date, Activity, Score, Standard, Tool
+    return [
+      {
+        Header: 'Tool',
+        maxWidth: 160,
+        accessor: 'classification.id',
+        Cell: props => <div className={`icon-${props.value}-green-no-border activity-icon`}></div>
+      },
+      {
+        Header: 'Activity',
+        accessor: 'name',
+        Cell: props => <a href={`/activity_sessions/anonymous?activity_id=${props.value}`} target="_blank" className='highlight-on-hover'>{props.value}</a>,
+      },
+      {
+        Header: 'Concept',
+        accessor: 'topic.topic_category.name',
+        Cell: props => <span>{props.value}</span>,
+      },
+      {
+        accessor: 'id',
+        maxWidth: 150,
+        textAlign: 'right',
+        Cell: props =>  <a href={`/activity_sessions/anonymous?activity_id=${props.value}`} target="_blank" >Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/></a>,
+      }
+    ];
   },
 
-  findAnonymousPath: function(id) {
-    return `/activity_sessions/anonymous?activity_id=${id}`
-  },
-
-  renderActivities: function() {
-    const that = this
-    return this.props.data.activities.map(function(act){
-      return (
-        <tr key={act.id}>
-          <td>
-            <div className={that.findImageClass(act.classification.key)}></div>
-          </td>
-          <td>
-            {act.name}
-          </td>
-          <td>
-            {act.topic.topic_category.name}
-          </td>
-          <td>
-            <a href={that.findAnonymousPath(act.id)} target="_blank" className="button-green full-width preview-button">Preview</a>
-          </td>
-        </tr>
-      )
-    })
-  },
 
   render: function () {
     return (
-      <table className='table activity-table activity-pack'>
-        <thead>
-          <tr>
-          <th style={{textAlign: 'center'}}>App</th>
-          <th>Activity</th>
-          <th>Concept</th>
-          <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.renderActivities()}
-        </tbody>
-      </table>
+      <ReactTable
+        data={this.props.data.activities}
+        columns={this.columnDefinitions()}
+        showPagination={false}
+        defaultPageSize={this.props.data.activities.length}
+        resizable={false}
+        className='unit-template-profile-activities'
+        />
     )
   }
 });
