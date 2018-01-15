@@ -28,9 +28,9 @@ export function getCurrentUserAndCoteachersFromLMS() {
   }
 }
 
-export function getEditionsForUserIds(userIds:Array<Number>) {
+export function getEditionsForUserIds(userIds:Array<Number>, lessonID:string) {
   return function (dispatch, getState) {
-    editionMetadataRef.on('value', (snapshot) => {
+    editionMetadataRef.orderByChild("lesson_id").equalTo(lessonID).on('value', (snapshot) => {
       dispatch(filterEditionsByUserIds(userIds, snapshot.val()))
     });
   };
