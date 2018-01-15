@@ -120,7 +120,6 @@ export default class UnitTemplateProfile extends React.Component {
             </div>
             </div>
           </div>
-        </div>
       )
     }
   }

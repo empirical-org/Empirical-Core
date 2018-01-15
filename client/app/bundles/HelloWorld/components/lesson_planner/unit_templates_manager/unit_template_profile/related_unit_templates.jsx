@@ -12,7 +12,7 @@
 
   miniView: function(model, index) {
     return (
-      <div key={model.id} className={`${className} small-screen-unit-template-container`}>
+      <div key={model.id} className={`unit-template-container  small-screen-unit-template-container`}>
         <UnitTemplateMini data={model}  index={index} signedInTeacher={this.props.authenticated}/>
       </div>
     );
