@@ -350,9 +350,11 @@ function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_a
   _setTeacherName(names.teacher, classroom_activity_id)
 }
 
-export function addStudentNames(classroom_activity_id: string, studentsNames: object): void {
+export function addStudents(classroom_activity_id: string, studentObj): void {
   const studentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students`);
-  studentsRef.set(studentsNames)
+  studentsRef.set(studentObj.activity_sessions_and_names)
+  const studentIdsRef = classroomSessionsRef.child(`${classroom_activity_id}/student_ids`);
+  studentIdsRef.set(studentObj.student_ids)
 }
 
 export function addFollowUpName(classroom_activity_id: string, followUpActivityName: string|null): void {
@@ -430,7 +432,7 @@ export function loadStudentNames(classroom_activity_id: string, baseUrl: string|
       }
       return response.json();
     }).then((response) => {
-      addStudentNames(classroom_activity_id, response)
+      addStudents(classroom_activity_id, response)
     }).catch((error) => {
       console.log('error retrieving students names ', error)
     });
