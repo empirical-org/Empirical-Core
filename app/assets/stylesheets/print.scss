@@ -6,9 +6,13 @@
     display: none;
   }
   .activity-image:first-child {
+    border: none !important;
     background-image: none !important;
+    .icon-unstarted {
+      border: none;
+    }
   }
-  table{
+  table, .ReactTable{
       page-break-inside: avoid;
   }
 }
