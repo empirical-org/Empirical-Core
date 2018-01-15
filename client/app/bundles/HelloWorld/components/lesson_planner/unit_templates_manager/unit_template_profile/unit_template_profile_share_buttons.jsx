@@ -18,7 +18,7 @@ export default React.createClass({
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: `http://twitter.com/home?status=I’m using the ${this.props.data.name} Activity Pack from Quill.org to teach writing & grammar. ${url}`,
+        href: `http://twitter.com/home?status=I’m using the ${this.props.data.name} Activity Pack, from Quill.org, to teach English grammar.  ${url}`,
         title: 'Share on Twitter',
         action: 'Tweet',
       },
