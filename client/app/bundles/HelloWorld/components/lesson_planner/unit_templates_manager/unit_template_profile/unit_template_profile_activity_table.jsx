@@ -32,7 +32,7 @@
         accessor: 'id',
         maxWidth: 150,
         textAlign: 'right',
-        Cell: props =>  <a href={`/activity_sessions/anonymous?activity_id=${props.value}`} target="_blank" >Preview<img class="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/></a>,
+        Cell: props =>  <a href={`/activity_sessions/anonymous?activity_id=${props.value}`} target="_blank" >Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/></a>,
       }
     ];
   },

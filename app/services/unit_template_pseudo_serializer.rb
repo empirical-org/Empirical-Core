@@ -13,6 +13,7 @@ class UnitTemplatePseudoSerializer
       time: ut.time,
       grades: ut.grades,
       order_number: ut.order_number,
+      created_at: ut.created_at.to_i,
       number_of_standards: number_of_standards,
       activity_info: ut.activity_info,
       author: author,
