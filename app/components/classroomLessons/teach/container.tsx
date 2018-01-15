@@ -50,12 +50,15 @@ import {
   ClassroomLesson
 } from 'interfaces/classroomLessons'
 import * as CustomizeIntf from 'interfaces/customize'
+import {firebaseAuth} from '../../../actions/users'
+
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
+    props.dispatch(firebaseAuth())
   }
 
   componentDidMount() {
@@ -80,7 +83,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
     const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (!nextProps.classroomSessions.data.edition_id) {
+      if (!nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
         window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
       }
       if (nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
@@ -89,7 +92,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       if (!nextProps.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getClassLessonFromFirebase(lessonId));
       }
-      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
+      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id && nextProps.classroomSessions.data.edition_id) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
     }

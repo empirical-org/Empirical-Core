@@ -1,6 +1,7 @@
 declare function require(name:string);
 import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
+import request from 'request'
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
 const reviewsRef = rootRef.child('reviews')
@@ -30,29 +31,31 @@ export function startListeningToSession(classroom_activity_id: string) {
   };
 }
 
-export function startLesson(classroom_activity_id: string) {
-  setCurrentSlide(classroom_activity_id)
-  setStartTime(classroom_activity_id)
-}
-
-export function setCurrentSlide(classroom_activity_id: string) {
-  const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
-  currentSlideRef.once('value', (snapshot) => {
-    const currentSlide = snapshot.val()
-    if (!currentSlide) {
-      currentSlideRef.set('0')
+export function startLesson(classroom_activity_id: string, callback?: Function) {
+  const sessionRef = classroomSessionsRef.child(classroom_activity_id)
+  sessionRef.once('value', (snapshot) => {
+      const session = snapshot.val()
+      fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/classroom_teacher_and_coteacher_ids`, {
+        method: "GET",
+        mode: "cors",
+        credentials: 'include',
+      }).then(response => {
+        if (!response.ok) {
+          console.log(response.statusText)
+        } else {
+          return response.json()
+        }
+      }).then(response => {
+        const teacher_ids = response.teacher_ids
+        const current_slide = session && session.current_slide ? session.current_slide : 0
+        const startTime = session && session.startTime ? session.startTime : firebase.database.ServerValue.TIMESTAMP
+        sessionRef.set({...session, current_slide, startTime, teacher_ids})
+        if (callback) {
+          callback()
+        }
+      })
     }
-  })
-}
-
-export function setStartTime(classroom_activity_id: string) {
-  const startTimeRef = classroomSessionsRef.child(`${classroom_activity_id}/startTime`);
-  startTimeRef.once('value', (snapshot) => {
-    const startTime = snapshot.val()
-    if (!startTime) {
-      startTimeRef.set(firebase.database.ServerValue.TIMESTAMP)
-    }
-  })
+  )
 }
 
 export function toggleOnlyShowHeaders() {
@@ -479,9 +482,9 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
 export function createPreviewSession(edition_id?:string) {
   let previewSession
   if (edition_id) {
-    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id })
+    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id})
   } else {
-    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true })
+    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true})
   }
   return previewSession.key
 }

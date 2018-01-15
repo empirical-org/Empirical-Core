@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   getClassLessonFromFirebase
 } from '../../actions/classroomLesson'
+import {firebaseAuth} from '../../actions/users'
 import {getParameterByName} from '../../libs/getParameterByName'
 
 import {
@@ -15,6 +16,7 @@ class Customize extends React.Component {
   constructor(props) {
     super(props)
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
+    props.dispatch(firebaseAuth())
 
     if (props.params.lessonID) {
       props.dispatch(getClassLessonFromFirebase(props.params.lessonID))

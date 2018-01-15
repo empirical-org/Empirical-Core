@@ -2,7 +2,6 @@ declare function require(name:string);
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const users = rootRef.child('users');
-import request from 'request'
 import jwt_decode from 'jwt-decode'
 
 export function firebaseAuth() {
