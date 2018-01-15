@@ -62,7 +62,8 @@ export default class extends React.Component {
     } else if (row.percentage) {
       return {
         content: Math.round(row.percentage * 100) + '%',
-        color: gradeColor(parseFloat(row.percentage))
+        color: gradeColor(parseFloat(row.percentage)),
+        linkColor: 'standard'
       }
     } else {
       return {content: undefined, color: 'unstarted'}
@@ -75,7 +76,9 @@ export default class extends React.Component {
     return (
       <tr>
         <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
-        <td className='activity-name'><a href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a></td>
+        <td className='activity-name'>
+          <a className={scoreInfo.linkColor}href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>
+        </td>
         <td>{this.completedStatus(row)}</td>
         <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
         <td className='green-arrow'>{this.greenArrow(row)}</td>

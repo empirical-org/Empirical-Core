@@ -82,7 +82,7 @@ export default class extends React.Component {
 					 </td>
 				 </tr>
 				 <tr className='bottom'>
-					 {this.grayAndYellowStat('Overall Score:', countAndAverage.average || '--')}
+					 {this.grayAndYellowStat('Average Overall Score:', countAndAverage.average || '--')}
 					 {this.grayAndYellowStat('Activities Completed:', countAndAverage.count || '--')}
 					 {this.grayAndYellowStat('Last Active:', lastActive || '--', 'last-active' )}
 				 </tr>
