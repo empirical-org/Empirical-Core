@@ -29,13 +29,6 @@ export default  React.createClass({
     return {actions: {getInviteStudentsUrl: function(){'placeholder function'}}}
   },
 
-  hideSubNavBars: function() {
-    $('.unit-tabs').hide();
-    $('.tab-outer-wrap').hide();
-    $('.section-content-wrapper').hide();
-  },
-
-
   anyClassroomsWithStudents: function(classrooms) {
     return !!classrooms.find((e) => e.students.length > 0)
   },
@@ -78,8 +71,6 @@ export default  React.createClass({
   },
 
   teacherSpecificComponents: function() {
-    this.hideSubNavBars();
-
     let href;
     let text;
 
