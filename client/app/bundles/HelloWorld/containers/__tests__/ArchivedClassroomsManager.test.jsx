@@ -59,7 +59,6 @@ describe('ArchivedClassroomsManager container', () => {
 
     it('should render table headers', () => {
       const headers =  ['Class Name', 'Owner', 'Co-Teachers', 'Classcode', 'Student Count', 'Date Created', 'Edit Students', ''];
-      debugger
       for(let i = 0; i < headers.length; i++) {
         expect(wrapper.find('#active-classes').first('tr').find('th').at(i).text()).toBe(headers[i]);
       }

@@ -64,41 +64,56 @@
   background-position: 9px;
 }
 
-.icon-puzzle {
+.icon-puzzle, .icon-2 {
   background-image: url("https://assets.quill.org/images/scorebook/icon-puzzle.png");
   background-repeat: no-repeat;
   background-position: 11px 7px;
 }
 
-.icon-puzzle-gray {
+.icon-puzzle-gray, .icon-2-gray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-puzzle-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
-.icon-lessons-gray {
+
+.icon-lessons-gray, .icon-6-gray {
   background-image: url("https://assets.quill.org/images/icons/lessons-dark-gray-icon.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-diagnostic-gray {
+.icon-diagnostic-gray, .icon-4-gray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-connect-gray {
+.icon-connect-gray, .icon-5-gray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-connect-gray.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-puzzle-green {
+.icon-puzzle-green, .icon-2-green {
   background-image: url("https://assets.quill.org/images/scorebook/icon-puzzle-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-puzzle-green-no-border, .icon-2-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/grammar-forest-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-diagnostic-green-no-border, .icon-4-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/diagnostic-forest-green.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
@@ -111,58 +126,73 @@
   height: 40px;
 }
 
-.icon-connect-green {
+.icon-connect-green, .icon-5-green {
   background-image: url("https://assets.quill.org/images/scorebook/icon-connect-green.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-flag-green {
+.icon-connect-green-no-border, .icon-5-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/connect-forest-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-flag-green, .icon-1-green {
   background-image: url("https://assets.quill.org/images/scorebook/icon-flag-green.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-lessons-green {
-  background-image: url("https://assets.quill.org/images/scorebook/icon-lessons-green.svg");
+.icon-flag-green-no-border, .icon-1-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/proofreader-forest-green.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-lessons {
+.icon-lessons-green, .icon-6-green {
+  background-image: url("https://assets.quill.org/images/scorebook/icon-lessons-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+.icon-lessons-green-no-border, .icon-6-green-no-border {
+  background-image: url("https://assets.quill.org/images/icons/lessons-forest-green.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+}
+
+.icon-lessons, .icon-6 {
   background-image: url("https://assets.quill.org/images/scorebook/icon-lessons.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-flag {
+.icon-flag, .icon-1 {
   background-image: url("http://assets.quill.org/images/scorebook/icon-flag.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
-.icon-diagnostic {
+.icon-diagnostic, .icon-4 {
   background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
-.icon-connect {
+.icon-connect, .icon-5 {
   background-image: url("https://assets.quill.org/images/scorebook/icon-connect.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
-.icon-flag {
-  background-image: url("https://assets.quill.org/images/scorebook/icon-flag.png");
-  background-repeat: no-repeat;
-  background-position: 9px;
-}
 
-.icon-flag-gray {
+.icon-flag-gray, .icon-1-gray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-flag-gray.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -180,61 +210,61 @@
   cursor: pointer;
 }
 
-.icon-puzzle-embossed {
+.icon-puzzle-embossed, .icon-2-embossed {
   background-image: url("http://assets.quill.org/images/scorebook/grammar-embossed.png");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.icon-lessons-embossed {
+.icon-lessons-embossed, .icon-6-embossed {
   background-image: url("http://assets.quill.org/images/scorebook/lessons-embossed.png");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-flag-embossed {
+.icon-flag-embossed, .icon-1-embossed {
   background-image: url("https://assets.quill.org/images/scorebook/proofreader-embossed.png");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
-.icon-diagnostic-embossed {
+.icon-diagnostic-embossed, .icon-4-embossed {
   background-image: url("https://assets.quill.org/images/scorebook/diagnostic-embossed.png");
   background-repeat: no-repeat;
   background-position: center;
 }
-.icon-connect-embossed {
+.icon-connect-embossed, .icon-5-embossed {
   background-image: url("https://assets.quill.org/images/scorebook/connect-embossed.png");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.icon-puzzle-lightgray {
+.icon-puzzle-lightgray, .icon-2-lightgray {
   background-image: url("http://assets.quill.org/images/scorebook/icon-grammar-lightgray.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.icon-lessons-lightgray {
+.icon-lessons-lightgray, .icon-6-lightgray  {
   background-image: url("http://assets.quill.org/images/scorebook/icon-lessons-lightgray.svg");
   background-repeat: no-repeat;
   background-position: center;
   height: 40px;
 }
 
-.icon-flag-lightgray {
+.icon-flag-lightgray, .icon-1-lightgray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-proofreader-lightgray.svg");
   background-repeat: no-repeat;
   background-position: 9px;
 }
 
-.icon-diagnostic-lightgray {
+.icon-diagnostic-lightgray, .icon-4-lightgray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-diagnostic-lightgray.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
-.icon-connect-lightgray {
+.icon-connect-lightgray, .icon-5-lightgray {
   background-image: url("https://assets.quill.org/images/scorebook/icon-connect-lightgray.svg");
   background-repeat: no-repeat;
   background-position: center;
