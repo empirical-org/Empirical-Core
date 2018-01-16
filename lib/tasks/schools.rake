@@ -14,9 +14,17 @@ def nces_grade_level_mapping(nces_grade)
       nil
     when 'UG'
       nil
+    when 'AE'
+      nil
+    when '13'
+      12
     else
       nces_grade
   end
+end
+
+def charter_value(value)
+  return value.first if value == 'No' || value == 'Yes'
 end
 
 namespace :schools do
@@ -24,40 +32,50 @@ namespace :schools do
   task import: :environment do
 
     puts "Beginning school import..."
-    total_imported = 0
+    total_updated = 0
+    total_new = 0
 
-    CSV.foreach( open('https://s3.amazonaws.com/ldc-seeds/schools/SCH11_pre.txt'),
-      :col_sep => "\t",
-      :headers => true,
-      :encoding => "ISO-8859-1" ) do |row|
-        sh = row.to_hash
-        school = School.where(nces_id: sh['NCESSCH'], lea_id: sh['LEAID']).first_or_initialize
-        school.leanm = sh['LEANM'].titleize
-        school.name = sh['SCHNAM'].titleize
-        school.phone = sh['PHONE']
-        school.mail_street = sh['MSTREE'].titleize
-        school.mail_city = sh['MCITY'].titleize
-        school.mail_state = sh['MSTATE']
-        school.mail_zipcode = sh['MZIP']
-        school.street = sh['LSTREE'].titleize
-        school.city = sh['LCITY'].titleize
-        school.state = sh['LSTATE']
-        school.zipcode = sh['LZIP']
-        school.nces_type_code = sh['TYPE']
-        school.nces_status_code = sh['STATUS']
-        school.ulocal = sh['ULOCAL']
-        school.longitude = sh['LONCOD']
-        school.latitude = sh['LATCOD']
-        school.lower_grade = nces_grade_level_mapping(sh['GSLO'])
-        school.upper_grade = nces_grade_level_mapping(sh['GSHI'])
-        school.charter = sh['CHARTR']
+    CSV.foreach(open('https://assets.quill.org/data/schools.txt'),
+      col_sep: "\t",
+      headers: true,
+      encoding: "ISO-8859-1"
+    ) do |row|
+      school_hash = row.to_hash
+      school = School.where(nces_id: school_hash['NCESSCH']).first_or_initialize
+      school.lea_id = school_hash['LEAID']
+      school.leanm = school_hash['LEA_NAME'].titleize
+      school.name = school_hash['SCH_NAME'].titleize
+      school.phone = school_hash['PHONE']
+      school.mail_street = school_hash['MSTREET1'].titleize
+      school.mail_city = school_hash['MCITY'].titleize
+      school.mail_state = school_hash['MSTATE']
+      school.mail_zipcode = school_hash['MZIP']
+      school.street = school_hash['LSTREET1'].titleize
+      school.city = school_hash['LCITY'].titleize
+      school.state = school_hash['LSTATE']
+      school.zipcode = school_hash['LZIP']
+      school.nces_type_code = school_hash['SCH_TYPE']
+      school.nces_status_code = school_hash['UPDATED_STATUS']
+      # school.ulocal = school_hash['ULOCAL']
+      # school.longitude = school_hash['LONCOD']
+      # school.latitude = school_hash['LATCOD']
+      school.lower_grade = nces_grade_level_mapping(school_hash['GSLO'])
+      school.upper_grade = nces_grade_level_mapping(school_hash['GSHI'])
+      school.charter = charter_value(school_hash['CHARTR'])
 
-        school.save!
+      if school.new_record?
+        total_new += 1
+        puts "New: #{total_new}"
+      elsif school.changed?
+        total_updated += 1
+        puts "Updated: #{total_updated}"
+      end
 
-        total_imported += 1
-        puts "Imported #{total_imported}..." if total_imported % 1000 == 0
+      school.save!
     end
 
-    puts "Finished importing #{total_imported} schools."
+    puts "✨ Task Completed"
+    puts "✨ New Schools: #{total_new}"
+    puts "✨ Updated Schools: #{total_updated}"
   end
 end
