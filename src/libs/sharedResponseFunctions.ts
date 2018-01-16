@@ -1,6 +1,7 @@
 import * as _ from 'underscore';
+import {Response} from '../interfaces'
 
-export function getOptimalResponses(responses) {
+export function getOptimalResponses(responses: Array<Response>): Array<Response> {
   return _.where(responses, { optimal: true, });
 }
 
@@ -16,7 +17,7 @@ function getWeakResponses(responses) {
   return _.filter(responses, resp => resp.weak === true);
 }
 
-function getCommonUnmatchedResponses(responses) {
+function getCommonUnmatchedResponses(responses: Array<Response>): Array<Response> {
   return _.filter(responses, resp => resp.feedback === undefined && resp.count > 2);
 }
 
