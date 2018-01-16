@@ -14,7 +14,7 @@ namespace :staff do
   end
 
   def notify_staff
-    body = "Staff Account Changes:\n\n"
+    body = ''
 
     current_ids = @current_staff_account_data.map { |account| account['id'] }
     previous_ids = @previous_staff_account_data.map { |account| account['id'] }
@@ -35,11 +35,14 @@ namespace :staff do
       end
     end
 
-    ActionMailer::Base.mail(
-      from: 'jared@quill.org',
-      to: ['jared@quill.org', 'donald@quill.org'],
-      subject: 'SECURITY NOTIFICATION: Staff Account Updates',
-      body: body
-    ).deliver
+    unless body.empty?
+      body.prepend("Staff Account Changes:\n\n")
+      ActionMailer::Base.mail(
+        from: 'jared@quill.org',
+        to: ['jared@quill.org', 'donald@quill.org'],
+        subject: 'SECURITY NOTIFICATION: Staff Account Updates',
+        body: body
+      ).deliver
+    end
   end
 end
