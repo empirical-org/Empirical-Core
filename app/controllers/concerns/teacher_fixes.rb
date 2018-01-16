@@ -65,4 +65,8 @@ module TeacherFixes
     end
   end
 
+  def self.merge_two_schools(old_school_id, new_school_id)
+    SchoolsUsers.where(school_id: old_school_id).update_all(school_id: new_school_id)
+  end
+
 end
