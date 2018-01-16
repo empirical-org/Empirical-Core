@@ -67,21 +67,21 @@
   },
 
   colView: function (data, index) {
-    var className;
-    if (index === 0) {
-      className = 'col-sm-6 col-xs-12 no-pr'
-    } else {
-      className = 'col-sm-6 col-xs-12 no-pl'
-    }
     return (
-      <div className={className} key={index}>
+      <div className={`small-screen-unit-template-container`} key={index}>
         {this.generateUnitTemplateView(data, index)}
       </div>
     );
   },
 
   rowView: function (cols, index) {
-    return <div className='row' key={index}>{cols}</div>;
+    let className
+    // if (window.innerWidth <= 800) {
+    //   className = 'small-screen-unit-templates-container'
+    // } else {
+    //   className = 'row'
+    // }
+    return <div className="row small-screen-unit-templates-container" key={index}>{cols}</div>;
   },
 
   listFilterOptions: function () {

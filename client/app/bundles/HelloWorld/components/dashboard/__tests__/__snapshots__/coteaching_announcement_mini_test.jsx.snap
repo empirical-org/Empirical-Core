@@ -17,6 +17,7 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
       }
     >
       <img
+        className="mini-star-icon"
         src="/assets/icons/icon-star.svg"
         style={
           Object {
@@ -30,6 +31,7 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
         }
       />
       <img
+        className="mini-star-icon"
         src="/assets/icons/icon-star.svg"
         style={
           Object {

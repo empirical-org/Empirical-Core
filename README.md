@@ -8,9 +8,9 @@
 
 
 
-# Welcome to Empirical Core 
+# Welcome to Empirical Core
 
-Empirical Core is the Learning Management System that powers Quill.org, a free writing tool. 
+Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
 
 |Front End|Back End|Travis CI|
 |---|---|---|
@@ -24,11 +24,9 @@ Empirical Core is the Learning Management System that powers Quill.org, a free w
 
 **CLA:** [Please register an account & sign our CLA](http://community.quill.org/signup/cla/).
 
-## Empirical Easy Install
+## Install Empirical Core
 
-*Here is a guide to Empirical Core that makes installation and setup easy.*
-
-If you want a simple guide to install Empirical Core, then you've come to the right place! Here's the step-by-step process to get Empirical Core running on your system:
+Here's how to get Empirical Core running on your system:
 
 1. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or another Ruby version manager of your choice). You need to have Ruby version 2.3.1 installed in order to use Empirical Core. The best way to make sure you have version 2.3.1 is to follow the README and wiki of the Ruby version manager that you download.
 
@@ -60,36 +58,19 @@ If you want a simple guide to install Empirical Core, then you've come to the ri
     1. `brew update`
     2. `brew install redis`
 
-6. To run `js: true`/`:js`-tagged `feature` specs, [install PhantomJS](https://github.com/teampoltergeist/poltergeist#installing-phantomjs).
+6. Install bundler with `gem install bundler`.
 
-7. Install bundler with `gem install bundler`.
+7. Install the bundle with `bundle install`.
 
-8. Install the bundle with `bundle install`.
+8. Install npm by running `brew install npm`.
 
-9. In the config folder, delete the ".example" extension from database.yml.example so that the filename reads "database.yml" by running `mv database.yml.example database.yml`.
+9. Run `rake empirical:setup` to automagically get all of your dependencies and databases configured.
 
-10. Set up your database by running `rake empirical:setup`.
-
-11. Run Redis with the command `redis-server`
-
-12. Run a second Redis instance (for caching) with the command `redis-server --port 7654`.
-
-13. Run a third Redis instance (for testing) with the command `redis-server --port 6378`.
-
-14. Install npm by running `brew install npm`.
-
-15. Run npm installer with the command `npm install && cd ./client && npm install`.
-
-16. Make sure to navigate back out of the "client" folder by running `cd ..`
-
-17. Run the server locally.
+10. You're ready to run Empirical Core!
 
     1. Run the server using the command `foreman start -f Procfile.static`.
-    2. Navigate your browser to localhost:3000 and you should see Empirical-Core pull up properly!
-    3. When you're done with the server, use Ctrl-C to break it and return to your commandline.
-
-18. Run the command `bin/guard` so that [Guard](https://github.com/guard/guard-rspec) run
-    specs when you save files.
+    2. Navigate your browser to [localhost:3000](http://localhost:3000).
+    3. When you're done with the server, use Ctrl-C to break it and return to your command line.
 
 ## Docs
 
@@ -97,9 +78,8 @@ We use GitBook for documentation. To get it set up, run `gitbook init` and then 
 
 ## Pre-installed user accounts
 
-The installation comes with four users, though you can create as many more as you like. The pre-installed users are:
+The installation comes with some pre-populated data to help you get started:
 
-* A teacher, username `teacher` and password `teacher`.
-* A student, username `student` and password `student`.
-* An admin, username `admin` and password `admin`.
-* An admin, username `staff` and password `staff`.
+* A teacher, with username `teacher` and password `password`.
+* A student, username `student` and password `password`.
+* A staff member, with username `staff` and password `password`.

@@ -14,10 +14,19 @@ export default React.createClass({
     selectStudent: React.PropTypes.func.isRequired
   },
 
+  activeFilter: function(selected, options) {
+    if(!selected || !options) { return ''; }
+    if(selected.value != options[0].value) {
+      return 'actively-selected';
+    } else {
+      return '';
+    }
+  },
+
   classroomFilter: function() {
     return (
       <div key="classroom-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 classroom-filter">
-        <DropdownFilter selectedOption={this.props.selectedClassroom} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} />
+        <DropdownFilter selectedOption={this.props.selectedClassroom} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} className={this.activeFilter(this.props.selectedClassroom, this.props.classroomFilters)} />
       </div>
     );
   },
@@ -25,7 +34,7 @@ export default React.createClass({
   unitFilter: function() {
     return (
       <div key="unit-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 unit-filter">
-        <DropdownFilter selectedOption={this.props.selectedUnit} options={this.props.unitFilters} selectOption={this.props.selectUnit} />
+        <DropdownFilter selectedOption={this.props.selectedUnit} options={this.props.unitFilters} selectOption={this.props.selectUnit} className={this.activeFilter(this.props.selectedUnit, this.props.unitFilters)} />
       </div>
     );
   },
@@ -33,7 +42,7 @@ export default React.createClass({
   studentFilter: function() {
     return (
       <div key="student-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 student-filter">
-        <DropdownFilter selectedOption={this.props.selectedStudent} options={this.props.studentFilters} selectOption={this.props.selectStudent} />
+        <DropdownFilter selectedOption={this.props.selectedStudent} options={this.props.studentFilters} selectOption={this.props.selectStudent} className={this.activeFilter(this.props.selectedStudent, this.props.studentFilters)} />
       </div>
     );
   },

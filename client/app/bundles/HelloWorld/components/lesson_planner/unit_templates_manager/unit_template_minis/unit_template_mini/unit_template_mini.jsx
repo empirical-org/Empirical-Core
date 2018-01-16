@@ -48,15 +48,15 @@
     );
   },
 
-  getClassName: function () {
-    var val;
-    if (this.props.index === 1) {
-      val = 'row unit-template-mini pull-right'
-    } else {
-      val = 'row unit-template-mini'
-    }
-    return val;
-  },
+  // getClassName: function () {
+  //   var val;
+  //   if (this.props.index === 1) {
+  //     val = 'row unit-template-mini pull-right'
+  //   } else {
+  //     val = 'row unit-template-mini'
+  //   }
+  //   return val;
+  // },
 
   getLink: function () {
     let link
@@ -108,7 +108,7 @@
 
   render: function () {
     return (
-      <div className={this.getClassName()} onClick={this.onClickAction}>
+      <div className='unit-template-mini' onClick={this.onClickAction}>
         {this.miniSpecificComponents()}
       </div>
     );

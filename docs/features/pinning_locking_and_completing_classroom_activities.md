@@ -56,7 +56,7 @@ Lesson classroom activities can become relocked through the following paths:
 ## Completed
 
 ### What does it mean and what are its consequences?
-A completed classroom activity is one that has been marked completed by the teacher, and which is not intended to be revisited. It is marked as completed and inaccessible from the students' profile. Students that were present for a completed lesson will have it indicated in blue on the Visual Overview, while students that were not will have an X over the activity icon to indicate that they missed it.
+A completed classroom activity is one that has been marked completed by the teacher, and which is not intended to be revisited. It is marked as completed and inaccessible from the students' profile. Students that were present for a completed lesson will have it indicated in blue on the Activity Summary, while students that were not will have an X over the activity icon to indicate that they missed it.
 
 ### Default state
 Classroom activities are not completed by default.

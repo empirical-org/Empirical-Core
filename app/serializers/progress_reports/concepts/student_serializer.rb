@@ -6,7 +6,8 @@ class ProgressReports::Concepts::StudentSerializer  < ActiveModel::Serializer
              :total_result_count,
              :correct_result_count,
              :incorrect_result_count,
-             :percentage
+             :percentage,
+             :id
 
   def concepts_href
     teachers_progress_reports_concepts_student_concepts_path(student_id: object.id)

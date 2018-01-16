@@ -47,7 +47,9 @@ class ActivitiesController < ApplicationController
 protected
 
   def custom_search
-    activity_search_results = $redis.get("default_#{current_user.flag}_activity_search")
+    flag = current_user.flag
+    substring = flag ? flag + "_" : ""
+    activity_search_results = $redis.get("default_#{substring}activity_search")
     unless activity_search_results
       activity_search_results = JSON.parse(ActivitySearchWrapper.set_and_return_search_cache_data(current_user.flag))
     end
