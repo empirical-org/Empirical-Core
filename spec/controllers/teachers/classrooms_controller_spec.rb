@@ -3,7 +3,6 @@ require 'rails_helper'
 
 describe Teachers::ClassroomsController, type: :controller do
   describe 'creating a classroom' do
-    render_views
     let(:teacher) { create(:teacher) }
     let(:classroom_attributes) {attributes_for(:classroom)}
 

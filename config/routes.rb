@@ -135,6 +135,10 @@ EmpiricalGrammar::Application.routes.draw do
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
+    get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
+    # in actual use with progress_reports/student_overview, pass the query string ?classroom_id=x&student_id=y
+    get 'progress_reports/student_overview' => 'progress_reports#student_overview'
+
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
@@ -277,6 +281,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
+      get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
+      get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -369,7 +375,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
@@ -458,7 +464,10 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews' => "rails/mailers#index"
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
+  get "/donate" => redirect("https://community.quill.org/donate")
   # catch-all 404
   get '*path', to: 'application#routing_error'
+
+
 
 end

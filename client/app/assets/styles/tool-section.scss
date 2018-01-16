@@ -193,6 +193,7 @@ $tool-grey: #f8f9f9;
 
       .icon-button, .learn-more-button {
           display: block;
+          margin-right: 0px !important;
       }
 
     }
@@ -223,10 +224,10 @@ $tool-grey: #f8f9f9;
     }
 
     .boy-playing-quill {
-      background-color: gray;
       margin: 60px auto 2px;
-      width: 819px;
-      height: 431px;
+      img {
+        width: 95%;
+      }
     }
     #testimonial {
       .author {
@@ -267,11 +268,13 @@ $tool-grey: #f8f9f9;
 .tool-carousel {
     padding-top: 55px;
 
-    &.lessons-tool-carousel {
-      .carousel {
-        .item {
-          img {
-            width: initial;
+    @media only screen and (min-width: 800px) {
+      &.lessons-tool-carousel {
+        .carousel {
+          .item {
+            img {
+              width: initial;
+            }
           }
         }
       }
@@ -293,6 +296,9 @@ $tool-grey: #f8f9f9;
                 -webkit-box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
                 -moz-box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
                 box-shadow: 0px 0px 17px -7px rgba(0,0,0,0.75);
+                @media only screen and (max-width: 800px) {
+                  height: 300px;
+                }
             }
 
             img {
@@ -314,7 +320,10 @@ $tool-grey: #f8f9f9;
         }
 
         .carousel-indicators {
-            bottom: 48px;
+            bottom: 5px;
+            @media only screen and (max-width: 500px) {
+              bottom: -13px;
+            }
 
             li {
                 background-color: #cacaca;
@@ -399,6 +408,9 @@ $tool-grey: #f8f9f9;
           max-width: calc(100%);
         }
     }
+    @media only screen and (max-width : 800px) {
+      background-image: none !important;
+    }
 }
 
 .tool-testimonial {
@@ -451,6 +463,12 @@ $tool-grey: #f8f9f9;
   padding: 0px 50px;
   .text {
     flex: 1;
+    @media only screen and (max-width: 800px) {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      flex-direction: column;
+    }
   }
   h2 {
     font-weight: 600;
@@ -470,6 +488,11 @@ $tool-grey: #f8f9f9;
     i {
       margin-right: 5px;
       margin-top: 3px;
+    }
+  }
+  @media only screen and (max-width: 800px) {
+    img {
+      display: none;
     }
   }
 }
@@ -570,6 +593,9 @@ $tool-grey: #f8f9f9;
     .icon-button {
         display: block;
     }
+    .learn-more-button {
+      margin-right: 0px;
+    }
 }
 
 .tools-tabs {
@@ -589,10 +615,6 @@ $tool-grey: #f8f9f9;
         display: none;
     }
     @media (max-width: 800px) {
-        .full-screen {
-            display: none;
-        }
-
         .small-screen {
             display: block;
 
@@ -607,11 +629,15 @@ $tool-grey: #f8f9f9;
                 a {
                   padding-left: 0;
                   padding-right: 0;
+                  font-size: 13px !important;
                 }
 
               }
 
             }
+        }
+        .full-screen {
+          display: none;
         }
     }
 }
@@ -1014,6 +1040,16 @@ $tool-grey: #f8f9f9;
   .tool-carousel {
     background-color: #f1f2f2;
   }
+
+  .tool-testimonial {
+    img {
+     max-height:430px;
+     margin-bottom:40px;
+     @media only screen and (max-width: 800px) {
+       width: 100%;
+     }
+    }
+  }
 }
 
 // TODO this classname is given to a tags on diagnostic tool page that currently go nowhere
@@ -1027,6 +1063,10 @@ $tool-grey: #f8f9f9;
   color: white;
   padding: 50px 86px;
   text-align: left;
+
+  @media only screen and (max-width: 800px) {
+    padding: 50px 10px;
+  }
 
   .q-and-a-inner-wrapper {
     width: 100%;
@@ -1064,6 +1104,7 @@ $tool-grey: #f8f9f9;
     line-height: 42px;
     font-weight: 600;
     cursor: pointer;
+    margin-left: 10px;
   }
   .support-link {
     color: #ffffff;

@@ -18,10 +18,10 @@ shared_context 'Topic Progress Report' do
   let!(:second_grade_topic) { create(:topic, section: section, name: "2nd Grade CCSS") }
   let!(:first_grade_topic) { create(:topic, section: section, name: "1st Grade CCSS") }
   let!(:hidden_topic) { create(:topic, section: section) }
-  let!(:empty_classroom) { create(:classroom, :with_no_teacher) }
+  let!(:empty_classroom) { create(:classroom, :with_no_teacher, visible: false) }
   let!(:empty_classrooms_teacher) {create(:classrooms_teacher, classroom: empty_classroom, user: teacher)}
-  let!(:unit1) { create(:unit) }
-  let!(:empty_unit) { create(:unit) }
+  let!(:unit1) { create(:unit, user_id: teacher.id) }
+  let!(:empty_unit) { create(:unit, user_id: teacher.id) }
   let!(:activity_for_second_grade_topic) { create(:activity,
     name: '2nd Grade Activity', topic: second_grade_topic) }
   let!(:classroom_activity1) { create(:classroom_activity,

@@ -2,6 +2,9 @@
 
  import React from 'react'
  import CategoryLabel from '../../../category_labels/category_label'
+ import moment from 'moment'
+
+ const cutOffTimeForNew = moment().subtract('months', 1).unix()
 
  export default React.createClass({
   propTypes: {
@@ -28,17 +31,23 @@
     return this.props.data.unit_template_category.secondary_color;
   },
 
+  newFlag: function(){
+    // if (cutOffTimeForNew > this.props.data.created_at) {
+    //   // return <span className='new-flag category-label'>new</span>
+    // }
+  },
+
   render: function () {
     return (
       <div style={{backgroundColor: this.getBackgroundColor()}} className={this.getClassName()}>
         <div className='col-xs-12'>
-          <div className='row'>
-            <div className='col-xs-8'>
+          <div className='row' style={{padding: '0px 15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div style={{flex: 1}}>
               <div className='standards-count'>
                 {this.sayNumberOfStandards()}
               </div>
             </div>
-            <div className='col-xs-4 text-right'>
+            <div className='text-right' style={{flex: 1}}>
               <CategoryLabel
                   data={this.props.data.unit_template_category}
                   extraClassName='float-right'
@@ -49,6 +58,7 @@
             <div className='col-xs-12'>
               <div className='unit-template-name'>
                 {this.props.data.name}
+                {this.newFlag()}
               </div>
             </div>
           </div>

@@ -90,7 +90,6 @@ a.progress-reports-nav {
 
 
 .container.progress-report {
-  padding-top: 50px;
   margin-bottom: 130px;
 }
 
@@ -195,6 +194,16 @@ a.progress-reports-nav {
     a {
       color: $quillforestgreen;
     }
+    &.standards-breadcrumb {
+      font-size: 14px;
+      font-weight: 600;
+      color: #027360;
+      margin: 20px 0px 0px;
+      box-shadow: 0 0 black;
+      a {
+        text-decoration: none;
+      }
+    }
   }
 
   .export-csv {
@@ -234,8 +243,22 @@ a.progress-reports-nav {
 }
 
 .progress-report-filters {
-  margin-top: 0px;
-  margin-bottom: 19px;
+  display: flex;
+  margin: 20px 0;
+
+  & > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 10px;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
 }
 
 .circle {
@@ -256,4 +279,9 @@ a.progress-reports-nav {
   &.not-proficient {
     @extend .icon-red;
   }
+}
+
+.activity-progress-report-container .dropdown-menu {
+  margin-left: 15px;
+  width: calc(100% - 30px);
 }
