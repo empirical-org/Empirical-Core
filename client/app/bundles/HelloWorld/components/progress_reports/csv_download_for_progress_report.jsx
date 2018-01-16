@@ -26,10 +26,10 @@ export default class extends React.Component {
       let newData = []
       copiedData.forEach(row => {
         if (this.props.keysToOmit) {
-          row = this.omitKeys(row)
+          this.omitKeys(row)
         }
         if (this.props.valuesToChange) {
-          row = this.changeValues(row)
+          this.changeValues(row)
         }
         this.getRidOfCamelCase(row)
         newData.push(row)
@@ -42,6 +42,11 @@ export default class extends React.Component {
   }
 
   getRidOfCamelCase(row){
+    try {
+      Object.keys(row)
+    } catch (e) {
+      debugger;
+    }
     const keys = Object.keys(row)
     keys.forEach(oldKey=>{
       const newKey = _l.startCase(oldKey)
@@ -56,7 +61,7 @@ export default class extends React.Component {
   }
 
   changeValues(row) {
-    this.props.valuesToChange(keyFunction => {
+    this.props.valuesToChange.forEach(keyFunction => {
       row[keyFunction.key] = keyFunction.function(row[keyFunction.key])
     })
   }
