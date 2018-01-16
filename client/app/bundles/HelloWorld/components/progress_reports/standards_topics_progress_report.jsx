@@ -32,11 +32,13 @@ export default class extends React.Component {
     request.get({
       url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
     }, (e, r, body) => {
-      const data = JSON.parse(body).topics
-      const csvData = this.formatDataForCSV(data)
+      const parsedBody = JSON.parse(body)
+      const data = parsedBody.topics
+      const student = parsedBody.student
+      const csvData = this.formatDataForCSV(data, student.name)
       const standardsData = this.formatStandardsData(data)
       // gets unique classroom names
-      that.setState({loading: false, errors: body.errors, standardsData, csvData, student: JSON.parse(body).student});
+      that.setState({loading: false, errors: body.errors, standardsData, csvData, student});
     });
   }
 
@@ -56,13 +58,13 @@ export default class extends React.Component {
     })
   }
 
-  formatDataForCSV(data) {
+  formatDataForCSV(data, studentName) {
     const csvData = [
-      ['Standard Level', 'Standard Name', 'Activities', 'Average', 'Proficiency Status']
+      ['Standard Level', 'Standard Name', 'Activities', 'Average', 'Proficiency Status', 'Student Name']
     ]
     data.forEach((row) => {
       csvData.push([
-        row['section_name'], row['name'], row['total_activity_count'], `${row['average_score'] * 100}%`, row['mastery_status']
+        row['section_name'], row['name'], row['total_activity_count'], `${row['average_score'] * 100}%`, row['mastery_status'], studentName,
       ])
     })
     return csvData
