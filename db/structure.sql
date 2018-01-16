@@ -2243,6 +2243,14 @@ ALTER TABLE ONLY invitations
 
 
 --
+-- Name: ip_locations ip_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ip_locations
+    ADD CONSTRAINT ip_locations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: milestones milestones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3063,10 +3071,24 @@ CREATE UNIQUE INDEX unique_index_schools_on_ppin ON schools USING btree (ppin) W
 
 
 --
+-- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
+
+
+--
 -- Name: unique_index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
+
+
+--
+-- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
 
 
 --
@@ -3635,4 +3657,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171214152937');
 INSERT INTO schema_migrations (version) VALUES ('20171218222306');
 
 INSERT INTO schema_migrations (version) VALUES ('20180102151559');
+
+INSERT INTO schema_migrations (version) VALUES ('20180110221301');
 
