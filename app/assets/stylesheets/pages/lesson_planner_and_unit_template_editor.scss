@@ -1,6 +1,7 @@
 .assign-dates {
   margin-bottom: 200px;
-  padding-top: 10px;
+  padding-top: 30px;
+  border-top: solid 1px #c0c0c0;
 }
 .fake-border {
   width: 99.4%;
@@ -13,16 +14,26 @@
 }
 #activity-planner,
 #unit-template-editor {
-  .explore-activities-header {
-    margin-bottom: 30px;
-    font-weight: 700;
-    font-size: 24px;
+  .header-and-link {
+    padding-bottom: 30px;
+    .explore-activities-header {
+      font-weight: 700;
+      font-size: 24px;
+    }
+    a {
+      color: #027360;
+      text-decoration: none;
+    }
+
   }
   .name-and-assign-activity-pack {
     margin-top: 35px;
     h1 {
-      font-size: 30px;
+      font-size: 24px;
       font-weight: bold;
+    }
+    .section-header {
+      font-size: 18px;
     }
   }
   .automatic-assign-note, .unselecting-students-note {
@@ -60,20 +71,6 @@
     }
   }
 
-  &.menu-aligned-left {
-    padding: 0;
-    margin: auto;
-    max-width: 965px;
-    .container:first-of-type {
-      padding: 0;
-    }
-    .section-header {
-      display: inline-block;
-      margin-right: 20px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-  }
   section {
     border-bottom: none;
     &.name-the-unit {
@@ -155,8 +152,7 @@
 .activity-page-dropdown-wrapper {
   margin-top: 15px;
   cursor: pointer;
-  padding-right: 15px;
-  padding-left: 0px;
+  padding: auto 0;
   .DateRangePickerInput__calendar-icon {
     padding: 0;
     margin-left: 14px;

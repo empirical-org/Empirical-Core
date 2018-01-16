@@ -137,9 +137,6 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
     .summary {
       margin-bottom: 35px;
     }
-    .q-button {
-      margin-top: 0px !important;
-    }
     .ell-section {
       height: 66px;
       max-width: 490px;
@@ -479,6 +476,7 @@ nav.q-navbar-home {
   .icon-button,
   .learn-more-button {
     width: 227px;
+    margin-right: none;
   }
   .press-cta {
     a.q-button.cta-button {

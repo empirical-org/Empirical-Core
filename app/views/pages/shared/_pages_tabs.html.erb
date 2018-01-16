@@ -1,27 +1,45 @@
-<div class="tab-outer-wrap">
-  <div class="container">
-    <ul class="nav nav-tabs tabs-navigation-list" role="tablist" id="teacher-nav-tabs">
-      <li class=<%= pages_tab_class("about") %> >
-        <%= link_to "About", mission_path %>
-      </li>
-      <li class=<%= pages_tab_class("impact") %>>
-        <%= link_to "Impact", impact_path %>
-      </li>
-      <li class=<%= pages_tab_class("team") %>>
-        <%= link_to "Team", team_path %>
-      </li>
-      <li class=<%= pages_tab_class("partners") %>>
-        <%= link_to "Partners", partners_path %>
-      </li>
-      <li class=<%= pages_tab_class("news") %>>
-        <%= link_to 'News', news_path  %>
-      </li>
-      <li class=<%= pages_tab_class("press") %>>
-        <%= link_to 'Press', press_path  %>
-      </li>
-      <li class=<%= pages_tab_class("media_kit") %>>
-        <%= link_to 'Media Kit', media_kit_path  %>
-      </li>
-    </ul>
+<div class="pages-tabs">
+  <div class="tab-outer-wrap full-screen">
+    <div class="container">
+      <ul class="nav nav-tabs tabs-navigation-list" role="tablist" id="teacher-nav-tabs">
+        <li class=<%= pages_tab_class("about") %> >
+          <%= link_to "About", mission_path %>
+        </li>
+        <li class=<%= pages_tab_class("impact") %>>
+          <%= link_to "Impact", impact_path %>
+        </li>
+        <li class=<%= pages_tab_class("team") %>>
+          <%= link_to "Team", team_path %>
+        </li>
+        <li class=<%= pages_tab_class("partners") %>>
+          <%= link_to "Partners", partners_path %>
+        </li>
+        <li class=<%= pages_tab_class("news") %>>
+          <%= link_to 'News', news_path  %>
+        </li>
+        <li class=<%= pages_tab_class("press") %>>
+          <%= link_to 'Press', press_path  %>
+        </li>
+        <li class=<%= pages_tab_class("media_kit") %>>
+          <%= link_to 'Media Kit', media_kit_path  %>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  <% tabs = [
+    {name: 'About', url: 'mission'},
+    {name: 'Impact', url: 'impact'},
+    {name: 'Team', url: 'team'},
+    {name: 'Partners', url: 'partners'},
+    {name: 'News', url: 'news'},
+    {name: 'Press', url: 'press'}
+  ]
+  @tabs = tabs
+  @mobile = false
+  %>
+
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
   </div>
 </div>
