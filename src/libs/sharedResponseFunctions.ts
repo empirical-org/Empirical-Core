@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 
 export function getOptimalResponses(responses) {
   return _.where(responses, { optimal: true, });
