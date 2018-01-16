@@ -12,7 +12,8 @@ describe('The punctuationInsensitiveMatch function', () => {
             text: "My dog took a nap.",
             feedback: "Good job, that's a sentence!",
             optimal: true,
-            count: 1 
+            count: 1,
+            question_uid: "questionOne"
           }
         ]
         const matchedResponse: Response = punctuationInsensitiveMatch(responseString, savedResponses);
