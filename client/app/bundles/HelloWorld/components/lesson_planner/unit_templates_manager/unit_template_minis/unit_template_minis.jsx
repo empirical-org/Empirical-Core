@@ -75,13 +75,7 @@
   },
 
   rowView: function (cols, index) {
-    let className
-    // if (window.innerWidth <= 800) {
-    //   className = 'small-screen-unit-templates-container'
-    // } else {
-    //   className = 'row'
-    // }
-    return <div className="row small-screen-unit-templates-container" key={index}>{cols}</div>;
+    return <div className="flex-row space-between small-screen-unit-templates-container" key={index}>{cols}</div>;
   },
 
   listFilterOptions: function () {
