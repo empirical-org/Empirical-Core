@@ -21,9 +21,17 @@ import * as CustomizeIntf from 'interfaces/customize'
 
 export function startListeningToSession(classroom_activity_id: string) {
   return function (dispatch) {
+    let initialized = false
+    setTimeout(() => {
+      if (!initialized) {
+        // if the snapshot cannot be read within 60 seconds, it is probably not being authenticated by firebase
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+      }
+    }, 6000)
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
       if (snapshot.val()) {
         dispatch(updateSession(snapshot.val()));
+        initialized = true
       } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
@@ -67,6 +75,12 @@ export function toggleOnlyShowHeaders() {
 export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string, lesson_id: string) {
   return function (dispatch) {
     let initialized = false
+    setTimeout(() => {
+      if (!initialized) {
+        // if the snapshot cannot be read within 60 seconds, it is probably not being authenticated by firebase
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+      }
+    }, 6000)
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
       if (snapshot.val()) {
         const payload = snapshot.val()
@@ -77,7 +91,7 @@ export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id
       } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
-    });
+    })
   };
 }
 
