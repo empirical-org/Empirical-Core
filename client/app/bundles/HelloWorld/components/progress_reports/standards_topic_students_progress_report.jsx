@@ -71,7 +71,6 @@ export default class extends React.Component {
       ['Student', 'Activities', 'Average', 'Proficiency Status']
     ]
     data.forEach((row) => {
-      debugger;
       csvData.push([
         row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
       ])
