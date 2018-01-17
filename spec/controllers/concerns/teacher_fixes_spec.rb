@@ -80,4 +80,19 @@ describe TeacherFixes do
     end
   end
 
+  describe '#merge_two_schools' do
+    let!(:school) { create(:school) }
+    let!(:other_school) { create(:school) }
+    let!(:teacher) { create(:teacher) }
+
+    it 'should move teachers to new school' do
+      SchoolsUsers.create(school_id: school.id, user_id: teacher.id)
+      expect(school.reload.users.length).to be(1)
+      expect(other_school.reload.users.length).to be(0)
+      TeacherFixes::merge_two_schools(school.id, other_school.id)
+      expect(school.reload.users.length).to be(0)
+      expect(other_school.reload.users.length).to be(1)
+    end
+  end
+
 end
