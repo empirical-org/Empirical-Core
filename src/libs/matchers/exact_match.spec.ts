@@ -10,7 +10,9 @@ describe('The exactMatch function', () => {
             id: 1,
             text: "My dog took a nap.",
             feedback: "Good job, that's a sentence!",
-            optimal: true 
+            optimal: true,
+            count: 1,
+            question_uid: 'questionOne'
           }
         ]
         const matchedResponse = exactMatch(responseString, savedResponses);
