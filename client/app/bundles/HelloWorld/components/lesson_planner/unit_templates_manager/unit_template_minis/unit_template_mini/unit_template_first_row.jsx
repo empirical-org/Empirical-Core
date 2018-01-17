@@ -28,9 +28,9 @@
   },
 
   newFlag: function(){
-    // if (cutOffTimeForNew > this.props.data.created_at) {
-    //   // return <span className='new-flag category-label'>new</span>
-    // }
+    if (cutOffTimeForNew < this.props.data.created_at) {
+      return <span className='new-flag category-label'>NEW</span>
+    }
   },
 
   render: function () {

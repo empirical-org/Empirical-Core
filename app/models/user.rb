@@ -383,6 +383,10 @@ class User < ActiveRecord::Base
     $redis.del("user_id:#{self.id}_difficult_concepts")
   end
 
+  def coteacher_invitations
+    Invitation.where(archived: false, invitation_type: 'coteacher', invitee_email: self.email)
+  end
+
 private
   def validate_username_and_email
     # change_field will return the field (username or email) that is changing

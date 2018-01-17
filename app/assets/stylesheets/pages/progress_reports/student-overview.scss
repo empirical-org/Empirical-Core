@@ -92,7 +92,8 @@
     .activity-name {
       width: 40%;
       a {
-        color: #027360;
+        color: #666;
+        &.standard {color: #027360;}
         text-decoration: none;
       }
     }
