@@ -222,6 +222,26 @@ export default React.createClass({
     });
   },
 
+  transferOwnership(classroomId, coteacherId) {
+    const confirm = prompt("Are you sure you want to transfer ownership of this classroom? You will lose access to certain features like archiving this classroom and editing its activity packs. To continue with the transfer, please type 'TRANSFER' into the box below and hit submit. Otherwise, just hit submit.");
+    if(confirm.toLowerCase() === 'transfer') {
+      request({
+        url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/transfer_ownership`,
+        method: 'POST',
+        json: { id: classroomId, requested_new_owner_id: coteacherId, authenticity_token: getAuthToken(), },
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse.statusCode === 200) {
+          this.getClassrooms();
+        } else {
+          alert('Sadly, an error occurred.');
+        }
+      });
+    } else {
+      alert('Transfer cancelled.');
+    }
+  },
+
   tableRows(cl, action) {
     const manageClass = action === 'Archive' ? this.manageClassroom(cl.id) : '';
     if (this.props.role === 'teacher') {
@@ -246,10 +266,14 @@ export default React.createClass({
           </tr>
         )
       }
-      const coteachersArr = cl.coteacherNames
       let coteacherCell;
-      if (coteachersArr && coteachersArr.length) {
-        coteacherCell = coteachersArr.map(coteacher =><p key={`${coteacher}-${cl.coteacher_email}-coteacher-list`}>{coteacher}</p>)
+      if (cl.coteachers && cl.coteachers.length) {
+        coteacherCell = cl.coteachers.map(coteacher =>
+          <p key={`${coteacher.name}-${coteacher.email}-coteacher-list`}>
+            {coteacher.name}
+            {cl.ownerName == this.state.myName ? <a onClick={() => this.transferOwnership(cl.id, coteacher.id)} className='transfer-ownership'>(transfer class)</a> : null}
+          </p>
+        )
       }
 
       return (
