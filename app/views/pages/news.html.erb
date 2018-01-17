@@ -1,4 +1,5 @@
-<%= render partial: 'pages/shared/pages_tabs' %>
+<% @active_tab = 'News' %>
+<%= render partial: 'pages/shared/pages_tabs', active_tab: @active_tab %>
 <%= render partial: 'application/spinner' %>
 
 <script async src="https://static.medium.com/embed.js"></script>

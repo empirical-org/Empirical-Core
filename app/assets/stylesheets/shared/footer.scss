@@ -1,7 +1,7 @@
 footer {
   padding: 87px 0;
   .footer-contacts {
-    width: 622px;
+    max-width: 622px;
     font-size: 21px;
     li {
       margin-right: 31px;
@@ -48,7 +48,7 @@ footer {
 
   }
   .footer-social {
-    width: 340px;
+    max-width: 340px;
     margin: 0 auto;
     li {
       width: 20%;
@@ -79,10 +79,13 @@ footer {
     }
   }
   .footer-copy {
-    width: 340px;
+    max-width: 340px;
     margin: 0 auto;
     text-align: center;
     padding-top: 23px;
+    @media (max-width: 500px) {
+      width: 200px;
+    }
   }
   .footer-line {
     width: calc(100% - 60px);
@@ -93,7 +96,7 @@ footer {
   .footer-new-logo-wrapper {
     text-align: center;
     margin: 20px auto 0 auto;
-    width: 93px;
+    max-width: 93px;
     height: 33px;
     background-position: 0 -97px;
     background-image: image-url("footer-logos.png");
