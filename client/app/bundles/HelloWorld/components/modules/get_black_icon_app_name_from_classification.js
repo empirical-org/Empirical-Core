@@ -1,9 +1,9 @@
 export default (classificationId) => {
   const intClassificationId = parseInt(classificationId);
   if (intClassificationId === 1) {
-    return 'grammar';
+    return 'proofreader-icon';
   } else if (intClassificationId === 2) {
-    return 'proofreader';
+    return 'grammar';
   } else if (intClassificationId === 4) {
     return 'diagnostic';
   } else if (intClassificationId === 5) {
