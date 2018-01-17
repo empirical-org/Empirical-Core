@@ -18,18 +18,18 @@ const focusPoints = [
 ]
 
 describe('The Jared question object', () => {
-  const negativeTests = [
-    'Jared likes Edtech and startups.',
-    'Jared likes startups and Edtech.',
-    'Jared likes startups as well as Edtech.',
-    'Jared likes startups as well as Edtech.'
-  ];
-
   const positiveTests = [
     'Jared likes startups.',
-    'Jared likes Edtech.',
-    'Jared likes Edtech because he likes startups.',
-    'Jared likes Edtech and Edtech.'
+    'Jared likes edtech.',
+    'Jared likes edtech because he likes startups.',
+    'Jared likes edtech and edtech.'
+  ];
+
+  const negativeTests = [
+    'Jared likes edtech and startups.',
+    'Jared likes startups and edtech.',
+    'Jared likes startups as well as edtech.',
+    'Jared likes startups as well as edtech.'
   ];
 
   positiveTests.forEach((test, i) => {
