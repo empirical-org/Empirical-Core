@@ -4,7 +4,7 @@ import {Response} from '../../interfaces'
 
 describe('The punctuationInsensitiveMatch function', () => {
 
-    it('Should take a response string and find the corresponding saved response if the string matches exactly when punctuation is removed', () => {
+    it('Should take a response string and find the corresponding saved response if the string matches exactly when both are downcased', () => {
         const responseString = "my dog took a nap.";
         const savedResponses: Array<Response> = [
           {

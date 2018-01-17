@@ -4,10 +4,10 @@ import {Response} from '../../interfaces'
 
 describe('The spacingBeforePunctuationMatch function', () => {
 
-    it('Should take a response string and find the corresponding saved response if the string matches exactly when punctuation is removed', () => {
+    it('Should take a response string and return a feedback object if there is space before punctuation marks', () => {
         const responseString = "My dog took a nap .";
         const matchedResponse = spacingBeforePunctuationMatch(responseString);
-        assert.isOk(matchedResponse.feedback);
+        assert.isOk(matchedResponse);
     });
 
 });
