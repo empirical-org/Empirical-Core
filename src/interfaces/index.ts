@@ -11,6 +11,7 @@ export interface Response {
   question_uid: string,
   parent_uid?: string|null,
   parent_id?: number|null,
+  parentId?: number|null,
   id?: number,
   uid?: string|null,
   key?: string,

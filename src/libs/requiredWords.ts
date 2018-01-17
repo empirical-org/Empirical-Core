@@ -1,7 +1,8 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 import {
   getPartsOfSpeechWordsWithTags
 } from './partsOfSpeechTagging';
+import {Response} from '../interfaces/index'
 
 const posTranslations = {
   JJ: 'Adjective',
@@ -49,12 +50,12 @@ const posConceptResults = {
   Verb: 'placeholder',
 };
 
-export function getCommonWords(sentences) {
+export function getCommonWords(sentences: Array<string>) {
   const words = _.map(sentences, sentence => normalizeString(sentence).split(' '));
   return _.intersection(...words);
 }
 
-export function getCommonWordsWithImportantPOS(sentences) {
+export function getCommonWordsWithImportantPOS(sentences: Array<string>) {
   const allCommonWords = getCommonWords(sentences);
   return _.reject(allCommonWords, (word) => {
     if (getPartsOfSpeechWordsWithTags(word)[0]) {
@@ -66,25 +67,25 @@ export function getCommonWordsWithImportantPOS(sentences) {
   });
 }
 
-export function getMissingWords(userString, sentences) {
+export function getMissingWords(userString: string, sentences: Array<string>) {
   const commonWords = getCommonWordsWithImportantPOS(sentences);
   const wordsFromUser = normalizeString(userString).split(' ');
   return _.reject(commonWords, commonWord => _.contains(wordsFromUser, commonWord));
 }
 
-export function getPOSForWord(word) {
+export function getPOSForWord(word: string) {
   const tag = getPartsOfSpeechWordsWithTags(word)[0][1];
   return posTranslations[tag];
 }
 
-function _getCaseSensitiveWord(word, optimalSentence) {
+function _getCaseSensitiveWord(word: string, optimalSentence: string) {
   const normalizedString = removePunctuation(optimalSentence);
   const normalizedStringPlusLower = normalizeString(optimalSentence);
   const startIndex = normalizedStringPlusLower.indexOf(word);
   return normalizedString.substring(startIndex, word.length + startIndex);
 }
 
-export function getFeedbackForWord(word, sentences, isSentenceFragment) {
+export function getFeedbackForWord(word: string, sentences:Array<string>, isSentenceFragment:Boolean) {
   // const tag = getPOSForWord(word).toLowerCase();
   if (isSentenceFragment) {
     return `<p>Revise your work. Use all the words from the prompt, and make it complete by adding to it.</p>`;
@@ -93,16 +94,16 @@ export function getFeedbackForWord(word, sentences, isSentenceFragment) {
   return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>. You may have misspelled it.</p>`;
 }
 
-export function extractSentencesFromResponses(responses) {
-  return _.map(responses, response => response.text);
+export function extractSentencesFromResponses(responses:Array<Response>) {
+  return responses.map(response => response.text);
 }
 
-export function getMissingWordsFromResponses(userString, sentences) {
+export function getMissingWordsFromResponses(userString:string, sentences:Array<string>) {
   const missingWords = getMissingWords(userString, sentences);
   return _.sortBy(missingWords, word => word.length).reverse();
 }
 
-export function checkForMissingWords(userString, responses, isSentenceFragment = false) {
+export function checkForMissingWords(userString:string, responses:Array<Response>, isSentenceFragment:boolean = false) {
   const sentences = extractSentencesFromResponses(responses);
   const missingWords = getMissingWordsFromResponses(userString, sentences);
   if (missingWords.length > 0) {
@@ -110,10 +111,10 @@ export function checkForMissingWords(userString, responses, isSentenceFragment =
   }
 }
 
-function normalizeString(string = '') {
+function normalizeString(string:string = '') {
   return string.replace(/[.,?!;]/g, '').toLowerCase();
 }
 
-function removePunctuation(string = '') {
+function removePunctuation(string:string = '') {
   return string.replace(/[.,?!;]/g, '');
 }
