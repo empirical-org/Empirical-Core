@@ -20,8 +20,9 @@
       },
       {
         Header: 'Activity',
-        accessor: 'name',
-        Cell: props => <a href={`/activity_sessions/anonymous?activity_id=${props.value}`} target="_blank" className='highlight-on-hover'>{props.value}</a>,
+        id: 'activityName',
+        accessor: a => a,
+        Cell: props => <a href={`/activity_sessions/anonymous?activity_id=${props.value.id}`} target="_blank" className='highlight-on-hover'>{props.value.name}</a>,
       },
       {
         Header: 'Concept',
