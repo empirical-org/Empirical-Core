@@ -4,7 +4,7 @@ module CleverIntegration::Importers::Schools
     schools = teachers.map do |teacher|
       CleverIntegration::Importers::School.run(teacher, district_token, teacher_requester)
     end
-    schools
+    schools.compact
   end
 
 end
