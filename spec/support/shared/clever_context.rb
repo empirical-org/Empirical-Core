@@ -8,7 +8,7 @@ shared_context 'clever' do
         grade: '2'
       }
     ]
-    school = {name: 'school1'}
+    school = {nces_id: school_nces_id}
     x = Response.new(sections, school)
     x
   }
@@ -31,6 +31,10 @@ shared_context 'clever' do
     x = Response.new(students)
     x
   }
+
+  def school_nces_id
+    'fake_nces_id'
+  end
 
   def helper(response)
     lambda do |clever_id, district_token|
@@ -65,6 +69,6 @@ shared_context 'clever' do
   end
 
   def school
-    School.find_by(name: 'school1')
+    School.find_by(nces_id: school_nces_id)
   end
 end
