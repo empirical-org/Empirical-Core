@@ -1,24 +1,24 @@
 export interface Response {
-  text: string,
-  feedback?: string|null,
-  conceptResults?: ConceptResults|null,
   author?: string|null,
-  count: number,
+  feedback?: string|null,
   first_attempt_count?: number|null,
   child_count?: number|null,
-  weak?: Boolean|null,
+  conceptResults?: ConceptResults|null,
+  count: number,
+  created_at?: string,
+  id?: number,
+  key?: string,
   optimal?: Boolean|null,
-  question_uid: string,
   parent_uid?: string|null,
   parent_id?: number|null,
   parentId?: number|null,
-  id?: number,
-  uid?: string|null,
-  key?: string,
-  created_at?: string,
-  updated_at?: string,
+  question_uid: string,
   sortOrder?: number,
   statusCode?: number
+  uid?: string|null,
+  updated_at?: string,
+  text: string,
+  weak?: Boolean|null,
 }
 
 export interface ConceptResults {
@@ -32,5 +32,9 @@ export interface FocusPoint {
 
 export interface IncorrectSequence {
   text: string,
+  feedback: string
+}
+
+export interface FeedbackObject {
   feedback: string
 }

@@ -3,7 +3,7 @@ import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response} from '../../interfaces'
 
-export function minLengthMatch(responseString:string, responses:Array<Response>) {
+export function minLengthMatch(responseString:string, responses:Array<Response>):Response|undefined {
   const optimalResponses = getOptimalResponses(responses);
   if (optimalResponses.length < 2) {
     return undefined;

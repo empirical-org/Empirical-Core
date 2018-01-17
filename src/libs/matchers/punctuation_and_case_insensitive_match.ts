@@ -3,7 +3,7 @@ import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response} from '../../interfaces'
 
-export function punctuationAndCaseInsensitiveMatch(responseString:string, responses:Array<Response>) {
+export function punctuationAndCaseInsensitiveMatch(responseString:string, responses:Array<Response>):Response|undefined {
   return _.find(getOptimalResponses(responses), (resp) => {
     const supplied = removePunctuation(stringNormalize(responseString)).toLowerCase();
     const target = removePunctuation(stringNormalize(resp.text)).toLowerCase();

@@ -1,7 +1,7 @@
 import * as pos from 'pos';
 import * as _ from 'underscore';
 
-export function getPartsOfSpeech (input:string) {
+export function getPartsOfSpeech(input:string) {
   try {
     const words = new pos.Lexer().lex(input);
     const tagger = new pos.Tagger();

@@ -1,8 +1,7 @@
 import * as _ from 'underscore'
-import {Response} from '../../interfaces'
-import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
+import {Response, FeedbackObject} from '../../interfaces'
 
-export function spacingAfterCommaMatch(response) {
+export function spacingAfterCommaMatch(response):FeedbackObject|undefined {
   for (let i = 0; i < response.length; i++) {
     if (response[i] === ',' && (i + 1 < response.length)) {
       if (response[i + 1] !== ' ') {

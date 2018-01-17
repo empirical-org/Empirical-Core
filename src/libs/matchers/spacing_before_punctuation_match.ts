@@ -1,7 +1,7 @@
 import * as _ from 'underscore'
-import {Response} from '../../interfaces'
+import {FeedbackObject} from '../../interfaces'
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 
-export function spacingBeforePunctuationMatch(response) {
-  return spacingBeforePunctuation(response);
+export function spacingBeforePunctuationMatch(responseString:string):FeedbackObject|undefined {
+  return spacingBeforePunctuation(responseString);
 }

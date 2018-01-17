@@ -2,7 +2,7 @@ import * as _ from 'underscore';
 import {
   getPartsOfSpeechWordsWithTags
 } from './partsOfSpeechTagging';
-import {Response} from '../interfaces/index'
+import {Response, FeedbackObject} from '../interfaces/index'
 
 const posTranslations = {
   JJ: 'Adjective',
@@ -50,12 +50,12 @@ const posConceptResults = {
   Verb: 'placeholder',
 };
 
-export function getCommonWords(sentences: Array<string>) {
+export function getCommonWords(sentences: Array<string>):Array<string> {
   const words = _.map(sentences, sentence => normalizeString(sentence).split(' '));
   return _.intersection(...words);
 }
 
-export function getCommonWordsWithImportantPOS(sentences: Array<string>) {
+export function getCommonWordsWithImportantPOS(sentences: Array<string>):Array<string> {
   const allCommonWords = getCommonWords(sentences);
   return _.reject(allCommonWords, (word) => {
     if (getPartsOfSpeechWordsWithTags(word)[0]) {
@@ -67,25 +67,25 @@ export function getCommonWordsWithImportantPOS(sentences: Array<string>) {
   });
 }
 
-export function getMissingWords(userString: string, sentences: Array<string>) {
+export function getMissingWords(userString: string, sentences: Array<string>):Array<string> {
   const commonWords = getCommonWordsWithImportantPOS(sentences);
   const wordsFromUser = normalizeString(userString).split(' ');
   return _.reject(commonWords, commonWord => _.contains(wordsFromUser, commonWord));
 }
 
-export function getPOSForWord(word: string) {
+export function getPOSForWord(word: string):string {
   const tag = getPartsOfSpeechWordsWithTags(word)[0][1];
   return posTranslations[tag];
 }
 
-function _getCaseSensitiveWord(word: string, optimalSentence: string) {
+function _getCaseSensitiveWord(word: string, optimalSentence: string):string {
   const normalizedString = removePunctuation(optimalSentence);
   const normalizedStringPlusLower = normalizeString(optimalSentence);
   const startIndex = normalizedStringPlusLower.indexOf(word);
   return normalizedString.substring(startIndex, word.length + startIndex);
 }
 
-export function getFeedbackForWord(word: string, sentences:Array<string>, isSentenceFragment:Boolean) {
+export function getFeedbackForWord(word: string, sentences:Array<string>, isSentenceFragment:Boolean):string {
   // const tag = getPOSForWord(word).toLowerCase();
   if (isSentenceFragment) {
     return `<p>Revise your work. Use all the words from the prompt, and make it complete by adding to it.</p>`;
@@ -94,16 +94,16 @@ export function getFeedbackForWord(word: string, sentences:Array<string>, isSent
   return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>. You may have misspelled it.</p>`;
 }
 
-export function extractSentencesFromResponses(responses:Array<Response>) {
+export function extractSentencesFromResponses(responses:Array<Response>):Array<string> {
   return responses.map(response => response.text);
 }
 
-export function getMissingWordsFromResponses(userString:string, sentences:Array<string>) {
+export function getMissingWordsFromResponses(userString:string, sentences:Array<string>):Array<string> {
   const missingWords = getMissingWords(userString, sentences);
   return _.sortBy(missingWords, word => word.length).reverse();
 }
 
-export function checkForMissingWords(userString:string, responses:Array<Response>, isSentenceFragment:boolean = false) {
+export function checkForMissingWords(userString:string, responses:Array<Response>, isSentenceFragment:boolean = false):FeedbackObject {
   const sentences = extractSentencesFromResponses(responses);
   const missingWords = getMissingWordsFromResponses(userString, sentences);
   if (missingWords.length > 0) {
@@ -111,10 +111,10 @@ export function checkForMissingWords(userString:string, responses:Array<Response
   }
 }
 
-function normalizeString(string:string = '') {
+function normalizeString(string:string = ''):string {
   return string.replace(/[.,?!;]/g, '').toLowerCase();
 }
 
-function removePunctuation(string:string = '') {
+function removePunctuation(string:string = ''):string {
   return string.replace(/[.,?!;]/g, '');
 }

@@ -3,7 +3,7 @@ import {getOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
 import {Response} from '../../interfaces'
 
-export function whitespaceMatch (response, responses: Array<Response>): Response|undefined {
+export function whitespaceMatch (response:string, responses: Array<Response>): Response|undefined {
   return _.find(getOptimalResponses(responses),
     resp => removeSpaces(stringNormalize(response)) === removeSpaces(stringNormalize(resp.text))
   );
