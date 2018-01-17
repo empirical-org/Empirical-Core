@@ -22,6 +22,10 @@ class Auth::CleverController < ApplicationController
   def user_success(data) # data is a User record
     data.update_attributes(ip_address: request.remote_ip)
     sign_in(data)
+    if user.role === 'teacher' && !user.school
+      # then the user does not have a school and needs one
+      redirect_to '/select_school'
+    end
     redirect_to profile_url(protocol: 'http') # TODO Change this to use SSL when grammar supports SSL
   end
 
