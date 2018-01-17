@@ -29,3 +29,8 @@ export interface FocusPoint {
   text: string,
   feedback: string
 }
+
+export interface IncorrectSequence {
+  text: string,
+  feedback: string
+}
