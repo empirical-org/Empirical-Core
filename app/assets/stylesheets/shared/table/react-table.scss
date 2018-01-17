@@ -1,5 +1,5 @@
 .ReactTable {
-  &.progress-report {
+  &.progress-report, &.unit-template-profile-activities {
     border: none;
     max-width: 950px;
     width: 100%;
@@ -16,7 +16,8 @@
         background: #fafafa;
         border-top: none;
         border: 1px solid rgba(0, 0, 0, 0.1);
-        box-shadow: none;
+        -webkit-box-shadow: none;
+                box-shadow: none;
         padding: 8px;
       }
     }
@@ -29,14 +30,15 @@
       color: #3b3b3b;
       text-align: left;
       padding-left: 14px;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       &:focus {
         outline: none;
       }
-
-
-
     }
 
     &.has-green-arrow {
@@ -72,6 +74,39 @@
 
     .rt-td {
       padding-left: 10px;
+    }
+  }
+  &.unit-template-profile-activities .rt-table {
+    margin-top: 20px;
+    border-radius: 6px;
+    .activity-icon {
+      width: 40px;
+    }
+    .rt-th {
+      border-right: none;
+      padding-left: 10px;
+      &:first-of-type {
+        padding-left: 20px;
+      }
+    }
+    a {
+      color: #027360;
+      img {
+        padding-left: 10px;
+      }
+    }
+
+    .rt-td {
+      padding-right: 14px;
+      &:hover .highlight-on-hover{
+        color: #00c2a2;
+      }
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
     }
   }
 }

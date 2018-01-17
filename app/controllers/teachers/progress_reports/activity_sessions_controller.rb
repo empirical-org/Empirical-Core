@@ -138,7 +138,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
             session['student_name'],
             session['visual_date'],
             session['activity_name'],
-            session['percentage'],
+            "#{session['percentage'].to_f*100}%",
             session['standard'],
             session['activity_classification_name']
           ]

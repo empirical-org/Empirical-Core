@@ -102,7 +102,9 @@
     display: block;
   }
   .btn {
-    margin-bottom: 11px;
+    &:focus {
+      color: white;
+    }
   }
   .meta-overview {
     padding-bottom: 13px;

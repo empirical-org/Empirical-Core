@@ -11,14 +11,8 @@
   },
 
   miniView: function(model, index) {
-    var className;
-    if (index === 0) {
-      className = 'col-xs-6 no-pr';
-    } else {
-      className = 'col-xs-6 no-pl';
-    }
     return (
-      <div key={model.id} className={className}>
+      <div key={model.id} className={`unit-template-container  small-screen-unit-template-container`}>
         <UnitTemplateMini data={model}  index={index} signedInTeacher={this.props.authenticated}/>
       </div>
     );
@@ -31,18 +25,14 @@
     });
     var cols = _.map(relatedModels.slice(0, 2), this.miniView);
     return (
-      <span>
-        <div className='row'>
-          <div className='col-xs-12 no-pl'>
+      <div>
             <h2>
               Related Activity Packs:
             </h2>
-          </div>
-        </div>
-        <div className='row'>
+        <div className='flex-row space-between featured-cards'>
           {cols}
         </div>
-      </span>
+      </div>
     );
   }
 });

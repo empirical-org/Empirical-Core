@@ -1,7 +1,8 @@
-<%= render partial: 'pages/shared/pages_tabs' %>
+<% @active_tab = 'About' %>
+<%= render partial: 'pages/shared/pages_tabs', active_tab: @active_tab %>
 
 <div class="white-background">
-  <div class="container pages-container white-page">
+  <div class="container pages-container white-page" id="mission">
 
   <p class="mission-paragraph"></p>
     <img src=<%= "#{ENV['CDN_URL']}/images/shared/mission_students1.png" %>></img>

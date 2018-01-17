@@ -43,6 +43,17 @@
 		.row {
 			margin-top: 0;
 		}
+		@media only screen and (max-width: 500px) {
+			padding-right: 0px;
+			padding-left: 0px;
+	    text-align: left;
+	    width: 90%;
+			margin: auto;
+			.row {
+				margin-left: 0px;
+				margin-right: 0px;
+			}
+		}
 	}
 
 	.col-md-4 {
@@ -81,5 +92,22 @@
 	}
 	ul {
 		margin-top: 10px;
+	}
+}
+
+.standards-tabs {
+	background: #fff;
+	border-bottom: 1px solid #cecece;
+	min-height: 48px;
+	li {
+		background-color: #fff;
+		border-right: none !important;
+	}
+}
+
+#mission {
+	padding-right: 0%;
+	img {
+		width: 100%;
 	}
 }
