@@ -136,10 +136,15 @@ export default class extends React.Component {
     }
   }
 
+  keysToOmit(){
+    return ['concepts_href']
+  }
+
   render() {
     if (this.state.loading || !this.state.reportData) {
       return <LoadingSpinner/>
     }
+    const changeValues = [{key: 'percentage', function: ((num)=>num.toString() + '%')}]
     return (
       <div className='progress-reports-2018'>
         <div className="meta-overview flex-row space-between">
@@ -148,7 +153,7 @@ export default class extends React.Component {
             <p>Each time a student correctly demonstrates a concept or creates an error, Quill generates a concept result. This report provides an aggregate picture of student progress on each concept.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.filteredReportData}/>
+            <CSVDownloadForProgressReport data={this.state.filteredReportData} valuesToChange={changeValues} keysToOmit={this.keysToOmit()}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
           <div className='dropdown-container'>
