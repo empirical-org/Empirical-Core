@@ -5,15 +5,15 @@ export function getOptimalResponses(responses: Array<Response>): Array<Response>
   return _.where(responses, { optimal: true, });
 }
 
-export function getSubOptimalResponses(responses) {
-  return _.filter(responses, resp => resp.parentID === undefined && resp.feedback !== undefined && resp.optimal !== true);
+export function getSubOptimalResponses(responses: Array<Response>): Array<Response> {
+  return _.filter(responses, resp => resp.parent_id == undefined && resp.feedback !== undefined && resp.optimal == false);
 }
 
-export function getTopOptimalResponse(responses) {
-  return _.sortBy(getOptimalResponses(responses), r => r.count).reverse(responses)[0];
+export function getTopOptimalResponse(responses: Array<Response>): Response {
+  return _.sortBy(getOptimalResponses(responses), r => r.count).reverse()[0];
 }
 
-function getWeakResponses(responses) {
+function getWeakResponses(responses: Array<Response>): Array<Response> {
   return _.filter(responses, resp => resp.weak === true);
 }
 
@@ -21,18 +21,18 @@ function getCommonUnmatchedResponses(responses: Array<Response>): Array<Response
   return _.filter(responses, resp => resp.feedback === undefined && resp.count > 2);
 }
 
-function getSumOfWeakAndCommonUnmatchedResponses(responses) {
+function getSumOfWeakAndCommonUnmatchedResponses(responses: Array<Response>): number {
   return getWeakResponses(responses).length + getCommonUnmatchedResponses(responses).length;
 }
 
-export function getPercentageWeakResponses(responses) {
+export function getPercentageWeakResponses(responses: Array<Response>): string {
   return (getSumOfWeakAndCommonUnmatchedResponses(responses) / responses.length * 100).toPrecision(4);
 }
 
-export function getGradedResponses(responses) {
-    // Returns sorted collection optimal first followed by suboptimal
-  const gradedResponses = _.reject(responses, response =>
-      (response.optimal === undefined) || (response.parentID)
-    );
+export function getGradedResponses(responses: Array<Response>): Array<Response> {
+  // Returns sorted collection optimal first followed by suboptimal
+  const gradedResponses: Array<Response> = _.reject(responses, response =>
+    (response.optimal === undefined) || (response.parent_id)
+  );
   return _.sortBy(gradedResponses, 'optimal').reverse();
 }
