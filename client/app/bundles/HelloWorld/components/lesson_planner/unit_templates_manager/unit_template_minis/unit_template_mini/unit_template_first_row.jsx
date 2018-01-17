@@ -19,10 +19,6 @@
     return this.props.modules.string.sayNumberOfThings(this.props.data.number_of_standards, 'Standard', 'Standards');
   },
 
-  getClassName: function () {
-    return ['row', 'first-row'].join(' ');
-  },
-
   getBackgroundColor: function () {
     return this.props.data.unit_template_category.primary_color;
   },
@@ -32,14 +28,14 @@
   },
 
   newFlag: function(){
-    // if (cutOffTimeForNew > this.props.data.created_at) {
-    //   // return <span className='new-flag category-label'>new</span>
-    // }
+    if (cutOffTimeForNew < this.props.data.created_at) {
+      return <span className='new-flag category-label'>NEW</span>
+    }
   },
 
   render: function () {
     return (
-      <div style={{backgroundColor: this.getBackgroundColor()}} className={this.getClassName()}>
+      <div style={{backgroundColor: this.getBackgroundColor()}} className='first-row'>
         <div className='col-xs-12'>
           <div className='row' style={{padding: '0px 15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <div style={{flex: 1}}>
