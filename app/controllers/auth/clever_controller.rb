@@ -24,9 +24,9 @@ class Auth::CleverController < ApplicationController
     sign_in(data)
     if current_user.role === 'teacher' && !current_user.school
       # then the user does not have a school and needs one
-      redirect_to '/select_school'
+      return redirect_to '/select_school'
     end
-    redirect_to profile_url(protocol: 'http') # TODO Change this to use SSL when grammar supports SSL
+    return redirect_to profile_url(protocol: 'http') # TODO Change this to use SSL when grammar supports SSL
   end
 
   def user_failure(data)
