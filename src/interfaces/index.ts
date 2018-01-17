@@ -24,3 +24,8 @@ export interface Response {
 export interface ConceptResults {
  [key:string]: Boolean
 }
+
+export interface FocusPoint {
+  text: string,
+  feedback: string
+}
