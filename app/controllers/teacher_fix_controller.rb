@@ -167,4 +167,13 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  def merge_two_schools
+    begin
+      raise 'Please specify a school ID.' if params['from_school_id'].nil? || params['to_school_id'].nil?
+      TeacherFixes::merge_two_schools(params['from_school_id'], params['to_school_id'])
+    rescue => e
+      return render json: { error: e.message || e }
+    end
+    return render json: {}, status: 200
+  end
 end
