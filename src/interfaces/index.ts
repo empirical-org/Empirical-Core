@@ -10,8 +10,8 @@ export interface Response {
   key?: string,
   optimal?: Boolean|null,
   parent_uid?: string|null,
-  parent_id?: number|null,
-  parentId?: number|null,
+  parent_id?: number|string|null,
+  parentId?: number|string|null,
   question_uid: string,
   sortOrder?: number,
   statusCode?: number
@@ -32,8 +32,8 @@ export interface PartialResponse {
   key?: string,
   optimal?: Boolean|null,
   parent_uid?: string|null,
-  parent_id?: number|null,
-  parentId?: number|null,
+  parent_id?: number|string|null,
+  parentId?: number|string|null,
   sortOrder?: number,
   statusCode?: number
   uid?: string|null,
