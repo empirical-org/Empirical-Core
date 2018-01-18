@@ -96,9 +96,17 @@ describe 'CleverIntegration::SignUp::SubMain' do
         expect(teacher.districts.first).to eq(district)
       end
 
-      it 'creates the teachers school' do
-        subject
-        expect(school).to be_present
+      describe 'the teacher' do
+        it "does not have a school if there is not a school with a matching nces_id" do
+          subject
+          expect(teacher.school).not_to be_present
+        end
+
+        it "does have a school if there is a school with a matching nces_id " do
+           create(:school, nces_id: school_nces_id)
+           subject
+           expect(school).to be_present
+        end
       end
 
       it 'associates the school to the teacher' do
