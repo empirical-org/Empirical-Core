@@ -25,8 +25,8 @@ export function incorrectSequenceResponseBuilder(incorrectSequenceMatch:Incorrec
     author: 'Incorrect Sequence Hint',
     parent_id: getTopOptimalResponse(responses).key
   }
-    if (incorrectSequenceMatch.conceptResults) {
-      res.concept_results = incorrectSequenceMatch.conceptResults;
+    if (incorrectSequenceMatch.concept_results) {
+      res.concept_results = incorrectSequenceMatch.concept_results;
     }
   return res;
 }
