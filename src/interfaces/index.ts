@@ -49,7 +49,9 @@ export interface ConceptResult {
 
 export interface FocusPoint {
   text: string,
-  feedback: string
+  feedback: string,
+  conceptUID?: string,
+  concept_results?: Array<ConceptResult>
 }
 
 export interface IncorrectSequence {

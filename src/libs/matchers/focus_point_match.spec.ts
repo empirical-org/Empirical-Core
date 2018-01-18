@@ -1,6 +1,28 @@
 import {assert} from 'chai';
-import {focusPointMatch} from './focus_point_match';
+import {focusPointMatch, focusPointChecker} from './focus_point_match';
 import {Response, FocusPoint} from '../../interfaces'
+import constants from '../../constants'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {getTopOptimalResponse} from '../sharedResponseFunctions'
+
+const savedResponses: Array<Response> = [
+  {
+    id: 1,
+    text: "Jared likes edtech and startups.",
+    feedback: "Good job, that's a sentence!",
+    optimal: true,
+    count: 2,
+    question_uid: "questionOne"
+  },
+  {
+    id: 2,
+    text: "Jared likes startups as well as edtech.",
+    feedback: "Good job, that's a sentence!",
+    optimal: true,
+    count: 1,
+    question_uid: "questionTwo"
+  }
+]
 
 const focusPoints = [
   {
@@ -17,7 +39,7 @@ const focusPoints = [
   }
 ]
 
-describe('The Jared question object', () => {
+describe('focusPointMatch', () => {
   const positiveTests = [
     'Jared likes startups.',
     'Jared likes edtech.',
@@ -44,3 +66,22 @@ describe('The Jared question object', () => {
     });
   });
 });
+
+describe('The focusPointChecker', () => {
+
+  it('Should return a partialResponse object if the response string matches a focus point', () => {
+    const responseString = "Jared likes startups.";
+    const partialResponse =  {
+        feedback: focusPointMatch(responseString, focusPoints).feedback,
+        author: 'Focus Point Hint',
+        parent_id: getTopOptimalResponse(savedResponses).key
+      }
+    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
+    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);
+    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).parent_id, partialResponse.parent_id);
+  });
+
+  it('Should return undefined if the response string does not match a focus point', () => {
+    const responseString = "Jared likes edtech and startups.";
+    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses), undefined);
+  });
