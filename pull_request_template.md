@@ -1,4 +1,4 @@
-Adresses issue #
+Addresses issue #
 
 **Changes proposed in this pull request:**
 - change one
