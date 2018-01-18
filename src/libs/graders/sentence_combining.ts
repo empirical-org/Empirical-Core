@@ -37,7 +37,7 @@ function firstPassOriginalResponse(data: GradingObject) {
   const gen = firstPassMatchers(data)
   let next = gen.next();
   console.log(next)
-  while (!next.value) {
+  while (true) {
     if (next.value || next.done) {
       break
     }
