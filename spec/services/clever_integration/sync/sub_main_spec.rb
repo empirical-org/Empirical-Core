@@ -48,14 +48,16 @@ describe 'CleverIntegration::Sync::SubMain' do
     expect(teacher.districts.first).to eq(district)
   end
 
-  it 'creates teachers school' do
-    subject
-    expect(school).to be_present
-  end
-
-  it 'associates school to teacher' do
+  it 'associates school to teacher if school exists' do
+    build(:school, nces_id: 'fake_nces_id')
     subject
     expect(teacher.school).to eq(school)
+  end
+
+  it 'does not associate school to teacher if school does not exists' do
+    build(:school, nces_id: 'fake_nces_id2')
+    subject
+    expect(teacher.school).to eq(nil)
   end
 
   it 'creates classrooms' do
