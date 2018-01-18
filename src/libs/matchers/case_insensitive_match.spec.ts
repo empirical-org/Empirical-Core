@@ -55,7 +55,7 @@ describe('The caseInsensitiveChecker', () => {
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    // assert.equal(caseInsensitiveChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    assert.equal(caseInsensitiveChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
   });
 
   it('Should return undefined if the lowercased response string does not match a lowercased partial response', () => {

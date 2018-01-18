@@ -29,7 +29,7 @@ export function maxLengthResponseBuilder(responses:Array<Response>): PartialResp
     feedback: constants.FEEDBACK_STRINGS.maxLengthError,
     author: 'Not Concise Hint',
     parentId: longestOptimalResponse.key,
-    conceptResults: [
+    concept_results: [
       conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
     ]
   }

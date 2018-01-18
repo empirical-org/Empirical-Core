@@ -107,15 +107,14 @@ describe('The maxLengthChecker', () => {
         feedback: constants.FEEDBACK_STRINGS.maxLengthError,
         author: 'Not Concise Hint',
         parentId: longestOptimalResponse.key,
-        conceptResults: [
+        concept_results: [
           conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
         ]
       }
-    console.log(maxLengthChecker(responseString, savedResponses))
     assert.equal(maxLengthChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(maxLengthChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(maxLengthChecker(responseString, savedResponses).parentId, partialResponse.parentId);
-    // assert.equal(maxLengthChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    assert.equal(maxLengthChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
   });
 
 })

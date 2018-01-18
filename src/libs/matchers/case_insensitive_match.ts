@@ -24,7 +24,7 @@ export function caseInsensitiveResponseBuilder(responses:Array<Response>, parent
     feedback: constants.FEEDBACK_STRINGS.caseError,
     author: 'Capitalization Hint',
     parent_id: parentID,
-    conceptResults: [
+    concept_results: [
       conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ')
     ]
   }
