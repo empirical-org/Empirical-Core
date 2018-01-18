@@ -30,7 +30,7 @@ const ERROR_TYPES = {
   INCORRECT_WORD: 'INCORRECT_WORD',
 };
 
-const getErrorType = (targetString, userString) => {
+const getErrorType = (targetString:string, userString:string):string|null => {
   const changeObjects = getChangeObjects(targetString, userString);
   const hasIncorrect = checkForIncorrect(changeObjects);
   const hasAdditions = checkForAdditions(changeObjects);
@@ -44,7 +44,7 @@ const getErrorType = (targetString, userString) => {
   }
 };
 
-const getMissingAndAddedString = (targetString, userString) => {
+const getMissingAndAddedString = (targetString: string, userString: string) => {
   const changeObjects = getChangeObjects(targetString, userString);
   const missingObject = _.where(changeObjects, { removed: true, })[0];
   const missingText = missingObject ? missingObject.value : undefined;
@@ -58,7 +58,7 @@ const getMissingAndAddedString = (targetString, userString) => {
 
 const getChangeObjects = (targetString, userString) => diffWords(targetString, userString);
 
-const checkForIncorrect = (changeObjects) => {
+const checkForIncorrect = (changeObjects):boolean => {
   let tooLongError = false;
   const found = false;
   let foundCount = 0;
@@ -77,7 +77,7 @@ const checkForIncorrect = (changeObjects) => {
   return !tooLongError && (foundCount === 1) && (coCount === 2);
 };
 
-const checkForAdditions = (changeObjects) => {
+const checkForAdditions = (changeObjects):boolean => {
   let tooLongError = false;
   const found = false;
   let foundCount = 0;
@@ -96,7 +96,7 @@ const checkForAdditions = (changeObjects) => {
   return !tooLongError && (foundCount === 1) && (coCount === 1);
 };
 
-const checkForDeletions = (changeObjects) => {
+const checkForDeletions = (changeObjects):boolean => {
   let tooLongError = false;
   const found = false;
   let foundCount = 0;
@@ -125,14 +125,3 @@ const getLengthOfChangeObject = changeObject =>
   // filter boolean removes empty strings from trailing,
   // leading, or double white space.
    changeObject.value.split(' ').filter(Boolean).length;
-
-
-export function rigidChangeObjectMatch(){
-
-}
-
-
-export function flexibleChangeObjectMatch(){
-  
-}
-
