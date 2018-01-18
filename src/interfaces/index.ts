@@ -38,3 +38,10 @@ export interface IncorrectSequence {
 export interface FeedbackObject {
   feedback: string
 }
+
+export interface GradingObject {
+  response: string,
+  responses: Array<Response>,
+  focusPoints: Array<FocusPoint>,
+  incorrectSequences: Array<IncorrectSequence>
+}
