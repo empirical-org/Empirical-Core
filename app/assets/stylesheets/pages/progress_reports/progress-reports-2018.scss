@@ -1,0 +1,175 @@
+.how-we-grade {
+  color: #027360;
+  display: block;
+  float: none;
+  margin-top: 10px;
+  text-align: right;
+  text-decoration: none;
+}
+.progress-reports-2018 {
+  max-width: 950px;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 180px;
+
+  .rt-table {
+    border-radius: 6px;
+  }
+
+  .rt-thead {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+  }
+
+  .header-and-info {
+    max-width: 603px;
+    h1 {
+      font-size: 24px;
+      color: #3b3b3b;
+      font-weight: 800;
+      padding-bottom: 13px;
+      span {
+        font-weight: normal;
+      }
+    }
+  }
+
+
+  .dropdown-container {
+    margin-top: 21px;
+    margin-bottom: 21px;
+  }
+
+  .download-report-button {
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-weight: bold;
+    color: #00c2a2;
+    border: solid 1px #00c2a2;
+  }
+
+  .-sort-asc, .-sort-desc {
+    box-shadow: none !important;
+  }
+
+  .-sort-asc {
+    div::after {
+      position: absolute;
+      top: 12px;
+      font-size: 18px;
+      right: 25px;
+      color: #969696;
+      font-family: FontAwesome;
+      content: "\f0d7";
+    }
+  }
+
+  .-sort-desc {
+    div::after {
+      position: absolute;
+      top: 12px;
+      font-size: 18px;
+      right: 25px;
+      color: #969696;
+      font-family: FontAwesome;
+      content: "\f0d8";
+    }
+  }
+
+  .row-link-disguise {
+    width: 100%;
+    display: inline-block;
+    color: black;
+  }
+}
+
+.concept-student-concepts {
+  .header-and-info {
+      h1 {
+        padding-bottom: 0;
+      }
+      min-height: 54px;
+  }
+  .meta-overview {
+    margin-bottom: 31px;
+  }
+  .ReactTable.progress-report .rt-tr-group:hover {
+    background-color: white;
+  }
+}
+
+.activities-scores-by-classroom {
+  .csv-and-how-we-grade a {
+    display: block;
+  }
+  .btn {
+    &:focus {
+      color: white;
+    }
+  }
+  .meta-overview {
+    padding-bottom: 13px;
+  }
+}
+
+.individual-standard, .individual-student {
+  padding-top: 0px;
+  .meta-overview {
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .header-and-info {
+    max-width: 720px;
+    min-width: 575px;
+  }
+}
+
+.navigate-back {
+  img {
+    height: 12px;
+    margin-right: 5px;
+    transform: rotate(180deg);
+  }
+  font-size: 14px;
+  font-weight: 600;
+  color: #027360;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.non-premium-blur {
+-webkit-filter: blur(5px) grayscale(100%);
+ -moz-filter: blur(5px) grayscale(100%);
+ -o-filter: blur(5px) grayscale(100%);
+ -ms-filter: blur(5px) grayscale(100%);
+ filter: blur(5px) grayscale(100%);
+ -webkit-touch-callout: none; /* iOS Safari */
+   -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Firefox */
+       -ms-user-select: none; /* Internet Explorer/Edge */
+           user-select: none; /* Non-prefixed version, currently
+                                 supported by Chrome and Opera */
+}
+
+.proficient-indicator, .not-proficient-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.proficient-indicator {
+  background-color: #82bf3c;
+}
+
+.not-proficient-indicator {
+  background-color: #ff4542;
+}
+
+.standards-all-classrooms {
+  .dropdown {
+    margin-right: 20px;
+  }
+}

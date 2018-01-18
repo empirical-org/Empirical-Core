@@ -3149,7 +3149,6 @@ tbody.collapse.in {
   font-weight: normal;
   line-height: 1.42857143;
   color: #333333;
-  white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
@@ -3180,6 +3179,7 @@ tbody.collapse.in {
 }
 .open > .dropdown-menu {
   display: block;
+  width: 100%;
 }
 .open > a {
   outline: 0;
@@ -3607,9 +3607,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a > img {
   max-width: none;
 }
-.nav-tabs {
-  border-bottom: 1px solid #cecece;
-}
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
@@ -3827,16 +3824,16 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
-@media (min-width: 992px) {
+@media (min-width: 500px) and (max-width: 992px) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
   .container-fluid > .navbar-collapse {
-    margin-right: 0;
-    margin-left: 0;
+    margin-right: -15px;
+    margin-left: -15px;
   }
 }
 .navbar-static-top {
@@ -5541,7 +5538,7 @@ button.close {
   border-style: solid;
 }
 .tooltip.top .tooltip-arrow {
-  bottom: 0;
+  bottom: 1;
   left: 50%;
   margin-left: -10px;
   border-width: 10px 10px 0;

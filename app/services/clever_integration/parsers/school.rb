@@ -2,7 +2,7 @@ module CleverIntegration::Parsers::School
 
  def self.run(response)
     {
-      name: response[:name]
+      nces_id: response[:nces_id]
     }
   end
 

@@ -8,11 +8,6 @@ describe Teachers::ProgressReports::Standards::TopicStudentsController, type: :c
     let(:result_key) { 'students' }
     let(:expected_result_count) { first_grade_topic_students.size }
 
-    it_behaves_like "filtering progress reports by Unit" do
-      let(:filter_value) { empty_unit.id }
-      let(:expected_result_count) { 0 }
-    end
-
     it_behaves_like "exporting to CSV"
   end
 end

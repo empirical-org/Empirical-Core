@@ -25,9 +25,9 @@ class SegmentAnalytics
       })
   end
 
-  def track_activity_assignment(teacher)
+  def track_activity_assignment(teacher_id)
     track({
-      user_id: teacher.id,
+      user_id: teacher_id,
       event: SegmentIo::Events::ACTIVITY_ASSIGNMENT
     })
   end

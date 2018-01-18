@@ -137,9 +137,6 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
     .summary {
       margin-bottom: 35px;
     }
-    .q-button {
-      margin-top: 0px !important;
-    }
     .ell-section {
       height: 66px;
       max-width: 490px;
@@ -236,7 +233,7 @@ nav.q-navbar-home {
   }
 
   .home-nav-right {
-    max-width: 430px;
+    max-width: 475px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -244,6 +241,15 @@ nav.q-navbar-home {
 
     &.narrow {
       display: none;
+    }
+
+    .sign-up-btn {
+      border: 1px solid $white;
+      //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+      border-radius: 4px;
+      padding: 4px 9px 2px;
+      background-color: $white;
+      color: $quillgreen;
     }
   }
 
@@ -470,6 +476,7 @@ nav.q-navbar-home {
   .icon-button,
   .learn-more-button {
     width: 227px;
+    margin-right: none;
   }
   .press-cta {
     a.q-button.cta-button {

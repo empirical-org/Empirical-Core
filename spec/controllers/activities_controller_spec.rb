@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe ActivitiesController, type: :controller, redis: true do
-  render_views
-
   let(:student) { create(:student) }
   let(:activity) { create(:activity) }
   let(:activity_session) { create(:activity_session,

@@ -39,15 +39,14 @@
 
   render: function () {
     return (
-      <div className='row white-row'>
-        <div className='col-xs-12'>
+      <div className='white-row'>
           <div className='row info-row'>
-            <div className='col-xs-6'>
+            <div style={{flex: 3}}>
               <div className='author'>
                 {this.sayAttribution()}
               </div>
             </div>
-            <div className='col-xs-6'>
+            <div style={{flex: 5}}>
               <div className='activities-count'>
                 <i className='fa fa-th-list'></i>
                 {this.sayActivitiesCount()}
@@ -60,7 +59,6 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     );
   }
