@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import { diffWords } from 'diff';
 
-export function checkChangeObjectMatch(userString, responses, stringManipulationFn, skipSort = false) {
+export function checkChangeObjectMatch(userString: string, responses: Array<Responses>, stringManipulationFn: (string: string) => string, skipSort: boolean = false) {
   if (!skipSort) {
     responses = _.sortBy(responses, 'count').reverse();
   }
