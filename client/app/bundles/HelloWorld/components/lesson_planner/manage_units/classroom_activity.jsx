@@ -189,7 +189,7 @@ renderLessonPlanTooltip() {
         {startDate && this.props.isFirst ? <span className="apply-to-all" onClick={() => this.props.updateAllDueDates(startDate)}>Apply to All</span> : null}
       </span>
     } else {
-      return this.state.startDate ? <div className='due-date-input'>{startDate.format('l')}</div> : null
+      return this.state.startDate ? <div className='due-date-input'>{this.state.startDate.format('l')}</div> : null
     }
   },
 
