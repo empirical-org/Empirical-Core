@@ -18,13 +18,11 @@ module CleverIntegration::Sync::SubMain
   end
 
   def self.import_teachers(district, district_requester)
-    teachers = CleverIntegration::Importers::Teachers.run(district, district_requester)
-    teachers
+    CleverIntegration::Importers::Teachers.run(district, district_requester)
   end
 
   def self.import_schools(teachers, district_token, teacher_requester)
-    schools = CleverIntegration::Importers::Schools.run(teachers, district_token, teacher_requester)
-    schools
+    CleverIntegration::Importers::Schools.run(teachers, district_token, teacher_requester)
   end
 
   def self.import_classrooms(teachers, district_token, teacher_requester)
@@ -32,17 +30,14 @@ module CleverIntegration::Sync::SubMain
       classrooms = self.import_classrooms_for_teacher(teacher, district_token, teacher_requester)
       classrooms
     end
-    classrooms = classrooms_arr_arr.flatten
-    classrooms
+    classrooms_arr_arr.flatten
   end
 
   def self.import_classrooms_for_teacher(teacher, district_token, teacher_requester)
-    classrooms = CleverIntegration::Importers::Classrooms.run(teacher, district_token, teacher_requester)
-    classrooms
+    CleverIntegration::Importers::Classrooms.run(teacher, district_token, teacher_requester)
   end
 
   def self.import_students(classrooms, district_token, section_requester)
-    students = CleverIntegration::Importers::Students.run(classrooms, district_token, section_requester)
-    students
+    CleverIntegration::Importers::Students.run(classrooms, district_token, section_requester)
   end
 end

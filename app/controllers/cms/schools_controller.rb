@@ -8,7 +8,9 @@ class Cms::SchoolsController < ApplicationController
 
   # This allows staff members to view and search through schools.
   def index
-    @school_search_query = {}
+    @school_search_query = {
+      'search_schools_with_zero_teachers' => true
+    }
     @school_search_query_results = school_query(school_query_params)
     @number_of_pages = 0
   end

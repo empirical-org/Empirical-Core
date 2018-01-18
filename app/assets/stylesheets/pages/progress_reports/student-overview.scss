@@ -9,13 +9,23 @@
   }
   .student-overview-table {
     width: 100%;
-    border-radius: 6px;
     background-color: #ffffff;
     margin-top: 21px;
-
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px #E9E9E6;
     tr {
       height: 50px;
-      border: solid 1px #e9e9e9;
+      border-right: solid 1px #E9E9E6;
+      border-top: solid 1px #E9E9E6;
+      border-bottom: solid 1px #E9E9E6;
+
+      &.clickable {
+        cursor: pointer;
+      }
+
+      &:first-of-type, &:last-of-type {
+        border: none;
+      }
 
       &:not(:first-of-type) {
         font-size: 14px;
@@ -42,6 +52,7 @@
       color: #3b3b3b;
       font-weight: 500;
       width: 130px;
+      border-radius: 6px;
       .unit-container {
         min-height: 76px;
       }
@@ -58,7 +69,8 @@
         background-position: center;
         background-size: 70%;
         height: 30px;
-        width: 30px;
+        // width: 30px;
+        margin-right: 15px;
         border-radius: 3px;
         &.icon-1, &.icon-2, &.icon-2-lightgray, &.icon-1-lightgray {
           background-size: 60%;
@@ -74,7 +86,7 @@
       font-weight: 600;
       color: #3b3b3b;
       min-width: 100px;
-
+      border-radius: 6px;
       .average-score-label {
         font-size: 14px;
         color: #969696;
@@ -92,8 +104,12 @@
     .activity-name {
       width: 40%;
       a {
-        color: #027360;
+        color: #666;
+        &.standard {color: #027360;}
         text-decoration: none;
+        &:hover {
+          color:  #00c2a2;
+        }
       }
     }
 
@@ -121,13 +137,22 @@
     }
     .top {
       background-color: #fafafa;
+      border-radius: 6px;
     }
     .csv-link {
       text-align: center;
+      align-items: center;
+      display: flex;
+      margin-right: 20px;
+      justify-content: flex-end;
+      &:hover {
+        text-decoration: none;
+      }
     }
     .student-name {
       font-size: 30px;
       font-weight: 800;
+      border-radius: 6px 0px 0px 0px; 
     }
     .yellow-text {
         font-size: 18px;
@@ -143,6 +168,9 @@
       width: 100%;
       border-top: solid 1px #e9e9e9;
       background-color: #fff;
+      td {
+        border-radius: 0px 0px 6px 6px;
+      }
     }
   }
 

@@ -9,6 +9,7 @@ import MergeStudentAccounts from '../components/teacher_fix/merge_student_accoun
 import MergeTeacherAccounts from '../components/teacher_fix/merge_teacher_accounts.jsx'
 import MoveStudent from '../components/teacher_fix/move_student.jsx'
 import GoogleUnsync from '../components/teacher_fix/google_unsync'
+import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
 
 export default React.createClass({
 	render: function() {
@@ -22,6 +23,7 @@ export default React.createClass({
 				<Route path="/teacher_fix/merge_teacher_accounts" component={MergeTeacherAccounts}/>
 				<Route path="/teacher_fix/move_student" component={MoveStudent}/>
 				<Route path="/teacher_fix/google_unsync" component={GoogleUnsync}/>
+				<Route path="/teacher_fix/merge_two_schools" component={MergeTwoSchools}/>
 			</Router>
 		);
 	}
