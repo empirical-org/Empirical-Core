@@ -21,6 +21,27 @@ export interface Response {
   weak?: Boolean|null,
 }
 
+export interface PartialResponse {
+  author?: string|null,
+  feedback?: string|null,
+  first_attempt_count?: number|null,
+  child_count?: number|null,
+  conceptResults?: ConceptResults|null,
+  created_at?: string,
+  id?: number,
+  key?: string,
+  optimal?: Boolean|null,
+  parent_uid?: string|null,
+  parent_id?: number|null,
+  parentId?: number|null,
+  sortOrder?: number,
+  statusCode?: number
+  uid?: string|null,
+  updated_at?: string,
+  weak?: Boolean|null,
+}
+
+
 export interface ConceptResults {
  [key:string]: Boolean
 }

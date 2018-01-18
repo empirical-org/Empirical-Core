@@ -4,11 +4,17 @@ import {getOptimalResponses} from '../sharedResponseFunctions'
 import {punctuationInsensitiveMatch} from '../matchers/punctuation_insensitive_match';
 import {correctSentenceFromSamples} from 'quill-spellchecker'
 export function checkAnswer(
+  question_uid: string,
   response: string, 
   responses: Array<Response>, 
   focusPoints: Array<FocusPoint>|null, 
   incorrectSequences: Array<IncorrectSequence>|null
 ): Response {
+  const responseTemplate = {
+    text: response,
+    question_uid,
+    count: 1
+  }
   const data = {
     response, 
     responses,
@@ -17,13 +23,14 @@ export function checkAnswer(
   }
   const firstPass = firstPassOriginalResponse(data)
   if (firstPass) {
-    return firstPass
+    return Object.assign(responseTemplate, firstPass)
   }
   // Correct the spelling and try again.
   const spellingPass = firstPassOriginalResponse(prepareSpellingData(data))
 
   if (spellingPass) {
-    return spellingPass
+    // Update the indicate spelling is also needed.
+    return Object.assign(responseTemplate, firstPass)
   }
   
 }
