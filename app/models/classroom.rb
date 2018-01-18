@@ -118,6 +118,10 @@ class Classroom < ActiveRecord::Base
     self.attributes.merge({students: self.students})
   end
 
+  def with_students_ids
+    self.attributes.merge({student_ids: self.students.ids})
+  end
+
   private
 
   # Clever integration

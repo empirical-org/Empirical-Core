@@ -45,9 +45,9 @@
         float: left;
         li {
             float: left;
-            padding: 5px 5.5px;
+            padding: 5px;
             a {
-                padding: 5px 20px;
+                padding: 5px 18px;
                 border-radius: 5px;
                 font-size: 13px;
                 color: #000;
@@ -75,6 +75,14 @@
         i {
             color: $orange;
         }
+      &:hover {
+        text-decoration: none;
+        background: $orange;
+        color: white;
+        i {
+            color: white;
+        }
+      }
     }
 }
 .student-subnavigation {
@@ -93,7 +101,10 @@
     }
 }
 @media (max-width: 871px) {
-    #teacher-nav-tabs li a:not(.mobile) {
+    .discover-tabs .full-screen:not(.mobile) {
+        display: none;
+    }
+    .pages-tabs .full-screen:not(.mobile) {
         display: none;
     }
     #teacher-nav-tabs li.active {
@@ -103,6 +114,9 @@
       border-bottom: none;
       display: inline;
       padding: 11px 8px;
+    }
+    #teacher-nav-tabs li a:not(.mobile) {
+      display: none;
     }
     .tab-subnavigation-wrapper ul {
         display: -webkit-box;
@@ -144,4 +158,43 @@
         }
       }
     }
+}
+
+@media only screen and (min-width: 872px) {
+  .discover-tabs, .pages-tabs {
+    .small-screen {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 872px) {
+  .discover-tabs, .pages-tabs {
+    .small-screen {
+      display: block;
+
+      .q-nav-bar .desktop-nav-list {
+        display: flex;
+        flex-wrap: nowrap;
+        max-width: 100%;
+
+        li {
+          flex-grow: 1;
+          text-align: center;
+          &.active {
+            border-top: 3px solid #027360;
+          }
+          a {
+            padding-left: 0;
+            padding-right: 0;
+            font-size: 13px !important;
+            border-bottom: none;
+            border-top: none;
+          }
+
+        }
+
+      }
+    }
+  }
 }

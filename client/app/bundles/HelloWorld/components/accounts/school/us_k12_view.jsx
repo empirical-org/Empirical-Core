@@ -7,7 +7,6 @@ import SelectSchool from './select_school'
 export default React.createClass({
 
   getInitialState: function () {
-    this.props.analytics.track('for google analytics teacher signed up');
     return {
       selectedSchool: {},
       schoolOptions: []

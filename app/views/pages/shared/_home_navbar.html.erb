@@ -13,6 +13,7 @@
       <a href="/teacher_resources" class="text-white">Resources</a>
     <% end %>
     <a href="/mission" class="text-white">Our Story</a>
+    <a href="https://community.quill.org/donate/" target="_blank" class="text-white">Donate</a>
     <%- if current_user.nil? %>
 
       <a href="/session/new" class="text-white">Login</a>
@@ -21,7 +22,11 @@
 
     <% else %>
       <%- if current_user.role == 'teacher' %>
-        <%= link_to "Profile", profile_path, class: "q-button text-white" %>
+        <%- if request.path.include?('teachers') %>
+          <%= link_to "My Dashboard", profile_path, class: "sign-up-btn" %>
+        <%- else %>
+          <%= link_to "My Dashboard", profile_path, class: "sign-up-btn white-fill" %>
+        <%- end %>
         <%= link_to "Logout", '/session', class: "text-white"%>
       <%- end %>
 

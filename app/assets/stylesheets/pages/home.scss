@@ -194,7 +194,7 @@
       padding: 18px 0;
       a {
         padding: 4px 11px 2px;
-        margin: 0 5px;
+        margin: 0 2px;
         position: relative;
         display: block;
         line-height: 20px;
@@ -220,6 +220,10 @@
         &:hover {
           background: $white_20;
           color: $white;
+        }
+        &.white-fill {
+          background-color: $white;
+          color: $quillgreen;
         }
       }
       &:hover:not(.sign-up-wrapper) a {
@@ -292,7 +296,7 @@
         .sign-up-btn {
           border: none;
         }
-        &:hover a {
+        &:hover  a {
           background-color: $quillgreen;
           color: $white;
         }

@@ -161,7 +161,7 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should redirect to the lesson if there is only one lesson' do
-      classroom_activity = create(:classroom_activity, activity: activity)
+      classroom_activity = create(:classroom_activity, activity: activity, classroom: current_user.classrooms_i_own.first)
       get :select_lesson_with_activity_id, activity_id: activity.id
       expect(response).to redirect_to("/teachers/classroom_activities/#{classroom_activity.id}/launch_lesson/#{activity.uid}")
     end

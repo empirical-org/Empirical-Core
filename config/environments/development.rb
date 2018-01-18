@@ -70,4 +70,5 @@ EmpiricalGrammar::Application.configure do
     config.action_controller.perform_caching = false
   end
 
+  config.reload_plugins = true if Rails.env.development?
 end
