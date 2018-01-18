@@ -55,7 +55,7 @@
 											</div>
 										<% end %>
 									<% end %>
-									<% if @teacher_created_student %>
+									<% if @teacher_created_student || @teacher_can_edit_password %>
 										<%= f.button "Save Changes", class: 'button-green' %>
 									<% end %>
 								<% end %>
