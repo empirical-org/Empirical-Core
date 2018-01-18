@@ -9,7 +9,7 @@ describe 'CleverIntegration::Importers::School' do
   let!(:district_token) { '1' }
 
   let!(:school_response) {
-    {name: 'school1'}
+    {nces_id: 'school1'}
   }
 
   let!(:teacher_requester) {
@@ -25,14 +25,16 @@ describe 'CleverIntegration::Importers::School' do
 
   def subject
     CleverIntegration::Importers::School.run(teacher, district_token, teacher_requester)
-    School.first
   end
 
-  it 'creates a school' do
-    expect(subject).to_not be_nil
+  it 'associates school to teacher if the school exists' do
+    school = create(:school, nces_id: 'school1')
+    subject
+    expect(teacher.reload.school).to eq(school)
   end
 
-  it 'associates school to teacher' do
-    expect(subject).to eq(teacher.reload.school)
+  it 'does not associates school to teacher if the school does not exist' do
+    subject
+    expect(teacher.reload.school).to eq(nil)
   end
 end

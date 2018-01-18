@@ -29,13 +29,6 @@ export default  React.createClass({
     return {actions: {getInviteStudentsUrl: function(){'placeholder function'}}}
   },
 
-  hideSubNavBars: function() {
-    $('.unit-tabs').hide();
-    $('.tab-outer-wrap').hide();
-    $('.section-content-wrapper').hide();
-  },
-
-
   anyClassroomsWithStudents: function(classrooms) {
     return !!classrooms.find((e) => e.students.length > 0)
   },
@@ -70,16 +63,15 @@ export default  React.createClass({
     return this.state.data.name;
   },
 
-  data: function() {
-    return {
-      name: this.state.data.name,
-      id: this.props.params.activityPackId
-    }
+  socialShareUrl: function() {
+    return `${window.location.origin}/activities/packs/${this.props.params.activityPackId}`;
+  },
+
+  socialShareCopy: function() {
+    return `I’m using the ${this.activityName()} Activity Pack from Quill.org to teach writing & grammar. ${this.socialShareUrl()}`;
   },
 
   teacherSpecificComponents: function() {
-    this.hideSubNavBars();
-
     let href;
     let text;
 
@@ -130,13 +122,13 @@ export default  React.createClass({
       </h2>
         <p className='nonprofit-copy'>
           We’re a nonprofit providing free literacy activities. The more people <br></br>
-          that use Quill, the more free activities we can create.
+          who use Quill, the more free activities we can create.
         </p>
       <p className='social-copy'>
-        <i>I’m using the {this.activityName()} Activity Pack, from Quill.org, to teach English grammar. quill.org/activities/packs/{this.props.params.activityPackId}</i>
+        <i>{this.socialShareCopy()}</i>
       </p>
       <div className='container'>
-        <UnitTemplateProfileShareButtons data={this.data()} />
+        <UnitTemplateProfileShareButtons text={this.socialShareCopy()} url={this.socialShareUrl()} />
       </div>
     </div>
     </div>

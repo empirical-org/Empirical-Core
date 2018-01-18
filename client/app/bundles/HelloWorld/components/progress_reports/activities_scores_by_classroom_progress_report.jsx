@@ -61,31 +61,45 @@ export default class extends React.Component {
         accessor: 'name',
         resizable: false,
         sortMethod: sortByLastName,
-        Cell: row => (<a href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>{row.original.name}</a>)
+        Cell: row => (<a className='row-link-disguise' style={{color: '#00c2a2'}} href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+          {row.original.name}
+        </a>),
       }, {
         Header: "Activities Completed",
         accessor: 'activity_count',
         resizable: false,
-        Cell: props => Number(props.value)
+        minWidth: 120,
+        Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+          {Number(row.original.activity_count)}
+        </a>),
       }, {
         Header: "Overall Score",
         accessor: 'average_score',
         resizable: false,
-        Cell: props => {
-          const value = Math.round(parseFloat(props.value) * 100);
-          return isNaN(value) ? '--' : value + '%';
+        minWidth: 90,
+        Cell: row => {
+          const value = Math.round(parseFloat(row.original.average_score) * 100);
+          return (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+            {isNaN(value) ? '--' : value + '%'}
+          </a>)
         }
       }, {
 				Header: "Last Active",
 				accessor: 'last_active',
 				resizable: false,
-				Cell: props => props.value ? moment(props.value).format("MM/DD/YYYY") : '',
+        minWidth: 90,
+        Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+          {row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span/>}
+        </a>),
 				sortMethod: sortFromSQLTimeStamp,
 			},
 			{
         Header: "Class",
         accessor: 'classroom_name',
-        resizable: false
+        resizable: false,
+        Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+          {row.original.classroom_name}
+        </a>)
       }, {
         Header: "",
         accessor: 'green_arrow',

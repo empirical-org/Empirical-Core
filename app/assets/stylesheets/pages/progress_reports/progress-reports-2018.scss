@@ -56,7 +56,7 @@
       position: absolute;
       top: 12px;
       font-size: 18px;
-      right: 20px;
+      right: 25px;
       color: #969696;
       font-family: FontAwesome;
       content: "\f0d7";
@@ -68,7 +68,7 @@
       position: absolute;
       top: 12px;
       font-size: 18px;
-      right: 20px;
+      right: 25px;
       color: #969696;
       font-family: FontAwesome;
       content: "\f0d8";
@@ -132,6 +132,9 @@
   font-size: 14px;
   font-weight: 600;
   color: #027360;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .non-premium-blur {
