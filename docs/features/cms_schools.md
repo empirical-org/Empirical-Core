@@ -9,7 +9,6 @@ You can find schools that match a variety of criteria and then see a high-level 
 ### Gotchas
 
 - The search query works with 'AND' logic. That means that if you search for 'School Name' and 'School City', you will only see schools that match BOTH the name and city.
-- By default, schools with no teachers **will *not* display**. Please select "Include Schools with 0 Teachers" if you would like schools with no teachers to display in the results.
 
 ### Tips & Tricks
 
