@@ -70,7 +70,9 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def update_multiple_due_dates
-    ClassroomActivity.where(id: params[:classroom_activity_ids]).update_all(due_date: params[:due_date])
+    base_classroom_activities = ClassroomActivity.where(id: params[:classroom_activity_ids])
+    activity_ids = base_classroom_activities.map(&:activity_id)
+    ClassroomActivity.where(activity_id: activity_ids, unit_id: base_classroom_activities.first.unit_id).update_all(due_date: params[:due_date])
     render json: {}
   end
 

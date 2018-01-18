@@ -47,7 +47,7 @@ export default class extends React.Component {
     ]
     data.forEach((row) => {
       csvData.push([
-        row['classroom_name'], row['name'], row['average_score'] * 100,
+        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
         row['activity_count']
       ])
     })

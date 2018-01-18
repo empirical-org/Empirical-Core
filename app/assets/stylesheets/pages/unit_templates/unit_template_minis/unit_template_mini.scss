@@ -1,8 +1,9 @@
 .unit-template-mini {
-  width: 100%;
+  width: 456px;
   margin-top: 30px;
   position: relative;
   cursor: pointer;
+  @media (max-width: 500px) { width: 95%; }
   .create-your-own {
     background-color: white;
     height: 270px;

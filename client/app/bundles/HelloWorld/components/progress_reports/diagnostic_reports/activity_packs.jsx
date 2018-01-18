@@ -15,7 +15,6 @@ export default React.createClass({
 			allUnits: [],
 			units: [],
 			loaded: false,
-			classrooms: this.getClassrooms(),
 			selectedClassroomId: getParameterByName('classroom_id'),
 		}
 	},
@@ -26,6 +25,7 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
+		this.getClassrooms();
 		request.get({
 			url: `${process.env.DEFAULT_URL}/teachers/units`,
 			data: { report: true }
@@ -63,14 +63,14 @@ export default React.createClass({
 		if(this.state.selectedClassroomId) {
 			const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId));
 			const unitsInCurrentClassroom = this.state.allUnits.filter(unit=>unit.classrooms.find(classroom=>selectedClassroom.name === classroom.name))
-			this.setState({ units: unitsInCurrentClassroom, loaded: true, });
+			this.setState({ units: unitsInCurrentClassroom, loaded: true });
 		} else {
 			this.setState({ units: this.state.allUnits, loaded: true })
 		}
 	},
 
 	setAllUnits(data) {
-		this.setState({ allUnits: this.parseUnits(data), loaded: true}, this.getUnitsForCurrentClass);
+		this.setState({ allUnits: this.parseUnits(data)}, this.getUnitsForCurrentClass);
 	},
 
 	generateNewCaUnit(u) {

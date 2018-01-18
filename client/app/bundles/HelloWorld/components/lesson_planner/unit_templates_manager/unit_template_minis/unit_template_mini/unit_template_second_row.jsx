@@ -39,7 +39,7 @@
 
   render: function () {
     return (
-      <div className='row white-row'>
+      <div className='white-row'>
           <div className='row info-row'>
             <div style={{flex: 3}}>
               <div className='author'>
