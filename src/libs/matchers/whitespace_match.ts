@@ -1,7 +1,10 @@
 import * as _ from 'underscore'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
-import {Response} from '../../interfaces'
+import {Response, PartialResponse} from '../../interfaces'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {getTopOptimalResponse} from '../sharedResponseFunctions'
+import constants from '../../constants'
 
 export function whitespaceMatch (response:string, responses: Array<Response>): Response|undefined {
   return _.find(getOptimalResponses(responses),
@@ -10,3 +13,23 @@ export function whitespaceMatch (response:string, responses: Array<Response>): R
 }
 
 const removeSpaces: (string: string) => string = string => string.replace(/\s+/g, '');
+
+export function whitespaceChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
+  const match = whitespaceMatch(responseString, responses);
+  if (match) {
+    const parent_id = match.id
+    return whitespaceResponseBuilder(responses, parent_id)
+  }
+}
+
+export function whitespaceResponseBuilder(responses:Array<Response>, parent_id: string|number): PartialResponse {
+  const res = {
+    feedback: constants.FEEDBACK_STRINGS.whitespaceError,
+    author: 'Whitespace Hint',
+    parent_id,
+    concept_results: [
+      conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
+    ]
+  }
+  return res
+}
