@@ -155,10 +155,13 @@
   // .gray-text {
   //   color: rgb(100,100,100);
   // }
-  // .remove-from-class {
+  .remove-from-class {
   //   width: 186px;
-  //   font-weight: bold;
-  // }
+    font-weight: bold;
+  }
+  .password-reset .btn-warning {
+    margin: -1px 0 0 3px;
+  }
   // .modal-dialog {
   //   .modal-header {
   //     min-height: 59px;
