@@ -1,17 +1,37 @@
 import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
-import {Response} from '../../interfaces'
+import {Response, PartialResponse} from '../../interfaces'
+import constants from '../../constants'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export function maxLengthMatch(responseString:string, responses:Array<Response>):Response|undefined {
+export function maxLengthMatch(responseString:string, responses:Array<Response>):Boolean {
   const optimalResponses = getOptimalResponses(responses);
   if (optimalResponses.length < 2) {
-    return undefined;
+    return false;
   }
   const lengthsOfResponses = optimalResponses.map(resp => stringNormalize(resp.text).split(' ').length);
   const maxLength = _.max(lengthsOfResponses) + 1;
-  if (responseString.split(' ').length > maxLength) {
-    return _.sortBy(optimalResponses, resp => stringNormalize(resp.text).length).reverse()[0];
+  return responseString.split(' ').length > maxLength
+}
+
+export function maxLengthChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
+  const match = maxLengthMatch(responseString, responses);
+  if (match) {
+    return maxLengthResponseBuilder(responses)
   }
-  return undefined;
+}
+
+export function maxLengthResponseBuilder(responses:Array<Response>): PartialResponse {
+  const optimalResponses = getOptimalResponses(responses);
+  const longestOptimalResponse = _.sortBy(optimalResponses, resp => stringNormalize(resp.text).length).reverse()[0];
+  const res = {
+    feedback: constants.FEEDBACK_STRINGS.maxLengthError,
+    author: 'Not Concise Hint',
+    parentId: longestOptimalResponse.key,
+    conceptResults: [
+      conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
+    ]
+  }
+  return res
 }
