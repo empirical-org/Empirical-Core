@@ -319,6 +319,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'schools#select_school'
+  get '/select_school', to: 'schools#select_school'
 
   namespace :cms do
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
