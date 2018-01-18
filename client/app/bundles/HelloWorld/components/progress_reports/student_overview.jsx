@@ -95,11 +95,13 @@ export default class extends React.Component {
       const csvReportData = []
       this.state.reportData.forEach(row => {
 				const newRow = _.omit(row, keysToOmit)
-				if (notLessonsOrDiagnostic(row.activity_classification_id)) {
+				if (notLessonsOrDiagnostic(row.activity_classification_id) && row.percentage) {
 					newRow.percentage = (newRow.percentage * 100).toString() + '%';
 				} else if ((row.activity_classification_id === '6' && row.is_a_completed_lesson === 't') || row.percentage) {
 					newRow.percentage = 'Completed'
-				}
+				} else {
+          newRow.percentage = 'Not Completed'
+        }
         headers.forEach((oldNew) => {
           newRow[oldNew.new] = newRow[oldNew.old];
           delete newRow[oldNew.old];
