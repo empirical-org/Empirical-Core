@@ -3,7 +3,7 @@ export interface Response {
   feedback?: string|null,
   first_attempt_count?: number|null,
   child_count?: number|null,
-  conceptResults?: ConceptResults|null,
+  concept_results?: Array<ConceptResult>|null,
   count: number,
   created_at?: string,
   id?: number,
@@ -26,7 +26,7 @@ export interface PartialResponse {
   feedback?: string|null,
   first_attempt_count?: number|null,
   child_count?: number|null,
-  conceptResults?: ConceptResults|null,
+  concept_results?: Array<ConceptResult>|null,
   created_at?: string,
   id?: number,
   key?: string,
@@ -42,8 +42,9 @@ export interface PartialResponse {
 }
 
 
-export interface ConceptResults {
- [key:string]: Boolean
+export interface ConceptResult {
+ correct: Boolean,
+ conceptUID: string
 }
 
 export interface FocusPoint {

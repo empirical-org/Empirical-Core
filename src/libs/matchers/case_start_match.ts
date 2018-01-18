@@ -5,17 +5,17 @@ import constants from '../../constants'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function caseStartMatch(responseString: string, responses:Array<Response>): Boolean {
-  return (/^[a-z]/).test(responseString)) {
+  return (/^[a-z]/).test(responseString)
 }
 
-export function caseStartChecker(responseString: string, responses:Array<Response>):Response|undefined {
+export function caseStartChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
   const match = caseStartMatch(responseString, responses);
   if (match) {
-    return caseStartResponseBuilder()
+    return caseStartResponseBuilder(responses)
   }
 }
 
-export function caseStartResponseBuilder(): PartialResponse {
+export function caseStartResponseBuilder(responses:Array<Response>): PartialResponse {
   const res = {
     feedback: constants.FEEDBACK_STRINGS.caseError,
     author: 'Capitalization Hint',
@@ -26,5 +26,3 @@ export function caseStartResponseBuilder(): PartialResponse {
   }
   return res
 }
-
-
