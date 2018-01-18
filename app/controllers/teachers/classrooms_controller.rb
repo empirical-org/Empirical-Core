@@ -90,6 +90,23 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
+  def transfer_ownership
+    requested_new_owner_id = params[:requested_new_owner_id]
+    owner_role = ClassroomsTeacher::ROLE_TYPES[:owner]
+    coteacher_role = ClassroomsTeacher::ROLE_TYPES[:coteacher]
+
+    begin
+      ActiveRecord::Base.transaction do
+        ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: @classroom.id, role: owner_role).update(role: coteacher_role)
+        ClassroomsTeacher.find_by(user_id: requested_new_owner_id, classroom_id: @classroom.id, role: coteacher_role).update(role: owner_role)
+      end
+    rescue
+      return render json: { error: 'Please ensure this teacher is a co-teacher before transferring ownership.' }, status: 401
+    end
+
+    return render json: {}
+  end
+
 private
 
   def classroom_params
