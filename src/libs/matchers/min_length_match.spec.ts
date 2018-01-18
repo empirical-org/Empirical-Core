@@ -1,10 +1,13 @@
 import { assert } from 'chai';
-import {minLengthMatch} from './min_length_match'
+import {minLengthMatch, minLengthChecker} from './min_length_match'
 import {Response} from '../../interfaces'
+import constants from '../../constants'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {getTopOptimalResponse} from '../sharedResponseFunctions'
 
 describe('The minLengthMatch function', () => {
 
-    it('Should take a response string and find the shortest optimal response if the response string is at least two words shorter than any of them and there are at least two optimal responses', () => {
+    it('should return true if the response string is at least two words shorter than any of the optimal responses and there are at least two of them', () => {
         const responseString = "My dog napped";
         const savedResponses: Array<Response> = [
           {
@@ -24,8 +27,7 @@ describe('The minLengthMatch function', () => {
             question_uid: 'question 2'
           }
         ]
-        const matchedResponse: Response = minLengthMatch(responseString, savedResponses);
-        assert.equal(matchedResponse.id, savedResponses[0].id);
+        assert.ok(minLengthMatch(responseString, savedResponses));
     });
 
     it('Should take a response string and return undefined if it is shorter than the shortest optimal response by one word or less', () => {
@@ -75,3 +77,42 @@ describe('The minLengthMatch function', () => {
     });
 
 });
+
+describe('The minLengthChecker', () => {
+
+  it('Should return a partial response if response string is at least two words shorter than any of them and there are at least two optimal responses', () => {
+    const responseString = "My dog napped";
+    const savedResponses: Array<Response> = [
+      {
+        id: 1,
+        text: "My sleepy dog took a nap.",
+        feedback: "Good job, that's a sentence!",
+        optimal: true,
+        count: 1,
+        question_uid: 'question 1'
+      },
+      {
+        id: 2,
+        text: "My happy dog took a long nap.",
+        feedback: "Good job, that's a sentence!",
+        optimal: true,
+        count: 1,
+        question_uid: 'question 2'
+      }
+    ]
+    const shortestOptimalResponse = savedResponses.sort(r => r.text.length)[0]
+    const partialResponse =  {
+        feedback: constants.FEEDBACK_STRINGS.minLengthError,
+        author: 'Missing Details Hint',
+        parent_id: shortestOptimalResponse.key,
+        concept_results: [
+          conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+        ]
+      }
+    assert.equal(minLengthChecker(responseString, savedResponses).feedback, partialResponse.feedback);
+    assert.equal(minLengthChecker(responseString, savedResponses).author, partialResponse.author);
+    assert.equal(minLengthChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
+    assert.equal(minLengthChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+  });
+
+})
