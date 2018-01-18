@@ -7,6 +7,27 @@
     background-color: white;
     margin: auto;
     width: 950px;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    .ReactTable.unit-template-profile-activities .rt-table a img {
+      padding-left: 20px;
+    }
+
+    .ReactTable .rt-th, .ReactTable .rt-td {
+      padding-top: 2.5px;
+      padding-bottom: 4px;
+    }
+
+    .ReactTable.unit-template-profile-activities .rt-table .rt-tr:hover a.highlight-on-hover {
+      color: #00c2a2;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
   }
   .related-activity-packs {
 
