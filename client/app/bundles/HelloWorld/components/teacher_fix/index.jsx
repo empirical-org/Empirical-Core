@@ -15,6 +15,7 @@ export default class TeacherFixIndex extends React.Component {
           <p><a href="/teacher_fix/merge_teacher_accounts">Merge Teacher Accounts</a></p>
           <p><a href="/teacher_fix/move_student">Move Student from One Class to Another</a></p>
           <p><a href="/teacher_fix/google_unsync">Unsync User with Google Classroom</a></p>
+          <p><a href="/teacher_fix/merge_two_schools">Merge Two Schools</a></p>
       </div>
     }
   }
