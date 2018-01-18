@@ -85,3 +85,4 @@ describe('The focusPointChecker', () => {
     const responseString = "Jared likes edtech and startups.";
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses), undefined);
   });
+})
