@@ -107,6 +107,9 @@
       display: inline;
       padding: 11px 8px;
     }
+    #teacher-nav-tabs li a:not(.mobile) {
+      display: none;
+    }
     .tab-subnavigation-wrapper ul {
         display: -webkit-box;
         display: -ms-flexbox;
