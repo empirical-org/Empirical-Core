@@ -20,7 +20,7 @@ export function removePunctuation(string) {
 export function punctuationAndCaseInsensitiveChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
   const match = punctuationAndCaseInsensitiveMatch(responseString, responses);
   if (match) {
-    const parentID = match.key
+    const parentID = match.id
     return punctuationAndCaseInsensitiveResponseBuilder(responses, parentID)
   }
 }

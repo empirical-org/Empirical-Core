@@ -47,7 +47,7 @@ describe('The caseInsensitiveChecker', () => {
     const partialResponse =  {
         feedback: constants.FEEDBACK_STRINGS.caseError,
         author: 'Capitalization Hint',
-        parent_id: caseInsensitiveMatch(responseString, savedResponses).key,
+        parent_id: caseInsensitiveMatch(responseString, savedResponses).id,
         concept_results: [
           conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
         ],

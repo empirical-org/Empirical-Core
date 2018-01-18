@@ -14,7 +14,7 @@ export function caseInsensitiveMatch(response: string, responses:Array<Response>
 export function caseInsensitiveChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
   const match = caseInsensitiveMatch(responseString, responses);
   if (match) {
-    const parentID = match.key
+    const parentID = match.id
     return caseInsensitiveResponseBuilder(responses, parentID)
   }
 }

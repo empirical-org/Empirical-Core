@@ -23,7 +23,7 @@ export function focusPointResponseBuilder(focusPointMatch:FocusPoint, responses:
   const res: PartialResponse = {
     feedback: focusPointMatch.feedback,
     author: 'Focus Point Hint',
-    parent_id: getTopOptimalResponse(responses).key
+    parent_id: getTopOptimalResponse(responses).id
   }
 
   if (focusPointMatch.concept_uid) {

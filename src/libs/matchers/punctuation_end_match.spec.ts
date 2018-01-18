@@ -24,8 +24,7 @@ describe('The punctuationEndMatch function', () => {
             question_uid: "questionTwo"
           }
         ]
-        const matchedResponse: Response = punctuationEndMatch(responseString, savedResponses);
-        assert.equal(matchedResponse.id, savedResponses[0].id);
+        assert.ok(punctuationEndMatch(responseString, savedResponses));
     });
 
 });

@@ -23,7 +23,7 @@ export function incorrectSequenceResponseBuilder(incorrectSequenceMatch:Incorrec
   const res: PartialResponse = {
     feedback: incorrectSequenceMatch.feedback,
     author: 'Incorrect Sequence Hint',
-    parent_id: getTopOptimalResponse(responses).key
+    parent_id: getTopOptimalResponse(responses).id
   }
     if (incorrectSequenceMatch.concept_results) {
       res.concept_results = incorrectSequenceMatch.concept_results;

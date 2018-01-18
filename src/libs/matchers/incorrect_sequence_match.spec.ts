@@ -99,10 +99,9 @@ describe('The incorrectSequenceChecker', () => {
     const partialResponse =  {
         feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
         author: 'Incorrect Sequence Hint',
-        parent_id: getTopOptimalResponse(savedResponses).key,
+        parent_id: getTopOptimalResponse(savedResponses).id,
         concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
       }
-    console.log(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses))
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);

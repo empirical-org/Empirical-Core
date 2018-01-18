@@ -77,7 +77,7 @@ describe('The focusPointChecker', () => {
     const partialResponse =  {
         feedback: focusPointMatch(responseString, focusPoints).feedback,
         author: 'Focus Point Hint',
-        parent_id: getTopOptimalResponse(savedResponses).key,
+        parent_id: getTopOptimalResponse(savedResponses).id,
         concept_results: focusPointMatch(responseString, focusPoints).concept_results
       }
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);

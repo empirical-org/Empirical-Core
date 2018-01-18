@@ -32,7 +32,7 @@ describe('The punctuationAndCaseInsensitiveChecker', () => {
     const partialResponse: PartialResponse =  {
         feedback: constants.FEEDBACK_STRINGS.punctuationAndCaseError,
         author: 'Punctuation and Case Hint',
-        parent_id: punctuationAndCaseInsensitiveMatch(responseString, savedResponses).key,
+        parent_id: punctuationAndCaseInsensitiveMatch(responseString, savedResponses).id,
         concept_results: [
           conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ'),
           conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
