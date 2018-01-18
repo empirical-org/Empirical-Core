@@ -1,6 +1,26 @@
 import {assert} from 'chai';
-import {incorrectSequenceMatch} from './incorrect_sequence_match';
+import {incorrectSequenceMatch, incorrectSequenceChecker} from './incorrect_sequence_match';
 import {Response, IncorrectSequence} from '../../interfaces'
+import {getTopOptimalResponse} from '../sharedResponseFunctions'
+
+const savedResponses: Array<Response> = [
+  {
+    id: 1,
+    text: "Jared likes Edtech and startups.",
+    feedback: "Good job, that's a sentence!",
+    optimal: true,
+    count: 2,
+    question_uid: "questionOne"
+  },
+  {
+    id: 2,
+    text: "Jared likes startups and Edtech.",
+    feedback: "Good job, that's a sentence!",
+    optimal: true,
+    count: 1,
+    question_uid: "questionOne"
+  }
+]
 
 const incorrectSequences = [
   {
@@ -29,7 +49,7 @@ const incorrectSequences = [
   }
 ]
 
-describe('The Jared question object', () => {
+describe('The incorrectSequenceMatch', () => {
 
   const negativeTests = [
     'Jared likes Edtech and startups.',
@@ -63,3 +83,23 @@ describe('The Jared question object', () => {
     });
   });
 });
+
+describe('The incorrectSequenceChecker', () => {
+
+  it('Should return a partialResponse object if the response string matches an incorrect sequence', () => {
+    const responseString = "Jared likes early stage companies.";
+    const partialResponse =  {
+        feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
+        author: 'Incorrect Sequence Hint',
+        parent_id: getTopOptimalResponse(savedResponses).key
+      }
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
+  });
+
+  it('Should return undefined if the response string does not match an incorrect sequence', () => {
+    const responseString = "Jared likes Edtech and startups.";
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses), undefined);
+  });
+})
