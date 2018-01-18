@@ -1,4 +1,5 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
+import {FeedbackObject} from '../../interfaces'
 
 const subStrings = [
   ' ,',
@@ -16,16 +17,16 @@ const subStringsToText = {
   ' ?': 'question mark',
 };
 
-export function getFeedbackForPunc(punc) {
+export function getFeedbackForPunc(punc: string):string {
   const fb = subStringsToText[punc];
   return `<p>Revise your sentence. You don't need to have a space before a <em>${fb}</em>.</p>`;
 }
 
-export function checkForSpacingError(userString) {
+export function checkForSpacingError(userString: string):string {
   return _.find(subStrings, subString => userString.indexOf(subString) !== -1);
 }
 
-export function spacingBeforePunctuation(userString) {
+export function spacingBeforePunctuation(userString: string):FeedbackObject|undefined {
   const match = checkForSpacingError(userString);
   return (match ? { feedback: getFeedbackForPunc(match), } : undefined);
 }
