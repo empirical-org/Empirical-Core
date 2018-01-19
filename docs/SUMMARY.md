@@ -19,6 +19,7 @@
   * [Emails](features/emails.md)
   * [Dashboard Cards](features/dashboard_cards.md)
   * [Customizing Lessons](features/lessons_customization.md)
+  * [Referral Program](features/referral_program.md)
 * [Quill Tools](tools/index.md)
   * [Quill Proofreader](tools/proofreader.md)
   * [Quill Grammar](tools/grammar.md)
