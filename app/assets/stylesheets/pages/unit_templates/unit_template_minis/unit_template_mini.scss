@@ -1,8 +1,9 @@
 .unit-template-mini {
-  width: 100%;
+  width: 456px;
   margin-top: 30px;
   position: relative;
   cursor: pointer;
+  @media (max-width: 500px) { width: 95%; }
   .create-your-own {
     background-color: white;
     height: 270px;
@@ -42,9 +43,13 @@
     padding-top: 36px;
     border: 1px solid #929292;
     .info-row {
-      padding-left: 12px;
       line-height: 18px;
       height: 18px;
+      width: 95%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       .activities-count {
         float: right;
         .fa-th-list {

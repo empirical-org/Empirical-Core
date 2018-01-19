@@ -1,4 +1,5 @@
-<%= render partial: 'pages/shared/discover_tabs' %>
+<% @active_tab = 'FAQ' %>
+<%= render partial: 'pages/shared/discover_tabs', active_tab: @active_tab %>
 
 <div class="container pages-container pages-faq">
 

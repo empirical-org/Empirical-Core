@@ -13,7 +13,7 @@
 
   render: function () {
     return (
-      <div className='big-title row' style={this.divStyle()}>
+      <div className='big-title' style={this.divStyle()}>
         <CategoryLabel isLink={Boolean(true)} data={this.props.data.unit_template_category} nonAuthenticated={this.props.data.non_authenticated}/>
         <h1><strong>{this.props.data.name}</strong></h1>
         <div className="author-details">

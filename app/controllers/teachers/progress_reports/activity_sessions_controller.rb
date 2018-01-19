@@ -1,26 +1,150 @@
+require 'csv'
+
 class Teachers::ProgressReports::ActivitySessionsController < Teachers::ProgressReportsController
+  PAGE_SIZE = 25;
+
   def index
     respond_to do |format|
       format.html
-      format.json do
-        query = ::ProgressReports::ActivitySession.new(current_user).results(params)
-        page_count = (query.count / ActivitySession::RESULTS_PER_PAGE.to_f).ceil
-        activity_sessions = query.paginate(params[:page], ActivitySession::RESULTS_PER_PAGE)
-        activity_session_json = activity_sessions.map do |activity_session|
-          ::ProgressReports::ActivitySessionSerializer.new(activity_session).as_json(root: false)
+      format.csv do
+        unless current_user.is_premium?
+          flash[:warning] = 'Downloadable reports are only available to Premium users.'
+          return redirect_to premium_path
         end
-        classrooms = ProgressReports::Standards::Classroom.new(current_user).results({})
-        students = ProgressReports::Standards::Student.new(current_user).results({})
-        units = ProgressReports::Standards::Unit.new(current_user).results({})
+        return_data(false)
+      end
+      format.json do
+        return_data(true)
+      end
+    end
+  end
+
+  private
+  def return_data(should_return_json)
+    classroom_activities_filter = !params[:classroom_id].blank? ? "AND classroom_activities.classroom_id = #{params[:classroom_id].to_i}" : ''
+    student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id].to_i}" : ''
+    unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id].to_i}" : ''
+
+    case(params[:sort_param])
+    when 'student_id'
+      sort_field = 'sorting_name'
+    when 'activity_name'
+      sort_field = 'activity_name'
+    when 'percentage'
+      sort_field = 'percentage'
+    when 'standard'
+      sort_field = 'standard'
+    when 'activity_classification_name'
+      sort_field = 'activity_classification_name'
+    else
+      sort_field = 'completed_at'
+    end
+    sort_direction = params[:sort_descending] && params[:sort_descending] != 'true' ? 'ASC' : 'DESC'
+
+    query_limit = should_return_json ? "LIMIT #{PAGE_SIZE}" : ''
+    query_offset = should_return_json ? "OFFSET #{PAGE_SIZE * (params['page'].to_i - 1)}" : ''
+
+    # Note to maintainers: if you update this query, please be sure to
+    # also update the page count query below if applicable.
+    activity_sessions = ActiveRecord::Base.connection.execute("
+      SELECT
+        activity_sessions.id AS activity_session_id,
+        activity_classifications.name AS activity_classification_name,
+        classrooms_teachers.classroom_id AS classroom_id,
+        EXTRACT(EPOCH FROM activity_sessions.completed_at) AS completed_at,
+        activity_sessions.completed_at AS visual_date,
+        (CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS percentage,
+        topics.name AS standard,
+        activity_sessions.user_id AS student_id,
+        activities.name AS activity_name,
+        users.name AS student_name,
+        substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
+      FROM classrooms_teachers
+      JOIN classrooms
+        ON classrooms.id = classrooms_teachers.classroom_id
+        AND classrooms.visible = TRUE
+      JOIN classroom_activities
+        ON classroom_activities.classroom_id = classrooms.id
+        #{classroom_activities_filter}
+        #{unit_filter}
+        AND classroom_activities.visible = TRUE
+      JOIN students_classrooms
+        ON students_classrooms.classroom_id = classrooms.id
+        AND students_classrooms.visible = TRUE
+      JOIN users
+        ON users.id = students_classrooms.student_id
+      JOIN activity_sessions
+        ON activity_sessions.classroom_activity_id = classroom_activities.id
+        AND activity_sessions.state = 'finished'
+        AND activity_sessions.visible = TRUE
+        AND activity_sessions.user_id = users.id
+       #{student_filter}
+      JOIN activities
+        ON activities.id = classroom_activities.activity_id
+      JOIN activity_classifications
+        ON activity_classifications.id = activities.activity_classification_id
+      JOIN topics
+        ON topics.id = activities.topic_id
+      WHERE classrooms_teachers.user_id = #{current_user.id}
+      ORDER BY #{sort_field} #{sort_direction}
+      #{query_limit}
+      #{query_offset}
+    ").to_a;
+
+    if(should_return_json)
+      page_count = (ActiveRecord::Base.connection.execute("
+        SELECT count(activity_sessions.id) FROM classrooms_teachers
+        JOIN classrooms
+          ON classrooms.id = classrooms_teachers.classroom_id
+          AND classrooms.visible = TRUE
+        JOIN classroom_activities
+          ON classroom_activities.classroom_id = classrooms.id
+          #{classroom_activities_filter}
+          #{unit_filter}
+          AND classroom_activities.visible = TRUE
+        JOIN students_classrooms
+          ON students_classrooms.classroom_id = classrooms.id
+          AND students_classrooms.visible = TRUE
+        JOIN users
+          ON users.id = students_classrooms.student_id
+        JOIN activity_sessions
+          ON activity_sessions.classroom_activity_id = classroom_activities.id
+          AND activity_sessions.state = 'finished'
+          AND activity_sessions.visible = TRUE
+          AND activity_sessions.user_id = users.id
+         #{student_filter}
+        WHERE classrooms_teachers.user_id = #{current_user.id}
+      ").to_a[0]['count'].to_f / PAGE_SIZE).ceil
+
+      unless(params[:without_filters])
         render json: {
-          activity_sessions: activity_session_json,
-          classrooms: classrooms,
-          students: students,
+          classrooms: current_user.ids_and_names_of_affiliated_classrooms,
+          students: current_user.ids_and_names_of_affiliated_students,
+          units: current_user.ids_and_names_of_affiliated_units,
+          activity_sessions: activity_sessions,
           page_count: page_count,
-          teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),
-          units: units
+        }
+      else
+        render json: {
+          activity_sessions: activity_sessions,
+          page_count: page_count,
         }
       end
+    else
+      csv_string = CSV.generate do |csv|
+        csv << ['Student', 'Date', 'Activity', 'Score', 'Standard', 'Tool']
+        activity_sessions.map do |session|
+          csv << [
+            session['student_name'],
+            session['visual_date'],
+            session['activity_name'],
+            "#{session['percentage'].to_f*100}%",
+            session['standard'],
+            session['activity_classification_name']
+          ]
+        end
+      end
+      return render text: csv_string
     end
   end
 end

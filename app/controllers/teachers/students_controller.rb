@@ -24,12 +24,6 @@ class Teachers::StudentsController < ApplicationController
   def index
   end
 
-  def reset_password
-    @student.generate_password
-    @student.save
-    redirect_to edit_teachers_classroom_student_path(@classroom, @student)
-  end
-
   def update
     if user_params[:username] == @student.username
       validate_username = false
@@ -71,8 +65,9 @@ protected
 
   def edit_page_variables
     # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
-    @was_teacher_the_last_user_to_reset_students_password =  (@student.password_digest && @student.authenticate(@student.last_name))
     @teacher_created_student = @student.username.split('@').last == @classroom.code
+    @teacher_can_edit_password = !(@student.clever_id || @student.signed_up_with_google)
+    @teacher_can_see_password =  (@student.password_digest && @student.authenticate(@student.last_name))
     @sign_up_method = {
       "Clever User": @student.clever_id,
       "Google Sign On User": @student.signed_up_with_google,
