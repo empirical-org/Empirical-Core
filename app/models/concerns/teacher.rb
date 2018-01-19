@@ -11,7 +11,9 @@ module Teacher
     has_many :units
     has_one :user_subscription
     has_one :subscription, through: :user_subscription
-    has_one :affiliate_user
+    has_one :referrer_user
+    has_many :referrals_users
+    belongs_to :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
   end
 
   class << self
@@ -472,8 +474,16 @@ module Teacher
     ").to_a
   end
 
-  def affiliate_code
-    self.affiliate_user.affiliate_code
+  def referrer_code
+    self.referrer_user.referral_code
+  end
+
+  def referral_code
+    self.referrer_user.referral_code
+  end
+
+  def referrals
+    self.referrals_users.count
   end
 
   private

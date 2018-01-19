@@ -1,11 +1,11 @@
-namespace :affiliate do
+namespace :referrers do
   desc 'generate ids'
   task :generate => :environment do
     ActiveRecord::Base.connection.execute("
-      INSERT INTO affiliate_user(user_id, affiliate_code)
+      INSERT INTO referrer_users(user_id, referrer_code)
       SELECT
         id AS user_id,
-        concat(replace(regexp_replace(lower(name), '[^a-zA-Z ]', '', 'g'), ' ', '-'), '-', id) AS affiliate_code
+        concat(replace(regexp_replace(lower(name), '[^a-zA-Z ]', '', 'g'), ' ', '-'), '-', id) AS referrer_code
       FROM users
       WHERE role = 'teacher';
     ")
