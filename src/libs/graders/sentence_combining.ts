@@ -43,13 +43,11 @@ function* firstPassMatchers(data: GradingObject) {
 function firstPassOriginalResponse(data: GradingObject) {
   const gen = firstPassMatchers(data)
   let next = gen.next();
-  console.log(next)
   while (true) {
     if (next.value || next.done) {
       break
     }
     next = gen.next()
-    console.log(next)
   }
   if (next.value) {
     return next.value

@@ -1,5 +1,13 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 import { diffWords } from 'diff';
+import {getOptimalResponses} from '../sharedResponseFunctions'
+import {stringNormalize} from 'quill-string-normalizer'
+import {Response, PartialResponse} from '../../interfaces'
+
+export function rigidChangeObjectMatch(response, responses) {
+  const fn = string => stringNormalize(string);
+  return checkChangeObjectMatch(response, getOptimalResponses(responses), fn);
+}
 
 export function checkChangeObjectMatch(userString: string, responses: Array<Responses>, stringManipulationFn: (string: string) => string, skipSort: boolean = false) {
   if (!skipSort) {
