@@ -464,6 +464,6 @@ private
   end
 
   def generate_referrer_id
-    ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-'))
+    ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + self.id.to_s)
   end
 end
