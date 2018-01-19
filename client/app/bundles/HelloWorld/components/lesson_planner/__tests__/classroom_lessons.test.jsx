@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import ClassroomLessons from '../classroom_lessons';
 
-describe('ClassroomLessons component', () => {
+describe.skip('ClassroomLessons component', () => {
   const wrapper = shallow(<ClassroomLessons />)
 
   it('renders', () => {

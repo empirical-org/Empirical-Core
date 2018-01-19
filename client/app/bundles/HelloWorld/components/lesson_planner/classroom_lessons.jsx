@@ -2,12 +2,12 @@ import React from 'react';
 import request from 'request';
 import Units from './manage_units/units';
 import LoadingIndicator from '../shared/loading_indicator';
+import {orderUnits} from '../modules/parseUnits.js'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 
 export default class ClassroomLessons extends React.Component {
   constructor(props) {
     super();
-
     this.state = {
       allLessons: [],
       lessons: [],
@@ -22,6 +22,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   getClassrooms() {
+    alert('hi')
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
@@ -160,13 +161,7 @@ export default class ClassroomLessons extends React.Component {
         });
       }
     });
-    return this.orderUnits(parsedUnits);
-  }
-
-  orderUnits(units) {
-    const unitsArr = [];
-    Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
-    return unitsArr;
+    return orderUnits(parsedUnits);
   }
 
   render() {
