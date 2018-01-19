@@ -1,5 +1,5 @@
 export default (data) => {
-
+const parsedUnits = {};
   data.forEach((u) => {
     const numberOfAssignedStudents = assignedStudentCount(u);
     if (!parsedUnits[u.unit_id]) {
@@ -33,7 +33,6 @@ export default (data) => {
   return orderUnits(parsedUnits);
 };
 
-const parsedUnits = {};
 
 const classroomActivityData = (u, assignedStudentCount, completedCount, cumulativeScore) => {
   return {
@@ -94,3 +93,5 @@ const orderUnits = (units) => {
   Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
   return unitsArr;
 }
+
+export {orderUnits}

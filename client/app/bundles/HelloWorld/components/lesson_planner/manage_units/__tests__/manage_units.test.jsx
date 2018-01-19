@@ -90,6 +90,14 @@ const mockUnits = [
   }
 ];
 
+
+describe('ManageUnits component', () => {
+  const wrapper = shallow(<ManageUnits />)
+
+  it('renders', () => {
+    expect(wrapper).toMatchSnapshot()
+  })
+})
 // We're going to skip these tests until we fix up the module for
 // generateNewCaUnit, parseUnits, and orderUnits.
 describe.skip('ManageUnits component', () => {

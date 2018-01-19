@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiagnosticActivityPacks component should render 1`] = `
+<div
+  className="container manage-units"
+>
+  <loading_indicator />
+</div>
+`;
