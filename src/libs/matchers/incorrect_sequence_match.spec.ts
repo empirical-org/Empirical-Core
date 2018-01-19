@@ -10,7 +10,8 @@ const savedResponses: Array<Response> = [
     feedback: "Good job, that's a sentence!",
     optimal: true,
     count: 2,
-    question_uid: "questionOne"
+    question_uid: "questionOne",
+    key: 'one'
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ const savedResponses: Array<Response> = [
     feedback: "Good job, that's a sentence!",
     optimal: true,
     count: 1,
-    question_uid: "questionOne"
+    question_uid: "questionOne",
+    key: 'two'
   }
 ]
 
@@ -26,26 +28,32 @@ const incorrectSequences = [
   {
     text: 'early stage companies|||high potential companies',
     feedback: 'Inc 1',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
     text: 'because|||however',
     feedback: 'Inc 2',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
     text: 'triangle ',
     feedback: 'Inc 3',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
     text: '(startups.*){2,}',
     feedback: 'Inc 4',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
     text: '^Emilia',
     feedback: 'Inc 5',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
     text: 'fun.$',
     feedback: 'Inc 6',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   }
 ]
 
@@ -91,11 +99,13 @@ describe('The incorrectSequenceChecker', () => {
     const partialResponse =  {
         feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
         author: 'Incorrect Sequence Hint',
-        parent_id: getTopOptimalResponse(savedResponses).key
+        parent_id: getTopOptimalResponse(savedResponses).id,
+        concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
       }
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
     assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results, partialResponse.concept_results);
   });
 
   it('Should return undefined if the response string does not match an incorrect sequence', () => {

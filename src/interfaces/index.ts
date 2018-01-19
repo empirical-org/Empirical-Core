@@ -50,14 +50,14 @@ export interface ConceptResult {
 export interface FocusPoint {
   text: string,
   feedback: string,
-  conceptUID?: string,
+  concept_uid?: string,
   concept_results?: Array<ConceptResult>
 }
 
 export interface IncorrectSequence {
   text: string,
   feedback: string,
-  conceptResults?: Array<ConceptResult>
+  concept_results?: Array<ConceptResult>
 }
 
 export interface FeedbackObject {

@@ -14,7 +14,7 @@ export function caseInsensitiveMatch(response: string, responses:Array<Response>
 export function caseInsensitiveChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
   const match = caseInsensitiveMatch(responseString, responses);
   if (match) {
-    const parentID = match.key
+    const parentID = match.id
     return caseInsensitiveResponseBuilder(responses, parentID)
   }
 }
@@ -24,7 +24,7 @@ export function caseInsensitiveResponseBuilder(responses:Array<Response>, parent
     feedback: constants.FEEDBACK_STRINGS.caseError,
     author: 'Capitalization Hint',
     parent_id: parentID,
-    conceptResults: [
+    concept_results: [
       conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ')
     ]
   }

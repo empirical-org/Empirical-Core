@@ -28,14 +28,17 @@ const focusPoints = [
   {
     text: 'edtech',
     feedback: "What's that thing with computers and school he likes?",
+    concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
     text: 'and|||as well as',
     feedback: "What's a word that shows he likes two things?",
+    concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
     text: 'startups',
     feedback: "What's that thing with computers and school he likes?",
+    concept_results: [{correct: true, conceptUID: 'a'}]
   }
 ]
 
@@ -74,7 +77,8 @@ describe('The focusPointChecker', () => {
     const partialResponse =  {
         feedback: focusPointMatch(responseString, focusPoints).feedback,
         author: 'Focus Point Hint',
-        parent_id: getTopOptimalResponse(savedResponses).key
+        parent_id: getTopOptimalResponse(savedResponses).id,
+        concept_results: focusPointMatch(responseString, focusPoints).concept_results
       }
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);

@@ -47,7 +47,7 @@ describe('The caseInsensitiveChecker', () => {
     const partialResponse =  {
         feedback: constants.FEEDBACK_STRINGS.caseError,
         author: 'Capitalization Hint',
-        parent_id: caseInsensitiveMatch(responseString, savedResponses).key,
+        parent_id: caseInsensitiveMatch(responseString, savedResponses).id,
         concept_results: [
           conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
         ],
@@ -55,7 +55,7 @@ describe('The caseInsensitiveChecker', () => {
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    // assert.equal(caseInsensitiveChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    assert.equal(caseInsensitiveChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
   });
 
   it('Should return undefined if the lowercased response string does not match a lowercased partial response', () => {
