@@ -47,3 +47,9 @@ Please note that if the classes have different teachers, all of the student's ac
 This method will sever an account's connection with Google Classroom, allowing them to log in normally.
 
 The new email field is optional, and can be left blank if the user does not wish to change their email.
+
+## [Merge Two Schools](https://www.quill.org/teacher_fix/merge_two_schools)
+
+This allows you to transfer all of the teachers in one school over to a second school.
+
+This is useful for when teachers signed in with Clever and caused a new school to be created that is a duplicate of a school we already have in the database.

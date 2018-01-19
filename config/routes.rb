@@ -135,6 +135,10 @@ EmpiricalGrammar::Application.routes.draw do
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
+    get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
+    # in actual use with progress_reports/student_overview, pass the query string ?classroom_id=x&student_id=y
+    get 'progress_reports/student_overview' => 'progress_reports#student_overview'
+
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
@@ -276,6 +280,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
+      get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
+      get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -313,6 +319,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'schools#select_school'
+  get '/select_school', to: 'schools#select_school'
 
   namespace :cms do
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
@@ -368,7 +375,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
@@ -402,6 +409,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/recover_activity_sessions' => 'teacher_fix#index'
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
+  get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
@@ -410,6 +418,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#merge_teacher_accounts'
   post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
+  post 'teacher_fix/merge_two_schools' => 'teacher_fix#merge_two_schools'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'

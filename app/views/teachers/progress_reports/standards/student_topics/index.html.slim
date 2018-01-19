@@ -1,7 +1,0 @@
-.container.progress-report
-  .row
-    ol.breadcrumb
-      li=link_to "Standards: All Classrooms", teachers_progress_reports_standards_classrooms_path
-      li=link_to "Student View", teachers_progress_reports_standards_classroom_students_path(classroom_id: params[:classroom_id])
-      li Individual Student
-  .progress-reports-standards-topics data-url=url_for(format: :json)

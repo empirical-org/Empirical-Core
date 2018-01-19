@@ -127,7 +127,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby'
+gem 'clever-ruby', '~> 0.13.2'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -183,6 +183,7 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'codecov'
+  # gem 'test_after_commit'
 end
 
 # Memory profiling

@@ -48,15 +48,15 @@
     );
   },
 
-  getClassName: function () {
-    var val;
-    if (this.props.index === 1) {
-      val = 'row unit-template-mini pull-right'
-    } else {
-      val = 'row unit-template-mini'
-    }
-    return val;
-  },
+  // getClassName: function () {
+  //   var val;
+  //   if (this.props.index === 1) {
+  //     val = 'row unit-template-mini pull-right'
+  //   } else {
+  //     val = 'row unit-template-mini'
+  //   }
+  //   return val;
+  // },
 
   getLink: function () {
     let link
@@ -80,7 +80,7 @@
     if (this.props.data.id == 'createYourOwn') {
       return (
         <Link to={this.getLink()}>
-          <div className='text-center col-xs-12 create-your-own'>
+          <div className='text-center create-your-own'>
             <div className='content-wrapper'>
               <img className='plus_icon' src='/add_class.png'/>
               <h3>Create Your Own Activity Pack</h3>
@@ -94,7 +94,7 @@
     else {
       return(
           <Link to={this.getLink()}>
-            <div className='col-xs-12'>
+            <div>
               <UnitTemplateFirstRow
                   data={this.props.data}
                   modules={{string: this.modules.string}} />
@@ -108,7 +108,7 @@
 
   render: function () {
     return (
-      <div className={this.getClassName()} onClick={this.onClickAction}>
+      <div className='unit-template-mini' onClick={this.onClickAction}>
         {this.miniSpecificComponents()}
       </div>
     );

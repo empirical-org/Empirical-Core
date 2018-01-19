@@ -1,0 +1,52 @@
+.download-button-wrapper {
+  position: relative;
+  .dropdown-content {
+    margin-top: 10px;
+    position: absolute;
+    background: #fff;
+    padding: 16px;
+    border-radius: 6px;
+    border: solid 1px #e9e9e9;
+    line-height: 5px;
+    font-size: 12px;
+    color: #7a7a7a;
+    right: 0px;
+    width: 222px;
+    z-index: 1000;
+    i {
+      float: right;
+      display: block;
+      position: relative;
+      color: white;
+      top: -55px;
+      font-size: 25px;
+      &.gray-caret {
+        top: -32px;
+        color: #e9e9e9
+      }
+    }
+    .button-wrapper {
+      display: flex;
+      flex-wrap: no-wrap;
+      justify-content: space-between;
+      margin-top: 15px;
+      width: 150px;
+      button {
+        hover: pointer;
+        width: 70px;
+        padding: 0px;
+        height: 27px;
+        border-radius: 6px;
+        border: solid 1px #cecece;
+        font-size: 13px;
+        color: #666666;
+        line-height: 1;
+        font-weight: 600;
+        img {
+          padding-bottom: 2px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+}
