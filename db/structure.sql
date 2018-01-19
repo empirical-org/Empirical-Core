@@ -371,6 +371,39 @@ ALTER SEQUENCE admin_accounts_teachers_id_seq OWNED BY admin_accounts_teachers.i
 
 
 --
+-- Name: affiliate_user; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE affiliate_user (
+    id integer NOT NULL,
+    user_id integer,
+    affiliate_code character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: affiliate_user_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE affiliate_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: affiliate_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE affiliate_user_id_seq OWNED BY affiliate_user.id;
+
+
+--
 -- Name: authors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1761,6 +1794,13 @@ ALTER TABLE ONLY admin_accounts_teachers ALTER COLUMN id SET DEFAULT nextval('ad
 
 
 --
+-- Name: affiliate_user id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY affiliate_user ALTER COLUMN id SET DEFAULT nextval('affiliate_user_id_seq'::regclass);
+
+
+--
 -- Name: authors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2088,6 +2128,14 @@ ALTER TABLE ONLY admin_accounts
 
 ALTER TABLE ONLY admin_accounts_teachers
     ADD CONSTRAINT admin_accounts_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: affiliate_user affiliate_user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY affiliate_user
+    ADD CONSTRAINT affiliate_user_pkey PRIMARY KEY (id);
 
 
 --
@@ -2539,6 +2587,20 @@ CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON admin_accounts
 --
 
 CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teachers USING btree (teacher_id);
+
+
+--
+-- Name: index_affiliate_user_on_affiliate_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_affiliate_user_on_affiliate_code ON affiliate_user USING btree (affiliate_code);
+
+
+--
+-- Name: index_affiliate_user_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_affiliate_user_on_user_id ON affiliate_user USING btree (user_id);
 
 
 --
@@ -3625,4 +3687,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171214152937');
 INSERT INTO schema_migrations (version) VALUES ('20171218222306');
 
 INSERT INTO schema_migrations (version) VALUES ('20180102151559');
+
+INSERT INTO schema_migrations (version) VALUES ('20180119152409');
+
+INSERT INTO schema_migrations (version) VALUES ('20180119152816');
 
