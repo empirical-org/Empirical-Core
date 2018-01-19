@@ -649,4 +649,23 @@ describe User, type: :model do
 
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
+
+  describe 'affiliate_user' do
+
+  end
+
+  describe '#generate_affiliate_id' do
+    it 'creates a new AffiliateUser when a teacher is created' do
+      affiliate_users = AffiliateUser.count
+      teacher = create(:teacher)
+      expect(AffiliateUser.count).to be(affiliate_users + 1)
+      expect(teacher.affiliate_code).to eq(teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-'))
+    end
+
+    it 'does create a new AffiliateUser when a student is created' do
+      affiliate_users = AffiliateUser.count
+      create(:student)
+      expect(AffiliateUser.count).to be(affiliate_users)
+    end
+  end
 end

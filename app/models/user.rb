@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
   after_save  :update_invitee_email_address, if: Proc.new { self.email_changed? }
+  after_create :generate_affiliate_id, if: Proc.new { self.teacher? }
 
 
   has_secure_password validations: false
@@ -460,5 +461,9 @@ private
 
   def update_invitee_email_address
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
+  end
+
+  def generate_affiliate_id
+    AffiliateUser.create(user_id: self.id, affiliate_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-'))
   end
 end
