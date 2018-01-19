@@ -13,7 +13,7 @@ module Teacher
     has_one :subscription, through: :user_subscription
     has_one :referrer_user
     has_many :referrals_users
-    belongs_to :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
+    has_one :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
   end
 
   class << self
