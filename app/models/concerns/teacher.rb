@@ -11,6 +11,7 @@ module Teacher
     has_many :units
     has_one :user_subscription
     has_one :subscription, through: :user_subscription
+    has_one :affiliate_user
   end
 
   class << self
@@ -469,6 +470,10 @@ module Teacher
       WHERE classrooms_teachers.user_id = #{self.id}
       ORDER BY units.name ASC;
     ").to_a
+  end
+
+  def affiliate_code
+    self.affiliate_user.affiliate_code
   end
 
   private
