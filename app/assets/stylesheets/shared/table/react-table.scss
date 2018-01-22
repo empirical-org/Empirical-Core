@@ -1,4 +1,8 @@
 .ReactTable {
+  .rt-tbody .rt-td {
+    border: none;
+  }
+
   &.progress-report, &.unit-template-profile-activities {
     border: none;
     max-width: 950px;

@@ -22,7 +22,13 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'returns JSON object with activity session name key values' do
         session[:user_id] = teacher.id
         get :student_names, id: classroom.classroom_activities.first.id, format: 'json'
-        expect(JSON.parse(response.body).keys.count).to eq(5)
+        expect(JSON.parse(response.body)['activity_sessions_and_names'].keys.count).to eq(5)
+    end
+
+    it 'returns JSON object with student id key values' do
+        session[:user_id] = teacher.id
+        get :student_names, id: classroom.classroom_activities.first.id, format: 'json'
+        expect(JSON.parse(response.body)['student_ids'].keys.count).to eq(5)
     end
   end
 

@@ -3,10 +3,14 @@
  import React from 'react'
  import ReactTable from 'react-table'
 
- export default  React.createClass({
+ export default React.createClass({
   propTypes: {
     data: React.PropTypes.object,
     actions: React.PropTypes.object
+  },
+
+  redirectToActivity: function(activityId) {
+    window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
   },
 
   columnDefinitions: function() {
@@ -14,26 +18,30 @@
     return [
       {
         Header: 'Tool',
-        maxWidth: 160,
-        accessor: 'classification.id',
-        Cell: props => <div className={`icon-${props.value}-green-no-border activity-icon`}></div>
+        width: 78,
+        accessor: a => a,
+        id: 'toolName',
+        Cell: props => <a onClick={() => this.redirectToActivity(props.value.id)} className='row-link-disguise'><div className={`icon-${props.value.classification.id}-green-no-border activity-icon`}></div></a>
       },
       {
         Header: 'Activity',
-        id: 'activityName',
         accessor: a => a,
-        Cell: props => <a href={`/activity_sessions/anonymous?activity_id=${props.value.id}`} target="_blank" className='highlight-on-hover'>{props.value.name}</a>,
+        id: 'activityName',
+        Cell: props => <a onClick={() => this.redirectToActivity(props.value.id)} className='row-link-disguise highlight-on-hover'>{props.value.name}</a>,
       },
       {
         Header: 'Concept',
-        accessor: 'topic.topic_category.name',
-        Cell: props => <span>{props.value}</span>,
+        accessor: a => a,
+        id: 'conceptName',
+        Cell: props => <a onClick={() => this.redirectToActivity(props.value.id)} className='row-link-disguise' style={{color: 'black'}}><span>{props.value.topic.topic_category.name}</span></a>
       },
       {
         accessor: 'id',
         maxWidth: 150,
         textAlign: 'right',
-        Cell: props =>  <a href={`/activity_sessions/anonymous?activity_id=${props.value}`} target="_blank" >Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/></a>,
+        accessor: a => a,
+        id: 'chevron',
+        Cell: props => <a onClick={() => this.redirectToActivity(props.value.id)} className='row-link-disguise'>Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/></a>,
       }
     ];
   },
@@ -48,6 +56,7 @@
         defaultPageSize={this.props.data.activities.length}
         resizable={false}
         className='unit-template-profile-activities'
+        sortable={false}
         />
     )
   }
