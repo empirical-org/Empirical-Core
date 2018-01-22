@@ -3,8 +3,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
   before_filter :authorize!
 
   def student_names
-    get_assigned_student_hash
-    render json: @assigned_student_hash
+    render json: get_assigned_student_hash
   end
 
   def teacher_and_classroom_name
@@ -39,6 +38,14 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     render json: @classroom_activity.pinned
   end
 
+  def classroom_teacher_and_coteacher_ids
+    teacher_ids = @classroom_activity.try(&:classroom).try(&:teacher_ids)
+    if teacher_ids
+      teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] } ]
+    end
+    render json: {teacher_ids: teacher_ids_h ? teacher_ids_h : {}}
+  end
+
   private
 
   def authorize!
@@ -49,12 +56,17 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
 
   def get_assigned_student_hash
     activity_sessions = @classroom_activity.activity_sessions.includes(:user)
-    @assigned_student_hash = {}
+    assigned_student_hash = {}
+    assigned_student_ids_hash = {}
     activity_sessions.each do |act_sesh|
       if act_sesh.uid
-        @assigned_student_hash[act_sesh.uid] = act_sesh.user.name
+        assigned_student_hash[act_sesh.uid] = act_sesh.user.name
+      end
+      if act_sesh.user_id
+        assigned_student_ids_hash[act_sesh.user_id] = true
       end
     end
+    {activity_sessions_and_names: assigned_student_hash, student_ids: assigned_student_ids_hash}
   end
 
 
