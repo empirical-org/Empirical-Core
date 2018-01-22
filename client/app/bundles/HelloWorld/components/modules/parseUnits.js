@@ -94,4 +94,4 @@ const orderUnits = (units) => {
   return unitsArr;
 }
 
-export {orderUnits}
+export {orderUnits, generateNewCaUnit, assignedStudentCount, classroomActivityData}
