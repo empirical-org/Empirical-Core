@@ -21,7 +21,7 @@ gem 'atomic_arrays'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem 'doorkeeper', '~> 4.2.0'
+gem 'doorkeeper', '1.4.1'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'

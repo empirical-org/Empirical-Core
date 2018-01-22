@@ -1,5 +1,5 @@
 class Api::V1::ConceptsController < Api::ApiController
-  before_action :doorkeeper_authorize!, only: [:create]
+  doorkeeper_for :create
 
   def create
     concept = Concept.new(concept_params)
