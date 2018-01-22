@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChampionInvitationMini component should render 1`] = `
+<div
+  className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center"
+>
+  <div
+    className="mini_content"
+  >
+    <div
+      className="gray-underline"
+      style={
+        Object {
+          "padding": "8px",
+          "position": "relative",
+        }
+      }
+    >
+      <img
+        className="mini-star-icon"
+        src="/assets/icons/icon-star.svg"
+        style={
+          Object {
+            "height": "27px",
+            "position": "absolute",
+            "right": "-22px",
+            "top": "-11px",
+            "transform": "rotate(-22deg)",
+            "width": "27px",
+          }
+        }
+      />
+      <img
+        className="mini-star-icon"
+        src="/assets/icons/icon-star.svg"
+        style={
+          Object {
+            "height": "14px",
+            "position": "absolute",
+            "right": "-3px",
+            "top": "-11px",
+            "transform": "rotate(-34deg)",
+            "width": "14px",
+          }
+        }
+      />
+      <h3>
+        Become a Quill Champion!
+      </h3>
+    </div>
+    <div>
+      <img
+        src="https://assets.quill.org/images/illustrations/high-five-illustrationx2.png"
+        style={
+          Object {
+            "marginBottom": 11,
+            "marginTop": 13,
+            "width": 57,
+          }
+        }
+      />
+    </div>
+    <p
+      style={
+        Object {
+          "fontFamily": "lucida-grande, adelle-sans, helvetica",
+          "lineHeight": "1.57",
+          "padding": "0px 15px",
+        }
+      }
+    >
+      This is where Amr's awesome as heck copy will go that will compel our teachers to refer all their teacher friends. Wow!
+    </p>
+    <a
+      href="/teachers/classrooms#invite-coteachers"
+      style={
+        Object {
+          "display": "block",
+          "marginBottom": "12px",
+        }
+      }
+    >
+      <button
+        className="button button-white beta"
+        style={
+          Object {
+            "marginTop": "15px",
+            "maxWidth": "233px",
+            "paddingBottom": "13px",
+            "width": "100%",
+          }
+        }
+      >
+        CTA Button
+      </button>
+    </a>
+    <a
+      href="#TODO"
+      style={
+        Object {
+          "color": "#027360",
+        }
+      }
+      target="_blank"
+    >
+      TODO: fancy link goes here &gt;
+    </a>
+  </div>
+</div>
+`;
