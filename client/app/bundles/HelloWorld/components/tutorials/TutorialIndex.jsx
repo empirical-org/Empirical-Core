@@ -62,8 +62,7 @@ export default class TutorialIndex extends React.Component {
     } else if (getParameterByName('nocta')){
       return <div style={{'height': '55px'}}/>
     } else {
-      // TODO: get link for sample activity
-      return <button className="text-white bg-quillgreen try-button" onClick={() => {}}>Try Sample Activity</button>
+      return <button className="text-white bg-quillgreen try-button" onClick={() => {window.location = "https://connect.quill.org/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview"}}>Try Sample Activity</button>
     }
   }
 
