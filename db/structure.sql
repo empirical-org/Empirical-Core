@@ -1138,7 +1138,8 @@ CREATE TABLE referrals_users (
     user_id integer NOT NULL,
     referred_user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    activated boolean DEFAULT false
 );
 
 
@@ -2849,6 +2850,13 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING 
 
 
 --
+-- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_referrals_users_on_activated ON referrals_users USING btree (activated);
+
+
+--
 -- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3742,3 +3750,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180110221301');
 INSERT INTO schema_migrations (version) VALUES ('20180119152409');
 
 INSERT INTO schema_migrations (version) VALUES ('20180119162847');
+
+INSERT INTO schema_migrations (version) VALUES ('20180123151650');
+

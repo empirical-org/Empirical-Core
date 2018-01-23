@@ -64,4 +64,10 @@ class UserMailer < ActionMailer::Base
     mail from: "Becca Garrison <becca@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
+  def activated_referral_email(referrer_hash, referral_hash)
+    @referrer = referrer_hash
+    @referral = referral_hash
+    mail from: "Quill Team <hello@quill.org>", 'reply-to': @referral['email'], to: @referrer['email'], subject: "#{@referral['name']} just activated their account on Quill!"
+  end
+
 end
