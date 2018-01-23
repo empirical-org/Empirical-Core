@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactTable from 'react-table'
+import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post.jsx'
 
 export default React.createClass({
-
-
 
   columns: function() {
     return ([
@@ -20,7 +19,7 @@ export default React.createClass({
 
   render: function() {
     if (['new', 'edit'].includes(this.props.action)) {
-      alert('new or edit')
+      return <CreateOrEditBlogPost/>
     }
     return (
       <div className="cms-blog-posts">
