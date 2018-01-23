@@ -19,7 +19,7 @@ export default React.createClass({
 
   render: function() {
     if (['new', 'edit'].includes(this.props.action)) {
-      return <CreateOrEditBlogPost/>
+      return <CreateOrEditBlogPost {...this.props}/>
     }
     return (
       <div className="cms-blog-posts">
