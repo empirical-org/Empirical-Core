@@ -39,5 +39,7 @@ module SegmentIo
     MYSTERY_STUDENT_DELETION ||= 'Mystery student deletion'
     ACTIVITY_SEARCH ||= 'Activity search'
     STUDENT_LOGIN_PDF_DOWNLOAD ||= 'Student login PDF download'
+    REFERRAL_INVITED ||= "A new teacher signed up from this teacher's referral link"
+    REFERRAL_ACTIVATED ||= "One of this teacher's referrals is now active"
   end
 end
