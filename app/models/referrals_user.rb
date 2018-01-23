@@ -5,4 +5,8 @@ class ReferralsUser < ActiveRecord::Base
   def referring_user
     self.user
   end
+
+  def referrer
+    self.user
+  end
 end
