@@ -6,6 +6,7 @@ class Cms::BlogPostsController < ApplicationController
   end
 
   def new
+    @authors = authors
   end
 
   def edit
@@ -25,4 +26,7 @@ class Cms::BlogPostsController < ApplicationController
 
   private
 
+  def authors
+    Author.all.select('name', 'id')
+  end
 end
