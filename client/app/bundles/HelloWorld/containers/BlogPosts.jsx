@@ -3,8 +3,10 @@ import ReactTable from 'react-table'
 
 export default React.createClass({
 
-  render: function() {
-    const columns = [
+
+
+  columns: function() {
+    return ([
       {
         Header: 'Title',
         accessor: 'title'
@@ -13,12 +15,18 @@ export default React.createClass({
         accessor: 'id',
         Cell: props => <a href={`/cms/blog_posts/${props.value}/edit`}>Edit</a>
       }
-    ]
+    ])
+  },
+
+  render: function() {
+    if (['new', 'edit'].includes(this.props.action)) {
+      alert('new or edit')
+    }
     return (
       <div className="cms-blog-posts">
         <ReactTable
           data={this.props.blogPosts}
-          columns={columns}
+          columns={this.columns()}
           showPagination={false}
           showPaginationTop={false}
           showPaginationBottom={false}
