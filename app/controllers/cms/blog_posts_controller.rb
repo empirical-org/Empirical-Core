@@ -13,7 +13,8 @@ class Cms::BlogPostsController < ApplicationController
   end
 
   def create
-
+    blog_post = BlogPost.create(blog_post_params)
+    render json: blog_post
   end
 
   def update
@@ -28,5 +29,16 @@ class Cms::BlogPostsController < ApplicationController
 
   def authors
     Author.all.select('name', 'id')
+  end
+
+  def blog_post_params
+    params.require(:blog_post)
+            .permit(:id,
+                    :body,
+                    :title,
+                    :subtitle,
+                    :author_id,
+                    :topic,
+                    :read_count)
   end
 end
