@@ -71,6 +71,20 @@ RSpec.describe ReferralsUser, type: :model do
   end
 
   describe '#send_activation_email' do
-    skip 'todo: write this test'
+    let(:referrals_user) { create(:referrals_user) }
+    let(:referrer) { referrals_user.referrer }
+    let(:referral) { referrals_user.referral }
+
+    it 'should trigger mailer with appropriate data' do
+      # So we don't accidentally send emails on develop, many of our mailer
+      # methods are scoped to production with the exception of if the email
+      # address includes the quill.org domain. Let's just make these users'
+      # email addresses include quill.org so we can test this properly.
+      referrer.update(email: 'referrer@quill.org')
+      referral.update(email: 'referral@quill.org')
+      expect { referrals_user.send_activation_email }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(ActionMailer::Base.deliveries.last.subject).to eq("#{referral.name} just activated their account on Quill!")
+      expect(ActionMailer::Base.deliveries.last.to).to eq([referrer.email])
+    end
   end
 end

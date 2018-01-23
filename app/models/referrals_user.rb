@@ -17,6 +17,14 @@ class ReferralsUser < ActiveRecord::Base
     self.referred_user
   end
 
+  def referrer_id
+    self.user_id
+  end
+
+  def referral_id
+    self.referred_user_id
+  end
+
   def send_activation_email
     user_info = ActiveRecord::Base.connection.execute("SELECT name, email FROM users WHERE id = #{self.referrer_id} OR id = #{self.referral_id}").to_a
     referrer_hash = user_info.first
