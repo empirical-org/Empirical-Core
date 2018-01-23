@@ -2,18 +2,17 @@ import React from 'react';
 import request from 'request';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import MarkdownParser from '../../shared/markdown_parser.jsx'
+import _ from 'underscore'
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       title: null,
       subtitle: null,
       body: null,
-      authorId: null,
+      author_id: null,
       topic: null,
-      authors: this.props.authors,
       selectedAuthorId: null,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -42,10 +41,11 @@ export default class extends React.Component {
     request[action]({
       url: `${process.env.DEFAULT_URL}/cms/blog_posts`,
     form: {
-      blog_post: this.state,
+      blog_post: _.omit(this.state, 'selectedAuthorId'),
       authenticity_token: ReactOnRails.authenticityToken()
     },
     function(err, httpResponse, body) {
+      debugger;
       if (httpResponse.status === 200) {
         alert('success!')
       } else {
