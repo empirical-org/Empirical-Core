@@ -85,13 +85,20 @@ export default class UnitTemplateProfile extends React.Component {
       : null
   }
 
+  socialShareUrl() {
+    return `${window.location}`
+  }
+
+  socialText() {
+    return `Check out the '${this.state.data.name}' activity pack I just assigned on Quill.org! ${this.socialShareUrl()}`
+  }
 
   render() {
     if (this.state.loading) {
       return <LoadingIndicator/>
     } else {
       if (document.querySelector("meta[name='og:description']")) {
-        document.querySelector("meta[name='og:description']").content = `Check out the '${this.state.data.name}' activity pack I just assigned on Quill.org!`;
+        document.querySelector("meta[name='og:description']").content = this.socialText();
       }
       return (
         <div className='unit-template-profile'>
@@ -109,7 +116,7 @@ export default class UnitTemplateProfile extends React.Component {
               <div className='assign-buttons-and-standards'>
                 <UnitTemplateProfileAssignButton data={this.state.data}/>
                 <UnitTemplateProfileStandards data={this.state.data}/>
-                <UnitTemplateProfileShareButtons data={this.state.data}/>
+                <UnitTemplateProfileShareButtons data={this.state.data} url={this.socialShareUrl()} text={this.socialText()}/>
               </div>
             </div>
             <div className="related-activity-packs">
