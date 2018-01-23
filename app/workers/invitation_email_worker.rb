@@ -17,6 +17,7 @@ class InvitationEmailWorker
       email_vars[:invitee_first_name] = invitee_in_db.first_name
       invitee_in_db.send_invitation_to_existing_user(email_vars)
     else
+      email_vars[:referral_code] = invitation.inviter.referral_code
       invitation.inviter.send_invitation_to_non_existing_user(email_vars)
     end
   end
