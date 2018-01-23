@@ -17,6 +17,15 @@ class ReferralsUser < ActiveRecord::Base
     self.referred_user
   end
 
+  def send_activation_email
+    user_info = ActiveRecord::Base.connection.execute("SELECT name, email FROM users WHERE id = #{self.referrer_id} OR id = #{self.referral_id}").to_a
+    referrer_hash = user_info.first
+    referral_hash = user_info.last
+    if Rails.env.production? || (referrer_hash['email'].match('quill.org') && referral_hash['email'].match('quill.org'))
+      UserMailer.activated_referral_email(referrer_hash, referral_hash).deliver_now!
+    end
+  end
+
   private
   def trigger_invited_event
     # Unlike other analytics events, we want to track this event with respect
@@ -31,5 +40,6 @@ class ReferralsUser < ActiveRecord::Base
     # measure the referrer's referring activity and not the current user's.
     ReferrerAnalytics.new.track_referral_activated(self.referrer, self.referred_user.id)
     UserMilestone.find_or_create_by(user_id: self.referrer.id, milestone_id: Milestone.find_or_create_by(name: Milestone::TYPES[:refer_an_active_teacher]).id)
+    ReferralEmailWorker.perform_async(self.id)
   end
 end

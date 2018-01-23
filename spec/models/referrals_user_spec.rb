@@ -44,9 +44,9 @@ RSpec.describe ReferralsUser, type: :model do
 
     describe 'on update when activated becomes true' do
       let!(:referrals_user) { create(:referrals_user) }
-      before(:each) { referrals_user.update(activated: true) }
 
       it 'triggers an activated event' do
+        referrals_user.update(activated: true)
         expect(identify_calls.size).to eq(2)
         expect(identify_calls[1][:user_id]).to be(referrals_user.referrer.id)
         expect(track_calls[1][:event]).to be(SegmentIo::Events::REFERRAL_ACTIVATED)
@@ -55,11 +55,22 @@ RSpec.describe ReferralsUser, type: :model do
       end
 
       it 'registers a user milestone' do
+        referrals_user.update(activated: true)
         expect(UserMilestone.where(
           user_id: referrals_user.referrer.id,
           milestone_id: Milestone.find_by(name: Milestone::TYPES[:refer_an_active_teacher])
         )).to exist
       end
+
+      it 'sends an email notification' do
+        current_jobs = ReferralEmailWorker.jobs.size
+        referrals_user.update(activated: true)
+        expect(ReferralEmailWorker.jobs.size).to be(current_jobs + 1)
+      end
     end
+  end
+
+  describe '#send_activation_email' do
+    skip 'todo: write this test'
   end
 end
