@@ -340,6 +340,7 @@ EmpiricalGrammar::Application.routes.draw do
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
+    resources :blog_posts
 
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
