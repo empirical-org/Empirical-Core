@@ -17,5 +17,9 @@ FactoryBot.define do
     factory :complete_customized_lesson_milestone do
       name { 'Complete Customized Lesson' }
     end
+
+    factory :refer_an_active_teacher do
+      name { 'Refer an Active Teacher' }
+    end
   end
 end

@@ -30,23 +30,36 @@ RSpec.describe ReferralsUser, type: :model do
     let(:track_calls) { segment_analytics.backend.track_calls }
     let(:identify_calls) { segment_analytics.backend.identify_calls }
 
-    it 'triggers an invited event on create' do
-      referrals_user = create(:referrals_user)
-      expect(identify_calls.size).to eq(1)
-      expect(identify_calls[0][:user_id]).to be(referrals_user.referrer.id)
-      expect(track_calls[0][:event]).to be(SegmentIo::Events::REFERRAL_INVITED)
-      expect(track_calls[0][:user_id]).to be(referrals_user.referrer.id)
-      expect(track_calls[0][:properties][:referral_id]).to be(referrals_user.referral.id)
+    describe 'on create' do
+      let!(:referrals_user) { create(:referrals_user) }
+
+      it 'triggers an invited event' do
+        expect(identify_calls.size).to eq(1)
+        expect(identify_calls[0][:user_id]).to be(referrals_user.referrer.id)
+        expect(track_calls[0][:event]).to be(SegmentIo::Events::REFERRAL_INVITED)
+        expect(track_calls[0][:user_id]).to be(referrals_user.referrer.id)
+        expect(track_calls[0][:properties][:referral_id]).to be(referrals_user.referral.id)
+      end
     end
 
-    it 'triggers an activated event when activated becomes true' do
-      referrals_user = create(:referrals_user)
-      referrals_user.update(activated: true)
-      expect(identify_calls.size).to eq(2)
-      expect(identify_calls[1][:user_id]).to be(referrals_user.referrer.id)
-      expect(track_calls[1][:event]).to be(SegmentIo::Events::REFERRAL_ACTIVATED)
-      expect(track_calls[1][:user_id]).to be(referrals_user.referrer.id)
-      expect(track_calls[1][:properties][:referral_id]).to be(referrals_user.referral.id)
+    describe 'on update when activated becomes true' do
+      let!(:referrals_user) { create(:referrals_user) }
+      before(:each) { referrals_user.update(activated: true) }
+
+      it 'triggers an activated event' do
+        expect(identify_calls.size).to eq(2)
+        expect(identify_calls[1][:user_id]).to be(referrals_user.referrer.id)
+        expect(track_calls[1][:event]).to be(SegmentIo::Events::REFERRAL_ACTIVATED)
+        expect(track_calls[1][:user_id]).to be(referrals_user.referrer.id)
+        expect(track_calls[1][:properties][:referral_id]).to be(referrals_user.referral.id)
+      end
+
+      it 'registers a user milestone' do
+        expect(UserMilestone.where(
+          user_id: referrals_user.referrer.id,
+          milestone_id: Milestone.find_by(name: Milestone::TYPES[:refer_an_active_teacher])
+        )).to exist
+      end
     end
   end
 end
