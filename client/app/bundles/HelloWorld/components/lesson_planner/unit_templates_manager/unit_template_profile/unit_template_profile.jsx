@@ -53,7 +53,12 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   displayUnit(response) {
-    this.setState({data: response.data, relatedModels: response.related_models, loading: false})
+    this.setState({
+      data: response.data,
+      relatedModels: response.related_models,
+      referralCode: response.referral_code,
+      loading: false
+    })
   }
 
   indexLink() {
@@ -86,7 +91,7 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   socialShareUrl() {
-    return `${window.location}`
+    return `${window.location}${this.state.referralCode ? '?champion=' + this.state.referralCode : ''}`
   }
 
   socialText() {
