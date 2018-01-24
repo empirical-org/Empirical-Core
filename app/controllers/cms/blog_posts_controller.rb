@@ -4,7 +4,7 @@ class Cms::BlogPostsController < ApplicationController
   before_action :authors, only: [:edit, :new]
 
   def index
-    @blog_posts_name_and_id = BlogPost.all.select('title', 'id')
+    @blog_posts_name_and_id = BlogPost.all.select('title', 'id', 'updated_at', 'created_at', 'topic')
     #cms/blog_posts/index.html.erb
   end
 

@@ -341,7 +341,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
     resources :blog_posts
-
+    get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
     end
