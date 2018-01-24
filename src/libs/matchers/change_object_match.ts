@@ -2,14 +2,89 @@ import * as _ from 'underscore';
 import { diffWords } from 'diff';
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
-import {Response, PartialResponse} from '../../interfaces'
+import {Response, PartialResponse, ChangeObjectMatch} from '../../interfaces'
+import {removePunctuation} from '../helpers/remove_punctuation'
+import constants from '../../constants'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {getFeedbackForMissingWord} from '../helpers/joining_words_feedback'
 
-export function rigidChangeObjectMatch(response, responses) {
+interface TextChangesObject {
+  missingText: string|null,
+  extraneousText: string|null,
+}
+interface ChangeObjectMatch {
+  errorType: string,
+  response: Response,
+  missingText: string|null,
+  extraneousText: string|null,
+}
+
+export function rigidChangeObjectChecker(responseString: string, responses:Array<Response>):ChangeObjectMatch|undefined {
+  const match = rigidChangeObjectMatch(responseString, responses);
+  if (match) {
+    return rigidChangeObjectMatchResponseBuilder(match)
+  }
+}
+
+export function flexibleChangeObjectChecker(responseString: string, responses:Array<Response>):ChangeObjectMatch|undefined {
+  const match = flexibleChangeObjectMatch(responseString, responses);
+  if (match) {
+    return flexibleChangeObjectMatchResponseBuilder(match)
+  }
+}
+
+export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch): PartialResponse|null {
+  const res: PartialResponse = {}
+  switch (match.errorType) {
+    case ERROR_TYPES.INCORRECT_WORD:
+      const missingWord = match.missingText;
+      const missingTextFeedback = getFeedbackForMissingWord(missingWord);
+      res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
+      res.author = 'Modified Word Hint';
+      res.parent_id = match.response.key;
+      res.concept_results = [
+        conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
+      ];
+      return res;
+    case ERROR_TYPES.ADDITIONAL_WORD:
+      res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+      res.author = 'Additional Word Hint';
+      res.parent_id = match.response.key;
+      res.concept_results = [
+        conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
+      ];
+      return res;
+    case ERROR_TYPES.MISSING_WORD:
+
+      res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+      res.author = 'Missing Word Hint';
+      res.parent_id = match.response.key;
+      res.concept_results = [
+        conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+      ];
+      return res;
+    default:
+      return;
+  }
+}
+
+export function flexibleChangeObjectMatchResponseBuilder(match: ChangeObjectMatch): PartialResponse|null {
+  const initialVals = rigidChangeObjectMatchResponseBuilder(match)
+  initialVals.author = "Flexible " + initialVals.author;
+  return initialVals;
+}
+
+export function rigidChangeObjectMatch(response: string, responses: Array<Response>) {
   const fn = string => stringNormalize(string);
   return checkChangeObjectMatch(response, getOptimalResponses(responses), fn);
 }
 
-export function checkChangeObjectMatch(userString: string, responses: Array<Responses>, stringManipulationFn: (string: string) => string, skipSort: boolean = false) {
+export function flexibleChangeObjectMatch(response: string, responses: Array<Response>) {
+  const fn = string => removePunctuation(stringNormalize(string)).toLowerCase();
+  return checkChangeObjectMatch(response, getOptimalResponses(responses), fn);
+}
+
+export function checkChangeObjectMatch(userString: string, responses: Array<Response>, stringManipulationFn: (string: string) => string, skipSort: boolean = false): ChangeObjectMatch|null {
   if (!skipSort) {
     responses = _.sortBy(responses, 'count').reverse();
   }
@@ -52,7 +127,7 @@ const getErrorType = (targetString:string, userString:string):string|null => {
   }
 };
 
-const getMissingAndAddedString = (targetString: string, userString: string) => {
+const getMissingAndAddedString = (targetString: string, userString: string): TextChangesObject => {
   const changeObjects = getChangeObjects(targetString, userString);
   const missingObject = _.where(changeObjects, { removed: true, })[0];
   const missingText = missingObject ? missingObject.value : undefined;
