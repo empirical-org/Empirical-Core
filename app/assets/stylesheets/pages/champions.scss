@@ -20,16 +20,12 @@
       border-radius: 6px;
       border: 3px solid #0D977C;
       color: #02A388;
-      padding: 6px;
       font-size: 16px;
+      max-width: 425px;
+      padding: 6px;
       text-align: center;
       transition: all 0.3s ease;
       width: 90%;
-      max-width: 425px;
-
-      &:focus {
-        border-color: #007D62;
-      }
     }
   }
 

@@ -4,7 +4,7 @@
 
     <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
 
-      <li class="<%= (!is_progress_report_page?) && ((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
+      <li class="<%= (!is_progress_report_page?) && ((['classrooms', 'students', 'champions'].include?(controller_name)) || (['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name))) ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab' %>
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', class: 'mobile' %>
       </li>
@@ -30,7 +30,7 @@
           <%= link_to 'School', teachers_admin_dashboard_path, role: 'tab', class: 'mobile'  %>
         </li>
       <% end %>
-      
+
       <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
         <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
           <%= link_to raw(premium_tab_copy), premium_path, role: 'tab' %>
