@@ -4,15 +4,12 @@ import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
 import constants from '../../constants'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {removePunctuation} from '../helpers/remove_punctuation'
 
 export function punctuationInsensitiveMatch(responseString: string, responses: Array<Response>):Response|undefined {
   return _.find(getOptimalResponses(responses),
     resp => removePunctuation(stringNormalize(resp.text)) === removePunctuation(stringNormalize(responseString))
   );
-}
-
-export function removePunctuation(string:string) {
-  return string.replace(/[^A-Za-z0-9\s]/g, '');
 }
 
 export function punctuationInsensitiveChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
