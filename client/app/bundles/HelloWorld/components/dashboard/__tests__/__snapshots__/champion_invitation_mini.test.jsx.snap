@@ -50,12 +50,12 @@ exports[`ChampionInvitationMini component should render 1`] = `
     </div>
     <div>
       <img
-        src="https://assets.quill.org/images/illustrations/high-five-illustrationx2.png"
+        src="https://assets.quill.org/images/illustrations/champion.png"
         style={
           Object {
+            "height": 48,
             "marginBottom": 11,
             "marginTop": 13,
-            "width": 57,
           }
         }
       />
@@ -69,10 +69,10 @@ exports[`ChampionInvitationMini component should render 1`] = `
         }
       }
     >
-      This is where Amr's awesome as heck copy will go that will compel our teachers to refer all their teacher friends. Wow!
+      With the new Quill Champion program, you can earn rewards for helping fellow educators discover Quill.
     </p>
     <a
-      href="/teachers/classrooms#invite-coteachers"
+      href="/champions"
       style={
         Object {
           "display": "block",
@@ -91,11 +91,11 @@ exports[`ChampionInvitationMini component should render 1`] = `
           }
         }
       >
-        CTA Button
+        Earn Rewards
       </button>
     </a>
     <a
-      href="#TODO"
+      href="https://support.quill.org/getting-started-for-teachers/how-does-the-quill-champion-program-work"
       style={
         Object {
           "color": "#027360",
@@ -103,7 +103,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
       }
       target="_blank"
     >
-      TODO: fancy link goes here &gt;
+      Learn more about the Champion program &gt;
     </a>
   </div>
 </div>

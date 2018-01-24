@@ -11,13 +11,13 @@ class ChampionInvitationMini extends React.Component {
             <h3>Become a Quill Champion!</h3>
           </div>
           <div>
-            <img style={{marginTop: 13, marginBottom: 11, width: 57}} src="https://assets.quill.org/images/illustrations/high-five-illustrationx2.png"/>
+            <img style={{marginTop: 13, marginBottom: 11, height: 48}} src="https://assets.quill.org/images/illustrations/champion.png"/>
           </div>
           <p style={{ padding: '0px 15px', lineHeight: '1.57', fontFamily: 'lucida-grande, adelle-sans, helvetica', }}>
-          This is where Amr's awesome as heck copy will go that will compel our teachers to refer all their teacher friends. Wow!
-        </p>
-          <a style={{display: 'block', marginBottom: '12px'}} href="/teachers/classrooms#invite-coteachers"><button style={{ maxWidth: '233px', width: '100%', paddingBottom: '13px', marginTop: '15px'}} className="button button-white beta">CTA Button</button></a>
-          <a style={{color: '#027360'}} target="_blank" href="#TODO">TODO: fancy link goes here ></a>
+            With the new Quill Champion program, you can earn rewards for helping fellow educators discover Quill.
+          </p>
+          <a style={{display: 'block', marginBottom: '12px'}} href="/champions"><button style={{ maxWidth: '233px', width: '100%', paddingBottom: '13px', marginTop: '15px'}} className="button button-white beta">Earn Rewards</button></a>
+          <a style={{color: '#027360'}} target="_blank" href="https://support.quill.org/getting-started-for-teachers/how-does-the-quill-champion-program-work">Learn more about the Champion program ></a>
         </div>
       </div>
     );
