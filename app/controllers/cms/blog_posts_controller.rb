@@ -1,7 +1,7 @@
 class Cms::BlogPostsController < ApplicationController
   before_filter :staff!
   before_action :set_blog_post, only: [:update, :destroy, :edit]
-  before_action :authors, only: [:edit, :new]
+  before_action :authors, :topics, only: [:edit, :new]
 
   def index
     @blog_posts_name_and_id = BlogPost.all.select('title', 'id', 'updated_at', 'created_at', 'topic')
@@ -50,5 +50,9 @@ class Cms::BlogPostsController < ApplicationController
 
   def set_blog_post
     @blog_post = BlogPost.find(params[:id])
+  end
+
+  def topics
+    @topics = BlogPost::TOPICS
   end
 end

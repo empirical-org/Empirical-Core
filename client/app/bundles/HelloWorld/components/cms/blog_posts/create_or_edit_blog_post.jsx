@@ -2,7 +2,6 @@ import React from 'react';
 import request from 'request';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import MarkdownParser from '../../shared/markdown_parser.jsx'
-import _ from 'underscore'
 
 export default class extends React.Component {
   constructor(props) {
@@ -21,13 +20,14 @@ export default class extends React.Component {
         : '',
       author_id: p ? p.author_id : null,
       topic: p ? p.topic : '',
-      selectedAuthorId: p ? p.author_id : null,
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handleSubtitleChange = this.handleSubtitleChange.bind(this)
     this.handleBodyChange = this.handleBodyChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleTopicChange = this.handleTopicChange.bind(this)
+    this.handleAuthorChange = this.handleAuthorChange.bind(this)
   }
 
   handleTitleChange(e) {
@@ -40,6 +40,14 @@ export default class extends React.Component {
 
   handleBodyChange(e) {
     this.setState({body: e.target.value})
+  }
+
+  handleTopicChange(e) {
+    this.setState({topic: e})
+  }
+
+  handleAuthorChange(e) {
+    this.setState({author_id: e.id})
   }
 
   handleSubmit(e) {
@@ -55,7 +63,7 @@ export default class extends React.Component {
     request[action]({
       url,
       form: {
-        blog_post: _.omit(this.state, 'selectedAuthorId'),
+        blog_post: this.state,
         authenticity_token: ReactOnRails.authenticityToken()
       }
     }, (error, httpStatus, body) => {
@@ -95,7 +103,11 @@ export default class extends React.Component {
         <br/>
         <label>
           Author:
-          <ItemDropdown items={this.props.authors} callback={this.switchAuthor} selectedItem={this.state.selectedAuthor}/>
+          <ItemDropdown items={this.props.authors} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id)}/>
+        </label>
+        <label>
+          Topic:
+          <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)}/>
         </label>
         <br/>
 
