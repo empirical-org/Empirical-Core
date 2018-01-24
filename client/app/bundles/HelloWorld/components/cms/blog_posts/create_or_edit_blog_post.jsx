@@ -44,17 +44,16 @@ export default class extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let action,
-      url
+    let action
+    let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
     if (this.props.action === 'new') {
       action = 'post'
-      url = '/cms/blog_posts'
     } else {
-      action = 'puts'
-      url = `/cms/blog_posts${this.props.postToEdit.id}`
+      action = 'put'
+      url += this.props.postToEdit.id
     }
     request[action]({
-      url: `${process.env.DEFAULT_URL}/cms/blog_posts`,
+      url,
       form: {
         blog_post: _.omit(this.state, 'selectedAuthorId'),
         authenticity_token: ReactOnRails.authenticityToken()
