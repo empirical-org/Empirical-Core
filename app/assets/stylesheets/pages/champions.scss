@@ -96,7 +96,7 @@
     .box {
       border: 1px solid #cecece;
       background-color: #ffffff;
-      padding: 18px;
+      padding: 12px;
       text-align: center;
 
       &.third {
@@ -114,8 +114,11 @@
       }
 
       h1 {
+        border-bottom: 1px solid #eee;
         font-size: 24px;
         font-weight: 700;
+        margin: 0 24px;
+        padding-bottom: 10px;
       }
 
       h2 {
@@ -124,9 +127,15 @@
         margin-top: -6px;
       }
 
+      p {
+        margin: auto;
+        max-width: 200px;
+      }
+
       .share-links {
         font-size: 36px;
         list-style-type: none;
+        margin-bottom: 0;
         padding: 10px 0 0 0;
 
         li {
