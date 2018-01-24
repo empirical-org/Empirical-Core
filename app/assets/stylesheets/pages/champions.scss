@@ -1,0 +1,74 @@
+#champion-container {
+  header {
+    background: linear-gradient(#00C2A2, #02A388) #02A388;
+    color: $white;
+    padding: 30px 10px 10px 10px;
+    text-align: center;
+
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 16px;
+      margin: 20px 0;
+    }
+
+    input {
+      border-radius: 6px;
+      border: 3px solid #0D977C;
+      color: #02A388;
+      padding: 6px;
+      font-size: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+      width: 90%;
+      max-width: 425px;
+
+      &:focus {
+        border-color: #007D62;
+      }
+    }
+  }
+
+  #steps {
+    background: #02A388;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+
+    div {
+      padding: 16px;
+      text-align: center;
+      width: 200px;
+
+      .circle-icon {
+        align-items: center;
+        background: #00C2A2;
+        border-radius: 50%;
+        display: flex;
+        font-size: 20px;
+        height: 40px;
+        justify-content: center;
+        left: 0;
+        margin: auto auto 10px auto;
+        position: relative;
+        top: 0;
+        width: 40px;
+
+        .offset {
+          margin-top: -2px;
+        }
+      }
+
+      &:nth-of-type(2n) {
+        border-left: 1px solid;
+        border-right: 1px solid;
+        border-color: #00C2A2;
+      }
+    }
+  }
+}
