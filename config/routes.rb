@@ -22,6 +22,8 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :blog_posts, only: [:index, :show], path: 'teacher_resources'
+
   # for Stripe
   resources :charges
 
