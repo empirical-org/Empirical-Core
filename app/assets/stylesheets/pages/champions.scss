@@ -2,7 +2,7 @@
   header {
     background: linear-gradient(#00C2A2, #02A388) #02A388;
     color: $white;
-    padding: 30px 10px 10px 10px;
+    padding: 24px 10px 0;
     text-align: center;
 
     h1 {
@@ -21,7 +21,7 @@
       border: 3px solid #0D977C;
       color: #02A388;
       font-size: 16px;
-      max-width: 425px;
+      max-width: 475px;
       padding: 6px;
       text-align: center;
       transition: all 0.3s ease;
@@ -34,10 +34,10 @@
     color: #FFFFFF;
     display: flex;
     justify-content: center;
-    padding: 16px 0;
+    padding: 24px 0;
 
     div {
-      padding: 16px;
+      padding: 16px 24px;
       text-align: center;
       width: 200px;
 

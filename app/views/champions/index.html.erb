@@ -5,7 +5,7 @@
   <header>
     <h1>Become a Quill Champion</h1>
     <h2>Earn rewards for helping other teachers discover Quill!</h2>
-    <input disabled type='text' value='<%= @referral_link %>' />
+    <input type='text' value='<%= @referral_link %>' id='referral-input' />
   </header>
   <div id='steps'>
     <div id='one'>
@@ -31,3 +31,14 @@
 
   </main>
 </div>
+
+<script>
+  document.querySelector('#referral-input').addEventListener('click', function(event) {
+    document.querySelector('#referral-input').select();
+    document.execCommand('copy');
+  });
+
+  document.querySelector('#referral-input').addEventListener('input', function(event) {
+    document.querySelector('#referral-input').value = '<%= @referral_link %>';
+  });
+</script>
