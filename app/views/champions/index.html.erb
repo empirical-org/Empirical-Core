@@ -5,7 +5,7 @@
   <header>
     <h1>Become a Quill Champion</h1>
     <h2>Earn rewards for helping other teachers discover Quill!</h2>
-    <input type='text' value='<%= @referral_link %>' id='referral-input' />
+    <input type='text' value='<%= @referral_link %>' id='referral-input' /><div id='copy-button'>copy</div>
   </header>
   <div id='steps'>
     <div id='one'>
@@ -27,15 +27,47 @@
       You earn rewards for spreading literacy!
     </div>
   </div>
-  <main>
-
+  <main id='dashboard'>
+    <div id='meta'>
+      <div class='box third'>
+        <h1>Your Referrals</h1>
+        <span id='count'><%= @referral_count %></span>
+        <h2>Teachers</h2>
+      </div>
+      <div class='box third'>
+        <h1>Next Reward</h1>
+        <span id='count'>10</span>
+        <h2>Referrals</h2>
+      </div>
+      <div class='box third'>
+        <h1>Share Your Link</h1>
+        <ul class='share-links'>
+          <li><a href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? <%= @referral_link %>"><i class="fa fa-twitter-square"></i></a></li>
+          <li><a href='https://www.facebook.com/share.php?u=<%= @referral_link %>'><i class="fa fa-facebook-square"></i></a></li>
+          <li><a href='https://plus.google.com/share?url=<%= @referral_link %>'><i class="fa fa-google-plus-square"></i></a></li>
+          <li><a href="https://pinterest.com/pin/create/button/?url=<%= @referral_link %>&media=https%3A//s-media-cache-ak0.pinimg.com/736x/92/46/50/9246509b2ad54a3c2ad97e21976b9176.jpg&description=I'm using free tools from Quill.org to help my students become better writers and critical thinkers. Want to join me?"><i class="fa fa-pinterest-square"></i></a></li>
+          <li><a href="mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! <%= @referral_link %>"><i class="fa fa-envelope-square"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class='box full'>
+      <h1>All Rewards</h1>
+    </div>
   </main>
 </div>
 
 <script>
-  document.querySelector('#referral-input').addEventListener('click', function(event) {
+  function copy() {
     document.querySelector('#referral-input').select();
     document.execCommand('copy');
+  }
+
+  document.querySelector('#referral-input').addEventListener('click', function(event) {
+    copy();
+  });
+
+  document.querySelector('#copy-button').addEventListener('click', function(event) {
+    copy();
   });
 
   document.querySelector('#referral-input').addEventListener('input', function(event) {
