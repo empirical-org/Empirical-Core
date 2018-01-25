@@ -27,13 +27,13 @@ class Customize extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.customize.user_id) {
-      if (nextProps.customize.user_id !== this.props.customize.user_id || nextProps.classroomLesson && Object.keys(nextProps.classroomLesson.data).length === 0 || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
+      if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
         let user_ids = []
         if (nextProps.customize.coteachers.length > 0) {
           user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
         }
         user_ids.push(nextProps.customize.user_id)
-        this.props.dispatch(getEditionsForUserIds(user_ids))
+        this.props.dispatch(getEditionsForUserIds(user_ids));
       }
     } else {
       if (Object.keys(nextProps.customize.editions).length === 0) {
