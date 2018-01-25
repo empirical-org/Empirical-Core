@@ -54,10 +54,10 @@ export function startLesson(classroom_activity_id: string, callback?: Function) 
           return response.json()
         }
       }).then(response => {
-        const teacher_ids = response.teacher_ids
-        const current_slide = session && session.current_slide ? session.current_slide : 0
-        const startTime = session && session.startTime ? session.startTime : firebase.database.ServerValue.TIMESTAMP
-        sessionRef.set({...session, current_slide, startTime, teacher_ids})
+        response ? session.teacher_ids = response.teacher_ids : undefined
+        session.current_slide = session && session.current_slide ? session.current_slide : 0
+        session.startTime = session && session.startTime ? session.startTime : firebase.database.ServerValue.TIMESTAMP
+        sessionRef.set({...session})
         if (callback) {
           callback()
         }
