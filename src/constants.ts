@@ -1,4 +1,230 @@
-export default {
+declare interface Constants {
+  FIREBASE: string;
+
+	// uI FEEDBACK ACTIONS
+  DISPLAY_ERROR: string;
+  DISPLAY_MESSAGE: string;
+  DISMISS_FEEDBACK: string;
+  CLEAR_DISPLAY_MESSAGE_AND_ERROR: string;
+
+	// aUTH ACTIONS
+  ATTEMPTING_LOGIN: string;
+  LOGIN_USER: string;
+  LOGOUT: string;
+
+	// aUTH STATES
+  LOGGED_IN: string;
+  ANONYMOUS: string;
+  AWAITING_AUTH_RESPONSE: string;
+
+	// cONCEPT ACTIONS
+  RECEIVE_CONCEPTS_DATA: string;
+  AWAIT_NEW_CONCEPT_RESPONSE: string;
+  RECEIVE_NEW_CONCEPT_RESPONSE: string;
+  START_CONCEPT_EDIT: string;
+  FINISH_CONCEPT_EDIT: string;
+  SUBMIT_CONCEPT_EDIT: string;
+  TOGGLE_NEW_CONCEPT_MODAL: string;
+
+	// cONCEPT STATES
+  EDITING_CONCEPT: string;
+  SUBMITTING_CONCEPT: string;
+
+	// lESSON ACTIONS
+  RECEIVE_LESSONS_DATA: string;
+  AWAIT_NEW_LESSON_RESPONSE: string;
+  RECEIVE_NEW_LESSON_RESPONSE: string;
+  START_LESSON_EDIT: string;
+  FINISH_LESSON_EDIT: string;
+  SUBMIT_LESSON_EDIT: string;
+  TOGGLE_NEW_LESSON_MODAL: string;
+
+  // CLASSROOM_LESSON ACTIONS
+  RECEIVE_CLASSROOM_LESSONS_DATA: string;
+  RECEIVE_CLASSROOM_LESSON_DATA: string;
+  RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA: string;
+  NO_LESSON_ID: string;
+  NO_LESSONS: string;
+  SET_LESSON_ID: string;
+  CLEAR_CLASSROOM_LESSON_DATA: string;
+
+	// lESSON STATES
+  EDITING_LESSON: string;
+  SUBMITTING_LESSON: string;
+
+	// QUESTION ACTIONS
+  RECEIVE_QUESTIONS_DATA: string;
+  AWAIT_NEW_QUESTION_RESPONSE: string;
+  RECEIVE_NEW_QUESTION_RESPONSE: string;
+  START_QUESTION_EDIT: string;
+  FINISH_QUESTION_EDIT: string;
+  SUBMIT_QUESTION_EDIT: string;
+  TOGGLE_NEW_QUESTION_MODAL: string;
+  SHOULD_RELOAD_RESPONSES: string;
+  CLEAR_QUESTION_STATE: string;
+  UPDATE_SEARCHED_RESPONSES: string;
+  SET_RESPONSE_PAGE_NUMBER: string;
+  SET_RESPONSE_STRING_FILTER: string;
+  INCREMENT_REQUEST_COUNT: string;
+  SET_SUGGESTED_SEQUENCES: string;
+  SET_USED_SEQUENCES: string;
+  SET_COVERED_SEQUENCES: string;
+
+	// QUESTION STATES
+  EDITING_QUESTION: string;
+  SUBMITTING_QUESTION: string;
+
+  // FILL IN BLANK QUESTION ACTIONS
+  RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA: string;
+  AWAIT_NEW_FILL_IN_BLANK_QUESTION_RESPONSE: string;
+  RECEIVE_NEW_FILL_IN_BLANK_QUESTION_RESPONSE: string;
+  START_FILL_IN_BLANK_QUESTION_EDIT: string;
+  FINISH_FILL_IN_BLANK_QUESTION_EDIT: string;
+  SUBMIT_FILL_IN_BLANK_QUESTION_EDIT: string;
+  TOGGLE_NEW_FILL_IN_BLANK_QUESTION_MODAL: string;
+
+	// FILL IN BLANK QUESTION STATES
+  EDITING_FILL_IN_BLANK_QUESTION: string;
+  SUBMITTING_FILL_IN_BLANK_QUESTION: string;
+
+	// QUESTION RESPONSE STATES
+  START_RESPONSE_EDIT: string;
+  CANCEL_RESPONSE_EDIT: string;
+  FINISH_RESPONSE_EDIT: string;
+  SUBMIT_RESPONSE_EDIT: string;
+  SUBMITTING_RESPONSE: string;
+  START_CHILD_RESPONSE_VIEW: string;
+  CANCEL_CHILD_RESPONSE_VIEW: string;
+  START_FROM_RESPONSE_VIEW: string;
+  CANCEL_FROM_RESPONSE_VIEW: string;
+  START_TO_RESPONSE_VIEW: string;
+  CANCEL_TO_RESPONSE_VIEW: string;
+
+	// dIAGNOSTIC QUESTION ACTIONS
+  RECEIVE_DIAGNOSTIC_QUESTIONS_DATA: string;
+  AWAIT_NEW_DIAGNOSTIC_QUESTION_RESPONSE: string;
+  RECEIVE_NEW_DIAGNOSTIC_QUESTION_RESPONSE: string;
+  START_DIAGNOSTIC_QUESTION_EDIT: string;
+  FINISH_DIAGNOSTIC_QUESTION_EDIT: string;
+  SUBMIT_DIAGNOSTIC_QUESTION_EDIT: string;
+  TOGGLE_NEW_DIAGNOSTIC_QUESTION_MODAL: string;
+
+	// dIAGNOSTIC_QUESTION STATES
+  EDITING_DIAGNOSTIC_QUESTION: string;
+  SUBMITTING_DIAGNOSTIC_QUESTION: string;
+
+	// dIAGNOSTIC QUESTION RESPONSE STATES
+  START_DIAGNOSTIC_RESPONSE_EDIT: string;
+  CANCEL_DIAGNOSTIC_RESPONSE_EDIT: string;
+  FINISH_DIAGNOSTIC_RESPONSE_EDIT: string;
+  SUBMIT_DIAGNOSTIC_RESPONSE_EDIT: string;
+  SUBMITTING_DIAGNOSTIC_RESPONSE: string;
+  START_CHILD_DIAGNOSTIC_RESPONSE_VIEW: string;
+  CANCEL_CHILD_DIAGNOSTIC_RESPONSE_VIEW: string;
+  START_FROM_DIAGNOSTIC_RESPONSE_VIEW: string;
+  CANCEL_FROM_DIAGNOSTIC_RESPONSE_VIEW: string;
+  START_TO_DIAGNOSTIC_RESPONSE_VIEW: string;
+  CANCEL_TO_DIAGNOSTIC_RESPONSE_VIEW: string;
+
+	// pATHWAYS DATA
+  RECEIVE_PATHWAYS_DATA: string;
+  AWAIT_NEW_PATHWAY_RESPONSE: string;
+  RECEIVE_NEW_PATHWAY_RESPONSE: string;
+
+	// rESPONSE ACTIONS:
+  TOGGLE_EXPAND_SINGLE_RESPONSE: string;
+  COLLAPSE_ALL_RESPONSES: string;
+  EXPAND_ALL_RESPONSES: string;
+  TOGGLE_STATUS_FIELD: string;
+  TOGGLE_RESPONSE_SORT: string;
+  RESET_ALL_FIELDS: string;
+  TOGGLE_MASS_SELECTION: string;
+  DESELECT_ALL_FIELDS: string;
+
+  // mASS EDIT RESPONSE ACTIONS
+  ADD_RESPONSE_TO_MASS_EDIT_ARRAY: string;
+  REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY: string;
+  CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY: string;
+
+  // qUESTION SELECT ACTIONS:
+  QUESTION_SELECT_ADD_QUESTION: string;
+  QUESTION_SELECT_MODIFY_QUESTION: string;
+  QUESTION_SELECT_UPDATE_TITLE: string;
+
+  NUMBERS_AS_WORDS: Array<string>;
+
+  INSTRUCTIONS: any;
+
+	// cONCEPTS FEEDBACK ACTIONS
+  RECEIVE_CONCEPTS_FEEDBACK_DATA: string;
+  AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE: string;
+  RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE: string;
+  START_CONCEPTS_FEEDBACK_EDIT: string;
+  FINISH_CONCEPTS_FEEDBACK_EDIT: string;
+  SUBMIT_CONCEPTS_FEEDBACK_EDIT: string;
+  TOGGLE_NEW_CONCEPTS_FEEDBACK_MODAL: string;
+
+	// iTEM LEVEL ACTIONS
+  RECEIVE_ITEM_LEVELS_DATA: string;
+  AWAIT_NEW_ITEM_LEVEL_RESPONSE: string;
+  RECEIVE_NEW_ITEM_LEVEL_RESPONSE: string;
+  START_ITEM_LEVEL_EDIT: string;
+  FINISH_ITEM_LEVEL_EDIT: string;
+  SUBMIT_ITEM_LEVEL_EDIT: string;
+  TOGGLE_NEW_ITEM_LEVEL_MODAL: string;
+
+	// iTEM LEVEL STATES
+  EDITING_ITEM_LEVEL: string;
+  SUBMITTING_ITEM_LEVEL: string;
+
+	// sENTENCE_FRAGMENT ACTIONS
+  RECEIVE_SENTENCE_FRAGMENTS_DATA: string;
+  AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE: string;
+  RECEIVE_NEW_SENTENCE_FRAGMENT_RESPONSE: string;
+  START_SENTENCE_FRAGMENT_EDIT: string;
+  FINISH_SENTENCE_FRAGMENT_EDIT: string;
+  SUBMIT_SENTENCE_FRAGMENT_EDIT: string;
+  TOGGLE_NEW_SENTENCE_FRAGMENT_MODAL: string;
+
+	// sENTENCE_FRAGMENT STATES
+  EDITING_SENTENCE_FRAGMENT: string;
+  SUBMITTING_SENTENCE_FRAGMENT: string;
+
+	// sESSION ACTIONS
+  UPDATE_SESSION_DATA: string;
+  DELETE_SESSION_DATA: string;
+  DELETE_ALL_SESSION_DATA: string;
+
+	// rESPONSE ACTIONS
+  UPDATE_RESPONSE_STATUS: string;
+  UPDATE_RESPONSE_DATA: string;
+  DELETE_RESPONSE_STATUS: string;
+
+  // score Analysis ACTIONS
+  RECEIVE_SCORE_ANALYSIS_DATA: string;
+
+  // CLASSROOM SESSION ACTIONS
+  UPDATE_CLASSROOM_SESSION_DATA: string;
+  UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE: string;
+  UPDATE_SLIDE_IN_STORE: string;
+  TOGGLE_HEADERS: string;
+  NO_CLASSROOM_ACTIVITY: string;
+  NO_STUDENT_ID: string;
+  HIDE_SIGNUP_MODAL: string;
+  SHOW_SIGNUP_MODAL: string;
+
+  // CUSTOMIZE ACTIONS
+  SET_USER_ID: string;
+  SET_COTEACHERS: string;
+  SET_EDITION_METADATA: string;
+  SET_EDITION_QUESTIONS: string;
+  SET_WORKING_EDITION_QUESTIONS: string;
+  SET_WORKING_EDITION_METADATA: string;
+  SET_INCOMPLETE_QUESTIONS: string;
+}
+
+
+const constants: Constants =  {
 	// mISC
   FIREBASE: 'https://quillconnectstaging.firebaseio.com/v2/',
 
@@ -152,22 +378,6 @@ export default {
   QUESTION_SELECT_MODIFY_QUESTION: 'QUESTION_SELECT_MODIFY_QUESTION',
   QUESTION_SELECT_UPDATE_TITLE: 'QUESTION_SELECT_UPDATE_TITLE',
 
-  FEEDBACK_STRINGS: {
-	  punctuationError: 'There may be an error. How could you update the punctuation?',
-    punctuationAndCaseError: 'There may be an error. How could you update the punctuation and capitalization?',
-	  typingError: 'Try again. There may be a spelling mistake.',
-	  caseError: 'Proofread your work. There may be a capitalization error.',
-	  minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
-	  maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
-    modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
-    additionalWordError: 'Revise your work. You may have added an extra word.',
-    missingWordError: 'Revise your work. You may have left out an important word.',
-    whitespaceError: 'There may be an error. You may have forgotten a space between two words.',
-    flexibleModifiedWordError: 'Revise your work. You may have mixed up a word.',
-    flexibleAdditionalWordError: 'Revise your work. You may have added an extra word.',
-    flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
-  },
-
   NUMBERS_AS_WORDS: [
     'zero', 'one', 'two', 'three', 'four', 'five',
     'six', 'seven', 'eight', 'nine', 'ten',
@@ -178,48 +388,6 @@ export default {
   INSTRUCTIONS: {
     sentenceFragments: 'Add/change as few words as you can to change this fragment into a sentence.',
   },
-
-  ERROR_TYPES: [
-    'typingError',
-    'caseError',
-    'punctuationError',
-    'punctuationAndCaseError',
-    'minLengthError',
-    'maxLengthError',
-    'flexibleModifiedWordError',
-    'flexibleAdditionalWordError',
-    'flexibleMissingWordError',
-    'modifiedWordError',
-    'additionalWordError',
-    'missingWordError',
-    'whitespaceError',
-    'requiredWordsError',
-    'tooShortError',
-    'tooLongError'
-  ],
-
-  ERROR_AUTHORS: [
-    'Focus Point Hint',
-    'Incorrect Sequence Hint',
-    'Capitalization Hint',
-    'Starting Capitalization Hint',
-    'Punctuation Hint',
-    'Punctuation and Case Hint',
-    'Punctuation End Hint',
-    'Modified Word Hint',
-    'Additional Word Hint',
-    'Missing Word Hint',
-    'Flexible Modified Word Hint',
-    'Flexible Additional Word Hint',
-    'Flexible Missing Word Hint',
-    'Whitespace Hint',
-    'Missing Details Hint',
-    'Not Concise Hint',
-    'Required Words Hint',
-    'Too Short Hint',
-    'Too Long Hint',
-    'Parts of Speech'
-  ],
 
 	// cONCEPTS FEEDBACK ACTIONS
   RECEIVE_CONCEPTS_FEEDBACK_DATA: 'RECEIVE_CONCEPTS_FEEDBACK_DATA',
@@ -288,3 +456,5 @@ export default {
   SET_WORKING_EDITION_METADATA: 'SET_WORKING_EDITION_METADATA',
   SET_INCOMPLETE_QUESTIONS: 'SET_INCOMPLETE_QUESTIONS',
 };
+
+export default constants;
