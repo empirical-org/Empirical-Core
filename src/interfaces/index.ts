@@ -44,7 +44,9 @@ export interface PartialResponse {
 
 export interface ConceptResult {
  correct: Boolean,
- conceptUID: string
+ conceptUID: string,
+ name?: string,
+ key?: string
 }
 
 export interface FocusPoint {
