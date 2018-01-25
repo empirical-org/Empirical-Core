@@ -39,7 +39,7 @@ describe AccountsController, type: :controller do
       end
 
       it 'should create a ReferralsUser' do
-        request.env['affiliate.tag'] = create(:teacher).referral_code
+        request.env[ReferrerUser::ENV_VARIABLE_NAME] = create(:teacher).referral_code
         post :create, user: build_stubbed(:teacher).attributes.merge({password: 'password'})
         expect(response.status).to be(200)
         expect(User.count).to be(@previous_users_count + 2)

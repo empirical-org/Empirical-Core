@@ -414,8 +414,6 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.8)
-    rack-affiliates (0.4.0)
-      rack
     rack-attack (5.0.1)
       rack
     rack-cache (1.6.1)
@@ -748,7 +746,6 @@ DEPENDENCIES
   puma_worker_killer
   pusher
   quiet_assets
-  rack-affiliates (~> 0.4.0)
   rack-attack
   rack-cache (~> 1.6.1)
   rack-cors (= 0.4.0)
