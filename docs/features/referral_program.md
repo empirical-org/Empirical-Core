@@ -3,10 +3,9 @@
 Quill.org has a referral program that allows teachers to refer other teachers
 to the website and then receive various perks and goodies for doing so.
 
-Our referral program feature is built on top of a gem called
-[Rack::Affiliates](https://github.com/alexlevin/rack-affiliates), which is
-pretty much just middleware that looks for a query string (in our case
-`?champion=teachers-referral-code-here`) and then saves the value from that
+Our referral program feature is built on top of middleware (located in
+`app/middleware/affiliate_middleware.rb`) that looks for a query string
+(`?champion=teachers-referral-code-here`) and then saves the value from that
 query string as a cookie.
 
 When a new teacher signs up, we check for the existence of that referral
