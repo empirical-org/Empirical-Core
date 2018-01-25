@@ -1,7 +1,5 @@
-class Cms::BlogPostsController < ApplicationController
-  before_filter :staff!
+class BlogPostsController < ApplicationController
   before_action :set_blog_post, only: [:update, :destroy, :edit, :show]
-  before_action :authors, :topics, only: [:edit, :new]
 
   def index
     @blog_posts = BlogPost.all

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post.jsx';
+import BlogPostIndex from '../components/blog_posts/blog_post_index.jsx';
 import request from 'request';
 import moment from 'moment';
 
@@ -38,7 +39,7 @@ export default React.createClass({
     if (['new', 'edit'].includes(this.props.action)) {
       return <CreateOrEditBlogPost {...this.props} />;
     } else if (this.props.route === 'index') {
-      return '../components/blog_posts/blog_post_index.jsx';
+      return <BlogPostIndex {...this.props} />;
     }
     return (
       <div className="cms-blog-posts">
