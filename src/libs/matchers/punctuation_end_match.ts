@@ -1,7 +1,7 @@
 import * as _ from 'underscore'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function punctuationEndMatch(responseString: string, responses:Array<Response>): Boolean {
@@ -18,7 +18,7 @@ export function punctuationEndChecker(responseString: string, responses:Array<Re
 
 export function punctuationEndResponseBuilder(responses:Array<Response>): PartialResponse {
   const res = {
-    feedback: constants.FEEDBACK_STRINGS.punctuationError,
+    feedback: FEEDBACK_STRINGS.punctuationError,
     author: 'Punctuation End Hint',
     parent_id: getTopOptimalResponse(responses).id,
     concept_results: [

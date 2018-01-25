@@ -1,7 +1,6 @@
 import { assert } from 'chai';
 import {requiredWordsMatch, requiredWordsChecker} from './required_words_match'
 import {Response, PartialResponse} from '../../interfaces'
-import constants from '../../constants'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 const savedResponses: Array<Response> = [

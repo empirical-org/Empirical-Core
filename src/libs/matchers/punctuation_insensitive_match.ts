@@ -2,7 +2,7 @@ import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {removePunctuation} from '../helpers/remove_punctuation'
 
@@ -22,7 +22,7 @@ export function punctuationInsensitiveChecker(responseString: string, responses:
 
 export function punctuationInsensitiveResponseBuilder(responses:Array<Response>, parentID:string|number): PartialResponse {
   const res = {
-    feedback: constants.FEEDBACK_STRINGS.punctuationError,
+    feedback: FEEDBACK_STRINGS.punctuationError,
     author: 'Punctuation Hint',
     parent_id: parentID,
     concept_results: [

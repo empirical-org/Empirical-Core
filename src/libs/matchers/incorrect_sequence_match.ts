@@ -1,7 +1,6 @@
 import * as _ from 'underscore'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
-import constants from '../../constants'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function incorrectSequenceMatch(responseString: string, incorrectSequences:Array<IncorrectSequence>):IncorrectSequence {

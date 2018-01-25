@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import {maxLengthMatch, maxLengthChecker} from './max_length_match'
 import {Response} from '../../interfaces'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 
@@ -104,7 +104,7 @@ describe('The maxLengthChecker', () => {
     ]
     const longestOptimalResponse = savedResponses.sort(r => r.text.length)[0]
     const partialResponse =  {
-        feedback: constants.FEEDBACK_STRINGS.maxLengthError,
+        feedback: FEEDBACK_STRINGS.maxLengthError,
         author: 'Not Concise Hint',
         parent_id: longestOptimalResponse.key,
         concept_results: [

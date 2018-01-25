@@ -4,7 +4,7 @@ import {getOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
 import {Response, PartialResponse, ChangeObjectMatch} from '../../interfaces'
 import {removePunctuation} from '../helpers/remove_punctuation'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getFeedbackForMissingWord} from '../helpers/joining_words_feedback'
 
@@ -39,7 +39,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
     case ERROR_TYPES.INCORRECT_WORD:
       const missingWord = match.missingText;
       const missingTextFeedback = getFeedbackForMissingWord(missingWord);
-      res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
+      res.feedback = missingTextFeedback || FEEDBACK_STRINGS.modifiedWordError;
       res.author = 'Modified Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = [
@@ -47,7 +47,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
       ];
       return res;
     case ERROR_TYPES.ADDITIONAL_WORD:
-      res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+      res.feedback = FEEDBACK_STRINGS.additionalWordError;
       res.author = 'Additional Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = [
@@ -56,7 +56,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
       return res;
     case ERROR_TYPES.MISSING_WORD:
 
-      res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+      res.feedback = FEEDBACK_STRINGS.missingWordError;
       res.author = 'Missing Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = [

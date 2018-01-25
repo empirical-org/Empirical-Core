@@ -2,7 +2,7 @@ import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function caseInsensitiveMatch(response: string, responses:Array<Response>):Response|undefined {
@@ -21,7 +21,7 @@ export function caseInsensitiveChecker(responseString: string, responses:Array<R
 
 export function caseInsensitiveResponseBuilder(responses:Array<Response>, parentID:string|number): PartialResponse {
   const res = {
-    feedback: constants.FEEDBACK_STRINGS.caseError,
+    feedback: FEEDBACK_STRINGS.caseError,
     author: 'Capitalization Hint',
     parent_id: parentID,
     concept_results: [

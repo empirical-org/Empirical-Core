@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import {minLengthMatch, minLengthChecker} from './min_length_match'
 import {Response} from '../../interfaces'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 
@@ -102,7 +102,7 @@ describe('The minLengthChecker', () => {
     ]
     const shortestOptimalResponse = savedResponses.sort(r => r.text.length)[0]
     const partialResponse =  {
-        feedback: constants.FEEDBACK_STRINGS.minLengthError,
+        feedback: FEEDBACK_STRINGS.minLengthError,
         author: 'Missing Details Hint',
         parent_id: shortestOptimalResponse.key,
         concept_results: [

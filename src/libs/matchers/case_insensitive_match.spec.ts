@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import {caseInsensitiveMatch, caseInsensitiveChecker} from './case_insensitive_match'
 import {Response} from '../../interfaces'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 
@@ -45,7 +45,7 @@ describe('The caseInsensitiveChecker', () => {
   it('Should return a partialResponse object if the lowercased response string matches a lowercased partial response', () => {
     const responseString = "my dog took a nap.";
     const partialResponse =  {
-        feedback: constants.FEEDBACK_STRINGS.caseError,
+        feedback: FEEDBACK_STRINGS.caseError,
         author: 'Capitalization Hint',
         parent_id: caseInsensitiveMatch(responseString, savedResponses).id,
         concept_results: [

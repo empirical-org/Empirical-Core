@@ -2,7 +2,7 @@ import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function maxLengthMatch(responseString:string, responses:Array<Response>):Boolean {
@@ -26,7 +26,7 @@ export function maxLengthResponseBuilder(responses:Array<Response>): PartialResp
   const optimalResponses = getOptimalResponses(responses);
   const longestOptimalResponse = _.sortBy(optimalResponses, resp => stringNormalize(resp.text).length).reverse()[0];
   const res = {
-    feedback: constants.FEEDBACK_STRINGS.maxLengthError,
+    feedback: FEEDBACK_STRINGS.maxLengthError,
     author: 'Not Concise Hint',
     parent_id: longestOptimalResponse.key,
     concept_results: [

@@ -4,7 +4,7 @@ import {stringNormalize} from 'quill-string-normalizer'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
-import constants from '../../constants'
+import FEEDBACK_STRINGS from '../constants/feedback_strings'
 
 export function whitespaceMatch (response:string, responses: Array<Response>): Response|undefined {
   return _.find(getOptimalResponses(responses),
@@ -24,7 +24,7 @@ export function whitespaceChecker(responseString: string, responses:Array<Respon
 
 export function whitespaceResponseBuilder(responses:Array<Response>, parent_id: string|number): PartialResponse {
   const res = {
-    feedback: constants.FEEDBACK_STRINGS.whitespaceError,
+    feedback: FEEDBACK_STRINGS.whitespaceError,
     author: 'Whitespace Hint',
     parent_id,
     concept_results: [
