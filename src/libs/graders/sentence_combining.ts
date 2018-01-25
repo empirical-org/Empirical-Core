@@ -3,7 +3,9 @@ import {exactMatch} from '../matchers/exact_match';
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {punctuationInsensitiveMatch} from '../matchers/punctuation_insensitive_match';
 import {correctSentenceFromSamples} from 'quill-spellchecker'
-export function checkAnswer(
+
+
+export function checkSentenceCombining(
   question_uid: string,
   response: string, 
   responses: Array<Response>, 

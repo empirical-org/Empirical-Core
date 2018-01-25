@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import {checkAnswer} from './sentence_combining'
+import {checkSentenceCombining} from './sentence_combining'
 import {Response} from '../../interfaces'
 
 describe('The checking a sentence combining question', () => {
@@ -25,7 +25,7 @@ describe('The checking a sentence combining question', () => {
             question_uid: 'questionOne'
           }
         ]
-        const matchedResponse = checkAnswer('questionOne', responseString, savedResponses, null, null);
+        const matchedResponse = checkSentenceCombining('questionOne', responseString, savedResponses, null, null);
         assert.equal(matchedResponse.id, savedResponses[0].id);
     });
 
@@ -50,7 +50,7 @@ describe('The checking a sentence combining question', () => {
           question_uid: 'questionOne'
         }
       ]
-      assert.ok(checkAnswer('questionOne', responseString, savedResponses, null, null));
+      assert.ok(checkSentenceCombining('questionOne', responseString, savedResponses, null, null));
   });
 
 
@@ -75,7 +75,7 @@ describe('The checking a sentence combining question', () => {
         question_uid: 'questionOne'
       }
     ]
-    assert.ok(checkAnswer('questionOne', responseString, savedResponses, null, null));
+    assert.ok(checkSentenceCombining('questionOne', responseString, savedResponses, null, null));
 });
 
 });
