@@ -95,7 +95,6 @@ function checkForMatches(data: GradingObject, matchingFunction: Function) {
 
 }
 
-
 function prepareSpellingData(data: GradingObject) {
   const spellingData = Object.assign({}, data)
   const optimalAnswerStrings = getOptimalResponses(data.responses).map(resp => resp.text)
