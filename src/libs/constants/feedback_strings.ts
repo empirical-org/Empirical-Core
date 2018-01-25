@@ -12,6 +12,7 @@ declare interface FeedbackStrings {
   flexibleModifiedWordError: string;
   flexibleAdditionalWordError: string;
   flexibleMissingWordError: string;
+  spacingAfterCommaError: string
 }
 
 const feedback_strings: FeedbackStrings = {
@@ -28,6 +29,7 @@ const feedback_strings: FeedbackStrings = {
   flexibleModifiedWordError: 'Revise your work. You may have mixed up a word.',
   flexibleAdditionalWordError: 'Revise your work. You may have added an extra word.',
   flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
+  spacingAfterCommaError: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>'
 };
 
 export default feedback_strings

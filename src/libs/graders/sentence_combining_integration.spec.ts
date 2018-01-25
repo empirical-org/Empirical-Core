@@ -4,19 +4,160 @@ import { assert } from 'chai';
 import {checkSentenceCombining} from './sentence_combining';
 import {Response} from '../../interfaces';
 import FEEDBACK_STRINGS from '../constants/feedback_strings';
+import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 
 describe('The checking a sentence combining question', () => {
 
-  it('should be able to find an exact match', () => {
-    const matchedResponse = checkSentenceCombining(responses[0].question_uid, responses[0].text, responses, focusPoints, incorrectSequences);
-    assert.equal(matchedResponse.id, responses[0].id);
-  });
+  describe('first matchers - original sentence', () => {
+    it('should be able to find an exact match', () => {
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, responses[0].text, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.id, responses[0].id);
+    });
 
-  it('should be able to find a focus point match', () => {
-    const questionString = 'Bats have wings, but they can fly."'
-    const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-    assert.equal(matchedResponse.feedback, focusPoints[0].feedback);
-  });
+    it('should be able to find a focus point match', () => {
+      const questionString = 'Bats have wings, but they can fly."'
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, focusPoints[0].feedback);
+    });
+
+    it('should be able to find an incorrect sequence match', () => {
+      // this is a little artificial, as the focus point (looking for the word 'so') encompasses the incorrect sequence (using the phrase 'and they')
+      const questionString = 'So bats have wings and they can fly.'
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
+    });
+
+    it('should be able to find a case insensitive match', () => {
+      const questionString = "bats have wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.caseError);
+    });
+
+    it('should be able to find a punctuation insensitive match', () => {
+      const questionString = "Bats have wings so they can fly"
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationError);
+    });
+
+    it('should be able to find a punctuation and case insensitive match', () => {
+      const questionString = "bats have wings so they can fly"
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationAndCaseError);
+    });
+
+    it('should be able to find a spacing before punctuation match', () => {
+      const questionString = "Bats have wings, so they can fly ."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, spacingBeforePunctuation(questionString).feedback);
+    });
+
+    it('should be able to find a spacing after comma match', () => {
+      const questionString = "Bats have wings,so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.spacingAfterCommaError);
+    });
+
+    it('should be able to find a whitespace match', () => {
+      const questionString = "Batshave wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.whitespaceError);
+    });
+
+    it('should be able to find a whitespace match', () => {
+      const questionString = "Batshave wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.whitespaceError);
+    });
+
+    it('should be able to find a rigid change match', () => {
+      const questionString = "Bats wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.missingWordError);
+    });
+
+    it('should be able to find a flexible change match', () => {
+      const questionString = "Bats have arms, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.modifiedWordError);
+    });
+
+  })
+
+  describe('first matchers - spell-checked sentence', () => {
+    it('should be able to find an exact match', () => {
+      const questionString = "Brats have wings, so they can fully."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, responses[0].id);
+    });
+
+    it('should be able to find a focus point match', () => {
+      const questionString = 'Bats have wings, but they can fly."'
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, focusPoints[0].feedback);
+    });
+
+    it('should be able to find an incorrect sequence match', () => {
+      // this is a little artificial, as the focus point (looking for the word 'so') encompasses the incorrect sequence (using the phrase 'and they')
+      const questionString = 'So bats have wings and they can fly.'
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
+    });
+
+    it('should be able to find a case insensitive match', () => {
+      const questionString = "bats have wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.caseError);
+    });
+
+    it('should be able to find a punctuation insensitive match', () => {
+      const questionString = "Bats have wings so they can fly"
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationError);
+    });
+
+    it('should be able to find a punctuation and case insensitive match', () => {
+      const questionString = "bats have wings so they can fly"
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationAndCaseError);
+    });
+
+    it('should be able to find a spacing before punctuation match', () => {
+      const questionString = "Bats have wings, so they can fly ."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, spacingBeforePunctuation(questionString).feedback);
+    });
+
+    it('should be able to find a spacing after comma match', () => {
+      const questionString = "Bats have wings,so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.spacingAfterCommaError);
+    });
+
+    it('should be able to find a whitespace match', () => {
+      const questionString = "Batshave wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.whitespaceError);
+    });
+
+    it('should be able to find a whitespace match', () => {
+      const questionString = "Batshave wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.whitespaceError);
+    });
+
+    it('should be able to find a rigid change match', () => {
+      const questionString = "Bats wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.missingWordError);
+    });
+
+    it('should be able to find a flexible change match', () => {
+      const questionString = "Bats have arms, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.modifiedWordError);
+    });
+
+  })
 
 
 });
