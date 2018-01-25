@@ -1,2 +1,2 @@
 // start adding imports
-export {wordLengthCount} from './libs/sentenceFragment';
+export {checkSentenceCombining} from './libs/graders/sentence_combining';
