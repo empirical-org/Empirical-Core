@@ -78,12 +78,12 @@ describe('The checking a sentence combining question', () => {
   })
 
   describe('first matchers - spell-checked sentence', () => {
-    // it('should be able to find an exact match', () => {
-    //   const questionString = "Bats have wing, so they can flinging."
-    //   const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-    //   assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.modifiedWordError);
-    // });
-    //
+    it('should be able to find an exact match', () => {
+      const questionString = "Bat have wing, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.modifiedWordError);
+    });
+    
     it('should be able to find a focus point match', () => {
       const questionString = 'Bats have zings, and they can fly."'
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
@@ -97,24 +97,24 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
     });
 
-    // it('should be able to find a case insensitive match', () => {
-    //   const questionString = "bats have zings, so they can fly."
-    //   const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-    //   assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.caseError);
-    // });
+    it('should be able to find a case insensitive match', () => {
+      const questionString = "bats have zings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.caseError);
+    });
 
-    // it('should be able to find a punctuation insensitive match', () => {
-    //   const questionString = "Bats have zings so they can fly"
-    //   const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-    //   assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationError);
-    // });
+    it('should be able to find a punctuation insensitive match', () => {
+      const questionString = "Bats have zings so they can fly"
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationError);
+    });
 
-    // it('should be able to find a punctuation and case insensitive match', () => {
-    //   const questionString = "bats have zings so they can fly"
-    //   const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-    //   assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationAndCaseError);
-    // });
-    //
+    it('should be able to find a punctuation and case insensitive match', () => {
+      const questionString = "bats have zings so they can fly"
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.feedback, FEEDBACK_STRINGS.punctuationAndCaseError);
+    });
+
     it('should be able to find a spacing before punctuation match', () => {
       const questionString = "Bats have zings, so they can fly ."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);

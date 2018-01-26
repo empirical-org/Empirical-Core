@@ -68,11 +68,11 @@ function* firstPassMatchers(data: GradingObject) {
   yield spacingAfterCommaChecker(response, responses)
   yield whitespaceChecker(response, responses)
   yield rigidChangeObjectChecker(response, responses)
-  yield flexibleChangeObjectChecker(response, responses)
 }
 
 function*secondPassMatchers(data: GradingObject) {
   const {response, responses, focusPoints, incorrectSequences} = data;
+  yield flexibleChangeObjectChecker(response, responses)
   yield requiredWordsChecker(response, responses)
   yield minLengthChecker(response, responses)
   yield maxLengthChecker(response, responses)
@@ -98,6 +98,7 @@ function checkForMatches(data: GradingObject, matchingFunction: Function) {
 function prepareSpellingData(data: GradingObject) {
   const spellingData = Object.assign({}, data)
   const optimalAnswerStrings = getOptimalResponses(data.responses).map(resp => resp.text)
-  spellingData.response = correctSentenceFromSamples(optimalAnswerStrings,data.response,true)
+  spellingData.response = correctSentenceFromSamples(optimalAnswerStrings,data.response,false)
+  console.log("Corrected: ", spellingData.response)
   return spellingData 
 }
