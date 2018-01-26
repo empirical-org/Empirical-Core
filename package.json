@@ -5,6 +5,7 @@
   "repository": "github:empirical-org/quill-spellchecker",
   "main": "dist/lib.js",
   "module": "dist/lib.js",
+  "types": "dist/main.d.ts",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
@@ -28,8 +29,8 @@
     "karma-webpack": "^2.0.3",
     "mocha": "^3.2.0",
     "phantomjs-polyfill-object-assign": "0.0.2",
-    "rollup": "^0.41.4",
-    "rollup-plugin-typescript": "^0.8.1",
+    "rollup": "^0.50.0",
+    "rollup-plugin-typescript2": "^0.10.0",
     "style-loader": "^0.16.1",
     "ts-loader": "^2.0.3",
     "tslint": "^4.3.1",

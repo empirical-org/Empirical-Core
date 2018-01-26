@@ -2,7 +2,7 @@ var fs = require('fs');
 var zlib = require('zlib');
 var rollup = require('rollup');
 var uglify = require('uglify-js');
-var typescript = require('rollup-plugin-typescript');
+var typescript = require('rollup-plugin-typescript2');
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
     '/*!\n' +
@@ -13,16 +13,17 @@ var banner =
 
 rollup.rollup({
     entry: "./src/main.ts",
-    plugins: [typescript({
-        typescript: require('typescript')
-    })]
+    plugins: [
+      typescript()
+    ]
 })
     .then(function (bundle) {
-        return write('dist/lib.js', bundle.generate({
+        return bundle.write({
+            file: 'dist/lib.js',
             format: 'umd',
             banner: banner,
-            moduleName: 'lib'
-        }).code)
+            name: 'lib'
+        })
     })
     .then(function () {
         return write(
