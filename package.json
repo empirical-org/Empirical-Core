@@ -1,6 +1,6 @@
 {
   "name": "quill-shared-modules",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "dist/lib.js",
   "module": "dist/lib.js",
