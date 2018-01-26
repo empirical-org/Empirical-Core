@@ -1,5 +1,5 @@
 /*!
- * {LIB} v0.1.1
+ * {LIB} v0.1.2
  * (c) 2018 {NAME}
  * Released under the MIT License.
  */
