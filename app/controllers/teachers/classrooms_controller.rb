@@ -1,8 +1,10 @@
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
   before_filter :teacher!
-  before_filter :authorize_owner!, except: [:scores, :units, :scorebook]
-  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook]
+  # The excepted/only methods below are ones that should be accessible to coteachers.
+  # TODO This authing could probably be refactored.
+  before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf]
+  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
   def index
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
