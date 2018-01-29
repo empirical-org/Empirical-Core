@@ -4,7 +4,6 @@
   "description": "Spellchecker for Quill.",
   "repository": "github:empirical-org/quill-spellchecker",
   "main": "dist/lib.js",
-  "module": "dist/lib.js",
   "types": "dist/main.d.ts",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",

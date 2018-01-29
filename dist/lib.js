@@ -1,13 +1,11 @@
 /*!
- * {LIB} v0.1.1
+ * {LIB} v0.1.2
  * (c) 2018 {NAME}
  * Released under the MIT License.
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.lib = {})));
-}(this, (function (exports) { 'use strict';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 // declare function train(text: string): Dictionary;
 function train(text, existingDictionary) {
@@ -156,7 +154,3 @@ exports.train = train;
 exports.correct = correct;
 exports.edits = edits;
 exports.correctSentenceFromSamples = correctSentenceFromSamples;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
