@@ -323,7 +323,7 @@ describe User, type: :model do
 
         describe 'and the user does not have a subscription' do
           it 'the user gets the school subscription' do
-            queens_teacher_2.user_subscription.destroy
+            queens_teacher_2.user_subscriptions.destroy
             queens_teacher_2.updated_school(brooklyn_school)
             expect(queens_teacher_2.reload.subscription).to eq(brooklyn_school.subscription)
           end
