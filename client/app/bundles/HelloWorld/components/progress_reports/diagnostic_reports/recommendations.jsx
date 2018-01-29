@@ -16,6 +16,7 @@ export default React.createClass({
       loading: true,
       recommendations: [],
       previouslyAssignedRecommendations: [],
+      previouslyAssignedLessonsRecommendations: [],
       lessonsRecommendations: [],
       selections: [],
       students: [],
@@ -62,11 +63,12 @@ export default React.createClass({
     $.get(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}`, ((data) => {
       that.setState({
         previouslyAssignedRecommendations: data.previouslyAssignedRecommendations,
-      }, that.setSelections(data.previouslyAssignedRecommendations, assigned));
+        previouslyAssignedLessonsRecommendations: data.previouslyAssignedLessonsRecommendations,
+      }, that.setSelections(data.previouslyAssignedRecommendations, assigned, data.previouslyAssignedLessonsRecommendations));
     }));
   },
 
-  setSelections(previouslyAssignedRecommendations, assigned) {
+  setSelections(previouslyAssignedRecommendations, assigned, previouslyAssignedLessonsRecommendations) {
     const selections = this.state.recommendations.map((recommendation, i) => {
       const prevAssigned = previouslyAssignedRecommendations[i];
       const allAssignedStudents = _.uniq(recommendation.students.concat(prevAssigned.students));
@@ -76,10 +78,17 @@ export default React.createClass({
         students: allAssignedStudents,
       };
     });
+    const lessonsRecommendations = this.state.lessonsRecommendations.map(recommendation => {
+      if(previouslyAssignedLessonsRecommendations.includes(recommendation.activity_pack_id)) {
+        return Object.assign({}, recommendation, {status: 'assigned'})
+      } else {
+        return recommendation;
+      }
+    });
     if (assigned) {
       this.setState({ selections, assigned: assigned, assigning: false}, this.setAssignedToFalseAfterFiveSeconds);
     } else {
-      this.setState({ selections })
+      this.setState({ selections, lessonsRecommendations })
     }
   },
 
