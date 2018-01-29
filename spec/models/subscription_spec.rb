@@ -3,8 +3,8 @@ require 'rails_helper'
 describe Subscription, type: :model do
   describe "start premium when subscription" do
     let!(:subscription) { create(:subscription) }
-    let!(:user) { User.find(subscription.user_id) }
-    let!(:user_subscription) {create(:user_subscription, user: user, subscription: subscription)}
+    let!(:user) {create(:user)}
+    let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
 
     context "updates the expirary to the later of one year from today or July 1, 2018 if" do
       it "is a trial user" do
