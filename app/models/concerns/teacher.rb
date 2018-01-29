@@ -9,8 +9,6 @@ module Teacher
 
   included do
     has_many :units
-    has_one :user_subscription
-    has_one :subscription, through: :user_subscription
   end
 
   class << self
