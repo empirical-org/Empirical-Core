@@ -13,6 +13,12 @@ describe User, type: :model do
       expect(user.reload.subscription).to eq(subscription)
     end
 
+    it "returns the subscription with the latest expiration date multiple valid ones exists" do
+      later_subscription = create(:subscription, expiration: Date.today + 365)
+      later_user_sub = create(:user_subscription, user: user, subscription: later_subscription)
+      expect(user.reload.subscription).to eq(later_subscription)
+    end
+
     it "returns nil if a valid subscription does not exist" do
       subscription.update(expiration: Date.yesterday)
       expect(user.reload.subscription).to eq(nil)
