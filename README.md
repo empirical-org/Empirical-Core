@@ -3,9 +3,10 @@
 1. - clone the repo
 1. - gem install bundler
 1. - bundle install
+1. - docker-compose up
 1. - rake db:create
 1. - rake db:migrate
-1. - rake responses:import
+1. - rake responses_csv:import (get responses from donald)
 1. - brew install elasticsearch
 1. - brew services start elasticsearch
 1. - rails c
