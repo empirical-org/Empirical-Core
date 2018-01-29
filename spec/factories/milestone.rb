@@ -17,5 +17,9 @@ FactoryBot.define do
     factory :complete_customized_lesson_milestone do
       name { 'Complete Customized Lesson' }
     end
+
+    factory :invite_a_coteacher do
+      name { 'Invite a Co-Teacher' }
+    end
   end
 end
