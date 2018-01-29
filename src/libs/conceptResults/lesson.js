@@ -7,7 +7,7 @@ import {
   calculateCorrectnessOfSentence
 } from './sentenceFragment.js';
 
-import _ from 'underscore'
+import * as _ from 'underscore'
 
 const scoresForNAttempts = {
   1: 1,

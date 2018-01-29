@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 import { diffWords } from 'diff';
 
 export function checkChangeObjectMatch(userString: string, responses: Array<Responses>, stringManipulationFn: (string: string) => string, skipSort: boolean = false) {

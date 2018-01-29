@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 import constants from '../constants';
 import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
 import normalizeString from './normalizeString'
@@ -42,7 +42,7 @@ export default class Question {
     }
     const lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
     if (lowerCaseMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.feedback = constants.feedbackStrings.caseError;
       res.author = 'Capitalization Hint';
       res.parentID = lowerCaseMatch.key;
       this.copyParentResponses(res, lowerCaseMatch);

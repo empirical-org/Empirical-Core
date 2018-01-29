@@ -2,7 +2,7 @@ import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
-import FEEDBACK_STRINGS from '../constants/feedback_strings'
+import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function minLengthMatch(responseString:string, responses:Array<Response>):Boolean {
@@ -26,7 +26,7 @@ export function minLengthResponseBuilder(responses:Array<Response>): PartialResp
   const optimalResponses = getOptimalResponses(responses);
   const shortestOptimalResponse =  _.sortBy(optimalResponses, resp => stringNormalize(resp.text).length)[0];
   const res = {
-    feedback: FEEDBACK_STRINGS.minLengthError,
+    feedback: feedbackStrings.minLengthError,
     author: 'Missing Details Hint',
     parent_id: shortestOptimalResponse.key,
     concept_results: [

@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import {whitespaceMatch, whitespaceChecker} from './whitespace_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
-import FEEDBACK_STRINGS from '../constants/feedback_strings'
+import {feedbackStrings} from '../constants/feedback_strings'
 
 const savedResponses: Array<Response> = [
   {
@@ -30,7 +30,7 @@ describe('The whitespaceChecker', () => {
   it('Should return a partialResponse object if the string matches then whitespace is removed', () => {
     const responseString:string = "Mydogtookanap.";
     const partialResponse: PartialResponse =  {
-        feedback: FEEDBACK_STRINGS.whitespaceError,
+        feedback: feedbackStrings.whitespaceError,
         author: 'Whitespace Hint',
         parent_id: whitespaceMatch(responseString, savedResponses).id,
         concept_results: [

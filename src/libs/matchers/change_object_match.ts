@@ -2,31 +2,31 @@ import * as _ from 'underscore';
 import { diffWords } from 'diff';
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
-import {Response, PartialResponse, ChangeObjectMatch} from '../../interfaces'
+import {Response, PartialResponse} from '../../interfaces'
 import {removePunctuation} from '../helpers/remove_punctuation'
-import FEEDBACK_STRINGS from '../constants/feedback_strings'
+import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getFeedbackForMissingWord} from '../helpers/joining_words_feedback'
 
-interface TextChangesObject {
+export interface TextChangesObject {
   missingText: string|null,
   extraneousText: string|null,
 }
-interface ChangeObjectMatch {
-  errorType: string,
+export interface ChangeObjectMatch {
+  errorType?: string,
   response: Response,
   missingText: string|null,
   extraneousText: string|null,
 }
 
-export function rigidChangeObjectChecker(responseString: string, responses:Array<Response>):ChangeObjectMatch|undefined {
+export function rigidChangeObjectChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
   const match = rigidChangeObjectMatch(responseString, responses);
   if (match) {
     return rigidChangeObjectMatchResponseBuilder(match)
   }
 }
 
-export function flexibleChangeObjectChecker(responseString: string, responses:Array<Response>):ChangeObjectMatch|undefined {
+export function flexibleChangeObjectChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
   const match = flexibleChangeObjectMatch(responseString, responses);
   if (match) {
     return flexibleChangeObjectMatchResponseBuilder(match)
@@ -39,7 +39,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
     case ERROR_TYPES.INCORRECT_WORD:
       const missingWord = match.missingText;
       const missingTextFeedback = getFeedbackForMissingWord(missingWord);
-      res.feedback = missingTextFeedback || FEEDBACK_STRINGS.modifiedWordError;
+      res.feedback = missingTextFeedback || feedbackStrings.modifiedWordError;
       res.author = 'Modified Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = [
@@ -47,7 +47,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
       ];
       return res;
     case ERROR_TYPES.ADDITIONAL_WORD:
-      res.feedback = FEEDBACK_STRINGS.additionalWordError;
+      res.feedback = feedbackStrings.additionalWordError;
       res.author = 'Additional Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = [
@@ -56,7 +56,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
       return res;
     case ERROR_TYPES.MISSING_WORD:
 
-      res.feedback = FEEDBACK_STRINGS.missingWordError;
+      res.feedback = feedbackStrings.missingWordError;
       res.author = 'Missing Word Hint';
       res.parent_id = match.response.key;
       res.concept_results = [
@@ -129,9 +129,9 @@ const getErrorType = (targetString:string, userString:string):string|null => {
 
 const getMissingAndAddedString = (targetString: string, userString: string): TextChangesObject => {
   const changeObjects = getChangeObjects(targetString, userString);
-  const missingObject = _.where(changeObjects, { removed: true, })[0];
+  const missingObject = changeObjects ? _.where(changeObjects, co => co.removed)[0] : null
   const missingText = missingObject ? missingObject.value : undefined;
-  const extraneousObject = _.where(changeObjects, { added: true, })[0];
+  const extraneousObject = changeObjects ? _.where(changeObjects, co => co.added)[0] : null
   const extraneousText = extraneousObject ? extraneousObject.value : undefined;
   return {
     missingText,
@@ -139,7 +139,7 @@ const getMissingAndAddedString = (targetString: string, userString: string): Tex
   };
 };
 
-const getChangeObjects = (targetString, userString) => diffWords(targetString, userString);
+const getChangeObjects = (targetString, userString): Array<any> => diffWords(targetString, userString);
 
 const checkForIncorrect = (changeObjects):boolean => {
   let tooLongError = false;

@@ -2,7 +2,7 @@ import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
-import FEEDBACK_STRINGS from '../constants/feedback_strings'
+import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function punctuationAndCaseInsensitiveMatch(responseString:string, responses:Array<Response>):Response|undefined {
@@ -27,7 +27,7 @@ export function punctuationAndCaseInsensitiveChecker(responseString: string, res
 
 export function punctuationAndCaseInsensitiveResponseBuilder(responses:Array<Response>, parentID:string|number): PartialResponse {
   const res = {
-    feedback: FEEDBACK_STRINGS.punctuationAndCaseError,
+    feedback: feedbackStrings.punctuationAndCaseError,
     author: 'Punctuation and Case Hint',
     parent_id: parentID,
     concept_results: [

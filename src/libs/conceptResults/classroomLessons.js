@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 
 export function generate(lessonQuestionData, studentSessionData, modifications) {
   const nestedConceptResults = generateConceptResultsForAllQuestions(lessonQuestionData, studentSessionData);

@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 import fuzzy from 'fuzzyset.js';
 import constants from '../constants';
 import { diffWords } from 'diff';
@@ -52,7 +52,7 @@ export default class Question {
     }
     const lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
     if (lowerCaseMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.feedback = constants.feedbackStrings.caseError;
       res.author = 'Capitalization Hint';
       res.parentID = lowerCaseMatch.key;
       this.copyParentResponses(res, lowerCaseMatch);
@@ -60,7 +60,7 @@ export default class Question {
     }
     const punctuationMatch = this.checkPunctuationInsensitiveMatch(response);
     if (punctuationMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.feedback = constants.feedbackStrings.punctuationError;
       res.author = 'Punctuation Hint';
       res.parentID = punctuationMatch.key;
       this.copyParentResponses(res, punctuationMatch);
@@ -68,7 +68,7 @@ export default class Question {
     }
     const punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response);
     if (punctuationAndCaseMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
+      res.feedback = constants.feedbackStrings.punctuationAndCaseError;
       res.author = 'Punctuation and Case Hint';
       res.parentID = punctuationAndCaseMatch.key;
       this.copyParentResponses(res, punctuationAndCaseMatch);
@@ -76,7 +76,7 @@ export default class Question {
     }
     const minLengthMatch = this.checkMinLengthMatch(response);
     if (minLengthMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.minLengthError;
+      res.feedback = constants.feedbackStrings.minLengthError;
       res.author = 'Missing Details Hint';
       res.parentID = minLengthMatch.key;
       return returnValue;
@@ -85,19 +85,19 @@ export default class Question {
     if (changeObjectMatch !== undefined) {
       switch (changeObjectMatch.errorType) {
         case ERROR_TYPES.INCORRECT_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.feedback = constants.feedbackStrings.modifiedWordError;
           res.author = 'Modified Word Hint';
           res.parentID = changeObjectMatch.response.key;
           this.copyParentResponses(res, changeObjectMatch.response);
           return returnValue;
         case ERROR_TYPES.ADDITIONAL_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.feedback = constants.feedbackStrings.additionalWordError;
           res.author = 'Additional Word Hint';
           res.parentID = changeObjectMatch.response.key;
           this.copyParentResponses(res, changeObjectMatch.response);
           return returnValue;
         case ERROR_TYPES.MISSING_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.feedback = constants.feedbackStrings.missingWordError;
           res.author = 'Missing Word Hint';
           res.parentID = changeObjectMatch.response.key;
           this.copyParentResponses(res, changeObjectMatch.response);
@@ -108,7 +108,7 @@ export default class Question {
     }
     const whitespaceMatch = this.checkWhiteSpaceMatch(response);
     if (whitespaceMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      res.feedback = constants.feedbackStrings.whitespaceError;
       res.author = 'Whitespace Hint';
       res.parentID = whitespaceMatch.key;
       this.copyParentResponses(res, whitespaceMatch);

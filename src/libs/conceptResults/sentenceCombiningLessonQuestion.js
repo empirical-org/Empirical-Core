@@ -1,5 +1,5 @@
 import { hashToCollection } from '../hashToCollection';
-import _ from 'underscore';
+import * as _ from 'underscore';
 import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 
 const C = require('../../constants').default;
