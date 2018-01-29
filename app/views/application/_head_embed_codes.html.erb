@@ -7,14 +7,31 @@
 
     analytics.load("<%= ENV["SEGMENT_WRITE_KEY"] %>");
     analytics.page();
-    <% if current_user && current_user.role == 'teacher' && session[:staff_id].nil? && /hello\+(.)*@quill.org/.match(current_user.email).nil? %>
-      analytics.identify(<%= current_user.id %>, <%= raw(SegmentAnalyticsUserSerializer.new(current_user).to_json(root: false)) %>)
-      // Here is where we poll Intercom for new messages.
+    <% if @should_load_intercom %>
+      analytics.identify(
+        <%= current_user.id %>,
+        <%= raw(SegmentAnalyticsUserSerializer.new(current_user).to_json(root: false)) %>,
+        {
+          all: true,
+          Intercom: { user_hash: '<%= OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], current_user.id.to_s) %>' }
+        }
+      )
+
       setInterval(function() {
         if (typeof Intercom !== 'undefined') {
           Intercom('update');
         }
-      }, 30000) // Poll every 30 seconds (why not?)
+      }, 30000)
+    <% else %>
+      // In case a teacher was signed in on this computer and set the Intercom
+      // localStorage, and then a student logged into this computer, let's
+      // explicitly tell Intercom to shut it down so the student does not
+      // see Intercom.
+      window.onload = function() {
+        if (typeof Intercom !== 'undefined') {
+          Intercom('shutdown');
+        }
+      };
     <% end %>
   }}();
   </script>
