@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
 
 
   has_secure_password validations: false
-
+  has_many :user_subscription
+  has_many :subscriptions, through: :user_subscription
   has_many :checkboxes
   has_many :invitations
   has_many :objectives, through: :checkboxes
@@ -72,6 +73,10 @@ class User < ActiveRecord::Base
   before_validation :prep_authentication_terms
 
   after_save :check_for_school
+
+  def subscription
+    self.subscriptions.where("expiration > ?", Date.today).limit(1).first
+  end
 
   def create(*args)
     super

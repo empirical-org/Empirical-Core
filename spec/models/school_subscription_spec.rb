@@ -17,10 +17,6 @@ let!(:school_sub) {create(:school_subscription)}
       it "school_id" do
         expect{school_sub.update!(school_id: nil)}.to raise_error
       end
-
-      it "user_id" do
-        expect{school_sub.update!(user_id: nil)}.to raise_error
-      end
     end
 
   end
