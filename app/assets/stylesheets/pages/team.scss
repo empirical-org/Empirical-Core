@@ -18,7 +18,7 @@
   }
 
   .team-member {
-    width: 31%;
+    width: 32%;
     background-color: #ffffff;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -46,20 +46,20 @@
       }
 
       h5 {
-        color: #04f6ce;
+        color: #7bffe0;
       }
     }
   }
 
   p {
-    padding: 10px 20px 15px;
+    padding: 10px 15px 12px;
     color: #333;
     line-height: 1.6;
   }
 
   @media screen and (max-width: 990px) {
     .team-member {
-      width: 45%;
+      width: 48%;
     }
   }
 
