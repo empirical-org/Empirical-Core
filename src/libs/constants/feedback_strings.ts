@@ -1,4 +1,4 @@
-declare interface FeedbackStrings {
+export interface FeedbackStrings {
   punctuationError: string;
   punctuationAndCaseError: string;
   typingError: string;
@@ -15,7 +15,7 @@ declare interface FeedbackStrings {
   spacingAfterCommaError: string
 }
 
-const feedback_strings: FeedbackStrings = {
+export const feedbackStrings: FeedbackStrings = {
   punctuationError: 'There may be an error. How could you update the punctuation?',
   punctuationAndCaseError: 'There may be an error. How could you update the punctuation and capitalization?',
   typingError: 'Try again. There may be a spelling mistake.',
@@ -31,5 +31,3 @@ const feedback_strings: FeedbackStrings = {
   flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
   spacingAfterCommaError: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>'
 };
-
-export default feedback_strings

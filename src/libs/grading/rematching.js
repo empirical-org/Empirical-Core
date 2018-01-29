@@ -1,5 +1,5 @@
 import request from 'request-promise';
-import _ from 'underscore';
+import * as _ from 'underscore';
 
 import { hashToCollection } from '../hashToCollection';
 import POSMatcher from '../sentenceFragment.js';

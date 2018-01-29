@@ -39,6 +39,7 @@ export interface PartialResponse {
   uid?: string|null,
   updated_at?: string,
   weak?: Boolean|null,
+  errorType?: string
 }
 
 
@@ -71,5 +72,6 @@ export interface GradingObject {
   response: string,
   responses: Array<Response>,
   focusPoints: Array<FocusPoint>,
-  incorrectSequences: Array<IncorrectSequence>
+  incorrectSequences: Array<IncorrectSequence>,
+  spellCorrectedResponse?: string
 }

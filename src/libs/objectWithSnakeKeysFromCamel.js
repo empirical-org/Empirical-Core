@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 
 export default function (camelObj, convertCR = true) {
   const snakeObj = {};

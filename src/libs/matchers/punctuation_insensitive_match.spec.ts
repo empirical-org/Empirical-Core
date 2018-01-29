@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import {punctuationInsensitiveMatch, punctuationInsensitiveChecker} from './punctuation_insensitive_match'
 import {Response, PartialResponse} from '../../interfaces'
-import FEEDBACK_STRINGS from '../constants/feedback_strings'
+import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 const savedResponses: Array<Response> = [
@@ -30,7 +30,7 @@ describe('The punctuationInsensitiveChecker', () => {
   it('Should return a partialResponse object if the lowercased response string matches a lowercased partial response', () => {
     const responseString = "My dog took a nap";
     const partialResponse: PartialResponse =  {
-        feedback: FEEDBACK_STRINGS.punctuationError,
+        feedback: feedbackStrings.punctuationError,
         author: 'Punctuation Hint',
         parent_id: punctuationInsensitiveMatch(responseString, savedResponses).id,
         concept_results: [

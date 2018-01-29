@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 import fuzzy from 'fuzzyset.js';
 import constants from '../constants';
 import { checkForMissingWords } from './requiredWords';
@@ -111,7 +111,7 @@ export default class Question {
     }
     const lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
     if (lowerCaseMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.feedback = constants.feedbackStrings.caseError;
       res.author = 'Capitalization Hint';
       res.parentID = lowerCaseMatch.key;
       res.conceptResults = [
@@ -121,7 +121,7 @@ export default class Question {
     }
     const punctuationMatch = this.checkPunctuationInsensitiveMatch(response);
     if (punctuationMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.feedback = constants.feedbackStrings.punctuationError;
       res.author = 'Punctuation Hint';
       res.parentID = punctuationMatch.key;
       res.conceptResults = [
@@ -131,7 +131,7 @@ export default class Question {
     }
     const punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response);
     if (punctuationAndCaseMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
+      res.feedback = constants.feedbackStrings.punctuationAndCaseError;
       res.author = 'Punctuation and Case Hint';
       res.parentID = punctuationAndCaseMatch.key;
       res.conceptResults = [
@@ -162,7 +162,7 @@ export default class Question {
     }
     const whitespaceMatch = this.checkWhiteSpaceMatch(response);
     if (whitespaceMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      res.feedback = constants.feedbackStrings.whitespaceError;
       res.author = 'Whitespace Hint';
       res.parentID = whitespaceMatch.key;
       res.conceptResults = [
@@ -176,7 +176,7 @@ export default class Question {
         case ERROR_TYPES.INCORRECT_WORD:
           const missingWord = changeObjectMatch.missingText;
           const missingTextFeedback = getFeedbackForMissingWord(missingWord);
-          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.feedback = missingTextFeedback || constants.feedbackStrings.modifiedWordError;
           res.author = 'Modified Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -184,7 +184,7 @@ export default class Question {
           ];
           return returnValue;
         case ERROR_TYPES.ADDITIONAL_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.feedback = constants.feedbackStrings.additionalWordError;
           res.author = 'Additional Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -193,7 +193,7 @@ export default class Question {
           return returnValue;
         case ERROR_TYPES.MISSING_WORD:
 
-          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.feedback = constants.feedbackStrings.missingWordError;
           res.author = 'Missing Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -210,7 +210,7 @@ export default class Question {
         case ERROR_TYPES.INCORRECT_WORD:
           const missingWord = changeObjectFlexMatch.missingText;
           const missingTextFeedback = getFeedbackForMissingWord(missingWord);
-          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.feedback = missingTextFeedback || constants.feedbackStrings.modifiedWordError;
           res.author = 'Flexible Modified Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
@@ -219,7 +219,7 @@ export default class Question {
           return returnValue;
         case ERROR_TYPES.ADDITIONAL_WORD:
 
-          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.feedback = constants.feedbackStrings.additionalWordError;
           res.author = 'Flexible Additional Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
@@ -228,7 +228,7 @@ export default class Question {
           return returnValue;
         case ERROR_TYPES.MISSING_WORD:
 
-          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.feedback = constants.feedbackStrings.missingWordError;
           res.author = 'Flexible Missing Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
@@ -251,7 +251,7 @@ export default class Question {
     }
     const minLengthMatch = this.checkMinLengthMatch(response);
     if (minLengthMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.minLengthError;
+      res.feedback = constants.feedbackStrings.minLengthError;
       res.author = 'Missing Details Hint';
       res.parentID = minLengthMatch.key;
       res.conceptResults = [
@@ -261,7 +261,7 @@ export default class Question {
     }
     const maxLengthMatch = this.checkMaxLengthMatch(response);
     if (maxLengthMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.maxLengthError;
+      res.feedback = constants.feedbackStrings.maxLengthError;
       res.author = 'Not Concise Hint';
       res.parentID = maxLengthMatch.key;
       res.conceptResults = [
@@ -271,7 +271,7 @@ export default class Question {
     }
     const lowerCaseStartMatch = this.checkCaseStartMatch(response);
     if (lowerCaseStartMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.feedback = constants.feedbackStrings.caseError;
       res.author = 'Capitalization Hint';
       res.parentID = lowerCaseStartMatch.key;
       res.conceptResults = [
@@ -281,7 +281,7 @@ export default class Question {
     }
     const punctuationEndMatch = this.checkPunctuationEndMatch(response);
     if (punctuationEndMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.feedback = constants.feedbackStrings.punctuationError;
       res.author = 'Punctuation End Hint';
       res.parentID = punctuationEndMatch.key;
       res.conceptResults = [

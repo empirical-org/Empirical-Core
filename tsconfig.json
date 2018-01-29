@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "module": "commonjs",
+        "module": "CommonJS",
         "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
         "sourceMap": false,
         "noImplicitAny": false,
         "lib": [
@@ -11,6 +12,7 @@
         ],
         "typeRoots": [
             "node_modules/@types/"
-        ]
+        ],
+        "declaration": true
     }
 }
