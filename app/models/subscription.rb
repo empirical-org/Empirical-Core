@@ -6,6 +6,7 @@ class Subscription < ActiveRecord::Base
   has_many :school_subscriptions
   has_many :users, through: :user_subscriptions
   has_many :schools, through: :school_subscriptions
+  belongs_to :subscription_type
   validates :expiration, presence: true
   validates :account_limit, presence: true
 
