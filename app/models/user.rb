@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
 
 
   has_secure_password validations: false
-  has_many :user_subscription
-  has_many :subscriptions, through: :user_subscription
+  has_many :user_subscriptions
+  has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
   has_many :invitations
   has_many :objectives, through: :checkboxes
