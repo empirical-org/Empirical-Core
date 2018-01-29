@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
   after_save :check_for_school
 
   def subscription
-    self.subscriptions.where("expiration > ?", Date.today).limit(1).first
+    self.subscriptions.where("expiration > ?", Date.today).order(expiration: :desc).limit(1).first
   end
 
   def create(*args)
