@@ -7,6 +7,20 @@ describe School, type: :model do
   let!(:bk_teacher_colleague) { create(:teacher, school: bk_school) }
   let!(:queens_teacher) { create(:teacher, school: queens_school) }
 
+  describe('#subscription') do
+    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+    let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
+
+    it "returns a subscription if a valid one exists" do
+      expect(bk_school.subscription).to eq(subscription)
+    end
+
+    it "returns nil if a valid subscription does not exist" do
+      subscription.update(expiration: Date.yesterday)
+      expect(bk_school.subscription).to eq(nil)
+    end
+  end
+
   describe 'validations' do
     before do
       @school = School.new

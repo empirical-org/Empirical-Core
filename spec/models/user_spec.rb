@@ -4,6 +4,22 @@ describe User, type: :model do
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
+  describe('#subscription') do
+    let(:user) { create(:user) }
+    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+    let!(:user_subscription) {create(:user_subscription, user: user, subscription: subscription)}
+
+    it "returns a subscription if a valid one exists" do
+      expect(user.reload.subscription).to eq(subscription)
+    end
+
+    it "returns nil if a valid subscription does not exist" do
+      subscription.update(expiration: Date.yesterday)
+      expect(user.reload.subscription).to eq(nil)
+    end
+  end
+
+
 
   describe '#newsletter?' do
     context 'user.send_newsletter = false' do
