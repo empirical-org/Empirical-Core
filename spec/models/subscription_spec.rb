@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 describe Subscription, type: :model do
-  let!(:subscription) { create(:subscription) }
-  let!(:user) {create(:user)}
-  let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
   describe "start premium when subscription" do
-    # let!(:user) {create(:user)}
-    # let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
+    let!(:subscription) { create(:subscription) }
+    let!(:user) {create(:user)}
+    let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
 
     context "updates the expirary to the later of one year from today or July 1, 2018 if" do
       it "is a trial user" do
@@ -28,7 +26,10 @@ describe Subscription, type: :model do
     end
   end
 
-  describe "#credit_and_expire" do
+  describe "#credit_user_and_expire" do
+    let!(:subscription) { create(:subscription) }
+    let!(:user) {create(:user)}
+    let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
 
     context "it does nothing to the subscription when" do
       let(:user_subscription_2) {create(:user_subscription,subscription: subscription, user: user)}
@@ -37,13 +38,13 @@ describe Subscription, type: :model do
       it "is a subscription with multiple users_subscriptions linked" do
         user_subscription_2
         old_sub_attributes = subscription.attributes
-        subscription.credit_and_expire
+        subscription.credit_user_and_expire
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
       it "is a subscription with any school subscriptions linked" do
         school_subscription
         old_sub_attributes = subscription.attributes
-        subscription.credit_and_expire
+        subscription.credit_user_and_expire
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
     end
@@ -53,7 +54,7 @@ describe Subscription, type: :model do
     # end
 
     it "sets the subscription to expire the day it is called" do
-      subscription.credit_and_expire
+      subscription.credit_user_and_expire
       expect(subscription.expiration).to eq(Date.today)
     end
   end
