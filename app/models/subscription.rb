@@ -58,7 +58,7 @@ class Subscription < ActiveRecord::Base
     'Purchase Missing School']
   end
 
-  def credit_and_expire
+  def credit_user_and_expire
     if self.school_subscriptions.ids.any?
       # we should not do this if the sub belongs to a school
       report_to_new_relic("Sub credited and expired with school. Subscription: #{self.id}")
