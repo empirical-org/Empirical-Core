@@ -1546,7 +1546,9 @@ CREATE TABLE subscriptions (
     account_limit integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    account_type character varying
+    account_type character varying,
+    contact_email character varying,
+    start_date timestamp without time zone
 );
 
 
@@ -3132,6 +3134,20 @@ CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON 
 
 
 --
+-- Name: index_subscriptions_on_contact_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_subscriptions_on_contact_email ON subscriptions USING btree (contact_email);
+
+
+--
+-- Name: index_subscriptions_on_start_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_start_date ON subscriptions USING btree (start_date);
+
+
+--
 -- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3912,4 +3928,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180206235328');
 INSERT INTO schema_migrations (version) VALUES ('20180207154242');
 
 INSERT INTO schema_migrations (version) VALUES ('20180207165525');
+
+INSERT INTO schema_migrations (version) VALUES ('20180129225903');
 
