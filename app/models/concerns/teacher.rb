@@ -280,11 +280,11 @@ module Teacher
 
   def updated_school(school_id)
     new_school_sub = SchoolSubscription.find_by_school_id(school_id)
-    current_sub = self.subscription
     if new_school_sub
+      current_sub = self.subscription
       if current_sub
-        current_is_school = current_sub&.school_subscriptions.any?
-        if current_is_school
+        # then they already have a subscription that we'll need to deal with
+        if current_sub&.school_subscriptions.any?
           # we don't care about their old school -- give them the new school sub
           # and destroy their association to their old school sub
           UserSubscription.find_by(user_id: self.id, subscription_id: current_sub.id).destroy
@@ -293,8 +293,9 @@ module Teacher
           current_sub.credit_user_and_expire
         end
       end
+      # now that we have handled the old sub (or verified that it doesn't exist, we give the new school sub)
+      UserSubscription.update_or_create(self.id, new_school_sub.subscription.id)
     end
-    UserSubscription.update_or_create(self.id, new_school_sub.subscription.id)
   end
 
   def is_premium?
