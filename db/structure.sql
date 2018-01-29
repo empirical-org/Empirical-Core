@@ -1,9 +1,9 @@
---
+
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.1
--- Dumped by pg_dump version 10.1
+-- Dumped from database version 10.0
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -586,14 +586,14 @@ CREATE TABLE classrooms (
     id integer NOT NULL,
     name character varying(255),
     code character varying(255),
-    teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     clever_id character varying(255),
     grade character varying(255),
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
-    grade_level integer
+    grade_level integer,
+    teacher_id integer
 );
 
 
@@ -627,7 +627,7 @@ CREATE TABLE classrooms_teachers (
     role character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -636,6 +636,7 @@ CREATE TABLE classrooms_teachers (
 --
 
 CREATE SEQUENCE classrooms_teachers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -770,6 +771,7 @@ CREATE TABLE coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE coteacher_classroom_invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -948,6 +950,7 @@ CREATE TABLE invitations (
 --
 
 CREATE SEQUENCE invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1539,7 +1542,6 @@ ALTER SEQUENCE students_classrooms_id_seq OWNED BY students_classrooms.id;
 
 CREATE TABLE subscriptions (
     id integer NOT NULL,
-    user_id integer,
     expiration date,
     account_limit integer,
     created_at timestamp without time zone,
@@ -1823,7 +1825,8 @@ CREATE TABLE users (
     flag character varying,
     google_id character varying,
     last_sign_in timestamp without time zone,
-    last_active timestamp without time zone
+    last_active timestamp without time zone,
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['temporary'::character varying, 'staff'::character varying, 'admin'::character varying, 'student'::character varying, 'teacher'::character varying, 'user'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -2842,13 +2845,6 @@ CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_le
 
 
 --
--- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
-
-
---
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2888,13 +2884,6 @@ CREATE INDEX index_concept_results_on_activity_classification_id ON concept_resu
 --
 
 CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
-
-
---
--- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
 
 
 --
@@ -3041,7 +3030,7 @@ CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btre
 -- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_school_subscriptions_on_school_id ON school_subscriptions USING btree (school_id);
+CREATE INDEX index_school_subscriptions_on_school_id ON school_subscriptions USING btree (school_id);
 
 
 --
@@ -3223,7 +3212,7 @@ CREATE INDEX index_user_subscriptions_on_subscription_id ON user_subscriptions U
 -- Name: index_user_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_user_subscriptions_on_user_id ON user_subscriptions USING btree (user_id);
+CREATE INDEX index_user_subscriptions_on_user_id ON user_subscriptions USING btree (user_id);
 
 
 --
@@ -3875,6 +3864,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171019150737');
 INSERT INTO schema_migrations (version) VALUES ('20171106201721');
 
 INSERT INTO schema_migrations (version) VALUES ('20171106203046');
+
+INSERT INTO schema_migrations (version) VALUES ('20171108201608');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 
