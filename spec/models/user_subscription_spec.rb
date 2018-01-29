@@ -8,12 +8,6 @@ let!(:old_sub) { create(:subscription)}
 let!(:user_sub) {create(:user_subscription, user_id: user_1.id, subscription_id: old_sub.id)}
 
   context "validates" do
-    describe "uniqueness of" do
-
-      it "user_id" do
-        expect{UserSubscription.create(subscription_id: 2, user_id: user_sub.user_id)}.to raise_error
-      end
-    end
 
     describe "presence of" do
       it "subscription_id" do
