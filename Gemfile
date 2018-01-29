@@ -64,6 +64,7 @@ gem 'ttfunk'
 gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
+gem 'intercom', '~> 3.5.23'
 
 # WEBSOCKETS
 gem 'pusher'
