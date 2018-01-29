@@ -281,28 +281,20 @@ module Teacher
   def updated_school(school_id)
     new_school_sub = SchoolSubscription.find_by_school_id(school_id)
     current_sub = self.subscription
-    if current_sub&.school_subscriptions&.any?
-      # then they already belonged to a subscription through a school, which we destroy
-      self.user_subscription.destroy
-    end
     if new_school_sub
       if current_sub
         current_is_school = current_sub&.school_subscriptions.any?
         if current_is_school
           # we don't care about their old school -- give them the new school sub
-          new_sub_id = new_school_sub.subscription.id
+          # and destroy their association to their old school sub
+          UserSubscription.find_by(user_id: self.id, subscription_id: current_sub.id).destroy
         else
-          # give them the better of their personal sub or the school sub
-          new_sub_id = later_expiration_date(new_school_sub.subscription, current_sub).id
+          # it is a personal sub and we credit them the remaining time left and then expire it
+          current_sub.credit_user_and_expire
         end
-      else
-        # they get the new sub by default
-        new_sub_id = new_school_sub.subscription.id
       end
     end
-    if new_sub_id
-      UserSubscription.update_or_create(self.id, new_sub_id)
-    end
+    UserSubscription.update_or_create(self.id, new_school_sub.subscription.id)
   end
 
   def is_premium?
@@ -356,14 +348,11 @@ module Teacher
   def premium_state
     # the beta period is obsolete -- but may break things by removing it
     if subscription
-      if !is_beta_period_over?
-        "beta"
-      elsif is_premium?
-        ## returns 'trial' or 'paid'
-        subscription.trial_or_paid
-      elsif subscription_is_expired?
-        "locked"
-      end
+      # subscription will only return a valid one
+      subscription.trial_or_paid
+    elsif self.subscriptions.exists?
+      # then they have an expired or 'locked' sub
+      'locked'
     else
       'none'
     end
@@ -371,10 +360,6 @@ module Teacher
 
   def is_beta_period_over?
     Date.today >= TRIAL_START_DATE
-  end
-
-  def later_expiration_date(sub_1, sub_2)
-    sub_1.expiration > sub_2.expiration ? sub_1 : sub_2
   end
 
   def finished_diagnostic_unit_ids

@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 describe Subscription, type: :model do
+  let!(:subscription) { create(:subscription) }
+  let!(:user) {create(:user)}
+  let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
   describe "start premium when subscription" do
-    let!(:subscription) { create(:subscription) }
-    let!(:user) {create(:user)}
-    let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
+    # let!(:user) {create(:user)}
+    # let!(:user_subscription) {create(:user_subscription,subscription: subscription, user: user)}
 
     context "updates the expirary to the later of one year from today or July 1, 2018 if" do
       it "is a trial user" do
@@ -23,6 +25,36 @@ describe Subscription, type: :model do
         expect(subscription.reload.expiration).to eq(expected_date)
       end
 
+    end
+  end
+
+  describe "#credit_and_expire" do
+
+    context "it does nothing to the subscription when" do
+      let(:user_subscription_2) {create(:user_subscription,subscription: subscription, user: user)}
+      let!(:school) {create(:school)}
+      let(:school_subscription) {create(:user_subscription,subscription: subscription, user: user)}
+      it "is a subscription with multiple users_subscriptions linked" do
+        user_subscription_2
+        old_sub_attributes = subscription.attributes
+        subscription.credit_and_expire
+        expect(subscription.reload.attributes).to eq(old_sub_attributes)
+      end
+      it "is a subscription with any school subscriptions linked" do
+        school_subscription
+        old_sub_attributes = subscription.attributes
+        subscription.credit_and_expire
+        expect(subscription.reload.attributes).to eq(old_sub_attributes)
+      end
+    end
+
+    # it "gives the user credit" do
+    #
+    # end
+
+    it "sets the subscription to expire the day it is called" do
+      subscription.credit_and_expire
+      expect(subscription.expiration).to eq(Date.today)
     end
   end
 

@@ -1,3 +1,6 @@
+require 'newrelic_rpm'
+require 'new_relic/agent'
+
 class Subscription < ActiveRecord::Base
   has_many :user_subscriptions
   has_many :school_subscriptions
@@ -55,6 +58,18 @@ class Subscription < ActiveRecord::Base
     'Purchase Missing School']
   end
 
+  def credit_and_expire
+    if self.school_subscriptions.ids.any?
+      # we should not do this if the sub belongs to a school
+      report_to_new_relic("Sub credited and expired with school. Subscription: #{self.id}")
+    elsif self.user_subscriptions.ids.count > 1
+      report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{self.id}")
+    else
+      # CREDIT ACTION HERE
+      self.update(expiration: Date.today)
+    end
+  end
+
   private
 
   def self.set_premium_expiration(sub = nil)
@@ -67,6 +82,14 @@ class Subscription < ActiveRecord::Base
 
   def self.set_trial_expiration
     Date.today + 30
+  end
+
+  def report_to_new_relic(e)
+    begin
+      raise e
+    rescue => e
+      NewRelic::Agent.notice_error(e)
+    end
   end
 
   def self.create_or_update_with_school_or_user_join school_or_user_id, type, attributes
