@@ -1434,6 +1434,38 @@ ALTER SEQUENCE students_classrooms_id_seq OWNED BY students_classrooms.id;
 
 
 --
+-- Name: subscription_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE subscription_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: subscription_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE subscription_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: subscription_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE subscription_types_id_seq OWNED BY subscription_types.id;
+
+
+--
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1445,7 +1477,8 @@ CREATE TABLE subscriptions (
     updated_at timestamp without time zone,
     account_type character varying,
     contact_email character varying,
-    start_date timestamp without time zone
+    start_date timestamp without time zone,
+    subscription_type_id integer
 );
 
 
@@ -2015,6 +2048,13 @@ ALTER TABLE ONLY students_classrooms ALTER COLUMN id SET DEFAULT nextval('studen
 
 
 --
+-- Name: subscription_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscription_types ALTER COLUMN id SET DEFAULT nextval('subscription_types_id_seq'::regclass);
+
+
+--
 -- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2379,6 +2419,14 @@ ALTER TABLE ONLY sections
 
 ALTER TABLE ONLY students_classrooms
     ADD CONSTRAINT students_classrooms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: subscription_types subscription_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscription_types
+    ADD CONSTRAINT subscription_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -2941,6 +2989,13 @@ CREATE INDEX index_students_classrooms_on_student_id ON students_classrooms USIN
 --
 
 CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON students_classrooms USING btree (student_id, classroom_id);
+
+
+--
+-- Name: index_subscription_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscription_types_on_name ON subscription_types USING btree (name);
 
 
 --
@@ -3728,4 +3783,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180126191518');
 INSERT INTO schema_migrations (version) VALUES ('20180126203911');
 
 INSERT INTO schema_migrations (version) VALUES ('20180129225903');
+
+INSERT INTO schema_migrations (version) VALUES ('20180129231657');
+
+INSERT INTO schema_migrations (version) VALUES ('20180129233216');
 
