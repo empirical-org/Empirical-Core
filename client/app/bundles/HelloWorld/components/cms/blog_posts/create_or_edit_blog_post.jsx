@@ -78,40 +78,30 @@ export default class extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Title:
-          <input type="text" value={this.state.title} onChange={this.handleTitleChange}/>
-        </label>
-        <br/>
-        <label>
-          Subtitle:
-          <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange}/>
-        </label>
-        <br/>
-        <label>
-          Body:
-          <textarea type="text" value={this.state.body} onChange={this.handleBodyChange}/>
-          <a href="http://commonmark.org/help/" style={{
-            color: '#027360'
-          }}>Markdown Cheatsheet</a>
-        </label>
-        <br/>
-        <label>
-          Markdown Preview
-        </label>
-        <MarkdownParser className='markdown-preview' markdownText={this.state.body}/>
-        <br/>
-        <label>
-          Author:
-          <ItemDropdown items={this.props.authors} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id)}/>
-        </label>
-        <label>
-          Topic:
-          <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)}/>
-        </label>
-        <br/>
+        <label>Title:</label>
+        <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
 
-        <input type="submit" value="Submit"/>
+        <label>Subtitle:</label>
+        <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange} />
+
+        <label>Body:</label>
+        <textarea type="text" value={this.state.body} onChange={this.handleBodyChange} />
+        <a href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
+
+        <label>Markdown Preview:</label>
+        <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
+
+        <div className='flex-two-cols'>
+          <div className='left'>
+            <label>Author:</label>
+            <ItemDropdown items={this.props.authors} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id)} />
+          </div>
+          <div className='right'>
+            <label>Topic:</label>
+            <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
+          </div>
+        </div>
+        <input type="submit" value="Submit" />
       </form>
     )
   }
