@@ -5,6 +5,7 @@ var uglify = require('uglify-js');
 var commonjs = require('rollup-plugin-commonjs');
 var nodeResolve = require('rollup-plugin-node-resolve');
 var typescript = require('rollup-plugin-typescript2');
+var istanbul = require('rollup-plugin-istanbul');
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
     '/*!\n' +
@@ -23,6 +24,7 @@ rollup.rollup({
         }
       }),
       typescript(),
+      istanbul(),
       nodeResolve()
     ]
 })

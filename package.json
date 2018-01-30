@@ -71,6 +71,7 @@
     "quill-spellchecker": "^0.1.4",
     "quill-string-normalizer": "0.0.7",
     "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-istanbul": "^2.0.0",
     "rollup-plugin-node-resolve": "^3.0.2",
     "underscore": "^1.8.3"
   },
