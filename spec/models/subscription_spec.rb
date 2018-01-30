@@ -35,12 +35,14 @@ describe Subscription, type: :model do
       let(:user_subscription_2) {create(:user_subscription,subscription: subscription, user: user)}
       let!(:school) {create(:school)}
       let(:school_subscription) {create(:user_subscription,subscription: subscription, user: user)}
+
       it "is a subscription with multiple users_subscriptions linked" do
         user_subscription_2
         old_sub_attributes = subscription.attributes
         subscription.credit_user_and_expire
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
+
       it "is a subscription with any school subscriptions linked" do
         school_subscription
         old_sub_attributes = subscription.attributes
@@ -48,10 +50,6 @@ describe Subscription, type: :model do
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
     end
-
-    # it "gives the user credit" do
-    #
-    # end
 
     it "sets the subscription to expire the day it is called" do
       subscription.credit_user_and_expire

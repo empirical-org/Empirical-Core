@@ -1580,7 +1580,7 @@ CREATE TABLE subscriptions (
     updated_at timestamp without time zone,
     account_type character varying,
     contact_email character varying,
-    start_date timestamp without time zone,
+    start_date timestamp without time zone DEFAULT '2018-01-30 00:00:00'::timestamp without time zone,
     subscription_type_id integer
 );
 
@@ -3989,4 +3989,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180129225903');
 INSERT INTO schema_migrations (version) VALUES ('20180129231657');
 
 INSERT INTO schema_migrations (version) VALUES ('20180129233216');
+
+INSERT INTO schema_migrations (version) VALUES ('20180130164532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180130165729');
 
