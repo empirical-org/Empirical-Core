@@ -1,5 +1,5 @@
 {
-  "name": "quill-shared-modules",
+  "name": "quill-marking-logic",
   "version": "0.1.1",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "dist/lib.js",
