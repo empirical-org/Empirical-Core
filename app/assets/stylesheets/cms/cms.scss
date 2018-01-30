@@ -108,3 +108,62 @@
   height: 80px;
   width: 80px;
 }
+
+.cms-container#blog-post {
+  form {
+    max-width: 600px;
+
+    label {
+      color: #666;
+      display: block;
+    }
+
+    input, textarea {
+      border-radius: 5px;
+      border: 1px solid #cecece;
+      display: block;
+      font-size: 14px;
+      padding: 9px 12px;
+      transition: 0.1s ease-out;
+      width: 100%;
+
+      &:focus {
+        border: 1px solid #5bc1a9;
+        outline: none;
+      }
+    }
+
+    input {
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input[type='submit'] {
+      background: $quillgreen;
+      border: none;
+      color: $white;
+      margin-top: 20px;
+      max-width: fit-content;
+    }
+
+    .markdown-preview {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .flex-two-cols {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .markdown-cheatsheet {
+      color: $quillforestgreen;
+      display: block;
+      margin: 5px 0 20px;
+      text-align: right;
+    }
+  }
+}
