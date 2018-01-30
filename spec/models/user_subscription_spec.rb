@@ -21,6 +21,27 @@ let!(:user_sub) {create(:user_subscription, user_id: user_1.id, subscription_id:
 
   end
 
+  context "#self.create_user_sub_from_school_sub" do
+    it "creates a new UserSubscription" do
+      old_user_sub_count = user_1.user_subscriptions.count
+      UserSubscription.create_user_sub_from_school_sub(user_1.id, new_sub.id)
+      expect(user_1.reload.user_subscriptions.count).to eq(old_user_sub_count + 1)
+    end
+
+    it "associates the user with the passed subscription" do
+      expect(user_1.subscription).to eq(old_sub)
+      UserSubscription.create_user_sub_from_school_sub(user_1.id, new_sub.id)
+      expect(user_1.reload.subscription).to eq(new_sub)
+    end
+
+    it "calls #self.redeem_present_and_future_subscriptions_for_credit with the user_id " do
+      UserSubscription.should receive(:redeem_present_and_future_subscriptions_for_credit).with(user_1.id)
+      UserSubscription.create_user_sub_from_school_sub(user_1.id, new_sub.id)
+    end
+  end
+
+  context "#self.redeem_present_and_future_subscriptions_for_credit"
+
   context "UserSubscription.update_or_create" do
 
     it "updates existing UserSubscriptions to the new subscription_id" do
