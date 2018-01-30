@@ -14,7 +14,7 @@ var banner =
     ' */';
 
 rollup.rollup({
-    entry: "./src/main.ts",
+    input: "./src/main.ts",
     plugins: [
       commonjs({
         namedExports: {
