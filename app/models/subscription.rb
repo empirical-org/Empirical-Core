@@ -10,19 +10,6 @@ class Subscription < ActiveRecord::Base
   validates :expiration, presence: true
   validates :account_limit, presence: true
 
-  def self.start_premium user_id
-    user_sub = UserSubscription.find_or_initialize_by(user_id: user_id)
-    # if a subscription already exists, we just update it by adding an additional 365 days to the expiration
-    if user_sub.new_record?
-      new_sub = Subscription.create!(expiration: self.set_premium_expiration, account_limit: 1000, account_type: 'paid', contact_email: user_sub.user.email)
-      user_sub.update!(subscription_id: new_sub.id)
-      user_sub.save!
-    else
-      user_sub.subscription.update!(expiration: self.set_premium_expiration(user_sub.subscription), account_limit: 1000, account_type: 'paid')
-    end
-    PremiumAnalyticsWorker.perform_async(user_sub.user_id, 'paid')
-  end
-
   def self.create_or_update_with_school_join school_id, attributes
     self.create_or_update_with_school_or_user_join school_id, 'School', attributes
   end
