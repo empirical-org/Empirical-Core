@@ -17,7 +17,7 @@ import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
 import RenderFeedback from '../renderForQuestions/feedback.jsx';
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
-import getResponse from '../renderForQuestions/checkAnswer.js';
+import getResponse from '../renderForQuestions/checkAnswer';
 import handleFocus from '../renderForQuestions/handleFocus.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -130,6 +130,7 @@ const playLessonQuestion = React.createClass({
   },
 
   renderFeedback(override) {
+    console.log('override', override)
     let sentence;
     if (override) {
       sentence = override;

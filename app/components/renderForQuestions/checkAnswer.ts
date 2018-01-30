@@ -1,18 +1,16 @@
 import { hashToCollection } from '../../libs/hashToCollection';
 import Question from '../../libs/question';
 import DiagnosticQuestion from '../../libs/diagnosticQuestion';
+import {checkSentenceCombining} from 'quill-marking-logic'
 
-export default function checkAnswer(question, response, responses, mode = 'default') {
-  const Brain = mode === 'default' ? Question : DiagnosticQuestion;
-
+export default function checkAnswer(question, response, responses) {
   const fields = {
-    prompt: question.prompt,
     responses: hashToCollection(responses),
     questionUID: question.key,
     focusPoints: hashToCollection(question.focusPoints),
     incorrectSequences: hashToCollection(question.incorrectSequences),
   };
-  const newQuestion = new Brain(fields);
-  const newResponse = newQuestion.checkMatch(response);
-  return newResponse;
+  const newResponse = checkSentenceCombining(fields.questionUID, response, fields.responses, fields.focusPoints, fields.incorrectSequences);
+  console.log('newResponse', newResponse)
+  return {response: newResponse};
 }
