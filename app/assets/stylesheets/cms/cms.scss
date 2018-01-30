@@ -128,7 +128,7 @@
       width: 100%;
 
       &:focus {
-        border: 1px solid #5bc1a9;
+        border-color: #5bc1a9;
         outline: none;
       }
     }
@@ -137,7 +137,36 @@
       margin-bottom: 20px;
     }
 
+    #markdown-shortcuts {
+      background: #cecece;
+      border-radius: 5px 5px 0 0;
+      padding: 5px;
+
+      i {
+        font-size: 16px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        color: #666;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 3px;
+        padding: 6px 3px 4px 4px;
+        text-align: center;
+        transition: all 0.3s ease-out;
+        width: 30px;
+
+        &:hover {
+          box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+          margin-top: -1px;
+          color: #333;
+        }
+      }
+    }
+
     textarea {
+      border-radius: 0 0 5px 5px;
+      border-top-width: 0;
       resize: vertical;
     }
 
