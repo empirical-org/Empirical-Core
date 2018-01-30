@@ -40,7 +40,15 @@ let!(:user_sub) {create(:user_subscription, user_id: user_1.id, subscription_id:
     end
   end
 
-  context "#self.redeem_present_and_future_subscriptions_for_credit"
+  context "#self.redeem_present_and_future_subscriptions_for_credit" do
+    let!(:new_user_sub) {create(:user_subscription, user_id: user_1.id, subscription_id: new_sub.id)}
+
+    it "sets extant present and future subscriptions to expire today" do
+      expect(user_1.subscriptions.map(&:expiration)).not_to include(Date.today)
+      UserSubscription.redeem_present_and_future_subscriptions_for_credit(user_1.id)
+      expect(user_1.subscriptions.reload.map(&:expiration)).to include(Date.today)
+    end
+  end
 
   context "UserSubscription.update_or_create" do
 
