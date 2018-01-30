@@ -279,22 +279,14 @@ module Teacher
   end
 
   def updated_school(school_id)
-    new_school_sub = SchoolSubscription.find_by_school_id(school_id)
-    if new_school_sub
-      current_sub = self.subscription
-      if current_sub
-        # then they already have a subscription that we'll need to deal with
-        if current_sub&.school_subscriptions.any?
-          # we don't care about their old school -- give them the new school sub
-          # and destroy their association to their old school sub
-          UserSubscription.find_by(user_id: self.id, subscription_id: current_sub.id).destroy
-        else
-          # it is a personal sub and we credit them the remaining time left and then expire it
-          current_sub.credit_user_and_expire
-        end
-      end
-      # now that we have handled the old sub (or verified that it doesn't exist, we give the new school sub)
-      UserSubscription.update_or_create(self.id, new_school_sub.subscription.id)
+    if self.subscription && self.subscription.school_subscriptions.any?
+      # then they were previously in a school with a subscription, so we destroy the relationship
+      UserSubscription.find_by(user_id: self.id, subscription_id: self.subscription.id).destroy
+    end
+    school = School.find(school_id)
+    if school && school.subscription
+      # then we let the user subscription handle everything else
+      UserSubscription.create_user_sub_from_school_sub(self.id, school.subscription.id)
     end
   end
 
