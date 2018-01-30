@@ -4,26 +4,47 @@ describe User, type: :model do
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
-  describe('#subscription') do
+  context("subscription methods") do
     let(:user) { create(:user) }
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
     let!(:user_subscription) {create(:user_subscription, user: user, subscription: subscription)}
 
-    it "returns a subscription if a valid one exists" do
-      expect(user.reload.subscription).to eq(subscription)
+    describe('#subscription') do
+
+      it "returns a subscription if a valid one exists" do
+        expect(user.reload.subscription).to eq(subscription)
+      end
+
+      it "returns the subscription with the latest expiration date multiple valid ones exists" do
+        later_subscription = create(:subscription, expiration: Date.today + 365)
+        later_user_sub = create(:user_subscription, user: user, subscription: later_subscription)
+        expect(user.reload.subscription).to eq(later_subscription)
+      end
+
+      it "returns nil if a valid subscription does not exist" do
+        subscription.update(expiration: Date.yesterday)
+        expect(user.reload.subscription).to eq(nil)
+      end
     end
 
-    it "returns the subscription with the latest expiration date multiple valid ones exists" do
-      later_subscription = create(:subscription, expiration: Date.today + 365)
-      later_user_sub = create(:user_subscription, user: user, subscription: later_subscription)
-      expect(user.reload.subscription).to eq(later_subscription)
+    describe('#present_and_future_subscriptions') do
+      it "returns an empty array if there are no subscriptions with expirations in the future" do
+        subscription.update(expiration: Date.yesterday)
+        expect(user.present_and_future_subscriptions).to be_empty
+      end
+
+      it "returns an array including user.subscription if user has a valid subscription" do
+        expect(user.present_and_future_subscriptions).to include(user.subscription)
+      end
+
+      it "returns an array including subscriptions that have not started yet, as long as their expiration is in the future" do
+        later_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365)
+        expect(user.present_and_future_subscriptions).to include(user.subscription)
+      end
     end
 
-    it "returns nil if a valid subscription does not exist" do
-      subscription.update(expiration: Date.yesterday)
-      expect(user.reload.subscription).to eq(nil)
-    end
   end
+
 
 
 
