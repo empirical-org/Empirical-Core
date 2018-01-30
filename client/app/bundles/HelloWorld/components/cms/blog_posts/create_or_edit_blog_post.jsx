@@ -75,6 +75,32 @@ export default class extends React.Component {
     })
   }
 
+  insertMarkdown(startChar, endChar = null) {
+    /*
+      TODO:
+        - Special behaviors:
+          - startChars should automatically be placed at the front of the line
+          - if multiple lines are highlighted, we should insert startChar at beginning of each line
+    */
+    const container = document.getElementById('markdown-content');
+    let newValue = this.state.body;
+    if (container.selectionStart || container.selectionStart === 0) {
+      var startPos = container.selectionStart;
+      var endPos = container.selectionEnd;
+      newValue = container.value.substring(0, startPos);
+      newValue += startChar;
+      newValue += container.value.substring(startPos, endPos);
+      newValue += endChar ? endChar : '';
+      newValue += container.value.substring(endPos, container.value.length);
+      container.selectionStart = startPos + startChar.length;
+      container.selectionEnd = startPos + startChar.length;
+      container.focus();
+    } else {
+      newValue += startChar;
+    }
+    this.setState({ body: newValue });
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -85,7 +111,17 @@ export default class extends React.Component {
         <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange} />
 
         <label>Body:</label>
-        <textarea type="text" value={this.state.body} onChange={this.handleBodyChange} />
+        <div id='markdown-shortcuts'>
+          <i onClick={() => this.insertMarkdown('# ')} className="fa fa-header" />
+          <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
+          <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
+          <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
+          <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
+          <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
+          <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
+          <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/dealwithitparrot.gif)')} className="fa fa-file-image-o" />
+        </div>
+        <textarea type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
         <a href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
 
         <label>Markdown Preview:</label>
