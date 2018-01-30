@@ -14,7 +14,7 @@ class Subscription < ActiveRecord::Base
     user_sub = UserSubscription.find_or_initialize_by(user_id: user_id)
     # if a subscription already exists, we just update it by adding an additional 365 days to the expiration
     if user_sub.new_record?
-      new_sub = Subscription.create!(expiration: self.set_premium_expiration, account_limit: 1000, account_type: 'paid')
+      new_sub = Subscription.create!(expiration: self.set_premium_expiration, account_limit: 1000, account_type: 'paid', contact_email: user_sub.user.email)
       user_sub.update!(subscription_id: new_sub.id)
       user_sub.save!
     else
