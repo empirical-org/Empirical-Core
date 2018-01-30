@@ -8,10 +8,6 @@ class School < ActiveRecord::Base
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
 
-  def grant_premium_to_users
-    self.users.each{|u| Subscription.start_premium(u.id)}
-  end
-
   def subscription
     self.subscriptions.where("expiration > ?", Date.today).order(expiration: :desc).limit(1).first
   end
