@@ -5,7 +5,6 @@ var uglify = require('uglify-js');
 var commonjs = require('rollup-plugin-commonjs');
 var nodeResolve = require('rollup-plugin-node-resolve');
 var typescript = require('rollup-plugin-typescript2');
-var istanbul = require('rollup-plugin-istanbul');
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
     '/*!\n' +
@@ -19,13 +18,12 @@ rollup.rollup({
     plugins: [
       commonjs({
         namedExports: {
-          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max'],
-          'node_modules/diff': ['diffWords']
-        }
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max']
+        },
+        ignore: ['diff']
       }),
       typescript(),
-      nodeResolve(),
-      istanbul()
+      nodeResolve()
     ]
 })
     .then(function (bundle) {
