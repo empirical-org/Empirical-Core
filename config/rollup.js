@@ -16,7 +16,11 @@ var banner =
 rollup.rollup({
     entry: "./src/main.ts",
     plugins: [
-      commonjs(),
+      commonjs({
+        namedExports: {
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max']
+        }
+      }),
       typescript(),
       nodeResolve()
     ]

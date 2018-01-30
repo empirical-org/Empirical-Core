@@ -1788,21 +1788,47 @@ var underscore = createCommonjsModule(function (module, exports) {
 }.call(commonjsGlobal));
 });
 
-var underscore_1 = underscore._;
+var underscore_1 = underscore.sortBy;
+var underscore_2 = underscore.reject;
+var underscore_3 = underscore.isEqual;
+var underscore_4 = underscore.where;
+var underscore_5 = underscore.find;
+var underscore_6 = underscore.filter;
+var underscore_7 = underscore.any;
+var underscore_8 = underscore.map;
+var underscore_9 = underscore.intersection;
+var underscore_10 = underscore.contains;
+var underscore_11 = underscore.zip;
+var underscore_12 = underscore.min;
+var underscore_13 = underscore.max;
+var underscore_14 = underscore._;
 
 
 var _ = Object.freeze({
 	default: underscore,
 	__moduleExports: underscore,
-	_: underscore_1
+	sortBy: underscore_1,
+	reject: underscore_2,
+	isEqual: underscore_3,
+	where: underscore_4,
+	find: underscore_5,
+	filter: underscore_6,
+	any: underscore_7,
+	map: underscore_8,
+	intersection: underscore_9,
+	contains: underscore_10,
+	zip: underscore_11,
+	min: underscore_12,
+	max: underscore_13,
+	_: underscore_14
 });
 
 function getOptimalResponses(responses) {
-    return undefined(responses, { optimal: true, });
+    return underscore_4(responses, { optimal: true, });
 }
 
 function getTopOptimalResponse(responses) {
-    return undefined(getOptimalResponses(responses), function (r) { return r.count; }).reverse()[0];
+    return underscore_1(getOptimalResponses(responses), function (r) { return r.count; }).reverse()[0];
 }
 
 var lib$2 = createCommonjsModule(function (module, exports) {
@@ -1827,7 +1853,7 @@ unwrapExports(lib$2);
 var lib_1$1 = lib$2.stringNormalize;
 
 function exactMatch(responseString, responses) {
-    return undefined(responses, function (resp) { return lib_1$1(resp.text) === lib_1$1(responseString); });
+    return underscore_5(responses, function (resp) { return lib_1$1(resp.text) === lib_1$1(responseString); });
 }
 
 function conceptResultTemplate(conceptUID, correct) {
@@ -1839,9 +1865,9 @@ function conceptResultTemplate(conceptUID, correct) {
 }
 
 function focusPointMatch(responseString, focusPoints) {
-    return undefined(focusPoints, function (fp) {
+    return underscore_5(focusPoints, function (fp) {
         var options = fp.text.split('|||');
-        var anyMatches = undefined(options, function (opt) { return responseString.indexOf(opt) !== -1; });
+        var anyMatches = underscore_7(options, function (opt) { return responseString.indexOf(opt) !== -1; });
         return !anyMatches;
     });
 }
@@ -1869,9 +1895,9 @@ function focusPointResponseBuilder(focusPointMatch, responses) {
 }
 
 function incorrectSequenceMatch(responseString, incorrectSequences) {
-    return undefined(incorrectSequences, function (incSeq) {
+    return underscore_5(incorrectSequences, function (incSeq) {
         var options = incSeq.text.split('|||');
-        var anyMatches = undefined(options, function (opt) { return new RegExp(opt).test(responseString); });
+        var anyMatches = underscore_7(options, function (opt) { return new RegExp(opt).test(responseString); });
         return anyMatches;
     });
 }
@@ -1911,7 +1937,7 @@ var feedbackStrings = {
 };
 
 function caseInsensitiveMatch(response, responses) {
-    return undefined(getOptimalResponses(responses), function (resp) { return lib_1$1(resp.text).toLowerCase() === lib_1$1(response).toLowerCase(); });
+    return underscore_5(getOptimalResponses(responses), function (resp) { return lib_1$1(resp.text).toLowerCase() === lib_1$1(response).toLowerCase(); });
 }
 function caseInsensitiveChecker(responseString, responses) {
     var match = caseInsensitiveMatch(responseString, responses);
@@ -1937,7 +1963,7 @@ function removePunctuation(string) {
 }
 
 function punctuationInsensitiveMatch(responseString, responses) {
-    return undefined(getOptimalResponses(responses), function (resp) { return removePunctuation(lib_1$1(resp.text)) === removePunctuation(lib_1$1(responseString)); });
+    return underscore_5(getOptimalResponses(responses), function (resp) { return removePunctuation(lib_1$1(resp.text)) === removePunctuation(lib_1$1(responseString)); });
 }
 function punctuationInsensitiveChecker(responseString, responses) {
     var match = punctuationInsensitiveMatch(responseString, responses);
@@ -1959,7 +1985,7 @@ function punctuationInsensitiveResponseBuilder(responses, parentID) {
 }
 
 function punctuationAndCaseInsensitiveMatch(responseString, responses) {
-    return undefined(getOptimalResponses(responses), function (resp) {
+    return underscore_5(getOptimalResponses(responses), function (resp) {
         var supplied = removePunctuation$1(lib_1$1(responseString)).toLowerCase();
         var target = removePunctuation$1(lib_1$1(resp.text)).toLowerCase();
         return supplied === target;
@@ -2007,7 +2033,7 @@ function getFeedbackForPunc(punc) {
     return "<p>Revise your sentence. You don't need to have a space before a <em>" + fb + "</em>.</p>";
 }
 function checkForSpacingError(userString) {
-    return undefined(subStrings, function (subString) { return userString.indexOf(subString) !== -1; });
+    return underscore_5(subStrings, function (subString) { return userString.indexOf(subString) !== -1; });
 }
 function spacingBeforePunctuation(userString) {
     var match = checkForSpacingError(userString);
@@ -2066,7 +2092,7 @@ function spacingAfterCommaResponseBuilder(responses) {
 }
 
 function whitespaceMatch(response, responses) {
-    return undefined(getOptimalResponses(responses), function (resp) { return removeSpaces(lib_1$1(response)) === removeSpaces(lib_1$1(resp.text)); });
+    return underscore_5(getOptimalResponses(responses), function (resp) { return removeSpaces(lib_1$1(response)) === removeSpaces(lib_1$1(resp.text)); });
 }
 var removeSpaces = function (string) { return string.replace(/\s+/g, ''); };
 function whitespaceChecker(responseString, responses) {
@@ -3976,10 +4002,10 @@ function flexibleChangeObjectMatch(response, responses) {
 function checkChangeObjectMatch(userString, responses, stringManipulationFn, skipSort) {
     if (skipSort === void 0) { skipSort = false; }
     if (!skipSort) {
-        responses = undefined(responses, 'count').reverse();
+        responses = underscore_1(responses, 'count').reverse();
     }
     var matchedErrorType;
-    var matched = undefined(responses, function (response) {
+    var matched = underscore_5(responses, function (response) {
         matchedErrorType = getErrorType(stringManipulationFn(response.text), stringManipulationFn(userString));
         return matchedErrorType;
     });
@@ -4014,9 +4040,9 @@ var getErrorType = function (targetString, userString) {
 };
 var getMissingAndAddedString = function (targetString, userString) {
     var changeObjects = getChangeObjects(targetString, userString);
-    var missingObject = changeObjects ? undefined(changeObjects, function (co) { return co.removed; })[0] : null;
+    var missingObject = changeObjects ? underscore_4(changeObjects, function (co) { return co.removed; })[0] : null;
     var missingText = missingObject ? missingObject.value : undefined;
-    var extraneousObject = changeObjects ? undefined(changeObjects, function (co) { return co.added; })[0] : null;
+    var extraneousObject = changeObjects ? underscore_4(changeObjects, function (co) { return co.added; })[0] : null;
     var extraneousText = extraneousObject ? extraneousObject.value : undefined;
     return {
         missingText: missingText,
@@ -302288,12 +302314,12 @@ var posTranslations = {
     VBZ: 'Verb',
 };
 function getCommonWords(sentences) {
-    var words = undefined(sentences, function (sentence) { return normalizeString(sentence).split(' '); });
-    return undefined(_, words);
+    var words = underscore_8(sentences, function (sentence) { return normalizeString(sentence).split(' '); });
+    return underscore_9.apply(_, words);
 }
 function getCommonWordsWithImportantPOS(sentences) {
     var allCommonWords = getCommonWords(sentences);
-    return undefined(allCommonWords, function (word) {
+    return underscore_2(allCommonWords, function (word) {
         if (getPartsOfSpeechWordsWithTags(word)[0]) {
             var tag = getPartsOfSpeechWordsWithTags(word)[0][1];
             return !posTranslations[tag];
@@ -302306,7 +302332,7 @@ function getCommonWordsWithImportantPOS(sentences) {
 function getMissingWords(userString, sentences) {
     var commonWords = getCommonWordsWithImportantPOS(sentences);
     var wordsFromUser = normalizeString(userString).split(' ');
-    return undefined(commonWords, function (commonWord) { return undefined(wordsFromUser, commonWord); });
+    return underscore_2(commonWords, function (commonWord) { return underscore_10(wordsFromUser, commonWord); });
 }
 
 function _getCaseSensitiveWord(word, optimalSentence) {
@@ -302328,7 +302354,7 @@ function extractSentencesFromResponses(responses) {
 }
 function getMissingWordsFromResponses(userString, sentences) {
     var missingWords = getMissingWords(userString, sentences);
-    return undefined(missingWords, function (word) { return word.length; }).reverse();
+    return underscore_1(missingWords, function (word) { return word.length; }).reverse();
 }
 function checkForMissingWords(userString, responses, isSentenceFragment) {
     if (isSentenceFragment === void 0) { isSentenceFragment = false; }
@@ -302375,7 +302401,7 @@ function minLengthMatch(responseString, responses) {
         return undefined;
     }
     var lengthsOfResponses = optimalResponses.map(function (resp) { return lib_1$1(resp.text).split(' ').length; });
-    var minLength = undefined(lengthsOfResponses) - 1;
+    var minLength = underscore_12(lengthsOfResponses) - 1;
     return responseString.split(' ').length < minLength;
 }
 function minLengthChecker(responseString, responses) {
@@ -302386,7 +302412,7 @@ function minLengthChecker(responseString, responses) {
 }
 function minLengthResponseBuilder(responses) {
     var optimalResponses = getOptimalResponses(responses);
-    var shortestOptimalResponse = undefined(optimalResponses, function (resp) { return lib_1$1(resp.text).length; })[0];
+    var shortestOptimalResponse = underscore_1(optimalResponses, function (resp) { return lib_1$1(resp.text).length; })[0];
     var res = {
         feedback: feedbackStrings.minLengthError,
         author: 'Missing Details Hint',
@@ -302404,7 +302430,7 @@ function maxLengthMatch(responseString, responses) {
         return false;
     }
     var lengthsOfResponses = optimalResponses.map(function (resp) { return lib_1$1(resp.text).split(' ').length; });
-    var maxLength = undefined(lengthsOfResponses) + 1;
+    var maxLength = underscore_13(lengthsOfResponses) + 1;
     return responseString.split(' ').length > maxLength;
 }
 function maxLengthChecker(responseString, responses) {
@@ -302415,7 +302441,7 @@ function maxLengthChecker(responseString, responses) {
 }
 function maxLengthResponseBuilder(responses) {
     var optimalResponses = getOptimalResponses(responses);
-    var longestOptimalResponse = undefined(optimalResponses, function (resp) { return lib_1$1(resp.text).length; }).reverse()[0];
+    var longestOptimalResponse = underscore_1(optimalResponses, function (resp) { return lib_1$1(resp.text).length; }).reverse()[0];
     var res = {
         feedback: feedbackStrings.maxLengthError,
         author: 'Not Concise Hint',
