@@ -24,8 +24,8 @@ rollup.rollup({
         }
       }),
       typescript(),
-      istanbul(),
-      nodeResolve()
+      nodeResolve(),
+      istanbul()
     ]
 })
     .then(function (bundle) {
