@@ -43,6 +43,8 @@ export default React.createClass({
     }
     return (
       <div className="cms-blog-posts">
+        <a href="/cms/blog_posts/new" className="btn button-green">New Blog Post</a>
+        <br /><br />
         <ReactTable
           data={this.props.blogPosts}
           columns={this.columns()}
