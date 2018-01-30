@@ -40,6 +40,10 @@ export default class extends React.Component {
 
   handleBodyChange(e) {
     this.setState({body: e.target.value})
+    const container = document.getElementById('markdown-content');
+    container.rows = 4;
+    const rows = Math.ceil((container.scrollHeight - 64) / 20.3);
+    container.rows = 2 + rows;
   }
 
   handleTopicChange(e) {
@@ -92,8 +96,6 @@ export default class extends React.Component {
       newValue += container.value.substring(startPos, endPos);
       newValue += endChar ? endChar : '';
       newValue += container.value.substring(endPos, container.value.length);
-      container.selectionStart = startPos + startChar.length;
-      container.selectionEnd = startPos + startChar.length;
       container.focus();
     } else {
       newValue += startChar;
@@ -121,7 +123,7 @@ export default class extends React.Component {
           <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
           <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/dealwithitparrot.gif)')} className="fa fa-file-image-o" />
         </div>
-        <textarea type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
+        <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
         <a href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
 
         <label>Markdown Preview:</label>
