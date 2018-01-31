@@ -5,7 +5,7 @@ import { getParameterByName } from 'libs/getParameterByName';
 const successRoute = {
   path: ':lessonID/:editionID/success',
   onEnter: (nextState, replaceWith) => {
-    document.title = 'Customize Edition';
+    document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
     System.import(/* webpackChunkName: "customize-classroom-lesson-edition" */'components/customize/edition.tsx')
@@ -18,7 +18,7 @@ const successRoute = {
 const editionRoute = {
   path: ':lessonID/:editionID',
   onEnter: (nextState, replaceWith) => {
-    document.title = 'Customize Edition';
+    document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
     System.import(/* webpackChunkName: "customize-classroom-lesson-edition" */'components/customize/edition.tsx')
@@ -31,7 +31,7 @@ const editionRoute = {
 const chooseEditionRoute = {
   path: ':lessonID',
   onEnter: (nextState, replaceWith) => {
-    document.title = 'Choose Edition';
+    document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
     System.import(/* webpackChunkName: "customize-choose-edition" */'components/customize/chooseEdition.tsx')
@@ -44,7 +44,7 @@ const chooseEditionRoute = {
 const indexRoute = {
   component: Passthrough,
   onEnter: (nextState, replaceWith) => {
-    document.title = 'Customize Quill Lessons';
+    document.title = 'Quill Lessons';
   },
 };
 
