@@ -1,10 +1,36 @@
-<!-- Nav tabs -->
-<div class="full-screen  bg-quillgreen">
-<div class="q-nav-bar" >
-
+<div class="full-screen bg-quillgreen">
+  <div class="q-nav-bar">
     <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
 
-      <li class="<%= (!is_progress_report_page?) && ((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
+      <li class="<%= 'active' if home_page? %>">
+        <%= link_to 'Home', dashboard_teachers_classrooms_path %>
+      </li>
+
+      <li class="<%= 'active' if classes_page? %>">
+        <%= link_to 'Classes', dashboard_teachers_classrooms_path %>
+      </li>
+
+      <li class="<%= 'active' if assign_activity_page? %>">
+        <%= link_to 'Assign Activity', assign_activities_teachers_classrooms_path %>
+      </li>
+
+      <li class="<%= 'active' if my_activities_page? %>">
+        <%= link_to 'My Activities', lesson_planner_teachers_classrooms_path %>
+      </li>
+
+      <li class="<%= 'active' if student_reports_page? %>">
+        <%= link_to 'Student Reports', teachers_progress_reports_landing_page_path %>
+      </li>
+
+      <li class="<%= 'active' if teacher_resources_page? %>">
+        <%= link_to 'Teacher Resources', teacher_resources_path %>
+      </li>
+
+      <li class="premium-tab <%= 'active' if premium_page? %>">
+        <%= link_to raw(premium_tab_copy), premium_path %>
+      </li>
+
+      <!-- <li class="<%= (!is_progress_report_page?) && ((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab' %>
         <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', class: 'mobile' %>
       </li>
@@ -30,14 +56,9 @@
           <%= link_to 'School', teachers_admin_dashboard_path, role: 'tab', class: 'mobile'  %>
         </li>
       <% end %>
-      
-      <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
-        <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
-          <%= link_to raw(premium_tab_copy), premium_path, role: 'tab' %>
-          <%= link_to 'Premium', premium_path, role: 'tab', class: 'mobile'  %>
-        </li>
-      <% end %>
-    </ul>
 
-</div>
+    -->
+
+    </ul>
+  </div>
 </div>
