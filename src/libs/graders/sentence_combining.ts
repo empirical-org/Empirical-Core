@@ -37,14 +37,14 @@ export function checkSentenceCombining(
     incorrectSequences,
   }
   // Correct the spelling and try again.
-  const spellCheckedData = prepareSpellingData(data)
 
 
-  const firstPass = checkForMatches(spellCheckedData, firstPassMatchers)
+  const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
     return Object.assign(responseTemplate, firstPass)
   }
 
+  const spellCheckedData = prepareSpellingData(data)
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true)
   if (spellingPass) {
     // Update the indicate spelling is also needed.

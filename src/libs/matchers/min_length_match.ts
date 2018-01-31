@@ -15,21 +15,21 @@ export function minLengthMatch(responseString:string, responses:Array<Response>)
   return responseString.split(' ').length < minLength
 }
 
-export function minLengthChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
+export function minLengthChecker(responseString: string, responses:Array<Response>, noConceptResults:Boolean=false):PartialResponse|undefined {
   const match = minLengthMatch(responseString, responses);
   if (match) {
-    return minLengthResponseBuilder(responses)
+    return minLengthResponseBuilder(responses, noConceptResults)
   }
 }
 
-export function minLengthResponseBuilder(responses:Array<Response>): PartialResponse {
+export function minLengthResponseBuilder(responses:Array<Response>, noConceptResults:Boolean): PartialResponse {
   const optimalResponses = getOptimalResponses(responses);
   const shortestOptimalResponse =  _.sortBy(optimalResponses, resp => stringNormalize(resp.text).length)[0];
   const res = {
     feedback: feedbackStrings.minLengthError,
     author: 'Missing Details Hint',
     parent_id: shortestOptimalResponse.key,
-    concept_results: [
+    concept_results: noConceptResults ? undefined : [
       conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
     ]
   }

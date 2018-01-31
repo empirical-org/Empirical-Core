@@ -1,7 +1,16 @@
 import * as _ from 'underscore';
 import Levenshtein from 'levenshtein';
+import {Response, PartialResponse} from '../interfaces'
 
-export function getStatusForResponse(response = {}) {
+export interface ResponseObject {
+  [key:string]: Response,
+}
+
+export interface ResponseWithLevenshtein extends Response {
+  levenshtein?: Number
+}
+
+export function getStatusForResponse(response:PartialResponse = {}):Number {
   if (!response.feedback) {
     return 4;
   } else if (response.parent_id) {
@@ -10,18 +19,20 @@ export function getStatusForResponse(response = {}) {
   return (response.optimal ? 0 : 1);
 }
 
-export default function responsesWithStatus(responses = {}) {
+export default function responsesWithStatus(responses:ResponseObject = {}) {
   return _.mapObject(responses, (value, key) => {
     const statusCode = getStatusForResponse(value);
     return Object.assign({}, value, { statusCode, });
   });
 }
 
-export function sortByLevenshteinAndOptimal(userString, responses) {
+export function sortByLevenshteinAndOptimal(userString:string, responses:Array<ResponseWithLevenshtein>):Array<Response> {
   responses.forEach((res) => { res.levenshtein = new Levenshtein(res.text, userString).distance; });
   return responses.sort((a, b) => {
-    if ((a.levenshtein - b.levenshtein) != 0) {
-      return a.levenshtein - b.levenshtein;
+    const aLevenshtein = Number(a.levenshtein)
+    const bLevenshtein = Number(b.levenshtein)
+    if ((aLevenshtein - bLevenshtein) != 0) {
+      return aLevenshtein - bLevenshtein;
     }
       // sorts by boolean
       // from http://stackoverflow.com/questions/17387435/javascript-sort-array-of-objects-by-a-boolean-property
