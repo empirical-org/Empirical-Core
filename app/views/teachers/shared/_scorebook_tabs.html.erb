@@ -36,49 +36,40 @@
   </div>
 </div>
 
-<div class="tab-subnavigation-wrapper class-subnav">
-  <div class="container">
-    <ul>
-      <% if home_page_should_be_active? %>
-        <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
-          <li><%= active_link_to 'Overview', dashboard_teachers_classrooms_path %></li>
+<% if should_render_subnav? %>
+  <div class="tab-subnavigation-wrapper class-subnav <%= 'student-reports-subnav' if student_reports_page_should_be_active? %>">
+    <div class="container">
+      <ul>
+        <% if home_page_should_be_active? %>
+          <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
+            <li><%= active_link_to 'Overview', dashboard_teachers_classrooms_path %></li>
+          <% end %>
+          <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
+          <li><%= active_link_to 'Teacher Guide', teachers_teacher_guide_path %></li>
         <% end %>
-        <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
-        <li><%= active_link_to 'Teacher Guide', teachers_teacher_guide_path %></li>
-      <% end %>
 
-      <% if classes_page_should_be_active? %>
-        <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
-          <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: (%w(index edit google_sync).include?(action_name)) ? 'active' : '' %></li>
-          <li><%= link_to 'Invite Students', (invite_students_teachers_classrooms_path), class: ((action_name == 'invite_students')) ? 'active' : '' %></li>
+        <% if classes_page_should_be_active? %>
+          <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
+            <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: (%w(index edit google_sync).include?(action_name)) ? 'active' : '' %></li>
+            <li><%= link_to 'Invite Students', (invite_students_teachers_classrooms_path), class: ((action_name == 'invite_students')) ? 'active' : '' %></li>
+          <% end %>
+          <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
         <% end %>
-        <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
-      <% end %>
 
-
-      <% if assign_activity_page_should_be_active? %>
-
-      <% end %>
-
-
-      <% if my_activities_page_should_be_active? %>
-
-      <% end %>
-
-
-      <% if student_reports_page_should_be_active? %>
-
-      <% end %>
-
-
-      <% if teacher_resources_page_should_be_active? %>
-
-      <% end %>
-
-
-      <% if premium_page_should_be_active? %>
-
-      <% end %>
-    </ul>
+        <% if student_reports_page_should_be_active? %>
+          <li><%= active_link_to 'Activity Summary', scorebook_teachers_classrooms_path, class: 'default'%></li>
+          <li><%= active_link_to 'Activity Analysis', '/teachers/progress_reports/diagnostic_reports/#/activity_packs', class: 'default activity-analysis-tab'%></li>
+          <li><%= active_link_to 'Diagnostics', '/teachers/progress_reports/diagnostic_reports/#/diagnostics', class: 'default diagnostic-tab'%></li>
+          <li><a href='/teachers/progress_reports/activities_scores_by_classroom' class=<%=%w(/teachers/progress_reports/student_overview /teachers/progress_reports/activities_scores_by_classroom).include?(request.path) ? 'active' : nil%> >Activity Scores  <i class="fa fa-star"></i></a></li>
+          <li><%= active_link_to raw('Concepts  <i class="fa fa-star"></i>'), teachers_progress_reports_concepts_students_path%></li>
+          <li><%= active_link_to raw('Standards  <i class="fa fa-star"></i>'), teachers_progress_reports_standards_classrooms_path %></li>
+          <li><%= active_link_to raw('Data Export  <i class="fa fa-star"></i>'), teachers_progress_reports_activity_sessions_path %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
-</div>
+
+  <% if student_reports_page_should_be_active? %>
+    <div id='premium-banner-container'></div>
+  <% end %>
+<% end %>
