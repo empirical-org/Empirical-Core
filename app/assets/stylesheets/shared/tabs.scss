@@ -50,10 +50,11 @@
 }
 
 .tab-subnavigation-wrapper {
-  padding: 8px 0;
   background: #fff;
   border-bottom: 1px solid #cecece;
+  margin-top: -1px;
   min-height: 48px;
+  padding: 8px 0;
 
   ul {
     padding: 0;
