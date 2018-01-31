@@ -11,11 +11,11 @@ class Subscription < ActiveRecord::Base
   validates :account_limit, presence: true
 
   def self.create_or_update_with_school_join school_id, attributes
-    self.create_or_update_with_school_or_user_join school_id, 'School', attributes
+    self.create_with_school_or_user_join school_id, 'School', attributes
   end
 
   def self.create_or_update_with_user_join user_id, attributes
-    self.create_or_update_with_school_or_user_join user_id, 'User', attributes
+    self.create_with_school_or_user_join user_id, 'User', attributes
   end
 
   def is_not_paid?
@@ -53,19 +53,43 @@ class Subscription < ActiveRecord::Base
     elsif self.user_subscriptions.ids.count > 1
       report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{self.id}")
     else
-      # CREDIT ACTION HERE
       self.update(expiration: Date.today)
+      # subtract later of start date or today's date from expiration date to calculate amount to credit
+      amount_to_credit = self.expiration - [self.start_date, Date.today].max
+      #TODO:  CREDIT ACTION HERE
     end
+  end
+
+  def self.school_or_user_has_ever_paid(school_or_user)
+    # TODO: 'subscription type spot'
+    paid_accounts = ['paid account types'] & school_or_user.subscriptions.map(&:account_type)
+    paid_accounts.any?
+  end
+
+  def self.promotional_dates
+    # available to users who have never paid before
+    # if today's month is before august, it expires end of July, else December
+    exp_month = Date.today.month < 8 ? 7 : 12
+    {expiration: Date::strptime("31-#{exp_month}-#{Date.today.year+1}","%d-%m-%Y"),
+    start_date: Date.today}
   end
 
   private
 
-  def self.set_premium_expiration(sub = nil)
-    if sub
-      [sub.expiration + 365, Date.new(2018, 7, 1)].max
-    else
-      [Date.today + 365, Date.new(2018, 7, 1)].max
-    end
+  def self.set_premium_expiration_and_start_date(school_or_user)
+      if !Subscription.school_or_user_has_ever_paid(school_or_user)
+        # We end their trial if they have one
+        school_or_user.subscription&.update(expiration: Date.today)
+        # Then they get the promotional subscription
+        promotional_dates
+      elsif school_or_user.subcription
+        # Expire one year later, start at end of sub
+        old_sub = school_or_user.subcription
+        {expiration: old_sub.expiration + 365, start_date: old_sub.expiration}
+      else
+        # sub lasts one year from Date.today
+        {expiration: Date.today + 365, start_date: Date.today}
+      end
   end
 
   def self.set_trial_expiration
@@ -80,22 +104,18 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.create_or_update_with_school_or_user_join school_or_user_id, type, attributes
+  def self.create_with_school_or_user_join school_or_user_id, type, attributes
     type.capitalize!
     # since we're constantizing the type, need to make sure it is capitalized if not already
     school_or_user = type.constantize.find school_or_user_id
     # get school or user object
-    subscription = school_or_user.subscription
     attributes[:account_limit] ||= 1000
     if !attributes[:expiration]
       # if there is no expiration, either give them a trial one or a premium one
-      attributes[:expiration] = attributes[:account_type]&.downcase == 'teacher trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration
+      # TODO: 'subscription type spot'
+      attributes[:expiration] = attributes[:account_type]&.downcase == 'teacher trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration_and_start_date(school_or_user)
     end
-    if subscription
-      subscription.update_attributes!(attributes)
-    else
-      subscription = Subscription.create!(attributes)
-    end
+    subscription = Subscription.create!(attributes)
     if subscription.persisted?
       "#{type}Subscription".constantize.update_or_create(school_or_user_id, subscription.id)
     end
