@@ -9,7 +9,7 @@ class School < ActiveRecord::Base
            :lower_grade_greater_than_upper_grade
 
   def subscription
-    self.subscriptions.where("expiration > ?", Date.today).order(expiration: :desc).limit(1).first
+   self.subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end
 
   private
