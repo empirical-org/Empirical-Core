@@ -169,6 +169,12 @@
       border-radius: 0 0 5px 5px;
       border-top-width: 0;
       resize: vertical;
+
+      &#preview-markdown-content {
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border-top-width: 1px;
+      }
     }
 
     input[type='submit'] {
