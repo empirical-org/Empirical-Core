@@ -1,68 +1,7 @@
 import React from 'react';
-import ArticleCard from './article_card.jsx';
 import TopicSection from './topic_section.jsx';
+import PreviewCard from '../shared/preview_card.jsx';
 import _ from 'underscore';
-
-// todo: replace this with this.props.blogPost
-const articles = [
-  {
-    title: 'How I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Golden Retriever',
-    topic: 'dogs'
-  },
-  {
-    title: '3455How I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Golden Retriever',
-    topic: 'dogs'
-  },
-  {
-    title: '34634How I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Golden Retriever',
-    topic: 'dogs'
-  },
-  {
-    title: '43534How I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Golden Retriever',
-    topic: 'dogs'
-  },
-  {
-    title: 'bHow I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Meow Meow',
-    topic: 'cats'
-  },
-  {
-    title: 'cHow I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Tabby Kitty',
-    topic: 'cats'
-  },
-  {
-    title: 'dHow I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Golden Retriever',
-    topic: 'dogs'
-  },
-  {
-    title: 'oink How I taught Quill Lessons to my 5th grade class',
-    description: 'You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to. You can now add co-teachers to your classes. Co-teachers can manage classes Every time students take a writing exercise on Quill.org–a writing instruction platformYou can now add co-teachers to.',
-    image: 'http://via.placeholder.com/500x200',
-    author: 'Wilbur & Hamlet',
-    topic: 'pigs'
-  },
-]
-
 
 export default class extends React.Component {
   constructor(props) {
@@ -77,22 +16,16 @@ export default class extends React.Component {
     this.setState({ articleFilter: filter });
   }
 
-  renderArticleCards() {
+  renderPreviewCards() {
     // todo use spread operator
-    return articles.map(article =>
-      <ArticleCard
-        key={article.title}
-        title={article.title}
-        description={article.description}
-        image={article.image}
-        author={article.author}
-      />
+    return this.props.blogPosts.map(article =>
+      <PreviewCard content={article.preview_card_content} />
     )
   }
 
-  renderArticleCardsByTopic() {
+  renderPreviewCardsByTopic() {
     let sections = [];
-    const articlesByTopic = _.groupBy(articles, "topic");
+    const articlesByTopic = _.groupBy(this.props.blogPosts, "topic");
     for(let topic in articlesByTopic) {
       var articlesInThisTopic = articlesByTopic[topic];
       sections.push(<TopicSection
@@ -109,13 +42,13 @@ export default class extends React.Component {
   renderBasedOnArticleFilter() {
     let response;
     if(this.state.articleFilter === 'topic') {
-      response = this.renderArticleCardsByTopic();
+      response = this.renderPreviewCardsByTopic();
     } else if(this.state.articleFilter === 'popularity') {
       response = <h1>most read</h1>
     } else {
       response = (
         <div id="article-container">
-          {this.renderArticleCards()}
+          {this.renderPreviewCards()}
         </div>
       )
     }

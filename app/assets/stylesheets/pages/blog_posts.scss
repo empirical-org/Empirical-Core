@@ -77,67 +77,6 @@
     }
   }
 
-  .article-card {
-    width: 300px;
-    margin: 0 0 20px;
-
-    .article-card-image {
-      border-radius: 6px 6px 0 0;
-      height: 135px;
-      max-width: 100%;
-    }
-
-    .article-card-body {
-      background: $white;
-      border-radius: 0 0 6px 6px;
-      box-shadow: 0 0 2px 2px #e9e9e9;
-      color: #666;
-      padding: 20px 15px 15px;
-      transition: all 0.3s ease-out;
-      display: flex;
-      flex-direction: column;
-      height: 235px;
-
-      h3 {
-        color: $quillforestgreen;
-        font-size: 16px;
-        font-weight: 700;
-        transition: all 0.3s ease-out;
-        line-height: 1.38
-      }
-
-      .ellipsis-hack-container {
-        display: flex;
-        margin: 17px 0;
-
-        p:first-of-type {
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        p:last-of-type {
-          align-self: flex-end;
-          position: relative;
-          top: -2px;
-        }
-      }
-
-      .author {
-        font-weight: 600;
-      }
-    }
-
-    &:hover {
-      .article-card-body {
-        box-shadow: 0 2px 4px 2px #e9e9e9;
-
-        h3 {
-          color: $quillgreen;
-        }
-      }
-    }
-  }
-
   #article-container {
     align-items: center;
     display: flex;
@@ -171,4 +110,59 @@
     }
   }
 
+}
+
+.preview-card {
+  height: 360px;
+  width: 300px;
+  margin: 0 0 20px;
+
+  div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .preview-card-image {
+    border-radius: 6px 6px 0 0;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .preview-card-body {
+    background: $white;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 0 2px 2px #e9e9e9;
+    color: #666;
+    padding: 20px 15px 15px;
+    transition: all 0.3s ease-out;
+    flex-grow: 1;
+
+    p {
+      margin: 17px 0;
+    }
+
+    h3 {
+      color: $quillforestgreen;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s ease-out;
+      line-height: 1.38
+    }
+
+    .author {
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  &:hover {
+    .preview-card-body {
+      box-shadow: 0 2px 4px 2px #e9e9e9;
+
+      h3 {
+        color: $quillgreen;
+      }
+    }
+  }
 }

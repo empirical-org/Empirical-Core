@@ -1,17 +1,11 @@
 import React from 'react';
 import pluralize from 'pluralize'
-import ArticleCard from './article_card.jsx';
+import PreviewCard from '../shared/preview_card.jsx';
 
 export default class extends React.Component {
   renderArticleCards() {
     return this.props.articles.slice(0, 3).map(article =>
-      <ArticleCard
-        key={article.title}
-        title={article.title}
-        description={article.description}
-        image={article.image}
-        author={article.author}
-      />
+      <PreviewCard content={article.preview_card_content} />
     )
   }
 
