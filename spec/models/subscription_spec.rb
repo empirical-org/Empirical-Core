@@ -32,6 +32,25 @@ describe Subscription, type: :model do
     end
   end
 
+  describe "#self.school_or_user_has_ever_paid" do
+    let!(:subscription) { create(:subscription) }
+    let!(:user) { create(:user) }
+    let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
+    it "responds with true if school or user has ever had anything in the ALL_PAID_TYPES_LIST" do
+      Subscription::ALL_PAID_TYPES.each do |type|
+        subscription.update(account_type: type)
+        expect(Subscription.school_or_user_has_ever_paid(user)).to be
+      end
+    end
+
+    it "responds with false if school or user has only had things in the ALL_FREE_TYPES_LIST" do
+      Subscription::ALL_FREE_TYPES.each do |type|
+        subscription.update(account_type: type)
+        expect(Subscription.school_or_user_has_ever_paid(user)).not_to be
+      end
+    end
+  end
+
   describe "#self.promotional_dates" do
     context 'when called on a day prior to August, 1' do
       before do

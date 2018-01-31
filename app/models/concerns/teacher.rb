@@ -339,10 +339,8 @@ module Teacher
   end
 
   def premium_state
-    # the beta period is obsolete -- but may break things by removing it
     if subscription
-      # subscription will only return a valid one
-      subscription.trial_or_paid
+      subscription.account_type == 'Teacher Trial' ? 'trial' : 'paid'
     elsif self.subscriptions.exists?
       # then they have an expired or 'locked' sub
       'locked'
