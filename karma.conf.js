@@ -20,6 +20,7 @@ module.exports = function (config) {
         files: [
             './node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
             './test/index.js',
+            './test/module.spec.ts',
             './src/**/*.spec.ts'
         ],
 
@@ -31,7 +32,8 @@ module.exports = function (config) {
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             'test/index.js': ['webpack'],
-            'src/**/*.spec.ts': ['webpack']
+            'src/**/*.spec.ts': ['webpack'],
+            './test/module.spec.ts': ['webpack'] 
         },
 
         webpack: {
