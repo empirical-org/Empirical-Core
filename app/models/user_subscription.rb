@@ -5,7 +5,6 @@ class UserSubscription < ActiveRecord::Base
   after_commit :send_premium_emails, on: :create
 
   def self.update_or_create(user_id, subscription_id)
-
       user_sub = self.find_or_initialize_by(user_id: user_id)
       user_sub.subscription_id = subscription_id
       user_sub.save!
@@ -28,23 +27,8 @@ class UserSubscription < ActiveRecord::Base
   end
 
   def self.redeem_present_and_future_subscriptions_for_credit(user_id)
-    # iterate through all remaining subs and convert them into credit
-    p_and_f_subs = User.find(user_id).present_and_future_subscriptions
-    if p_and_f_subs.any?
-      additional_credit = 0
-      p_and_f_subs.each do |sub|
-        # find later of start date or today's date
-        credit_start = [sub.start_date, Date.today].max
-        # add remaining time on each sub to creditDate
-        credit_end = sub.expiration
-        additional_credit = additional_credit + (credit_end - credit_start)
-        sub.update(expiration: Date.today)
-      end
-      if additional_credit > 0
-        return additional_credit
-        # TODO: execute credit action
-      end
-    end
+    # iterate through all remaining subs, converting into credit and expiring
+    User.find(user_id).present_and_future_subscriptions.each{|s| s.credit_user_and_expire}
   end
 
 
