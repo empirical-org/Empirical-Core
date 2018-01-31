@@ -130,7 +130,6 @@ const playLessonQuestion = React.createClass({
   },
 
   renderFeedback(override) {
-    console.log('override', override)
     let sentence;
     if (override) {
       sentence = override;
