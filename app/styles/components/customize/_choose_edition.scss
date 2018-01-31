@@ -45,6 +45,9 @@
     font-size: 14px;
     text-align: left;
     color: #969696;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     .span {
       font-weight: 600;
     }
@@ -52,9 +55,11 @@
   .name {
     text-align: left;
     margin-bottom: 5px;
-    display: flex;
     align-items: center;
     justify-content: space-between;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .quill-editions {
     padding-bottom: 7px;
@@ -93,6 +98,10 @@
       font-size: 18px;
       font-weight: 600;
       color: #3b3b3b;
+      max-width: 60%;
+      @media (max-width: 830px) {
+        max-width: 50%;
+      }
     }
     .action {
       display: flex;
