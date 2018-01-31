@@ -92,8 +92,8 @@ class Subscription < ActiveRecord::Base
       end
   end
 
-  def self.set_trial_expiration
-    Date.today + 30
+  def self.set_trial_expiration_and_start_date
+    {expiration: Date.today + 30, start_date: Date.today}
   end
 
   def report_to_new_relic(e)
@@ -113,7 +113,11 @@ class Subscription < ActiveRecord::Base
     if !attributes[:expiration]
       # if there is no expiration, either give them a trial one or a premium one
       # TODO: 'subscription type spot'
-      attributes[:expiration] = attributes[:account_type]&.downcase == 'teacher trial' ?  Subscription.set_trial_expiration : Subscription.set_premium_expiration_and_start_date(school_or_user)
+      if attributes[:account_type]&.downcase == 'teacher trial'
+        attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date)
+      else
+        attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
+      end
     end
     subscription = Subscription.create!(attributes)
     if subscription.persisted?
