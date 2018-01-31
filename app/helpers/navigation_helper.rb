@@ -1,20 +1,23 @@
 module NavigationHelper
   def home_page_should_be_active?
-    (current_page?(controller: 'teachers/classroom_manager', action: 'dashboard') ||
+    ((controller.class ==  Teachers::ClassroomsController && action_name == 'dashboard') ||
     ['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)) &&
     action_name != 'invite_students'
   end
 
   def classes_page_should_be_active?
-    controller.class == Teachers::ClassroomsController || controller_name == 'students' || action_name == 'invite_students'
+    (controller.class == Teachers::ClassroomsController ||
+    controller_name == 'students' ||
+    action_name == 'invite_students') &&
+    controller.class.parent != Teachers::ProgressReports::Concepts
   end
 
   def assign_activity_page_should_be_active?
-    current_page?(controller: 'teachers/classroom_manager', action: 'assign_activities')
+    controller.class ==  Teachers::ClassroomsController && action_name == 'assign_activities'
   end
 
   def my_activities_page_should_be_active?
-    current_page?(controller: 'teachers/classroom_manager', action: 'lesson_planner')
+    controller.class ==  Teachers::ClassroomsController && action_name == 'lesson_planner'
   end
 
   def student_reports_page_should_be_active?
@@ -42,5 +45,10 @@ module NavigationHelper
     else
       "Try Premium <i class='fa fa-star'></i>"
     end
+  end
+
+  # NOTE: subnavs for other pages are handled on the front end with React.
+  def should_render_subnav?
+    home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?
   end
 end
