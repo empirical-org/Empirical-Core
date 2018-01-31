@@ -401,6 +401,45 @@ ALTER SEQUENCE authors_id_seq OWNED BY authors.id;
 
 
 --
+-- Name: blog_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE blog_posts (
+    id integer NOT NULL,
+    title character varying NOT NULL,
+    body text NOT NULL,
+    subtitle text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    read_count integer DEFAULT 0 NOT NULL,
+    topic character varying,
+    draft boolean DEFAULT true,
+    author_id integer,
+    preview_card_content text NOT NULL
+);
+
+
+--
+-- Name: blog_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE blog_posts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: blog_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE blog_posts_id_seq OWNED BY blog_posts.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1130,6 +1169,73 @@ ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
 
 
 --
+-- Name: referrals_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE referrals_users (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    referred_user_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    activated boolean DEFAULT false
+);
+
+
+--
+-- Name: referrals_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE referrals_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: referrals_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE referrals_users_id_seq OWNED BY referrals_users.id;
+
+
+--
+-- Name: referrer_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE referrer_users (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    referral_code character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: referrer_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE referrer_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: referrer_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE referrer_users_id_seq OWNED BY referrer_users.id;
+
+
+--
 -- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1769,6 +1875,13 @@ ALTER TABLE ONLY authors ALTER COLUMN id SET DEFAULT nextval('authors_id_seq'::r
 
 
 --
+-- Name: blog_posts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_posts ALTER COLUMN id SET DEFAULT nextval('blog_posts_id_seq'::regclass);
+
+
+--
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1913,6 +2026,20 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
+
+
+--
+-- Name: referrals_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY referrals_users ALTER COLUMN id SET DEFAULT nextval('referrals_users_id_seq'::regclass);
+
+
+--
+-- Name: referrer_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY referrer_users ALTER COLUMN id SET DEFAULT nextval('referrer_users_id_seq'::regclass);
 
 
 --
@@ -2100,6 +2227,14 @@ ALTER TABLE ONLY authors
 
 
 --
+-- Name: blog_posts blog_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_posts
+    ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2265,6 +2400,22 @@ ALTER TABLE ONLY objectives
 
 ALTER TABLE ONLY page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: referrals_users referrals_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY referrals_users
+    ADD CONSTRAINT referrals_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: referrer_users referrer_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY referrer_users
+    ADD CONSTRAINT referrer_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -2487,6 +2638,20 @@ CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING bt
 
 
 --
+-- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
+
+
+--
+-- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
+
+
+--
 -- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2526,6 +2691,34 @@ CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON admin_accounts
 --
 
 CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teachers USING btree (teacher_id);
+
+
+--
+-- Name: index_blog_posts_on_author_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_blog_posts_on_author_id ON blog_posts USING btree (author_id);
+
+
+--
+-- Name: index_blog_posts_on_read_count; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_blog_posts_on_read_count ON blog_posts USING btree (read_count);
+
+
+--
+-- Name: index_blog_posts_on_title; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_blog_posts_on_title ON blog_posts USING btree (title);
+
+
+--
+-- Name: index_blog_posts_on_topic; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_blog_posts_on_topic ON blog_posts USING btree (topic);
 
 
 --
@@ -2750,6 +2943,41 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
+
+
+--
+-- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_referrals_users_on_activated ON referrals_users USING btree (activated);
+
+
+--
+-- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_referrals_users_on_referred_user_id ON referrals_users USING btree (referred_user_id);
+
+
+--
+-- Name: index_referrals_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_referrals_users_on_user_id ON referrals_users USING btree (user_id);
+
+
+--
+-- Name: index_referrer_users_on_referral_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON referrer_users USING btree (referral_code);
+
+
+--
+-- Name: index_referrer_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btree (user_id);
 
 
 --
@@ -3614,4 +3842,14 @@ INSERT INTO schema_migrations (version) VALUES ('20171218222306');
 INSERT INTO schema_migrations (version) VALUES ('20180102151559');
 
 INSERT INTO schema_migrations (version) VALUES ('20180110221301');
+
+INSERT INTO schema_migrations (version) VALUES ('20180119152409');
+
+INSERT INTO schema_migrations (version) VALUES ('20180119162847');
+
+INSERT INTO schema_migrations (version) VALUES ('20180122184126');
+
+INSERT INTO schema_migrations (version) VALUES ('20180123151650');
+
+INSERT INTO schema_migrations (version) VALUES ('20180131153416');
 

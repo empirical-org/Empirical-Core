@@ -4,3 +4,175 @@
   width: 100%;
   border: none;
 }
+
+body {
+  // We use this in conjunction with a margin hack that allows us to break
+  // elements outside of their containers. Using margin-left: -100% and
+  // margin-right -100%, we can make elements appear to be the body's full
+  // width even if the containing element is not full width. However, they
+  // may overflow horizontally, and so we want to hide that if it's the case.
+  overflow-x: hidden;
+}
+
+#knowledge-center {
+  header {
+    background: linear-gradient(#3cb79e, rgba(66, 142, 123, 0.87)) #3cb79e;
+    color: $white;
+    margin-left: -100%;
+    margin-right: -100%;
+    text-align: center;
+    padding: 40px 20px 20px;
+
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    h3 {
+      color: #00c2a2;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+
+      a {
+        color: $white;
+      }
+    }
+
+    .width-422 {
+      margin: 24px auto 0;
+      text-align: left;
+      width: 422px;
+    }
+
+    input {
+      background: url('https://assets.quill.org/images/icons/diagnostic-forest-green.svg') no-repeat white;
+      background-position: 11px;
+      border: none;
+      display: block;
+      margin-bottom: 18px;
+      padding: 12px 12px 12px 43px;
+      width: 100%;
+    }
+
+    #most-read-post {
+      color: #00c2a2;
+    }
+  }
+
+  nav {
+    margin: 35px auto;
+    font-weight: 600;
+    text-align: center;
+
+    li {
+      list-style-type: none;
+      display: inline-block;
+      color: #c0c0c0;
+      text-transform: uppercase;
+      font-size: 14px;
+      margin: 0 24px;
+      cursor: pointer;
+
+      &.active {
+        color: $quillforestgreen;
+      }
+    }
+  }
+
+  #article-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  section {
+    margin-bottom: 0;
+
+    .meta {
+      align-items: center;
+      display: flex;
+      margin-bottom: 20px;
+
+      h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-right: 15px;
+      }
+
+      h2 {
+        font-size: 16px;
+        color: #c0c0c0;
+        flex-grow: 1;
+      }
+
+      a {
+        color: $quillforestgreen;
+        font-size: 14px;
+      }
+    }
+  }
+
+}
+
+.preview-card {
+  height: 360px;
+  width: 300px;
+  margin: 0 0 20px;
+
+  div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .preview-card-image {
+    border-radius: 6px 6px 0 0;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .preview-card-body {
+    background: $white;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 0 2px 2px #e9e9e9;
+    color: #666;
+    padding: 20px 15px 15px;
+    transition: all 0.3s ease-out;
+    flex-grow: 1;
+
+    p {
+      flex-grow: 1;
+      margin: 17px 0;
+    }
+
+    h3 {
+      color: $quillforestgreen;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s ease-out;
+      line-height: 1.38
+    }
+
+    .author {
+      font-weight: 600;
+      margin: 0;
+      flex-grow: 0;
+    }
+  }
+
+  &:hover {
+    .preview-card-body {
+      box-shadow: 0 2px 4px 2px #e9e9e9;
+
+      h3 {
+        color: $quillgreen;
+      }
+    }
+  }
+}
