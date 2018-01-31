@@ -6,6 +6,8 @@ class BlogPostsController < ApplicationController
     #blog_posts/index.html.erb
   end
 
+  def show
+  end
 
 
   private
