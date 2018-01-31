@@ -5,6 +5,14 @@
   border: none;
 }
 
+body {
+  // We use this in conjunction with a margin hack that allows us to break
+  // elements outside of their containers. Using margin-left: -100% and
+  // margin-right -100%, we can make elements appear to be the body's full
+  // width even if the containing element is not full width. However, they
+  // may overflow horizontally, and so we want to hide that if it's the case.
+  overflow-x: hidden;
+}
 
 #knowledge-center {
   header {
@@ -78,7 +86,6 @@
   }
 
   #article-container {
-    align-items: center;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -88,6 +95,7 @@
     margin-bottom: 0;
 
     .meta {
+      align-items: center;
       display: flex;
       margin-bottom: 20px;
 
@@ -139,6 +147,7 @@
     flex-grow: 1;
 
     p {
+      flex-grow: 1;
       margin: 17px 0;
     }
 
@@ -153,6 +162,7 @@
     .author {
       font-weight: 600;
       margin: 0;
+      flex-grow: 0;
     }
   }
 

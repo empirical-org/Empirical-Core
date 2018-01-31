@@ -89,10 +89,13 @@ export default class extends React.Component {
         authenticity_token: ReactOnRails.authenticityToken()
       }
     }, (error, httpStatus, body) => {
-      if (httpStatus.statusCode === 200) {
-        alert('saved')
+      if (httpStatus.statusCode === 200 && this.props.action === 'new') {
+        alert('Post added successfully!');
+        window.location.href = `/cms/blog_posts/${JSON.parse(body).id}/edit`
+      } else if (httpStatus.statusCode === 200) {
+        alert('Update successful!');
       } else {
-        alert('there was a problem saving')
+        alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
       }
     })
   }
