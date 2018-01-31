@@ -10,6 +10,27 @@ class Subscription < ActiveRecord::Base
   validates :expiration, presence: true
   validates :account_limit, presence: true
 
+  OFFICIAL_PAID_TYPES = ['School District Paid',
+    'School NYC Paid',
+    'School Strategic Paid',
+    'School Paid',
+    'Teacher Paid',
+    'Purchase Missing School']
+
+  OFFICIAL_FREE_TYPES = ['School NYC Free',
+        'School Research',
+        'School Sponsored Free',
+        'School Strategic Free',
+        'Teacher Contributor Free',
+        'Teacher Sponsored Free',
+        'Teacher Trial']
+
+  # ultimately these should be clenaned up, but until then, we keep them here
+  GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
+  GRANDFATHERED_FREE_TYPES = ['trial']
+  ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.concat(OFFICIAL_FREE_TYPES)
+  ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.concat(OFFICIAL_PAID_TYPES)
+
   def self.create_or_update_with_school_join school_id, attributes
     self.create_with_school_or_user_join school_id, 'School', attributes
   end
@@ -22,28 +43,12 @@ class Subscription < ActiveRecord::Base
     self.account_type && (self.account_type.downcase == 'teacher trial')
   end
 
-  def trial_or_paid
-    is_not_paid? ? 'trial' : 'paid'
-  end
-
   def school_subscription?
     SchoolSubscription.where(subscription_id: self.id).limit(1).exists?
   end
 
   def self.account_types
-    ['School District Paid',
-    'School NYC Free',
-    'School NYC Paid',
-    'School Research',
-    'School Sponsored Free',
-    'School Strategic Free',
-    'School Strategic Paid',
-    'School Paid',
-    'Teacher Contributor Free',
-    'Teacher Sponsored Free',
-    'Teacher Paid',
-    'Teacher Trial',
-    'Purchase Missing School']
+    ALL_FREE_TYPES.concat(ALL_PAID_TYPES)
   end
 
   def credit_user_and_expire
@@ -62,7 +67,7 @@ class Subscription < ActiveRecord::Base
 
   def self.school_or_user_has_ever_paid(school_or_user)
     # TODO: 'subscription type spot'
-    paid_accounts = ['paid account types'] & school_or_user.subscriptions.map(&:account_type)
+    paid_accounts = school_or_user.subscriptions.pluck(:account_type) & ALL_PAID_TYPES
     paid_accounts.any?
   end
 
