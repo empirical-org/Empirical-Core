@@ -9,7 +9,7 @@ describe Subscription, type: :model do
     context 'it does nothing to the subscription when' do
       let(:user_subscription_2) { create(:user_subscription, subscription: subscription, user: user) }
       let!(:school) { create(:school) }
-      let(:school_subscription) { create(:user_subscription, subscription: subscription, user: user) }
+      let(:school_subscription) { create(:school_subscription, subscription: subscription, school: school) }
 
       it 'is a subscription with multiple users_subscriptions linked' do
         user_subscription_2
@@ -121,5 +121,21 @@ describe Subscription, type: :model do
         expect(user.subscription.expiration).to eq(Date.tomorrow)
       end
     end
+  end
+
+  describe '#renewal_price' do
+    let!(:subscription) { create(:subscription) }
+    let!(:school) { create(:school) }
+    let!(:school_subscription) { create(:school_subscription, subscription: subscription, school: school) }
+
+    it "returns the school renewal price if any schools are associated with the subscription" do
+      expect(subscription.renewal_price).to eq(Subscription::SCHOOL_RENEWAL_PRICE)
+    end
+
+    it "returns the teacher renewal price if no schools are associated with the subscription" do
+      expect(subscription.renewal_price).to eq(Subscription::TEACHER_RENEWAL_PRICE)
+    end
+
+
   end
 end
