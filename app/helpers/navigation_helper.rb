@@ -32,6 +32,10 @@ module NavigationHelper
     controller.class == BlogPostsController
   end
 
+  def admin_page_should_be_active?
+    action_name == 'admin_dashboard'
+  end
+
   def premium_page_should_be_active?
 
   end
