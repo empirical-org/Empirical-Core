@@ -4,10 +4,10 @@ import ItemDropdown from '../../general_components/dropdown_selectors/item_dropd
 import MarkdownParser from '../../shared/markdown_parser.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 
-const defaultPreviewCardContent = `<img class='preview-card-image' src='http://placehold.it/300x135' />
+const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
-   <h3>Write Your Title Here</h3>
-   <p>Write your description here, but be careful not to make it too long!</p>
+   <h3>Party Parrot Parade</h3>
+   <p>There exist many excellent party parrots.</p>
    <p class='author'>by Quill Staff</p>
 </div>`;
 
@@ -22,7 +22,7 @@ export default class extends React.Component {
       body: p ? p.body : '',
       author_id: p ? p.author_id : 11 /* Quill Staff */,
       topic: p ? p.topic : '',
-      preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
+      preview_card_content: p ? p.preview_card_content : null,
       custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
       // TODO: restore appropriate format on load
       preview_card_type: 'Blog Post',
@@ -58,6 +58,10 @@ export default class extends React.Component {
     this.updateTweetText = this.updateTweetText.bind(this)
     this.updateTweetAuthor = this.updateTweetAuthor.bind(this)
     this.updatePreviewCardTweetContent = this.updatePreviewCardTweetContent.bind(this)
+  }
+
+  componentDidMount() {
+    this.updatePreviewCardBasedOnType()
   }
 
   handleTitleChange(e) {
