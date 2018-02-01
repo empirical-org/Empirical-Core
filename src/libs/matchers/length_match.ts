@@ -31,9 +31,9 @@ export function lengthMatch(response: string, responses:Array<Response>, prompt:
 }
 
 export function lengthChecker(responseString: string, responses:Array<Response>, prompt: string, wordCountChange:Object={}):PartialResponse|undefined {
-  const match = lengthMatch(responseString, responses, prompt);
+  const match = lengthMatch(responseString, responses, prompt, wordCountChange);
   if (match) {
-    const parentID = getTopOptimalResponse(responses).key
+    const parentID = getTopOptimalResponse(responses).id
     return lengthResponseBuilder(responses, parentID, match.author, match.feedback)
   }
 }

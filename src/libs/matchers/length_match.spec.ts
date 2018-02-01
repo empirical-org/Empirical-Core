@@ -1,123 +1,68 @@
 import { assert } from 'chai';
-import {lengthMatch} from './length_match'
+import {lengthMatch, lengthChecker} from './length_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 
+const prompt = 'My dog took a nap.'
+const savedResponses: Array<Response> = [
+  {
+    id: 1,
+    text: "My sleepy dog took a nap.",
+    feedback: "Good job, that's a sentence!",
+    optimal: true,
+    count: 2,
+    question_uid: 'question 1'
+  },
+  {
+    id: 2,
+    text: "My happy dog took a long nap.",
+    feedback: "Good job, that's a sentence!",
+    optimal: true,
+    count: 1,
+    question_uid: 'question 2'
+  }
+]
+
 describe('The lengthMatch function', () => {
 
-    it('should return true if the response string is at least two words shorter than any of the optimal responses and there are at least two of them', () => {
-        const responseString = "My dog napped";
-        const savedResponses: Array<Response> = [
-          {
-            id: 1,
-            text: "My sleepy dog took a nap.",
-            feedback: "Good job, that's a sentence!",
-            optimal: true,
-            count: 1,
-            question_uid: 'question 1'
-          },
-          {
-            id: 2,
-            text: "My happy dog took a long nap.",
-            feedback: "Good job, that's a sentence!",
-            optimal: true,
-            count: 1,
-            question_uid: 'question 2'
-          }
-        ]
-        assert.ok(lengthMatch(responseString, savedResponses));
+    it('should return a too long author if the response string is longer than the prompt length plus the wordCountChange.max', () => {
+        const responseString = "My happy dog took a very long nap";
+        assert.equal(lengthMatch(responseString, savedResponses, prompt, {max: 1, min: 1}).author, 'Too Long Hint');
     });
 
-    it('Should take a response string and return undefined if it is shorter than the shortest optimal response by one word or less', () => {
-        const responseString = "My dog took a nap.";
-        const savedResponses: Array<Response> = [
-          {
-            id: 1,
-            text: "My sleepy dog took a nap.",
-            feedback: "Good job, that's a sentence!",
-            optimal: true,
-            count: 1,
-            question_uid: 'question 1'
-          },
-          {
-            id: 2,
-            text: "My happy dog took a long nap.",
-            feedback: "Good job, that's a sentence!",
-            optimal: true,
-            count: 1,
-            question_uid: 'question 2'
-          }
-        ]
-        assert.notOk(lengthMatch(responseString, savedResponses));
+    it('should return a too short author if the response string is shorter than the prompt length plus wordCountChange.max', () => {
+        const responseString = prompt;
+        assert.equal(lengthMatch(responseString, savedResponses, prompt, {max: 1, min: 1}).author, 'Too Short Hint');
     });
 
-    it('Should take a response string and return undefined if there are not at least two optimal responses', () => {
-        const responseString = "My dog took a nap.";
-        const savedResponses: Array<Response> = [
-          {
-            id: 1,
-            text: "My sleepy dog took a nap.",
-            feedback: "Good job, that's a sentence!",
-            optimal: true,
-            count: 1,
-            question_uid: 'question 1'
-          },
-          {
-            id: 2,
-            text: "My happy dog took a long nap.",
-            feedback: "Good job, that's a sentence!",
-            optimal: false,
-            count: 1,
-            question_uid: 'question 2'
-          }
-        ]
-        assert.notOk(lengthMatch(responseString, savedResponses));
+})
+
+describe('The lengthChecker function', () => {
+
+    it('should return a partialResponse object if the response string is longer than the prompt length plus the wordCountChange.max', () => {
+        const responseString = "My happy dog took a very long nap";
+        const returnValue = lengthChecker(responseString, savedResponses, prompt, {max: 1, min: 1})
+        assert.equal(returnValue.author, 'Too Long Hint');
+        assert.ok(returnValue.feedback);
+        assert.equal(returnValue.optimal, false)
+        assert.equal(returnValue.parent_id, savedResponses[0].id)
     });
 
-});
+    it('should return a partialResponse object if the response string is shorter than the prompt length plus wordCountChange.max', () => {
+        const responseString = prompt;
+        const returnValue = lengthChecker(responseString, savedResponses, prompt, {max: 1, min: 1})
+        assert.equal(returnValue.author, 'Too Short Hint');
+        assert.ok(returnValue.feedback);
+        assert.equal(returnValue.optimal, false)
+        assert.equal(returnValue.parent_id, savedResponses[0].id)
+    });
 
-describe('The minLengthChecker', () => {
-
-  const responseString = "My dog napped";
-  const savedResponses: Array<Response> = [
-    {
-      id: 1,
-      text: "My sleepy dog took a nap.",
-      feedback: "Good job, that's a sentence!",
-      optimal: true,
-      count: 1,
-      question_uid: 'question 1'
-    },
-    {
-      id: 2,
-      text: "My happy dog took a long nap.",
-      feedback: "Good job, that's a sentence!",
-      optimal: true,
-      count: 1,
-      question_uid: 'question 2'
-    }
-  ]
-
-  it('Should return a partial response if response string is at least two words shorter than any of them and there are at least two optimal responses', () => {
-    const shortestOptimalResponse = savedResponses.sort(r => r.text.length)[0]
-    const partialResponse =  {
-        feedback: feedbackStrings.minLengthError,
-        author: 'Missing Details Hint',
-        parent_id: shortestOptimalResponse.key,
-        concept_results: [
-          conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
-        ]
-      }
-    assert.equal(minLengthChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(minLengthChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(minLengthChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(minLengthChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
-  });
-
-  it('Should not return any concept results if it is asked to', () => {
-    assert.notOk(minLengthChecker(responseString, savedResponses, true).concept_results);
-  });
+    it('should return undefined if the response string is between prompt length plus wordCountChange.min and prompt length plus wordCountChange.max', () => {
+        const responseString = 'My grumpy dog took a nap.';
+        const returnValue = lengthChecker(responseString, savedResponses, prompt, {max: 1, min: 1})
+        assert.notOk(returnValue);
+    });
 
 })
