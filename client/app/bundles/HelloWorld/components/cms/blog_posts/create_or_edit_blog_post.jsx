@@ -24,8 +24,7 @@ export default class extends React.Component {
       topic: p ? p.topic : '',
       preview_card_content: p ? p.preview_card_content : null,
       custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
-      // TODO: restore appropriate format on load
-      preview_card_type: 'Blog Post',
+      preview_card_type: this.props.action === 'new' ? 'Blog Post' : 'Custom HTML',
       blogPostPreviewImage: 'http://placehold.it/300x135',
       blogPostPreviewTitle: 'Write Your Title Here',
       blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
@@ -300,6 +299,21 @@ export default class extends React.Component {
     return (<div id='preview-card-content-fields'>{contentFields}</div>)
   }
 
+  renderPreviewCardTypeDropdown() {
+    if(this.props.action === 'new') {
+      return (
+        <div>
+          <label>Preview Card Type:</label>
+          <ItemDropdown
+            items={['Blog Post', 'YouTube Video', 'Tweet', 'Custom HTML']}
+            callback={this.handlePreviewCardTypeChange}
+            selectedItem={this.state.preview_card_type}
+          />
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <form>
@@ -335,14 +349,7 @@ export default class extends React.Component {
             <label>Topic:</label>
             <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
           </div>
-          <div >
-            <label>Preview Card Type:</label>
-            <ItemDropdown
-              items={['Blog Post', 'YouTube Video', 'Tweet', 'Custom HTML']}
-              callback={this.handlePreviewCardTypeChange}
-              selectedItem={this.state.preview_card_type}
-            />
-          </div>
+          {this.renderPreviewCardTypeDropdown()}
         </div>
 
         <label>Preview Card Content:</label>
