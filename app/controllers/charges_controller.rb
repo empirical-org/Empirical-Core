@@ -12,7 +12,8 @@ class ChargesController < ApplicationController
       end
       customer = Stripe::Customer.create(
         :description => "premium",
-        :source  => params[:source][:id]
+        :source  => params[:source][:id],
+        :email => params[:source][:email]
       )
       @charge = Stripe::Charge.create(
         :customer    => customer.id,
