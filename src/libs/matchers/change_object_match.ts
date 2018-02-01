@@ -95,7 +95,7 @@ export function flexibleChangeObjectMatch(response: string, responses: Array<Res
 export function levenshteinChangeObjectMatch(response: string, responses: Array<Response>) {
   const fn = string => stringNormalize(string);
   const sortedResponses = sortByLevenshteinAndOptimal(response, getOptimalResponses(responses).concat(getSubOptimalResponses(responses)));
-  return checkChangeObjectMatch(response, getOptimalResponses(responses), fn);
+  return checkChangeObjectMatch(response, getOptimalResponses(sortedResponses), fn);
 }
 
 

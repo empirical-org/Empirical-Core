@@ -10,7 +10,7 @@ import {minLengthChecker} from '../matchers/min_length_match'
 import {whitespaceChecker} from '../matchers/whitespace_match'
 import {levenshteinMatchObjectChecker} from '../matchers/change_object_match'
 
-export function checkDiagnosticQuestions(
+export function checkDiagnosticQuestion(
   question_uid: string,
   response: string,
   responses: Array<Response>

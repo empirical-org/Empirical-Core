@@ -1,5 +1,5 @@
 import * as _ from 'underscore';
-import Levenshtein from 'levenshtein';
+import * as Levenshtein from 'levenshtein';
 import {Response, PartialResponse} from '../interfaces'
 
 export interface ResponseObject {
