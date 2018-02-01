@@ -25,22 +25,19 @@ class Subscription < ActiveRecord::Base
         'Teacher Sponsored Free',
         'Teacher Trial']
 
-  # ultimately these should be clenaned up, but until then, we keep them here
+  # TODO: ultimately these should be clenaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
   GRANDFATHERED_FREE_TYPES = ['trial']
   ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.concat(OFFICIAL_FREE_TYPES)
   ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.concat(OFFICIAL_PAID_TYPES)
-
-  def self.create_or_update_with_school_join school_id, attributes
-    self.create_with_school_or_user_join school_id, 'School', attributes
-  end
-
-  def self.create_or_update_with_user_join user_id, attributes
-    self.create_with_school_or_user_join user_id, 'User', attributes
-  end
+  TRIAL_TYPES = ['Teacher Trial', 'trial']
 
   def is_not_paid?
-    self.account_type && (self.account_type.downcase == 'teacher trial')
+    self.account_type && TRIAL_TYPES.include?(self.account_type.downcase == 'teacher trial')
+  end
+
+  def self.create_with_user_join user_id, attributes
+    self.create_with_school_or_user_join user_id, 'User', attributes
   end
 
   def school_subscription?
@@ -87,9 +84,9 @@ class Subscription < ActiveRecord::Base
         school_or_user.subscription&.update(expiration: Date.today)
         # Then they get the promotional subscription
         promotional_dates
-      elsif school_or_user.subcription
+      elsif school_or_user.subscription
         # Expire one year later, start at end of sub
-        old_sub = school_or_user.subcription
+        old_sub = school_or_user.subscription
         {expiration: old_sub.expiration + 365, start_date: old_sub.expiration}
       else
         # sub lasts one year from Date.today
@@ -126,7 +123,10 @@ class Subscription < ActiveRecord::Base
     end
     subscription = Subscription.create!(attributes)
     if subscription.persisted?
-      "#{type}Subscription".constantize.update_or_create(school_or_user_id, subscription.id)
+      h = {}
+      h["#{type.downcase}_id".to_sym] = school_or_user_id
+      h[:subscription_id] = subscription.id
+      "#{type}Subscription".constantize.create(h)
     end
     subscription
   end
