@@ -133,9 +133,33 @@ describe Subscription, type: :model do
     end
 
     it "returns the teacher renewal price if no schools are associated with the subscription" do
+      school_subscription.destroy
       expect(subscription.renewal_price).to eq(Subscription::TEACHER_RENEWAL_PRICE)
     end
 
 
+  end
+
+  describe 'self.expired_today_and_recurring' do
+    let!(:subscription) {create(:subscription)}
+    let!(:recurring_subscription_expiring_today_1) { create(:subscription, expiration: Date.today, recurring: true) }
+    let!(:recurring_subscription_expiring_today_2) { create(:subscription, expiration: Date.today, recurring: true) }
+    let!(:recurring_subscription_expiring_tomorrow) { create(:subscription, expiration: Date.today + 1, recurring: true) }
+    let!(:non_recurring_subscription_expiring_today) { create(:subscription, expiration: Date.today + 1, recurring: false) }
+    it "returns all subscriptions where the expiration date is today and recurring is true" do
+      expect(Subscription.expired_today_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
+    end
+
+    it "does not return subscriptions just because they expire today" do
+      expect(Subscription.expired_today_and_recurring).not_to include(non_recurring_subscription_expiring_today)
+    end
+
+    it "does not return subscriptions just because they are recurring" do
+      expect(Subscription.expired_today_and_recurring).not_to include(recurring_subscription_expiring_tomorrow)
+    end
+
+    it "does not return subscriptions that are neither recurring nor expiring today" do
+      expect(Subscription.expired_today_and_recurring).not_to include(subscription)
+    end
   end
 end

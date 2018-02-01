@@ -85,6 +85,10 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def self.expired_today_and_recurring
+    Subscription.where(expiration: Date.today, recurring:  true)
+  end
+
   def self.school_or_user_has_ever_paid(school_or_user)
     # TODO: 'subscription type spot'
     paid_accounts = school_or_user.subscriptions.pluck(:account_type) & ALL_PAID_TYPES
