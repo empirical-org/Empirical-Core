@@ -49,6 +49,6 @@ module NavigationHelper
 
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?
-    home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?
+    home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active? || teacher_resources_page_should_be_active?
   end
 end

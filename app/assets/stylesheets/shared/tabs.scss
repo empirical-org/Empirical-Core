@@ -64,24 +64,30 @@
   padding: 8px 0;
 
   ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
     float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     li {
       float: left;
       padding: 5px;
 
       a {
-        padding: 5px 18px;
         border-radius: 5px;
+        color: #3b3b3b;
         font-size: 13px;
-        color: #000;
         height: 35px;
+        padding: 5px 17px;
 
         &.active {
           background: #e6e6e6;
+        }
+
+        .fa-external-link {
+          display: inline-block;
+          font-size: 11px;
+          margin-left: 2px;
         }
       }
     }
