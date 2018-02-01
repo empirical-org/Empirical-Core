@@ -29,21 +29,28 @@
       border-radius: 0 5px 0 0;
     }
 
-    &.active a {
-      background: $white;
-      border-bottom: none;
-      border-top: 3px solid #027360;
-      color: #027360;
-      padding-top: 0;
-      position: relative;
+    &.active {
+      a {
+        background: $white;
+        border-bottom: none;
+        border-left-width: 0;
+        border-top: 3px solid #027360;
+        color: #027360;
+        padding-top: 0;
+        position: relative;
 
-      &:after {
-        background-color: black;
-        bottom: 0;
-        height: 4px;
-        left: 0;
-        position: absolute;
-        width: 100%;
+        &:after {
+          background-color: black;
+          bottom: 0;
+          height: 4px;
+          left: 0;
+          position: absolute;
+          width: 100%;
+        }
+      }
+
+      & + li a {
+        border-left-color: transparent;
       }
     }
   }
