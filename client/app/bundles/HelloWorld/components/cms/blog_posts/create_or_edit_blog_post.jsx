@@ -29,6 +29,8 @@ export default class extends React.Component {
       blogPostPreviewImage: 'http://placehold.it/300x135',
       blogPostPreviewTitle: 'Write Your Title Here',
       blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
+      videoLink: 'https://www.youtube.com/watch?v=O_HyZ5aW76c',
+      videoDescription: "I'll write it myself, and we'll do it live!"
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -44,6 +46,9 @@ export default class extends React.Component {
     this.handleBlogPostPreviewDescriptionChange = this.handleBlogPostPreviewDescriptionChange.bind(this)
     this.updatePreviewCardFromBlogPostPreview = this.updatePreviewCardFromBlogPostPreview.bind(this)
     this.renderPreviewCardContentFields = this.renderPreviewCardContentFields.bind(this)
+    this.updatePreviewCardVideoLink = this.updatePreviewCardVideoLink.bind(this)
+    this.updatePreviewCardVideoDescription = this.updatePreviewCardVideoDescription.bind(this)
+    this.updatePreviewCardVideoContent = this.updatePreviewCardVideoContent.bind(this)
   }
 
   handleTitleChange(e) {
@@ -142,7 +147,23 @@ export default class extends React.Component {
   }
 
   handlePreviewCardTypeChange(e) {
-    this.setState({ preview_card_type: e })
+    this.setState({ preview_card_type: e }, this.updatePreviewCardBasedOnType)
+  }
+
+  updatePreviewCardBasedOnType() {
+    switch (this.state.preview_card_type) {
+      case 'Blog Post':
+        this.updatePreviewCardFromBlogPostPreview();
+        break;
+      case 'Tweet':
+        // todo
+        break;
+      case 'YouTube Video':
+        this.updatePreviewCardVideoContent();
+        break;
+      default:
+        this.setState({ preview_card_content: this.state.custom_preview_card_content })
+    }
   }
 
   handleBlogPostPreviewImageChange(e) {
@@ -168,6 +189,27 @@ export default class extends React.Component {
     <div class='preview-card-body'>
        <h3>${this.state.blogPostPreviewTitle}</h3>
        <p>${this.state.blogPostPreviewDescription}</p>
+       <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
+    </div>`;
+    this.setState({ preview_card_content: previewCardContent })
+  }
+
+  updatePreviewCardVideoLink(e) {
+    this.setState({videoLink: e.target.value}, this.updatePreviewCardVideoContent)
+  }
+
+  updatePreviewCardVideoDescription(e) {
+    this.setState({videoDescription: e.target.value}, this.updatePreviewCardVideoContent)
+  }
+
+  updatePreviewCardVideoContent() {
+    const matchedQueryParameter = this.state.videoLink.match(/\?v=(.*)(\&)/) || this.state.videoLink.match(/\?v=(.*)$/)
+    const embedUrl = `https://www.youtube-nocookie.com/embed/${matchedQueryParameter[1]}?rel=0&amp;controls=0&amp;showinfo=0&player=html5`
+    const previewCardContent = `<div class='video-holder'>
+      <iframe src="${embedUrl}" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class='preview-card-body'>
+       <p>${this.state.videoDescription}</p>
        <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
     </div>`;
     this.setState({ preview_card_content: previewCardContent })
@@ -200,7 +242,9 @@ export default class extends React.Component {
     } else if(preview_card_type === 'YouTube Video') {
       contentFields = [
         <label>Link to YouTube Video:</label>,
-        <input type='text' value='https://www.youtube.com/watch?v=O_HyZ5aW76c' />
+        <input onChange={this.updatePreviewCardVideoLink} type='text' value={this.state.videoLink} />,
+        <label>Video Description:</label>,
+        <input onChange={this.updatePreviewCardVideoDescription} type='text' value={this.state.videoDescription} />
       ]
     }
 
