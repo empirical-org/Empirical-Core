@@ -31,9 +31,20 @@ class Subscription < ActiveRecord::Base
   ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.concat(OFFICIAL_FREE_TYPES)
   ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.concat(OFFICIAL_PAID_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
+  SCHOOL_RENEWAL_PRICE = 90000
+  TEACHER_RENEWAL_PRICE = 8000
+
 
   def is_not_paid?
     self.account_type && TRIAL_TYPES.include?(self.account_type.downcase == 'teacher trial')
+  end
+
+  def renewal_price
+    if self.schools.any?
+      SCHOOL_RENEWAL_PRICE
+    else
+      TEACHER_RENEWAL_PRICE
+    end
   end
 
   def self.create_with_user_join user_id, attributes
@@ -46,6 +57,18 @@ class Subscription < ActiveRecord::Base
 
   def self.account_types
     ALL_FREE_TYPES.concat(ALL_PAID_TYPES)
+  end
+
+  def renew_subscription
+    # creates a new sub based off the old ones
+    # dups last subscription
+    new_sub = self.dup
+    new_sub.expiration = self.expiration + 365
+    new_sub.start_date = self.expiration
+    if new_sub.save
+
+    end
+    new_sub.save
   end
 
   def credit_user_and_expire
@@ -77,6 +100,10 @@ class Subscription < ActiveRecord::Base
   end
 
   private
+
+  def charge_user
+    Stripe::Charge.create(amount: self.renewal_price, currency: 'usd', customer: "cus_CFJK1jjfrsD0Pt")
+  end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
       if !Subscription.school_or_user_has_ever_paid(school_or_user)
