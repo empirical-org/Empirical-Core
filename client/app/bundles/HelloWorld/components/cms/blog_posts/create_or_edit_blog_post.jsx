@@ -30,7 +30,11 @@ export default class extends React.Component {
       blogPostPreviewTitle: 'Write Your Title Here',
       blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
       videoLink: 'https://www.youtube.com/watch?v=O_HyZ5aW76c',
-      videoDescription: "I'll write it myself, and we'll do it live!"
+      videoDescription: "I'll write it myself, and we'll do it live!",
+      tweetLink: 'https://twitter.com/EdSurge/status/956861254982873088',
+      tweetImage: 'https://pbs.twimg.com/card_img/956861256786501632/Pf_Th_E1?format=jpg&name=600x314',
+      tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
+      tweetAuthor: 'EdSurge'
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -49,6 +53,11 @@ export default class extends React.Component {
     this.updatePreviewCardVideoLink = this.updatePreviewCardVideoLink.bind(this)
     this.updatePreviewCardVideoDescription = this.updatePreviewCardVideoDescription.bind(this)
     this.updatePreviewCardVideoContent = this.updatePreviewCardVideoContent.bind(this)
+    this.updateTweetLink = this.updateTweetLink.bind(this)
+    this.updateTweetImage = this.updateTweetImage.bind(this)
+    this.updateTweetText = this.updateTweetText.bind(this)
+    this.updateTweetAuthor = this.updateTweetAuthor.bind(this)
+    this.updatePreviewCardTweetContent = this.updatePreviewCardTweetContent.bind(this)
   }
 
   handleTitleChange(e) {
@@ -156,7 +165,7 @@ export default class extends React.Component {
         this.updatePreviewCardFromBlogPostPreview();
         break;
       case 'Tweet':
-        // todo
+        this.updatePreviewCardTweetContent();
         break;
       case 'YouTube Video':
         this.updatePreviewCardVideoContent();
@@ -202,6 +211,31 @@ export default class extends React.Component {
     this.setState({videoDescription: e.target.value}, this.updatePreviewCardVideoContent)
   }
 
+  updateTweetLink(e) {
+    this.setState({ tweetLink: e.target.value }, this.updatePreviewCardTweetContent)
+  }
+
+  updateTweetImage(e) {
+    this.setState({ tweetImage: e.target.value }, this.updatePreviewCardTweetContent)
+  }
+
+  updateTweetText(e) {
+    this.setState({ tweetText: e.target.value }, this.updatePreviewCardTweetContent)
+  }
+
+  updateTweetAuthor(e) {
+    this.setState({ tweetAuthor: e.target.value }, this.updatePreviewCardTweetContent)
+  }
+
+  updatePreviewCardTweetContent() {
+    const previewCardContent = `<img class='preview-card-image' src='${this.state.tweetImage}' />
+    <div class='preview-card-body'>
+       <p>${this.state.tweetText}</p>
+       <p class='author'>@${this.state.tweetAuthor}</p>
+    </div>`;
+    this.setState({ preview_card_content: previewCardContent })
+  }
+
   updatePreviewCardVideoContent() {
     const matchedQueryParameter = this.state.videoLink.match(/\?v=(.*)(\&)/) || this.state.videoLink.match(/\?v=(.*)$/)
     const embedUrl = `https://www.youtube-nocookie.com/embed/${matchedQueryParameter[1]}?rel=0&amp;controls=0&amp;showinfo=0&player=html5`
@@ -235,9 +269,13 @@ export default class extends React.Component {
     } else if(preview_card_type === 'Tweet') {
       contentFields = [
         <label>Link to Tweet:</label>,
-        <input type='text' value='https://twitter.com/EdSurge/status/956861254982873088' />,
+        <input onChange={this.updateTweetLink} type='text' value={this.state.tweetLink} />,
+        <label>Link to Image:</label>,
+        <input onChange={this.updateTweetImage} type='text' value={this.state.tweetImage} />,
         <label>Text to Display:</label>,
-        <input type='text' value='"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."' />,
+        <input onChange={this.updateTweetText} type='text' value={this.state.tweetText} />,
+        <label>Twitter Account:</label>,
+        <input onChange={this.updateTweetAuthor} type='text' value={this.state.tweetAuthor} />,
       ]
     } else if(preview_card_type === 'YouTube Video') {
       contentFields = [
