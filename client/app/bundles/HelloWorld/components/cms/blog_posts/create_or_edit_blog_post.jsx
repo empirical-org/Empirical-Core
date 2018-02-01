@@ -40,7 +40,7 @@ export default class extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handleSubtitleChange = this.handleSubtitleChange.bind(this)
     this.handleBodyChange = this.handleBodyChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmitClick = this.handleSubmitClick.bind(this)
     this.handleTopicChange = this.handleTopicChange.bind(this)
     this.handleAuthorChange = this.handleAuthorChange.bind(this)
     this.handleCustomPreviewChange = this.handleCustomPreviewChange.bind(this)
@@ -99,7 +99,7 @@ export default class extends React.Component {
     container.rows = 2 + rows;
   }
 
-  handleSubmit(e) {
+  handleSubmitClick(e, shouldPublish) {
     e.preventDefault();
     let action
     let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
@@ -118,7 +118,8 @@ export default class extends React.Component {
           body: this.state.body,
           topic: this.state.topic,
           author_id: this.state.author_id,
-          preview_card_content: this.state.preview_card_content
+          preview_card_content: this.state.preview_card_content,
+          draft: !shouldPublish
         },
         authenticity_token: ReactOnRails.authenticityToken()
       }
@@ -132,6 +133,12 @@ export default class extends React.Component {
         alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
       }
     })
+  }
+
+  renderSaveDraftButton() {
+    if(this.props.action === 'new') {
+      return <input type="submit" value="Save Draft" onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} />
+    }
   }
 
   insertMarkdown(startChar, endChar = null) {
@@ -295,7 +302,7 @@ export default class extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <label>Title:</label>
         <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
 
@@ -344,7 +351,8 @@ export default class extends React.Component {
         <label>Card Preview:</label>
         <PreviewCard content={this.state.preview_card_content} />
 
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
+        {this.renderSaveDraftButton()}
       </form>
     )
   }
