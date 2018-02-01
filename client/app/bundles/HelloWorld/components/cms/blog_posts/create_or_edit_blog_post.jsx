@@ -8,7 +8,7 @@ const defaultPreviewCardContent = `<img class='preview-card-image' src='http://p
 <div class='preview-card-body'>
    <h3>Write Your Title Here</h3>
    <p>Write your description here, but be careful not to make it too long!</p>
-   <p class='author'>by First Last</p>
+   <p class='author'>by Quill Staff</p>
 </div>`;
 
 export default class extends React.Component {
@@ -17,18 +17,18 @@ export default class extends React.Component {
     const p = this.props.postToEdit
     // set state to empty values or those of the postToEdit
     this.state = {
-      title: p
-        ? p.title
-        : '',
-      subtitle: p
-        ? p.subtitle
-        : '',
-      body: p
-        ? p.body
-        : '',
-      author_id: p ? p.author_id : null,
+      title: p ? p.title : '',
+      subtitle: p ? p.subtitle : '',
+      body: p ? p.body : '',
+      author_id: p ? p.author_id : 11 /* Quill Staff */,
       topic: p ? p.topic : '',
       preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
+      custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
+      // TODO: restore appropriate format on load
+      preview_card_type: 'Blog Post',
+      blogPostPreviewImage: 'http://placehold.it/300x135',
+      blogPostPreviewTitle: 'Write Your Title Here',
+      blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -37,7 +37,13 @@ export default class extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleTopicChange = this.handleTopicChange.bind(this)
     this.handleAuthorChange = this.handleAuthorChange.bind(this)
-    this.handlePreviewChange = this.handlePreviewChange.bind(this)
+    this.handleCustomPreviewChange = this.handleCustomPreviewChange.bind(this)
+    this.handlePreviewCardTypeChange = this.handlePreviewCardTypeChange.bind(this)
+    this.handleBlogPostPreviewImageChange = this.handleBlogPostPreviewImageChange.bind(this)
+    this.handleBlogPostPreviewTitleChange = this.handleBlogPostPreviewTitleChange.bind(this)
+    this.handleBlogPostPreviewDescriptionChange = this.handleBlogPostPreviewDescriptionChange.bind(this)
+    this.updatePreviewCardFromBlogPostPreview = this.updatePreviewCardFromBlogPostPreview.bind(this)
+    this.renderPreviewCardContentFields = this.renderPreviewCardContentFields.bind(this)
   }
 
   handleTitleChange(e) {
@@ -61,11 +67,14 @@ export default class extends React.Component {
   }
 
   handleAuthorChange(e) {
-    this.setState({author_id: e.id})
+    this.setState({author_id: e.id}, this.updatePreviewCardFromBlogPostPreview)
   }
 
-  handlePreviewChange(e) {
-    this.setState({preview_card_content: e.target.value})
+  handleCustomPreviewChange(e) {
+    this.setState({
+      preview_card_content: e.target.value,
+      custom_preview_card_content: e.target.value
+    })
     const container = document.getElementById('preview-markdown-content');
     container.rows = 4;
     const rows = Math.ceil((container.scrollHeight - 64) / 20.3);
@@ -85,7 +94,14 @@ export default class extends React.Component {
     request[action]({
       url,
       form: {
-        blog_post: this.state,
+        blog_post: {
+          title: this.state.title,
+          subtitle: this.state.subtitle,
+          body: this.state.body,
+          topic: this.state.topic,
+          author_id: this.state.author_id,
+          preview_card_content: this.state.preview_card_content
+        },
         authenticity_token: ReactOnRails.authenticityToken()
       }
     }, (error, httpStatus, body) => {
@@ -125,6 +141,72 @@ export default class extends React.Component {
     this.setState({ body: newValue });
   }
 
+  handlePreviewCardTypeChange(e) {
+    this.setState({ preview_card_type: e })
+  }
+
+  handleBlogPostPreviewImageChange(e) {
+    this.setState({
+      blogPostPreviewImage: e.target.value
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
+  handleBlogPostPreviewTitleChange(e) {
+    this.setState({
+      blogPostPreviewTitle: e.target.value
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
+  handleBlogPostPreviewDescriptionChange(e) {
+    this.setState({
+      blogPostPreviewDescription: e.target.value
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
+  updatePreviewCardFromBlogPostPreview() {
+    const previewCardContent = `<img class='preview-card-image' src='${this.state.blogPostPreviewImage}' />
+    <div class='preview-card-body'>
+       <h3>${this.state.blogPostPreviewTitle}</h3>
+       <p>${this.state.blogPostPreviewDescription}</p>
+       <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
+    </div>`;
+    this.setState({ preview_card_content: previewCardContent })
+  }
+
+  renderPreviewCardContentFields() {
+    const preview_card_type = this.state.preview_card_type;
+    let contentFields;
+    if(preview_card_type === 'Blog Post') {
+      contentFields = [
+        <label>Header Image:</label>,
+        <input onChange={this.handleBlogPostPreviewImageChange} type='text' value={this.state.blogPostPreviewImage} />,
+        <label>Title:</label>,
+        <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
+        <label>Description:</label>,
+        <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />
+      ]
+    } else if(preview_card_type === 'Custom HTML') {
+      contentFields = [
+        <label>Custom HTML:</label>,
+        <textarea rows={4} type="text" id="preview-markdown-content" value={this.state.custom_preview_card_content} onChange={this.handleCustomPreviewChange} />
+      ]
+    } else if(preview_card_type === 'Tweet') {
+      contentFields = [
+        <label>Link to Tweet:</label>,
+        <input type='text' value='https://twitter.com/EdSurge/status/956861254982873088' />,
+        <label>Text to Display:</label>,
+        <input type='text' value='"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."' />,
+      ]
+    } else if(preview_card_type === 'YouTube Video') {
+      contentFields = [
+        <label>Link to YouTube Video:</label>,
+        <input type='text' value='https://www.youtube.com/watch?v=O_HyZ5aW76c' />
+      ]
+    }
+
+    return (<div id='preview-card-content-fields'>{contentFields}</div>)
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -151,19 +233,27 @@ export default class extends React.Component {
         <label>Body Preview:</label>
         <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
 
-        <div className='flex-two-cols'>
-          <div className='left'>
+        <div className='flex-three-cols'>
+          <div>
             <label>Author:</label>
             <ItemDropdown items={this.props.authors} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id)} />
           </div>
-          <div className='right'>
+          <div>
             <label>Topic:</label>
             <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
+          </div>
+          <div >
+            <label>Preview Card Type:</label>
+            <ItemDropdown
+              items={['Blog Post', 'YouTube Video', 'Tweet', 'Custom HTML']}
+              callback={this.handlePreviewCardTypeChange}
+              selectedItem={this.state.preview_card_type}
+            />
           </div>
         </div>
 
         <label>Preview Card Content:</label>
-        <textarea rows={4} type="text" id="preview-markdown-content" value={this.state.preview_card_content} onChange={this.handlePreviewChange} />
+        {this.renderPreviewCardContentFields()}
 
         <label>Card Preview:</label>
         <PreviewCard content={this.state.preview_card_content} />
