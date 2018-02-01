@@ -1761,6 +1761,7 @@ CREATE TABLE users (
     google_id character varying,
     last_sign_in timestamp without time zone,
     last_active timestamp without time zone,
+    stripe_customer_id character varying,
     CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['temporary'::character varying, 'staff'::character varying, 'admin'::character varying, 'student'::character varying, 'teacher'::character varying, 'user'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
@@ -3149,6 +3150,13 @@ CREATE INDEX index_users_on_role ON users USING btree (role);
 
 
 --
+-- Name: index_users_on_stripe_customer_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_stripe_customer_id ON users USING btree (stripe_customer_id);
+
+
+--
 -- Name: index_users_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3805,4 +3813,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180130165729');
 INSERT INTO schema_migrations (version) VALUES ('20180131165556');
 
 INSERT INTO schema_migrations (version) VALUES ('20180131212358');
+
+INSERT INTO schema_migrations (version) VALUES ('20180201191052');
 
