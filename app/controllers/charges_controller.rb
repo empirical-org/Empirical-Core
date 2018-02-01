@@ -50,10 +50,9 @@ class ChargesController < ApplicationController
       # Something else happened, completely unrelated to Stripe
       end
       # then it is a teacher premium
-      if @charge
+      if @charge && @charge.status == 'succeeded'
         handle_subscription
       end
-
 
       respond_to  do |format|
         format.json { render :json => {route: premium_redirect, err: err, message: @message}}
@@ -66,6 +65,8 @@ class ChargesController < ApplicationController
 
   def handle_subscription
     attributes = {account_limit: 1000}
+    attributes[:contact_user_id] = current_user.id
+    current_user.update(stripe_customer_id: @charge.customer)
     if @charge.amount == 45000
       attributes[:account_type] = "School Paid"
       if current_user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user.school.name)
