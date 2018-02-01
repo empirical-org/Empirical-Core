@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import * as _ from 'underscore';
 import fuzzy from 'fuzzyset.js';
 import constants from '../constants';
 import { checkForMissingWords } from './requiredWords';
@@ -12,6 +12,7 @@ import {
   getFeedbackForMissingWord
 } from './algorithms/joiningWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
+import normalizeString from './normalizeString'
 
 const jsDiff = require('diff');
 
@@ -20,10 +21,6 @@ const ERROR_TYPES = {
   MISSING_WORD: 'MISSING_WORD',
   ADDITIONAL_WORD: 'ADDITIONAL_WORD',
   INCORRECT_WORD: 'INCORRECT_WORD',
-};
-
-String.prototype.normalize = function () {
-  return this.replace(/[\u201C\u201D]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019]/g, '\u0027').replace('‚', ',');
 };
 
 const conceptResultTemplate = (conceptUID, correct = false) => ({
@@ -114,7 +111,7 @@ export default class Question {
     }
     const lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
     if (lowerCaseMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.feedback = constants.feedbackStrings.caseError;
       res.author = 'Capitalization Hint';
       res.parentID = lowerCaseMatch.key;
       res.conceptResults = [
@@ -124,7 +121,7 @@ export default class Question {
     }
     const punctuationMatch = this.checkPunctuationInsensitiveMatch(response);
     if (punctuationMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.feedback = constants.feedbackStrings.punctuationError;
       res.author = 'Punctuation Hint';
       res.parentID = punctuationMatch.key;
       res.conceptResults = [
@@ -134,7 +131,7 @@ export default class Question {
     }
     const punctuationAndCaseMatch = this.checkPunctuationAndCaseInsensitiveMatch(response);
     if (punctuationAndCaseMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationAndCaseError;
+      res.feedback = constants.feedbackStrings.punctuationAndCaseError;
       res.author = 'Punctuation and Case Hint';
       res.parentID = punctuationAndCaseMatch.key;
       res.conceptResults = [
@@ -165,7 +162,7 @@ export default class Question {
     }
     const whitespaceMatch = this.checkWhiteSpaceMatch(response);
     if (whitespaceMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.whitespaceError;
+      res.feedback = constants.feedbackStrings.whitespaceError;
       res.author = 'Whitespace Hint';
       res.parentID = whitespaceMatch.key;
       res.conceptResults = [
@@ -179,7 +176,7 @@ export default class Question {
         case ERROR_TYPES.INCORRECT_WORD:
           const missingWord = changeObjectMatch.missingText;
           const missingTextFeedback = getFeedbackForMissingWord(missingWord);
-          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.feedback = missingTextFeedback || constants.feedbackStrings.modifiedWordError;
           res.author = 'Modified Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -187,7 +184,7 @@ export default class Question {
           ];
           return returnValue;
         case ERROR_TYPES.ADDITIONAL_WORD:
-          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.feedback = constants.feedbackStrings.additionalWordError;
           res.author = 'Additional Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -196,7 +193,7 @@ export default class Question {
           return returnValue;
         case ERROR_TYPES.MISSING_WORD:
 
-          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.feedback = constants.feedbackStrings.missingWordError;
           res.author = 'Missing Word Hint';
           res.parentID = changeObjectMatch.response.key;
           res.conceptResults = [
@@ -213,7 +210,7 @@ export default class Question {
         case ERROR_TYPES.INCORRECT_WORD:
           const missingWord = changeObjectFlexMatch.missingText;
           const missingTextFeedback = getFeedbackForMissingWord(missingWord);
-          res.feedback = missingTextFeedback || constants.FEEDBACK_STRINGS.modifiedWordError;
+          res.feedback = missingTextFeedback || constants.feedbackStrings.modifiedWordError;
           res.author = 'Flexible Modified Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
@@ -222,7 +219,7 @@ export default class Question {
           return returnValue;
         case ERROR_TYPES.ADDITIONAL_WORD:
 
-          res.feedback = constants.FEEDBACK_STRINGS.additionalWordError;
+          res.feedback = constants.feedbackStrings.additionalWordError;
           res.author = 'Flexible Additional Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
@@ -231,7 +228,7 @@ export default class Question {
           return returnValue;
         case ERROR_TYPES.MISSING_WORD:
 
-          res.feedback = constants.FEEDBACK_STRINGS.missingWordError;
+          res.feedback = constants.feedbackStrings.missingWordError;
           res.author = 'Flexible Missing Word Hint';
           res.parentID = changeObjectFlexMatch.response.key;
           res.conceptResults = [
@@ -254,7 +251,7 @@ export default class Question {
     }
     const minLengthMatch = this.checkMinLengthMatch(response);
     if (minLengthMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.minLengthError;
+      res.feedback = constants.feedbackStrings.minLengthError;
       res.author = 'Missing Details Hint';
       res.parentID = minLengthMatch.key;
       res.conceptResults = [
@@ -264,7 +261,7 @@ export default class Question {
     }
     const maxLengthMatch = this.checkMaxLengthMatch(response);
     if (maxLengthMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.maxLengthError;
+      res.feedback = constants.feedbackStrings.maxLengthError;
       res.author = 'Not Concise Hint';
       res.parentID = maxLengthMatch.key;
       res.conceptResults = [
@@ -274,7 +271,7 @@ export default class Question {
     }
     const lowerCaseStartMatch = this.checkCaseStartMatch(response);
     if (lowerCaseStartMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.caseError;
+      res.feedback = constants.feedbackStrings.caseError;
       res.author = 'Capitalization Hint';
       res.parentID = lowerCaseStartMatch.key;
       res.conceptResults = [
@@ -284,7 +281,7 @@ export default class Question {
     }
     const punctuationEndMatch = this.checkPunctuationEndMatch(response);
     if (punctuationEndMatch !== undefined) {
-      res.feedback = constants.FEEDBACK_STRINGS.punctuationError;
+      res.feedback = constants.feedbackStrings.punctuationError;
       res.author = 'Punctuation End Hint';
       res.parentID = punctuationEndMatch.key;
       res.conceptResults = [
@@ -305,13 +302,13 @@ export default class Question {
 
   checkExactMatch(response) {
     return _.find(this.responses,
-      resp => resp.text.normalize() === response.normalize()
+      resp => normalizeString(resp.text) === normalizeString(response)
     );
   }
 
   checkCaseInsensitiveMatch(response) {
     return _.find(getOptimalResponses(this.responses),
-      resp => resp.text.normalize().toLowerCase() === response.normalize().toLowerCase()
+      resp => normalizeString(resp.text).toLowerCase() === normalizeString(response).toLowerCase()
     );
   }
 
@@ -330,37 +327,37 @@ export default class Question {
 
   checkPunctuationInsensitiveMatch(response) {
     return _.find(getOptimalResponses(this.responses),
-      resp => removePunctuation(resp.text.normalize()) === removePunctuation(response.normalize())
+      resp => removePunctuation(normalizeString(resp.text)) === removePunctuation(normalizeString(response))
     );
   }
 
   checkPunctuationAndCaseInsensitiveMatch(response) {
     return _.find(getOptimalResponses(this.responses), (resp) => {
-      const supplied = removePunctuation(response.normalize()).toLowerCase();
-      const target = removePunctuation(resp.text.normalize()).toLowerCase();
+      const supplied = removePunctuation(normalizeString(response)).toLowerCase();
+      const target = removePunctuation(normalizeString(resp.text)).toLowerCase();
       return supplied === target;
     });
   }
 
   checkWhiteSpaceMatch(response) {
     return _.find(getOptimalResponses(this.responses),
-      resp => removeSpaces(response.normalize()) === removeSpaces(resp.text.normalize())
+      resp => removeSpaces(normalizeString(response)) === removeSpaces(normalizeString(resp.text))
     );
   }
 
   checkSmallTypoMatch(response) {
     return _.find(this.nonChildResponses(this.responses),
-      resp => getLowAdditionCount(response.normalize(), resp.text.normalize())
+      resp => getLowAdditionCount(normalizeString(response), normalizeString(resp.text))
     );
   }
 
   checkChangeObjectRigidMatch(response) {
-    const fn = string => string.normalize();
+    const fn = string => normalizeString(string);
     return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
   checkChangeObjectFlexibleMatch(response) {
-    const fn = string => removePunctuation(string.normalize()).toLowerCase();
+    const fn = string => removePunctuation(normalizeString(string)).toLowerCase();
     return checkChangeObjectMatch(response, getOptimalResponses(this.responses), fn);
   }
 
@@ -388,10 +385,10 @@ export default class Question {
     if (optimalResponses.length < 2) {
       return undefined;
     }
-    const lengthsOfResponses = optimalResponses.map(resp => resp.text.normalize().split(' ').length);
+    const lengthsOfResponses = optimalResponses.map(resp => normalizeString(resp.text).split(' ').length);
     const minLength = _.min(lengthsOfResponses) - 1;
     if (response.split(' ').length < minLength) {
-      return _.sortBy(optimalResponses, resp => resp.text.normalize().length)[0];
+      return _.sortBy(optimalResponses, resp => normalizeString(resp.text).length)[0];
     }
     return undefined;
   }
@@ -401,10 +398,10 @@ export default class Question {
     if (optimalResponses.length < 2) {
       return undefined;
     }
-    const lengthsOfResponses = optimalResponses.map(resp => resp.text.normalize().split(' ').length);
+    const lengthsOfResponses = optimalResponses.map(resp => normalizeString(resp.text).split(' ').length);
     const maxLength = _.max(lengthsOfResponses) + 1;
     if (response.split(' ').length > maxLength) {
-      return _.sortBy(optimalResponses, resp => resp.text.normalize().length).reverse()[0];
+      return _.sortBy(optimalResponses, resp => normalizeString(resp.text).length).reverse()[0];
     }
     return undefined;
   }

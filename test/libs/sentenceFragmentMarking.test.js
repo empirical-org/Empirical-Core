@@ -1,6 +1,6 @@
 /* global describe, it*/
 import expect from 'expect';
-import { hashToCollection } from '../../src/libs/hashToCollection.js';
+import { hashToCollection } from '../../src/libs/hashToCollection.ts';
 import SFMarkingObj, { wordLengthCount } from '../../src/libs/sentenceFragment';
 import responses, {
   optimalResponse

@@ -58,3 +58,5 @@ typings/
 .env
 
 src/libs/firebase.js
+
+.rpt2_cache

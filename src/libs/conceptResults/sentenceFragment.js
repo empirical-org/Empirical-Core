@@ -1,5 +1,5 @@
 import C from '../../constants';
-import _ from 'underscore';
+import * as _ from 'underscore';
 
 import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 

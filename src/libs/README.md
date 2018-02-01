@@ -42,7 +42,7 @@ The class requires a submission to be graded and a bank of responses for it to b
 
 ##### Return value
 
-The checkMatch function returns an object with at minimum the response submitted and wether it was matched to anything in the responses array.
+The checkMatch function returns an object with at minimum the response submitted and whether it was matched to anything in the responses array.
 
 Below is an example of a failure to match the "nonMatchingResponseString" to any of the responses in the
 ```
