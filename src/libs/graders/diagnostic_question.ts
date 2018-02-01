@@ -18,7 +18,8 @@ export function checkDiagnosticQuestion(
   const responseTemplate = {
     text: response,
     question_uid,
-    count: 1
+    count: 1,
+    gradeIndex: `nonhuman${question_uid}`
   }
   const data = {
     response,

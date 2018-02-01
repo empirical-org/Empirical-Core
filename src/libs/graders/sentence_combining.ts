@@ -28,6 +28,7 @@ export function checkSentenceCombining(
   const responseTemplate = {
     text: response,
     question_uid,
+    gradeIndex: `nonhuman${question_uid}`,
     count: 1
   }
   const data = {
@@ -36,8 +37,6 @@ export function checkSentenceCombining(
     focusPoints,
     incorrectSequences,
   }
-  // Correct the spelling and try again.
-
 
   const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {

@@ -39,7 +39,7 @@ export interface PartialResponse {
   uid?: string|null,
   updated_at?: string,
   weak?: Boolean|null,
-  errorType?: string
+  errorType?: string,
 }
 
 
@@ -74,4 +74,9 @@ export interface GradingObject {
   focusPoints: Array<FocusPoint>,
   incorrectSequences: Array<IncorrectSequence>,
   spellCorrectedResponse?: string
+}
+
+export interface WordCountChange {
+  min?: number,
+  max?: number
 }
