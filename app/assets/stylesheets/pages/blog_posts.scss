@@ -125,10 +125,17 @@ body {
   width: 300px;
   margin: 0 0 20px;
 
-  div:first-of-type {
+  div:first-of-type:not(.video-holder), .video-holder + .preview-card-body {
     display: flex;
     flex-direction: column;
     height: 100%;
+  }
+
+  .video-holder {
+    border-radius: 6px 6px 0 0;
+    height: 280px;
+    overflow: hidden;
+    z-index: 2;
   }
 
   .preview-card-image {
