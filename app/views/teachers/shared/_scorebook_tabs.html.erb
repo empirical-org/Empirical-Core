@@ -65,6 +65,17 @@
           <li><%= active_link_to raw('Standards  <i class="fa fa-star"></i>'), teachers_progress_reports_standards_classrooms_path %></li>
           <li><%= active_link_to raw('Data Export  <i class="fa fa-star"></i>'), teachers_progress_reports_activity_sessions_path %></li>
         <% end %>
+
+        <% if teacher_resources_page_should_be_active? %>
+          <li><%= active_link_to 'Overview', blog_posts_path %></li>
+          <li><%= active_link_to 'Case Studies', '/todo' %></li>
+          <li><%= active_link_to 'Teacher Stories', '/todo' %></li>
+          <li><%= active_link_to 'Webinars', '/todo' %></li>
+          <li><%= active_link_to 'Education Research', '/todo' %></li>
+          <li><%= active_link_to 'Teacher Materials', '/todo' %></li>
+          <li><%= active_link_to 'FAQ', '/todo' %></li>
+          <li><%= link_to raw('Support  <i class="fa fa-external-link"></i>'), 'https://support.quill.org' %></li>
+        <% end %>
       </ul>
     </div>
   </div>
