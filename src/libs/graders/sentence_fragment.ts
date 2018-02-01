@@ -15,7 +15,7 @@ import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match'
 import {requiredWordsChecker} from '../matchers/required_words_match'
 import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
 
-export function checkSentenceCombining(
+export function checkSentenceFragment(
   question_uid: string,
   response: string,
   responses: Array<Response>,
