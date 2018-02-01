@@ -2,7 +2,7 @@ class BlogPostsController < ApplicationController
   before_action :set_blog_post, only: [:show]
 
   def index
-    @blog_posts = BlogPost.all
+    @blog_posts = BlogPost.where(draft: false)
     #blog_posts/index.html.erb
   end
 
