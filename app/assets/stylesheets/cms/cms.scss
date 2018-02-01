@@ -111,7 +111,7 @@
 
 .cms-container#blog-post {
   form {
-    max-width: 600px;
+    max-width: 725px;
 
     label {
       color: #666;
@@ -177,6 +177,20 @@
       }
     }
 
+    #preview-card-content-fields {
+      background: #eeeeee;
+      border-radius: 5px;
+      font-size: 0.8em;
+      margin-bottom: 20px;
+      max-width: 500px;
+      padding: 15px 20px 1px;
+
+      input {
+        font-size: 1em;
+        padding: 7px 8px;
+      }
+    }
+
     input[type='submit'] {
       background: $quillgreen;
       border: none;
@@ -190,7 +204,7 @@
       width: 100%;
     }
 
-    .flex-two-cols {
+    .flex-three-cols {
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
