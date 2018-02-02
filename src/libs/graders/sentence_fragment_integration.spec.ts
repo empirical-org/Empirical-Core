@@ -1,6 +1,7 @@
 import {responses, incorrectSequences} from '../../../test/data/batswings'
 import { assert } from 'chai';
 import {checkSentenceFragment} from './sentence_fragment';
+// import {checkSentenceFragment} from '../../../dist/lib'
 import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';

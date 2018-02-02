@@ -26,13 +26,13 @@ rollup.rollup({
       commonjs({
         include: 'node_modules/**',
         namedExports: {
-          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max'],
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject'],
           'node_modules/diff/dist/diff.js': ['diffWords', '_params']
         }
       }),
-      
+
       typescript()
-      
+
     ]
 })
     .then(function (bundle) {
