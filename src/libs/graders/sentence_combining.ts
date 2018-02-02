@@ -55,6 +55,8 @@ export function checkSentenceCombining(
     return Object.assign(responseTemplate, secondPass)
   }
 
+  responseTemplate.gradeIndex = `unmarked${question_uid}`
+  return responseTemplate
 }
 
 function* firstPassMatchers(data: GradingObject, spellCorrected=false) {

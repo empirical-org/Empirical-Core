@@ -44,6 +44,9 @@ export function checkSentenceFragment(
   if (firstPass) {
     return Object.assign(responseTemplate, firstPass)
   }
+
+  responseTemplate.gradeIndex = `unmarked${question_uid}`
+  return responseTemplate
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {

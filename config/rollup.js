@@ -19,7 +19,7 @@ rollup.rollup({
     plugins: [
       commonjs({
         namedExports: {
-          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max'],
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject'],
           'node_modules/diff/lib/util/params.js': ['_params']        }
       }),
       typescript(),

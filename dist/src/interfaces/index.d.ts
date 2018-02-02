@@ -68,3 +68,7 @@ export interface GradingObject {
     incorrectSequences: Array<IncorrectSequence>;
     spellCorrectedResponse?: string;
 }
+export interface WordCountChange {
+    min?: number;
+    max?: number;
+}
