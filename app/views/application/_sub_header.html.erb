@@ -35,7 +35,9 @@
 				<li><%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path %></li>
 				<li><%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path %></li>
 				<li><%= link_to "Logout", '/session' %></li>
-      <% end %>
+      <% else %>
+				<li><%= link_to "Logout", '/session' %></li>
+			<% end %>
 
 			<%- if current_user.nil? %>
 				<li class="sign-up-wrapper"><%= link_to "Sign Up", new_account_path, class: "sign-up-btn" %></li>
