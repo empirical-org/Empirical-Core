@@ -6,6 +6,7 @@ class Subscription < ActiveRecord::Base
   has_many :school_subscriptions
   has_many :users, through: :user_subscriptions
   has_many :schools, through: :school_subscriptions
+  belongs_to :contact_user, class_name: "User"
   belongs_to :subscription_type
   validates :expiration, presence: true
   validates :account_limit, presence: true
@@ -65,10 +66,7 @@ class Subscription < ActiveRecord::Base
     new_sub = self.dup
     new_sub.expiration = self.expiration + 365
     new_sub.start_date = self.expiration
-    if new_sub.save
-
-    end
-    new_sub.save
+    new_sub.save!
   end
 
   def credit_user_and_expire
@@ -78,7 +76,7 @@ class Subscription < ActiveRecord::Base
     elsif self.user_subscriptions.ids.count > 1
       report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{self.id}")
     else
-      self.update(expiration: Date.today)
+      self.update(expiration: Date.today, recurring: false)
       # subtract later of start date or today's date from expiration date to calculate amount to credit
       amount_to_credit = self.expiration - [self.start_date, Date.today].max
       #TODO:  CREDIT ACTION HERE
@@ -95,6 +93,19 @@ class Subscription < ActiveRecord::Base
     paid_accounts.any?
   end
 
+  def update_if_charge_succeeds
+    charge = charge_user
+    if charge[:status] == 'succeeded'
+      self.renew_subscription
+    end
+  end
+
+  def self.update_todays_expired_recurring_subscriptions
+    self.expired_today_and_recurring.each do |s|
+      s.update_if_charge_succeeds
+    end
+  end
+
   def self.promotional_dates
     # available to users who have never paid before
     # if today's month is before august, it expires end of July, else December
@@ -103,10 +114,12 @@ class Subscription < ActiveRecord::Base
     start_date: Date.today}
   end
 
-  private
+  protected
 
   def charge_user
-    Stripe::Charge.create(amount: self.renewal_price, currency: 'usd', customer: "cus_CFJK1jjfrsD0Pt")
+    if contact_user && contact_user.stripe_customer_id
+      Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: contact_user.stripe_customer_id)
+    end
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
