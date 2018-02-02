@@ -3,7 +3,10 @@ class SubscriptionsController < ApplicationController
 
   def index
     @subscriptions = Subscription.all
-    render json: @subscriptions
+    respond_to do |format|
+      format.html
+      format.json {render json: @subscriptions}
+    end
   end
 
   def show
