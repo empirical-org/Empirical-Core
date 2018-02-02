@@ -17,14 +17,22 @@ var banner =
 rollup.rollup({
     input: "./src/main.ts",
     plugins: [
+        nodeResolve({
+            // pass custom options to the resolve plugin
+            jsnext: true,
+            main: true,
+            browser: true,
+          }),
       commonjs({
+        include: 'node_modules/**',
         namedExports: {
-          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject'],
-          'node_modules/diff/lib/util/params.js': ['_params']        }
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max'],
+          'node_modules/diff/dist/diff.js': ['diffWords', '_params']
+        }
       }),
-      typescript(),
-      istanbul(),
-      nodeResolve()
+      
+      typescript()
+      
     ]
 })
     .then(function (bundle) {

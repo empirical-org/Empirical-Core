@@ -77,6 +77,7 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+<<<<<<< HEAD
 var cov_1xt7cahzyq=function(){var path='/Users/Emilia/Quill/quill-shared-modules/node_modules/quill-spellchecker/dist/lib.js',hash='31dafa8929e351bacb26cb576802d95928591b39',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/node_modules/quill-spellchecker/dist/lib.js',statementMap:{'0':{start:{line:3,column:10},end:{line:160,column:2}},'1':{start:{line:11,column:0},end:{line:11,column:62}},'2':{start:{line:15,column:4},end:{line:17,column:5}},'3':{start:{line:16,column:8},end:{line:16,column:18}},'4':{start:{line:18,column:21},end:{line:18,column:84}},'5':{start:{line:20,column:12},end:{line:20,column:22}},'6':{start:{line:21,column:4},end:{line:21,column:16}},'7':{start:{line:22,column:4},end:{line:25,column:5}},'8':{start:{line:23,column:8},end:{line:23,column:20}},'9':{start:{line:24,column:8},end:{line:24,column:86}},'10':{start:{line:26,column:4},end:{line:26,column:22}},'11':{start:{line:29,column:14},end:{line:29,column:52}},'12':{start:{line:32,column:21},end:{line:32,column:23}},'13':{start:{line:34,column:4},end:{line:35,column:59}},'14':{start:{line:35,column:8},end:{line:35,column:59}},'15':{start:{line:37,column:4},end:{line:38,column:109}},'16':{start:{line:38,column:8},end:{line:38,column:109}},'17':{start:{line:40,column:4},end:{line:43,column:11}},'18':{start:{line:41,column:8},end:{line:43,column:11}},'19':{start:{line:42,column:12},end:{line:42,column:67}},'20':{start:{line:45,column:4},end:{line:48,column:11}},'21':{start:{line:46,column:8},end:{line:48,column:11}},'22':{start:{line:47,column:12},end:{line:47,column:63}},'23':{start:{line:49,column:4},end:{line:49,column:19}},'24':{start:{line:53,column:25},end:{line:53,column:27}},'25':{start:{line:54,column:4},end:{line:56,column:32}},'26':{start:{line:55,column:8},end:{line:56,column:32}},'27':{start:{line:56,column:12},end:{line:56,column:32}},'28':{start:{line:57,column:17},end:{line:57,column:42}},'29':{start:{line:58,column:4},end:{line:58,column:18}},'30':{start:{line:62,column:4},end:{line:62,column:42}},'31':{start:{line:66,column:4},end:{line:68,column:5}},'32':{start:{line:67,column:8},end:{line:67,column:29}},'33':{start:{line:69,column:21},end:{line:69,column:23}},'34':{start:{line:70,column:15},end:{line:70,column:35}},'35':{start:{line:71,column:4},end:{line:74,column:7}},'36':{start:{line:72,column:8},end:{line:73,column:48}},'37':{start:{line:73,column:12},end:{line:73,column:48}},'38':{start:{line:75,column:4},end:{line:76,column:43}},'39':{start:{line:76,column:8},end:{line:76,column:43}},'40':{start:{line:77,column:4},end:{line:82,column:7}},'41':{start:{line:78,column:8},end:{line:81,column:11}},'42':{start:{line:79,column:12},end:{line:80,column:46}},'43':{start:{line:80,column:16},end:{line:80,column:46}},'44':{start:{line:83,column:4},end:{line:83,column:83}},'45':{start:{line:87,column:4},end:{line:89,column:5}},'46':{start:{line:88,column:8},end:{line:88,column:89}},'47':{start:{line:90,column:4},end:{line:90,column:14}},'48':{start:{line:98,column:4},end:{line:101,column:20}},'49':{start:{line:99,column:35},end:{line:99,column:68}},'50':{start:{line:100,column:38},end:{line:100,column:61}},'51':{start:{line:104,column:11},end:{line:104,column:7533}},'52':{start:{line:106,column:19},end:{line:106,column:44}},'53':{start:{line:113,column:16},end:{line:113,column:39}},'54':{start:{line:114,column:25},end:{line:116,column:6}},'55':{start:{line:115,column:8},end:{line:115,column:45}},'56':{start:{line:117,column:4},end:{line:117,column:36}},'57':{start:{line:120,column:4},end:{line:120,column:31}},'58':{start:{line:124,column:13},end:{line:124,column:45}},'59':{start:{line:124,column:55},end:{line:124,column:60}},'60':{start:{line:124,column:71},end:{line:124,column:76}},'61':{start:{line:124,column:84},end:{line:124,column:89}},'62':{start:{line:125,column:4},end:{line:125,column:62}},'63':{start:{line:128,column:16},end:{line:128,column:17}},'64':{start:{line:129,column:4},end:{line:131,column:5}},'65':{start:{line:130,column:8},end:{line:130,column:19}},'66':{start:{line:132,column:4},end:{line:132,column:61}},'67':{start:{line:135,column:16},end:{line:135,column:31}},'68':{start:{line:136,column:4},end:{line:138,column:5}},'69':{start:{line:137,column:8},end:{line:137,column:19}},'70':{start:{line:139,column:4},end:{line:139,column:69}},'71':{start:{line:142,column:13},end:{line:142,column:46}},'72':{start:{line:142,column:60},end:{line:142,column:65}},'73':{start:{line:142,column:75},end:{line:142,column:80}},'74':{start:{line:143,column:13},end:{line:143,column:49}},'75':{start:{line:143,column:60},end:{line:143,column:65}},'76':{start:{line:143,column:73},end:{line:143,column:78}},'77':{start:{line:144,column:4},end:{line:144,column:32}},'78':{start:{line:148,column:21},end:{line:148,column:46}},'79':{start:{line:149,column:4},end:{line:151,column:5}},'80':{start:{line:150,column:8},end:{line:150,column:46}},'81':{start:{line:152,column:21},end:{line:152,column:38}},'82':{start:{line:153,column:4},end:{line:153,column:49}},'83':{start:{line:156,column:0},end:{line:156,column:22}},'84':{start:{line:157,column:0},end:{line:157,column:26}},'85':{start:{line:158,column:0},end:{line:158,column:22}},'86':{start:{line:159,column:0},end:{line:159,column:64}},'87':{start:{line:164,column:12},end:{line:164,column:21}},'88':{start:{line:166,column:12},end:{line:166,column:23}},'89':{start:{line:168,column:12},end:{line:168,column:21}},'90':{start:{line:170,column:12},end:{line:170,column:42}}},fnMap:{'0':{name:'(anonymous_0)',decl:{start:{line:3,column:47},end:{line:3,column:48}},loc:{start:{line:3,column:74},end:{line:160,column:1}},line:3},'1':{name:'train',decl:{start:{line:14,column:9},end:{line:14,column:14}},loc:{start:{line:14,column:41},end:{line:27,column:1}},line:14},'2':{name:'edits',decl:{start:{line:31,column:9},end:{line:31,column:14}},loc:{start:{line:31,column:21},end:{line:50,column:1}},line:31},'3':{name:'(anonymous_3)',decl:{start:{line:41,column:24},end:{line:41,column:25}},loc:{start:{line:41,column:37},end:{line:43,column:9}},line:41},'4':{name:'(anonymous_4)',decl:{start:{line:46,column:24},end:{line:46,column:25}},loc:{start:{line:46,column:37},end:{line:48,column:9}},line:46},'5':{name:'max',decl:{start:{line:52,column:9},end:{line:52,column:12}},loc:{start:{line:52,column:25},end:{line:59,column:1}},line:52},'6':{name:'countKeys',decl:{start:{line:61,column:9},end:{line:61,column:18}},loc:{start:{line:61,column:31},end:{line:63,column:1}},line:61},'7':{name:'correct',decl:{start:{line:65,column:9},end:{line:65,column:16}},loc:{start:{line:65,column:44},end:{line:84,column:1}},line:65},'8':{name:'(anonymous_8)',decl:{start:{line:71,column:17},end:{line:71,column:18}},loc:{start:{line:71,column:33},end:{line:74,column:5}},line:71},'9':{name:'(anonymous_9)',decl:{start:{line:77,column:17},end:{line:77,column:18}},loc:{start:{line:77,column:33},end:{line:82,column:5}},line:77},'10':{name:'(anonymous_10)',decl:{start:{line:78,column:28},end:{line:78,column:29}},loc:{start:{line:78,column:41},end:{line:81,column:9}},line:78},'11':{name:'processSentence',decl:{start:{line:86,column:9},end:{line:86,column:24}},loc:{start:{line:86,column:35},end:{line:91,column:1}},line:86},'12':{name:'processSentences',decl:{start:{line:97,column:9},end:{line:97,column:25}},loc:{start:{line:97,column:37},end:{line:102,column:1}},line:97},'13':{name:'(anonymous_13)',decl:{start:{line:99,column:13},end:{line:99,column:14}},loc:{start:{line:99,column:33},end:{line:99,column:70}},line:99},'14':{name:'(anonymous_14)',decl:{start:{line:100,column:16},end:{line:100,column:17}},loc:{start:{line:100,column:36},end:{line:100,column:63}},line:100},'15':{name:'correctSentence',decl:{start:{line:112,column:9},end:{line:112,column:24}},loc:{start:{line:112,column:47},end:{line:118,column:1}},line:112},'16':{name:'(anonymous_16)',decl:{start:{line:114,column:35},end:{line:114,column:36}},loc:{start:{line:114,column:51},end:{line:116,column:5}},line:114},'17':{name:'splitSentence',decl:{start:{line:119,column:9},end:{line:119,column:22}},loc:{start:{line:119,column:33},end:{line:121,column:1}},line:119},'18':{name:'correctWord',decl:{start:{line:123,column:9},end:{line:123,column:20}},loc:{start:{line:123,column:39},end:{line:126,column:1}},line:123},'19':{name:'removeSpecialCharsFromStart',decl:{start:{line:127,column:9},end:{line:127,column:36}},loc:{start:{line:127,column:43},end:{line:133,column:1}},line:127},'20':{name:'removeSpecialCharsFromEnd',decl:{start:{line:134,column:9},end:{line:134,column:34}},loc:{start:{line:134,column:41},end:{line:140,column:1}},line:134},'21':{name:'removeSpecialCharsFromWord',decl:{start:{line:141,column:9},end:{line:141,column:35}},loc:{start:{line:141,column:42},end:{line:145,column:1}},line:141},'22':{name:'correctSentenceFromSamples',decl:{start:{line:147,column:9},end:{line:147,column:35}},loc:{start:{line:147,column:66},end:{line:154,column:1}},line:147}},branchMap:{'0':{loc:{start:{line:15,column:4},end:{line:17,column:5}},type:'if',locations:[{start:{line:15,column:4},end:{line:17,column:5}},{start:{line:15,column:4},end:{line:17,column:5}}],line:15},'1':{loc:{start:{line:18,column:21},end:{line:18,column:84}},type:'cond-expr',locations:[{start:{line:18,column:42},end:{line:18,column:79}},{start:{line:18,column:82},end:{line:18,column:84}}],line:18},'2':{loc:{start:{line:24,column:27},end:{line:24,column:85}},type:'cond-expr',locations:[{start:{line:24,column:61},end:{line:24,column:81}},{start:{line:24,column:84},end:{line:24,column:85}}],line:24},'3':{loc:{start:{line:55,column:8},end:{line:56,column:32}},type:'if',locations:[{start:{line:55,column:8},end:{line:56,column:32}},{start:{line:55,column:8},end:{line:56,column:32}}],line:55},'4':{loc:{start:{line:66,column:4},end:{line:68,column:5}},type:'if',locations:[{start:{line:66,column:4},end:{line:68,column:5}},{start:{line:66,column:4},end:{line:68,column:5}}],line:66},'5':{loc:{start:{line:72,column:8},end:{line:73,column:48}},type:'if',locations:[{start:{line:72,column:8},end:{line:73,column:48}},{start:{line:72,column:8},end:{line:73,column:48}}],line:72},'6':{loc:{start:{line:75,column:4},end:{line:76,column:43}},type:'if',locations:[{start:{line:75,column:4},end:{line:76,column:43}},{start:{line:75,column:4},end:{line:76,column:43}}],line:75},'7':{loc:{start:{line:79,column:12},end:{line:80,column:46}},type:'if',locations:[{start:{line:79,column:12},end:{line:80,column:46}},{start:{line:79,column:12},end:{line:80,column:46}}],line:79},'8':{loc:{start:{line:83,column:11},end:{line:83,column:82}},type:'cond-expr',locations:[{start:{line:83,column:39},end:{line:83,column:66}},{start:{line:83,column:69},end:{line:83,column:82}}],line:83},'9':{loc:{start:{line:87,column:4},end:{line:89,column:5}},type:'if',locations:[{start:{line:87,column:4},end:{line:89,column:5}},{start:{line:87,column:4},end:{line:89,column:5}}],line:87},'10':{loc:{start:{line:149,column:4},end:{line:151,column:5}},type:'if',locations:[{start:{line:149,column:4},end:{line:151,column:5}},{start:{line:149,column:4},end:{line:151,column:5}}],line:149}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0,'13':0,'14':0,'15':0,'16':0,'17':0,'18':0,'19':0,'20':0,'21':0,'22':0,'23':0,'24':0,'25':0,'26':0,'27':0,'28':0,'29':0,'30':0,'31':0,'32':0,'33':0,'34':0,'35':0,'36':0,'37':0,'38':0,'39':0,'40':0,'41':0,'42':0,'43':0,'44':0,'45':0,'46':0,'47':0,'48':0,'49':0,'50':0,'51':0,'52':0,'53':0,'54':0,'55':0,'56':0,'57':0,'58':0,'59':0,'60':0,'61':0,'62':0,'63':0,'64':0,'65':0,'66':0,'67':0,'68':0,'69':0,'70':0,'71':0,'72':0,'73':0,'74':0,'75':0,'76':0,'77':0,'78':0,'79':0,'80':0,'81':0,'82':0,'83':0,'84':0,'85':0,'86':0,'87':0,'88':0,'89':0,'90':0},f:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0,'13':0,'14':0,'15':0,'16':0,'17':0,'18':0,'19':0,'20':0,'21':0,'22':0},b:{'0':[0,0],'1':[0,0],'2':[0,0],'3':[0,0],'4':[0,0],'5':[0,0],'6':[0,0],'7':[0,0],'8':[0,0],'9':[0,0],'10':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();var lib=(cov_1xt7cahzyq.s[0]++, commonjsHelpers.createCommonjsModule(function(module,exports){/*!
  * {LIB} v0.1.3
  * (c) 2018 {NAME}
@@ -440,9 +441,3805 @@ var cov_13tf6cn4er=function(){var path='/Users/Emilia/Quill/quill-shared-modules
 var cov_wlu4ih0n0=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/constants/feedback_strings.ts',hash='b0e8e706eaa655b26559c528999bd851e98fb52c',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/constants/feedback_strings.ts',statementMap:{'0':{start:{line:1,column:29},end:{line:16,column:1}}},fnMap:{},branchMap:{},s:{'0':0},f:{},b:{},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();var feedbackStrings=(cov_wlu4ih0n0.s[0]++, {punctuationError:'There may be an error. How could you update the punctuation?',punctuationAndCaseError:'There may be an error. How could you update the punctuation and capitalization?',typingError:'Try again. There may be a spelling mistake.',caseError:'Proofread your work. There may be a capitalization error.',minLengthError:'Revise your work. Do you have all of the information from the prompt?',maxLengthError:'Revise your work. How could this sentence be shorter and more concise?',modifiedWordError:'Revise your work. You may have mixed up or misspelled a word.',additionalWordError:'Revise your work. You may have added an extra word.',missingWordError:'Revise your work. You may have left out an important word.',whitespaceError:'There may be an error. You may have forgotten a space between two words.',flexibleModifiedWordError:'Revise your work. You may have mixed up a word.',flexibleAdditionalWordError:'Revise your work. You may have added an extra word.',flexibleMissingWordError:'Revise your work. You may have left out an important word.',spacingAfterCommaError:'<p>Revise your work. Always put a space after a <em>comma</em>.</p>'});
 
 var cov_1l2ke5mk06=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/case_insensitive_match.ts',hash='b65c0e1a9b03c678fa918514fada20700af613dd',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/case_insensitive_match.ts',statementMap:{'0':{start:{line:7,column:4},end:{line:7,column:164}},'1':{start:{line:7,column:68},end:{line:7,column:160}},'2':{start:{line:10,column:4},end:{line:10,column:70}},'3':{start:{line:10,column:41},end:{line:10,column:68}},'4':{start:{line:11,column:16},end:{line:11,column:63}},'5':{start:{line:12,column:4},end:{line:16,column:5}},'6':{start:{line:13,column:23},end:{line:13,column:31}},'7':{start:{line:14,column:29},end:{line:14,column:78}},'8':{start:{line:15,column:8},end:{line:15,column:83}},'9':{start:{line:19,column:14},end:{line:26,column:5}},'10':{start:{line:27,column:4},end:{line:27,column:15}}},fnMap:{'0':{name:'caseInsensitiveMatch',decl:{start:{line:6,column:16},end:{line:6,column:36}},loc:{start:{line:6,column:58},end:{line:8,column:1}},line:6},'1':{name:'(anonymous_1)',decl:{start:{line:7,column:50},end:{line:7,column:51}},loc:{start:{line:7,column:66},end:{line:7,column:162}},line:7},'2':{name:'caseInsensitiveChecker',decl:{start:{line:9,column:16},end:{line:9,column:38}},loc:{start:{line:9,column:86},end:{line:17,column:1}},line:9},'3':{name:'caseInsensitiveResponseBuilder',decl:{start:{line:18,column:16},end:{line:18,column:46}},loc:{start:{line:18,column:84},end:{line:28,column:1}},line:18}},branchMap:{'0':{loc:{start:{line:10,column:4},end:{line:10,column:70}},type:'if',locations:[{start:{line:10,column:4},end:{line:10,column:70}},{start:{line:10,column:4},end:{line:10,column:70}}],line:10},'1':{loc:{start:{line:12,column:4},end:{line:16,column:5}},type:'if',locations:[{start:{line:12,column:4},end:{line:16,column:5}},{start:{line:12,column:4},end:{line:16,column:5}}],line:12},'2':{loc:{start:{line:14,column:29},end:{line:14,column:78}},type:'cond-expr',locations:[{start:{line:14,column:50},end:{line:14,column:71}},{start:{line:14,column:74},end:{line:14,column:78}}],line:14},'3':{loc:{start:{line:23,column:25},end:{line:25,column:9}},type:'cond-expr',locations:[{start:{line:23,column:42},end:{line:23,column:56}},{start:{line:23,column:59},end:{line:25,column:9}}],line:23}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0},f:{'0':0,'1':0,'2':0,'3':0},b:{'0':[0,0],'1':[0,0],'2':[0,0],'3':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function caseInsensitiveMatch(response,responses){cov_1l2ke5mk06.f[0]++;cov_1l2ke5mk06.s[0]++;return underscore_5(getOptimalResponses(responses),function(resp){cov_1l2ke5mk06.f[1]++;cov_1l2ke5mk06.s[1]++;return lib_1$1(resp.text).toLowerCase()===lib_1$1(response).toLowerCase();});}function caseInsensitiveChecker(responseString,responses,passConceptResults){cov_1l2ke5mk06.f[2]++;cov_1l2ke5mk06.s[2]++;if(passConceptResults===void 0){cov_1l2ke5mk06.b[0][0]++;cov_1l2ke5mk06.s[3]++;passConceptResults=false;}else{cov_1l2ke5mk06.b[0][1]++;}var match=(cov_1l2ke5mk06.s[4]++, caseInsensitiveMatch(responseString,responses));cov_1l2ke5mk06.s[5]++;if(match){cov_1l2ke5mk06.b[1][0]++;var parentID=(cov_1l2ke5mk06.s[6]++, match.id);var conceptResults=(cov_1l2ke5mk06.s[7]++, passConceptResults?(cov_1l2ke5mk06.b[2][0]++,match.concept_results):(cov_1l2ke5mk06.b[2][1]++,null));cov_1l2ke5mk06.s[8]++;return caseInsensitiveResponseBuilder(responses,parentID,conceptResults);}else{cov_1l2ke5mk06.b[1][1]++;}}function caseInsensitiveResponseBuilder(responses,parentID,conceptResults){cov_1l2ke5mk06.f[3]++;var res=(cov_1l2ke5mk06.s[9]++, {feedback:feedbackStrings.caseError,author:'Capitalization Hint',parent_id:parentID,concept_results:conceptResults?(cov_1l2ke5mk06.b[3][0]++,conceptResults):(cov_1l2ke5mk06.b[3][1]++,[conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ')])});cov_1l2ke5mk06.s[10]++;return res;}
+=======
+var lib = createCommonjsModule(function (module, exports) {
+/*!
+ * {LIB} v0.1.3
+ * (c) 2018 {NAME}
+ * Released under the MIT License.
+ */
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+// declare function train(text: string): Dictionary;
+function train(text, existingDictionary) {
+    if (typeof (text) !== 'string') {
+        return {};
+    }
+    var dictionary = existingDictionary ? Object.assign({}, existingDictionary) : {};
+    var word, m;
+    var r = /[a-z]+/gi;
+    text = text;
+    while (m = r.exec(text)) {
+        word = m[0];
+        dictionary[word] = dictionary.hasOwnProperty(word) ? dictionary[word] + 1 : 1;
+    }
+    return dictionary;
+}
+
+var letters = "abcdefghijklmnopqrstuvwxyz".split("");
+
+function edits(word) {
+    var i, results = [];
+    // deletion
+    for (i = 0; i < word.length; i++)
+        results.push(word.slice(0, i) + word.slice(i + 1));
+    // transposition
+    for (i = 0; i < word.length - 1; i++)
+        results.push(word.slice(0, i) + word.slice(i + 1, i + 2) + word.slice(i, i + 1) + word.slice(i + 2));
+    // alteration
+    for (i = 0; i < word.length; i++)
+        letters.forEach(function (l) {
+            results.push(word.slice(0, i) + l + word.slice(i + 1));
+        });
+    // insertion
+    for (i = 0; i <= word.length; i++)
+        letters.forEach(function (l) {
+            results.push(word.slice(0, i) + l + word.slice(i));
+        });
+    return results;
+}
+
+function max(candidates) {
+    var candidate, arr = [];
+    for (candidate in candidates)
+        if (candidates.hasOwnProperty(candidate))
+            arr.push(candidate);
+    var output = Math.max.apply(null, arr);
+    return output;
+}
+
+function countKeys(candidates) {
+    return Object.keys(candidates).length;
+}
+
+function correct(dictionary, potentialWord) {
+    if (dictionary.hasOwnProperty(potentialWord)) {
+        return potentialWord;
+    }
+    var candidates = {};
+    var list = edits(potentialWord);
+    list.forEach(function (edit) {
+        if (dictionary.hasOwnProperty(edit))
+            candidates[dictionary[edit]] = edit;
+    });
+    if (countKeys(candidates) > 0)
+        return candidates[max(candidates)];
+    list.forEach(function (edit) {
+        edits(edit).forEach(function (w) {
+            if (dictionary.hasOwnProperty(w))
+                candidates[dictionary[w]] = w;
+        });
+    });
+    return countKeys(candidates) > 0 ? candidates[max(candidates)] : potentialWord;
+}
+
+function processSentence(sentence) {
+    if (sentence) {
+        return sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '').replace(/\s/g, '\n');
+    }
+    return '';
+}
+
+/**
+ * Takes an array of sentences and returns a \n separated string of words.
+ * @param sentences - An array of strings that represent valid sentences.
+ */
+function processSentences(sentences) {
+    return sentences
+        .map(function (sentence) { return processSentence(sentence); }) // process the individual sentences
+        .filter(function (sentence) { return sentence !== ''; }) // remove empty strings
+        .join('\n'); // join the remaining strings
+}
+
+var dict = "a\nability\nable\nabout\nabove\naccept\naccording\naccount\nacross\nact\naction\nactivity\nactually\nadd\naddress\nadministration\nadmit\nadult\naffect\nafter\nagain\nagainst\nage\nagency\nagent\nago\nagree\nagreement\nahead\nair\nall\nallow\nalmost\nalone\nalong\nalready\nalso\nalthough\nalways\nAmerican\namong\namount\nanalysis\nand\nanimal\nanother\nanswer\nany\nanyone\nanything\nappear\napply\napproach\narea\nargue\narm\naround\narrive\nart\narticle\nartist\nas\nask\nassume\nat\nattack\nattention\nattorney\naudience\nauthor\nauthority\navailable\navoid\naway\nbaby\nback\nbad\nbag\nball\nbank\nbar\nbase\nbe\nbeat\nbeautiful\nbecause\nbecome\nbed\nbefore\nbegin\nbehavior\nbehind\nbelieve\nbenefit\nbest\nbetter\nbetween\nbeyond\nbig\nbill\nbillion\nbit\nblack\nblood\nblue\nboard\nbody\nbook\nborn\nboth\nbox\nboy\nbreak\nbring\nbrother\nbudget\nbuild\nbuilding\nbusiness\nbut\nbuy\nby\ncall\ncamera\ncampaign\ncan\ncancer\ncandidate\ncapital\ncar\ncard\ncare\ncareer\ncarry\ncase\ncatch\ncause\ncell\ncenter\ncentral\ncentury\ncertain\ncertainly\nchair\nchallenge\nchance\nchange\ncharacter\ncharge\ncheck\nchild\nchoice\nchoose\nchurch\ncitizen\ncity\ncivil\nclaim\nclass\nclear\nclearly\nclose\ncoach\ncold\ncollection\ncollege\ncolor\ncome\ncommercial\ncommon\ncommunity\ncompany\ncompare\ncomputer\nconcern\ncondition\nconference\nCongress\nconsider\nconsumer\ncontain\ncontinue\ncontrol\ncost\ncould\ncountry\ncouple\ncourse\ncourt\ncover\ncreate\ncrime\ncultural\nculture\ncup\ncurrent\ncustomer\ncut\ndark\ndata\ndaughter\nday\ndead\ndeal\ndeath\ndebate\ndecade\ndecide\ndecision\ndeep\ndefense\ndegree\nDemocrat\ndemocratic\ndescribe\ndesign\ndespite\ndetail\ndetermine\ndevelop\ndevelopment\ndie\ndifference\ndifferent\ndifficult\ndinner\ndirection\ndirector\ndiscover\ndiscuss\ndiscussion\ndisease\ndo\ndoctor\ndog\ndoor\ndown\ndraw\ndream\ndrive\ndrop\ndrug\nduring\neach\nearly\neast\neasy\neat\neconomic\neconomy\nedge\neducation\neffect\neffort\neight\neither\nelection\nelse\nemployee\nend\nenergy\nenjoy\nenough\nenter\nentire\nenvironment\nenvironmental\nespecially\nestablish\neven\nevening\nevent\never\nevery\neverybody\neveryone\neverything\nevidence\nexactly\nexample\nexecutive\nexist\nexpect\nexperience\nexpert\nexplain\neye\nface\nfact\nfactor\nfail\nfall\nfamily\nfar\nfast\nfather\nfear\nfederal\nfeel\nfeeling\nfew\nfield\nfight\nfigure\nfill\nfilm\nfinal\nfinally\nfinancial\nfind\nfine\nfinger\nfinish\nfire\nfirm\nfirst\nfish\nfive\nfloor\nfly\nfocus\nfollow\nfood\nfoot\nfor\nforce\nforeign\nforget\nform\nformer\nforward\nfour\nfree\nfriend\nfrom\nfront\nfull\nfund\nfuture\ngame\ngarden\ngas\ngeneral\ngeneration\nget\ngirl\ngive\nglass\ngo\ngoal\ngood\ngovernment\ngreat\ngreen\nground\ngroup\ngrow\ngrowth\nguess\ngun\nguy\nhair\nhalf\nhand\nhang\nhappen\nhappy\nhard\nhave\nhe\nhead\nhealth\nhear\nheart\nheat\nheavy\nhelp\nher\nhere\nherself\nhigh\nhim\nhimself\nhis\nhistory\nhit\nhold\nhome\nhope\nhospital\nhot\nhotel\nhour\nhouse\nhow\nhowever\nhuge\nhuman\nhundred\nhusband\nI\nidea\nidentify\nif\nimage\nimagine\nimpact\nimportant\nimprove\nin\ninclude\nincluding\nincrease\nindeed\nindicate\nindividual\nindustry\ninformation\ninside\ninstead\ninstitution\ninterest\ninteresting\ninternational\ninterview\ninto\ninvestment\ninvolve\nissue\nit\nitem\nits\nitself\njob\njoin\njust\nkeep\nkey\nkid\nkill\nkind\nkitchen\nknow\nknowledge\nland\nlanguage\nlarge\nlast\nlate\nlater\nlaugh\nlaw\nlawyer\nlay\nlead\nleader\nlearn\nleast\nleave\nleft\nleg\nlegal\nless\nlet\nletter\nlevel\nlie\nlife\nlight\nlike\nlikely\nline\nlist\nlisten\nlittle\nlive\nlocal\nlong\nlook\nlose\nloss\nlot\nlove\nlow\nmachine\nmagazine\nmain\nmaintain\nmajor\nmajority\nmake\nman\nmanage\nmanagement\nmanager\nmany\nmarket\nmarriage\nmaterial\nmatter\nmay\nmaybe\nme\nmean\nmeasure\nmedia\nmedical\nmeet\nmeeting\nmember\nmemory\nmention\nmessage\nmethod\nmiddle\nmight\nmilitary\nmillion\nmind\nminute\nmiss\nmission\nmodel\nmodern\nmoment\nmoney\nmonth\nmore\nmorning\nmost\nmother\nmouth\nmove\nmovement\nmovie\nMr\nMrs\nmuch\nmusic\nmust\nmy\nmyself\nname\nnation\nnational\nnatural\nnature\nnear\nnearly\nnecessary\nneed\nnetwork\nnever\nnew\nnews\nnewspaper\nnext\nnice\nnight\nno\nnone\nnor\nnorth\nnot\nnote\nnothing\nnotice\nnow\nn't\nnumber\noccur\nof\noff\noffer\noffice\nofficer\nofficial\noften\noh\noil\nok\nold\non\nonce\none\nonly\nonto\nopen\noperation\nopportunity\noption\nor\norder\norganization\nother\nothers\nour\nout\noutside\nover\nown\nowner\npage\npain\npainting\npaper\nparent\npart\nparticipant\nparticular\nparticularly\npartner\nparty\npass\npast\npatient\npattern\npay\npeace\npeople\nper\nperform\nperformance\nperhaps\nperiod\nperson\npersonal\nphone\nphysical\npick\npicture\npiece\nplace\nplan\nplant\nplay\nplayer\nPM\npoint\npolice\npolicy\npolitical\npolitics\npoor\npopular\npopulation\nposition\npositive\npossible\npower\npractice\nprepare\npresent\npresident\npressure\npretty\nprevent\nprice\nprivate\nprobably\nproblem\nprocess\nproduce\nproduct\nproduction\nprofessional\nprofessor\nprogram\nproject\nproperty\nprotect\nprove\nprovide\npublic\npull\npurpose\npush\nput\nquality\nquestion\nquickly\nquite\nrace\nradio\nraise\nrange\nrate\nrather\nreach\nread\nready\nreal\nreality\nrealize\nreally\nreason\nreceive\nrecent\nrecently\nrecognize\nrecord\nred\nreduce\nreflect\nregion\nrelate\nrelationship\nreligious\nremain\nremember\nremove\nreport\nrepresent\nRepublican\nrequire\nresearch\nresource\nrespond\nresponse\nresponsibility\nrest\nresult\nreturn\nreveal\nrich\nright\nrise\nrisk\nroad\nrock\nrole\nroom\nrule\nrun\nsafe\nsame\nsave\nsay\nscene\nschool\nscience\nscientist\nscore\nsea\nseason\nseat\nsecond\nsection\nsecurity\nsee\nseek\nseem\nsell\nsend\nsenior\nsense\nseries\nserious\nserve\nservice\nset\nseven\nseveral\nsex\nsexual\nshake\nshare\nshe\nshoot\nshort\nshot\nshould\nshoulder\nshow\nside\nsign\nsignificant\nsimilar\nsimple\nsimply\nsince\nsing\nsingle\nsister\nsit\nsite\nsituation\nsix\nsize\nskill\nskin\nsmall\nsmile\nso\nsocial\nsociety\nsoldier\nsome\nsomebody\nsomeone\nsomething\nsometimes\nson\nsong\nsoon\nsort\nsound\nsource\nsouth\nsouthern\nspace\nspeak\nspecial\nspecific\nspeech\nspend\nsport\nspring\nstaff\nstage\nstand\nstandard\nstar\nstart\nstate\nstatement\nstation\nstay\nstep\nstill\nstock\nstop\nstore\nstory\nstrategy\nstreet\nstrong\nstructure\nstudent\nstudy\nstuff\nstyle\nsubject\nsuccess\nsuccessful\nsuch\nsuddenly\nsuffer\nsuggest\nsummer\nsupport\nsure\nsurface\nsystem\ntable\ntake\ntalk\ntask\ntax\nteach\nteacher\nteam\ntechnology\ntelevision\ntell\nten\ntend\nterm\ntest\nthan\nthank\nthat\nthe\ntheir\nthem\nthemselves\nthen\ntheory\nthere\nthese\nthey\nthing\nthink\nthird\nthis\nthose\nthough\nthought\nthousand\nthreat\nthree\nthrough\nthroughout\nthrow\nthus\ntime\nto\ntoday\ntogether\ntonight\ntoo\ntop\ntotal\ntough\ntoward\ntown\ntrade\ntraditional\ntraining\ntravel\ntreat\ntreatment\ntree\ntrial\ntrip\ntrouble\ntrue\ntruth\ntry\nturn\nTV\ntwo\ntype\nunder\nunderstand\nunit\nuntil\nup\nupon\nus\nuse\nusually\nvalue\nvarious\nvery\nvictim\nview\nviolence\nvisit\nvoice\nvote\nwait\nwalk\nwall\nwant\nwar\nwatch\nwater\nway\nwe\nweapon\nwear\nweek\nweight\nwell\nwest\nwestern\nwhat\nwhatever\nwhen\nwhere\nwhether\nwhich\nwhile\nwhite\nwho\nwhole\nwhom\nwhose\nwhy\nwide\nwife\nwill\nwin\nwind\nwindow\nwish\nwith\nwithin\nwithout\nwoman\nwonder\nword\nwork\nworker\nworld\nworry\nwould\nwrite\nwriter\nwrong\nyard\nyeah\nyear\nyes\nyet\nyou\nyoung\nyour\nyourself";
+
+var specialChars = ['.', ',', '!', '?', '"'];
+/**
+ *
+ * @param dictionary
+ * @param sentence
+ */
+function correctSentence(dictionary, sentence) {
+    var words = splitSentence(sentence);
+    var correctedWords = words.map(function (word) {
+        return correctWord(dictionary, word);
+    });
+    return correctedWords.join(' ');
+}
+function splitSentence(sentence) {
+    return sentence.split(' ');
+}
+
+function correctWord(dictionary, word) {
+    var _a = removeSpecialCharsFromWord(word), start = _a[0], middle = _a[1], end = _a[2];
+    return [start, correct(dictionary, middle), end].join('');
+}
+function removeSpecialCharsFromStart(word) {
+    var index = 0;
+    while (specialChars.indexOf(word[index]) !== -1) {
+        index += 1;
+    }
+    return [word.substring(index), word.substring(0, index)];
+}
+function removeSpecialCharsFromEnd(word) {
+    var index = word.length - 1;
+    while (specialChars.indexOf(word[index]) !== -1) {
+        index -= 1;
+    }
+    return [word.substring(0, index + 1), word.substring(index + 1)];
+}
+function removeSpecialCharsFromWord(word) {
+    var _a = removeSpecialCharsFromStart(word), remainder = _a[0], start = _a[1];
+    var _b = removeSpecialCharsFromEnd(remainder), middle = _b[0], end = _b[1];
+    return [start, middle, end];
+}
+
+function correctSentenceFromSamples(samples, sentence, useCommon) {
+    var dictstring = processSentences(samples);
+    if (useCommon) {
+        dictstring = dictstring + "\n" + dict;
+    }
+    var dictionary = train(dictstring);
+    return correctSentence(dictionary, sentence);
+}
+
+exports.train = train;
+exports.correct = correct;
+exports.edits = edits;
+exports.correctSentenceFromSamples = correctSentenceFromSamples;
+});
+
+unwrapExports(lib);
+var lib_4 = lib.correctSentenceFromSamples;
+
+var underscore = createCommonjsModule(function (module, exports) {
+//     Underscore.js 1.8.3
+//     http://underscorejs.org
+//     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+//     Underscore may be freely distributed under the MIT license.
+
+(function() {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `exports` on the server.
+  var root = this;
+
+  // Save the previous value of the `_` variable.
+  var previousUnderscore = root._;
+
+  // Save bytes in the minified (but not gzipped) version:
+  var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
+
+  // Create quick reference variables for speed access to core prototypes.
+  var
+    push             = ArrayProto.push,
+    slice            = ArrayProto.slice,
+    toString         = ObjProto.toString,
+    hasOwnProperty   = ObjProto.hasOwnProperty;
+
+  // All **ECMAScript 5** native function implementations that we hope to use
+  // are declared here.
+  var
+    nativeIsArray      = Array.isArray,
+    nativeKeys         = Object.keys,
+    nativeBind         = FuncProto.bind,
+    nativeCreate       = Object.create;
+
+  // Naked function reference for surrogate-prototype-swapping.
+  var Ctor = function(){};
+
+  // Create a safe reference to the Underscore object for use below.
+  var _ = function(obj) {
+    if (obj instanceof _) return obj;
+    if (!(this instanceof _)) return new _(obj);
+    this._wrapped = obj;
+  };
+
+  // Export the Underscore object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `_` as a global object.
+  {
+    if ('object' !== 'undefined' && module.exports) {
+      exports = module.exports = _;
+    }
+    exports._ = _;
+  }
+
+  // Current version.
+  _.VERSION = '1.8.3';
+
+  // Internal function that returns an efficient (for current engines) version
+  // of the passed-in callback, to be repeatedly applied in other Underscore
+  // functions.
+  var optimizeCb = function(func, context, argCount) {
+    if (context === void 0) return func;
+    switch (argCount == null ? 3 : argCount) {
+      case 1: return function(value) {
+        return func.call(context, value);
+      };
+      case 2: return function(value, other) {
+        return func.call(context, value, other);
+      };
+      case 3: return function(value, index, collection) {
+        return func.call(context, value, index, collection);
+      };
+      case 4: return function(accumulator, value, index, collection) {
+        return func.call(context, accumulator, value, index, collection);
+      };
+    }
+    return function() {
+      return func.apply(context, arguments);
+    };
+  };
+
+  // A mostly-internal function to generate callbacks that can be applied
+  // to each element in a collection, returning the desired result — either
+  // identity, an arbitrary callback, a property matcher, or a property accessor.
+  var cb = function(value, context, argCount) {
+    if (value == null) return _.identity;
+    if (_.isFunction(value)) return optimizeCb(value, context, argCount);
+    if (_.isObject(value)) return _.matcher(value);
+    return _.property(value);
+  };
+  _.iteratee = function(value, context) {
+    return cb(value, context, Infinity);
+  };
+
+  // An internal function for creating assigner functions.
+  var createAssigner = function(keysFunc, undefinedOnly) {
+    return function(obj) {
+      var length = arguments.length;
+      if (length < 2 || obj == null) return obj;
+      for (var index = 1; index < length; index++) {
+        var source = arguments[index],
+            keys = keysFunc(source),
+            l = keys.length;
+        for (var i = 0; i < l; i++) {
+          var key = keys[i];
+          if (!undefinedOnly || obj[key] === void 0) obj[key] = source[key];
+        }
+      }
+      return obj;
+    };
+  };
+
+  // An internal function for creating a new object that inherits from another.
+  var baseCreate = function(prototype) {
+    if (!_.isObject(prototype)) return {};
+    if (nativeCreate) return nativeCreate(prototype);
+    Ctor.prototype = prototype;
+    var result = new Ctor;
+    Ctor.prototype = null;
+    return result;
+  };
+
+  var property = function(key) {
+    return function(obj) {
+      return obj == null ? void 0 : obj[key];
+    };
+  };
+
+  // Helper for collection methods to determine whether a collection
+  // should be iterated as an array or as an object
+  // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
+  // Avoids a very nasty iOS 8 JIT bug on ARM-64. #2094
+  var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+  var getLength = property('length');
+  var isArrayLike = function(collection) {
+    var length = getLength(collection);
+    return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+  };
+
+  // Collection Functions
+  // --------------------
+
+  // The cornerstone, an `each` implementation, aka `forEach`.
+  // Handles raw objects in addition to array-likes. Treats all
+  // sparse array-likes as if they were dense.
+  _.each = _.forEach = function(obj, iteratee, context) {
+    iteratee = optimizeCb(iteratee, context);
+    var i, length;
+    if (isArrayLike(obj)) {
+      for (i = 0, length = obj.length; i < length; i++) {
+        iteratee(obj[i], i, obj);
+      }
+    } else {
+      var keys = _.keys(obj);
+      for (i = 0, length = keys.length; i < length; i++) {
+        iteratee(obj[keys[i]], keys[i], obj);
+      }
+    }
+    return obj;
+  };
+
+  // Return the results of applying the iteratee to each element.
+  _.map = _.collect = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length,
+        results = Array(length);
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      results[index] = iteratee(obj[currentKey], currentKey, obj);
+    }
+    return results;
+  };
+
+  // Create a reducing function iterating left or right.
+  function createReduce(dir) {
+    // Optimized iterator function as using arguments.length
+    // in the main function will deoptimize the, see #1991.
+    function iterator(obj, iteratee, memo, keys, index, length) {
+      for (; index >= 0 && index < length; index += dir) {
+        var currentKey = keys ? keys[index] : index;
+        memo = iteratee(memo, obj[currentKey], currentKey, obj);
+      }
+      return memo;
+    }
+
+    return function(obj, iteratee, memo, context) {
+      iteratee = optimizeCb(iteratee, context, 4);
+      var keys = !isArrayLike(obj) && _.keys(obj),
+          length = (keys || obj).length,
+          index = dir > 0 ? 0 : length - 1;
+      // Determine the initial value if none is provided.
+      if (arguments.length < 3) {
+        memo = obj[keys ? keys[index] : index];
+        index += dir;
+      }
+      return iterator(obj, iteratee, memo, keys, index, length);
+    };
+  }
+
+  // **Reduce** builds up a single result from a list of values, aka `inject`,
+  // or `foldl`.
+  _.reduce = _.foldl = _.inject = createReduce(1);
+
+  // The right-associative version of reduce, also known as `foldr`.
+  _.reduceRight = _.foldr = createReduce(-1);
+
+  // Return the first value which passes a truth test. Aliased as `detect`.
+  _.find = _.detect = function(obj, predicate, context) {
+    var key;
+    if (isArrayLike(obj)) {
+      key = _.findIndex(obj, predicate, context);
+    } else {
+      key = _.findKey(obj, predicate, context);
+    }
+    if (key !== void 0 && key !== -1) return obj[key];
+  };
+
+  // Return all the elements that pass a truth test.
+  // Aliased as `select`.
+  _.filter = _.select = function(obj, predicate, context) {
+    var results = [];
+    predicate = cb(predicate, context);
+    _.each(obj, function(value, index, list) {
+      if (predicate(value, index, list)) results.push(value);
+    });
+    return results;
+  };
+
+  // Return all the elements for which a truth test fails.
+  _.reject = function(obj, predicate, context) {
+    return _.filter(obj, _.negate(cb(predicate)), context);
+  };
+
+  // Determine whether all of the elements match a truth test.
+  // Aliased as `all`.
+  _.every = _.all = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (!predicate(obj[currentKey], currentKey, obj)) return false;
+    }
+    return true;
+  };
+
+  // Determine if at least one element in the object matches a truth test.
+  // Aliased as `any`.
+  _.some = _.any = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (predicate(obj[currentKey], currentKey, obj)) return true;
+    }
+    return false;
+  };
+
+  // Determine if the array or object contains a given item (using `===`).
+  // Aliased as `includes` and `include`.
+  _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
+    if (!isArrayLike(obj)) obj = _.values(obj);
+    if (typeof fromIndex != 'number' || guard) fromIndex = 0;
+    return _.indexOf(obj, item, fromIndex) >= 0;
+  };
+
+  // Invoke a method (with arguments) on every item in a collection.
+  _.invoke = function(obj, method) {
+    var args = slice.call(arguments, 2);
+    var isFunc = _.isFunction(method);
+    return _.map(obj, function(value) {
+      var func = isFunc ? method : value[method];
+      return func == null ? func : func.apply(value, args);
+    });
+  };
+
+  // Convenience version of a common use case of `map`: fetching a property.
+  _.pluck = function(obj, key) {
+    return _.map(obj, _.property(key));
+  };
+
+  // Convenience version of a common use case of `filter`: selecting only objects
+  // containing specific `key:value` pairs.
+  _.where = function(obj, attrs) {
+    return _.filter(obj, _.matcher(attrs));
+  };
+
+  // Convenience version of a common use case of `find`: getting the first object
+  // containing specific `key:value` pairs.
+  _.findWhere = function(obj, attrs) {
+    return _.find(obj, _.matcher(attrs));
+  };
+
+  // Return the maximum element (or element-based computation).
+  _.max = function(obj, iteratee, context) {
+    var result = -Infinity, lastComputed = -Infinity,
+        value, computed;
+    if (iteratee == null && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value > result) {
+          result = value;
+        }
+      }
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index, list) {
+        computed = iteratee(value, index, list);
+        if (computed > lastComputed || computed === -Infinity && result === -Infinity) {
+          result = value;
+          lastComputed = computed;
+        }
+      });
+    }
+    return result;
+  };
+
+  // Return the minimum element (or element-based computation).
+  _.min = function(obj, iteratee, context) {
+    var result = Infinity, lastComputed = Infinity,
+        value, computed;
+    if (iteratee == null && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value < result) {
+          result = value;
+        }
+      }
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index, list) {
+        computed = iteratee(value, index, list);
+        if (computed < lastComputed || computed === Infinity && result === Infinity) {
+          result = value;
+          lastComputed = computed;
+        }
+      });
+    }
+    return result;
+  };
+
+  // Shuffle a collection, using the modern version of the
+  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
+  _.shuffle = function(obj) {
+    var set = isArrayLike(obj) ? obj : _.values(obj);
+    var length = set.length;
+    var shuffled = Array(length);
+    for (var index = 0, rand; index < length; index++) {
+      rand = _.random(0, index);
+      if (rand !== index) shuffled[index] = shuffled[rand];
+      shuffled[rand] = set[index];
+    }
+    return shuffled;
+  };
+
+  // Sample **n** random values from a collection.
+  // If **n** is not specified, returns a single random element.
+  // The internal `guard` argument allows it to work with `map`.
+  _.sample = function(obj, n, guard) {
+    if (n == null || guard) {
+      if (!isArrayLike(obj)) obj = _.values(obj);
+      return obj[_.random(obj.length - 1)];
+    }
+    return _.shuffle(obj).slice(0, Math.max(0, n));
+  };
+
+  // Sort the object's values by a criterion produced by an iteratee.
+  _.sortBy = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    return _.pluck(_.map(obj, function(value, index, list) {
+      return {
+        value: value,
+        index: index,
+        criteria: iteratee(value, index, list)
+      };
+    }).sort(function(left, right) {
+      var a = left.criteria;
+      var b = right.criteria;
+      if (a !== b) {
+        if (a > b || a === void 0) return 1;
+        if (a < b || b === void 0) return -1;
+      }
+      return left.index - right.index;
+    }), 'value');
+  };
+
+  // An internal function used for aggregate "group by" operations.
+  var group = function(behavior) {
+    return function(obj, iteratee, context) {
+      var result = {};
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index) {
+        var key = iteratee(value, index, obj);
+        behavior(result, value, key);
+      });
+      return result;
+    };
+  };
+
+  // Groups the object's values by a criterion. Pass either a string attribute
+  // to group by, or a function that returns the criterion.
+  _.groupBy = group(function(result, value, key) {
+    if (_.has(result, key)) result[key].push(value); else result[key] = [value];
+  });
+
+  // Indexes the object's values by a criterion, similar to `groupBy`, but for
+  // when you know that your index values will be unique.
+  _.indexBy = group(function(result, value, key) {
+    result[key] = value;
+  });
+
+  // Counts instances of an object that group by a certain criterion. Pass
+  // either a string attribute to count by, or a function that returns the
+  // criterion.
+  _.countBy = group(function(result, value, key) {
+    if (_.has(result, key)) result[key]++; else result[key] = 1;
+  });
+
+  // Safely create a real, live array from anything iterable.
+  _.toArray = function(obj) {
+    if (!obj) return [];
+    if (_.isArray(obj)) return slice.call(obj);
+    if (isArrayLike(obj)) return _.map(obj, _.identity);
+    return _.values(obj);
+  };
+
+  // Return the number of elements in an object.
+  _.size = function(obj) {
+    if (obj == null) return 0;
+    return isArrayLike(obj) ? obj.length : _.keys(obj).length;
+  };
+
+  // Split a collection into two arrays: one whose elements all satisfy the given
+  // predicate, and one whose elements all do not satisfy the predicate.
+  _.partition = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var pass = [], fail = [];
+    _.each(obj, function(value, key, obj) {
+      (predicate(value, key, obj) ? pass : fail).push(value);
+    });
+    return [pass, fail];
+  };
+
+  // Array Functions
+  // ---------------
+
+  // Get the first element of an array. Passing **n** will return the first N
+  // values in the array. Aliased as `head` and `take`. The **guard** check
+  // allows it to work with `_.map`.
+  _.first = _.head = _.take = function(array, n, guard) {
+    if (array == null) return void 0;
+    if (n == null || guard) return array[0];
+    return _.initial(array, array.length - n);
+  };
+
+  // Returns everything but the last entry of the array. Especially useful on
+  // the arguments object. Passing **n** will return all the values in
+  // the array, excluding the last N.
+  _.initial = function(array, n, guard) {
+    return slice.call(array, 0, Math.max(0, array.length - (n == null || guard ? 1 : n)));
+  };
+
+  // Get the last element of an array. Passing **n** will return the last N
+  // values in the array.
+  _.last = function(array, n, guard) {
+    if (array == null) return void 0;
+    if (n == null || guard) return array[array.length - 1];
+    return _.rest(array, Math.max(0, array.length - n));
+  };
+
+  // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
+  // Especially useful on the arguments object. Passing an **n** will return
+  // the rest N values in the array.
+  _.rest = _.tail = _.drop = function(array, n, guard) {
+    return slice.call(array, n == null || guard ? 1 : n);
+  };
+
+  // Trim out all falsy values from an array.
+  _.compact = function(array) {
+    return _.filter(array, _.identity);
+  };
+
+  // Internal implementation of a recursive `flatten` function.
+  var flatten = function(input, shallow, strict, startIndex) {
+    var output = [], idx = 0;
+    for (var i = startIndex || 0, length = getLength(input); i < length; i++) {
+      var value = input[i];
+      if (isArrayLike(value) && (_.isArray(value) || _.isArguments(value))) {
+        //flatten current level of array or arguments object
+        if (!shallow) value = flatten(value, shallow, strict);
+        var j = 0, len = value.length;
+        output.length += len;
+        while (j < len) {
+          output[idx++] = value[j++];
+        }
+      } else if (!strict) {
+        output[idx++] = value;
+      }
+    }
+    return output;
+  };
+
+  // Flatten out an array, either recursively (by default), or just one level.
+  _.flatten = function(array, shallow) {
+    return flatten(array, shallow, false);
+  };
+
+  // Return a version of the array that does not contain the specified value(s).
+  _.without = function(array) {
+    return _.difference(array, slice.call(arguments, 1));
+  };
+
+  // Produce a duplicate-free version of the array. If the array has already
+  // been sorted, you have the option of using a faster algorithm.
+  // Aliased as `unique`.
+  _.uniq = _.unique = function(array, isSorted, iteratee, context) {
+    if (!_.isBoolean(isSorted)) {
+      context = iteratee;
+      iteratee = isSorted;
+      isSorted = false;
+    }
+    if (iteratee != null) iteratee = cb(iteratee, context);
+    var result = [];
+    var seen = [];
+    for (var i = 0, length = getLength(array); i < length; i++) {
+      var value = array[i],
+          computed = iteratee ? iteratee(value, i, array) : value;
+      if (isSorted) {
+        if (!i || seen !== computed) result.push(value);
+        seen = computed;
+      } else if (iteratee) {
+        if (!_.contains(seen, computed)) {
+          seen.push(computed);
+          result.push(value);
+        }
+      } else if (!_.contains(result, value)) {
+        result.push(value);
+      }
+    }
+    return result;
+  };
+
+  // Produce an array that contains the union: each distinct element from all of
+  // the passed-in arrays.
+  _.union = function() {
+    return _.uniq(flatten(arguments, true, true));
+  };
+
+  // Produce an array that contains every item shared between all the
+  // passed-in arrays.
+  _.intersection = function(array) {
+    var result = [];
+    var argsLength = arguments.length;
+    for (var i = 0, length = getLength(array); i < length; i++) {
+      var item = array[i];
+      if (_.contains(result, item)) continue;
+      for (var j = 1; j < argsLength; j++) {
+        if (!_.contains(arguments[j], item)) break;
+      }
+      if (j === argsLength) result.push(item);
+    }
+    return result;
+  };
+
+  // Take the difference between one array and a number of other arrays.
+  // Only the elements present in just the first array will remain.
+  _.difference = function(array) {
+    var rest = flatten(arguments, true, true, 1);
+    return _.filter(array, function(value){
+      return !_.contains(rest, value);
+    });
+  };
+
+  // Zip together multiple lists into a single array -- elements that share
+  // an index go together.
+  _.zip = function() {
+    return _.unzip(arguments);
+  };
+
+  // Complement of _.zip. Unzip accepts an array of arrays and groups
+  // each array's elements on shared indices
+  _.unzip = function(array) {
+    var length = array && _.max(array, getLength).length || 0;
+    var result = Array(length);
+
+    for (var index = 0; index < length; index++) {
+      result[index] = _.pluck(array, index);
+    }
+    return result;
+  };
+
+  // Converts lists into objects. Pass either a single array of `[key, value]`
+  // pairs, or two parallel arrays of the same length -- one of keys, and one of
+  // the corresponding values.
+  _.object = function(list, values) {
+    var result = {};
+    for (var i = 0, length = getLength(list); i < length; i++) {
+      if (values) {
+        result[list[i]] = values[i];
+      } else {
+        result[list[i][0]] = list[i][1];
+      }
+    }
+    return result;
+  };
+
+  // Generator function to create the findIndex and findLastIndex functions
+  function createPredicateIndexFinder(dir) {
+    return function(array, predicate, context) {
+      predicate = cb(predicate, context);
+      var length = getLength(array);
+      var index = dir > 0 ? 0 : length - 1;
+      for (; index >= 0 && index < length; index += dir) {
+        if (predicate(array[index], index, array)) return index;
+      }
+      return -1;
+    };
+  }
+
+  // Returns the first index on an array-like that passes a predicate test
+  _.findIndex = createPredicateIndexFinder(1);
+  _.findLastIndex = createPredicateIndexFinder(-1);
+
+  // Use a comparator function to figure out the smallest index at which
+  // an object should be inserted so as to maintain order. Uses binary search.
+  _.sortedIndex = function(array, obj, iteratee, context) {
+    iteratee = cb(iteratee, context, 1);
+    var value = iteratee(obj);
+    var low = 0, high = getLength(array);
+    while (low < high) {
+      var mid = Math.floor((low + high) / 2);
+      if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
+    }
+    return low;
+  };
+
+  // Generator function to create the indexOf and lastIndexOf functions
+  function createIndexFinder(dir, predicateFind, sortedIndex) {
+    return function(array, item, idx) {
+      var i = 0, length = getLength(array);
+      if (typeof idx == 'number') {
+        if (dir > 0) {
+            i = idx >= 0 ? idx : Math.max(idx + length, i);
+        } else {
+            length = idx >= 0 ? Math.min(idx + 1, length) : idx + length + 1;
+        }
+      } else if (sortedIndex && idx && length) {
+        idx = sortedIndex(array, item);
+        return array[idx] === item ? idx : -1;
+      }
+      if (item !== item) {
+        idx = predicateFind(slice.call(array, i, length), _.isNaN);
+        return idx >= 0 ? idx + i : -1;
+      }
+      for (idx = dir > 0 ? i : length - 1; idx >= 0 && idx < length; idx += dir) {
+        if (array[idx] === item) return idx;
+      }
+      return -1;
+    };
+  }
+
+  // Return the position of the first occurrence of an item in an array,
+  // or -1 if the item is not included in the array.
+  // If the array is large and already in sort order, pass `true`
+  // for **isSorted** to use binary search.
+  _.indexOf = createIndexFinder(1, _.findIndex, _.sortedIndex);
+  _.lastIndexOf = createIndexFinder(-1, _.findLastIndex);
+
+  // Generate an integer Array containing an arithmetic progression. A port of
+  // the native Python `range()` function. See
+  // [the Python documentation](http://docs.python.org/library/functions.html#range).
+  _.range = function(start, stop, step) {
+    if (stop == null) {
+      stop = start || 0;
+      start = 0;
+    }
+    step = step || 1;
+
+    var length = Math.max(Math.ceil((stop - start) / step), 0);
+    var range = Array(length);
+
+    for (var idx = 0; idx < length; idx++, start += step) {
+      range[idx] = start;
+    }
+
+    return range;
+  };
+
+  // Function (ahem) Functions
+  // ------------------
+
+  // Determines whether to execute a function as a constructor
+  // or a normal function with the provided arguments
+  var executeBound = function(sourceFunc, boundFunc, context, callingContext, args) {
+    if (!(callingContext instanceof boundFunc)) return sourceFunc.apply(context, args);
+    var self = baseCreate(sourceFunc.prototype);
+    var result = sourceFunc.apply(self, args);
+    if (_.isObject(result)) return result;
+    return self;
+  };
+
+  // Create a function bound to a given object (assigning `this`, and arguments,
+  // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
+  // available.
+  _.bind = function(func, context) {
+    if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
+    if (!_.isFunction(func)) throw new TypeError('Bind must be called on a function');
+    var args = slice.call(arguments, 2);
+    var bound = function() {
+      return executeBound(func, bound, context, this, args.concat(slice.call(arguments)));
+    };
+    return bound;
+  };
+
+  // Partially apply a function by creating a version that has had some of its
+  // arguments pre-filled, without changing its dynamic `this` context. _ acts
+  // as a placeholder, allowing any combination of arguments to be pre-filled.
+  _.partial = function(func) {
+    var boundArgs = slice.call(arguments, 1);
+    var bound = function() {
+      var position = 0, length = boundArgs.length;
+      var args = Array(length);
+      for (var i = 0; i < length; i++) {
+        args[i] = boundArgs[i] === _ ? arguments[position++] : boundArgs[i];
+      }
+      while (position < arguments.length) args.push(arguments[position++]);
+      return executeBound(func, bound, this, this, args);
+    };
+    return bound;
+  };
+
+  // Bind a number of an object's methods to that object. Remaining arguments
+  // are the method names to be bound. Useful for ensuring that all callbacks
+  // defined on an object belong to it.
+  _.bindAll = function(obj) {
+    var i, length = arguments.length, key;
+    if (length <= 1) throw new Error('bindAll must be passed function names');
+    for (i = 1; i < length; i++) {
+      key = arguments[i];
+      obj[key] = _.bind(obj[key], obj);
+    }
+    return obj;
+  };
+
+  // Memoize an expensive function by storing its results.
+  _.memoize = function(func, hasher) {
+    var memoize = function(key) {
+      var cache = memoize.cache;
+      var address = '' + (hasher ? hasher.apply(this, arguments) : key);
+      if (!_.has(cache, address)) cache[address] = func.apply(this, arguments);
+      return cache[address];
+    };
+    memoize.cache = {};
+    return memoize;
+  };
+
+  // Delays a function for the given number of milliseconds, and then calls
+  // it with the arguments supplied.
+  _.delay = function(func, wait) {
+    var args = slice.call(arguments, 2);
+    return setTimeout(function(){
+      return func.apply(null, args);
+    }, wait);
+  };
+
+  // Defers a function, scheduling it to run after the current call stack has
+  // cleared.
+  _.defer = _.partial(_.delay, _, 1);
+
+  // Returns a function, that, when invoked, will only be triggered at most once
+  // during a given window of time. Normally, the throttled function will run
+  // as much as it can, without ever going more than once per `wait` duration;
+  // but if you'd like to disable the execution on the leading edge, pass
+  // `{leading: false}`. To disable execution on the trailing edge, ditto.
+  _.throttle = function(func, wait, options) {
+    var context, args, result;
+    var timeout = null;
+    var previous = 0;
+    if (!options) options = {};
+    var later = function() {
+      previous = options.leading === false ? 0 : _.now();
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+    return function() {
+      var now = _.now();
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+  };
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  _.debounce = function(func, wait, immediate) {
+    var timeout, args, context, timestamp, result;
+
+    var later = function() {
+      var last = _.now() - timestamp;
+
+      if (last < wait && last >= 0) {
+        timeout = setTimeout(later, wait - last);
+      } else {
+        timeout = null;
+        if (!immediate) {
+          result = func.apply(context, args);
+          if (!timeout) context = args = null;
+        }
+      }
+    };
+
+    return function() {
+      context = this;
+      args = arguments;
+      timestamp = _.now();
+      var callNow = immediate && !timeout;
+      if (!timeout) timeout = setTimeout(later, wait);
+      if (callNow) {
+        result = func.apply(context, args);
+        context = args = null;
+      }
+
+      return result;
+    };
+  };
+
+  // Returns the first function passed as an argument to the second,
+  // allowing you to adjust arguments, run code before and after, and
+  // conditionally execute the original function.
+  _.wrap = function(func, wrapper) {
+    return _.partial(wrapper, func);
+  };
+
+  // Returns a negated version of the passed-in predicate.
+  _.negate = function(predicate) {
+    return function() {
+      return !predicate.apply(this, arguments);
+    };
+  };
+
+  // Returns a function that is the composition of a list of functions, each
+  // consuming the return value of the function that follows.
+  _.compose = function() {
+    var args = arguments;
+    var start = args.length - 1;
+    return function() {
+      var i = start;
+      var result = args[start].apply(this, arguments);
+      while (i--) result = args[i].call(this, result);
+      return result;
+    };
+  };
+
+  // Returns a function that will only be executed on and after the Nth call.
+  _.after = function(times, func) {
+    return function() {
+      if (--times < 1) {
+        return func.apply(this, arguments);
+      }
+    };
+  };
+
+  // Returns a function that will only be executed up to (but not including) the Nth call.
+  _.before = function(times, func) {
+    var memo;
+    return function() {
+      if (--times > 0) {
+        memo = func.apply(this, arguments);
+      }
+      if (times <= 1) func = null;
+      return memo;
+    };
+  };
+
+  // Returns a function that will be executed at most one time, no matter how
+  // often you call it. Useful for lazy initialization.
+  _.once = _.partial(_.before, 2);
+
+  // Object Functions
+  // ----------------
+
+  // Keys in IE < 9 that won't be iterated by `for key in ...` and thus missed.
+  var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
+  var nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString',
+                      'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+
+  function collectNonEnumProps(obj, keys) {
+    var nonEnumIdx = nonEnumerableProps.length;
+    var constructor = obj.constructor;
+    var proto = (_.isFunction(constructor) && constructor.prototype) || ObjProto;
+
+    // Constructor is a special case.
+    var prop = 'constructor';
+    if (_.has(obj, prop) && !_.contains(keys, prop)) keys.push(prop);
+
+    while (nonEnumIdx--) {
+      prop = nonEnumerableProps[nonEnumIdx];
+      if (prop in obj && obj[prop] !== proto[prop] && !_.contains(keys, prop)) {
+        keys.push(prop);
+      }
+    }
+  }
+
+  // Retrieve the names of an object's own properties.
+  // Delegates to **ECMAScript 5**'s native `Object.keys`
+  _.keys = function(obj) {
+    if (!_.isObject(obj)) return [];
+    if (nativeKeys) return nativeKeys(obj);
+    var keys = [];
+    for (var key in obj) if (_.has(obj, key)) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
+  // Retrieve all the property names of an object.
+  _.allKeys = function(obj) {
+    if (!_.isObject(obj)) return [];
+    var keys = [];
+    for (var key in obj) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
+  // Retrieve the values of an object's properties.
+  _.values = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var values = Array(length);
+    for (var i = 0; i < length; i++) {
+      values[i] = obj[keys[i]];
+    }
+    return values;
+  };
+
+  // Returns the results of applying the iteratee to each element of the object
+  // In contrast to _.map it returns an object
+  _.mapObject = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys =  _.keys(obj),
+          length = keys.length,
+          results = {},
+          currentKey;
+      for (var index = 0; index < length; index++) {
+        currentKey = keys[index];
+        results[currentKey] = iteratee(obj[currentKey], currentKey, obj);
+      }
+      return results;
+  };
+
+  // Convert an object into a list of `[key, value]` pairs.
+  _.pairs = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var pairs = Array(length);
+    for (var i = 0; i < length; i++) {
+      pairs[i] = [keys[i], obj[keys[i]]];
+    }
+    return pairs;
+  };
+
+  // Invert the keys and values of an object. The values must be serializable.
+  _.invert = function(obj) {
+    var result = {};
+    var keys = _.keys(obj);
+    for (var i = 0, length = keys.length; i < length; i++) {
+      result[obj[keys[i]]] = keys[i];
+    }
+    return result;
+  };
+
+  // Return a sorted list of the function names available on the object.
+  // Aliased as `methods`
+  _.functions = _.methods = function(obj) {
+    var names = [];
+    for (var key in obj) {
+      if (_.isFunction(obj[key])) names.push(key);
+    }
+    return names.sort();
+  };
+
+  // Extend a given object with all the properties in passed-in object(s).
+  _.extend = createAssigner(_.allKeys);
+
+  // Assigns a given object with all the own properties in the passed-in object(s)
+  // (https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+  _.extendOwn = _.assign = createAssigner(_.keys);
+
+  // Returns the first key on an object that passes a predicate test
+  _.findKey = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = _.keys(obj), key;
+    for (var i = 0, length = keys.length; i < length; i++) {
+      key = keys[i];
+      if (predicate(obj[key], key, obj)) return key;
+    }
+  };
+
+  // Return a copy of the object only containing the whitelisted properties.
+  _.pick = function(object, oiteratee, context) {
+    var result = {}, obj = object, iteratee, keys;
+    if (obj == null) return result;
+    if (_.isFunction(oiteratee)) {
+      keys = _.allKeys(obj);
+      iteratee = optimizeCb(oiteratee, context);
+    } else {
+      keys = flatten(arguments, false, false, 1);
+      iteratee = function(value, key, obj) { return key in obj; };
+      obj = Object(obj);
+    }
+    for (var i = 0, length = keys.length; i < length; i++) {
+      var key = keys[i];
+      var value = obj[key];
+      if (iteratee(value, key, obj)) result[key] = value;
+    }
+    return result;
+  };
+
+   // Return a copy of the object without the blacklisted properties.
+  _.omit = function(obj, iteratee, context) {
+    if (_.isFunction(iteratee)) {
+      iteratee = _.negate(iteratee);
+    } else {
+      var keys = _.map(flatten(arguments, false, false, 1), String);
+      iteratee = function(value, key) {
+        return !_.contains(keys, key);
+      };
+    }
+    return _.pick(obj, iteratee, context);
+  };
+
+  // Fill in a given object with default properties.
+  _.defaults = createAssigner(_.allKeys, true);
+
+  // Creates an object that inherits from the given prototype object.
+  // If additional properties are provided then they will be added to the
+  // created object.
+  _.create = function(prototype, props) {
+    var result = baseCreate(prototype);
+    if (props) _.extendOwn(result, props);
+    return result;
+  };
+
+  // Create a (shallow-cloned) duplicate of an object.
+  _.clone = function(obj) {
+    if (!_.isObject(obj)) return obj;
+    return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
+  };
+
+  // Invokes interceptor with the obj, and then returns obj.
+  // The primary purpose of this method is to "tap into" a method chain, in
+  // order to perform operations on intermediate results within the chain.
+  _.tap = function(obj, interceptor) {
+    interceptor(obj);
+    return obj;
+  };
+
+  // Returns whether an object has a given set of `key:value` pairs.
+  _.isMatch = function(object, attrs) {
+    var keys = _.keys(attrs), length = keys.length;
+    if (object == null) return !length;
+    var obj = Object(object);
+    for (var i = 0; i < length; i++) {
+      var key = keys[i];
+      if (attrs[key] !== obj[key] || !(key in obj)) return false;
+    }
+    return true;
+  };
+
+
+  // Internal recursive comparison function for `isEqual`.
+  var eq = function(a, b, aStack, bStack) {
+    // Identical objects are equal. `0 === -0`, but they aren't identical.
+    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
+    if (a === b) return a !== 0 || 1 / a === 1 / b;
+    // A strict comparison is necessary because `null == undefined`.
+    if (a == null || b == null) return a === b;
+    // Unwrap any wrapped objects.
+    if (a instanceof _) a = a._wrapped;
+    if (b instanceof _) b = b._wrapped;
+    // Compare `[[Class]]` names.
+    var className = toString.call(a);
+    if (className !== toString.call(b)) return false;
+    switch (className) {
+      // Strings, numbers, regular expressions, dates, and booleans are compared by value.
+      case '[object RegExp]':
+      // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+      case '[object String]':
+        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+        // equivalent to `new String("5")`.
+        return '' + a === '' + b;
+      case '[object Number]':
+        // `NaN`s are equivalent, but non-reflexive.
+        // Object(NaN) is equivalent to NaN
+        if (+a !== +a) return +b !== +b;
+        // An `egal` comparison is performed for other numeric values.
+        return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+      case '[object Date]':
+      case '[object Boolean]':
+        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+        // millisecond representations. Note that invalid dates with millisecond representations
+        // of `NaN` are not equivalent.
+        return +a === +b;
+    }
+
+    var areArrays = className === '[object Array]';
+    if (!areArrays) {
+      if (typeof a != 'object' || typeof b != 'object') return false;
+
+      // Objects with different constructors are not equivalent, but `Object`s or `Array`s
+      // from different frames are.
+      var aCtor = a.constructor, bCtor = b.constructor;
+      if (aCtor !== bCtor && !(_.isFunction(aCtor) && aCtor instanceof aCtor &&
+                               _.isFunction(bCtor) && bCtor instanceof bCtor)
+                          && ('constructor' in a && 'constructor' in b)) {
+        return false;
+      }
+    }
+    // Assume equality for cyclic structures. The algorithm for detecting cyclic
+    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+
+    // Initializing stack of traversed objects.
+    // It's done here since we only need them for objects and arrays comparison.
+    aStack = aStack || [];
+    bStack = bStack || [];
+    var length = aStack.length;
+    while (length--) {
+      // Linear search. Performance is inversely proportional to the number of
+      // unique nested structures.
+      if (aStack[length] === a) return bStack[length] === b;
+    }
+
+    // Add the first object to the stack of traversed objects.
+    aStack.push(a);
+    bStack.push(b);
+
+    // Recursively compare objects and arrays.
+    if (areArrays) {
+      // Compare array lengths to determine if a deep comparison is necessary.
+      length = a.length;
+      if (length !== b.length) return false;
+      // Deep compare the contents, ignoring non-numeric properties.
+      while (length--) {
+        if (!eq(a[length], b[length], aStack, bStack)) return false;
+      }
+    } else {
+      // Deep compare objects.
+      var keys = _.keys(a), key;
+      length = keys.length;
+      // Ensure that both objects contain the same number of properties before comparing deep equality.
+      if (_.keys(b).length !== length) return false;
+      while (length--) {
+        // Deep compare each member
+        key = keys[length];
+        if (!(_.has(b, key) && eq(a[key], b[key], aStack, bStack))) return false;
+      }
+    }
+    // Remove the first object from the stack of traversed objects.
+    aStack.pop();
+    bStack.pop();
+    return true;
+  };
+
+  // Perform a deep comparison to check if two objects are equal.
+  _.isEqual = function(a, b) {
+    return eq(a, b);
+  };
+
+  // Is a given array, string, or object empty?
+  // An "empty" object has no enumerable own-properties.
+  _.isEmpty = function(obj) {
+    if (obj == null) return true;
+    if (isArrayLike(obj) && (_.isArray(obj) || _.isString(obj) || _.isArguments(obj))) return obj.length === 0;
+    return _.keys(obj).length === 0;
+  };
+
+  // Is a given value a DOM element?
+  _.isElement = function(obj) {
+    return !!(obj && obj.nodeType === 1);
+  };
+
+  // Is a given value an array?
+  // Delegates to ECMA5's native Array.isArray
+  _.isArray = nativeIsArray || function(obj) {
+    return toString.call(obj) === '[object Array]';
+  };
+
+  // Is a given variable an object?
+  _.isObject = function(obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+  };
+
+  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp, isError.
+  _.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error'], function(name) {
+    _['is' + name] = function(obj) {
+      return toString.call(obj) === '[object ' + name + ']';
+    };
+  });
+
+  // Define a fallback version of the method in browsers (ahem, IE < 9), where
+  // there isn't any inspectable "Arguments" type.
+  if (!_.isArguments(arguments)) {
+    _.isArguments = function(obj) {
+      return _.has(obj, 'callee');
+    };
+  }
+
+  // Optimize `isFunction` if appropriate. Work around some typeof bugs in old v8,
+  // IE 11 (#1621), and in Safari 8 (#1929).
+  if (typeof /./ != 'function' && typeof Int8Array != 'object') {
+    _.isFunction = function(obj) {
+      return typeof obj == 'function' || false;
+    };
+  }
+
+  // Is a given object a finite number?
+  _.isFinite = function(obj) {
+    return isFinite(obj) && !isNaN(parseFloat(obj));
+  };
+
+  // Is the given value `NaN`? (NaN is the only number which does not equal itself).
+  _.isNaN = function(obj) {
+    return _.isNumber(obj) && obj !== +obj;
+  };
+
+  // Is a given value a boolean?
+  _.isBoolean = function(obj) {
+    return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
+  };
+
+  // Is a given value equal to null?
+  _.isNull = function(obj) {
+    return obj === null;
+  };
+
+  // Is a given variable undefined?
+  _.isUndefined = function(obj) {
+    return obj === void 0;
+  };
+
+  // Shortcut function for checking if an object has a given property directly
+  // on itself (in other words, not on a prototype).
+  _.has = function(obj, key) {
+    return obj != null && hasOwnProperty.call(obj, key);
+  };
+
+  // Utility Functions
+  // -----------------
+
+  // Run Underscore.js in *noConflict* mode, returning the `_` variable to its
+  // previous owner. Returns a reference to the Underscore object.
+  _.noConflict = function() {
+    root._ = previousUnderscore;
+    return this;
+  };
+
+  // Keep the identity function around for default iteratees.
+  _.identity = function(value) {
+    return value;
+  };
+
+  // Predicate-generating functions. Often useful outside of Underscore.
+  _.constant = function(value) {
+    return function() {
+      return value;
+    };
+  };
+
+  _.noop = function(){};
+
+  _.property = property;
+
+  // Generates a function for a given object that returns a given property.
+  _.propertyOf = function(obj) {
+    return obj == null ? function(){} : function(key) {
+      return obj[key];
+    };
+  };
+
+  // Returns a predicate for checking whether an object has a given set of
+  // `key:value` pairs.
+  _.matcher = _.matches = function(attrs) {
+    attrs = _.extendOwn({}, attrs);
+    return function(obj) {
+      return _.isMatch(obj, attrs);
+    };
+  };
+
+  // Run a function **n** times.
+  _.times = function(n, iteratee, context) {
+    var accum = Array(Math.max(0, n));
+    iteratee = optimizeCb(iteratee, context, 1);
+    for (var i = 0; i < n; i++) accum[i] = iteratee(i);
+    return accum;
+  };
+
+  // Return a random integer between min and max (inclusive).
+  _.random = function(min, max) {
+    if (max == null) {
+      max = min;
+      min = 0;
+    }
+    return min + Math.floor(Math.random() * (max - min + 1));
+  };
+
+  // A (possibly faster) way to get the current timestamp as an integer.
+  _.now = Date.now || function() {
+    return new Date().getTime();
+  };
+
+   // List of HTML entities for escaping.
+  var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;'
+  };
+  var unescapeMap = _.invert(escapeMap);
+
+  // Functions for escaping and unescaping strings to/from HTML interpolation.
+  var createEscaper = function(map) {
+    var escaper = function(match) {
+      return map[match];
+    };
+    // Regexes for identifying a key that needs to be escaped
+    var source = '(?:' + _.keys(map).join('|') + ')';
+    var testRegexp = RegExp(source);
+    var replaceRegexp = RegExp(source, 'g');
+    return function(string) {
+      string = string == null ? '' : '' + string;
+      return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+    };
+  };
+  _.escape = createEscaper(escapeMap);
+  _.unescape = createEscaper(unescapeMap);
+
+  // If the value of the named `property` is a function then invoke it with the
+  // `object` as context; otherwise, return it.
+  _.result = function(object, property, fallback) {
+    var value = object == null ? void 0 : object[property];
+    if (value === void 0) {
+      value = fallback;
+    }
+    return _.isFunction(value) ? value.call(object) : value;
+  };
+
+  // Generate a unique integer id (unique within the entire client session).
+  // Useful for temporary DOM ids.
+  var idCounter = 0;
+  _.uniqueId = function(prefix) {
+    var id = ++idCounter + '';
+    return prefix ? prefix + id : id;
+  };
+
+  // By default, Underscore uses ERB-style template delimiters, change the
+  // following template settings to use alternative delimiters.
+  _.templateSettings = {
+    evaluate    : /<%([\s\S]+?)%>/g,
+    interpolate : /<%=([\s\S]+?)%>/g,
+    escape      : /<%-([\s\S]+?)%>/g
+  };
+
+  // When customizing `templateSettings`, if you don't want to define an
+  // interpolation, evaluation or escaping regex, we need one that is
+  // guaranteed not to match.
+  var noMatch = /(.)^/;
+
+  // Certain characters need to be escaped so that they can be put into a
+  // string literal.
+  var escapes = {
+    "'":      "'",
+    '\\':     '\\',
+    '\r':     'r',
+    '\n':     'n',
+    '\u2028': 'u2028',
+    '\u2029': 'u2029'
+  };
+
+  var escaper = /\\|'|\r|\n|\u2028|\u2029/g;
+
+  var escapeChar = function(match) {
+    return '\\' + escapes[match];
+  };
+
+  // JavaScript micro-templating, similar to John Resig's implementation.
+  // Underscore templating handles arbitrary delimiters, preserves whitespace,
+  // and correctly escapes quotes within interpolated code.
+  // NB: `oldSettings` only exists for backwards compatibility.
+  _.template = function(text, settings, oldSettings) {
+    if (!settings && oldSettings) settings = oldSettings;
+    settings = _.defaults({}, settings, _.templateSettings);
+
+    // Combine delimiters into one regular expression via alternation.
+    var matcher = RegExp([
+      (settings.escape || noMatch).source,
+      (settings.interpolate || noMatch).source,
+      (settings.evaluate || noMatch).source
+    ].join('|') + '|$', 'g');
+
+    // Compile the template source, escaping string literals appropriately.
+    var index = 0;
+    var source = "__p+='";
+    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+      source += text.slice(index, offset).replace(escaper, escapeChar);
+      index = offset + match.length;
+
+      if (escape) {
+        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
+      } else if (interpolate) {
+        source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
+      } else if (evaluate) {
+        source += "';\n" + evaluate + "\n__p+='";
+      }
+
+      // Adobe VMs need the match returned to produce the correct offest.
+      return match;
+    });
+    source += "';\n";
+
+    // If a variable is not specified, place data values in local scope.
+    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+
+    source = "var __t,__p='',__j=Array.prototype.join," +
+      "print=function(){__p+=__j.call(arguments,'');};\n" +
+      source + 'return __p;\n';
+
+    try {
+      var render = new Function(settings.variable || 'obj', '_', source);
+    } catch (e) {
+      e.source = source;
+      throw e;
+    }
+
+    var template = function(data) {
+      return render.call(this, data, _);
+    };
+
+    // Provide the compiled source as a convenience for precompilation.
+    var argument = settings.variable || 'obj';
+    template.source = 'function(' + argument + '){\n' + source + '}';
+
+    return template;
+  };
+
+  // Add a "chain" function. Start chaining a wrapped Underscore object.
+  _.chain = function(obj) {
+    var instance = _(obj);
+    instance._chain = true;
+    return instance;
+  };
+
+  // OOP
+  // ---------------
+  // If Underscore is called as a function, it returns a wrapped object that
+  // can be used OO-style. This wrapper holds altered versions of all the
+  // underscore functions. Wrapped objects may be chained.
+
+  // Helper function to continue chaining intermediate results.
+  var result = function(instance, obj) {
+    return instance._chain ? _(obj).chain() : obj;
+  };
+
+  // Add your own custom functions to the Underscore object.
+  _.mixin = function(obj) {
+    _.each(_.functions(obj), function(name) {
+      var func = _[name] = obj[name];
+      _.prototype[name] = function() {
+        var args = [this._wrapped];
+        push.apply(args, arguments);
+        return result(this, func.apply(_, args));
+      };
+    });
+  };
+
+  // Add all of the Underscore functions to the wrapper object.
+  _.mixin(_);
+
+  // Add all mutator Array functions to the wrapper.
+  _.each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      var obj = this._wrapped;
+      method.apply(obj, arguments);
+      if ((name === 'shift' || name === 'splice') && obj.length === 0) delete obj[0];
+      return result(this, obj);
+    };
+  });
+
+  // Add all accessor Array functions to the wrapper.
+  _.each(['concat', 'join', 'slice'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      return result(this, method.apply(this._wrapped, arguments));
+    };
+  });
+
+  // Extracts the result from a wrapped and chained object.
+  _.prototype.value = function() {
+    return this._wrapped;
+  };
+
+  // Provide unwrapping proxy for some methods used in engine operations
+  // such as arithmetic and JSON stringification.
+  _.prototype.valueOf = _.prototype.toJSON = _.prototype.value;
+
+  _.prototype.toString = function() {
+    return '' + this._wrapped;
+  };
+
+  // AMD registration happens at the end for compatibility with AMD loaders
+  // that may not enforce next-turn semantics on modules. Even though general
+  // practice for AMD registration is to be anonymous, underscore registers
+  // as a named module because, like jQuery, it is a base library that is
+  // popular enough to be bundled in a third party lib, but not be part of
+  // an AMD load request. Those cases could generate an error when an
+  // anonymous define() is called outside of a loader request.
+  if (typeof undefined === 'function' && undefined.amd) {
+    undefined('underscore', [], function() {
+      return _;
+    });
+  }
+}.call(commonjsGlobal));
+});
+
+var underscore_1 = underscore.sortBy;
+var underscore_2 = underscore.reject;
+var underscore_3 = underscore.isEqual;
+var underscore_4 = underscore.where;
+var underscore_5 = underscore.find;
+var underscore_6 = underscore.filter;
+var underscore_7 = underscore.any;
+var underscore_8 = underscore.map;
+var underscore_9 = underscore.intersection;
+var underscore_10 = underscore.contains;
+var underscore_11 = underscore.zip;
+var underscore_12 = underscore.min;
+var underscore_13 = underscore.max;
+var underscore_14 = underscore._;
+
+
+var _ = Object.freeze({
+	default: underscore,
+	__moduleExports: underscore,
+	sortBy: underscore_1,
+	reject: underscore_2,
+	isEqual: underscore_3,
+	where: underscore_4,
+	find: underscore_5,
+	filter: underscore_6,
+	any: underscore_7,
+	map: underscore_8,
+	intersection: underscore_9,
+	contains: underscore_10,
+	zip: underscore_11,
+	min: underscore_12,
+	max: underscore_13,
+	_: underscore_14
+});
+
+function getOptimalResponses(responses) {
+    return underscore_4(responses, { optimal: true, });
+}
+
+function getTopOptimalResponse(responses) {
+    return underscore_1(getOptimalResponses(responses), function (r) { return r.count; }).reverse()[0];
+}
+
+var lib$2 = createCommonjsModule(function (module, exports) {
+/*!
+ * {LIB} v0.0.6
+ * (c) 2018 {NAME}
+ * Released under the MIT License.
+ */
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function stringNormalize(string) {
+    // in order: double quotation marks, single quotation marks and apostrophes, commas
+    return string.replace(/[\u201C\u201D\u02DD]/g, '\u0022').replace(/[\u00B4\u0060\u2018\u2019\u0301\u02BB\u02C8]/g, '\u0027').replace(/[\u02CC\u201A\uFF0C]/g, '\u002C');
+}
+
+exports.stringNormalize = stringNormalize;
+});
+
+unwrapExports(lib$2);
+var lib_1$1 = lib$2.stringNormalize;
+
+function exactMatch(responseString, responses) {
+    return underscore_5(responses, function (resp) { return lib_1$1(resp.text) === lib_1$1(responseString); });
+}
+
+function conceptResultTemplate(conceptUID, correct) {
+    if (correct === void 0) { correct = false; }
+    return {
+        conceptUID: conceptUID,
+        correct: correct,
+    };
+}
+
+function focusPointMatch(responseString, focusPoints) {
+    return underscore_5(focusPoints, function (fp) {
+        var options = fp.text.split('|||');
+        var anyMatches = underscore_7(options, function (opt) { return responseString.indexOf(opt) !== -1; });
+        return !anyMatches;
+    });
+}
+function focusPointChecker(responseString, focusPoints, responses) {
+    var match = focusPointMatch(responseString, focusPoints);
+    if (match) {
+        return focusPointResponseBuilder(match, responses);
+    }
+}
+function focusPointResponseBuilder(focusPointMatch, responses) {
+    var res = {
+        feedback: focusPointMatch.feedback,
+        author: 'Focus Point Hint',
+        parent_id: getTopOptimalResponse(responses).id
+    };
+    if (focusPointMatch.concept_uid) {
+        res.concept_results = [
+            conceptResultTemplate(focusPointMatch.concept_uid)
+        ];
+    }
+    if (focusPointMatch.concept_results) {
+        res.concept_results = focusPointMatch.concept_results;
+    }
+    return res;
+}
+
+function incorrectSequenceMatch(responseString, incorrectSequences) {
+    return underscore_5(incorrectSequences, function (incSeq) {
+        var options = incSeq.text.split('|||');
+        var anyMatches = underscore_7(options, function (opt) { return new RegExp(opt).test(responseString); });
+        return anyMatches;
+    });
+}
+function incorrectSequenceChecker(responseString, incorrectSequences, responses) {
+    var match = incorrectSequenceMatch(responseString, incorrectSequences);
+    if (match) {
+        return incorrectSequenceResponseBuilder(match, responses);
+    }
+}
+function incorrectSequenceResponseBuilder(incorrectSequenceMatch, responses) {
+    var res = {
+        feedback: incorrectSequenceMatch.feedback,
+        author: 'Incorrect Sequence Hint',
+        parent_id: getTopOptimalResponse(responses).id
+    };
+    if (incorrectSequenceMatch.concept_results) {
+        res.concept_results = incorrectSequenceMatch.concept_results;
+    }
+    return res;
+}
+
+var feedbackStrings = {
+    punctuationError: 'There may be an error. How could you update the punctuation?',
+    punctuationAndCaseError: 'There may be an error. How could you update the punctuation and capitalization?',
+    typingError: 'Try again. There may be a spelling mistake.',
+    caseError: 'Proofread your work. There may be a capitalization error.',
+    minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
+    maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
+    modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
+    additionalWordError: 'Revise your work. You may have added an extra word.',
+    missingWordError: 'Revise your work. You may have left out an important word.',
+    whitespaceError: 'There may be an error. You may have forgotten a space between two words.',
+    flexibleModifiedWordError: 'Revise your work. You may have mixed up a word.',
+    flexibleAdditionalWordError: 'Revise your work. You may have added an extra word.',
+    flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
+    spacingAfterCommaError: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>'
+};
+
+function caseInsensitiveMatch(response, responses) {
+    return underscore_5(getOptimalResponses(responses), function (resp) { return lib_1$1(resp.text).toLowerCase() === lib_1$1(response).toLowerCase(); });
+}
+function caseInsensitiveChecker(responseString, responses) {
+    var match = caseInsensitiveMatch(responseString, responses);
+    if (match) {
+        var parentID = match.id;
+        return caseInsensitiveResponseBuilder(responses, parentID);
+    }
+}
+function caseInsensitiveResponseBuilder(responses, parentID) {
+    var res = {
+        feedback: feedbackStrings.caseError,
+        author: 'Capitalization Hint',
+        parent_id: parentID,
+        concept_results: [
+            conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ')
+        ]
+    };
+    return res;
+}
+
+function removePunctuation(string) {
+    return string.replace(/[^A-Za-z0-9\s]/g, '');
+}
+
+function punctuationInsensitiveMatch(responseString, responses) {
+    return underscore_5(getOptimalResponses(responses), function (resp) { return removePunctuation(lib_1$1(resp.text)) === removePunctuation(lib_1$1(responseString)); });
+}
+function punctuationInsensitiveChecker(responseString, responses) {
+    var match = punctuationInsensitiveMatch(responseString, responses);
+    if (match) {
+        var parentID = match.id;
+        return punctuationInsensitiveResponseBuilder(responses, parentID);
+    }
+}
+function punctuationInsensitiveResponseBuilder(responses, parentID) {
+    var res = {
+        feedback: feedbackStrings.punctuationError,
+        author: 'Punctuation Hint',
+        parent_id: parentID,
+        concept_results: [
+            conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+        ]
+    };
+    return res;
+}
+
+function punctuationAndCaseInsensitiveMatch(responseString, responses) {
+    return underscore_5(getOptimalResponses(responses), function (resp) {
+        var supplied = removePunctuation$1(lib_1$1(responseString)).toLowerCase();
+        var target = removePunctuation$1(lib_1$1(resp.text)).toLowerCase();
+        return supplied === target;
+    });
+}
+function removePunctuation$1(string) {
+    return string.replace(/[^A-Za-z0-9\s]/g, '');
+}
+function punctuationAndCaseInsensitiveChecker(responseString, responses) {
+    var match = punctuationAndCaseInsensitiveMatch(responseString, responses);
+    if (match) {
+        var parentID = match.id;
+        return punctuationAndCaseInsensitiveResponseBuilder(responses, parentID);
+    }
+}
+function punctuationAndCaseInsensitiveResponseBuilder(responses, parentID) {
+    var res = {
+        feedback: feedbackStrings.punctuationAndCaseError,
+        author: 'Punctuation and Case Hint',
+        parent_id: parentID,
+        concept_results: [
+            conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ'),
+            conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+        ]
+    };
+    return res;
+}
+
+var subStrings = [
+    ' ,',
+    ' .',
+    ' ;',
+    ' !',
+    ' ?'
+];
+var subStringsToText = {
+    ' ,': 'comma',
+    ' .': 'period',
+    ' ;': 'semi-colon',
+    ' !': 'exclamation mark',
+    ' ?': 'question mark',
+};
+function getFeedbackForPunc(punc) {
+    var fb = subStringsToText[punc];
+    return "<p>Revise your sentence. You don't need to have a space before a <em>" + fb + "</em>.</p>";
+}
+function checkForSpacingError(userString) {
+    return underscore_5(subStrings, function (subString) { return userString.indexOf(subString) !== -1; });
+}
+function spacingBeforePunctuation(userString) {
+    var match = checkForSpacingError(userString);
+    return (match ? { feedback: getFeedbackForPunc(match), } : undefined);
+}
+
+function spacingBeforePunctuationMatch(responseString) {
+    return spacingBeforePunctuation(responseString);
+}
+function spacingBeforePunctuationChecker(responseString, responses) {
+    var match = spacingBeforePunctuationMatch(responseString);
+    if (match) {
+        var feedback = match.feedback;
+        return spacingBeforePunctuationResponseBuilder(responses, feedback);
+    }
+}
+function spacingBeforePunctuationResponseBuilder(responses, feedback) {
+    var res = {
+        feedback: feedback,
+        author: 'Punctuation Hint',
+        parent_id: getTopOptimalResponse(responses) ? getTopOptimalResponse(responses).id : undefined,
+        concept_results: [
+            conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+        ]
+    };
+    return res;
+}
+
+function spacingAfterCommaMatch(response) {
+    for (var i = 0; i < response.length; i++) {
+        if (response[i] === ',' && (i + 1 < response.length)) {
+            if (response[i + 1] !== ' ') {
+                return true;
+            }
+            
+        }
+    }
+    return false;
+}
+function spacingAfterCommaChecker(responseString, responses) {
+    var match = spacingAfterCommaMatch(responseString);
+    if (match) {
+        return spacingAfterCommaResponseBuilder(responses);
+    }
+}
+function spacingAfterCommaResponseBuilder(responses) {
+    var res = {
+        feedback: feedbackStrings.spacingAfterCommaError,
+        author: 'Punctuation Hint',
+        parent_id: getTopOptimalResponse(responses) ? getTopOptimalResponse(responses).id : undefined,
+        concept_results: [
+            conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+        ]
+    };
+    return res;
+}
+
+function whitespaceMatch(response, responses) {
+    return underscore_5(getOptimalResponses(responses), function (resp) { return removeSpaces(lib_1$1(response)) === removeSpaces(lib_1$1(resp.text)); });
+}
+var removeSpaces = function (string) { return string.replace(/\s+/g, ''); };
+function whitespaceChecker(responseString, responses) {
+    var match = whitespaceMatch(responseString, responses);
+    if (match) {
+        var parent_id = match.id;
+        return whitespaceResponseBuilder(responses, parent_id);
+    }
+}
+function whitespaceResponseBuilder(responses, parent_id) {
+    var res = {
+        feedback: feedbackStrings.whitespaceError,
+        author: 'Whitespace Hint',
+        parent_id: parent_id,
+        concept_results: [
+            conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
+        ]
+    };
+    return res;
+}
+
+var diff = createCommonjsModule(function (module, exports) {
+/*!
+
+ diff v3.4.0
+
+Software License Agreement (BSD License)
+
+Copyright (c) 2009-2015, Kevin Decker <kpdecker@gmail.com>
+
+All rights reserved.
+
+Redistribution and use of this software in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above
+  copyright notice, this list of conditions and the
+  following disclaimer.
+
+* Redistributions in binary form must reproduce the above
+  copyright notice, this list of conditions and the
+  following disclaimer in the documentation and/or other
+  materials provided with the distribution.
+
+* Neither the name of Kevin Decker nor the names of its
+  contributors may be used to endorse or promote products
+  derived from this software without specific prior
+  written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+@license
+*/
+(function webpackUniversalModuleDefinition(root, factory) {
+	module.exports = factory();
+})(commonjsGlobal, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.canonicalize = exports.convertChangesToXML = exports.convertChangesToDMP = exports.merge = exports.parsePatch = exports.applyPatches = exports.applyPatch = exports.createPatch = exports.createTwoFilesPatch = exports.structuredPatch = exports.diffArrays = exports.diffJson = exports.diffCss = exports.diffSentences = exports.diffTrimmedLines = exports.diffLines = exports.diffWordsWithSpace = exports.diffWords = exports.diffChars = exports.Diff = undefined;
+
+	/*istanbul ignore end*/var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	/*istanbul ignore end*/var /*istanbul ignore start*/_character = __webpack_require__(2);
+
+	var /*istanbul ignore start*/_word = __webpack_require__(3);
+
+	var /*istanbul ignore start*/_line = __webpack_require__(5);
+
+	var /*istanbul ignore start*/_sentence = __webpack_require__(6);
+
+	var /*istanbul ignore start*/_css = __webpack_require__(7);
+
+	var /*istanbul ignore start*/_json = __webpack_require__(8);
+
+	var /*istanbul ignore start*/_array = __webpack_require__(9);
+
+	var /*istanbul ignore start*/_apply = __webpack_require__(10);
+
+	var /*istanbul ignore start*/_parse = __webpack_require__(11);
+
+	var /*istanbul ignore start*/_merge = __webpack_require__(13);
+
+	var /*istanbul ignore start*/_create = __webpack_require__(14);
+
+	var /*istanbul ignore start*/_dmp = __webpack_require__(16);
+
+	var /*istanbul ignore start*/_xml = __webpack_require__(17);
+
+	/*istanbul ignore start*/function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/* See LICENSE file for terms of use */
+
+	/*
+	 * Text diff implementation.
+	 *
+	 * This library supports the following APIS:
+	 * JsDiff.diffChars: Character by character diff
+	 * JsDiff.diffWords: Word (as defined by \b regex) diff which ignores whitespace
+	 * JsDiff.diffLines: Line based diff
+	 *
+	 * JsDiff.diffCss: Diff targeted at CSS content
+	 *
+	 * These methods are based on the implementation proposed in
+	 * "An O(ND) Difference Algorithm and its Variations" (Myers, 1986).
+	 * http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.6927
+	 */
+	exports. /*istanbul ignore end*/Diff = _base2['default'];
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffChars = _character.diffChars;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffWords = _word.diffWords;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffWordsWithSpace = _word.diffWordsWithSpace;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffLines = _line.diffLines;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = _line.diffTrimmedLines;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffSentences = _sentence.diffSentences;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffCss = _css.diffCss;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffJson = _json.diffJson;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffArrays = _array.diffArrays;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/structuredPatch = _create.structuredPatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/createTwoFilesPatch = _create.createTwoFilesPatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/createPatch = _create.createPatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/applyPatch = _apply.applyPatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/applyPatches = _apply.applyPatches;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/parsePatch = _parse.parsePatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/merge = _merge.merge;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/convertChangesToDMP = _dmp.convertChangesToDMP;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/convertChangesToXML = _xml.convertChangesToXML;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/canonicalize = _json.canonicalize;
+	
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports['default'] = /*istanbul ignore end*/Diff;
+	function Diff() {}
+
+	Diff.prototype = {
+	  /*istanbul ignore start*/ /*istanbul ignore end*/diff: function diff(oldString, newString) {
+	    /*istanbul ignore start*/var /*istanbul ignore end*/options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+	    var callback = options.callback;
+	    if (typeof options === 'function') {
+	      callback = options;
+	      options = {};
+	    }
+	    this.options = options;
+
+	    var self = this;
+
+	    function done(value) {
+	      if (callback) {
+	        setTimeout(function () {
+	          callback(undefined, value);
+	        }, 0);
+	        return true;
+	      } else {
+	        return value;
+	      }
+	    }
+
+	    // Allow subclasses to massage the input prior to running
+	    oldString = this.castInput(oldString);
+	    newString = this.castInput(newString);
+
+	    oldString = this.removeEmpty(this.tokenize(oldString));
+	    newString = this.removeEmpty(this.tokenize(newString));
+
+	    var newLen = newString.length,
+	        oldLen = oldString.length;
+	    var editLength = 1;
+	    var maxEditLength = newLen + oldLen;
+	    var bestPath = [{ newPos: -1, components: [] }];
+
+	    // Seed editLength = 0, i.e. the content starts with the same values
+	    var oldPos = this.extractCommon(bestPath[0], newString, oldString, 0);
+	    if (bestPath[0].newPos + 1 >= newLen && oldPos + 1 >= oldLen) {
+	      // Identity per the equality and tokenizer
+	      return done([{ value: this.join(newString), count: newString.length }]);
+	    }
+
+	    // Main worker method. checks all permutations of a given edit length for acceptance.
+	    function execEditLength() {
+	      for (var diagonalPath = -1 * editLength; diagonalPath <= editLength; diagonalPath += 2) {
+	        var basePath = /*istanbul ignore start*/void 0;
+	        var addPath = bestPath[diagonalPath - 1],
+	            removePath = bestPath[diagonalPath + 1],
+	            _oldPos = (removePath ? removePath.newPos : 0) - diagonalPath;
+	        if (addPath) {
+	          // No one else is going to attempt to use this value, clear it
+	          bestPath[diagonalPath - 1] = undefined;
+	        }
+
+	        var canAdd = addPath && addPath.newPos + 1 < newLen,
+	            canRemove = removePath && 0 <= _oldPos && _oldPos < oldLen;
+	        if (!canAdd && !canRemove) {
+	          // If this path is a terminal then prune
+	          bestPath[diagonalPath] = undefined;
+	          continue;
+	        }
+
+	        // Select the diagonal that we want to branch from. We select the prior
+	        // path whose position in the new string is the farthest from the origin
+	        // and does not pass the bounds of the diff graph
+	        if (!canAdd || canRemove && addPath.newPos < removePath.newPos) {
+	          basePath = clonePath(removePath);
+	          self.pushComponent(basePath.components, undefined, true);
+	        } else {
+	          basePath = addPath; // No need to clone, we've pulled it from the list
+	          basePath.newPos++;
+	          self.pushComponent(basePath.components, true, undefined);
+	        }
+
+	        _oldPos = self.extractCommon(basePath, newString, oldString, diagonalPath);
+
+	        // If we have hit the end of both strings, then we are done
+	        if (basePath.newPos + 1 >= newLen && _oldPos + 1 >= oldLen) {
+	          return done(buildValues(self, basePath.components, newString, oldString, self.useLongestToken));
+	        } else {
+	          // Otherwise track this path as a potential candidate and continue.
+	          bestPath[diagonalPath] = basePath;
+	        }
+	      }
+
+	      editLength++;
+	    }
+
+	    // Performs the length of edit iteration. Is a bit fugly as this has to support the
+	    // sync and async mode which is never fun. Loops over execEditLength until a value
+	    // is produced.
+	    if (callback) {
+	      (function exec() {
+	        setTimeout(function () {
+	          // This should not happen, but we want to be safe.
+	          /* istanbul ignore next */
+	          if (editLength > maxEditLength) {
+	            return callback();
+	          }
+
+	          if (!execEditLength()) {
+	            exec();
+	          }
+	        }, 0);
+	      })();
+	    } else {
+	      while (editLength <= maxEditLength) {
+	        var ret = execEditLength();
+	        if (ret) {
+	          return ret;
+	        }
+	      }
+	    }
+	  },
+	  /*istanbul ignore start*/ /*istanbul ignore end*/pushComponent: function pushComponent(components, added, removed) {
+	    var last = components[components.length - 1];
+	    if (last && last.added === added && last.removed === removed) {
+	      // We need to clone here as the component clone operation is just
+	      // as shallow array clone
+	      components[components.length - 1] = { count: last.count + 1, added: added, removed: removed };
+	    } else {
+	      components.push({ count: 1, added: added, removed: removed });
+	    }
+	  },
+	  /*istanbul ignore start*/ /*istanbul ignore end*/extractCommon: function extractCommon(basePath, newString, oldString, diagonalPath) {
+	    var newLen = newString.length,
+	        oldLen = oldString.length,
+	        newPos = basePath.newPos,
+	        oldPos = newPos - diagonalPath,
+	        commonCount = 0;
+	    while (newPos + 1 < newLen && oldPos + 1 < oldLen && this.equals(newString[newPos + 1], oldString[oldPos + 1])) {
+	      newPos++;
+	      oldPos++;
+	      commonCount++;
+	    }
+
+	    if (commonCount) {
+	      basePath.components.push({ count: commonCount });
+	    }
+
+	    basePath.newPos = newPos;
+	    return oldPos;
+	  },
+	  /*istanbul ignore start*/ /*istanbul ignore end*/equals: function equals(left, right) {
+	    if (this.options.comparator) {
+	      return this.options.comparator(left, right);
+	    } else {
+	      return left === right || this.options.ignoreCase && left.toLowerCase() === right.toLowerCase();
+	    }
+	  },
+	  /*istanbul ignore start*/ /*istanbul ignore end*/removeEmpty: function removeEmpty(array) {
+	    var ret = [];
+	    for (var i = 0; i < array.length; i++) {
+	      if (array[i]) {
+	        ret.push(array[i]);
+	      }
+	    }
+	    return ret;
+	  },
+	  /*istanbul ignore start*/ /*istanbul ignore end*/castInput: function castInput(value) {
+	    return value;
+	  },
+	  /*istanbul ignore start*/ /*istanbul ignore end*/tokenize: function tokenize(value) {
+	    return value.split('');
+	  },
+	  /*istanbul ignore start*/ /*istanbul ignore end*/join: function join(chars) {
+	    return chars.join('');
+	  }
+	};
+
+	function buildValues(diff, components, newString, oldString, useLongestToken) {
+	  var componentPos = 0,
+	      componentLen = components.length,
+	      newPos = 0,
+	      oldPos = 0;
+
+	  for (; componentPos < componentLen; componentPos++) {
+	    var component = components[componentPos];
+	    if (!component.removed) {
+	      if (!component.added && useLongestToken) {
+	        var value = newString.slice(newPos, newPos + component.count);
+	        value = value.map(function (value, i) {
+	          var oldValue = oldString[oldPos + i];
+	          return oldValue.length > value.length ? oldValue : value;
+	        });
+
+	        component.value = diff.join(value);
+	      } else {
+	        component.value = diff.join(newString.slice(newPos, newPos + component.count));
+	      }
+	      newPos += component.count;
+
+	      // Common case
+	      if (!component.added) {
+	        oldPos += component.count;
+	      }
+	    } else {
+	      component.value = diff.join(oldString.slice(oldPos, oldPos + component.count));
+	      oldPos += component.count;
+
+	      // Reverse add and remove so removes are output first to match common convention
+	      // The diffing algorithm is tied to add then remove output and this is the simplest
+	      // route to get the desired output with minimal overhead.
+	      if (componentPos && components[componentPos - 1].added) {
+	        var tmp = components[componentPos - 1];
+	        components[componentPos - 1] = components[componentPos];
+	        components[componentPos] = tmp;
+	      }
+	    }
+	  }
+
+	  // Special case handle for when one terminal is ignored (i.e. whitespace).
+	  // For this case we merge the terminal into the prior string and drop the change.
+	  // This is only available for string mode.
+	  var lastComponent = components[componentLen - 1];
+	  if (componentLen > 1 && typeof lastComponent.value === 'string' && (lastComponent.added || lastComponent.removed) && diff.equals('', lastComponent.value)) {
+	    components[componentLen - 2].value += lastComponent.value;
+	    components.pop();
+	  }
+
+	  return components;
+	}
+
+	function clonePath(path) {
+	  return { newPos: path.newPos, components: path.components.slice(0) };
+	}
+	
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.characterDiff = undefined;
+	exports. /*istanbul ignore end*/diffChars = diffChars;
+
+	var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/var characterDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/characterDiff = new /*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/();
+	function diffChars(oldStr, newStr, options) {
+	  return characterDiff.diff(oldStr, newStr, options);
+	}
+	
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.wordDiff = undefined;
+	exports. /*istanbul ignore end*/diffWords = diffWords;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffWordsWithSpace = diffWordsWithSpace;
+
+	var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	/*istanbul ignore end*/var /*istanbul ignore start*/_params = __webpack_require__(4);
+
+	/*istanbul ignore start*/function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/ // Based on https://en.wikipedia.org/wiki/Latin_script_in_Unicode
+	//
+	// Ranges and exceptions:
+	// Latin-1 Supplement, 0080–00FF
+	//  - U+00D7  × Multiplication sign
+	//  - U+00F7  ÷ Division sign
+	// Latin Extended-A, 0100–017F
+	// Latin Extended-B, 0180–024F
+	// IPA Extensions, 0250–02AF
+	// Spacing Modifier Letters, 02B0–02FF
+	//  - U+02C7  ˇ &#711;  Caron
+	//  - U+02D8  ˘ &#728;  Breve
+	//  - U+02D9  ˙ &#729;  Dot Above
+	//  - U+02DA  ˚ &#730;  Ring Above
+	//  - U+02DB  ˛ &#731;  Ogonek
+	//  - U+02DC  ˜ &#732;  Small Tilde
+	//  - U+02DD  ˝ &#733;  Double Acute Accent
+	// Latin Extended Additional, 1E00–1EFF
+	var extendedWordChars = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/;
+
+	var reWhitespace = /\S/;
+
+	var wordDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/wordDiff = new /*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/();
+	wordDiff.equals = function (left, right) {
+	  if (this.options.ignoreCase) {
+	    left = left.toLowerCase();
+	    right = right.toLowerCase();
+	  }
+	  return left === right || this.options.ignoreWhitespace && !reWhitespace.test(left) && !reWhitespace.test(right);
+	};
+	wordDiff.tokenize = function (value) {
+	  var tokens = value.split(/(\s+|\b)/);
+
+	  // Join the boundary splits that we do not consider to be boundaries. This is primarily the extended Latin character set.
+	  for (var i = 0; i < tokens.length - 1; i++) {
+	    // If we have an empty string in the next field and we have only word chars before and after, merge
+	    if (!tokens[i + 1] && tokens[i + 2] && extendedWordChars.test(tokens[i]) && extendedWordChars.test(tokens[i + 2])) {
+	      tokens[i] += tokens[i + 2];
+	      tokens.splice(i + 1, 2);
+	      i--;
+	    }
+	  }
+
+	  return tokens;
+	};
+
+	function diffWords(oldStr, newStr, options) {
+	  options = /*istanbul ignore start*/(_params.generateOptions) /*istanbul ignore end*/(options, { ignoreWhitespace: true });
+	  return wordDiff.diff(oldStr, newStr, options);
+	}
+
+	function diffWordsWithSpace(oldStr, newStr, options) {
+	  return wordDiff.diff(oldStr, newStr, options);
+	}
+	
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/generateOptions = generateOptions;
+	function generateOptions(options, defaults) {
+	  if (typeof options === 'function') {
+	    defaults.callback = options;
+	  } else if (options) {
+	    for (var name in options) {
+	      /* istanbul ignore else */
+	      if (options.hasOwnProperty(name)) {
+	        defaults[name] = options[name];
+	      }
+	    }
+	  }
+	  return defaults;
+	}
+	
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.lineDiff = undefined;
+	exports. /*istanbul ignore end*/diffLines = diffLines;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = diffTrimmedLines;
+
+	var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	/*istanbul ignore end*/var /*istanbul ignore start*/_params = __webpack_require__(4);
+
+	/*istanbul ignore start*/function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/var lineDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/lineDiff = new /*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/();
+	lineDiff.tokenize = function (value) {
+	  var retLines = [],
+	      linesAndNewlines = value.split(/(\n|\r\n)/);
+
+	  // Ignore the final empty token that occurs if the string ends with a new line
+	  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
+	    linesAndNewlines.pop();
+	  }
+
+	  // Merge the content and line separators into single tokens
+	  for (var i = 0; i < linesAndNewlines.length; i++) {
+	    var line = linesAndNewlines[i];
+
+	    if (i % 2 && !this.options.newlineIsToken) {
+	      retLines[retLines.length - 1] += line;
+	    } else {
+	      if (this.options.ignoreWhitespace) {
+	        line = line.trim();
+	      }
+	      retLines.push(line);
+	    }
+	  }
+
+	  return retLines;
+	};
+
+	function diffLines(oldStr, newStr, callback) {
+	  return lineDiff.diff(oldStr, newStr, callback);
+	}
+	function diffTrimmedLines(oldStr, newStr, callback) {
+	  var options = /*istanbul ignore start*/(_params.generateOptions) /*istanbul ignore end*/(callback, { ignoreWhitespace: true });
+	  return lineDiff.diff(oldStr, newStr, options);
+	}
+	
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.sentenceDiff = undefined;
+	exports. /*istanbul ignore end*/diffSentences = diffSentences;
+
+	var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/var sentenceDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/sentenceDiff = new /*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/();
+	sentenceDiff.tokenize = function (value) {
+	  return value.split(/(\S.+?[.!?])(?=\s+|$)/);
+	};
+
+	function diffSentences(oldStr, newStr, callback) {
+	  return sentenceDiff.diff(oldStr, newStr, callback);
+	}
+	
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.cssDiff = undefined;
+	exports. /*istanbul ignore end*/diffCss = diffCss;
+
+	var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/var cssDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/cssDiff = new /*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/();
+	cssDiff.tokenize = function (value) {
+	  return value.split(/([{}:;,]|\s+)/);
+	};
+
+	function diffCss(oldStr, newStr, callback) {
+	  return cssDiff.diff(oldStr, newStr, callback);
+	}
+	
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.jsonDiff = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	exports. /*istanbul ignore end*/diffJson = diffJson;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/canonicalize = canonicalize;
+
+	var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	/*istanbul ignore end*/var /*istanbul ignore start*/_line = __webpack_require__(5);
+
+	/*istanbul ignore start*/function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/var objectPrototypeToString = Object.prototype.toString;
+
+	var jsonDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/jsonDiff = new /*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/();
+	// Discriminate between two lines of pretty-printed, serialized JSON where one of them has a
+	// dangling comma and the other doesn't. Turns out including the dangling comma yields the nicest output:
+	jsonDiff.useLongestToken = true;
+
+	jsonDiff.tokenize = /*istanbul ignore start*/_line.lineDiff /*istanbul ignore end*/.tokenize;
+	jsonDiff.castInput = function (value) {
+	  /*istanbul ignore start*/var /*istanbul ignore end*/undefinedReplacement = this.options.undefinedReplacement;
+
+
+	  return typeof value === 'string' ? value : JSON.stringify(canonicalize(value), function (k, v) {
+	    if (typeof v === 'undefined') {
+	      return undefinedReplacement;
+	    }
+
+	    return v;
+	  }, '  ');
+	};
+	jsonDiff.equals = function (left, right) {
+	  return (/*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/.prototype.equals.call(jsonDiff, left.replace(/,([\r\n])/g, '$1'), right.replace(/,([\r\n])/g, '$1'))
+	  );
+	};
+
+	function diffJson(oldObj, newObj, options) {
+	  return jsonDiff.diff(oldObj, newObj, options);
+	}
+
+	// This function handles the presence of circular references by bailing out when encountering an
+	// object that is already on the "stack" of items being processed.
+	function canonicalize(obj, stack, replacementStack) {
+	  stack = stack || [];
+	  replacementStack = replacementStack || [];
+
+	  var i = /*istanbul ignore start*/void 0;
+
+	  for (i = 0; i < stack.length; i += 1) {
+	    if (stack[i] === obj) {
+	      return replacementStack[i];
+	    }
+	  }
+
+	  var canonicalizedObj = /*istanbul ignore start*/void 0;
+
+	  if ('[object Array]' === objectPrototypeToString.call(obj)) {
+	    stack.push(obj);
+	    canonicalizedObj = new Array(obj.length);
+	    replacementStack.push(canonicalizedObj);
+	    for (i = 0; i < obj.length; i += 1) {
+	      canonicalizedObj[i] = canonicalize(obj[i], stack, replacementStack);
+	    }
+	    stack.pop();
+	    replacementStack.pop();
+	    return canonicalizedObj;
+	  }
+
+	  if (obj && obj.toJSON) {
+	    obj = obj.toJSON();
+	  }
+
+	  if ( /*istanbul ignore start*/(typeof /*istanbul ignore end*/obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && obj !== null) {
+	    stack.push(obj);
+	    canonicalizedObj = {};
+	    replacementStack.push(canonicalizedObj);
+	    var sortedKeys = [],
+	        key = /*istanbul ignore start*/void 0;
+	    for (key in obj) {
+	      /* istanbul ignore else */
+	      if (obj.hasOwnProperty(key)) {
+	        sortedKeys.push(key);
+	      }
+	    }
+	    sortedKeys.sort();
+	    for (i = 0; i < sortedKeys.length; i += 1) {
+	      key = sortedKeys[i];
+	      canonicalizedObj[key] = canonicalize(obj[key], stack, replacementStack);
+	    }
+	    stack.pop();
+	    replacementStack.pop();
+	  } else {
+	    canonicalizedObj = obj;
+	  }
+	  return canonicalizedObj;
+	}
+	
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports.arrayDiff = undefined;
+	exports. /*istanbul ignore end*/diffArrays = diffArrays;
+
+	var /*istanbul ignore start*/_base = __webpack_require__(1);
+
+	/*istanbul ignore start*/var _base2 = _interopRequireDefault(_base);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/var arrayDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/arrayDiff = new /*istanbul ignore start*/_base2['default'] /*istanbul ignore end*/();
+	arrayDiff.tokenize = arrayDiff.join = function (value) {
+	  return value.slice();
+	};
+	arrayDiff.removeEmpty = function (value) {
+	  return value;
+	};
+
+	function diffArrays(oldArr, newArr, callback) {
+	  return arrayDiff.diff(oldArr, newArr, callback);
+	}
+	
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/applyPatch = applyPatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/applyPatches = applyPatches;
+
+	var /*istanbul ignore start*/_parse = __webpack_require__(11);
+
+	var /*istanbul ignore start*/_distanceIterator = __webpack_require__(12);
+
+	/*istanbul ignore start*/var _distanceIterator2 = _interopRequireDefault(_distanceIterator);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*istanbul ignore end*/function applyPatch(source, uniDiff) {
+	  /*istanbul ignore start*/var /*istanbul ignore end*/options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+	  if (typeof uniDiff === 'string') {
+	    uniDiff = /*istanbul ignore start*/(_parse.parsePatch) /*istanbul ignore end*/(uniDiff);
+	  }
+
+	  if (Array.isArray(uniDiff)) {
+	    if (uniDiff.length > 1) {
+	      throw new Error('applyPatch only works with a single input.');
+	    }
+
+	    uniDiff = uniDiff[0];
+	  }
+
+	  // Apply the diff to the input
+	  var lines = source.split(/\r\n|[\n\v\f\r\x85]/),
+	      delimiters = source.match(/\r\n|[\n\v\f\r\x85]/g) || [],
+	      hunks = uniDiff.hunks,
+	      compareLine = options.compareLine || function (lineNumber, line, operation, patchContent) /*istanbul ignore start*/{
+	    return (/*istanbul ignore end*/line === patchContent
+	    );
+	  },
+	      errorCount = 0,
+	      fuzzFactor = options.fuzzFactor || 0,
+	      minLine = 0,
+	      offset = 0,
+	      removeEOFNL = /*istanbul ignore start*/void 0 /*istanbul ignore end*/,
+	      addEOFNL = /*istanbul ignore start*/void 0;
+
+	  /**
+	   * Checks if the hunk exactly fits on the provided location
+	   */
+	  function hunkFits(hunk, toPos) {
+	    for (var j = 0; j < hunk.lines.length; j++) {
+	      var line = hunk.lines[j],
+	          operation = line[0],
+	          content = line.substr(1);
+
+	      if (operation === ' ' || operation === '-') {
+	        // Context sanity check
+	        if (!compareLine(toPos + 1, lines[toPos], operation, content)) {
+	          errorCount++;
+
+	          if (errorCount > fuzzFactor) {
+	            return false;
+	          }
+	        }
+	        toPos++;
+	      }
+	    }
+
+	    return true;
+	  }
+
+	  // Search best fit offsets for each hunk based on the previous ones
+	  for (var i = 0; i < hunks.length; i++) {
+	    var hunk = hunks[i],
+	        maxLine = lines.length - hunk.oldLines,
+	        localOffset = 0,
+	        toPos = offset + hunk.oldStart - 1;
+
+	    var iterator = /*istanbul ignore start*/(_distanceIterator2['default']) /*istanbul ignore end*/(toPos, minLine, maxLine);
+
+	    for (; localOffset !== undefined; localOffset = iterator()) {
+	      if (hunkFits(hunk, toPos + localOffset)) {
+	        hunk.offset = offset += localOffset;
+	        break;
+	      }
+	    }
+
+	    if (localOffset === undefined) {
+	      return false;
+	    }
+
+	    // Set lower text limit to end of the current hunk, so next ones don't try
+	    // to fit over already patched text
+	    minLine = hunk.offset + hunk.oldStart + hunk.oldLines;
+	  }
+
+	  // Apply patch hunks
+	  var diffOffset = 0;
+	  for (var _i = 0; _i < hunks.length; _i++) {
+	    var _hunk = hunks[_i],
+	        _toPos = _hunk.oldStart + _hunk.offset + diffOffset - 1;
+	    diffOffset += _hunk.newLines - _hunk.oldLines;
+
+	    if (_toPos < 0) {
+	      // Creating a new file
+	      _toPos = 0;
+	    }
+
+	    for (var j = 0; j < _hunk.lines.length; j++) {
+	      var line = _hunk.lines[j],
+	          operation = line[0],
+	          content = line.substr(1),
+	          delimiter = _hunk.linedelimiters[j];
+
+	      if (operation === ' ') {
+	        _toPos++;
+	      } else if (operation === '-') {
+	        lines.splice(_toPos, 1);
+	        delimiters.splice(_toPos, 1);
+	        /* istanbul ignore else */
+	      } else if (operation === '+') {
+	        lines.splice(_toPos, 0, content);
+	        delimiters.splice(_toPos, 0, delimiter);
+	        _toPos++;
+	      } else if (operation === '\\') {
+	        var previousOperation = _hunk.lines[j - 1] ? _hunk.lines[j - 1][0] : null;
+	        if (previousOperation === '+') {
+	          removeEOFNL = true;
+	        } else if (previousOperation === '-') {
+	          addEOFNL = true;
+	        }
+	      }
+	    }
+	  }
+
+	  // Handle EOFNL insertion/removal
+	  if (removeEOFNL) {
+	    while (!lines[lines.length - 1]) {
+	      lines.pop();
+	      delimiters.pop();
+	    }
+	  } else if (addEOFNL) {
+	    lines.push('');
+	    delimiters.push('\n');
+	  }
+	  for (var _k = 0; _k < lines.length - 1; _k++) {
+	    lines[_k] = lines[_k] + delimiters[_k];
+	  }
+	  return lines.join('');
+	}
+
+	// Wrapper that supports multiple file patches via callbacks.
+	function applyPatches(uniDiff, options) {
+	  if (typeof uniDiff === 'string') {
+	    uniDiff = /*istanbul ignore start*/(_parse.parsePatch) /*istanbul ignore end*/(uniDiff);
+	  }
+
+	  var currentIndex = 0;
+	  function processIndex() {
+	    var index = uniDiff[currentIndex++];
+	    if (!index) {
+	      return options.complete();
+	    }
+
+	    options.loadFile(index, function (err, data) {
+	      if (err) {
+	        return options.complete(err);
+	      }
+
+	      var updatedContent = applyPatch(data, index, options);
+	      options.patched(index, updatedContent, function (err) {
+	        if (err) {
+	          return options.complete(err);
+	        }
+
+	        processIndex();
+	      });
+	    });
+	  }
+	  processIndex();
+	}
+	
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/parsePatch = parsePatch;
+	function parsePatch(uniDiff) {
+	  /*istanbul ignore start*/var /*istanbul ignore end*/options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	  var diffstr = uniDiff.split(/\r\n|[\n\v\f\r\x85]/),
+	      delimiters = uniDiff.match(/\r\n|[\n\v\f\r\x85]/g) || [],
+	      list = [],
+	      i = 0;
+
+	  function parseIndex() {
+	    var index = {};
+	    list.push(index);
+
+	    // Parse diff metadata
+	    while (i < diffstr.length) {
+	      var line = diffstr[i];
+
+	      // File header found, end parsing diff metadata
+	      if (/^(\-\-\-|\+\+\+|@@)\s/.test(line)) {
+	        break;
+	      }
+
+	      // Diff index
+	      var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
+	      if (header) {
+	        index.index = header[1];
+	      }
+
+	      i++;
+	    }
+
+	    // Parse file headers if they are defined. Unified diff requires them, but
+	    // there's no technical issues to have an isolated hunk without file header
+	    parseFileHeader(index);
+	    parseFileHeader(index);
+
+	    // Parse hunks
+	    index.hunks = [];
+
+	    while (i < diffstr.length) {
+	      var _line = diffstr[i];
+
+	      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(_line)) {
+	        break;
+	      } else if (/^@@/.test(_line)) {
+	        index.hunks.push(parseHunk());
+	      } else if (_line && options.strict) {
+	        // Ignore unexpected content unless in strict mode
+	        throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(_line));
+	      } else {
+	        i++;
+	      }
+	    }
+	  }
+
+	  // Parses the --- and +++ headers, if none are found, no lines
+	  // are consumed.
+	  function parseFileHeader(index) {
+	    var headerPattern = /^(---|\+\+\+)\s+([\S ]*)(?:\t(.*?)\s*)?$/;
+	    var fileHeader = headerPattern.exec(diffstr[i]);
+	    if (fileHeader) {
+	      var keyPrefix = fileHeader[1] === '---' ? 'old' : 'new';
+	      var fileName = fileHeader[2].replace(/\\\\/g, '\\');
+	      if (/^".*"$/.test(fileName)) {
+	        fileName = fileName.substr(1, fileName.length - 2);
+	      }
+	      index[keyPrefix + 'FileName'] = fileName;
+	      index[keyPrefix + 'Header'] = fileHeader[3];
+
+	      i++;
+	    }
+	  }
+
+	  // Parses a hunk
+	  // This assumes that we are at the start of a hunk.
+	  function parseHunk() {
+	    var chunkHeaderIndex = i,
+	        chunkHeaderLine = diffstr[i++],
+	        chunkHeader = chunkHeaderLine.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
+
+	    var hunk = {
+	      oldStart: +chunkHeader[1],
+	      oldLines: +chunkHeader[2] || 1,
+	      newStart: +chunkHeader[3],
+	      newLines: +chunkHeader[4] || 1,
+	      lines: [],
+	      linedelimiters: []
+	    };
+
+	    var addCount = 0,
+	        removeCount = 0;
+	    for (; i < diffstr.length; i++) {
+	      // Lines starting with '---' could be mistaken for the "remove line" operation
+	      // But they could be the header for the next file. Therefore prune such cases out.
+	      if (diffstr[i].indexOf('--- ') === 0 && i + 2 < diffstr.length && diffstr[i + 1].indexOf('+++ ') === 0 && diffstr[i + 2].indexOf('@@') === 0) {
+	        break;
+	      }
+	      var operation = diffstr[i][0];
+
+	      if (operation === '+' || operation === '-' || operation === ' ' || operation === '\\') {
+	        hunk.lines.push(diffstr[i]);
+	        hunk.linedelimiters.push(delimiters[i] || '\n');
+
+	        if (operation === '+') {
+	          addCount++;
+	        } else if (operation === '-') {
+	          removeCount++;
+	        } else if (operation === ' ') {
+	          addCount++;
+	          removeCount++;
+	        }
+	      } else {
+	        break;
+	      }
+	    }
+
+	    // Handle the empty block count case
+	    if (!addCount && hunk.newLines === 1) {
+	      hunk.newLines = 0;
+	    }
+	    if (!removeCount && hunk.oldLines === 1) {
+	      hunk.oldLines = 0;
+	    }
+
+	    // Perform optional sanity checking
+	    if (options.strict) {
+	      if (addCount !== hunk.newLines) {
+	        throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+	      }
+	      if (removeCount !== hunk.oldLines) {
+	        throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+	      }
+	    }
+
+	    return hunk;
+	  }
+
+	  while (i < diffstr.length) {
+	    parseIndex();
+	  }
+
+	  return list;
+	}
+	
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+	/*istanbul ignore start*/"use strict";
+
+	exports.__esModule = true;
+
+	exports["default"] = /*istanbul ignore end*/function (start, minLine, maxLine) {
+	  var wantForward = true,
+	      backwardExhausted = false,
+	      forwardExhausted = false,
+	      localOffset = 1;
+
+	  return function iterator() {
+	    if (wantForward && !forwardExhausted) {
+	      if (backwardExhausted) {
+	        localOffset++;
+	      } else {
+	        wantForward = false;
+	      }
+
+	      // Check if trying to fit beyond text length, and if not, check it fits
+	      // after offset location (or desired location on first iteration)
+	      if (start + localOffset <= maxLine) {
+	        return localOffset;
+	      }
+
+	      forwardExhausted = true;
+	    }
+
+	    if (!backwardExhausted) {
+	      if (!forwardExhausted) {
+	        wantForward = true;
+	      }
+
+	      // Check if trying to fit before text beginning, and if not, check it fits
+	      // before offset location
+	      if (minLine <= start - localOffset) {
+	        return -localOffset++;
+	      }
+
+	      backwardExhausted = true;
+	      return iterator();
+	    }
+
+	    // We tried to fit hunk before text beginning and beyond text length, then
+	    // hunk can't fit on the text. Return undefined
+	  };
+	};
+	
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/calcLineCount = calcLineCount;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/merge = merge;
+
+	var /*istanbul ignore start*/_create = __webpack_require__(14);
+
+	var /*istanbul ignore start*/_parse = __webpack_require__(11);
+
+	var /*istanbul ignore start*/_array = __webpack_require__(15);
+
+	/*istanbul ignore start*/function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	/*istanbul ignore end*/function calcLineCount(hunk) {
+	  /*istanbul ignore start*/var _calcOldNewLineCount = /*istanbul ignore end*/calcOldNewLineCount(hunk.lines),
+	      oldLines = _calcOldNewLineCount.oldLines,
+	      newLines = _calcOldNewLineCount.newLines;
+
+	  if (oldLines !== undefined) {
+	    hunk.oldLines = oldLines;
+	  } else {
+	    delete hunk.oldLines;
+	  }
+
+	  if (newLines !== undefined) {
+	    hunk.newLines = newLines;
+	  } else {
+	    delete hunk.newLines;
+	  }
+	}
+
+	function merge(mine, theirs, base) {
+	  mine = loadPatch(mine, base);
+	  theirs = loadPatch(theirs, base);
+
+	  var ret = {};
+
+	  // For index we just let it pass through as it doesn't have any necessary meaning.
+	  // Leaving sanity checks on this to the API consumer that may know more about the
+	  // meaning in their own context.
+	  if (mine.index || theirs.index) {
+	    ret.index = mine.index || theirs.index;
+	  }
+
+	  if (mine.newFileName || theirs.newFileName) {
+	    if (!fileNameChanged(mine)) {
+	      // No header or no change in ours, use theirs (and ours if theirs does not exist)
+	      ret.oldFileName = theirs.oldFileName || mine.oldFileName;
+	      ret.newFileName = theirs.newFileName || mine.newFileName;
+	      ret.oldHeader = theirs.oldHeader || mine.oldHeader;
+	      ret.newHeader = theirs.newHeader || mine.newHeader;
+	    } else if (!fileNameChanged(theirs)) {
+	      // No header or no change in theirs, use ours
+	      ret.oldFileName = mine.oldFileName;
+	      ret.newFileName = mine.newFileName;
+	      ret.oldHeader = mine.oldHeader;
+	      ret.newHeader = mine.newHeader;
+	    } else {
+	      // Both changed... figure it out
+	      ret.oldFileName = selectField(ret, mine.oldFileName, theirs.oldFileName);
+	      ret.newFileName = selectField(ret, mine.newFileName, theirs.newFileName);
+	      ret.oldHeader = selectField(ret, mine.oldHeader, theirs.oldHeader);
+	      ret.newHeader = selectField(ret, mine.newHeader, theirs.newHeader);
+	    }
+	  }
+
+	  ret.hunks = [];
+
+	  var mineIndex = 0,
+	      theirsIndex = 0,
+	      mineOffset = 0,
+	      theirsOffset = 0;
+
+	  while (mineIndex < mine.hunks.length || theirsIndex < theirs.hunks.length) {
+	    var mineCurrent = mine.hunks[mineIndex] || { oldStart: Infinity },
+	        theirsCurrent = theirs.hunks[theirsIndex] || { oldStart: Infinity };
+
+	    if (hunkBefore(mineCurrent, theirsCurrent)) {
+	      // This patch does not overlap with any of the others, yay.
+	      ret.hunks.push(cloneHunk(mineCurrent, mineOffset));
+	      mineIndex++;
+	      theirsOffset += mineCurrent.newLines - mineCurrent.oldLines;
+	    } else if (hunkBefore(theirsCurrent, mineCurrent)) {
+	      // This patch does not overlap with any of the others, yay.
+	      ret.hunks.push(cloneHunk(theirsCurrent, theirsOffset));
+	      theirsIndex++;
+	      mineOffset += theirsCurrent.newLines - theirsCurrent.oldLines;
+	    } else {
+	      // Overlap, merge as best we can
+	      var mergedHunk = {
+	        oldStart: Math.min(mineCurrent.oldStart, theirsCurrent.oldStart),
+	        oldLines: 0,
+	        newStart: Math.min(mineCurrent.newStart + mineOffset, theirsCurrent.oldStart + theirsOffset),
+	        newLines: 0,
+	        lines: []
+	      };
+	      mergeLines(mergedHunk, mineCurrent.oldStart, mineCurrent.lines, theirsCurrent.oldStart, theirsCurrent.lines);
+	      theirsIndex++;
+	      mineIndex++;
+
+	      ret.hunks.push(mergedHunk);
+	    }
+	  }
+
+	  return ret;
+	}
+
+	function loadPatch(param, base) {
+	  if (typeof param === 'string') {
+	    if (/^@@/m.test(param) || /^Index:/m.test(param)) {
+	      return (/*istanbul ignore start*/(_parse.parsePatch) /*istanbul ignore end*/(param)[0]
+	      );
+	    }
+
+	    if (!base) {
+	      throw new Error('Must provide a base reference or pass in a patch');
+	    }
+	    return (/*istanbul ignore start*/(_create.structuredPatch) /*istanbul ignore end*/(undefined, undefined, base, param)
+	    );
+	  }
+
+	  return param;
+	}
+
+	function fileNameChanged(patch) {
+	  return patch.newFileName && patch.newFileName !== patch.oldFileName;
+	}
+
+	function selectField(index, mine, theirs) {
+	  if (mine === theirs) {
+	    return mine;
+	  } else {
+	    index.conflict = true;
+	    return { mine: mine, theirs: theirs };
+	  }
+	}
+
+	function hunkBefore(test, check) {
+	  return test.oldStart < check.oldStart && test.oldStart + test.oldLines < check.oldStart;
+	}
+
+	function cloneHunk(hunk, offset) {
+	  return {
+	    oldStart: hunk.oldStart, oldLines: hunk.oldLines,
+	    newStart: hunk.newStart + offset, newLines: hunk.newLines,
+	    lines: hunk.lines
+	  };
+	}
+
+	function mergeLines(hunk, mineOffset, mineLines, theirOffset, theirLines) {
+	  // This will generally result in a conflicted hunk, but there are cases where the context
+	  // is the only overlap where we can successfully merge the content here.
+	  var mine = { offset: mineOffset, lines: mineLines, index: 0 },
+	      their = { offset: theirOffset, lines: theirLines, index: 0 };
+
+	  // Handle any leading content
+	  insertLeading(hunk, mine, their);
+	  insertLeading(hunk, their, mine);
+
+	  // Now in the overlap content. Scan through and select the best changes from each.
+	  while (mine.index < mine.lines.length && their.index < their.lines.length) {
+	    var mineCurrent = mine.lines[mine.index],
+	        theirCurrent = their.lines[their.index];
+
+	    if ((mineCurrent[0] === '-' || mineCurrent[0] === '+') && (theirCurrent[0] === '-' || theirCurrent[0] === '+')) {
+	      // Both modified ...
+	      mutualChange(hunk, mine, their);
+	    } else if (mineCurrent[0] === '+' && theirCurrent[0] === ' ') {
+	      /*istanbul ignore start*/var _hunk$lines;
+
+	      /*istanbul ignore end*/ // Mine inserted
+	      /*istanbul ignore start*/(_hunk$lines = /*istanbul ignore end*/hunk.lines).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_hunk$lines /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/collectChange(mine)));
+	    } else if (theirCurrent[0] === '+' && mineCurrent[0] === ' ') {
+	      /*istanbul ignore start*/var _hunk$lines2;
+
+	      /*istanbul ignore end*/ // Theirs inserted
+	      /*istanbul ignore start*/(_hunk$lines2 = /*istanbul ignore end*/hunk.lines).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_hunk$lines2 /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/collectChange(their)));
+	    } else if (mineCurrent[0] === '-' && theirCurrent[0] === ' ') {
+	      // Mine removed or edited
+	      removal(hunk, mine, their);
+	    } else if (theirCurrent[0] === '-' && mineCurrent[0] === ' ') {
+	      // Their removed or edited
+	      removal(hunk, their, mine, true);
+	    } else if (mineCurrent === theirCurrent) {
+	      // Context identity
+	      hunk.lines.push(mineCurrent);
+	      mine.index++;
+	      their.index++;
+	    } else {
+	      // Context mismatch
+	      conflict(hunk, collectChange(mine), collectChange(their));
+	    }
+	  }
+
+	  // Now push anything that may be remaining
+	  insertTrailing(hunk, mine);
+	  insertTrailing(hunk, their);
+
+	  calcLineCount(hunk);
+	}
+
+	function mutualChange(hunk, mine, their) {
+	  var myChanges = collectChange(mine),
+	      theirChanges = collectChange(their);
+
+	  if (allRemoves(myChanges) && allRemoves(theirChanges)) {
+	    // Special case for remove changes that are supersets of one another
+	    if ( /*istanbul ignore start*/(_array.arrayStartsWith) /*istanbul ignore end*/(myChanges, theirChanges) && skipRemoveSuperset(their, myChanges, myChanges.length - theirChanges.length)) {
+	      /*istanbul ignore start*/var _hunk$lines3;
+
+	      /*istanbul ignore end*/ /*istanbul ignore start*/(_hunk$lines3 = /*istanbul ignore end*/hunk.lines).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_hunk$lines3 /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/myChanges));
+	      return;
+	    } else if ( /*istanbul ignore start*/(_array.arrayStartsWith) /*istanbul ignore end*/(theirChanges, myChanges) && skipRemoveSuperset(mine, theirChanges, theirChanges.length - myChanges.length)) {
+	      /*istanbul ignore start*/var _hunk$lines4;
+
+	      /*istanbul ignore end*/ /*istanbul ignore start*/(_hunk$lines4 = /*istanbul ignore end*/hunk.lines).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_hunk$lines4 /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/theirChanges));
+	      return;
+	    }
+	  } else if ( /*istanbul ignore start*/(_array.arrayEqual) /*istanbul ignore end*/(myChanges, theirChanges)) {
+	    /*istanbul ignore start*/var _hunk$lines5;
+
+	    /*istanbul ignore end*/ /*istanbul ignore start*/(_hunk$lines5 = /*istanbul ignore end*/hunk.lines).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_hunk$lines5 /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/myChanges));
+	    return;
+	  }
+
+	  conflict(hunk, myChanges, theirChanges);
+	}
+
+	function removal(hunk, mine, their, swap) {
+	  var myChanges = collectChange(mine),
+	      theirChanges = collectContext(their, myChanges);
+	  if (theirChanges.merged) {
+	    /*istanbul ignore start*/var _hunk$lines6;
+
+	    /*istanbul ignore end*/ /*istanbul ignore start*/(_hunk$lines6 = /*istanbul ignore end*/hunk.lines).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_hunk$lines6 /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/theirChanges.merged));
+	  } else {
+	    conflict(hunk, swap ? theirChanges : myChanges, swap ? myChanges : theirChanges);
+	  }
+	}
+
+	function conflict(hunk, mine, their) {
+	  hunk.conflict = true;
+	  hunk.lines.push({
+	    conflict: true,
+	    mine: mine,
+	    theirs: their
+	  });
+	}
+
+	function insertLeading(hunk, insert, their) {
+	  while (insert.offset < their.offset && insert.index < insert.lines.length) {
+	    var line = insert.lines[insert.index++];
+	    hunk.lines.push(line);
+	    insert.offset++;
+	  }
+	}
+	function insertTrailing(hunk, insert) {
+	  while (insert.index < insert.lines.length) {
+	    var line = insert.lines[insert.index++];
+	    hunk.lines.push(line);
+	  }
+	}
+
+	function collectChange(state) {
+	  var ret = [],
+	      operation = state.lines[state.index][0];
+	  while (state.index < state.lines.length) {
+	    var line = state.lines[state.index];
+
+	    // Group additions that are immediately after subtractions and treat them as one "atomic" modify change.
+	    if (operation === '-' && line[0] === '+') {
+	      operation = '+';
+	    }
+
+	    if (operation === line[0]) {
+	      ret.push(line);
+	      state.index++;
+	    } else {
+	      break;
+	    }
+	  }
+
+	  return ret;
+	}
+	function collectContext(state, matchChanges) {
+	  var changes = [],
+	      merged = [],
+	      matchIndex = 0,
+	      contextChanges = false,
+	      conflicted = false;
+	  while (matchIndex < matchChanges.length && state.index < state.lines.length) {
+	    var change = state.lines[state.index],
+	        match = matchChanges[matchIndex];
+
+	    // Once we've hit our add, then we are done
+	    if (match[0] === '+') {
+	      break;
+	    }
+
+	    contextChanges = contextChanges || change[0] !== ' ';
+
+	    merged.push(match);
+	    matchIndex++;
+
+	    // Consume any additions in the other block as a conflict to attempt
+	    // to pull in the remaining context after this
+	    if (change[0] === '+') {
+	      conflicted = true;
+
+	      while (change[0] === '+') {
+	        changes.push(change);
+	        change = state.lines[++state.index];
+	      }
+	    }
+
+	    if (match.substr(1) === change.substr(1)) {
+	      changes.push(change);
+	      state.index++;
+	    } else {
+	      conflicted = true;
+	    }
+	  }
+
+	  if ((matchChanges[matchIndex] || '')[0] === '+' && contextChanges) {
+	    conflicted = true;
+	  }
+
+	  if (conflicted) {
+	    return changes;
+	  }
+
+	  while (matchIndex < matchChanges.length) {
+	    merged.push(matchChanges[matchIndex++]);
+	  }
+
+	  return {
+	    merged: merged,
+	    changes: changes
+	  };
+	}
+
+	function allRemoves(changes) {
+	  return changes.reduce(function (prev, change) {
+	    return prev && change[0] === '-';
+	  }, true);
+	}
+	function skipRemoveSuperset(state, removeChanges, delta) {
+	  for (var i = 0; i < delta; i++) {
+	    var changeContent = removeChanges[removeChanges.length - delta + i].substr(1);
+	    if (state.lines[state.index + i] !== ' ' + changeContent) {
+	      return false;
+	    }
+	  }
+
+	  state.index += delta;
+	  return true;
+	}
+
+	function calcOldNewLineCount(lines) {
+	  var oldLines = 0;
+	  var newLines = 0;
+
+	  lines.forEach(function (line) {
+	    if (typeof line !== 'string') {
+	      var myCount = calcOldNewLineCount(line.mine);
+	      var theirCount = calcOldNewLineCount(line.theirs);
+
+	      if (oldLines !== undefined) {
+	        if (myCount.oldLines === theirCount.oldLines) {
+	          oldLines += myCount.oldLines;
+	        } else {
+	          oldLines = undefined;
+	        }
+	      }
+
+	      if (newLines !== undefined) {
+	        if (myCount.newLines === theirCount.newLines) {
+	          newLines += myCount.newLines;
+	        } else {
+	          newLines = undefined;
+	        }
+	      }
+	    } else {
+	      if (newLines !== undefined && (line[0] === '+' || line[0] === ' ')) {
+	        newLines++;
+	      }
+	      if (oldLines !== undefined && (line[0] === '-' || line[0] === ' ')) {
+	        oldLines++;
+	      }
+	    }
+	  });
+
+	  return { oldLines: oldLines, newLines: newLines };
+	}
+	
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/structuredPatch = structuredPatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/createTwoFilesPatch = createTwoFilesPatch;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/createPatch = createPatch;
+
+	var /*istanbul ignore start*/_line = __webpack_require__(5);
+
+	/*istanbul ignore start*/function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	/*istanbul ignore end*/function structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
+	  if (!options) {
+	    options = {};
+	  }
+	  if (typeof options.context === 'undefined') {
+	    options.context = 4;
+	  }
+
+	  var diff = /*istanbul ignore start*/(_line.diffLines) /*istanbul ignore end*/(oldStr, newStr, options);
+	  diff.push({ value: '', lines: [] }); // Append an empty value to make cleanup easier
+
+	  function contextLines(lines) {
+	    return lines.map(function (entry) {
+	      return ' ' + entry;
+	    });
+	  }
+
+	  var hunks = [];
+	  var oldRangeStart = 0,
+	      newRangeStart = 0,
+	      curRange = [],
+	      oldLine = 1,
+	      newLine = 1;
+
+	  /*istanbul ignore start*/var _loop = function _loop( /*istanbul ignore end*/i) {
+	    var current = diff[i],
+	        lines = current.lines || current.value.replace(/\n$/, '').split('\n');
+	    current.lines = lines;
+
+	    if (current.added || current.removed) {
+	      /*istanbul ignore start*/var _curRange;
+
+	      /*istanbul ignore end*/ // If we have previous context, start with that
+	      if (!oldRangeStart) {
+	        var prev = diff[i - 1];
+	        oldRangeStart = oldLine;
+	        newRangeStart = newLine;
+
+	        if (prev) {
+	          curRange = options.context > 0 ? contextLines(prev.lines.slice(-options.context)) : [];
+	          oldRangeStart -= curRange.length;
+	          newRangeStart -= curRange.length;
+	        }
+	      }
+
+	      // Output our changes
+	      /*istanbul ignore start*/(_curRange = /*istanbul ignore end*/curRange).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_curRange /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/lines.map(function (entry) {
+	        return (current.added ? '+' : '-') + entry;
+	      })));
+
+	      // Track the updated file position
+	      if (current.added) {
+	        newLine += lines.length;
+	      } else {
+	        oldLine += lines.length;
+	      }
+	    } else {
+	      // Identical context lines. Track line changes
+	      if (oldRangeStart) {
+	        // Close out any changes that have been output (or join overlapping)
+	        if (lines.length <= options.context * 2 && i < diff.length - 2) {
+	          /*istanbul ignore start*/var _curRange2;
+
+	          /*istanbul ignore end*/ // Overlapping
+	          /*istanbul ignore start*/(_curRange2 = /*istanbul ignore end*/curRange).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_curRange2 /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/contextLines(lines)));
+	        } else {
+	          /*istanbul ignore start*/var _curRange3;
+
+	          /*istanbul ignore end*/ // end the range and output
+	          var contextSize = Math.min(lines.length, options.context);
+	          /*istanbul ignore start*/(_curRange3 = /*istanbul ignore end*/curRange).push. /*istanbul ignore start*/apply /*istanbul ignore end*/( /*istanbul ignore start*/_curRange3 /*istanbul ignore end*/, /*istanbul ignore start*/_toConsumableArray( /*istanbul ignore end*/contextLines(lines.slice(0, contextSize))));
+
+	          var hunk = {
+	            oldStart: oldRangeStart,
+	            oldLines: oldLine - oldRangeStart + contextSize,
+	            newStart: newRangeStart,
+	            newLines: newLine - newRangeStart + contextSize,
+	            lines: curRange
+	          };
+	          if (i >= diff.length - 2 && lines.length <= options.context) {
+	            // EOF is inside this hunk
+	            var oldEOFNewline = /\n$/.test(oldStr);
+	            var newEOFNewline = /\n$/.test(newStr);
+	            if (lines.length == 0 && !oldEOFNewline) {
+	              // special case: old has no eol and no trailing context; no-nl can end up before adds
+	              curRange.splice(hunk.oldLines, 0, '\\ No newline at end of file');
+	            } else if (!oldEOFNewline || !newEOFNewline) {
+	              curRange.push('\\ No newline at end of file');
+	            }
+	          }
+	          hunks.push(hunk);
+
+	          oldRangeStart = 0;
+	          newRangeStart = 0;
+	          curRange = [];
+	        }
+	      }
+	      oldLine += lines.length;
+	      newLine += lines.length;
+	    }
+	  };
+
+	  for (var i = 0; i < diff.length; i++) {
+	    /*istanbul ignore start*/_loop( /*istanbul ignore end*/i);
+	  }
+
+	  return {
+	    oldFileName: oldFileName, newFileName: newFileName,
+	    oldHeader: oldHeader, newHeader: newHeader,
+	    hunks: hunks
+	  };
+	}
+
+	function createTwoFilesPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
+	  var diff = structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options);
+
+	  var ret = [];
+	  if (oldFileName == newFileName) {
+	    ret.push('Index: ' + oldFileName);
+	  }
+	  ret.push('===================================================================');
+	  ret.push('--- ' + diff.oldFileName + (typeof diff.oldHeader === 'undefined' ? '' : '\t' + diff.oldHeader));
+	  ret.push('+++ ' + diff.newFileName + (typeof diff.newHeader === 'undefined' ? '' : '\t' + diff.newHeader));
+
+	  for (var i = 0; i < diff.hunks.length; i++) {
+	    var hunk = diff.hunks[i];
+	    ret.push('@@ -' + hunk.oldStart + ',' + hunk.oldLines + ' +' + hunk.newStart + ',' + hunk.newLines + ' @@');
+	    ret.push.apply(ret, hunk.lines);
+	  }
+
+	  return ret.join('\n') + '\n';
+	}
+
+	function createPatch(fileName, oldStr, newStr, oldHeader, newHeader, options) {
+	  return createTwoFilesPatch(fileName, fileName, oldStr, newStr, oldHeader, newHeader, options);
+	}
+	
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+	/*istanbul ignore start*/"use strict";
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/arrayEqual = arrayEqual;
+	/*istanbul ignore start*/exports. /*istanbul ignore end*/arrayStartsWith = arrayStartsWith;
+	function arrayEqual(a, b) {
+	  if (a.length !== b.length) {
+	    return false;
+	  }
+
+	  return arrayStartsWith(a, b);
+	}
+
+	function arrayStartsWith(array, start) {
+	  if (start.length > array.length) {
+	    return false;
+	  }
+
+	  for (var i = 0; i < start.length; i++) {
+	    if (start[i] !== array[i]) {
+	      return false;
+	    }
+	  }
+
+	  return true;
+	}
+	
+>>>>>>> develop
 
 var cov_13uc54rjma=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/helpers/remove_punctuation.ts',hash='e7177710dda95ee0ac1ad920e5f9580e8f98402e',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/helpers/remove_punctuation.ts',statementMap:{'0':{start:{line:2,column:4},end:{line:2,column:49}}},fnMap:{'0':{name:'removePunctuation',decl:{start:{line:1,column:16},end:{line:1,column:33}},loc:{start:{line:1,column:42},end:{line:3,column:1}},line:1}},branchMap:{},s:{'0':0},f:{'0':0},b:{},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function removePunctuation(string){cov_13uc54rjma.f[0]++;cov_13uc54rjma.s[0]++;return string.replace(/[^A-Za-z0-9\s]/g,'');}
 
+<<<<<<< HEAD
 var cov_26utkdi0wm=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/punctuation_insensitive_match.ts',hash='3fb2f43a679a80227f9f7723224c3fae12ab2213',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/punctuation_insensitive_match.ts',statementMap:{'0':{start:{line:8,column:4},end:{line:8,column:180}},'1':{start:{line:8,column:68},end:{line:8,column:176}},'2':{start:{line:11,column:4},end:{line:11,column:70}},'3':{start:{line:11,column:41},end:{line:11,column:68}},'4':{start:{line:12,column:16},end:{line:12,column:70}},'5':{start:{line:13,column:4},end:{line:17,column:5}},'6':{start:{line:14,column:23},end:{line:14,column:31}},'7':{start:{line:15,column:29},end:{line:15,column:78}},'8':{start:{line:16,column:8},end:{line:16,column:90}},'9':{start:{line:20,column:14},end:{line:27,column:5}},'10':{start:{line:28,column:4},end:{line:28,column:15}}},fnMap:{'0':{name:'punctuationInsensitiveMatch',decl:{start:{line:7,column:16},end:{line:7,column:43}},loc:{start:{line:7,column:71},end:{line:9,column:1}},line:7},'1':{name:'(anonymous_1)',decl:{start:{line:8,column:50},end:{line:8,column:51}},loc:{start:{line:8,column:66},end:{line:8,column:178}},line:8},'2':{name:'punctuationInsensitiveChecker',decl:{start:{line:10,column:16},end:{line:10,column:45}},loc:{start:{line:10,column:93},end:{line:18,column:1}},line:10},'3':{name:'punctuationInsensitiveResponseBuilder',decl:{start:{line:19,column:16},end:{line:19,column:53}},loc:{start:{line:19,column:91},end:{line:29,column:1}},line:19}},branchMap:{'0':{loc:{start:{line:11,column:4},end:{line:11,column:70}},type:'if',locations:[{start:{line:11,column:4},end:{line:11,column:70}},{start:{line:11,column:4},end:{line:11,column:70}}],line:11},'1':{loc:{start:{line:13,column:4},end:{line:17,column:5}},type:'if',locations:[{start:{line:13,column:4},end:{line:17,column:5}},{start:{line:13,column:4},end:{line:17,column:5}}],line:13},'2':{loc:{start:{line:15,column:29},end:{line:15,column:78}},type:'cond-expr',locations:[{start:{line:15,column:50},end:{line:15,column:71}},{start:{line:15,column:74},end:{line:15,column:78}}],line:15},'3':{loc:{start:{line:24,column:25},end:{line:26,column:9}},type:'cond-expr',locations:[{start:{line:24,column:42},end:{line:24,column:56}},{start:{line:24,column:59},end:{line:26,column:9}}],line:24}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0},f:{'0':0,'1':0,'2':0,'3':0},b:{'0':[0,0],'1':[0,0],'2':[0,0],'3':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function punctuationInsensitiveMatch(responseString,responses){cov_26utkdi0wm.f[0]++;cov_26utkdi0wm.s[0]++;return underscore_5(getOptimalResponses(responses),function(resp){cov_26utkdi0wm.f[1]++;cov_26utkdi0wm.s[1]++;return removePunctuation(lib_1$1(resp.text))===removePunctuation(lib_1$1(responseString));});}function punctuationInsensitiveChecker(responseString,responses,passConceptResults){cov_26utkdi0wm.f[2]++;cov_26utkdi0wm.s[2]++;if(passConceptResults===void 0){cov_26utkdi0wm.b[0][0]++;cov_26utkdi0wm.s[3]++;passConceptResults=false;}else{cov_26utkdi0wm.b[0][1]++;}var match=(cov_26utkdi0wm.s[4]++, punctuationInsensitiveMatch(responseString,responses));cov_26utkdi0wm.s[5]++;if(match){cov_26utkdi0wm.b[1][0]++;var parentID=(cov_26utkdi0wm.s[6]++, match.id);var conceptResults=(cov_26utkdi0wm.s[7]++, passConceptResults?(cov_26utkdi0wm.b[2][0]++,match.concept_results):(cov_26utkdi0wm.b[2][1]++,null));cov_26utkdi0wm.s[8]++;return punctuationInsensitiveResponseBuilder(responses,parentID,conceptResults);}else{cov_26utkdi0wm.b[1][1]++;}}function punctuationInsensitiveResponseBuilder(responses,parentID,conceptResults){cov_26utkdi0wm.f[3]++;var res=(cov_26utkdi0wm.s[9]++, {feedback:feedbackStrings.punctuationError,author:'Punctuation Hint',parent_id:parentID,concept_results:conceptResults?(cov_26utkdi0wm.b[3][0]++,conceptResults):(cov_26utkdi0wm.b[3][1]++,[conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')])});cov_26utkdi0wm.s[10]++;return res;}
 
 var cov_n5kkn5924=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/punctuation_and_case_insensitive_match.ts',hash='a6f711fa9c1ca591a2e91f9396fc555fcf87ee3c',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/punctuation_and_case_insensitive_match.ts',statementMap:{'0':{start:{line:7,column:4},end:{line:11,column:7}},'1':{start:{line:8,column:23},end:{line:8,column:87}},'2':{start:{line:9,column:21},end:{line:9,column:80}},'3':{start:{line:10,column:8},end:{line:10,column:35}},'4':{start:{line:14,column:4},end:{line:14,column:49}},'5':{start:{line:17,column:4},end:{line:17,column:70}},'6':{start:{line:17,column:41},end:{line:17,column:68}},'7':{start:{line:18,column:16},end:{line:18,column:77}},'8':{start:{line:19,column:4},end:{line:23,column:5}},'9':{start:{line:20,column:23},end:{line:20,column:31}},'10':{start:{line:21,column:29},end:{line:21,column:78}},'11':{start:{line:22,column:8},end:{line:22,column:97}},'12':{start:{line:26,column:14},end:{line:34,column:5}},'13':{start:{line:35,column:4},end:{line:35,column:15}}},fnMap:{'0':{name:'punctuationAndCaseInsensitiveMatch',decl:{start:{line:6,column:16},end:{line:6,column:50}},loc:{start:{line:6,column:78},end:{line:12,column:1}},line:6},'1':{name:'(anonymous_1)',decl:{start:{line:7,column:50},end:{line:7,column:51}},loc:{start:{line:7,column:66},end:{line:11,column:5}},line:7},'2':{name:'removePunctuation',decl:{start:{line:13,column:16},end:{line:13,column:33}},loc:{start:{line:13,column:42},end:{line:15,column:1}},line:13},'3':{name:'punctuationAndCaseInsensitiveChecker',decl:{start:{line:16,column:16},end:{line:16,column:52}},loc:{start:{line:16,column:100},end:{line:24,column:1}},line:16},'4':{name:'punctuationAndCaseInsensitiveResponseBuilder',decl:{start:{line:25,column:16},end:{line:25,column:60}},loc:{start:{line:25,column:98},end:{line:36,column:1}},line:25}},branchMap:{'0':{loc:{start:{line:17,column:4},end:{line:17,column:70}},type:'if',locations:[{start:{line:17,column:4},end:{line:17,column:70}},{start:{line:17,column:4},end:{line:17,column:70}}],line:17},'1':{loc:{start:{line:19,column:4},end:{line:23,column:5}},type:'if',locations:[{start:{line:19,column:4},end:{line:23,column:5}},{start:{line:19,column:4},end:{line:23,column:5}}],line:19},'2':{loc:{start:{line:21,column:29},end:{line:21,column:78}},type:'cond-expr',locations:[{start:{line:21,column:50},end:{line:21,column:71}},{start:{line:21,column:74},end:{line:21,column:78}}],line:21},'3':{loc:{start:{line:30,column:25},end:{line:33,column:9}},type:'cond-expr',locations:[{start:{line:30,column:42},end:{line:30,column:56}},{start:{line:30,column:59},end:{line:33,column:9}}],line:30}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0,'13':0},f:{'0':0,'1':0,'2':0,'3':0,'4':0},b:{'0':[0,0],'1':[0,0],'2':[0,0],'3':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function punctuationAndCaseInsensitiveMatch(responseString,responses){cov_n5kkn5924.f[0]++;cov_n5kkn5924.s[0]++;return underscore_5(getOptimalResponses(responses),function(resp){cov_n5kkn5924.f[1]++;var supplied=(cov_n5kkn5924.s[1]++, removePunctuation(stringNormalize(responseString)).toLowerCase());var target=(cov_n5kkn5924.s[2]++, removePunctuation(stringNormalize(resp.text)).toLowerCase());cov_n5kkn5924.s[3]++;return supplied===target;});}function removePunctuation$1(string){cov_n5kkn5924.f[2]++;cov_n5kkn5924.s[4]++;return string.replace(/[^A-Za-z0-9\s]/g,'');}function punctuationAndCaseInsensitiveChecker(responseString,responses,passConceptResults){cov_n5kkn5924.f[3]++;cov_n5kkn5924.s[5]++;if(passConceptResults===void 0){cov_n5kkn5924.b[0][0]++;cov_n5kkn5924.s[6]++;passConceptResults=false;}else{cov_n5kkn5924.b[0][1]++;}var match=(cov_n5kkn5924.s[7]++, punctuationAndCaseInsensitiveMatch(responseString,responses));cov_n5kkn5924.s[8]++;if(match){cov_n5kkn5924.b[1][0]++;var parentID=(cov_n5kkn5924.s[9]++, match.id);var conceptResults=(cov_n5kkn5924.s[10]++, passConceptResults?(cov_n5kkn5924.b[2][0]++,match.concept_results):(cov_n5kkn5924.b[2][1]++,null));cov_n5kkn5924.s[11]++;return punctuationAndCaseInsensitiveResponseBuilder(responses,parentID,conceptResults);}else{cov_n5kkn5924.b[1][1]++;}}function punctuationAndCaseInsensitiveResponseBuilder(responses,parentID,conceptResults){cov_n5kkn5924.f[4]++;var res=(cov_n5kkn5924.s[12]++, {feedback:feedbackStrings.punctuationAndCaseError,author:'Punctuation and Case Hint',parent_id:parentID,concept_results:conceptResults?(cov_n5kkn5924.b[3][0]++,conceptResults):(cov_n5kkn5924.b[3][1]++,[conceptResultTemplate('66upe3S5uvqxuHoHOt4PcQ'),conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')])});cov_n5kkn5924.s[13]++;return res;}
@@ -450,9 +4247,40 @@ var cov_n5kkn5924=function(){var path='/Users/Emilia/Quill/quill-shared-modules/
 var cov_udxm3ysfs=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/algorithms/spacingBeforePunctuation.ts',hash='011562397118da441a0ba2a1af63ec288ca19fee',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/algorithms/spacingBeforePunctuation.ts',statementMap:{'0':{start:{line:2,column:17},end:{line:8,column:1}},'1':{start:{line:9,column:23},end:{line:15,column:1}},'2':{start:{line:17,column:13},end:{line:17,column:35}},'3':{start:{line:18,column:4},end:{line:18,column:103}},'4':{start:{line:21,column:4},end:{line:21,column:101}},'5':{start:{line:21,column:53},end:{line:21,column:97}},'6':{start:{line:24,column:16},end:{line:24,column:48}},'7':{start:{line:25,column:4},end:{line:25,column:74}}},fnMap:{'0':{name:'getFeedbackForPunc',decl:{start:{line:16,column:16},end:{line:16,column:34}},loc:{start:{line:16,column:41},end:{line:19,column:1}},line:16},'1':{name:'checkForSpacingError',decl:{start:{line:20,column:16},end:{line:20,column:36}},loc:{start:{line:20,column:49},end:{line:22,column:1}},line:20},'2':{name:'(anonymous_2)',decl:{start:{line:21,column:30},end:{line:21,column:31}},loc:{start:{line:21,column:51},end:{line:21,column:99}},line:21},'3':{name:'spacingBeforePunctuation',decl:{start:{line:23,column:16},end:{line:23,column:40}},loc:{start:{line:23,column:53},end:{line:26,column:1}},line:23}},branchMap:{'0':{loc:{start:{line:25,column:12},end:{line:25,column:72}},type:'cond-expr',locations:[{start:{line:25,column:20},end:{line:25,column:60}},{start:{line:25,column:63},end:{line:25,column:72}}],line:25}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0},f:{'0':0,'1':0,'2':0,'3':0},b:{'0':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();var subStrings=(cov_udxm3ysfs.s[0]++, [' ,',' .',' ;',' !',' ?']);var subStringsToText=(cov_udxm3ysfs.s[1]++, {' ,':'comma',' .':'period',' ;':'semi-colon',' !':'exclamation mark',' ?':'question mark'});function getFeedbackForPunc(punc){cov_udxm3ysfs.f[0]++;var fb=(cov_udxm3ysfs.s[2]++, subStringsToText[punc]);cov_udxm3ysfs.s[3]++;return"<p>Revise your sentence. You don't need to have a space before a <em>"+fb+"</em>.</p>";}function checkForSpacingError(userString){cov_udxm3ysfs.f[1]++;cov_udxm3ysfs.s[4]++;return underscore_5(subStrings,function(subString){cov_udxm3ysfs.f[2]++;cov_udxm3ysfs.s[5]++;return userString.indexOf(subString)!==-1;});}function spacingBeforePunctuation(userString){cov_udxm3ysfs.f[3]++;var match=(cov_udxm3ysfs.s[6]++, checkForSpacingError(userString));cov_udxm3ysfs.s[7]++;return match?(cov_udxm3ysfs.b[0][0]++, {feedback:getFeedbackForPunc(match)}):(cov_udxm3ysfs.b[0][1]++, undefined);}
 
 var cov_d7qapdfwe=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/spacing_before_punctuation_match.ts',hash='851fea81b2c945577833d71e1ba2ccbdb22b9e19',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/spacing_before_punctuation_match.ts',statementMap:{'0':{start:{line:5,column:4},end:{line:5,column:52}},'1':{start:{line:8,column:16},end:{line:8,column:61}},'2':{start:{line:9,column:4},end:{line:12,column:5}},'3':{start:{line:10,column:23},end:{line:10,column:37}},'4':{start:{line:11,column:8},end:{line:11,column:76}},'5':{start:{line:15,column:14},end:{line:22,column:5}},'6':{start:{line:23,column:4},end:{line:23,column:15}}},fnMap:{'0':{name:'spacingBeforePunctuationMatch',decl:{start:{line:4,column:16},end:{line:4,column:45}},loc:{start:{line:4,column:62},end:{line:6,column:1}},line:4},'1':{name:'spacingBeforePunctuationChecker',decl:{start:{line:7,column:16},end:{line:7,column:47}},loc:{start:{line:7,column:75},end:{line:13,column:1}},line:7},'2':{name:'spacingBeforePunctuationResponseBuilder',decl:{start:{line:14,column:16},end:{line:14,column:55}},loc:{start:{line:14,column:77},end:{line:24,column:1}},line:14}},branchMap:{'0':{loc:{start:{line:9,column:4},end:{line:12,column:5}},type:'if',locations:[{start:{line:9,column:4},end:{line:12,column:5}},{start:{line:9,column:4},end:{line:12,column:5}}],line:9},'1':{loc:{start:{line:18,column:19},end:{line:18,column:101}},type:'cond-expr',locations:[{start:{line:18,column:54},end:{line:18,column:89}},{start:{line:18,column:92},end:{line:18,column:101}}],line:18}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0},f:{'0':0,'1':0,'2':0},b:{'0':[0,0],'1':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function spacingBeforePunctuationMatch(responseString){cov_d7qapdfwe.f[0]++;cov_d7qapdfwe.s[0]++;return spacingBeforePunctuation(responseString);}function spacingBeforePunctuationChecker(responseString,responses){cov_d7qapdfwe.f[1]++;var match=(cov_d7qapdfwe.s[1]++, spacingBeforePunctuationMatch(responseString));cov_d7qapdfwe.s[2]++;if(match){cov_d7qapdfwe.b[0][0]++;var feedback=(cov_d7qapdfwe.s[3]++, match.feedback);cov_d7qapdfwe.s[4]++;return spacingBeforePunctuationResponseBuilder(responses,feedback);}else{cov_d7qapdfwe.b[0][1]++;}}function spacingBeforePunctuationResponseBuilder(responses,feedback){cov_d7qapdfwe.f[2]++;var res=(cov_d7qapdfwe.s[5]++, {feedback:feedback,author:'Punctuation Hint',parent_id:getTopOptimalResponse(responses)?(cov_d7qapdfwe.b[1][0]++,getTopOptimalResponse(responses).id):(cov_d7qapdfwe.b[1][1]++,undefined),concept_results:[conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')]});cov_d7qapdfwe.s[6]++;return res;}
+=======
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+	/*istanbul ignore start*/"use strict";
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/convertChangesToDMP = convertChangesToDMP;
+	// See: http://code.google.com/p/google-diff-match-patch/wiki/API
+	function convertChangesToDMP(changes) {
+	  var ret = [],
+	      change = /*istanbul ignore start*/void 0 /*istanbul ignore end*/,
+	      operation = /*istanbul ignore start*/void 0;
+	  for (var i = 0; i < changes.length; i++) {
+	    change = changes[i];
+	    if (change.added) {
+	      operation = 1;
+	    } else if (change.removed) {
+	      operation = -1;
+	    } else {
+	      operation = 0;
+	    }
+
+	    ret.push([operation, change.value]);
+	  }
+	  return ret;
+	}
+	
+>>>>>>> develop
 
 var cov_bc74cqyne=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/spacing_after_comma_match.ts',hash='08424881894b940b6807603aad4670d4f3fa6323',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/spacing_after_comma_match.ts',statementMap:{'0':{start:{line:5,column:4},end:{line:12,column:5}},'1':{start:{line:6,column:8},end:{line:11,column:9}},'2':{start:{line:7,column:12},end:{line:9,column:13}},'3':{start:{line:8,column:16},end:{line:8,column:28}},'4':{start:{line:13,column:4},end:{line:13,column:17}},'5':{start:{line:16,column:16},end:{line:16,column:54}},'6':{start:{line:17,column:4},end:{line:19,column:5}},'7':{start:{line:18,column:8},end:{line:18,column:59}},'8':{start:{line:22,column:14},end:{line:29,column:5}},'9':{start:{line:30,column:4},end:{line:30,column:15}}},fnMap:{'0':{name:'spacingAfterCommaMatch',decl:{start:{line:4,column:16},end:{line:4,column:38}},loc:{start:{line:4,column:49},end:{line:14,column:1}},line:4},'1':{name:'spacingAfterCommaChecker',decl:{start:{line:15,column:16},end:{line:15,column:40}},loc:{start:{line:15,column:68},end:{line:20,column:1}},line:15},'2':{name:'spacingAfterCommaResponseBuilder',decl:{start:{line:21,column:16},end:{line:21,column:48}},loc:{start:{line:21,column:60},end:{line:31,column:1}},line:21}},branchMap:{'0':{loc:{start:{line:6,column:8},end:{line:11,column:9}},type:'if',locations:[{start:{line:6,column:8},end:{line:11,column:9}},{start:{line:6,column:8},end:{line:11,column:9}}],line:6},'1':{loc:{start:{line:6,column:12},end:{line:6,column:60}},type:'binary-expr',locations:[{start:{line:6,column:12},end:{line:6,column:31}},{start:{line:6,column:36},end:{line:6,column:59}}],line:6},'2':{loc:{start:{line:7,column:12},end:{line:9,column:13}},type:'if',locations:[{start:{line:7,column:12},end:{line:9,column:13}},{start:{line:7,column:12},end:{line:9,column:13}}],line:7},'3':{loc:{start:{line:17,column:4},end:{line:19,column:5}},type:'if',locations:[{start:{line:17,column:4},end:{line:19,column:5}},{start:{line:17,column:4},end:{line:19,column:5}}],line:17},'4':{loc:{start:{line:25,column:19},end:{line:25,column:101}},type:'cond-expr',locations:[{start:{line:25,column:54},end:{line:25,column:89}},{start:{line:25,column:92},end:{line:25,column:101}}],line:25}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0},f:{'0':0,'1':0,'2':0},b:{'0':[0,0],'1':[0,0],'2':[0,0],'3':[0,0],'4':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function spacingAfterCommaMatch(response){cov_bc74cqyne.f[0]++;cov_bc74cqyne.s[0]++;for(var i=0;i<response.length;i++){cov_bc74cqyne.s[1]++;if((cov_bc74cqyne.b[1][0]++, response[i]===',')&&(cov_bc74cqyne.b[1][1]++, i+1<response.length)){cov_bc74cqyne.b[0][0]++;cov_bc74cqyne.s[2]++;if(response[i+1]!==' '){cov_bc74cqyne.b[2][0]++;cov_bc74cqyne.s[3]++;return true;}else{cov_bc74cqyne.b[2][1]++;}}else{cov_bc74cqyne.b[0][1]++;}}cov_bc74cqyne.s[4]++;return false;}function spacingAfterCommaChecker(responseString,responses){cov_bc74cqyne.f[1]++;var match=(cov_bc74cqyne.s[5]++, spacingAfterCommaMatch(responseString));cov_bc74cqyne.s[6]++;if(match){cov_bc74cqyne.b[3][0]++;cov_bc74cqyne.s[7]++;return spacingAfterCommaResponseBuilder(responses);}else{cov_bc74cqyne.b[3][1]++;}}function spacingAfterCommaResponseBuilder(responses){cov_bc74cqyne.f[2]++;var res=(cov_bc74cqyne.s[8]++, {feedback:feedbackStrings.spacingAfterCommaError,author:'Punctuation Hint',parent_id:getTopOptimalResponse(responses)?(cov_bc74cqyne.b[4][0]++,getTopOptimalResponse(responses).id):(cov_bc74cqyne.b[4][1]++,undefined),concept_results:[conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')]});cov_bc74cqyne.s[9]++;return res;}
 
+<<<<<<< HEAD
 var cov_yfihbiszx=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/whitespace_match.ts',hash='078cd22227fa32fb79ea4753110cca5250248917',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/whitespace_match.ts',statementMap:{'0':{start:{line:7,column:4},end:{line:7,column:164}},'1':{start:{line:7,column:68},end:{line:7,column:160}},'2':{start:{line:9,column:19},end:{line:9,column:75}},'3':{start:{line:9,column:39},end:{line:9,column:73}},'4':{start:{line:11,column:16},end:{line:11,column:58}},'5':{start:{line:12,column:4},end:{line:15,column:5}},'6':{start:{line:13,column:24},end:{line:13,column:32}},'7':{start:{line:14,column:8},end:{line:14,column:63}},'8':{start:{line:18,column:14},end:{line:25,column:5}},'9':{start:{line:26,column:4},end:{line:26,column:15}}},fnMap:{'0':{name:'whitespaceMatch',decl:{start:{line:6,column:16},end:{line:6,column:31}},loc:{start:{line:6,column:53},end:{line:8,column:1}},line:6},'1':{name:'(anonymous_1)',decl:{start:{line:7,column:50},end:{line:7,column:51}},loc:{start:{line:7,column:66},end:{line:7,column:162}},line:7},'2':{name:'(anonymous_2)',decl:{start:{line:9,column:19},end:{line:9,column:20}},loc:{start:{line:9,column:37},end:{line:9,column:75}},line:9},'3':{name:'whitespaceChecker',decl:{start:{line:10,column:16},end:{line:10,column:33}},loc:{start:{line:10,column:61},end:{line:16,column:1}},line:10},'4':{name:'whitespaceResponseBuilder',decl:{start:{line:17,column:16},end:{line:17,column:41}},loc:{start:{line:17,column:64},end:{line:27,column:1}},line:17}},branchMap:{'0':{loc:{start:{line:12,column:4},end:{line:15,column:5}},type:'if',locations:[{start:{line:12,column:4},end:{line:15,column:5}},{start:{line:12,column:4},end:{line:15,column:5}}],line:12}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0},f:{'0':0,'1':0,'2':0,'3':0,'4':0},b:{'0':[0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function whitespaceMatch(response,responses){cov_yfihbiszx.f[0]++;cov_yfihbiszx.s[0]++;return underscore_5(getOptimalResponses(responses),function(resp){cov_yfihbiszx.f[1]++;cov_yfihbiszx.s[1]++;return removeSpaces(lib_1$1(response))===removeSpaces(lib_1$1(resp.text));});}cov_yfihbiszx.s[2]++;var removeSpaces=function(string){cov_yfihbiszx.f[2]++;cov_yfihbiszx.s[3]++;return string.replace(/\s+/g,'');};function whitespaceChecker(responseString,responses){cov_yfihbiszx.f[3]++;var match=(cov_yfihbiszx.s[4]++, whitespaceMatch(responseString,responses));cov_yfihbiszx.s[5]++;if(match){cov_yfihbiszx.b[0][0]++;var parent_id=(cov_yfihbiszx.s[6]++, match.id);cov_yfihbiszx.s[7]++;return whitespaceResponseBuilder(responses,parent_id);}else{cov_yfihbiszx.b[0][1]++;}}function whitespaceResponseBuilder(responses,parent_id){cov_yfihbiszx.f[4]++;var res=(cov_yfihbiszx.s[8]++, {feedback:feedbackStrings.whitespaceError,author:'Whitespace Hint',parent_id:parent_id,concept_results:[conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')]});cov_yfihbiszx.s[9]++;return res;}
 
 var cov_249mb90pz7=function(){var path='/Users/Emilia/Quill/quill-shared-modules/node_modules/diff/lib/diff/base.js',hash='4be30b9c31a3f6de47330109af25fd2d5e9195d1',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/node_modules/diff/lib/diff/base.js',statementMap:{'0':{start:{line:3,column:11},end:{line:239,column:2}},'1':{start:{line:6,column:0},end:{line:6,column:26}},'2':{start:{line:7,column:0},end:{line:7,column:49}},'3':{start:{line:10,column:0},end:{line:180,column:2}},'4':{start:{line:12,column:66},end:{line:12,column:136}},'5':{start:{line:14,column:19},end:{line:14,column:35}},'6':{start:{line:15,column:4},end:{line:18,column:5}},'7':{start:{line:16,column:6},end:{line:16,column:25}},'8':{start:{line:17,column:6},end:{line:17,column:19}},'9':{start:{line:19,column:4},end:{line:19,column:27}},'10':{start:{line:21,column:15},end:{line:21,column:19}},'11':{start:{line:24,column:6},end:{line:31,column:7}},'12':{start:{line:25,column:8},end:{line:27,column:14}},'13':{start:{line:26,column:10},end:{line:26,column:37}},'14':{start:{line:28,column:8},end:{line:28,column:20}},'15':{start:{line:30,column:8},end:{line:30,column:21}},'16':{start:{line:35,column:4},end:{line:35,column:42}},'17':{start:{line:36,column:4},end:{line:36,column:42}},'18':{start:{line:38,column:4},end:{line:38,column:59}},'19':{start:{line:39,column:4},end:{line:39,column:59}},'20':{start:{line:41,column:17},end:{line:41,column:33}},'21':{start:{line:42,column:17},end:{line:42,column:33}},'22':{start:{line:43,column:21},end:{line:43,column:22}},'23':{start:{line:44,column:24},end:{line:44,column:39}},'24':{start:{line:45,column:19},end:{line:45,column:51}},'25':{start:{line:48,column:17},end:{line:48,column:73}},'26':{start:{line:49,column:4},end:{line:52,column:5}},'27':{start:{line:51,column:6},end:{line:51,column:78}},'28':{start:{line:56,column:6},end:{line:95,column:7}},'29':{start:{line:57,column:48},end:{line:57,column:54}},'30':{start:{line:58,column:22},end:{line:58,column:48}},'31':{start:{line:59,column:25},end:{line:59,column:51}},'32':{start:{line:60,column:22},end:{line:60,column:73}},'33':{start:{line:61,column:8},end:{line:64,column:9}},'34':{start:{line:63,column:10},end:{line:63,column:49}},'35':{start:{line:66,column:21},end:{line:66,column:59}},'36':{start:{line:67,column:24},end:{line:67,column:70}},'37':{start:{line:68,column:8},end:{line:72,column:9}},'38':{start:{line:70,column:10},end:{line:70,column:45}},'39':{start:{line:71,column:10},end:{line:71,column:19}},'40':{start:{line:77,column:8},end:{line:84,column:9}},'41':{start:{line:78,column:10},end:{line:78,column:43}},'42':{start:{line:79,column:10},end:{line:79,column:67}},'43':{start:{line:81,column:10},end:{line:81,column:29}},'44':{start:{line:82,column:10},end:{line:82,column:28}},'45':{start:{line:83,column:10},end:{line:83,column:67}},'46':{start:{line:86,column:8},end:{line:86,column:83}},'47':{start:{line:89,column:8},end:{line:94,column:9}},'48':{start:{line:90,column:10},end:{line:90,column:106}},'49':{start:{line:93,column:10},end:{line:93,column:44}},'50':{start:{line:97,column:6},end:{line:97,column:19}},'51':{start:{line:103,column:4},end:{line:124,column:5}},'52':{start:{line:104,column:6},end:{line:116,column:11}},'53':{start:{line:105,column:8},end:{line:115,column:14}},'54':{start:{line:112,column:10},end:{line:114,column:11}},'55':{start:{line:113,column:12},end:{line:113,column:19}},'56':{start:{line:118,column:6},end:{line:123,column:7}},'57':{start:{line:119,column:18},end:{line:119,column:34}},'58':{start:{line:120,column:8},end:{line:122,column:9}},'59':{start:{line:121,column:10},end:{line:121,column:21}},'60':{start:{line:127,column:15},end:{line:127,column:48}},'61':{start:{line:128,column:4},end:{line:134,column:5}},'62':{start:{line:131,column:6},end:{line:131,column:100}},'63':{start:{line:133,column:6},end:{line:133,column:68}},'64':{start:{line:137,column:17},end:{line:137,column:33}},'65':{start:{line:138,column:17},end:{line:138,column:33}},'66':{start:{line:139,column:17},end:{line:139,column:32}},'67':{start:{line:140,column:17},end:{line:140,column:38}},'68':{start:{line:141,column:22},end:{line:141,column:23}},'69':{start:{line:142,column:4},end:{line:146,column:5}},'70':{start:{line:143,column:6},end:{line:143,column:15}},'71':{start:{line:144,column:6},end:{line:144,column:15}},'72':{start:{line:145,column:6},end:{line:145,column:20}},'73':{start:{line:148,column:4},end:{line:150,column:5}},'74':{start:{line:149,column:6},end:{line:149,column:55}},'75':{start:{line:152,column:4},end:{line:152,column:29}},'76':{start:{line:153,column:4},end:{line:153,column:18}},'77':{start:{line:156,column:4},end:{line:160,column:5}},'78':{start:{line:157,column:6},end:{line:157,column:50}},'79':{start:{line:159,column:6},end:{line:159,column:101}},'80':{start:{line:163,column:14},end:{line:163,column:16}},'81':{start:{line:164,column:4},end:{line:168,column:5}},'82':{start:{line:165,column:6},end:{line:167,column:7}},'83':{start:{line:166,column:8},end:{line:166,column:27}},'84':{start:{line:169,column:4},end:{line:169,column:15}},'85':{start:{line:172,column:4},end:{line:172,column:17}},'86':{start:{line:175,column:4},end:{line:175,column:27}},'87':{start:{line:178,column:4},end:{line:178,column:26}},'88':{start:{line:183,column:21},end:{line:183,column:22}},'89':{start:{line:184,column:21},end:{line:184,column:38}},'90':{start:{line:185,column:15},end:{line:185,column:16}},'91':{start:{line:186,column:15},end:{line:186,column:16}},'92':{start:{line:188,column:2},end:{line:221,column:3}},'93':{start:{line:189,column:20},end:{line:189,column:44}},'94':{start:{line:190,column:4},end:{line:220,column:5}},'95':{start:{line:191,column:6},end:{line:201,column:7}},'96':{start:{line:192,column:20},end:{line:192,column:69}},'97':{start:{line:193,column:8},end:{line:196,column:11}},'98':{start:{line:194,column:25},end:{line:194,column:46}},'99':{start:{line:195,column:10},end:{line:195,column:67}},'100':{start:{line:198,column:8},end:{line:198,column:43}},'101':{start:{line:200,column:8},end:{line:200,column:87}},'102':{start:{line:202,column:6},end:{line:202,column:32}},'103':{start:{line:205,column:6},end:{line:207,column:7}},'104':{start:{line:206,column:8},end:{line:206,column:34}},'105':{start:{line:209,column:6},end:{line:209,column:85}},'106':{start:{line:210,column:6},end:{line:210,column:32}},'107':{start:{line:215,column:6},end:{line:219,column:7}},'108':{start:{line:216,column:18},end:{line:216,column:46}},'109':{start:{line:217,column:8},end:{line:217,column:64}},'110':{start:{line:218,column:8},end:{line:218,column:39}},'111':{start:{line:226,column:22},end:{line:226,column:50}},'112':{start:{line:227,column:2},end:{line:230,column:3}},'113':{start:{line:228,column:4},end:{line:228,column:62}},'114':{start:{line:229,column:4},end:{line:229,column:21}},'115':{start:{line:232,column:2},end:{line:232,column:20}},'116':{start:{line:236,column:2},end:{line:236,column:71}}},fnMap:{'0':{name:'(anonymous_0)',decl:{start:{line:3,column:48},end:{line:3,column:49}},loc:{start:{line:3,column:75},end:{line:239,column:1}},line:3},'1':{name:'Diff',decl:{start:{line:8,column:9},end:{line:8,column:13}},loc:{start:{line:8,column:16},end:{line:8,column:18}},line:8},'2':{name:'diff',decl:{start:{line:11,column:66},end:{line:11,column:70}},loc:{start:{line:11,column:93},end:{line:125,column:3}},line:11},'3':{name:'done',decl:{start:{line:23,column:13},end:{line:23,column:17}},loc:{start:{line:23,column:25},end:{line:32,column:5}},line:23},'4':{name:'(anonymous_4)',decl:{start:{line:25,column:19},end:{line:25,column:20}},loc:{start:{line:25,column:31},end:{line:27,column:9}},line:25},'5':{name:'execEditLength',decl:{start:{line:55,column:13},end:{line:55,column:27}},loc:{start:{line:55,column:30},end:{line:98,column:5}},line:55},'6':{name:'exec',decl:{start:{line:104,column:16},end:{line:104,column:20}},loc:{start:{line:104,column:23},end:{line:116,column:7}},line:104},'7':{name:'(anonymous_7)',decl:{start:{line:105,column:19},end:{line:105,column:20}},loc:{start:{line:105,column:31},end:{line:115,column:9}},line:105},'8':{name:'pushComponent',decl:{start:{line:126,column:75},end:{line:126,column:88}},loc:{start:{line:126,column:117},end:{line:135,column:3}},line:126},'9':{name:'extractCommon',decl:{start:{line:136,column:75},end:{line:136,column:88}},loc:{start:{line:136,column:135},end:{line:154,column:3}},line:136},'10':{name:'equals',decl:{start:{line:155,column:68},end:{line:155,column:74}},loc:{start:{line:155,column:88},end:{line:161,column:3}},line:155},'11':{name:'removeEmpty',decl:{start:{line:162,column:73},end:{line:162,column:84}},loc:{start:{line:162,column:92},end:{line:170,column:3}},line:162},'12':{name:'castInput',decl:{start:{line:171,column:71},end:{line:171,column:80}},loc:{start:{line:171,column:88},end:{line:173,column:3}},line:171},'13':{name:'tokenize',decl:{start:{line:174,column:70},end:{line:174,column:78}},loc:{start:{line:174,column:86},end:{line:176,column:3}},line:174},'14':{name:'join',decl:{start:{line:177,column:66},end:{line:177,column:70}},loc:{start:{line:177,column:78},end:{line:179,column:3}},line:177},'15':{name:'buildValues',decl:{start:{line:182,column:9},end:{line:182,column:20}},loc:{start:{line:182,column:78},end:{line:233,column:1}},line:182},'16':{name:'(anonymous_16)',decl:{start:{line:193,column:26},end:{line:193,column:27}},loc:{start:{line:193,column:46},end:{line:196,column:9}},line:193},'17':{name:'clonePath',decl:{start:{line:235,column:9},end:{line:235,column:18}},loc:{start:{line:235,column:25},end:{line:237,column:1}},line:235}},branchMap:{'0':{loc:{start:{line:12,column:66},end:{line:12,column:136}},type:'cond-expr',locations:[{start:{line:12,column:119},end:{line:12,column:131}},{start:{line:12,column:134},end:{line:12,column:136}}],line:12},'1':{loc:{start:{line:12,column:66},end:{line:12,column:116}},type:'binary-expr',locations:[{start:{line:12,column:66},end:{line:12,column:86}},{start:{line:12,column:90},end:{line:12,column:116}}],line:12},'2':{loc:{start:{line:15,column:4},end:{line:18,column:5}},type:'if',locations:[{start:{line:15,column:4},end:{line:18,column:5}},{start:{line:15,column:4},end:{line:18,column:5}}],line:15},'3':{loc:{start:{line:24,column:6},end:{line:31,column:7}},type:'if',locations:[{start:{line:24,column:6},end:{line:31,column:7}},{start:{line:24,column:6},end:{line:31,column:7}}],line:24},'4':{loc:{start:{line:49,column:4},end:{line:52,column:5}},type:'if',locations:[{start:{line:49,column:4},end:{line:52,column:5}},{start:{line:49,column:4},end:{line:52,column:5}}],line:49},'5':{loc:{start:{line:49,column:8},end:{line:49,column:64}},type:'binary-expr',locations:[{start:{line:49,column:8},end:{line:49,column:40}},{start:{line:49,column:44},end:{line:49,column:64}}],line:49},'6':{loc:{start:{line:60,column:23},end:{line:60,column:57}},type:'cond-expr',locations:[{start:{line:60,column:36},end:{line:60,column:53}},{start:{line:60,column:56},end:{line:60,column:57}}],line:60},'7':{loc:{start:{line:61,column:8},end:{line:64,column:9}},type:'if',locations:[{start:{line:61,column:8},end:{line:64,column:9}},{start:{line:61,column:8},end:{line:64,column:9}}],line:61},'8':{loc:{start:{line:66,column:21},end:{line:66,column:59}},type:'binary-expr',locations:[{start:{line:66,column:21},end:{line:66,column:28}},{start:{line:66,column:32},end:{line:66,column:59}}],line:66},'9':{loc:{start:{line:67,column:24},end:{line:67,column:70}},type:'binary-expr',locations:[{start:{line:67,column:24},end:{line:67,column:34}},{start:{line:67,column:38},end:{line:67,column:50}},{start:{line:67,column:54},end:{line:67,column:70}}],line:67},'10':{loc:{start:{line:68,column:8},end:{line:72,column:9}},type:'if',locations:[{start:{line:68,column:8},end:{line:72,column:9}},{start:{line:68,column:8},end:{line:72,column:9}}],line:68},'11':{loc:{start:{line:68,column:12},end:{line:68,column:33}},type:'binary-expr',locations:[{start:{line:68,column:12},end:{line:68,column:19}},{start:{line:68,column:23},end:{line:68,column:33}}],line:68},'12':{loc:{start:{line:77,column:8},end:{line:84,column:9}},type:'if',locations:[{start:{line:77,column:8},end:{line:84,column:9}},{start:{line:77,column:8},end:{line:84,column:9}}],line:77},'13':{loc:{start:{line:77,column:12},end:{line:77,column:70}},type:'binary-expr',locations:[{start:{line:77,column:12},end:{line:77,column:19}},{start:{line:77,column:23},end:{line:77,column:32}},{start:{line:77,column:36},end:{line:77,column:70}}],line:77},'14':{loc:{start:{line:89,column:8},end:{line:94,column:9}},type:'if',locations:[{start:{line:89,column:8},end:{line:94,column:9}},{start:{line:89,column:8},end:{line:94,column:9}}],line:89},'15':{loc:{start:{line:89,column:12},end:{line:89,column:66}},type:'binary-expr',locations:[{start:{line:89,column:12},end:{line:89,column:41}},{start:{line:89,column:45},end:{line:89,column:66}}],line:89},'16':{loc:{start:{line:103,column:4},end:{line:124,column:5}},type:'if',locations:[{start:{line:103,column:4},end:{line:124,column:5}},{start:{line:103,column:4},end:{line:124,column:5}}],line:103},'17':{loc:{start:{line:112,column:10},end:{line:114,column:11}},type:'if',locations:[{start:{line:112,column:10},end:{line:114,column:11}},{start:{line:112,column:10},end:{line:114,column:11}}],line:112},'18':{loc:{start:{line:120,column:8},end:{line:122,column:9}},type:'if',locations:[{start:{line:120,column:8},end:{line:122,column:9}},{start:{line:120,column:8},end:{line:122,column:9}}],line:120},'19':{loc:{start:{line:128,column:4},end:{line:134,column:5}},type:'if',locations:[{start:{line:128,column:4},end:{line:134,column:5}},{start:{line:128,column:4},end:{line:134,column:5}}],line:128},'20':{loc:{start:{line:128,column:8},end:{line:128,column:64}},type:'binary-expr',locations:[{start:{line:128,column:8},end:{line:128,column:12}},{start:{line:128,column:16},end:{line:128,column:36}},{start:{line:128,column:40},end:{line:128,column:64}}],line:128},'21':{loc:{start:{line:142,column:11},end:{line:142,column:114}},type:'binary-expr',locations:[{start:{line:142,column:11},end:{line:142,column:30}},{start:{line:142,column:34},end:{line:142,column:53}},{start:{line:142,column:57},end:{line:142,column:114}}],line:142},'22':{loc:{start:{line:148,column:4},end:{line:150,column:5}},type:'if',locations:[{start:{line:148,column:4},end:{line:150,column:5}},{start:{line:148,column:4},end:{line:150,column:5}}],line:148},'23':{loc:{start:{line:156,column:4},end:{line:160,column:5}},type:'if',locations:[{start:{line:156,column:4},end:{line:160,column:5}},{start:{line:156,column:4},end:{line:160,column:5}}],line:156},'24':{loc:{start:{line:159,column:13},end:{line:159,column:100}},type:'binary-expr',locations:[{start:{line:159,column:13},end:{line:159,column:27}},{start:{line:159,column:31},end:{line:159,column:54}},{start:{line:159,column:58},end:{line:159,column:100}}],line:159},'25':{loc:{start:{line:165,column:6},end:{line:167,column:7}},type:'if',locations:[{start:{line:165,column:6},end:{line:167,column:7}},{start:{line:165,column:6},end:{line:167,column:7}}],line:165},'26':{loc:{start:{line:190,column:4},end:{line:220,column:5}},type:'if',locations:[{start:{line:190,column:4},end:{line:220,column:5}},{start:{line:190,column:4},end:{line:220,column:5}}],line:190},'27':{loc:{start:{line:191,column:6},end:{line:201,column:7}},type:'if',locations:[{start:{line:191,column:6},end:{line:201,column:7}},{start:{line:191,column:6},end:{line:201,column:7}}],line:191},'28':{loc:{start:{line:191,column:10},end:{line:191,column:45}},type:'binary-expr',locations:[{start:{line:191,column:10},end:{line:191,column:26}},{start:{line:191,column:30},end:{line:191,column:45}}],line:191},'29':{loc:{start:{line:195,column:17},end:{line:195,column:66}},type:'cond-expr',locations:[{start:{line:195,column:50},end:{line:195,column:58}},{start:{line:195,column:61},end:{line:195,column:66}}],line:195},'30':{loc:{start:{line:205,column:6},end:{line:207,column:7}},type:'if',locations:[{start:{line:205,column:6},end:{line:207,column:7}},{start:{line:205,column:6},end:{line:207,column:7}}],line:205},'31':{loc:{start:{line:215,column:6},end:{line:219,column:7}},type:'if',locations:[{start:{line:215,column:6},end:{line:219,column:7}},{start:{line:215,column:6},end:{line:219,column:7}}],line:215},'32':{loc:{start:{line:215,column:10},end:{line:215,column:60}},type:'binary-expr',locations:[{start:{line:215,column:10},end:{line:215,column:22}},{start:{line:215,column:26},end:{line:215,column:60}}],line:215},'33':{loc:{start:{line:227,column:2},end:{line:230,column:3}},type:'if',locations:[{start:{line:227,column:2},end:{line:230,column:3}},{start:{line:227,column:2},end:{line:230,column:3}}],line:227},'34':{loc:{start:{line:227,column:6},end:{line:227,column:155}},type:'binary-expr',locations:[{start:{line:227,column:6},end:{line:227,column:22}},{start:{line:227,column:26},end:{line:227,column:65}},{start:{line:227,column:70},end:{line:227,column:89}},{start:{line:227,column:93},end:{line:227,column:114}},{start:{line:227,column:119},end:{line:227,column:155}}],line:227}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0,'13':0,'14':0,'15':0,'16':0,'17':0,'18':0,'19':0,'20':0,'21':0,'22':0,'23':0,'24':0,'25':0,'26':0,'27':0,'28':0,'29':0,'30':0,'31':0,'32':0,'33':0,'34':0,'35':0,'36':0,'37':0,'38':0,'39':0,'40':0,'41':0,'42':0,'43':0,'44':0,'45':0,'46':0,'47':0,'48':0,'49':0,'50':0,'51':0,'52':0,'53':0,'54':0,'55':0,'56':0,'57':0,'58':0,'59':0,'60':0,'61':0,'62':0,'63':0,'64':0,'65':0,'66':0,'67':0,'68':0,'69':0,'70':0,'71':0,'72':0,'73':0,'74':0,'75':0,'76':0,'77':0,'78':0,'79':0,'80':0,'81':0,'82':0,'83':0,'84':0,'85':0,'86':0,'87':0,'88':0,'89':0,'90':0,'91':0,'92':0,'93':0,'94':0,'95':0,'96':0,'97':0,'98':0,'99':0,'100':0,'101':0,'102':0,'103':0,'104':0,'105':0,'106':0,'107':0,'108':0,'109':0,'110':0,'111':0,'112':0,'113':0,'114':0,'115':0,'116':0},f:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0,'13':0,'14':0,'15':0,'16':0,'17':0},b:{'0':[0,0],'1':[0,0],'2':[0,0],'3':[0,0],'4':[0,0],'5':[0,0],'6':[0,0],'7':[0,0],'8':[0,0],'9':[0,0,0],'10':[0,0],'11':[0,0],'12':[0,0],'13':[0,0,0],'14':[0,0],'15':[0,0],'16':[0,0],'17':[0,0],'18':[0,0],'19':[0,0],'20':[0,0,0],'21':[0,0,0],'22':[0,0],'23':[0,0],'24':[0,0,0],'25':[0,0],'26':[0,0],'27':[0,0],'28':[0,0],'29':[0,0],'30':[0,0],'31':[0,0],'32':[0,0],'33':[0,0],'34':[0,0,0,0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();var base=(cov_249mb90pz7.s[0]++, commonjsHelpers.createCommonjsModule(function(module,exports){/*istanbul ignore start*/'use strict';cov_249mb90pz7.f[0]++;cov_249mb90pz7.s[1]++;exports.__esModule=true;cov_249mb90pz7.s[2]++;exports['default']=/*istanbul ignore end*/Diff;function Diff(){cov_249mb90pz7.f[1]++;}cov_249mb90pz7.s[3]++;Diff.prototype={/*istanbul ignore start*//*istanbul ignore end*/diff:function diff(oldString,newString){cov_249mb90pz7.f[2]++;/*istanbul ignore start*/var/*istanbul ignore end*/options=(cov_249mb90pz7.s[4]++,(cov_249mb90pz7.b[1][0]++,arguments.length>2)&&(cov_249mb90pz7.b[1][1]++,arguments[2]!==undefined)?(cov_249mb90pz7.b[0][0]++,arguments[2]):(cov_249mb90pz7.b[0][1]++,{}));var callback=(cov_249mb90pz7.s[5]++,options.callback);cov_249mb90pz7.s[6]++;if(typeof options==='function'){cov_249mb90pz7.b[2][0]++;cov_249mb90pz7.s[7]++;callback=options;cov_249mb90pz7.s[8]++;options={};}else{cov_249mb90pz7.b[2][1]++;}cov_249mb90pz7.s[9]++;this.options=options;var self=(cov_249mb90pz7.s[10]++,this);function done(value){cov_249mb90pz7.f[3]++;cov_249mb90pz7.s[11]++;if(callback){cov_249mb90pz7.b[3][0]++;cov_249mb90pz7.s[12]++;setTimeout(function(){cov_249mb90pz7.f[4]++;cov_249mb90pz7.s[13]++;callback(undefined,value);},0);cov_249mb90pz7.s[14]++;return true;}else{cov_249mb90pz7.b[3][1]++;cov_249mb90pz7.s[15]++;return value;}}// Allow subclasses to massage the input prior to running
@@ -665,6 +4493,327 @@ cov_1t60znuuup.s[19]++;return a.optimal===b.optimal?(cov_1t60znuuup.b[7][0]++, 0
 var cov_1p4swdpwti=function(){var path='/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/change_object_match.ts',hash='0acf8b013efec062f467a6a6425c286401e66044',global=new Function('return this')(),gcv='__coverage__',coverageData={path:'/Users/Emilia/Quill/quill-shared-modules/src/libs/matchers/change_object_match.ts',statementMap:{'0':{start:{line:11,column:16},end:{line:11,column:65}},'1':{start:{line:12,column:4},end:{line:14,column:5}},'2':{start:{line:13,column:8},end:{line:13,column:60}},'3':{start:{line:17,column:16},end:{line:17,column:68}},'4':{start:{line:18,column:4},end:{line:20,column:5}},'5':{start:{line:19,column:8},end:{line:19,column:63}},'6':{start:{line:23,column:16},end:{line:23,column:71}},'7':{start:{line:24,column:4},end:{line:26,column:5}},'8':{start:{line:25,column:8},end:{line:25,column:66}},'9':{start:{line:29,column:4},end:{line:29,column:80}},'10':{start:{line:29,column:46},end:{line:29,column:78}},'11':{start:{line:30,column:14},end:{line:30,column:16}},'12':{start:{line:31,column:4},end:{line:60,column:5}},'13':{start:{line:33,column:30},end:{line:33,column:47}},'14':{start:{line:34,column:38},end:{line:34,column:76}},'15':{start:{line:35,column:12},end:{line:35,column:84}},'16':{start:{line:36,column:12},end:{line:36,column:46}},'17':{start:{line:37,column:12},end:{line:37,column:47}},'18':{start:{line:38,column:12},end:{line:40,column:14}},'19':{start:{line:41,column:12},end:{line:41,column:23}},'20':{start:{line:43,column:12},end:{line:43,column:63}},'21':{start:{line:44,column:12},end:{line:44,column:48}},'22':{start:{line:45,column:12},end:{line:45,column:47}},'23':{start:{line:46,column:12},end:{line:48,column:14}},'24':{start:{line:49,column:12},end:{line:49,column:23}},'25':{start:{line:51,column:12},end:{line:51,column:60}},'26':{start:{line:52,column:12},end:{line:52,column:45}},'27':{start:{line:53,column:12},end:{line:53,column:47}},'28':{start:{line:54,column:12},end:{line:56,column:14}},'29':{start:{line:57,column:12},end:{line:57,column:23}},'30':{start:{line:59,column:12},end:{line:59,column:19}},'31':{start:{line:63,column:22},end:{line:63,column:66}},'32':{start:{line:64,column:4},end:{line:64,column:58}},'33':{start:{line:65,column:4},end:{line:65,column:23}},'34':{start:{line:68,column:13},end:{line:68,column:66}},'35':{start:{line:68,column:33},end:{line:68,column:64}},'36':{start:{line:69,column:4},end:{line:69,column:80}},'37':{start:{line:72,column:13},end:{line:72,column:99}},'38':{start:{line:72,column:33},end:{line:72,column:97}},'39':{start:{line:73,column:4},end:{line:73,column:80}},'40':{start:{line:76,column:13},end:{line:76,column:66}},'41':{start:{line:76,column:33},end:{line:76,column:64}},'42':{start:{line:77,column:26},end:{line:77,column:137}},'43':{start:{line:78,column:4},end:{line:78,column:86}},'44':{start:{line:81,column:4},end:{line:81,column:50}},'45':{start:{line:81,column:31},end:{line:81,column:48}},'46':{start:{line:82,column:4},end:{line:84,column:5}},'47':{start:{line:83,column:8},end:{line:83,column:59}},'48':{start:{line:86,column:18},end:{line:89,column:6}},'49':{start:{line:87,column:8},end:{line:87,column:111}},'50':{start:{line:88,column:8},end:{line:88,column:32}},'51':{start:{line:90,column:4},end:{line:96,column:5}},'52':{start:{line:91,column:26},end:{line:91,column:76}},'53':{start:{line:92,column:8},end:{line:95,column:24}},'54':{start:{line:98,column:18},end:{line:103,column:1}},'55':{start:{line:104,column:19},end:{line:118,column:1}},'56':{start:{line:105,column:24},end:{line:105,column:66}},'57':{start:{line:106,column:23},end:{line:106,column:55}},'58':{start:{line:107,column:23},end:{line:107,column:55}},'59':{start:{line:108,column:23},end:{line:108,column:55}},'60':{start:{line:109,column:4},end:{line:117,column:5}},'61':{start:{line:110,column:8},end:{line:110,column:42}},'62':{start:{line:112,column:9},end:{line:117,column:5}},'63':{start:{line:113,column:8},end:{line:113,column:43}},'64':{start:{line:115,column:9},end:{line:117,column:5}},'65':{start:{line:116,column:8},end:{line:116,column:40}},'66':{start:{line:119,column:31},end:{line:129,column:1}},'67':{start:{line:120,column:24},end:{line:120,column:66}},'68':{start:{line:121,column:24},end:{line:121,column:110}},'69':{start:{line:121,column:79},end:{line:121,column:97}},'70':{start:{line:122,column:22},end:{line:122,column:69}},'71':{start:{line:123,column:27},end:{line:123,column:111}},'72':{start:{line:123,column:82},end:{line:123,column:98}},'73':{start:{line:124,column:25},end:{line:124,column:78}},'74':{start:{line:125,column:4},end:{line:128,column:6}},'75':{start:{line:130,column:23},end:{line:130,column:106}},'76':{start:{line:130,column:61},end:{line:130,column:104}},'77':{start:{line:131,column:24},end:{line:149,column:1}},'78':{start:{line:132,column:23},end:{line:132,column:28}},'79':{start:{line:133,column:16},end:{line:133,column:21}},'80':{start:{line:134,column:21},end:{line:134,column:22}},'81':{start:{line:135,column:18},end:{line:135,column:19}},'82':{start:{line:136,column:4},end:{line:147,column:7}},'83':{start:{line:137,column:8},end:{line:139,column:9}},'84':{start:{line:138,column:12},end:{line:138,column:25}},'85':{start:{line:140,column:8},end:{line:140,column:53}},'86':{start:{line:141,column:8},end:{line:146,column:9}},'87':{start:{line:142,column:12},end:{line:142,column:28}},'88':{start:{line:145,column:12},end:{line:145,column:116}},'89':{start:{line:148,column:4},end:{line:148,column:66}},'90':{start:{line:150,column:24},end:{line:168,column:1}},'91':{start:{line:151,column:23},end:{line:151,column:28}},'92':{start:{line:152,column:16},end:{line:152,column:21}},'93':{start:{line:153,column:21},end:{line:153,column:22}},'94':{start:{line:154,column:18},end:{line:154,column:19}},'95':{start:{line:155,column:4},end:{line:166,column:7}},'96':{start:{line:156,column:8},end:{line:158,column:9}},'97':{start:{line:157,column:12},end:{line:157,column:25}},'98':{start:{line:159,column:8},end:{line:159,column:53}},'99':{start:{line:160,column:8},end:{line:165,column:9}},'100':{start:{line:161,column:12},end:{line:161,column:28}},'101':{start:{line:164,column:12},end:{line:164,column:117}},'102':{start:{line:167,column:4},end:{line:167,column:66}},'103':{start:{line:169,column:24},end:{line:187,column:1}},'104':{start:{line:170,column:23},end:{line:170,column:28}},'105':{start:{line:171,column:16},end:{line:171,column:21}},'106':{start:{line:172,column:21},end:{line:172,column:22}},'107':{start:{line:173,column:18},end:{line:173,column:19}},'108':{start:{line:174,column:4},end:{line:185,column:7}},'109':{start:{line:175,column:8},end:{line:177,column:9}},'110':{start:{line:176,column:12},end:{line:176,column:25}},'111':{start:{line:178,column:8},end:{line:178,column:53}},'112':{start:{line:179,column:8},end:{line:184,column:9}},'113':{start:{line:180,column:12},end:{line:180,column:28}},'114':{start:{line:183,column:12},end:{line:183,column:117}},'115':{start:{line:186,column:4},end:{line:186,column:66}},'116':{start:{line:188,column:29},end:{line:188,column:107}},'117':{start:{line:188,column:55},end:{line:188,column:105}},'118':{start:{line:189,column:35},end:{line:189,column:113}},'119':{start:{line:189,column:61},end:{line:189,column:111}},'120':{start:{line:190,column:27},end:{line:190,column:153}},'121':{start:{line:190,column:53},end:{line:190,column:151}},'122':{start:{line:191,column:30},end:{line:195,column:1}},'123':{start:{line:194,column:4},end:{line:194,column:64}}},fnMap:{'0':{name:'rigidChangeObjectChecker',decl:{start:{line:10,column:16},end:{line:10,column:40}},loc:{start:{line:10,column:68},end:{line:15,column:1}},line:10},'1':{name:'flexibleChangeObjectChecker',decl:{start:{line:16,column:16},end:{line:16,column:43}},loc:{start:{line:16,column:71},end:{line:21,column:1}},line:16},'2':{name:'levenshteinMatchObjectChecker',decl:{start:{line:22,column:16},end:{line:22,column:45}},loc:{start:{line:22,column:73},end:{line:27,column:1}},line:22},'3':{name:'rigidChangeObjectMatchResponseBuilder',decl:{start:{line:28,column:16},end:{line:28,column:53}},loc:{start:{line:28,column:86},end:{line:61,column:1}},line:28},'4':{name:'flexibleChangeObjectMatchResponseBuilder',decl:{start:{line:62,column:16},end:{line:62,column:56}},loc:{start:{line:62,column:64},end:{line:66,column:1}},line:62},'5':{name:'rigidChangeObjectMatch',decl:{start:{line:67,column:16},end:{line:67,column:38}},loc:{start:{line:67,column:60},end:{line:70,column:1}},line:67},'6':{name:'(anonymous_6)',decl:{start:{line:68,column:13},end:{line:68,column:14}},loc:{start:{line:68,column:31},end:{line:68,column:66}},line:68},'7':{name:'flexibleChangeObjectMatch',decl:{start:{line:71,column:16},end:{line:71,column:41}},loc:{start:{line:71,column:63},end:{line:74,column:1}},line:71},'8':{name:'(anonymous_8)',decl:{start:{line:72,column:13},end:{line:72,column:14}},loc:{start:{line:72,column:31},end:{line:72,column:99}},line:72},'9':{name:'levenshteinChangeObjectMatch',decl:{start:{line:75,column:16},end:{line:75,column:44}},loc:{start:{line:75,column:66},end:{line:79,column:1}},line:75},'10':{name:'(anonymous_10)',decl:{start:{line:76,column:13},end:{line:76,column:14}},loc:{start:{line:76,column:31},end:{line:76,column:66}},line:76},'11':{name:'checkChangeObjectMatch',decl:{start:{line:80,column:16},end:{line:80,column:38}},loc:{start:{line:80,column:94},end:{line:97,column:1}},line:80},'12':{name:'(anonymous_12)',decl:{start:{line:86,column:36},end:{line:86,column:37}},loc:{start:{line:86,column:56},end:{line:89,column:5}},line:86},'13':{name:'(anonymous_13)',decl:{start:{line:104,column:19},end:{line:104,column:20}},loc:{start:{line:104,column:55},end:{line:118,column:1}},line:104},'14':{name:'(anonymous_14)',decl:{start:{line:119,column:31},end:{line:119,column:32}},loc:{start:{line:119,column:67},end:{line:129,column:1}},line:119},'15':{name:'(anonymous_15)',decl:{start:{line:121,column:63},end:{line:121,column:64}},loc:{start:{line:121,column:77},end:{line:121,column:99}},line:121},'16':{name:'(anonymous_16)',decl:{start:{line:123,column:66},end:{line:123,column:67}},loc:{start:{line:123,column:80},end:{line:123,column:100}},line:123},'17':{name:'(anonymous_17)',decl:{start:{line:130,column:23},end:{line:130,column:24}},loc:{start:{line:130,column:59},end:{line:130,column:106}},line:130},'18':{name:'(anonymous_18)',decl:{start:{line:131,column:24},end:{line:131,column:25}},loc:{start:{line:131,column:49},end:{line:149,column:1}},line:131},'19':{name:'(anonymous_19)',decl:{start:{line:136,column:26},end:{line:136,column:27}},loc:{start:{line:136,column:59},end:{line:147,column:5}},line:136},'20':{name:'(anonymous_20)',decl:{start:{line:150,column:24},end:{line:150,column:25}},loc:{start:{line:150,column:49},end:{line:168,column:1}},line:150},'21':{name:'(anonymous_21)',decl:{start:{line:155,column:26},end:{line:155,column:27}},loc:{start:{line:155,column:59},end:{line:166,column:5}},line:155},'22':{name:'(anonymous_22)',decl:{start:{line:169,column:24},end:{line:169,column:25}},loc:{start:{line:169,column:49},end:{line:187,column:1}},line:169},'23':{name:'(anonymous_23)',decl:{start:{line:174,column:26},end:{line:174,column:27}},loc:{start:{line:174,column:59},end:{line:185,column:5}},line:174},'24':{name:'(anonymous_24)',decl:{start:{line:188,column:29},end:{line:188,column:30}},loc:{start:{line:188,column:53},end:{line:188,column:107}},line:188},'25':{name:'(anonymous_25)',decl:{start:{line:189,column:35},end:{line:189,column:36}},loc:{start:{line:189,column:59},end:{line:189,column:113}},line:189},'26':{name:'(anonymous_26)',decl:{start:{line:190,column:27},end:{line:190,column:28}},loc:{start:{line:190,column:51},end:{line:190,column:153}},line:190},'27':{name:'(anonymous_27)',decl:{start:{line:191,column:30},end:{line:191,column:31}},loc:{start:{line:191,column:54},end:{line:195,column:1}},line:191}},branchMap:{'0':{loc:{start:{line:12,column:4},end:{line:14,column:5}},type:'if',locations:[{start:{line:12,column:4},end:{line:14,column:5}},{start:{line:12,column:4},end:{line:14,column:5}}],line:12},'1':{loc:{start:{line:18,column:4},end:{line:20,column:5}},type:'if',locations:[{start:{line:18,column:4},end:{line:20,column:5}},{start:{line:18,column:4},end:{line:20,column:5}}],line:18},'2':{loc:{start:{line:24,column:4},end:{line:26,column:5}},type:'if',locations:[{start:{line:24,column:4},end:{line:26,column:5}},{start:{line:24,column:4},end:{line:26,column:5}}],line:24},'3':{loc:{start:{line:29,column:4},end:{line:29,column:80}},type:'if',locations:[{start:{line:29,column:4},end:{line:29,column:80}},{start:{line:29,column:4},end:{line:29,column:80}}],line:29},'4':{loc:{start:{line:31,column:4},end:{line:60,column:5}},type:'switch',locations:[{start:{line:32,column:8},end:{line:41,column:23}},{start:{line:42,column:8},end:{line:49,column:23}},{start:{line:50,column:8},end:{line:57,column:23}},{start:{line:58,column:8},end:{line:59,column:19}}],line:31},'5':{loc:{start:{line:35,column:27},end:{line:35,column:83}},type:'binary-expr',locations:[{start:{line:35,column:27},end:{line:35,column:46}},{start:{line:35,column:50},end:{line:35,column:83}}],line:35},'6':{loc:{start:{line:38,column:34},end:{line:40,column:13}},type:'cond-expr',locations:[{start:{line:38,column:60},end:{line:38,column:90}},{start:{line:38,column:93},end:{line:40,column:13}}],line:38},'7':{loc:{start:{line:46,column:34},end:{line:48,column:13}},type:'cond-expr',locations:[{start:{line:46,column:60},end:{line:46,column:90}},{start:{line:46,column:93},end:{line:48,column:13}}],line:46},'8':{loc:{start:{line:54,column:34},end:{line:56,column:13}},type:'cond-expr',locations:[{start:{line:54,column:60},end:{line:54,column:90}},{start:{line:54,column:93},end:{line:56,column:13}}],line:54},'9':{loc:{start:{line:81,column:4},end:{line:81,column:50}},type:'if',locations:[{start:{line:81,column:4},end:{line:81,column:50}},{start:{line:81,column:4},end:{line:81,column:50}}],line:81},'10':{loc:{start:{line:82,column:4},end:{line:84,column:5}},type:'if',locations:[{start:{line:82,column:4},end:{line:84,column:5}},{start:{line:82,column:4},end:{line:84,column:5}}],line:82},'11':{loc:{start:{line:90,column:4},end:{line:96,column:5}},type:'if',locations:[{start:{line:90,column:4},end:{line:96,column:5}},{start:{line:90,column:4},end:{line:96,column:5}}],line:90},'12':{loc:{start:{line:109,column:4},end:{line:117,column:5}},type:'if',locations:[{start:{line:109,column:4},end:{line:117,column:5}},{start:{line:109,column:4},end:{line:117,column:5}}],line:109},'13':{loc:{start:{line:112,column:9},end:{line:117,column:5}},type:'if',locations:[{start:{line:112,column:9},end:{line:117,column:5}},{start:{line:112,column:9},end:{line:117,column:5}}],line:112},'14':{loc:{start:{line:115,column:9},end:{line:117,column:5}},type:'if',locations:[{start:{line:115,column:9},end:{line:117,column:5}},{start:{line:115,column:9},end:{line:117,column:5}}],line:115},'15':{loc:{start:{line:121,column:24},end:{line:121,column:110}},type:'cond-expr',locations:[{start:{line:121,column:40},end:{line:121,column:103}},{start:{line:121,column:106},end:{line:121,column:110}}],line:121},'16':{loc:{start:{line:122,column:22},end:{line:122,column:69}},type:'cond-expr',locations:[{start:{line:122,column:38},end:{line:122,column:57}},{start:{line:122,column:60},end:{line:122,column:69}}],line:122},'17':{loc:{start:{line:123,column:27},end:{line:123,column:111}},type:'cond-expr',locations:[{start:{line:123,column:43},end:{line:123,column:104}},{start:{line:123,column:107},end:{line:123,column:111}}],line:123},'18':{loc:{start:{line:124,column:25},end:{line:124,column:78}},type:'cond-expr',locations:[{start:{line:124,column:44},end:{line:124,column:66}},{start:{line:124,column:69},end:{line:124,column:78}}],line:124},'19':{loc:{start:{line:137,column:8},end:{line:139,column:9}},type:'if',locations:[{start:{line:137,column:8},end:{line:139,column:9}},{start:{line:137,column:8},end:{line:139,column:9}}],line:137},'20':{loc:{start:{line:141,column:8},end:{line:146,column:9}},type:'if',locations:[{start:{line:141,column:8},end:{line:146,column:9}},{start:{line:141,column:8},end:{line:146,column:9}}],line:141},'21':{loc:{start:{line:141,column:12},end:{line:141,column:97}},type:'binary-expr',locations:[{start:{line:141,column:12},end:{line:141,column:27}},{start:{line:141,column:31},end:{line:141,column:67}},{start:{line:141,column:71},end:{line:141,column:97}}],line:141},'22':{loc:{start:{line:145,column:26},end:{line:145,column:115}},type:'cond-expr',locations:[{start:{line:145,column:110},end:{line:145,column:111}},{start:{line:145,column:114},end:{line:145,column:115}}],line:145},'23':{loc:{start:{line:145,column:26},end:{line:145,column:107}},type:'binary-expr',locations:[{start:{line:145,column:26},end:{line:145,column:41}},{start:{line:145,column:45},end:{line:145,column:81}},{start:{line:145,column:85},end:{line:145,column:107}}],line:145},'24':{loc:{start:{line:148,column:11},end:{line:148,column:65}},type:'binary-expr',locations:[{start:{line:148,column:11},end:{line:148,column:24}},{start:{line:148,column:29},end:{line:148,column:45}},{start:{line:148,column:51},end:{line:148,column:64}}],line:148},'25':{loc:{start:{line:156,column:8},end:{line:158,column:9}},type:'if',locations:[{start:{line:156,column:8},end:{line:158,column:9}},{start:{line:156,column:8},end:{line:158,column:9}}],line:156},'26':{loc:{start:{line:160,column:8},end:{line:165,column:9}},type:'if',locations:[{start:{line:160,column:8},end:{line:165,column:9}},{start:{line:160,column:8},end:{line:165,column:9}}],line:160},'27':{loc:{start:{line:160,column:12},end:{line:160,column:80}},type:'binary-expr',locations:[{start:{line:160,column:12},end:{line:160,column:25}},{start:{line:160,column:29},end:{line:160,column:65}},{start:{line:160,column:69},end:{line:160,column:80}}],line:160},'28':{loc:{start:{line:164,column:26},end:{line:164,column:116}},type:'cond-expr',locations:[{start:{line:164,column:111},end:{line:164,column:112}},{start:{line:164,column:115},end:{line:164,column:116}}],line:164},'29':{loc:{start:{line:164,column:26},end:{line:164,column:108}},type:'binary-expr',locations:[{start:{line:164,column:26},end:{line:164,column:39}},{start:{line:164,column:43},end:{line:164,column:79}},{start:{line:164,column:83},end:{line:164,column:108}}],line:164},'30':{loc:{start:{line:167,column:11},end:{line:167,column:65}},type:'binary-expr',locations:[{start:{line:167,column:11},end:{line:167,column:24}},{start:{line:167,column:29},end:{line:167,column:45}},{start:{line:167,column:51},end:{line:167,column:64}}],line:167},'31':{loc:{start:{line:175,column:8},end:{line:177,column:9}},type:'if',locations:[{start:{line:175,column:8},end:{line:177,column:9}},{start:{line:175,column:8},end:{line:177,column:9}}],line:175},'32':{loc:{start:{line:179,column:8},end:{line:184,column:9}},type:'if',locations:[{start:{line:179,column:8},end:{line:184,column:9}},{start:{line:179,column:8},end:{line:184,column:9}}],line:179},'33':{loc:{start:{line:179,column:12},end:{line:179,column:97}},type:'binary-expr',locations:[{start:{line:179,column:12},end:{line:179,column:27}},{start:{line:179,column:31},end:{line:179,column:67}},{start:{line:179,column:71},end:{line:179,column:97}}],line:179},'34':{loc:{start:{line:183,column:26},end:{line:183,column:116}},type:'cond-expr',locations:[{start:{line:183,column:111},end:{line:183,column:112}},{start:{line:183,column:115},end:{line:183,column:116}}],line:183},'35':{loc:{start:{line:183,column:26},end:{line:183,column:108}},type:'binary-expr',locations:[{start:{line:183,column:26},end:{line:183,column:41}},{start:{line:183,column:45},end:{line:183,column:81}},{start:{line:183,column:85},end:{line:183,column:108}}],line:183},'36':{loc:{start:{line:186,column:11},end:{line:186,column:65}},type:'binary-expr',locations:[{start:{line:186,column:11},end:{line:186,column:24}},{start:{line:186,column:29},end:{line:186,column:45}},{start:{line:186,column:51},end:{line:186,column:64}}],line:186},'37':{loc:{start:{line:188,column:62},end:{line:188,column:104}},type:'binary-expr',locations:[{start:{line:188,column:62},end:{line:188,column:82}},{start:{line:188,column:86},end:{line:188,column:104}}],line:188},'38':{loc:{start:{line:190,column:60},end:{line:190,column:150}},type:'binary-expr',locations:[{start:{line:190,column:61},end:{line:190,column:81}},{start:{line:190,column:85},end:{line:190,column:103}},{start:{line:190,column:108},end:{line:190,column:150}}],line:190}},s:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0,'13':0,'14':0,'15':0,'16':0,'17':0,'18':0,'19':0,'20':0,'21':0,'22':0,'23':0,'24':0,'25':0,'26':0,'27':0,'28':0,'29':0,'30':0,'31':0,'32':0,'33':0,'34':0,'35':0,'36':0,'37':0,'38':0,'39':0,'40':0,'41':0,'42':0,'43':0,'44':0,'45':0,'46':0,'47':0,'48':0,'49':0,'50':0,'51':0,'52':0,'53':0,'54':0,'55':0,'56':0,'57':0,'58':0,'59':0,'60':0,'61':0,'62':0,'63':0,'64':0,'65':0,'66':0,'67':0,'68':0,'69':0,'70':0,'71':0,'72':0,'73':0,'74':0,'75':0,'76':0,'77':0,'78':0,'79':0,'80':0,'81':0,'82':0,'83':0,'84':0,'85':0,'86':0,'87':0,'88':0,'89':0,'90':0,'91':0,'92':0,'93':0,'94':0,'95':0,'96':0,'97':0,'98':0,'99':0,'100':0,'101':0,'102':0,'103':0,'104':0,'105':0,'106':0,'107':0,'108':0,'109':0,'110':0,'111':0,'112':0,'113':0,'114':0,'115':0,'116':0,'117':0,'118':0,'119':0,'120':0,'121':0,'122':0,'123':0},f:{'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0,'13':0,'14':0,'15':0,'16':0,'17':0,'18':0,'19':0,'20':0,'21':0,'22':0,'23':0,'24':0,'25':0,'26':0,'27':0},b:{'0':[0,0],'1':[0,0],'2':[0,0],'3':[0,0],'4':[0,0,0,0],'5':[0,0],'6':[0,0],'7':[0,0],'8':[0,0],'9':[0,0],'10':[0,0],'11':[0,0],'12':[0,0],'13':[0,0],'14':[0,0],'15':[0,0],'16':[0,0],'17':[0,0],'18':[0,0],'19':[0,0],'20':[0,0],'21':[0,0,0],'22':[0,0],'23':[0,0,0],'24':[0,0,0],'25':[0,0],'26':[0,0],'27':[0,0,0],'28':[0,0],'29':[0,0,0],'30':[0,0,0],'31':[0,0],'32':[0,0],'33':[0,0,0],'34':[0,0],'35':[0,0,0],'36':[0,0,0],'37':[0,0],'38':[0,0,0]},_coverageSchema:'332fd63041d2c1bcb487cc26dd0d5f7d97098a6c'},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();function rigidChangeObjectChecker(responseString,responses){cov_1p4swdpwti.f[0]++;var match=(cov_1p4swdpwti.s[0]++, rigidChangeObjectMatch(responseString,responses));cov_1p4swdpwti.s[1]++;if(match){cov_1p4swdpwti.b[0][0]++;cov_1p4swdpwti.s[2]++;return rigidChangeObjectMatchResponseBuilder(match);}else{cov_1p4swdpwti.b[0][1]++;}}function flexibleChangeObjectChecker(responseString,responses){cov_1p4swdpwti.f[1]++;var match=(cov_1p4swdpwti.s[3]++, flexibleChangeObjectMatch(responseString,responses));cov_1p4swdpwti.s[4]++;if(match){cov_1p4swdpwti.b[1][0]++;cov_1p4swdpwti.s[5]++;return flexibleChangeObjectMatchResponseBuilder(match);}else{cov_1p4swdpwti.b[1][1]++;}}function levenshteinMatchObjectChecker(responseString,responses){cov_1p4swdpwti.f[2]++;var match=(cov_1p4swdpwti.s[6]++, levenshteinChangeObjectMatch(responseString,responses));cov_1p4swdpwti.s[7]++;if(match){cov_1p4swdpwti.b[2][0]++;cov_1p4swdpwti.s[8]++;return rigidChangeObjectMatchResponseBuilder(match,true);}else{cov_1p4swdpwti.b[2][1]++;}}function rigidChangeObjectMatchResponseBuilder(match,copyMatchConceptResults){cov_1p4swdpwti.f[3]++;cov_1p4swdpwti.s[9]++;if(copyMatchConceptResults===void 0){cov_1p4swdpwti.b[3][0]++;cov_1p4swdpwti.s[10]++;copyMatchConceptResults=false;}else{cov_1p4swdpwti.b[3][1]++;}var res=(cov_1p4swdpwti.s[11]++, {});cov_1p4swdpwti.s[12]++;switch(match.errorType){case ERROR_TYPES.INCORRECT_WORD:cov_1p4swdpwti.b[4][0]++;var missingWord=(cov_1p4swdpwti.s[13]++, match.missingText);var missingTextFeedback=(cov_1p4swdpwti.s[14]++, getFeedbackForMissingWord(missingWord));cov_1p4swdpwti.s[15]++;res.feedback=(cov_1p4swdpwti.b[5][0]++, missingTextFeedback)||(cov_1p4swdpwti.b[5][1]++, feedbackStrings.modifiedWordError);cov_1p4swdpwti.s[16]++;res.author='Modified Word Hint';cov_1p4swdpwti.s[17]++;res.parent_id=match.response.key;cov_1p4swdpwti.s[18]++;res.concept_results=copyMatchConceptResults?(cov_1p4swdpwti.b[6][0]++, match.response.concept_results):(cov_1p4swdpwti.b[6][1]++, [conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')]);cov_1p4swdpwti.s[19]++;return res;case ERROR_TYPES.ADDITIONAL_WORD:cov_1p4swdpwti.b[4][1]++;cov_1p4swdpwti.s[20]++;res.feedback=feedbackStrings.additionalWordError;cov_1p4swdpwti.s[21]++;res.author='Additional Word Hint';cov_1p4swdpwti.s[22]++;res.parent_id=match.response.key;cov_1p4swdpwti.s[23]++;res.concept_results=copyMatchConceptResults?(cov_1p4swdpwti.b[7][0]++, match.response.concept_results):(cov_1p4swdpwti.b[7][1]++, [conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')]);cov_1p4swdpwti.s[24]++;return res;case ERROR_TYPES.MISSING_WORD:cov_1p4swdpwti.b[4][2]++;cov_1p4swdpwti.s[25]++;res.feedback=feedbackStrings.missingWordError;cov_1p4swdpwti.s[26]++;res.author='Missing Word Hint';cov_1p4swdpwti.s[27]++;res.parent_id=match.response.key;cov_1p4swdpwti.s[28]++;res.concept_results=copyMatchConceptResults?(cov_1p4swdpwti.b[8][0]++, match.response.concept_results):(cov_1p4swdpwti.b[8][1]++, [conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')]);cov_1p4swdpwti.s[29]++;return res;default:cov_1p4swdpwti.b[4][3]++;cov_1p4swdpwti.s[30]++;return;}}function flexibleChangeObjectMatchResponseBuilder(match){cov_1p4swdpwti.f[4]++;var initialVals=(cov_1p4swdpwti.s[31]++, rigidChangeObjectMatchResponseBuilder(match));cov_1p4swdpwti.s[32]++;initialVals.author="Flexible "+initialVals.author;cov_1p4swdpwti.s[33]++;return initialVals;}function rigidChangeObjectMatch(response,responses){cov_1p4swdpwti.f[5]++;cov_1p4swdpwti.s[34]++;var fn=function(string){cov_1p4swdpwti.f[6]++;cov_1p4swdpwti.s[35]++;return lib_1$1(string);};cov_1p4swdpwti.s[36]++;return checkChangeObjectMatch(response,getOptimalResponses(responses),fn);}function flexibleChangeObjectMatch(response,responses){cov_1p4swdpwti.f[7]++;cov_1p4swdpwti.s[37]++;var fn=function(string){cov_1p4swdpwti.f[8]++;cov_1p4swdpwti.s[38]++;return removePunctuation(lib_1$1(string)).toLowerCase();};cov_1p4swdpwti.s[39]++;return checkChangeObjectMatch(response,getOptimalResponses(responses),fn);}function levenshteinChangeObjectMatch(response,responses){cov_1p4swdpwti.f[9]++;cov_1p4swdpwti.s[40]++;var fn=function(string){cov_1p4swdpwti.f[10]++;cov_1p4swdpwti.s[41]++;return lib_1$1(string);};var sortedResponses=(cov_1p4swdpwti.s[42]++, sortByLevenshteinAndOptimal(response,getOptimalResponses(responses).concat(getSubOptimalResponses(responses))));cov_1p4swdpwti.s[43]++;return checkChangeObjectMatch(response,getOptimalResponses(sortedResponses),fn);}function checkChangeObjectMatch(userString,responses,stringManipulationFn,skipSort){cov_1p4swdpwti.f[11]++;cov_1p4swdpwti.s[44]++;if(skipSort===void 0){cov_1p4swdpwti.b[9][0]++;cov_1p4swdpwti.s[45]++;skipSort=false;}else{cov_1p4swdpwti.b[9][1]++;}cov_1p4swdpwti.s[46]++;if(!skipSort){cov_1p4swdpwti.b[10][0]++;cov_1p4swdpwti.s[47]++;responses=underscore_1(responses,'count').reverse();}else{cov_1p4swdpwti.b[10][1]++;}var matchedErrorType;var matched=(cov_1p4swdpwti.s[48]++, _.find(responses,function(response){cov_1p4swdpwti.f[12]++;cov_1p4swdpwti.s[49]++;matchedErrorType=getErrorType(stringManipulationFn(response.text),stringManipulationFn(userString));cov_1p4swdpwti.s[50]++;return matchedErrorType;}));cov_1p4swdpwti.s[51]++;if(matched){cov_1p4swdpwti.b[11][0]++;var textChanges=(cov_1p4swdpwti.s[52]++, getMissingAndAddedString(matched.text,userString));cov_1p4swdpwti.s[53]++;return Object.assign({},{response:matched,errorType:matchedErrorType},textChanges);}else{cov_1p4swdpwti.b[11][1]++;}}var ERROR_TYPES=(cov_1p4swdpwti.s[54]++, {NO_ERROR:'NO_ERROR',MISSING_WORD:'MISSING_WORD',ADDITIONAL_WORD:'ADDITIONAL_WORD',INCORRECT_WORD:'INCORRECT_WORD'});cov_1p4swdpwti.s[55]++;var getErrorType=function(targetString,userString){cov_1p4swdpwti.f[13]++;var changeObjects=(cov_1p4swdpwti.s[56]++, getChangeObjects(targetString,userString));var hasIncorrect=(cov_1p4swdpwti.s[57]++, checkForIncorrect(changeObjects));var hasAdditions=(cov_1p4swdpwti.s[58]++, checkForAdditions(changeObjects));var hasDeletions=(cov_1p4swdpwti.s[59]++, checkForDeletions(changeObjects));cov_1p4swdpwti.s[60]++;if(hasIncorrect){cov_1p4swdpwti.b[12][0]++;cov_1p4swdpwti.s[61]++;return ERROR_TYPES.INCORRECT_WORD;}else{cov_1p4swdpwti.b[12][1]++;cov_1p4swdpwti.s[62]++;if(hasAdditions){cov_1p4swdpwti.b[13][0]++;cov_1p4swdpwti.s[63]++;return ERROR_TYPES.ADDITIONAL_WORD;}else{cov_1p4swdpwti.b[13][1]++;cov_1p4swdpwti.s[64]++;if(hasDeletions){cov_1p4swdpwti.b[14][0]++;cov_1p4swdpwti.s[65]++;return ERROR_TYPES.MISSING_WORD;}else{cov_1p4swdpwti.b[14][1]++;}}}};cov_1p4swdpwti.s[66]++;var getMissingAndAddedString=function(targetString,userString){cov_1p4swdpwti.f[14]++;var changeObjects=(cov_1p4swdpwti.s[67]++, getChangeObjects(targetString,userString));var missingObject=(cov_1p4swdpwti.s[68]++, changeObjects?(cov_1p4swdpwti.b[15][0]++,_.where(changeObjects,function(co){cov_1p4swdpwti.f[15]++;cov_1p4swdpwti.s[69]++;return co.removed;})[0]):(cov_1p4swdpwti.b[15][1]++,null));var missingText=(cov_1p4swdpwti.s[70]++, missingObject?(cov_1p4swdpwti.b[16][0]++,missingObject.value):(cov_1p4swdpwti.b[16][1]++,undefined));var extraneousObject=(cov_1p4swdpwti.s[71]++, changeObjects?(cov_1p4swdpwti.b[17][0]++,_.where(changeObjects,function(co){cov_1p4swdpwti.f[16]++;cov_1p4swdpwti.s[72]++;return co.added;})[0]):(cov_1p4swdpwti.b[17][1]++,null));var extraneousText=(cov_1p4swdpwti.s[73]++, extraneousObject?(cov_1p4swdpwti.b[18][0]++,extraneousObject.value):(cov_1p4swdpwti.b[18][1]++,undefined));cov_1p4swdpwti.s[74]++;return{missingText:missingText,extraneousText:extraneousText};};cov_1p4swdpwti.s[75]++;var getChangeObjects=function(targetString,userString){cov_1p4swdpwti.f[17]++;cov_1p4swdpwti.s[76]++;return lib_18(targetString,userString);};cov_1p4swdpwti.s[77]++;var checkForIncorrect=function(changeObjects){cov_1p4swdpwti.f[18]++;var tooLongError=(cov_1p4swdpwti.s[78]++, false);var found=(cov_1p4swdpwti.s[79]++, false);var foundCount=(cov_1p4swdpwti.s[80]++, 0);var coCount=(cov_1p4swdpwti.s[81]++, 0);cov_1p4swdpwti.s[82]++;changeObjects.forEach(function(current,index$$1,array){cov_1p4swdpwti.f[19]++;cov_1p4swdpwti.s[83]++;if(checkForAddedOrRemoved(current)){cov_1p4swdpwti.b[19][0]++;cov_1p4swdpwti.s[84]++;coCount+=1;}else{cov_1p4swdpwti.b[19][1]++;}cov_1p4swdpwti.s[85]++;tooLongError=checkForTooLongError(current);cov_1p4swdpwti.s[86]++;if((cov_1p4swdpwti.b[21][0]++, current.removed)&&(cov_1p4swdpwti.b[21][1]++, getLengthOfChangeObject(current)<2)&&(cov_1p4swdpwti.b[21][2]++, index===array.length-1)){cov_1p4swdpwti.b[20][0]++;cov_1p4swdpwti.s[87]++;foundCount+=1;}else{cov_1p4swdpwti.b[20][1]++;cov_1p4swdpwti.s[88]++;foundCount+=(cov_1p4swdpwti.b[23][0]++, current.removed)&&(cov_1p4swdpwti.b[23][1]++, getLengthOfChangeObject(current)<2)&&(cov_1p4swdpwti.b[23][2]++, array[index+1].added)?(cov_1p4swdpwti.b[22][0]++, 1):(cov_1p4swdpwti.b[22][1]++, 0);}});cov_1p4swdpwti.s[89]++;return(cov_1p4swdpwti.b[24][0]++, !tooLongError)&&(cov_1p4swdpwti.b[24][1]++, foundCount===1)&&(cov_1p4swdpwti.b[24][2]++, coCount===2);};cov_1p4swdpwti.s[90]++;var checkForAdditions=function(changeObjects){cov_1p4swdpwti.f[20]++;var tooLongError=(cov_1p4swdpwti.s[91]++, false);var found=(cov_1p4swdpwti.s[92]++, false);var foundCount=(cov_1p4swdpwti.s[93]++, 0);var coCount=(cov_1p4swdpwti.s[94]++, 0);cov_1p4swdpwti.s[95]++;changeObjects.forEach(function(current,index$$1,array){cov_1p4swdpwti.f[21]++;cov_1p4swdpwti.s[96]++;if(checkForAddedOrRemoved(current)){cov_1p4swdpwti.b[25][0]++;cov_1p4swdpwti.s[97]++;coCount+=1;}else{cov_1p4swdpwti.b[25][1]++;}cov_1p4swdpwti.s[98]++;tooLongError=checkForTooLongError(current);cov_1p4swdpwti.s[99]++;if((cov_1p4swdpwti.b[27][0]++, current.added)&&(cov_1p4swdpwti.b[27][1]++, getLengthOfChangeObject(current)<2)&&(cov_1p4swdpwti.b[27][2]++, index===0)){cov_1p4swdpwti.b[26][0]++;cov_1p4swdpwti.s[100]++;foundCount+=1;}else{cov_1p4swdpwti.b[26][1]++;cov_1p4swdpwti.s[101]++;foundCount+=(cov_1p4swdpwti.b[29][0]++, current.added)&&(cov_1p4swdpwti.b[29][1]++, getLengthOfChangeObject(current)<2)&&(cov_1p4swdpwti.b[29][2]++, !array[index-1].removed)?(cov_1p4swdpwti.b[28][0]++, 1):(cov_1p4swdpwti.b[28][1]++, 0);}});cov_1p4swdpwti.s[102]++;return(cov_1p4swdpwti.b[30][0]++, !tooLongError)&&(cov_1p4swdpwti.b[30][1]++, foundCount===1)&&(cov_1p4swdpwti.b[30][2]++, coCount===1);};cov_1p4swdpwti.s[103]++;var checkForDeletions=function(changeObjects){cov_1p4swdpwti.f[22]++;var tooLongError=(cov_1p4swdpwti.s[104]++, false);var found=(cov_1p4swdpwti.s[105]++, false);var foundCount=(cov_1p4swdpwti.s[106]++, 0);var coCount=(cov_1p4swdpwti.s[107]++, 0);cov_1p4swdpwti.s[108]++;changeObjects.forEach(function(current,index$$1,array){cov_1p4swdpwti.f[23]++;cov_1p4swdpwti.s[109]++;if(checkForAddedOrRemoved(current)){cov_1p4swdpwti.b[31][0]++;cov_1p4swdpwti.s[110]++;coCount+=1;}else{cov_1p4swdpwti.b[31][1]++;}cov_1p4swdpwti.s[111]++;tooLongError=checkForTooLongError(current);cov_1p4swdpwti.s[112]++;if((cov_1p4swdpwti.b[33][0]++, current.removed)&&(cov_1p4swdpwti.b[33][1]++, getLengthOfChangeObject(current)<2)&&(cov_1p4swdpwti.b[33][2]++, index===array.length-1)){cov_1p4swdpwti.b[32][0]++;cov_1p4swdpwti.s[113]++;foundCount+=1;}else{cov_1p4swdpwti.b[32][1]++;cov_1p4swdpwti.s[114]++;foundCount+=(cov_1p4swdpwti.b[35][0]++, current.removed)&&(cov_1p4swdpwti.b[35][1]++, getLengthOfChangeObject(current)<2)&&(cov_1p4swdpwti.b[35][2]++, !array[index+1].added)?(cov_1p4swdpwti.b[34][0]++, 1):(cov_1p4swdpwti.b[34][1]++, 0);}});cov_1p4swdpwti.s[115]++;return(cov_1p4swdpwti.b[36][0]++, !tooLongError)&&(cov_1p4swdpwti.b[36][1]++, foundCount===1)&&(cov_1p4swdpwti.b[36][2]++, coCount===1);};cov_1p4swdpwti.s[116]++;var checkForAddedOrRemoved=function(changeObject){cov_1p4swdpwti.f[24]++;cov_1p4swdpwti.s[117]++;return(cov_1p4swdpwti.b[37][0]++, changeObject.removed)||(cov_1p4swdpwti.b[37][1]++, changeObject.added);};cov_1p4swdpwti.s[118]++;var checkForTooLongChangeObjects=function(changeObject){cov_1p4swdpwti.f[25]++;cov_1p4swdpwti.s[119]++;return getLengthOfChangeObject(changeObject)>=2;};cov_1p4swdpwti.s[120]++;var checkForTooLongError=function(changeObject){cov_1p4swdpwti.f[26]++;cov_1p4swdpwti.s[121]++;return((cov_1p4swdpwti.b[38][0]++, changeObject.removed)||(cov_1p4swdpwti.b[38][1]++, changeObject.added))&&(cov_1p4swdpwti.b[38][2]++, checkForTooLongChangeObjects(changeObject));};cov_1p4swdpwti.s[122]++;var getLengthOfChangeObject=function(changeObject){cov_1p4swdpwti.f[27]++;cov_1p4swdpwti.s[123]++;// filter boolean removes empty strings from trailing,
 // leading, or double white space.
 return changeObject.value.split(' ').filter(Boolean).length;};
+=======
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+	/*istanbul ignore start*/'use strict';
+
+	exports.__esModule = true;
+	exports. /*istanbul ignore end*/convertChangesToXML = convertChangesToXML;
+	function convertChangesToXML(changes) {
+	  var ret = [];
+	  for (var i = 0; i < changes.length; i++) {
+	    var change = changes[i];
+	    if (change.added) {
+	      ret.push('<ins>');
+	    } else if (change.removed) {
+	      ret.push('<del>');
+	    }
+
+	    ret.push(escapeHTML(change.value));
+
+	    if (change.added) {
+	      ret.push('</ins>');
+	    } else if (change.removed) {
+	      ret.push('</del>');
+	    }
+	  }
+	  return ret.join('');
+	}
+
+	function escapeHTML(s) {
+	  var n = s;
+	  n = n.replace(/&/g, '&amp;');
+	  n = n.replace(/</g, '&lt;');
+	  n = n.replace(/>/g, '&gt;');
+	  n = n.replace(/"/g, '&quot;');
+
+	  return n;
+	}
+	
+
+
+/***/ })
+/******/ ])
+});
+
+});
+
+unwrapExports(diff);
+var diff_1 = diff.diffWords;
+
+var constants = {
+    timing: 'Revise your work. Which joining word helps show the timing of the events?',
+    opposite: 'Revise your work. Which joining word helps show that the two ideas are opposite?',
+    reason: 'Revise your work. Which joining word helps tell why or give a reason?',
+    prerequisite: 'Revise your work. Which joining word helps show that one of the ideas must happen for the other one to happen?',
+    choice: 'Revise your work. Which joining word is used to show a choice?',
+    and: 'Revise your work. Which joining word is used to add another idea?',
+};
+var data = {
+    after: {
+        feedback: constants.timing,
+    },
+    'as soon as': {
+        feedback: constants.timing,
+    },
+    before: {
+        feedback: constants.timing,
+    },
+    whenever: {
+        feedback: constants.timing,
+    },
+    while: {
+        feedback: constants.timing,
+    },
+    once: {
+        feedback: constants.timing,
+    },
+    when: {
+        feedback: constants.timing,
+    },
+    until: {
+        feedback: constants.timing,
+    },
+    although: {
+        feedback: constants.opposite,
+    },
+    'even though': {
+        feedback: constants.opposite,
+    },
+    though: {
+        feedback: constants.opposite,
+    },
+    but: {
+        feedback: constants.opposite,
+    },
+    yet: {
+        feedback: constants.opposite,
+    },
+    since: {
+        feedback: constants.reason,
+    },
+    so: {
+        feedback: constants.reason,
+    },
+    because: {
+        feedback: constants.reason,
+    },
+    for: {
+        feedback: constants.reason,
+    },
+    as: {
+        feedback: constants.reason,
+    },
+    'as long as': {
+        feedback: constants.prerequisite,
+    },
+    if: {
+        feedback: constants.prerequisite,
+    },
+    unless: {
+        feedback: constants.prerequisite,
+    },
+    'in order to': {
+        feedback: constants.prerequisite,
+    },
+    or: {
+        feedback: constants.choice,
+    },
+    nor: {
+        feedback: constants.choice,
+    },
+    and: {
+        feedback: constants.and,
+    },
+};
+function getFeedbackForMissingWord(missingWord) {
+    if (missingWord) {
+        var hit = data[cleanMissingWord(missingWord)];
+        if (hit) {
+            return hit.feedback;
+        }
+    }
+}
+
+function cleanMissingWord(missingWord) {
+    return missingWord.trim().toLowerCase();
+}
+
+function rigidChangeObjectChecker(responseString, responses) {
+    var match = rigidChangeObjectMatch(responseString, responses);
+    if (match) {
+        return rigidChangeObjectMatchResponseBuilder(match);
+    }
+}
+function flexibleChangeObjectChecker(responseString, responses) {
+    var match = flexibleChangeObjectMatch(responseString, responses);
+    if (match) {
+        return flexibleChangeObjectMatchResponseBuilder(match);
+    }
+}
+function rigidChangeObjectMatchResponseBuilder(match) {
+    var res = {};
+    switch (match.errorType) {
+        case ERROR_TYPES.INCORRECT_WORD:
+            var missingWord = match.missingText;
+            var missingTextFeedback = getFeedbackForMissingWord(missingWord);
+            res.feedback = missingTextFeedback || feedbackStrings.modifiedWordError;
+            res.author = 'Modified Word Hint';
+            res.parent_id = match.response.key;
+            res.concept_results = [
+                conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
+            ];
+            return res;
+        case ERROR_TYPES.ADDITIONAL_WORD:
+            res.feedback = feedbackStrings.additionalWordError;
+            res.author = 'Additional Word Hint';
+            res.parent_id = match.response.key;
+            res.concept_results = [
+                conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
+            ];
+            return res;
+        case ERROR_TYPES.MISSING_WORD:
+            res.feedback = feedbackStrings.missingWordError;
+            res.author = 'Missing Word Hint';
+            res.parent_id = match.response.key;
+            res.concept_results = [
+                conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
+            ];
+            return res;
+        default:
+            return;
+    }
+}
+function flexibleChangeObjectMatchResponseBuilder(match) {
+    var initialVals = rigidChangeObjectMatchResponseBuilder(match);
+    initialVals.author = "Flexible " + initialVals.author;
+    return initialVals;
+}
+function rigidChangeObjectMatch(response, responses) {
+    var fn = function (string) { return lib_1$1(string); };
+    return checkChangeObjectMatch(response, getOptimalResponses(responses), fn);
+}
+function flexibleChangeObjectMatch(response, responses) {
+    var fn = function (string) { return removePunctuation(lib_1$1(string)).toLowerCase(); };
+    return checkChangeObjectMatch(response, getOptimalResponses(responses), fn);
+}
+function checkChangeObjectMatch(userString, responses, stringManipulationFn, skipSort) {
+    if (skipSort === void 0) { skipSort = false; }
+    if (!skipSort) {
+        responses = underscore_1(responses, 'count').reverse();
+    }
+    var matchedErrorType;
+    var matched = underscore_5(responses, function (response) {
+        matchedErrorType = getErrorType(stringManipulationFn(response.text), stringManipulationFn(userString));
+        return matchedErrorType;
+    });
+    if (matched) {
+        var textChanges = getMissingAndAddedString(matched.text, userString);
+        return Object.assign({}, {
+            response: matched,
+            errorType: matchedErrorType,
+        }, textChanges);
+    }
+}
+var ERROR_TYPES = {
+    NO_ERROR: 'NO_ERROR',
+    MISSING_WORD: 'MISSING_WORD',
+    ADDITIONAL_WORD: 'ADDITIONAL_WORD',
+    INCORRECT_WORD: 'INCORRECT_WORD',
+};
+var getErrorType = function (targetString, userString) {
+    var changeObjects = getChangeObjects(targetString, userString);
+    var hasIncorrect = checkForIncorrect(changeObjects);
+    var hasAdditions = checkForAdditions(changeObjects);
+    var hasDeletions = checkForDeletions(changeObjects);
+    if (hasIncorrect) {
+        return ERROR_TYPES.INCORRECT_WORD;
+    }
+    else if (hasAdditions) {
+        return ERROR_TYPES.ADDITIONAL_WORD;
+    }
+    else if (hasDeletions) {
+        return ERROR_TYPES.MISSING_WORD;
+    }
+};
+var getMissingAndAddedString = function (targetString, userString) {
+    var changeObjects = getChangeObjects(targetString, userString);
+    var missingObject = changeObjects ? underscore_4(changeObjects, function (co) { return co.removed; })[0] : null;
+    var missingText = missingObject ? missingObject.value : undefined;
+    var extraneousObject = changeObjects ? underscore_4(changeObjects, function (co) { return co.added; })[0] : null;
+    var extraneousText = extraneousObject ? extraneousObject.value : undefined;
+    return {
+        missingText: missingText,
+        extraneousText: extraneousText,
+    };
+};
+var getChangeObjects = function (targetString, userString) { return diff_1(targetString, userString); };
+var checkForIncorrect = function (changeObjects) {
+    var tooLongError = false;
+    var foundCount = 0;
+    var coCount = 0;
+    changeObjects.forEach(function (current, index, array) {
+        if (checkForAddedOrRemoved(current)) {
+            coCount += 1;
+        }
+        tooLongError = checkForTooLongError(current);
+        if (current.removed && getLengthOfChangeObject(current) < 2 && index === array.length - 1) {
+            foundCount += 1;
+        }
+        else {
+            foundCount += current.removed && getLengthOfChangeObject(current) < 2 && array[index + 1].added ? 1 : 0;
+        }
+    });
+    return !tooLongError && (foundCount === 1) && (coCount === 2);
+};
+var checkForAdditions = function (changeObjects) {
+    var tooLongError = false;
+    var foundCount = 0;
+    var coCount = 0;
+    changeObjects.forEach(function (current, index, array) {
+        if (checkForAddedOrRemoved(current)) {
+            coCount += 1;
+        }
+        tooLongError = checkForTooLongError(current);
+        if (current.added && getLengthOfChangeObject(current) < 2 && index === 0) {
+            foundCount += 1;
+        }
+        else {
+            foundCount += current.added && getLengthOfChangeObject(current) < 2 && !array[index - 1].removed ? 1 : 0;
+        }
+    });
+    return !tooLongError && (foundCount === 1) && (coCount === 1);
+};
+var checkForDeletions = function (changeObjects) {
+    var tooLongError = false;
+    var foundCount = 0;
+    var coCount = 0;
+    changeObjects.forEach(function (current, index, array) {
+        if (checkForAddedOrRemoved(current)) {
+            coCount += 1;
+        }
+        tooLongError = checkForTooLongError(current);
+        if (current.removed && getLengthOfChangeObject(current) < 2 && index === array.length - 1) {
+            foundCount += 1;
+        }
+        else {
+            foundCount += current.removed && getLengthOfChangeObject(current) < 2 && !array[index + 1].added ? 1 : 0;
+        }
+    });
+    return !tooLongError && (foundCount === 1) && (coCount === 1);
+};
+var checkForAddedOrRemoved = function (changeObject) { return changeObject.removed || changeObject.added; };
+var checkForTooLongChangeObjects = function (changeObject) { return getLengthOfChangeObject(changeObject) >= 2; };
+var checkForTooLongError = function (changeObject) { return (changeObject.removed || changeObject.added) && checkForTooLongChangeObjects(changeObject); };
+var getLengthOfChangeObject = function (changeObject) {
+    // filter boolean removes empty strings from trailing,
+    // leading, or double white space.
+    return changeObject.value.split(' ').filter(Boolean).length;
+};
+>>>>>>> develop
 
 var cov_3t2bmjaf6=function(){var path="/Users/Emilia/Quill/quill-shared-modules/node_modules/pos/BrillTransformationRules.js",hash="6bc54d9f11c35e399a625b2c3c5fb3125a43acdf",global=new Function('return this')(),gcv="__coverage__",coverageData={path:"/Users/Emilia/Quill/quill-shared-modules/node_modules/pos/BrillTransformationRules.js",statementMap:{"0":{start:{line:28,column:2},end:{line:28,column:72}},"1":{start:{line:31,column:0},end:{line:33,column:2}},"2":{start:{line:32,column:2},end:{line:32,column:28}},"3":{start:{line:35,column:0},end:{line:37,column:2}},"4":{start:{line:36,column:2},end:{line:36,column:27}},"5":{start:{line:39,column:0},end:{line:41,column:2}},"6":{start:{line:40,column:2},end:{line:40,column:39}},"7":{start:{line:43,column:0},end:{line:45,column:2}},"8":{start:{line:44,column:2},end:{line:44,column:24}},"9":{start:{line:47,column:0},end:{line:49,column:2}},"10":{start:{line:48,column:2},end:{line:48,column:21}},"11":{start:{line:56,column:2},end:{line:58,column:3}},"12":{start:{line:57,column:4},end:{line:57,column:17}},"13":{start:{line:59,column:2},end:{line:59,column:36}},"14":{start:{line:67,column:2},end:{line:69,column:3}},"15":{start:{line:68,column:4},end:{line:68,column:17}},"16":{start:{line:70,column:2},end:{line:70,column:63}},"17":{start:{line:75,column:2},end:{line:81,column:3}},"18":{start:{line:76,column:4},end:{line:80,column:5}},"19":{start:{line:79,column:6},end:{line:79,column:38}},"20":{start:{line:86,column:2},end:{line:100,column:3}},"21":{start:{line:87,column:4},end:{line:95,column:5}},"22":{start:{line:89,column:6},end:{line:94,column:7}},"23":{start:{line:90,column:8},end:{line:90,column:41}},"24":{start:{line:93,column:8},end:{line:93,column:40}},"25":{start:{line:97,column:4},end:{line:99,column:5}},"26":{start:{line:98,column:6},end:{line:98,column:38}},"27":{start:{line:105,column:2},end:{line:107,column:3}},"28":{start:{line:106,column:4},end:{line:106,column:37}},"29":{start:{line:112,column:2},end:{line:114,column:3}},"30":{start:{line:113,column:4},end:{line:113,column:36}},"31":{start:{line:119,column:2},end:{line:121,column:3}},"32":{start:{line:120,column:4},end:{line:120,column:36}},"33":{start:{line:126,column:2},end:{line:128,column:3}},"34":{start:{line:127,column:4},end:{line:127,column:36}},"35":{start:{line:134,column:2},end:{line:136,column:3}},"36":{start:{line:135,column:4},end:{line:135,column:37}},"37":{start:{line:141,column:2},end:{line:143,column:3}},"38":{start:{line:142,column:4},end:{line:142,column:37}},"39":{start:{line:146,column:33},end:{line:146,column:57}}},fnMap:{"0":{name:"BrillTransformationRules",decl:{start:{line:27,column:9},end:{line:27,column:33}},loc:{start:{line:27,column:36},end:{line:29,column:1}},line:27},"1":{name:"(anonymous_1)",decl:{start:{line:31,column:45},end:{line:31,column:46}},loc:{start:{line:31,column:61},end:{line:33,column:1}},line:31},"2":{name:"(anonymous_2)",decl:{start:{line:35,column:45},end:{line:35,column:46}},loc:{start:{line:35,column:67},end:{line:37,column:1}},line:35},"3":{name:"(anonymous_3)",decl:{start:{line:39,column:48},end:{line:39,column:49}},loc:{start:{line:39,column:63},end:{line:41,column:1}},line:39},"4":{name:"(anonymous_4)",decl:{start:{line:43,column:46},end:{line:43,column:47}},loc:{start:{line:43,column:65},end:{line:45,column:1}},line:43},"5":{name:"(anonymous_5)",decl:{start:{line:47,column:46},end:{line:47,column:47}},loc:{start:{line:47,column:57},end:{line:49,column:1}},line:47},"6":{name:"startsWith",decl:{start:{line:55,column:9},end:{line:55,column:19}},loc:{start:{line:55,column:35},end:{line:60,column:1}},line:55},"7":{name:"endsWith",decl:{start:{line:66,column:9},end:{line:66,column:17}},loc:{start:{line:66,column:33},end:{line:71,column:1}},line:66},"8":{name:"rule1",decl:{start:{line:74,column:9},end:{line:74,column:14}},loc:{start:{line:74,column:38},end:{line:82,column:1}},line:74},"9":{name:"rule2",decl:{start:{line:85,column:9},end:{line:85,column:14}},loc:{start:{line:85,column:38},end:{line:101,column:1}},line:85},"10":{name:"rule3",decl:{start:{line:104,column:9},end:{line:104,column:14}},loc:{start:{line:104,column:38},end:{line:108,column:1}},line:104},"11":{name:"rule4",decl:{start:{line:111,column:9},end:{line:111,column:14}},loc:{start:{line:111,column:38},end:{line:115,column:1}},line:111},"12":{name:"rule5",decl:{start:{line:118,column:9},end:{line:118,column:14}},loc:{start:{line:118,column:38},end:{line:122,column:1}},line:118},"13":{name:"rule6",decl:{start:{line:125,column:9},end:{line:125,column:14}},loc:{start:{line:125,column:38},end:{line:129,column:1}},line:125},"14":{name:"rule7",decl:{start:{line:133,column:9},end:{line:133,column:14}},loc:{start:{line:133,column:38},end:{line:137,column:1}},line:133},"15":{name:"rule8",decl:{start:{line:140,column:9},end:{line:140,column:14}},loc:{start:{line:140,column:38},end:{line:144,column:1}},line:140}},branchMap:{"0":{loc:{start:{line:56,column:2},end:{line:58,column:3}},type:"if",locations:[{start:{line:56,column:2},end:{line:58,column:3}},{start:{line:56,column:2},end:{line:58,column:3}}],line:56},"1":{loc:{start:{line:67,column:2},end:{line:69,column:3}},type:"if",locations:[{start:{line:67,column:2},end:{line:69,column:3}},{start:{line:67,column:2},end:{line:69,column:3}}],line:67},"2":{loc:{start:{line:67,column:6},end:{line:67,column:45}},type:"binary-expr",locations:[{start:{line:67,column:6},end:{line:67,column:13}},{start:{line:67,column:17},end:{line:67,column:45}}],line:67},"3":{loc:{start:{line:75,column:2},end:{line:81,column:3}},type:"if",locations:[{start:{line:75,column:2},end:{line:81,column:3}},{start:{line:75,column:2},end:{line:81,column:3}}],line:75},"4":{loc:{start:{line:75,column:6},end:{line:75,column:60}},type:"binary-expr",locations:[{start:{line:75,column:7},end:{line:75,column:16}},{start:{line:75,column:22},end:{line:75,column:59}}],line:75},"5":{loc:{start:{line:76,column:4},end:{line:80,column:5}},type:"if",locations:[{start:{line:76,column:4},end:{line:80,column:5}},{start:{line:76,column:4},end:{line:80,column:5}}],line:76},"6":{loc:{start:{line:76,column:8},end:{line:78,column:41}},type:"binary-expr",locations:[{start:{line:76,column:9},end:{line:76,column:43}},{start:{line:77,column:7},end:{line:77,column:41}},{start:{line:78,column:7},end:{line:78,column:40}}],line:76},"7":{loc:{start:{line:86,column:2},end:{line:100,column:3}},type:"if",locations:[{start:{line:86,column:2},end:{line:100,column:3}},{start:{line:86,column:2},end:{line:100,column:3}}],line:86},"8":{loc:{start:{line:87,column:4},end:{line:95,column:5}},type:"if",locations:[{start:{line:87,column:4},end:{line:95,column:5}},{start:{line:87,column:4},end:{line:95,column:5}}],line:87},"9":{loc:{start:{line:89,column:6},end:{line:94,column:7}},type:"if",locations:[{start:{line:89,column:6},end:{line:94,column:7}},{start:{line:89,column:6},end:{line:94,column:7}}],line:89},"10":{loc:{start:{line:97,column:4},end:{line:99,column:5}},type:"if",locations:[{start:{line:97,column:4},end:{line:99,column:5}},{start:{line:97,column:4},end:{line:99,column:5}}],line:97},"11":{loc:{start:{line:105,column:2},end:{line:107,column:3}},type:"if",locations:[{start:{line:105,column:2},end:{line:107,column:3}},{start:{line:105,column:2},end:{line:107,column:3}}],line:105},"12":{loc:{start:{line:105,column:6},end:{line:105,column:91}},type:"binary-expr",locations:[{start:{line:105,column:6},end:{line:105,column:47}},{start:{line:105,column:51},end:{line:105,column:91}}],line:105},"13":{loc:{start:{line:112,column:2},end:{line:114,column:3}},type:"if",locations:[{start:{line:112,column:2},end:{line:114,column:3}},{start:{line:112,column:2},end:{line:114,column:3}}],line:112},"14":{loc:{start:{line:119,column:2},end:{line:121,column:3}},type:"if",locations:[{start:{line:119,column:2},end:{line:121,column:3}},{start:{line:119,column:2},end:{line:121,column:3}}],line:119},"15":{loc:{start:{line:119,column:6},end:{line:119,column:92}},type:"binary-expr",locations:[{start:{line:119,column:6},end:{line:119,column:48}},{start:{line:119,column:52},end:{line:119,column:92}}],line:119},"16":{loc:{start:{line:126,column:2},end:{line:128,column:3}},type:"if",locations:[{start:{line:126,column:2},end:{line:128,column:3}},{start:{line:126,column:2},end:{line:128,column:3}}],line:126},"17":{loc:{start:{line:126,column:6},end:{line:126,column:123}},type:"binary-expr",locations:[{start:{line:126,column:7},end:{line:126,column:16}},{start:{line:126,column:21},end:{line:126,column:63}},{start:{line:126,column:68},end:{line:126,column:122}}],line:126},"18":{loc:{start:{line:134,column:2},end:{line:136,column:3}},type:"if",locations:[{start:{line:134,column:2},end:{line:136,column:3}},{start:{line:134,column:2},end:{line:136,column:3}}],line:134},"19":{loc:{start:{line:134,column:6},end:{line:134,column:86}},type:"binary-expr",locations:[{start:{line:134,column:7},end:{line:134,column:40}},{start:{line:134,column:46},end:{line:134,column:85}}],line:134},"20":{loc:{start:{line:141,column:2},end:{line:143,column:3}},type:"if",locations:[{start:{line:141,column:2},end:{line:143,column:3}},{start:{line:141,column:2},end:{line:143,column:3}}],line:141},"21":{loc:{start:{line:141,column:6},end:{line:141,column:93}},type:"binary-expr",locations:[{start:{line:141,column:6},end:{line:141,column:48}},{start:{line:141,column:52},end:{line:141,column:93}}],line:141}},s:{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0,"14":0,"15":0,"16":0,"17":0,"18":0,"19":0,"20":0,"21":0,"22":0,"23":0,"24":0,"25":0,"26":0,"27":0,"28":0,"29":0,"30":0,"31":0,"32":0,"33":0,"34":0,"35":0,"36":0,"37":0,"38":0,"39":0},f:{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0,"13":0,"14":0,"15":0},b:{"0":[0,0],"1":[0,0],"2":[0,0],"3":[0,0],"4":[0,0],"5":[0,0],"6":[0,0,0],"7":[0,0],"8":[0,0],"9":[0,0],"10":[0,0],"11":[0,0],"12":[0,0],"13":[0,0],"14":[0,0],"15":[0,0],"16":[0,0],"17":[0,0,0],"18":[0,0],"19":[0,0],"20":[0,0],"21":[0,0]},_coverageSchema:"332fd63041d2c1bcb487cc26dd0d5f7d97098a6c"},coverage=global[gcv]||(global[gcv]={});if(coverage[path]&&coverage[path].hash===hash){return coverage[path];}coverageData.hash=hash;return coverage[path]=coverageData;}();/*
   Transformation rules for Brill's POS tagger
