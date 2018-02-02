@@ -1,6 +1,6 @@
 module Flags
   extend ActiveSupport::Concern
-  FLAGS = %w(production archive alpha beta)
+  FLAGS = %w(production archive alpha beta private)
 
   module ClassMethods
     def flag_all flag
