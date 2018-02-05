@@ -10,7 +10,6 @@ class Subscription < ActiveRecord::Base
   belongs_to :subscription_type
   validates :expiration, presence: true
   validates :account_limit, presence: true
-  # default_scope { where(de_activated_date: nil)}
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
     'School NYC Paid',
