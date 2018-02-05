@@ -40,7 +40,8 @@ export function checkSentenceFragment(hash:{
     incorrectSequences: hash.incorrectSequences,
     wordCountChange: hash.wordCountChange,
     ignoreCaseAndPunc: hash.ignoreCaseAndPunc,
-    prompt: hash.prompt
+    prompt: hash.prompt,
+    mlUrl: hash.mlUrl
   }
 
   const firstPass = checkForMatches(data, firstPassMatchers)
@@ -48,12 +49,12 @@ export function checkSentenceFragment(hash:{
     return Object.assign(responseTemplate, firstPass)
   }
 
-  responseTemplate.gradeIndex = `unmarked${question_uid}`
+  responseTemplate.gradeIndex = `unmarked${hash.question_uid}`
   return responseTemplate
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {
-  const {response, responses, incorrectSequences, ignoreCaseAndPunc, wordCountChange, prompt, checkML} = data;
+  const {response, responses, incorrectSequences, ignoreCaseAndPunc, wordCountChange, prompt, checkML, mlUrl} = data;
   const submission =  response
 
   yield exactMatch(submission, responses)
@@ -71,7 +72,7 @@ function* firstPassMatchers(data, spellCorrected=false) {
   }
   yield partsOfSpeechChecker(submission, responses)
   if (checkML) {
-    yield machineLearningSentenceChecker(submission, responses)
+    yield machineLearningSentenceChecker(submission, responses, mlUrl)
   }
 
 }
