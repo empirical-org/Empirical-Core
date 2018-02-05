@@ -10,6 +10,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :subscription_type
   validates :expiration, presence: true
   validates :account_limit, presence: true
+  # default_scope { where(de_activated_date: nil)}
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
     'School NYC Paid',
@@ -69,14 +70,14 @@ class Subscription < ActiveRecord::Base
     new_sub.save!
   end
 
-  def credit_user_and_expire
+  def credit_user_and_de_activate
     if self.school_subscriptions.ids.any?
       # we should not do this if the sub belongs to a school
       report_to_new_relic("Sub credited and expired with school. Subscription: #{self.id}")
     elsif self.user_subscriptions.ids.count > 1
       report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{self.id}")
     else
-      self.update(expiration: Date.today, recurring: false)
+      self.update(de_activated_date: Date.today, recurring: false)
       # subtract later of start date or today's date from expiration date to calculate amount to credit
       amount_to_credit = self.expiration - [self.start_date, Date.today].max
       #TODO:  CREDIT ACTION HERE
@@ -84,7 +85,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.expired_today_and_recurring
-    Subscription.where(expiration: Date.today, recurring:  true)
+    Subscription.where(expiration: Date.today, recurring:  true, de_activated_date: nil)
   end
 
   def self.school_or_user_has_ever_paid(school_or_user)
@@ -125,7 +126,7 @@ class Subscription < ActiveRecord::Base
   def self.set_premium_expiration_and_start_date(school_or_user)
       if !Subscription.school_or_user_has_ever_paid(school_or_user)
         # We end their trial if they have one
-        school_or_user.subscription&.update(expiration: Date.today)
+        school_or_user.subscription&.update(de_activated_date: Date.today)
         # Then they get the promotional subscription
         promotional_dates
       elsif school_or_user.subscription
