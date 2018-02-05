@@ -106,6 +106,7 @@ const DiagnosticQuestion = React.createClass({
           <div className="tabs">
             <ul>
               <NavLink activeClassName="is-active" to={`admin/diagnostic-questions/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`admin/diagnostic-questions/${questionID}/test`}>Play Question</NavLink>
               {activeLink}
             </ul>
           </div>

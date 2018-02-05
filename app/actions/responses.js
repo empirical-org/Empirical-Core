@@ -310,7 +310,6 @@ export function getResponsesWithCallback(questionID, callback) {
 }
 
 export function listenToResponsesWithCallback(questionID, callback) {
-  alert("sdafsefsefsfef")
   responsesForQuestionRef(questionID).on('value', (snapshot) => {
     callback(snapshot.val());
     console.log('Listened to responses for ', questionID);
@@ -318,7 +317,6 @@ export function listenToResponsesWithCallback(questionID, callback) {
 }
 
 function gradedResponsesForQuestionRef(questionId) {
-  alert("This is being called sjfbsjhebfjs");
   return responsesRef.orderByChild('gradeIndex').equalTo(`human${questionId}`);
 }
 

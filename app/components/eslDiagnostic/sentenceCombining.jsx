@@ -123,9 +123,9 @@ const PlayDiagnosticQuestion = React.createClass({
   checkAnswer(e) {
     if (this.state.editing) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking);
+      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking || 'diagnostic');
       this.updateResponseResource(response);
-      if (response.found && response.response.author === 'Missing Details Hint') {
+      if (response.response && response.response.author === 'Missing Details Hint') {
         this.setState({
           editing: false,
           error: 'Your answer is too short. Please read the directions carefully and try again.',

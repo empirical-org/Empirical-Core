@@ -44,15 +44,17 @@ function question(state = initialState, action) {
         unansweredQuestions: [],
       });
     case SubmitActions.SUBMIT_DIAGNOSTIC_RESPONSE:
-      var changes = { currentQuestion: Object.assign({}, state.currentQuestion, {
-        data: Object.assign({},
-              state.currentQuestion.data,
-          {
-            attempts: state.currentQuestion.data.attempts.concat([action.response]),
+      if (state.currentQuestion && state.currentQuestion.data) {
+        var changes = { currentQuestion: Object.assign({}, state.currentQuestion, {
+          data: Object.assign({},
+            state.currentQuestion.data,
+            {
+              attempts: state.currentQuestion.data.attempts.concat([action.response]),
+            }),
           }),
-      }),
-      };
-      return Object.assign({}, state, changes);
+        };
+        return Object.assign({}, state, changes);
+      }
     case SubmitActions.START_DIAGNOSTIC_QUESTION:
       var changes = { currentQuestion:
       Object.assign({}, state.currentQuestion, {
