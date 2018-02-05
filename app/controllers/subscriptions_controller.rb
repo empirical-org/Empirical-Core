@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: [:show, :update, :destroy]
 
   def index
-    @subscriptions = Subscription.all
+    @subscriptions = current_user.subscriptions
     respond_to do |format|
       format.html
       format.json {render json: @subscriptions}
