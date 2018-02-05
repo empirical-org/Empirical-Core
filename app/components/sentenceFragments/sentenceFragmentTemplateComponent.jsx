@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
-import POSMatcher from '../../libs/sentenceFragment.js';
+import {checkSentenceFragment} from 'quill-marking-logic'
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,
@@ -96,7 +96,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   handleChange(e) {
-    this.setState({ 
+    this.setState({
       response: e,
       editing: true,
     });
@@ -108,16 +108,8 @@ const PlaySentenceFragment = React.createClass({
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences } = this.getQuestion();
-        const fields = {
-          prompt,
-          responses: hashToCollection(this.getResponses()),
-          questionUID: key,
-          wordCountChange,
-          ignoreCaseAndPunc,
-          incorrectSequences,
-        };
-        const responseMatcher = new POSMatcher(fields);
-        const matched = responseMatcher.checkMatch(this.state.response);
+        const responses = hashToCollection(this.getResponses())
+        const matched = checkSentenceFragment(key, this.state.response, responses, wordCountChange, ignoreCaseAndPunc, incorrectSequences, prompt)
         updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });

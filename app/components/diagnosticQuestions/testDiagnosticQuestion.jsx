@@ -55,7 +55,7 @@ class TestQuestion extends Component {
   renderGrading() {
     if (this.state.gradedResponse) {
       const {author, feedback} = this.state.gradedResponse.response
-      return <div>
+      return <div style={{marginTop: '30px'}}>
         <p>Author: {author}</p>
         <p>Feedback: {feedback}</p>
       </div>
@@ -65,7 +65,6 @@ class TestQuestion extends Component {
   render() {
     if (this.props.playLesson.currentQuestion) {
       const { question, } = this.props.playLesson.currentQuestion;
-      console.log(question);
       return (
         <div>
           <div className="test-question-container">

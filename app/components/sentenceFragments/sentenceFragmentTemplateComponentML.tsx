@@ -1,9 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import _ from 'underscore';
+import * as _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
 import POSMatcher from '../../libs/sentenceFragmentML.js';
+import {checkSentenceFragment} from 'quill-marking-logic'
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,
@@ -15,7 +16,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
 import icon from '../../img/question_icon.svg';
 
-const PlaySentenceFragment = React.createClass({
+const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
     return {
       response: this.props.question.prompt,
@@ -96,7 +97,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   handleChange(e) {
-    this.setState({ 
+    this.setState({
       response: e,
       editing: true,
     });

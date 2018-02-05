@@ -24,7 +24,6 @@ export function updateData(questionId, responses) {
 }
 
 function responsesForQuestionRef(questionId) {
-  alert("This is being called kejnfkwjenfk");
   return responsesRef.orderByChild('questionUID').equalTo(questionId);
 }
 
@@ -369,7 +368,6 @@ export function getGradedResponsesWithoutCallback(questionID) {
 }
 
 export function findResponseByText(text, questionUID, cb) {
-  alert("This is being called askjenfalkwjenf");
   responsesRef.orderByChild('text').equalTo(text).once('value', (snapshot) => {
     const response = _.findWhere(hashToCollection(snapshot.val()), { questionUID, });
     cb(response);
