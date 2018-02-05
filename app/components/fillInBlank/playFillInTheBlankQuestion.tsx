@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import _ from 'underscore';
+import * as  _ from 'underscore';
+import {checkFillInTheBlankQuestion} from 'quill-marking-logic'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import Grader from '../../libs/fillInBlank.js';
+// import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
@@ -40,7 +41,7 @@ const styles = {
   },
 };
 
-export class PlayFillInTheBlankQuestion extends Component {
+export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
@@ -132,7 +133,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   renderWarning(i) {
-    const warningStyle = {
+    const warningStyle:any = {
       border: '1px #ff3730 solid',
       color: '#ff3730',
       fontSize: '14px',
@@ -147,7 +148,7 @@ export class PlayFillInTheBlankQuestion extends Component {
     };
     const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
     const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
-    let chevyStyle = this.chevyStyleLeft();
+    let chevyStyle:any = this.chevyStyleLeft();
     if (rectangle.left > (body.width / 2)) {
       warningStyle.right = '-73px';
       chevyStyle = this.chevyStyleRight();
@@ -186,7 +187,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   renderInput(i) {
-    let styling = styles.input;
+    let styling:any = styles.input;
     let warning;
     if (this.state.inputErrors.has(i)) {
       warning = this.renderWarning(i);
@@ -244,19 +245,22 @@ export class PlayFillInTheBlankQuestion extends Component {
         }
       }
       const zippedAnswer = this.zipInputsAndText();
-      const fields = {
-        prompt: this.getQuestion().prompt,
-        responses: hashToCollection(this.state.responses),
-        questionUID: this.getQuestion().key,
-      };
-      const newQuestion = new Grader(fields);
-      const response = newQuestion.checkMatch(zippedAnswer);
+      const questionUID = this.getQuestion().key
+      const responses = hashToCollection(this.state.responses)
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responses)}
+      this.setResponse(response);
       this.updateResponseResource(response);
       this.submitResponse(response);
       this.setState({
         response: '',
       });
       this.props.nextQuestion();
+    }
+  }
+
+  setResponse(response) {
+    if (this.props.setResponse) {
+      this.props.setResponse(response)
     }
   }
 
