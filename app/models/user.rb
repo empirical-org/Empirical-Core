@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   end
 
   def present_and_future_subscriptions
-    self.subscriptions.where("expiration > ?", Date.today).order(expiration: :asc)
+    self.subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
   end
 
   def create(*args)

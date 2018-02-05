@@ -135,6 +135,7 @@ describe Subscription, type: :model do
     let!(:subscription) {create(:subscription)}
     let!(:recurring_subscription_expiring_today_1) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
     let!(:recurring_subscription_expiring_today_2) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
+    let!(:recurring_subscription_expiring_but_de_activated) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true, de_activated_date: Date.today) }
     let!(:recurring_subscription_expiring_tomorrow) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: true) }
     let!(:non_recurring_subscription_expiring_today) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: false) }
     describe 'self.update_todays_expired_recurring_subscriptions' do
@@ -217,7 +218,11 @@ describe Subscription, type: :model do
     end
 
     describe 'self.expired_today_and_recurring' do
-      it "returns all subscriptions where the expiration date is today and recurring is true" do
+      it "returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null" do
+        expect(Subscription.expired_today_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
+      end
+
+      it "returns no subscriptions where the de_activated_date is not null" do
         expect(Subscription.expired_today_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
       end
 
