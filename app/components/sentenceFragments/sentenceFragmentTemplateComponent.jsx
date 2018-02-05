@@ -109,7 +109,16 @@ const PlaySentenceFragment = React.createClass({
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
-        const matched = checkSentenceFragment(key, this.state.response, responses, wordCountChange, ignoreCaseAndPunc, incorrectSequences, prompt)
+        const fields = {
+          question_uid: key,
+          response: this.state.response,
+          responses,
+          wordCountChange,
+          ignoreCaseAndPunc,
+          prompt,
+          incorrectSequences
+        }
+        const matched = checkSentenceFragment(fields)
         updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
