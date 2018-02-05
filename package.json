@@ -70,6 +70,7 @@
     "pos": "^0.4.2",
     "quill-spellchecker": "^0.1.4",
     "quill-string-normalizer": "0.0.7",
+    "request": "^2.83.0",
     "rollup-plugin-commonjs": "^8.3.0",
     "rollup-plugin-istanbul": "^2.0.0",
     "rollup-plugin-node-resolve": "^3.0.2",

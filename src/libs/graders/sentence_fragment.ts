@@ -14,30 +14,33 @@ import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctu
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match'
 import {requiredWordsChecker} from '../matchers/required_words_match'
 import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
+import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
 
-export function checkSentenceFragment(
+export function checkSentenceFragment(hash:{
   question_uid: string,
   response: string,
   responses: Array<Response>,
-  wordCountChange:Object={},
-  ignoreCaseAndPunc: Boolean,
-  incorrectSequences: Array<IncorrectSequence>=[],
-  prompt: string
-): Response {
+  wordCountChange?: Object,
+  ignoreCaseAndPunc?: Boolean,
+  incorrectSequences?: Array<IncorrectSequence>,
+  prompt: string,
+  checkML?: Boolean,
+  mlUrl?: string
+}): Response {
   const responseTemplate = {
-    text: response,
-    question_uid,
-    gradeIndex: `nonhuman${question_uid}`,
+    text: hash.response,
+    question_uid: hash.question_uid,
+    gradeIndex: `nonhuman${hash.question_uid}`,
     count: 1,
     optimal: false
   }
   const data = {
-    response,
-    responses: _.sortBy(responses, r => r.count).reverse(),
-    incorrectSequences,
-    wordCountChange,
-    ignoreCaseAndPunc,
-    prompt
+    response: hash.response,
+    responses: _.sortBy(hash.responses, r => r.count).reverse(),
+    incorrectSequences: hash.incorrectSequences,
+    wordCountChange: hash.wordCountChange,
+    ignoreCaseAndPunc: hash.ignoreCaseAndPunc,
+    prompt: hash.prompt
   }
 
   const firstPass = checkForMatches(data, firstPassMatchers)
@@ -50,7 +53,7 @@ export function checkSentenceFragment(
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {
-  const {response, responses, incorrectSequences, ignoreCaseAndPunc, wordCountChange, prompt} = data;
+  const {response, responses, incorrectSequences, ignoreCaseAndPunc, wordCountChange, prompt, checkML} = data;
   const submission =  response
 
   yield exactMatch(submission, responses)
@@ -67,6 +70,9 @@ function* firstPassMatchers(data, spellCorrected=false) {
     yield requiredWordsChecker(submission, responses)
   }
   yield partsOfSpeechChecker(submission, responses)
+  if (checkML) {
+    yield machineLearningSentenceChecker(submission, responses)
+  }
 
 }
 

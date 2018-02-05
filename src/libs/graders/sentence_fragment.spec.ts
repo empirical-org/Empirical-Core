@@ -25,7 +25,14 @@ describe('The checking a sentence fragment', () => {
           question_uid: 'questionOne'
         }
       ]
-      const matchedResponse = checkSentenceFragment('questionOne', responseString, savedResponses, {min: 1, max: 3}, false, [], 'My dog took nap.');
+      const matchedResponse = checkSentenceFragment({
+        question_uid: 'questionOne',
+        response: responseString,
+        responses: savedResponses,
+        wordCountChange: {min: 1, max: 3},
+        ignoreCaseAndPunc: false,
+        incorrectSequences: [],
+        prompt: 'My dog took nap.'});
       assert.equal(matchedResponse.id, savedResponses[0].id);
   });
 
