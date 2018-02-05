@@ -48,7 +48,7 @@ export function checkSentenceFragment(hash:{
     return Object.assign(responseTemplate, firstPass)
   }
 
-  responseTemplate.gradeIndex = `unmarked${question_uid}`
+  responseTemplate.gradeIndex = `unmarked${hash.question_uid}`
   return responseTemplate
 }
 
