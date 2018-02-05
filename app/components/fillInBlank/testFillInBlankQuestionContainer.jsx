@@ -59,7 +59,6 @@ class TestQuestion extends Component {
   }
 
   setResponse(response) {
-    debugger;
     this.setState({gradedResponse: response})
   }
 
