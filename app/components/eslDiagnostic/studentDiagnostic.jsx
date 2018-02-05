@@ -9,7 +9,7 @@ import { loadResponseData } from '../../actions/responses';
 import Spinner from '../shared/spinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion.jsx';
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
