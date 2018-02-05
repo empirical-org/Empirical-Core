@@ -1,27 +1,70 @@
 .subscriptions {
   width: 950px;
   margin: auto;
+
   h2 {
     font-size: 20px;
     color: #1e1e1e;
     font-weight: 700;
+    margin-bottom: 12px;
   }
+
+  section {
+    padding-top: 42px;
+    border-bottom: none;
+  }
+
+  .current-subscription-information {
+    background-color: white;
+  }
+
+  a.green-link {
+    font-size: 14px;
+    color: #027360;
+  }
+
+
+
+  .available-credit {
+    background-color: white;
+    border: solid 1px #f5ba5b;
+    min-height: 77px;
+    padding: 25px;
+    button {
+      background-color: #f8a724;
+      color: white;
+    }
+    .credit-quantity {
+      color: #f8a724;
+      font-size: 18px;
+      span {
+        font-size: 24px;
+        font-weight: 700;
+      }
+    }
+  }
+
   table {
     width: 100%;
     border-collapse: separate;
+
     tr {
       height: 41px;
       background-color: #ffffff;
+
       &:first-of-type {
         border: none;
+
         th {
           color: #3b3b3b;
           background-color: #fafafa;
           border: 1px solid #e9e9e9;
           border-right: none;
+
           &:first-of-type {
             border-top-left-radius: 5px;
           }
+
           &:last-of-type {
             border-right: 1px solid #e9e9e9;
             border-top-right-radius: 5px;
@@ -33,25 +76,37 @@
         font-weight: 600;
         text-align: left;
       }
+
       &:not(:first-of-type) {
+        size: 14px;
+
         td {
+          padding-left: 14px;
           border-bottom: 1px solid #e9e9e9;
+
           &:first-of-type {
             border-left: 1px solid #e9e9e9;
           }
+
           &:last-of-type {
             border-right: 1px solid #e9e9e9;
           }
         }
+
         &:last-of-type {
           td:first-of-type {
             border-bottom-left-radius: 5px;
           }
+
           td:last-of-type {
             border-bottom-right-radius: 5px;
           }
         }
       }
     }
+  }
+
+  p {
+    color: #666666;
   }
 }
