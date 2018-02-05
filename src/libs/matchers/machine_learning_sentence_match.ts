@@ -7,11 +7,19 @@ import {Response, PartialResponse, ConceptResult, WordCountChange} from '../../i
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export function machineLearningSentenceMatch(response: string):Boolean {
+export function machineLearningSentenceMatch(response: string, link: string):Boolean {
+  const options = {
+    method: 'POST',
+    uri: `${link}/fragments/is_sentence`,
+    form: {
+      text: response
+    }
+  };
+  return request(options).then(parsedBody => JSON.parse(parsedBody).text > 0.5)
 }
 
-export function machineLearningSentenceChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
-  const match = machineLearningSentenceMatch(responseString);
+export function machineLearningSentenceChecker(responseString: string, responses:Array<Response>, link:string):PartialResponse|undefined {
+  const match = machineLearningSentenceMatch(responseString, link);
   return machineLearningSentenceResponseBuilder(responses, match)
 }
 
