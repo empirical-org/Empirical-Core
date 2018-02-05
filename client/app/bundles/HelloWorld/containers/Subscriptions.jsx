@@ -46,6 +46,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
+        <h2>Premium Subscription History</h2>
         {this.subscriptionHistory()}
       </div>
     );
