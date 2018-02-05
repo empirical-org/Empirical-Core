@@ -26,7 +26,7 @@ export default class extends React.Component {
       }
     ];
     return (
-      <div key={`concept-progress-report-length-${this.props.subscriptions.length}`}>
+      <div>
         <ReactTable
           data={this.props.subscriptions} columns={columnDefinitions} showPagination={false} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} className="progress-report has-green-arrow"
         />

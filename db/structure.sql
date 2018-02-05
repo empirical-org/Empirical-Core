@@ -1516,7 +1516,8 @@ CREATE TABLE subscriptions (
     start_date timestamp without time zone DEFAULT '2018-01-30 00:00:00'::timestamp without time zone,
     subscription_type_id integer,
     contact_user_id integer,
-    recurring boolean DEFAULT false
+    recurring boolean DEFAULT false,
+    de_activated_date timestamp without time zone
 );
 
 
@@ -3102,6 +3103,13 @@ CREATE INDEX index_subscriptions_on_contact_user_id ON subscriptions USING btree
 
 
 --
+-- Name: index_subscriptions_on_de_activated_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_de_activated_date ON subscriptions USING btree (de_activated_date);
+
+
+--
 -- Name: index_subscriptions_on_recurring; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3921,4 +3929,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180131212358');
 INSERT INTO schema_migrations (version) VALUES ('20180201191052');
 
 INSERT INTO schema_migrations (version) VALUES ('20180201221940');
+
+INSERT INTO schema_migrations (version) VALUES ('20180205170220');
 

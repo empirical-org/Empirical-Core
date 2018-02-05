@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'ostruct'
 
 describe Subscription, type: :model do
-  describe '#credit_user_and_expire' do
+  describe '#credit_user_and_de_activate' do
     let!(:subscription) { create(:subscription) }
     let!(:user) { create(:user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
@@ -15,26 +15,26 @@ describe Subscription, type: :model do
       it 'is a subscription with multiple users_subscriptions linked' do
         user_subscription_2
         old_sub_attributes = subscription.attributes
-        subscription.credit_user_and_expire
+        subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
 
       it 'is a subscription with any school subscriptions linked' do
         school_subscription
         old_sub_attributes = subscription.attributes
-        subscription.credit_user_and_expire
+        subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
     end
 
-    it 'sets the subscription to expire the day it is called' do
-      subscription.credit_user_and_expire
-      expect(subscription.expiration).to eq(Date.today)
+    it 'sets the subscription to de_activate the day it is called' do
+      subscription.credit_user_and_de_activate
+      expect(subscription.de_activated_date).to eq(Date.today)
     end
 
     it 'sets the recurring to false when it is called' do
       subscription.update(recurring: true)
-      subscription.credit_user_and_expire
+      subscription.credit_user_and_de_activate
       expect(subscription.recurring).to eq(false)
     end
   end
