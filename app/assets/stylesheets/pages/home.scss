@@ -269,6 +269,16 @@
     }
   }
 
+  .navigation-vertical-rule {
+    background: $white;
+    display: inline-block;
+    height: 32px;
+    margin: 0 25px 0 13px;
+    position: relative;
+    top: 2px;
+    width: 1px;
+  }
+
   #nav-user-dropdown {
     display: inline-block;
 
