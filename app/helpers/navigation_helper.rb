@@ -1,8 +1,6 @@
 module NavigationHelper
   def home_page_should_be_active?
-    ((controller.class ==  Teachers::ClassroomsController && action_name == 'dashboard') ||
-    ['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)) &&
-    action_name != 'invite_students'
+    ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)
   end
 
   def classes_page_should_be_active?
