@@ -23,6 +23,7 @@
 			<%- if current_user.nil? %>
 				<li><%= link_to "Login", new_session_path %></li>
 			<%- elsif current_user.role == 'teacher' %>
+				<div class='navigation-vertical-rule'></div>
 				<nav id="nav-user-dropdown" class="dropdown-closed">
 					<ul>
 						<li><%= link_to raw("<i class='fa fa-book'></i>#{current_user.name}<i class='fa fa-chevron-down'></i>"), '#', onClick: "toggleDropdown()" %></li>
