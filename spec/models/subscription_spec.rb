@@ -236,25 +236,25 @@ describe Subscription, type: :model do
       end
     end
 
-    describe 'self.expired_today_and_recurring' do
+    describe 'self.expired_today_or_previously_and_recurring' do
       it "returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null" do
-        expect(Subscription.expired_today_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
+        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
       end
 
       it "returns no subscriptions where the de_activated_date is not null" do
-        expect(Subscription.expired_today_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
+        expect(Subscription.expired_today_or_previously_and_recurring).to contain_exactly(recurring_subscription_expiring_today_1, recurring_subscription_expiring_today_2)
       end
 
       it "does not return subscriptions just because they expire today" do
-        expect(Subscription.expired_today_and_recurring).not_to include(non_recurring_subscription_expiring_today)
+        expect(Subscription.expired_today_or_previously_and_recurring).not_to include(non_recurring_subscription_expiring_today)
       end
 
       it "does not return subscriptions just because they are recurring" do
-        expect(Subscription.expired_today_and_recurring).not_to include(recurring_subscription_expiring_tomorrow)
+        expect(Subscription.expired_today_or_previously_and_recurring).not_to include(recurring_subscription_expiring_tomorrow)
       end
 
       it "does not return subscriptions that are neither recurring nor expiring today" do
-        expect(Subscription.expired_today_and_recurring).not_to include(subscription)
+        expect(Subscription.expired_today_or_previously_and_recurring).not_to include(subscription)
       end
     end
   end
