@@ -145,7 +145,13 @@
   }
 }
 
-@media (max-width: 871px) {
+@media (min-width: 930px) {
+  .hide-on-desktop { display: none; }
+}
+
+@media (max-width: 930px) {
+  .hide-on-mobile { display: none; }
+
   .discover-tabs .full-screen:not(.mobile) {
     display: none;
   }
@@ -154,18 +160,10 @@
     display: none;
   }
 
-  #teacher-nav-tabs li.active {
-    border-top: 3px solid #027360;
-  }
-
   #teacher-nav-tabs li a.mobile {
     border-bottom: none;
     display: inline;
     padding: 11px 8px;
-  }
-
-  #teacher-nav-tabs li a:not(.mobile) {
-    display: none;
   }
 
   .tab-subnavigation-wrapper ul {
