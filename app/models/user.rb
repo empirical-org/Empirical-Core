@@ -14,9 +14,11 @@ class User < ActiveRecord::Base
   has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
   has_many :invitations
+  has_many :credit_transactions
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
+
 
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :admin_rights, through: :schools_admins, source: :school, foreign_key: :user_id
