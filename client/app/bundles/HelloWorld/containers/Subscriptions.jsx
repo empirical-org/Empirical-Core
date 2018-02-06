@@ -57,6 +57,28 @@ export default class extends React.Component {
     );
   }
 
+  premiumCreditsTable() {
+    const creditRows = this.props.premiumCredits.map(credit => (
+      <tr>
+        <td>{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
+        <td>{credit.amount}</td>
+        <td>{credit.action}</td>
+      </tr>
+      ));
+    return (
+      <table>
+        <tbody>
+          <tr>
+            <th>Date Received</th>
+            <th>Amount Credited</th>
+            <th>Action</th>
+          </tr>
+          {creditRows}
+        </tbody>
+      </table>
+    );
+  }
+
   premiumCredits() {
     return (
       <section>
@@ -74,6 +96,7 @@ export default class extends React.Component {
             </button>
           </div>
         </div>
+        {this.premiumCreditsTable()}
       </section>
     );
   }
