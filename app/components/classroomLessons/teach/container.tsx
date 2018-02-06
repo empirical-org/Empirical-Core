@@ -77,10 +77,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
+    const lessonId: string = nextProps.params.lessonID
     if (!nextProps.customize.user_id && Object.keys(nextProps.customize.editions).length === 0) {
-      this.props.dispatch(getEditionsForUserIds([]))
+      this.props.dispatch(getEditionsForUserIds([], lessonId))
     }
-    const lessonId: string = this.props.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
       if (!nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
         window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
@@ -101,7 +101,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
       }
       user_ids.push(nextProps.customize.user_id)
-      this.props.dispatch(getEditionsForUserIds(user_ids))
+      this.props.dispatch(getEditionsForUserIds(user_ids, lessonId))
     }
   }
 
