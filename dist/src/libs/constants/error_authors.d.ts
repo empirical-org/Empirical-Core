@@ -1,2 +1,2 @@
-declare const error_authors: Array<String>;
+declare const ;
 export default error_authors;

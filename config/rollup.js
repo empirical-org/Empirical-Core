@@ -5,7 +5,7 @@ var uglify = require('uglify-js');
 var commonjs = require('rollup-plugin-commonjs');
 var nodeResolve = require('rollup-plugin-node-resolve');
 var typescript = require('rollup-plugin-typescript2');
-var istanbul = require('rollup-plugin-istanbul');
+var json = require('rollup-plugin-json');
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
     '/*!\n' +
@@ -17,14 +17,16 @@ var banner =
 rollup.rollup({
     input: "./src/main.ts",
     plugins: [
-        nodeResolve({
+      nodeResolve({
             // pass custom options to the resolve plugin
             jsnext: true,
             main: true,
             browser: true,
           }),
+      json(),
       commonjs({
         include: 'node_modules/**',
+        exclude: 'node_modules/tough-cookie/package.json',
         namedExports: {
           'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject'],
           'node_modules/diff/dist/diff.js': ['diffWords', '_params']
