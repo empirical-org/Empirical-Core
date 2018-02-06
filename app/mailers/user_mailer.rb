@@ -70,4 +70,9 @@ class UserMailer < ActionMailer::Base
     mail from: "Quill Team <hello@quill.org>", 'reply-to': @referral['email'], to: @referrer['email'], subject: "#{@referral['name']} just activated their account on Quill!"
   end
 
+  def referral_invitation_email(inviter_hash, invitee_email)
+    @inviter = inviter_hash
+    mail from: "Quill Team <hello@quill.org>", 'reply-to': @inviter['email'], to: invitee_email, subject: "#{@inviter['name']} invites you to join Quill.org!"
+  end
+
 end
