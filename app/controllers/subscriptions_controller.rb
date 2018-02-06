@@ -3,6 +3,7 @@ class SubscriptionsController < ApplicationController
 
   def index
     @subscriptions = current_user.subscriptions
+    @premium_credits = current_user.credit_transactions
     respond_to do |format|
       format.html
       format.json {render json: @subscriptions}

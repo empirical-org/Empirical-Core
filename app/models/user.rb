@@ -76,6 +76,16 @@ class User < ActiveRecord::Base
 
   after_save :check_for_school
 
+  def redeem_credit
+    balance = credit_transactions.sum(:amount)
+    if balance > 0 && !subscription
+      new_sub = Subscription.create_with_user_join(self.id, {account_type: 'Premium Credit', expiration: Date.today + balance, start_date: Date.today, contact_user: self})
+      if new_sub
+        CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
+      end
+    end
+  end
+
   def subscription
     self.subscriptions.where("expiration > ? AND start_date <= ? AND de_activated_date IS NULL", Date.today, Date.today,).order(expiration: :desc).limit(1).first
   end
