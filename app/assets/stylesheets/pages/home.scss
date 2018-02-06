@@ -361,6 +361,9 @@
     }
   }
 }
+@media screen and(min-width: 991px) {
+  .home-page-navbar .home-navbar-list li.hide-on-desktop { display: none; }
+}
 @media screen and(max-width: 991px) {
   .home-page-navbar {
     #home-collapsed-navbar {
@@ -397,6 +400,14 @@
           background-color: $white;
           color: $quillgreen;
         }
+
+        &.hide-on-desktop {
+
+        }
+      }
+
+      .navigation-vertical-rule, #nav-user-dropdown {
+        &.hide-on-mobile { display: none; }
       }
     }
   }
