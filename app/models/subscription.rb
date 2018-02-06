@@ -80,7 +80,7 @@ class Subscription < ActiveRecord::Base
       self.update(de_activated_date: Date.today, recurring: false)
       # subtract later of start date or today's date from expiration date to calculate amount to credit
       amount_to_credit = self.expiration - [self.start_date, Date.today].max
-      CreditTransaction.create(user_id: self.user_subscriptions.ids.first, amount: amount_to_credit.to_i, source: self)
+      CreditTransaction.create(user_id: self.user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
     end
   end
 
