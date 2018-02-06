@@ -17,7 +17,9 @@ class Subscription < ActiveRecord::Base
     'School Strategic Paid',
     'School Paid',
     'Teacher Paid',
-    'Purchase Missing School']
+    'Purchase Missing School',
+    'Premium Credit'
+  ]
 
   OFFICIAL_FREE_TYPES = ['School NYC Free',
         'School Research',
