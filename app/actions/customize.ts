@@ -47,7 +47,9 @@ export function startListeningToEditionMetadata() {
 export function getEditionQuestions(editionID:string) {
   return function (dispatch, getState) {
     editionQuestionsRef.child(editionID).on('value', (snapshot) => {
-      dispatch(setEditionQuestions(snapshot.val()))
+      if (snapshot.val()) {
+        dispatch(setEditionQuestions(snapshot.val()))
+      }
     });
   };
 }
