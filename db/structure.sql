@@ -371,6 +371,39 @@ ALTER SEQUENCE admin_accounts_teachers_id_seq OWNED BY admin_accounts_teachers.i
 
 
 --
+-- Name: announcements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE announcements (
+    id integer NOT NULL,
+    type character varying,
+    html text,
+    start timestamp without time zone,
+    "end" timestamp without time zone
+);
+
+
+--
+-- Name: announcements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE announcements_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: announcements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE announcements_id_seq OWNED BY announcements.id;
+
+
+--
 -- Name: authors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1868,6 +1901,13 @@ ALTER TABLE ONLY admin_accounts_teachers ALTER COLUMN id SET DEFAULT nextval('ad
 
 
 --
+-- Name: announcements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY announcements ALTER COLUMN id SET DEFAULT nextval('announcements_id_seq'::regclass);
+
+
+--
 -- Name: authors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2216,6 +2256,14 @@ ALTER TABLE ONLY admin_accounts
 
 ALTER TABLE ONLY admin_accounts_teachers
     ADD CONSTRAINT admin_accounts_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: announcements announcements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY announcements
+    ADD CONSTRAINT announcements_pkey PRIMARY KEY (id);
 
 
 --
@@ -3852,4 +3900,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180122184126');
 INSERT INTO schema_migrations (version) VALUES ('20180123151650');
 
 INSERT INTO schema_migrations (version) VALUES ('20180131153416');
+
+INSERT INTO schema_migrations (version) VALUES ('20180206210355');
 
