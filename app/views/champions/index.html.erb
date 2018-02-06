@@ -10,6 +10,7 @@
       <input type='text' placeholder="Enter friend's email address" id='referral-email' />
       <input type='button' value='Refer Friend' onClick="sendReferralEmail()" />
     </form>
+    <h2 id='success-message' style='display: none;'>Invitation sent successfully!</h2>
   </div>
 
   <div id='steps'>
@@ -95,4 +96,21 @@
   document.querySelector('#referral-input').addEventListener('input', function(event) {
     document.querySelector('#referral-input').value = '<%= @referral_link %>';
   });
+
+  function displaySuccessMessage() {
+    document.getElementById('success-message').style.display = 'block';
+    window.setTimeout(function() {
+      document.getElementById('success-message').style.display = 'none';
+    }, 5000);
+  }
+
+  function sendReferralEmail() {
+    $.post('<%= invite_champions_path %>', {
+      email: document.getElementById('referral-email').value
+    }).success(function(data) {
+      displaySuccessMessage();
+    }).fail(function() {
+      alert('Whoops, looks like something went wrong. Please try again, or contact support.');
+    });
+  }
 </script>
