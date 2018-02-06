@@ -14,6 +14,38 @@ body {
   overflow-x: hidden;
 }
 
+.announcement {
+  align-items: center;
+  background: #e2ffc1;
+  border-radius: 3px;
+  border: 1px solid #82bf3c;
+  display: flex;
+  font-size: 16px;
+  margin: 0 0 16px;
+  padding: 13px 17px 12px 15px;
+
+  p {
+    flex-grow: 1;
+
+    a {
+      color: #027360;
+      font-weight: 600;
+    }
+  }
+
+  .circle {
+    background-color: #82bf3c;
+    box-shadow: 0 0 4px 0 #a8e067;
+    height: 14px;
+    width: 14px;
+  }
+
+  .fa {
+    color: #82bf3c;
+    margin-top: 3px;
+  }
+}
+
 #knowledge-center {
   header {
     background: linear-gradient(#3cb79e, rgba(66, 142, 123, 0.87)) #3cb79e;

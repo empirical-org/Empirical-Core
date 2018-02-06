@@ -55,6 +55,17 @@ export default class extends React.Component {
     return <main>{response}</main>
   }
 
+  renderAnnouncement() {
+    // TODO hook this up to the back end
+    return (
+      <div className='announcement'>
+        <div className='circle'></div>
+        <p>hi i am a announcement <a href='#'>wow so cool</a></p>
+        <i className='fa fa-chevron-right'></i>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div id="knowledge-center">
@@ -76,6 +87,7 @@ export default class extends React.Component {
             <li className={this.state.articleFilter === 'popularity' ? 'active' : null} onClick={() => this.filterArticlesBy('popularity')}>Most Read</li>
           </ul>
         </nav>
+        {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}
       </div>
     );
