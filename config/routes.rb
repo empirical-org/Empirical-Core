@@ -378,6 +378,8 @@ EmpiricalGrammar::Application.routes.draw do
         post :add_admin_by_email
       end
     end
+
+    resources :announcements, only: [:index, :new, :create, :update, :edit]
   end
 
   other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
