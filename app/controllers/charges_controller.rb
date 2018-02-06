@@ -10,13 +10,17 @@ class ChargesController < ApplicationController
       if params['source']['email'] != current_user.email
         raise 'Email is different from the user that is currently logged into Quill'
       end
-      customer = Stripe::Customer.create(
-        :description => "premium",
-        :source  => params[:source][:id],
-        :email => params[:source][:email]
-      )
+      if !current_user.stripe_customer_id
+        customer_id = Stripe::Customer.create(
+          :description => "premium",
+          :source  => params[:source][:id],
+          :email => params[:source][:email]
+        ).id
+      else
+        customer_id = current_user.stripe_customer_id
+      end
       @charge = Stripe::Charge.create(
-        :customer    => customer.id,
+        :customer    => customer_id,
         :amount      => params['amount'].to_i,
         :description => 'Teacher Premium',
         :currency    => 'usd',
@@ -49,7 +53,7 @@ class ChargesController < ApplicationController
         err = e
       # Something else happened, completely unrelated to Stripe
       end
-      # then it is a teacher premium
+      then it is a teacher premium
       if @charge && @charge.status == 'succeeded'
         handle_subscription
       end
