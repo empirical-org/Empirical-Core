@@ -54,6 +54,16 @@
     justify-content: space-around;
     margin-bottom: 75px;
 
+    &::before {
+      border: 1px dashed #348fdf;
+      content: '';
+      height: 1px;
+      margin-top: 20px;
+      overflow: hidden;
+      position: absolute;
+      width: 650px;
+    }
+
     .step {
       text-align: center;
       width: 190px;
