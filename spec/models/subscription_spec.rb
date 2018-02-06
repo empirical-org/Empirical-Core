@@ -3,9 +3,13 @@ require 'ostruct'
 
 describe Subscription, type: :model do
   describe '#credit_user_and_de_activate' do
-    let!(:subscription) { create(:subscription) }
     let!(:user) { create(:user) }
+    let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), contact_user: user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
+
+    before do
+      allow(Date).to receive(:today).and_return Date.new(2018,4,4)
+    end
 
     context 'it does nothing to the subscription when' do
       let(:user_subscription_2) { create(:user_subscription, subscription: subscription, user: user) }
@@ -36,6 +40,21 @@ describe Subscription, type: :model do
       subscription.update(recurring: true)
       subscription.credit_user_and_de_activate
       expect(subscription.recurring).to eq(false)
+    end
+
+    it 'creates a credit transaction for the right ammount' do
+      subscription.credit_user_and_de_activate
+      expect(CreditTransaction.last.amount).to eq(2)
+    end
+
+    it 'creates a credit transaction for the appropriate user' do
+      subscription.credit_user_and_de_activate
+      expect(CreditTransaction.last.user).to eq(user)
+    end
+
+    it 'creates a credit transaction with the correct source' do
+      subscription.credit_user_and_de_activate
+      expect(CreditTransaction.last.source).to eq(subscription)
     end
   end
 
