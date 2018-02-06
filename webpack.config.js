@@ -3,6 +3,7 @@ webpack = require('webpack');
 
 module.exports = {
 entry: './example/main.ts',
+target: 'node',
 output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -22,6 +23,12 @@ devServer: {
     historyApiFallback: true,
     noInfo: true
 },
+node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+  },
 // devtool: '#eval-source-map'
 }
 

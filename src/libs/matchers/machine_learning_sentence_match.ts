@@ -1,5 +1,5 @@
 import * as _ from 'underscore'
-import request from 'request'
+import requestPromise from 'request-promise'
 import constants from '../../constants';
 import {stringNormalize} from 'quill-string-normalizer'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
@@ -15,7 +15,7 @@ export function machineLearningSentenceMatch(response: string, link: string):Boo
       text: response
     },
   };
-  return request(options).then((parsedBody) => {
+  return requestPromise(options).then((parsedBody) => {
     return JSON.parse(parsedBody).text > 0.5
   })
 }

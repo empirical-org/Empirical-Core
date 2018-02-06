@@ -10,11 +10,11 @@ import {caseStartChecker} from '../matchers/case_start_match'
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match'
 import {punctuationInsensitiveChecker} from '../matchers/punctuation_insensitive_match'
 import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_case_insensitive_match'
-import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctuation_match'
+import {spacingBefonpm rrePunctuationChecker} from '../matchers/spacing_before_punctuation_match'
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match'
 import {requiredWordsChecker} from '../matchers/required_words_match'
 import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
-import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
+// import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
 
 export function checkSentenceFragment(hash:{
   question_uid: string,
@@ -71,9 +71,9 @@ function* firstPassMatchers(data, spellCorrected=false) {
     yield requiredWordsChecker(submission, responses)
   }
   yield partsOfSpeechChecker(submission, responses)
-  if (checkML) {
-    yield machineLearningSentenceChecker(submission, responses, mlUrl)
-  }
+  // if (checkML) {
+  //   yield machineLearningSentenceChecker(submission, responses, mlUrl)
+  // }
 
 }
 
