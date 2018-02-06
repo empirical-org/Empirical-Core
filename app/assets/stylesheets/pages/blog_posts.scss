@@ -116,6 +116,10 @@ body {
         font-size: 14px;
       }
     }
+
+    &:last-of-type {
+      border-bottom: none;
+    }
   }
 
 }
