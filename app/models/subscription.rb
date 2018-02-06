@@ -86,8 +86,8 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.expired_today_and_recurring
-    Subscription.where(expiration: Date.today, recurring:  true, de_activated_date: nil)
+  def self.expired_today_or_previously_and_recurring
+    Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
 
   def self.school_or_user_has_ever_paid(school_or_user)
@@ -104,7 +104,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.update_todays_expired_recurring_subscriptions
-    self.expired_today_and_recurring.each do |s|
+    self.expired_today_or_previously_and_recurring.each do |s|
       s.update_if_charge_succeeds
     end
   end
