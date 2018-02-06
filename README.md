@@ -62,11 +62,13 @@ Here's how to get Empirical Core running on your system:
 
 7. Install the bundle with `bundle install`.
 
-8. Install npm by running `brew install npm`.
+8. Install node via [nvm](https://github.com/creationix/nvm#installation). Run `nvm install` to install the version of node used by this app.
 
-9. Run `rake empirical:setup` to automagically get all of your dependencies and databases configured.
+9. Install npm by running `brew install npm`.
 
-10. You're ready to run Empirical Core!
+10. Run `rake empirical:setup` to automagically get all of your dependencies and databases configured.
+
+11. You're ready to run Empirical Core!
 
     1. Run the server using the command `foreman start -f Procfile.static`.
     2. Navigate your browser to [localhost:3000](http://localhost:3000).
