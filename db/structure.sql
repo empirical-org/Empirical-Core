@@ -751,6 +751,41 @@ ALTER SEQUENCE coteacher_classroom_invitations_id_seq OWNED BY coteacher_classro
 
 
 --
+-- Name: credit_transactions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE credit_transactions (
+    id integer NOT NULL,
+    amount integer NOT NULL,
+    user_id integer NOT NULL,
+    source_id integer,
+    source_type character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: credit_transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE credit_transactions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: credit_transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE credit_transactions_id_seq OWNED BY credit_transactions.id;
+
+
+--
 -- Name: csv_exports; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1921,6 +1956,13 @@ ALTER TABLE ONLY coteacher_classroom_invitations ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: credit_transactions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY credit_transactions ALTER COLUMN id SET DEFAULT nextval('credit_transactions_id_seq'::regclass);
+
+
+--
 -- Name: csv_exports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2273,6 +2315,14 @@ ALTER TABLE ONLY concepts
 
 ALTER TABLE ONLY coteacher_classroom_invitations
     ADD CONSTRAINT coteacher_classroom_invitations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: credit_transactions credit_transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY credit_transactions
+    ADD CONSTRAINT credit_transactions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2799,6 +2849,20 @@ CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON coteacher_
 --
 
 CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON coteacher_classroom_invitations USING btree (invitation_id);
+
+
+--
+-- Name: index_credit_transactions_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON credit_transactions USING btree (source_type, source_id);
+
+
+--
+-- Name: index_credit_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_credit_transactions_on_user_id ON credit_transactions USING btree (user_id);
 
 
 --
@@ -3835,4 +3899,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180201191052');
 INSERT INTO schema_migrations (version) VALUES ('20180201221940');
 
 INSERT INTO schema_migrations (version) VALUES ('20180205170220');
+
+INSERT INTO schema_migrations (version) VALUES ('20180206154253');
 
