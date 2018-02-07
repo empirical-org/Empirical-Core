@@ -461,4 +461,19 @@ private
   def update_invitee_email_address
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
   end
+
+  def sync_salesmachine
+    $smclient.contact(
+      contact_uid: self.id, 
+      params: {
+        email: self.email,
+        name: self.name,
+        account_uid: self.school.try(:id),
+        signed_up: self.created_at,
+        admin: self.admin?,
+        premium_status: self.subscription.try(:account_type),
+        expiry: self.subscription.try(:expiration)
+      }
+    )
+  end
 end
