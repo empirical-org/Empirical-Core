@@ -29,6 +29,16 @@ class Subscription < ActiveRecord::Base
         'Teacher Sponsored Free',
         'Teacher Trial']
 
+  SCHOOL_SUBSCRIPTIONS_TYPES = ['School District Paid',
+        'School NYC Paid',
+        'School Strategic Paid',
+        'School Paid',
+        'Purchase Missing School',
+        'School NYC Free',
+        'School Research',
+        'School Sponsored Free',
+        'School Strategic Free']
+
   # TODO: ultimately these should be clenaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
   GRANDFATHERED_FREE_TYPES = ['trial']
