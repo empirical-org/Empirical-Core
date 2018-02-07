@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
+import Stripe from '../components/modules/stripe.jsx';
 
 export default class extends React.Component {
 
@@ -84,7 +85,12 @@ export default class extends React.Component {
     );
   }
 
+  availableCredits() {
+    return this.props.premiumCredits.reduce((total, credit) => total + credit.amount, 0);
+  }
+
   premiumCredits() {
+    const availableCredits = this.availableCredits();
     return (
       <section>
         <div className="flex-row space-between">
@@ -106,9 +112,14 @@ export default class extends React.Component {
     );
   }
 
+  charge() {
+    new Stripe(8000, '$80 Teacher Premium');
+  }
+
   render() {
     return (
       <div>
+        <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.charge} className="btn btn-default mini-btn blue">Buy Now</button>;
         <SubscriptionStatus subscriptionStatus={this.props.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
         {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
