@@ -6,7 +6,8 @@
         <tr>
           <td>Start</td>
           <td>End</td>
-          <td>HTML</td>
+          <td>Text</td>
+          <td>Link</td>
           <td>Edit</td>
         </tr>
       </thead>
@@ -15,7 +16,8 @@
           <tr>
             <td><%= announcement[:start] %></td>
             <td><%= announcement[:end] %></td>
-            <td><%= raw(announcement[:html]) %></td>
+            <td><%= announcement[:text] %></td>
+            <td><%= announcement[:link] %></td>
             <td><%= link_to 'Edit', edit_cms_announcement_path(announcement.id) %></td>
           </tr>
         <% end %>
