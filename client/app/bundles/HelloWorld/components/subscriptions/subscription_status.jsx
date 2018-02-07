@@ -24,12 +24,29 @@ export default class extends React.Component {
     return `You have a ${subScriptionType} Premium subscription`;
   }
 
+  buttonOrDate() {
+    let buttonOrDate;
+    if (this.props.subscriptionStatus && !this.props.subscriptionStatus.expired) {
+      buttonOrDate = (
+        <span>
+            Valid Until: {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)
+        </span>
+        );
+    }
+    if (this.props.subscriptionStatus.expired) {
+      buttonOrDate = <button>Renew Premium</button>;
+    } else {
+      buttonOrDate = <button>Buy Teacher Premium Now</button>;
+    }
+    return buttonOrDate;
+  }
+
   render() {
     return (
       <section>
         <div className="flex-row space-between">
           <h2>{this.status()}</h2>
-          <span>Valid Until: {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)</span>
+          {this.buttonOrDate()}
         </div>
         <p>
           With Quill School Premium, you will have access to all of Quill’s
