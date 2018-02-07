@@ -56,14 +56,16 @@ export default class extends React.Component {
   }
 
   renderAnnouncement() {
-    // TODO hook this up to the back end
-    return (
-      <div className='announcement'>
-        <div className='circle'></div>
-        <p>hi i am a announcement <a href='#'>wow so cool</a></p>
-        <i className='fa fa-chevron-right'></i>
-      </div>
-    )
+    const announcement = this.props.announcement;
+    if(announcement) {
+      return (
+        <a className='announcement' href={announcement.link}>
+          <div className='circle'></div>
+          <p>{announcement.text}</p>
+          <i className='fa fa-chevron-right'></i>
+        </a>
+      )
+    }
   }
 
   render() {

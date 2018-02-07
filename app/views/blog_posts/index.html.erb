@@ -1,4 +1,4 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' if current_user %>
 <div class="container">
-  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts})%>
+  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement})%>
 </div>
