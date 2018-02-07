@@ -14,6 +14,15 @@ body {
   overflow-x: hidden;
 }
 
+@keyframes pulsate {
+  0% {
+    box-shadow: 0 0 0 0 #a8e067;
+  }
+  100% {
+    box-shadow: 0 0 10px 0 #a8e067;
+  }
+}
+
 .announcement {
   align-items: center;
   background: #e2ffc1;
@@ -35,8 +44,8 @@ body {
   }
 
   .circle {
+    animation: pulsate 2s ease-in-out infinite alternate;
     background-color: #82bf3c;
-    box-shadow: 0 0 4px 0 #a8e067;
     margin-right: 13px;
     height: 14px;
     width: 14px;
