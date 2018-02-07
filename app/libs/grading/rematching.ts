@@ -2,7 +2,7 @@ import request from 'request-promise';
 import * as _ from 'underscore';
 
 import { hashToCollection } from '../hashToCollection';
-import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion } from 'quill-marking-logic'
+import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
 export function rematchAll(mode, question, questionID, callback) {
@@ -149,6 +149,8 @@ function getMatcher(mode) {
     return checkSentenceFragment;
   } else if (mode === 'diagnosticQuestions') {
     return checkDiagnosticQuestion;
+  } else if (mode === 'fillInBlank') {
+    return checkFillInTheBlankQuestion;
   }
   return checkSentenceCombining;
 }
@@ -171,6 +173,8 @@ function getMatcherFields(mode, question, responses) {
       ignoreCaseAndPunc: question.ignoreCaseAndPunc,
     };
   } else if (mode === 'diagnosticQuestions') {
+    return [question.key, hashToCollection(responses)]
+  } else if (mode === 'fillInBlank') {
     return [question.key, hashToCollection(responses)]
   } else {
     return [question.key, responseArray, focusPoints, incorrectSequences]
