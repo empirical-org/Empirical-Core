@@ -4,8 +4,7 @@ class ChargesController < ApplicationController
   end
 
   def create
-    err = nil
-    @message = nil
+    @err = nil
     begin
       if params['source']['email'] != current_user.email
         raise 'Email is different from the user that is currently logged into Quill'
@@ -30,27 +29,27 @@ class ChargesController < ApplicationController
       rescue Stripe::CardError => e
         # Since it's a decline, Stripe::CardError will be caught
         body = e.json_body
-        err  = body[:error]
+        @err  = body[:error]
 
       rescue Stripe::RateLimitError => e
-        err = e
+        @err = e
       # Too many requests made to the API too quickly
       rescue Stripe::InvalidRequestError => e
-        err = e
+        @err = e
       # Invalid parameters were supplied to Stripe's API
       rescue Stripe::AuthenticationError => e
-        err = e
+        @err = e
       # Authentication with Stripe's API failed
       # (maybe you changed API keys recently)
       rescue Stripe::APIConnectionError => e
-        err = e
+        @err = e
       # Network communication with Stripe failed
       rescue Stripe::StripeError => e
-        err = e
+        @err = e
       # Display a very generic error to the user, and maybe send
       # yourself an email
       rescue => e
-        err = e
+        @err = e
       # Something else happened, completely unrelated to Stripe
     end
     # then it is a teacher premium
@@ -59,22 +58,25 @@ class ChargesController < ApplicationController
     end
 
     respond_to  do |format|
-      format.json { render :json => {route: premium_redirect, err: err, message: @message}}
+      format.json { render :json => {route: premium_redirect, err: @err}}
     end
   end
 
   def update_card
-    err = nil
     @message = nil
-    if !current_user.stripe_customer_id
-      raise 'Customer not associated with stripe account'
+    handle_stripe_error do
+      customer_id = current_user.stripe_customer_id
+      customer = Stripe::Customer.retrieve(customer_id)
+      new_card = customer.sources.create(source: params[:source][:id])
+      customer.default_source = new_card.id
+      customer.save
     end
-    customer_id = current_user.stripe_customer_id
-    customer = Stripe::Customer.retrieve(customer_id)
-    new_card = customer.sources.create(source: params[:source][:id])
-    customer.default_source = new_card.id
-    customer.save
-    render json: {wtf: 'true'}
+    # then it is a teacher premium
+    if @charge && @charge.status == 'succeeded'
+      handle_subscription
+    end
+
+    render json: {error: @err}
   end
 
   private
@@ -96,6 +98,37 @@ class ChargesController < ApplicationController
     else
       attributes[:account_type] = "Teacher Paid"
       Subscription.create_with_school_or_user_join(current_user.id, 'user', attributes)
+    end
+  end
+
+  def handle_stripe_error &block
+    begin
+      block.call
+    rescue Stripe::CardError => e
+      # Since it's a decline, Stripe::CardError will be caught
+      body = e.json_body
+      @err  = body[:error]
+
+    rescue Stripe::RateLimitError => e
+      @err = e
+    # Too many requests made to the API too quickly
+    rescue Stripe::InvalidRequestError => e
+      @err = e
+    # Invalid parameters were supplied to Stripe's API
+    rescue Stripe::AuthenticationError => e
+      @err = e
+    # Authentication with Stripe's API failed
+    # (maybe you changed API keys recently)
+    rescue Stripe::APIConnectionError => e
+      @err = e
+    # Network communication with Stripe failed
+    rescue Stripe::StripeError => e
+      @err = e
+    # Display a very generic error to the user, and maybe send
+    # yourself an email
+    rescue => e
+      @err = e
+    # Something else happened, completely unrelated to Stripe
     end
   end
 
