@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
-import Stripe from '../components/modules/stripe.jsx';
+import Stripe from '../components/modules/stripe/update_card.js';
 
 export default class extends React.Component {
 
@@ -112,14 +112,14 @@ export default class extends React.Component {
     );
   }
 
-  charge() {
-    new Stripe(8000, '$80 Teacher Premium');
+  updateCard() {
+    new Stripe();
   }
 
   render() {
     return (
       <div>
-        <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.charge} className="btn btn-default mini-btn blue">Buy Now</button>;
+        <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="btn btn-default mini-btn blue">Update Card</button>;
         <SubscriptionStatus subscriptionStatus={this.props.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
         {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}

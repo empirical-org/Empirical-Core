@@ -52,18 +52,77 @@ class ChargesController < ApplicationController
       rescue => e
         err = e
       # Something else happened, completely unrelated to Stripe
-      end
-      # then it is a teacher premium
-      if @charge && @charge.status == 'succeeded'
-        handle_subscription
-      end
-
-      respond_to  do |format|
-        format.json { render :json => {route: premium_redirect, err: err, message: @message}}
-      end
+    end
+    # then it is a teacher premium
+    if @charge && @charge.status == 'succeeded'
+      handle_subscription
     end
 
+    respond_to  do |format|
+      format.json { render :json => {route: premium_redirect, err: err, message: @message}}
+    end
+  end
 
+  def update_card
+    err = nil
+    @message = nil
+    begin
+      if !current_user.stripe_customer_id
+        raise 'Customer not associated with stripe account'
+      end
+    end
+    customer_id = current_user.stripe_customer_id
+    customer = Stripe::Customer.retrieve(customer_id)
+    new_card = customer.sources.create(source: params[:source][:id])
+    customer.default_source = new_card.id
+    customer.save
+
+
+
+
+    #
+    #
+    #   # @charge = Stripe::Charge.create(
+    #   #   :customer    => customer_id,
+    #   #   :amount      => params['amount'].to_i,
+    #   #   :description => 'Teacher Premium',
+    #   #   :currency    => 'usd',
+    #   #   :receipt_email =>  params['source']['email']
+    #   # )
+    #
+    #   rescue Stripe::CardError => e
+    #     # Since it's a decline, Stripe::CardError will be caught
+    #     body = e.json_body
+    #     err  = body[:error]
+    #
+    #   rescue Stripe::RateLimitError => e
+    #     err = e
+    #   # Too many requests made to the API too quickly
+    #   rescue Stripe::InvalidRequestError => e
+    #     err = e
+    #   # Invalid parameters were supplied to Stripe's API
+    #   rescue Stripe::AuthenticationError => e
+    #     err = e
+    #   # Authentication with Stripe's API failed
+    #   # (maybe you changed API keys recently)
+    #   rescue Stripe::APIConnectionError => e
+    #     err = e
+    #   # Network communication with Stripe failed
+    #   rescue Stripe::StripeError => e
+    #     err = e
+    #   # Display a very generic error to the user, and maybe send
+    #   # yourself an email
+    #   rescue => e
+    #     err = e
+    #   # Something else happened, completely unrelated to Stripe
+    # end
+    # # then it is a teacher premium
+    # if @charge && @charge.status == 'succeeded'
+    #   handle_subscription
+    # end
+
+    render json: {wtf: 'true'}
+  end
 
   private
 
@@ -94,5 +153,4 @@ class ChargesController < ApplicationController
       new_session_path
     end
   end
-
 end
