@@ -93,7 +93,7 @@ export default class extends React.Component {
         </div>
         <div className="available-credit flex-row vertically-centered space-between">
           <div className="credit-quantity">
-            You have <span>X {`${pluralize('month', 0)} `}</span> of Teacher Premium Credit available.
+            You have <span>{`${availableCredits} ${pluralize('day', availableCredits)} `}</span> of Teacher Premium Credit available.
           </div>
           <div>
             <button className="q-button cta-button">
