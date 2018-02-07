@@ -449,7 +449,8 @@ CREATE TABLE blog_posts (
     topic character varying,
     draft boolean DEFAULT true,
     author_id integer,
-    preview_card_content text NOT NULL
+    preview_card_content text NOT NULL,
+    slug character varying
 );
 
 
@@ -2757,6 +2758,13 @@ CREATE INDEX index_blog_posts_on_read_count ON blog_posts USING btree (read_coun
 
 
 --
+-- Name: index_blog_posts_on_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_blog_posts_on_slug ON blog_posts USING btree (slug);
+
+
+--
 -- Name: index_blog_posts_on_title; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3911,4 +3919,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180206232452');
 INSERT INTO schema_migrations (version) VALUES ('20180206235328');
 
 INSERT INTO schema_migrations (version) VALUES ('20180207154242');
+
+INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 
