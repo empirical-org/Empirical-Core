@@ -1,11 +1,52 @@
-import request from 'request-promise';
+const request = require('request-promise');
 import * as _ from 'underscore';
 
 import { hashToCollection } from '../hashToCollection';
 import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
-export function rematchAll(mode, question, questionID, callback) {
+interface Question {
+  conceptID: string,
+  cues: Array<string>,
+  flag: string,
+  focusPoints: FocusPoints,
+  incorrectSequences: Array<IncorrectSequence>,
+  instructions: string,
+  itemLevel: string,
+  prefilledText: string,
+  prompt: string,
+  key?: string,
+  wordCountChange?:object,
+  ignoreCaseAndPunc?:Boolean
+}
+
+interface FocusPoints {
+  [key:string]: FocusPoint
+}
+
+interface FocusPoint {
+  feedback: string,
+  text: string,
+  order?: string
+}
+
+interface IncorrectSequence {
+  conceptResults: ConceptResults,
+  feedback: string,
+  text: string
+}
+
+interface ConceptResults {
+  [key:string]: ConceptResult
+}
+
+// interface ConceptResult {
+//   conceptUID: string,
+//   correct: Boolean,
+//   name: string
+// }
+
+export function rematchAll(mode: string, question: Question, questionID: string, callback:Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID
@@ -14,7 +55,7 @@ export function rematchAll(mode, question, questionID, callback) {
   });
 }
 
-export function rematchOne(response, mode, question, questionID, callback) {
+export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID
@@ -142,7 +183,7 @@ function saveResponses(responses) {
   return responses;
 }
 
-function getMatcher(mode) {
+function getMatcher(mode:string):Function {
   if (mode === 'sentenceFragments') {
     return checkSentenceFragment;
   } else if (mode === 'diagnosticQuestions') {
@@ -153,7 +194,7 @@ function getMatcher(mode) {
   return checkSentenceCombining;
 }
 
-function getMatcherFields(mode, question, responses) {
+function getMatcherFields(mode:string, question:Question, responses:{[key:string]: Response}) {
 
   const responseArray = hashToCollection(responses);
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
@@ -163,7 +204,6 @@ function getMatcherFields(mode, question, responses) {
     return {
       wordCountChange: question.wordCountChange,
       question_uid: question.key,
-      sentences: question.sentences,
       prompt: question.prompt,
       responses: responseArray,
       focusPoints: focusPoints,
@@ -201,7 +241,7 @@ function getGradedResponses(questionID) {
   return request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
 }
 
-function formatGradedResponses(jsonString) {
+function formatGradedResponses(jsonString):{[key:string]: Response} {
   const bodyToObj = {};
   JSON.parse(jsonString).forEach((resp) => {
     bodyToObj[resp.id] = resp;

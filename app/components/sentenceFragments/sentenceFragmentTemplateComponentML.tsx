@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import * as ReactTransition from 'react-addons-css-transition-group';
-import * as qml from 'quill-marking-logic'
-const {checkSentenceFragment, Response} = qml
+import {checkSentenceFragment, Response} from 'quill-marking-logic'
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,

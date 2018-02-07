@@ -31,8 +31,7 @@ import {
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-import * as qpm from 'quill-marking-logic'
-const Response = qpm['Response']
+import { Response } from 'quill-marking-logic'
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
@@ -47,7 +46,6 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   componentDidMount() {
-    debugger;
     getGradedResponsesWithCallback(
       this.props.question.key,
       (data) => {
