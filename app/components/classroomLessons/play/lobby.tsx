@@ -61,7 +61,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
     return (
       <div className="student-instructions-container">
         <p className="student-lesson-instructions-title">
-          How to join a lesson?
+          How to join a lesson:
         </p>
 
         <ol className="student-lesson-instructions">
