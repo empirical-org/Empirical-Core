@@ -53,7 +53,7 @@ class ChargesController < ApplicationController
         err = e
       # Something else happened, completely unrelated to Stripe
       end
-      then it is a teacher premium
+      # then it is a teacher premium
       if @charge && @charge.status == 'succeeded'
         handle_subscription
       end
