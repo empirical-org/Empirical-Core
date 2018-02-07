@@ -11,7 +11,7 @@ export default class extends React.Component {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
       const duration = endD.diff(startD, 'months') + 1;
-      rows.push(<tr key={sub.id}>
+      rows.push(<tr key={`${sub.id}-subscription-table`}>
         <td>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>
         <td>{sub.account_type}</td>
         <td>{sub.account_type}</td>
@@ -20,7 +20,7 @@ export default class extends React.Component {
       </tr>);
       const matchingTransaction = this.props.premiumCredits.find(transaction => transaction.source_id === sub.id && transaction.source_type === 'Subscription');
       if (matchingTransaction) {
-        rows.push(<tr className="subscription-row text-center">
+        rows.push(<tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
           <td colSpan="5">
             Your school purchased School Premium during your subscription, so we
             credited your account with {matchingTransaction.amount} days of Teacher Premium.
@@ -64,7 +64,7 @@ export default class extends React.Component {
 
   premiumCreditsTable() {
     const creditRows = this.props.premiumCredits.map(credit => (
-      <tr>
+      <tr key={`credit-${credit.id}-premium-credit-table`}>
         <td>{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
         <td>{credit.amount}</td>
         <td>{credit.action}</td>
@@ -109,7 +109,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <SubscriptionStatus activeSubscription={this.props.activeSubscription} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
+        <SubscriptionStatus subscriptionStatus={this.props.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
         {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
         {this.premiumCredits()}

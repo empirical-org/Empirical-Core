@@ -4,6 +4,9 @@ class SubscriptionsController < ApplicationController
   def index
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions
+    @subscription_status = current_user.subscription || current_user.last_expired_subscription&.attributes&.merge({expired: true})
+    @school_subscription_types = Subscription::SCHOOL_SUBSCRIPTIONS_TYPES
+    @trial_types = Subscription::TRIAL_TYPES
     respond_to do |format|
       format.html
       format.json {render json: @subscriptions}
