@@ -3,6 +3,10 @@ import ReactMarkdown from 'react-markdown';
 
 export default class extends React.Component {
   render() {
-    return <ReactMarkdown source={this.props.content} className='preview-card' />
+    return (
+      <a href={this.props.link}>
+        <ReactMarkdown source={this.props.content} className='preview-card' />
+      </a>
+    )
   }
 }
