@@ -4,50 +4,71 @@ describe User, type: :model do
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
-  context('subscription methods') do
-    let(:user) { create(:user) }
-    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-    let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
+  describe 'subscription methods' do
 
-    describe('#subscription') do
-      it 'returns a subscription if a valid one exists' do
-        expect(user.reload.subscription).to eq(subscription)
+    context('subscription methods') do
+      let(:user) { create(:user) }
+      let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+      let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
+
+      describe '#last_expired_subscription' do
+        let!(:subscription2) { create(:subscription, expiration: Date.yesterday) }
+        let!(:user_subscription2) { create(:user_subscription, user: user, subscription: subscription2) }
+
+        it "returns the user's most recently expired subscription" do
+          subscription.update(expiration: Date.today - 10)
+          expect(user.reload.last_expired_subscription).to eq(subscription2)
+        end
+
+        it "returns nil if the user does not have a recently expired subscription" do
+          user.subscriptions.destroy_all
+          expect(user.subscription).not_to be
+        end
       end
 
-      it 'returns the subscription with the latest expiration date multiple valid ones exists' do
-        later_subscription = create(:subscription, expiration: Date.today + 365)
-        create(:user_subscription, user: user, subscription: later_subscription)
-        expect(user.reload.subscription).to eq(later_subscription)
+      describe('#subscription') do
+        it 'returns a subscription if a valid one exists' do
+          expect(user.reload.subscription).to eq(subscription)
+        end
+
+        it 'returns the subscription with the latest expiration date multiple valid ones exists' do
+          later_subscription = create(:subscription, expiration: Date.today + 365)
+          create(:user_subscription, user: user, subscription: later_subscription)
+          expect(user.reload.subscription).to eq(later_subscription)
+        end
+
+        it 'returns nil if a valid subscription does not exist' do
+          subscription.update(expiration: Date.yesterday)
+          expect(user.reload.subscription).to eq(nil)
+        end
       end
 
-      it 'returns nil if a valid subscription does not exist' do
-        subscription.update(expiration: Date.yesterday)
-        expect(user.reload.subscription).to eq(nil)
+      describe('#present_and_future_subscriptions') do
+        it 'returns an empty array if there are no subscriptions with expirations in the future' do
+          subscription.update(expiration: Date.yesterday)
+          expect(user.present_and_future_subscriptions).to be_empty
+        end
+
+        it 'returns an array including user.subscription if user has a valid subscription' do
+          expect(user.present_and_future_subscriptions).to include(user.subscription)
+        end
+
+        it 'returns an array including subscriptions that have not started yet, as long as their expiration is in the future and they have not been de-activated' do
+          later_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365)
+          create(:user_subscription, user: user, subscription: later_subscription)
+          expect(user.present_and_future_subscriptions).to include(later_subscription)
+        end
+
+        it 'does not return subscriptions that have been deactivated, even if their expiration date is in the future' do
+          de_activated_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365, de_activated_date: Date.yesterday)
+          create(:user_subscription, user: user, subscription: de_activated_subscription)
+          expect(user.present_and_future_subscriptions).not_to include(de_activated_subscription)
+        end
       end
     end
 
-    describe('#present_and_future_subscriptions') do
-      it 'returns an empty array if there are no subscriptions with expirations in the future' do
-        subscription.update(expiration: Date.yesterday)
-        expect(user.present_and_future_subscriptions).to be_empty
-      end
 
-      it 'returns an array including user.subscription if user has a valid subscription' do
-        expect(user.present_and_future_subscriptions).to include(user.subscription)
-      end
 
-      it 'returns an array including subscriptions that have not started yet, as long as their expiration is in the future and they have not been de-activated' do
-        later_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365)
-        create(:user_subscription, user: user, subscription: later_subscription)
-        expect(user.present_and_future_subscriptions).to include(later_subscription)
-      end
-
-      it 'does not return subscriptions that have been deactivated, even if their expiration date is in the future' do
-        de_activated_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365, de_activated_date: Date.yesterday)
-        create(:user_subscription, user: user, subscription: de_activated_subscription)
-        expect(user.present_and_future_subscriptions).not_to include(de_activated_subscription)
-      end
-    end
   end
 
   describe '#newsletter?' do
