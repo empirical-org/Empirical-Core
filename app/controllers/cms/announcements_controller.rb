@@ -26,6 +26,6 @@ class Cms::AnnouncementsController < ApplicationController
 
   private
   def announcement_params
-    params.require(:announcement).permit(:announcement_type, :html, :start, :end)
+    params.require(:announcement).permit(:announcement_type, :link, :text, :start, :end)
   end
 end

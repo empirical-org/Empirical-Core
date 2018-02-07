@@ -1,9 +1,12 @@
 <div class='cms-form'>
   <%= form_for [:cms, @announcement] do |f| %>
     <div class='cms-form-row'>
-      <%= f.label :html %>
-      <br />
-      <%= f.text_area :html %>
+      <%= f.label :text %>
+      <%= f.text_field :text %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :link %>
+      <%= f.text_field :link %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :type %>
