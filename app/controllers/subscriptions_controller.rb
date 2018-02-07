@@ -6,6 +6,7 @@ class SubscriptionsController < ApplicationController
     @premium_credits = current_user.credit_transactions
     @subscription_status = current_user.subscription || current_user.last_expired_subscription&.attributes&.merge({expired: true})
     @school_subscription_types = Subscription::SCHOOL_SUBSCRIPTIONS_TYPES
+    @last_four = last_four
     @trial_types = Subscription::TRIAL_TYPES
     respond_to do |format|
       format.html
@@ -42,12 +43,19 @@ class SubscriptionsController < ApplicationController
   end
 
   private
-    def subscription_params
-      params.require(:account_type)
-      params.permit(:id, :contact_user_id, :expiration, :account_limit, :account_type, :authenticity_token)
-    end
 
-    def set_subscription
-      @subscription = Subscription.find subscription_params[:id]
+  def last_four
+    if current_user.stripe_customer_id.present?
+      Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.data.first.last4
     end
+  end
+
+  def subscription_params
+    params.require(:account_type)
+    params.permit(:id, :contact_user_id, :expiration, :account_limit, :account_type, :authenticity_token)
+  end
+
+  def set_subscription
+    @subscription = Subscription.find subscription_params[:id]
+  end
 end
