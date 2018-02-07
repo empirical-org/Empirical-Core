@@ -23,7 +23,10 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # for Stripe
-  resources :charges
+  resources :charges, only: [:create]
+  post 'charges/update_card' => 'charges#update_card'
+
+
 
   resources :subscriptions
   resources :assessments
