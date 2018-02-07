@@ -5,6 +5,11 @@ class BlogPost < ActiveRecord::Base
 
   belongs_to :author
 
+  def increment_read_count
+    self.read_count += 1
+    self.save
+  end
+
   private
   def generate_slug
     title = self.title
