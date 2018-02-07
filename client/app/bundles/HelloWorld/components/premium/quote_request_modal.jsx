@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'react-bootstrap/lib/Modal';
-import Stripe from '../modules/stripe.jsx'
+import Stripe from '../modules/stripe/charge.js'
 export default React.createClass ({
 
   getInitialState: function() {
