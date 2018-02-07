@@ -109,7 +109,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <SubscriptionStatus />
+        <SubscriptionStatus activeSubscription={this.props.activeSubscription} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
         {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
         {this.premiumCredits()}
