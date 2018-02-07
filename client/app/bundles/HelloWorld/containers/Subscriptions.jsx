@@ -17,9 +17,13 @@ export default class extends React.Component {
         <td>{`${duration} ${pluralize('month', duration)}`}</td>
         <td>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
       </tr>);
-      if (sub.credited) {
-        rows.push(<tr>
-          <td colSpan="5">credited</td>
+      const matchingTransaction = this.props.premiumCredits.find(transaction => transaction.source_id === sub.id && transaction.source_type === 'Subscription');
+      if (matchingTransaction) {
+        rows.push(<tr className="subscription-row text-center">
+          <td colSpan="5">
+            Your school purchased School Premium during your subscription, so we
+            credited your account with {matchingTransaction.amount} days of Teacher Premium.
+          </td>
         </tr>);
       }
     });
