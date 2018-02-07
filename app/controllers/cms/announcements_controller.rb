@@ -7,8 +7,13 @@ class Cms::AnnouncementsController < ApplicationController
   end
 
   def create
-    Announcement.create(announcement_params)
-    redirect_to cms_announcements_path
+    if Announcement.create(announcement_params)
+      flash[:success] = 'Announcement created successfully!'
+      return redirect_to cms_announcements_path
+    else
+      flash[:error] = 'Rut roh. Something has gone awry! 😭'
+      return redirect_to :back
+    end
   end
 
   def new
@@ -17,6 +22,8 @@ class Cms::AnnouncementsController < ApplicationController
 
   def edit
     @announcement = Announcement.find(params[:id])
+    @announcement[:start] = @announcement[:start].in_time_zone(Announcement::TIME_ZONE)
+    @announcement[:end] = @announcement[:end].in_time_zone(Announcement::TIME_ZONE)
   end
 
   def update
