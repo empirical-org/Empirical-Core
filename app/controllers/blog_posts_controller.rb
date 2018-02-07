@@ -1,6 +1,4 @@
 class BlogPostsController < ApplicationController
-  before_action :set_blog_post, only: [:show]
-
   def index
     @blog_posts = BlogPost.where(draft: false)
     @announcement = Announcement.get_current_webinar_announcement
@@ -8,13 +6,6 @@ class BlogPostsController < ApplicationController
   end
 
   def show
+    @blog_post = BlogPost.find_by(slug: params[:slug])
   end
-
-
-  private
-
-  def set_blog_post
-    @blog_post = BlogPost.find(params[:id])
-  end
-
 end

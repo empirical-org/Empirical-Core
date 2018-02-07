@@ -1,0 +1,24 @@
+<%= render partial: 'teachers/shared/scorebook_tabs' if current_user %>
+
+<div id='article-container'>
+  <article>
+    <header>
+      <h1><%= @blog_post.title %></h1>
+      <img src='http://placehold.it/150' />
+      <p class='author'>Author Name</p>
+      <p class='date'>January 5th, 2018</p>
+    </header>
+    <main>
+      <%= @blog_post.body %>
+    </main>
+    <footer>
+
+    </footer>
+  </article>
+  <div id='similar-posts'>
+    <div id='similiar-post-container'>
+      <h2>Most Recent Posts</h2>
+      <p>TODO</p>
+    </div>
+  </div>
+</div>

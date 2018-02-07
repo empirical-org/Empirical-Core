@@ -17,7 +17,7 @@ export default class extends React.Component {
           <h2>{this.props.articleCount} {pluralize('article', this.props.articleCount)}</h2>
           <a onClick={() => {alert('todo')}}>Show All</a>
         </div>
-        <div id="article-container">
+        <div id="preview-card-container">
           {this.renderArticleCards()}
         </div>
       </section>

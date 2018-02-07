@@ -19,7 +19,7 @@ export default class extends React.Component {
   renderPreviewCards() {
     // todo use spread operator
     return this.props.blogPosts.map(article =>
-      <PreviewCard content={article.preview_card_content} />
+      <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
     )
   }
 
@@ -47,7 +47,7 @@ export default class extends React.Component {
       response = <h1>most read</h1>
     } else {
       response = (
-        <div id="article-container">
+        <div id="preview-card-container">
           {this.renderPreviewCards()}
         </div>
       )
