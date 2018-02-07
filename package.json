@@ -27,7 +27,7 @@
     "@types/jest": "^20.0.2",
     "@types/lodash": "^4.14.74",
     "@types/node": "^8.0.8",
-    "@types/react": "^15.6.10",
+    "@types/react": "^15.6.11",
     "@types/react-redux": "^4.4.45",
     "@types/redux": "^3.6.31",
     "assets-webpack-plugin": "^3.5.0",
