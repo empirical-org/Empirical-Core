@@ -1,6 +1,6 @@
 import {responses, incorrectSequences} from '../../../test/data/batswings'
 import { assert } from 'chai';
-import {checkSentenceFragment} from './sentence_fragment';
+import {checkSentenceFragment} from './sentence_fragment'
 // import {checkSentenceFragment} from '../../../dist/lib'
 import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
 import {Response} from '../../interfaces';
@@ -77,7 +77,7 @@ describe('The checking a sentence fragment', () => {
         response: "Bats have wings so they can fly far .",
       }
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, spacingBeforePunctuation(questionString).feedback);
+      assert.equal(matchedResponse.feedback, spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
     });
 
     it('should be able to find a spacing after comma match', () => {
@@ -99,6 +99,5 @@ describe('The checking a sentence fragment', () => {
       assert.equal(matchedResponse.feedback, partsOfSpeechChecker(responseString, responses).feedback);
     });
 
-  })
-
-});
+  });
+})
