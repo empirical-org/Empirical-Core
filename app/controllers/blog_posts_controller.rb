@@ -3,6 +3,7 @@ class BlogPostsController < ApplicationController
 
   def index
     @blog_posts = BlogPost.where(draft: false)
+    @announcement = Announcement.get_current_webinar_announcement
     #blog_posts/index.html.erb
   end
 
