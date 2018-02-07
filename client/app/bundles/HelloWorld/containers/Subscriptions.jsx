@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
+import SubscriptionStatus from '../components/subscriptions/subscription_status';
 
 export default class extends React.Component {
 
@@ -108,6 +109,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
+        <SubscriptionStatus />
         {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
         {this.premiumCredits()}
