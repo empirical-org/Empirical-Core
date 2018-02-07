@@ -377,8 +377,8 @@ ALTER SEQUENCE admin_accounts_teachers_id_seq OWNED BY admin_accounts_teachers.i
 CREATE TABLE announcements (
     id integer NOT NULL,
     announcement_type character varying,
-    start timestamp with time zone,
-    "end" timestamp with time zone,
+    start timestamp without time zone,
+    "end" timestamp without time zone,
     link text,
     text text
 );
@@ -3909,4 +3909,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180206215115');
 INSERT INTO schema_migrations (version) VALUES ('20180206232452');
 
 INSERT INTO schema_migrations (version) VALUES ('20180206235328');
+
+INSERT INTO schema_migrations (version) VALUES ('20180207154242');
 

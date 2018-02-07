@@ -14,10 +14,10 @@
       <tbody>
         <% @announcements.each do |announcement| %>
           <tr>
-            <td><%= announcement[:start] %></td>
-            <td><%= announcement[:end] %></td>
+            <td><%= announcement[:start].strftime('%b %-m at %-l:%M%P') if announcement[:start] %></td>
+            <td><%= announcement[:end].strftime('%b %-m at %-l:%M%P') if announcement[:end] %></td>
             <td><%= announcement[:text] %></td>
-            <td><%= announcement[:link] %></td>
+            <td><%= link_to announcement[:link], announcement[:link] %></td>
             <td><%= link_to 'Edit', edit_cms_announcement_path(announcement.id) %></td>
           </tr>
         <% end %>
