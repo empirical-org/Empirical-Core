@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   getClassLessonFromFirebase
 } from '../../actions/classroomLesson'
+import {firebaseAuth} from '../../actions/users'
 import {getParameterByName} from '../../libs/getParameterByName'
 
 import {
@@ -29,6 +30,7 @@ class Customize extends React.Component<customizeProps> {
 
     super(props)
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
+    props.dispatch(firebaseAuth())
 
     if (props.params.lessonID) {
       props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
@@ -39,7 +41,7 @@ class Customize extends React.Component<customizeProps> {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.customize.user_id) {
-      if (nextProps.customize.user_id !== this.props.customize.user_id || nextProps.classroomLesson && Object.keys(nextProps.classroomLesson.data).length === 0 || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
+      if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
         let user_ids = []
         if (nextProps.customize.coteachers.length > 0) {
           user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
