@@ -7,5 +7,6 @@ class BlogPostsController < ApplicationController
 
   def show
     @blog_post = BlogPost.find_by(slug: params[:slug])
+    @blog_post.increment_read_count
   end
 end

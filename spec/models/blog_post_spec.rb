@@ -3,6 +3,14 @@ require 'rails_helper'
 describe BlogPost, type: :model do
   let(:blog_post) { create(:blog_post) }
 
+  context '#increment_read_count' do
+    it 'should increment the view count by 1' do
+      previous_read_count = blog_post.read_count
+      blog_post.increment_read_count
+      expect(blog_post.reload.read_count).to eq(previous_read_count + 1)
+    end
+  end
+
   context '#generate_slug' do
     let(:title) { blog_post.title }
     let(:slug) { title.gsub(/[^a-zA-Z\d\s]/, '').gsub(' ', '-').downcase }
