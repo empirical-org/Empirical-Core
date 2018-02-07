@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as  _ from 'underscore';
 import {checkFillInTheBlankQuestion} from 'quill-marking-logic'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-// import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
@@ -82,7 +81,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   generateInputs(promptArray) {
-    const inputs = [];
+    const inputs:Array<string> = [];
     for (let i = 0; i < promptArray.length - 2; i++) {
       inputs.push('');
     }
@@ -146,10 +145,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       zIndex: '100',
       padding: '2px 7px',
     };
-    const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
-    const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
+    const body:ClientRect|null = document.getElementsByTagName('body')[0].getBoundingClientRect();
+    const rectangle:ClientRect|null = document.getElementById(`input${i}`) && document.getElementById(`input${i}`).getBoundingClientRect();
     let chevyStyle:any = this.chevyStyleLeft();
-    if (rectangle.left > (body.width / 2)) {
+    if (rectangle && body && rectangle.left > (body.width / 2)) {
       warningStyle.right = '-73px';
       chevyStyle = this.chevyStyleRight();
     }
@@ -177,7 +176,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     };
   }
 
-  chevyStyleLeft() {
+  chevyStyleLeft():object {
     return {
       float: 'left',
       marginLeft: '20px',
@@ -218,7 +217,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
       const l = splitPrompt.length;
-      const splitPromptWithInput = [];
+      const splitPromptWithInput:Array<JSX.Element> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));

@@ -2,7 +2,7 @@ import request from 'request-promise';
 import * as _ from 'underscore';
 
 import { hashToCollection } from '../hashToCollection';
-import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion } from 'quill-marking-logic'
+import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
 export function rematchAll(mode, question, questionID, callback) {
@@ -75,8 +75,6 @@ function rematchResponse(matcher, matcherFields, response) {
   switch (delta) {
     case 'tobeunmatched':
       return unmatchRematchedResponse(response);
-    case 'tobedeleted':
-      return deleteRematchedResponse(response);
     case 'tobeupdated':
       return updateRematchedResponse(response, newResponse);
     default:
@@ -211,13 +209,13 @@ function formatGradedResponses(jsonString) {
       resp.concept_results = JSON.parse(resp.concept_results);
     }
     for (const cr in resp.concept_results) {
-      const formatted_cr = {};
-      formatted_cr.concept_uid = cr;
+      const formatted_cr:any = {};
+      formatted_cr.conceptUID = cr;
       formatted_cr.correct = resp.concept_results[cr];
       resp.concept_results[cr] = formatted_cr;
     }
-    // resp.conceptResults = resp.concept_results;
-    // delete resp.concept_results;
+    resp.conceptResults = resp.concept_results;
+    delete resp.concept_results;
   });
   return bodyToObj;
 }

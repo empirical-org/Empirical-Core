@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 const Markdown = require('react-remarkable');
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Question from '../../libs/question';
 import Textarea from 'react-textarea-autosize';
-import _ from 'underscore';
+import * as _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, clearResponses } from '../../actions.js';
 import pathwayActions from '../../actions/pathways';
@@ -31,10 +31,12 @@ import {
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
+import * as qpm from 'quill-marking-logic'
+const Response = qpm['Response']
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-const playLessonQuestion = React.createClass({
+const playLessonQuestion = React.createClass<any, any>({
   getInitialState() {
     return {
       editing: false,
@@ -45,6 +47,7 @@ const playLessonQuestion = React.createClass({
   },
 
   componentDidMount() {
+    debugger;
     getGradedResponsesWithCallback(
       this.props.question.key,
       (data) => {
@@ -174,7 +177,7 @@ const playLessonQuestion = React.createClass({
     const question = this.getQuestion();
     const latestAttempt = getLatestAttempt(question.attempts);
     const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0;
-    return (latestAttempt.found && !errorsForAttempt && latestAttempt.response.optimal);
+    return (latestAttempt && latestAttempt.response && !errorsForAttempt && latestAttempt.response.optimal);
   },
 
   checkAnswer(e) {
@@ -207,7 +210,7 @@ const playLessonQuestion = React.createClass({
   readyForNext() {
     if (this.props.question.attempts.length > 0) {
       const latestAttempt = getLatestAttempt(this.props.question.attempts);
-      if (latestAttempt.found) {
+      if (latestAttempt && latestAttempt.response) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true;
@@ -253,7 +256,7 @@ const playLessonQuestion = React.createClass({
   },
 
   getNegativeConceptResultsForResponse(conceptResults) {
-    return _.reject(hashToCollection(conceptResults), cr => cr.correct);
+    return hashToCollection(conceptResults).filter(cr => !cr.correct);
   },
 
   getNegativeConceptResultForResponse(conceptResults) {
@@ -262,10 +265,10 @@ const playLessonQuestion = React.createClass({
   },
 
   renderConceptExplanation() {
-    const latestAttempt = getLatestAttempt(this.props.question.attempts);
+    const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
     if (latestAttempt) {
-      if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+      if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
           const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
           if (data) {
@@ -389,7 +392,7 @@ const playLessonQuestion = React.createClass({
   },
 });
 
-const getLatestAttempt = function (attempts = []) {
+function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: Response}|undefined {
   const lastIndex = attempts.length - 1;
   return attempts[lastIndex];
 };
