@@ -16,11 +16,11 @@ export default function () {
               // there is an error for this in the charges controller,
               // but better error is passing weirdness back
               const initialMessage = data.err.message ? data.err.message : 'Please ensure you are providing the same email used to login to Quill, and try again';
-              alert(`Your card was not charged. ${initialMessage}. If the issue persists, please contact ryan@quill.org for help.`);
+              alert(`Your card was not changed. ${initialMessage}. If the issue persists, please contact ryan@quill.org for help.`);
             } else if (data.message) {
               alert(data.message);
             }
-            window.location.assign('/profile');
+            alert('Your credit card what changed.');
           });
     },
   });
