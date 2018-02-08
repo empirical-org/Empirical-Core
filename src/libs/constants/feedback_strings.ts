@@ -29,5 +29,18 @@ export const feedbackStrings: FeedbackStrings = {
   flexibleModifiedWordError: 'Revise your work. You may have mixed up a word.',
   flexibleAdditionalWordError: 'Revise your work. You may have added an extra word.',
   flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
-  spacingAfterCommaError: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>'
+  spacingAfterCommaError: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
 };
+
+export const spellingFeedbackStrings: any  = {
+  'Capitalization Hint': 'Proofread your work. Check your capitalization and spelling.',
+  'Punctuation Hint': 'There may be an error. How could you update the punctuation and spelling?',
+  'Punctuation and Case Hint': 'There may be an error. How could you update the punctuation, capitalization, and spelling?',
+  'Spelling Hint': 'Try again. There may be a spelling mistake.',
+  'Modified Word Hint': 'Revise your work. You may have mixed up or misspelled a word.',
+  'Additional Word Hint': 'You may have added an extra word. Revise your work, and then check your spelling',
+  'Missing Word Hint': 'You may have left out an important word. Revise your work, and then check your spelling',
+  'Whitespace Hint': 'Proofread your work. You may have forgotten a space between two words. Also check your spelling.',
+  'Spacing After Comma Hint': feedbackStrings.spacingAfterCommaError
+}
+
