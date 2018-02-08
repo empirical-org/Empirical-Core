@@ -8,9 +8,11 @@ export default class extends React.Component {
     super(props);
     this.state = {
       articleFilter: 'all',
-      loading: true
+      loading: true,
+      blogPostsSortedByMostRead: [...this.props.blogPosts].sort(function(a, b) { return a.read_count < b.read_count })
     };
   }
+
 
   filterArticlesBy(filter) {
     this.setState({ articleFilter: filter });
@@ -23,7 +25,7 @@ export default class extends React.Component {
   }
 
   renderPreviewCardsByPopularity() {
-    return [...this.props.blogPosts].sort(function(a, b) { return a.read_count < b.read_count }).map(article =>
+    return this.state.blogPostsSortedByMostRead.map(article =>
       <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
     )
   }
@@ -98,6 +100,15 @@ export default class extends React.Component {
     }
   }
 
+  renderMostReadPost() {
+    const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
+    return (
+      <h3>
+        <a href={`/teacher_resources/${mostReadArticle.slug}`}>{mostReadArticle.title}</a>
+      </h3>
+    )
+  }
+
   render() {
     return (
       <div id="knowledge-center">
@@ -108,7 +119,7 @@ export default class extends React.Component {
             <div className='width-422'>
               <input type="text" placeholder="Search for posts" />
               <h3 className='most-read-post'>Most Read Post:</h3>
-              <h3><a href="#">TODO: put the actual post here</a></h3>
+              {this.renderMostReadPost()}
             </div>
           </div>
         </header>
