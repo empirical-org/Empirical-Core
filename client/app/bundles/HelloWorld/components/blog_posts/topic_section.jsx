@@ -15,7 +15,7 @@ export default class extends React.Component {
         <div className='meta'>
           <h1>{this.props.title}</h1>
           <h2>{this.props.articleCount} {pluralize('article', this.props.articleCount)}</h2>
-          <a onClick={() => {alert('todo')}}>Show All</a>
+          <a href={`/teacher_resources/topic/${this.props.title.toLowerCase().replace(/\s/g, '_')}`}>Show All</a>
         </div>
         <div id="preview-card-container">
           {this.renderArticleCards()}
