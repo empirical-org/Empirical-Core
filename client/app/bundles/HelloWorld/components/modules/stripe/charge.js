@@ -7,6 +7,7 @@ export default function (priceInCents, description) {
     image: 'https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Icon.svg',
     locale: 'auto',
     allowRememberMe: false,
+    email: document.getElementById('current-user-email').getAttribute('content'),
     token(token) {
       $.post('charges.json',
           { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, amount, })
