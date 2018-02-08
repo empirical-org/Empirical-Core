@@ -4,6 +4,7 @@ import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import Stripe from '../components/modules/stripe/update_card.js';
 import SelectCreditCardModal from '../components/subscriptions/select_credit_card_modal';
+import PremiumRedemptionModal from '../components/subscriptions/premium_redemption_modal';
 import getAuthToken from '../components/modules/get_auth_token';
 import request from 'request';
 
@@ -17,6 +18,7 @@ export default class extends React.Component {
       availableCredits: this.props.premiumCredits.reduce((total, credit) => total + credit.amount, 0),
     };
     this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
+    this.hidePremiumRedemptionModal = this.hidePremiumRedemptionModal.bind(this);
   }
 
   subscriptionHistoryRows() {
@@ -131,6 +133,7 @@ export default class extends React.Component {
           subscriptions: [body.subscription].concat(this.state.subscriptions),
           subscriptionStatus: this.currentSubscription(body.subscription),
           availableCredits: 0,
+          showPremiumRedemptionModal: true,
         });
       }
     });
@@ -139,7 +142,7 @@ export default class extends React.Component {
   premiumCredits() {
     let button;
     if (this.state.availableCredits > 0) {
-      button = <button onClick={this.redeemPremiumCredits} className="q-button cta-button" />;
+      button = <button onClick={this.redeemPremiumCredits} className="q-button cta-button">Redeem Premium Credits</button>;
     } else {
       button = <a href="/" className="q-button button cta-button">Earn Premium Credits</a>;
     }
@@ -165,8 +168,11 @@ export default class extends React.Component {
     new Stripe();
   }
 
+  hidePremiumRedemptionModal() {
+    this.setState({ showPremiumRedemptionModal: false, });
+  }
+
   render() {
-    console.log(this.state.subscriptionStatus);
     return (
       <div>
         <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="btn btn-default mini-btn blue">Update Card</button>;
@@ -179,6 +185,13 @@ export default class extends React.Component {
           If you purchase a Teacher Premium subscription, and then your school purchases a School Premium subscription, you will be refunded the remainder of your Teacher Premium as Quill Premium Credit. You can redeem your Premium Credit anytime you do not currently have an active subscription, and you will be resubscribed to Quill Premium for the amount of time you have in credit. If you would like to receive a full refund there is a grace period of 5 days from the day of the renewal.
         </p>
         <SelectCreditCardModal lastFour={this.props.lastFour} />
+        <SelectCreditCardModal lastFour={this.props.lastFour} />
+        <PremiumRedemptionModal
+          show={this.state.showPremiumRedemptionModal}
+          hideModal={this.hidePremiumRedemptionModal}
+          subscription={this.state.currentSubscription}
+        />
+
       </div>
     );
   }
