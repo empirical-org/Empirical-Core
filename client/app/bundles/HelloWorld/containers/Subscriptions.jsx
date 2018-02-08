@@ -9,30 +9,52 @@ import request from 'request';
 
 export default class extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      subscriptions: this.props.subscriptions,
+      subscriptionStatus: this.props.subscriptionStatus,
+      availableCredits: this.props.premiumCredits.reduce((total, credit) => total + credit.amount, 0),
+    };
+    this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
+  }
+
   subscriptionHistoryRows() {
     const rows = [];
-    this.props.subscriptions.forEach((sub) => {
+    this.state.subscriptions.forEach((sub) => {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
       const duration = endD.diff(startD, 'months') + 1;
-      rows.push(<tr key={`${sub.id}-subscription-table`}>
-        <td>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>
-        <td>{sub.account_type}</td>
-        <td>{sub.account_type}</td>
-        <td>{`${duration} ${pluralize('month', duration)}`}</td>
-        <td>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
-      </tr>);
-      const matchingTransaction = this.props.premiumCredits.find(transaction => transaction.source_id === sub.id && transaction.source_type === 'Subscription');
+      const matchingTransaction = this.props.premiumCredits.find(transaction => (
+        transaction.source_id === sub.id &&
+        transaction.source_type === 'Subscription' &&
+        transaction.amount > 0
+      ));
       if (matchingTransaction) {
         rows.push(<tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
           <td colSpan="5">
-            Your school purchased School Premium during your subscription, so we
-            credited your account with {matchingTransaction.amount} days of Teacher Premium.
-          </td>
+          Your school purchased School Premium during your subscription, so we
+          credited your account with {matchingTransaction.amount} days of Teacher Premium.
+        </td>
         </tr>);
       }
+      rows.push(<tr key={`${sub.id}-subscription-table`}>
+        <td>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>
+        <td>{sub.account_type}</td>
+        <td>{this.paymentContent(sub)}</td>
+        <td>{`${duration} ${pluralize('month', duration)}`}</td>
+        <td>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
+      </tr>);
     });
     return rows;
+  }
+
+  paymentContent(subscription) {
+    const currentUserId = document.getElementById('current-user-id').getAttribute('content');
+    if (subscription.contact_user_id === Number(currentUserId)) {
+      return 'Payment';
+    }
+    return '--';
   }
 
   subscriptionHistory() {
@@ -88,8 +110,11 @@ export default class extends React.Component {
     );
   }
 
-  availableCredits() {
-    return this.props.premiumCredits.reduce((total, credit) => total + credit.amount, 0);
+  currentSubscription(newSub) {
+    if (!this.state.subscriptionStatus || this.state.subscriptionStatus.expired) {
+      return newSub;
+    }
+    return this.state.subscriptionStatus;
   }
 
   redeemPremiumCredits() {
@@ -102,13 +127,22 @@ export default class extends React.Component {
       if (body.error) {
         alert(body.error);
       } else {
-        console.log(body);
+        this.setState({
+          subscriptions: [body.subscription].concat(this.state.subscriptions),
+          subscriptionStatus: this.currentSubscription(body.subscription),
+          availableCredits: 0,
+        });
       }
     });
   }
 
   premiumCredits() {
-    const availableCredits = this.availableCredits();
+    let button;
+    if (this.state.availableCredits > 0) {
+      button = <button onClick={this.redeemPremiumCredits} className="q-button cta-button" />;
+    } else {
+      button = <a href="/" className="q-button button cta-button">Earn Premium Credits</a>;
+    }
     return (
       <section>
         <div className="flex-row space-between">
@@ -117,13 +151,10 @@ export default class extends React.Component {
         </div>
         <div className="available-credit flex-row vertically-centered space-between">
           <div className="credit-quantity">
-            You have <span>{`${availableCredits} ${pluralize('day', availableCredits)} `}</span> of Teacher Premium Credit available.
+            You have <span>{`${this.state.availableCredits} ${pluralize('day', this.state.availableCredits)} `}</span> of Teacher Premium Credit available.
+            {button}
           </div>
-          <div>
-            <button onClick={this.redeemPremiumCredits} className="q-button cta-button">
-              Redeem Premium Credit
-            </button>
-          </div>
+          <div />
         </div>
         {this.premiumCreditsTable()}
       </section>
@@ -135,10 +166,11 @@ export default class extends React.Component {
   }
 
   render() {
+    console.log(this.state.subscriptionStatus);
     return (
       <div>
         <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="btn btn-default mini-btn blue">Update Card</button>;
-        <SubscriptionStatus subscriptionStatus={this.props.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
+        <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
         {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
         {this.premiumCredits()}
