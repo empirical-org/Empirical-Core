@@ -7,6 +7,7 @@ webpackConfig.plugins = [];
 webpackConfig.devtool = 'inline-source-map';
 
 module.exports = function (config) {
+  'use strict'
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -14,11 +15,12 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha'],
+        frameworks: ['mocha', 'chai-as-promised', 'chai'],
 
         // list of files / patterns to load in the browser
         files: [
             './node_modules/babel-polyfill/dist/polyfill.js',
+            './node_modules/phantomjs-polyfill/bind-polyfill.js',
             './node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
             './test/index.js',
             // './test/module.spec.ts',
@@ -88,7 +90,9 @@ module.exports = function (config) {
             require('karma-mocha'),
             require('karma-phantomjs-launcher'),
             require('karma-webpack'),
-            require('karma-browserify')
+            require('karma-browserify'),
+            require('karma-chai'),
+            require('karma-chai-as-promised')
         ]
     })
 }
