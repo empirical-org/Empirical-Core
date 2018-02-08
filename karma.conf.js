@@ -18,6 +18,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
+            './node_modules/babel-polyfill/dist/polyfill.js',
             './node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
             './test/index.js',
             // './test/module.spec.ts',

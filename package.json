@@ -28,6 +28,7 @@
     "@types/node": "^8.0.46",
     "@types/underscore": "^1.8.7",
     "babel-eslint": "^7.1.1",
+    "babel-polyfill": "^6.26.0",
     "blanket": "^1.2.3",
     "browserify": "^15.2.0",
     "browserify-cipher": "^1.0.0",
