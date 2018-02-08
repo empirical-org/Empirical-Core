@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 describe User, type: :model do
@@ -201,12 +202,21 @@ describe User, type: :model do
       end
 
       context 'and an extant subscription' do
-        it "does not create an additional subscription" do
-          subscription = create(:subscription)
+        it "creates a new subscription" do
+          subscription = create(:subscription, expiration: Date.today + 3.days)
           create(:user_subscription, user: user, subscription: subscription)
-          original_subscription_count = user.subscriptions.count
-          user.redeem_credit
-          expect(user.subscriptions.count).to eq(original_subscription_count)
+
+          expect{ user.redeem_credit }.to change(Subscription, :count).by(1)
+        end
+
+        it "creates a new subscription with the start date equal to last subscription expiration" do
+          subscription = create(:subscription, expiration: Date.today + 3.days)
+          create(:user_subscription, user: user, subscription: subscription)
+
+          previous_subscription = user.subscriptions.last
+          last_subscription = user.redeem_credit
+
+          expect(last_subscription.start_date).to eq(previous_subscription.expiration)
         end
       end
     end

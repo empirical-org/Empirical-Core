@@ -78,11 +78,26 @@ class User < ActiveRecord::Base
 
   def redeem_credit
     balance = credit_transactions.sum(:amount)
-    if balance > 0 && !subscription
-      new_sub = Subscription.create_with_user_join(self.id, {account_type: 'Premium Credit', expiration: Date.today + balance, start_date: Date.today, contact_user: self})
+    if balance > 0
+      new_sub = Subscription.create_with_user_join(self.id, {account_type: 'Premium Credit', expiration: redemption_start_date + balance, start_date: redemption_start_date, contact_user: self})
       if new_sub
         CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
       end
+      new_sub
+    end
+  end
+
+  def redemption_start_date
+    last_subscription = self.subscriptions
+      .where(de_activated_date: nil)
+      .where("expiration > ?", Date.today)
+      .order(expiration: :asc)
+      .limit(1).first
+
+    if last_subscription.present?
+      last_subscription.expiration
+    else
+      Date.today
     end
   end
 
