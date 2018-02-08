@@ -195,8 +195,13 @@ describe User, type: :model do
           end
 
           it 'starts immediately' do
-            user.redeem_credit
-            expect(user.subscription.start_date).to eq(Date.today)
+            subscription = user.redeem_credit
+            expect(subscription.start_date).to eq(Date.today)
+          end
+
+          it "with the user as the contact" do
+            subscription = user.redeem_credit
+            expect(subscription.contact_user).to eq(user)
           end
         end
       end
