@@ -34,7 +34,6 @@ export default class BlogPost extends React.Component {
           </main>
           <footer>
             <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>
-            { /* TODO share buttons */ }
           </footer>
         </article>
         <div id='similar-posts'>
