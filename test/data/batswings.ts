@@ -26,7 +26,6 @@ const rawData = {
     { "id": 1212056, "text": "So bats have wings, they can fly.", "optimal": false, "feedback": "<p>Revise your work. Re-order the ideas to show that having wings is the reason bats can fly.</p>", "count": 45, "child_count": null, "first_attempt_count": 21, "question_uid": "-KS7SchZ6efLRxPmvuqA", "parent_id": null, "concept_results": { "R3sBcYAvoXP2_oNVXiA98g": { "conceptUID": "R3sBcYAvoXP2_oNVXiA98g", "correct": false } } },
   "1214073":
     { "id": 1214073, "text": "Bats can fly, so they have wings.", "optimal": false, "feedback": "<p>Revise your work. Re-order the ideas to show that having wings is the reason bats can fly.</p>", "count": 81, "child_count": null, "first_attempt_count": 19, "question_uid": "-KS7SchZ6efLRxPmvuqA", "parent_id": null, "concept_results": { "R3sBcYAvoXP2_oNVXiA98g": { "conceptUID": "R3sBcYAvoXP2_oNVXiA98g", "correct": false }, "GiUZ6KPkH958AT8S413nJg": { "conceptUID": "GiUZ6KPkH958AT8S413nJg", "correct": false } },
-    { "id": 1214099, "text": "Bats then cats can fly, so they both have wings.", "optimal": false, "feedback": "<p>Revise your work. Re-order the ideas to show that having wings is the reason bats can fly.</p>", "count": 81, "child_count": null, "first_attempt_count": 19, "question_uid": "-KS7SchZ6efLRxPmvuqA", "parent_id": null, "concept_results": { "R3sBcYAvoXP2_oNVXiA98g": { "conceptUID": "R3sBcYAvoXP2_oNVXiA98g", "correct": false }, "GiUZ6KPkH958AT8S413nJg": { "conceptUID": "GiUZ6KPkH958AT8S413nJg", "correct": false } }
   }
 }
 
