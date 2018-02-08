@@ -77,7 +77,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
 }
 
 export function flexibleChangeObjectMatchResponseBuilder(match: ChangeObjectMatch): PartialResponse|null {
-  const initialVals = rigidChangeObjectMatchResponseBuilder(match)
+  const initialVals = rigidChangeObjectMatchResponseBuilder(match);
   initialVals.author = "Flexible " + initialVals.author;
   return initialVals;
 }
