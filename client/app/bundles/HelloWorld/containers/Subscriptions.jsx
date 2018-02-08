@@ -172,6 +172,16 @@ export default class extends React.Component {
     this.setState({ showPremiumRedemptionModal: false, });
   }
 
+  premiumRedemptionModalIfCurrentSubscription() {
+    if (this.state.subscriptionStatus) {
+      return (<PremiumRedemptionModal
+        show={this.state.showPremiumRedemptionModal}
+        hideModal={this.hidePremiumRedemptionModal}
+        subscription={this.state.subscriptionStatus}
+      />);
+    }
+  }
+
   render() {
     return (
       <div>
@@ -184,13 +194,8 @@ export default class extends React.Component {
         <p>
           If you purchase a Teacher Premium subscription, and then your school purchases a School Premium subscription, you will be refunded the remainder of your Teacher Premium as Quill Premium Credit. You can redeem your Premium Credit anytime you do not currently have an active subscription, and you will be resubscribed to Quill Premium for the amount of time you have in credit. If you would like to receive a full refund there is a grace period of 5 days from the day of the renewal.
         </p>
+        {this.premiumRedemptionModalIfCurrentSubscription()}
         <SelectCreditCardModal lastFour={this.props.lastFour} />
-        <SelectCreditCardModal lastFour={this.props.lastFour} />
-        <PremiumRedemptionModal
-          show={this.state.showPremiumRedemptionModal}
-          hideModal={this.hidePremiumRedemptionModal}
-          subscription={this.state.currentSubscription}
-        />
 
       </div>
     );
