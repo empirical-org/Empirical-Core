@@ -3,6 +3,10 @@ import moment from 'moment';
 
 export default class extends React.Component {
 
+  constructor(props) {
+    super();
+  }
+
   subscriptionType() {
     const accountType = this.props.subscriptionStatus.account_type;
     if (this.props.schoolSubscriptionTypes.includes(accountType)) {
@@ -17,27 +21,27 @@ export default class extends React.Component {
     if (!this.props.subscriptionStatus) {
       return "You don't have a subscription";
     }
-    const subScriptionType = this.subscriptionType();
+    const subscriptionType = this.subscriptionType();
     if (this.props.subscriptionStatus.expired) {
-      return `Your ${subScriptionType} Premium subscription has expired`;
+      return `Your ${subscriptionType} Premium subscription has expired`;
     }
-    return `You have a ${subScriptionType} Premium subscription`;
+    return `You have a ${subscriptionType} Premium subscription`;
   }
 
   buttonOrDate() {
     let buttonOrDate;
-    if (this.props.subscriptionStatus && !this.props.subscriptionStatus.expired) {
-      buttonOrDate = (
-        <span>
-            Valid Until: {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)
-        </span>
-        );
+    if (this.props.subscriptionStatus) {
+      if (!this.props.subscriptionStatus.expired) {
+        buttonOrDate = (
+          <span>
+              Valid Until: {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)
+          </span>
+          );
+      } else {
+        buttonOrDate = <button>Renew Premium</button>;
+      }
     }
-    if (this.props.subscriptionStatus.expired) {
-      buttonOrDate = <button>Renew Premium</button>;
-    } else {
-      buttonOrDate = <button>Buy Teacher Premium Now</button>;
-    }
+    buttonOrDate = <button>Buy Teacher Premium Now</button>;
     return buttonOrDate;
   }
 
