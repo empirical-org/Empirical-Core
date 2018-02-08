@@ -27,7 +27,7 @@ module NavigationHelper
   end
 
   def teacher_resources_page_should_be_active?
-    controller.class == BlogPostsController
+    controller.class == BlogPostsController || action_name == 'faq'
   end
 
   def admin_page_should_be_active?
