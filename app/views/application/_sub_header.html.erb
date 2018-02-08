@@ -16,7 +16,7 @@
 		<ul class="home-navbar-list">
 			<% if !current_user || current_user.role != "student" %>
 				<li><%= link_to "Curriculum", "/tools/lessons"%></li>
-				<li><%= link_to "Teacher Resources", teacher_resources_path %></li>
+				<li><%= link_to "Teacher Resources", blog_posts_path %></li>
 				<li class="active"><%= link_to "Our Story", mission_path %></li>
 			<% end %>
 
