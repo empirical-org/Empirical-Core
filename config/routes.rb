@@ -22,7 +22,11 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug
+  resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug do
+    collection do
+      get '/topic/:topic', to: 'blog_posts#show_topic'
+    end
+  end
 
   # for Stripe
   resources :charges
