@@ -17,8 +17,13 @@ export default class extends React.Component {
   }
 
   renderPreviewCards() {
-    // todo use spread operator
     return this.props.blogPosts.map(article =>
+      <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+    )
+  }
+
+  renderPreviewCardsByPopularity() {
+    return [...this.props.blogPosts].sort(function(a, b) { return a.read_count < b.read_count }).map(article =>
       <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
     )
   }
@@ -44,7 +49,11 @@ export default class extends React.Component {
     if(this.state.articleFilter === 'topic') {
       response = this.renderPreviewCardsByTopic();
     } else if(this.state.articleFilter === 'popularity') {
-      response = <h1>most read</h1>
+      response = (
+        <div id="preview-card-container">
+          {this.renderPreviewCardsByPopularity()}
+        </div>
+      )
     } else {
       response = (
         <div id="preview-card-container">
