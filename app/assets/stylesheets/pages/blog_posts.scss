@@ -57,6 +57,16 @@ body {
   }
 }
 
+#preview-card-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 #knowledge-center {
   header {
     background: linear-gradient(#3cb79e, rgba(66, 142, 123, 0.87)) #3cb79e;
@@ -125,16 +135,6 @@ body {
       &.active {
         color: $quillforestgreen;
       }
-    }
-  }
-
-  #preview-card-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-
-    a:hover {
-      text-decoration: none;
     }
   }
 
@@ -260,13 +260,25 @@ body {
   background: #ffffff;
 
   article {
-    border-bottom: 1px solid #e9e9e9;
-    margin: 0 auto 50px;
+    margin: 0 auto;
     max-width: 945px;
-    padding-top: 50px;
+    padding: 25px;
+
+    a.back-to-topic {
+      color: #027360;
+      font-weight: 600;
+      font-size: 14px;
+
+      i {
+        font-size: 10px;
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+    }
 
     header {
       font-size: 14px;
+      padding-top: 60px;
 
       h1 {
         font-size: 30px;
@@ -296,6 +308,11 @@ body {
       margin-top: 40px;
     }
 
+    footer {
+      border-top: 1px solid #e9e9e9;
+      padding: 50px 0 25px;
+      margin: 50px 0 0;
+    }
   }
 
   #similar-posts {
@@ -309,6 +326,12 @@ body {
       h2 {
         color: #3b3b3b;
         font-size: 18px;
+        font-weight: 700;
+      }
+
+      #preview-card-container {
+        margin-top: 15px;
+        justify-content: space-between;
       }
     }
   }

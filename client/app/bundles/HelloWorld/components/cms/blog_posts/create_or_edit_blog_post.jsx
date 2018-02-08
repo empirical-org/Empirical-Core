@@ -21,7 +21,7 @@ export default class extends React.Component {
       subtitle: p ? p.subtitle : '',
       body: p ? p.body : '',
       author_id: p ? p.author_id : 11 /* Quill Staff */,
-      topic: p ? p.topic : '',
+      topic: p ? p.topic : 'Webinars',
       preview_card_content: p ? p.preview_card_content : null,
       custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
       preview_card_type: this.props.action === 'new' ? 'Blog Post' : 'Custom HTML',
@@ -31,7 +31,7 @@ export default class extends React.Component {
       videoLink: 'https://www.youtube.com/watch?v=O_HyZ5aW76c',
       videoDescription: "I'll write it myself, and we'll do it live!",
       tweetLink: 'https://twitter.com/EdSurge/status/956861254982873088',
-      tweetImage: 'https://pbs.twimg.com/card_img/956861256786501632/Pf_Th_E1?format=jpg&name=600x314',
+      tweetImage: 'http://placehold.it/300x135/00998a/fff',
       tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
       tweetAuthor: 'EdSurge'
     };
