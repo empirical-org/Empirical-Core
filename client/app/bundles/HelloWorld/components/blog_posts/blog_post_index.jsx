@@ -77,7 +77,7 @@ export default class extends React.Component {
     }
   }
 
-  renderNav() {
+  renderNavAndSectionHeader() {
     if(!window.location.pathname.includes('topic')) {
       return (
         <nav>
@@ -89,7 +89,12 @@ export default class extends React.Component {
         </nav>
       )
     } else {
-      return <nav></nav>
+      return (
+        <div className='topic-header'>
+          <a href='/teacher_resources'><i className='fa fa-chevron-left' />Back to All Topics</a>
+          <h2>{window.location.pathname.split('/')[3].split('_').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
+        </div>
+      )
     }
   }
 
@@ -107,7 +112,7 @@ export default class extends React.Component {
             </div>
           </div>
         </header>
-        {this.renderNav()}
+        {this.renderNavAndSectionHeader()}
         {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}
       </div>

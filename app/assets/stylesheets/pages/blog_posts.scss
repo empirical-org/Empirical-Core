@@ -169,6 +169,26 @@ body {
     }
   }
 
+  .topic-header {
+    margin: 35px auto;
+
+    a {
+      color: #027360;
+      font-size: 14px;
+
+      i {
+        font-size: 10px;
+        margin-right: 10px;
+      }
+    }
+
+    h2 {
+	     font-size: 30px;
+	     color: #666666;
+       margin-top: 50px;
+    }
+  }
+
 }
 
 .preview-card {
