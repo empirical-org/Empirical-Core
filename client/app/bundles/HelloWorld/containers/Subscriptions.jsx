@@ -4,6 +4,8 @@ import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import Stripe from '../components/modules/stripe/update_card.js';
 import SelectCreditCardModal from '../components/subscriptions/select_credit_card_modal';
+import getAuthToken from '../components/modules/get_auth_token';
+import request from 'request';
 
 export default class extends React.Component {
 
@@ -90,6 +92,21 @@ export default class extends React.Component {
     return this.props.premiumCredits.reduce((total, credit) => total + credit.amount, 0);
   }
 
+  redeemPremiumCredits() {
+    request.put({
+      url: `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
+      json: {
+        authenticity_token: getAuthToken(),
+      },
+    }, (error, httpStatus, body) => {
+      if (body.error) {
+        alert(body.error);
+      } else {
+        console.log(body);
+      }
+    });
+  }
+
   premiumCredits() {
     const availableCredits = this.availableCredits();
     return (
@@ -103,8 +120,8 @@ export default class extends React.Component {
             You have <span>{`${availableCredits} ${pluralize('day', availableCredits)} `}</span> of Teacher Premium Credit available.
           </div>
           <div>
-            <button className="q-button cta-button">
-              Earn Premium Credit
+            <button onClick={this.redeemPremiumCredits} className="q-button cta-button">
+              Redeem Premium Credit
             </button>
           </div>
         </div>
@@ -129,7 +146,7 @@ export default class extends React.Component {
         <p>
           If you purchase a Teacher Premium subscription, and then your school purchases a School Premium subscription, you will be refunded the remainder of your Teacher Premium as Quill Premium Credit. You can redeem your Premium Credit anytime you do not currently have an active subscription, and you will be resubscribed to Quill Premium for the amount of time you have in credit. If you would like to receive a full refund there is a grace period of 5 days from the day of the renewal.
         </p>
-        <SelectCreditCardModal show lastFour={this.props.lastFour} />
+        <SelectCreditCardModal lastFour={this.props.lastFour} />
       </div>
     );
   }
