@@ -1,5 +1,6 @@
 class BlogPost < ActiveRecord::Base
-  TOPICS = ['other', 'biking', 'cycling']
+  TOPICS = ['Case Studies', 'Teacher Stories', 'Webinars', 'Teacher Materials', 'Education Research']
+  TOPIC_SLUGS = TOPICS.map { |topic| topic.downcase.gsub(' ','_') }
 
   before_create :generate_slug
 

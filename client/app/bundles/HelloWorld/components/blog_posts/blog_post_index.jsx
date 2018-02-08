@@ -77,6 +77,22 @@ export default class extends React.Component {
     }
   }
 
+  renderNav() {
+    if(!window.location.pathname.includes('topic')) {
+      return (
+        <nav>
+          <ul>
+            <li className={this.state.articleFilter === 'all' ? 'active' : null} onClick={() => this.filterArticlesBy('all')}>All Articles</li>
+            <li className={this.state.articleFilter === 'topic' ? 'active' : null} onClick={() => this.filterArticlesBy('topic')}>Topics</li>
+            <li className={this.state.articleFilter === 'popularity' ? 'active' : null} onClick={() => this.filterArticlesBy('popularity')}>Most Read</li>
+          </ul>
+        </nav>
+      )
+    } else {
+      return <nav></nav>
+    }
+  }
+
   render() {
     return (
       <div id="knowledge-center">
@@ -91,13 +107,7 @@ export default class extends React.Component {
             </div>
           </div>
         </header>
-        <nav>
-          <ul>
-            <li className={this.state.articleFilter === 'all' ? 'active' : null} onClick={() => this.filterArticlesBy('all')}>All Articles</li>
-            <li className={this.state.articleFilter === 'topic' ? 'active' : null} onClick={() => this.filterArticlesBy('topic')}>Topics</li>
-            <li className={this.state.articleFilter === 'popularity' ? 'active' : null} onClick={() => this.filterArticlesBy('popularity')}>Most Read</li>
-          </ul>
-        </nav>
+        {this.renderNav()}
         {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}
       </div>
