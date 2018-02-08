@@ -3,7 +3,7 @@ import {responses, focusPoints, incorrectSequences} from '../../../test/data/bat
 import { assert } from 'chai';
 import {checkSentenceCombining} from './sentence_combining';
 import {Response} from '../../interfaces';
-import { feedbackStrings } from '../constants/feedback_strings';
+import { feedbackStrings, spellingFeedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 
 describe('The checking a sentence combining question', () => {
@@ -75,7 +75,7 @@ describe('The checking a sentence combining question', () => {
     it('should be able to find an exact match', () => {
       const questionString = "Bats have wing so, they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, "<p><em>So</em> tells why bats can fly. Good work! Now correct your punctuation.</p>");
+      assert.equal(matchedResponse.feedback, spellingFeedbackStrings["Spelling Hint"]);
     });
 
     it('should be able to find a focus point match', () => {
@@ -94,19 +94,19 @@ describe('The checking a sentence combining question', () => {
     it('should be able to find a case insensitive match', () => {
       const questionString = "bats have zings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.caseError);
+      assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
     });
 
     it('should be able to find a punctuation insensitive match', () => {
       const questionString = "Bats have zings so they can fly"
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);
+      assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
     });
 
     it('should be able to find a punctuation and case insensitive match', () => {
       const questionString = "bats have zings so they can fly"
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.punctuationAndCaseError);
+      assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
     });
 
     it('should be able to find a spacing before punctuation match', () => {
@@ -118,19 +118,19 @@ describe('The checking a sentence combining question', () => {
     it('should be able to find a spacing after comma match', () => {
       const questionString = "Bats have zings,so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.spacingAfterCommaError);
+      assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
     });
 
     it('should be able to find a whitespace match', () => {
       const questionString = "Batshave zings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.whitespaceError);
+      assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
     });
 
     it('should be able to find a rigid change match', () => {
       const questionString = "Bats zings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.missingWordError);
+      assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
     });
 
     it('should be able to find a flexible change match', () => {
@@ -154,19 +154,6 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, '<p>Revise your sentence to include the word <em>they</em>. You may have misspelled it.</p>');
     });
 
-    it('should be able to find a min length match', () => {
-      // this is a little artificial, as the focus point (looking for the word 'so') encompasses the incorrect sequence (using the phrase 'and they')
-      // const questionString = 'Bats have wings so they.'
-      // const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      // assert.equal(matchedResponse.feedback, feedbackStrings.minLengthError);
-    });
-
-    it('should be able to find a max length match', () => {
-      const questionString = "Bats have strong wings, so they can fly far away from home."
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.maxLengthError);
-    });
-
     it('should be able to find a case start match', () => {
       const questionString = "bats have wings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
@@ -174,7 +161,7 @@ describe('The checking a sentence combining question', () => {
     });
 
     it('should be able to find a punctuation end match', () => {
-      const questionString = "Bats and dogs have wings, so they can both fly"
+      const questionString = "Bats have wings, so they can fly"
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);
     });
