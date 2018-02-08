@@ -26,7 +26,7 @@ export default class extends React.Component {
     this.state.subscriptions.forEach((sub) => {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
-      const duration = endD.diff(startD, 'months') + 1;
+      const duration = endD.diff(startD, 'months');
       const matchingTransaction = this.props.premiumCredits.find(transaction => (
         transaction.source_id === sub.id &&
         transaction.source_type === 'Subscription' &&
