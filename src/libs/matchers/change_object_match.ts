@@ -1,12 +1,13 @@
 import * as _ from 'underscore';
 import { diffWords } from 'diff';
-import {getOptimalResponses} from '../sharedResponseFunctions'
+import {getOptimalResponses, getSubOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
 import {Response, PartialResponse} from '../../interfaces'
 import {removePunctuation} from '../helpers/remove_punctuation'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getFeedbackForMissingWord} from '../helpers/joining_words_feedback'
+import {sortByLevenshteinAndOptimal} from '../responseTools'
 
 export interface TextChangesObject {
   missingText: string|null,
@@ -33,7 +34,14 @@ export function flexibleChangeObjectChecker(responseString: string, responses:Ar
   }
 }
 
-export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch): PartialResponse|null {
+export function levenshteinMatchObjectChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {
+  const match = levenshteinChangeObjectMatch(responseString, responses);
+  if (match) {
+    return rigidChangeObjectMatchResponseBuilder(match, true)
+  }
+}
+
+export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, copyMatchConceptResults:Boolean=false): PartialResponse|null {
   const res: PartialResponse = {}
   switch (match.errorType) {
     case ERROR_TYPES.INCORRECT_WORD:
@@ -42,7 +50,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
       res.feedback = missingTextFeedback || feedbackStrings.modifiedWordError;
       res.author = 'Modified Word Hint';
       res.parent_id = match.response.key;
-      res.concept_results = [
+      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
         conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
       ];
       return res;
@@ -50,7 +58,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
       res.feedback = feedbackStrings.additionalWordError;
       res.author = 'Additional Word Hint';
       res.parent_id = match.response.key;
-      res.concept_results = [
+      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
         conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
       ];
       return res;
@@ -59,7 +67,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch):
       res.feedback = feedbackStrings.missingWordError;
       res.author = 'Missing Word Hint';
       res.parent_id = match.response.key;
-      res.concept_results = [
+      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
         conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
       ];
       return res;
@@ -83,6 +91,13 @@ export function flexibleChangeObjectMatch(response: string, responses: Array<Res
   const fn = string => removePunctuation(stringNormalize(string)).toLowerCase();
   return checkChangeObjectMatch(response, getOptimalResponses(responses), fn);
 }
+
+export function levenshteinChangeObjectMatch(response: string, responses: Array<Response>) {
+  const fn = string => stringNormalize(string);
+  const sortedResponses = sortByLevenshteinAndOptimal(response, getOptimalResponses(responses).concat(getSubOptimalResponses(responses)));
+  return checkChangeObjectMatch(response, getOptimalResponses(sortedResponses), fn);
+}
+
 
 export function checkChangeObjectMatch(userString: string, responses: Array<Response>, stringManipulationFn: (string: string) => string, skipSort: boolean = false): ChangeObjectMatch|null {
   if (!skipSort) {

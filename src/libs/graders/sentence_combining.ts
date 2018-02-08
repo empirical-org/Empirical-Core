@@ -28,6 +28,7 @@ export function checkSentenceCombining(
   const responseTemplate = {
     text: response,
     question_uid,
+    gradeIndex: `nonhuman${question_uid}`,
     count: 1
   }
   const data = {
@@ -36,15 +37,13 @@ export function checkSentenceCombining(
     focusPoints,
     incorrectSequences,
   }
-  // Correct the spelling and try again.
-  const spellCheckedData = prepareSpellingData(data)
 
-
-  const firstPass = checkForMatches(spellCheckedData, firstPassMatchers)
+  const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
     return Object.assign(responseTemplate, firstPass)
   }
 
+  const spellCheckedData = prepareSpellingData(data)
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true)
   if (spellingPass) {
     // Update the indicate spelling is also needed.
@@ -56,6 +55,8 @@ export function checkSentenceCombining(
     return Object.assign(responseTemplate, secondPass)
   }
 
+  responseTemplate.gradeIndex = `unmarked${question_uid}`
+  return responseTemplate
 }
 
 function* firstPassMatchers(data: GradingObject, spellCorrected=false) {

@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+import * as _ from 'underscore'
 import {punctuationAndCaseInsensitiveMatch, punctuationAndCaseInsensitiveChecker} from './punctuation_and_case_insensitive_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -11,7 +12,8 @@ const savedResponses: Array<Response> = [
     feedback: "Good job, that's a sentence!",
     optimal: true,
     count: 1,
-    question_uid: 'question 1'
+    question_uid: 'question 1',
+    concept_results: [{correct: true, conceptUID: 'l'}]
   }
 ]
 
@@ -47,6 +49,11 @@ describe('The punctuationAndCaseInsensitiveChecker', () => {
   it('Should return undefined if the lowercased response string does not match a lowercased partial response', () => {
     const responseString = "my cat took a nap.";
     assert.equal(punctuationAndCaseInsensitiveChecker(responseString, savedResponses), undefined);
+  });
+
+  it('Should return the same concept results as the matched response if it is asked to', () => {
+    const responseString = "my dog took a nap.";
+    assert.ok(_.isEqual(punctuationAndCaseInsensitiveChecker(responseString, savedResponses, true).concept_results, punctuationAndCaseInsensitiveMatch(responseString, savedResponses).concept_results));
   });
 
 })

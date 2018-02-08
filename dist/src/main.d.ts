@@ -1,2 +1,5 @@
 export { checkSentenceCombining } from './libs/graders/sentence_combining';
-export { Response, PartialResponse, ConceptResult, FocusPoint, IncorrectSequence, FeedbackObject, GradingObject } from './interfaces/index';
+export { checkDiagnosticQuestion } from './libs/graders/diagnostic_question';
+export { checkSentenceFragment } from './libs/graders/sentence_fragment';
+export { checkFillInTheBlankQuestion } from './libs/graders/fill_in_the_blank';
+export { Response, PartialResponse, ConceptResult, FocusPoint, IncorrectSequence, FeedbackObject, GradingObject, WordCountChange } from './interfaces/index';

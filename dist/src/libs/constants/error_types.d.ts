@@ -1,2 +1,2 @@
-declare const error_types: Array<string>;
+declare const ;
 export default error_types;

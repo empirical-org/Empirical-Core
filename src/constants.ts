@@ -1,4 +1,4 @@
-declare interface Constants {
+export interface Constants {
   FIREBASE: string;
 
 	// uI FEEDBACK ACTIONS

@@ -10,7 +10,11 @@ export function getSubOptimalResponses(responses: Array<Response>): Array<Respon
 }
 
 export function getTopOptimalResponse(responses: Array<Response>): Response {
-  return _.sortBy(getOptimalResponses(responses), r => r.count).reverse()[0];
+  const returnVal =  _.sortBy(getOptimalResponses(responses), r => r.count).reverse()[0];
+  if (returnVal === undefined){
+    throw 'DataError - No Optimal Response'
+  }
+  return returnVal;
 }
 
 function getWeakResponses(responses: Array<Response>): Array<Response> {

@@ -5,6 +5,10 @@ var uglify = require('uglify-js');
 var commonjs = require('rollup-plugin-commonjs');
 var nodeResolve = require('rollup-plugin-node-resolve');
 var typescript = require('rollup-plugin-typescript2');
+var json = require('rollup-plugin-json');
+var nodeGlobals = require('rollup-plugin-node-globals')
+var builtins = require('rollup-plugin-node-builtins');
+var uglifyPlugin = require('rollup-plugin-uglify')
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
     '/*!\n' +
@@ -16,22 +20,34 @@ var banner =
 rollup.rollup({
     input: "./src/main.ts",
     plugins: [
-        nodeResolve({
+      nodeResolve({
             // pass custom options to the resolve plugin
             jsnext: true,
             main: true,
             browser: true,
+            preferBuiltins: true
           }),
+      json(),
+      nodeGlobals(),
+      builtins({
+        crypto: true,
+        fs: false,
+        net: false,
+        tls: false
+      }),
       commonjs({
         include: 'node_modules/**',
+        exclude: 'node_modules/tough-cookie/package.json',
         namedExports: {
-          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max'],
-          'node_modules/diff/dist/diff.js': ['diffWords', '_params']
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject'],
+          'node_modules/diff/dist/diff.js': ['diffWords', '_params'],
+          'node_modules/process/index.js': ['nextTick'],
+          'node_modules/events/events.js': ['EventEmitter'],
+          'node_modules/buffer/index.js': ['isBuffer']
         }
       }),
-      
-      typescript()
-      
+      typescript(),
+      uglifyPlugin()
     ]
 })
     .then(function (bundle) {
