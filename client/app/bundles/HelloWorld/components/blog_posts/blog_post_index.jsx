@@ -20,13 +20,13 @@ export default class extends React.Component {
 
   renderPreviewCards() {
     return this.props.blogPosts.map(article =>
-      <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+      <PreviewCard key={article.title} content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
     )
   }
 
   renderPreviewCardsByPopularity() {
     return this.state.blogPostsSortedByMostRead.map(article =>
-      <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+      <PreviewCard key={article.title} content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
     )
   }
 

@@ -11,6 +11,14 @@ class BlogPost < ActiveRecord::Base
     self.save
   end
 
+  def path
+    '/teacher_resources/' + self.slug
+  end
+
+  def topic_path
+    '/teacher_resources/topic/' + self.topic.downcase.gsub(' ', '_')
+  end
+
   private
   def generate_slug
     title = self.title
