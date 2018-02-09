@@ -9,6 +9,18 @@
     margin-bottom: 12px;
   }
 
+  .subscription-status {
+    background-color: #fff;
+    .box {
+      width: 5px;
+      height: 40px;
+    }
+    h2 {
+      align-self: center;
+      margin-bottom: 0;
+    }
+  }
+
   section {
     padding-top: 42px;
     border-bottom: none;
