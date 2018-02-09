@@ -44,7 +44,7 @@ describe Subscription, type: :model do
 
     it 'creates a credit transaction for the right ammount' do
       subscription.credit_user_and_de_activate
-      expect(CreditTransaction.last.amount).to eq(2)
+      expect(CreditTransaction.last.amount).to eq(subscription.expiration - subscription.start_date)
     end
 
     it 'creates a credit transaction for the appropriate user' do
