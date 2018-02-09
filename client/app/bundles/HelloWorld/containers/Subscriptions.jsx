@@ -33,10 +33,11 @@ export default class extends React.Component {
         transaction.amount > 0
       ));
       if (matchingTransaction) {
+        const amountCredited = matchingTransaction.amount > 6 ? Math.round(matchingTransaction.amount / 7) : 1;
         rows.push(<tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
           <td colSpan="5">
           Your school purchased School Premium during your subscription, so we
-          credited your account with {matchingTransaction.amount} days of Teacher Premium.
+          credited your account with {`${amountCredited} ${pluralize('week', amountCredited)}`}  of Teacher Premium.
         </td>
         </tr>);
       }
@@ -95,13 +96,17 @@ export default class extends React.Component {
   }
 
   premiumCreditsTable() {
-    const creditRows = this.props.premiumCredits.map(credit => (
-      <tr key={`credit-${credit.id}-premium-credit-table`}>
-        <td>{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
-        <td>{credit.amount}</td>
-        <td>{credit.action}</td>
-      </tr>
-      ));
+    const creditRows = this.props.premiumCredits.map((credit) => {
+      // if it is less than one week, we round up to 1
+      const amountCredited = credit.amount > 6 ? Math.round(credit.amount / 7) : 1;
+      return (
+        <tr key={`credit-${credit.id}-premium-credit-table`}>
+          <td>{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
+          <td>{`${amountCredited} ${pluralize('week', amountCredited)}`}</td>
+          <td>{credit.action}</td>
+        </tr>
+      );
+    });
     return (
       <table>
         <tbody>
