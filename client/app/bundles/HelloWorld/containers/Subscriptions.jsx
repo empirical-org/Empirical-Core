@@ -54,7 +54,11 @@ export default class extends React.Component {
   paymentContent(subscription) {
     const currentUserId = document.getElementById('current-user-id').getAttribute('content');
     if (subscription.contact_user_id === Number(currentUserId)) {
-      return 'Payment';
+      if (subscription.payment_amount) {
+        return `$${subscription.payment_amount / 100}`;
+      } else if (subscription.payment_method === 'Premium Credit') {
+        return subscription.payment_method;
+      }
     }
     return '--';
   }
