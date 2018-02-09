@@ -1518,7 +1518,9 @@ CREATE TABLE subscriptions (
     subscription_type_id integer,
     contact_user_id integer,
     recurring boolean DEFAULT false,
-    de_activated_date date
+    de_activated_date date,
+    payment_method character varying,
+    payment_amount integer
 );
 
 
@@ -3903,4 +3905,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180205170220');
 INSERT INTO schema_migrations (version) VALUES ('20180206154253');
 
 INSERT INTO schema_migrations (version) VALUES ('20180206171118');
+
+INSERT INTO schema_migrations (version) VALUES ('20180209153502');
 

@@ -79,7 +79,11 @@ class User < ActiveRecord::Base
   def redeem_credit
     balance = credit_transactions.sum(:amount)
     if balance > 0
-      new_sub = Subscription.create_with_user_join(self.id, {account_type: 'Premium Credit', expiration: redemption_start_date + balance, start_date: redemption_start_date, contact_user: self})
+      new_sub = Subscription.create_with_user_join(self.id, {account_type: 'Premium Credit',
+                                                            payment_method: 'Premium Credit',
+                                                            expiration: redemption_start_date + balance,
+                                                            start_date: redemption_start_date,
+                                                            contact_user: self})
       if new_sub
         CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
       end

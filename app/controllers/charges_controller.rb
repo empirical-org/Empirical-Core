@@ -42,6 +42,8 @@ class ChargesController < ApplicationController
   def handle_subscription
     attributes = {account_limit: 1000}
     attributes[:contact_user_id] = current_user.id
+    attributes[:payment_method] = 'Credit Card'
+    attributes[:payment_amount] = @charge.amount
     current_user.update(stripe_customer_id: @charge.customer)
     if @charge.amount == 45000
       attributes[:account_type] = "School Paid"
