@@ -11,6 +11,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :subscription_type
   validates :expiration, presence: true
   validates :account_limit, presence: true
+  after_commit :check_if_contact_email_is_in_database
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
     'School NYC Paid',
@@ -51,6 +52,15 @@ class Subscription < ActiveRecord::Base
 
   def is_not_paid?
     self.account_type && TRIAL_TYPES.include?(self.account_type.downcase == 'teacher trial')
+  end
+
+  def check_if_contact_email_is_in_database
+    if self.contact_email && !self.contact_user_id
+      contact_id = User.find_by_email(self.contact_email)&.id
+      if contact_id
+        self.update(contact_user_id: contact_id)
+      end
+    end
   end
 
   def renewal_price
