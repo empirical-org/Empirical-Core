@@ -145,10 +145,10 @@ class Subscription < ActiveRecord::Base
       elsif school_or_user.subscription
         # Expire one year later, start at end of sub
         old_sub = school_or_user.subscription
-        {expiration: old_sub.expiration + 365, start_date: old_sub.expiration}
+        {expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration}
       else
         # sub lasts one year from Date.today
-        {expiration: Date.today + 365, start_date: Date.today}
+        {expiration: Date.today + 1.year, start_date: Date.today}
       end
   end
 
