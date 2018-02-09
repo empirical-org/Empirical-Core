@@ -68,4 +68,32 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
+  describe '#transfer_ownership' do
+    let!(:classroom)         { create(:classroom) }
+    let!(:owner)             { classroom.owner }
+    let!(:valid_coteacher)   { create(:coteacher_classrooms_teacher, classroom: classroom).user }
+    let!(:unaffiliated_user) { create(:teacher) }
+
+    it 'does not allow transferring a classroom not owned by current user' do
+      session[:user_id] = unaffiliated_user.id
+      post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+      expect(response.status).to eq(303)
+      expect(classroom.owner).to eq(owner)
+    end
+
+    it 'does not allow transferring a classroom to a teacher who is not already a coteacher' do
+      session[:user_id] = owner.id
+      post :transfer_ownership, id: classroom.id, requested_new_owner_id: unaffiliated_user.id
+      expect(classroom.owner).to eq(owner)
+    end
+
+    it 'transfers ownership to a coteacher' do
+      session[:user_id] = owner.id
+      post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+      expect(classroom.owner).to eq(valid_coteacher)
+      expect(classroom.coteachers.length).to eq(1)
+      expect(classroom.coteachers.first).to eq(owner)
+    end
+  end
+
 end

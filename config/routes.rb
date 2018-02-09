@@ -210,6 +210,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         post :hide
         get  :students_list, controller: 'classroom_manager', action: 'students_list'
+        post :transfer_ownership
       end
       #this can't go in with member because the id is outside of the default scope
 
@@ -269,6 +270,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :users,                   only: [:index]
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
+      post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
       resource :firebase_tokens,          only: [:create]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
@@ -277,6 +279,7 @@ EmpiricalGrammar::Application.routes.draw do
       put 'classroom_activities/:id/pin_activity' => 'classroom_activities#pin_activity'
       put 'classroom_activities/:id/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
+      get 'classroom_activities/:id/classroom_teacher_and_coteacher_ids' => 'classroom_activities#classroom_teacher_and_coteacher_ids'
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'

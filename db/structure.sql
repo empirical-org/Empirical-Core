@@ -830,7 +830,8 @@ CREATE TABLE firebase_apps (
     name character varying(255),
     secret character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    pkey text
 );
 
 
@@ -2486,20 +2487,6 @@ CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING bt
 
 
 --
--- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
-
-
---
--- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
-
-
---
 -- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3625,4 +3612,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171214152937');
 INSERT INTO schema_migrations (version) VALUES ('20171218222306');
 
 INSERT INTO schema_migrations (version) VALUES ('20180102151559');
+
+INSERT INTO schema_migrations (version) VALUES ('20180110221301');
 
