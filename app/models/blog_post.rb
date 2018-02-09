@@ -16,7 +16,11 @@ class BlogPost < ActiveRecord::Base
   end
 
   def topic_path
-    '/teacher_resources/topic/' + self.topic.downcase.gsub(' ', '_')
+    '/teacher_resources/topic/' + self.topic_slug
+  end
+
+  def topic_slug
+    self.topic.downcase.gsub(' ', '_')
   end
 
   private
