@@ -4,7 +4,14 @@ import moment from 'moment';
 export default class extends React.Component {
 
   constructor(props) {
-    super();
+    super(props);
+    this.state = {
+      subscriptionType: this.subscriptionType(),
+      userIsContact: this.userIsContact(), };
+  }
+
+  userIsContact() {
+    return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.contact_user_id;
   }
 
   subscriptionType() {
@@ -21,7 +28,7 @@ export default class extends React.Component {
     if (!this.props.subscriptionStatus) {
       return "You don't have a subscription";
     }
-    const subscriptionType = this.subscriptionType();
+    const subscriptionType = this.state.subscriptionType;
     if (this.props.subscriptionStatus.expired) {
       return `Your ${subscriptionType} Premium subscription has expired`;
     }
@@ -37,19 +44,38 @@ export default class extends React.Component {
               Valid Until: {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)
           </span>
           );
+      } else if (this.state.subscriptionType === 'School') {
+        if (this.state.userIsContact) {
+          buttonOrDate = <button>Renew School Premium</button>;
+        } else {
+          buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
+        }
       } else {
         buttonOrDate = <button>Renew Premium</button>;
       }
+    } else {
+      buttonOrDate = <button>Buy Teacher Premium Now</button>;
     }
-    buttonOrDate = <button>Buy Teacher Premium Now</button>;
     return buttonOrDate;
+  }
+
+  getBoxColor() {
+    if (this.props.subscriptionStatus.expired) {
+      return '#ff4542';
+    } else if (this.props.subscriptionType === 'School') {
+      return '#9c2bde';
+    }
+    return '#348fdf';
   }
 
   render() {
     return (
-      <section>
+      <section className="subscription-status">
         <div className="flex-row space-between">
-          <h2>{this.status()}</h2>
+          <div className="box-and-h2 flex-row space-between">
+            <div className="box" style={{ backgroundColor: this.getBoxColor(), }} />
+            <h2>{this.status()}</h2>
+          </div>
           {this.buttonOrDate()}
         </div>
         <p>

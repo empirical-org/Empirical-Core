@@ -153,8 +153,9 @@ export default class extends React.Component {
     if (this.state.availableCredits > 0) {
       button = <button onClick={this.redeemPremiumCredits} className="q-button cta-button">Redeem Premium Credits</button>;
     } else {
-      button = <a href="/" className="q-button button cta-button">Earn Premium Credits</a>;
+      button = <a href="/" className="q-button button cta-button bg-orange">Earn Premium Credits</a>;
     }
+    const monthsOfCredit = Math.round((this.state.availableCredits / 30.42) * 10) / 10;
     return (
       <section>
         <div className="flex-row space-between">
@@ -163,7 +164,7 @@ export default class extends React.Component {
         </div>
         <div className="available-credit flex-row vertically-centered space-between">
           <div className="credit-quantity">
-            You have <span>{`${this.state.availableCredits} ${pluralize('day', this.state.availableCredits)} `}</span> of Teacher Premium Credit available.
+            You have <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span> of Teacher Premium Credit available.
             {button}
           </div>
           <div />
