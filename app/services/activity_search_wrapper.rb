@@ -129,7 +129,7 @@ class ActivitySearchWrapper
     when 6
       h = {
         alias: 'Quill Lessons',
-        description: 'Shared Group Lessons',
+        description: 'Lead Group Lessons',
         key: 'lessons'
       }
     end

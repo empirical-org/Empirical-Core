@@ -39,5 +39,7 @@ module SegmentIo
     MYSTERY_STUDENT_DELETION ||= 'Mystery student deletion'
     ACTIVITY_SEARCH ||= 'Activity search'
     STUDENT_LOGIN_PDF_DOWNLOAD ||= 'Student login PDF download'
+    COTEACHER_INVITATION ||= 'Teacher invited a coteacher'
+    TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
   end
 end
