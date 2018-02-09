@@ -60,7 +60,7 @@ tools: function() {
     key={'lessons'}
     link='/teachers/classrooms/assign_activities/create-unit?tool=lessons'
     name='Quill Lessons'
-    description='Shared Group Lessons'
+    description='Lead Group Lessons'
     imgSrc={`${process.env.CDN_URL}/images/icons/lessons-light-gray.svg`}
   />,
   <LessonTypeMini

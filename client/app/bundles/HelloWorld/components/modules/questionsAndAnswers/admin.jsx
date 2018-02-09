@@ -34,7 +34,7 @@ const admin = () => [
   },
   {
     question: 'Session Access',
-    answer: [<p>Sessions outside of New York City will be held remotely via Google Hangouts, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources, and a link to the session recording.</p>]
+    answer: [<p>Sessions outside of New York City will be held remotely via Google Hangouts, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources and a link to the session recording.</p>]
   },
   {
     question: 'How does Premium Reporting Work?',
