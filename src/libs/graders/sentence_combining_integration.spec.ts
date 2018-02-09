@@ -161,11 +161,11 @@ describe('The checking a sentence combining question', () => {
     });
 
     it('should be able to find a punctuation end match', () => {
-      const questionString = "Bats have wings, so they can fly"
+      const questionString = "Bats have wings, so they can fly";
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);
     });
 
-  })
+  });
 
 });
