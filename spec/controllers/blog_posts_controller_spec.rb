@@ -52,4 +52,20 @@ describe.skip BlogPostsController, type: :controller do
       end
     end
   end
+
+  skip '#show_author' do
+    it 'should return a 404 if author ID is not found' do
+
+    end
+
+    context '#pagination' do
+      it 'should return the next 9 blog posts by the author' do
+
+      end
+
+      it 'should never return a draft' do
+
+      end
+    end
+  end
 end
