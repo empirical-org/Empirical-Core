@@ -1,9 +1,10 @@
+declare function require(name:string);
 const request = require('request-promise');
 import * as _ from 'underscore';
-
 import { hashToCollection } from '../hashToCollection';
 const qml = require('quill-marking-logic')
-const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } = qml
+const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion } = qml
+const { ConceptResult } = require('quill-marking-logic/dist/src/interfaces/index.d.ts')
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
 interface Question {
@@ -210,6 +211,8 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
       focusPoints: focusPoints,
       incorrectSequences: incorrectSequences,
       ignoreCaseAndPunc: question.ignoreCaseAndPunc,
+      checkML: true,
+      mlUrl: process.env.CMS_URL
     };
   } else if (mode === 'diagnosticQuestions') {
     return [question.key, hashToCollection(responses)]

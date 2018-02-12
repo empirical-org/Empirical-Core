@@ -5,7 +5,8 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import * as ReactTransition from 'react-addons-css-transition-group';
 const qml = require('quill-marking-logic')
-const {checkSentenceFragment, Response} = qml
+const {checkSentenceFragment} = qml
+const Response = require('quill-marking-logic/dist/src/interfaces/index.d.ts')
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,
@@ -114,13 +115,15 @@ const PlaySentenceFragment = React.createClass<any, any>({
         const fields = {
           question_uid: key,
           response: this.state.response,
+          checkML: true,
+          mlUrl: process.env.QUILL_CMS,
           responses,
           wordCountChange,
           ignoreCaseAndPunc,
           prompt,
           incorrectSequences
         }
-        const matched = checkSentenceFragment(fields)
+        const matched = {response: checkSentenceFragment(fields)}
         console.log(typeof(matched), typeof(matched) === 'object')
         if (typeof(matched) === 'object') {
           updateResponseResource(matched, key, attempts, this.props.dispatch, );

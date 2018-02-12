@@ -1,9 +1,11 @@
-import React from 'react';
+declare function require(name:string);
+import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import _ from 'underscore';
-import ReactTransition from 'react-addons-css-transition-group';
-import {checkSentenceFragment} from 'quill-marking-logic'
+import * as _ from 'underscore';
+import * as ReactTransition from 'react-addons-css-transition-group';
+const qml = require('quill-marking-logic')
+const {checkSentenceFragment} = qml
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,
@@ -13,9 +15,9 @@ import {
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
-import icon from '../../img/question_icon.svg';
+const icon = require('../../img/question_icon.svg');
 
-const PlaySentenceFragment = React.createClass({
+const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
     return {
       response: this.props.question.prompt,
@@ -118,7 +120,7 @@ const PlaySentenceFragment = React.createClass({
           prompt,
           incorrectSequences
         }
-        const matched = checkSentenceFragment(fields)
+        const matched = {response: checkSentenceFragment(fields)}
         updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
@@ -128,7 +130,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getNegativeConceptResultsForResponse(conceptResults) {
-    return _.reject(hashToCollection(conceptResults), cr => cr.correct);
+    return hashToCollection(conceptResults).filter(cr => !cr.correct);
   },
 
   getNegativeConceptResultForResponse(conceptResults) {
@@ -138,9 +140,9 @@ const PlaySentenceFragment = React.createClass({
 
   renderConceptExplanation() {
     if (!this.showNextQuestionButton()) {
-      const latestAttempt = getLatestAttempt(this.props.question.attempts);
-      if (latestAttempt) {
-        if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+      const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
+      if (latestAttempt && latestAttempt.response) {
+        if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];

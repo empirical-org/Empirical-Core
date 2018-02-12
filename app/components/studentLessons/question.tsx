@@ -1,3 +1,4 @@
+declare function require(name:string);
 import * as React from 'react';
 const Markdown = require('react-remarkable');
 import { connect } from 'react-redux';
@@ -31,7 +32,7 @@ import {
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-import { Response } from 'quill-marking-logic'
+const {Response} = require('quill-marking-logic/dist/src/interfaces/index.d.ts')
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 

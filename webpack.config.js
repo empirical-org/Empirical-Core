@@ -96,6 +96,12 @@ module.exports = {
         ],
       },
       {
+        test: /\.d.ts$/,
+        use: [
+          'awesome-typescript-loader'
+        ],
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
