@@ -27,27 +27,29 @@ export default class extends React.Component {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
       const duration = endD.diff(startD, 'months');
-      const matchingTransaction = this.props.premiumCredits.find(transaction => (
-        transaction.source_id === sub.id &&
-        transaction.source_type === 'Subscription' &&
-        transaction.amount > 0
-      ));
+      const matchingTransaction = this.props.premiumCredits.find(transaction => (transaction.source_id === sub.id && transaction.source_type === 'Subscription' && transaction.amount > 0));
       if (matchingTransaction) {
-        const amountCredited = matchingTransaction.amount > 6 ? Math.round(matchingTransaction.amount / 7) : 1;
-        rows.push(<tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
-          <td colSpan="5">
-          Your school purchased School Premium during your subscription, so we
-          credited your account with {`${amountCredited} ${pluralize('week', amountCredited)}`}  of Teacher Premium.
-        </td>
-        </tr>);
+        const amountCredited = matchingTransaction.amount > 6
+          ? Math.round(matchingTransaction.amount / 7)
+          : 1;
+        rows.push(
+          <tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
+            <td colSpan="5">
+              Your school purchased School Premium during your subscription, so we credited your account with {`${amountCredited} ${pluralize('week', amountCredited)}`}
+              of Teacher Premium.
+            </td>
+          </tr>
+        );
       }
-      rows.push(<tr key={`${sub.id}-subscription-table`}>
-        <td>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>
-        <td>{sub.account_type}</td>
-        <td>{this.paymentContent(sub)}</td>
-        <td>{`${duration} ${pluralize('month', duration)}`}</td>
-        <td>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
-      </tr>);
+      rows.push(
+        <tr key={`${sub.id}-subscription-table`}>
+          <td>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>
+          <td>{sub.account_type}</td>
+          <td>{this.paymentContent(sub)}</td>
+          <td>{`${duration} ${pluralize('month', duration)}`}</td>
+          <td>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
+        </tr>
+      );
     });
     return rows;
   }
@@ -84,12 +86,74 @@ export default class extends React.Component {
     );
   }
 
+  currentSubscriptionContent() {
+    const currSub = this.props.subscriptionStatus;
+    const metaRowClassName = 'meta-info flex-row space-between';
+    const buttonRowClassName = 'flex-row space-between';
+    if (currSub) {
+      return ({ metaRows: (
+        <div className={metaRowClassName}>
+          <div>
+            <div>
+              <span className="title">Type</span>
+              <span>{currSub.account_type}</span>
+            </div>
+            <div>
+              <span className="title">Payment Method</span>
+              <span>boop</span>
+            </div>
+            <div>
+              <span className="title">Renewal Settings</span>
+              <span>boop</span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <span className="title">Purchaser</span>
+              <span>boop</span>
+            </div>
+            <div>
+              <span className="title">Renewal Date</span>
+              <span>boop</span>
+            </div>
+          </div>
+        </div>
+        ),
+        cta: (
+          <div className={buttonRowClassName}>
+            <a href="/" className="q-button button cta-button bg-blue">Something</a>;
+          </div>
+        ), });
+    }
+    // set a more basic state if we don't have the info
+    this.updateState({ noSub: true, });
+    return ({ metaRows: (
+      <div className={metaRowClassName}>
+        <div>
+          <span className="title">Quill Basic Subscription</span>
+          <span>{currSub.account_type}</span>
+        </div>
+        <div>
+          <span className="title">Payment Method</span>
+          <span>Free</span>
+        </div>)
+        </div>
+      ),
+      cta: (
+        <div className={buttonRowClassName}>
+          <a href="/premium" className="q-button button cta-button bg-orange">Learn More About Quill Premium</a>;
+          <a href="/" className="q-button button cta-button bg-blue">Download Premium PDF</a>;
+        </div>
+      ), });
+  }
+
   currentSubscriptionInformation() {
+    const content = this.currentSubscriptionContent();
     return (
       <section>
         <h2>Current Subscription Information</h2>
         <div className="current-subscription-information">
-          THIS NEEDS FINALIZATION
+          {content}
         </div>
       </section>
     );
@@ -98,7 +162,9 @@ export default class extends React.Component {
   premiumCreditsTable() {
     const creditRows = this.props.premiumCredits.map((credit) => {
       // if it is less than one week, we round up to 1
-      const amountCredited = credit.amount > 6 ? Math.round(credit.amount / 7) : 1;
+      const amountCredited = credit.amount > 6
+        ? Math.round(credit.amount / 7)
+        : 1;
       return (
         <tr key={`credit-${credit.id}-premium-credit-table`}>
           <td>{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
@@ -164,10 +230,11 @@ export default class extends React.Component {
         </div>
         <div className="available-credit flex-row vertically-centered space-between">
           <div className="credit-quantity">
-            You have <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span> of Teacher Premium Credit available.
-            {button}
+            You have
+            <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span>
+            of Teacher Premium Credit available.
           </div>
-          <div />
+          {button}
         </div>
         {this.premiumCreditsTable()}
       </section>
@@ -184,11 +251,7 @@ export default class extends React.Component {
 
   premiumRedemptionModalIfCurrentSubscription() {
     if (this.state.subscriptionStatus) {
-      return (<PremiumRedemptionModal
-        show={this.state.showPremiumRedemptionModal}
-        hideModal={this.hidePremiumRedemptionModal}
-        subscription={this.state.subscriptionStatus}
-      />);
+      return (<PremiumRedemptionModal show={this.state.showPremiumRedemptionModal} hideModal={this.hidePremiumRedemptionModal} subscription={this.state.subscriptionStatus} />);
     }
   }
 
@@ -196,8 +259,7 @@ export default class extends React.Component {
     return (
       <div>
         <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="btn btn-default mini-btn blue">Update Card</button>;
-        <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
-        {this.currentSubscriptionInformation()}
+        <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} /> {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
         {this.premiumCredits()}
         <h2>Refund Policy</h2>

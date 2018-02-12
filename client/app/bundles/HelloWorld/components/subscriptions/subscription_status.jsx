@@ -40,8 +40,8 @@ export default class extends React.Component {
     if (this.props.subscriptionStatus) {
       if (!this.props.subscriptionStatus.expired) {
         buttonOrDate = (
-          <span>
-              Valid Until: {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)
+          <span className="expiration-date">
+            <span>Valid Until:</span> {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)
           </span>
           );
       } else if (this.state.subscriptionType === 'School') {
@@ -62,7 +62,7 @@ export default class extends React.Component {
   getBoxColor() {
     if (this.props.subscriptionStatus.expired) {
       return '#ff4542';
-    } else if (this.props.subscriptionType === 'School') {
+    } else if (this.state.subscriptionType === 'School') {
       return '#9c2bde';
     }
     return '#348fdf';
@@ -83,9 +83,7 @@ export default class extends React.Component {
           free reports as well as additional advanced reporting. You will also
           be able to view and print reports of your students’ progress. Our
           advanced reports support concept, Common Core, and overall progress
-          analysis.
-          <a>Here’s more information</a>
-          about your Teacher Premium features.
+          analysis. <a className="green-link">Here’s more information</a> about your Teacher Premium features.
         </p>
       </section>
     );
