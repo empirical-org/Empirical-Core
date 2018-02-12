@@ -2,7 +2,7 @@
   "name": "quill-marking-logic",
   "version": "0.1.16",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
-  "main": "dist/lib.js",
+  "main": "dist/lib",
   "types": "dist/src/main.d.ts",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
