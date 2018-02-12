@@ -1,4 +1,4 @@
-const assert = require('chai').use(require('chai-as-promised')).assert
+import {assert} from 'chai'
 import {machineLearningSentenceMatch, machineLearningSentenceChecker} from './machine_learning_sentence_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'

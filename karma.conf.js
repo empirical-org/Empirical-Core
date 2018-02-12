@@ -15,7 +15,7 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'chai-as-promised', 'chai'],
+        frameworks: ['mocha', 'chai'],
 
         // list of files / patterns to load in the browser
         files: [
@@ -35,8 +35,7 @@ module.exports = function (config) {
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             'test/index.js': ['webpack'],
-            'src/**/*.spec.ts': ['webpack'],
-            [require.resolve('chai-as-promised')]: ['webpack']
+            'src/**/*.spec.ts': ['webpack']
             // './test/module.spec.ts': ['webpack']
         },
 
@@ -92,8 +91,7 @@ module.exports = function (config) {
             require('karma-phantomjs-launcher'),
             require('karma-webpack'),
             require('karma-browserify'),
-            require('karma-chai'),
-            require('karma-chai-as-promised')
+            require('karma-chai')
         ]
     })
 }
