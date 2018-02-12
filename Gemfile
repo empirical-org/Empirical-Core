@@ -168,6 +168,7 @@ group :test, :development do
   gem 'guard-shell'
   gem 'terminal-notifier-guard'
   gem 'teaspoon-mocha'
+  gem 'parallel_tests'
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman'
