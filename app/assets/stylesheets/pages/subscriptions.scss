@@ -9,15 +9,32 @@
     margin-bottom: 12px;
   }
 
+  .subscription-status, table {
+    box-shadow: 0 1px 2px 0 #e9e9e9;
+  }
+
   .subscription-status {
     background-color: #fff;
+    padding: 8 0 25 0px;
     .box {
+      margin-right: 20px;
       width: 5px;
       height: 40px;
     }
     h2 {
       align-self: center;
       margin-bottom: 0;
+    }
+    .expiration-date {
+      background-color: #fafafa;
+      padding: 10px 8px;
+      font-size: 18px;
+      span {
+        font-weight: 600;
+      }
+    }
+    p {
+      margin-top: 20px;
     }
   }
 
@@ -28,6 +45,20 @@
 
   .current-subscription-information {
     background-color: white;
+    font-size: 16px;
+    color: #3b3b3b;
+    padding: 20px 30px;
+    .title {
+      display: inline-block;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      width: 124px;
+      font-size: 16px;
+	    font-weight: 600;
+      color: #666;
+    }
+    .meta-info {
+    }
   }
 
   a.green-link {
@@ -39,16 +70,21 @@
 
   .available-credit {
     border-radius: 3px;
-    background-color: white;
+    background-color: #f8a724;
     border: solid 1px #f5ba5b;
     min-height: 77px;
     padding: 25px;
-    button {
+    color: white;
+    margin-bottom: 20px;
+    .button {
       background-color: #f8a724;
-      color: white;
+      border: solid 1px #fff;
+      font-size: 16px;
+      color: inherit;
+      margin: 0;
     }
     .credit-quantity {
-      color: #f8a724;
+      color: #f8a72;
       font-size: 18px;
       span {
         font-size: 24px;
