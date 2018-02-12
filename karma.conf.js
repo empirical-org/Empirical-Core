@@ -35,7 +35,8 @@ module.exports = function (config) {
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             'test/index.js': ['webpack'],
-            'src/**/*.spec.ts': ['webpack']
+            'src/**/*.spec.ts': ['webpack'],
+            [require.resolve('chai-as-promised')]: ['webpack']
             // './test/module.spec.ts': ['webpack']
         },
 

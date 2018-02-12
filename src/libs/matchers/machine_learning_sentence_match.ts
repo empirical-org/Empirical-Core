@@ -19,15 +19,15 @@ export function machineLearningSentenceMatch(response: string, link: string):Pro
   return matched
 }
 
-export async function machineLearningSentenceChecker(responseString: string, responses:Array<Response>, link:string, matcherFunction=machineLearningSentenceMatch):Promise<PartialResponse|undefined> {
-  const match:Boolean = await machineLearningSentenceMatch(responseString, link);
-  return machineLearningSentenceResponseBuilder(responses, match)
+export async function machineLearningSentenceChecker(responseString: string, responses:Array<Response>, link:string, matcherFunction:Function=machineLearningSentenceMatch):Promise<PartialResponse|undefined> {
+  const matched:Boolean = await matcherFunction(responseString, link);
+  return machineLearningSentenceResponseBuilder(responses, matched)
 }
 
 export function machineLearningSentenceResponseBuilder(responses: Array<Response>, matched:Boolean): PartialResponse {
   const res:PartialResponse = {
     author: 'Parts of Speech',
-    parent_id: getTopOptimalResponse(responses).key,
+    parent_id: getTopOptimalResponse(responses).id,
     optimal: matched
   }
   if (matched) {

@@ -1,7 +1,4 @@
-const chai = require("chai");
-const chaiAsPromised = require("chai-as-promised");
-chai.use(chaiAsPromised)
-const assert = chai.assert
+const assert = require('chai').use(require('chai-as-promised')).assert
 import {machineLearningSentenceMatch, machineLearningSentenceChecker} from './machine_learning_sentence_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -36,24 +33,27 @@ function returnsFalse() {
   return Promise.resolve(false)
 }
 
-
 describe('The machineLearningSentenceMatchChecker function', () => {
 
-    it('should return a partialResponse object if the matcher returns true', () => {
+    it('should return a partialResponse object if the matcher returns true', async () => {
       const responseString = "My goofy dog took a short nap.";
-        const returnValue = machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsTrue)
-        assert.eventually.equal(returnValue.author, savedResponses[1].author);
-        assert.eventually.equal(returnValue.feedback, savedResponses[1].feedback);
-        assert.eventually.equal(returnValue.optimal, savedResponses[1].optimal);
-        assert.eventually.equal(returnValue.concept_results, savedResponses[1].concept_results);
-        assert.eventually.equal(returnValue.parent_id, savedResponses[1].id);
+        const returnValue = await machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsTrue)
+        assert.equal(returnValue.author, 'Parts of Speech');
+        assert.equal(returnValue.feedback, "That's a strong sentence!");
+        assert.equal(returnValue.optimal, true);
+        assert.equal(returnValue.concept_results, getTopOptimalResponse(savedResponses).concept_results);
+        assert.equal(returnValue.parent_id, getTopOptimalResponse(savedResponses).id);
 
     });
 
-    it('should return undefined if the matcher returns false', () => {
+    it('should return a partialResponse object if the matcher returns false', async () => {
         const responseString = 'My grumpy dog took a nap.';
-        const returnValue = machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsFalse)
-        assert.notOk(returnValue);
+        const returnValue = await machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsFalse)
+        assert.equal(returnValue.author, 'Parts of Speech');
+        assert.equal(returnValue.feedback, "Revise your work. A complete sentence must have an action word and a person or thing doing the action.");
+        assert.equal(returnValue.optimal, false);
+        assert.equal(returnValue.concept_results, getTopOptimalResponse(savedResponses).concept_results);
+        assert.equal(returnValue.parent_id, getTopOptimalResponse(savedResponses).id);
     });
 
 })
