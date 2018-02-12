@@ -2,7 +2,8 @@ const request = require('request-promise');
 import * as _ from 'underscore';
 
 import { hashToCollection } from '../hashToCollection';
-import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+const qml = require('quill-marking-logic')
+const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } = qml
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
 interface Question {

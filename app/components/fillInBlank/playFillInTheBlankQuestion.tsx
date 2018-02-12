@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as  _ from 'underscore';
-import {checkFillInTheBlankQuestion} from 'quill-marking-logic'
+const qml = require('quill-marking-logic')
+const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';

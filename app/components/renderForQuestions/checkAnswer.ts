@@ -2,7 +2,8 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import * as _ from 'underscore'
 import Question from '../../libs/question';
 import DiagnosticQuestion from '../../libs/diagnosticQuestion';
-import {checkSentenceCombining, checkDiagnosticQuestion} from 'quill-marking-logic'
+const qml = require('quill-marking-logic')
+const {checkSentenceCombining, checkDiagnosticQuestion} = qml
 
 export default function checkAnswer(question, response, responses, mode='default') {
   const fields = {
