@@ -1,6 +1,6 @@
 {
   "name": "quill-marking-logic",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "dist/lib.js",
   "types": "dist/src/main.d.ts",
