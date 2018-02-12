@@ -6,7 +6,8 @@ import * as _ from 'underscore';
 import * as ReactTransition from 'react-addons-css-transition-group';
 const qml = require('quill-marking-logic')
 const {checkSentenceFragment} = qml
-const Response = require('quill-marking-logic/dist/src/interfaces/index.d.ts')
+const Response = require('quill-marking-logic/dist/src/interfaces/index.d').Response
+
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,
