@@ -60,7 +60,7 @@ describe('The checking a sentence fragment', () => {
     it('should be able to find a punctuation insensitive match', () => {
       const fields = {
         ...initialFields,
-        response: "Bats have wings so they can fly far.",
+        response: "Bats have wings so they can fly far",
       }
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);

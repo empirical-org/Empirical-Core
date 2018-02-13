@@ -19,6 +19,12 @@ export function partsOfSpeechMatch(response: string, responses:Array<Response>):
       if (optimalResponse.parent_id) {
         return false;
       } else if (correctPOSTags[index]) {
+        console.log('- - - - - - - - - - - - - - - - - -')
+        console.log('response', response)
+        console.log('optimalResponse', optimalResponse)
+        console.log('correctPOSTags[index]', correctPOSTags[index])
+        console.log('userPOSTags', userPOSTags)
+        console.log('- - - - - - - - - - - - - - - - - -')
         if (JSON.stringify(correctPOSTags[index]) === JSON.stringify(userPOSTags)) {
           // this will return the response object
           return true;
