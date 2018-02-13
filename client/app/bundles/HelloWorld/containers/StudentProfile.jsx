@@ -1,13 +1,11 @@
 import React from 'react';
-import $ from 'jquery';
-import _ from 'underscore';
-import StudentsClassroomsHeader from '../components/student_profile/students_classrooms/students_classrooms_header.jsx'
+import StudentsClassroomsHeader from '../components/student_profile/students_classrooms/students_classrooms_header.jsx';
 import NextActivity from '../components/student_profile/next_activity.jsx';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import Pusher from 'pusher-js';
-import { connect } from 'react-redux'
-import { fetchStudentProfile } from '../../../actions/student_profile'
+import { connect } from 'react-redux';
+import { fetchStudentProfile } from '../../../actions/student_profile';
 
 const StudentProfile = React.createClass({
   componentDidMount() {
@@ -19,7 +17,7 @@ const StudentProfile = React.createClass({
   },
 
   initializePusher() {
-    let classroomId = this.props.studentProfile.student.classroom.id;
+    const classroomId = this.props.student.classroom.id;
 
     if (process.env.NODE_ENV === 'development') {
       Pusher.logToConsole = true;
@@ -33,13 +31,13 @@ const StudentProfile = React.createClass({
   },
 
   render() {
-    if (!this.props.studentProfile.loading) {
+    if (!this.props.loading) {
       return (
         <div id="student-profile">
-          <StudentsClassroomsHeader currentClassroomId={this.props.studentProfile.student.classroom.id} fetchData={this.props.fetchStudentProfile} loading={this.props.studentProfile.loading}/>
-          <StudentProfileHeader studentName={this.props.studentProfile.student.name} classroomName={this.props.studentProfile.student.classroom.name} teacherName={this.props.studentProfile.student.classroom.teacher.name} />
-          <NextActivity data={this.props.studentProfile.nextActivitySession} loading={this.props.studentProfile.loading} hasActivities={this.props.studentProfile.scores.length > 0} />
-          <StudentProfileUnits data={this.props.studentProfile.scores} loading={this.props.studentProfile.loading} />
+          <StudentsClassroomsHeader />
+          <StudentProfileHeader studentName={this.props.student.name} classroomName={this.props.student.classroom.name} teacherName={this.props.student.classroom.teacher.name} />
+          <NextActivity data={this.props.nextActivitySession} loading={this.props.loading} hasActivities={this.props.scores.length > 0} />
+          <StudentProfileUnits data={this.props.scores} loading={this.props.loading} />
         </div>
       );
     } return <span />;
@@ -47,10 +45,8 @@ const StudentProfile = React.createClass({
 });
 
 const mapStateToProps = (state) => { return state };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);
