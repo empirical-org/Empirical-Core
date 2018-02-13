@@ -19,7 +19,7 @@ const StudentProfile = React.createClass({
   },
 
   initializePusher() {
-    let classroomId = this.props.student.classroom.id;
+    let classroomId = this.props.studentProfile.student.classroom.id;
 
     if (process.env.NODE_ENV === 'development') {
       Pusher.logToConsole = true;
@@ -33,13 +33,13 @@ const StudentProfile = React.createClass({
   },
 
   render() {
-    if (!this.props.loading) {
+    if (!this.props.studentProfile.loading) {
       return (
         <div id="student-profile">
-          <StudentsClassroomsHeader currentClassroomId={this.props.student.classroom.id} fetchData={this.props.fetchStudentProfile} loading={this.props.loading}/>
-          <StudentProfileHeader studentName={this.props.student.name} classroomName={this.props.student.classroom.name} teacherName={this.props.student.classroom.teacher.name} />
-          <NextActivity data={this.props.nextActivitySession} loading={this.props.loading} hasActivities={this.props.scores.length > 0} />
-          <StudentProfileUnits data={this.props.scores} loading={this.props.loading} />
+          <StudentsClassroomsHeader currentClassroomId={this.props.studentProfile.student.classroom.id} fetchData={this.props.fetchStudentProfile} loading={this.props.studentProfile.loading}/>
+          <StudentProfileHeader studentName={this.props.studentProfile.student.name} classroomName={this.props.studentProfile.student.classroom.name} teacherName={this.props.studentProfile.student.classroom.teacher.name} />
+          <NextActivity data={this.props.studentProfile.nextActivitySession} loading={this.props.studentProfile.loading} hasActivities={this.props.studentProfile.scores.length > 0} />
+          <StudentProfileUnits data={this.props.studentProfile.scores} loading={this.props.studentProfile.loading} />
         </div>
       );
     } return <span />;
