@@ -25,6 +25,16 @@ describe CsvExport, type: :model do
   end
   
   describe 'export types' do
+
+    context 'invalid type' do
+      let(:csv_export1) { CsvExport.new }
+
+      it 'should add error to the object' do
+        expect(csv_export1.save).to eq false
+        expect(csv_export1.errors.messages).to include(:export_type=>["is not included in the list"])
+      end
+    end
+
     context 'activity sessions' do
       let(:export_type) { 'activity_sessions' }
       it_behaves_like "CSV Export Type"
@@ -58,6 +68,20 @@ describe CsvExport, type: :model do
       let(:filters) { { topic_id: topic.id } }
       let(:export_type) { 'standards_topic_students' }
       it_behaves_like "CSV Export Type"
+    end
+  end
+
+  describe '#mark_sent!' do
+    let(:csv_export1) { create(:csv_export) }
+    let(:time) { Time.new('100') }
+
+    before do
+      allow(Time).to receive(:now).and_return(time)
+    end
+
+    it 'should set the emailed at as the current time' do
+      csv_export1.mark_sent!
+      expect(csv_export1.emailed_at).to eq(time)
     end
   end
   
