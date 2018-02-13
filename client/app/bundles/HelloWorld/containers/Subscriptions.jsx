@@ -35,8 +35,7 @@ export default class extends React.Component {
         rows.push(
           <tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
             <td colSpan="5">
-              Your school purchased School Premium during your subscription, so we credited your account with {`${amountCredited} ${pluralize('week', amountCredited)}`}
-              of Teacher Premium.
+              Your school purchased School Premium during your subscription, so we credited your account with {`${amountCredited} ${pluralize('week', amountCredited)}`} of Teacher Premium.
             </td>
           </tr>
         );
@@ -67,9 +66,10 @@ export default class extends React.Component {
   }
 
   subscriptionHistory() {
-    return (
-      <section>
-        <h2>Premium Subscription History</h2>
+    const subscriptionHistoryRows = this.subscriptionHistoryRows();
+    let content;
+    if (subscriptionHistoryRows.length > 0) {
+      content = (
         <table>
           <tbody>
             <tr>
@@ -79,9 +79,21 @@ export default class extends React.Component {
               <th>Length</th>
               <th>Start / End Date</th>
             </tr>
-            {this.subscriptionHistoryRows()}
+            {subscriptionHistoryRows}
           </tbody>
-        </table>
+        </table>);
+    } else {
+      content = (
+        <div className="empty-state flex-row justify-content">
+          <h3>You have not yet started a Quill Premium Subscription</h3>
+          <span>Purchase Quill Premium or apply credits to get access to Premium reports.</span>
+        </div>
+      );
+    }
+    return (
+      <section className="subscription-history">
+        <h2>Premium Subscription History</h2>
+        {content}
       </section>
     );
   }
@@ -136,8 +148,8 @@ export default class extends React.Component {
         <div>
           <span className="title">Payment Method</span>
           <span>Free</span>
-        </div>)
         </div>
+      </div>
       ),
       cta: (
         <div className={buttonRowClassName}>
@@ -153,8 +165,9 @@ export default class extends React.Component {
       <section>
         <h2>Current Subscription Information</h2>
         <div className="current-subscription-information">
-          {content}
+          {content.metaRows}
         </div>
+        {content.cta}
       </section>
     );
   }
@@ -214,7 +227,7 @@ export default class extends React.Component {
     });
   }
 
-  premiumCredits() {
+  availableCredits() {
     let button;
     if (this.state.availableCredits > 0) {
       button = <button onClick={this.redeemPremiumCredits} className="q-button cta-button">Redeem Premium Credits</button>;
@@ -223,19 +236,28 @@ export default class extends React.Component {
     }
     const monthsOfCredit = Math.round((this.state.availableCredits / 30.42) * 10) / 10;
     return (
+      <div className="available-credit flex-row vertically-centered space-between">
+        <div className="credit-quantity">
+          You have
+          <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span>
+          of Teacher Premium Credit available.
+        </div>
+        {button}
+      </div>
+    );
+  }
+
+  premiumCredits() {
+    if (!this.props.premiumCredits || this.props.premiumCredits < 1) {
+      return this.availableCredits();
+    }
+    return (
       <section>
         <div className="flex-row space-between">
           <h2>Quill Teacher Premium Credits</h2>
           <a className="green-link" href="">How to earn more Premium credit</a>
         </div>
-        <div className="available-credit flex-row vertically-centered space-between">
-          <div className="credit-quantity">
-            You have
-            <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span>
-            of Teacher Premium Credit available.
-          </div>
-          {button}
-        </div>
+        {this.availableCredits()}
         {this.premiumCreditsTable()}
       </section>
     );
