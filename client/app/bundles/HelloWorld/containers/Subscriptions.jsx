@@ -77,7 +77,7 @@ export default class extends React.Component {
               <th>Subscription</th>
               <th>Payment</th>
               <th>Length</th>
-              <th>Start / End Date</th>
+              <th>Start & End Date</th>
             </tr>
             {subscriptionHistoryRows}
           </tbody>
@@ -100,8 +100,8 @@ export default class extends React.Component {
 
   currentSubscriptionContent() {
     const currSub = this.props.subscriptionStatus;
-    const metaRowClassName = 'meta-info flex-row space-between';
-    const buttonRowClassName = 'flex-row space-between';
+    const metaRowClassName = 'flex-row space-between';
+    const buttonRowClassName = 'sub-button-row';
     if (currSub) {
       return ({ metaRows: (
         <div className={metaRowClassName}>
@@ -133,7 +133,7 @@ export default class extends React.Component {
         ),
         cta: (
           <div className={buttonRowClassName}>
-            <a href="/" className="q-button button cta-button bg-blue">Something</a>;
+            <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremiu} className="q-button button cta-button bg-orange text-white">Update Card</button>
           </div>
         ), });
     }
@@ -153,21 +153,29 @@ export default class extends React.Component {
       ),
       cta: (
         <div className={buttonRowClassName}>
-          <a href="/premium" className="q-button button cta-button bg-orange">Learn More About Quill Premium</a>;
-          <a href="/" className="q-button button cta-button bg-blue">Download Premium PDF</a>;
+          <a href="/" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
+          <a href="/" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>;
         </div>
       ), });
   }
+
+  purchasePremiumButton() {
+    return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremiu} className="q-button button cta-button bg-orange text-white">Update Card</button>;
+  }
+
+  // <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="q-button button cta-button bg-orange text-white">Update Card</button>
 
   currentSubscriptionInformation() {
     const content = this.currentSubscriptionContent();
     return (
       <section>
-        <h2>Current Subscription Information</h2>
-        <div className="current-subscription-information">
-          {content.metaRows}
+        <h2>Subscription Information</h2>
+        <div className="current-subscription-information-and-cta">
+          <div className="current-subscription-information">
+            {content.metaRows}
+          </div>
+          {content.cta}
         </div>
-        {content.cta}
       </section>
     );
   }
@@ -180,14 +188,14 @@ export default class extends React.Component {
         : 1;
       return (
         <tr key={`credit-${credit.id}-premium-credit-table`}>
-          <td>{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
-          <td>{`${amountCredited} ${pluralize('week', amountCredited)}`}</td>
-          <td>{credit.action}</td>
+          <td className="date-received">{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
+          <td className="amount-credited">{`${amountCredited} ${pluralize('week', amountCredited)}`}</td>
+          <td className="action">{credit.action || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit!'}</td>
         </tr>
       );
     });
     return (
-      <table>
+      <table className="premium-credits-table">
         <tbody>
           <tr>
             <th>Date Received</th>
@@ -235,12 +243,11 @@ export default class extends React.Component {
       button = <a href="/" className="q-button button cta-button bg-orange">Earn Premium Credits</a>;
     }
     const monthsOfCredit = Math.round((this.state.availableCredits / 30.42) * 10) / 10;
+    const whiteIfNoCredit = monthsOfCredit === 0 ? 'no-credits' : null;
     return (
-      <div className="available-credit flex-row vertically-centered space-between">
+      <div className={`${whiteIfNoCredit} available-credit flex-row vertically-centered space-between`}>
         <div className="credit-quantity">
-          You have
-          <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span>
-          of Teacher Premium Credit available.
+          You have <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span> of Teacher Premium Credit available.
         </div>
         {button}
       </div>
@@ -251,6 +258,8 @@ export default class extends React.Component {
     if (!this.props.premiumCredits || this.props.premiumCredits < 1) {
       return this.availableCredits();
     }
+    const totalCreditEarned = 0;
+    const monthsOfCredit = Math.round(((this.state.availableCredits / 30.42) * 10) / 10);
     return (
       <section>
         <div className="flex-row space-between">
@@ -259,6 +268,7 @@ export default class extends React.Component {
         </div>
         {this.availableCredits()}
         {this.premiumCreditsTable()}
+        <span className="total-premium-credits"><span className="total-header">Total Premium Credits Earned:</span> {`${monthsOfCredit} ${pluralize('month', monthsOfCredit)}`}</span>
       </section>
     );
   }
@@ -280,14 +290,15 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="btn btn-default mini-btn blue">Update Card</button>;
         <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} /> {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
         {this.premiumCredits()}
-        <h2>Refund Policy</h2>
-        <p>
-          If you purchase a Teacher Premium subscription, and then your school purchases a School Premium subscription, you will be refunded the remainder of your Teacher Premium as Quill Premium Credit. You can redeem your Premium Credit anytime you do not currently have an active subscription, and you will be resubscribed to Quill Premium for the amount of time you have in credit. If you would like to receive a full refund there is a grace period of 5 days from the day of the renewal.
-        </p>
+        <section className="refund-policy">
+          <h2>Refund Policy</h2>
+          <p>
+            If you purchase a Teacher Premium subscription, and then your school purchases a School Premium subscription, you will be refunded the remainder of your Teacher Premium as Quill Premium Credit. You can redeem your Premium Credit anytime you do not currently have an active subscription, and you will be resubscribed to Quill Premium for the amount of time you have in credit. If you would like to receive a full refund there is a grace period of 5 days from the day of the renewal.
+          </p>
+        </section>
         {this.premiumRedemptionModalIfCurrentSubscription()}
         <SelectCreditCardModal lastFour={this.props.lastFour} />
 
