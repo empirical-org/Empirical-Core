@@ -41,7 +41,7 @@ describe('The partsOfSpeechMatch function', () => {
 
 describe('The partsOfSpeechChecker function', () => {
 
-    it('should return a partialResponse object if the response string is longer than the prompt partsOfSpeech plus the wordCountChange.max', () => {
+    it('should return a partialResponse object if the response string finds a parts of speech match', () => {
       const responseString = "My goofy dog took a short nap.";
         const returnValue = partsOfSpeechChecker(responseString, savedResponses)
         assert.equal(returnValue.author, savedResponses[1].author);

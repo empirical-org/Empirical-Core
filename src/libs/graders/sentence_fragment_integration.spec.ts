@@ -46,6 +46,7 @@ describe('The checking a sentence fragment', () => {
       }
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, 'Revise your work. Add one to three words to the prompt to make the sentence complete.');
+    })
 
     it('should be able to find a case insensitive match', () => {
       const fields = {
@@ -90,7 +91,7 @@ describe('The checking a sentence fragment', () => {
     });
     //
     it('should be able to find a parts of speech match', () => {
-      const responseString =  "Bats have wings so they can fly near."
+      const responseString =  "Bats have wings, so they can fly quickly."
       const fields = {
         ...initialFields,
         response: responseString,
@@ -98,6 +99,18 @@ describe('The checking a sentence fragment', () => {
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, partsOfSpeechChecker(responseString, responses).feedback);
     });
+
+    // it('should be able to find an ml match', () => {
+    //   const responseString =  "They have really Bats fly wings so."
+    //   const fields = {
+    //     ...initialFields,
+    //     response: responseString,
+    //     checkML: true,
+    //     mlURL: 'http://localhost:3100'
+    //   }
+    //   const matchedResponse = checkSentenceFragment(fields);
+    //   assert.equal(matchedResponse.feedback, "That's a strong sentence!");
+    // });
 
   });
 })

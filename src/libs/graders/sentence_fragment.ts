@@ -14,7 +14,7 @@ import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctu
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match'
 import {requiredWordsChecker} from '../matchers/required_words_match'
 import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
-// import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
+import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
 
 export function checkSentenceFragment(hash:{
   question_uid: string,
@@ -41,7 +41,8 @@ export function checkSentenceFragment(hash:{
     wordCountChange: hash.wordCountChange,
     ignoreCaseAndPunc: hash.ignoreCaseAndPunc,
     prompt: hash.prompt,
-    mlUrl: hash.mlUrl
+    mlUrl: hash.mlUrl,
+    checkML: hash.checkML
   }
 
   const firstPass = checkForMatches(data, firstPassMatchers)
@@ -71,14 +72,14 @@ function* firstPassMatchers(data, spellCorrected=false) {
     yield requiredWordsChecker(submission, responses)
   }
   yield partsOfSpeechChecker(submission, responses)
-  // if (checkML) {
-  //   yield machineLearningSentenceChecker(submission, responses, mlUrl)
-  // }
+  if (checkML) {
+    yield machineLearningSentenceChecker(submission, responses, mlUrl)
+  }
 
 }
 
-function checkForMatches(data, matchingFunction: Function, spellCorrected=false) {
-  const gen = matchingFunction(data, spellCorrected)
+function checkForMatches(data, matchingFunction: Function) {
+  const gen = matchingFunction(data)
   let next = gen.next();
   while (true) {
     if (next.value || next.done) {

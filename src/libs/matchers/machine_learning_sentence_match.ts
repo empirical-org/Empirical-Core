@@ -1,34 +1,33 @@
-import * as _ from 'underscore'
-import requestPromise from 'request-promise'
 import constants from '../../constants';
-import {stringNormalize} from 'quill-string-normalizer'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, PartialResponse, ConceptResult, WordCountChange} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export function machineLearningSentenceMatch(response: string, link: string):Boolean {
+export function machineLearningSentenceMatch(response: string, link: string):Promise<boolean> {
   const options = {
     method: 'POST',
-    uri: `${link}/fragments/is_sentence`,
-    form: {
-      text: response
-    },
+    body: JSON.stringify({text: response}),
+    // mode: 'cors',
+    // credentials: 'include',
+    headers: { "Content-Type": "application/json" }
   };
-  return requestPromise(options).then((parsedBody) => {
-    return JSON.parse(parsedBody).text > 0.5
-  })
+  const url = `${link}/fragments/is_sentence`
+  const matched = fetch(url, options)
+      .then(response => response.json())
+      .then(parsedResponse => parsedResponse.text > 0.5)
+  return matched
 }
 
-export function machineLearningSentenceChecker(responseString: string, responses:Array<Response>, link:string):PartialResponse|undefined {
-  const match = machineLearningSentenceMatch(responseString, link);
-  return machineLearningSentenceResponseBuilder(responses, match)
+export async function machineLearningSentenceChecker(responseString: string, responses:Array<Response>, link:string, matcherFunction:Function=machineLearningSentenceMatch):Promise<PartialResponse|undefined> {
+  const matched:Boolean = await matcherFunction(responseString, link);
+  return machineLearningSentenceResponseBuilder(responses, matched)
 }
 
-export function machineLearningSentenceResponseBuilder(responses, matched:Boolean): PartialResponse {
+export function machineLearningSentenceResponseBuilder(responses: Array<Response>, matched:Boolean): PartialResponse {
   const res:PartialResponse = {
     author: 'Parts of Speech',
-    parent_id: getTopOptimalResponse(responses).key,
+    parent_id: getTopOptimalResponse(responses).id,
     optimal: matched
   }
   if (matched) {
