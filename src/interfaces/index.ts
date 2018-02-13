@@ -19,6 +19,7 @@ export interface Response {
   updated_at?: string,
   text: string,
   weak?: Boolean|null,
+  spelling_error?: Boolean|null,
 }
 
 export interface PartialResponse {

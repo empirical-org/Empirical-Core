@@ -73,40 +73,34 @@ describe('The checking a sentence combining question', () => {
 
   describe('first matchers - spell-checked sentence', () => {
     it('should be able to find an exact match', () => {
-      const questionString = "Bats have wing so, they can fly."
+      const questionString = 'Bts have wing, so they can fly.';
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings["Spelling Hint"]);
-    });
-
-    it('should be able to find a focus point match', () => {
-      const questionString = 'Bats have zings, and they can fly."'
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, focusPoints[0].feedback);
-    });
-
-    it('should be able to find an incorrect sequence match', () => {
-      // this is a little artificial, as the focus point (looking for the word 'so') encompasses the incorrect sequence (using the phrase 'and they')
-      const questionString = 'So bats have zings and they can fly.'
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
+      assert.equal(matchedResponse.parent_id, 13157);
+      assert.equal(matchedResponse.optimal, null);
+      assert.equal(matchedResponse.text, questionString);
+      assert.equal(matchedResponse.spelling_error, true);
     });
 
     it('should be able to find a case insensitive match', () => {
       const questionString = "bats have zings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
+      assert.equal(matchedResponse.spelling_error, true);
     });
 
     it('should be able to find a punctuation insensitive match', () => {
       const questionString = "Bats have zings so they can fly"
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
+      assert.equal(matchedResponse.spelling_error, true);
     });
 
     it('should be able to find a punctuation and case insensitive match', () => {
       const questionString = "bats have zings so they can fly"
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
+      assert.equal(matchedResponse.spelling_error, true);
     });
 
     it('should be able to find a spacing before punctuation match', () => {
@@ -125,18 +119,21 @@ describe('The checking a sentence combining question', () => {
       const questionString = "Batshave zings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
+      assert.equal(matchedResponse.spelling_error, true);
     });
 
     it('should be able to find a rigid change match', () => {
       const questionString = "Bats zings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
+      assert.equal(matchedResponse.spelling_error, true);
     });
 
     it('should be able to find a flexible change match', () => {
       const questionString = "Bats shave arms, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, feedbackStrings.modifiedWordError);
+      assert.equal(matchedResponse.spelling_error, true);
     });
 
   })

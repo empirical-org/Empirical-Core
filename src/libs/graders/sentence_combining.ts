@@ -46,9 +46,9 @@ export function checkSentenceCombining(
   const spellCheckedData = prepareSpellingData(data);
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true); // check for a match w the spelling corrected
   if (spellingPass) {
-    // Update the indicate spelling is also needed.
+    // Update the feedback to indicate spelling is also needed.
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    return Object.assign(responseTemplate, spellingAwareFeedback);
+    return Object.assign(responseTemplate, spellingAwareFeedback, {text: data.response, spelling_error: true});  
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
@@ -106,11 +106,18 @@ function prepareSpellingData(data: GradingObject) {
   return spellingData;
 }
 
-function getSpellingFeedback(spellingMatch:PartialResponse): PartialResponse {
+function getSpellingFeedback(spellingMatch: Response|PartialResponse): PartialResponse {
   // build a hash of the spelling aware feedback from the google doc to your right ->
   // find the error type of the partial response, fetch the feedback from the hash,
   // and apply it to the passed match value (spellingMatch)
-  const modifiedFeedback = {feedback: spellingFeedbackStrings[spellingMatch.author] || spellingFeedbackStrings["Spelling Hint"]}
-  return Object.assign(spellingMatch, modifiedFeedback);
-  
+  const match = Object.assign({}, spellingMatch);
+  if (match.parent_id) {
+    match.feedback = spellingFeedbackStrings[match.author];
+  } else {
+    match.feedback = spellingFeedbackStrings['Spelling Hint'];
+    delete match.optimal;
+    match.parent_id  = match.id;
+    delete match.id;
+  }
+  return match;
 }
