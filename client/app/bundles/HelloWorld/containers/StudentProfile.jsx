@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import _ from 'underscore';
-import StudentClassroomNavbar from '../components/student_profile/student_classroom_navbar.jsx';
+import StudentsClassroomsHeader from '../components/student_profile/students_classrooms/students_classrooms_header.jsx'
 import NextActivity from '../components/student_profile/next_activity.jsx';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
@@ -36,7 +36,7 @@ const StudentProfile = React.createClass({
     if (!this.props.loading) {
       return (
         <div id="student-profile">
-          <StudentClassroomNavbar data={this.props.student} fetchData={this.props.fetchStudentProfile} loading={this.props.loading} />
+          <StudentsClassroomsHeader currentClassroomId={this.props.student.classroom.id} fetchData={this.props.fetchStudentProfile} loading={this.props.loading}/>
           <StudentProfileHeader studentName={this.props.student.name} classroomName={this.props.student.classroom.name} teacherName={this.props.student.classroom.teacher.name} />
           <NextActivity data={this.props.nextActivitySession} loading={this.props.loading} hasActivities={this.props.scores.length > 0} />
           <StudentProfileUnits data={this.props.scores} loading={this.props.loading} />
