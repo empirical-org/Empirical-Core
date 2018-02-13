@@ -1,25 +1,24 @@
 import React from 'react';
-import $ from 'jquery';
-import _ from 'underscore';
 import Pluralize from 'pluralize';
 import { connect } from 'react-redux';
-import { toggleDropdown, hideDropdown, fetchStudentsClassrooms, handleClassroomClick, updateDefaultClassroomNumber }from '../../../../../actions/students_classrooms_header';
+import { toggleDropdown, hideDropdown, fetchStudentsClassrooms, fetchStudentProfile, handleClassroomClick } from '../../../../../actions/student_profile';
 
 const StudentsClassroomsHeader = React.createClass({
 
   componentDidMount() {
-    window.addEventListener('resize', this.updateDefaultClassroomNumber);
-    this.updateDefaultClassroomNumber();
+    window.addEventListener('resize', () => {
+      this.props.screenResize(window.innerWidth);
+    });
     this.props.fetchStudentsClassrooms();
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDefaultClassroomNumber);
+    window.removeEventListener('resize');
   },
 
   isActive(id, index) {
-    let selectedClassroomId = this.props.studentsClassroomsHeader.selectedClassroomId ||
-      this.props.currentClassroomId
+    let selectedClassroomId = this.props.selectedClassroomId ||
+      this.props.student.classroom.id
 
     if (selectedClassroomId && id == selectedClassroomId.toString()) {
       return 'active';
@@ -29,24 +28,19 @@ const StudentsClassroomsHeader = React.createClass({
   handleClassroomClick(classroomId) {
     if (!this.props.loading) {
       this.props.handleClassroomClick(classroomId);
-      this.props.fetchData(classroomId);
+      this.props.fetchStudentProfile(classroomId);
     }
   },
 
-  updateDefaultClassroomNumber() {
-    this.props.updateDefaultClassroomNumber(window.innerWidth);
-  },
-
   horizontalClassrooms() {
-    // only shows the smaller of the defaultClassroomNumber classes or the total Classes
     const classroomBoxes = [];
-    if (this.props.studentsClassroomsHeader.classrooms) {
-      const maxNumber = Math.min(this.props.studentsClassroomsHeader.classrooms.length, this.props.studentsClassroomsHeader.defaultClassroomNumber);
+    if (this.props.classrooms) {
+      const maxNumber = Math.min(this.props.classrooms.length, this.props.classroomDisplayNumber);
 
       for (let i = 0; i < maxNumber; i++) {
-        classroomBoxes.push(this.boxConstructor(this.props.studentsClassroomsHeader.classrooms[i], i));
+        classroomBoxes.push(this.boxConstructor(this.props.classrooms[i], i));
       }
-      const extraBoxCount = this.props.studentsClassroomsHeader.classrooms.length - this.props.studentsClassroomsHeader.defaultClassroomNumber;
+      const extraBoxCount = this.props.classrooms.length - this.props.classroomDisplayNumber;
       if (extraBoxCount > 0) {
         classroomBoxes.push(this.dropdownTab(extraBoxCount));
       }
@@ -55,11 +49,11 @@ const StudentsClassroomsHeader = React.createClass({
   },
 
   verticalClassrooms() {
-    if (this.props.studentsClassroomsHeader.showDropdownBoxes) {
+    if (this.props.showDropdownBoxes) {
       const classroomBoxes = [];
-      if (this.props.studentsClassroomsHeader.classrooms) {
-        for (let i = this.props.studentsClassroomsHeader.defaultClassroomNumber; i < this.props.studentsClassroomsHeader.classrooms.length; i++) {
-          classroomBoxes.push(<li key={i}>{this.boxConstructor(this.props.studentsClassroomsHeader.classrooms[i], i)}</li>);
+      if (this.props.classrooms) {
+        for (let i = this.props.classroomDisplayNumber; i < this.props.classrooms.length; i++) {
+          classroomBoxes.push(<li key={i}>{this.boxConstructor(this.props.classrooms[i], i)}</li>);
         }
         return classroomBoxes;
       }
@@ -67,7 +61,7 @@ const StudentsClassroomsHeader = React.createClass({
   },
 
   carat() {
-    if (this.props.studentsClassroomsHeader.showDropdownBoxes) {
+    if (this.props.showDropdownBoxes) {
       return <i className="fa fa-angle-up" />;
     }
 
@@ -116,7 +110,8 @@ const mapDispatchToProps = (dispatch) => {
     hideDropdown: () => dispatch(hideDropdown()),
     fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
     handleClassroomClick: (classroomId) => dispatch(handleClassroomClick(classroomId)),
-    updateDefaultClassroomNumber: (defaultClassroomNumber) => dispatch(updateDefaultClassroomNumber(defaultClassroomNumber))
+    screenResize: (screenWidth) => dispatch(screenResize(screenWidth)),
+    fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId))
   }
 }
 
