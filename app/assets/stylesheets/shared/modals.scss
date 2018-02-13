@@ -162,15 +162,48 @@
 }
 
 .select-credit-card-modal {
-  .modal-conteent {border-radius: 12px;}
+  .modal-content {
+    border-radius: 12px;
+  }
   width: 467px;
   font-size: 16px;
+  text-align: center;
+  color: #333;
+  button {
+    display: block;
+    margin: auto;
+    border-radius: 3px;
+  	border: dashed 1px #c0c0c0;
+    font-weight: 600;
+    color: #666666;
+    width: 350px;
+    height: 55px;
+    margin-bottom: 20px;
+    &.extant-card {
+      box-shadow: 0 1px 2px 0 #e9e9e9;
+      border: solid 1px #e9e9e9;
+      color: #027360;
+      font-size: 14px;
+      &:active {
+        box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
+      }
+
+    }
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
 
   .pricing-info {
     border-bottom: 1px solid #e9e9e9;
+    margin-bottom: 34px;
+    padding-bottom: 27px;
 
     h1 {
       font-size: 24px;
+      margin-bottom: 12px;
       font-weight: 800;
     }
 
