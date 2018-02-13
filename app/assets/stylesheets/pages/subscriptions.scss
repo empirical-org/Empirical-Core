@@ -9,32 +9,64 @@
     margin-bottom: 12px;
   }
 
-  .subscription-status, table {
+  .subscription-status,
+  table {
     box-shadow: 0 1px 2px 0 #e9e9e9;
+  }
+
+  .empty-state,
+  .subscription-status {
+    border-radius: 3px;
   }
 
   .subscription-status {
     background-color: #fff;
-    padding: 8 0 25 0px;
+    padding: 8 0 25;
+
     .box {
       margin-right: 20px;
       width: 5px;
       height: 40px;
     }
+
     h2 {
       align-self: center;
       margin-bottom: 0;
     }
+
     .expiration-date {
       background-color: #fafafa;
       padding: 10px 8px;
       font-size: 18px;
+
       span {
         font-weight: 600;
       }
     }
+
     p {
       margin-top: 20px;
+    }
+  }
+
+  .subscription-history {
+    min-height: 174px;
+
+    .empty-state {
+      border: solid 1px #e9e9e9;
+      font-size: 14px;
+      flex-direction: column;
+      align-items: center;
+      min-height: 174px;
+      justify-content: space-evenly;
+      padding: 41px;
+      color: #666;
+
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #666666;
+      }
     }
   }
 
@@ -48,25 +80,24 @@
     font-size: 16px;
     color: #3b3b3b;
     padding: 20px 30px;
+
     .title {
       display: inline-block;
       margin-right: 20px;
       margin-bottom: 20px;
       width: 124px;
       font-size: 16px;
-	    font-weight: 600;
+      font-weight: 600;
       color: #666;
     }
-    .meta-info {
-    }
+
+    .meta-info {}
   }
 
   a.green-link {
     font-size: 14px;
     color: #027360;
   }
-
-
 
   .available-credit {
     border-radius: 3px;
@@ -76,6 +107,7 @@
     padding: 25px;
     color: white;
     margin-bottom: 20px;
+
     .button {
       background-color: #f8a724;
       border: solid 1px #fff;
@@ -83,9 +115,11 @@
       color: inherit;
       margin: 0;
     }
+
     .credit-quantity {
       color: #f8a72;
       font-size: 18px;
+
       span {
         font-size: 24px;
         font-weight: 700;
@@ -153,6 +187,7 @@
         }
       }
     }
+
     .subscription-row {
       font-size: 14px;
       font-style: italic;
