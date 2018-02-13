@@ -12,6 +12,25 @@ class School < ActiveRecord::Base
     self.users.each{|u| Subscription.start_premium(u.id)}
   end
 
+  def ulocal_to_school_type
+    puts "Getting locale"
+    puts ulocal
+    data = {
+      "11": "City, Large",
+      "12": "City, Mid-size",
+      "13": "City, Small",
+      "21": "Suburb, Large", 
+      "22": "Suburb, Mid-size",
+      "23": "Suburb, Small", 
+      "31": "Town, Fringe",
+      "32": "Town, Distant", 
+      "33": "Town, Remote",
+      "41": "Rural, Fringe", 
+      "42": "Rural, Distant"
+    }
+    data[ulocal.to_s.to_sym]
+  end
+
   private
 
   def lower_grade_within_bounds
@@ -46,23 +65,11 @@ class School < ActiveRecord::Base
         website_url: "http://www.teslamotors.com"
       }
     )
+    self.users.each do |teacher|
+      teacher.method(:sync_salesmachine).call()
+    end
   end
 
-  def ulocal_to_school_type
-    data = {
-      11: "City, Large",
-      12: "City, Mid-size",
-      13: "City, Small",
-      21: "Suburb, Large", 
-      22: "Suburb, Mid-size",
-      23: "Suburb, Small", 
-      31: "Town, Fringe",
-      32: "Town, Distant", 
-      33: "Town, Remote",
-      41: "Rural, Fringe", 
-      42: "Rural, Distant"
-    }
-    data[self.ulocal]
-  end
+  
 
 end

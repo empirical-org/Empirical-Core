@@ -469,7 +469,7 @@ private
         email: self.email,
         name: self.name,
         account_uid: self.school.try(:id),
-        signed_up: self.created_at,
+        signed_up: self.created_at.to_i,
         admin: self.admin?,
         premium_status: self.subscription.try(:account_type),
         expiry: self.subscription.try(:expiration)
