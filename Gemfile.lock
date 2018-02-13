@@ -576,6 +576,10 @@ GEM
       faraday (>= 0.7.6, < 1.0)
     sexp_processor (4.10.0)
     shellany (0.0.1)
+    shoulda-callback-matchers (1.1.4)
+      activesupport (>= 3)
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     sidekiq (5.0.5)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -772,6 +776,8 @@ DEPENDENCIES
   scout_apm
   select2-rails
   sentry-raven (>= 0.12.2)
+  shoulda-callback-matchers (~> 1.1.1)
+  shoulda-matchers (~> 3.1)
   sidekiq
   sidekiq-retries
   simplecov
