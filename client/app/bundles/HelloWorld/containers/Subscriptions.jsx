@@ -107,7 +107,7 @@ export default class extends React.Component {
         <div className={metaRowClassName}>
           <div>
             <div>
-              <span className="title">Type</span>
+              <span className="title">Plan</span>
               <span>{currSub.account_type}</span>
             </div>
             <div>
@@ -300,7 +300,7 @@ export default class extends React.Component {
           </p>
         </section>
         {this.premiumRedemptionModalIfCurrentSubscription()}
-        <SelectCreditCardModal lastFour={this.props.lastFour} />
+        <SelectCreditCardModal show lastFour={this.props.lastFour} />
 
       </div>
     );
