@@ -1,3 +1,4 @@
+import * as _ from 'underscore';
 import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
 import {correctSentenceFromSamples} from 'quill-spellchecker';
 import {getOptimalResponses} from '../sharedResponseFunctions';
@@ -48,7 +49,7 @@ export function checkSentenceCombining(
   if (spellingPass) {
     // Update the feedback to indicate spelling is also needed.
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    return Object.assign(responseTemplate, spellingAwareFeedback, {text: data.response, spelling_error: true});  
+    return Object.assign(responseTemplate, spellingAwareFeedback, {text: data.response, spelling_error: true});
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
@@ -110,12 +111,12 @@ function getSpellingFeedback(spellingMatch: Response|PartialResponse): PartialRe
   // build a hash of the spelling aware feedback from the google doc to your right ->
   // find the error type of the partial response, fetch the feedback from the hash,
   // and apply it to the passed match value (spellingMatch)
-  const match = Object.assign({}, spellingMatch);
+  const match = _.omit(spellingMatch, 'count', 'child_count', 'created_at', 'first_attempt_count', 'key', 'optimal');
   if (match.parent_id) {
     match.feedback = spellingFeedbackStrings[match.author];
   } else {
+    match.author = 'Spelling Hint';
     match.feedback = spellingFeedbackStrings['Spelling Hint'];
-    delete match.optimal;
     match.parent_id  = match.id;
     delete match.id;
   }
