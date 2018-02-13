@@ -30,7 +30,7 @@ describe('The spacingAfterCommaChecker', () => {
     const responseString = "My dog took a nap,did yours?";
     const partialResponse: PartialResponse =  {
         feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
-        author: 'Punctuation Hint',
+        author: 'Spacing After Comma Hint',
         parent_id: 1,
         concept_results: [
           conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')

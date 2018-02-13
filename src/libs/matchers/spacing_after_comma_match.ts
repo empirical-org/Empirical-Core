@@ -25,7 +25,7 @@ export function spacingAfterCommaChecker(responseString: string, responses:Array
 export function spacingAfterCommaResponseBuilder(responses:Array<Response>): PartialResponse {
   const res = {
     feedback: feedbackStrings.spacingAfterCommaError,
-    author: 'Punctuation Hint',
+    author: 'Spacing After Comma Hint',
     parent_id: getTopOptimalResponse(responses) ? getTopOptimalResponse(responses).id : undefined,
     concept_results: [
       conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')

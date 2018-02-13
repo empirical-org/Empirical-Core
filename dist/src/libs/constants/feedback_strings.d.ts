@@ -15,3 +15,4 @@ export interface FeedbackStrings {
     spacingAfterCommaError: string;
 }
 export declare const feedbackStrings: FeedbackStrings;
+export declare const spellingFeedbackStrings: any;

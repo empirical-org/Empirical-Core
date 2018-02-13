@@ -11,8 +11,8 @@ export function getSubOptimalResponses(responses: Array<Response>): Array<Respon
 
 export function getTopOptimalResponse(responses: Array<Response>): Response {
   const returnVal =  _.sortBy(getOptimalResponses(responses), r => r.count).reverse()[0];
-  if (returnVal === undefined){
-    throw 'DataError - No Optimal Response'
+  if (returnVal === undefined) {
+    throw 'DataError - No Optimal Response';
   }
   return returnVal;
 }

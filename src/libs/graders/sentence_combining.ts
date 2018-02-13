@@ -1,22 +1,23 @@
-import {Response, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces'
-import {correctSentenceFromSamples} from 'quill-spellchecker'
-import {getOptimalResponses} from '../sharedResponseFunctions'
+import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
+import {correctSentenceFromSamples} from 'quill-spellchecker';
+import {getOptimalResponses} from '../sharedResponseFunctions';
 
 import {exactMatch} from '../matchers/exact_match';
 import {focusPointChecker} from '../matchers/focus_point_match';
-import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match'
-import {caseInsensitiveChecker} from '../matchers/case_insensitive_match'
+import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
+import {caseInsensitiveChecker} from '../matchers/case_insensitive_match';
 import {punctuationInsensitiveChecker} from '../matchers/punctuation_insensitive_match';
-import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_case_insensitive_match'
-import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctuation_match'
-import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match'
-import {whitespaceChecker} from '../matchers/whitespace_match'
-import {rigidChangeObjectChecker, flexibleChangeObjectChecker} from '../matchers/change_object_match'
-import {requiredWordsChecker} from '../matchers/required_words_match'
-import {minLengthChecker} from '../matchers/min_length_match'
-import {maxLengthChecker} from '../matchers/max_length_match'
-import {caseStartChecker} from '../matchers/case_start_match'
-import {punctuationEndChecker} from '../matchers/punctuation_end_match'
+import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_case_insensitive_match';
+import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctuation_match';
+import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match';
+import {whitespaceChecker} from '../matchers/whitespace_match';
+import {rigidChangeObjectChecker, flexibleChangeObjectChecker} from '../matchers/change_object_match';
+import {requiredWordsChecker} from '../matchers/required_words_match';
+import {minLengthChecker} from '../matchers/min_length_match';
+import {maxLengthChecker} from '../matchers/max_length_match';
+import {caseStartChecker} from '../matchers/case_start_match';
+import {punctuationEndChecker} from '../matchers/punctuation_end_match';
+import {spellingFeedbackStrings} from '../constants/feedback_strings';
 
 export function checkSentenceCombining(
   question_uid: string,
@@ -28,80 +29,95 @@ export function checkSentenceCombining(
   const responseTemplate = {
     text: response,
     question_uid,
-    gradeIndex: `nonhuman${question_uid}`,
     count: 1
-  }
+  };
   const data = {
     response,
     responses,
     focusPoints,
     incorrectSequences,
-  }
+  };
 
-  const firstPass = checkForMatches(data, firstPassMatchers)
+  const firstPass = checkForMatches(data, firstPassMatchers); // returns partial response or null
   if (firstPass) {
     return Object.assign(responseTemplate, firstPass)
-  }
+  };
 
-  const spellCheckedData = prepareSpellingData(data)
-  const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true)
+  const spellCheckedData = prepareSpellingData(data);
+  const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true); // check for a match w the spelling corrected
   if (spellingPass) {
-    // Update the indicate spelling is also needed.
-    return Object.assign(responseTemplate, spellingPass)
-  }
+    // Update the feedback to indicate spelling is also needed.
+    const spellingAwareFeedback = getSpellingFeedback(spellingPass);
+    return Object.assign(responseTemplate, spellingAwareFeedback, {text: data.response, spelling_error: true});  
+  };
 
-  const secondPass = checkForMatches(spellCheckedData, secondPassMatchers)
+  const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
   if (secondPass) {
-    return Object.assign(responseTemplate, secondPass)
-  }
+    return Object.assign(responseTemplate, secondPass);
+  };
 
-  responseTemplate.gradeIndex = `unmarked${question_uid}`
-  return responseTemplate
+  return responseTemplate;
 }
 
 function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
   const {response, spellCorrectedResponse, responses, focusPoints, incorrectSequences} = data;
-  const submission = spellCorrected ? spellCorrectedResponse : response
-  yield exactMatch(submission, responses)
-  yield focusPointChecker(submission, focusPoints, responses)
-  yield incorrectSequenceChecker(submission, incorrectSequences, responses)
-  yield caseInsensitiveChecker(submission, responses)
-  yield punctuationInsensitiveChecker(submission, responses)
-  yield punctuationAndCaseInsensitiveChecker(submission, responses)
-  yield spacingBeforePunctuationChecker(submission, responses)
-  yield spacingAfterCommaChecker(submission, responses)
-  yield whitespaceChecker(submission, responses)
-  yield rigidChangeObjectChecker(submission, responses)
+  const submission = spellCorrected ? spellCorrectedResponse : response;
+  yield exactMatch(submission, responses);
+  yield focusPointChecker(submission, focusPoints, responses);
+  yield incorrectSequenceChecker(submission, incorrectSequences, responses);
+  yield caseInsensitiveChecker(submission, responses);
+  yield punctuationInsensitiveChecker(submission, responses);
+  yield punctuationAndCaseInsensitiveChecker(submission, responses);
+  yield spacingBeforePunctuationChecker(submission, responses);
+  yield spacingAfterCommaChecker(submission, responses);
+  yield whitespaceChecker(submission, responses);
+  yield rigidChangeObjectChecker(submission, responses);
 }
 
-function*secondPassMatchers(data: GradingObject, spellCorrected=false) {
+function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
   const {response, spellCorrectedResponse, responses, focusPoints, incorrectSequences} = data;
-  yield flexibleChangeObjectChecker(response, responses)
-  yield requiredWordsChecker(spellCorrectedResponse, responses)
-  yield minLengthChecker(response, responses)
-  yield maxLengthChecker(response, responses)
-  yield caseStartChecker(response, responses)
-  yield punctuationEndChecker(response, responses)
+  yield flexibleChangeObjectChecker(response, responses);
+  yield requiredWordsChecker(spellCorrectedResponse, responses);
+  yield minLengthChecker(response, responses);
+  yield maxLengthChecker(response, responses);
+  yield caseStartChecker(response, responses);
+  yield punctuationEndChecker(response, responses);
 }
 
-function checkForMatches(data: GradingObject, matchingFunction: Function, spellCorrected=false) {
-  const gen = matchingFunction(data, spellCorrected)
+function checkForMatches(data: GradingObject, matchingFunction: Function, spellCorrected=false): PartialResponse|null {
+  const gen = matchingFunction(data, spellCorrected);
   let next = gen.next();
   while (true) {
     if (next.value || next.done) {
-      break
+      break;
     }
-    next = gen.next()
+    next = gen.next();
   }
   if (next.value) {
-    return next.value
+    return next.value;
   }
 
 }
 
 function prepareSpellingData(data: GradingObject) {
-  const spellingData = Object.assign({}, data)
-  const optimalAnswerStrings = getOptimalResponses(data.responses).map(resp => resp.text)
-  spellingData.spellCorrectedResponse = correctSentenceFromSamples(optimalAnswerStrings,data.response,false)
-  return spellingData
+  const spellingData = Object.assign({}, data);
+  const optimalAnswerStrings = getOptimalResponses(data.responses).map(resp => resp.text);
+  spellingData.spellCorrectedResponse = correctSentenceFromSamples(optimalAnswerStrings,data.response,false);
+  return spellingData;
+}
+
+function getSpellingFeedback(spellingMatch: Response|PartialResponse): PartialResponse {
+  // build a hash of the spelling aware feedback from the google doc to your right ->
+  // find the error type of the partial response, fetch the feedback from the hash,
+  // and apply it to the passed match value (spellingMatch)
+  const match = Object.assign({}, spellingMatch);
+  if (match.parent_id) {
+    match.feedback = spellingFeedbackStrings[match.author];
+  } else {
+    match.feedback = spellingFeedbackStrings['Spelling Hint'];
+    delete match.optimal;
+    match.parent_id  = match.id;
+    delete match.id;
+  }
+  return match;
 }
