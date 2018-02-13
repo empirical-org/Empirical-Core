@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import pluralize from 'pluralize';
 
 export default class extends React.Component {
 
@@ -25,6 +26,7 @@ export default class extends React.Component {
   }
 
   status() {
+    let image;
     if (!this.props.subscriptionStatus) {
       return "You don't have a subscription";
     }
@@ -32,16 +34,21 @@ export default class extends React.Component {
     if (this.props.subscriptionStatus.expired) {
       return `Your ${subscriptionType} Premium subscription has expired`;
     }
-    return `You have a ${subscriptionType} Premium subscription`;
+    if (this.state.subscriptionType === 'Teacher') {
+      image = 'shared/teacher_premium_icon.png';
+    }
+    return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
   }
 
   buttonOrDate() {
     let buttonOrDate;
+    const expiration = moment(this.props.subscriptionStatus.expiration);
+    const remainingDays = expiration.diff(moment(), 'days');
     if (this.props.subscriptionStatus) {
       if (!this.props.subscriptionStatus.expired) {
         buttonOrDate = (
           <span className="expiration-date">
-            <span>Valid Until:</span> {moment(this.props.subscriptionStatus.expiration).format('MMMM Do, YYYY')} (EST)
+            <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
           </span>
           );
       } else if (this.state.subscriptionType === 'School') {
