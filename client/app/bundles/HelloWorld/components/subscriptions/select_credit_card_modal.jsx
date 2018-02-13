@@ -12,7 +12,7 @@ export default React.createClass({
             <span>$80 for one-year subscription</span>
           </div>
           <h2 className="q-h2">Which credit card would you like to pay with?</h2>
-          <button>Credit Card ending with {this.props.lastFour}</button>
+          <button className="extant-card">Credit Card ending with {this.props.lastFour}</button>
           <button>Use a Different Card</button>
         </Modal.Body>
       </Modal>
