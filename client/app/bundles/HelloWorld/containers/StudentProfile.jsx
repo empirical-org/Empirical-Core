@@ -11,7 +11,7 @@ import { fetchStudentProfile } from '../../../actions/student_profile'
 
 const StudentProfile = React.createClass({
   componentDidMount() {
-    this.fetchData();
+    this.props.fetchStudentProfile();
   },
 
   componentDidUpdate() {
@@ -28,19 +28,15 @@ const StudentProfile = React.createClass({
     const channel = pusher.subscribe(classroomId.toString());
     const that = this;
     channel.bind('lesson-launched', () => {
-      that.fetchData(classroomId);
+      that.props.fetchStudentProfile(classroomId);
     });
-  },
-
-  fetchData(classroomId) {
-    fetchStudentProfile(this.props.dispatch, classroomId);
   },
 
   render() {
     if (!this.props.loading) {
       return (
         <div id="student-profile">
-          <StudentClassroomNavbar data={this.props.student} fetchData={this.fetchData} loading={this.props.loading} />
+          <StudentClassroomNavbar data={this.props.student} fetchData={this.props.fetchStudentProfile} loading={this.props.loading} />
           <StudentProfileHeader studentName={this.props.student.name} classroomName={this.props.student.classroom.name} teacherName={this.props.student.classroom.teacher.name} />
           <NextActivity data={this.props.nextActivitySession} loading={this.props.loading} hasActivities={this.props.scores.length > 0} />
           <StudentProfileUnits data={this.props.scores} loading={this.props.loading} />
@@ -51,6 +47,10 @@ const StudentProfile = React.createClass({
 });
 
 const mapStateToProps = (state) => { return state };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId))
+  };
+};
 
-
-export default connect(mapStateToProps)(StudentProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);
