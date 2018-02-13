@@ -5,13 +5,15 @@ export const receiveStudentProfile = (data) => {
   };
 };
 
-export const fetchStudentProfile = (dispatch, classroomId) => {
-  $.ajax({
-    url: '/student_profile_data',
-    data: { current_classroom_id: classroomId },
-    format: 'json',
-    success: (data) => {
-      dispatch(receiveStudentProfile(data));
-    }
-  });
+export const fetchStudentProfile = (classroomId) => {
+  return (dispatch) => {
+    $.ajax({
+      url: '/student_profile_data',
+      data: { current_classroom_id: classroomId },
+      format: 'json',
+      success: (data) => {
+        dispatch(receiveStudentProfile(data));
+      }
+    });
+  };
 };
