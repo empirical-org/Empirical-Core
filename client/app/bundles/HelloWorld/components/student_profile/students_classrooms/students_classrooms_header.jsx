@@ -2,61 +2,51 @@ import React from 'react';
 import $ from 'jquery';
 import _ from 'underscore';
 import Pluralize from 'pluralize';
+import { connect } from 'react-redux';
+import { toggleDropdown, hideDropdown, fetchStudentsClassrooms, handleClassroomClick, updateDefaultClassroomNumber }from '../../../../../actions/students_classrooms_header';
 
-export default React.createClass({
-
-  getInitialState() {
-    return {
-      classrooms: null,
-      selectedClassroomId: this.props.currentClassroomId,
-      switchingClassrooms: false,
-      showDropdownBoxes: false,
-      defaultClassroomNumber: 1,
-    };
-  },
+const StudentsClassroomsHeader = React.createClass({
 
   componentDidMount() {
     window.addEventListener('resize', this.updateDefaultClassroomNumber);
     this.updateDefaultClassroomNumber();
-    $.ajax({ url: '/students_classrooms_json', format: 'json', success: this.updateClassrooms, });
+    this.props.fetchStudentsClassrooms();
   },
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDefaultClassroomNumber);
   },
 
-  updateClassrooms(data) {
-    this.setState({ classrooms: data.classrooms, });
-  },
-
   isActive(id, index) {
-    if (this.state.selectedClassroomId && id == this.state.selectedClassroomId.toString()) {
+    let selectedClassroomId = this.props.studentsClassroomsHeader.selectedClassroomId ||
+      this.props.currentClassroomId
+
+    if (selectedClassroomId && id == selectedClassroomId.toString()) {
       return 'active';
     }
   },
 
   handleClassroomClick(classroomId) {
     if (!this.props.loading) {
-      this.setState({ selectedClassroomId: classroomId, });
+      this.props.handleClassroomClick(classroomId);
       this.props.fetchData(classroomId);
     }
   },
 
   updateDefaultClassroomNumber() {
-    const defaultClassroomNumber = window.innerWidth > 1000 ? 5 : 1;
-    this.setState({ defaultClassroomNumber, });
+    this.props.updateDefaultClassroomNumber(window.innerWidth);
   },
 
   horizontalClassrooms() {
     // only shows the smaller of the defaultClassroomNumber classes or the total Classes
     const classroomBoxes = [];
-    if (this.state.classrooms) {
-      const maxNumber = Math.min(this.state.classrooms.length, this.state.defaultClassroomNumber);
+    if (this.props.studentsClassroomsHeader.classrooms) {
+      const maxNumber = Math.min(this.props.studentsClassroomsHeader.classrooms.length, this.props.studentsClassroomsHeader.defaultClassroomNumber);
 
       for (let i = 0; i < maxNumber; i++) {
-        classroomBoxes.push(this.boxConstructor(this.state.classrooms[i], i));
+        classroomBoxes.push(this.boxConstructor(this.props.studentsClassroomsHeader.classrooms[i], i));
       }
-      const extraBoxCount = this.state.classrooms.length - this.state.defaultClassroomNumber;
+      const extraBoxCount = this.props.studentsClassroomsHeader.classrooms.length - this.props.studentsClassroomsHeader.defaultClassroomNumber;
       if (extraBoxCount > 0) {
         classroomBoxes.push(this.dropdownTab(extraBoxCount));
       }
@@ -65,31 +55,28 @@ export default React.createClass({
   },
 
   verticalClassrooms() {
-    if (this.state.showDropdownBoxes) {
+    if (this.props.studentsClassroomsHeader.showDropdownBoxes) {
       const classroomBoxes = [];
-      if (this.state.classrooms) {
-        for (let i = this.state.defaultClassroomNumber; i < this.state.classrooms.length; i++) {
-          classroomBoxes.push(<li key={i}>{this.boxConstructor(this.state.classrooms[i], i)}</li>);
+      if (this.props.studentsClassroomsHeader.classrooms) {
+        for (let i = this.props.studentsClassroomsHeader.defaultClassroomNumber; i < this.props.studentsClassroomsHeader.classrooms.length; i++) {
+          classroomBoxes.push(<li key={i}>{this.boxConstructor(this.props.studentsClassroomsHeader.classrooms[i], i)}</li>);
         }
         return classroomBoxes;
       }
     }
   },
 
-  toggleDropdown() {
-    this.setState({
-      showDropdownBoxes: !this.state.showDropdownBoxes,
-    });
-  },
+  carat() {
+    if (this.props.studentsClassroomsHeader.showDropdownBoxes) {
+      return <i className="fa fa-angle-up" />;
+    }
 
-  hideDropdownBoxes(data) {
-    this.setState({ showDropdownBoxes: false, });
+    return <i className="fa fa-angle-down" />;
   },
 
   dropdownTab(extraBoxCount) {
-    const carat = this.state.showDropdownBoxes ? <i className="fa fa-angle-up" /> : <i className="fa fa-angle-down" />;
-    return (<div className="classroom-box dropdown-tab" onClick={this.toggleDropdown} tabIndex="0" onBlur={this.hideDropdownBoxes}>
-      <p>{extraBoxCount} More {Pluralize('Class', extraBoxCount)}{carat}</p>
+    return (<div className="classroom-box dropdown-tab" onClick={this.props.toggleDropdown} tabIndex="0" onBlur={this.props.hideDropdownBoxes}>
+      <p>{extraBoxCount} More {Pluralize('Class', extraBoxCount)}{this.carat()}</p>
       <ul className="dropdown-classrooms">
         {this.verticalClassrooms()}
       </ul>
@@ -120,5 +107,17 @@ export default React.createClass({
       </div>
     );
   },
-
 });
+
+const mapStateToProps = (state) => { return state }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleDropdown: () => dispatch(toggleDropdown()),
+    hideDropdown: () => dispatch(hideDropdown()),
+    fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
+    handleClassroomClick: (classroomId) => dispatch(handleClassroomClick(classroomId)),
+    updateDefaultClassroomNumber: (defaultClassroomNumber) => dispatch(updateDefaultClassroomNumber(defaultClassroomNumber))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsClassroomsHeader);
