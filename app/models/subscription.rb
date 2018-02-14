@@ -126,6 +126,12 @@ class Subscription < ActiveRecord::Base
   def self.give_teacher_premium_if_charge_succeeds(user)
     teacher_premium_sub = new_teacher_premium_sub(user)
     teacher_premium_sub.save_if_charge_succeeds
+    if !teacher_premium_sub.new_record?
+      UserSubscription.create(user: user, subscription: teacher_premium_sub)
+      teacher_premium_sub
+    else
+      false
+    end
   end
 
   def update_if_charge_succeeds
@@ -138,6 +144,8 @@ class Subscription < ActiveRecord::Base
   def save_if_charge_succeeds
     charge = charge_user_for_teacher_premium
     if charge[:status] == 'succeeded'
+      self.payment_method = 'Credit Card'
+      self.payment_amount = TEACHER_PRICE
       self.save!
       self
     else
