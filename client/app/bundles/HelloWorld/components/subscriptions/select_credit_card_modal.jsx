@@ -1,8 +1,9 @@
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
-import StripeCharge from '../modules/stripe/charge.js';
 import UpdateStripeCard from '../modules/stripe/update_card.js';
+import getAuthToken from '../modules/get_auth_token';
 import LoadingIndicator from '../shared/loading_indicator.jsx';
+import request from 'request';
 
 export default class extends React.Component {
 
@@ -43,7 +44,9 @@ export default class extends React.Component {
   }
 
   stripeCharge() {
-    new StripeCharge();
+    request.post({ url: `${process.env.DEFAULT_URL}/charges/new_teacher_premium`, form: { authenticity_token: getAuthToken(), }, }, (err, httpResponse, body) => {
+      debugger;
+    });
   }
 
   loadingOrButtons() {
