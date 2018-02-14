@@ -1,13 +1,12 @@
 const initialState = {
   classrooms: null,
   selectedClassroomId: null,
-  showDropdownBoxes: false,
-  classroomDisplayNumber: 1,
+  showDropdown: false,
+  numberOfClassroomTabs: 1,
   loading: true,
   scores: null,
   student: null,
-  nextActivitySession: null,
-  screenWidth: typeof window === 'object' ? window.innerWidth : null,
+  nextActivitySession: null
 };
 
 export default (state, action) => {
@@ -20,12 +19,10 @@ export default (state, action) => {
       });
     case 'TOGGLE_DROPDOWN':
       return Object.assign({}, state, {
-        showDropdownBoxes: !state.showDropdownBoxes
+        showDropdown: !state.showDropdown
       });
     case 'HIDE_DROPDOWN':
-      return Object.assign({}, state, { showDropdownBoxes: false });
-    case 'UPDATE_DEFAULT_CLASSROOM_NUMBER':
-      return Object.assign({}, state, { classroomDisplayNumber });
+      return Object.assign({}, state, { showDropdown: false });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
       return Object.assign({}, state, { classrooms: action.classrooms });
     case 'RECEIVE_STUDENT_PROFILE':
@@ -35,12 +32,9 @@ export default (state, action) => {
         student: action.data.student,
         nextActivitySession: action.data.next_activity_session
       });
-    case 'SCREEN_RESIZE':
-      const classroomDisplayNumber = action.screenWidth > 1000 ? 5 : 1;
-      return Object.assign({}, state, {
-        screenWidth: action.screenWidth,
-        classroomDisplayNumber
-      });
+    case 'UPDATE_NUMBER_OF_CLASSROOM_TABS':
+      const numberOfClassroomTabs = action.screenWidth > 1000 ? 5 : 1;
+      return Object.assign({}, state, { numberOfClassroomTabs });
     default:
       return state;
   }
