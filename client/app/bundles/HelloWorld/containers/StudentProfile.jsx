@@ -5,15 +5,31 @@ import StudentProfileUnits from '../components/student_profile/student_profile_u
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
-import { fetchStudentProfile } from '../../../actions/student_profile';
+import { fetchStudentProfile, fetchStudentsClassrooms, updateNumberOfClassroomTabs, handleClassroomClick } from '../../../actions/student_profile';
 
 const StudentProfile = React.createClass({
   componentDidMount() {
+    window.addEventListener('resize', () => {
+      this.props.updateNumberOfClassroomTabs(window.innerWidth);
+    });
+    this.props.updateNumberOfClassroomTabs(window.innerWidth);
     this.props.fetchStudentProfile();
+    this.props.fetchStudentsClassrooms();
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener('resize');
   },
 
   componentDidUpdate() {
     this.initializePusher();
+  },
+
+  handleClassroomTabClick(classroomId) {
+    if (!this.props.loading) {
+      this.props.handleClassroomClick(classroomId);
+      this.props.fetchStudentProfile(classroomId);
+    }
   },
 
   initializePusher() {
@@ -34,7 +50,7 @@ const StudentProfile = React.createClass({
     if (!this.props.loading) {
       return (
         <div id="student-profile">
-          <StudentsClassroomsHeader />
+          <StudentsClassroomsHeader handleClassroomTabClick={this.handleClassroomTabClick}/>
           <StudentProfileHeader studentName={this.props.student.name} classroomName={this.props.student.classroom.name} teacherName={this.props.student.classroom.teacher.name} />
           <NextActivity data={this.props.nextActivitySession} loading={this.props.loading} hasActivities={this.props.scores.length > 0} />
           <StudentProfileUnits data={this.props.scores} loading={this.props.loading} />
@@ -47,6 +63,10 @@ const StudentProfile = React.createClass({
 const mapStateToProps = (state) => { return state };
 const mapDispatchToProps = dispatch => ({
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
+  updateNumberOfClassroomTabs: (screenWidth) => dispatch(updateNumberOfClassroomTabs(screenWidth)),
+  fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
+  handleClassroomClick: (classroomId) => dispatch(handleClassroomClick(classroomId)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);
