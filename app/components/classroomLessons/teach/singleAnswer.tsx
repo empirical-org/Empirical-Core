@@ -5,9 +5,9 @@ import {
 } from '../interfaces'
 import {
   ClassroomLesson
-} from 'interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons'
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
-import * as CustomizeIntf from 'interfaces/customize'
+import * as CustomizeIntf from '../../../interfaces/customize'
 
 interface SingleAnswerProps {
   data: ClassroomLessonSession,

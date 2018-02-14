@@ -3,7 +3,7 @@ import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
-import Cues from 'components/renderForQuestions/cues';
+import Cues from '../../../components/renderForQuestions/cues';
 import { findDifferences } from './findDifferences'
 import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
@@ -21,7 +21,7 @@ import {
 } from '../interfaces';
 import {
   ScriptItem
-} from 'interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons'
 const uncheckedGrayCheckbox = require('../../../img/box_gray_unchecked.svg')
 const checkedGrayCheckbox = require('../../../img/box_gray_checked.svg')
 const uncheckedGreenCheckbox = require('../../../img/box_green_unchecked.svg')

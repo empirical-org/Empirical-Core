@@ -2,9 +2,9 @@ declare function require(name:string);
 const request = require('request-promise');
 import * as _ from 'underscore';
 import { hashToCollection } from '../hashToCollection';
-const qml = require('quill-marking-logic')
-const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion } = qml
-const { ConceptResult } = require('quill-marking-logic/dist/src/interfaces/index.d.ts')
+
+// const qml = require('quill-marking-logic')
+import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
 interface Question {

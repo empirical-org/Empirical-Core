@@ -28,7 +28,7 @@ import {
 import {
  getEditionQuestions
 } from '../../../actions/customize';
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -37,11 +37,11 @@ import {
 import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons';
-import * as CustomizeIntf from 'interfaces/customize'
+import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
-import Spinner from 'components/shared/spinner'
+import Spinner from '../../../components/shared/spinner'
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {

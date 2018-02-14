@@ -11,17 +11,17 @@ import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
   TeacherAndClassroomName
-} from 'components/classroomLessons/interfaces';
+} from '../components/classroomLessons/interfaces';
 import {
  ClassroomLesson
-} from 'interfaces/classroomLessons';
-import * as CustomizeIntf from 'interfaces/customize'
+} from '../interfaces/classroomLessons';
+import * as CustomizeIntf from '../interfaces/customize'
 
 
 export function startListeningToSession(classroom_activity_id: string) {
   return function (dispatch) {
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      if (snapshot.val()) {
+      if (snapshot && snapshot.val()) {
         dispatch(updateSession(snapshot.val()));
       } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
@@ -65,7 +65,7 @@ export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id
   return function (dispatch) {
     let initialized = false
     classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      if (snapshot.val()) {
+      if (snapshot && snapshot.val()) {
         const payload = snapshot.val()
         delete payload.current_slide
         dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
@@ -115,8 +115,10 @@ export function getPreviewData(ca_id: string, lesson_id: string) {
 export function startListeningToCurrentSlide(classroom_activity_id: string) {
   return function (dispatch) {
     classroomSessionsRef.child(`${classroom_activity_id}/current_slide`).on('value', (snapshot) => {
-      console.log('listening to current slide ', snapshot.val())
-      dispatch(updateSlideInStore(snapshot.val()));
+      if (snapshot && snapshot.val()) {
+        console.log('listening to current slide ', snapshot.val())
+        dispatch(updateSlideInStore(snapshot.val()));
+      }
     });
   };
 }
@@ -138,7 +140,7 @@ export function redirectAssignedStudents(classroom_activity_id: string, followUp
 export function registerPresence(classroom_activity_id: string, student_id: string): void {
   const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence/${student_id}`);
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
-    if (snapshot.val() === true) {
+    if (snapshot && snapshot.val() === true) {
       presenceRef.onDisconnect().set(false);
       presenceRef.set(true);
     }
@@ -264,7 +266,7 @@ export function removeWatchTeacherState(classroom_activity_id: string): void {
 export function registerTeacherPresence(classroom_activity_id: string | null): void {
   const absentTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/absentTeacherState`);
   firebase.database().ref('.info/connected').on('value', (snapshot) => {
-    if (snapshot.val() === true) {
+    if (snapshot && snapshot.val() === true) {
       absentTeacherRef.onDisconnect().set(true);
       absentTeacherRef.set(false);
     }
@@ -367,7 +369,7 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
   const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`)
   // update timestamp if the teacher clicks on a slide and there are no submissions yet
   submissionRef.on('value', (snapshot) => {
-    if (snapshot.val() === null) {
+    if (snapshot && snapshot.val() === null) {
       timestampRef.set(firebase.database.ServerValue.TIMESTAMP)
     }
   });

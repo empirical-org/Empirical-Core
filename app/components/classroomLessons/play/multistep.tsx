@@ -3,7 +3,7 @@ import * as React from 'react';
 const moment = require('moment');
 import {
 QuestionData,
-} from 'interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons'
 import {
 ClassroomLessonSession,
 SelectedSubmissionsForQuestion,
@@ -13,7 +13,7 @@ import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 const icon = require('../../../img/question_icon.svg')
 
 interface MultistepProps {

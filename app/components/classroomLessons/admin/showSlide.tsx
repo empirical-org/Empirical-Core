@@ -16,7 +16,7 @@ import {
   saveEditionSlide,
   deleteEditionSlide,
   updateSlideScriptItems
-} from 'actions/classroomLesson'
+} from '../../../actions/classroomLesson'
 import { getEditionQuestions } from '../../../actions/customize'
 
 class ShowEditionSlide extends Component<any, any> {
