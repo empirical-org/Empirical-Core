@@ -140,9 +140,9 @@ class ResponsesController < ApplicationController
       params.require(:search).permit(
         :pageNumber,
         :text,
+        :excludeMisspellings,
         filters: {},
         sort: {}
-
       )
     end
 
@@ -166,6 +166,7 @@ class ResponsesController < ApplicationController
         :created_at,
         :updated_at,
         :search,
+        :spelling_error,
         :concept_results,
         concept_results: {}
       )
@@ -186,6 +187,7 @@ class ResponsesController < ApplicationController
         :child_count,
         :optimal,
         :weak,
+        :spelling_error,
         concept_results: {}
       )
     end
