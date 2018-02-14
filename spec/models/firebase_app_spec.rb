@@ -110,7 +110,8 @@ describe FirebaseApp, type: :model do
     end
 
     context 'when admin user' do
-      let(:user) { create(:user, role: 'admin') }
+      let(:user) { create(:user) }
+      let!(:admin) { user.schools_admins.create }
 
       it 'should return the encoded payload with admin claims' do
         connect_token = firebase_app.connect_token_for(user)
