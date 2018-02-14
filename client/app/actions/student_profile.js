@@ -42,9 +42,9 @@ export const handleClassroomClick = (selectedClassroomId) => {
   };
 };
 
-export const screenResize = (screenWidth) => {
+export const updateNumberOfClassroomTabs = (screenWidth) => {
   return {
-    type: 'SCREEN_RESIZE',
+    type: 'UPDATE_NUMBER_OF_CLASSROOM_TABS',
     screenWidth
   };
 };
