@@ -22,6 +22,7 @@ class Response < ApplicationRecord
       indexes :author, type: 'string'
       indexes :status, type: 'integer'
       indexes :created_at, type: 'integer'
+      indexes :spelling_error, type: 'boolean'
     end
   end
 
@@ -40,7 +41,8 @@ class Response < ApplicationRecord
       first_attempt_count: first_attempt_count,
       author: author,
       status: grade_status,
-      created_at: created_at.to_i
+      created_at: created_at.to_i,
+      spelling_error: spelling_error
     }
   end
 
