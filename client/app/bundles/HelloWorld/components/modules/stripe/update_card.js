@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export default function () {
+export default function (successCallback, closeCallback) {
   const handler = StripeCheckout.configure({
     key: stripePubKey,
     image: 'https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Icon.svg',
@@ -20,7 +20,7 @@ export default function () {
             } else if (data.message) {
               alert(data.message);
             }
-            alert('Your credit card what changed.');
+            successCallback(token.card.last4);
           });
     },
   });
