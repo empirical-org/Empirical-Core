@@ -60,7 +60,7 @@ describe Subscription, type: :model do
 
   describe "#self.give_teacher_premium_if_charge_succeeds" do
     let!(:user) { create(:user) }
-    let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), contact_user: user) }
+    let!(:subscription) { build(:subscription, expiration: Date.new(2018,4,6), contact_user: user) }
 
     before do
       Subscription.any_instance.stub(:charge_user_for_teacher_premium).and_return({status: 'succeeded'})
@@ -74,6 +74,52 @@ describe Subscription, type: :model do
     it "calls #Subscription.save_if_charge_succeeds" do
       expect_any_instance_of(Subscription).to receive(:save_if_charge_succeeds)
       Subscription.give_teacher_premium_if_charge_succeeds(user)
+    end
+
+    it "creates a new subscription when the charge succeeds" do
+      old_sub_count = Subscription.count
+      Subscription.give_teacher_premium_if_charge_succeeds(user)
+      expect(Subscription.count - old_sub_count).to eq(1)
+    end
+
+    it "creates a new user-subscription join when the charge succeeds" do
+      old_user_sub_count = UserSubscription.count
+      Subscription.give_teacher_premium_if_charge_succeeds(user)
+      expect(UserSubscription.count - old_user_sub_count).to eq(1)
+    end
+
+    it "creates a new subscription with the correct payment amount" do
+      new_sub = Subscription.give_teacher_premium_if_charge_succeeds(user)
+      expect(new_sub.payment_amount).to eq(Subscription::TEACHER_PRICE)
+    end
+
+    it "creates a new subscription with the correct payment method" do
+      new_sub = Subscription.give_teacher_premium_if_charge_succeeds(user)
+      expect(new_sub.payment_method).to eq('Credit Card')
+    end
+
+    it "creates a new subscription with the correct contact" do
+      new_sub = Subscription.give_teacher_premium_if_charge_succeeds(user)
+      expect(new_sub.payment_source.contact).to eq(user)
+    end
+
+    context 'when the charge does not suceed' do
+      before do
+        Subscription.any_instance.stub(:charge_user_for_teacher_premium).and_return({status: 'failed'})
+      end
+
+      it "does not create a new subscription when the charge succeeds" do
+        old_sub_count = Subscription.count
+        Subscription.give_teacher_premium_if_charge_succeeds(user)
+        expect(Subscription.count - old_sub_count).to eq(0)
+      end
+
+      it "does not create a new user-subscription join when the charge succeeds" do
+        old_user_sub_count = UserSubscription.count
+        Subscription.give_teacher_premium_if_charge_succeeds(user)
+        expect(UserSubscription.count - old_user_sub_count).to eq(0)
+      end
+
     end
   end
 
