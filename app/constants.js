@@ -218,7 +218,8 @@ export default {
     'Required Words Hint',
     'Too Short Hint',
     'Too Long Hint',
-    'Parts of Speech'
+    'Parts of Speech',
+    'Spelling Hint',
   ],
 
 	// cONCEPTS FEEDBACK ACTIONS
