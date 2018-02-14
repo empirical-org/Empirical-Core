@@ -41,6 +41,7 @@ import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
+import {firebaseAuth} from '../../../actions/users'
 import Spinner from '../../../components/shared/spinner'
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
@@ -53,6 +54,8 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     if (getParameterByName('projector')) {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
+
+    props.dispatch(firebaseAuth())
 
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
     this.easyJoinDemo = this.easyJoinDemo.bind(this);

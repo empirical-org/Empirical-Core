@@ -50,20 +50,22 @@ import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons'
 import * as CustomizeIntf from '../../../interfaces/customize'
+import {firebaseAuth} from '../../../actions/users'
+
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
+    props.dispatch(firebaseAuth())
   }
 
   componentDidMount() {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     const lesson_id: string = this.props.params.lessonID
     if (ca_id ) {
-      startLesson(ca_id)
-      this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id));
+      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id)))
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
       registerTeacherPresence(ca_id)
     }
@@ -80,7 +82,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       this.props.dispatch(getEditionsForUserIds([], lessonId))
     }
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (!nextProps.classroomSessions.data.edition_id) {
+      if (!nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
         window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
       }
       if (nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
@@ -89,7 +91,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       if (!nextProps.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getClassLessonFromFirebase(lessonId));
       }
-      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
+      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id && nextProps.classroomSessions.data.edition_id) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
     }

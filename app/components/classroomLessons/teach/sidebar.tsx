@@ -32,8 +32,10 @@ class Sidebar extends React.Component<any, any> {
     }
   }
 
-  componentDidMount() {
-    this.scrollToSlide(this.props.classroomSessions.data.current_slide)
+  componentWillUpdate(prevProps, prevState) {
+    if (!this.state.currentSlide) {
+      this.scrollToSlide(this.props.classroomSessions.data.current_slide)
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,7 +67,7 @@ class Sidebar extends React.Component<any, any> {
       return;
     }
     elem.scrollTop = y;
-    setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 110, count+1)}, 40);
+    setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 105, count+1)}, 40);
   }
 
   goToSlide(slide_id: string) {

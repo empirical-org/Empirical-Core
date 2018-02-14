@@ -1,5 +1,5 @@
 const constants = {
-  timimg: 'Revise your work. Which joining word helps show the timing of the events?',
+  timing: 'Revise your work. Which joining word helps show the timing of the events?',
   opposite: 'Revise your work. Which joining word helps show that the two ideas are opposite?',
   reason: 'Revise your work. Which joining word helps tell why or give a reason?',
   prerequisite: 'Revise your work. Which joining word helps show that one of the ideas must happen for the other one to happen?',

@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
 import NavBar from '../navbar/navbar';
 import { connect } from 'react-redux';
 import {
   getClassLessonFromFirebase
 } from '../../actions/classroomLesson'
+import {firebaseAuth} from '../../actions/users'
 import {getParameterByName} from '../../libs/getParameterByName'
 
 import {
@@ -11,10 +12,25 @@ import {
   getEditionsForUserIds
 } from '../../actions/customize'
 
-class Customize extends React.Component {
-  constructor(props) {
+interface customizeProps {
+  children: any,
+  classroomLesson: any,
+  customize: any,
+  dispatch: any,
+  location: any,
+  params: any,
+  route: any,
+  routeParams: any,
+  router: any,
+  routes: any
+}
+
+class Customize extends React.Component<customizeProps> {
+  constructor(props: customizeProps) {
+
     super(props)
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
+    props.dispatch(firebaseAuth())
 
     if (props.params.lessonID) {
       props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
@@ -25,7 +41,7 @@ class Customize extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.customize.user_id) {
-      if (nextProps.customize.user_id !== this.props.customize.user_id || nextProps.classroomLesson && Object.keys(nextProps.classroomLesson.data).length === 0 || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
+      if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
         let user_ids = []
         if (nextProps.customize.coteachers.length > 0) {
           user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
@@ -57,10 +73,10 @@ class Customize extends React.Component {
   }
 }
 
-function select(state) {
+function select(props) {
   return {
-    classroomLesson: state.classroomLesson,
-    customize: state.customize
+    classroomLesson: props.classroomLesson,
+    customize: props.customize
   }
 }
 
