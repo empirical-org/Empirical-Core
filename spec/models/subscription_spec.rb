@@ -58,6 +58,25 @@ describe Subscription, type: :model do
     end
   end
 
+  describe "#self.give_teacher_premium_if_charge_succeeds" do
+    let!(:user) { create(:user) }
+    let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), contact_user: user) }
+
+    before do
+      Subscription.any_instance.stub(:charge_user_for_teacher_premium).and_return({status: 'succeeded'})
+    end
+
+    it "calls #Subscription.new_teacher_premium_sub" do
+      Subscription.should receive(:new_teacher_premium_sub).with(user).and_return(subscription)
+      Subscription.give_teacher_premium_if_charge_succeeds(user)
+    end
+
+    it "calls #Subscription.save_if_charge_succeeds" do
+      expect_any_instance_of(Subscription).to receive(:save_if_charge_succeeds)
+      Subscription.give_teacher_premium_if_charge_succeeds(user)
+    end
+  end
+
   describe "#self.school_or_user_has_ever_paid" do
     let!(:subscription) { create(:subscription) }
     let!(:user) { create(:user) }
@@ -232,7 +251,7 @@ describe Subscription, type: :model do
 
       it "returns the teacher renewal price if no schools are associated with the subscription" do
         school_subscription.destroy
-        expect(subscription.renewal_price).to eq(Subscription::TEACHER_RENEWAL_PRICE)
+        expect(subscription.renewal_price).to eq(Subscription::TEACHER_PRICE)
       end
     end
 

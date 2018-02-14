@@ -47,7 +47,7 @@ class Subscription < ActiveRecord::Base
   ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.concat(OFFICIAL_PAID_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
-  TEACHER_RENEWAL_PRICE = 8000
+  TEACHER_PRICE = 8000
 
 
   def is_not_paid?
@@ -67,7 +67,7 @@ class Subscription < ActiveRecord::Base
     if self.schools.any?
       SCHOOL_RENEWAL_PRICE
     else
-      TEACHER_RENEWAL_PRICE
+      TEACHER_PRICE
     end
   end
 
@@ -107,6 +107,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+
   def self.expired_today_or_previously_and_recurring
     Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
@@ -117,12 +118,33 @@ class Subscription < ActiveRecord::Base
     paid_accounts.any?
   end
 
+  def self.new_teacher_premium_sub(user)
+    expiration = school_or_user_has_ever_paid(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, contact_user_id: user.id)
+  end
+
+  def self.give_teacher_premium_if_charge_succeeds(user)
+    teacher_premium_sub = new_teacher_premium_sub(user)
+    teacher_premium_sub.save_if_charge_succeeds
+  end
+
   def update_if_charge_succeeds
     charge = charge_user
     if charge[:status] == 'succeeded'
       self.renew_subscription
     end
   end
+
+  def save_if_charge_succeeds
+    charge = charge_user_for_teacher_premium
+    if charge[:status] == 'succeeded'
+      self.save!
+      self
+    else
+      nil
+    end
+  end
+
 
   def self.update_todays_expired_recurring_subscriptions
     self.expired_today_or_previously_and_recurring.each do |s|
@@ -139,6 +161,14 @@ class Subscription < ActiveRecord::Base
   end
 
   protected
+
+
+
+  def charge_user_for_teacher_premium
+    if contact_user && contact_user.stripe_customer_id
+      Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: contact_user.stripe_customer_id)
+    end
+  end
 
   def charge_user
     if contact_user && contact_user.stripe_customer_id
