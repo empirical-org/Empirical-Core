@@ -3,6 +3,7 @@ module ResponseSearch
   def search_responses(question_uid, query_filters)
     sort_values = get_sort_values(query_filters)
     query_values = get_query_values(question_uid, query_filters)
+    puts query_values
     search_payload = {
       sort: sort_values,
       query: query_values
@@ -47,6 +48,7 @@ module ResponseSearch
     string = "\"#{query_filters["text"]}\"" || ""
     string = add_question_uid_filter(string, question_uid)
     string = add_not_filters(string, query_filters[:filters].to_h)
+    string = add_spelling_filter(string, query_filters[:excludeMisspellings])
   end
 
   def add_question_uid_filter(current_string, question_uid)
@@ -62,6 +64,12 @@ module ResponseSearch
       key_value_to_not_string(key, value)
     end
     current_string + parsed_filters.join("")
+  end
+
+  def add_spelling_filter(current_string, filter)
+    puts "Spelling"
+    puts filter
+    if filter then current_string + " AND NOT spelling_error:(true)" else current_string end
   end
 
   def key_value_to_not_string(key, value)
