@@ -3,7 +3,6 @@ module ResponseSearch
   def search_responses(question_uid, query_filters)
     sort_values = get_sort_values(query_filters)
     query_values = get_query_values(question_uid, query_filters)
-    puts query_values
     search_payload = {
       sort: sort_values,
       query: query_values
@@ -67,8 +66,6 @@ module ResponseSearch
   end
 
   def add_spelling_filter(current_string, filter)
-    puts "Spelling"
-    puts filter
     if filter then current_string + " AND NOT spelling_error:(true)" else current_string end
   end
 
