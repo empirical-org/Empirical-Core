@@ -77,9 +77,10 @@ describe UnitTemplate, redis: :true, type: :model do
     it 'should save the serialized hash to the db and returns it' do
       expect(UnitTemplatePseudoSerializer).to receive(:new).and_call_original
       unit_template1.get_cached_serialized_unit_template
+      serialized_template_from_db = $redis.get("unit_template_id:#{unit_template1.id}_serialized")
       json.each do |k, v|
-        expect($redis.get("unit_template_id:#{unit_template1.id}_serialized")).to include(k.to_s)
-        expect($redis.get("unit_template_id:#{unit_template1.id}_serialized")).to include(v.to_s)
+        expect(serialized_template_from_db).to include(k.to_s)
+        expect(serialized_template_from_db).to include(v.to_s)
       end
       expect(unit_template1.get_cached_serialized_unit_template).to eq(json)
     end
