@@ -290,6 +290,10 @@ const Responses = React.createClass({
     this.props.dispatch(filterActions.toggleStatusField(status));
   },
 
+  toggleExcludeMisspellings() {
+    this.props.dispatch(filterActions.toggleExcludeMisspellings());
+  },
+
   resetFields() {
     this.props.dispatch(filterActions.resetAllFields());
   },
@@ -305,6 +309,8 @@ const Responses = React.createClass({
         qualityLabels={qualityLabels}
         toggleField={this.toggleField}
         visibleStatuses={this.props.filters.visibleStatuses}
+        excludeMisspellings={this.props.filters.formattedFilterData.filters.excludeMisspellings}
+        toggleExcludeMisspellings={this.toggleExcludeMisspellings}
         resetPageNumber={this.resetPageNumber}
         resetFields={this.resetFields}
         deselectFields={this.deselectFields}
