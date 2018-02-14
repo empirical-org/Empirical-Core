@@ -1,42 +1,60 @@
 import React from 'react';
-import Pluralize from 'pluralize';
-import { connect } from 'react-redux';
 import StudentsClassroom from './students_classroom';
-import StudentsClassroomsTabs from './students_classrooms_tabs.jsx';
-import StudentsClassroomsDropdown from './students_classrooms_dropdown.jsx'
+import StudentsClassroomsDropdown from './students_classrooms_dropdown';
 
-import { toggleDropdown, hideDropdown, fetchStudentProfile } from '../../../../../actions/student_profile';
+const StudentsClassroomsHeader = ({
+  classrooms,
+  numberOfClassroomTabs,
+  selectedClassroomId,
+  handleClick,
+  hideDropdown,
+  toggleDropdown,
+  showDropdown,
+}) => {
+  const classroomTabs = [];
+  const classroomList = [];
 
-const StudentsClassroomsHeader = React.createClass({
+  if (classrooms) {
+    classrooms.forEach((classroom, index) => {
+      if (index < numberOfClassroomTabs) {
+        classroomTabs.push(<StudentsClassroom
+          key={classroom.id}
+          classroom={classroom}
+          index={index}
+          handleClick={handleClick}
+          selectedClassroomId={selectedClassroomId}
+        />);
+      } else {
+        classroomList.push(<li>
+          <StudentsClassroom
+            key={classroom.id}
+            classroom={classroom}
+            index={index}
+            handleClick={handleClick}
+            selectedClassroomId={selectedClassroomId}
+          />
+        </li>);
+      }
+    });
 
-  render() {
-    return (
+    return(
       <div className="tab-subnavigation-wrapper student-subnavigation">
         <div className="container">
           <span className="pull-right student-course-info">
-            <StudentsClassroomsTabs
-              classrooms={this.props.classrooms}
-              numberOfClassroomTabs={this.props.numberOfClassroomTabs}
-              selectedClassroomId={this.props.selectedClassroomId || this.props.student.classroom.id}
-              handleClick={this.props.handleClassroomTabClick}
-              hideDropdownBoxes={this.props.hideDropdown}
-              toggleDropdown={this.props.toggleDropdown}
-              showDropdown={this.props.showDropdown}
-            />
+            <div>
+              {classroomTabs}
+              <StudentsClassroomsDropdown
+                classroomList={classroomList}
+                hideDropdown={hideDropdown}
+                toggleDropdown={toggleDropdown}
+                showDropdown={showDropdown}
+              />
+            </div>
           </span>
         </div>
       </div>
     );
-  },
-});
-
-const mapStateToProps = (state) => { return state }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleDropdown: () => dispatch(toggleDropdown()),
-    hideDropdown: () => dispatch(hideDropdown()),
-    fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId))
   }
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentsClassroomsHeader);
+export default StudentsClassroomsHeader;
