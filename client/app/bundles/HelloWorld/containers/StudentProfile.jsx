@@ -5,7 +5,14 @@ import StudentProfileUnits from '../components/student_profile/student_profile_u
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
-import { fetchStudentProfile, fetchStudentsClassrooms, updateNumberOfClassroomTabs, handleClassroomClick, hideDropdown, toggleDropdown } from '../../../actions/student_profile';
+import {
+  fetchStudentProfile,
+  fetchStudentsClassrooms,
+  updateNumberOfClassroomTabs,
+  handleClassroomClick,
+  hideDropdown,
+  toggleDropdown
+} from '../../../actions/student_profile';
 
 
 class StudentProfile extends React.Component {
@@ -56,31 +63,44 @@ class StudentProfile extends React.Component {
   }
 
   render() {
-    if (!this.props.loading) {
+    const {
+      classrooms,
+      numberOfClassroomTabs,
+      student,
+      selectedClassroomId,
+      hideDropdown,
+      toggleDropdown,
+      showDropdown,
+      nextActivitySession,
+      loading,
+      scores,
+    } = this.props;
+
+    if (!loading) {
       return (
         <div id="student-profile">
           <StudentsClassroomsHeader
-            classrooms={this.props.classrooms}
-            numberOfClassroomTabs={this.props.numberOfClassroomTabs}
-            selectedClassroomId={this.props.selectedClassroomId || this.props.student.classroom.id}
+            classrooms={classrooms}
+            numberOfClassroomTabs={numberOfClassroomTabs}
+            selectedClassroomId={selectedClassroomId || student.classroom.id}
             handleClick={this.handleClassroomTabClick}
-            hideDropdown={this.props.hideDropdown}
-            toggleDropdown={this.props.toggleDropdown}
-            showDropdown={this.props.showDropdown}
+            hideDropdown={hideDropdown}
+            toggleDropdown={toggleDropdown}
+            showDropdown={showDropdown}
           />
           <StudentProfileHeader
-            studentName={this.props.student.name}
-            classroomName={this.props.student.classroom.name}
-            teacherName={this.props.student.classroom.teacher.name}
+            studentName={student.name}
+            classroomName={student.classroom.name}
+            teacherName={student.classroom.teacher.name}
           />
           <NextActivity
-            data={this.props.nextActivitySession}
-            loading={this.props.loading}
-            hasActivities={this.props.scores.length > 0}
+            data={nextActivitySession}
+            loading={loading}
+            hasActivities={scores.length > 0}
           />
           <StudentProfileUnits
-            data={this.props.scores}
-            loading={this.props.loading}
+            data={scores}
+            loading={loading}
           />
         </div>
       );
