@@ -39,7 +39,7 @@ rollup.rollup({
         include: 'node_modules/**',
         exclude: 'node_modules/tough-cookie/package.json',
         namedExports: {
-          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject'],
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject', 'omit'],
           'node_modules/diff/dist/diff.js': ['diffWords', '_params'],
           'node_modules/process/index.js': ['nextTick'],
           'node_modules/events/events.js': ['EventEmitter'],
