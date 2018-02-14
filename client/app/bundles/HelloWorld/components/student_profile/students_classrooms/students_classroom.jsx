@@ -1,6 +1,11 @@
 import React from 'react';
 
-const StudentsClassroom = ({ classroom, selectedClassroomId, index, handleClick }) => {
+const StudentsClassroom = ({
+  classroom,
+  selectedClassroomId,
+  index,
+  handleClick
+}) => {
   const isSelected = (classroom, selectedClassroomId, index) => {
     let selected = selectedClassroomId || classroom.id;
 
@@ -12,7 +17,6 @@ const StudentsClassroom = ({ classroom, selectedClassroomId, index, handleClick 
   return (
     <div
       className={`${isSelected(classroom, selectedClassroomId, index)} classroom-box`}
-      key={classroom.id}
       onClick={() => handleClick(classroom.id)}
     >
       <div>{classroom.teacher}</div>
