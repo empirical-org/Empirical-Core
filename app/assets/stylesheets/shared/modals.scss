@@ -161,7 +161,9 @@
   color: #c0c0c0;
 }
 
-.select-credit-card-modal {
+
+
+.select-credit-card-modal, .premium-confirmation {
   .modal-content {
     border-radius: 12px;
   }
@@ -213,5 +215,30 @@
     span {
       font-size: 16px;
     }
+  }
+}
+.premium-confirmation {
+  text-align: center;
+  .modal-content {
+    max-height: 628px;
+  }
+  h1 {
+    margin-top: 229px;
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  p {
+    font-size: 16px;
+    margin-bottom: 40px;
+	  line-height: 1.75;
+  }
+  a.cta-button {
+    padding: 12px 36px;
+    font-size: 14px;
+    margin-bottom: 40px;
   }
 }
