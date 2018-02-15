@@ -12,10 +12,12 @@ export default class extends React.Component {
 
   constructor(props) {
     super(props);
+    const availableAndEarnedCredits = this.availableAndEarnedCredits();
     this.state = {
       subscriptions: this.props.subscriptions,
       subscriptionStatus: this.props.subscriptionStatus,
-      availableCredits: this.props.premiumCredits.reduce((total, credit) => total + credit.amount, 0),
+      availableCredits: availableAndEarnedCredits.available,
+      earnedCredits: availableAndEarnedCredits.earned,
       showPremiumConfirmationModal: false,
       showPurchaseModal: true,
     };
@@ -25,6 +27,19 @@ export default class extends React.Component {
     this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
     this.hidePaymentModal = this.hidePaymentModal.bind(this);
     this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
+  }
+
+  availableAndEarnedCredits() {
+    let earned = 0;
+    let spent = 0;
+    this.props.premiumCredits.forEach((c) => {
+      if (c.amount > 0) {
+        earned += c.amount;
+      } else {
+        spent -= c.amount;
+      }
+    });
+    return { earned, available: earned - spent, };
   }
 
   updateSubscriptionStatus(subscription) {
@@ -267,7 +282,7 @@ export default class extends React.Component {
       return this.availableCredits();
     }
     const totalCreditEarned = 0;
-    const monthsOfCredit = Math.round(((this.state.availableCredits / 30.42) * 10) / 10);
+    const monthsOfCredit = Math.round(((this.state.earnedCredits / 30.42) * 10) / 10);
     return (
       <section>
         <div className="flex-row space-between">
