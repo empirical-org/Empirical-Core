@@ -17,6 +17,7 @@ export default class extends React.Component {
     this.toggleChangeCard = this.toggleChangeCard.bind(this);
     this.toggleExtantCard = this.toggleExtantCard.bind(this);
     this.updateLastFour = this.updateLastFour.bind(this);
+    this.stripeCharge = this.stripeCharge.bind(this);
   }
 
   updateLastFour(newLastFour) {
@@ -44,8 +45,11 @@ export default class extends React.Component {
   }
 
   stripeCharge() {
+    const that = this;
     request.post({ url: `${process.env.DEFAULT_URL}/charges/new_teacher_premium`, form: { authenticity_token: getAuthToken(), }, }, (err, httpResponse, body) => {
-      debugger;
+      if (httpResponse.statusCode === 200) {
+        that.props.updateSubscriptionStatus(JSON.parse(body).new_subscription);
+      }
     });
   }
 
