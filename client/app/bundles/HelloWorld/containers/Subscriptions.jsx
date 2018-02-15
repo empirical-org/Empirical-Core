@@ -5,7 +5,8 @@ import moment from 'moment';
 import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import PaymentModal from '../components/subscriptions/select_credit_card_modal';
-import PremiumConfirmationModal from '../components/subscriptions/premium_redemption_modal';
+import CurrentSubscription from '../components/subscriptions/current_subscription';
+import PremiumConfirmationModal from '../components/subscriptions/premium_confirmation_modal';
 import getAuthToken from '../components/modules/get_auth_token';
 
 export default class extends React.Component {
@@ -345,10 +346,11 @@ export default class extends React.Component {
   }
 
   render() {
-    console.log(this.state.purchaserNameOrEmail);
     return (
       <div>
-        <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} /> {this.currentSubscriptionInformation()}
+        <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
+        <CurrentSubscription />
+        {this.currentSubscriptionInformation()}
         {this.subscriptionHistory()}
         {this.premiumCredits()}
         <section className="refund-policy">
