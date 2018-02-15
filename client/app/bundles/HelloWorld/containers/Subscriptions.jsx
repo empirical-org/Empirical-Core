@@ -113,12 +113,6 @@ export default class extends React.Component {
     );
   }
 
-  getPaymentMethod() {
-    // if (this.props.subscriptionStatus.payment_method === 'Credit Card') {
-    return `Credit Card Ending In ${this.props.lastFour}`;
-    // }
-  }
-
   availableAndEarnedCredits() {
     let earned = 0;
     let spent = 0;
@@ -152,85 +146,8 @@ export default class extends React.Component {
     });
   }
 
-  currentSubscriptionContent() {
-    const currSub = this.state.subscriptionStatus;
-    const metaRowClassName = 'flex-row space-between';
-    const buttonRowClassName = 'sub-button-row';
-
-    if (currSub) {
-      return ({ metaRows: (
-        <div className={metaRowClassName}>
-          <div>
-            <div>
-              <span className="title">Plan</span>
-              <span>{currSub.account_type}</span>
-            </div>
-            <div>
-              <span className="title">Payment Method</span>
-              <span>{this.getPaymentMethod()}</span>
-            </div>
-            <div>
-              <span className="title">Renewal Settings</span>
-              <span>boop</span>
-            </div>
-          </div>
-          <div>
-            <div>
-              <span className="title">Purchaser</span>
-              <span>{this.state.purchaserNameOrEmail}</span>
-            </div>
-            <div>
-              <span className="title">Valid Until</span>
-              <span>{moment(currSub.expirationDate).format('MMMM Do, YYYY')}</span>
-            </div>
-          </div>
-        </div>
-        ),
-        cta: (
-          <div className={buttonRowClassName}>
-            <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="q-button button cta-button bg-orange text-white">Update Card</button>
-          </div>
-        ), });
-    }
-    // set a more basic state if we don't have the info
-    this.updateState({ noSub: true, });
-    return ({ metaRows: (
-      <div className={metaRowClassName}>
-        <div>
-          <span className="title">Quill Basic Subscription</span>
-          <span>{currSub.account_type}</span>
-        </div>
-        <div>
-          <span className="title">Payment Method</span>
-          <span>Free</span>
-        </div>
-      </div>
-      ),
-      cta: (
-        <div className={buttonRowClassName}>
-          <a href="/" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
-          <a href="/" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>;
-        </div>
-      ), });
-  }
-
   purchasePremiumButton() {
     return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremiu} className="q-button button cta-button bg-orange text-white">Update Card</button>;
-  }
-
-  currentSubscriptionInformation() {
-    const content = this.currentSubscriptionContent();
-    return (
-      <section>
-        <h2>Subscription Information</h2>
-        <div className="current-subscription-information-and-cta">
-          <div className="current-subscription-information">
-            {content.metaRows}
-          </div>
-          {content.cta}
-        </div>
-      </section>
-    );
   }
 
   premiumCreditsTable() {
@@ -349,8 +266,11 @@ export default class extends React.Component {
     return (
       <div>
         <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
-        <CurrentSubscription />
-        {this.currentSubscriptionInformation()}
+        <CurrentSubscription
+          purchaserNameOrEmail={this.state.purchaserNameOrEmail}
+          subscriptionStatus={this.state.subscriptionStatus}
+          lastFour={this.props.lastFour}
+        />
         {this.subscriptionHistory()}
         {this.premiumCredits()}
         <section className="refund-policy">
