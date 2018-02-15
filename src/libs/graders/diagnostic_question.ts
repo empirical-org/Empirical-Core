@@ -1,5 +1,4 @@
 import {Response, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces'
-import {correctSentenceFromSamples} from 'quill-spellchecker'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 
 import {exactMatch} from '../matchers/exact_match';

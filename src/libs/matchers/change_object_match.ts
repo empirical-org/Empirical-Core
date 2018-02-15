@@ -2,9 +2,10 @@ import * as _ from 'underscore';
 import { diffWords } from 'diff';
 import {getOptimalResponses, getSubOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
+import {processSentences, correct, train} from 'quill-spellchecker';
 import {Response, PartialResponse} from '../../interfaces'
 import {removePunctuation} from '../helpers/remove_punctuation'
-import {feedbackStrings} from '../constants/feedback_strings'
+import {feedbackStrings, spellingFeedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getFeedbackForMissingWord} from '../helpers/joining_words_feedback'
 import {sortByLevenshteinAndOptimal} from '../responseTools'
@@ -49,6 +50,14 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
       const missingTextFeedback = getFeedbackForMissingWord(missingWord);
       res.feedback = missingTextFeedback || feedbackStrings.modifiedWordError;
       res.author = 'Modified Word Hint';
+      res.parent_id = match.response.key;
+      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
+        conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
+      ];
+      return res;
+    case ERROR_TYPES.MISSPELLED_WORD:
+      res.feedback = spellingFeedbackStrings['Spelling Hint'];
+      res.author = 'Spelling Hint';
       res.parent_id = match.response.key;
       res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
         conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
@@ -105,7 +114,7 @@ export function checkChangeObjectMatch(userString: string, responses: Array<Resp
   }
   let matchedErrorType;
   const matched = _.find(responses, (response) => {
-    matchedErrorType = getErrorType(stringManipulationFn(response.text), stringManipulationFn(userString));
+    matchedErrorType = getErrorType(stringManipulationFn(response.text), stringManipulationFn(userString), responses);
     return matchedErrorType;
   });
   if (matched) {
@@ -126,18 +135,31 @@ const ERROR_TYPES = {
   MISSING_WORD: 'MISSING_WORD',
   ADDITIONAL_WORD: 'ADDITIONAL_WORD',
   INCORRECT_WORD: 'INCORRECT_WORD',
+  MISSPELLED_WORD: 'MISSPELLED_WORD',
 };
 
-const getErrorType = (targetString:string, userString:string):string|null => {
+const getErrorType = (targetString:string, userString:string, responses):string|null => {
   const changeObjects = getChangeObjects(targetString, userString);
   const hasIncorrect = checkForIncorrect(changeObjects);
-  const hasAdditions = checkForAdditions(changeObjects);
-  const hasDeletions = checkForDeletions(changeObjects);
   if (hasIncorrect) {
-    return ERROR_TYPES.INCORRECT_WORD;
-  } else if (hasAdditions) {
-    return ERROR_TYPES.ADDITIONAL_WORD;
-  } else if (hasDeletions) {
+    const addedWord:string = changeObjects.find(co => co.added).value
+    const removedWord:string = changeObjects.find(co => co.removed).value
+    const optimalAnswerStrings = getOptimalResponses(responses).map(resp => resp.text);
+    const dictionaryString = processSentences(optimalAnswerStrings)
+    const dictionary = train(dictionaryString)
+    const correctedString = correct(dictionary, addedWord)
+    if (correctedString === removedWord) {
+      return ERROR_TYPES.MISSPELLED_WORD
+    } else {
+      return ERROR_TYPES.INCORRECT_WORD;
+    }
+  }
+  const hasAdditions = checkForAdditions(changeObjects);
+  if (hasAdditions) {
+   return ERROR_TYPES.ADDITIONAL_WORD;
+ }
+  const hasDeletions = checkForDeletions(changeObjects);
+  if (hasDeletions) {
     return ERROR_TYPES.MISSING_WORD;
   }
 };
@@ -162,10 +184,10 @@ const checkForIncorrect = (changeObjects):boolean => {
   let foundCount = 0;
   let coCount = 0;
   changeObjects.forEach((current, index, array) => {
+    tooLongError = checkForTooLongError(current);
     if (checkForAddedOrRemoved(current)) {
       coCount += 1;
     }
-    tooLongError = checkForTooLongError(current);
     if (current.removed && getLengthOfChangeObject(current) < 2 && index === array.length - 1) {
       foundCount += 1;
     } else {

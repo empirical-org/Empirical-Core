@@ -22,7 +22,7 @@ export const feedbackStrings: FeedbackStrings = {
   caseError: 'Proofread your work. There may be a capitalization error.',
   minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
   maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
-  modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
+  modifiedWordError: 'Revise your work. You may have mixed up a word.',
   additionalWordError: 'Revise your work. You may have added an extra word.',
   missingWordError: 'Revise your work. You may have left out an important word.',
   whitespaceError: 'There may be an error. You may have forgotten a space between two words.',
@@ -43,4 +43,3 @@ export const spellingFeedbackStrings: any  = {
   'Whitespace Hint': 'Proofread your work. You may have forgotten a space between two words. Also check your spelling.',
   'Spacing After Comma Hint': feedbackStrings.spacingAfterCommaError
 }
-

@@ -40,7 +40,7 @@ export function getPartsOfSpeechWordsWithTags(input:string){
   }
 }
 
-export function checkPOSEquivalancy (input:string, target:string) {
+export function checkPOSEquivalency (input:string, target:string) {
   const inputTags = getPartsOfSpeechTags(input)
   const targetTags = getPartsOfSpeechTags(target)
   console.log(input, target, inputTags, targetTags)

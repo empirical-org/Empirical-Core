@@ -132,7 +132,7 @@ describe('The checking a sentence combining question', () => {
     it('should be able to find a flexible change match', () => {
       const questionString = "Bats shave arms, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.modifiedWordError);
+      assert.equal(matchedResponse.author, 'Modified Word Hint');
       assert.equal(matchedResponse.spelling_error, true);
     });
 
@@ -142,7 +142,7 @@ describe('The checking a sentence combining question', () => {
     it('should be able to find a flexible change match', () => {
       const questionString = "Bats have arms, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
-      assert.equal(matchedResponse.feedback, feedbackStrings.modifiedWordError);
+      assert.equal(matchedResponse.author, 'Modified Word Hint');
     });
 
     it('should be able to find a required words match', () => {
