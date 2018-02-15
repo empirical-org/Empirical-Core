@@ -3,7 +3,7 @@ import moment from 'moment';
 import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import Stripe from '../components/modules/stripe/update_card.js';
-import SelectCreditCardModal from '../components/subscriptions/select_credit_card_modal';
+import PaymentModal from '../components/subscriptions/select_credit_card_modal';
 import PremiumConfirmationModal from '../components/subscriptions/premium_redemption_modal';
 import getAuthToken from '../components/modules/get_auth_token';
 import request from 'request';
@@ -20,12 +20,14 @@ export default class extends React.Component {
       showPurchaseModal: true,
     };
     this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
+    this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
+    this.showPaymentModal = this.showPaymentModal.bind(this);
     this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
+    this.hidePaymentModal = this.hidePaymentModal.bind(this);
     this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
   }
 
   updateSubscriptionStatus(subscription) {
-    debugger;
     this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
   }
 
@@ -283,14 +285,20 @@ export default class extends React.Component {
     new Stripe();
   }
 
+  showPremiumConfirmationModal() {
+    this.setState({ showPremiumConfirmationModal: true, });
+  }
+
   hidePremiumConfirmationModal() {
     this.setState({ showPremiumConfirmationModal: false, });
   }
 
-  premiumRedemptionModalIfCurrentSubscription() {
-    if (this.state.subscriptionStatus) {
-      return (<PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} hideModal={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />);
-    }
+  showPaymentModal() {
+    this.setState({ showPaymentModal: true, });
+  }
+
+  hidePaymentModal() {
+    this.setState({ showPaymentModal: false, });
   }
 
   render() {
@@ -305,8 +313,8 @@ export default class extends React.Component {
             If you purchase a Teacher Premium subscription, and then your school purchases a School Premium subscription, you will be refunded the remainder of your Teacher Premium as Quill Premium Credit. You can redeem your Premium Credit anytime you do not currently have an active subscription, and you will be resubscribed to Quill Premium for the amount of time you have in credit. If you would like to receive a full refund there is a grace period of 5 days from the day of the renewal.
           </p>
         </section>
-        {this.premiumRedemptionModalIfCurrentSubscription()}
-        <SelectCreditCardModal show lastFour={this.props.lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
+        <PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} close={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />
+        <PaymentModal show={this.state.showPaymentModal} close={this.hidePaymentModal} lastFour={this.props.lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
 
       </div>
     );
