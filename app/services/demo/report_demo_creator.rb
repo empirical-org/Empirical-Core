@@ -92,7 +92,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_classroom_activities(classroom, unit)
-    activities = [413, 437, 434, 215, 41, 386, 289, 295]
+    activities = [413, 437, 434, 215, 41, 386, 289, 295, 418]
     classroom_activities = []
     activities.each do |act_id|
       values = {
