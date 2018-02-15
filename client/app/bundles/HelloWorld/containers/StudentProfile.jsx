@@ -14,7 +14,6 @@ import {
   toggleDropdown
 } from '../../../actions/student_profile';
 
-
 class StudentProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -23,41 +22,50 @@ class StudentProfile extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', () => {
-      this.props.updateNumberOfClassroomTabs(window.innerWidth);
-    });
-    this.props.updateNumberOfClassroomTabs(window.innerWidth);
-    this.props.fetchStudentProfile();
-    this.props.fetchStudentsClassrooms();
-  }
+    const {
+      updateNumberOfClassroomTabs,
+      fetchStudentProfile,
+      fetchStudentsClassrooms,
+    } = this.props;
 
-  componentWillUnmount() {
-    window.removeEventListener('resize');
+    window.addEventListener('resize', () => {
+      updateNumberOfClassroomTabs(window.innerWidth);
+    });
+    updateNumberOfClassroomTabs(window.innerWidth);
+    fetchStudentProfile();
+    fetchStudentsClassrooms();
   }
 
   componentDidUpdate() {
     this.initializePusher();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize');
+  }
+
   handleClassroomTabClick(classroomId) {
-    if (!this.props.loading) {
-      this.props.handleClassroomClick(classroomId);
-      this.props.fetchStudentProfile(classroomId);
+    const { loading, handleClassroomClick, fetchStudentProfile, } = this.props;
+
+    if (!loading) {
+      handleClassroomClick(classroomId);
+      fetchStudentProfile(classroomId);
     }
   }
 
   initializePusher() {
-    if (this.props.student) {
-      const classroomId = this.props.student.classroom.id;
+    const { student, fetchStudentProfile, } = this.props;
+
+    if (student) {
+      const classroomId = student.classroom.id;
 
       if (process.env.NODE_ENV === 'development') {
         Pusher.logToConsole = true;
       }
       const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
       const channel = pusher.subscribe(classroomId.toString());
-      const that = this;
       channel.bind('lesson-launched', () => {
-        that.props.fetchStudentProfile(classroomId);
+        fetchStudentProfile(classroomId);
       });
     }
   }
@@ -94,9 +102,12 @@ class StudentProfile extends React.Component {
             teacherName={student.classroom.teacher.name}
           />
           <NextActivity
-            data={nextActivitySession}
             loading={loading}
             hasActivities={scores.length > 0}
+            name={nextActivitySession.name}
+            caId={nextActivitySession.ca_id}
+            activityClassificationId={nextActivitySession.activity_classification_id}
+            maxPercentage={nextActivitySession.max_percentage}
           />
           <StudentProfileUnits
             data={scores}
@@ -106,9 +117,9 @@ class StudentProfile extends React.Component {
       );
     } return <span />;
   }
-};
+}
 
-const mapStateToProps = (state) => { return state };
+const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
   updateNumberOfClassroomTabs: (screenWidth) => dispatch(updateNumberOfClassroomTabs(screenWidth)),
