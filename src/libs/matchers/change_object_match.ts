@@ -139,23 +139,21 @@ const ERROR_TYPES = {
 };
 
 const getErrorType = (targetString:string, userString:string, responses):string|null => {
-  console.log('targetString', targetString)
   const changeObjects = getChangeObjects(targetString, userString);
-  console.log('changeObjects', changeObjects)
-  console.log('----------------------------')
   const hasIncorrect = checkForIncorrect(changeObjects);
   if (hasIncorrect) {
     const addedWord:string = changeObjects.find(co => co.added) ? changeObjects.find(co => co.added).value : undefined
     const removedWord:string = changeObjects.find(co => co.removed) ? changeObjects.find(co => co.removed).value : undefined
-    const optimalAnswerStrings = getOptimalResponses(responses).map(resp => resp.text);
-    const dictionaryString = processSentences(optimalAnswerStrings)
-    const dictionary = train(dictionaryString)
-    const correctedString = correct(dictionary, addedWord)
-    if (correctedString === removedWord) {
-      return ERROR_TYPES.MISSPELLED_WORD
-    } else {
-      return ERROR_TYPES.INCORRECT_WORD;
+    if (addedWord && removedWord) {
+      const optimalAnswerStrings = getOptimalResponses(responses).map(resp => resp.text);
+      const dictionaryString = processSentences(optimalAnswerStrings)
+      const dictionary = train(dictionaryString)
+      const correctedString = correct(dictionary, addedWord)
+      if (correctedString === removedWord) {
+        return ERROR_TYPES.MISSPELLED_WORD
+      }
     }
+    return ERROR_TYPES.INCORRECT_WORD;
   }
   const hasAdditions = checkForAdditions(changeObjects);
   if (hasAdditions) {
