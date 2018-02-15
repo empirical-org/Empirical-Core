@@ -9,6 +9,11 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def purchaser_name
+    subscription_is_associated_with_current_user?
+    render json: {name: @subscription.contact_user.name}
+  end
+
   def show
     render json: @subscription
   end
@@ -20,7 +25,6 @@ class SubscriptionsController < ApplicationController
     end
     attributes = subscription_params
     attributes.delete(:authenticity_token)
-    # attributes[:contact_user_id] ||= current_user.id
     @subscription = Subscription.create_with_user_join(attributes[:contact_user_id], attributes)
     render json: @subscription
   end
@@ -38,6 +42,13 @@ class SubscriptionsController < ApplicationController
   end
 
   private
+
+  def subscription_is_associated_with_current_user?
+    @subscription = Subscription.find(params[:id])
+    if !@subscription.users.include?(current_user)
+      auth_failed
+    end
+  end
 
   def set_index_variables
     @subscriptions = current_user.subscriptions
