@@ -40,7 +40,7 @@ describe('The checking a diagnostic question', () => {
     it('should be able to find a levenshtein change match', () => {
       const questionString = "Bats have swings, so they can fly."
       const matchedResponse = checkDiagnosticQuestion(responses[0].question_uid, questionString, responses);
-      assert.equal(matchedResponse.author, 'Modified Word Hint');
+      assert.equal(matchedResponse.author, 'Spelling Hint');
     });
 
   })

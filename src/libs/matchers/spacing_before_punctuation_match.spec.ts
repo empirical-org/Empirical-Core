@@ -16,7 +16,7 @@ const savedResponses: Array<Response> = [
 
 describe('The spacingBeforePunctuationMatch function', () => {
 
-    it('Should take a response string and return true if there is no space after a comma', () => {
+    it('Should take a response string and return true if there is no space before punctuation', () => {
         const responseString = "My dog took a nap, did yours ? ";
         const matchedResponse = spacingBeforePunctuationMatch(responseString);
         assert.isOk(matchedResponse);
@@ -26,7 +26,7 @@ describe('The spacingBeforePunctuationMatch function', () => {
 
 describe('The spacingBeforePunctuationChecker', () => {
 
-  it('Should return a partialResponse object if the response string is missing a required word', () => {
+  it('Should return a partialResponse object if the response string is missing spacing before punctuation', () => {
     const responseString = "My dog took a nap, did yours ?";
     const partialResponse: PartialResponse =  {
         feedback: spacingBeforePunctuationMatch(responseString).feedback,
@@ -42,7 +42,7 @@ describe('The spacingBeforePunctuationChecker', () => {
     assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
   });
 
-  it('Should return undefined if the response string is not missing a required word', () => {
+  it('Should return undefined if the response string is not missing space before punctuation', () => {
     const responseString = "My dog took a nap.";
     assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses), undefined);
   });

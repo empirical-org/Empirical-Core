@@ -22,11 +22,17 @@ describe('The spacingAfterCommaMatch function', () => {
         assert.isOk(matchedResponse);
     });
 
+    it('Should take a response string and return true if the comma is surrounded by numbers', () => {
+        const responseString = "My dog took a 2,000 year nap, did yours?";
+        const matchedResponse = spacingAfterCommaMatch(responseString);
+        assert.notOk(matchedResponse);
+    });
+
 });
 
 describe('The spacingAfterCommaChecker', () => {
 
-  it('Should return a partialResponse object if the response string is missing a required word', () => {
+  it('Should return a partialResponse object if there is no space after a comma', () => {
     const responseString = "My dog took a nap,did yours?";
     const partialResponse: PartialResponse =  {
         feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
@@ -42,8 +48,13 @@ describe('The spacingAfterCommaChecker', () => {
     assert.equal(spacingAfterCommaChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
   });
 
-  it('Should return undefined if the response string is not missing a required word', () => {
-    const responseString = "My dog took a nap.";
+  it('Should return undefined if there is a space after a comma', () => {
+    const responseString = "My dog took a nap, did yours?";
+    assert.equal(spacingAfterCommaChecker(responseString, savedResponses), undefined);
+  });
+
+  it('Should return undefined if the comma is surrounded by numbers', () => {
+    const responseString = "My dog took a 2,000 year nap, did yours?";
     assert.equal(spacingAfterCommaChecker(responseString, savedResponses), undefined);
   });
 

@@ -7,7 +7,10 @@ import {feedbackStrings} from '../constants/feedback_strings'
 export function spacingAfterCommaMatch(response):Boolean {
   for (let i = 0; i < response.length; i++) {
     if (response[i] === ',' && (i + 1 < response.length)) {
-      if (response[i + 1] !== ' ') {
+      const priorCharacter = response[i - 1]
+      const followingCharacter = response[i + 1]
+      // there needs to either be a space or the comma needs to appear between two numbers
+      if (followingCharacter !== ' ' && (!priorCharacter.match(/\d/) && !followingCharacter.match(/\d/))) {
         return true
       };
     }
