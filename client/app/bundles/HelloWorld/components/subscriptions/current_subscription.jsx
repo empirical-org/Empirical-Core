@@ -1,9 +1,10 @@
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
+import request from 'request';
+import moment from 'moment';
 import UpdateStripeCard from '../modules/stripe/update_card.js';
 import getAuthToken from '../modules/get_auth_token';
 import LoadingIndicator from '../shared/loading_indicator.jsx';
-import request from 'request';
 
 export default class extends React.Component {
 
@@ -11,20 +12,82 @@ export default class extends React.Component {
     super(props);
   }
 
-  render() {
-    return (
-      <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="select-credit-card-modal" restoreFocus>
-        <Modal.Body>
-          <img className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
-          <div className="pricing-info text-center">
-            <h1>Quill Teacher Premium</h1>
-            <span>$80 for one-year subscription</span>
+  getPaymentMethod() {
+    return `Credit Card Ending In ${this.props.lastFour}`;
+  }
+
+  content() {
+    const currSub = this.props.subscriptionStatus;
+    const metaRowClassName = 'flex-row space-between';
+    const buttonRowClassName = 'sub-button-row';
+    if (currSub) {
+      return ({ metaRows: (
+        <div className={metaRowClassName}>
+          <div>
+            <div>
+              <span className="title">Plan</span>
+              <span>{currSub.account_type}</span>
+            </div>
+            <div>
+              <span className="title">Payment Method</span>
+              <span>{this.getPaymentMethod()}</span>
+            </div>
+            <div>
+              <span className="title">Renewal Settings</span>
+              <span>boop</span>
+            </div>
           </div>
-          <h2 className="q-h2">Which credit card would you like to pay with?</h2>
-          {this.loadingOrButtons()}
-          {this.showBuyNowIfChargeSelection()}
-        </Modal.Body>
-      </Modal>
+          <div>
+            <div>
+              <span className="title">Purchaser</span>
+              <span>{this.props.purchaserNameOrEmail}</span>
+            </div>
+            <div>
+              <span className="title">Valid Until</span>
+              <span>{moment(currSub.expirationDate).format('MMMM Do, YYYY')}</span>
+            </div>
+          </div>
+        </div>
+        ),
+        cta: (
+          <div className={buttonRowClassName}>
+            <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="q-button button cta-button bg-orange text-white">Update Card</button>
+          </div>
+        ), });
+    }
+    // set a more basic state if we don't have the info
+    return ({ metaRows: (
+      <div className={metaRowClassName}>
+        <div>
+          <span className="title">Quill Basic Subscription</span>
+          <span>{currSub.account_type}</span>
+        </div>
+        <div>
+          <span className="title">Payment Method</span>
+          <span>Free</span>
+        </div>
+      </div>
+      ),
+      cta: (
+        <div className={buttonRowClassName}>
+          <a href="/" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
+          <a href="/" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>;
+        </div>
+      ), });
+  }
+
+  render() {
+    const content = this.content();
+    return (
+      <section>
+        <h2>Subscription Information</h2>
+        <div className="current-subscription-information-and-cta">
+          <div className="current-subscription-information">
+            {content.metaRows}
+          </div>
+          {content.cta}
+        </div>
+      </section>
     );
   }
 }
