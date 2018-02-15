@@ -139,7 +139,10 @@ const ERROR_TYPES = {
 };
 
 const getErrorType = (targetString:string, userString:string, responses):string|null => {
+  console.log('targetString', targetString)
   const changeObjects = getChangeObjects(targetString, userString);
+  console.log('changeObjects', changeObjects)
+  console.log('----------------------------')
   const hasIncorrect = checkForIncorrect(changeObjects);
   if (hasIncorrect) {
     const addedWord:string = changeObjects.find(co => co.added) ? changeObjects.find(co => co.added).value : undefined
