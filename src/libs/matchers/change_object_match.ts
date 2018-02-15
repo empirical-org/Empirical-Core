@@ -142,8 +142,8 @@ const getErrorType = (targetString:string, userString:string, responses):string|
   const changeObjects = getChangeObjects(targetString, userString);
   const hasIncorrect = checkForIncorrect(changeObjects);
   if (hasIncorrect) {
-    const addedWord:string = changeObjects.find(co => co.added).value
-    const removedWord:string = changeObjects.find(co => co.removed).value
+    const addedWord:string = changeObjects.find(co => co.added) ? changeObjects.find(co => co.added).value : undefined
+    const removedWord:string = changeObjects.find(co => co.removed) ? changeObjects.find(co => co.removed).value : undefined
     const optimalAnswerStrings = getOptimalResponses(responses).map(resp => resp.text);
     const dictionaryString = processSentences(optimalAnswerStrings)
     const dictionary = train(dictionaryString)
