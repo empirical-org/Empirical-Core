@@ -18,4 +18,9 @@ class BlogPostsController < ApplicationController
     @blog_posts = BlogPost.where(draft: false, topic: params[:topic].gsub('_', ' ').titleize)
     return render 'index'
   end
+
+  # TODO: remove this when we launch front end of knowlege center
+  def temporarily_render_old_teacher_resources
+    return render 'pages/teacher_resources'
+  end
 end

@@ -26,7 +26,8 @@ module PagesHelper
 		elsif tabname == "team"
 			team_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == 'getting_started'
-			getting_started_actions.include?(action_name) ? 'active' : ''
+			# TODO: revert this when we launch front end of knowlege center
+			action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
 		elsif tabname == 'news'
 			news_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == 'media_kit'
