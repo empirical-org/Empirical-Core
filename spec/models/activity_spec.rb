@@ -234,9 +234,9 @@ describe Activity, type: :model, redis: :true do
 
   describe 'user scope' do    
     it 'should return the correct scope for the correct flag' do
-      expect(Activity.user_scope('alpha')).to eq(Acitivity.alpha_user)
-      expect(Activity.user_scope('beta')).to eq(Acitivity.beta_user)
-      expect(Activity.user_scope('anything')).to eq(Acitivity.production)
+      expect(Activity.user_scope('alpha')).to eq(Activity.alpha_user)
+      expect(Activity.user_scope('beta')).to eq(Activity.beta_user)
+      expect(Activity.user_scope('anything')).to eq(Activity.production)
     end
   end
 
