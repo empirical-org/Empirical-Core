@@ -1,12 +1,12 @@
 import React from 'react';
+import request from 'request';
+import _ from 'lodash';
 import moment from 'moment';
 import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
-import Stripe from '../components/modules/stripe/update_card.js';
 import PaymentModal from '../components/subscriptions/select_credit_card_modal';
 import PremiumConfirmationModal from '../components/subscriptions/premium_redemption_modal';
 import getAuthToken from '../components/modules/get_auth_token';
-import request from 'request';
 
 export default class extends React.Component {
 
@@ -18,8 +18,9 @@ export default class extends React.Component {
       subscriptionStatus: this.props.subscriptionStatus,
       availableCredits: availableAndEarnedCredits.available,
       earnedCredits: availableAndEarnedCredits.earned,
-      showPremiumConfirmationModal: false,
-      showPurchaseModal: true,
+      showPremiumConfirmationModal: true,
+      showPurchaseModal: false,
+      purchaserNameOrEmail: this.purchaserNameOrEmail(),
     };
     this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
     this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
@@ -27,19 +28,7 @@ export default class extends React.Component {
     this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
     this.hidePaymentModal = this.hidePaymentModal.bind(this);
     this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
-  }
-
-  availableAndEarnedCredits() {
-    let earned = 0;
-    let spent = 0;
-    this.props.premiumCredits.forEach((c) => {
-      if (c.amount > 0) {
-        earned += c.amount;
-      } else {
-        spent -= c.amount;
-      }
-    });
-    return { earned, available: earned - spent, };
+    this.updateCard = this.updateCard.bind(this);
   }
 
   updateSubscriptionStatus(subscription) {
@@ -123,10 +112,50 @@ export default class extends React.Component {
     );
   }
 
+  getPaymentMethod() {
+    // if (this.props.subscriptionStatus.payment_method === 'Credit Card') {
+    return `Credit Card Ending In ${this.props.lastFour}`;
+    // }
+  }
+
+  availableAndEarnedCredits() {
+    let earned = 0;
+    let spent = 0;
+    this.props.premiumCredits.forEach((c) => {
+      if (c.amount > 0) {
+        earned += c.amount;
+      } else {
+        spent -= c.amount;
+      }
+    });
+    return { earned, available: earned - spent, };
+  }
+
+  purchaserNameOrEmail() {
+    const sub = (this.state && this.state.subscriptionStatus) || this.props.subscriptionStatus;
+    if (!sub.contact_user_id) {
+      this.setState({ purchaserNameOrEmail: sub.user_email ? sub.user_email : 'Not Recorded', });
+    }
+    return this.getPurchaserName();
+  }
+
+  getPurchaserName() {
+    const that = this;
+    const idPath = 'subscriptionStatus.id';
+    const subId = _.get(that.state, idPath) || _.get(that.props, idPath);
+    request.get({
+      url: `${process.env.DEFAULT_URL}/subscriptions/${subId}/purchaser_name`,
+    },
+    (e, r, body) => {
+      that.setState({ purchaserNameOrEmail: JSON.parse(body).name, });
+    });
+  }
+
   currentSubscriptionContent() {
-    const currSub = this.props.subscriptionStatus;
+    const currSub = this.state.subscriptionStatus;
     const metaRowClassName = 'flex-row space-between';
     const buttonRowClassName = 'sub-button-row';
+
     if (currSub) {
       return ({ metaRows: (
         <div className={metaRowClassName}>
@@ -137,7 +166,7 @@ export default class extends React.Component {
             </div>
             <div>
               <span className="title">Payment Method</span>
-              <span>boop</span>
+              <span>{this.getPaymentMethod()}</span>
             </div>
             <div>
               <span className="title">Renewal Settings</span>
@@ -147,18 +176,18 @@ export default class extends React.Component {
           <div>
             <div>
               <span className="title">Purchaser</span>
-              <span>boop</span>
+              <span>{this.state.purchaserNameOrEmail}</span>
             </div>
             <div>
-              <span className="title">Renewal Date</span>
-              <span>boop</span>
+              <span className="title">Valid Until</span>
+              <span>{moment(currSub.expirationDate).format('MMMM Do, YYYY')}</span>
             </div>
           </div>
         </div>
         ),
         cta: (
           <div className={buttonRowClassName}>
-            <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremiu} className="q-button button cta-button bg-orange text-white">Update Card</button>
+            <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="q-button button cta-button bg-orange text-white">Update Card</button>
           </div>
         ), });
     }
@@ -261,7 +290,7 @@ export default class extends React.Component {
   availableCredits() {
     let button;
     if (this.state.availableCredits > 0) {
-      button = <button onClick={this.redeemPremiumCredits} className="q-button cta-button">Redeem Premium Credits</button>;
+      button = <button onClick={this.redeemPremiumCredits} className="q-button cta-button bg-orange has-credit">Redeem Premium Credits</button>;
     } else {
       button = <a href="/" className="q-button button cta-button bg-orange">Earn Premium Credits</a>;
     }
@@ -281,7 +310,6 @@ export default class extends React.Component {
     if (!this.props.premiumCredits || this.props.premiumCredits < 1) {
       return this.availableCredits();
     }
-    const totalCreditEarned = 0;
     const monthsOfCredit = Math.round(((this.state.earnedCredits / 30.42) * 10) / 10);
     return (
       <section>
@@ -297,7 +325,7 @@ export default class extends React.Component {
   }
 
   updateCard() {
-    new Stripe();
+    this.showPaymentModal();
   }
 
   showPremiumConfirmationModal() {
@@ -317,6 +345,7 @@ export default class extends React.Component {
   }
 
   render() {
+    console.log(this.state.purchaserNameOrEmail);
     return (
       <div>
         <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} /> {this.currentSubscriptionInformation()}
@@ -328,8 +357,8 @@ export default class extends React.Component {
             If you purchase a Teacher Premium subscription, and then your school purchases a School Premium subscription, you will be refunded the remainder of your Teacher Premium as Quill Premium Credit. You can redeem your Premium Credit anytime you do not currently have an active subscription, and you will be resubscribed to Quill Premium for the amount of time you have in credit. If you would like to receive a full refund there is a grace period of 5 days from the day of the renewal.
           </p>
         </section>
-        <PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} close={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />
-        <PaymentModal show={this.state.showPaymentModal} close={this.hidePaymentModal} lastFour={this.props.lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
+        <PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} hideModal={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />
+        <PaymentModal show={this.state.showPaymentModal} hideModal={this.hidePaymentModal} lastFour={this.props.lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
 
       </div>
     );
