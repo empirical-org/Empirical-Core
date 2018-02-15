@@ -4,7 +4,7 @@ import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import Stripe from '../components/modules/stripe/update_card.js';
 import SelectCreditCardModal from '../components/subscriptions/select_credit_card_modal';
-import PremiumRedemptionModal from '../components/subscriptions/premium_redemption_modal';
+import PremiumConfirmationModal from '../components/subscriptions/premium_redemption_modal';
 import getAuthToken from '../components/modules/get_auth_token';
 import request from 'request';
 
@@ -16,9 +16,17 @@ export default class extends React.Component {
       subscriptions: this.props.subscriptions,
       subscriptionStatus: this.props.subscriptionStatus,
       availableCredits: this.props.premiumCredits.reduce((total, credit) => total + credit.amount, 0),
+      showPremiumConfirmationModal: false,
+      showPurchaseModal: true,
     };
     this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
-    this.hidePremiumRedemptionModal = this.hidePremiumRedemptionModal.bind(this);
+    this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
+    this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
+  }
+
+  updateSubscriptionStatus(subscription) {
+    debugger;
+    this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
   }
 
   subscriptionHistoryRows() {
@@ -163,8 +171,6 @@ export default class extends React.Component {
     return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremiu} className="q-button button cta-button bg-orange text-white">Update Card</button>;
   }
 
-  // <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="q-button button cta-button bg-orange text-white">Update Card</button>
-
   currentSubscriptionInformation() {
     const content = this.currentSubscriptionContent();
     return (
@@ -229,7 +235,7 @@ export default class extends React.Component {
           subscriptions: [body.subscription].concat(this.state.subscriptions),
           subscriptionStatus: this.currentSubscription(body.subscription),
           availableCredits: 0,
-          showPremiumRedemptionModal: true,
+          showPremiumConfirmationModal: true,
         });
       }
     });
@@ -277,13 +283,13 @@ export default class extends React.Component {
     new Stripe();
   }
 
-  hidePremiumRedemptionModal() {
-    this.setState({ showPremiumRedemptionModal: false, });
+  hidePremiumConfirmationModal() {
+    this.setState({ showPremiumConfirmationModal: false, });
   }
 
   premiumRedemptionModalIfCurrentSubscription() {
     if (this.state.subscriptionStatus) {
-      return (<PremiumRedemptionModal show={this.state.showPremiumRedemptionModal} hideModal={this.hidePremiumRedemptionModal} subscription={this.state.subscriptionStatus} />);
+      return (<PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} hideModal={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />);
     }
   }
 
@@ -300,7 +306,7 @@ export default class extends React.Component {
           </p>
         </section>
         {this.premiumRedemptionModalIfCurrentSubscription()}
-        <SelectCreditCardModal show lastFour={this.props.lastFour} />
+        <SelectCreditCardModal show lastFour={this.props.lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
 
       </div>
     );
