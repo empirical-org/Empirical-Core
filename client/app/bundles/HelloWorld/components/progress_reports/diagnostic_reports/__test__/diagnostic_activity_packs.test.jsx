@@ -11,6 +11,19 @@ const units = [{"unit_name":"Diagnostic","activity_name":"Sentence Structure Dia
 
 
 describe('DiagnosticActivityPacks component', () => {
+
+  it('should render', () => {
+    document.body.innerHTML =
+    '<div>' +
+    '  <div class="diagnostic-tab" />' +
+    '  <button class="activity-analysis-tab" />' +
+    '</div>';
+    const wrapper = shallow(
+        <DiagnosticActivityPacks />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('initializes state with an empty array of units, loaded being false, and a blank string diagnosticStatus', () => {
     const wrapper = shallow(<DiagnosticActivityPacks/>)
 

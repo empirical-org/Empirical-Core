@@ -3,6 +3,7 @@ import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import $ from 'jquery'
+import {orderUnits} from '../../modules/parseUnits'
 
 'use strict'
 
@@ -100,13 +101,7 @@ export default React.createClass({
 					dueDate: u.due_date, });
 			}
 		});
-		return this.orderUnits(parsedUnits);
-	},
-
-	orderUnits(units) {
-		const unitsArr = [];
-		Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
-		return unitsArr;
+		return orderUnits(parsedUnits);
 	},
 
 	stateBasedComponent: function() {
