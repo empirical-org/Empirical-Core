@@ -4,11 +4,6 @@ import pluralize from 'pluralize';
 
 export default class extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   subscriptionHistoryRows() {
     const rows = [];
     this.props.subscriptions.forEach((sub) => {
@@ -42,8 +37,8 @@ export default class extends React.Component {
   }
 
   paymentContent(subscription) {
-    const currentUserId = document.getElementById('current-user-id').getAttribute('content');
-    if (subscription.contact_user_id === Number(currentUserId)) {
+    console.log(this.props.currentUserIsPurchaser(subscription));
+    if (this.props.currentUserIsPurchaser(subscription)) {
       if (subscription.payment_amount) {
         return `$${subscription.payment_amount / 100}`;
       } else if (subscription.payment_method === 'Premium Credit') {

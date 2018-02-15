@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: [:show, :update, :destroy]
+  before_action :set_subscription, except: [:index, :update]
 
   def index
     set_index_variables
@@ -30,9 +30,13 @@ class SubscriptionsController < ApplicationController
   end
 
   def update
-    attributes = subscription_params
-    attributes.delete(:authenticity_token)
-    @subscription.update_attributes attributes
+    @subscription = Subscription.find(params[:id])
+    # attributes = params
+    # attributes.delete(:authenticity_token)
+    # attributes.delete(:subscription)
+    # attributes.delete(:action)
+    # attributes.delete(:controller)
+    @subscription.update_attributes params[:subscription]
     render json: @subscription
   end
 
@@ -44,8 +48,13 @@ class SubscriptionsController < ApplicationController
   private
 
   def subscription_is_associated_with_current_user?
-    @subscription = Subscription.find(params[:id])
-    if !@subscription.users.include?(current_user)
+    if !@subscription.users.include?(current_user) && !current_user == @subscription.contact_user
+      auth_failed
+    end
+  end
+
+  def subscription_belongs_to_purchaser?
+    if current_user != @subscription.contact_user
       auth_failed
     end
   end
@@ -85,10 +94,11 @@ class SubscriptionsController < ApplicationController
 
   def subscription_params
     params.require(:account_type)
-    params.permit(:id, :contact_user_id, :expiration, :account_limit, :account_type, :authenticity_token)
+    params.permit(:id, :contact_user_id, :expiration,  :account_limit, :authenticity_token, :recurring)
   end
 
+
   def set_subscription
-    @subscription = Subscription.find subscription_params[:id]
+    @subscription = Subscription.find params[:id]
   end
 end

@@ -1,19 +1,32 @@
 import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
-import request from 'request';
 import moment from 'moment';
 import UpdateStripeCard from '../modules/stripe/update_card.js';
 import getAuthToken from '../modules/get_auth_token';
 import LoadingIndicator from '../shared/loading_indicator.jsx';
+import ChangePlan from './change_plan';
 
 export default class extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      showChangePlan: false,
+    };
+    this.toggleChangePlan = this.toggleChangePlan.bind(this);
   }
 
   getPaymentMethod() {
     return `Credit Card Ending In ${this.props.lastFour}`;
+  }
+
+  toggleChangePlan() {
+    this.setState({ showChangePlan: !this.state.showChangePlan, });
+  }
+
+  changePlan() {
+    if (this.state.showChangePlan) {
+      return <ChangePlan subscriptionId={_.get(this.props.subscriptionStatus, 'id')} recurring={_.get(this.props.subscriptionStatus, 'recurring')} updateSubscription={this.props.updateSubscription} />;
+    }
   }
 
   content() {
@@ -30,7 +43,11 @@ export default class extends React.Component {
             </div>
             <div>
               <span className="title">Payment Method</span>
-              <span>{this.getPaymentMethod()}</span>
+              <span>
+                {this.getPaymentMethod()}
+                <span onClick={this.toggleChangePlan}>Change Plan</span>
+                {this.changePlan()}
+              </span>
             </div>
             <div>
               <span className="title">Renewal Settings</span>
