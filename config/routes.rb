@@ -28,7 +28,11 @@ EmpiricalGrammar::Application.routes.draw do
   post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
 
-  resources :subscriptions
+  resources :subscriptions do
+    member do
+      get :purchaser_name
+    end
+  end
   resources :assessments
   resources :assignments
   resource :profile
