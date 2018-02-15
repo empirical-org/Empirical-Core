@@ -1,5 +1,4 @@
 import React from 'react';
-import StudentsClassroom from './students_classroom';
 import Pluralize from 'pluralize';
 
 const dropdownContents = (classroomList, showDropdown) => {
