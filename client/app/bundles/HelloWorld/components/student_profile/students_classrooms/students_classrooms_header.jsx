@@ -20,7 +20,6 @@ const StudentsClassroomsHeader = ({
         classroomTabs.push(<StudentsClassroom
           key={classroom.id}
           classroom={classroom}
-          index={index}
           handleClick={handleClick}
           selectedClassroomId={selectedClassroomId}
         />);
@@ -29,7 +28,6 @@ const StudentsClassroomsHeader = ({
           <StudentsClassroom
             key={classroom.id}
             classroom={classroom}
-            index={index}
             handleClick={handleClick}
             selectedClassroomId={selectedClassroomId}
           />
