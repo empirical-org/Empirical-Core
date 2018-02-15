@@ -10,7 +10,7 @@ export function spacingAfterCommaMatch(response):Boolean {
       const priorCharacter = response[i - 1]
       const followingCharacter = response[i + 1]
       // there needs to either be a space or the comma needs to appear between two numbers
-      if (followingCharacter !== ' ' && (!priorCharacter.match(/\d/) && !followingCharacter.match(/\d/))) {
+      if (followingCharacter !== ' ' && (priorCharacter && !priorCharacter.match(/\d/) && followingCharacter && !followingCharacter.match(/\d/))) {
         return true
       };
     }
