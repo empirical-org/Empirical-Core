@@ -241,7 +241,9 @@ const checkForTooLongChangeObjects = changeObject => getLengthOfChangeObject(cha
 
 const checkForTooLongError = changeObject => (changeObject.removed || changeObject.added) && checkForTooLongChangeObjects(changeObject);
 
-const getLengthOfChangeObject = changeObject =>
+const getLengthOfChangeObject = changeObject => {
   // filter boolean removes empty strings from trailing,
   // leading, or double white space.
-   changeObject.value.split(' ').filter(Boolean).length;
+  const wordsInChangeObject = changeObject.value.split(' ').filter(Boolean)
+  return wordsInChangeObject ? wordsInChangeObject.length : 0
+}
