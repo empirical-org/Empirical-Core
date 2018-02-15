@@ -22,7 +22,7 @@ export default class extends React.Component {
       subscriptionStatus: this.props.subscriptionStatus,
       availableCredits: availableAndEarnedCredits.available,
       earnedCredits: availableAndEarnedCredits.earned,
-      showPremiumConfirmationModal: true,
+      showPremiumConfirmationModal: false,
       showPurchaseModal: false,
       purchaserNameOrEmail: this.purchaserNameOrEmail(),
     };
@@ -33,6 +33,8 @@ export default class extends React.Component {
     this.hidePaymentModal = this.hidePaymentModal.bind(this);
     this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
     this.updateCard = this.updateCard.bind(this);
+    this.updateSubscription = this.updateSubscription.bind(this);
+    this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
   }
 
   updateSubscriptionStatus(subscription) {
@@ -50,6 +52,11 @@ export default class extends React.Component {
       }
     });
     return { earned, available: earned - spent, };
+  }
+
+  currentUserIsPurchaser(subscription) {
+    const currentUserId = document.getElementById('current-user-id').getAttribute('content');
+    return _.get(subscription, 'contact_user_id') === Number(currentUserId);
   }
 
   purchaserNameOrEmail() {
@@ -103,6 +110,17 @@ export default class extends React.Component {
     });
   }
 
+  updateSubscription(params, subscriptionId) {
+    const that = this;
+    debugger;
+    request.put({
+      url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      json: Object.assign({ authenticity_token: getAuthToken(), }, params),
+    }, (error, httpStatus, body) => {
+      console.log(body);
+    });
+  }
+
   updateCard() {
     this.showPaymentModal();
   }
@@ -131,10 +149,13 @@ export default class extends React.Component {
           purchaserNameOrEmail={this.state.purchaserNameOrEmail}
           subscriptionStatus={this.state.subscriptionStatus}
           lastFour={this.props.lastFour}
+          updateSubscription={this.updateSubscription}
+          currentUserIsPurchaser={this.currentUserIsPurchaser(this.state.subscriptionStatus)}
         />
         <SubscriptionHistory
           subscriptions={this.state.subscriptions}
           premiumCredits={this.props.premiumCredits}
+          currentUserIsPurchaser={this.currentUserIsPurchaser}
         />
         <PremiumCredits
           earnedCredits={this.state.earnedCredits}
