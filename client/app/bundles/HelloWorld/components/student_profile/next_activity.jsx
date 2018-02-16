@@ -11,7 +11,7 @@ const NextActivity = ({
   caId,
   maxPercentage,
 }) => {
-  if (name && activityClassificationId && caId && maxPercentage) {
+  if (name) {
     const text = activityClassificationId === '6' ? 'Join Lesson' : 'Start Activity';
     const data = {
       percentage: maxPercentage,
