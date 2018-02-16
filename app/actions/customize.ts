@@ -121,6 +121,11 @@ export function archiveEdition(editionUID:string) {
   })
 }
 
+export function deleteEdition(editionUID:string) {
+  editionMetadataRef.child(editionUID).remove()
+  editionQuestionsRef.child(editionUID).remove()
+}
+
 export function setWorkingEditionQuestions(questions:CustomizeIntf.EditionQuestions) {
   return { type: C.SET_WORKING_EDITION_QUESTIONS, questions };
 }
