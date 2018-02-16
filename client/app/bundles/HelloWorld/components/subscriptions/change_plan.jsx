@@ -8,7 +8,7 @@ import LoadingIndicator from '../shared/loading_indicator.jsx';
 
 export default class extends React.Component {
   constructor(props) {
-    this.updateSubscription = this.updateSubscription.bind(this);
+    super(props);
   }
 
   render() {
@@ -16,7 +16,7 @@ export default class extends React.Component {
     return (
       <div className="radio-buttons">
         here i am
-        <button onClick={this.updateSubscription()} />
+        <button onClick={this.props.updateSubscription} />
         <div className="outer-circle" style={style}><div className="inner-circle" /></div>
       </div>
     );
