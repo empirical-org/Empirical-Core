@@ -3,6 +3,7 @@ import activeComponent from 'react-router-active-component';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import NavBar from '../navbar/navbar.jsx';
+import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
@@ -11,7 +12,6 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
-
 
 const TabLink = props => (
   <li>
@@ -23,6 +23,7 @@ const TabLink = props => (
 
 const adminContainer = React.createClass({
   componentWillMount() {
+    this.props.dispatch(userActions.firebaseAuth())
     this.props.dispatch(conceptActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     this.props.dispatch(questionActions.startListeningToQuestions());
