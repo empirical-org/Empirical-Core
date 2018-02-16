@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash'
+import * as _ from 'lodash'
 import {
   createNewEdition,
   saveEditionName,
@@ -249,7 +249,8 @@ class ChooseEdition extends React.Component<any, any> {
 function select(state) {
   return {
     customize: state.customize,
-    classroomLesson: state.classroomLesson
+    classroomLesson: state.classroomLesson,
+    classroomSessions: state.classroomSessions
   }
 }
 
