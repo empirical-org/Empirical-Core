@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: [:index, :update]
+  before_action :set_subscription, except: [:index]
 
   def index
     set_index_variables
@@ -32,8 +32,6 @@ class SubscriptionsController < ApplicationController
   def update
     set_subscription
     @subscription.update!(subscription_params)
-    # @subscription = Subscription.find(params[:id])
-    # @subscription.update_attributes
     render json: @subscription
   end
 
