@@ -38,12 +38,13 @@
       }
     }
     .edition-name-and-sample-question {
-      min-height: 93px;
+      min-height: 83px;
       background-color: #ffffff;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+      padding: 5px 0px;
       &.missing-name {
         border: solid 1px #ff7370;
       }
