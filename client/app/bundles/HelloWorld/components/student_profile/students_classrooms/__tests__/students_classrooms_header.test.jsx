@@ -40,7 +40,6 @@ describe('StudentsClassroomsHeader', () => {
 
     expect(wrapper.find(StudentsClassroom).first().props()).toEqual({
       classroom: fiveClassrooms[0],
-      index: 0,
       handleClick: handleClick,
       selectedClassroomId: 5,
     });
@@ -72,7 +71,6 @@ describe('StudentsClassroomsHeader', () => {
     const dropdown = wrapper.find(StudentsClassroomsDropdown);
     expect(dropdown.props().classroomList[0].props.children.props).toEqual({
       classroom: fiveClassrooms[3],
-      index: 3,
       handleClick: handleClick,
       selectedClassroomId: 5,
     });
