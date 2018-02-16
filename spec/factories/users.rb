@@ -89,6 +89,10 @@ FactoryBot.define do
         end
       end
 
+      trait :with_generated_password do
+        password { name.to_s.split("\s")[-1] }
+      end
+
       factory :student_in_two_classrooms_with_many_activities do
         after(:create) do |student|
           classrooms = create_pair(:classroom, students: [student])
