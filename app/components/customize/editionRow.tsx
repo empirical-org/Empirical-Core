@@ -99,7 +99,7 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
     const teacher = this.props.customize.coteachers.find(t => t.id === this.props.edition.user_id)
     const name = teacher ? teacher.name : null
     if (name) {
-      return <span className='locked-unit'>  <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>Created By {name}</span>
+      return <span className='locked-unit'>  <i className="fa fa-icon fa-user"/>{name}</span>
     }
   }
 
@@ -109,7 +109,7 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
     const sampleQuestionSection = this.props.edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{this.props.edition.sample_question}</p> : null
     return <div className="edition">
       <div className="text">
-        <p className="name">{name}{createdByTag}</p>
+        <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
         {sampleQuestionSection}
       </div>
       <div className="action">

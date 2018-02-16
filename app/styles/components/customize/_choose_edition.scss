@@ -78,20 +78,28 @@
     padding: 10px 20px;
     justify-content: space-between;
     margin-bottom: 20px;
+    .name-section {
+      display: flex;
+      align-items: center;
+    }
     .locked-unit {
       border-radius: 14px;
-      border: solid 1px #3b3b3b;
-      padding: 5px 10px;
+      border: solid 1px #666666;
+      color: #666666;
+      padding: 0px 10px;
       position: relative;
       margin-left: 17px;
       display: flex;
       align-items: center;
-      justify: center;
+      justify-content: center;
       font-size: 14px;
-      img {
+      white-space: nowrap;
+      i {
         margin-right: 8px;
         margin-left: 3px;
         position: relative;
+        font-size: 15px;
+        top: 1px;
       }
     }
     .text {
