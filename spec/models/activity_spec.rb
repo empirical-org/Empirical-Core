@@ -211,12 +211,12 @@ describe Activity, type: :model, redis: :true do
     end
   end
 
-  describe '#topic_uid=' do
+  describe '#topic_uid =' do
     let(:activity) { create(:activity) }
     let(:topic) { create(:topic) }
 
     it 'should set the topic_uid' do
-      activity.topic_uid= topic.uid
+      activity.topic_uid = topic.uid
       expect(activity.topic_id).to eq(topic.id)
     end
   end
