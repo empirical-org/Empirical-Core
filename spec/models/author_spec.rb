@@ -18,11 +18,11 @@ describe Author, type: :model, redis: :true do
 
     it 'should clear the unit templates' do
         template.get_cached_serialized_unit_template
-        author.destroy
-        expect($redis.keys("unit_template_id:#{template.id}_serialized").count).to eq 0
-        expect($redis.keys('production_unit_templates').count).to eq 0
-        expect($redis.keys('beta_unit_templates').count).to eq 0
-        expect($redis.keys('alpha_unit_templates').count).to eq 0
+        author.run_callbacks(:commit)
+        expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
+        expect($redis.get('production_unit_templates')).to eq nil
+        expect($redis.get('beta_unit_templates')).to eq nil
+        expect($redis.get('alpha_unit_templates')).to eq nil
     end
   end
 
