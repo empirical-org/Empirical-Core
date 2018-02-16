@@ -30,7 +30,10 @@ export default class extends React.Component {
 
   changePlan() {
     if (this.state.showChangePlan) {
-      return <ChangePlan updateRecurring={this.updateRecurring} />;
+      return (<ChangePlan
+        recurring={_.get(this.props.subscriptionStatus, 'recurring')}
+        updateRecurring={this.updateRecurring}
+      />);
     }
   }
 
