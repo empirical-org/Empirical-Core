@@ -67,7 +67,29 @@
   .my-editions {
     padding-bottom: 7px;
   }
+  .edition-container {
+    position: relative;
+    @media (max-width: 1075px) {
+      .in-progress {
+        display: none;
+      }
+    }
+  }
+  .in-progress {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: -110px;
+    min-width: 94px;
+    color: #82bf3c;
+    top: 28px;
+    i {
+      font-size: 12px;
+      margin-right: 2px;
+    }
+  }
   .edition {
+    position: relative;
     height: 80px;
     border-radius: 3px;
     background-color: #ffffff;
@@ -78,6 +100,9 @@
     padding: 10px 20px;
     justify-content: space-between;
     margin-bottom: 20px;
+    &.selected {
+      border: solid 1px #a8e067;
+    }
     .name-section {
       display: flex;
       align-items: center;
@@ -114,17 +139,24 @@
     .action {
       display: flex;
     }
-    .select-button {
+    .select-button, .resume-button {
       width: 115px;
       height: 40px;
-      border: none;
       border-radius: 3px;
-      background-color: #00c2a2;
       font-size: 16px;
       font-weight: bold;
       margin-left: 10px;
-      color: #ffffff;
       cursor: pointer;
+    }
+    .select-button {
+      border: none;
+      background-color: #00c2a2;
+      color: #ffffff;
+    }
+    .resume-button {
+      background-color: #ffffff;
+      border: solid 1px #00c2a2;
+      color: #00c2a2;
     }
     .customize-dropdown {
       position: relative;

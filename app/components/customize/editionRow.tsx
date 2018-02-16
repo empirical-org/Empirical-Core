@@ -18,7 +18,8 @@ interface EditionRowProps {
   editEdition?: Function,
   makeNewEdition: Function,
   selectAction: Function,
-  selectState: string|boolean|null
+  selectState: string|boolean|null,
+  selectedEdition: boolean
 }
 
 class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
@@ -91,7 +92,11 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
 
   renderSelectButton() {
     if (this.props.selectState) {
-      return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="select-button">Select</button>
+      if (this.props.selectedEdition) {
+        return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="resume-button">Resume</button>
+      } else {
+        return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="select-button">Select</button>
+      }
     }
   }
 
@@ -107,16 +112,22 @@ class EditionRow extends React.Component<EditionRowProps, EditionRowState> {
     const name = this.props.edition.name ? this.props.edition.name : 'Generic Content'
     const createdByTag = this.props.creator === 'coteacher' ? this.renderCreatedByTag() : null
     const sampleQuestionSection = this.props.edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{this.props.edition.sample_question}</p> : null
-    return <div className="edition">
-      <div className="text">
-        <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
-        {sampleQuestionSection}
+    const selectedEditionClass = this.props.selectedEdition ? 'selected' : ''
+    const selectedEditionTag = this.props.selectedEdition ? <span className="in-progress"><i className="fa fa-icon fa-check" />In Progress</span> : null
+    return <div className="edition-container">
+      <div className={`edition ${selectedEditionClass}`}>
+        <div className="text">
+          <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
+            {sampleQuestionSection}
+          </div>
+          <div className="action">
+            {this.renderCustomizeDropdown()}
+            {this.renderSelectButton()}
+          </div>
       </div>
-      <div className="action">
-        {this.renderCustomizeDropdown()}
-        {this.renderSelectButton()}
-      </div>
+      {selectedEditionTag}
     </div>
+
   }
 }
 

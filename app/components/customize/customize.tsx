@@ -45,19 +45,6 @@ class Customize extends React.Component<customizeProps> {
     if (ca_id) {
       props.dispatch(startListeningToSession(ca_id))
     }
-    //   const lesson_id: string = this.props.params.lessonID
-    //   if (ca_id ) {
-    //     startLesson(ca_id, () => this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id)))
-    //     this.props.dispatch(startListeningToCurrentSlide(ca_id));
-    //     registerTeacherPresence(ca_id)
-    //   }
-    //   if (this.props.classroomLesson.hasreceiveddata) {
-    //     this.props.dispatch(clearClassroomLessonFromStore())
-    //     this.props.dispatch(clearEditionQuestions())
-    //   }
-    //   document.getElementsByTagName("html")[0].style.overflowY = "hidden";
-    // }
-
 
     this.goToSuccessPage = this.goToSuccessPage.bind(this)
   }
