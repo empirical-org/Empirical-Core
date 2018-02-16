@@ -37,7 +37,6 @@ export default class extends React.Component {
   }
 
   paymentContent(subscription) {
-    console.log(this.props.currentUserIsPurchaser(subscription));
     if (this.props.currentUserIsPurchaser(subscription)) {
       if (subscription.payment_amount) {
         return `$${subscription.payment_amount / 100}`;
