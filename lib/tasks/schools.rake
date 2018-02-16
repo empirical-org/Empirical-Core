@@ -82,12 +82,24 @@ namespace :schools do
   desc 'Titleize all school name, address and other relevant data points'
   task :titleize => :environment do
     School.all.each do |school|
-      school.leanm = school.leanm.titleize
-      school.name = school.name.titleize
-      school.mail_street = school.mail_street.titleize
-      school.mail_city = school.mail_city.titleize
-      school.street = school.street.titleize
-      school.city = school.street.titleize
+      if !school.leanm.nil?
+        school.leanm = school.leanm.titleize
+      end
+      if !school.name.nil?
+        school.name = school.name.titleize
+      end
+      if !school.mail_street.nil?
+        school.mail_street = school.mail_street.titleize
+      end
+      if !school.mail_city.nil?
+        school.mail_city = school.mail_city.titleize
+      end
+      if !school.street.nil?
+        school.street = school.street.titleize
+      end
+      if !school.city.nil?
+        school.city = school.street.titleize
+      end
       school.save! 
     end  
   end
