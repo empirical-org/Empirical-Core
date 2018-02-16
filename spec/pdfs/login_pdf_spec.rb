@@ -5,8 +5,9 @@ describe LoginPdf do
     let(:student) { create(:student) }
     let(:clever_student) { create(:student, :signed_up_with_clever) }
     let(:google_student) { create(:student, :signed_up_with_google) }
-    let(:non_email_student)  { create(:student, email: nil)}
-    let(:students) { [student, clever_student, google_student, non_email_student] }
+    let(:normal_student) { create(:student, :with_generated_password) }
+    let(:custom_pass_student) { create(:student) }
+    let(:students) { [student, clever_student, google_student, normal_student] }
     let(:classroom) { create(:classroom, students: students) }
 
     before do
@@ -20,7 +21,7 @@ describe LoginPdf do
     end
 
     it 'tells google students to log in with google' do
-      expect(@text_analysis.strings).to include("Log in with Google")
+      expect(@text_analysis.strings).to include("N/A (Log in with Google)")
     end
 
     it 'displays the right steps for google students' do
@@ -32,7 +33,7 @@ describe LoginPdf do
     end
 
     it 'tells clever students to log in with clever' do
-      expect(@text_analysis.strings).to include("Log in with Clever")
+      expect(@text_analysis.strings).to include("N/A (Log in with Clever)")
     end
 
     it 'displays the right steps for cleverstudents' do
@@ -44,11 +45,15 @@ describe LoginPdf do
     end
 
     it 'shows email users the right password' do
-      expect(@text_analysis.strings).to include('Log in with email/username and custom password')
+      expect(@text_analysis.strings).to include('N/A (Custom Password)')
     end
 
-    it 'shows non-email users the default password' do
-      expect(@text_analysis.strings).to include(non_email_student.last_name.capitalize)
+    it 'shows users with the default password the default password' do
+      expect(@text_analysis.strings).to include(normal_student.last_name.capitalize)
+    end
+
+    it 'shows users with a custom password the right message' do
+      expect(@text_analysis.strings).to include('N/A (Custom Password)')
     end
 
     it 'tells the teacher the right class code' do
