@@ -31,9 +31,15 @@ export default React.createClass({
       }, {
         Header: '',
         accessor: 'id',
-        Cell: props => <a className="button" href={`/cms/blog_posts/${props.value}/delete`}>Delete</a>,
+        Cell: props => <a className="button" onClick={this.confirmDelete} href={`/cms/blog_posts/${props.value}/delete`}>Delete</a>,
       }
     ]);
+  },
+
+  confirmDelete(e) {
+    if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
+      e.preventDefault();
+    }
   },
 
   render() {
