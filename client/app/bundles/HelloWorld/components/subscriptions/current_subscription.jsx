@@ -13,6 +13,7 @@ export default class extends React.Component {
       showChangePlan: false,
     };
     this.toggleChangePlan = this.toggleChangePlan.bind(this);
+    this.updateRecurring = this.updateRecurring.bind(this);
   }
 
   getPaymentMethod() {
@@ -23,9 +24,13 @@ export default class extends React.Component {
     this.setState({ showChangePlan: !this.state.showChangePlan, });
   }
 
+  updateRecurring(recurring) {
+    this.props.updateSubscription({ recurring, }, _.get(this.props.subscriptionStatus, 'id'));
+  }
+
   changePlan() {
     if (this.state.showChangePlan) {
-      return <ChangePlan subscriptionId={_.get(this.props.subscriptionStatus, 'id')} recurring={_.get(this.props.subscriptionStatus, 'recurring')} updateSubscription={this.props.updateSubscription} />;
+      return <ChangePlan updateRecurring={this.updateRecurring} />;
     }
   }
 

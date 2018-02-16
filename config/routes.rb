@@ -41,7 +41,6 @@ EmpiricalGrammar::Application.routes.draw do
   resources :subscriptions do
     member do
       get :purchaser_name
-      put :update_recurring
     end
   end
   resources :assessments

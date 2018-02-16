@@ -111,11 +111,9 @@ export default class extends React.Component {
   }
 
   updateSubscription(params, subscriptionId) {
-    const that = this;
-    debugger;
     request.put({
       url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
-      json: Object.assign({ authenticity_token: getAuthToken(), }, params),
+      json: { subscription: params, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       console.log(body);
     });
