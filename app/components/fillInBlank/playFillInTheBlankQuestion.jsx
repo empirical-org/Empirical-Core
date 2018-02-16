@@ -303,6 +303,7 @@ export class PlayFillInTheBlankQuestion extends Component {
     } else {
       fullPageInstructions = { display: 'block' }
     }
+    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button> : <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>; 
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -320,7 +321,7 @@ export class PlayFillInTheBlankQuestion extends Component {
           {this.renderMedia()}
         </div>
         <div className="question-button-group button-group">
-          <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>
+          {button}
         </div>
       </div>
     );
