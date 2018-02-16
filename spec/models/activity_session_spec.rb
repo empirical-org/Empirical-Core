@@ -50,7 +50,7 @@ describe ActivitySession, type: :model, redis: :true do
     context 'classroom_id' do
       let(:classroom) { create(:classroom) }
       let(:activity1) { create(:classroom_activity, classroom: classroom) }
-      
+
       it 'should return the given query with the given classroom_id' do
         expect(ActivitySession.with_filters(ClassroomActivity, {classroom_id: classroom.id}))
       end
@@ -59,7 +59,7 @@ describe ActivitySession, type: :model, redis: :true do
     context 'student_id' do
       let(:student) { create(:student) }
       let(:activity1) { create(:classroom_activity, student: student) }
-      
+
       it 'should return the given query with the given student_id' do
         expect(ActivitySession.with_filters(ClassroomActivity, {student_id: student.id}))
       end
@@ -68,7 +68,7 @@ describe ActivitySession, type: :model, redis: :true do
     context 'unit_id' do
       let(:unit) { create(:unit) }
       let(:activity1) { create(:classroom_activity, unit: unit) }
-      
+
       it 'should return the given query with the given classroom_id' do
         expect(ActivitySession.with_filters(ClassroomActivity, {unit_id: unit.id}))
       end
@@ -77,7 +77,7 @@ describe ActivitySession, type: :model, redis: :true do
     context 'section_id' do
       let(:section) { create(:section) }
       let(:activity1) { create(:classroom_activity, section: section) }
-      
+
       it 'should return the given query with the given section_id' do
         expect(ActivitySession.with_filters(ClassroomActivity, {section_id: section.id}))
       end
@@ -86,7 +86,7 @@ describe ActivitySession, type: :model, redis: :true do
     context 'topic_id' do
       let(:topic) { create(:topic) }
       let(:activity1) { create(:classroom_activity, topic: topic) }
-      
+
       it 'should return the given query with the given topic_id' do
         expect(ActivitySession.with_filters(ClassroomActivity, {topic_id: topic.id}))
       end
@@ -99,7 +99,7 @@ describe ActivitySession, type: :model, redis: :true do
     end
   end
 
-  let(:activity_session) {build(:activity_session, completed_at: 5.minutes.ago)}
+  let(:activity_session) { build(:activity_session, completed_at: 5.minutes.ago) }
 
   describe "#activity" do
 
@@ -224,7 +224,7 @@ describe ActivitySession, type: :model, redis: :true do
   describe '#display_due_date_or_completed_at_date' do
     context 'when completed at present' do
       let(:activity_session) { create(:activity_session, completed_at: Date.today) }
-      
+
       it 'should return the formatted completed at date' do
         expect(activity_session.display_due_date_or_completed_at_date).to eq(Date.today.strftime('%A, %B %d, %Y'))
       end
@@ -244,7 +244,7 @@ describe ActivitySession, type: :model, redis: :true do
       context 'when due date is not present' do
         let(:classroom_activity) { create(:classroom_activity, due_date: nil) }
         let(:activity_session) { create(:activity_session, classroom_activity: classroom_activity) }
-      
+
         it 'should return empty string' do
           activity_session.completed_at = nil
           expect(activity_session.display_due_date_or_completed_at_date).to eq("")
@@ -310,7 +310,7 @@ describe ActivitySession, type: :model, redis: :true do
 
   describe '#percentage_as_decimal' do
     let(:activity_session) { create(:activity_session, percentage: 0.4) }
-    
+
     it 'should return the percentage in decimal form' do
       expect(activity_session.percentage_as_decimal).to eq(activity_session.percentage.round(2))
     end
@@ -318,25 +318,24 @@ describe ActivitySession, type: :model, redis: :true do
 
   describe '#percentage_as_percent' do
     context 'when percentage is nil' do
-      let(:activity_session) { create(:activity_session, percentage: nil) }
+    let(:activity_session) { create(:activity_session, percentage: nil) }
 
-      it 'should return no percentage' do
-        expect(activity_session.percentage_as_percent).to eq("no percentage")
-      end
-    end
-
-    context 'when percentage is present' do
-      let(:activity_session) { create(:activity_session, percentage: 0.4) }
-
-      it 'should return the formatted percentage' do
-        expect(activity_session.percentage_as_percent).to eq("40%")
-      end
+    it 'should return no percentage' do
+      expect(activity_session.percentage_as_percent).to eq("no percentage")
     end
   end
 
+  context 'when percentage is present' do
+    let(:activity_session) { create(:activity_session, percentage: 0.4) }
+
+    it 'should return the formatted percentage' do
+      expect(activity_session.percentage_as_percent).to eq("40%")
+    end
+  end
+end
+
   describe 'score' do
     let(:activity_session) { create(:activity_session, percentage: 0.4) }
-    
 
     it 'should return the percentage' do
       expect(activity_session.score).to eq((activity_session.percentage*100).round)
@@ -351,13 +350,13 @@ describe ActivitySession, type: :model, redis: :true do
         activity_session.start
         expect(activity_session.started_at).to eq(nil)
         expect(activity_session.state).to eq("started")
-      end 
+      end
     end
 
     context 'when state is unstarted' do
       let(:time) { Time.new("100") }
       let(:activity_session) { create(:activity_session, state: "unstarted") }
-      
+
       before do
         allow(Time).to receive(:current).and_return(time)
       end
@@ -370,9 +369,9 @@ describe ActivitySession, type: :model, redis: :true do
     end
   end
 
-  context '#parse_for_results' do
+  describe '#parse_for_results' do
     let(:activity_session) { create(:activity_session) }
-    
+
     it 'should call all_concept_stats' do
       expect(activity_session).to receive(:all_concept_stats).with(activity_session)
       activity_session.parse_for_results
