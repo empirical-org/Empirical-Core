@@ -19,24 +19,21 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    if (['Teacher Trial', 'Teacher Sponsored Free', 'Teacher Sponsored Free'].include? params[:account_type]) && current_user.eligible_for_trial?
+    if (['Teacher Trial', 'Teacher Sponsored Free', 'Teacher Sponsored Free'].include? subscription_params[:account_type]) && current_user.eligible_for_trial?
       params[:expiration] = Date.today + 30
-      PremiumAnalyticsWorker.perform_async(current_user.id, params[:account_type])
+      PremiumAnalyticsWorker.perform_async(current_user.id, subscription_params[:account_type])
     end
     attributes = subscription_params
     attributes.delete(:authenticity_token)
-    @subscription = Subscription.create_with_user_join(attributes[:contact_user_id], attributes)
+    @subscription = Subscription.create_with_user_join(subscription_params[:contact_user_id], attributes)
     render json: @subscription
   end
 
   def update
-    @subscription = Subscription.find(params[:id])
-    # attributes = params
-    # attributes.delete(:authenticity_token)
-    # attributes.delete(:subscription)
-    # attributes.delete(:action)
-    # attributes.delete(:controller)
-    @subscription.update_attributes params[:subscription]
+    set_subscription
+    @subscription.update!(subscription_params)
+    # @subscription = Subscription.find(params[:id])
+    # @subscription.update_attributes
     render json: @subscription
   end
 
@@ -93,8 +90,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.require(:account_type)
-    params.permit(:id, :contact_user_id, :expiration,  :account_limit, :authenticity_token, :recurring)
+    params.require(:subscription).permit( :id, :contact_user_id, :expiration,  :account_limit, :authenticity_token, :recurring)
   end
 
 

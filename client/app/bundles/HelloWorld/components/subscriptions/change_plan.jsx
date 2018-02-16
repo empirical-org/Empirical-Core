@@ -1,4 +1,5 @@
 import React from 'react';
+import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
 import Modal from 'react-bootstrap/lib/Modal';
 import request from 'request';
 import moment from 'moment';
@@ -9,15 +10,24 @@ import LoadingIndicator from '../shared/loading_indicator.jsx';
 export default class extends React.Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(val) {
+    this.props.updateRecurring(val);
   }
 
   render() {
-    const style = { height: '50px', width: '50px', };
     return (
-      <div className="radio-buttons">
-        here i am
-        <button onClick={this.props.updateSubscription} />
-        <div className="outer-circle" style={style}><div className="inner-circle" /></div>
+      <div className="change-plan">
+        <RadioGroup onChange={this.handleChange} vertical className="radio-group">
+          <ReversedRadioButton padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} iconSize={20} value={Boolean(true)}>
+            Teacher Premium - $80 Annaul Subscription
+          </ReversedRadioButton>
+          <ReversedRadioButton padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} iconSize={20} value={Boolean(false)}>
+            Quill Basic - Free
+          </ReversedRadioButton>
+        </RadioGroup>
       </div>
     );
   }
