@@ -396,6 +396,7 @@ export function setEditionId(classroom_activity_id: string, editionId: string|nu
   const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
   if (editionId) {
     editionRef.set(editionId)
+    setTeacherModel(classroom_activity_id, editionId)
   } else {
     editionRef.remove()
   }
@@ -403,6 +404,8 @@ export function setEditionId(classroom_activity_id: string, editionId: string|nu
     callback()
   }
 }
+
+export function
 
 export function updateNoStudentError(student: string | null) {
   return function (dispatch) {
