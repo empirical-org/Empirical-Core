@@ -4,25 +4,6 @@ import pluralize from 'pluralize';
 
 export default class extends React.Component {
 
-  availableCredits() {
-    let button;
-    if (this.props.availableCredits > 0) {
-      button = <button onClick={this.props.redeemPremiumCredits} className="q-button cta-button bg-orange has-credit">Redeem Premium Credits</button>;
-    } else {
-      button = <a href="/" className="q-button button cta-button bg-orange">Earn Premium Credits</a>;
-    }
-    const monthsOfCredit = Math.round((this.props.availableCredits / 30.42) * 10) / 10;
-    const whiteIfNoCredit = monthsOfCredit === 0 ? 'no-credits' : null;
-    return (
-      <div className={`${whiteIfNoCredit} available-credit flex-row vertically-centered space-between`}>
-        <div className="credit-quantity">
-          You have <span>{`${monthsOfCredit} ${pluralize('month', monthsOfCredit)} `}</span> of Teacher Premium Credit available.
-        </div>
-        {button}
-      </div>
-    );
-  }
-
   premiumCreditsTable() {
     const creditRows = this.props.premiumCredits.map((credit) => {
       // if it is less than one week, we round up to 1
@@ -52,17 +33,13 @@ export default class extends React.Component {
   }
 
   render() {
-    if (!this.props.premiumCredits || this.props.premiumCredits < 1) {
-      return this.availableCredits();
-    }
     const monthsOfCredit = Math.round(((this.props.earnedCredits / 30.42) * 10) / 10);
     return (
       <section>
         <div className="flex-row space-between">
-          <h2>Quill Teacher Premium Credits</h2>
+          <h2>Earned Premium Credits History</h2>
           <a className="green-link" href="">How to earn more Premium credit</a>
         </div>
-        {this.availableCredits()}
         {this.premiumCreditsTable()}
         <span className="total-premium-credits"><span className="total-header">Total Premium Credits Earned:</span> {`${monthsOfCredit} ${pluralize('month', monthsOfCredit)}`}</span>
       </section>
