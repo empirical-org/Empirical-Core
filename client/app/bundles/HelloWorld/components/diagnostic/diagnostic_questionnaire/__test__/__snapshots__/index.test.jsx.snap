@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Index /> should render the childeren 1`] = `
+<div>
+  Some Text
+</div>
+`;
