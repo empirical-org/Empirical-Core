@@ -400,3 +400,25 @@ a.all-blog-posts-back-button {
     }
   }
 }
+
+.article-cta-primary, .article-cta-secondary {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 16px;
+  padding: 6px 12px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.article-cta-primary, .article-cta-primary:hover {
+  background: $quillgreen;
+  color: #fff;
+  font-weight: 600;
+}
+
+.article-cta-secondary, .article-cta-secondary:hover {
+  background: #eee;
+  color: #777;
+}
