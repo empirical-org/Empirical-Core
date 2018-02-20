@@ -105,7 +105,7 @@ class TeacherFixController < ApplicationController
     if account1 && account2
       if account1.role === 'teacher' && account2.role === 'teacher'
         Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
-        Classroom.unscoped.where(teacher_id: account1.id).update_all(teacher_id: account2.id)
+        ClassroomsTeacher.where(user_id: account1.id).update_all(user_id: account2.id)
         account1.delete_dashboard_caches
         account2.delete_dashboard_caches
         render json: {}, status: 200
