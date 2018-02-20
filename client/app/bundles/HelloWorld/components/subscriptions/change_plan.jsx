@@ -1,11 +1,5 @@
 import React from 'react';
-import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
-import Modal from 'react-bootstrap/lib/Modal';
-import request from 'request';
-import moment from 'moment';
-import UpdateStripeCard from '../modules/stripe/update_card.js';
-import getAuthToken from '../modules/get_auth_token';
-import LoadingIndicator from '../shared/loading_indicator.jsx';
+import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
 
 export default class extends React.Component {
   constructor(props) {
