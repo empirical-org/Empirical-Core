@@ -1,9 +1,10 @@
 declare function require(name:string);
 import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
-import request from 'request'
+import * as request from 'request'
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const classroomLessonsRef = rootRef.child('classroom_lessons');
+const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 const reviewsRef = rootRef.child('reviews')
 import {
   ClassroomLessonSessions,
@@ -395,6 +396,11 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
 export function setEditionId(classroom_activity_id: string, editionId: string|null, callback?: Function): void {
   const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
   if (editionId) {
+    editionRef.once('value', (snapshot) => {
+      if (snapshot.val() !== editionId) {
+        setTeacherModels(classroom_activity_id, editionId)
+      }
+    })
     editionRef.set(editionId)
   } else {
     editionRef.remove()
@@ -402,6 +408,28 @@ export function setEditionId(classroom_activity_id: string, editionId: string|nu
   if (callback) {
     callback()
   }
+}
+
+export function setTeacherModels(classroom_activity_id: string, editionId: string) {
+  const editionQuestionsArrayRef = editionQuestionsRef.child(`${editionId}/questions`)
+  const sessionPromptsRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts`)
+  const sessionModelsRef = classroomSessionsRef.child(`${classroom_activity_id}/models`)
+  editionQuestionsArrayRef.once('value', (questionsSnap) => {
+    sessionPromptsRef.once('value', (promptsSnap) => {
+      const questions = questionsSnap.val()
+      const prompts = promptsSnap.val()
+      if (questions && prompts) {
+        Object.keys(prompts).forEach(key => {
+          if (questions[key] && questions[key].data && questions[key].data.play && questions[key].data.play.prompt) {
+            if (prompts[key] !== questions[key].data.play.prompt) {
+              sessionPromptsRef.child(key).set(questions[key].data.play.prompt)
+              sessionModelsRef.child(key).remove()
+            }
+          }
+        })
+      }
+    })
+  })
 }
 
 export function updateNoStudentError(student: string | null) {
