@@ -69,4 +69,40 @@ module TeacherFixes
     SchoolsUsers.where(school_id: from_school_id).update_all(school_id: to_school_id)
   end
 
+  def self.merge_two_classrooms(class_id_1, class_id_2)
+    move_students_from_one_class_to_another(class_id_1, class_id_2)
+
+    move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
+
+    ClassroomsTeacher.where(classroom_id: class_id_1).update_all(classroom_id: class_id_2)
+
+    Classroom.find(class_id_1).update(visible: false)
+  end
+
+  def move_students_from_one_class_to_another(class_id_1, class_id_2)
+    StudentsClassrooms.where(classroom_id: class_id_1).each do |sc|
+      if StudentsClassrooms.find_by(classroom_id: class_id_2, student_id: sc.student_id)
+        sc.update(visible: false)
+      else
+        sc.update(classroom_id: class_id_2)
+      end
+    end
+  end
+
+  def move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
+    ClassroomActivity.where(classroom_id: class_id_1).each do |ca|
+      extant_ca = ClassroomActivity.find_by(classroom_id: class_id_2, activity_id: ca.activity_id, unit_id: ca.unit_id)
+      if extant_ca
+        ca.activity_sessions.update_all(classroom_activity_id: extant_ca.id)
+        extant_ca.update(assigned_student_ids: ca.assigned_student_ids.concat(extant_ca.assigned_student_ids).uniq)
+        extant_ca.assigned_student_ids.each do |student_id|
+          hide_extra_activity_sessions(extant_ca.id, student_id)
+        end
+        ca.update(visible: false)
+      else
+        ca.update(classroom_id: class_id_2)
+      end
+    end
+  end
+
 end

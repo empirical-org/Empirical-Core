@@ -95,4 +95,31 @@ describe TeacherFixes do
     end
   end
 
+  describe '#merge_two_classrooms' do
+
+    it 'should move students to new classroom' do
+      all_students = (classroom.students + classroom2.students).uniq
+      TeacherFixes::merge_two_classrooms(classroom.id, classroom2.id)
+      expect(classroom2.reload.students.length).to eq(all_students.length)
+    end
+
+    it 'should move classroom activities to new classroom' do
+      all_classroom_activities = classroom.classroom_activities + classroom2.classroom_activities
+      TeacherFixes::merge_two_classrooms(classroom.id, classroom2.id)
+      expect(classroom2.reload.classroom_activities.length).to be(all_classroom_activities.length)
+    end
+
+    it 'should move teachers to new classroom' do
+      all_teachers = (classroom.teachers + classroom2.teachers).uniq
+      TeacherFixes::merge_two_classrooms(classroom.id, classroom2.id)
+      expect(classroom2.reload.teachers.length).to be(all_teachers.length)
+    end
+
+    it 'should archive the old classroom' do
+      TeacherFixes::merge_two_classrooms(classroom.id, classroom2.id)
+      expect(classroom.reload.visible).to be(false)
+    end
+
+  end
+
 end
