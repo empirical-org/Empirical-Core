@@ -15,6 +15,10 @@ export default React.createClass({
   },
 
   render() {
+    if (!this.props.subscription) {
+      // this will never show with no subscription, but is on the page (with display none)
+      return <span />;
+    }
     const content = this.getModalContent();
     return (
       <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="premium-confirmation" restoreFocus>

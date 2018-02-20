@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import _ from 'lodash';
 import UpdateStripeCard from '../modules/stripe/update_card.js';
 import getAuthToken from '../modules/get_auth_token';
 import LoadingIndicator from '../shared/loading_indicator.jsx';
@@ -17,6 +18,9 @@ export default class extends React.Component {
   }
 
   getPaymentMethod() {
+    if (!this.props.lastFour) {
+      return 'No Payment Method On File';
+    }
     return `Credit Card Ending In ${this.props.lastFour}`;
   }
 
@@ -39,13 +43,14 @@ export default class extends React.Component {
 
   content() {
     const currSub = this.props.subscriptionStatus;
-    const metaRowClassName = 'flex-row space-between';
+    const metaRowClassName = 'sub-meta-info';
     const buttonRowClassName = 'sub-button-row';
     if (currSub) {
       return ({ metaRows: (
         <div className={metaRowClassName}>
           <div>
             <div>
+              <h3>CURRENT SUBSCRIPTION</h3>
               <span className="title">Plan</span>
               <span>{currSub.account_type}</span>
             </div>
@@ -83,20 +88,28 @@ export default class extends React.Component {
     // set a more basic state if we don't have the info
     return ({ metaRows: (
       <div className={metaRowClassName}>
-        <div>
-          <span className="title">Quill Basic Subscription</span>
-          <span>{currSub.account_type}</span>
+        <div className="meta-section">
+          <h3>CURRENT SUBSCRIPTION</h3>
+          <span className="title">Plan</span>
+          <span>Quill Basic Subscription</span>
         </div>
-        <div>
-          <span className="title">Payment Method</span>
-          <span>Free</span>
+        <div className="meta-section">
+          <h3>PAYMENT METHOD ON FILE</h3>
+          <span>{this.getPaymentMethod()}</span>
+        </div>
+        <div className="meta-section">
+          <h3>NEXT SUBSCRIPTION</h3>
+          <span className="title">
+            Next Plan
+          </span>
+          <span>N/A <a href="/premum" className="green-link">Change Plan</a></span>
         </div>
       </div>
       ),
       cta: (
         <div className={buttonRowClassName}>
-          <a href="/" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
-          <a href="/" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>;
+          <a href="/" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>
+          <a href="/" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>
         </div>
       ), });
   }

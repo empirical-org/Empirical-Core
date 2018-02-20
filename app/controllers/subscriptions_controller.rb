@@ -72,8 +72,8 @@ class SubscriptionsController < ApplicationController
       @subscription_status = current_user.last_expired_subscription
       expired = true
     end
-    contact_user = @subscription_status.contact_user
-    if contact_user || @subscription_status.contact_email
+    contact_user = @subscription_status&.contact_user
+    if contact_user || @subscription_status&.contact_email
       # we want to allow the viewer to email the contact user for school premium
       # if the contact user is in our db, then we retrieve their emaile
       # otherwise we fall back on the hardcoded contact email which was input by the sales team
