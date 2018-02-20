@@ -17,11 +17,13 @@ export default class extends React.Component {
     const p = this.props.postToEdit
     // set state to empty values or those of the postToEdit
     this.state = {
+      id: p ? p.id : null,
       title: p ? p.title : '',
       subtitle: p ? p.subtitle : '',
       body: p ? p.body : '',
       author_id: p ? p.author_id : 11 /* Quill Staff */,
       topic: p ? p.topic : 'Webinars',
+      draft: p ? p.draft : true,
       preview_card_content: p ? p.preview_card_content : null,
       custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
       preview_card_type: this.props.action === 'new' ? 'Blog Post' : 'Custom HTML',
@@ -40,6 +42,7 @@ export default class extends React.Component {
     this.handleSubtitleChange = this.handleSubtitleChange.bind(this)
     this.handleBodyChange = this.handleBodyChange.bind(this)
     this.handleSubmitClick = this.handleSubmitClick.bind(this)
+    this.handleUnpublishClick = this.handleUnpublishClick.bind(this)
     this.handleTopicChange = this.handleTopicChange.bind(this)
     this.handleAuthorChange = this.handleAuthorChange.bind(this)
     this.handleCustomPreviewChange = this.handleCustomPreviewChange.bind(this)
@@ -134,9 +137,22 @@ export default class extends React.Component {
     })
   }
 
+  handleUnpublishClick(e) {
+    e.preventDefault();
+    if(window.prompt('To unpublish this post, please type UNPUBLISH.') === 'UNPUBLISH') {
+      window.location = `${process.env.DEFAULT_URL}/cms/blog_posts/${this.state.id}/unpublish`;
+    }
+  }
+
   renderSaveDraftButton() {
     if(this.props.action === 'new') {
       return <input type="submit" value="Save Draft" onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} />
+    }
+  }
+
+  renderUnpublishButton() {
+    if(this.props.action === 'edit' && !this.state.draft) {
+      return <input type="submit" value="Unpublish" onClick={(e) => { this.handleUnpublishClick(e) }} style={{background: 'white', color: '#00c2a2'}} />
     }
   }
 
@@ -360,6 +376,7 @@ export default class extends React.Component {
 
         <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
         {this.renderSaveDraftButton()}
+        {this.renderUnpublishButton()}
       </form>
     )
   }
