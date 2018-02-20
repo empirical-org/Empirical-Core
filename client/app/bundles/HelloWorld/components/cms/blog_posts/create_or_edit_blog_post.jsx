@@ -62,15 +62,36 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePreviewCardBasedOnType()
+    this.updatePreviewCardBasedOnType();
+    if(this.props.action === 'new') {
+      this.setState({ previewCardHasAlreadyBeenManuallyEdited: false });
+    }
   }
 
   handleTitleChange(e) {
-    this.setState({title: e.target.value})
+    const targetValue = e.target.value;
+    let state = {title: targetValue};
+    if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+      state['blogPostPreviewTitle'] = targetValue;
+    }
+    this.setState(state, () => {
+      if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+        this.updatePreviewCardFromBlogPostPreview();
+      }
+    });
   }
 
   handleSubtitleChange(e) {
-    this.setState({subtitle: e.target.value})
+    const targetValue = e.target.value;
+    let state = {subtitle: targetValue};
+    if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+      state['blogPostPreviewDescription'] = targetValue;
+    }
+    this.setState(state, () => {
+      if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+        this.updatePreviewCardFromBlogPostPreview();
+      }
+    });
   }
 
   handleBodyChange(e) {
@@ -92,7 +113,8 @@ export default class extends React.Component {
   handleCustomPreviewChange(e) {
     this.setState({
       preview_card_content: e.target.value,
-      custom_preview_card_content: e.target.value
+      custom_preview_card_content: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
     })
     const container = document.getElementById('preview-markdown-content');
     container.rows = 4;
@@ -196,19 +218,22 @@ export default class extends React.Component {
 
   handleBlogPostPreviewImageChange(e) {
     this.setState({
-      blogPostPreviewImage: e.target.value
+      blogPostPreviewImage: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
   handleBlogPostPreviewTitleChange(e) {
     this.setState({
-      blogPostPreviewTitle: e.target.value
+      blogPostPreviewTitle: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
   handleBlogPostPreviewDescriptionChange(e) {
     this.setState({
-      blogPostPreviewDescription: e.target.value
+      blogPostPreviewDescription: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
@@ -252,7 +277,7 @@ export default class extends React.Component {
        <p>${this.state.tweetText}</p>
        <p class='author'>@${this.state.tweetAuthor}</p>
     </div>`;
-    this.setState({ preview_card_content: previewCardContent })
+    this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
 
   updatePreviewCardVideoContent() {
@@ -265,7 +290,7 @@ export default class extends React.Component {
        <p>${this.state.videoDescription}</p>
        <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
     </div>`;
-    this.setState({ preview_card_content: previewCardContent })
+    this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
 
   renderPreviewCardContentFields() {
