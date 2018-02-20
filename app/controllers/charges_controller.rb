@@ -49,6 +49,7 @@ class ChargesController < ApplicationController
     attributes[:contact_user_id] = current_user.id
     attributes[:payment_method] = 'Credit Card'
     attributes[:payment_amount] = @charge.amount
+    attributes[:recurring] = true
     current_user.update(stripe_customer_id: @charge.customer)
     if @charge.amount == 45000
       attributes[:account_type] = "School Paid"

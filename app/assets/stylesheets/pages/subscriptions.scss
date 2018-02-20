@@ -43,6 +43,13 @@
     border: 1px solid white;
   }
 
+  .next-plan-alert {
+    height: 50px;
+	  background-color: #fcf1e1;
+	  border: solid 1px rgba(245, 186, 91, 0.41);
+
+  }
+
 
   .subscription-status {
     background-color: #fff;
@@ -119,6 +126,8 @@
     border-bottom: none;
   }
 
+
+
   .current-subscription-information-and-cta {
     border: 1px solid #fff;
     .current-subscription-information {
@@ -128,7 +137,10 @@
       background-color: white;
       .meta-section {
         border-bottom: 1px solid #d8d8d8;
-        padding: 25px 0px;
+        padding: 25px 0px 0px 0px;
+        &.payment {
+          padding-bottom: 20px;
+        }
         .green-link {
           font-size: 14px;
           padding-left: 10px;
@@ -146,6 +158,7 @@
         display: inline-block;
         margin-right: 20px;
         width: 124px;
+        margin-bottom: 20px;
         font-size: 16px;
         font-weight: 600;
         color: #666;
