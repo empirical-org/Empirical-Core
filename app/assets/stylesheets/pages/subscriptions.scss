@@ -51,8 +51,7 @@
     padding-bottom: 0px;
     img {
       height: 26px;
-    padding-left: 10px;
-
+      padding-left: 15px;
     }
 
     .box {
@@ -66,9 +65,17 @@
       font-size: 16px;
     }
 
+    .q-button {
+      font-size: 14px;
+    	height: 36px;
+      margin-top: none;
+      margin-right: 30px;
+    }
+
     h2 {
       align-self: center;
       margin-bottom: 0;
+      margin-right: 30px;
     }
 
     .expiration-date {
@@ -88,7 +95,7 @@
 
   .subscription-history {
     min-height: 174px;
-
+    padding-bottom: 53px;
     .empty-state {
       border: solid 1px #e9e9e9;
       font-size: 14px;
@@ -119,11 +126,25 @@
       color: #3b3b3b;
       padding: 20px 30px;
       background-color: white;
+      .meta-section {
+        border-bottom: 1px solid #d8d8d8;
+        padding: 25px 0px;
+        .green-link {
+          font-size: 14px;
+          padding-left: 10px;
+        }
+      }
+      h3 {
+        font-size: 14px;
+        color: #c0c0c0;
+        margin-bottom: 25px;
+        font-weight: 700;
+      }
+
 
       .title {
         display: inline-block;
         margin-right: 20px;
-        margin-bottom: 20px;
         width: 124px;
         font-size: 16px;
         font-weight: 600;
