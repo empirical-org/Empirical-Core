@@ -68,7 +68,7 @@ describe ClassroomActivity, type: :model, redis: :true do
       let(:follow_up_activity) { create(:activity) }
       let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
       let(:classroom_activity) { build(:classroom_activity, activity: activity, classroom: classroom) }
-    
+
       it 'should create the classroom activity' do
         created_activity = classroom_activity.assign_follow_up_lesson
         expect(created_activity.classroom_id).to eq(classroom_activity.classroom_id)
@@ -103,7 +103,7 @@ describe ClassroomActivity, type: :model, redis: :true do
     let!(:activity_session) { create(:activity_session) }
     let!(:activity_session1) { create(:activity_session) }
     let(:classroom_activity) { create(:classroom_activity) }
-    
+
     before do
       classroom_activity.activity_sessions << activity_session
       classroom_activity.activity_sessions << activity_session1
@@ -131,7 +131,7 @@ describe ClassroomActivity, type: :model, redis: :true do
       activity_session.concept_results << concept_result
       classroom_activity.activity_sessions << activity_session
     end
-  
+
     it 'should return the correct meta data from the concept results' do
       expect(classroom_activity.activity_session_metadata).to include(concept_result.metadata)
     end
@@ -143,7 +143,7 @@ describe ClassroomActivity, type: :model, redis: :true do
 
       it 'should return the formatted due date' do
         classroom_activity.due_date = Date.today + 10.days
-        expect(classroom_activity.formatted_due_date).to eq(classroom_activity.due_date.strftime("%-m-%e-%Y"))
+        expect(classroom_activity.formatted_due_date).to eq(classroom_activity.due_date.strftime("%-m-%-e-%Y"))
       end
     end
 
@@ -165,7 +165,7 @@ describe ClassroomActivity, type: :model, redis: :true do
       before do
         classroom_activity.activity_sessions << activity_session
       end
-    
+
       it 'should return true' do
         expect(classroom_activity.has_a_started_session?).to eq true
       end
@@ -192,7 +192,7 @@ describe ClassroomActivity, type: :model, redis: :true do
 
     it 'should create a new activity session' do
       expect{ ClassroomActivity.create_session(activity, {user: user}) }.to change(ActivitySession, :count).by(1)
-    end 
+    end
   end
 
   describe '#mark_all_activity_sessions_complete' do
