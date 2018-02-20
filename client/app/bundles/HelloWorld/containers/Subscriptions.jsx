@@ -38,10 +38,6 @@ export default class extends React.Component {
     this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
   }
 
-  componentDidMount() {
-    this.setstate({ purchaserNameOrEmail: this.purchaserNameOrEmail(), });
-  }
-
   updateSubscriptionStatus(subscription) {
     this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
   }
@@ -150,10 +146,18 @@ export default class extends React.Component {
   }
 
   render() {
+    const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;
     return (
       <div>
-        <SubscriptionStatus key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`} subscriptionStatus={this.state.subscriptionStatus} trialSubscriptionTypes={this.props.trialSubscriptionTypes} schoolSubscriptionTypes={this.props.schoolSubscriptionTypes} />
+        <SubscriptionStatus
+          key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`}
+          subscriptionStatus={this.state.subscriptionStatus}
+          trialSubscriptionTypes={this.props.trialSubscriptionTypes}
+          schoolSubscriptionTypes={this.props.schoolSubscriptionTypes}
+          showPaymentModal={this.showPaymentModal}
+        />
         <CurrentSubscription
+          showPaymentModal={this.showPaymentModal}
           purchaserNameOrEmail={this.state.purchaserNameOrEmail}
           subscriptionStatus={this.state.subscriptionStatus}
           lastFour={this.props.lastFour}
@@ -165,7 +169,7 @@ export default class extends React.Component {
           premiumCredits={this.props.premiumCredits}
           currentUserIsPurchaser={this.currentUserIsPurchaser}
         />
-        <AvailableCredits availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
+        <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
         <PremiumCreditsTable
           earnedCredits={this.state.earnedCredits}
           premiumCredits={this.props.premiumCredits}
