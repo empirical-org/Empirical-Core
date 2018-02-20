@@ -5,11 +5,12 @@ import moment from 'moment';
 import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import PaymentModal from '../components/subscriptions/select_credit_card_modal';
+import AvailableCredits from '../components/subscriptions/available_credits';
 import CurrentSubscription from '../components/subscriptions/current_subscription';
 import SubscriptionHistory from '../components/subscriptions/subscription_history';
 import PremiumConfirmationModal from '../components/subscriptions/premium_confirmation_modal';
 import RefundPolicy from '../components/subscriptions/refund_policy';
-import PremiumCredits from '../components/subscriptions/premium_credits';
+import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
 import getAuthToken from '../components/modules/get_auth_token';
 
 export default class extends React.Component {
@@ -37,6 +38,10 @@ export default class extends React.Component {
     this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
   }
 
+  componentDidMount() {
+    this.setstate({ purchaserNameOrEmail: this.purchaserNameOrEmail(), });
+  }
+
   updateSubscriptionStatus(subscription) {
     this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
   }
@@ -61,10 +66,15 @@ export default class extends React.Component {
 
   purchaserNameOrEmail() {
     const sub = (this.state && this.state.subscriptionStatus) || this.props.subscriptionStatus;
-    if (!sub.contact_user_id) {
-      this.setState({ purchaserNameOrEmail: sub.user_email ? sub.user_email : 'Not Recorded', });
+    if (sub) {
+      if (!sub.contact_user_id) {
+        this.setState({ purchaserNameOrEmail: sub.user_email ? sub.user_email : 'Not Recorded', });
+      } else {
+        this.getPurchaserName();
+      }
+    } else {
+      this.setState({ purchaserNameOrEmail: 'N/A', });
     }
-    return this.getPurchaserName();
   }
 
   getPurchaserName() {
@@ -155,11 +165,10 @@ export default class extends React.Component {
           premiumCredits={this.props.premiumCredits}
           currentUserIsPurchaser={this.currentUserIsPurchaser}
         />
-        <PremiumCredits
+        <AvailableCredits availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
+        <PremiumCreditsTable
           earnedCredits={this.state.earnedCredits}
-          availableCredits={this.state.availableCredits}
           premiumCredits={this.props.premiumCredits}
-          redeemPremiumCredits={this.redeemPremiumCredits}
         />
         <RefundPolicy />
         <PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} hideModal={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />
