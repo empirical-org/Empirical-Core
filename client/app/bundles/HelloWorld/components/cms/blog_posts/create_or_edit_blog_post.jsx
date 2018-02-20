@@ -332,52 +332,55 @@ export default class extends React.Component {
 
   render() {
     return (
-      <form>
-        <label>Title:</label>
-        <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
+      <div>
+        <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fa fa-chevron-left'></i> All Blog Posts</a>
+        <form>
+          <label>Title:</label>
+          <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
 
-        <label>Subtitle:</label>
-        <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange} />
+          <label>Subtitle:</label>
+          <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange} />
 
-        <label>Body:</label>
-        <div id='markdown-shortcuts'>
-          <i onClick={() => this.insertMarkdown('# ')} className="fa fa-header" />
-          <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
-          <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
-          <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
-          <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
-          <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
-          <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
-          <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
-        </div>
-        <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
-        <a href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
-
-        <label>Body Preview:</label>
-        <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
-
-        <div className='flex-three-cols'>
-          <div>
-            <label>Author:</label>
-            <ItemDropdown items={this.props.authors} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id)} />
+          <label>Body:</label>
+          <div id='markdown-shortcuts'>
+            <i onClick={() => this.insertMarkdown('# ')} className="fa fa-header" />
+            <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
+            <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
+            <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
+            <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
+            <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
+            <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
+            <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
           </div>
-          <div>
-            <label>Topic:</label>
-            <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
+          <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
+          <a href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
+
+          <label>Body Preview:</label>
+          <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
+
+          <div className='flex-three-cols'>
+            <div>
+              <label>Author:</label>
+              <ItemDropdown items={this.props.authors} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id)} />
+            </div>
+            <div>
+              <label>Topic:</label>
+              <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
+            </div>
+            {this.renderPreviewCardTypeDropdown()}
           </div>
-          {this.renderPreviewCardTypeDropdown()}
-        </div>
 
-        <label>Preview Card Content:</label>
-        {this.renderPreviewCardContentFields()}
+          <label>Preview Card Content:</label>
+          {this.renderPreviewCardContentFields()}
 
-        <label>Card Preview:</label>
-        <PreviewCard content={this.state.preview_card_content} />
+          <label>Card Preview:</label>
+          <PreviewCard content={this.state.preview_card_content} />
 
-        <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
-        {this.renderSaveDraftButton()}
-        {this.renderUnpublishButton()}
-      </form>
+          <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
+          {this.renderSaveDraftButton()}
+          {this.renderUnpublishButton()}
+        </form>
+      </div>
     )
   }
 }
