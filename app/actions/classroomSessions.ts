@@ -396,8 +396,12 @@ export function setSlideStartTime(classroom_activity_id: string, question_id: st
 export function setEditionId(classroom_activity_id: string, editionId: string|null, callback?: Function): void {
   const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
   if (editionId) {
+    editionRef.once('value', (snapshot) => {
+      if (snapshot.val() !== editionId) {
+        setTeacherModels(classroom_activity_id, editionId)
+      }
+    })
     editionRef.set(editionId)
-    setTeacherModels(classroom_activity_id, editionId)
   } else {
     editionRef.remove()
   }
@@ -409,14 +413,20 @@ export function setEditionId(classroom_activity_id: string, editionId: string|nu
 export function setTeacherModels(classroom_activity_id: string, editionId: string) {
   const editionQuestionsArrayRef = editionQuestionsRef.child(`${editionId}/questions`)
   const sessionPromptsRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts`)
+  const sessionModelsRef = classroomSessionsRef.child(`${classroom_activity_id}/models`)
   editionQuestionsArrayRef.once('value', (questionsSnap) => {
     sessionPromptsRef.once('value', (promptsSnap) => {
       const questions = questionsSnap.val()
-      if (questions && promptsSnap.val()) {
-        const prompts = promptsSnap.val()
+      const prompts = promptsSnap.val()
+      if (questions && prompts) {
         Object.keys(prompts).forEach(key => {
           if (questions[key] && questions[key].data && questions[key].data.play && questions[key].data.play.prompt) {
-            sessionPromptsRef.child(key).set(questions[key].data.play.prompt)
+            console.log('session version', prompts[key])
+            console.log('edition version', questions[key].data.play.prompt)
+            if (prompts[key] !== questions[key].data.play.prompt) {
+              sessionPromptsRef.child(key).set(questions[key].data.play.prompt)
+              sessionModelsRef.child(key).remove()
+            }
           }
         })
       }
