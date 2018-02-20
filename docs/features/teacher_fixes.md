@@ -53,3 +53,7 @@ The new email field is optional, and can be left blank if the user does not wish
 This allows you to transfer all of the teachers in one school over to a second school.
 
 This is useful for when teachers signed in with Clever and caused a new school to be created that is a duplicate of a school we already have in the database.
+
+## [Merge Two Classrooms](https://www.quill.org/teacher_fix/merge_two_classrooms)
+
+This allows you to transfer all of the students and activities in one classroom to a second classroom.
