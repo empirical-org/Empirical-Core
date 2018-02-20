@@ -421,8 +421,6 @@ export function setTeacherModels(classroom_activity_id: string, editionId: strin
       if (questions && prompts) {
         Object.keys(prompts).forEach(key => {
           if (questions[key] && questions[key].data && questions[key].data.play && questions[key].data.play.prompt) {
-            console.log('session version', prompts[key])
-            console.log('edition version', questions[key].data.play.prompt)
             if (prompts[key] !== questions[key].data.play.prompt) {
               sessionPromptsRef.child(key).set(questions[key].data.play.prompt)
               sessionModelsRef.child(key).remove()
