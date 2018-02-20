@@ -450,7 +450,8 @@ CREATE TABLE blog_posts (
     draft boolean DEFAULT true,
     author_id integer,
     preview_card_content text NOT NULL,
-    slug character varying
+    slug character varying,
+    premium boolean DEFAULT false
 );
 
 
@@ -3921,4 +3922,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180206235328');
 INSERT INTO schema_migrations (version) VALUES ('20180207154242');
 
 INSERT INTO schema_migrations (version) VALUES ('20180207165525');
+
+INSERT INTO schema_migrations (version) VALUES ('20180220204422');
 

@@ -15,7 +15,6 @@ export default class extends React.Component {
 
 
   filterArticlesBy(filter) {
-    debugger;
     this.setState({ articleFilter: filter });
   }
 

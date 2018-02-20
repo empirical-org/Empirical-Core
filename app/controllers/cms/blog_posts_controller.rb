@@ -53,7 +53,8 @@ class Cms::BlogPostsController < ApplicationController
                     :topic,
                     :read_count,
                     :preview_card_content,
-                    :draft)
+                    :draft,
+                    :premium)
   end
 
   def set_blog_post

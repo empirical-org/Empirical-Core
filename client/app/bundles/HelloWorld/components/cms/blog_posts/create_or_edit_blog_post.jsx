@@ -35,7 +35,8 @@ export default class extends React.Component {
       tweetLink: 'https://twitter.com/EdSurge/status/956861254982873088',
       tweetImage: 'http://placehold.it/300x135/00998a/fff',
       tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
-      tweetAuthor: 'EdSurge'
+      tweetAuthor: 'EdSurge',
+      premium: p ? p.premium : false
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -59,6 +60,7 @@ export default class extends React.Component {
     this.updateTweetText = this.updateTweetText.bind(this)
     this.updateTweetAuthor = this.updateTweetAuthor.bind(this)
     this.updatePreviewCardTweetContent = this.updatePreviewCardTweetContent.bind(this)
+    this.handlePremiumChange = this.handlePremiumChange.bind(this)
   }
 
   componentDidMount() {
@@ -143,7 +145,8 @@ export default class extends React.Component {
           topic: this.state.topic,
           author_id: this.state.author_id,
           preview_card_content: this.state.preview_card_content,
-          draft: !shouldPublish
+          draft: !shouldPublish,
+          premium: this.state.premium
         },
         authenticity_token: ReactOnRails.authenticityToken()
       }
@@ -348,6 +351,10 @@ export default class extends React.Component {
     }
   }
 
+  handlePremiumChange() {
+    this.setState({premium: !this.state.premium});
+  }
+
   render() {
     return (
       <div>
@@ -393,6 +400,9 @@ export default class extends React.Component {
 
           <label>Card Preview:</label>
           <PreviewCard content={this.state.preview_card_content} />
+
+          <label>Premium:</label>
+          <input type='checkbox' value={this.state.premium} onClick={this.handlePremiumChange} />
 
           <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
           {this.renderSaveDraftButton()}
