@@ -11,8 +11,7 @@ describe User, type: :model do
   #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
 
   it { should have_many(:checkboxes) }
-  #invitations do not have foreign key user
-  #it { should have_many(:invitations) }
+  it { should have_many(:invitations).with_foreign_key('inviter_id') }
   it { should have_many(:objectives).through(:checkboxes) }
   it { should have_one(:schools_users) }
   it { should have_one(:school).through(:schools_users) }
@@ -37,7 +36,7 @@ describe User, type: :model do
   #it { should validate_uniqueness_of(:email).on(:create) }
   #it { should validate_presence_of(:username).on(:create) }
   #it { should validate_uniqueness_of(:username).on(:create) }
-  
+
   it { should validate_presence_of(:username).on(:create) }
   it { should validate_inclusion_of(:flag).in_array(%w{alpha beta production}) }
 
@@ -73,7 +72,7 @@ describe User, type: :model do
 
   describe '#admin?' do
     let!(:user) { create(:user) }
-    
+
     context 'when admin exists' do
       let!(:schools_admins) { create(:schools_admins, user: user) }
 
@@ -108,7 +107,7 @@ describe User, type: :model do
 
     context 'user.send_newsletter = true' do
       let(:teacher) { create(:user, send_newsletter: true) }
-      
+
       it 'returns true' do
         expect(teacher.newsletter?).to eq(true)
       end
@@ -285,7 +284,7 @@ describe User, type: :model do
   describe '#coteacher_invitations' do
     let(:user) { create(:user) }
     let(:invitation) { create(:invitation, archived: false, invitation_type: 'coteacher', invitee_email: user.email) }
-  
+
     it 'should return the invitation' do
       expect(user.coteacher_invitations).to include(invitation)
     end
@@ -948,4 +947,3 @@ describe User, type: :model do
     end
   end
 end
-
