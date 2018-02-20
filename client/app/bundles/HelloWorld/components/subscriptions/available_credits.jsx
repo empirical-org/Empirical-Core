@@ -4,10 +4,23 @@ import pluralize from 'pluralize';
 
 export default class extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.redeemIfNoCurrentSub = this.redeemIfNoCurrentSub.bind(this);
+  }
+
+  redeemIfNoCurrentSub() {
+    if (this.props.userHasValidSub) {
+      alert('You cannot redeem credits while you have a valid subscription. You must wait until your current subscription has expired to redeem them.');
+    } else {
+      this.props.redeemPremiumCredits;
+    }
+  }
+
   render() {
     let button;
     if (this.props.availableCredits > 0) {
-      button = <button onClick={this.props.redeemPremiumCredits} className="q-button cta-button bg-orange has-credit">Redeem Premium Credits</button>;
+      button = <button onClick={this.redeemIfNoCurrentSub} className="q-button cta-button bg-orange has-credit">Redeem Premium Credits</button>;
     } else {
       button = <a href="/" className="q-button button cta-button bg-orange">Earn Premium Credits</a>;
     }
