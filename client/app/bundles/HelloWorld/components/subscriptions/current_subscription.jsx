@@ -94,6 +94,19 @@ export default class extends React.Component {
           </span>
         </div>
       );
+    } else if (this.props.subscriptionStatus.expired) {
+      return (<div>
+        <button onClick={this.props.showPaymentModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>
+      </div>);
+    } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
+      // if (this.props.subscriptionStatus.recurring) {
+      return (<div>
+        {nextPlanTitle}
+        <span>Quill Basic - Free
+              <a href="/premium" className="green-link">Change Plan</a>
+        </span>
+      </div>);
+      // }
     } else if (this.props.subscriptionStatus.recurring) {
       nextPlan = 'Teacher Premium - $80 Annual Subscription';
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');

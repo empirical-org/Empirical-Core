@@ -77,8 +77,11 @@ class SubscriptionsController < ApplicationController
       # we want to allow the viewer to email the contact user for school premium
       # if the contact user is in our db, then we retrieve their emaile
       # otherwise we fall back on the hardcoded contact email which was input by the sales team
-      @subscription_status.attributes.merge({contact_name: contact_user.name, mail_to: contact_user.email || @subscription_status.email, expired: expired})
+      @subscription_status = @subscription_status.attributes.merge({expired: expired, contact_name: contact_user.name, mail_to: contact_user.email || @subscription_status.email})
+    else
+      @subscription_status = @subscription_status.attributes.merge({expired: expired})
     end
+
   end
 
   def last_four
