@@ -1,0 +1,27 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <a href="<%= new_cms_announcement_path %>" class="btn btn-green">Add New Announcement</a>
+    <table class='cms-results-table'>
+      <thead>
+        <tr>
+          <td>Start</td>
+          <td>End</td>
+          <td>Text</td>
+          <td>Link</td>
+          <td>Edit</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @announcements.each do |announcement| %>
+          <tr>
+            <td><%= announcement[:start].strftime('%b %-m at %-l:%M%P') if announcement[:start] %></td>
+            <td><%= announcement[:end].strftime('%b %-m at %-l:%M%P') if announcement[:end] %></td>
+            <td><%= announcement[:text] %></td>
+            <td><%= link_to announcement[:link], announcement[:link] %></td>
+            <td><%= link_to 'Edit', edit_cms_announcement_path(announcement.id) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </article>
+</div>
