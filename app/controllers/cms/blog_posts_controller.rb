@@ -1,6 +1,6 @@
 class Cms::BlogPostsController < ApplicationController
   before_filter :staff!
-  before_action :set_blog_post, only: [:update, :destroy, :edit, :show]
+  before_action :set_blog_post, only: [:update, :destroy, :edit, :show, :unpublish]
   before_action :authors, :topics, only: [:edit, :new]
 
   def index
@@ -28,6 +28,12 @@ class Cms::BlogPostsController < ApplicationController
 
   def destroy
     @blog_post.destroy
+    redirect_to cms_blog_posts_path
+  end
+
+  def unpublish
+    @blog_post.update(draft: true)
+    flash[:success] = 'Blog post successfully set to draft.'
     redirect_to cms_blog_posts_path
   end
 
