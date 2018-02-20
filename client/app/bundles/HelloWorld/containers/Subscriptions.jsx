@@ -90,7 +90,7 @@ export default class extends React.Component {
   }
 
   purchasePremiumButton() {
-    return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremiu} className="q-button button cta-button bg-orange text-white">Update Card</button>;
+    return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremium} className="q-button button cta-button bg-orange text-white">Update Card</button>;
   }
 
   currentSubscription(newSub) {
