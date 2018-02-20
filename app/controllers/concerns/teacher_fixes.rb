@@ -74,12 +74,12 @@ module TeacherFixes
 
     move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
 
-    ClassroomsTeacher.where(classroom_id: class_id_1).update_all(classroom_id: class_id_2)
+    assign_teachers_to_other_class(class_id_1, class_id_2)
 
     Classroom.find(class_id_1).update(visible: false)
   end
 
-  def move_students_from_one_class_to_another(class_id_1, class_id_2)
+  def self.move_students_from_one_class_to_another(class_id_1, class_id_2)
     StudentsClassrooms.where(classroom_id: class_id_1).each do |sc|
       if StudentsClassrooms.find_by(classroom_id: class_id_2, student_id: sc.student_id)
         sc.update(visible: false)
@@ -89,7 +89,7 @@ module TeacherFixes
     end
   end
 
-  def move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
+  def self.move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
     ClassroomActivity.where(classroom_id: class_id_1).each do |ca|
       extant_ca = ClassroomActivity.find_by(classroom_id: class_id_2, activity_id: ca.activity_id, unit_id: ca.unit_id)
       if extant_ca
@@ -101,6 +101,16 @@ module TeacherFixes
         ca.update(visible: false)
       else
         ca.update(classroom_id: class_id_2)
+      end
+    end
+  end
+
+  def self.assign_teachers_to_other_class(class_id_1, class_id_2)
+    ClassroomsTeacher.where(classroom_id: class_id_1).each do |ct|
+      if ClassroomsTeacher.where(user_id: ct.user_id, classroom_id: class_id_2)
+        ct.destroy
+      else
+        ct.update(classroom_id: class_id_2, role: 'coteacher')
       end
     end
   end

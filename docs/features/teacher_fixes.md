@@ -57,3 +57,5 @@ This is useful for when teachers signed in with Clever and caused a new school t
 ## [Merge Two Classrooms](https://www.quill.org/teacher_fix/merge_two_classrooms)
 
 This allows you to transfer all of the students and activities in one classroom to a second classroom.
+
+If a student has completed the same activity in different classrooms, the highest score will be saved.
