@@ -8,7 +8,7 @@ describe Author, type: :model, redis: :true do
 
   describe 'default avatar url' do
     it 'should have the correct default avatar url' do
-        expect(Author::DEFAULT_AVATAR_URL).to eq(DEFAULT_AVATAR_TEST_URL)
+      expect(Author::DEFAULT_AVATAR_URL).to eq(DEFAULT_AVATAR_TEST_URL)
     end
   end
 
@@ -17,12 +17,12 @@ describe Author, type: :model, redis: :true do
     let(:template) { create(:unit_template, author: author) }
 
     it 'should clear the unit templates' do
-        template.get_cached_serialized_unit_template
-        author.run_callbacks(:commit)
-        expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
-        expect($redis.get('production_unit_templates')).to eq nil
-        expect($redis.get('beta_unit_templates')).to eq nil
-        expect($redis.get('alpha_unit_templates')).to eq nil
+      template.get_cached_serialized_unit_template
+      author.run_callbacks(:commit)
+      expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
+      expect($redis.get('production_unit_templates')).to eq nil
+      expect($redis.get('beta_unit_templates')).to eq nil
+      expect($redis.get('alpha_unit_templates')).to eq nil
     end
   end
 

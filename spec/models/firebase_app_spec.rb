@@ -120,7 +120,7 @@ describe FirebaseApp, type: :model do
     end
 
     context 'when teacher user' do
-       let(:user) { create(:user, role: 'teacher') }
+      let(:user) { create(:user, role: 'teacher') }
 
       it 'should return the encoded payload with teacher claims' do
         connect_token = firebase_app.connect_token_for(user)
