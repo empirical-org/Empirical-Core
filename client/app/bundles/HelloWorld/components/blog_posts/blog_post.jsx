@@ -8,7 +8,7 @@ export default class BlogPost extends React.Component {
     super(props);
 
     this.state = {
-      backLink: this.props.blogPost.topic.toLowerCase().replace(/\s/g, '-')
+      backLink: this.props.blogPost.topic.toLowerCase().replace(/\s/g, '_')
     }
   }
 
