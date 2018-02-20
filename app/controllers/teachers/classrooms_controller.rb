@@ -35,7 +35,9 @@ class Teachers::ClassroomsController < ApplicationController
   def create
     @classroom = Classroom.create_with_join(classroom_params, current_user.id)
     if @classroom.valid?
-      render json: {classroom: @classroom, toInviteStudents: current_user.students.empty?}
+      # For onboarding purposes, we don't want to prompt a teacher to invite students before they've assigned any units.
+      should_redirect_to_invite_students = @classroom.students.empty? && current_user.units.any?
+      render json: {classroom: @classroom, toInviteStudents: should_redirect_to_invite_students}
     else
        render json: {errors: @classroom.errors.full_messages }, status: 422
     end
