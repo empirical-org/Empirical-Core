@@ -38,7 +38,7 @@ export default class extends React.Component {
       image = 'shared/basic_icon.png';
       return <span>{`You have a Quill ${subscriptionType} Subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
     } else if (this.props.subscriptionStatus.expired) {
-      return `Your ${subscriptionType} Premium subscription has expired`;
+      return <span><i className="fa fa-exclamation-triangle" />{`Your ${subscriptionType} Premium subscription has expired`}</span>;
     } else if (this.state.subscriptionType === 'Teacher') {
       image = 'shared/teacher_premium_icon.png';
       return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
@@ -58,12 +58,13 @@ export default class extends React.Component {
           );
       } else if (this.state.subscriptionType === 'School') {
         if (this.state.userIsContact) {
-          buttonOrDate = <button>Renew School Premium</button>;
+          buttonOrDate = <a href="/premium" className="q-button bg-orange text-white cta-button">Renew School Premium</a>;
         } else {
           buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
         }
       } else {
-        buttonOrDate = <button>Renew Premium</button>;
+        console.log(this.props);
+        buttonOrDate = <button onClick={this.props.showPaymentModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>;
       }
     } else {
       buttonOrDate = <a href="/premium" className="q-button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
