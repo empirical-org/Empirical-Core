@@ -18,6 +18,20 @@ export default class BlogPost extends React.Component {
     )
   }
 
+  renderBodyOrPaywall() {
+    if(this.props.displayPaywall) {
+      return (
+        <div id='quill-article-paywall'>
+          <h2>This article is only for Premium users.</h2>
+          <p>Quill Premium users have access to a slew of awesome features, including premium reports, priority support, and enhanced professional development opportunities.</p>
+          <a href='/premium'>Try Quill Premium <i className='fa fa-star'></i></a>
+        </div>
+      );
+    } else {
+      return <ReactMarkdown source={this.props.blogPost.body} />;
+    }
+  }
+
   render() {
     return (
       <div id='article-container'>
@@ -30,7 +44,7 @@ export default class BlogPost extends React.Component {
             <p className='date'>{moment(this.props.blogPost.updated_at).format('MMMM Do, YYYY')}</p>
           </header>
           <main>
-            <ReactMarkdown source={this.props.blogPost.body} />
+            {this.renderBodyOrPaywall()}
           </main>
           <footer>
             <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>

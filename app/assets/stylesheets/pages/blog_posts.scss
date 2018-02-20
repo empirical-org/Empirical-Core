@@ -362,3 +362,41 @@ a.all-blog-posts-back-button {
     }
   }
 }
+
+#quill-article-paywall {
+  background: #fff;
+  border-radius: 10px;
+  border: 3px solid #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin: auto;
+  max-width: 500px;
+  padding: 30px;
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 16px 0 24px;
+  }
+
+  a {
+    background: #f8a724;
+    border-radius: 3px;
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin: auto;
+    padding: 8px 12px;
+    width: fit-content;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

@@ -23,6 +23,12 @@ class BlogPost < ActiveRecord::Base
     self.topic.downcase.gsub(' ', '_')
   end
 
+  def can_be_accessed_by(user)
+    return true unless self.premium
+    return true if self.premium && user&.is_premium?
+    false
+  end
+
   private
   def generate_slug
     title = self.title
