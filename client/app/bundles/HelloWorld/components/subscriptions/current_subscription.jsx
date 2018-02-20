@@ -73,7 +73,7 @@ export default class extends React.Component {
   }
 
   nextPlanAlert(body) {
-    return <div className="next-plan-alert flex-row centered">{body}</div>;
+    return <div className="next-plan-alert flex-row vertically-centered"><i className="fa fa-icon fa-lightbulb-o" />{body}</div>;
   }
 
   nextPlanContent() {
@@ -109,6 +109,7 @@ export default class extends React.Component {
         </div>
       );
     } else {
+      nextPlanAlertContent = this.nextPlanAlert('Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.');
       nextPlan = 'Quill Basic - Free';
     }
     return (
