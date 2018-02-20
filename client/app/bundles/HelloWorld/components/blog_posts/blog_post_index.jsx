@@ -9,12 +9,13 @@ export default class extends React.Component {
     this.state = {
       articleFilter: 'all',
       loading: true,
-      blogPostsSortedByMostRead: [...this.props.blogPosts].sort(function(a, b) { return a.read_count < b.read_count })
+      blogPostsSortedByMostRead: [...this.props.blogPosts].sort((a, b) => (a.read_count < b.read_count) ? 1 : ((b.read_count < a.read_count) ? -1 : 0))
     };
   }
 
 
   filterArticlesBy(filter) {
+    debugger;
     this.setState({ articleFilter: filter });
   }
 
