@@ -145,7 +145,7 @@ export default class extends React.Component {
   }
 
   renderSaveDraftButton() {
-    if(this.props.action === 'new') {
+    if(this.props.action === 'new' || this.state.draft) {
       return <input type="submit" value="Save Draft" onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} />
     }
   }
