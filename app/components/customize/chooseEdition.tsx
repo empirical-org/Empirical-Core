@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash'
+import * as _ from 'lodash'
 import {
   createNewEdition,
   saveEditionName,
@@ -151,6 +151,7 @@ class ChooseEdition extends React.Component<any, any> {
 
   renderEditions() {
     const {editions, user_id} = this.props.customize
+    const sessionEditionId:string|undefined = this.props.classroomSessions.data ? this.props.classroomSessions.data.edition_id : undefined
     if (Object.keys(editions).length > 0) {
       const quillEditions:Array<JSX.Element>  = []
       const myEditions:Array<JSX.Element> = []
@@ -169,6 +170,7 @@ class ChooseEdition extends React.Component<any, any> {
               creator='user'
               selectAction={this.selectAction}
               selectState={this.state.selectState}
+              selectedEdition={sessionEditionId === e}
               />
             myEditions.push(editionRow)
           } else if (String(edition.user_id) === 'quill-staff') {
@@ -179,6 +181,7 @@ class ChooseEdition extends React.Component<any, any> {
               creator='quill'
               selectAction={this.selectAction}
               selectState={this.state.selectState}
+              selectedEdition={sessionEditionId === e}
             />
             quillEditions.push(editionRow)
           } else {
@@ -189,6 +192,7 @@ class ChooseEdition extends React.Component<any, any> {
               creator='coteacher'
               selectAction={this.selectAction}
               selectState={this.state.selectState}
+              selectedEdition={sessionEditionId === e}
             />
             coteacherEditions.push(editionRow)
           }
@@ -249,7 +253,8 @@ class ChooseEdition extends React.Component<any, any> {
 function select(state) {
   return {
     customize: state.customize,
-    classroomLesson: state.classroomLesson
+    classroomLesson: state.classroomLesson,
+    classroomSessions: state.classroomSessions
   }
 }
 

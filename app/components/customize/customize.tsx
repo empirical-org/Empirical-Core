@@ -1,9 +1,13 @@
 import * as React from 'react';
 import NavBar from '../navbar/navbar';
+import * as _ from 'lodash'
 import { connect } from 'react-redux';
 import {
   getClassLessonFromFirebase
 } from '../../actions/classroomLesson'
+import {
+  startListeningToSession
+} from '../../actions/classroomSessions'
 import {firebaseAuth} from '../../actions/users'
 import {getParameterByName} from '../../libs/getParameterByName'
 
@@ -15,6 +19,7 @@ import {
 interface customizeProps {
   children: any,
   classroomLesson: any,
+  classroomSessions: any,
   customize: any,
   dispatch: any,
   location: any,
@@ -34,6 +39,11 @@ class Customize extends React.Component<customizeProps> {
 
     if (props.params.lessonID) {
       props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
+    }
+
+    const ca_id: string|null = getParameterByName('classroom_activity_id')
+    if (ca_id) {
+      props.dispatch(startListeningToSession(ca_id))
     }
 
     this.goToSuccessPage = this.goToSuccessPage.bind(this)
@@ -76,7 +86,8 @@ class Customize extends React.Component<customizeProps> {
 function select(props) {
   return {
     classroomLesson: props.classroomLesson,
-    customize: props.customize
+    customize: props.customize,
+    classroomSessions: props.classroomSessions
   }
 }
 
