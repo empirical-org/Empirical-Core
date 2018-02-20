@@ -189,4 +189,23 @@ class TeacherFixController < ApplicationController
     end
     return render json: {}, status: 200
   end
+
+  def delete_last_activity_session
+    begin
+      account_identifier = params['student_identifier']
+      user = User.find_by_username_or_email(account_identifier)
+      activity = Activity.find_by(name: params['activity_name'])
+      raise 'No such student' if !user
+      raise 'No such activity' if !activity
+      TeacherFixes::delete_last_activity_session(user, activity)
+      ActivitySession.where(user_id: user.id, activity_id: activity.id).last.destroy
+      remaining_activity_sessions = ActivitySession.where(user_id: user.id, activity_id: activity.id)
+      if remaining_activity_sessions.length > 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
+        activity_sessions.order(:percentage).first.update(is_final_score: true)
+      end
+    rescue => e
+      return render json: { error: e.message || e }
+    end
+    return render json: {}, status: 200
+  end
 end

@@ -115,4 +115,12 @@ module TeacherFixes
     end
   end
 
+  def self.delete_last_activity_session
+    ActivitySession.where(user_id: user.id, activity_id: activity.id).last.destroy
+    remaining_activity_sessions = ActivitySession.where(user_id: user.id, activity_id: activity.id)
+    if remaining_activity_sessions.length > 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
+      activity_sessions.order(:percentage).first.update(is_final_score: true)
+    end
+  end
+
 end
