@@ -212,7 +212,6 @@ body {
 
   .preview-card-image {
     border-radius: 6px 6px 0 0;
-    width: 100%;
     z-index: 2;
   }
 
@@ -228,14 +227,19 @@ body {
     p {
       flex-grow: 1;
       margin: 17px 0;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
     }
 
     h3 {
       color: $quillforestgreen;
       font-size: 16px;
       font-weight: 700;
+      line-height: 1.38;
+      margin-bottom: 17px;
       transition: all 0.3s ease-out;
-      line-height: 1.38
     }
 
     .author {
