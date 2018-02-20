@@ -19,7 +19,8 @@ import {
 } from '../../actions/customize'
 
 import {
-  setEditionId
+  setEditionId,
+  setTeacherModels
 } from '../../actions/classroomSessions'
 
 class CustomizeEdition extends React.Component<any, any> {
@@ -142,6 +143,8 @@ class CustomizeEdition extends React.Component<any, any> {
     })
     this.setState({incompleteQuestions: incompleteQuestions})
     if (incompleteQuestions.length === 0 && this.state.editionMetadata.name) {
+      const classroomActivityId = getParameterByName('classroom_activity_id')
+      setTeacherModels(classroomActivityId, this.props.params.editionID)
       this.props.dispatch(publishEdition(this.props.params.editionID, this.state.editionMetadata, this.state.editionQuestions, this.goToSuccessPage))
     }
   }
