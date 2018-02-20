@@ -42,7 +42,6 @@ export default class extends React.Component {
     this.handleSubtitleChange = this.handleSubtitleChange.bind(this)
     this.handleBodyChange = this.handleBodyChange.bind(this)
     this.handleSubmitClick = this.handleSubmitClick.bind(this)
-    this.handleUnpublishClick = this.handleUnpublishClick.bind(this)
     this.handleTopicChange = this.handleTopicChange.bind(this)
     this.handleAuthorChange = this.handleAuthorChange.bind(this)
     this.handleCustomPreviewChange = this.handleCustomPreviewChange.bind(this)
@@ -101,11 +100,12 @@ export default class extends React.Component {
     container.rows = 2 + rows;
   }
 
-  handleSubmitClick(e, shouldPublish) {
+  handleSubmitClick(e, shouldPublish, unpublish = false) {
+    if(unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { e.preventDefault(); return; }
     e.preventDefault();
     let action
     let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
-    if (this.props.action === 'new') {
+    if (this.props.action === 'new' && !unpublish) {
       action = 'post'
     } else {
       action = 'put'
@@ -137,13 +137,6 @@ export default class extends React.Component {
     })
   }
 
-  handleUnpublishClick(e) {
-    e.preventDefault();
-    if(window.prompt('To unpublish this post, please type UNPUBLISH.') === 'UNPUBLISH') {
-      window.location = `${process.env.DEFAULT_URL}/cms/blog_posts/${this.state.id}/unpublish`;
-    }
-  }
-
   renderSaveDraftButton() {
     if(this.props.action === 'new' || this.state.draft) {
       return <input type="submit" value="Save Draft" onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} />
@@ -152,7 +145,7 @@ export default class extends React.Component {
 
   renderUnpublishButton() {
     if(this.props.action === 'edit' && !this.state.draft) {
-      return <input type="submit" value="Unpublish" onClick={(e) => { this.handleUnpublishClick(e) }} style={{background: 'white', color: '#00c2a2'}} />
+      return <input type="submit" value="Unpublish & Save Draft" onClick={(e) => { this.handleSubmitClick(e, false, true) }} style={{background: 'white', color: '#00c2a2'}} />
     }
   }
 
