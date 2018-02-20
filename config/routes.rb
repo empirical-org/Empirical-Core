@@ -427,6 +427,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
+  get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
@@ -437,6 +438,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
   post 'teacher_fix/merge_two_schools' => 'teacher_fix#merge_two_schools'
   post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
+  post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
