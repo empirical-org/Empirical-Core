@@ -260,6 +260,24 @@ a.preview-card-link {
   text-decoration: none;
 }
 
+a.all-blog-posts-back-button {
+  color: #666;
+  display: block;
+  margin-bottom: 24px;
+
+  &:hover {
+    color: $quillforestgreen;
+    text-decoration: none;
+  }
+
+  .fa {
+    display: inline-block;
+    font-size: 12px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+}
+
 #article-container {
   background: #ffffff;
 
