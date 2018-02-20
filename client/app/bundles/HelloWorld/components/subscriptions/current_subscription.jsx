@@ -12,34 +12,140 @@ export default class extends React.Component {
     super(props);
     this.state = {
       showChangePlan: false,
+      lastFour: this.props.lastFour,
     };
     this.toggleChangePlan = this.toggleChangePlan.bind(this);
     this.updateRecurring = this.updateRecurring.bind(this);
+    this.editCreditCard = this.editCreditCard.bind(this);
+    this.updateLastFour = this.updateLastFour.bind(this);
   }
 
   getPaymentMethod() {
-    if (!this.props.lastFour) {
-      return 'No Payment Method On File';
+    let content;
+    if (!this.state.lastFour) {
+      return <span>'No Payment Method On File'</span>;
     }
-    return `Credit Card Ending In ${this.props.lastFour}`;
+    return (<span>{`Credit Card Ending In ${this.state.lastFour}`}
+      <span
+        onClick={this.editCreditCard} style={{
+          color: '#027360',
+          fontSize: '14px',
+          paddingLeft: '10px',
+          cursor: 'pointer',
+        }}
+      >Edit Credit Card</span>
+    </span>);
+  }
+
+  editCreditCard() {
+    new UpdateStripeCard(this.updateLastFour);
+  }
+
+  updateLastFour(newLastFour) {
+    this.setState({ lastFour: newLastFour, });
   }
 
   toggleChangePlan() {
-    this.setState({ showChangePlan: !this.state.showChangePlan, });
+    this.setState({
+      showChangePlan: !this.state.showChangePlan,
+    });
   }
 
   updateRecurring(recurring) {
-    this.props.updateSubscription({ recurring, }, _.get(this.props.subscriptionStatus, 'id'));
+    this.props.updateSubscription({
+      recurring,
+    }, _.get(this.props.subscriptionStatus, 'id'));
   }
 
   changePlan() {
     if (this.state.showChangePlan) {
-      return (<ChangePlan
-        recurring={_.get(this.props.subscriptionStatus, 'recurring')}
-        updateRecurring={this.updateRecurring}
-      />);
+      return (<ChangePlan recurring={_.get(this.props.subscriptionStatus, 'recurring')} updateRecurring={this.updateRecurring} />);
     }
   }
+
+  paymentMethod() {
+    return (
+      <div className="meta-section payment">
+        <h3>PAYMENT METHOD ON FILE</h3>
+        {this.getPaymentMethod()}
+      </div>
+    );
+  }
+
+  nextPlanAlert(body) {
+    return <div className="next-plan-alert flex-row centered">{body}</div>;
+  }
+
+  nextPlanContent() {
+    let nextPlan;
+    let beginsOn;
+    let nextPlanAlertContent;
+    const nextPlanTitle = (
+      <span className="title">
+        Next Plan
+      </span>
+    );
+    if (!this.props.subscriptionStatus) {
+      return (
+        <div>
+          {nextPlanTitle}
+          <span>N/A
+            <a href="/premium" className="green-link">Change Plan</a>
+          </span>
+        </div>
+      );
+    } else if (this.props.subscriptionStatus.recurring) {
+      nextPlan = 'Teacher Premium - $80 Annual Subscription';
+      const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
+      nextPlanAlertContent = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $80.`);
+      beginsOn = (
+        <div>
+          <span className="title">
+            Begins On
+          </span>
+          <span>
+            <span>{renewDate}</span>
+          </span>
+        </div>
+      );
+    } else {
+      nextPlan = 'Quill Basic - Free';
+    }
+    return (
+      <div>
+        <div className="flex-row space-between">
+          <div>
+            {nextPlanTitle}
+            <span>{nextPlan}</span>
+          </div>
+          {beginsOn}
+        </div>
+        {nextPlanAlertContent}
+      </div>
+    );
+  }
+
+  nextPlan() {
+    return (
+      <div className="meta-section">
+        <h3>NEXT SUBSCRIPTION</h3>
+        {this.nextPlanContent()}
+      </div>
+    );
+  }
+
+// <div>
+//   <span className="title">Payment Method</span>
+//   <span>
+//     {this.getPaymentMethod()}
+//     <span onClick={this.toggleChangePlan}>Change Plan</span>
+//     {this.changePlan()}
+//   </span>
+// </div>
+// <div>
+//   <span className="title">Renewal Settings</span>
+//   <span>boop</span>
+// </div>
 
   content() {
     const currSub = this.props.subscriptionStatus;
@@ -48,44 +154,38 @@ export default class extends React.Component {
     if (currSub) {
       return ({ metaRows: (
         <div className={metaRowClassName}>
-          <div>
-            <div>
-              <h3>CURRENT SUBSCRIPTION</h3>
-              <span className="title">Plan</span>
-              <span>{currSub.account_type}</span>
-            </div>
-            <div>
-              <span className="title">Payment Method</span>
-              <span>
-                {this.getPaymentMethod()}
-                <span onClick={this.toggleChangePlan}>Change Plan</span>
-                {this.changePlan()}
-              </span>
-            </div>
-            <div>
-              <span className="title">Renewal Settings</span>
-              <span>boop</span>
-            </div>
-          </div>
-          <div>
-            <div>
-              <span className="title">Purchaser</span>
-              <span>{this.props.purchaserNameOrEmail}</span>
-            </div>
-            <div>
-              <span className="title">Valid Until</span>
-              <span>{moment(currSub.expirationDate).format('MMMM Do, YYYY')}</span>
+          <div className="meta-section">
+            <h3>CURRENT SUBSCRIPTION</h3>
+            <div className="flex-row space-between">
+              <div>
+                <div>
+                  <span className="title">Plan</span>
+                  <span>{currSub.account_type}</span>
+                </div>
+                <div>
+                  <span className="title">Purchaser</span>
+                  <span>{this.props.purchaserNameOrEmail}</span>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <span className="title">Start Date</span>
+                  <span>{moment(currSub.start_date).format('MMMM Do, YYYY')}</span>
+                </div>
+                <div>
+                  <span className="title">End Date</span>
+                  <span>{moment(currSub.expiration).format('MMMM Do, YYYY')}</span>
+                </div>
+              </div>
             </div>
           </div>
+          {this.paymentMethod()}
+          {this.nextPlan()}
         </div>
-        ),
-        cta: (
-          <div className={buttonRowClassName}>
-            <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.updateCard} className="q-button button cta-button bg-orange text-white">Update Card</button>
-          </div>
-        ), });
+      ),
+        cta: (<span />), });
     }
-    // set a more basic state if we don't have the info
+  // set a more basic state if we don't have the info
     return ({ metaRows: (
       <div className={metaRowClassName}>
         <div className="meta-section">
@@ -93,25 +193,16 @@ export default class extends React.Component {
           <span className="title">Plan</span>
           <span>Quill Basic Subscription</span>
         </div>
-        <div className="meta-section">
-          <h3>PAYMENT METHOD ON FILE</h3>
-          <span>{this.getPaymentMethod()}</span>
-        </div>
-        <div className="meta-section">
-          <h3>NEXT SUBSCRIPTION</h3>
-          <span className="title">
-            Next Plan
-          </span>
-          <span>N/A <a href="/premum" className="green-link">Change Plan</a></span>
-        </div>
+        {this.paymentMethod()}
+        {this.nextPlan()}
       </div>
-      ),
+    ),
       cta: (
         <div className={buttonRowClassName}>
           <a href="/" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>
           <a href="/" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>
         </div>
-      ), });
+    ), });
   }
 
   render() {
