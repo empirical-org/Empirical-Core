@@ -4,7 +4,8 @@ import * as _ from 'lodash'
 import {
   createNewEdition,
   saveEditionName,
-  archiveEdition
+  archiveEdition,
+  deleteEdition
 } from '../../actions/customize'
 import {
   setEditionId
@@ -34,6 +35,7 @@ class ChooseEdition extends React.Component<any, any> {
     this.saveNameAndGoToCustomize = this.saveNameAndGoToCustomize.bind(this)
     this.selectAction = this.selectAction.bind(this)
     this.hideSignupModal = this.hideSignupModal.bind(this)
+    this.deleteNewEdition = this.deleteNewEdition.bind(this)
   }
 
   makeNewEdition(editionUid:string|null) {
@@ -43,6 +45,11 @@ class ChooseEdition extends React.Component<any, any> {
     } else {
       this.setState({showSignupModal: true})
     }
+  }
+
+  deleteNewEdition() {
+    deleteEdition(this.state.newEditionUid)
+    this.setState({showNamingModal: false})
   }
 
   hideSignupModal() {
@@ -145,6 +152,7 @@ class ChooseEdition extends React.Component<any, any> {
               saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
               updateName={this.updateName}
               buttonClassName={buttonClassName}
+              deleteNewEdition={this.deleteNewEdition}
               />
     }
   }
