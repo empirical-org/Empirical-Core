@@ -331,7 +331,12 @@ a.all-blog-posts-back-button {
     }
 
     main {
+      line-height: 1.5;
       margin-top: 40px;
+
+      h1, h2, h3, p, ul, ol, img, blockquote {
+        margin: 16px 0;
+      }
     }
 
     footer {
