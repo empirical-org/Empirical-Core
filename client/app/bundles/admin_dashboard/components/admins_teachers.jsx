@@ -1,5 +1,4 @@
 import React from 'react';
-import AdminsTeacher from './admins_teacher';
 import SortableTable from '../../HelloWorld/components/general_components/table/sortable_table/sortable_table';
 
 export default React.createClass({
@@ -31,7 +30,6 @@ export default React.createClass({
   },
 
   render() {
-    const teachers = _.map(this.props.data, teacher => <AdminsTeacher key={teacher.id} data={teacher} />, this);
     return (
       <div id="teacher_account_access">
         <h2>Teacher Account Access</h2>
