@@ -105,6 +105,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def eligible_for_new_subscription
+      if subscription
+        # if they have a subscription it must be a trial one
+        Subscription::TRIAL_TYPES.include?(subscription.account_type)
+      else
+        # otherwise they are good for purchase
+        true
+      end
+  end
+
   def last_expired_subscription
     self.subscriptions.where("expiration < ?", Date.today).order(expiration: :desc).limit(1).first
   end

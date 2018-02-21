@@ -7,7 +7,11 @@ export default React.createClass({
     // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
   charge() {
-    new Stripe(8000, '$80 per Year - Teacher Premium');
+    if (!this.props.teacherIsEligibleForNewSub) {
+      alert('You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.');
+    } else {
+      new Stripe(8000, '$80 per Year - Teacher Premium');
+    }
   },
 
   getInitialState() {
