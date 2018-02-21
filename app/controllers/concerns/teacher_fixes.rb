@@ -116,12 +116,26 @@ module TeacherFixes
   end
 
   def self.delete_last_activity_session(user_id, activity_id)
-    binding.pry
-    ActivitySession.where(user_id: user_id, activity_id: activity_id).last.delete
-    remaining_activity_sessions = ActivitySession.where(user_id: user_id, activity_id: activity_id)
-    if remaining_activity_sessions.length > 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
-      activity_sessions.order(:percentage).first.update(is_final_score: true)
+    last_activity_session = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id).order("activity_sessions.completed_at DESC").limit(1)[0]
+    if last_activity_session
+      last_activity_session.delete
+    else
+      raise 'This activity session does not exist'
     end
+
+    remaining_activity_sessions = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)
+    if remaining_activity_sessions.length > 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
+      remaining_activity_sessions.order(:percentage).first.update(is_final_score: true)
+    end
+  end
+
+  def self.get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)
+    ActivitySession.joins("JOIN users ON activity_sessions.user_id = users.id")
+    .joins("JOIN classroom_activities ON activity_sessions.classroom_activity_id = classroom_activities.id")
+    .where("users.id = ?", user_id)
+    .where("classroom_activities.activity_id = ?", activity_id)
+    .where("activity_sessions.visible = true")
+    .where("activity_sessions.state = 'finished'")
   end
 
 end
