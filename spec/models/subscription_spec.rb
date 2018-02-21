@@ -100,7 +100,7 @@ describe Subscription, type: :model do
 
     it "creates a new subscription with the correct contact" do
       new_sub = Subscription.give_teacher_premium_if_charge_succeeds(user)
-      expect(new_sub.payment_source.contact).to eq(user)
+      expect(new_sub.contact_user).to eq(user)
     end
 
     context 'when the charge does not suceed' do
