@@ -49,10 +49,6 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def admin
-    render :admin
-  end
-
   def staff
     render :staff
   end
