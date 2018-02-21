@@ -48,6 +48,7 @@ class Subscription < ActiveRecord::Base
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
   TEACHER_PRICE = 8000
+  ALL_TYPES = ALL_FREE_TYPES.concat(ALL_PAID_TYPES)
 
 
   def is_not_paid?

@@ -108,6 +108,7 @@ class PagesController < ApplicationController
 
   # for link to premium within 'about' (discover) pages
   def premium
+    @user_is_eligible_for_new_subscription= user_is_eligible_for_new_sub
   end
 
   def tutorials
@@ -140,7 +141,17 @@ class PagesController < ApplicationController
     end
   end
 
-  private
+  def user_is_eligible_for_new_sub
+    if current_user
+      if current_user.subscription
+        Subscription::TRIAL_TYPES.include?(current_user.subscription.account_type)
+      else
+        true
+      end
+    else
+      false
+    end
+  end
 
   def add_cards(list_response)
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
