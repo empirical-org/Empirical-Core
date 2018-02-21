@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def eligible_for_new_subscription
+  def eligible_for_new_subscription?
       if subscription
         # if they have a subscription it must be a trial one
         Subscription::TRIAL_TYPES.include?(subscription.account_type)
