@@ -23,19 +23,9 @@ class BlogPostsController < ApplicationController
     end
     @blog_posts = ActiveRecord::Base.connection.execute("
       SELECT slug, preview_card_content
-      FROM (SELECT
-        blog_posts.slug AS slug,
-        blog_posts.preview_card_content AS preview_card_content,
-        blog_posts.draft AS draft,
-        setweight(to_tsvector(COALESCE(blog_posts.title, '')), 'A') ||
-        setweight(to_tsvector(COALESCE(blog_posts.body, '')), 'B') ||
-        setweight(to_tsvector(COALESCE(blog_posts.subtitle, '')), 'B') ||
-        setweight(to_tsvector(COALESCE(blog_posts.topic, '')), 'C') ||
-        setweight(to_tsvector(COALESCE(authors.name, '')), 'D') AS document
       FROM blog_posts
-      JOIN authors ON authors.id = blog_posts.author_id) search
-      WHERE search.draft IS FALSE AND search.document @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
-      ORDER BY ts_rank(search.document, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
+      WHERE draft IS FALSE AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
+      ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
     ").to_a
     return render 'index'
   end

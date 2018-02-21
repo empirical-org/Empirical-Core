@@ -72,6 +72,24 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: blog_posts_search_trigger(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION blog_posts_search_trigger() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+      begin
+        new.tsv :=
+          setweight(to_tsvector(COALESCE(blog_posts.title, '')), 'A') ||
+          setweight(to_tsvector(COALESCE(blog_posts.body, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(blog_posts.subtitle, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(blog_posts.topic, '')), 'C');
+        return new;
+      end
+      $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -451,7 +469,8 @@ CREATE TABLE blog_posts (
     author_id integer,
     preview_card_content text NOT NULL,
     slug character varying,
-    premium boolean DEFAULT false
+    premium boolean DEFAULT false,
+    tsv tsvector
 );
 
 
@@ -3291,6 +3310,13 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 
 
 --
+-- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tsv_idx ON blog_posts USING gin (tsv);
+
+
+--
 -- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3435,6 +3461,13 @@ CREATE INDEX users_to_tsvector_idx9 ON users USING gin (to_tsvector('english'::r
 --
 
 CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
+
+
+--
+-- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
 
 
 --
@@ -3924,4 +3957,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180207154242');
 INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 
 INSERT INTO schema_migrations (version) VALUES ('20180220204422');
+
+INSERT INTO schema_migrations (version) VALUES ('20180221162940');
+
+INSERT INTO schema_migrations (version) VALUES ('20180221163408');
 
