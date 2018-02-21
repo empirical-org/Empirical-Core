@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: [:index]
+  before_action :set_subscription, except: [:index, :create]
 
   def index
     set_index_variables
@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
     end
     attributes = subscription_params
     attributes.delete(:authenticity_token)
-    @subscription = Subscription.create_with_user_join(subscription_params[:contact_user_id], attributes)
+    @subscription = Subscription.create_with_user_join(current_user.id, attributes)
     render json: @subscription
   end
 
@@ -91,7 +91,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.require(:subscription).permit( :id, :contact_user_id, :expiration,  :account_limit, :authenticity_token, :recurring)
+    params.require(:subscription).permit( :id, :contact_user_id, :expiration, :account_type, :account_limit, :authenticity_token, :recurring)
   end
 
 
