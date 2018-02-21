@@ -24,6 +24,7 @@ class SubscriptionsController < ApplicationController
       PremiumAnalyticsWorker.perform_async(current_user.id, subscription_params[:account_type])
     end
     attributes = subscription_params
+    attributes[:contact_user_id] ||= current_user.id
     attributes.delete(:authenticity_token)
     @subscription = Subscription.create_with_user_join(current_user.id, attributes)
     render json: @subscription
@@ -79,7 +80,7 @@ class SubscriptionsController < ApplicationController
       # otherwise we fall back on the hardcoded contact email which was input by the sales team
       @subscription_status = @subscription_status.attributes.merge({expired: expired, contact_name: contact_user.name, mail_to: contact_user.email || @subscription_status.email})
     else
-      @subscription_status = @subscription_status.attributes.merge({expired: expired})
+      @subscription_status = @subscription_status&.attributes&.merge({expired: expired})
     end
 
   end

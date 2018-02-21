@@ -42,6 +42,9 @@ export default class extends React.Component {
     } else if (this.state.subscriptionType === 'Teacher') {
       image = 'shared/teacher_premium_icon.png';
       return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
+    } else if (this.state.subscriptionType === 'Trial') {
+      image = 'shared/teacher_premium_icon.png';
+      return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
     }
   }
 
@@ -63,7 +66,6 @@ export default class extends React.Component {
           buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
         }
       } else {
-        console.log(this.props);
         buttonOrDate = <button onClick={this.props.showPaymentModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>;
       }
     } else {
