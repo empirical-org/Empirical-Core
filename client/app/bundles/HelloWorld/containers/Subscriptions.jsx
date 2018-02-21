@@ -121,7 +121,11 @@ export default class extends React.Component {
       url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
       json: { subscription: params, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
-      console.log(body);
+      if (httpStatus.statusCode === 200) {
+        location.reload();
+      } else {
+        alert('There was an error updating your subscription. Please try again or contact hello@quill.org.');
+      }
     });
   }
 
@@ -147,10 +151,11 @@ export default class extends React.Component {
 
   render() {
     const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;
+    const subId = `${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
     return (
       <div>
         <SubscriptionStatus
-          key={`${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`}
+          key={subId}
           subscriptionStatus={this.state.subscriptionStatus}
           trialSubscriptionTypes={this.props.trialSubscriptionTypes}
           schoolSubscriptionTypes={this.props.schoolSubscriptionTypes}
