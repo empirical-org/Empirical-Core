@@ -76,6 +76,15 @@ export default class extends React.Component {
     return <div className="next-plan-alert flex-row vertically-centered"><i className="fa fa-icon fa-lightbulb-o" />{body}</div>;
   }
 
+  changePlanInline() {
+    return (
+      <span>
+        <span className="green-link" onClick={this.toggleChangePlan}>Change Plan</span>
+        {this.changePlan()}
+      </span>
+    );
+  }
+
   nextPlanContent() {
     let nextPlan;
     let beginsOn;
@@ -108,7 +117,9 @@ export default class extends React.Component {
       </div>);
       // }
     } else if (this.props.subscriptionStatus.recurring) {
-      nextPlan = 'Teacher Premium - $80 Annual Subscription';
+      nextPlan = (<span>
+                    Teacher Premium - $80 Annual Subscription {this.changePlanInline()}
+      </span>);
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertContent = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $80.`);
       beginsOn = (
@@ -123,7 +134,7 @@ export default class extends React.Component {
       );
     } else {
       nextPlanAlertContent = this.nextPlanAlert('Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.');
-      nextPlan = 'Quill Basic - Free';
+      nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     }
     return (
       <div>
