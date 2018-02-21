@@ -1,6 +1,9 @@
 import React from 'react';
-import AdminDashboard from '../containers/AdminDashboard.jsx';
+import AdminDashboardRouter from '../containers/AdminDashboardRouter';
+import SubnavTabs from '../components/admin_dashboard/subnav_tabs';
 
-export default (props) => (
-  <AdminDashboard {...props} />
-);
+const AdminDashboardApp = (props) => {
+  return(<AdminDashboardRouter {...props} />);
+};
+
+export default AdminDashboardApp;
