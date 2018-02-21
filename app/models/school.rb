@@ -4,6 +4,7 @@ class School < ActiveRecord::Base
   has_many :schools_users,  class_name: 'SchoolsUsers'
   has_many :users, through: :schools_users
   has_many :schools_admins, class_name: 'SchoolsAdmins'
+  has_many :admins, through: :schools_admins, source: :user
   belongs_to :authorizer, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
 
