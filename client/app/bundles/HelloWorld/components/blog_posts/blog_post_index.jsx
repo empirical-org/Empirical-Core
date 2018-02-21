@@ -48,7 +48,9 @@ export default class extends React.Component {
 
   renderBasedOnArticleFilter() {
     let response;
-    if(this.state.articleFilter === 'topic') {
+    if(this.props.blogPosts.length === 0) {
+      response = <h1 className='no-results'>No results found.</h1>
+    } else if(this.state.articleFilter === 'topic') {
       response = this.renderPreviewCardsByTopic();
     } else if(this.state.articleFilter === 'popularity') {
       response = (
@@ -80,7 +82,9 @@ export default class extends React.Component {
   }
 
   renderNavAndSectionHeader() {
-    if(!window.location.pathname.includes('topic')) {
+    const currentPageIsTopicPage = window.location.pathname.includes('topic');
+    const currentPageIsSearchPage = window.location.pathname.includes('search');
+    if(!currentPageIsTopicPage && !currentPageIsSearchPage) {
       return (
         <nav>
           <ul>
@@ -90,18 +94,27 @@ export default class extends React.Component {
           </ul>
         </nav>
       )
-    } else {
+    } else if(currentPageIsTopicPage) {
       return (
         <div className='topic-header'>
           <a href='/teacher_resources'><i className='fa fa-chevron-left' />Back to All Topics</a>
           <h2>{window.location.pathname.split('/')[3].split('_').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
         </div>
       )
+    } else if(currentPageIsSearchPage) {
+      return (
+        <nav>
+          <ul>
+            <li>Search Results</li>
+          </ul>
+        </nav>
+      )
     }
   }
 
   renderMostReadPost() {
     const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
+    if(window.location.pathname.includes('search')) { return null; }
     return (
       <h3>
         <a href={`/teacher_resources/${mostReadArticle.slug}`}>{mostReadArticle.title}</a>
@@ -116,11 +129,11 @@ export default class extends React.Component {
           <div className='container'>
             <h1>Knowledge Center</h1>
             <h2>Everything you need to know about Quill's pedgagogy and use in the classroom</h2>
-            <div className='width-422'>
-              <input type="text" placeholder="Search for posts" />
-              <h3 className='most-read-post'>Most Read Post:</h3>
+            <form className='width-422' action={`${process.env.DEFAULT_URL}/teacher_resources/search`}>
+              <input type='text' placeholder='Search for posts' name='query' defaultValue={this.props.query ? this.props.query : null} />
+              {window.location.pathname.includes('search') ? null : <h3 className='most-read-post'>Most Read Post:</h3>}
               {this.renderMostReadPost()}
-            </div>
+            </form>
           </div>
         </header>
         {this.renderNavAndSectionHeader()}

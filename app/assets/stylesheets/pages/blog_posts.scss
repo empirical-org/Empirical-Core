@@ -123,6 +123,10 @@ body {
     font-weight: 600;
     text-align: center;
 
+    ul {
+      padding-left: 0;
+    }
+
     li {
       list-style-type: none;
       display: inline-block;
@@ -135,6 +139,15 @@ body {
       &.active {
         color: $quillforestgreen;
       }
+    }
+  }
+
+  main {
+    h1.no-results {
+      color: #c0c0c0;
+      font-weight: 700;
+      padding: 0 0 50px;
+      text-align: center;
     }
   }
 

@@ -28,6 +28,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug do
     collection do
       get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
     end
   end
 
