@@ -1,20 +1,21 @@
-//= require ./../general_components/table/sortable_table/table_sorting_mixin.js
 import React from 'react';
-import TableSortingMixin from '../components/general_components/table/sortable_table/table_sorting_mixin.js';
+import TableSortingMixin from '../../HelloWorld/components/general_components/table/sortable_table/table_sorting_mixin';
 import _ from 'underscore';
-import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
-import PremiumFeatures from '../components/admin_dashboard/premium_features';
-import CreateNewAccounts from '../components/admin_dashboard/create_new_accounts.jsx';
-import LoadingSpinner from '../components/shared/loading_indicator.jsx';
-import QuestionsAndAnswers from './QuestionsAndAnswers'
+import AdminsTeachers from '../components/admins_teachers';
+import PremiumFeatures from '../components/premium_features';
+import CreateNewAccounts from '../components/create_new_accounts';
+import LoadingSpinner from '../../HelloWorld/components/shared/loading_indicator';
+import QuestionsAndAnswers from '../../HelloWorld/containers/QuestionsAndAnswers';
 import pluralize from 'pluralize';
-import request from 'request'
-import getAuthToken from '../components/modules/get_auth_token'
+import request from 'request';
+import getAuthToken from '../../HelloWorld/components/modules/get_auth_token';
 
 export default React.createClass({
   mixins: [TableSortingMixin],
   propTypes: {
-    id: React.PropTypes.number.isRequired,
+    route: React.PropTypes.shape({
+      adminId: React.PropTypes.number.isRequired,
+    }),
   },
 
   getInitialState() {
@@ -39,7 +40,7 @@ export default React.createClass({
     const sortDefinitions = this.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     $.ajax({
-      url: `/admins/${this.props.id}`,
+      url: `/admins/${this.props.route.adminId}`,
       success: this.receiveData,
     });
   },

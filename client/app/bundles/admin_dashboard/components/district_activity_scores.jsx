@@ -1,13 +1,13 @@
-import React from 'react'
-import request from 'request'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
-import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import { sortByLastName, sortFromSQLTimeStamp } from '../../../../modules/sortingMethods.js'
-import moment from 'moment'
-import EmptyStateForReport from './empty_state_for_report'
+import React from 'react';
+import request from 'request';
+import CSVDownloadForProgressReport from '../../HelloWorld/components/progress_reports/csv_download_for_progress_report';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+import ItemDropdown from '../../HelloWorld/components/general_components/dropdown_selectors/item_dropdown';
+import LoadingSpinner from '../../HelloWorld/components/shared/loading_indicator';
+import { sortByLastName, sortFromSQLTimeStamp } from '../../../modules/sortingMethods';
+import moment from 'moment';
+import EmptyStateForReport from '../../HelloWorld/components/progress_reports/empty_state_for_report';
 
 import _ from 'underscore'
 
