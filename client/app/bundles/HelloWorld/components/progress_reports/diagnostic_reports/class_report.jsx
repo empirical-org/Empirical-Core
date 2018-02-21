@@ -45,11 +45,21 @@ export default React.createClass({
         }
       },
       {
-        name: 'Total Time',
-        field: 'time',
-        sortByField: 'time',
+        name: 'Avg. Score on Quill',
+        field: 'average_score_on_quill',
+        sortByField: 'average_score_on_quill',
         customCell: function(row) {
-          return row['time'] + ' min.';
+          return row['average_score_on_quill'] + '%';
+        }
+      },
+      {
+        name: '',
+        field: '',
+        sortByField: '',
+        customCell: function(row) {
+          return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>
+            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          </a>)
         }
       }
     ];
@@ -63,7 +73,7 @@ export default React.createClass({
         score: 'numeric',
         instructions: 'natural',
         prompt: 'natural',
-        time: 'numeric'
+        average_score_on_quill: 'numeric'
       },
       default: {
         field: 'score',
