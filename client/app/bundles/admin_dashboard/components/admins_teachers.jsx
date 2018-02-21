@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminsTeacher from './admins_teacher.jsx';
-import SortableTable from '../../general_components/table/sortable_table/sortable_table.jsx';
+import AdminsTeacher from './admins_teacher';
+import SortableTable from '../../HelloWorld/components/general_components/table/sortable_table/sortable_table';
 
 export default React.createClass({
   propTypes: {
