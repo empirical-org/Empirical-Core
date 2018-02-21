@@ -27,6 +27,29 @@ describe User, type: :model do
         end
       end
 
+      describe('#eligible_for_new_subscription') do
+        it "returns true if the user does not have a subscription" do
+          user.subscription.destroy
+          expect(user.eligible_for_new_subscription).to be
+        end
+
+        it "returns true if the user has a subscription with a trial account type" do
+          Subscription::TRIAL_TYPES.each do |type|
+            subscription.update(account_type: type)
+            expect(user.reload.eligible_for_new_subscription).to be
+          end
+        end
+
+        it "returns false if the user has a subscription that does not have a trial account type" do
+          (Subscription::ALL_TYPES - Subscription::TRIAL_TYPES).each do |type|
+            subscription.update(account_type: type)
+            expect(user.reload.eligible_for_new_subscription).not_to be
+          end
+        end
+      end
+
+
+
       describe('#subscription') do
         it 'returns a subscription if a valid one exists' do
           expect(user.reload.subscription).to eq(subscription)
