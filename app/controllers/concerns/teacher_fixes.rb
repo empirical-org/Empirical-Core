@@ -75,7 +75,6 @@ module TeacherFixes
     move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
 
     assign_teachers_to_other_class(class_id_1, class_id_2)
-
     Classroom.find(class_id_1).update(visible: false)
   end
 
@@ -107,7 +106,7 @@ module TeacherFixes
 
   def self.assign_teachers_to_other_class(class_id_1, class_id_2)
     ClassroomsTeacher.where(classroom_id: class_id_1).each do |ct|
-      if ClassroomsTeacher.where(user_id: ct.user_id, classroom_id: class_id_2)
+      if ClassroomsTeacher.where(user_id: ct.user_id, classroom_id: class_id_2).any?
         ct.destroy
       else
         ct.update(classroom_id: class_id_2, role: 'coteacher')

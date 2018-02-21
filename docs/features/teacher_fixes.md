@@ -59,3 +59,11 @@ This is useful for when teachers signed in with Clever and caused a new school t
 This allows you to transfer all of the students and activities in one classroom to a second classroom.
 
 If a student has completed the same activity in different classrooms, the highest score will be saved.
+
+## [Delete Last Activity Session](https://www.quill.org/teacher_fix/delete_last_activity_session)
+
+This allows you to delete the last activity session a student has completed for a given activity.
+
+This is to be used when a staff member has completed an activity on behalf of the student - we need to get rid of that data as it does not reflect the student's own work.
+
+Please make sure this student has only been assigned this activity once (so not in multiple classes, or multiple activity packs) or this method could delete the wrong activity session.
