@@ -12,7 +12,6 @@ end
 class Unit < ActiveRecord::Base
   include ActiveModel::Validations
   validates_with UniqueNameWhenVisible
-  belongs_to :classroom
   belongs_to :user
   has_many :classroom_activities, dependent: :destroy
   has_many :activities, through: :classroom_activities
