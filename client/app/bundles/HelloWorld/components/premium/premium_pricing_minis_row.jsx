@@ -12,7 +12,7 @@ export default React.createClass({
           <BasicPricingMini />
         </div>
         <div className="col-md-4">
-          <TeacherPricingMini userIsEligibleForNewSub={this.props.user_is_eligible_for_new_sub} />
+          <TeacherPricingMini {...this.props} />
         </div>
         <div className="col-md-4">
           <SchoolPricingMini />
