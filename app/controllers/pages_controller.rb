@@ -319,7 +319,8 @@ class PagesController < ApplicationController
 
   # for link to premium within 'about' (discover) pages
   def premium
-    @user_is_eligible_for_new_subscription= user_is_eligible_for_new_sub
+    @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
+    @user_is_eligible_for_trial = current_user&.subscriptions&.none?
   end
 
   def tutorials
@@ -349,18 +350,6 @@ class PagesController < ApplicationController
     case action_name
     when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       @beta_flag = current_user && current_user.flag == 'beta'
-    end
-  end
-
-  def user_is_eligible_for_new_sub
-    if current_user
-      if current_user.subscription
-        Subscription::TRIAL_TYPES.include?(current_user.subscription.account_type)
-      else
-        true
-      end
-    else
-      false
     end
   end
 
