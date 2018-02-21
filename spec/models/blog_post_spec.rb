@@ -47,4 +47,31 @@ describe BlogPost, type: :model do
       expect(another_blog_post_with_same_title.slug).to eq("#{slug}-3")
     end
   end
+
+  describe '#can_be_accessed_by' do
+    context 'when the article is free' do
+      let(:free_article) { create(:blog_post) }
+      it 'should be accessible' do
+        expect(free_article.can_be_accessed_by(nil)).to be(true)
+      end
+    end
+
+    context 'when the article is premium' do
+      let(:paid_article) { create(:blog_post, :premium) }
+      let(:free_user)    { create(:teacher) }
+      let(:premium_user) { create(:teacher, :premium)}
+
+      it 'should be accessible to premium users' do
+        expect(paid_article.can_be_accessed_by(premium_user)).to be(true)
+      end
+
+      it 'should not be accessible to nonpremium users' do
+        expect(paid_article.can_be_accessed_by(free_user)).to be(false)
+      end
+
+      it 'should not be accessible to nonusers' do
+        expect(paid_article.can_be_accessed_by(nil)).to be(false)
+      end
+    end
+  end
 end
