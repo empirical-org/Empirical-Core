@@ -52,6 +52,7 @@ export default class DeleteLastActivitySession extends React.Component {
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Delete Last Activity Session</h2>
       <p>This method will delete the last activity session a student has completed for a given activity.</p>
+      <p>Please make sure this student has only been assigned this activity once (so not in multiple classes, or multiple activity packs) or this method could delete the wrong activity session.</p>
       <div>
         <div className="input-row">
           <label>Activity Name:</label>
