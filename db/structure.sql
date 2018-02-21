@@ -81,10 +81,10 @@ CREATE FUNCTION blog_posts_search_trigger() RETURNS trigger
     AS $$
       begin
         new.tsv :=
-          setweight(to_tsvector(COALESCE(blog_posts.title, '')), 'A') ||
-          setweight(to_tsvector(COALESCE(blog_posts.body, '')), 'B') ||
-          setweight(to_tsvector(COALESCE(blog_posts.subtitle, '')), 'B') ||
-          setweight(to_tsvector(COALESCE(blog_posts.topic, '')), 'C');
+          setweight(to_tsvector(COALESCE(new.title, '')), 'A') ||
+          setweight(to_tsvector(COALESCE(new.body, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(new.subtitle, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(new.topic, '')), 'C');
         return new;
       end
       $$;
@@ -2764,6 +2764,13 @@ CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teach
 
 
 --
+-- Name: index_announcements_on_start_and_end; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_announcements_on_start_and_end ON announcements USING btree (start, "end" DESC);
+
+
+--
 -- Name: index_blog_posts_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3961,4 +3968,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180220204422');
 INSERT INTO schema_migrations (version) VALUES ('20180221162940');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221163408');
+
+INSERT INTO schema_migrations (version) VALUES ('20180221170200');
 
