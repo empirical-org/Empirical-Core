@@ -38,11 +38,6 @@ class BlogPostsController < ApplicationController
     return render 'index'
   end
 
-  # TODO: remove this when we launch front end of knowlege center
-  def temporarily_render_old_teacher_resources
-    return render 'pages/teacher_resources'
-  end
-
   private
   def set_announcement
     @announcement = Announcement.get_current_webinar_announcement
