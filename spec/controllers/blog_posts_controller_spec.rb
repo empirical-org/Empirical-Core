@@ -84,10 +84,13 @@ describe BlogPostsController, type: :controller do
       expect(response).to redirect_to 'https://example.org'
     end
 
-    xit 'should return posts that match the query' do
+    it 'should return posts that match the query' do
       blog_posts
-      get :search, query: blog_posts.second.body.split(' ').first
-      expect(assigns(:blog_posts)).to eq([blog_posts.second])
+      get :search, query: BlogPost.second.tsv.split(' ').first.gsub("'",'').gsub(/:.*$/,'')
+      expect(assigns(:blog_posts)).to eq([{
+        'slug' => BlogPost.second.slug,
+        'preview_card_content' => BlogPost.second.preview_card_content
+      }])
     end
   end
 end
