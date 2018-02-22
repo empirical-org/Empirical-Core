@@ -4,7 +4,7 @@ class Cms::BlogPostsController < ApplicationController
   before_action :authors, :topics, only: [:edit, :new]
 
   def index
-    @blog_posts_name_and_id = BlogPost.all.select('title', 'id', 'updated_at', 'created_at', 'topic', 'slug', 'draft')
+    @blog_posts_name_and_id = BlogPost.all.map{|bp| bp.attributes.merge({'rating' => bp.average_rating})} 
     #cms/blog_posts/index.html.erb
   end
 
