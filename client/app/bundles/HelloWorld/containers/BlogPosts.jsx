@@ -25,13 +25,17 @@ export default React.createClass({
       }, {
         Header: 'Created',
         accessor: 'created_at',
-        width: 125,
+        width: 115,
         Cell: props => <span>{moment(props.value).format('MM-DD-YY')}</span>,
       }, {
         Header: 'Updated',
         accessor: 'updated_at',
-        width: 125,
+        width: 115,
         Cell: props => <span>{moment(props.value).format('MM-DD-YY')}</span>,
+      }, {
+        Header: 'Rating',
+        accessor: 'rating',
+        width: 75
       }, {
         Header: '',
         accessor: 'id',
