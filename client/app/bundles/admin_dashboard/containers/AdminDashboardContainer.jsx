@@ -1,5 +1,5 @@
 import React from 'react'
-import SubnavTabs from '../components/subnav_tabs';
+import SubnavTabs from 'bundles/admin_dashboard/components/subnav_tabs';
 
 const AdminDashboardContainer = (props) => {
   return (

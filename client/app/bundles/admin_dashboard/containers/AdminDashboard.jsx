@@ -1,17 +1,15 @@
 import React from 'react';
-import TableSortingMixin from '../../HelloWorld/components/general_components/table/sortable_table/table_sorting_mixin';
 import _ from 'underscore';
-import AdminsTeachers from '../components/admins_teachers';
-import PremiumFeatures from '../components/premium_features';
-import CreateNewAccounts from '../components/create_new_accounts';
-import LoadingSpinner from '../../HelloWorld/components/shared/loading_indicator';
-import QuestionsAndAnswers from '../../HelloWorld/containers/QuestionsAndAnswers';
+import AdminsTeachers from 'bundles/admin_dashboard/components/admins_teachers';
+import PremiumFeatures from 'bundles/admin_dashboard/components/premium_features';
+import CreateNewAccounts from 'bundles/admin_dashboard/components/create_new_accounts';
+import LoadingSpinner from 'bundles/HelloWorld/components/shared/loading_indicator';
+import QuestionsAndAnswers from 'bundles/HelloWorld/containers/QuestionsAndAnswers';
 import pluralize from 'pluralize';
 import request from 'request';
-import getAuthToken from '../../HelloWorld/components/modules/get_auth_token';
+import getAuthToken from 'bundles/HelloWorld/components/modules/get_auth_token';
 
 export default React.createClass({
-  mixins: [TableSortingMixin],
   propTypes: {
     route: React.PropTypes.shape({
       adminId: React.PropTypes.number.isRequired,
@@ -37,75 +35,10 @@ export default React.createClass({
   },
 
   getData() {
-    const sortDefinitions = this.sortDefinitions();
-    this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     $.ajax({
       url: `/admins/${this.props.route.adminId}`,
       success: this.receiveData,
     });
-  },
-
-  // Depending upon whether or not pagination is implemented,
-  // sort results client-side or fetch sorted data from server.
-  sortHandler() {
-    return _.bind(this.sortResults, this, _.noop);
-  },
-
-  sortDefinitions() {
-    return {
-      config: {
-        name: 'natural',
-        school: 'natural',
-        number_of_students: 'numeric',
-        number_of_questions_completed: 'numeric',
-        time_spent: 'numeric',
-      },
-      default: {
-        field: 'name',
-        direction: 'asc',
-      },
-    };
-  },
-
-  teacherColumns() {
-    return [
-      {
-        name: 'Name',
-        field: 'name',
-        sortByField: 'name',
-        className: 'teacher-name-column',
-      },
-      {
-        name: 'School',
-        field: 'school',
-        sortByField: 'school',
-        className: 'school-name-column',
-      },
-      {
-        name: 'Students',
-        field: 'number_of_students',
-        sortByField: 'number_of_students',
-        className: 'number-of-students',
-      },
-      {
-        name: 'Questions Completed',
-        field: 'number_of_questions_completed',
-        sortByField: 'number_of_questions_completed',
-        className: 'number-of-questions-completed',
-      },
-      {
-        name: 'Time Spent',
-        field: 'time_spent',
-        sortByField: 'time_spent',
-        className: 'time-spent',
-      },
-      {
-        name: 'View As Teacher',
-        field: 'link_components',
-        sortByField: 'links',
-        className: 'view-as-teacher-link',
-      }
-    ];
   },
 
   receiveData(data) {
@@ -130,21 +63,7 @@ export default React.createClass({
     })
   },
 
-  displaySchools() {
-    if (this.state.model && this.state.model.schools) {
-      return (<p style={{ paddingTop: '1em', paddingBottom: '1em', }}><strong>You are an admin of the following {this.schoolConjugation()}: </strong><br />
-        {this.state.model.schools.join(', ')}</p>);
-    }
-    return '';
-  },
-
-  schoolConjugation() {
-    const schoolCount = this.state.model.schools.length;
-    return pluralize('school', schoolCount);
-  },
-
   render() {
-    const teachers = this.state.model.teachers ? this.applySorting(this.state.model.teachers) : [];
     if (!this.state.loading) {
       return (
         <div >
@@ -152,11 +71,7 @@ export default React.createClass({
             <PremiumFeatures/>
             <AdminsTeachers
               isValid={!!this.state.model.valid_subscription}
-              currentSort={this.state.currentSort}
-              loading={this.state.loading}
-              sortHandler={this.sortHandler()}
-              data={teachers}
-              columns={this.teacherColumns()}
+              data={this.state.model.teachers}
             />
             <CreateNewAccounts
               schools={this.state.model.schools}

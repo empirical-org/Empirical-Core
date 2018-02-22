@@ -1,53 +1,63 @@
 import React from 'react';
-import SortableTable from '../../HelloWorld/components/general_components/table/sortable_table/sortable_table';
+import TeacherLinks from 'bundles/admin_dashboard/components/teacher_links';
+import ReactTable from 'react-table';
 
-export default React.createClass({
-  propTypes: {
-    data: React.PropTypes.array.isRequired,
-    sortHandler: React.PropTypes.func.isRequired,
-    currentSort: React.PropTypes.object.isRequired,
-    columns: React.PropTypes.array.isRequired,
-    loading: React.PropTypes.bool.isRequired,
-  },
-
-  // Temp fix until isValid is confirmed to work.
-  linkGenerator(link) {
-    if (this.props.isValid || true) {
-      return <a className="green-link teacher-link" href={link.path} target="_blank">{link.name}</a>;
+const AdminsTeachers = ({ data, isValid }) => {
+  const teacherColumns = [
+    {
+      Header: 'Name',
+      accessor: 'name',
+    },
+    {
+      Header: 'School',
+      accessor: 'school',
+    },
+    {
+      Header: 'Students',
+      accessor: 'number_of_students',
+    },
+    {
+      Header: 'Questions Completed',
+      accessor: 'number_of_questions_completed',
+    },
+    {
+      Header: 'Time Spent',
+      accessor: 'time_spent',
+    },
+    {
+      Header: 'View As Teacher',
+      accessor: 'link_components',
+      Cell: (row) => {
+        return <TeacherLinks links={row.original.links} isValid={isValid} />;
+      },
     }
-    return <a className="green-link teacher-link" onClick={() => alert('Your Premium Subscription has expired. Please visit Quill.org/premium to access this feature.')}>{link.name}</a>;
-  },
+  ];
 
-  rows() {
-    const that = this;
-    return _.map(this.props.data, function (teacher) {
-      let result;
-      const links = _.map(teacher.links, link => <div key={link.name}>{that.linkGenerator(link)}</div>, this);
-      result = <span>{links}</span>;
-      teacher.link_components = result;
-      return teacher;
-    }, this);
-  },
-
-  render() {
-    return (
-      <div id="teacher_account_access">
-        <h2>Teacher Account Access</h2>
-        <p><span className="warning">Warning:</span> Any changes you make when you access a teacher account will impact the teacher and student facing dashboards.</p>
-        <p>This list provides you with the ability to sign in to all of the teacher accounts for the schools you have admin access.</p>
-        <div className={'admins-teachers'}>
-          <SortableTable
-            columns={this.props.columns}
-            rows={this.rows()}
-            loading={this.props.loading}
-            currentSort={this.props.currentSort}
-            sortHandler={this.props.sortHandler}
-            shouldTransition
-            transitionName={'adminTeacher'}
-          />
-        </div>
+  return (
+    <div id="teacher_account_access">
+      <h2>Teacher Account Access</h2>
+      <p>
+        <span className="warning">Warning:</span> Any changes you make when you
+        access a teacher account will impact the teacher and student facing
+        dashboards.
+      </p>
+      <p>
+        This list provides you with the ability to sign in to all of the
+        teacher accounts for the schools you have admin access.
+      </p>
+      <div className={'admins-teachers'}>
+        <ReactTable data={data}
+          columns={teacherColumns}
+          showPagination={false}
+          showPaginationTop={false}
+          showPaginationBottom={false}
+          showPageSizeOptions={false}
+          defaultPageSize={data.length}
+          className='progress-report has-green-arrow'
+        />
       </div>
+    </div>
+  );
+};
 
-    );
-  },
-});
+export default AdminsTeachers;
