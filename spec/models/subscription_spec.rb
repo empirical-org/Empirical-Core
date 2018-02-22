@@ -4,7 +4,7 @@ require 'ostruct'
 describe Subscription, type: :model do
   describe '#credit_user_and_de_activate' do
     let!(:user) { create(:user) }
-    let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), contact_user: user) }
+    let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
 
     before do
@@ -60,7 +60,7 @@ describe Subscription, type: :model do
 
   describe "#self.give_teacher_premium_if_charge_succeeds" do
     let!(:user) { create(:user) }
-    let!(:subscription) { build(:subscription, expiration: Date.new(2018,4,6), contact_user: user) }
+    let!(:subscription) { build(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
 
     before do
       Subscription.any_instance.stub(:charge_user_for_teacher_premium).and_return({status: 'succeeded'})
@@ -100,7 +100,7 @@ describe Subscription, type: :model do
 
     it "creates a new subscription with the correct contact" do
       new_sub = Subscription.give_teacher_premium_if_charge_succeeds(user)
-      expect(new_sub.contact_user).to eq(user)
+      expect(new_sub.purchaser).to eq(user)
     end
 
     context 'when the charge does not suceed' do
@@ -137,6 +137,9 @@ describe Subscription, type: :model do
     it "responds with false if school or user has only had things in the ALL_FREE_TYPES_LIST" do
       Subscription::ALL_FREE_TYPES.each do |type|
         subscription.update(account_type: type)
+        if type === 'paid'
+          binding.pry
+        end
         expect(Subscription.school_or_user_has_ever_paid(user)).not_to be
       end
     end
@@ -217,11 +220,11 @@ describe Subscription, type: :model do
   context 'recurring subscriptions' do
     let!(:teacher_with_stripe_customer_id) {create(:teacher, :has_a_stripe_customer_id)}
     let!(:subscription) {create(:subscription)}
-    let!(:recurring_subscription_expiring_today_1) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
-    let!(:recurring_subscription_expiring_today_2) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
-    let!(:recurring_subscription_expiring_but_de_activated) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true, de_activated_date: Date.today) }
-    let!(:recurring_subscription_expiring_tomorrow) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: true) }
-    let!(:non_recurring_subscription_expiring_today) { create(:subscription, contact_user_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: false) }
+    let!(:recurring_subscription_expiring_today_1) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
+    let!(:recurring_subscription_expiring_today_2) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true) }
+    let!(:recurring_subscription_expiring_but_de_activated) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today, recurring: true, de_activated_date: Date.today) }
+    let!(:recurring_subscription_expiring_tomorrow) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: true) }
+    let!(:non_recurring_subscription_expiring_today) { create(:subscription, purchaser_id: teacher_with_stripe_customer_id.id, expiration: Date.today + 1, recurring: false) }
     describe 'self.update_todays_expired_recurring_subscriptions' do
 
 

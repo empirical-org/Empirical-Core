@@ -57,13 +57,13 @@ export default class extends React.Component {
 
   currentUserIsPurchaser(subscription) {
     const currentUserId = document.getElementById('current-user-id').getAttribute('content');
-    return _.get(subscription, 'contact_user_id') === Number(currentUserId);
+    return _.get(subscription, 'purchaser_id') === Number(currentUserId);
   }
 
   purchaserNameOrEmail() {
     const sub = (this.state && this.state.subscriptionStatus) || this.props.subscriptionStatus;
     if (sub) {
-      if (!sub.contact_user_id) {
+      if (!sub.purchaser_id) {
         this.setState({ purchaserNameOrEmail: sub.user_email ? sub.user_email : 'Not Recorded', });
       } else {
         this.getPurchaserName();
