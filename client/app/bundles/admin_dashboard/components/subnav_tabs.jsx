@@ -6,10 +6,14 @@ const SubnavTabs = () => {
       <div className="container">
         <ul>
           <li>
-            <a href="/teachers/admin_dashboard">Admin Dashboard</a>
+            <a href="/teachers/admin_dashboard">
+              Admin Dashboard
+            </a>
           </li>
           <li>
-            <a href="/teachers/admin_dashboard/district_activity_scores">District Activity Scores</a>
+            <a href="/teachers/admin_dashboard/district_activity_scores">
+              District Activity Scores
+            </a>
           </li>
         </ul>
       </div>
