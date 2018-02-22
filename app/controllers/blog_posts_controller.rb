@@ -13,6 +13,8 @@ class BlogPostsController < ApplicationController
     @blog_post.increment_read_count
     @author = @blog_post.author
     @most_recent_posts = BlogPost.where("draft = false AND id != #{@blog_post.id}").order('updated_at DESC').limit(3)
+    @title = @blog_post.title
+    @description = @blog_post.subtitle || @title
   end
 
   def search
@@ -27,6 +29,7 @@ class BlogPostsController < ApplicationController
       WHERE draft IS FALSE AND tsv @@ plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)})
       ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
     ").to_a
+    @title = "Search: #{@query}"
     return render 'index'
   end
 
@@ -34,7 +37,9 @@ class BlogPostsController < ApplicationController
     if !BlogPost::TOPIC_SLUGS.include?(params[:topic])
       raise ActionController::RoutingError.new('Topic Not Found')
     end
-    @blog_posts = BlogPost.where(draft: false, topic: params[:topic].gsub('_', ' ').titleize)
+    topic = params[:topic].gsub('_', ' ').titleize
+    @blog_posts = BlogPost.where(draft: false, topic: topic)
+    @title = topic
     return render 'index'
   end
 

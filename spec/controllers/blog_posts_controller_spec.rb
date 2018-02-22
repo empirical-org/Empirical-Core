@@ -51,6 +51,22 @@ describe BlogPostsController, type: :controller do
       get :show, slug: blog_post.slug
       expect(assigns(:most_recent_posts)).to match_array(three_most_recent_posts)
     end
+
+    it 'should return the title' do
+      get :show, slug: blog_post.slug
+      expect(assigns(:title)).to eq(blog_post.title)
+    end
+
+    it 'should return the description' do
+      get :show, slug: blog_post.slug
+      expect(assigns(:description)).to eq(blog_post.subtitle)
+    end
+
+    it 'should return the title as description if no subtitle exists' do
+      blog_post = create(:blog_post, subtitle: nil)
+      get :show, slug: blog_post.slug
+      expect(assigns(:description)).to eq(blog_post.title)
+    end
   end
 
   describe '#show_topic' do
@@ -73,6 +89,11 @@ describe BlogPostsController, type: :controller do
       get :show_topic, topic: topic.downcase.gsub(' ','_')
       expect(assigns(:blog_posts)).to match_array(blog_posts)
     end
+
+    it 'should return a title' do
+      get :show_topic, topic: topic.downcase.gsub(' ','_')
+      expect(assigns(:title)).to eq(topic)
+    end
   end
 
   describe '#search' do
@@ -82,6 +103,12 @@ describe BlogPostsController, type: :controller do
       request.env["HTTP_REFERER"] = 'https://example.org'
       get :search
       expect(response).to redirect_to 'https://example.org'
+    end
+
+    it 'should return the proper title' do
+      query = 'example query'
+      get :search, query: query
+      expect(assigns(:title)).to eq("Search: #{query}")
     end
 
     xit 'should return posts that match the query' do
