@@ -1,8 +1,8 @@
 import React from 'react'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import AdminDashboard from './AdminDashboard';
-import AdminDashboardContainer from './AdminDashboardContainer'
-import DistrictActivityScoresProgressReport from '../components/district_activity_scores'
+import AdminDashboard from 'bundles/admin_dashboard/containers/AdminDashboard';
+import AdminDashboardContainer from 'bundles/admin_dashboard/containers/AdminDashboardContainer'
+import DistrictActivityScoresProgressReport from 'bundles/admin_dashboard/containers/DistrictActivityScores'
 
 const AdminDashboardRouter = (props) => {
   return (
