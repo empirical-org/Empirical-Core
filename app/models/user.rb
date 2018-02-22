@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
+  has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
+  has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
 
 
   has_many :schools_admins, class_name: 'SchoolsAdmins'

@@ -449,7 +449,7 @@ CREATE TABLE blog_posts (
     topic character varying,
     draft boolean DEFAULT true,
     author_id integer,
-    preview_card_content text NOT NULL,
+    preview_card_content text,
     slug character varying
 );
 
@@ -1350,7 +1350,9 @@ CREATE TABLE schools (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     clever_id character varying(255),
-    ppin character varying
+    ppin character varying,
+    authorizer_id integer,
+    coordinator_id integer
 );
 
 
@@ -1547,7 +1549,7 @@ CREATE TABLE subscriptions (
     updated_at timestamp without time zone,
     account_type character varying,
     purchaser_email character varying,
-    start_date date DEFAULT '2018-02-22 00:00:00'::timestamp without time zone,
+    start_date date DEFAULT '2018-01-30 00:00:00'::timestamp without time zone,
     subscription_type_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
@@ -1866,6 +1868,35 @@ CREATE SEQUENCE user_subscriptions_id_seq
 --
 
 ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
+    active boolean DEFAULT false,
+    username character varying(255),
+    token character varying(255),
+    ip_address inet,
+    clever_id character varying(255),
+    signed_up_with_google boolean DEFAULT false,
+    send_newsletter boolean DEFAULT false,
+    flag character varying,
+    google_id character varying,
+    last_sign_in timestamp without time zone,
+    last_active timestamp without time zone,
+    stripe_customer_id character varying,
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['temporary'::character varying, 'staff'::character varying, 'admin'::character varying, 'student'::character varying, 'teacher'::character varying, 'user'::character varying])::text[])) AND (role IS NOT NULL)))
+);
 
 
 --
@@ -2953,13 +2984,6 @@ CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON coteacher
 
 
 --
--- Name: index_credit_transactions_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON credit_transactions USING btree (source_type, source_id);
-
-
---
 -- Name: index_credit_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3969,6 +3993,10 @@ INSERT INTO schema_migrations (version) VALUES ('20180102151559');
 
 INSERT INTO schema_migrations (version) VALUES ('20180110221301');
 
+INSERT INTO schema_migrations (version) VALUES ('20180111170306');
+
+INSERT INTO schema_migrations (version) VALUES ('20180111220811');
+
 INSERT INTO schema_migrations (version) VALUES ('20180122184126');
 
 INSERT INTO schema_migrations (version) VALUES ('20180126191518');
@@ -4016,4 +4044,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 INSERT INTO schema_migrations (version) VALUES ('20180209153502');
 
 INSERT INTO schema_migrations (version) VALUES ('20180222160256');
+
+INSERT INTO schema_migrations (version) VALUES ('20180222190628');
 
