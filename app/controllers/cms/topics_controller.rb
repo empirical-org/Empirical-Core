@@ -1,4 +1,5 @@
 class Cms::TopicsController < ApplicationController
+  before_filter :staff!
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   def index

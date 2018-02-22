@@ -1,4 +1,5 @@
 class Cms::ActivityClassificationsController < ApplicationController
+  before_filter :staff!
 
   def index
     respond_to do |format|
