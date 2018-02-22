@@ -453,6 +453,40 @@ ALTER SEQUENCE authors_id_seq OWNED BY authors.id;
 
 
 --
+-- Name: blog_post_user_ratings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE blog_post_user_ratings (
+    id integer NOT NULL,
+    blog_post_id integer,
+    user_id integer,
+    rating integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE blog_post_user_ratings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE blog_post_user_ratings_id_seq OWNED BY blog_post_user_ratings.id;
+
+
+--
 -- Name: blog_posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1937,6 +1971,13 @@ ALTER TABLE ONLY authors ALTER COLUMN id SET DEFAULT nextval('authors_id_seq'::r
 
 
 --
+-- Name: blog_post_user_ratings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_post_user_ratings ALTER COLUMN id SET DEFAULT nextval('blog_post_user_ratings_id_seq'::regclass);
+
+
+--
 -- Name: blog_posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2294,6 +2335,14 @@ ALTER TABLE ONLY announcements
 
 ALTER TABLE ONLY authors
     ADD CONSTRAINT authors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blog_post_user_ratings blog_post_user_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_post_user_ratings
+    ADD CONSTRAINT blog_post_user_ratings_pkey PRIMARY KEY (id);
 
 
 --
@@ -3970,4 +4019,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180221162940');
 INSERT INTO schema_migrations (version) VALUES ('20180221163408');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221170200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180222160302');
 

@@ -29,6 +29,8 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  post 'rate_blog_post', to: 'blog_post_user_ratings#create'
+
 
   # for Stripe
   resources :charges
