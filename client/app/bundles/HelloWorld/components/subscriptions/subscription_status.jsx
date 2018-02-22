@@ -13,7 +13,7 @@ export default class extends React.Component {
 
   userIsContact() {
     if (this.props.subscriptionStatus) {
-      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.contact_user_id;
+      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.purchaser_id;
     }
     return false;
   }
@@ -33,19 +33,20 @@ export default class extends React.Component {
 
   status() {
     let image;
-    const subscriptionType = this.state.subscriptionType;
+    let subscriptionType = this.state.subscriptionType;
     if (this.state.subscriptionType === 'Basic') {
-      image = 'shared/basic_icon.png';
-      return <span>{`You have a Quill ${subscriptionType} Subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
+      image = 'basic_icon.png';
+      subscriptionType = 'Quill Basic';
     } else if (this.props.subscriptionStatus.expired) {
       return <span><i className="fa fa-exclamation-triangle" />{`Your ${subscriptionType} Premium subscription has expired`}</span>;
     } else if (this.state.subscriptionType === 'Teacher') {
-      image = 'shared/teacher_premium_icon.png';
-      return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
+      image = 'teacher_premium_icon.png';
     } else if (this.state.subscriptionType === 'Trial') {
-      image = 'shared/teacher_premium_icon.png';
-      return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/${image}`} alt={`${subscriptionType}`} /></span>;
+      image = 'teacher_premium_icon.png';
+    } else if (this.state.subscriptionType === 'School') {
+      image = 'school_premium_icon.png';
     }
+    return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></span>;
   }
 
   buttonOrDate() {
