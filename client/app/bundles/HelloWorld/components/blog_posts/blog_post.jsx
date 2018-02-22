@@ -16,7 +16,7 @@ export default class BlogPost extends React.Component {
 
     this.state = {
       backLink: this.props.blogPost.topic.toLowerCase().replace(/\s/g, '_'),
-      ratingMessage: RATING_MESSAGES['instructions']
+      ratingMessage: this.props.displayPaywall ? '' : RATING_MESSAGES['instructions']
     }
   }
 
