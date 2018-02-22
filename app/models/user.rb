@@ -10,12 +10,15 @@ class User < ActiveRecord::Base
 
 
   has_secure_password validations: false
-
+  has_many :user_subscriptions
+  has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
   has_many :invitations
+  has_many :credit_transactions
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
+
 
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :admin_rights, through: :schools_admins, source: :school, foreign_key: :user_id
@@ -72,6 +75,57 @@ class User < ActiveRecord::Base
   before_validation :prep_authentication_terms
 
   after_save :check_for_school
+
+  def redeem_credit
+    balance = credit_transactions.sum(:amount)
+    if balance > 0
+      new_sub = Subscription.create_with_user_join(self.id, {account_type: 'Premium Credit',
+                                                            payment_method: 'Premium Credit',
+                                                            expiration: redemption_start_date + balance,
+                                                            start_date: redemption_start_date,
+                                                            contact_user: self})
+      if new_sub
+        CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
+      end
+      new_sub
+    end
+  end
+
+  def redemption_start_date
+    last_subscription = self.subscriptions
+      .where(de_activated_date: nil)
+      .where("expiration > ?", Date.today)
+      .order(expiration: :asc)
+      .limit(1).first
+
+    if last_subscription.present?
+      last_subscription.expiration
+    else
+      Date.today
+    end
+  end
+
+  def eligible_for_new_subscription?
+      if subscription
+        # if they have a subscription it must be a trial one
+        Subscription::TRIAL_TYPES.include?(subscription.account_type)
+      else
+        # otherwise they are good for purchase
+        true
+      end
+  end
+
+  def last_expired_subscription
+    self.subscriptions.where("expiration < ?", Date.today).order(expiration: :desc).limit(1).first
+  end
+
+  def subscription
+    self.subscriptions.where("expiration > ? AND start_date <= ? AND de_activated_date IS NULL", Date.today, Date.today,).order(expiration: :desc).limit(1).first
+  end
+
+  def present_and_future_subscriptions
+    self.subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
+  end
 
   def create(*args)
     super

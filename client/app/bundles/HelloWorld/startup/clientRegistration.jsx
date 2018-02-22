@@ -6,6 +6,7 @@ import TeacherAccountApp from './TeacherAccountAppClient';
 import ScorebookApp from './ScorebookAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
+import SubscriptionApp from './SubscriptionAppClient';
 import ArchivedClassroomsManagerApp from './ArchivedClassroomsManagerAppClient'
 import ResultsPageApp from './ResultsPageAppClient'
 import AdminDashboardApp from './AdminDashboardAppClient'
@@ -31,17 +32,40 @@ import EditStudentApp from './EditStudentAppClient'
 import SelectSchoolApp from './SelectSchoolAppClient'
 import BlogPostsApp from './BlogPostsAppClient'
 
-require('../../../assets/styles/home.scss')
+require('../../../assets/styles/home.scss');
 
 // This is how react_on_rails can see the HelloWorldApp in the browser.
 
-ReactOnRails.register({  TeacherGuideApp, DashboardApp,
-  LessonPlannerApp, TeacherAccountApp, ScorebookApp,
-  PremiumPricingGuideApp, ProgressReportApp,
-  ArchivedClassroomsManagerApp, ResultsPageApp, AdminDashboardApp, AdminAccountsApp,
-  AdminsEditorApp, PublicActivityPacksApp, AddStudentApp,
-  DiagnosticPlannerApp, DiagnosticReportsApp, CreateClassApp, UnitTemplatesApp, PublicUnitTemplatesApp,
-  GoogleSyncApp, GoogleMismatchApp, AssignActivitiesApp, TutorialsApp, TeacherFixApp,
-  ActivityCategoriesApp, ActivityCategoryApp, ActivityClassificationsApp, EditCoteacherApp, EditStudentApp, SelectSchoolApp,
+ReactOnRails.register({ TeacherGuideApp,
+  DashboardApp,
+  LessonPlannerApp,
+  TeacherAccountApp,
+  ScorebookApp,
+  PremiumPricingGuideApp,
+  ProgressReportApp,
+  ArchivedClassroomsManagerApp,
+  ResultsPageApp,
+  AdminDashboardApp,
+  AdminAccountsApp,
+  AdminsEditorApp,
+  PublicActivityPacksApp,
+  AddStudentApp,
+  DiagnosticPlannerApp,
+  DiagnosticReportsApp,
+  CreateClassApp,
+  UnitTemplatesApp,
+  PublicUnitTemplatesApp,
+  GoogleSyncApp,
+  GoogleMismatchApp,
+  AssignActivitiesApp,
+  TutorialsApp,
+  TeacherFixApp,
+  ActivityCategoriesApp,
+  ActivityCategoryApp,
+  ActivityClassificationsApp,
+  EditCoteacherApp,
+  EditStudentApp,
+  SelectSchoolApp,
+  SubscriptionApp,
   BlogPostsApp
 });

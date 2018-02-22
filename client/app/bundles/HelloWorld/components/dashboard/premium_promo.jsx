@@ -1,7 +1,7 @@
 'use strict'
 
  import React from 'react'
- import Stripe from '../modules/stripe.jsx'
+ import Stripe from '../modules/stripe/charge.js'
 
  export default React.createClass({
 

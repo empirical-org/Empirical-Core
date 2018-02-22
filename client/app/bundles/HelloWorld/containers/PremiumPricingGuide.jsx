@@ -35,7 +35,7 @@ export default React.createClass({
           <h1>Pricing Guide</h1>
           <p>Save time grading and gain actionable insights with Quill Premium.</p>
         </div>
-        <PremiumPricingMinisRow />
+        <PremiumPricingMinisRow {...this.props} />
         <DistrictPricingBox />
         <PremiumFlyer />
         <TeacherTestimonial />
