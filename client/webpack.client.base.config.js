@@ -59,10 +59,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    modules: [
-      path.resolve(__dirname, 'app/client'),
-      'node_modules'
-    ],
+    root: [ path.resolve('./app') ],
+    modules: ['node_modules'],
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
       react: path.resolve('./node_modules/react'),
