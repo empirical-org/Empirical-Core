@@ -591,7 +591,8 @@ CREATE TABLE classrooms (
     grade character varying,
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
-    grade_level integer
+    grade_level integer,
+    teacher_id integer
 );
 
 
@@ -2781,13 +2782,6 @@ CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_le
 
 
 --
--- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
-
-
---
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2823,13 +2817,6 @@ CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USI
 
 
 --
--- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
-
-
---
 -- Name: index_coteacher_classroom_invitations_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2841,6 +2828,13 @@ CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON coteacher_
 --
 
 CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON coteacher_classroom_invitations USING btree (invitation_id);
+
+
+--
+-- Name: index_credit_transactions_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON credit_transactions USING btree (source_type, source_id);
 
 
 --
@@ -3783,6 +3777,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171019150737');
 INSERT INTO schema_migrations (version) VALUES ('20171106201721');
 
 INSERT INTO schema_migrations (version) VALUES ('20171106203046');
+
+INSERT INTO schema_migrations (version) VALUES ('20171108201608');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 

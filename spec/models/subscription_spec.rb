@@ -137,9 +137,6 @@ describe Subscription, type: :model do
     it "responds with false if school or user has only had things in the ALL_FREE_TYPES_LIST" do
       Subscription::ALL_FREE_TYPES.each do |type|
         subscription.update(account_type: type)
-        if type === 'paid'
-          binding.pry
-        end
         expect(Subscription.school_or_user_has_ever_paid(user)).not_to be
       end
     end
