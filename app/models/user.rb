@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
                                                             payment_method: 'Premium Credit',
                                                             expiration: redemption_start_date + balance,
                                                             start_date: redemption_start_date,
-                                                            contact_user: self})
+                                                            purchaser_id: self.id})
       if new_sub
         CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
       end
