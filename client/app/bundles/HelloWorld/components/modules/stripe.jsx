@@ -7,7 +7,7 @@ export default function (priceInCents, description) {
     locale: 'auto',
     token(token) {
       $.post('charges.json',
-          { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, amount, })
+          { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, amount, description })
           .done((data) => {
             if (data.err) {
               // there is an error for this in the charges controller,

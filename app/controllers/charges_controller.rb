@@ -12,12 +12,13 @@ class ChargesController < ApplicationController
       end
       customer = Stripe::Customer.create(
         :description => "premium",
-        :source  => params[:source][:id]
+        :source  => params[:source][:id],
+        :email => current_user.email
       )
       @charge = Stripe::Charge.create(
         :customer    => customer.id,
         :amount      => params['amount'].to_i,
-        :description => 'Teacher Premium',
+        :description => params['description'],
         :currency    => 'usd',
         :receipt_email =>  params['source']['email']
       )
