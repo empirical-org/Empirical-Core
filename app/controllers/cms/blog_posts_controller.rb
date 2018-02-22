@@ -1,5 +1,4 @@
-class Cms::BlogPostsController < ApplicationController
-  before_filter :staff!
+class Cms::BlogPostsController < Cms::CmsController
   before_action :set_blog_post, only: [:update, :destroy, :edit, :show]
   before_action :authors, :topics, only: [:edit, :new]
 

@@ -1,5 +1,4 @@
-class Cms::SectionsController < ApplicationController
-  before_filter :staff!
+class Cms::SectionsController < Cms::CmsController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
   def index

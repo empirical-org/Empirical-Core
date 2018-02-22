@@ -1,5 +1,4 @@
-class Cms::SubscriptionsController < ApplicationController
-  before_filter :staff!
+class Cms::SubscriptionsController < Cms::CmsController
   # does rails automatically pull user given that this is a nested resource?
   before_action :get_user
 
