@@ -13,7 +13,8 @@ class ChargesController < ApplicationController
       customer = Stripe::Customer.create(
         :description => "premium",
         :source  => params[:source][:id],
-        :email => current_user.email
+        :email => current_user.email,
+        :metadata => { name: current_user.name, school: current_user.school.name }
       )
       @charge = Stripe::Charge.create(
         :customer    => customer.id,
