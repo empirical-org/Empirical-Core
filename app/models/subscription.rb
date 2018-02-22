@@ -7,11 +7,11 @@ class Subscription < ActiveRecord::Base
   has_many :credit_transactions, as: :source
   has_many :users, through: :user_subscriptions
   has_many :schools, through: :school_subscriptions
-  belongs_to :contact_user, class_name: "User"
+  belongs_to :purchaser, class_name: "User"
   belongs_to :subscription_type
   validates :expiration, presence: true
   validates :account_limit, presence: true
-  after_commit :check_if_contact_email_is_in_database
+  after_commit :check_if_purchaser_email_is_in_database
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
     'School NYC Paid',
@@ -43,23 +43,23 @@ class Subscription < ActiveRecord::Base
   # TODO: ultimately these should be clenaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
   GRANDFATHERED_FREE_TYPES = ['trial']
-  ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.concat(OFFICIAL_FREE_TYPES)
-  ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.concat(OFFICIAL_PAID_TYPES)
+  ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
+  ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
   TEACHER_PRICE = 8000
-  ALL_TYPES = ALL_FREE_TYPES.concat(ALL_PAID_TYPES)
+  ALL_TYPES = ALL_FREE_TYPES.dup.concat(ALL_PAID_TYPES)
 
 
   def is_not_paid?
     self.account_type && TRIAL_TYPES.include?(self.account_type.downcase == 'teacher trial')
   end
 
-  def check_if_contact_email_is_in_database
-    if self.contact_email && !self.contact_user_id
-      contact_id = User.find_by_email(self.contact_email)&.id
-      if contact_id
-        self.update(contact_user_id: contact_id)
+  def check_if_purchaser_email_is_in_database
+    if self.purchaser_email && !self.purchaser_id
+      purchaser_id = User.find_by_email(self.purchaser_email)&.id
+      if purchaser_id
+        self.update(purchaser_id: purchaser_id)
       end
     end
   end
@@ -121,7 +121,7 @@ class Subscription < ActiveRecord::Base
 
   def self.new_teacher_premium_sub(user)
     expiration = school_or_user_has_ever_paid(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
-    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, contact_user_id: user.id)
+    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
   def self.give_teacher_premium_if_charge_succeeds(user)
@@ -174,14 +174,14 @@ class Subscription < ActiveRecord::Base
 
 
   def charge_user_for_teacher_premium
-    if contact_user && contact_user.stripe_customer_id
-      Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: contact_user.stripe_customer_id)
+    if purchaser && purchaser.stripe_customer_id
+      Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
     end
   end
 
   def charge_user
-    if contact_user && contact_user.stripe_customer_id
-      Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: contact_user.stripe_customer_id)
+    if purchaser && purchaser.stripe_customer_id
+      Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
     end
   end
 

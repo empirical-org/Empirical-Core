@@ -11,7 +11,7 @@ class SubscriptionsController < ApplicationController
 
   def purchaser_name
     subscription_is_associated_with_current_user?
-    render json: {name: @subscription.contact_user.name}
+    render json: {name: @subscription.purchaser.name}
   end
 
   def show
@@ -24,7 +24,7 @@ class SubscriptionsController < ApplicationController
       PremiumAnalyticsWorker.perform_async(current_user.id, subscription_params[:account_type])
     end
     attributes = subscription_params
-    attributes[:contact_user_id] ||= current_user.id
+    attributes[:purchaser_id] ||= current_user.id
     attributes.delete(:authenticity_token)
     @subscription = Subscription.create_with_user_join(current_user.id, attributes)
     render json: @subscription
@@ -44,13 +44,13 @@ class SubscriptionsController < ApplicationController
   private
 
   def subscription_is_associated_with_current_user?
-    if !@subscription.users.include?(current_user) && !current_user == @subscription.contact_user
+    if !@subscription.users.include?(current_user) && !current_user == @subscription.purchaser
       auth_failed
     end
   end
 
   def subscription_belongs_to_purchaser?
-    if current_user != @subscription.contact_user
+    if current_user != @subscription.purchaser
       auth_failed
     end
   end
@@ -73,12 +73,12 @@ class SubscriptionsController < ApplicationController
       @subscription_status = current_user.last_expired_subscription
       expired = true
     end
-    contact_user = @subscription_status&.contact_user
-    if contact_user || @subscription_status&.contact_email
+    purchaser = @subscription_status&.purchaser
+    if purchaser || @subscription_status&.contact_email
       # we want to allow the viewer to email the contact user for school premium
       # if the contact user is in our db, then we retrieve their emaile
       # otherwise we fall back on the hardcoded contact email which was input by the sales team
-      @subscription_status = @subscription_status.attributes.merge({expired: expired, contact_name: contact_user.name, mail_to: contact_user.email || @subscription_status.email})
+      @subscription_status = @subscription_status.attributes.merge({expired: expired, contact_name: purchaser.name, mail_to: purchaser.email || @subscription_status.email})
     else
       @subscription_status = @subscription_status&.attributes&.merge({expired: expired})
     end
@@ -92,7 +92,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.require(:subscription).permit( :id, :contact_user_id, :expiration, :account_type, :account_limit, :authenticity_token, :recurring)
+    params.require(:subscription).permit( :id, :purchaser_id, :expiration, :account_type, :account_limit, :authenticity_token, :recurring)
   end
 
 

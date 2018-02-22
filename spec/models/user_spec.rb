@@ -224,7 +224,7 @@ describe User, type: :model do
 
           it "with the user as the contact" do
             subscription = user.redeem_credit
-            expect(subscription.contact_user).to eq(user)
+            expect(subscription.purchaser).to eq(user)
           end
         end
       end
