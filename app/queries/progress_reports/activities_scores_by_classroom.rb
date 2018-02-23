@@ -4,16 +4,7 @@ class ProgressReports::ActivitiesScoresByClassroom
     ActiveRecord::Base.connection.execute(query(ids)).to_a
   end
 
-  def self.district_results(admin_id)
-    classroom_ids = district_classroom_ids(admin_id)
-    results(classroom_ids)
-  end
-
   private
-
-  def self.district_classroom_ids(admin_id)
-    Classroom.includes(teachers: { school: :admins }).where('schools_admins.user_id = ?', admin_id).pluck(:id)
-  end
 
   def self.query(classroom_ids)
     <<~SQL
