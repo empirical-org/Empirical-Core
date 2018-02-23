@@ -17,7 +17,7 @@ class Teachers::ProgressReports::Standards::TopicStudentsController < Teachers::
           serializer.classroom_id = params[:classroom_id]
           serializer.as_json(root: false)
         end
-        selected_classroom = params[:classroom_id] == 0 ? 'All Classrooms' : Classroom.find_by(id: params[:classroom_id])
+        selected_classroom = params[:classroom_id] == 0 ? 'All Classrooms' : current_user.classrooms_i_teach.find(params[:classroom_id])
         render json: {
           selected_classroom: selected_classroom,
           classrooms: current_user.classrooms_i_teach,
