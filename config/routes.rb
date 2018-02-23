@@ -22,6 +22,16 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug do
+    collection do
+      get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
+    end
+  end
+
+  post 'rate_blog_post', to: 'blog_post_user_ratings#create'
+
+
   # for Stripe
   resources :charges
 
@@ -341,7 +351,9 @@ EmpiricalGrammar::Application.routes.draw do
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
-
+    resources :blog_posts
+    get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
+    get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
     end
@@ -376,9 +388,11 @@ EmpiricalGrammar::Application.routes.draw do
         post :add_admin_by_email
       end
     end
+
+    resources :announcements, only: [:index, :new, :create, :update, :edit]
   end
 
-  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium media_kit play news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
