@@ -82,10 +82,12 @@ export default class extends React.Component {
         content.pCopy = schoolPremiumCopy;
         content.boxColor = '#9c2bde';
         image = 'school_premium_icon.png';
-        if (this.props.userIsContact) {
-          content.buttonOrDate = <a href="/premium" className="q-button bg-orange text-white cta-button">Renew School Premium</a>;
-        } else {
-          content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
+        if (remainingDays < 90) {
+          if (this.props.userIsContact) {
+            content.buttonOrDate = <a href="/premium" className="q-button bg-orange text-white cta-button">Renew School Premium</a>;
+          } else {
+            content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
+          }
         }
         break;
     }
