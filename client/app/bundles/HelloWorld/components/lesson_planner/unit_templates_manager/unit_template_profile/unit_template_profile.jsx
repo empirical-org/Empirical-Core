@@ -26,7 +26,8 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.getProfileInfo(this.props.params.activityPackId)
+    if (this.props.params && this.props.params.activityPackId)
+      this.getProfileInfo(this.props.params.activityPackId)
   }
 
   getProfileInfo(id) {
@@ -49,7 +50,8 @@ export default class UnitTemplateProfile extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.location, nextProps.location)) {
       this.setState({loading: true})
-      this.getProfileInfo(nextProps.params.activityPackId)
+      if (nextProps.params && nextProps.params.activityPackId)
+        this.getProfileInfo(nextProps.params.activityPackId)
     }
   }
 

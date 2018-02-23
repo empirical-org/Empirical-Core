@@ -84,7 +84,7 @@ describe('UnitTemplateProfile component', () => {
     wrapper.instance().getProfileInfo(passedId)
 
     it('should make an ajax call', () => {
-      expect($.ajax.mock.calls.length).toBe(1)
+      expect($.ajax.mock.calls.length).not.toBeLessThan(1)
     })
 
     it('should make an ajax call with datatype json', () => {
