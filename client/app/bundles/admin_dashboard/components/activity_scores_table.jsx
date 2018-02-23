@@ -42,6 +42,11 @@ const ActivityScoresTable = ({ data }) => {
       sortMethod: sortByLastName,
       Cell: row => row.original.teachers_name,
     }, {
+      Header: "School",
+      accessor: 'schools_name',
+      resizable: false,
+      Cell: row => row.original.schools_name,
+    }, {
       Header: "Class",
       accessor: 'classroom_name',
       resizable: false,
