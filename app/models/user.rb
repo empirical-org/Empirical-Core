@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_many :checkboxes
-  has_many :invitations
+  has_many :invitations, foreign_key: 'inviter_id'
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   has_one :ip_location
   has_many :user_milestones
   has_many :milestones, through: :user_milestones
+
+  has_many :blog_post_user_ratings
 
 
 
