@@ -9,10 +9,10 @@ const ActivityScoresTable = ({ data }) => {
   let columns = [
     {
       Header: 'Student',
-      accessor: 'name',
+      accessor: 'students_name',
       resizable: false,
       sortMethod: sortByLastName,
-      Cell: row => row.original.name,
+      Cell: row => row.original.students_name,
     }, {
       Header: "Activities Completed",
       accessor: 'activity_count',
@@ -35,8 +35,13 @@ const ActivityScoresTable = ({ data }) => {
       minWidth: 90,
       Cell: row => row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span/>,
       sortMethod: sortFromSQLTimeStamp,
-    },
-    {
+    }, {
+      Header: 'Teacher',
+      accessor: 'teachers_name',
+      resizable: false,
+      sortMethod: sortByLastName,
+      Cell: row => row.original.teachers_name,
+    }, {
       Header: "Class",
       accessor: 'classroom_name',
       resizable: false,
