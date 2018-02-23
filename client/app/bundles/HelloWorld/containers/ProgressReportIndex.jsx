@@ -13,6 +13,7 @@ import StudentOverview from '../components/progress_reports/student_overview.jsx
 import $ from 'jquery'
 import _ from 'underscore'
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ReactDOM from 'react-dom'
 require('../../../assets/styles/app-variables.scss')
 
@@ -54,7 +55,7 @@ var renderRightComponentHack = function() {
   });
 };
 
-export default React.createClass({
+export default createReactClass({
 
   componentDidMount: function(){
    renderRightComponentHack();

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import FilterOption from './filter_option';
 import _ from 'lodash';
 import $ from 'jquery';
@@ -6,7 +7,7 @@ import naturalCmp from 'underscore.string/naturalCmp';
 import FilterButton from './filter_button.jsx';
 import getParameterByName from '../../../../modules/get_parameter_by_name';
 
-export default React.createClass({
+export default createReactClass({
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.activeFilterOn) {

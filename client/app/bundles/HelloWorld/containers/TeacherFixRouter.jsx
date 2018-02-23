@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import TeacherFixIndex from '../components/teacher_fix/index.jsx'
@@ -11,7 +12,7 @@ import MoveStudent from '../components/teacher_fix/move_student.jsx'
 import GoogleUnsync from '../components/teacher_fix/google_unsync'
 import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
 
-export default React.createClass({
+export default createReactClass({
 	render: function() {
 		return (
 			<Router Router history={browserHistory}>

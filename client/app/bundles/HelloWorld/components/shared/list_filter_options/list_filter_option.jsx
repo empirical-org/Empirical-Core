@@ -1,10 +1,11 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import { Link } from 'react-router'
  import _ from 'underscore'
 
- export default React.createClass({
+ export default createReactClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     isSelected: React.PropTypes.bool.isRequired,

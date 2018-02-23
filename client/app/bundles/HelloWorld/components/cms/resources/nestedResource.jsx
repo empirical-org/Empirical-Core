@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import NewNestedResource from './newNestedResource.jsx'
 import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
     data: React.PropTypes.object.isRequired,

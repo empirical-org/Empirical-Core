@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 // import { Router, Route, Link, hashHistory } from 'react-router'
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
 import NavButtonGroup from './nav_button_group.jsx';
@@ -7,7 +8,7 @@ import blackIconAppName from '../../modules/get_black_icon_app_name_from_classif
 import l from 'lodash'
 import $ from 'jquery';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     classrooms: React.PropTypes.array.isRequired,
     students: React.PropTypes.array,

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import OverviewMini from './overview_mini';
 import PremiumMini from './premium_mini';
@@ -10,7 +11,7 @@ import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
 import DiagnosticMini from './diagnostic_mini.jsx'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     data: React.PropTypes.any,
   },

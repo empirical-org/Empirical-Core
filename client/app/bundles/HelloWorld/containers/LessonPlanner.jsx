@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import _ from 'underscore'
 import _l from 'lodash'
@@ -17,7 +18,7 @@ import AssignANewActivity from '../components/lesson_planner/create_unit/assign_
 import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.jsx'
 
 
-export default React.createClass({
+export default createReactClass({
 	propTypes: {
 		grade: React.PropTypes.string,
 		tab: React.PropTypes.string,

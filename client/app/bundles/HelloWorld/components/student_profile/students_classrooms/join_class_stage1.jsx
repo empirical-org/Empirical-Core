@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function() {
     return {error: null};

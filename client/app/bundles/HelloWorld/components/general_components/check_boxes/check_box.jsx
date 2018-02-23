@@ -1,7 +1,8 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     checked: React.PropTypes.bool.isRequired,
     toggleItem: React.PropTypes.func.isRequired,

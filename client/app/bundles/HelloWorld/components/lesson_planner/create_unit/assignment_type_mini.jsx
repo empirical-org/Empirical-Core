@@ -1,9 +1,10 @@
 'use strict'
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import Pluralize from 'pluralize'
 import LoadingIndicator from '../../shared/loading_indicator.jsx'
-export default React.createClass({
+export default createReactClass({
     propTypes: {
         title: React.PropTypes.string.isRequired,
         img: React.PropTypes.string.isRequired,

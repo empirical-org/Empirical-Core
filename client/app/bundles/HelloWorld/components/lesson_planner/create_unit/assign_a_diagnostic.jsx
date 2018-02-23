@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import AssignmentTypeMini from './assignment_type_mini'
 import LaunchingSoonMini from './launching_soon_mini'
 
-export default React.createClass({
+export default createReactClass({
 
   minis: function(){
     let minis =

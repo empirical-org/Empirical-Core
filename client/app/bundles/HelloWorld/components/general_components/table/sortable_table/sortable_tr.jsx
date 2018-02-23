@@ -1,8 +1,9 @@
 import _ from 'underscore'
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ScoreColor from '../../../modules/score_color.js'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     row: React.PropTypes.object.isRequired,
     columns: React.PropTypes.array.isRequired,

@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import CheckBox from './check_box.jsx'
 import _ from 'underscore'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     label: React.PropTypes.string.isRequired,
     items: React.PropTypes.array.isRequired,

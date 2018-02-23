@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ConceptResultStat from './concept_result_stat.jsx';
 import $ from 'jquery';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     results: React.PropTypes.array.isRequired,
   },

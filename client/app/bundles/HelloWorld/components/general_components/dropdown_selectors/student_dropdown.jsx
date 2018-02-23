@@ -1,9 +1,10 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 // import {Router, Route, Link, hashHistory} from 'react-router';
 
-export default React.createClass({
+export default createReactClass({
 
 	propTypes: {
 		students: React.PropTypes.array.isRequired,

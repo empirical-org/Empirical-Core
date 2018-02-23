@@ -1,9 +1,10 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import _ from 'underscore'
 import SortableList from '../../../components/shared/sortableList'
 import CmsIndexTableRow from './cms_index_table_row.jsx'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired

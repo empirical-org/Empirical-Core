@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import RoleOption from './role_option'
 
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     selectRole: React.PropTypes.func.isRequired
   },

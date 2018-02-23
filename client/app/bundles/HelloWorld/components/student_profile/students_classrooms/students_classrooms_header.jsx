@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import StudentsClassroom from './students_classroom';
 import StudentsClassroomsDropdown from './students_classrooms_dropdown';
 

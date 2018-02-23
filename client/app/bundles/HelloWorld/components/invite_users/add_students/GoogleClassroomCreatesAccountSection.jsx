@@ -1,7 +1,8 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import GoogleClassroomModal from '../../dashboard/google_classroom_modal'
 
-export default React.createClass({
+export default createReactClass({
   render: function() {
     return (
       <div>

@@ -1,11 +1,12 @@
 'use strict'
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 
 
- export default React.createClass({
+ export default createReactClass({
     // displayName: 'Example',
 
     getInitialState: function() {

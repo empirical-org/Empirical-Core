@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import moment from 'moment';
 import PreviewCard from '../shared/preview_card.jsx';
 import ReactMarkdown from 'react-markdown';

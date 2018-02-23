@@ -1,9 +1,10 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import ReactTable from 'react-table'
 
- export default React.createClass({
+ export default createReactClass({
   propTypes: {
     data: React.PropTypes.object,
     actions: React.PropTypes.object

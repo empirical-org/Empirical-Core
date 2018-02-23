@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import StudentProfileUnit from './student_profile_unit.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   groupUnits() {
     const groupedUnits = _.groupBy(this.props.data, 'unit_id');

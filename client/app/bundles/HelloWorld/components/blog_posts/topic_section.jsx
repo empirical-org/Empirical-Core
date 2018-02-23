@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import pluralize from 'pluralize'
 import PreviewCard from '../shared/preview_card.jsx';
 

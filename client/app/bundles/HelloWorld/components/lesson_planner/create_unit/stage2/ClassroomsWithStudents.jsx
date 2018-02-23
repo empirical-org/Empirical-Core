@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import Classroom from './classroom.jsx';
 import EditStudentsButton from './EditStudentsButton.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name.js';

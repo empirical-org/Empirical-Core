@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import request from 'request';
 import Units from './activities_units';
 import ManageUnitsHeader from './manageUnitsHeader.jsx';
@@ -11,7 +12,7 @@ import _ from 'underscore';
 
 const allClassroomKey = 'All Classrooms'
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
     return {

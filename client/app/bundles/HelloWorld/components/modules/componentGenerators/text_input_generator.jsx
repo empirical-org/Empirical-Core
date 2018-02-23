@@ -1,5 +1,6 @@
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import _ from 'lodash'
 import TextInput from '../../general_components/text_input'
 

@@ -1,11 +1,12 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import request from 'request';
 import Select from 'react-select';
 import _ from 'underscore'
 
-export default React.createClass({
+export default createReactClass({
   getInitialState: function() {
     return {
       selectedCoteacher: this.props.selected_teacher_id,

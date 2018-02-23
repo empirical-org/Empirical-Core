@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import ClassroomActivity from './classroom_activity';
 import Pluralize from 'pluralize';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
 import moment from 'moment'
 
-export default React.createClass({
+export default createReactClass({
   getInitialState() {
     return {
       edit: false,

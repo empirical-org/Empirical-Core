@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'lodash';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import $ from 'jquery';
@@ -10,7 +11,7 @@ import GoogleClassroomCreatesAccountSection from '../components/invite_users/add
 import EmptyProgressReport from '../components/shared/EmptyProgressReport.jsx';
 require('../../../../../app/assets/stylesheets/pages/invite-students.scss');
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
     classrooms: React.PropTypes.array.isRequired,

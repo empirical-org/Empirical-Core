@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import PageNumber from './page_number';
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
     currentPage: React.PropTypes.number.isRequired,

@@ -1,9 +1,10 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import TutorialIndex from '../components/tutorials/TutorialIndex'
 
-export default React.createClass({
+export default createReactClass({
 	render: function() {
 		return (
 			<Router Router history={browserHistory}>

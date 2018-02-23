@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import _l from 'lodash'
 import _ from 'underscore'
 import UnitTemplateMinis from './unit_template_minis/unit_template_minis'
@@ -13,7 +14,7 @@ import WindowPosition from '../../modules/windowPosition'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import LoadingIndicator from '../../shared/loading_indicator'
 
-export default React.createClass({
+export default createReactClass({
 
   componentDidMount: function() {
   	this.fetchUnitTemplateModels();

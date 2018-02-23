@@ -1,12 +1,13 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import CategoryLabel from '../../../category_labels/category_label'
  import moment from 'moment'
 
  const cutOffTimeForNew = moment().subtract('months', 1).unix()
 
- export default React.createClass({
+ export default createReactClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object,

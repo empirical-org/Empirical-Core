@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import Server from '../modules/server/server.jsx'
 import Fnl from '../modules/fnl.jsx'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'

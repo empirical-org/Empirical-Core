@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import ActivitySearchAndSelect from '../lesson_planner/create_unit/activity_search/activity_search_and_select.jsx';
@@ -11,7 +12,7 @@ import MarkdownParser from '../shared/markdown_parser.jsx';
 import $ from 'jquery';
 import _ from 'underscore';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     unitTemplate: React.PropTypes.object.isRequired,
     returnToIndex: React.PropTypes.func.isRequired,

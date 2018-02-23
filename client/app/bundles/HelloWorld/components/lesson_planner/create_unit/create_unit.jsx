@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import UnitStage1 from './stage1/unit_stage1';
 import Stage2 from './stage2/Stage2';
 import UnitTemplatesAssigned from '../unit_template_assigned';
@@ -6,7 +7,7 @@ import _ from 'underscore';
 import $ from 'jquery';
 import AnalyticsWrapper from '../../shared/analytics_wrapper';
 
-export default React.createClass({
+export default createReactClass({
   getInitialState() {
     return {
       prohibitedUnitNames: [],

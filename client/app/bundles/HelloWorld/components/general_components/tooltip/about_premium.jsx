@@ -1,6 +1,7 @@
 'use strict';
 import React from 'react'
-export default React.createClass({
+import createReactClass from 'create-react-class'
+export default createReactClass({
   propTypes: {},
   render: function () {
     return (

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import TopicSection from './topic_section.jsx';
 import PreviewCard from '../shared/preview_card.jsx';
 import _ from 'underscore';

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import LoadingIndicator from '../../shared/loading_indicator.jsx';
 import LessonRecommendationRow from './lesson_recommendation_row';
 

@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ProgressReport from '../progress_report.jsx'
 import ScoreColor from '../../modules/score_color.js'
 
 
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     premiumStatus: React.PropTypes.string
   },

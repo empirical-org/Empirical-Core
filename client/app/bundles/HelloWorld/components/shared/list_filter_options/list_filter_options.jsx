@@ -1,11 +1,12 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import _ from 'underscore'
  import ListFilterOption from './list_filter_option'
 
 
- export default  React.createClass({
+ export default  createReactClass({
   propTypes: {
     options: React.PropTypes.array.isRequired,
     userLoggedIn: React.PropTypes.bool

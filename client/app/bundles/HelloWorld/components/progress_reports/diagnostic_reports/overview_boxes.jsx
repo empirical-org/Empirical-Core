@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ScoreColor from '../../modules/score_color.js'
 import Pluralize from 'pluralize'
 
-export default React.createClass({
+export default createReactClass({
 
 	propTypes: {
 		data: React.PropTypes.array.isRequired

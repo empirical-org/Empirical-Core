@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ReactDOMServer from 'react-dom/server';
 import AboutPremium from '../../../general_components/tooltip/about_premium.jsx';
 import ConceptResultStats from '../../../general_components/tooltip/concept_result_stats.jsx';

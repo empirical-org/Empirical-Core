@@ -1,5 +1,6 @@
 import React from 'react'
-export default React.createClass({
+import createReactClass from 'create-react-class'
+export default createReactClass({
 
   mapLogos: function() {
     var logos = this.props.subscribers.map(function(subscriber, index) {

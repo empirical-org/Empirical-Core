@@ -1,8 +1,9 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
 import {proficiencyCutoffsAsPercentage} from '../../../../modules/proficiency_cutoffs.js'
 
-export default React.createClass({
+export default createReactClass({
 	render: function () {
 		const cutOff = proficiencyCutoffsAsPercentage();
 		return (

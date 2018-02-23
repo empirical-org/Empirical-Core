@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import {Link} from 'react-router'
 import $ from 'jquery'
 import _ from 'underscore'

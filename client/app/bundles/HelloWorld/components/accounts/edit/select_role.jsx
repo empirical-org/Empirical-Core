@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import $ from 'jquery';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     role: React.PropTypes.string.isRequired,
     updateRole: React.PropTypes.func.isRequired

@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 import shouldCountForScoring from '../../../../modules/activity_classifications.js';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     premium_state: React.PropTypes.string.isRequired,

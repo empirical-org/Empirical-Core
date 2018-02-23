@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import DropdownMenu from '../progress_reports/dropdown_filter'
 
 export default class CreateNewAccounts extends React.Component {

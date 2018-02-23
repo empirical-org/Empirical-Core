@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import LoadingIndicator from '../components/shared/loading_indicator.jsx'
 import GoogleClassroomList from '../components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx'

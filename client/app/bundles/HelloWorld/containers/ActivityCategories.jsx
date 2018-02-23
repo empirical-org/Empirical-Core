@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import SortableList from '../components/shared/sortableList'
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token'

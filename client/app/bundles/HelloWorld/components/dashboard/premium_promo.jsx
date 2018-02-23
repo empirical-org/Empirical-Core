@@ -1,9 +1,10 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import Stripe from '../modules/stripe.jsx'
 
- export default React.createClass({
+ export default createReactClass({
 
    charge: function() {
        new Stripe();

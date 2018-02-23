@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import DropdownFilterOption from './dropdown_filter_option.jsx';
 import _ from 'underscore';
 import $ from 'jquery';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     selectedOption: React.PropTypes.object.isRequired,
     options: React.PropTypes.array.isRequired,

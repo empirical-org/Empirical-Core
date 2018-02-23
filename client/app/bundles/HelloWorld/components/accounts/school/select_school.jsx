@@ -1,10 +1,11 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
 import _ from 'underscore'
 import EducatorType from '../new/educator_type';
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     updateSchool: React.PropTypes.func.isRequired,
     requestSchools: React.PropTypes.func.isRequired,

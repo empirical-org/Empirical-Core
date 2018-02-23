@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import moment from 'moment';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     title: React.PropTypes.string.isRequired,
     onClickFunction: React.PropTypes.func.isRequired

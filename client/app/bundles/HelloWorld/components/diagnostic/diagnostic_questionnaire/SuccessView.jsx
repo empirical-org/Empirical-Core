@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import UnitTemplateAssigned from '../../lesson_planner/diagnostic_assigned.jsx'
 
 
-export default React.createClass({
+export default createReactClass({
 
   render: function() {
     let name, id

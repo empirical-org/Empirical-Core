@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import AdminsTeacher from './admins_teacher.jsx';
 import SortableTable from '../../general_components/table/sortable_table/sortable_table.jsx';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     data: React.PropTypes.array.isRequired,
     sortHandler: React.PropTypes.func.isRequired,

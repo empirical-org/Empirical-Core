@@ -1,5 +1,6 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import NewAccountStage1 from './new_account_stage1'
@@ -11,7 +12,7 @@ import _ from 'lodash'
 
 
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     teacherFromGoogleSignUp: React.PropTypes.bool.isRequired
   },

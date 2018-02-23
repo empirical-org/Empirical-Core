@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import StudentProfile from '../../HelloWorld/containers/StudentProfile.jsx'
 import { Provider } from 'react-redux'
 import studentProfile from '../../../reducers/student_profile'

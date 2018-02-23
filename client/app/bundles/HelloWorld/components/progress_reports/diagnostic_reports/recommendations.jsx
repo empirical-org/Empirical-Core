@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import $ from 'jquery';
 import request from 'request';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
@@ -9,7 +10,7 @@ import RecommendationsTableCell from './recommendations_table_cell';
 import LessonsRecommendations from './lessons_recommendations';
 import RecommendationOverview from './recommendation_overview';
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
     return {

@@ -1,9 +1,10 @@
 "use strict";
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ProgressReport from './progress_report.jsx'
 
 
-export default  React.createClass({
+export default  createReactClass({
   propTypes: {
     sourceUrl: React.PropTypes.string.isRequired
   },

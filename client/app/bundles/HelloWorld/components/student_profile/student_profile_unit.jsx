@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import StudentProfileActivities from './student_profile_activities.jsx';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
   },

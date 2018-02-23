@@ -1,7 +1,8 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
     actions: React.PropTypes.object.isRequired

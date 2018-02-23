@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ReactTable from 'react-table';
 import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post.jsx';
 import BlogPostIndex from '../components/blog_posts/blog_post_index.jsx';
@@ -6,7 +7,7 @@ import BlogPost from '../components/blog_posts/blog_post.jsx';
 import request from 'request';
 import moment from 'moment';
 
-export default React.createClass({
+export default createReactClass({
 
   columns() {
     return ([

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import request from 'request';
 import $ from 'jquery';
 import _ from 'underscore';
@@ -7,7 +8,7 @@ import NotificationBox from '../components/shared/notification_box.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import InviteCoteachers from '../components/classroom_management/invite_coteachers.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
     role: React.PropTypes.string.isRequired,

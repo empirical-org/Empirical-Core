@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import $ from 'jquery';
 import DropdownDateSelector from '../../general_components/dropdown_date_selector.jsx';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     subscription: React.PropTypes.object,
     updateSubscriptionState: React.PropTypes.func.isRequired,

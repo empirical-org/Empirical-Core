@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ActivitySearchAndSelect from '../activity_search/activity_search_and_select';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import AssigningIndicator from '../../../shared/button_loading_indicator';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,

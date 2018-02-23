@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ActivityClassification from '../components/activity_classifications/activity_classification.jsx'
 import Cms from './Cms.jsx'
 

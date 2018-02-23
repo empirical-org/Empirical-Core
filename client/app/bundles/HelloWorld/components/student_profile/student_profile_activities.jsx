@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import StudentProfileActivity from './student_profile_activity.jsx';
 import _ from 'underscore';
 
-export default React.createClass({
+export default createReactClass({
 
   showDueDateColumn() {
     if (this.props.data.some(as => as.due_date)) {

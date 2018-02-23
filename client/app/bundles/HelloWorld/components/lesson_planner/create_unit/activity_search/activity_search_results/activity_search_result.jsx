@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-export default React.createClass({
+export default createReactClass({
   callToggleActivitySelection(e) {
     const true_or_false = ($(e.target).attr('checked') == 'checked');
     this.props.toggleActivitySelection(this.props.data, true_or_false);

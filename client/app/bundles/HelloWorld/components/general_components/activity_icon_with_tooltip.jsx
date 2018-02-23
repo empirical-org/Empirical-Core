@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import $ from 'jquery';
 import request from 'request';

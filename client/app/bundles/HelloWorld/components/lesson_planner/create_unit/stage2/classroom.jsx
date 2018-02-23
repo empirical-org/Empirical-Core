@@ -1,12 +1,13 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import Student from './student'
  import Button from 'react-bootstrap/lib/Button';
  import Panel from 'react-bootstrap/lib/Panel';
  import _ from 'underscore'
 
- export default React.createClass({
+ export default createReactClass({
 
   componentDidMount: function(){
     window.scrollTo(0, 0);

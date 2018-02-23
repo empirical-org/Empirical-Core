@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import $ from 'jquery';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
@@ -6,7 +7,7 @@ import NumberSuffix from '../components/modules/numberSuffixBuilder.js';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator.jsx';
 import GoogleClassroomModal from '../components/dashboard/google_classroom_modal';
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
     hasClassroomActivities: React.PropTypes.bool,

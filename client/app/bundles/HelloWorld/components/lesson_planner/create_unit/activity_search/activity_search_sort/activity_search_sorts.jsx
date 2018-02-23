@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import ActivitySearchSort from './activity_search_sort';
 
-export default React.createClass({
+export default createReactClass({
 
   render() {
     const sorts = _.map(this.props.sorts, function (sort) {

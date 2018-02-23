@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 
 import JoinClassStage1 from '../components/student_profile/students_classrooms/join_class_stage1.jsx'
 import JoinClassStage2 from '../components/student_profile/students_classrooms/join_class_stage2.jsx'
 
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function() {
     return ({stage: 1});

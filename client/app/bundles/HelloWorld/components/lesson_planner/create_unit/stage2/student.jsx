@@ -1,9 +1,10 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import $ from 'jquery'
 
- export default  React.createClass({
+ export default  createReactClass({
 
   handleStudentSelection: function(e) {
     const checked = $(e.target).is(':checked');

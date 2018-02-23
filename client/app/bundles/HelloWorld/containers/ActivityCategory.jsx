@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token'
 import ActivitySearchAndSelect from '../components/lesson_planner/create_unit/activity_search/activity_search_and_select'

@@ -1,7 +1,8 @@
 'use strict'
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
 
     checkpointBuilder: function(stage, index, green, current) {
         return (

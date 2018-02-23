@@ -1,11 +1,12 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ProgressReport from '../progress_report.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import StudentReportBox from './student_report_box.jsx'
 import ConnectStudentReportBox from './connect_student_report_box.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
-export default React.createClass({
+export default createReactClass({
 
 	getInitialState: function() {
 		return {loading: true, questions: null}

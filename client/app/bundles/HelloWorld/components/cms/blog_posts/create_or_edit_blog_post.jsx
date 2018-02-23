@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import request from 'request';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import MarkdownParser from '../../shared/markdown_parser.jsx'

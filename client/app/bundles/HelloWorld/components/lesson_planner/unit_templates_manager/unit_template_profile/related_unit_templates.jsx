@@ -1,10 +1,11 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import _ from 'underscore'
  import UnitTemplateMini from '../unit_template_minis/unit_template_mini/unit_template_mini'
 
- export default React.createClass({
+ export default createReactClass({
   propTypes: {
     models: React.PropTypes.array,
     actions: React.PropTypes.object

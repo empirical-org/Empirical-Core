@@ -1,5 +1,6 @@
 "use strict";
 import React from 'react'
+import createReactClass from 'create-react-class'
 import request from 'request'
 import ReactTable from 'react-table'
 import moment from 'moment'
@@ -9,7 +10,7 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import EmptyStateForReport from './empty_state_for_report.jsx'
 
-export default React.createClass({
+export default createReactClass({
   mixins: [TableFilterMixin],
 
   propTypes: {

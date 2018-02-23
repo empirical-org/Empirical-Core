@@ -1,7 +1,8 @@
 'use strict'
  import React from 'react'
+import createReactClass from 'create-react-class'
 
- export default  React.createClass({
+ export default  createReactClass({
 
   getInitialState: function(){
     if (window.location.pathname.includes('diagnostic')) {

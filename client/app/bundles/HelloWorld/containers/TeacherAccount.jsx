@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     userType: React.PropTypes.string.isRequired,
   },

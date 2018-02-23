@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import _ from 'underscore'
 import _l from 'lodash'
@@ -11,7 +12,7 @@ import WindowPosition from '../components/modules/windowPosition'
 import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function () {
     this.modules = {

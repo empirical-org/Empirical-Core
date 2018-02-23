@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 
 export default (props) => (
   <div className="lesson-type-mini" onClick={() => window.location = props.link}>

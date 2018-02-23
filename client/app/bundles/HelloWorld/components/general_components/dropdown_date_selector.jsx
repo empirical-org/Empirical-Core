@@ -1,8 +1,9 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
 import _ from 'underscore'
 
-export default React.createClass({
+export default createReactClass({
   propTypes : {
     date: React.PropTypes.string.isRequired,
     updateDate: React.PropTypes.func.isRequired

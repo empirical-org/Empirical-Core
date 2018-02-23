@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import Unit from './activities_unit';
 
-export default React.createClass({
+export default createReactClass({
 
   render() {
     const units = _.map(this.props.data, function (data) {

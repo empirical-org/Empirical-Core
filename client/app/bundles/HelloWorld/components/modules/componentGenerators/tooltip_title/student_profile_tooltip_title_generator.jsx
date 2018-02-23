@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';
 import ReactDOMServer from 'react-dom/server';
 

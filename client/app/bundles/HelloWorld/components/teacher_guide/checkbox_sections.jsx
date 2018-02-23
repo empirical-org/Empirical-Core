@@ -1,6 +1,7 @@
 'use strict'
 import React from 'react'
-export default React.createClass({
+import createReactClass from 'create-react-class'
+export default createReactClass({
   propTypes: {
     checkboxes: React.PropTypes.array.isRequired,
     dashboard: React.PropTypes.bool.isRequired

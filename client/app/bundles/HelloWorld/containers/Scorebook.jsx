@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import Scrollify from '../components/modules/scrollify';
 import $ from 'jquery';
 import request from 'request';
@@ -12,7 +13,7 @@ import AppLegend from '../components/scorebook/app_legend.jsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
 import moment from 'moment'
 
-export default React.createClass({
+export default createReactClass({
 
   DATE_RANGE_FILTER_OPTIONS: [
     {

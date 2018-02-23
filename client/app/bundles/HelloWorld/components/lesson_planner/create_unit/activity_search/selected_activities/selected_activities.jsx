@@ -1,10 +1,11 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import SelectedActivity from './selected_activity'
  import SortableList from '../../../../shared/sortableList'
 
- export default  React.createClass({
+ export default  createReactClass({
 	propTypes: {
 		selectedActivities: React.PropTypes.array.isRequired,
 		toggleActivitySelection: React.PropTypes.func.isRequired

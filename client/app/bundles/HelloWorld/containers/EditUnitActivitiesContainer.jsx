@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import UnitStage1 from '../components/lesson_planner/create_unit/stage1/unit_stage1.jsx'
 import $ from 'jquery'
 
 
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
     return {selectedActivities: new Set()}

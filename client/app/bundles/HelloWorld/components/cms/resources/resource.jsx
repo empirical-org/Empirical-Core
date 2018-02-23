@@ -1,9 +1,10 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
 import Server from '../../modules/server/server.jsx';
 import NestedResource from '../../modules/nested_resource.jsx'
 import CmsNestedResource from './nestedResource.jsx'
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     resourceNameSingular: React.PropTypes.string.isRequired,
     resourceNamePlural: React.PropTypes.string.isRequired,

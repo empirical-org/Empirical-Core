@@ -1,7 +1,8 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
     correct: React.PropTypes.number.isRequired,

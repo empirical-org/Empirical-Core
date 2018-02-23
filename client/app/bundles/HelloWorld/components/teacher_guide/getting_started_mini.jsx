@@ -1,11 +1,12 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import PercentageGraph from './percentage_graph'
 import CheckboxSection from './checkbox_sections'
 import LoadingIndicator from '../shared/loading_indicator'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     checkboxData: React.PropTypes.any.isRequired
   },

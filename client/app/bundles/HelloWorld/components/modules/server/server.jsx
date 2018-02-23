@@ -1,6 +1,7 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import _ from 'lodash'
  import Saver from './saver'
  import $ from 'jquery'

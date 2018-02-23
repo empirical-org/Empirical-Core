@@ -1,8 +1,9 @@
 // Ported from EC.ActivitySearchSort
 import _ from 'underscore'
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     isCurrentSort: React.PropTypes.bool.isRequired,
     displayName: React.PropTypes.string.isRequired,

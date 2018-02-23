@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import _l from 'lodash';
 import $ from 'jquery';
@@ -17,7 +18,7 @@ import naturalCmp from 'underscore.string/naturalCmp';
 const resultsPerPage = 25;
 const showAllId = 'showAllId';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     selectedActivities: React.PropTypes.array.isRequired,
     toggleActivitySelection: React.PropTypes.func.isRequired,

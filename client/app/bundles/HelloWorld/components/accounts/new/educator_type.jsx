@@ -1,10 +1,11 @@
 'use strict'
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import UsK12View from '../school/us_k12_view'
 import NotUsK12View from '../school/not_us_k12_view'
 import ScrollToTop from '../../shared/scroll_to_top'
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function() {
     return ({stage: 1});

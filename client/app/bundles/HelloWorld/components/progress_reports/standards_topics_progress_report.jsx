@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import request from 'request'
 import {CSVDownload, CSVLink} from 'react-csv'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'

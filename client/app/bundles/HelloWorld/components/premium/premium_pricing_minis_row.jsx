@@ -2,8 +2,9 @@ import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx'
 import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx'
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx'
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
 
   render: function() {
     return (

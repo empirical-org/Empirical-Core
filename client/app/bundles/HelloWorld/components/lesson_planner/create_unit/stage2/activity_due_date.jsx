@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import $ from 'jquery';
 import _ from 'underscore';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
       // moment comes from momentJS library

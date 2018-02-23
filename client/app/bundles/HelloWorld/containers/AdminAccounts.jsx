@@ -2,8 +2,9 @@
 import Resource from '../components/cms/resources/resource.jsx'
 import Cms from './Cms.jsx'
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
 
   resourceComponentGenerator: function (cmsComponent) {
 

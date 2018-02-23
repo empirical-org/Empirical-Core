@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
 

@@ -1,8 +1,9 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import DropdownFilter from './dropdown_filter.jsx'
 import _ from 'underscore'
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
     filterTypes: React.PropTypes.array.isRequired,

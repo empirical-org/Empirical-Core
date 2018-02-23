@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.jsx'
 import StudentReportHeader from './student_report_header.jsx'
 	import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 
-export default React.createClass({
+export default createReactClass({
 
 	groupByAttempt: function(){
 		return _.groupBy(this.props.questionData.concepts,

@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import GenericMini from '../shared/generic_mini.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   miniList() {
     return [

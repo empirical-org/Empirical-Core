@@ -1,7 +1,8 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
 import cutOff from '../../../../modules/proficiency_cutoffs.js'
-export default React.createClass({
+export default createReactClass({
   propTypes: {
     score: React.PropTypes.number.isRequired
   },

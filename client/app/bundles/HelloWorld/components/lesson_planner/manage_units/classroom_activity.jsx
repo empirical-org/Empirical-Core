@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import Pluralize from 'pluralize';
@@ -33,7 +34,7 @@ const styles = {
   },
 }
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
     return {
