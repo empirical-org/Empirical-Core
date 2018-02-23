@@ -12,6 +12,7 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
         end
         render json: {
           topics: topics_json,
+          # TODO security fix: does current_user have access to this User?
           student: User.find_by(id: params[:student_id].to_i),
           units: ProgressReports::Standards::Unit.new(current_user).results({}),
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
