@@ -946,4 +946,22 @@ describe User, type: :model do
       expect(Invitation.where(invitee_email: new_email).count).to be(2)
     end
   end
+
+  it 'does not care about all the validation stuff when the user is temporary'
+  it 'disallows regular assignment of roles that are restricted'
+
+  describe '#generate_referrer_id' do
+    it 'creates ReferrerUser with the correct referrer code when a teacher is created' do
+      referrer_users = ReferrerUser.count
+      teacher = create(:teacher)
+      expect(ReferrerUser.count).to be(referrer_users + 1)
+      expect(teacher.referrer_code).to eq(teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + teacher.id.to_s)
+    end
+
+    it 'does not create a new ReferrerUser when a student is created' do
+      referrer_users = ReferrerUser.count
+      create(:student)
+      expect(ReferrerUser.count).to be(referrer_users)
+    end
+  end
 end
