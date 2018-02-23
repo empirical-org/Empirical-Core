@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   has_many :user_milestones
   has_many :milestones, through: :user_milestones
 
+  has_many :blog_post_user_ratings
+
 
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
