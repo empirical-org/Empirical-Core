@@ -240,6 +240,8 @@ GEM
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     interception (0.5)
+    intercom (3.5.23)
+      json (>= 1.8)
     ipaddress (0.8.3)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -713,6 +715,7 @@ DEPENDENCIES
   guard-shell
   haml-rails
   httparty
+  intercom (~> 3.5.23)
   jbuilder
   jquery-rails
   jquery-turbolinks
