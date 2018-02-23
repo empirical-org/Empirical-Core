@@ -129,6 +129,26 @@ export default class extends React.Component {
     });
   }
 
+  userIsContact() {
+    if (this.props.subscriptionStatus) {
+      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.purchaser_id;
+    }
+    return false;
+  }
+
+  subscriptionType() {
+    if (!this.props.subscriptionStatus) {
+      return 'Basic';
+    }
+    const accountType = this.props.subscriptionStatus.account_type;
+    if (this.props.schoolSubscriptionTypes.includes(accountType)) {
+      return 'School';
+    } else if (this.props.trialSubscriptionTypes.includes(accountType)) {
+      return 'Trial';
+    }
+    return 'Teacher';
+  }
+
   updateCard() {
     this.showPaymentModal();
   }
@@ -157,14 +177,16 @@ export default class extends React.Component {
         <SubscriptionStatus
           key={subId}
           subscriptionStatus={this.state.subscriptionStatus}
-          trialSubscriptionTypes={this.props.trialSubscriptionTypes}
-          schoolSubscriptionTypes={this.props.schoolSubscriptionTypes}
+          subscriptionType={this.subscriptionType()}
+          userIsContact={this.userIsContact()}
           showPaymentModal={this.showPaymentModal}
         />
         <CurrentSubscription
           showPaymentModal={this.showPaymentModal}
           purchaserNameOrEmail={this.state.purchaserNameOrEmail}
           subscriptionStatus={this.state.subscriptionStatus}
+          subscriptionType={this.subscriptionType()}
+          userIsContact={this.userIsContact()}
           lastFour={this.props.lastFour}
           updateSubscription={this.updateSubscription}
           currentUserIsPurchaser={this.currentUserIsPurchaser(this.state.subscriptionStatus)}

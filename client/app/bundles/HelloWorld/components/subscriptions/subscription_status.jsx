@@ -20,47 +20,20 @@ const schoolPremiumCopy = (
 
 export default class extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      subscriptionType: this.subscriptionType(),
-      userIsContact: this.userIsContact(), };
-  }
-
-  userIsContact() {
-    if (this.props.subscriptionStatus) {
-      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.purchaser_id;
-    }
-    return false;
-  }
-
-  subscriptionType() {
-    if (!this.props.subscriptionStatus) {
-      return 'Basic';
-    }
-    const accountType = this.props.subscriptionStatus.account_type;
-    if (this.props.schoolSubscriptionTypes.includes(accountType)) {
-      return 'School';
-    } else if (this.props.trialSubscriptionTypes.includes(accountType)) {
-      return 'Trial';
-    }
-    return 'Teacher';
-  }
-
   handleExpired(content, remainingDays) {
     let statusOnClickEvent,
       buttonCopy;
     if (remainingDays < 1) {
       content.boxColor = '#ff4542';
-      content.status = <h2><i className="fa fa-exclamation-triangle" />{`Your ${this.state.subscriptionType} Premium subscription has expired`}</h2>;
-      if (this.state.subscriptionType === 'School') {
+      content.status = <h2><i className="fa fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
+      if (this.props.subscriptionType === 'School') {
         buttonCopy = 'Renew School Subscription';
         content.pCopy = (
           <p>
             <strong>Your School Premium subscription has expired and you are back to Quill Basic.</strong>
             {quillBasicCopy}
           </p>);
-        if (this.state.userIsContact) {
+        if (this.props.userIsContact) {
           statusOnClickEvent = this.props.showPaymentModal;
         } else {
           statusOnClickEvent = () => alert('i will need to be something for when a school user is not the contact');
@@ -81,12 +54,12 @@ export default class extends React.Component {
     let image,
       expiration,
       remainingDays;
-    let subscriptionType = this.state.subscriptionType;
-    if (this.state.subscriptionType !== 'Basic') {
+    let subscriptionType = this.props.subscriptionType;
+    if (this.props.subscriptionType !== 'Basic') {
       expiration = moment(this.props.subscriptionStatus.expiration);
       remainingDays = expiration.diff(moment(), 'days');
     }
-    switch (this.state.subscriptionType) {
+    switch (this.props.subscriptionType) {
       case 'Basic':
         image = 'basic_icon.png';
         content.pCopy = quillBasicCopy;
@@ -109,7 +82,7 @@ export default class extends React.Component {
         content.pCopy = schoolPremiumCopy;
         content.boxColor = '#9c2bde';
         image = 'school_premium_icon.png';
-        if (this.state.userIsContact) {
+        if (this.props.userIsContact) {
           content.buttonOrDate = <a href="/premium" className="q-button bg-orange text-white cta-button">Renew School Premium</a>;
         } else {
           content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
