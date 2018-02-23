@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types';
 import ProgressReport from '../progress_report.jsx'
 import ScoreColor from '../../modules/score_color.js'
 
@@ -7,7 +8,7 @@ import ScoreColor from '../../modules/score_color.js'
 
 export default createReactClass({
   propTypes: {
-    premiumStatus: React.PropTypes.string
+    premiumStatus: PropTypes.string
   },
 
   getInitialState: function() {

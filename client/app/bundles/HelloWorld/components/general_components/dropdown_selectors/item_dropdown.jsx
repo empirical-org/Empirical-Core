@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import {Router, Route, Link, hashHistory} from 'react-router';
@@ -8,8 +9,8 @@ import $ from 'jquery'
 export default createReactClass({
 
 	propTypes: {
-		items: React.PropTypes.array.isRequired,
-    callback: React.PropTypes.func
+		items: PropTypes.array.isRequired,
+    callback: PropTypes.func
 	},
 
 	getInitialState: function() {

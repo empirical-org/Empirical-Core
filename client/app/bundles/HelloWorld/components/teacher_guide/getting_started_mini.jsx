@@ -2,13 +2,14 @@
 
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types';
 import PercentageGraph from './percentage_graph'
 import CheckboxSection from './checkbox_sections'
 import LoadingIndicator from '../shared/loading_indicator'
 
 export default createReactClass({
   propTypes: {
-    checkboxData: React.PropTypes.any.isRequired
+    checkboxData: PropTypes.any.isRequired
   },
 
   percentageCompleted: function(){

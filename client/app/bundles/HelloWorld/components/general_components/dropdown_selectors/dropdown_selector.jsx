@@ -1,12 +1,13 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import _ from 'underscore';
 
 export default createReactClass({
   propTypes: {
-    options: React.PropTypes.array.isRequired,
-    select: React.PropTypes.func.isRequired,
-    label: React.PropTypes.string.isRequired
+    options: PropTypes.array.isRequired,
+    select: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired
   },
 
   select: function () {

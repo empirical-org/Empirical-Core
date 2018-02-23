@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types'
 import _ from 'underscore';
 import OverviewMini from './overview_mini';
 import PremiumMini from './premium_mini';
@@ -13,7 +14,7 @@ import DiagnosticMini from './diagnostic_mini.jsx'
 
 export default createReactClass({
   propTypes: {
-    data: React.PropTypes.any,
+    data: PropTypes.any,
   },
 
   getInitialState() {

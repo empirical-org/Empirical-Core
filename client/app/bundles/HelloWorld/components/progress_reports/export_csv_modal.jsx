@@ -2,10 +2,11 @@
 
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 
 export default createReactClass({
   propTypes: {
-    email: React.PropTypes.string
+    email: PropTypes.string
   },
 
   render: function() {

@@ -1,12 +1,13 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 
 export default createReactClass({
 
   propTypes: {
-    handleFilterButtonClick: React.PropTypes.func.isRequired,
-    data: React.PropTypes.object.isRequired,
-    active: React.PropTypes.bool,
+    handleFilterButtonClick: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    active: PropTypes.bool,
   },
 
   handleClick() {

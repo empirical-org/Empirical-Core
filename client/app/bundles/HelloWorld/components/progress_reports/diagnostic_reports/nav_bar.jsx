@@ -1,6 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
-// import { Router, Route, Link, hashHistory } from 'react-router'
+import PropTypes from 'prop-types';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
 import NavButtonGroup from './nav_button_group.jsx';
 import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx';
@@ -10,14 +10,14 @@ import $ from 'jquery';
 
 export default createReactClass({
   propTypes: {
-    classrooms: React.PropTypes.array.isRequired,
-    students: React.PropTypes.array,
-    studentDropdownCallBack: React.PropTypes.func,
-    dropdownCallback: React.PropTypes.func,
-    buttonGroupCallback: React.PropTypes.func,
-    selectedClassroom: React.PropTypes.object,
-    selectedStudentId: React.PropTypes.string,
-    params: React.PropTypes.object,
+    classrooms: PropTypes.array.isRequired,
+    students: PropTypes.array,
+    studentDropdownCallBack: PropTypes.func,
+    dropdownCallback: PropTypes.func,
+    buttonGroupCallback: PropTypes.func,
+    selectedClassroom: PropTypes.object,
+    selectedStudentId: PropTypes.string,
+    params: PropTypes.object,
   },
 
   componentWillMount() {

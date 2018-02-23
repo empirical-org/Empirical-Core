@@ -2,13 +2,14 @@
 
 import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'underscore';
 import $ from 'jquery';
 
 export default createReactClass({
   propTypes: {
-    role: React.PropTypes.string.isRequired,
-    updateRole: React.PropTypes.func.isRequired
+    role: PropTypes.string.isRequired,
+    updateRole: PropTypes.func.isRequired
   },
   updateRole: function () {
     var x = $(this.refs.select).val();

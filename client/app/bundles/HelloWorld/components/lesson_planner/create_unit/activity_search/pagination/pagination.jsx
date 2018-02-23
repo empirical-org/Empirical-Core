@@ -1,15 +1,16 @@
-import React from 'react'
+import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'underscore';
 import PageNumber from './page_number';
 
 export default createReactClass({
 
   propTypes: {
-    currentPage: React.PropTypes.number.isRequired,
-    numberOfPages: React.PropTypes.number.isRequired,
-    selectPageNumber: React.PropTypes.func.isRequired,
-    maxPageNumber: React.PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    numberOfPages: PropTypes.number.isRequired,
+    selectPageNumber: PropTypes.func.isRequired,
+    maxPageNumber: PropTypes.number.isRequired,
   },
 
   leftArrow() {

@@ -1,13 +1,14 @@
 'use strict'
 
  import React from 'react'
-import createReactClass from 'create-react-class'
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types';
  import ReactTable from 'react-table'
 
  export default createReactClass({
   propTypes: {
-    data: React.PropTypes.object,
-    actions: React.PropTypes.object
+    data: PropTypes.object,
+    actions: PropTypes.object
   },
 
   redirectToActivity: function(activityId) {

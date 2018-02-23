@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
@@ -10,7 +11,7 @@ import GoogleClassroomModal from '../components/dashboard/google_classroom_modal
 export default createReactClass({
 
   propTypes: {
-    hasClassroomActivities: React.PropTypes.bool,
+    hasClassroomActivities: PropTypes.bool,
   },
 
   componentDidMount() {

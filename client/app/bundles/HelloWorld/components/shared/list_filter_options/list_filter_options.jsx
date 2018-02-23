@@ -1,15 +1,16 @@
 'use strict'
 
  import React from 'react'
-import createReactClass from 'create-react-class'
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types';
  import _ from 'underscore'
  import ListFilterOption from './list_filter_option'
 
 
  export default  createReactClass({
   propTypes: {
-    options: React.PropTypes.array.isRequired,
-    userLoggedIn: React.PropTypes.bool
+    options: PropTypes.array.isRequired,
+    userLoggedIn: PropTypes.bool
   },
 
   sortViews: function (views) {

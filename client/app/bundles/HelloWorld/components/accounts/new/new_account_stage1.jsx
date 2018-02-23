@@ -1,11 +1,12 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import RoleOption from './role_option'
 
 
 export default createReactClass({
   propTypes: {
-    selectRole: React.PropTypes.func.isRequired
+    selectRole: PropTypes.func.isRequired
   },
 
   render: function () {

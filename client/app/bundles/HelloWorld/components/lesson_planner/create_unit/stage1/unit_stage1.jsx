@@ -1,17 +1,18 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import ActivitySearchAndSelect from '../activity_search/activity_search_and_select';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import AssigningIndicator from '../../../shared/button_loading_indicator';
 
 export default createReactClass({
   propTypes: {
-    selectedActivities: React.PropTypes.array.isRequired,
-    toggleActivitySelection: React.PropTypes.func.isRequired,
-    errorMessage: React.PropTypes.string,
-    clickContinue: React.PropTypes.func,
-    editing: React.PropTypes.bool,
-    updateActivities: React.PropTypes.func,
+    selectedActivities: PropTypes.array.isRequired,
+    toggleActivitySelection: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string,
+    clickContinue: PropTypes.func,
+    editing: PropTypes.bool,
+    updateActivities: PropTypes.func,
   },
 
   getInitialState() {

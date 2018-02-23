@@ -2,6 +2,7 @@
 
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import ExportCsvModal from './export_csv_modal.jsx'
 import request from 'request'
 import auth_token from '../modules/get_auth_token.js'
@@ -10,11 +11,11 @@ import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx'
 
 export default createReactClass({
     propTypes: {
-        exportType: React.PropTypes.string.isRequired,
-        filters: React.PropTypes.object.isRequired,
-        reportUrl: React.PropTypes.string.isRequired,
-        teacher: React.PropTypes.object.isRequired,
-        disabled: React.PropTypes.bool
+        exportType: PropTypes.string.isRequired,
+        filters: PropTypes.object.isRequired,
+        reportUrl: PropTypes.string.isRequired,
+        teacher: PropTypes.object.isRequired,
+        disabled: PropTypes.bool
     },
 
     getDefaultProps: function() {

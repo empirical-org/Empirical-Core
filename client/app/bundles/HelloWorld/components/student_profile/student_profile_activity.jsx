@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 
 import moment from 'moment';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
@@ -8,7 +9,7 @@ import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 export default createReactClass({
 
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
   },
 
   getInitialState() {

@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import $ from 'jquery';
@@ -14,7 +15,7 @@ require('../../../../../app/assets/stylesheets/pages/invite-students.scss');
 export default createReactClass({
 
   propTypes: {
-    classrooms: React.PropTypes.array.isRequired,
+    classrooms: PropTypes.array.isRequired,
   },
 
   getInitialState() {

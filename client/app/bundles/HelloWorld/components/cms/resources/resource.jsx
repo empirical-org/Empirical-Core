@@ -1,20 +1,21 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
 import Server from '../../modules/server/server.jsx';
 import NestedResource from '../../modules/nested_resource.jsx'
 import CmsNestedResource from './nestedResource.jsx'
 export default createReactClass({
   propTypes: {
-    resourceNameSingular: React.PropTypes.string.isRequired,
-    resourceNamePlural: React.PropTypes.string.isRequired,
-    initialModel: React.PropTypes.object.isRequired,
-    resource: React.PropTypes.object.isRequired,
-    formFields: React.PropTypes.array.isRequired,
-    returnToIndex: React.PropTypes.func.isRequired,
-    savingKeys: React.PropTypes.array.isRequired,
-    nestedResources: React.PropTypes.array,
-    fieldsToNormalize: React.PropTypes.array.isRequired
+    resourceNameSingular: PropTypes.string.isRequired,
+    resourceNamePlural: PropTypes.string.isRequired,
+    initialModel: PropTypes.object.isRequired,
+    resource: PropTypes.object.isRequired,
+    formFields: PropTypes.array.isRequired,
+    returnToIndex: PropTypes.func.isRequired,
+    savingKeys: PropTypes.array.isRequired,
+    nestedResources: PropTypes.array,
+    fieldsToNormalize: PropTypes.array.isRequired
   },
 
   getInitialState: function () {

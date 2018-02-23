@@ -1,9 +1,10 @@
 import React from 'react'
-import createReactClass from 'create-react-class';
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 
 export default createReactClass({
   propTypes: {
-    subscription: React.PropTypes.object,
+    subscription: PropTypes.object,
   },
 
   renderExpirationDate() {

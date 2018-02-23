@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import ConceptResultStat from './concept_result_stat.jsx';
 import $ from 'jquery';
 
 export default createReactClass({
   propTypes: {
-    results: React.PropTypes.array.isRequired,
+    results: PropTypes.array.isRequired,
   },
 
   addTotalAndPercentageToConRes(conResArr) {

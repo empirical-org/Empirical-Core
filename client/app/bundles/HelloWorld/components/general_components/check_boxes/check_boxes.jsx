@@ -1,14 +1,15 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import CheckBox from './check_box.jsx'
 import _ from 'underscore'
 
 export default createReactClass({
   propTypes: {
-    label: React.PropTypes.string.isRequired,
-    items: React.PropTypes.array.isRequired,
-    selectedItems: React.PropTypes.array.isRequired,
-    toggleItem: React.PropTypes.func.isRequired
+    label: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired,
+    selectedItems: PropTypes.array.isRequired,
+    toggleItem: PropTypes.func.isRequired
   },
 
   determineIfChecked: function (item) {

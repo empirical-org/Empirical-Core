@@ -2,6 +2,7 @@
 
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types';
 import $ from 'jquery'
 import _ from 'underscore'
 import _l from 'lodash'
@@ -20,11 +21,11 @@ import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a
 
 export default createReactClass({
 	propTypes: {
-		grade: React.PropTypes.string,
-		tab: React.PropTypes.string,
-		classroomName: React.PropTypes.string,
-		classroomId: React.PropTypes.string,
-		students: React.PropTypes.string
+		grade: PropTypes.string,
+		tab: PropTypes.string,
+		classroomName: PropTypes.string,
+		classroomId: PropTypes.string,
+		students: PropTypes.string
 	},
 
 	analytics: function() {

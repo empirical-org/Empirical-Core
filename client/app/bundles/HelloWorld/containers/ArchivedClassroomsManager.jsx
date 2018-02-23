@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import request from 'request';
 import $ from 'jquery';
 import _ from 'underscore';
@@ -11,7 +12,7 @@ import InviteCoteachers from '../components/classroom_management/invite_coteache
 export default createReactClass({
 
   propTypes: {
-    role: React.PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
   },
 
   getInitialState() {

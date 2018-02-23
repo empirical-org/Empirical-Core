@@ -2,11 +2,12 @@ import TextInputGenerator from '../modules/componentGenerators/text_input_genera
 import _ from 'lodash'
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 
 export default createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
   },
 
   getInitialState: function () {

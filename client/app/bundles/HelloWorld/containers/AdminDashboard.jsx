@@ -1,6 +1,7 @@
 //= require ./../general_components/table/sortable_table/table_sorting_mixin.js
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import TableSortingMixin from '../components/general_components/table/sortable_table/table_sorting_mixin.js';
 import _ from 'underscore';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
@@ -15,7 +16,7 @@ import getAuthToken from '../components/modules/get_auth_token'
 export default createReactClass({
   mixins: [TableSortingMixin],
   propTypes: {
-    id: React.PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
   },
 
   getInitialState() {

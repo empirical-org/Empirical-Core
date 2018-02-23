@@ -1,5 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
@@ -8,7 +9,7 @@ import ButtonLoadingIndicator from '../components/shared/button_loading_indicato
 
 export default createReactClass({
   propTypes: {
-    userType: React.PropTypes.string.isRequired,
+    userType: PropTypes.string.isRequired,
   },
 
   getInitialState() {

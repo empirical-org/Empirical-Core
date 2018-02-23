@@ -1,11 +1,12 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types'
 import moment from 'moment';
 
 export default createReactClass({
   propTypes: {
-    title: React.PropTypes.string.isRequired,
-    onClickFunction: React.PropTypes.func.isRequired
+    title: PropTypes.string.isRequired,
+    onClickFunction: PropTypes.func.isRequired
   },
 
   render: function() {

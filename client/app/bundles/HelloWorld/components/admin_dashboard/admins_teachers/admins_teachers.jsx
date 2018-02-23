@@ -1,15 +1,16 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types'
 import AdminsTeacher from './admins_teacher.jsx';
 import SortableTable from '../../general_components/table/sortable_table/sortable_table.jsx';
 
 export default createReactClass({
   propTypes: {
-    data: React.PropTypes.array.isRequired,
-    sortHandler: React.PropTypes.func.isRequired,
-    currentSort: React.PropTypes.object.isRequired,
-    columns: React.PropTypes.array.isRequired,
-    loading: React.PropTypes.bool.isRequired,
+    data: PropTypes.array.isRequired,
+    sortHandler: PropTypes.func.isRequired,
+    currentSort: PropTypes.object.isRequired,
+    columns: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
   },
 
   // Temp fix until isValid is confirmed to work.

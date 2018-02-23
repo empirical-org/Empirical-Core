@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js';
 
 export default createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
   },
 
   getClassName() {

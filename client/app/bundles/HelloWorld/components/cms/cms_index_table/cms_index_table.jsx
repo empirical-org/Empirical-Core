@@ -1,13 +1,14 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import _ from 'underscore'
 import SortableList from '../../../components/shared/sortableList'
 import CmsIndexTableRow from './cms_index_table_row.jsx'
 
 export default createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
   },
 
   furnishRows: function () {

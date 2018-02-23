@@ -1,14 +1,15 @@
 'use strict'
 
  import React from 'react'
-import createReactClass from 'create-react-class'
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types'
  import _ from 'underscore'
  import UnitTemplateMini from '../unit_template_minis/unit_template_mini/unit_template_mini'
 
  export default createReactClass({
   propTypes: {
-    models: React.PropTypes.array,
-    actions: React.PropTypes.object
+    models: PropTypes.array,
+    actions: PropTypes.object
   },
 
   miniView: function(model, index) {

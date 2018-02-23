@@ -2,14 +2,15 @@
 import _ from 'underscore'
 import React from 'react'
 import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 
 export default createReactClass({
   propTypes: {
-    isCurrentSort: React.PropTypes.bool.isRequired,
-    displayName: React.PropTypes.string.isRequired,
-    displayClass: React.PropTypes.string,
-    sortDirection: React.PropTypes.string.isRequired,
-    sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
+    isCurrentSort: PropTypes.bool.isRequired,
+    displayName: PropTypes.string.isRequired,
+    displayClass: PropTypes.string,
+    sortDirection: PropTypes.string.isRequired,
+    sortHandler: PropTypes.func.isRequired // Handle sorting of columns
   },
 
   arrowClass: function() {

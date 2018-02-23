@@ -1,13 +1,14 @@
 'use strict'
 
  import React from 'react'
-import createReactClass from 'create-react-class'
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types'
  import $ from 'jquery'
  import SuffixBuilder from '../../../modules/numberSuffixBuilder.js'
 
  export default  createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: PropTypes.object.isRequired
   },
 
   componentDidMount: function() {
