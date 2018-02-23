@@ -64,6 +64,7 @@ gem 'ttfunk'
 gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
+gem 'intercom', '~> 3.5.23'
 
 # WEBSOCKETS
 gem 'pusher'
@@ -175,6 +176,8 @@ group :test, :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'capybara'
   gem 'poltergeist'
   gem "vcr"

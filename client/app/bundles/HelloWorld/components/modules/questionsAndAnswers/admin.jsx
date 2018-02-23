@@ -2,21 +2,6 @@ import React from 'react'
 
 const admin = () => [
   {
-    question: 'How can I provide co-teachers access to their co-taught classes?',
-    answer: [<p>As we build out our co-teaching feature, we allow you to share admin access with co-teachers, so they can login to one another’s accounts and make changes to their shared classes. Here’s how to make this work:</p>,
-            <ol>
-              <li>One of the two teachers will create the class and add students to that class through their account.</li>
-              <li>Provide the account information for the co-teachers to these classes, and we will provide them access to the administrator dashboard.</li>
-              <li>
-                When these teachers login, they can select their co-teachers’ account, and sign in as that teacher to create assignments, manage classes, and view student data.
-                <ul>
-                  <li>NOTE: Any changes to a teacher’s account through the admin dashboard cannot be undone, so co-teachers should confirm they are in the correct account before making changes.</li>
-                </ul>
-              </li>
-            </ol>
-          ]
-  },
-  {
     question: 'How does the Professional Development work?',
     answer: <p>After upgrading to Quill School Premium, you’ll receive an email from our team with next steps, which include setting up your professional development session.</p>
   },
@@ -34,7 +19,7 @@ const admin = () => [
   },
   {
     question: 'Session Access',
-    answer: [<p>Sessions outside of New York City will be held remotely via Google Hangouts, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources, and a link to the session recording.</p>]
+    answer: [<p>Sessions outside of New York City will be held remotely via Google Hangouts, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources and a link to the session recording.</p>]
   },
   {
     question: 'How does Premium Reporting Work?',

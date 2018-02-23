@@ -57,6 +57,12 @@ FactoryBot.define do
            end
         end
       end
+
+      trait :premium do
+        after(:create) do |teacher|
+          create(:user_subscription, user_id: teacher.id)
+        end
+      end
     end
 
     factory :student do
@@ -87,6 +93,10 @@ FactoryBot.define do
         after(:create) do |user, evaluator|
           create_list(:activity_session, evaluator.activity_count, user: user)
         end
+      end
+
+      trait :with_generated_password do
+        password { name.to_s.split("\s")[-1] }
       end
 
       factory :student_in_two_classrooms_with_many_activities do
