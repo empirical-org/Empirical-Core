@@ -13,6 +13,7 @@ class Teachers::ProgressReports::Standards::ClassroomStudentsController < Teache
           serializer.as_json(root: false)
         end
 
+        # TODO security fix: we do not verify that the classroom here can be seen by the current_user.
         cas = Classroom.where(id: params[:classroom_id]).includes(:classroom_activities).map(&:classroom_activities).flatten
 
         render json: {
