@@ -11,29 +11,57 @@ export default React.createClass({
   columns() {
     return ([
       {
+        Header: '',
+        accessor: 'draft',
+        width: 75,
+        Cell: props => <span>{props.value ? 'DRAFT' : ''}</span>,
+      },
+      {
         Header: 'Title',
         accessor: 'title',
-      }, {
-        Header: 'Created',
-        accessor: 'created_at',
-        Cell: props => <span>{moment(props.value).format('MM-DD-YY')}</span>,
-      }, {
-        Header: 'Updated',
-        accessor: 'updated_at',
-        Cell: props => <span>{moment(props.value).format('MM-DD-YY')}</span>,
       }, {
         Header: 'Topic',
         accessor: 'topic',
       }, {
-        Header: '',
-        accessor: 'id',
-        Cell: props => <a className="button" href={`/cms/blog_posts/${props.value}/edit`}>Edit</a>,
+        Header: 'Created',
+        accessor: 'created_at',
+        width: 115,
+        Cell: props => <span>{moment(props.value).format('MM-DD-YY')}</span>,
+      }, {
+        Header: 'Updated',
+        accessor: 'updated_at',
+        width: 115,
+        Cell: props => <span>{moment(props.value).format('MM-DD-YY')}</span>,
+      }, {
+        Header: 'Rating',
+        accessor: 'rating',
+        width: 75
       }, {
         Header: '',
         accessor: 'id',
-        Cell: props => <a className="button" href={`/cms/blog_posts/${props.value}/delete`}>Delete</a>,
+        sortable: false,
+        width: 75,
+        Cell: props => <a className="button" href={`/cms/blog_posts/${props.value}/edit`}>Edit</a>,
+      }, {
+        Header: '',
+        accessor: 'slug',
+        sortable: false,
+        width: 75,
+        Cell: props => <a className="button" href={`/teacher_resources/${props.value}`}>Preview</a>,
+      }, {
+        Header: '',
+        accessor: 'id',
+        sortable: false,
+        width: 75,
+        Cell: props => <a className="button" onClick={this.confirmDelete} href={`/cms/blog_posts/${props.value}/delete`}>Delete</a>,
       }
     ]);
+  },
+
+  confirmDelete(e) {
+    if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
+      e.preventDefault();
+    }
   },
 
   render() {
