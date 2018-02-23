@@ -8,10 +8,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         @report = params[:report] || 'question'
     end
 
+    # TODO security fix. This does not check whether current_user has access to this classroom activity.
     def question_view
         render json: { data:   results_by_question(params) }.to_json
     end
 
+    # TODO security fix. This does not check whether current_user has access to this classroom.
     def students_by_classroom
         render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
     end
@@ -21,14 +23,17 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         render json: classrooms.to_json
     end
 
+    # TODO security fix. This does not check whether current_user has access to this classroom.
     def recommendations_for_classroom
         render json: get_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
+    # TODO security fix. This does not check whether current_user has access to this classroom.
     def lesson_recommendations_for_classroom
         render json: {lessonsRecommendations: get_recommended_lessons(params[:unit_id], params[:classroom_id], params[:activity_id])}
     end
 
+    # TODO security fix. This does not check whether current_user has access to this classroom.
     def previously_assigned_recommendations
       render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
     end
@@ -113,6 +118,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     private
 
+    # TODO security fix. This does not check whether current_user has access to this classroom or these students.
     def create_or_update_selected_packs
         if params[:whole_class]
           UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
