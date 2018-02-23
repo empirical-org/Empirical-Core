@@ -10,7 +10,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   def district_activity_scores
     if current_user.admin?
-      data = ProgressReports::ActivitiesScoresByClassroom.district_results(current_user.id)
+      data = ProgressReports::DistrictActivityScores.new(current_user.id).results
       render json: { data: data }
     end
   end
