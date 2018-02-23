@@ -5,6 +5,7 @@ import UpdateStripeCard from '../modules/stripe/update_card.js';
 import getAuthToken from '../modules/get_auth_token';
 import LoadingIndicator from '../shared/loading_indicator.jsx';
 import ChangePlan from './change_plan';
+import TitleAndContent from './current_subscription_title_and_content';
 
 export default class extends React.Component {
 
@@ -22,8 +23,8 @@ export default class extends React.Component {
 
   getPaymentMethod() {
     let content;
-    if (!this.state.lastFour) {
-      return <span>'No Payment Method On File'</span>;
+    if (!this.state.lastFour && ['Teacher', 'School'].includes(this.props.subscriptionType)) {
+      return <span>School Invoice</span>;
     }
     return (<span>{`Credit Card Ending In ${this.state.lastFour}`}
       <span
@@ -89,33 +90,20 @@ export default class extends React.Component {
     let nextPlan;
     let beginsOn;
     let nextPlanAlertContent;
-    const nextPlanTitle = (
-      <span className="title">
-        Next Plan
-      </span>
-    );
     if (!this.props.subscriptionStatus) {
-      return (
-        <div>
-          {nextPlanTitle}
-          <span>N/A
-            <a href="/premium" className="green-link">Change Plan</a>
-          </span>
-        </div>
-      );
+      const content = (<span>N/A
+                        <a href="/premium" className="green-link">Change Plan</a>
+      </span>);
+      return (<TitleAndContent title={'Next Plan'} content={content} />);
     } else if (this.props.subscriptionStatus.expired) {
       return (<div>
         <button onClick={this.props.showPaymentModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>
       </div>);
     } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
-      // if (this.props.subscriptionStatus.recurring) {
-      return (<div>
-        {nextPlanTitle}
-        <span>Quill Basic - Free
-              <a href="/premium" className="green-link">Change Plan</a>
-        </span>
-      </div>);
-      // }
+      const content = (<span>Quill Basic - Free
+                    <a href="/premium" className="green-link">Change Plan</a>
+      </span>);
+      return (<TitleAndContent title={'Next Plan'} content={content} />);
     } else if (this.props.subscriptionStatus.recurring) {
       nextPlan = (<span>
                     Teacher Premium - $80 Annual Subscription {this.changePlanInline()}
@@ -123,14 +111,7 @@ export default class extends React.Component {
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertContent = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $80.`);
       beginsOn = (
-        <div>
-          <span className="title">
-            Begins On
-          </span>
-          <span>
-            <span>{renewDate}</span>
-          </span>
-        </div>
+        <TitleAndContent title={'Begins On'} content={renewDate} />
       );
     } else {
       nextPlanAlertContent = this.nextPlanAlert('Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.');
@@ -139,10 +120,7 @@ export default class extends React.Component {
     return (
       <div>
         <div className="flex-row space-between">
-          <div>
-            {nextPlanTitle}
-            <span>{nextPlan}</span>
-          </div>
+          <TitleAndContent title={'Next Plan'} content={<span>{nextPlan}</span>} />
           {beginsOn}
         </div>
         {nextPlanAlertContent}
@@ -159,19 +137,6 @@ export default class extends React.Component {
     );
   }
 
-// <div>
-//   <span className="title">Payment Method</span>
-//   <span>
-//     {this.getPaymentMethod()}
-//     <span onClick={this.toggleChangePlan}>Change Plan</span>
-//     {this.changePlan()}
-//   </span>
-// </div>
-// <div>
-//   <span className="title">Renewal Settings</span>
-//   <span>boop</span>
-// </div>
-
   content() {
     const currSub = this.props.subscriptionStatus;
     const metaRowClassName = 'sub-meta-info';
@@ -183,24 +148,12 @@ export default class extends React.Component {
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <div>
-                  <span className="title">Plan</span>
-                  <span>{currSub.account_type}</span>
-                </div>
-                <div>
-                  <span className="title">Purchaser</span>
-                  <span>{this.props.purchaserNameOrEmail}</span>
-                </div>
+                <TitleAndContent title={'Plan'} content={currSub.account_type} />
+                <TitleAndContent title={'Purchaser'} content={this.props.purchaserNameOrEmail} />
               </div>
               <div>
-                <div>
-                  <span className="title">Start Date</span>
-                  <span>{moment(currSub.start_date).format('MMMM Do, YYYY')}</span>
-                </div>
-                <div>
-                  <span className="title">End Date</span>
-                  <span>{moment(currSub.expiration).format('MMMM Do, YYYY')}</span>
-                </div>
+                <TitleAndContent title={'Start Date'} content={moment(currSub.start_date).format('MMMM Do, YYYY')} />
+                <TitleAndContent title={'End Date'} content={moment(currSub.expiration).format('MMMM Do, YYYY')} />
               </div>
             </div>
           </div>
@@ -215,8 +168,7 @@ export default class extends React.Component {
       <div className={metaRowClassName}>
         <div className="meta-section">
           <h3>CURRENT SUBSCRIPTION</h3>
-          <span className="title">Plan</span>
-          <span>Quill Basic Subscription</span>
+          <TitleAndContent title={'Plan'} content={'Quill Basic Subscription'} />
         </div>
         {this.paymentMethod()}
         {this.nextPlan()}
