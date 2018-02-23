@@ -62,12 +62,12 @@ class School < ActiveRecord::Base
         nces_id: self.nces_id,
         school_type: ulocal_to_school_type,
         employee_count: self.schools_users.count,
-        website_url: "http://www.teslamotors.com"
+        buying_stage: "green field"
       }
     )
-    self.users.each do |teacher|
-      teacher.method(:sync_salesmachine).call()
-    end
+    # self.users.each do |teacher|
+    #   teacher.method(:sync_salesmachine).call()
+    # end
   end
 
   
