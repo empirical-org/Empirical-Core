@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow, mount, mockClear, spy} from 'enzyme';
 import $ from 'jquery'
-import allActivities from '../../../../../../../test_data/activity_search_and_select.js'
+import allActivities from '../../../../../../../test_data/activity_search_and_select'
 
 import ActivitySearchAndSelect from '../activity_search_and_select'
 
