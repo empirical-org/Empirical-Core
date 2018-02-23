@@ -25,7 +25,7 @@ config.output = {
 config.module.loaders.push(
   {
     test: /\.jsx?$/,
-    loader: 'babel',
+    loader: 'babel-loader',
     exclude: /node_modules/,
     query: {
       plugins: [
