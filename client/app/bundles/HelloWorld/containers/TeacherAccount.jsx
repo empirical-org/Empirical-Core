@@ -188,10 +188,10 @@ export default createReactClass({
   renderEmail() {
     let message, inputField;
     if (this.state.googleId || this.state.signedUpWithGoogle) {
-      inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
+      inputField = <input className="inactive" ref="email" name="email" value={this.state.email} readOnly />
       message = this.renderGoogleClassroomWarning()
     } else {
-      inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />
+      inputField = <input ref="email" name="email" onChange={this.updateEmail} value={this.state.email} />
     }
     return <div className="form-row email-row">
       <div className="form-label">Email</div>
@@ -236,7 +236,7 @@ export default createReactClass({
   						Full Name
   					</div>
             <div className="form-input">
-              <input ref="name" onChange={this.updateName} value={this.state.name} />
+              <input ref="name" name="name" onChange={this.updateName} value={this.state.name} />
             </div>
           </div>
 
@@ -248,7 +248,7 @@ export default createReactClass({
   						Password
   					</div>
             <div className="form-input">
-              <input type="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
+              <input type="password"  name="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
             </div>
           </div>
 
