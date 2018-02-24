@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import ListFilterOption from '../list_filter_option';
 
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 describe('ListFilterOption component', () => {
 

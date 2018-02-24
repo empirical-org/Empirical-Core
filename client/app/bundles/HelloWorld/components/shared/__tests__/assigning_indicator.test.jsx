@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import AssigningIndicator from '../button_loading_indicator';
 
 import processEnvMock from '../../../../../../__mocks__/processEnvMock.js';
-window.process = processEnvMock;
+window.process.env = processEnvMock.env;
 
 describe('AssigningIndicator component', () => {
 

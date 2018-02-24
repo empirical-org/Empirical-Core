@@ -5,7 +5,7 @@ import GoogleClassroomModal from '../google_classroom_modal.jsx'
 const user={email: 'hal@spaceodyssey.org'}
 
 import processEnvMock from '../../../../../../__mocks__/processEnvMock.js';
-window.process = processEnvMock;
+window.process.env = processEnvMock.env;
 
 describe('the GoogleClassroomModal component', () => {
 

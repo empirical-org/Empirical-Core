@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import CleverSignUp from '../clever_sign_up'
 
 import processEnvMock from '../../../../../../../__mocks__/processEnvMock.js';
-window.process = processEnvMock;
+window.process.env = processEnvMock.env;
 
 describe('CleverSignUp component', () => {
 

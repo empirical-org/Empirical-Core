@@ -3,7 +3,7 @@
  import React from 'react'
  import createReactClass from 'create-react-class'
  import PropTypes from 'prop-types'
- import { Link } from 'react-router'
+ import { Link } from 'react-router-dom'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import RowsCreator from '../../../modules/rows_creator'
