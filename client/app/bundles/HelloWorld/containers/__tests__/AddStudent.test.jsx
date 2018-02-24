@@ -17,6 +17,11 @@ jest.mock('jquery', () => {
       success: jest.fn().mockReturnValue({
         fail: jest.fn()
       })
+    }),
+    ajax: jest.fn().mockReturnValue({
+      success: jest.fn().mockReturnValue({
+        fail: jest.fn()
+      })
     })
   };
 });
@@ -156,9 +161,9 @@ describe('AddStudent container', () => {
         wrapper.setState({ firstName: 'Cosmo', lastName: 'Kramer', selectedClassroom: { id: 7 }});
         wrapper.instance().submitStudent(null);
         expect($.post.mock.calls).toHaveLength(1);
-        expect($.post.mock.calls[0][0]).toBe('/teachers/classrooms/7/students');
-        expect($.post.mock.calls[0][1].user.first_name).toBe('Cosmo');
-        expect($.post.mock.calls[0][1].user.last_name).toBe('Kramer');
+        expect($.post.mock.calls[0][0].url).toBe('/teachers/classrooms/7/students');
+        expect($.post.mock.calls[0][0].data.user.first_name).toBe('Cosmo');
+        expect($.post.mock.calls[0][0].data.user.last_name).toBe('Kramer');
       });
     });
   });
