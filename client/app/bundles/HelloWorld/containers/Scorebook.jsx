@@ -101,8 +101,8 @@ export default createReactClass({
   fetchData() {
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
-    if(!this.state.selectedClassroom) {
-      this.setState({ missing: 'classrooms' });
+    if (!this.state.selectedClassroom) {
+      this.setState({ loading: false, missing: 'classrooms' });
       return;
     }
     $.ajax({
@@ -191,7 +191,7 @@ export default createReactClass({
         activity_classification_id: s.activity_classification_id
       });
     });
-    console.log(data.is_last_page)
+
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
   },
 

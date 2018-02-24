@@ -36,6 +36,7 @@ describe('Scorebook component', () => {
     describe('EmptyProgressReport', () => {
       it('renders', () => {
         expect(wrapper.find(EmptyProgressReport).length).toEqual(1);
+        expect(wrapper.find(LoadingIndicator).length).toEqual(0);
       });
 
       it('receives classrooms as the missing prop value when appropriate', () => {
@@ -143,6 +144,7 @@ describe('Scorebook component', () => {
     data.scores = newRawScores;
     wrapper.setState({ scores: newResScores, classroomFilters: classrooms, selectedClassroom: { id: 6 } });
     wrapper.instance().displayData(data);
+    wrapper.update();
     it('does not render LoadingIndicator', () => {
       expect(wrapper.find(LoadingIndicator).length).toEqual(0);
     });
