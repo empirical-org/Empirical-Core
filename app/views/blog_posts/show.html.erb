@@ -1,2 +1,9 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' if current_user %>
-<%= react_component('BlogPostsApp', props: {route: 'show', blogPost: @blog_post, announcement: @announcement, mostRecentPosts: @most_recent_posts, author: @author }) %>
+<%= react_component('BlogPostsApp', props: {
+  route: 'show',
+  blogPost: @blog_post,
+  announcement: @announcement,
+  mostRecentPosts: @most_recent_posts,
+  author: @author,
+  displayPaywall: @display_paywall
+}) %>

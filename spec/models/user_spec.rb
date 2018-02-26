@@ -2,6 +2,47 @@
 require 'rails_helper'
 
 describe User, type: :model do
+
+  it { is_expected.to callback(:capitalize_name).before(:save) }
+  it { is_expected.to callback(:generate_student_username_if_absent).before(:save) }
+  it { is_expected.to callback(:prep_authentication_terms).before(:validation) }
+  it { is_expected.to callback(:check_for_school).after(:save) }
+
+  #TODO the validation uses a proc, figure out how to stub that
+  #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
+
+  it { should have_many(:checkboxes) }
+  it { should have_many(:invitations).with_foreign_key('inviter_id') }
+  it { should have_many(:objectives).through(:checkboxes) }
+  it { should have_one(:schools_users) }
+  it { should have_one(:school).through(:schools_users) }
+  it { should have_many(:schools_admins).class_name('SchoolsAdmins') }
+  it { should have_many(:admin_rights).through(:schools_admins).source(:school).with_foreign_key('user_id') }
+  it { should have_many(:classrooms_teachers) }
+  it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
+  it { should have_and_belong_to_many(:districts) }
+  it { should have_one(:ip_location) }
+  it { should have_many(:user_milestones) }
+  it { should have_many(:milestones).through(:user_milestones) }
+
+  it { should delegate_method(:name).to(:school).with_prefix(:school) }
+  it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
+  it { should delegate_method(:mail_state).to(:school).with_prefix(:school) }
+
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:password) }
+
+  #TODO matchers don't support if conditions
+  #it { should validate_presence_of(:email).on(:create) }
+  #it { should validate_uniqueness_of(:email).on(:create) }
+  #it { should validate_presence_of(:username).on(:create) }
+  #it { should validate_uniqueness_of(:username).on(:create) }
+
+  it { should validate_presence_of(:username).on(:create) }
+  it { should validate_inclusion_of(:flag).in_array(%w{alpha beta production}) }
+
+  it { should have_secure_password }
+
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
@@ -123,9 +164,60 @@ describe User, type: :model do
 
   end
 
+  describe 'constants' do
+    it "should give the correct value for all the contstants" do
+      expect(User::ROLES).to eq(%w(student teacher temporary user admin staff))
+      expect(User::SAFE_ROLES).to eq(%w(student teacher temporary))
+      expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
+    end
+  end
+
+  describe '#capitalize_name' do
+    let(:user) { create(:user) }
+
+    it 'should set the name as a capitalized name if name is single' do
+      user.name = "test"
+      expect(user.capitalize_name).to eq("Test")
+      expect(user.name).to eq("Test")
+    end
+
+    it 'should capitalize both first name and last name if exists' do
+      user.name = "test test"
+      expect(user.capitalize_name).to eq("Test Test")
+      expect(user.name).to eq("Test Test")
+    end
+  end
+
+  describe '#admin?' do
+    let!(:user) { create(:user) }
+
+    context 'when admin exists' do
+      let!(:schools_admins) { create(:schools_admins, user: user) }
+
+      it 'should return true' do
+        expect(user.admin?).to eq true
+      end
+    end
+
+    context 'when admin does not exist' do
+      it 'should return false' do
+        expect(user.admin?).to eq false
+      end
+    end
+  end
+
+  describe 'serialized' do
+    let(:user) { create(:user) }
+
+    it 'should return the right seralizer object' do
+      expect(user.serialized).to be_a("#{user.role.capitalize}Serializer".constantize)
+    end
+  end
+
   describe '#newsletter?' do
     context 'user.send_newsletter = false' do
       let(:teacher) { create(:user, send_newsletter: false) }
+
       it 'returns false' do
         expect(teacher.newsletter?).to eq(false)
       end
@@ -133,13 +225,222 @@ describe User, type: :model do
 
     context 'user.send_newsletter = true' do
       let(:teacher) { create(:user, send_newsletter: true) }
+
       it 'returns true' do
         expect(teacher.newsletter?).to eq(true)
       end
     end
   end
 
-  describe 'default scope' do
+  describe '#clever_district_id' do
+    let(:user) { build_stubbed(:user) }
+    let(:district) { double(:district, id: 1) }
+    let(:clever_user) { double(:clever_user, district: district) }
+
+    before do
+      allow(user).to receive(:clever_user).and_return(clever_user)
+    end
+
+    it 'should return the distric id' do
+      expect(user.clever_district_id).to eq(district.id)
+    end
+  end
+
+  describe '#send_account_created_email' do
+    let(:user) { create(:user) }
+
+    before do
+      allow(UserMailer).to receive(:account_created_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:account_created_email).with(user, "pass", "name")
+      user.send_account_created_email("pass", "name")
+    end
+  end
+
+  describe '#send_invitation_to_non_existing_user' do
+    let(:user) { create(:user) }
+
+    before do
+      allow(UserMailer).to receive(:invitation_to_non_existing_user).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the invitation received email' do
+      expect(UserMailer).to receive(:invitation_to_non_existing_user).with({test: "test"})
+      user.send_invitation_to_non_existing_user({test: "test"})
+    end
+  end
+
+  describe "#send_invitation_to_existing_user" do
+    let(:user) { create(:user) }
+
+    before do
+      allow(UserMailer).to receive(:invitation_to_existing_user).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the invitation to existing user' do
+      expect(UserMailer).to receive(:invitation_to_existing_user).with({test: "test"})
+      user.send_invitation_to_existing_user({test: "test"})
+    end
+  end
+
+  describe '#send_join_school_email' do
+    let(:user) { create(:user) }
+    let(:school) { double(:school) }
+
+    before do
+      allow(UserMailer).to receive(:join_school_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the join school email' do
+      expect(UserMailer).to receive(:join_school_email).with(user, school)
+      user.send_join_school_email(school)
+    end
+  end
+
+  describe '#send_lesson_plan_email' do
+    let(:user) { create(:user) }
+    let(:lessons) { double(:lessons) }
+    let(:unit) { double(:unit) }
+
+    before do
+      allow(UserMailer).to receive(:lesson_plan_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the lesson plan email' do
+      expect(UserMailer).to receive(:lesson_plan_email).with(user, lessons, unit)
+      user.send_lesson_plan_email(lessons, unit)
+    end
+  end
+
+  describe '#send_premium_user_subscription_email' do
+    let(:user) { create(:user) }
+
+    before do
+      allow(UserMailer).to receive(:premium_user_subscription_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the premium user subscription email' do
+      expect(UserMailer).to receive(:premium_user_subscription_email).with(user)
+      user.send_premium_user_subscription_email
+    end
+  end
+
+  describe '#send_premium_school_subscription_email' do
+    let(:user)  { create(:user) }
+    let(:school) { double(:school) }
+    let(:admin) { double(:admin) }
+
+    before do
+      allow(UserMailer).to receive(:premium_school_subscription_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the premium school subscription email' do
+      expect(UserMailer).to receive(:premium_school_subscription_email).with(user, school, admin)
+      user.send_premium_school_subscription_email(school, admin)
+    end
+  end
+
+  describe '#send_new_admin_email' do
+    let(:user) { create(:user) }
+    let(:school) { double(:school) }
+
+    before do
+      allow(UserMailer).to receive(:new_admin_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the new admin email' do
+      expect(UserMailer).to receive(:new_admin_email).with(user, school)
+      user.send_new_admin_email(school)
+    end
+  end
+
+  describe '#imported_from_clever?' do
+    let(:user) { build_stubbed(:user) }
+
+    before do
+      allow(user).to receive(:token).and_return("something")
+    end
+
+    it 'should return the token value' do
+      expect(user.imported_from_clever?).to eq("something")
+    end
+  end
+
+  describe '#delte_classroom_minis_cache' do
+    let(:user) { create(:user) }
+
+    it 'should clear the class_room_minis cache' do
+      $redis.set("user_id:#{user.id}_classroom_minis", "anything")
+      user.delete_classroom_minis_cache
+      expect($redis.get("user_id:#{user.id}_classroom_minis")).to eq(nil)
+    end
+  end
+
+  describe '#delte_struggling_students_cache' do
+    let(:user) { create(:user) }
+
+    it 'should clear the class_room_minis cache' do
+      $redis.set("user_id:#{user.id}_struggling_students", "anything")
+      user.delete_struggling_students_cache
+      expect($redis.get("user_id:#{user.id}_struggling_students")).to eq(nil)
+    end
+  end
+
+  describe '#delete_dashboard_caches' do
+    let(:user) { create(:user) }
+
+    it 'should delete all the three caches' do
+      expect(user).to receive(:delete_classroom_minis_cache)
+      expect(user).to receive(:delete_struggling_students_cache)
+      expect(user).to receive(:delete_difficult_concepts_cache)
+      user.delete_dashboard_caches
+    end
+  end
+
+  describe '#coteacher_invitations' do
+    let(:user) { create(:user) }
+    let(:invitation) { create(:invitation, archived: false, invitation_type: 'coteacher', invitee_email: user.email) }
+
+    it 'should return the invitation' do
+      expect(user.coteacher_invitations).to include(invitation)
+    end
+  end
+
+  describe '#generate_teacher_account_info' do
+    let(:user) { create(:user) }
+    let(:premium_state) { double(:premium_state) }
+    let(:school) { double(:school) }
+    let(:hash) {
+      user.attributes.merge!({
+        subscription: {'subscriptionType' => premium_state},
+        school: school
+        })
+    }
+
+    before do
+      allow(user).to receive(:school).and_return(school)
+      allow(user).to receive(:subscription).and_return(false)
+      allow(user).to receive(:premium_state).and_return(premium_state)
+    end
+
+    it 'should give the correct hash' do
+      expect(user.generate_teacher_account_info).to eq(hash)
+    end
+  end
+
+  describe '#delte_difficult_concepts_cache' do
+    let(:user) { create(:user) }
+
+    it 'should clear the class_room_minis cache' do
+      $redis.set("user_id:#{user.id}_difficult_concepts", "anything")
+      user.delete_difficult_concepts_cache
+      expect($redis.get("user_id:#{user.id}_difficult_concepts")).to eq(nil)
+    end
+  end
+
+  describe "default scope" do
     let(:user1) { create(:user) }
     let(:user2) { create(:user) }
     let(:user2) { create(:user, role: 'temporary') }
@@ -830,4 +1131,19 @@ describe User, type: :model do
 
   it 'does not care about all the validation stuff when the user is temporary'
   it 'disallows regular assignment of roles that are restricted'
+
+  describe '#generate_referrer_id' do
+    it 'creates ReferrerUser with the correct referrer code when a teacher is created' do
+      referrer_users = ReferrerUser.count
+      teacher = create(:teacher)
+      expect(ReferrerUser.count).to be(referrer_users + 1)
+      expect(teacher.referrer_code).to eq(teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + teacher.id.to_s)
+    end
+
+    it 'does not create a new ReferrerUser when a student is created' do
+      referrer_users = ReferrerUser.count
+      create(:student)
+      expect(ReferrerUser.count).to be(referrer_users)
+    end
+  end
 end
