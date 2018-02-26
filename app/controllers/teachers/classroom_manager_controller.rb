@@ -182,9 +182,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def clear_data
-    sign_out
-    User.find(params[:id]).clear_data
-    render json: {}
+    if params[:id] == current_user.id
+      sign_out
+      User.find(params[:id]).clear_data
+      render json: {}
+    end
   end
 
   def google_sync
