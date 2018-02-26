@@ -8,13 +8,13 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         @report = params[:report] || 'question'
     end
 
-    # TODO security fix. This does not check whether current_user has access to this classroom activity.
     def question_view
+        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: { data:   results_by_question(params) }.to_json
     end
 
-    # TODO security fix. This does not check whether current_user has access to this classroom.
     def students_by_classroom
+        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
     end
 
@@ -23,18 +23,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         render json: classrooms.to_json
     end
 
-    # TODO security fix. This does not check whether current_user has access to this classroom.
     def recommendations_for_classroom
+        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: get_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
-    # TODO security fix. This does not check whether current_user has access to this classroom.
     def lesson_recommendations_for_classroom
+        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: {lessonsRecommendations: get_recommended_lessons(params[:unit_id], params[:classroom_id], params[:activity_id])}
     end
 
-    # TODO security fix. This does not check whether current_user has access to this classroom.
     def previously_assigned_recommendations
+      return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
       render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
     end
 
@@ -117,10 +117,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     private
-
-    # TODO security fix. This does not check whether current_user has access to this classroom or these students.
     def create_or_update_selected_packs
         if params[:whole_class]
+          return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
           UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
         else
           selections_with_students = params[:selections].select do |ut|
@@ -132,7 +131,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
                 last = (number_of_selections - 1) == index
                 # this only accommodates one classroom at a time
                 classroom = value[:classrooms][0]
-                AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids].compact, last, false)
+                AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids].compact, last, false) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
             end
           end
         end
