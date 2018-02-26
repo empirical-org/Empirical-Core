@@ -10,10 +10,11 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
           serializer.classroom_id = params[:classroom_id]
           serializer.as_json(root: false)
         end
+        student = User.find(params[:student_id])
+        student = nil unless current_user.teaches(student.id)
         render json: {
           topics: topics_json,
-          # TODO security fix: does current_user have access to this User?
-          student: User.find_by(id: params[:student_id].to_i),
+          student: student,
           units: ProgressReports::Standards::Unit.new(current_user).results({}),
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }
