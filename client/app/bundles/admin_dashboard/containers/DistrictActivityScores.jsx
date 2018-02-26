@@ -15,15 +15,6 @@ class DistrictActivityScores extends React.Component {
     getDistrictActivityScores();
   }
 
-  filteredClassroomsData() {
-    const { selectedClassroom, classroomsData, } = this.props;
-
-    if (selectedClassroom === 'All Classrooms') {
-      return classroomsData;
-    }
-    return classroomsData.filter(row => row.classroom_name === selectedClassroom);
-  }
-
   render() {
     const {
       selectedClassroom,
@@ -31,6 +22,7 @@ class DistrictActivityScores extends React.Component {
       csvData,
       classroomNames,
       switchClassroom,
+      filteredClassroomsData,
     } = this.props;
 
     if (loading) {
@@ -63,7 +55,7 @@ class DistrictActivityScores extends React.Component {
             selectedItem={selectedClassroom}
           />
         </div>
-        <ActivityScoresTable data={this.filteredClassroomsData()} />
+        <ActivityScoresTable data={filteredClassroomsData} />
       </div>
     );
   }

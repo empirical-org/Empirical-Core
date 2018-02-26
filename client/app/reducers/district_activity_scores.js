@@ -3,8 +3,10 @@ const initialState = {
   errors: false,
   selectedClassroom: 'All Classrooms',
   classroomsData: null,
+  filteredClassroomsData: [],
   csvData: null,
   classroomNames: null,
+  schoolNames: null,
 };
 
 export default (state, action) => {
@@ -12,8 +14,16 @@ export default (state, action) => {
 
   switch(action.type) {
     case 'SWITCH_CLASSROOM':
+      const filteredClassrooms = (selectedClassroom, classroomsData) => {
+        if (selectedClassroom === 'All Classrooms') {
+          return classroomsData;
+        }
+        return classroomsData.filter(row => row.classroom_name === selectedClassroom);
+      }
+
       return Object.assign({}, state, {
-        selectedClassroom: action.classroom
+        selectedClassroom: action.classroom,
+        filteredClassroomsData: filteredClassrooms(action.classroom, state.classroomsData),
       });
     case 'RECIEVE_DISTRICT_ACTIVITY_SCORES':
       return Object.assign({}, state, {
@@ -22,6 +32,8 @@ export default (state, action) => {
         classroomsData: action.classroomsData,
         csvData: action.csvData,
         classroomNames: action.classroomNames,
+        filteredClassroomsData: action.filteredClassroomsData,
+        schoolNames: action.schoolNames,
       });
     default:
       return state;
