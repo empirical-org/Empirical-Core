@@ -6,7 +6,7 @@ import BlogPost from '../components/blog_posts/blog_post.jsx';
 import request from 'request';
 import moment from 'moment';
 
-export default React.createClass({
+export default class BlogPosts extends React.Component {
 
   columns() {
     return ([
@@ -56,13 +56,13 @@ export default React.createClass({
         Cell: props => <a className="button" onClick={this.confirmDelete} href={`/cms/blog_posts/${props.value}/delete`}>Delete</a>,
       }
     ]);
-  },
+  }
 
   confirmDelete(e) {
     if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
       e.preventDefault();
     }
-  },
+  }
 
   render() {
     if (['new', 'edit'].includes(this.props.action)) {
@@ -89,4 +89,4 @@ export default React.createClass({
     );
   },
 
-});
+};
