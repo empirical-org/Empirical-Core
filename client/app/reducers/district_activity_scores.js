@@ -3,11 +3,56 @@ const initialState = {
   errors: false,
   selectedClassroom: 'All Classrooms',
   selectedSchool: 'All Schools',
-  classroomsData: null,
+  classroomsData: [],
   filteredClassroomsData: [],
   csvData: null,
   classroomNames: ['All Classrooms'],
   schoolNames: ['All Schools'],
+};
+
+function updateObject(oldObject, newObject) {
+  return Object.assign({}, oldObject, newObject);
+}
+
+function mergeArrays(firstArray, secondArray) {
+  return [...new Set([...firstArray, ...secondArray])]
+}
+
+function filterByClassroom(selected, classrooms) {
+  if (selected === 'All Classrooms') {
+    return classrooms;
+  }
+  return classrooms.filter(row => row.classroom_name === selected);
+}
+
+function filterBySchool(selected, classrooms) {
+  if (selected === 'All Schools') {
+    return classrooms;
+  }
+  return classrooms.filter(row => row.schools_name === selected);
+}
+
+function formatDataForCSV(data) {
+  const csvData = []
+  const csvHeader = [
+    'Classroom Name',
+    'Student Name',
+    'School Name',
+    'Average Score',
+    'Activity Count'
+  ];
+  const csvRow = (row) => [
+    row['classroom_name'],
+    row['students_name'],
+    row['schools_name'],
+    (row['average_score'] * 100).toString() + '%',
+    row['activity_count'],
+  ];
+
+  csvData.push(csvHeader);
+  data.forEach(row => csvData.push(csvRow(row)));
+
+  return csvData;
 };
 
 export default (state, action) => {
@@ -15,55 +60,34 @@ export default (state, action) => {
 
   switch(action.type) {
     case 'SWITCH_SCHOOL':
-      const filteredSchools = (selectedSchool, classroomsData) => {
-        if (selectedSchool === 'All Schools') {
-          return classroomsData;
-        }
-        return classroomsData.filter(row => row.schools_name === selectedSchool);
-      };
-      const filteredClassroomsData = filteredSchools(action.school, state.classroomsData);
+      var filteredClassroomsData = filterBySchool(action.school, state.classroomsData);
 
-      return Object.assign({}, state, {
+      return updateObject(state, {
         selectedSchool: action.school,
         selectedClassroom: 'All Classrooms',
         filteredClassroomsData,
+        csvData: formatDataForCSV(filteredClassroomsData),
         classroomNames: [...new Set(filteredClassroomsData.map(row => row.classroom_name))],
       });
     case 'SWITCH_CLASSROOM':
-      const filteredClassrooms = (selectedClassroom, classroomsData) => {
-        if (selectedClassroom === 'All Classrooms') {
-          return classroomsData;
-        }
-        return classroomsData.filter(row => row.classroom_name === selectedClassroom);
-      };
+      var filteredClassroomsData = filterByClassroom(action.classroom, state.classroomsData);
 
-      return Object.assign({}, state, {
+      return updateObject(state, {
         selectedClassroom: action.classroom,
-        filteredClassroomsData: filteredClassrooms(action.classroom, state.classroomsData),
+        filteredClassroomsData: filteredClassroomsData,
+        csvData: formatDataForCSV(filteredClassroomsData),
       });
     case 'RECIEVE_DISTRICT_ACTIVITY_SCORES':
-      const formatDataForCSV = (data) => {
-        const csvData = [
-          ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
-        ];
-        data.forEach((row) => {
-          csvData.push([
-            row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
-            row['activity_count']
-          ])
-        });
-        return csvData;
-      };
       const classroomsData = JSON.parse(action.body).data;
 
-      return Object.assign({}, state, {
+      return updateObject(state, {
         loading: false,
         errors: action.body.errors,
         classroomsData,
         csvData: formatDataForCSV(classroomsData),
-        classroomNames: [...new Set([...state.classroomNames, ...classroomsData.map(row => row.classroom_name)])],
+        classroomNames: mergeArrays(state.classroomNames, classroomsData.map(row => row.classroom_name)),
         filteredClassroomsData: classroomsData,
-        schoolNames: [...new Set([...state.schoolNames, ...classroomsData.map(row => row.schools_name)])]
+        schoolNames: mergeArrays(state.schoolNames, classroomsData.map(row => row.schools_name)),
       });
     default:
       return state;
