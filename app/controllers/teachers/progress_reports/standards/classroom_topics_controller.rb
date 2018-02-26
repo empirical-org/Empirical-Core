@@ -5,6 +5,8 @@ class Teachers::ProgressReports::Standards::ClassroomTopicsController < Teachers
     respond_to do |format|
       format.html
       format.json do
+        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id])
+
         topics = ::ProgressReports::Standards::Topic.new(current_user).results(params)
         topics_json = topics.map do |topic|
           serializer = ::ProgressReports::Standards::TopicSerializer.new(topic)
@@ -13,7 +15,6 @@ class Teachers::ProgressReports::Standards::ClassroomTopicsController < Teachers
           serializer.as_json(root: false)
         end
 
-        # TODO security fix: we do not verify that the classroom here can be seen by the current_user.
         cas = Classroom.where(id: params[:classroom_id]).includes(:classroom_activities).map(&:classroom_activities).flatten
 
         render json: {
