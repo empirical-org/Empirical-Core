@@ -1,10 +1,10 @@
 class Cms::BlogPostsController < ApplicationController
   before_filter :staff!
-  before_action :set_blog_post, only: [:update, :destroy, :edit, :show]
+  before_action :set_blog_post, only: [:update, :destroy, :edit, :show, :unpublish]
   before_action :authors, :topics, only: [:edit, :new]
 
   def index
-    @blog_posts_name_and_id = BlogPost.all.select('title', 'id', 'updated_at', 'created_at', 'topic')
+    @blog_posts_name_and_id = BlogPost.all.map{|bp| bp.attributes.merge({'rating' => bp.average_rating})} 
     #cms/blog_posts/index.html.erb
   end
 
@@ -31,6 +31,12 @@ class Cms::BlogPostsController < ApplicationController
     redirect_to cms_blog_posts_path
   end
 
+  def unpublish
+    @blog_post.update(draft: true)
+    flash[:success] = 'Blog post successfully set to draft.'
+    redirect_to cms_blog_posts_path
+  end
+
   private
 
   def authors
@@ -47,7 +53,8 @@ class Cms::BlogPostsController < ApplicationController
                     :topic,
                     :read_count,
                     :preview_card_content,
-                    :draft)
+                    :draft,
+                    :premium)
   end
 
   def set_blog_post

@@ -195,7 +195,6 @@ describe User, type: :model do
       let!(:coteacher_classroom_invitation_2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation_2.id)}
 
       context '#handle_negative_classrooms_from_update_coteachers' do
-
         it "deletes only the passed classrooms from invitations, leaving other ones unaffected" do
           expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation.id)).to be
           expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation_2.id)).to be
@@ -217,15 +216,14 @@ describe User, type: :model do
 
         it "adds new invitations to classrooms the teacher has not been invited to" do
           new_classroom = create(:classroom)
-          old_invitation_count = CoteacherClassroomInvitation.all.count
-          teacher.handle_positive_classrooms_from_update_coteachers([new_classroom.id], new_classroom.owner.id)
-          expect(CoteacherClassroomInvitation.all.count - old_invitation_count).to eq(1)
+
+          expect { teacher.handle_positive_classrooms_from_update_coteachers([new_classroom.id], new_classroom.owner.id) }
+            .to change(CoteacherClassroomInvitation, :count).by(1)
         end
 
         it "does not create additional invitations to classrooms the teacher has been invited to" do
-          old_invitation_count = CoteacherClassroomInvitation.all.count
-          teacher.handle_positive_classrooms_from_update_coteachers([co_taught_classroom.id], student.id)
-          expect(CoteacherClassroomInvitation.all.count - old_invitation_count).to eq(0)
+          expect { teacher.handle_positive_classrooms_from_update_coteachers([co_taught_classroom.id], student.id) }
+            .not_to change(CoteacherClassroomInvitation, :count)
         end
       end
 
@@ -441,6 +439,30 @@ describe User, type: :model do
       it 'should return false if the teacher is not affiliated with the unit' do
         random_teacher = create(:teacher)
         expect(random_teacher.affiliated_with_unit(unit.id)).to_not be
+      end
+    end
+
+    describe '#referrer_code' do
+      let!(:referral_code) { teacher.referrer_user.referral_code }
+      it 'returns the appropriate referral code' do
+        expect(teacher.referrer_code).to be(referral_code)
+      end
+    end
+
+    describe '#referral_code' do
+      let!(:referral_code) { teacher.referrer_user.referral_code }
+      it 'returns the appropriate referral code' do
+        expect(teacher.referral_code).to be(referral_code)
+      end
+    end
+
+    describe '#referrals' do
+      it 'returns a count of referrals' do
+        expect(teacher.referrals).to be(0)
+        create(:referrals_user, user_id: teacher.id)
+        expect(teacher.referrals).to be(1)
+        create(:referrals_user, user_id: teacher.id)
+        expect(teacher.referrals).to be(2)
       end
     end
   end
