@@ -11,6 +11,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
   resolve: {
@@ -42,6 +43,7 @@ module.exports = {
   //   extensions: ['.ts', '.tsx', '.js', '.jsx', '.ejs'],
   // },
   plugins: [
+    new HardSourceWebpackPlugin(),
     assetsPluginInstance,
     new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
@@ -52,13 +54,13 @@ module.exports = {
     }),
     // new BundleAnalyzerPlugin(), // For visualizing package size
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
-    new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
+    // new CompressionPlugin({
+    //   asset: '[path].gz[query]',
+    //   algorithm: 'gzip',
+    //   test: /\.js$/,
+    //   threshold: 10240,
+    //   minRatio: 0.8,
+    // }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
       inject: 'body',
@@ -102,15 +104,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options:
-        {
-          presets: ['es2015', 'react'],
-        },
-      },
-      {
         test: /\.html$/,
         use: ['file-loader?name=[name].[ext]'],
       },
@@ -146,5 +139,5 @@ module.exports = {
     tls: 'empty',
   },
   // addition - add source-map support
-  devtool: 'source-map',
+  devtool: 'eval',
 };
