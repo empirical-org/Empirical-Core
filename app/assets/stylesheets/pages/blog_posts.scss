@@ -231,7 +231,6 @@ body {
   .preview-card-body {
     background: $white;
     border-radius: 0 0 6px 6px;
-    box-shadow: 0 0 2px 2px #e9e9e9;
     color: #666;
     padding: 20px 15px 15px;
     transition: all 0.3s ease-out;
@@ -465,4 +464,29 @@ a.all-blog-posts-back-button {
 .article-cta-secondary, .article-cta-secondary:hover {
   background: #eee;
   color: #777;
+}
+
+.side-by-side {
+  display: flex;
+  justify-content: space-between;
+  .preview-card-container {
+    width: 100%;
+    margin-right: 10px;
+    height: 360px;
+    #preview-markdown-content {
+      height: 300px;
+    }
+  }
+  .body-preview {
+    width: 310px;
+  }
+  .body-markdown {
+    width: 100%;
+    margin-right: 10px;
+  }
+}
+
+.preview-card:first-child {
+  box-shadow: 0 0px 2px 2px #e9e9e9;
+  border-radius: 6px;
 }
