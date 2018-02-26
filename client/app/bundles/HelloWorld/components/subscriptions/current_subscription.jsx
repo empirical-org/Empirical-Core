@@ -22,20 +22,19 @@ export default class extends React.Component {
   }
 
   getPaymentMethod() {
-    let content;
-    if (!this.state.lastFour && ['Teacher', 'School'].includes(this.props.subscriptionType)) {
-      return <span>School Invoice</span>;
+    if (_.get(this.props.subscription_status, 'payment_method') === 'Credit Card' && this.state.lastFour && this.props.authorityLevel) {
+      return (<span>{`Credit Card Ending In ${this.state.lastFour}`}
+        <span
+          onClick={this.editCreditCard} style={{
+            color: '#027360',
+            fontSize: '14px',
+            paddingLeft: '10px',
+            cursor: 'pointer',
+          }}
+        >Edit Credit Card</span>
+      </span>);
     }
-    return (<span>{`Credit Card Ending In ${this.state.lastFour}`}
-      <span
-        onClick={this.editCreditCard} style={{
-          color: '#027360',
-          fontSize: '14px',
-          paddingLeft: '10px',
-          cursor: 'pointer',
-        }}
-      >Edit Credit Card</span>
-    </span>);
+    return <span>School Invoice</span>;
   }
 
   editCreditCard() {
@@ -86,17 +85,49 @@ export default class extends React.Component {
     );
   }
 
+  lessThan90Days() {
+    return (
+      <div>
+        <button className="q-button bg-orange text-white">Renew School Premium</button>
+        <button className="q-button bg-quillblue text-white">Download Quote</button>
+      </div>
+    );
+  }
+
+  nextPlanAlertOrButtons(condition, renewDate) {
+    const conditionWithAuthorization = `${condition} authorization: ${!!this.props.authorityLevel}`;
+    console.log(this.props.authorityLevel);
+    const expiration = moment(this.props.subscriptionStatus.expiration);
+    const remainingDays = expiration.diff(moment(), 'days');
+    switch (conditionWithAuthorization) {
+      case 'school non-recurring authorization: true':
+        if (remainingDays > 90) {
+          return this.nextPlanAlert(<span>To renew your subscription for next year, contact us now at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>);
+        }
+        return this.lessThan90Days();
+        break;
+      case 'school non-recurring authorization: false':
+        if (remainingDays > 90) {
+          return this.nextPlanAlert(<span>To renew your subscription for next year, contact the purchaser at your school.</span>);
+        }
+        return this.lessThan90Days();
+        break;
+      default:
+    }
+  }
+
   nextPlanContent() {
     let nextPlan;
     let beginsOn;
-    let nextPlanAlertContent;
+    let nextPlanAlertOrButtons;
     if (!this.props.subscriptionStatus) {
       const content = (<span>N/A
                         <a href="/premium" className="green-link">Change Plan</a>
       </span>);
       return (<TitleAndContent title={'Next Plan'} content={content} />);
     } else if (this.props.subscriptionStatus.expired) {
-      return (<div>
+      return;
+      (<div>
         <button onClick={this.props.showPaymentModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>
       </div>);
     } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
@@ -109,12 +140,15 @@ export default class extends React.Component {
                     Teacher Premium - $80 Annual Subscription {this.changePlanInline()}
       </span>);
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
-      nextPlanAlertContent = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $80.`);
+      nextPlanAlertOrButtons = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $80.`);
       beginsOn = (
         <TitleAndContent title={'Begins On'} content={renewDate} />
       );
+    } else if (this.props.subscriptionType === 'School' && !this.props.subscriptionStatus.recurring) {
+      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('school non-recurring');
+      nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     } else {
-      nextPlanAlertContent = this.nextPlanAlert('Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.');
+      nextPlanAlertOrButtons = this.nextPlanAlert('Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.');
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     }
     return (
@@ -123,7 +157,7 @@ export default class extends React.Component {
           <TitleAndContent title={'Next Plan'} content={<span>{nextPlan}</span>} />
           {beginsOn}
         </div>
-        {nextPlanAlertContent}
+        {nextPlanAlertOrButtons}
       </div>
     );
   }

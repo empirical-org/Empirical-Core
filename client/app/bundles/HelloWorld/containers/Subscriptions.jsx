@@ -173,6 +173,9 @@ export default class extends React.Component {
   render() {
     const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;
     const subId = `${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
+    // don't show any last four unless they have an authority level with their purchase
+    // const lastFour = this.props.authorityLevel ? this.props.lastFour : null;
+    const lastFour = this.state.authorityLevel ? this.props.lastFour : null;
     return (
       <div>
         <SubscriptionStatus
@@ -188,14 +191,14 @@ export default class extends React.Component {
           subscriptionStatus={this.state.subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}
-          lastFour={this.props.lastFour}
+          lastFour={lastFour}
           updateSubscription={this.updateSubscription}
-          authorityLevel={this.props.authorityLevel}
+          authorityLevel={this.state.authorityLevel}
         />
         <SubscriptionHistory
           subscriptions={this.state.subscriptions}
           premiumCredits={this.props.premiumCredits}
-          authorityLevel={this.props.authorityLevel}
+          authorityLevel={this.state.authorityLevel}
         />
         <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
         <PremiumCreditsTable
@@ -204,7 +207,7 @@ export default class extends React.Component {
         />
         <RefundPolicy />
         <PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} hideModal={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />
-        <PaymentModal show={this.state.showPaymentModal} hideModal={this.hidePaymentModal} lastFour={this.props.lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
+        <PaymentModal show={this.state.showPaymentModal} hideModal={this.hidePaymentModal} lastFour={lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
 
       </div>
     );
