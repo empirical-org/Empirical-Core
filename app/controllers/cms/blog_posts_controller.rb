@@ -38,6 +38,11 @@ class Cms::BlogPostsController < ApplicationController
     redirect_to cms_blog_posts_path
   end
 
+  def update_order_numbers
+    JSON.parse(params[:blog_posts]).each { |bp| BlogPost.find(bp['id']).update(order_number: bp['order_number'])}
+    render json: {}
+  end
+
   private
 
   def authors
