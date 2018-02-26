@@ -1,10 +1,11 @@
 import React from 'react';
 import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
-import ItemDropdown from 'bundles/HelloWorld/components/general_components/dropdown_selectors/item_dropdown';
+import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
 import LoadingSpinner from 'bundles/HelloWorld/components/shared/loading_indicator';
 import ActivityScoresTable from 'bundles/admin_dashboard/components/activity_scores_table';
 import {
   switchClassroom,
+  switchSchool,
   getDistrictActivityScores,
 } from 'actions/district_activity_scores';
 import { connect } from 'react-redux';
@@ -18,10 +19,13 @@ class DistrictActivityScores extends React.Component {
   render() {
     const {
       selectedClassroom,
+      selectedSchool,
       loading,
       csvData,
+      schoolNames,
       classroomNames,
       switchClassroom,
+      switchSchool,
       filteredClassroomsData,
     } = this.props;
 
@@ -50,6 +54,11 @@ class DistrictActivityScores extends React.Component {
         </div>
         <div className="dropdown-container">
           <ItemDropdown
+            items={schoolNames}
+            callback={switchSchool}
+            selectedItem={selectedSchool}
+          />
+          <ItemDropdown
             items={classroomNames}
             callback={switchClassroom}
             selectedItem={selectedClassroom}
@@ -64,6 +73,7 @@ class DistrictActivityScores extends React.Component {
 const mapStateToProps = state => state;
 const mapDispatchToProps = (dispatch) => {
   return {
+    switchSchool: school => dispatch(switchSchool(school)),
     switchClassroom: classroom => dispatch(switchClassroom(classroom)),
     getDistrictActivityScores: () => dispatch(getDistrictActivityScores()),
   };
