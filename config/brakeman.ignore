@@ -41,6 +41,26 @@
       "note": "This is only staff facing, so we don't need to worry about it."
     },
     {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "128889e6ec9ee4b6de6d8aa81c29b1833ae43dd73d98712dad8cf1f36a990d49",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to UnitTemplate#find",
+      "file": "app/controllers/teachers/unit_templates_controller.rb",
+      "line": 39,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "UnitTemplate.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::UnitTemplatesController",
+        "method": "profile_info"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "Unit templates are publicly viewable, so this is fine."
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "28439ae602d49f4a7d1a902ce4fc6742d9116f2504d8fd510c65cc23bc82207b",
@@ -61,6 +81,26 @@
       "note": "Any inputs here are sanitized."
     },
     {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "2d7dbe5dd8bc7cca3db6f774c146165f8837a309dd4005ae34ee8cecdc92f8cd",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to Unit#find",
+      "file": "app/controllers/teachers/units_controller.rb",
+      "line": 122,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Unit.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::UnitsController",
+        "method": "hide"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "There is a before_filter checking whether access exists."
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "2fb7213ca4e369371288fd354472afb686831fc474436791c4912f6b2f6a54d6",
@@ -79,6 +119,26 @@
       "user_input": "Activity.with_classification.find_by_uid(\"-K0rnIIF_iejGqS3XPJ8\").anonymous_module_url.to_s",
       "confidence": "High",
       "note": ""
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "324861a79f395a403e31d33e8a5eed3ecf3308187b347b3b219eebad4d6bb11d",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to Unit#find",
+      "file": "app/controllers/teachers/units_controller.rb",
+      "line": 134,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Unit.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::UnitsController",
+        "method": "edit"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "There is a before_filter checking whether access exists."
     },
     {
       "warning_type": "SQL Injection",
@@ -119,6 +179,26 @@
       "user_input": "Activity.find(params[:activity_id].to_i).uid",
       "confidence": "High",
       "note": "False positive. We control ca_id and lesson_uid, and activity_id is an integer, so this should not be problematic."
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "4713937bd85268fed53a85064625b22283338d707d5ea4118d472225f6ab9b69",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to ClassroomActivity#find",
+      "file": "app/controllers/teachers/classroom_activities_controller.rb",
+      "line": 86,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "ClassroomActivity.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::ClassroomActivitiesController",
+        "method": "authorize!"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "This is actually in an authorization method, so it is not a security concern."
     },
     {
       "warning_type": "SQL Injection",
@@ -280,6 +360,26 @@
       "note": "This is bad. However, the only sensitive data here is the role, which we check for later in the process anyway. I'm excepting it now to be safe, but the rest of this should be fine for now. Leaving it this way is likely bad practice, but it is not as of now a vulnerability."
     },
     {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "acfffbde1563bf6f018271df9f92182ea86a73a98fb0bf415c4990f58aeeef2b",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to ClassroomActivity#find",
+      "file": "app/controllers/api/v1/classroom_activities_controller.rb",
+      "line": 52,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "ClassroomActivity.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::V1::ClassroomActivitiesController",
+        "method": "authorize!"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "This is actually inside an authorization function, so it is not a security concern."
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "aec871567cb38194f1ad7beb11b96133657578eafe63c7260613e91906281dd1",
@@ -340,6 +440,26 @@
       "note": "base_sql_for_teacher_classrooms is a method that returns the base sql for this query. It is not user generated."
     },
     {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "be171684c6c6eb1efa099fab464b8e60dc73e4b59914ba704f1882fad251996d",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to Activity#find",
+      "file": "app/controllers/cms/activities_controller.rb",
+      "line": 21,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Activity.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::ActivitiesController",
+        "method": "edit"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "This is in a staff-only CMS controller."
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
       "fingerprint": "c300ebb7f349759beabe918ca495971a584e172fcc0f5c532ff106354e8905fa",
@@ -360,6 +480,86 @@
       "note": "This is only staff facing, so we don't need to worry about it."
     },
     {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "d4df162d36167edb7c4298ee478a18f1cf603cc7adf5dc53ac99f2a344d0d24b",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to UnitTemplate#find",
+      "file": "app/controllers/cms/unit_templates_controller.rb",
+      "line": 51,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "UnitTemplate.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::UnitTemplatesController",
+        "method": "set_unit_template"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "This is in the CMS, which should be accessible only to staff."
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "d8299714f54d2e9f705ab58c9d16ad9db2bee6ee511e3946d4423a2929df4a78",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to ClassroomActivity#find",
+      "file": "app/controllers/teachers/classroom_activities_controller.rb",
+      "line": 91,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "ClassroomActivity.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::ClassroomActivitiesController",
+        "method": "authorize_student!"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "This is actually in an authorization method, so it is not a security concern."
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "d82a6b59a34f9ac338c14f882a817087d7f97934b5643f30fe2c2d8c688ff5cd",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to BlogPost#find",
+      "file": "app/controllers/cms/blog_posts_controller.rb",
+      "line": 54,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "BlogPost.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::BlogPostsController",
+        "method": "set_blog_post"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "Blog posts are publicly accessible, so this is not a security concern."
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "dde2924186699e6b70cfdbe47dcdd50c28ad06e970f2a42120b085aedbe96def",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to Topic#find",
+      "file": "app/controllers/cms/topics_controller.rb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Topic.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::TopicsController",
+        "method": "set_topic"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "This is in the CMS, which should be accessible only to staff."
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "df6575dac5769b63b59d42cde4eeac407a60e36d9a772c284ee97c55c2390163",
@@ -378,6 +578,26 @@
       "user_input": "Activity.find(params[:activity_id]).uid",
       "confidence": "High",
       "note": ""
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "e227198c96ca6d8f5255249311e5c7ab586cf9eae2ac6ba164b04ab14697bce2",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to UnitTemplate#find",
+      "file": "app/controllers/teachers/unit_templates_controller.rb",
+      "line": 59,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "UnitTemplate.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::UnitTemplatesController",
+        "method": "redirect_to_public_index_if_no_unit_template_found"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "n"
     },
     {
       "warning_type": "SQL Injection",
@@ -460,6 +680,26 @@
       "note": "This is in the CMS, so no need to worry."
     },
     {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "eab4daaa0c5beab09b06bf7daadd52984ceb0912cdb0e8b95a40d2bc2e162141",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to Activity#find",
+      "file": "app/controllers/activity_sessions_controller.rb",
+      "line": 29,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Activity.find(params[:activity_id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActivitySessionsController",
+        "method": "anonymous"
+      },
+      "user_input": "params[:activity_id]",
+      "confidence": "Weak",
+      "note": "Activities are publicly available, so this is not a security concern."
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "f1a254ec27e2c3f8023d3d4a7aaaec8ecd8e628d8449e31b362caab2e6462805",
@@ -478,8 +718,28 @@
       "user_input": "current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id)",
       "confidence": "High",
       "note": "We explicitly set the own_or_coteach variable."
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "fba8809c4fb1d6c1bb8cb563a4b1760078205a48cd98a1a17c00d00817fa45cb",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to Activity#find",
+      "file": "app/controllers/activities_controller.rb",
+      "line": 60,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Activity.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActivitiesController",
+        "method": "activity"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "Activities are publicly available, so this is not a security concern."
     }
   ],
-  "updated": "2018-02-15 11:54:07 -0500",
+  "updated": "2018-02-22 16:27:46 -0500",
   "brakeman_version": "4.1.1"
 }
