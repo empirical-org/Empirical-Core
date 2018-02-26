@@ -56,12 +56,18 @@ class SubscriptionsController < ApplicationController
   end
 
   def set_index_variables
+    @user_authority_level = current_user.subscription_authority_level
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions
     subscription_status
     @school_subscription_types = Subscription::SCHOOL_SUBSCRIPTIONS_TYPES
     @last_four = last_four
     @trial_types = Subscription::TRIAL_TYPES
+    if @subscription_status
+      @user_authority_level = current_user.subscription_authority_level(@subscription_status)
+    else
+      @user_authority_level = nil
+    end
   end
 
   def subscription_status

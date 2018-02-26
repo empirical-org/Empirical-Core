@@ -12,6 +12,34 @@ describe User, type: :model do
       let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
       let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
 
+      describe('#subscription_authority_level') do
+        let!(:school) {create(:school)}
+        let!(:school_subscription) {create(:school_subscription, school: school, subscription: subscription)}
+
+        it "returns 'purchaser' if the user is the purchaser" do
+          subscription.update(purchaser_id: user.id)
+          expect(user.subscription_authority_level(subscription)).to eq('purchaser')
+        end
+
+        it "returns 'authorizer' if the user is the authorizer" do
+          school.update(authorizer: user)
+          SchoolsUsers.create(user: user, school: school)
+          user.reload
+          expect(user.subscription_authority_level(subscription)).to eq('authorizer')
+        end
+
+        it "returns 'coordinator' if the user is the coordinator" do
+          school.update(coordinator: user)
+          SchoolsUsers.create(user: user, school: school)
+          user.reload
+          expect(user.subscription_authority_level(subscription)).to eq('coordinator')
+        end
+
+        it "returns nil if the user has no authority" do
+          expect(user.subscription_authority_level(subscription)).to eq(nil)
+        end
+      end
+
       describe '#last_expired_subscription' do
         let!(:subscription2) { create(:subscription, expiration: Date.yesterday) }
         let!(:user_subscription2) { create(:user_subscription, user: user, subscription: subscription2) }
