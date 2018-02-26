@@ -8,7 +8,9 @@ const defaultPreviewCardContent = `<img class='preview-card-image' src='http://c
 <div class='preview-card-body'>
    <h3>Party Parrot Parade</h3>
    <p>There exist many excellent party parrots.</p>
-   <p class='author'>by Quill Staff</p>
+</div>
+<div class='preview-card-footer'>
+  <p class='author'>by Quill Staff</p>
 </div>`;
 
 export default class extends React.Component {
@@ -245,7 +247,9 @@ export default class extends React.Component {
     <div class='preview-card-body'>
        <h3>${this.state.blogPostPreviewTitle}</h3>
        <p>${this.state.blogPostPreviewDescription}</p>
-       <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
+    </div>
+    <div class='preview-card-footer'>
+      <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
     </div>`;
     this.setState({ preview_card_content: previewCardContent })
   }
@@ -279,6 +283,9 @@ export default class extends React.Component {
     <div class='preview-card-body'>
        <p>${this.state.tweetText}</p>
        <p class='author'>@${this.state.tweetAuthor}</p>
+    </div>
+    <div class='preview-card-footer'>
+      <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
     </div>`;
     this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
@@ -291,7 +298,9 @@ export default class extends React.Component {
     </div>
     <div class='preview-card-body'>
        <p>${this.state.videoDescription}</p>
-       <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
+    </div>
+    <div class='preview-card-footer'>
+      <p class='author'>by ${this.props.authors.find(a => a.id == this.state.author_id).name}</p>
     </div>`;
     this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
@@ -337,18 +346,14 @@ export default class extends React.Component {
   }
 
   renderPreviewCardTypeDropdown() {
-    if(this.props.action === 'new') {
-      return (
-        <div>
-          <label>Preview Card Type:</label>
-          <ItemDropdown
-            items={['Blog Post', 'YouTube Video', 'Tweet', 'Custom HTML']}
-            callback={this.handlePreviewCardTypeChange}
-            selectedItem={this.state.preview_card_type}
-          />
-        </div>
-      )
-    }
+    return <div>
+        <label>Preview Card Type:</label>
+        <ItemDropdown
+          items={['Blog Post', 'YouTube Video', 'Tweet', 'Custom HTML']}
+          callback={this.handlePreviewCardTypeChange}
+          selectedItem={this.state.preview_card_type}
+        />
+      </div>
   }
 
   handlePremiumChange() {
@@ -363,27 +368,8 @@ export default class extends React.Component {
           <label>Title:</label>
           <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
 
-          <label>Subtitle:</label>
+          <label>SEO Meta Description:</label>
           <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange} />
-
-          <label>Body:</label>
-          <div id='markdown-shortcuts'>
-            <i onClick={() => this.insertMarkdown('# ')} className="fa fa-header" />
-            <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
-            <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
-            <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
-            <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
-            <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
-            <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
-            <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
-            <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} className="fa fa-square" />
-            <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
-          </div>
-          <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
-          <a target="_blank" href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
-
-          <label>Body Preview:</label>
-          <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
 
           <div className='flex-three-cols'>
             <div>
@@ -397,14 +383,46 @@ export default class extends React.Component {
             {this.renderPreviewCardTypeDropdown()}
           </div>
 
-          <label>Preview Card Content:</label>
-          {this.renderPreviewCardContentFields()}
+          <div className="side-by-side">
+            <div className="preview-card-container">
+              <label>Preview Card Content:</label>
+              {this.renderPreviewCardContentFields()}
+            </div>
 
-          <label>Card Preview:</label>
-          <PreviewCard content={this.state.preview_card_content} />
+            <div>
+              <label>Card Preview:</label>
+              <PreviewCard content={this.state.preview_card_content} />
+            </div>
+          </div>
 
           <label>Premium:</label>
           <input type='checkbox' value={this.state.premium} onClick={this.handlePremiumChange} />
+
+          <div className="side-by-side">
+            <div className="body-markdown">
+              <label>Article Contents:</label>
+              <div id='markdown-shortcuts'>
+                <i onClick={() => this.insertMarkdown('# ')} className="fa fa-header" />
+                <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
+                <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
+                <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
+                <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
+                <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
+                <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
+                <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
+                <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} className="fa fa-square" />
+                <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
+              </div>
+              <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
+              <a target="_blank" href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
+            </div>
+
+            <div className="body-preview">
+              <label>Article Preview:</label>
+              <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
+            </div>
+
+          </div>
 
           <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
           {this.renderSaveDraftButton()}
