@@ -1,6 +1,7 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
+  # WARNING: these filter methods check against classroom_id, not id.
   before_filter :authorize_owner!, except: [:scores, :scorebook]
   before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
