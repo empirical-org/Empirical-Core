@@ -22,9 +22,6 @@ class UserSubscription < ActiveRecord::Base
 
   def self.redeem_present_and_future_subscriptions_for_credit(user_id)
     # iterate through all remaining subs, converting into credit and expiring
-    if User.find(user_id).name == 'queens teacher'
-      binding.pry
-    end
     User.find(user_id).present_and_future_subscriptions.each{|s|s.credit_user_and_de_activate}
   end
 
