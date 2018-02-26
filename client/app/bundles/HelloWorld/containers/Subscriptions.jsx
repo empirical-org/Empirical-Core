@@ -26,6 +26,7 @@ export default class extends React.Component {
       showPremiumConfirmationModal: false,
       showPurchaseModal: false,
       purchaserNameOrEmail: this.purchaserNameOrEmail(),
+      authorityLevel: this.props.userAuthorityLevel,
     };
     this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
     this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
@@ -35,7 +36,7 @@ export default class extends React.Component {
     this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
     this.updateCard = this.updateCard.bind(this);
     this.updateSubscription = this.updateSubscription.bind(this);
-    this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
+    // this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
   }
 
   updateSubscriptionStatus(subscription) {
@@ -54,11 +55,11 @@ export default class extends React.Component {
     });
     return { earned, available: earned - spent, };
   }
-
-  currentUserIsPurchaser(subscription) {
-    const currentUserId = document.getElementById('current-user-id').getAttribute('content');
-    return _.get(subscription, 'purchaser_id') === Number(currentUserId);
-  }
+  //
+  // currentUserIsPurchaser(subscription) {
+  //   const currentUserId = document.getElementById('current-user-id').getAttribute('content');
+  //   return _.get(subscription, 'purchaser_id') === Number(currentUserId);
+  // }
 
   purchaserNameOrEmail() {
     const sub = (this.state && this.state.subscriptionStatus) || this.props.subscriptionStatus;
@@ -189,12 +190,12 @@ export default class extends React.Component {
           userIsContact={this.userIsContact()}
           lastFour={this.props.lastFour}
           updateSubscription={this.updateSubscription}
-          currentUserIsPurchaser={this.currentUserIsPurchaser(this.state.subscriptionStatus)}
+          authorityLevel={this.props.authorityLevel}
         />
         <SubscriptionHistory
           subscriptions={this.state.subscriptions}
           premiumCredits={this.props.premiumCredits}
-          currentUserIsPurchaser={this.currentUserIsPurchaser}
+          authorityLevel={this.props.authorityLevel}
         />
         <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
         <PremiumCreditsTable

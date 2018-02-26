@@ -37,7 +37,7 @@ export default class extends React.Component {
   }
 
   paymentContent(subscription) {
-    if (this.props.currentUserIsPurchaser(subscription)) {
+    if (this.props.authorityLevel) {
       if (subscription.payment_amount) {
         return `$${subscription.payment_amount / 100}`;
       } else if (subscription.payment_method === 'Premium Credit') {

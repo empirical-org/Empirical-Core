@@ -107,6 +107,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def subscription_authority_level(subscription)
+    if subscription.purchaser_id == self.id
+        return 'purchaser'
+    elsif subscription.schools.include?(self.school)
+      if self.school.coordinator == self
+        return 'coordinator'
+      elsif self.school.authorizer == self
+        return 'authorizer'
+      end
+    end
+  end
+
   def eligible_for_new_subscription?
       if subscription
         # if they have a subscription it must be a trial one
