@@ -7,6 +7,11 @@ import request from 'request';
 import moment from 'moment';
 
 export default class BlogPosts extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.renderBlogPostsByTopic = this.renderBlogPostsByTopic.bind(this)
+  }
 
   columns() {
     return ([
@@ -64,6 +69,28 @@ export default class BlogPosts extends React.Component {
     }
   }
 
+  renderBlogPostsByTopic() {
+    const tables = this.props.topics.map(t => {
+      const filteredBlogPosts = this.props.blogPosts.filter(bp => bp.topic === t)
+      if (filteredBlogPosts.length > 0) {
+        return <div>
+          <h1>{t}</h1>
+          <ReactTable
+            data={filteredBlogPosts}
+            columns={this.columns()}
+            showPagination={false}
+            showPaginationTop={false}
+            showPaginationBottom={false}
+            showPageSizeOptions={false}
+            defaultPageSize={filteredBlogPosts ? filteredBlogPosts.length : 0}
+          />
+        </div>
+      }
+    }
+    )
+    return tables
+  }
+
   render() {
     if (['new', 'edit'].includes(this.props.action)) {
       return <CreateOrEditBlogPost {...this.props} />;
@@ -76,17 +103,9 @@ export default class BlogPosts extends React.Component {
       <div className="cms-blog-posts">
         <a href="/cms/blog_posts/new" className="btn button-green">New Blog Post</a>
         <br /><br />
-        <ReactTable
-          data={this.props.blogPosts}
-          columns={this.columns()}
-          showPagination={false}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
-          defaultPageSize={this.props.blogPosts ? this.props.blogPosts.length : 0}
-        />
+        {this.renderBlogPostsByTopic()}
       </div>
     );
-  },
+  }
 
 };
