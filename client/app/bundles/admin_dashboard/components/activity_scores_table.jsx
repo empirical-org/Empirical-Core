@@ -54,7 +54,7 @@ const ActivityScoresTable = ({ data }) => {
     },
   ];
 
-  if (data.length) {
+  if (data && data.length) {
     return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
       <ReactTable data={data}
         columns={columns}
