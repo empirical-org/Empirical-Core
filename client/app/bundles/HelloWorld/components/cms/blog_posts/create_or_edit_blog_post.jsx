@@ -380,7 +380,7 @@ export default class extends React.Component {
             <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
           </div>
           <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
-          <a href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
+          <a target="_blank" href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
 
           <label>Body Preview:</label>
           <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
