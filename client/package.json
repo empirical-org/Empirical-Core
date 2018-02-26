@@ -8,8 +8,9 @@
   },
   "main": "js/app.js",
   "dependencies": {
+    "@types/react": "^16.0.38",
+    "@types/react-dom": "^16.0.4",
     "autoprefixer": "^6.3.5",
-    "awesome-typescript-loader": "^3.5.0",
     "babel": "^6.5.2",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.1.2",
@@ -65,13 +66,13 @@
     "sass-loader": "^3.2.0",
     "sass-resources-loader": "1.0.2",
     "style-loader": "^0.13.1",
-    "typescript": "^2.7.2",
     "underscore": "^1.8.3",
     "underscore.string": "^3.3.4",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.5.0",
     "babel-cli": "^6.26.0",
     "babel-jest": "=19.0.0",
     "babel-plugin-react-transform": "^2.0.2",
@@ -94,6 +95,8 @@
     "react-dom": "^15.2.1",
     "react-test-renderer": "^15.4.2",
     "react-transform-hmr": "^1.0.4",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.7.2",
     "webpack-dev-server": "^1.14.1"
   },
   "browser": {
