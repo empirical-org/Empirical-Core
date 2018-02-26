@@ -22,14 +22,14 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  # TODO: remove this when we launch front end of knowlege center
-  get 'teacher_resources', to: 'blog_posts#temporarily_render_old_teacher_resources'
-
   resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug do
     collection do
       get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
     end
   end
+
+  post 'rate_blog_post', to: 'blog_post_user_ratings#create'
 
 
   # for Stripe
@@ -360,6 +360,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
     resources :blog_posts
     get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
+    get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
     end

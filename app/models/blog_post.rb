@@ -5,6 +5,7 @@ class BlogPost < ActiveRecord::Base
   before_create :generate_slug
 
   belongs_to :author
+  has_many :blog_post_user_ratings
 
   def increment_read_count
     self.read_count += 1
@@ -21,6 +22,17 @@ class BlogPost < ActiveRecord::Base
 
   def topic_slug
     self.topic.downcase.gsub(' ', '_')
+  end
+
+  def can_be_accessed_by(user)
+    return true unless self.premium
+    return true if self.premium && user&.is_premium?
+    false
+  end
+
+  def average_rating
+    ratings = self.blog_post_user_ratings.pluck(:rating)
+    return (ratings.sum / ratings.size).round(2) if ratings.any?
   end
 
   private

@@ -443,5 +443,29 @@ describe User, type: :model do
         expect(random_teacher.affiliated_with_unit(unit.id)).to_not be
       end
     end
+
+    describe '#referrer_code' do
+      let!(:referral_code) { teacher.referrer_user.referral_code }
+      it 'returns the appropriate referral code' do
+        expect(teacher.referrer_code).to be(referral_code)
+      end
+    end
+
+    describe '#referral_code' do
+      let!(:referral_code) { teacher.referrer_user.referral_code }
+      it 'returns the appropriate referral code' do
+        expect(teacher.referral_code).to be(referral_code)
+      end
+    end
+
+    describe '#referrals' do
+      it 'returns a count of referrals' do
+        expect(teacher.referrals).to be(0)
+        create(:referrals_user, user_id: teacher.id)
+        expect(teacher.referrals).to be(1)
+        create(:referrals_user, user_id: teacher.id)
+        expect(teacher.referrals).to be(2)
+      end
+    end
   end
 end
