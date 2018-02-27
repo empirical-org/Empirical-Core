@@ -70,7 +70,87 @@ class DistrictActivityScores extends React.Component {
   }
 }
 
-const mapStateToProps = state => state;
+function filterClassroomNames(classrooms, selectedSchool) {
+  let filtered = filterBySchool(classrooms, selectedSchool);
+  let names = filtered.map(row => row.classroom_name);
+  return ['All Classrooms', ...new Set(names)];
+}
+
+function filterSchoolNames(classrooms) {
+  let names = classrooms.map(row => row.schools_name);
+  return ['All Schools', ...new Set(names)];
+}
+
+function formatDataForCSV(data) {
+  const csvData = []
+  const csvHeader = [
+    'Classroom Name',
+    'Student Name',
+    'School Name',
+    'Average Score',
+    'Activity Count'
+  ];
+  const csvRow = (row) => [
+    row['classroom_name'],
+    row['students_name'],
+    row['schools_name'],
+    (row['average_score'] * 100).toString() + '%',
+    row['activity_count'],
+  ];
+
+  csvData.push(csvHeader);
+  data.forEach(row => csvData.push(csvRow(row)));
+
+  return csvData;
+};
+
+function filterBySchool(classrooms, selected) {
+  if (selected !== 'All Schools') {
+    return classrooms.filter(row => row.schools_name === selected);
+  }
+
+  return classrooms;
+}
+
+function filterByClass(classrooms, selected) {
+  if (selected !== 'All Classrooms') {
+    return classrooms.filter(row => row.classroom_name === selected);
+  }
+
+  return classrooms;
+}
+
+function filterClassrooms(classrooms, selectedSchool, selectedClassroom) {
+  let filtered = filterBySchool(classrooms, selectedSchool);
+  filtered     = filterByClass(filtered, selectedClassroom);
+
+  return filtered;
+}
+
+const mapStateToProps = (state) => {
+  let filteredClassroomsData = filterClassrooms(
+    state.classroomsData,
+    state.selectedSchool,
+    state.selectedClassroom
+  );
+
+  let classroomNames = filterClassroomNames(
+    state.classroomsData,
+    state.selectedSchool
+  );
+
+  return {
+    loading: state.loading,
+    errors: state.errors,
+    selectedClassroom: state.selectedClassroom,
+    selectedSchool: state.selectedSchool,
+    classroomsData: state.classroomsData,
+    filteredClassroomsData,
+    csvData: formatDataForCSV(filteredClassroomsData),
+    classroomNames,
+    schoolNames: filterSchoolNames(state.classroomsData),
+  }
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     switchSchool: school => dispatch(switchSchool(school)),
