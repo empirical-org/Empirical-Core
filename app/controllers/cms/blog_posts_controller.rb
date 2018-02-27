@@ -60,7 +60,8 @@ class Cms::BlogPostsController < ApplicationController
                     :read_count,
                     :preview_card_content,
                     :draft,
-                    :premium)
+                    :premium,
+                    :published_at)
   end
 
   def set_blog_post
