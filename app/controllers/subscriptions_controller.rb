@@ -81,7 +81,7 @@ class SubscriptionsController < ApplicationController
     end
     @subscription_status = @subscription_status_obj
     purchaser = @subscription_status&.purchaser
-    if purchaser || @subscription_status&.contact_email
+    if purchaser || @subscription_status&.purchaser_email
       # we want to allow the viewer to email the contact user for school premium
       # if the contact user is in our db, then we retrieve their emaile
       # otherwise we fall back on the hardcoded contact email which was input by the sales team

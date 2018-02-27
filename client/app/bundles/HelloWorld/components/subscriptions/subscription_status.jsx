@@ -3,10 +3,9 @@ import moment from 'moment';
 import pluralize from 'pluralize';
 
 const quillBasicCopy = (
-  <span>
-    Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. Teachers can earn free credits for Teacher Premium by sharing Quill and creating content.
-    <a className="green-link" href="">How to earn Quill Credits.</a>
-  </span>);
+  <p>
+    Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. Teachers can earn free credits for Teacher Premium by sharing Quill and creating content. <a className="green-link" href="">How to earn Quill Credits.</a>
+  </p>);
 
 const schoolPremiumCopy = (
   <p>
