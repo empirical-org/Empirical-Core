@@ -61,6 +61,7 @@ class Cms::BlogPostsController < ApplicationController
                     :preview_card_content,
                     :draft,
                     :premium,
+                    :external_link,
                     :published_at)
   end
 

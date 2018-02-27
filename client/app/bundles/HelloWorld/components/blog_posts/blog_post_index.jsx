@@ -20,13 +20,13 @@ export default class extends React.Component {
 
   renderPreviewCards() {
     return this.props.blogPosts.map(article =>
-      <PreviewCard key={article.title} content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+      <PreviewCard key={article.title} content={article.preview_card_content} link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`} />
     )
   }
 
   renderPreviewCardsByPopularity() {
     return this.state.blogPostsSortedByMostRead.map(article =>
-      <PreviewCard key={article.title} content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+      <PreviewCard key={article.title} content={article.preview_card_content} link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`} />
     )
   }
 
@@ -115,9 +115,10 @@ export default class extends React.Component {
   renderMostReadPost() {
     const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
     if(window.location.pathname.includes('search')) { return null; }
+    const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher_resources/${mostReadArticle.slug}`
     return (
       <h3>
-        <a href={`/teacher_resources/${mostReadArticle.slug}`}>{mostReadArticle.title}</a>
+        <a href={link}>{mostReadArticle.title}</a>
       </h3>
     )
   }

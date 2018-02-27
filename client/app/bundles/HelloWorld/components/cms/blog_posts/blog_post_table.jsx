@@ -79,7 +79,7 @@ export default class BlogPostTable extends React.Component {
       updatedAt={moment(blogPost.updated_at).format('MM-DD-YY')}
       rating={blogPost.rating}
       editLink={`/cms/blog_posts/${blogPost.id}/edit`}
-      previewLink={`/teacher_resources/${blogPost.slug}`}
+      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher_resources/${blogPost.slug}`}
       deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
       key={index}
     />
