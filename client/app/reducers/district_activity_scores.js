@@ -14,7 +14,7 @@ function updateObject(oldObject, newObject) {
 export default (state, action) => {
   state = state || initialState;
 
-  switch(action.type) {
+  switch(action && action.type) {
     case 'SWITCH_SCHOOL':
       return updateObject(state, {
         selectedSchool: action.school,
