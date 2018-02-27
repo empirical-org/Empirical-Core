@@ -375,7 +375,7 @@ export default class extends React.Component {
     let contentFields;
     if (['Tiny Image', 'Medium Image', 'Large Image'].includes(preview_card_type)) {
       contentFields = [
-        <label>Header Image:</label>,
+        <label>Link to an image with the dimensions in the preview:</label>,
         <input onChange={this.handleBlogPostPreviewImageChange} type='text' value={this.state.blogPostPreviewImage} />,
         <label>Title:</label>,
         <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
