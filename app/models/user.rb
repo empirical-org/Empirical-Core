@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
   end
 
   def last_expired_subscription
-    self.subscriptions.where("expiration < ?", Date.today).order(expiration: :desc).limit(1).first
+    self.subscriptions.where("expiration <= ?", Date.today).order(expiration: :desc).limit(1).first
   end
 
   def subscription

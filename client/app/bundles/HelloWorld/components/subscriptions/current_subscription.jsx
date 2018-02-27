@@ -44,11 +44,12 @@ export default class extends React.Component {
       return <span>Credit Card</span>;
     } else if (this.props.subscriptionType === 'School Sponsored') {
       return <span>No Payment Method on File</span>;
-    } else if (subStat && !substat.payment_method) {
+    } else if (subStat && !subStat.payment_method) {
       return <span>School Invoice</span>;
     } else if (!subStat && this.state.lastFour) {
       return this.editCreditCardElement();
     }
+    return <span>No Payment Method on File</span>;
   }
 
   editCreditCard() {
@@ -102,7 +103,7 @@ export default class extends React.Component {
   lessThan90Days() {
     return (
       <div>
-        <button className="q-button bg-orange text-white">Renew School Premium</button>
+        <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white">Renew School Premium</button>
         <button className="q-button bg-quillblue text-white">Download Quote</button>
       </div>
     );
@@ -110,7 +111,7 @@ export default class extends React.Component {
 
   renewPremium() {
     return (<div>
-      <button onClick={this.props.showPaymentModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>
+      <button onClick={this.props.showPurchaseModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>
     </div>);
   }
 
@@ -171,14 +172,14 @@ export default class extends React.Component {
       </span>);
       return (<TitleAndContent title={'Next Plan'} content={content} />);
     } else if (this.props.subscriptionStatus.expired) {
-      return nextPlanAlertOrButtons(`${type} expired`);
+      return this.nextPlanAlertOrButtons(`${condition} expired`);
     } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
       const content = (<span>Quill Basic - Free
                     <a href="/premium" className="green-link">Change Plan</a>
       </span>);
       return (<TitleAndContent title={'Next Plan'} content={content} />);
     } else if (condition === 'school sponsored') {
-      nextPlan = nextPlanAlertOrButtons(condition);
+      nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (this.props.subscriptionStatus.recurring) {
       nextPlan = (<span>
                     Teacher Premium - $80 Annual Subscription {this.changePlanInline()}
