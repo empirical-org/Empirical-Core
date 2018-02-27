@@ -251,18 +251,19 @@ body {
       font-weight: 700;
       line-height: 1.38;
       margin-bottom: 17px;
+      margin-top: 0px;
       transition: all 0.3s ease-out;
     }
 
-    .author {
-      font-weight: 600;
-      margin: 0;
-      flex-grow: 0;
-    }
+  }
+
+  .preview-card-footer {
+    padding: 0px 15px;
+    color: #666;
   }
 
   &:hover {
-    .preview-card-body {
+    .preview-card:first-child {
       box-shadow: 0 2px 4px 2px #e9e9e9;
 
       h3 {
