@@ -18,6 +18,14 @@ class ProgressReports::DistrictConceptReports
       .join(', ')
   end
 
+  ## new query
+  def new_query
+    <<~SQL
+       SELECT 
+    SQL
+  end
+  ### end new query
+
   def query
     <<~SQL
       SELECT classrooms.name AS classroom_name,
@@ -50,3 +58,34 @@ class ProgressReports::DistrictConceptReports
     SQL
   end
 end
+
+###### BELOW IS JUST AN EXAMPLE ####
+
+  def self.results(teacher, filters)
+    query = ::ConceptResult.select(<<-SELECT
+      cast(concept_results.metadata->>'correct' as int) as is_correct,
+      activity_sessions.user_id,
+      concept_results.concept_id
+    SELECT
+    ).joins({activity_session: {classroom_activity: :classroom}})
+     .joins("INNER JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id")
+      .where("activity_sessions.state = ? AND classrooms_teachers.user_id = ?", "finished", teacher.id)
+
+    if filters[:classroom_id].present?
+      query = query.where("classrooms.id = ?", filters[:classroom_id])
+    end
+
+    if filters[:student_id].present?
+      query = query.where("activity_sessions.user_id = ?", filters[:student_id])
+    end
+
+    if filters[:unit_id].present?
+      query = query.where("classroom_activities.unit_id = ?", filters[:unit_id])
+    end
+
+    if filters[:concept_id].present?
+      query = query.where("concept_results.concept_id = ?", filters[:concept_id])
+    end
+
+    query
+  end
