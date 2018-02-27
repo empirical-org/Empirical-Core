@@ -42,7 +42,7 @@ class Teachers::ProgressReportsController < ApplicationController
     # If this demo account already exists, just go there
     existing_admin_user = User.find_by(email: teacher_email)
     if existing_admin_user.present?
-      sign_in existing_admin_user
+      sign_out and sign_in existing_admin_user
       return redirect_to teachers_admin_dashboard_path
     end
 
@@ -92,7 +92,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
     # Add teachers to the school, units to each teacher, and classroom activities to the units
     teachers.each do |teacher|
-      SchoolsUsers.create(school_id: school.id, user_id: teacher.id)
+      SchoolsUsers.create!(school_id: school.id, user_id: teacher.id)
 
       diagnostic_unit = Unit.create!(name: diagnostic_unit_template.name, user_id: teacher.id)
       using_commas_unit = Unit.create!(name: using_commas_unit_template.name, user_id: teacher.id)
@@ -139,12 +139,53 @@ class Teachers::ProgressReportsController < ApplicationController
       end
     end
 
-    # Add activity sessions and concept results for the students of all but one teacher
-    # [admin_teacher, teachers[1], teachers[2]].each do |teacher|
-    #
-    # end
+    # Create a map of classroom activity IDs and an array of exemplar activity sessions to copy
+    exemplar_activity_sessions = {
+      413 => [26132834, 22674997, 23713760, 14651990, 27055198, 18415812, 22221644, 22513965, 27742073, 22158443],
+      182 => [22048631, 27667308, 8907523, 3254361, 1598630, 2019699, 28896968, 3848334, 5927654, 25256514],
+      165 => [8655355, 10384565, 7728923, 10888514, 19259048, 27499931, 9244672, 29270571, 17727174],
+      177 => [3286331, 2598862, 11393817, 21106096, 2304963, 16243410, 8292121, 4243576, 8390959],
+      176 => [3533881, 22299270, 28214093, 16169337, 2050344, 12575685, 10083611, 4728267],
+       63 => [6162798, 2781282, 7898538, 10039303, 12346263, 27200543, 17472092, 26083226, 7767661],
+       69 => [3421136, 14719539, 2306053, 8839785, 18159027, 27889910, 15582813, 123324],
+      168 => [27525129, 11107977, 13452776, 4781007, 18059935, 8594742, 22460531, 11026672],
+       77 => [22928913, 20999382, 5844732, 21162049, 9756885, 3139148, 22098329, 9906747, 9605560],
+      169 => [12499260, 8594352, 27781517, 20855319, 27675646, 23610692, 27357322, 6146957, 3927662],
+      107 => [23198318, 8985748, 6874550, 5612963, 28221047, 13513371, 28530677, 19281636],
+      113 => [7247763, 7201638, 6971429, 28153116, 15667648, 4759171, 6874847, 13623922, 23351585],
+      111 => [4412433, 7641405, 29133289, 28226170, 28738913, 1416021, 10071820, 28921073],
+      112 => [3569714, 14067307, 27587029, 17413447, 19843322, 29167975, 2483020, 308392, 2422426],
+      110 => [27402978, 3882494, 2972394, 2107590, 22332137, 29308511, 12215419, 14469882],
+      108 => [6003924, 2381787, 9059288, 22089450, 9425941, 2289906, 5124950, 10911501],
+      109 => [1394227, 13573237, 11777934, 12152451, 6408246, 8968064, 16857416, 21841339],
+      273 => [11968758, 10427339, 22435199, 17393608, 13968692, 28949511, 7522721, 9540189]
+    }
 
-    sign_in admin_teacher
+    # Add activity sessions and concept results for students of all but one teacher
+    [admin_teacher, teachers[1], teachers[2]].each do |teacher|
+      teacher.students.each do |student|
+        teacher.classroom_activities.each do |classroom_activity|
+          exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[classroom_activity.activity_id].sample)
+          activity_session = ActivitySession.create!(
+            classroom_activity_id: classroom_activity.id,
+            user_id: student.id,
+            activity_id: classroom_activity.activity_id,
+            state: 'finished',
+            percentage: exemplar_activity_session.percentage,
+          )
+          exemplar_activity_session.concept_results.each do |cr|
+            ConceptResult.create!(
+              activity_session_id: activity_session.id,
+              concept_id: cr.concept_id,
+              metadata: cr.metadata,
+              question_type: cr.question_type
+            )
+          end
+        end
+      end
+    end
+
+    sign_out and sign_in admin_teacher
     redirect_to teachers_admin_dashboard_path
   end
 
