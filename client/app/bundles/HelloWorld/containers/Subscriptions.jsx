@@ -4,7 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
-import PaymentModal from '../components/subscriptions/select_credit_card_modal';
+import PurchaseModal from './PurchaseModal';
 import AvailableCredits from '../components/subscriptions/available_credits';
 import CurrentSubscription from '../components/subscriptions/current_subscription';
 import SubscriptionHistory from '../components/subscriptions/subscription_history';
@@ -30,9 +30,9 @@ export default class extends React.Component {
     };
     this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
     this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
-    this.showPaymentModal = this.showPaymentModal.bind(this);
+    this.showPurchaseModal = this.showPurchaseModal.bind(this);
     this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
-    this.hidePaymentModal = this.hidePaymentModal.bind(this);
+    this.hidePurchaseModal = this.hidePurchaseModal.bind(this);
     this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
     this.updateCard = this.updateCard.bind(this);
     this.updateSubscription = this.updateSubscription.bind(this);
@@ -154,7 +154,7 @@ export default class extends React.Component {
   }
 
   updateCard() {
-    this.showPaymentModal();
+    this.showPurchaseModal();
   }
 
   showPremiumConfirmationModal() {
@@ -165,16 +165,15 @@ export default class extends React.Component {
     this.setState({ showPremiumConfirmationModal: false, });
   }
 
-  showPaymentModal() {
-    this.setState({ showPaymentModal: true, });
+  showPurchaseModal() {
+    this.setState({ showPurchaseModal: true, });
   }
 
-  hidePaymentModal() {
-    this.setState({ showPaymentModal: false, });
+  hidePurchaseModal() {
+    this.setState({ showPurchaseModal: false, });
   }
 
   render() {
-    const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;
     const subId = `${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
     // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
     const lastFour = (this.state.authorityLevel || !this.state.subscriptionStatus) ? this.props.lastFour : null;
@@ -185,10 +184,10 @@ export default class extends React.Component {
           subscriptionStatus={this.state.subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}
-          showPaymentModal={this.showPaymentModal}
+          showPurchaseModal={this.showPurchaseModal}
         />
         <CurrentSubscription
-          showPaymentModal={this.showPaymentModal}
+          showPurchaseModal={this.showPurchaseModal}
           purchaserNameOrEmail={this.state.purchaserNameOrEmail}
           subscriptionStatus={this.state.subscriptionStatus}
           subscriptionType={this.subscriptionType()}
@@ -203,9 +202,18 @@ export default class extends React.Component {
           authorityLevel={this.state.authorityLevel}
         />
         <RefundPolicy />
-        <PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} hideModal={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />
-        <PaymentModal show={this.state.showPaymentModal} hideModal={this.hidePaymentModal} lastFour={lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
-
+        <PremiumConfirmationModal
+          show={this.state.showPremiumConfirmationModal}
+          hideModal={this.hidePremiumConfirmationModal}
+          subscription={this.state.subscriptionStatus}
+        />
+        <PurchaseModal
+          show={this.state.showPurchaseModal}
+          subscriptionType={this.subscriptionType()}
+          hideModal={this.hidePurchaseModal}
+          lastFour={lastFour}
+          updateSubscriptionStatus={this.updateSubscriptionStatus}
+        />
       </div>
     );
   }

@@ -33,12 +33,12 @@ export default class extends React.Component {
             {quillBasicCopy}
           </p>);
         if (this.props.userIsContact) {
-          statusOnClickEvent = this.props.showPaymentModal;
+          statusOnClickEvent = this.props.showPurchaseModal;
         } else {
           statusOnClickEvent = () => alert('i will need to be something for when a school user is not the contact');
         }
       } else {
-        statusOnClickEvent = this.props.showPaymentModal;
+        statusOnClickEvent = this.props.showPurchaseModal;
         content.pCopy = quillBasicCopy;
         buttonCopy = 'Renew Subscription';
       }
