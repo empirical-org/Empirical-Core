@@ -42,7 +42,8 @@ export default class extends React.Component {
       tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
       tweetAuthor: 'EdSurge',
       premium: p ? p.premium : false,
-      publishedAt: p ? p.published_at : null
+      publishedAt: p ? p.published_at : null,
+      externalLink: p ? p.external_link : null
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -50,6 +51,7 @@ export default class extends React.Component {
     this.handleBodyChange = this.handleBodyChange.bind(this)
     this.handleSubmitClick = this.handleSubmitClick.bind(this)
     this.handleTopicChange = this.handleTopicChange.bind(this)
+    this.handleExternalLinkChange = this.handleExternalLinkChange.bind(this)
     this.handleAuthorChange = this.handleAuthorChange.bind(this)
     this.handleCustomPreviewChange = this.handleCustomPreviewChange.bind(this)
     this.handlePreviewCardTypeChange = this.handlePreviewCardTypeChange.bind(this)
@@ -138,6 +140,10 @@ export default class extends React.Component {
     this.setState({topic: e})
   }
 
+  handleExternalLinkChange(e) {
+    this.setState({externalLink: e.target.value})
+  }
+
   handleAuthorChange(e) {
     this.setState({author_id: e.id}, this.updatePreviewCardFromBlogPostPreview)
   }
@@ -177,7 +183,8 @@ export default class extends React.Component {
           preview_card_content: this.state.preview_card_content,
           draft: !shouldPublish,
           premium: this.state.premium,
-          published_at: this.state.publishedAt ? this.state.publishedAt.format() : null
+          published_at: this.state.publishedAt ? moment(this.state.publishedAt).format() : null,
+          external_link: this.state.externalLink
         },
         authenticity_token: ReactOnRails.authenticityToken()
       }
@@ -504,6 +511,13 @@ export default class extends React.Component {
           <div className='short-fields'>
             {this.renderPreviewCardTypeDropdown()}
             {this.renderDatepicker()}
+          </div>
+
+          <div className='short-fields'>
+            <div>
+              <label>External Link: (Optional, use only if this card should point to another website)</label>
+              <input onChange={this.handleExternalLinkChange} value={this.state.externalLink}/>
+            </div>
           </div>
 
           <div className="side-by-side">
