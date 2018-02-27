@@ -47,6 +47,8 @@ class Subscription < ActiveRecord::Base
   ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
+  # 2/27 - for now every school is 90000 cents, whether they are renewing or re-signing up.
+  SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
   TEACHER_PRICE = 8000
   ALL_TYPES = ALL_FREE_TYPES.dup.concat(ALL_PAID_TYPES)
 
@@ -124,14 +126,14 @@ class Subscription < ActiveRecord::Base
     self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
-  def self.new_school_premium_sub(school)
-    expiration = school_or_user_has_ever_paid(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
-    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
+  def self.new_school_premium_sub(school, user)
+    expiration = school_or_user_has_ever_paid(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    self.new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
   def self.give_teacher_premium_if_charge_succeeds(user)
     teacher_premium_sub = new_teacher_premium_sub(user)
-    teacher_premium_sub.save_if_charge_succeeds
+    teacher_premium_sub.save_if_charge_succeeds('teacher')
     if !teacher_premium_sub.new_record?
       UserSubscription.create(user: user, subscription: teacher_premium_sub)
       teacher_premium_sub
@@ -140,11 +142,11 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.give_school_premium_if_charge_succeeds(school)
-    school_premium_sub = new_school_premium_sub(school)
-    school_premium_sub.save_if_charge_succeeds
+  def self.give_school_premium_if_charge_succeeds(school, user)
+    school_premium_sub = new_school_premium_sub(school, user)
+    school_premium_sub.save_if_charge_succeeds('school', school)
     if !school_premium_sub.new_record?
-      UserSubscription.create(school: school, subscription: school_premium_sub)
+      SchoolSubscription.create(school: school, subscription: school_premium_sub)
       school_premium_sub
     else
       false
@@ -158,11 +160,19 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def save_if_charge_succeeds
-    charge = charge_user_for_teacher_premium
+  def save_if_charge_succeeds(premium_type, school=nil)
+    if premium_type === 'teacher'
+      charge = charge_user_for_teacher_premium
+      payment_amount = TEACHER_PRICE
+    elsif premium_type === 'school'
+      charge = charge_user_for_school_premium(school)
+      payment_amount = SCHOOL_RENEWAL_PRICE
+    else
+      raise "an incorrect premium type #{premium_type} was passed"
+    end
     if charge[:status] == 'succeeded'
       self.payment_method = 'Credit Card'
-      self.payment_amount = TEACHER_PRICE
+      self.payment_amount = payment_amount
       self.save!
       self
     else
@@ -190,6 +200,13 @@ class Subscription < ActiveRecord::Base
 
 
   def charge_user_for_teacher_premium
+    if purchaser && purchaser.stripe_customer_id
+      Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
+    end
+  end
+
+  def charge_user_for_school_premium(school)
+
     if purchaser && purchaser.stripe_customer_id
       Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
     end
