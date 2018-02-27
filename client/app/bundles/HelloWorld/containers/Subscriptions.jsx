@@ -176,9 +176,8 @@ export default class extends React.Component {
   render() {
     const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;
     const subId = `${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
-    // don't show any last four unless they have an authority level with their purchase
-    // const lastFour = this.props.authorityLevel ? this.props.lastFour : null;
-    const lastFour = this.state.authorityLevel ? this.props.lastFour : null;
+    // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
+    const lastFour = (this.state.authorityLevel || !this.state.subscriptionStatus) ? this.props.lastFour : null;
     return (
       <div>
         <SubscriptionStatus
