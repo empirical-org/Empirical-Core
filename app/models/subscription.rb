@@ -206,9 +206,8 @@ class Subscription < ActiveRecord::Base
   end
 
   def charge_user_for_school_premium(school)
-
     if purchaser && purchaser.stripe_customer_id
-      Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
+      Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
     end
   end
 
