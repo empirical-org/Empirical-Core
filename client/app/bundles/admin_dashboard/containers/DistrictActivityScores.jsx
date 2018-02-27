@@ -6,6 +6,7 @@ import ActivityScoresTable from 'bundles/admin_dashboard/components/activity_sco
 import {
   switchClassroom,
   switchSchool,
+  switchTeacher,
   getDistrictActivityScores,
 } from 'actions/district_activity_scores';
 import { connect } from 'react-redux';
@@ -18,14 +19,17 @@ class DistrictActivityScores extends React.Component {
 
   render() {
     const {
-      selectedClassroom,
-      selectedSchool,
       loading,
       csvData,
       schoolNames,
+      switchSchool,
+      selectedSchool,
+      teacherNames,
+      switchTeacher,
+      selectedTeacher,
       classroomNames,
       switchClassroom,
-      switchSchool,
+      selectedClassroom,
       filteredClassroomsData,
     } = this.props;
 
@@ -59,6 +63,11 @@ class DistrictActivityScores extends React.Component {
             selectedItem={selectedSchool}
           />
           <ItemDropdown
+            items={teacherNames}
+            callback={switchTeacher}
+            selectedItem={selectedTeacher}
+          />
+          <ItemDropdown
             items={classroomNames}
             callback={switchClassroom}
             selectedItem={selectedClassroom}
@@ -70,15 +79,22 @@ class DistrictActivityScores extends React.Component {
   }
 }
 
-function filterClassroomNames(classrooms, selectedSchool) {
+function getClassroomNames(classrooms, selectedSchool, selectTeacher) {
   let filtered = filterBySchool(classrooms, selectedSchool);
+  filtered = filterByTeacher(filtered, selectTeacher)
   let names = filtered.map(row => row.classroom_name);
   return ['All Classrooms', ...new Set(names)];
 }
 
-function filterSchoolNames(classrooms) {
+function getSchoolNames(classrooms) {
   let names = classrooms.map(row => row.schools_name);
   return ['All Schools', ...new Set(names)];
+}
+
+function getTeacherNames(classrooms, selectedSchool) {
+  let filtered = filterBySchool(classrooms, selectedSchool);
+  let names = filtered.map(row => row.teachers_name);
+  return ['All Teachers', ...new Set(names)];
 }
 
 function formatDataForCSV(data) {
@@ -120,8 +136,22 @@ function filterByClass(classrooms, selected) {
   return classrooms;
 }
 
-function filterClassrooms(classrooms, selectedSchool, selectedClassroom) {
+function filterByTeacher(classrooms, selected) {
+  if (selected !== 'All Teachers') {
+    return classrooms.filter(row => row.teachers_name === selected);
+  }
+
+  return classrooms;
+}
+
+function filterClassrooms(
+  classrooms,
+  selectedSchool,
+  selectedTeacher,
+  selectedClassroom
+) {
   let filtered = filterBySchool(classrooms, selectedSchool);
+  filtered     = filterByTeacher(filtered, selectedTeacher);
   filtered     = filterByClass(filtered, selectedClassroom);
 
   return filtered;
@@ -131,12 +161,19 @@ const mapStateToProps = (state) => {
   let filteredClassroomsData = filterClassrooms(
     state.classroomsData,
     state.selectedSchool,
+    state.selectedTeacher,
     state.selectedClassroom
   );
 
-  let classroomNames = filterClassroomNames(
+  let teacherNames = getTeacherNames(
     state.classroomsData,
     state.selectedSchool
+  );
+
+  let classroomNames = getClassroomNames(
+    state.classroomsData,
+    state.selectedSchool,
+    state.selectedTeacher,
   );
 
   return {
@@ -144,17 +181,20 @@ const mapStateToProps = (state) => {
     errors: state.errors,
     selectedClassroom: state.selectedClassroom,
     selectedSchool: state.selectedSchool,
+    selectedTeacher: state.selectedTeacher,
     classroomsData: state.classroomsData,
     filteredClassroomsData,
     csvData: formatDataForCSV(filteredClassroomsData),
     classroomNames,
-    schoolNames: filterSchoolNames(state.classroomsData),
+    teacherNames,
+    schoolNames: getSchoolNames(state.classroomsData),
   }
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     switchSchool: school => dispatch(switchSchool(school)),
     switchClassroom: classroom => dispatch(switchClassroom(classroom)),
+    switchTeacher: teacher => dispatch(switchTeacher(teacher)),
     getDistrictActivityScores: () => dispatch(getDistrictActivityScores()),
   };
 };
