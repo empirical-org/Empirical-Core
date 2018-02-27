@@ -2,38 +2,39 @@ const initialState = {
   loading: true,
   errors: false,
   selectedClassroom: 'All Classrooms',
-  classroomsData: null,
-  filteredClassroomsData: [],
-  csvData: null,
-  classroomNames: null,
-  schoolNames: null,
+  selectedSchool: 'All Schools',
+  selectedTeacher: 'All Teachers',
+  classroomsData: [],
 };
+
+function updateObject(oldObject, newObject) {
+  return Object.assign({}, oldObject, newObject);
+}
 
 export default (state, action) => {
   state = state || initialState;
 
   switch(action.type) {
+    case 'SWITCH_SCHOOL':
+      return updateObject(state, {
+        selectedSchool: action.school,
+        selectedTeacher: 'All Teachers',
+        selectedClassroom: 'All Classrooms',
+      });
+    case 'SWITCH_TEACHER':
+      return updateObject(state, {
+        selectedTeacher: action.teacher,
+        selectedClassroom: 'All Classrooms',
+      });
     case 'SWITCH_CLASSROOM':
-      const filteredClassrooms = (selectedClassroom, classroomsData) => {
-        if (selectedClassroom === 'All Classrooms') {
-          return classroomsData;
-        }
-        return classroomsData.filter(row => row.classroom_name === selectedClassroom);
-      }
-
-      return Object.assign({}, state, {
+      return updateObject(state, {
         selectedClassroom: action.classroom,
-        filteredClassroomsData: filteredClassrooms(action.classroom, state.classroomsData),
       });
     case 'RECIEVE_DISTRICT_ACTIVITY_SCORES':
-      return Object.assign({}, state, {
+      return updateObject(state, {
         loading: false,
-        errors: action.errors,
-        classroomsData: action.classroomsData,
-        csvData: action.csvData,
-        classroomNames: action.classroomNames,
-        filteredClassroomsData: action.filteredClassroomsData,
-        schoolNames: action.schoolNames,
+        errors: action.body.errors,
+        classroomsData: JSON.parse(action.body).data,
       });
     default:
       return state;

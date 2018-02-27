@@ -6,6 +6,8 @@ import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
 
 const ActivityScoresTable = ({ data }) => {
+  console.log(data);
+
   let columns = [
     {
       Header: 'Student',
@@ -33,19 +35,24 @@ const ActivityScoresTable = ({ data }) => {
       accessor: 'last_active',
       resizable: false,
       minWidth: 90,
-      Cell: row => row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span/>,
+      Cell: (row) => {
+        if (row.original.last_active) {
+          return moment(row.original.last_active).format("MM/DD/YYYY");
+        }
+        return '--';
+      },
       sortMethod: sortFromSQLTimeStamp,
+    }, {
+      Header: "School",
+      accessor: 'schools_name',
+      resizable: false,
+      Cell: row => row.original.schools_name,
     }, {
       Header: 'Teacher',
       accessor: 'teachers_name',
       resizable: false,
       sortMethod: sortByLastName,
       Cell: row => row.original.teachers_name,
-    }, {
-      Header: "School",
-      accessor: 'schools_name',
-      resizable: false,
-      Cell: row => row.original.schools_name,
     }, {
       Header: "Class",
       accessor: 'classroom_name',
