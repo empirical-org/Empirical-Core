@@ -1,20 +1,20 @@
 import request from 'request';
 
-export const recieveDistrictActivityScores = (errors, classroomsData, csvData, classroomNames, schoolNames) => {
-  return {
-    type: 'RECIEVE_DISTRICT_ACTIVITY_SCORES',
-    errors,
-    classroomsData,
-    filteredClassroomsData: classroomsData,
-    csvData,
-    classroomNames,
-    schoolNames,
-  };
+export const recieveDistrictActivityScores = (body) => {
+  return { type: 'RECIEVE_DISTRICT_ACTIVITY_SCORES', body, };
 };
 
 export const switchClassroom = (classroom) => {
-  return { type: 'SWITCH_CLASSROOM', classroom };
+  return { type: 'SWITCH_CLASSROOM', classroom, };
 };
+
+export const switchSchool = (school) => {
+  return { type: 'SWITCH_SCHOOL', school, };
+};
+
+export const switchTeacher = (teacher) => {
+  return { type: 'SWITCH_TEACHER', teacher, };
+}
 
 export const getDistrictActivityScores = () => {
   return (dispatch) => {
@@ -22,26 +22,7 @@ export const getDistrictActivityScores = () => {
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`
     },
     (e, r, body) => {
-      const data = JSON.parse(body).data;
-      const csvData = formatDataForCSV(data);
-      const classroomsData = data;
-      const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))];
-      const schoolNames = [...new Set(classroomsData.map(row => row.schools_name))];
-      classroomNames.unshift('All Classrooms');
-      dispatch(recieveDistrictActivityScores(body.errors, classroomsData, csvData, classroomNames, schoolNames));
+      dispatch(recieveDistrictActivityScores(body))
     });
   }
-}
-
-const formatDataForCSV = (data) => {
-  const csvData = [
-    ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
-  ];
-  data.forEach((row) => {
-    csvData.push([
-      row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
-      row['activity_count']
-    ])
-  });
-  return csvData;
 };
