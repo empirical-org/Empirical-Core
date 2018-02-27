@@ -93,6 +93,7 @@
     "react-dom": "^15.2.1",
     "react-test-renderer": "^15.4.2",
     "react-transform-hmr": "^1.0.4",
+    "redux-test-utils": "^0.2.2",
     "webpack-dev-server": "^1.14.1"
   },
   "browser": {
