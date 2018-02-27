@@ -15,6 +15,13 @@ class Api::V1::ProgressReportsController < Api::ApiController
     end
   end
 
+  def district_concept_reports
+    if current_user.admin?
+      data = ProgressReports::DistrictConceptReports.new(current_user.id).results
+      render json: { data: data }
+    end
+  end
+
   def student_overview_data
     student        = User.find(params[:student_id].to_i)
     report_data    = ProgressReports::StudentOverview.results(params[:classroom_id].to_i, params[:student_id].to_i)
