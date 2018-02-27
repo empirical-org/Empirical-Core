@@ -177,7 +177,7 @@ export default class extends React.Component {
           preview_card_content: this.state.preview_card_content,
           draft: !shouldPublish,
           premium: this.state.premium,
-          published_at: this.state.publishedAt
+          published_at: this.state.publishedAt ? this.state.publishedAt.format() : null
         },
         authenticity_token: ReactOnRails.authenticityToken()
       }
@@ -282,7 +282,7 @@ export default class extends React.Component {
     } else if (publishDate) {
       footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
-      footerContent = ``
+      footerContent = `<span/>`
     }
     const previewCardContent = `<img class='preview-card-image' src='${this.state.blogPostPreviewImage}' />
     <div class='preview-card-body'>
@@ -332,7 +332,7 @@ export default class extends React.Component {
     } else if (publishDate) {
       footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
-      footerContent = ``
+      footerContent = `<span/>`
     }
     const previewCardContent = `<img class='preview-card-image' src='${this.state.tweetImage}' />
     <div class='preview-card-body'>
@@ -356,7 +356,7 @@ export default class extends React.Component {
     } else if (publishDate) {
       footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
-      footerContent = ``
+      footerContent = `<span/>`
     }
     const previewCardContent = `<div class='video-holder'>
       <iframe src="${embedUrl}" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
@@ -424,7 +424,7 @@ export default class extends React.Component {
   renderDatepicker() {
     return <div>
         <label>Published At Date:</label>
-        <DatePicker selected={moment(this.state.publishedAt)} onChange={this.updatePublishedAt}
+        <DatePicker selected={ this.state.publishedAt ? moment(this.state.publishedAt) : null } onChange={this.updatePublishedAt}
         />
       </div>
   }
@@ -478,6 +478,7 @@ export default class extends React.Component {
   }
 
   render() {
+    const nullAuthor = {id: null, name: 'None'}
     return (
       <div>
         <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fa fa-chevron-left'></i> All Blog Posts</a>
@@ -491,7 +492,7 @@ export default class extends React.Component {
           <div className='short-fields'>
             <div>
               <label>Author:</label>
-              <ItemDropdown items={this.props.authors.concat({id: null, name: 'None'})} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id)} />
+              <ItemDropdown items={[nullAuthor].concat(this.props.authors)} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id) || nullAuthor} />
               <a className="create-new-author-link" href="/cms/authors/new">Create New Author</a>
             </div>
             <div>
