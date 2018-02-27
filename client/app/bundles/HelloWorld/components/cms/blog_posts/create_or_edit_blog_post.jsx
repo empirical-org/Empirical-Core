@@ -3,6 +3,7 @@ import request from 'request';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import MarkdownParser from '../../shared/markdown_parser.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
+import BlogPostContent from '../../blog_posts/blog_post_content'
 
 const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
@@ -63,6 +64,9 @@ export default class extends React.Component {
     this.updateTweetAuthor = this.updateTweetAuthor.bind(this)
     this.updatePreviewCardTweetContent = this.updatePreviewCardTweetContent.bind(this)
     this.handlePremiumChange = this.handlePremiumChange.bind(this)
+    this.renderArticleMarkdownOrPreview = this.renderArticleMarkdownOrPreview.bind(this)
+    this.hideArticlePreview = this.hideArticlePreview.bind(this)
+    this.showArticlePreview = this.showArticlePreview.bind(this)
   }
 
   componentDidMount() {
@@ -82,6 +86,14 @@ export default class extends React.Component {
       default:
         return 'http://placehold.it/300x138'
     }
+  }
+
+  hideArticlePreview() {
+    this.setState({showArticlePreview: false})
+  }
+
+  showArticlePreview() {
+    this.setState({showArticlePreview: true})
   }
 
   handleTitleChange(e) {
@@ -371,6 +383,48 @@ export default class extends React.Component {
       </div>
   }
 
+  renderArticleMarkdownOrPreview() {
+    let content, toolbarLeft, mdLink
+    if (this.state.showArticlePreview) {
+      toolbarLeft = <div/>
+      content = <BlogPostContent
+            body={this.state.body}
+            title={this.state.title}
+            updatedAt={this.props.postToEdit.updated_at}
+            author={this.props.authors.find(a => a.id == this.state.author_id)}
+            displayPaywall={false}
+          />
+    } else {
+        toolbarLeft = <div>
+          <i onClick={() => this.insertMarkdown('# ')} className="fa fa-header" />
+          <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
+          <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
+          <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
+          <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
+          <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
+          <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
+          <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
+          <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} className="fa fa-square" />
+          <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
+        </div>
+        content = <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
+        mdLink = <a target="_blank" href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
+    }
+    return <div>
+      <label>Article Content</label>
+      <div id="article-preview-bar">
+        {toolbarLeft}
+        <div>
+          <span className={`article-tab ${this.state.showArticlePreview ? null : 'active'}`} onClick={this.hideArticlePreview}>Edit</span>
+          <span className={`article-tab ${this.state.showArticlePreview ? 'active' : null}`} onClick={this.showArticlePreview}>Preview</span>
+        </div>
+      </div>
+      {content}
+      {mdLink}
+    </div>
+
+  }
+
   handlePremiumChange() {
     this.setState({premium: !this.state.premium});
   }
@@ -410,34 +464,10 @@ export default class extends React.Component {
             </div>
           </div>
 
-          <label>Premium:</label>
-          <input type='checkbox' value={this.state.premium} onClick={this.handlePremiumChange} />
+          <label className="premium-label">Show Only to Premium Members:</label>
+          <input className="premium-checkbox" type='checkbox' value={this.state.premium} onClick={this.handlePremiumChange} />
 
-          <div className="side-by-side">
-            <div className="body-markdown">
-              <label>Article Contents:</label>
-              <div id='markdown-shortcuts'>
-                <i onClick={() => this.insertMarkdown('# ')} className="fa fa-header" />
-                <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
-                <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
-                <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
-                <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
-                <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
-                <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
-                <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
-                <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} className="fa fa-square" />
-                <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
-              </div>
-              <textarea rows={4} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
-              <a target="_blank" href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
-            </div>
-
-            <div className="body-preview">
-              <label>Article Preview:</label>
-              <MarkdownParser className='markdown-preview' markdownText={this.state.body} />
-            </div>
-
-          </div>
+          {this.renderArticleMarkdownOrPreview()}
 
           <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
           {this.renderSaveDraftButton()}
