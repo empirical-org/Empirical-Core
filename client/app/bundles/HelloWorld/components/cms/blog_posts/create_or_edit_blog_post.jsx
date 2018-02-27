@@ -28,7 +28,7 @@ export default class extends React.Component {
       draft: p ? p.draft : true,
       preview_card_content: p ? p.preview_card_content : null,
       custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
-      preview_card_type: this.props.action === 'new' ? 'Blog Post' : 'Custom HTML',
+      preview_card_type: this.props.action === 'new' ? 'Medium Image' : 'Custom HTML',
       blogPostPreviewImage: 'http://placehold.it/300x135',
       blogPostPreviewTitle: 'Write Your Title Here',
       blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
@@ -69,6 +69,18 @@ export default class extends React.Component {
     this.updatePreviewCardBasedOnType();
     if(this.props.action === 'new') {
       this.setState({ previewCardHasAlreadyBeenManuallyEdited: false });
+    }
+  }
+
+  appropriatePlaceholderImage() {
+    switch (this.state.preview_card_type) {
+      case 'Large Image':
+        return 'http://placehold.it/300x200'
+      case 'Tiny Image':
+        return 'http://placehold.it/300x90'
+      case 'Medium Image':
+      default:
+        return 'http://placehold.it/300x138'
     }
   }
 
@@ -207,8 +219,10 @@ export default class extends React.Component {
 
   updatePreviewCardBasedOnType() {
     switch (this.state.preview_card_type) {
-      case 'Blog Post':
-        this.updatePreviewCardFromBlogPostPreview();
+      case 'Tiny Image':
+      case 'Medium Image':
+      case 'Large Image':
+        this.setState({blogPostPreviewImage: this.appropriatePlaceholderImage()}, this.updatePreviewCardFromBlogPostPreview)
         break;
       case 'Tweet':
         this.updatePreviewCardTweetContent();
@@ -243,6 +257,7 @@ export default class extends React.Component {
   }
 
   updatePreviewCardFromBlogPostPreview() {
+    this.state.preview_card_type
     const previewCardContent = `<img class='preview-card-image' src='${this.state.blogPostPreviewImage}' />
     <div class='preview-card-body'>
        <h3>${this.state.blogPostPreviewTitle}</h3>
@@ -308,7 +323,7 @@ export default class extends React.Component {
   renderPreviewCardContentFields() {
     const preview_card_type = this.state.preview_card_type;
     let contentFields;
-    if(preview_card_type === 'Blog Post') {
+    if (['Tiny Image', 'Medium Image', 'Large Image'].includes(preview_card_type)) {
       contentFields = [
         <label>Header Image:</label>,
         <input onChange={this.handleBlogPostPreviewImageChange} type='text' value={this.state.blogPostPreviewImage} />,
@@ -347,9 +362,9 @@ export default class extends React.Component {
 
   renderPreviewCardTypeDropdown() {
     return <div>
-        <label>Preview Card Type:</label>
+        <label>Preview Card Template:</label>
         <ItemDropdown
-          items={['Blog Post', 'YouTube Video', 'Tweet', 'Custom HTML']}
+          items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
           callback={this.handlePreviewCardTypeChange}
           selectedItem={this.state.preview_card_type}
         />
