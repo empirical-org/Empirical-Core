@@ -3,6 +3,7 @@ const initialState = {
   errors: false,
   selectedClassroom: 'All Classrooms',
   selectedSchool: 'All Schools',
+  selectedTeacher: 'All Teachers',
   classroomsData: [],
 };
 
@@ -17,6 +18,12 @@ export default (state, action) => {
     case 'SWITCH_SCHOOL':
       return updateObject(state, {
         selectedSchool: action.school,
+        selectedTeacher: 'All Teachers',
+        selectedClassroom: 'All Classrooms',
+      });
+    case 'SWITCH_TEACHER':
+      return updateObject(state, {
+        selectedTeacher: action.teacher,
         selectedClassroom: 'All Classrooms',
       });
     case 'SWITCH_CLASSROOM':
