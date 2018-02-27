@@ -42,6 +42,11 @@ class ChargesController < ApplicationController
     render json: {new_subscription: new_sub}
   end
 
+  def new_school_premium
+    new_sub = Subscription.give_teacher_premium_if_charge_succeeds(current_user)
+    render json: {new_subscription: new_sub}
+  end
+
   private
 
   def handle_subscription

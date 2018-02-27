@@ -124,12 +124,28 @@ class Subscription < ActiveRecord::Base
     self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
+  def self.new_school_premium_sub(school)
+    expiration = school_or_user_has_ever_paid(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
+  end
+
   def self.give_teacher_premium_if_charge_succeeds(user)
     teacher_premium_sub = new_teacher_premium_sub(user)
     teacher_premium_sub.save_if_charge_succeeds
     if !teacher_premium_sub.new_record?
       UserSubscription.create(user: user, subscription: teacher_premium_sub)
       teacher_premium_sub
+    else
+      false
+    end
+  end
+
+  def self.give_school_premium_if_charge_succeeds(school)
+    school_premium_sub = new_school_premium_sub(school)
+    school_premium_sub.save_if_charge_succeeds
+    if !school_premium_sub.new_record?
+      UserSubscription.create(school: school, subscription: school_premium_sub)
+      school_premium_sub
     else
       false
     end

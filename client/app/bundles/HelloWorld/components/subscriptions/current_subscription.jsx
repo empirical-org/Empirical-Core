@@ -38,13 +38,13 @@ export default class extends React.Component {
 
   getPaymentMethod() {
     const subStat = this.props.subscriptionStatus;
-    if (subStat && subStat.payment_method === 'Credit Card' && this.state.lastFour && this.props.authorityLevel === 'purchaser') {
+    if (subStat && subStat.payment_method === 'Credit Card' && this.state.lastFour && this.props.authorityLevel) {
       return this.editCreditCardElement();
     } else if (subStat && subStat.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
     } else if (this.props.subscriptionType === 'School Sponsored') {
       return <span>No Payment Method on File</span>;
-    } else if (subStat && !subStat.payment_method) {
+    } else if (subStat && (!subStat.payment_method || subStat.payment_method === 'School Invoice')) {
       return <span>School Invoice</span>;
     } else if (!subStat && this.state.lastFour) {
       return this.editCreditCardElement();
