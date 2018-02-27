@@ -6,6 +6,7 @@ class BlogPost < ActiveRecord::Base
 
   belongs_to :author
   has_many :blog_post_user_ratings
+  after_save :add_published_at
 
   def increment_read_count
     self.read_count += 1
@@ -33,6 +34,12 @@ class BlogPost < ActiveRecord::Base
   def average_rating
     ratings = self.blog_post_user_ratings.pluck(:rating)
     return (ratings.sum / ratings.size).round(2) if ratings.any?
+  end
+
+  def add_published_at
+    if !self.draft && !self.published_at
+      self.update(published_at: DateTime.now)
+    end
   end
 
   private
