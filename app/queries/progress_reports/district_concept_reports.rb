@@ -48,3 +48,5 @@ class ProgressReports::DistrictConceptReports
       GROUP BY classrooms.name, students.id, students.name, teachers.name,
         schools.name, classrooms.id, students.last_active
     SQL
+  end
+end
