@@ -142,6 +142,9 @@ export default class extends React.Component {
       return 'Basic';
     }
     const accountType = this.props.subscriptionStatus.account_type;
+    if (this.props.schoolSubscriptionTypes === 'School Sponsored') {
+      return 'School Sponsored';
+    }
     if (this.props.schoolSubscriptionTypes.includes(accountType)) {
       return 'School';
     } else if (this.props.trialSubscriptionTypes.includes(accountType)) {
@@ -200,11 +203,6 @@ export default class extends React.Component {
           premiumCredits={this.props.premiumCredits}
           authorityLevel={this.state.authorityLevel}
         />
-        <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
-        <PremiumCreditsTable
-          earnedCredits={this.state.earnedCredits}
-          premiumCredits={this.props.premiumCredits}
-        />
         <RefundPolicy />
         <PremiumConfirmationModal show={this.state.showPremiumConfirmationModal} hideModal={this.hidePremiumConfirmationModal} subscription={this.state.subscriptionStatus} />
         <PaymentModal show={this.state.showPaymentModal} hideModal={this.hidePaymentModal} lastFour={lastFour} updateSubscriptionStatus={this.updateSubscriptionStatus} />
@@ -213,3 +211,9 @@ export default class extends React.Component {
     );
   }
 }
+
+// <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
+// <PremiumCreditsTable
+//   earnedCredits={this.state.earnedCredits}
+//   premiumCredits={this.props.premiumCredits}
+// />
