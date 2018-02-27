@@ -9,14 +9,8 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     // this.state = {
-    //   extantCardSelected: false,
-    //   changeCardSelected: false,
-    //   lastFour: this.props.lastFour,
+
     // };
-    // this.toggleChangeCard = this.toggleChangeCard.bind(this);
-    // this.toggleExtantCard = this.toggleExtantCard.bind(this);
-    // this.updateLastFour = this.updateLastFour.bind(this);
-    // this.stripeCharge = this.stripeCharge.bind(this);
   }
 
   render() {
@@ -32,8 +26,8 @@ export default class extends React.Component {
           <div className="cta-section">
             <h3>How would you like to renew your School’s Premium subscription?</h3>
             <div>
-              <button className="bg-quillgreen text-white">Email Me a Quote</button>
-              <button className="bg-quillgreen text-white">Pay with Credit Card</button>
+              <button className="q-button bg-quillgreen text-white">Email Me a Quote</button>
+              <button onClick={this.props.purchaseSchoolPremium} className="q-button bg-quillgreen text-white">Pay with Credit Card</button>
             </div>
           </div>
           <div className="not-the-purchaser-section">
