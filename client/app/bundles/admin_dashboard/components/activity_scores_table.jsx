@@ -36,16 +36,16 @@ const ActivityScoresTable = ({ data }) => {
       Cell: row => row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span/>,
       sortMethod: sortFromSQLTimeStamp,
     }, {
+      Header: "School",
+      accessor: 'schools_name',
+      resizable: false,
+      Cell: row => row.original.schools_name,
+    }, {
       Header: 'Teacher',
       accessor: 'teachers_name',
       resizable: false,
       sortMethod: sortByLastName,
       Cell: row => row.original.teachers_name,
-    }, {
-      Header: "School",
-      accessor: 'schools_name',
-      resizable: false,
-      Cell: row => row.original.schools_name,
     }, {
       Header: "Class",
       accessor: 'classroom_name',
