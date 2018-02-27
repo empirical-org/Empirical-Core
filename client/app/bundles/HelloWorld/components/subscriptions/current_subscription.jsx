@@ -21,10 +21,9 @@ export default class extends React.Component {
     this.updateLastFour = this.updateLastFour.bind(this);
   }
 
-  getPaymentMethod() {
-    const subStat = this.props.subscriptionStatus;
-    if (subStat && subStat.payment_method === 'Credit Card' && this.state.lastFour && this.props.authorityLevel) {
-      return (<span>{`Credit Card Ending In ${this.state.lastFour}`}
+  editCreditCardElement() {
+    return (
+      <span>{`Credit Card Ending In ${this.state.lastFour}`}
         <span
           onClick={this.editCreditCard} style={{
             color: '#027360',
@@ -33,13 +32,23 @@ export default class extends React.Component {
             cursor: 'pointer',
           }}
         >Edit Credit Card</span>
-      </span>);
+      </span>
+    );
+  }
+
+  getPaymentMethod() {
+    const subStat = this.props.subscriptionStatus;
+    if (subStat && subStat.payment_method === 'Credit Card' && this.state.lastFour && this.props.authorityLevel === 'purchaser') {
+      return this.editCreditCardElement();
     } else if (subStat && subStat.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
-    } else if (this.props.subscriptionType === 'School Spsonsored') {
+    } else if (this.props.subscriptionType === 'School Sponsored') {
       return <span>No Payment Method on File</span>;
+    } else if (subStat && !substat.payment_method) {
+      return <span>School Invoice</span>;
+    } else if (!subStat && this.state.lastFour) {
+      return this.editCreditCardElement();
     }
-    return <span>School Invoice</span>;
   }
 
   editCreditCard() {
