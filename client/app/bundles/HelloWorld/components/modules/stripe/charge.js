@@ -19,7 +19,7 @@ export default function (priceInCents, description) {
               alert(`Your card was not charged. ${initialMessage}. If the issue persists, please contact ryan@quill.org for help.`);
             } else if (data.message) {
               alert(data.message);
-            } else if (amount === 45000) {
+            } else if (amount === 90000) {
               alert('Premium has been activated for your account, and the accounts of any other teachers registered with your school on Quill. We will send a follow up email shortly.');
             }
             window.location.assign('/profile');

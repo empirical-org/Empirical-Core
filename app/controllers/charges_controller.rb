@@ -43,7 +43,7 @@ class ChargesController < ApplicationController
   end
 
   def new_school_premium
-    new_sub = Subscription.give_teacher_premium_if_charge_succeeds(current_user)
+    new_sub = Subscription.give_school_premium_if_charge_succeeds(current_user.school, current_user)
     render json: {new_subscription: new_sub}
   end
 
@@ -56,7 +56,7 @@ class ChargesController < ApplicationController
     attributes[:payment_amount] = @charge.amount
     attributes[:recurring] = true
     current_user.update(stripe_customer_id: @charge.customer)
-    if @charge.amount == 45000
+    if @charge.amount == Subscription::SCHOOL_RENEWAL_PRICE
       attributes[:account_type] = "School Paid"
       if current_user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user.school.name)
         # if the user has a school, and it is not one of the aforementioned defaults, create or update the premium subscription for it

@@ -11,7 +11,7 @@ export default React.createClass({
   },
 
   charge() {
-    new Stripe(45000, '$450 per Year - School Premium');
+    new Stripe(90000, '$900 per Year - School Premium');
   },
 
   chargeOrLogin() {
