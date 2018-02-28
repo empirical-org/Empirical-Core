@@ -11,6 +11,9 @@ const SubnavTabs = () => {
           <li>
             <a href="/teachers/admin_dashboard/district_activity_scores">District Activity Scores</a>
           </li>
+          <li>
+            <a href="/teachers/admin_dashboard/district_concept_reports">District Concept Reports</a>
+          </li>
         </ul>
       </div>
     </div>
