@@ -58,8 +58,7 @@ class Teachers::ProgressReportsController < ApplicationController
       password: SecureRandom.urlsafe_base64
     )
 
-    # Add admin teacher to school as a teacher and an admin
-    SchoolsUsers.create!(school_id: school.id, user_id: admin_teacher.id)
+    # Add admin teacher to school as an admin
     SchoolsAdmins.create!(school_id: school.id, user_id: admin_teacher.id)
 
     # Find or create a few other teachers
@@ -74,13 +73,21 @@ class Teachers::ProgressReportsController < ApplicationController
       )
     end
 
+    teachers << admin_teacher
+
+    # Upgrade everyone to premium
+    subscription_id = Subscription.create!(user_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.today + 100.years, account_limit: 1000).id
+    teachers.each do |teacher|
+      UserSubscription.create!(user_id: teacher.id, subscription_id: subscription_id)
+    end
+
     # Create a bunch of classrooms and classrooms_teachers associations
     classrooms = [
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 1'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 2'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 3'), user: admin_teacher).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'English 1'), user: teachers.first).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'ELA 1'), user: teachers.second).classroom,
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'English 1'), user: teachers.second).classroom,
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'ELA 1'), user: teachers.third).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block One'), user: teachers.last).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block Two'), user: teachers.last).classroom
     ]
@@ -100,13 +107,13 @@ class Teachers::ProgressReportsController < ApplicationController
 
       teacher.classrooms_i_teach.each do |classroom|
         diagnostic_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: diagnostic_unit.id)
+          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: diagnostic_unit.id, assign_on_join: true)
         end
         using_commas_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: using_commas_unit.id)
+          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: using_commas_unit.id, assign_on_join: true)
         end
         commonly_confused_words_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: commonly_confused_words_unit.id)
+          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: commonly_confused_words_unit.id, assign_on_join: true)
         end
       end
     end
@@ -139,7 +146,7 @@ class Teachers::ProgressReportsController < ApplicationController
       end
     end
 
-    # Create a map of classroom activity IDs and an array of exemplar activity sessions to copy
+    # Create a map of classroom activity IDs to arrays of exemplar activity sessions to copy
     exemplar_activity_sessions = {
       413 => [26132834, 22674997, 23713760, 14651990, 27055198, 18415812, 22221644, 22513965, 27742073, 22158443],
       182 => [22048631, 27667308, 8907523, 3254361, 1598630, 2019699, 28896968, 3848334, 5927654, 25256514],
@@ -162,7 +169,7 @@ class Teachers::ProgressReportsController < ApplicationController
     }
 
     # Add activity sessions and concept results for students of all but one teacher
-    [admin_teacher, teachers[1], teachers[2]].each do |teacher|
+    teachers[1..-1].each do |teacher|
       teacher.students.each do |student|
         teacher.classroom_activities.each do |classroom_activity|
           exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[classroom_activity.activity_id].sample)
