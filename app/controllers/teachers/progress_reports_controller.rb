@@ -193,7 +193,7 @@ class Teachers::ProgressReportsController < ApplicationController
             we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = false
             if classroom_activity.activity.id != diagnostic_unit_template.activities.first.id && !the_activity_session_should_be_marked_as_in_progress
               we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true if Random.rand <= 0.25
-              the_activity_session_should_be_marked_as_in_progress = true if Random.rand <= 0.5
+              the_activity_session_should_be_marked_as_in_progress = true if Random.rand <= 0.25
             end
           end
         end
