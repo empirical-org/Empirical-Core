@@ -62,7 +62,9 @@ class Cms::BlogPostsController < ApplicationController
                     :draft,
                     :premium,
                     :external_link,
-                    :published_at)
+                    :published_at,
+                    :center_images
+                  )
   end
 
   def set_blog_post

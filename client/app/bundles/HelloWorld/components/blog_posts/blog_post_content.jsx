@@ -22,8 +22,9 @@ export default class BlogPostContent extends React.Component {
   }
 
   render() {
+    const className = this.props.centerImages ? 'center-images' : ''
     return(
-      <div>
+      <div className={className}>
         <header>
           <h1>{this.props.title}</h1>
           <img src={this.props.author.avatar} />

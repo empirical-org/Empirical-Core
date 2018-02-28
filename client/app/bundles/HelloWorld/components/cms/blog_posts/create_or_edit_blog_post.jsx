@@ -43,7 +43,8 @@ export default class extends React.Component {
       tweetAuthor: 'EdSurge',
       premium: p ? p.premium : false,
       publishedAt: p ? p.published_at : null,
-      externalLink: p ? p.external_link : null
+      externalLink: p ? p.external_link : null,
+      centerImages: p ? p.center_images : false
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -69,6 +70,7 @@ export default class extends React.Component {
     this.updateTweetAuthor = this.updateTweetAuthor.bind(this)
     this.updatePreviewCardTweetContent = this.updatePreviewCardTweetContent.bind(this)
     this.handlePremiumChange = this.handlePremiumChange.bind(this)
+    this.handleCenterImagesChange = this.handleCenterImagesChange.bind(this)
     this.renderArticleMarkdownOrPreview = this.renderArticleMarkdownOrPreview.bind(this)
     this.hideArticlePreview = this.hideArticlePreview.bind(this)
     this.showArticlePreview = this.showArticlePreview.bind(this)
@@ -184,7 +186,8 @@ export default class extends React.Component {
           draft: !shouldPublish,
           premium: this.state.premium,
           published_at: this.state.publishedAt ? moment(this.state.publishedAt).format() : null,
-          external_link: this.state.externalLink
+          external_link: this.state.externalLink,
+          center_images: this.state.centerImages
         },
         authenticity_token: ReactOnRails.authenticityToken()
       }
@@ -440,13 +443,18 @@ export default class extends React.Component {
     let content, toolbarLeft, mdLink
     if (this.state.showArticlePreview) {
       toolbarLeft = <div/>
-      content = <BlogPostContent
+      content = <div id="article-container">
+        <article>
+          <BlogPostContent
             body={this.state.body}
             title={this.state.title}
             updatedAt={this.props.postToEdit.updated_at}
             author={this.props.authors.find(a => a.id == this.state.author_id)}
             displayPaywall={false}
+            centerImages={this.state.centerImages}
           />
+        </article>
+        </div>
     } else {
         toolbarLeft = <div>
           <i onClick={() => this.insertMarkdown('# ')}>H1</i>
@@ -484,6 +492,10 @@ export default class extends React.Component {
 
   handlePremiumChange() {
     this.setState({premium: !this.state.premium});
+  }
+
+  handleCenterImagesChange() {
+    this.setState({centerImages: !this.state.centerImages});
   }
 
   render() {
@@ -534,8 +546,16 @@ export default class extends React.Component {
             </div>
           </div>
 
-          <label className="premium-label">Show Only to Premium Members:</label>
-          <input className="premium-checkbox" type='checkbox' value={this.state.premium} onClick={this.handlePremiumChange} />
+          <div>
+            <label className="premium-label">Show Only to Premium Members:</label>
+            <input className="premium-checkbox" type='checkbox' checked={this.state.premium} onClick={this.handlePremiumChange} />
+          </div>
+
+          <div>
+            <label className="center-images-label">Center Images:</label>
+            <input className="center-images-checkbox" type='checkbox' checked={this.state.centerImages} onClick={this.handleCenterImagesChange} />
+          </div>
+
 
           {this.renderArticleMarkdownOrPreview()}
 
