@@ -92,37 +92,19 @@ class Teachers::ProgressReportsController < ApplicationController
     ]
 
     # Choose some unit templates we want to base the units off of
-    diagnostic_unit_template = UnitTemplate.find(20)
-    using_commas_unit_template = UnitTemplate.find(3)
-    commonly_confused_words_unit_template = UnitTemplate.find(4)
-    parallel_structure_group_lessons_unit_template = UnitTemplate.find(46)
-    appositive_phrases_group_lessons_unit_template = UnitTemplate.find(44)
+    # NOTE: if you change the unit templates, please see the note above 'exemplar_activity_sessions' below
+    unit_template_ids = [20, 3, 4, 46, 44]
+    unit_templates = unit_template_ids.map { |id| UnitTemplate.find(id) }
 
     # Add teachers to the school, units to each teacher, and classroom activities to the units
     teachers.each do |teacher|
       SchoolsUsers.create!(school_id: school.id, user_id: teacher.id)
-
-      diagnostic_unit = Unit.create!(name: diagnostic_unit_template.name, user_id: teacher.id)
-      using_commas_unit = Unit.create!(name: using_commas_unit_template.name, user_id: teacher.id)
-      commonly_confused_words_unit = Unit.create!(name: commonly_confused_words_unit_template.name, user_id: teacher.id)
-      parallel_structure_group_lessons_unit = Unit.create!(name: parallel_structure_group_lessons_unit_template.name, user_id: teacher.id)
-      appositive_phrases_group_lessons_unit = Unit.create!(name: appositive_phrases_group_lessons_unit_template.name, user_id: teacher.id)
-
+      units = unit_templates.map { |unit_template| Unit.create!(name: unit_template.name, user_id: teacher.id) }
       teacher.classrooms_i_teach.each do |classroom|
-        diagnostic_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: diagnostic_unit.id, assign_on_join: true)
-        end
-        using_commas_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: using_commas_unit.id, assign_on_join: true)
-        end
-        commonly_confused_words_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: commonly_confused_words_unit.id, assign_on_join: true)
-        end
-        parallel_structure_group_lessons_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: parallel_structure_group_lessons_unit.id, assign_on_join: true)
-        end
-        appositive_phrases_group_lessons_unit_template.activities.to_a.uniq.each do |activity|
-          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: appositive_phrases_group_lessons_unit.id, assign_on_join: true)
+        units.each_with_index do |unit, index|
+          unit_templates[index].activities.to_a.uniq.each do |activity|
+            ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: unit.id, assign_on_join: true)
+          end
         end
       end
     end
@@ -169,6 +151,10 @@ class Teachers::ProgressReportsController < ApplicationController
     end
 
     # Create a map of classroom activity IDs to arrays of exemplar activity sessions to copy
+    # NOTE: we manually selected these activity sessions as a representative sample because
+    # it would be pretty computationally intensive to select randomly from all of the
+    # associated activity sessions. In the event this demo creator for some reason changes,
+    # you'll need to update the exemplar activity sessions manually.
     exemplar_activity_sessions = {
       413 => [26132834, 22674997, 23713760, 14651990, 27055198, 18415812, 22221644, 22513965, 27742073, 22158443],
       182 => [22048631, 27667308, 8907523, 3254361, 1598630, 2019699, 28896968, 3848334, 5927654, 25256514],
@@ -198,6 +184,7 @@ class Teachers::ProgressReportsController < ApplicationController
       teacher.students.each do |student|
         teacher.classroom_activities.each do |classroom_activity|
           we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true
+          # We want to ensure that activity 567 shows as in progress for demoing purposes
           the_activity_session_should_be_marked_as_in_progress = classroom_activity.activity.id === 567 ? true : false
           while we_want_to_create_another_activity_session_for_this_student_and_classroom_activity do
             exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[classroom_activity.activity_id].sample)
@@ -217,7 +204,9 @@ class Teachers::ProgressReportsController < ApplicationController
               )
             end
             we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = false
+            # diagnostics and lessons cannot be repeated
             this_activity_can_be_repeated = ![4, 6].include?(classroom_activity.activity.activity_classification_id)
+            # we want to show that some of these activities have been attempted more than once
             if this_activity_can_be_repeated && !the_activity_session_should_be_marked_as_in_progress
               we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true if Random.rand <= 0.25
               the_activity_session_should_be_marked_as_in_progress = true if Random.rand <= 0.25
