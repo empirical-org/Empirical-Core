@@ -86,6 +86,7 @@ class Teachers::ProgressReportsController < ApplicationController
     classrooms = [
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 1'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 2'), user: admin_teacher).classroom,
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 3'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'English 1'), user: teachers.first).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'ELA 1'), user: teachers.second).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block One'), user: teachers.third).classroom
@@ -131,10 +132,13 @@ class Teachers::ProgressReportsController < ApplicationController
       'Kazuo Ishiguro', 'Hermann Hesse', 'Doris Lessing', 'Salman Rushdie', 'Mario Vargas Llosa', 'Aldous Huxley',
       'Thomas Pynchon', 'H.P. Lovecraft', 'Haruki Murakami']
 
+    # How many students per class?
+    number_of_students_per_class = 5
+
     # Add students to the classrooms
     classrooms.each_with_index do |classroom, index|
-      10.times do |n|
-        student_name = student_names[(10 * index) + n]
+      number_of_students_per_class.times do |n|
+        student_name = student_names[(number_of_students_per_class * index) + n]
         student = User.create!(
           role: 'student',
           name: student_name,
