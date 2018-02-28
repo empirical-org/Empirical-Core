@@ -41,10 +41,11 @@ const ConceptReportsTable = ({ data }) => {
       resizable: false,
       Cell: row => Number(row.original.incorrect),
     }, {
-      Header: 'Success Ratio',
+      Header: 'Success Rate',
       accessor: 'percentage',
       resizable: false,
-      Cell: row => Number(row.original.percentage)
+      Cell: row => Number(row.original.percentage),
+    }
   ];
 
   if (data && data.length) {
