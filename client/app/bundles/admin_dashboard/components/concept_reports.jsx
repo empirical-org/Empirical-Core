@@ -25,7 +25,6 @@ const ConceptReports = ({
           </h1>
           <p>
             View overall concept mastery for each student in an active classroom.
-            <!-- TODO: is this the right message? -->
           </p>
         </div>
         <div className="csv-and-how-we-grade">
