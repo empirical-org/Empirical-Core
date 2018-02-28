@@ -124,13 +124,21 @@ export default class extends React.Component {
   }
 
   render() {
-    return (
-      <div id="knowledge-center">
-        <header>
-          <div className='container'>
-            <h1>Knowledge Center</h1>
-            <h2>Everything you need to know about Quill's pedgagogy and use in the classroom</h2>
-            <form className='width-422' action={`${process.env.DEFAULT_URL}/teacher_resources/search`}>
+    if (this.props.blogPosts.length === 0) {
+      return <div className="container">
+        <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
+          Coming Soon!
+          <img style={{marginTop: '20px'}} src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg"/>
+        </div>
+      </div>
+    } else {
+      return (
+        <div id="knowledge-center">
+          <header>
+            <div className='container'>
+              <h1>Knowledge Center</h1>
+              <h2>Everything you need to know about Quill's pedgagogy and use in the classroom</h2>
+              <form className='width-422' action={`${process.env.DEFAULT_URL}/teacher_resources/search`}>
               <input type='text' placeholder='Search for posts' name='query' defaultValue={this.props.query ? this.props.query : null} />
               {window.location.pathname.includes('search') ? null : <h3 className='most-read-post'>Most Read Post:</h3>}
               {this.renderMostReadPost()}
@@ -141,6 +149,6 @@ export default class extends React.Component {
         {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}
       </div>
-    );
+    )};
   }
 }
