@@ -23,12 +23,12 @@ export default class extends React.Component {
               <h1>Quill School Premium</h1>
               <span>$900 for one-year subscription</span>
             </div>
-            <span>Next Years Rate is $1800</span>
+            <span>Next Year's Rate is $1800</span>
           </div>
           <div className="cta-section">
             <h3>How would you like to renew your School’s <br />Premium subscription?</h3>
             <div className="flex-row space-between">
-              <button className="q-button bg-quillgreen text-white">Email Me a Quote</button>
+              <a href="https://quillpremium.wufoo.com/forms/quill-premium-quote" className="q-button bg-quillgreen text-white">Email Me a Quote</a>
               <button onClick={this.props.purchaseSchoolPremium} className="q-button bg-quillgreen text-white">Pay with Credit Card</button>
             </div>
           </div>
