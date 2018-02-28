@@ -29,6 +29,7 @@ export default class extends React.Component {
       author_id: p ? p.author_id : 11 /* Quill Staff */,
       topic: p ? p.topic : 'Webinars',
       draft: p ? p.draft : true,
+      slug: p ? p.slug : true,
       preview_card_content: p ? p.preview_card_content : null,
       custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
       preview_card_type: this.props.action === 'new' ? 'Medium Image' : 'Custom HTML',
@@ -75,6 +76,7 @@ export default class extends React.Component {
     this.hideArticlePreview = this.hideArticlePreview.bind(this)
     this.showArticlePreview = this.showArticlePreview.bind(this)
     this.updatePublishedAt = this.updatePublishedAt.bind(this)
+    this.goToPreview = this.goToPreview.bind(this)
   }
 
   componentDidMount() {
@@ -162,7 +164,7 @@ export default class extends React.Component {
     container.rows = 2 + rows;
   }
 
-  handleSubmitClick(e, shouldPublish, unpublish = false) {
+  handleSubmitClick(e, shouldPublish, unpublish = false, callback) {
     if(unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { e.preventDefault(); return; }
     e.preventDefault();
     let action
@@ -200,6 +202,7 @@ export default class extends React.Component {
       } else {
         alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
       }
+      callback ? callback() : null
     })
   }
 
@@ -213,6 +216,16 @@ export default class extends React.Component {
     if(this.props.action === 'edit' && !this.state.draft) {
       return <input type="submit" value="Unpublish & Save Draft" onClick={(e) => { this.handleSubmitClick(e, false, true) }} style={{background: 'white', color: '#00c2a2'}} />
     }
+  }
+
+  renderSaveAndPreviewButton() {
+    if (this.props.action === 'edit') {
+      return <input type="submit" value="Save and Preview" onClick={(e) => { this.handleSubmitClick(e, !this.state.draft, false, this.goToPreview) }} style={{background: 'white', color: '#00c2a2'}} />
+    }
+  }
+
+  goToPreview() {
+    window.location.href = this.state.externalLink ? this.state.externalLink : `/teacher_resources/${this.state.slug}`
   }
 
   insertMarkdown(startChar, endChar = null) {
@@ -556,12 +569,13 @@ export default class extends React.Component {
             <input className="center-images-checkbox" type='checkbox' checked={this.state.centerImages} onClick={this.handleCenterImagesChange} />
           </div>
 
-
           {this.renderArticleMarkdownOrPreview()}
 
           <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
+
           {this.renderSaveDraftButton()}
           {this.renderUnpublishButton()}
+          {this.renderSaveAndPreviewButton()}
         </form>
       </div>
     )
