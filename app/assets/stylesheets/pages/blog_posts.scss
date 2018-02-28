@@ -466,7 +466,9 @@ a.all-blog-posts-back-button {
   display: inline-block;
   font-size: 16px;
   padding: 6px 12px;
-
+  height: 40px;
+  margin: 0px 15px;
+  font-weight: bold;
   &:hover {
     text-decoration: none;
   }
@@ -475,7 +477,6 @@ a.all-blog-posts-back-button {
 .article-cta-primary, .article-cta-primary:hover {
   background: $quillgreen;
   color: #fff;
-  font-weight: 600;
 }
 
 .article-cta-secondary, .article-cta-secondary:hover {
