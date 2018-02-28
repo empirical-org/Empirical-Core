@@ -101,10 +101,10 @@ export default class extends React.Component {
   }
 
   lessThan90Days() {
+    // <button className="q-button bg-quillblue text-white">Download Quote</button>
     return (
       <div>
         <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white">Renew School Premium</button>
-        <button className="q-button bg-quillblue text-white">Download Quote</button>
       </div>
     );
   }
