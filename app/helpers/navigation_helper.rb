@@ -41,9 +41,11 @@ module NavigationHelper
   def premium_tab_copy
     case current_user.premium_state
     when 'trial'
-      "Premium  <i class='fa fa-star'></i> #{current_user.trial_days_remaining} Days Left"
+      "Premium <i class='fa fa-star'></i> #{current_user.trial_days_remaining} Days Left"
+    when 'paid'
+      "Premium <i class='fa fa-star'></i>"
     when 'locked'
-      "Premium  <i class='fa fa-star'></i> Trial Expired"
+      "Premium <i class='fa fa-star'></i> Trial Expired"
     else
       "Try Premium <i class='fa fa-star'></i>"
     end
