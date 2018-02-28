@@ -65,6 +65,7 @@ export default class BlogPost extends React.Component {
             body={this.props.blogPost.body}
             author={this.props.author}
             displayPaywall={this.props.displayPaywall}
+            centerImages={this.props.blogPost.center_images}
           />
           <footer>
             <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>
