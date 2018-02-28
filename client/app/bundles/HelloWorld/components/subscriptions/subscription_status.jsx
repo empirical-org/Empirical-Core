@@ -89,7 +89,7 @@ export default class extends React.Component {
         content.pCopy = schoolPremiumCopy;
         content.boxColor = '#9c2bde';
         image = 'school_premium_icon.png';
-        if (remainingDays < 90) {
+        if (remainingDays < 90 && !this.props.subscriptionStatus.recurring) {
           if (this.props.userIsContact) {
             content.buttonOrDate = <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white cta-button">Renew School Premium</button>;
           } else {
