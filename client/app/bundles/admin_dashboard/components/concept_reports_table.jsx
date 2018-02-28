@@ -66,4 +66,4 @@ const ConceptReportsTable = ({ data }) => {
   }
 };
 
-export default ActivityScoresTable;
+export default ConceptReportsTable;
