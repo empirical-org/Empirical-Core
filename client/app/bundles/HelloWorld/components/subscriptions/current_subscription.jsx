@@ -270,7 +270,7 @@ export default class extends React.Component {
       cta: (
         <div className={buttonRowClassName}>
           <a href="/premium" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>
-          <a href="https://assets.quill.org/documents/quill_premium.pdf" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>
+          <a target="_blank" href="https://assets.quill.org/documents/quill_premium.pdf" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>
         </div>
     ), });
   }
