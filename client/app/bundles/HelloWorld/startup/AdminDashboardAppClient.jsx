@@ -6,6 +6,8 @@ import districtActivityScores from 'reducers/district_activity_scores';
 import districtConceptReports from 'reducers/district_concept_reports';
 import { Provider } from 'react-redux';
 
+// TODO: start here tm: combined reducer is causing problems -- probably a
+// namespace issue
 //const reducer = combineReducers({districtActivityScores, districtConceptReports})
 //const store = createStore(reducer, applyMiddleware(thunk));
 
