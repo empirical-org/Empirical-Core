@@ -13,7 +13,13 @@ const schoolPremiumCopy = (
     free reports as well as additional advanced reporting. You will also
     be able to view and print reports of your students’ progress. Our
     advanced reports support concept, Common Core, and overall progress
-    analysis. <a className="green-link">Here’s more information</a> about your Teacher Premium features.
+    analysis. <a className="green-link" href="/premium">Here’s more information</a> about your School Premium features.
+  </p>
+);
+
+const teacherPremiumCopy = (
+  <p>
+    With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. <a className="green-link" href="/premium">Here’s more information</a>about your Teacher Premium features.
   </p>
 );
 
@@ -68,6 +74,7 @@ export default class extends React.Component {
         break;
       case 'Teacher':
         image = 'teacher_premium_icon.png';
+        content.pCopy = teacherPremiumCopy;
         if (remainingDays < 1) {
           content.boxColor = '#ff4542';
         } else {
@@ -75,6 +82,7 @@ export default class extends React.Component {
         }
         break;
       case 'Trial':
+        content.pCopy = teacherPremiumCopy;
         image = 'teacher_premium_icon.png';
         break;
       case 'School':
