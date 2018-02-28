@@ -34,7 +34,7 @@ export default React.createClass({
             <span className="special-price">*special price</span>
           </div>
         </div>
-        <a href="/premium" className="q-button text-white">Learn More About Premium</a>
+        <a href=" https://support.quill.org/quill-premium" className="q-button text-white">Learn More About Premium</a>
       </div>
     );
   },
