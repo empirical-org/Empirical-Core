@@ -52,7 +52,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
     # Create admin teacher
     admin_teacher = User.create!(
-      name: 'Admin Teacher',
+      name: 'Toni Morrison',
       role: 'teacher',
       email: teacher_email,
       username: '',
@@ -63,7 +63,7 @@ class Teachers::ProgressReportsController < ApplicationController
     SchoolsAdmins.create!(school_id: school.id, user_id: admin_teacher.id)
 
     # Find or create a few other teachers
-    teachers = ['Ernest Hemingway', 'Jane Austen', 'Franz Kafka']
+    teachers = ['Langston Hughes', 'Jane Austen', 'Maya Angelou']
     teachers = teachers.map do |teacher|
       User.create!(
         name: teacher,
@@ -118,19 +118,29 @@ class Teachers::ProgressReportsController < ApplicationController
       end
     end
 
-    # List of 70 author names to use for student names
-    student_names = ['Dante Alighieri', 'Fyodor Dostoevsky', 'Leo Tolstoy', 'Victor Hugo', 'William Shakespeare',
-      'Charles Baudelaire', 'Marcel Proust', 'Giovanni Boccaccio', 'Alexander Pushkin', 'Franz Kafka', 'Anton Chekhov',
-      'Umberto Eco', 'J.R.R. Tolkien', 'William Faulkner', 'Arthur Rimbaud', 'Ivan Turgenev', 'Charles Dickens',
-      'Maxim Gorky', 'George Orwell', 'Nazim Hikmet', 'Oscar Wilde', 'Lord Byron', 'Thomas Mann', 'Alexandre Dumas',
-      'James Joyce', 'Boris Pasternak', 'Pablo Neruda', 'Pierre Beaumarchais', 'Najeeb Mahfouz', 'Ursula LeGuin',
-      'Nikolay Gogol', 'Italo Calvino', 'Ernest Hemingway', 'Neil Gaiman', 'Jean Racine', 'Albert Camus',
-      'Jean-Paul Sartre', 'Chingiz Aitmatov', 'John Steinbeck', 'Milan Kundera', 'Jules Verne', 'Mark Twain',
-      'Francois Rabelais', 'Yasar Kemal', 'Jane Austen', 'Geoffrey Chaucer', 'J.D. Salinger', 'Virginia Woolf',
-      'Louis Aragon', 'Herman Melville', 'Alphonse Daudet', 'Mikhail Sholokhov', 'Stefan Zweig', 'Bertolt Brecht',
-      'T.S. Eliot', 'John Keats', 'Sabahattin Ali', 'John Fante', 'Isaac Asimov', 'Fitzgerald Scott', 'J.M. Coetzee',
-      'Kazuo Ishiguro', 'Hermann Hesse', 'Doris Lessing', 'Salman Rushdie', 'Mario Vargas Llosa', 'Aldous Huxley',
-      'Thomas Pynchon', 'H.P. Lovecraft', 'Haruki Murakami']
+    # List of author names to use for student names
+    student_names = [
+      "Richard Wright", "Alex Haley", "Ralph Ellison", "Octavia Butler", "Ursula LeGuin",
+      "John Steinbeck", "Neil Gaiman", "Mark Twain", "Isaac Asimov", "Salman Rushdie", "Aldous Huxley",
+      "George Orwell", "William Shakespeare", "Franz Kafka", "Charles Dickens", "Virginia Woolf",
+      "John Keats", "Herman Melville", "Marcel Proust", "Ernest Hemingway", "Pablo Neruda", "Leo Tolstoy",
+      "Oscar Wilde", "James Joyce", "Fyodor Dostoevsky", "Umberto Eco", "Albert Camus", "Jules Verne",
+      "Fitzgerald Scott", "Dante Alighieri", "Victor Hugo", "Charles Baudelaire", "Giovanni Boccaccio",
+      "Alexander Pushkin", "Anton Chekhov", "William Faulkner", "Arthur Rimbaud", "Ivan Turgenev",
+      "Maxim Gorky", "Nazim Hikmet", "Lord Byron", "Thomas Mann", "Alexandre Dumas", "Boris Pasternak",
+      "Pierre Beaumarchais", "Najeeb Mahfouz", "Nikolay Gogol", "Italo Calvino", "Jean Racine",
+      "Chingiz Aitmatov", "Milan Kundera", "Francois Rabelais", "Yasar Kemal", "Geoffrey Chaucer",
+      "Louis Aragon", "Alphonse Daudet", "Mikhail Sholokhov", "Stefan Zweig", "Bertolt Brecht",
+      "Sabahattin Ali", "John Fante", "Kazuo Ishiguro", "Hermann Hesse", "Doris Lessing",
+      "Mario Vargas Llosa", "Thomas Pynchon", "Haruki Murakami", "Saladin Ahmed", "James Baldwin",
+      "Jhumpa Lahiri", "Terry McMillan", "Truman Capote", "Toni Morrison", "Junot Diaz", "Zadie Smith",
+      "Sherman Alexie", "Langston Hughes", "Amy Tan", "Lorraine Hansberry", "Alice Walker",
+      "Isabel Allende", "Sandra Cisneros", "Colson Whitehead", "Khaled Hosseini", "Arundhati Roy",
+      "Jacqueline Woodson", "Celeste Ng", "Roxane Gay", "Chinua Achebe", "Nella Larsen",
+      "Tennessee Williams", "Gertrude Stein", "Allen Ginsberg", "Audre Lorde", "David Sedaris",
+      "Mindy Kaling", "Justin Chin", "Kahlil Gibran", "Eli Wiesel", "Paulo Coelho",
+      "Julia Alvarez", "Mo Willems", "George Eliot", "Lois Lowry"
+    ].shuffle
 
     # How many students per class?
     number_of_students_per_class = 5
