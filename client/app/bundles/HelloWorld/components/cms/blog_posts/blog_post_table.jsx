@@ -27,7 +27,6 @@ export default class BlogPostTable extends React.Component {
 
   saveOrder() {
     const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_order_numbers`
-    console.log(link)
     const data = new FormData();
     data.append( "blog_posts", JSON.stringify(this.state.blogPosts) );
     fetch(link, {
