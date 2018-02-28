@@ -201,7 +201,7 @@ export default class extends React.Component {
           premiumCredits={this.props.premiumCredits}
           authorityLevel={this.state.authorityLevel}
         />
-        <RefundPolicy />
+        <RefundPolicy />;
         <PremiumConfirmationModal
           show={this.state.showPremiumConfirmationModal}
           hideModal={this.hidePremiumConfirmationModal}

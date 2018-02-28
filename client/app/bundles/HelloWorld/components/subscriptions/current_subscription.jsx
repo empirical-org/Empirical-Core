@@ -74,7 +74,7 @@ export default class extends React.Component {
 
   changePlan() {
     if (this.state.showChangePlan) {
-      return (<ChangePlan recurring={_.get(this.props.subscriptionStatus, 'recurring')} updateRecurring={this.updateRecurring} />);
+      return (<ChangePlan type={this.props.subscriptionType} price={this.getPrice()} recurring={_.get(this.props.subscriptionStatus, 'recurring')} updateRecurring={this.updateRecurring} />);
     }
   }
 
@@ -161,6 +161,13 @@ export default class extends React.Component {
     }
   }
 
+  getPrice() {
+    if (this.props.subscriptionType === 'School') {
+      return '900';
+    }
+    return '80';
+  }
+
   nextPlanContent() {
     let nextPlan;
     let beginsOn;
@@ -182,10 +189,10 @@ export default class extends React.Component {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (this.props.subscriptionStatus.recurring) {
       nextPlan = (<span>
-                    Teacher Premium - $80 Annual Subscription {this.changePlanInline()}
+        {this.props.subscriptionType} Premium - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
       </span>);
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
-      nextPlanAlertOrButtons = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $80.`);
+      nextPlanAlertOrButtons = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
       beginsOn = (
         <TitleAndContent title={'Begins On'} content={renewDate} />
         );

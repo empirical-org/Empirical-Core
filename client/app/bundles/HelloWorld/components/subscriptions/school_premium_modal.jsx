@@ -19,19 +19,21 @@ export default class extends React.Component {
         <Modal.Body>
           <img className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
           <div className="pricing-info text-center">
-            <h1>Quill School Premium</h1>
-            <span>$900 for one-year subscription</span>
+            <div className="current-year">
+              <h1>Quill School Premium</h1>
+              <span>$900 for one-year subscription</span>
+            </div>
             <span>Next Years Rate is $1800</span>
           </div>
           <div className="cta-section">
-            <h3>How would you like to renew your School’s Premium subscription?</h3>
-            <div>
+            <h3>How would you like to renew your School’s <br />Premium subscription?</h3>
+            <div className="flex-row space-between">
               <button className="q-button bg-quillgreen text-white">Email Me a Quote</button>
               <button onClick={this.props.purchaseSchoolPremium} className="q-button bg-quillgreen text-white">Pay with Credit Card</button>
             </div>
           </div>
           <div className="not-the-purchaser-section">
-            <h3>Not the Purchaser</h3>
+            <h3>Not the Purchaser?</h3>
             <p>
               <span>Credit Card Purchaser:</span>
               Reach out to your school purchaser and ask them to login to Quill and renew the subscription.

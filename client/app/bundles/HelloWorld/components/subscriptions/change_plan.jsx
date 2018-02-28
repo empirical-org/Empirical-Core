@@ -20,7 +20,7 @@ export default class extends React.Component {
       <div className="change-plan">
         <RadioGroup onChange={this.handleChange} vertical className="radio-group">
           <ReversedRadioButton checked={this.state.recurring} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} iconSize={20} value={Boolean(true)}>
-            Teacher Premium - $80 Annual Subscription
+            {this.props.subscriptionType} Premium - ${this.props.price} Annual Subscription
           </ReversedRadioButton>
           <ReversedRadioButton checked={!this.state.recurring} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} iconSize={20} value={Boolean(false)}>
             Quill Basic - Free

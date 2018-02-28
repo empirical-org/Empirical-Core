@@ -28,7 +28,7 @@ export default class extends React.Component {
   handleExpired(content, remainingDays) {
     let statusOnClickEvent,
       buttonCopy;
-    if (remainingDays < 1) {
+    if (remainingDays < 0) {
       content.boxColor = '#ff4542';
       content.status = <h2><i className="fa fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
       if (this.props.subscriptionType === 'School') {
@@ -75,7 +75,7 @@ export default class extends React.Component {
       case 'Teacher':
         image = 'teacher_premium_icon.png';
         content.pCopy = teacherPremiumCopy;
-        if (remainingDays < 1) {
+        if (remainingDays < 0) {
           content.boxColor = '#ff4542';
         } else {
           content.boxColor = '#348fdf';
@@ -91,7 +91,7 @@ export default class extends React.Component {
         image = 'school_premium_icon.png';
         if (remainingDays < 90) {
           if (this.props.userIsContact) {
-            content.buttonOrDate = <a href="/premium" className="q-button bg-orange text-white cta-button">Renew School Premium</a>;
+            content.buttonOrDate = <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white cta-button">Renew School Premium</button>;
           } else {
             content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
           }
