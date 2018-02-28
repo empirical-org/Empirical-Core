@@ -42,7 +42,8 @@ class Teachers::ProgressReportsController < ApplicationController
     # If this demo account already exists, just go there
     existing_admin_user = User.find_by(email: teacher_email)
     if existing_admin_user.present?
-      sign_out and sign_in existing_admin_user
+      sign_out if current_user
+      sign_in existing_admin_user
       return redirect_to teachers_admin_dashboard_path
     end
 
@@ -86,10 +87,10 @@ class Teachers::ProgressReportsController < ApplicationController
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 1'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 2'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 3'), user: admin_teacher).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'English 1'), user: teachers.second).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'ELA 1'), user: teachers.third).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block One'), user: teachers.last).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block Two'), user: teachers.last).classroom
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'English 1'), user: teachers.first).classroom,
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'ELA 1'), user: teachers.second).classroom,
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block One'), user: teachers.third).classroom,
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block Two'), user: teachers.third).classroom
     ]
 
     # Choose some unit templates we want to base the units off of
@@ -192,7 +193,8 @@ class Teachers::ProgressReportsController < ApplicationController
       end
     end
 
-    sign_out and sign_in admin_teacher
+    sign_out if current_user
+    sign_in admin_teacher
     redirect_to teachers_admin_dashboard_path
   end
 
