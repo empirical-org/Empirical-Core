@@ -3,6 +3,7 @@ import AdminDashboardRouter from 'bundles/admin_dashboard/containers/AdminDashbo
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import districtActivityScores from 'reducers/district_activity_scores';
+import districtConceptReports from 'reducers/district_concept_reports';
 import { Provider } from 'react-redux';
 
 const store = createStore(districtActivityScores, applyMiddleware(thunk));
