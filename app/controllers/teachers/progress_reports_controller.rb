@@ -86,11 +86,9 @@ class Teachers::ProgressReportsController < ApplicationController
     classrooms = [
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 1'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 2'), user: admin_teacher).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 3'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'English 1'), user: teachers.first).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'ELA 1'), user: teachers.second).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block One'), user: teachers.third).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block Two'), user: teachers.third).classroom
+      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block One'), user: teachers.third).classroom
     ]
 
     # Choose some unit templates we want to base the units off of
@@ -173,21 +171,30 @@ class Teachers::ProgressReportsController < ApplicationController
     teachers[1..-1].each do |teacher|
       teacher.students.each do |student|
         teacher.classroom_activities.each do |classroom_activity|
-          exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[classroom_activity.activity_id].sample)
-          activity_session = ActivitySession.create!(
-            classroom_activity_id: classroom_activity.id,
-            user_id: student.id,
-            activity_id: classroom_activity.activity_id,
-            state: 'finished',
-            percentage: exemplar_activity_session.percentage,
-          )
-          exemplar_activity_session.concept_results.each do |cr|
-            ConceptResult.create!(
-              activity_session_id: activity_session.id,
-              concept_id: cr.concept_id,
-              metadata: cr.metadata,
-              question_type: cr.question_type
+          we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true
+          the_activity_session_should_be_marked_as_in_progress = false
+          while we_want_to_create_another_activity_session_for_this_student_and_classroom_activity do
+            exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[classroom_activity.activity_id].sample)
+            activity_session = ActivitySession.create!(
+              classroom_activity_id: classroom_activity.id,
+              user_id: student.id,
+              activity_id: classroom_activity.activity_id,
+              state: the_activity_session_should_be_marked_as_in_progress ? 'started' : 'finished',
+              percentage: exemplar_activity_session.percentage,
             )
+            exemplar_activity_session.concept_results.each do |cr|
+              ConceptResult.create!(
+                activity_session_id: activity_session.id,
+                concept_id: cr.concept_id,
+                metadata: cr.metadata,
+                question_type: cr.question_type
+              )
+            end
+            we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = false
+            if classroom_activity.activity.id != diagnostic_unit_template.activities.first.id && !the_activity_session_should_be_marked_as_in_progress
+              we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true if Random.rand <= 0.25
+              the_activity_session_should_be_marked_as_in_progress = true if Random.rand <= 0.5
+            end
           end
         end
       end
