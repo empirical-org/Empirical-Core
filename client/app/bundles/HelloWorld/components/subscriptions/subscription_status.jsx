@@ -71,6 +71,7 @@ export default class extends React.Component {
         content.boxColor = '#00c2a2';
         content.buttonOrDate = <a href="/premium" className="q-button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
         subscriptionType = 'Quill Basic';
+        content.status = <h2>{`You have a ${subscriptionType} subscription`}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></h2>;
         break;
       case 'Teacher':
         image = 'teacher_premium_icon.png';
