@@ -6,42 +6,29 @@ import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
 
 const ActivityScoresTable = ({ data }) => {
-  console.log(data);
-
   let columns = [
     {
       Header: 'Student',
       accessor: 'students_name',
       resizable: false,
+      minWidth: 120,
       sortMethod: sortByLastName,
       Cell: row => row.original.students_name,
     }, {
-      Header: "Activities Completed",
+      Header: "Completed",
       accessor: 'activity_count',
       resizable: false,
-      minWidth: 120,
+      minWidth: 90,
       Cell: row => Number(row.original.activity_count),
     }, {
-      Header: "Overall Score",
+      Header: "Score",
       accessor: 'average_score',
       resizable: false,
-      minWidth: 90,
+      minWidth: 60,
       Cell: row => {
         const value = Math.round(parseFloat(row.original.average_score) * 100);
         return (isNaN(value) ? '--' : value + '%');
       }
-    }, {
-      Header: "Last Active",
-      accessor: 'last_active',
-      resizable: false,
-      minWidth: 90,
-      Cell: (row) => {
-        if (row.original.last_active) {
-          return moment(row.original.last_active).format("MM/DD/YYYY");
-        }
-        return '--';
-      },
-      sortMethod: sortFromSQLTimeStamp,
     }, {
       Header: "School",
       accessor: 'schools_name',
@@ -58,6 +45,18 @@ const ActivityScoresTable = ({ data }) => {
       accessor: 'classroom_name',
       resizable: false,
       Cell: row => row.original.classroom_name,
+    }, {
+      Header: "Last Active",
+      accessor: 'last_active',
+      resizable: false,
+      minWidth: 90,
+      Cell: (row) => {
+        if (row.original.last_active) {
+          return moment(row.original.last_active).format("MM/DD/YYYY");
+        }
+        return '--';
+      },
+      sortMethod: sortFromSQLTimeStamp,
     },
   ];
 
