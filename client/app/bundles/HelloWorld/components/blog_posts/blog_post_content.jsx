@@ -17,7 +17,8 @@ export default class BlogPostContent extends React.Component {
         </div>
       );
     } else {
-      return <ReactMarkdown source={this.props.body.replace(/\n/g, '<br/>')} />;
+      return <ReactMarkdown escapeHtml={false} source={this.props.body} />;
+      return <ReactMarkdown escapeHtml={false} source={this.props.body.replace(/\n/g, '<br/>').replace(/><br\/>/g, '>\n').replace(/<br\/></g, '\n<')} />;
     }
   }
 
