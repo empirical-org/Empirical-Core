@@ -22,7 +22,7 @@ export const getDistrictConceptReports = () => {
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`
     },
     (e, r, body) => {
-      dispatch(recieveDistrictConceptResults(body))
+      dispatch(recieveDistrictConceptReports(body))
     });
   }
 };
