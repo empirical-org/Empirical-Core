@@ -1,5 +1,5 @@
 import React from 'react';
-import DistrictReportsTable from 'bundles/admin_dashboard/components/_table';
+import ConceptReportsTable from 'bundles/admin_dashboard/components/concept_reports_table';
 import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
 import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
 
