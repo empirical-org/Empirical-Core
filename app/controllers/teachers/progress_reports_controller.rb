@@ -86,7 +86,6 @@ class Teachers::ProgressReportsController < ApplicationController
     classrooms = [
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 1'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 2'), user: admin_teacher).classroom,
-      ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Period 3'), user: admin_teacher).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'English 1'), user: teachers.first).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'ELA 1'), user: teachers.second).classroom,
       ClassroomsTeacher.create!(role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom: Classroom.create!(name: 'Block One'), user: teachers.third).classroom
@@ -96,6 +95,8 @@ class Teachers::ProgressReportsController < ApplicationController
     diagnostic_unit_template = UnitTemplate.find(20)
     using_commas_unit_template = UnitTemplate.find(3)
     commonly_confused_words_unit_template = UnitTemplate.find(4)
+    parallel_structure_group_lessons_unit_template = UnitTemplate.find(46)
+    appositive_phrases_group_lessons_unit_template = UnitTemplate.find(44)
 
     # Add teachers to the school, units to each teacher, and classroom activities to the units
     teachers.each do |teacher|
@@ -104,6 +105,8 @@ class Teachers::ProgressReportsController < ApplicationController
       diagnostic_unit = Unit.create!(name: diagnostic_unit_template.name, user_id: teacher.id)
       using_commas_unit = Unit.create!(name: using_commas_unit_template.name, user_id: teacher.id)
       commonly_confused_words_unit = Unit.create!(name: commonly_confused_words_unit_template.name, user_id: teacher.id)
+      parallel_structure_group_lessons_unit = Unit.create!(name: parallel_structure_group_lessons_unit_template.name, user_id: teacher.id)
+      appositive_phrases_group_lessons_unit = Unit.create!(name: appositive_phrases_group_lessons_unit_template.name, user_id: teacher.id)
 
       teacher.classrooms_i_teach.each do |classroom|
         diagnostic_unit_template.activities.to_a.uniq.each do |activity|
@@ -114,6 +117,12 @@ class Teachers::ProgressReportsController < ApplicationController
         end
         commonly_confused_words_unit_template.activities.to_a.uniq.each do |activity|
           ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: commonly_confused_words_unit.id, assign_on_join: true)
+        end
+        parallel_structure_group_lessons_unit_template.activities.to_a.uniq.each do |activity|
+          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: parallel_structure_group_lessons_unit.id, assign_on_join: true)
+        end
+        appositive_phrases_group_lessons_unit_template.activities.to_a.uniq.each do |activity|
+          ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: appositive_phrases_group_lessons_unit.id, assign_on_join: true)
         end
       end
     end
@@ -178,7 +187,10 @@ class Teachers::ProgressReportsController < ApplicationController
       110 => [27402978, 3882494, 2972394, 2107590, 22332137, 29308511, 12215419, 14469882],
       108 => [6003924, 2381787, 9059288, 22089450, 9425941, 2289906, 5124950, 10911501],
       109 => [1394227, 13573237, 11777934, 12152451, 6408246, 8968064, 16857416, 21841339],
-      273 => [11968758, 10427339, 22435199, 17393608, 13968692, 28949511, 7522721, 9540189]
+      273 => [11968758, 10427339, 22435199, 17393608, 13968692, 28949511, 7522721, 9540189],
+      571 => [27919823],
+      567 => [29001738],
+      572 => [28173122]
     }
 
     # Add activity sessions and concept results for students of all but one teacher
@@ -186,7 +198,7 @@ class Teachers::ProgressReportsController < ApplicationController
       teacher.students.each do |student|
         teacher.classroom_activities.each do |classroom_activity|
           we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true
-          the_activity_session_should_be_marked_as_in_progress = false
+          the_activity_session_should_be_marked_as_in_progress = classroom_activity.activity.id === 567 ? true : false
           while we_want_to_create_another_activity_session_for_this_student_and_classroom_activity do
             exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[classroom_activity.activity_id].sample)
             activity_session = ActivitySession.create!(
@@ -205,7 +217,8 @@ class Teachers::ProgressReportsController < ApplicationController
               )
             end
             we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = false
-            if classroom_activity.activity.id != diagnostic_unit_template.activities.first.id && !the_activity_session_should_be_marked_as_in_progress
+            this_activity_can_be_repeated = ![4, 6].include?(classroom_activity.activity.activity_classification_id)
+            if this_activity_can_be_repeated && !the_activity_session_should_be_marked_as_in_progress
               we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true if Random.rand <= 0.25
               the_activity_session_should_be_marked_as_in_progress = true if Random.rand <= 0.25
             end
