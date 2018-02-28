@@ -92,12 +92,14 @@ export default class extends React.Component {
   }
 
   changePlanInline() {
-    return (
-      <span>
-        <span className="green-link" onClick={this.toggleChangePlan}>Change Plan</span>
-        {this.changePlan()}
-      </span>
-    );
+    if (this.props.authorityLevel && this.props.subscriptionStatus.payment_method === 'Credit Card') {
+      return (
+        <span>
+          <span className="green-link" onClick={this.toggleChangePlan}>Change Plan</span>
+          {this.changePlan()}
+        </span>
+      );
+    }
   }
 
   lessThan90Days() {
@@ -122,6 +124,7 @@ export default class extends React.Component {
   nextPlanAlertOrButtons(condition, renewDate) {
     const conditionWithAuthorization = `${condition} authorization: ${!!this.props.authorityLevel}`;
     const expiration = moment(this.props.subscriptionStatus.expiration);
+    console.log();
     const remainingDays = expiration.diff(moment(), 'days');
     switch (conditionWithAuthorization) {
       case 'school sponsored authorization: false':
@@ -138,6 +141,10 @@ export default class extends React.Component {
           return this.nextPlanAlert(<span>To renew your subscription for next year, contact the purchaser at your school.</span>);
         }
         return this.lessThan90Days();
+      case 'recurring authorization: false':
+        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
+      case 'recurring authorization: true':
+        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
       case 'school expired authorization: true':
         return this.lessThan90Days();
       case 'school expired authorization: false':
@@ -192,7 +199,7 @@ export default class extends React.Component {
         {this.props.subscriptionType} Premium - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
       </span>);
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
-      nextPlanAlertOrButtons = this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${this.state.lastFour} will be charged $${this.getPrice()}.`);
+      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
       beginsOn = (
         <TitleAndContent title={'Begins On'} content={renewDate} />
         );
