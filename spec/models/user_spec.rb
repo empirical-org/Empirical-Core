@@ -59,25 +59,25 @@ describe User, type: :model do
 
         it "returns 'purchaser' if the user is the purchaser" do
           subscription.update(purchaser_id: user.id)
-          expect(user.subscription_authority_level(subscription_id)).to eq('purchaser')
+          expect(user.subscription_authority_level(subscription.id)).to eq('purchaser')
         end
 
         it "returns 'authorizer' if the user is the authorizer" do
           school.update(authorizer: user)
           SchoolsUsers.create(user: user, school: school)
           user.reload
-          expect(user.subscription_authority_level(subscription_id)).to eq('authorizer')
+          expect(user.subscription_authority_level(subscription.id)).to eq('authorizer')
         end
 
         it "returns 'coordinator' if the user is the coordinator" do
           school.update(coordinator: user)
           SchoolsUsers.create(user: user, school: school)
           user.reload
-          expect(user.subscription_authority_level(subscription_id)).to eq('coordinator')
+          expect(user.subscription_authority_level(subscription.id)).to eq('coordinator')
         end
 
         it "returns nil if the user has no authority" do
-          expect(user.subscription_authority_level(subscription_id)).to eq(nil)
+          expect(user.subscription_authority_level(subscription.id)).to eq(nil)
         end
       end
 
