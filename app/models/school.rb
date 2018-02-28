@@ -4,6 +4,7 @@ class School < ActiveRecord::Base
   has_many :schools_users,  class_name: 'SchoolsUsers'
   has_many :users, through: :schools_users
   has_many :schools_admins, class_name: 'SchoolsAdmins'
+  has_many :admins, through: :schools_admins, source: :user
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
