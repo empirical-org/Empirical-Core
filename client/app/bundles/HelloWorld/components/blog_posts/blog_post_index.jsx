@@ -38,7 +38,7 @@ export default class extends React.Component {
       sections.push(<TopicSection
           key={topic}
           title={topic}
-          articles={articlesInThisTopic}
+          articles={articlesInThisTopic.sort(a => a.order_number)}
           articleCount={articlesInThisTopic.length}
         />
       );
