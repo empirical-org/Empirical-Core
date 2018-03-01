@@ -347,11 +347,24 @@ describe Subscription, type: :model do
           recurring_subscription_expiring_today_1.update_if_charge_succeeds
         end
       end
+    end
 
+    describe '#renew_subscription' do
+      it "sets the date it was called as the de_activated_date" do
+        subscription.renew_subscription
+        expect(subscription.de_activated_date).to eq(Date.today)
+      end
 
+      it "creates a new subscription" do
+        old_sub_count = Subscription.count
+        subscription.renew_subscription
+        expect(Subscription.count).to eq(old_sub_count + 1)
+      end
 
-
-
+      it "creates a new subscription with an expiration date that is 365 days more" do
+        subscription.renew_subscription
+        expect(Subscription.last.expiration).to eq(subscription.expiration + 365)
+      end
     end
 
     describe '#renewal_price' do
