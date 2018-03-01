@@ -3,6 +3,20 @@ require 'rails_helper'
 
 describe ActivitySession, type: :model, redis: :true do
 
+  it { should belong_to(:classroom_activity) }
+  it { should belong_to(:activity) }
+  it { should have_one(:unit).through(:classroom_activity) }
+  it { should have_many(:concepts).through(:concept_results) }
+  it { should belong_to(:user) }
+
+  it { is_expected.to callback(:set_state).before(:create) }
+  it { is_expected.to callback(:set_completed_at).before(:save) }
+  it { is_expected.to callback(:set_activity_id).before(:save) }
+  it { is_expected.to callback(:determine_if_final_score).after(:save) }
+  it { is_expected.to callback(:update_milestones).after(:save) }
+  it { is_expected.to callback(:invalidate_activity_session_count_if_completed).after(:commit) }
+  it { is_expected.to callback(:trigger_events).around(:save) }
+
   describe "can behave like an uid class" do
 
     context "when behaves like uid" do
@@ -11,7 +25,81 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
-  let(:activity_session) {build(:activity_session, completed_at: 5.minutes.ago)}
+  describe 'paginate ' do
+    let(:activity_session) { create(:activity_session) }
+    let(:activity_session1) { create(:activity_session) }
+    let(:activity_session2) { create(:activity_session) }
+
+    it 'should give the required number of results' do
+      expect(ActivitySession.paginate(1, 2)).to include(activity_session, activity_session1)
+    end
+  end
+
+  describe 'with_best_scores' do
+    let(:activity_session) { create(:activity_session, is_final_score: true) }
+    let(:activity_session1) { create(:activity_session, is_final_score: false) }
+
+    it 'should return the sessions with final score true' do
+      expect(ActivitySession.with_best_scores).to include(activity_session)
+    end
+  end
+
+  describe 'with_filters' do
+    let(:activity) { create(:classroom_activity) }
+
+    context 'classroom_id' do
+      let(:classroom) { create(:classroom) }
+      let(:activity1) { create(:classroom_activity, classroom: classroom) }
+
+      it 'should return the given query with the given classroom_id' do
+        expect(ActivitySession.with_filters(ClassroomActivity, {classroom_id: classroom.id}))
+      end
+    end
+
+    context 'student_id' do
+      let(:student) { create(:student) }
+      let(:activity1) { create(:classroom_activity, student: student) }
+
+      it 'should return the given query with the given student_id' do
+        expect(ActivitySession.with_filters(ClassroomActivity, {student_id: student.id}))
+      end
+    end
+
+    context 'unit_id' do
+      let(:unit) { create(:unit) }
+      let(:activity1) { create(:classroom_activity, unit: unit) }
+
+      it 'should return the given query with the given classroom_id' do
+        expect(ActivitySession.with_filters(ClassroomActivity, {unit_id: unit.id}))
+      end
+    end
+
+    context 'section_id' do
+      let(:section) { create(:section) }
+      let(:activity1) { create(:classroom_activity, section: section) }
+
+      it 'should return the given query with the given section_id' do
+        expect(ActivitySession.with_filters(ClassroomActivity, {section_id: section.id}))
+      end
+    end
+
+    context 'topic_id' do
+      let(:topic) { create(:topic) }
+      let(:activity1) { create(:classroom_activity, topic: topic) }
+
+      it 'should return the given query with the given topic_id' do
+        expect(ActivitySession.with_filters(ClassroomActivity, {topic_id: topic.id}))
+      end
+    end
+  end
+
+  describe 'RESULTS_PER_PAGE' do
+    it 'should be the correct number' do
+      expect(ActivitySession::RESULTS_PER_PAGE).to eq 25
+    end
+  end
+
+  let(:activity_session) { build(:activity_session, completed_at: 5.minutes.ago) }
 
   describe "#activity" do
 
@@ -65,10 +153,6 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
-  describe "#classroom" do
-  	it "TODO: must return a valid classroom object"
-  end
-
   describe "#activity_uid=" do
 
   	let(:activity){ create(:activity) }
@@ -81,12 +165,239 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
+  describe '#classroom' do
+    let(:unit) { create(:unit) }
+    let(:activity_session) { create(:activity_session) }
+
+    it 'should return the classroom associated with the unit' do
+      expect(activity_session.classroom).to eq(unit.classroom)
+    end
+  end
+
+  describe '#formatted_due_date' do
+    context 'when classroom_activity is nil' do
+      let(:activity_session) { create(:activity_session, classroom_activity: nil) }
+
+      it 'should return nil' do
+        expect(activity_session.formatted_due_date).to eq(nil)
+      end
+    end
+
+    context 'when classroom_activity does not have a due date' do
+      let(:activity) { create(:classroom_activity, due_date: nil) }
+      let(:activity_session) { create(:activity_session, classroom_activity: activity) }
+
+      it 'should return nil' do
+        expect(activity_session.formatted_due_date).to eq(nil)
+      end
+    end
+
+    context 'when classroom_activity has a due date' do
+      let(:classroom_activity) { create(:classroom_activity, due_date: Date.today+10.days) }
+      let(:activity_session) { create(:activity_session, classroom_activity: classroom_activity) }
+
+      it 'should return the formatted due date of the classroom activity' do
+        expect(activity_session.formatted_due_date).to eq((Date.today+10.days).strftime("%A, %B %d, %Y"))
+      end
+    end
+  end
+
+  describe '#formatted_completed_at' do
+    context 'when completed_at is nil' do
+      let(:activity_session) { create(:activity_session) }
+
+      it 'should return nil' do
+        activity_session.completed_at = nil
+        expect(activity_session.formatted_completed_at).to eq(nil)
+      end
+    end
+
+    context 'when completed at is present' do
+      let(:activity_session) { create(:activity_session, completed_at: Date.today) }
+
+      it 'should return the formatted completed at' do
+        expect(activity_session.formatted_completed_at).to eq(Date.today.strftime('%A, %B %d, %Y'))
+      end
+    end
+  end
+
+  describe '#display_due_date_or_completed_at_date' do
+    context 'when completed at present' do
+      let(:activity_session) { create(:activity_session, completed_at: Date.today) }
+
+      it 'should return the formatted completed at date' do
+        expect(activity_session.display_due_date_or_completed_at_date).to eq(Date.today.strftime('%A, %B %d, %Y'))
+      end
+    end
+
+    context 'when classroom_activity present' do
+      context 'when due date present' do
+        let(:classroom_activity) { create(:classroom_activity, due_date: Date.today+2.days) }
+        let(:activity_session) { create(:activity_session, classroom_activity: classroom_activity) }
+
+        it 'should return the formatted due date for the classroom_activity' do
+          activity_session.completed_at = nil
+          expect(activity_session.display_due_date_or_completed_at_date).to eq((Date.today+2.days).strftime('%A, %B %d, %Y'))
+        end
+      end
+
+      context 'when due date is not present' do
+        let(:classroom_activity) { create(:classroom_activity, due_date: nil) }
+        let(:activity_session) { create(:activity_session, classroom_activity: classroom_activity) }
+
+        it 'should return empty string' do
+          activity_session.completed_at = nil
+          expect(activity_session.display_due_date_or_completed_at_date).to eq("")
+        end
+      end
+    end
+
+    context 'when neither is present' do
+      let(:activity_session) { create(:activity_session, classroom_activity: nil, completed_at: nil) }
+
+      it 'should return empty string' do
+        activity_session.completed_at = nil
+        expect(activity_session.display_due_date_or_completed_at_date).to eq("")
+      end
+    end
+  end
+
+  describe '#percentile' do
+    let(:activity_session) { create(:activity_session) }
+    let(:fake) { double(:fake) }
+
+    it 'should call proficiency evaluator and get lump into center of proficiency band' do
+      expect(ProficiencyEvaluator).to receive(:lump_into_center_of_proficiency_band).with(activity_session.percentage).and_return(fake)
+      expect(activity_session.percentile).to eq fake
+    end
+  end
+
+  describe '#percentage_as_percent_prefixed_by_scored' do
+    context 'when percentage is nil' do
+      let(:activity_session) { create(:activity_session, percentage: nil) }
+
+      it 'should return not completed at' do
+        expect(activity_session.percentage_as_percent_prefixed_by_scored).to eq("Not completed yet")
+      end
+    end
+
+    context 'when percentage is present' do
+      let(:activity_session) { create(:activity_session, percentage: 0.8) }
+
+      it 'should return the score' do
+        expect(activity_session.percentage_as_percent_prefixed_by_scored).to eq("Scored 80%")
+      end
+    end
+  end
+
+  describe '#percentage_with_zero_if_nil' do
+    context 'when percentage is absent' do
+      let(:activity_session) { create(:activity_session, percentage: nil) }
+
+      it 'should return 0' do
+        expect(activity_session.percentage_with_zero_if_nil).to eq(0)
+      end
+    end
+
+    context 'when percentage is present' do
+      let(:activity_session) { create(:activity_session, percentage: 0.4) }
+
+      it 'should return the percentage' do
+        expect(activity_session.percentage_with_zero_if_nil).to eq(40)
+      end
+    end
+  end
+
+  describe '#percentage_as_decimal' do
+    let(:activity_session) { create(:activity_session, percentage: 0.4) }
+
+    it 'should return the percentage in decimal form' do
+      expect(activity_session.percentage_as_decimal).to eq(activity_session.percentage.round(2))
+    end
+  end
+
+  describe '#percentage_as_percent' do
+    context 'when percentage is nil' do
+    let(:activity_session) { create(:activity_session, percentage: nil) }
+
+    it 'should return no percentage' do
+      expect(activity_session.percentage_as_percent).to eq("no percentage")
+    end
+  end
+
+  context 'when percentage is present' do
+    let(:activity_session) { create(:activity_session, percentage: 0.4) }
+
+    it 'should return the formatted percentage' do
+      expect(activity_session.percentage_as_percent).to eq("40%")
+    end
+  end
+end
+
+  describe 'score' do
+    let(:activity_session) { create(:activity_session, percentage: 0.4) }
+
+    it 'should return the percentage' do
+      expect(activity_session.score).to eq((activity_session.percentage*100).round)
+    end
+  end
+
+  describe '#start' do
+    context 'when state is not unstarted' do
+      let(:activity_session) { create(:activity_session, state: "started") }
+
+      it 'should not set the started_at and not change the state' do
+        activity_session.start
+        expect(activity_session.started_at).to eq(nil)
+        expect(activity_session.state).to eq("started")
+      end
+    end
+
+    context 'when state is unstarted' do
+      let(:time) { Time.new("100") }
+      let(:activity_session) { create(:activity_session, state: "unstarted") }
+
+      before do
+        allow(Time).to receive(:current).and_return(time)
+      end
+
+      it 'should set the started at and change the state' do
+        activity_session.start
+        expect(activity_session.started_at).to eq(time)
+        expect(activity_session.state).to eq("started")
+      end
+    end
+  end
+
+  describe '#parse_for_results' do
+    let(:activity_session) { create(:activity_session) }
+
+    it 'should call all_concept_stats' do
+      expect(activity_session).to receive(:all_concept_stats).with(activity_session)
+      activity_session.parse_for_results
+    end
+  end
+
   describe "#activity_uid" do
 
   	it "must return an uid when activity is present" do
   		expect(activity_session.activity_uid).to be_present
   	end
 
+  end
+
+  describe 'search_sort_sql' do
+    it 'should return the right string for the right field' do
+      last_name = "substring(users.name, '(?=\s).*')"
+      expect(ActivitySession.search_sort_sql({field: 'activity_classification_name', direction: "desc"})).to eq("activity_classifications.name desc, #{last_name} desc")
+      expect(ActivitySession.search_sort_sql({field: 'student_name', direction: "desc"})).to eq("#{last_name} desc, users.name desc")
+      expect(ActivitySession.search_sort_sql({field: 'completed_at', direction: "desc"})).to eq("activity_sessions.completed_at desc")
+      expect(ActivitySession.search_sort_sql({field: 'activity_name', direction: "anything"})).to eq("activities.name asc")
+      expect(ActivitySession.search_sort_sql({field: 'percentage', direction: "anything"})).to eq("activity_sessions.percentage asc")
+      expect(ActivitySession.search_sort_sql({field: 'standard', direction: "anything"})).to eq("topics.name asc")
+      expect(ActivitySession.search_sort_sql({field: ''})).to eq("#{last_name} asc, users.name asc")
+      expect(ActivitySession.search_sort_sql({})).to eq("#{last_name} asc, users.name asc")
+    end
   end
 
   describe "#completed?" do
