@@ -319,6 +319,8 @@ class PagesController < ApplicationController
 
   # for link to premium within 'about' (discover) pages
   def premium
+    @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
+    @user_is_eligible_for_trial = current_user&.subscriptions&.none?
   end
 
   def tutorials
@@ -350,8 +352,6 @@ class PagesController < ApplicationController
       @beta_flag = current_user && current_user.flag == 'beta'
     end
   end
-
-  private
 
   def add_cards(list_response)
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
