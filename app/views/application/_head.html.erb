@@ -1,16 +1,15 @@
 <head>
   <% if Rails.env.development? %>
-    <title>[DEV] Quill.org &mdash; Interactive Writing and Grammar</title>
+    <title>[DEV] Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon-dev.ico' %>
   <% else %>
-    <title>Quill.org &mdash; Interactive Writing and Grammar</title>
+    <title>Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon.ico' %>
   <% end %>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= @title || "Free tools to make your students better writers." %></title>
   <meta property="og:type"               content="website" />
   <meta property="og:title"              content= "<%= @title || "Free tools to make your students better writers." %>" />
   <meta property="og:image"              content=<%= image_url('share/facebook.png') %> />
