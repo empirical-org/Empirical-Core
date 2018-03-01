@@ -42,7 +42,7 @@ exports[`PremiumPromo component should render 1`] = `
         className="pricing"
       >
         <h2>
-          $450*
+          $900*
         </h2>
         <span>
           per school
@@ -57,7 +57,8 @@ exports[`PremiumPromo component should render 1`] = `
     </div>
     <a
       className="q-button text-white"
-      href="/premium"
+      href="https://support.quill.org/quill-premium"
+      target="_blank"
     >
       Learn More About Premium
     </a>
