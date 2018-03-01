@@ -11,7 +11,7 @@ class Teachers::ProgressReports::Standards::StudentTopicsController < Teachers::
           serializer.as_json(root: false)
         end
         student = User.find(params[:student_id])
-        student = nil unless current_user.teaches(student.id)
+        student = nil unless current_user.teaches_student?(student.id)
         render json: {
           topics: topics_json,
           student: student,
