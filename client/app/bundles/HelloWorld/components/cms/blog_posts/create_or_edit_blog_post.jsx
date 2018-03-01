@@ -6,6 +6,8 @@ import MarkdownParser from '../../shared/markdown_parser.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 import BlogPostContent from '../../blog_posts/blog_post_content'
 import DatePicker from 'react-datepicker'
+import Dropzone from 'react-dropzone'
+import getAuthToken from '../../modules/get_auth_token'
 
 const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
@@ -77,6 +79,7 @@ export default class extends React.Component {
     this.showArticlePreview = this.showArticlePreview.bind(this)
     this.updatePublishedAt = this.updatePublishedAt.bind(this)
     this.goToPreview = this.goToPreview.bind(this)
+    this.onDrop = this.onDrop.bind(this)
   }
 
   componentDidMount() {
@@ -194,10 +197,12 @@ export default class extends React.Component {
         authenticity_token: ReactOnRails.authenticityToken()
       }
     }, (error, httpStatus, body) => {
+      const parsedBody = JSON.parse(body)
       if (httpStatus.statusCode === 200 && this.props.action === 'new') {
         alert('Post added successfully!');
-        window.location.href = `/cms/blog_posts/${JSON.parse(body).id}/edit`
+        window.location.href = (`/cms/blog_posts/${parsedBody.id}/edit`)
       } else if (httpStatus.statusCode === 200) {
+        this.setState({draft: parsedBody.draft})
         alert('Update successful!');
       } else {
         alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
@@ -225,7 +230,8 @@ export default class extends React.Component {
   }
 
   goToPreview() {
-    window.location.href = this.state.externalLink ? this.state.externalLink : `/teacher_resources/${this.state.slug}`
+    const url = this.state.externalLink ? this.state.externalLink : `/teacher_resources/${this.state.slug}`
+    window.open(url, '_blank')
   }
 
   insertMarkdown(startChar, endChar = null) {
@@ -255,6 +261,37 @@ export default class extends React.Component {
 
   handlePreviewCardTypeChange(e) {
     this.setState({ preview_card_type: e }, this.updatePreviewCardBasedOnType)
+  }
+
+  onDrop(acceptedFiles) {
+    acceptedFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+          const data = new FormData()
+          data.append('file', reader.result)
+          fetch(`${process.env.DEFAULT_URL}/cms/images/save_image`, {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+              'X-CSRF-Token': getAuthToken()
+            },
+            body: data
+          })
+          // .then(
+          //   response => response.json() // if the response is a JSON object
+          // ).then(
+          //   success => console.log(success); // Handle the success response object
+          // ).catch(
+          //   error => console.log(error); // Handle the error response object
+          // );
+        };
+          // do whatever you want with the file content
+          reader.onabort = () => console.log('file reading was aborted');
+          reader.onerror = () => console.log('file reading has failed');
+
+          reader.readAsBinaryString(file);
+      });
   }
 
   updatePreviewCardBasedOnType() {
@@ -399,13 +436,15 @@ export default class extends React.Component {
     if (['Tiny Image', 'Medium Image', 'Large Image'].includes(preview_card_type)) {
       contentFields = [
         <label>Link to an image with the dimensions in the preview:</label>,
+        <Dropzone onDrop={this.onDrop}/>,
+        <label>Link to an image with the dimensions in the preview:</label>,
         <input onChange={this.handleBlogPostPreviewImageChange} type='text' value={this.state.blogPostPreviewImage} />,
         <label>Title:</label>,
         <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
         <label>Description:</label>,
         <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />
       ]
-    } else if(preview_card_type === 'Custom HTML') {
+    } else if (preview_card_type === 'Custom HTML') {
       contentFields = [
         <label>Custom HTML:</label>,
         <textarea rows={4} type="text" id="preview-markdown-content" value={this.state.custom_preview_card_content} onChange={this.handleCustomPreviewChange} />
@@ -534,7 +573,7 @@ export default class extends React.Component {
             <div>
               <label>Author:</label>
               <ItemDropdown items={[nullAuthor].concat(this.props.authors)} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id) || nullAuthor} />
-              <a className="create-new-author-link" href="/cms/authors/new">Create New Author</a>
+              <a className="create-new-author-link" href="/cms/authors/new" target="_blank">Create New Author</a>
             </div>
             <div>
               <label>Topic:</label>
