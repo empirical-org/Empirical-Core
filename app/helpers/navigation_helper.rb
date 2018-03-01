@@ -38,6 +38,10 @@ module NavigationHelper
 
   end
 
+  def premium_page_should_display?
+    !current_user.is_premium? || current_user.premium_state == 'trial'
+  end
+
   def premium_tab_copy
     case current_user.premium_state
     when 'trial'
