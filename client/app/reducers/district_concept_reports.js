@@ -1,7 +1,7 @@
 const initialState = {
   loading: true,
   errors: false,
-  classroomsData: [],
+  conceptReportsData: [],
 };
 
 function updateObject(oldObject, newObject) {
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
       return updateObject(state, {
         loading: false,
         errors: action.body.errors,
-        classroomsData: JSON.parse(action.body).data,
+        conceptReportsData: JSON.parse(action.body).data,
       });
     default:
       return state;
