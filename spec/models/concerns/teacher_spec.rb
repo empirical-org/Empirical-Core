@@ -469,22 +469,22 @@ describe User, type: :model do
     end
   end
 
-  describe '#teaches' do
+  describe '#teaches_student?' do
     let(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
-    let(:student) { teacher.classrooms_i_own.first.students.first.id }
+    let(:student_id) { teacher.classrooms_i_own.first.students.first.id }
     let(:coteacher) { create(:coteacher_classrooms_teacher, classroom: teacher.classrooms_i_own.first).teacher }
     let(:other_teacher) { create(:teacher) }
 
     it 'should return true if the user teaches this student' do
-      expect(teacher.teaches(student)).to be(true)
+      expect(teacher.teaches_student?(student_id)).to be(true)
     end
 
     it 'should return true if the user coteaches this student' do
-      expect(coteacher.teaches(student)).to be(true)
+      expect(coteacher.teaches_student?(student_id)).to be(true)
     end
 
     it 'should return false if the user does not teach this student' do
-      expect(other_teacher.teaches(student)).to be(false)
+      expect(other_teacher.teaches_student?(student_id)).to be(false)
     end
   end
 end
