@@ -1,5 +1,7 @@
 @import './bootstrap-carousel.scss';
 @import '../../../../app/assets/stylesheets/variables.scss';
+@import '../../../../app/assets/stylesheets/pages/home.scss';
+@import '../../../../app/assets/stylesheets/bootstrap.scss';
 @import './navbar.scss';
 @import '/notification_bar.scss';
 @import './typography.scss';
@@ -13,6 +15,67 @@ body {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "adelle-sans", "Helvetica", "Arial", sans-serif;
+}
+
+.home-nav-right {
+  font-weight: 600;
+}
+
+.q-h1, .q-h2 {
+  font-weight: 700;
+}
+
+.info-section a:hover {
+  text-decoration: none;
+}
+
+a.q-button:hover {
+  border-color: inherit;
+  color: inherit;
+}
+
+p.feature-heading {
+  font-size: 16px;
+  margin: 1em 0;
+}
+
+.diagnostic-tool .info-section .ell-section {
+  .header, .flags {
+    width: 100% !important;
+  }
+}
+
+.tool-container {
+  h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin: 0.83em 0;
+  }
+
+  .how-to {
+    h2 {
+      font-weight: 600;
+    }
+
+    p, a {
+      font-size: 16px;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+  }
+
+  #q-and-a {
+    .expand-or-collapse {
+      margin: auto;
+    }
+  }
+}
+
+.navbar {
+  margin-top: 0;
 }
 
 a {

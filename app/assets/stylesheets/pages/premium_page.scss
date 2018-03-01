@@ -1,5 +1,4 @@
 .premium-tab {
-  background-color: #EA9A1A !important;
   a {
     background-color: #EA9A1A !important;
     color: #FFFFFF !important;
@@ -58,11 +57,15 @@
 }
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
-  border-top: 3px solid #875A12 !important;
+  background-color: #D3982A !important;
+  // border-top: 3px solid #875A12 !important;
+  // padding-top: 0 !important;
 }
 .premium-tab a.active,
 .premium-tab a:hover {
-  border-top: 3px solid #875A12 !important;
+  background-color: #D3982A !important;
+  // border-top: 3px solid #875A12 !important;
+  // padding-top: 0 !important;
 }
 .preview-section {
   text-align: center;

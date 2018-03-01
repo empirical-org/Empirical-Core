@@ -1,5 +1,4 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
-<%= render partial: 'teachers/classrooms/subnav' %>
 
 <div class="container">
   <%= react_component('EditCoteacherApp', props: {classrooms: @classrooms, coteachers: @coteachers, selected_teacher_id: @selected_teacher_id, selected_teachers_classrooms: @selected_teachers_classrooms }) %>

@@ -36,6 +36,10 @@ FactoryBot.define do
         end
       end
 
+      trait :has_a_stripe_customer_id do
+        stripe_customer_id 'fake_stripe_id'
+      end
+
       trait :signed_up_with_google do
         signed_up_with_google true
         google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
@@ -55,6 +59,12 @@ FactoryBot.define do
            classrooms.each do |classroom|
              create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
            end
+        end
+      end
+
+      trait :premium do
+        after(:create) do |teacher|
+          create(:user_subscription, user_id: teacher.id)
         end
       end
     end
@@ -87,6 +97,10 @@ FactoryBot.define do
         after(:create) do |user, evaluator|
           create_list(:activity_session, evaluator.activity_count, user: user)
         end
+      end
+
+      trait :with_generated_password do
+        password { name.to_s.split("\s")[-1] }
       end
 
       factory :student_in_two_classrooms_with_many_activities do
