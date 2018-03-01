@@ -108,20 +108,20 @@ function filterClassrooms(
 }
 
 const mapStateToProps = (state) => {
-  let filteredClassroomsData = filterClassrooms(
-    state.classroomsData,
+  let filteredConceptReportsData = filterClassrooms(
+    state.conceptReportsData,
     state.selectedSchool,
     state.selectedTeacher,
     state.selectedClassroom
   );
 
   let teacherNames = getTeacherNames(
-    state.classroomsData,
+    state.conceptReportsData,
     state.selectedSchool
   );
 
   let classroomNames = getClassroomNames(
-    state.classroomsData,
+    state.conceptReportsData,
     state.selectedSchool,
     state.selectedTeacher,
   );
@@ -132,12 +132,12 @@ const mapStateToProps = (state) => {
     selectedClassroom: state.selectedClassroom,
     selectedSchool: state.selectedSchool,
     selectedTeacher: state.selectedTeacher,
-    classroomsData: state.classroomsData,
-    filteredClassroomsData,
-    csvData: formatDataForCSV(filteredClassroomsData),
+    conceptReportsData: state.conceptReportsData,
+    filteredConceptReportsData,
+    csvData: formatDataForCSV(filteredConceptReportsData),
     classroomNames,
     teacherNames,
-    schoolNames: getSchoolNames(state.classroomsData),
+    schoolNames: getSchoolNames(state.conceptReportsData),
   }
 };
 const mapDispatchToProps = (dispatch) => {

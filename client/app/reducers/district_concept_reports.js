@@ -1,9 +1,15 @@
+const initialState = {
+  loading: true,
+  errors: false,
+  classroomsData: [],
+};
+
 function updateObject(oldObject, newObject) {
   return Object.assign({}, oldObject, newObject);
 }
 
-export default (state, action) => {
-  state = state || initialState;
+export default (state = initialState, action) => {
+  //state = state || initialState;
 
   switch(action.type) {
     case 'RECIEVE_DISTRICT_CONCEPT_REPORTS':
