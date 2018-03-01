@@ -17,21 +17,17 @@ describe Subscription, type: :model do
       let(:school_subscription) { create(:school_subscription, subscription: subscription, school: school) }
 
       it 'is a subscription with multiple users_subscriptions linked' do
-        Timecop.freeze(Date.today) do
-          user_subscription_2
-          old_sub_attributes = subscription.attributes
-          subscription.credit_user_and_de_activate
-          expect(subscription.reload.attributes).to eq(old_sub_attributes)
-        end
+        user_subscription_2
+        old_sub_attributes = subscription.reload.attributes
+        subscription.credit_user_and_de_activate
+        expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
 
       it 'is a subscription with any school subscriptions linked' do
-        Timecop.freeze(Date.today) do
-          school_subscription
-          old_sub_attributes = subscription.attributes
-          subscription.credit_user_and_de_activate
-          expect(subscription.reload.attributes).to eq(old_sub_attributes)
-        end
+        school_subscription
+        old_sub_attributes = subscription.reload.attributes
+        subscription.credit_user_and_de_activate
+        expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
     end
 
