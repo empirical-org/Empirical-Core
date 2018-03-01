@@ -180,12 +180,7 @@ export default class extends React.Component {
     let beginsOn;
     let nextPlanAlertOrButtons;
     const condition = this.getCondition();
-    if (!this.props.subscriptionStatus) {
-      const content = (<span>N/A
-                        <a href="/premium" className="green-link">Change Plan</a>
-      </span>);
-      return (<TitleAndContent title={'Next Plan'} content={content} />);
-    } else if (this.props.subscriptionStatus.expired) {
+    if (this.props.subscriptionStatus.expired) {
       return this.nextPlanAlertOrButtons(`${condition} expired`);
     } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
       const content = (<span>Quill Basic - Free
@@ -222,12 +217,14 @@ export default class extends React.Component {
   }
 
   nextPlan() {
-    return (
-      <div className="meta-section">
-        <h3>NEXT SUBSCRIPTION</h3>
-        {this.nextPlanContent()}
-      </div>
-    );
+    if (this.props.subscriptionStatus) {
+      return (
+        <div className="meta-section">
+          <h3>NEXT SUBSCRIPTION</h3>
+          {this.nextPlanContent()}
+        </div>
+      );
+    }
   }
 
   content() {
