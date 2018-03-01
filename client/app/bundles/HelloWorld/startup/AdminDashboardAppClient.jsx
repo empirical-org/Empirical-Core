@@ -8,10 +8,10 @@ import { Provider } from 'react-redux';
 
 // TODO: start here tm: combined reducer is causing problems -- probably a
 // namespace issue
-//const reducer = combineReducers({districtActivityScores, districtConceptReports})
-//const store = createStore(reducer, applyMiddleware(thunk));
+const reducer = combineReducers({districtActivityScores, districtConceptReports})
+const store = createStore(reducer, applyMiddleware(thunk));
 
-const store = createStore(districtActivityScores, applyMiddleware(thunk));
+//const store = createStore(districtActivityScores, applyMiddleware(thunk));
 const AdminDashboardApp = (props) => {
   return(
     <Provider store={store}>
