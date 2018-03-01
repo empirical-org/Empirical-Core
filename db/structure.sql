@@ -72,6 +72,24 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: blog_posts_search_trigger(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION blog_posts_search_trigger() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+      begin
+        new.tsv :=
+          setweight(to_tsvector(COALESCE(new.title, '')), 'A') ||
+          setweight(to_tsvector(COALESCE(new.body, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(new.subtitle, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(new.topic, '')), 'C');
+        return new;
+      end
+      $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -435,6 +453,40 @@ ALTER SEQUENCE authors_id_seq OWNED BY authors.id;
 
 
 --
+-- Name: blog_post_user_ratings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE blog_post_user_ratings (
+    id integer NOT NULL,
+    blog_post_id integer,
+    user_id integer,
+    rating integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE blog_post_user_ratings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE blog_post_user_ratings_id_seq OWNED BY blog_post_user_ratings.id;
+
+
+--
 -- Name: blog_posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -450,7 +502,9 @@ CREATE TABLE blog_posts (
     draft boolean DEFAULT true,
     author_id integer,
     preview_card_content text NOT NULL,
-    slug character varying
+    slug character varying,
+    premium boolean DEFAULT false,
+    tsv tsvector
 );
 
 
@@ -1204,6 +1258,72 @@ ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
 
 
 --
+-- Name: referrals_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE referrals_users (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    referred_user_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: referrals_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE referrals_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: referrals_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE referrals_users_id_seq OWNED BY referrals_users.id;
+
+
+--
+-- Name: referrer_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE referrer_users (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    referral_code character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: referrer_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE referrer_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: referrer_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE referrer_users_id_seq OWNED BY referrer_users.id;
+
+
+--
 -- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1881,6 +2001,13 @@ ALTER TABLE ONLY authors ALTER COLUMN id SET DEFAULT nextval('authors_id_seq'::r
 
 
 --
+-- Name: blog_post_user_ratings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_post_user_ratings ALTER COLUMN id SET DEFAULT nextval('blog_post_user_ratings_id_seq'::regclass);
+
+
+--
 -- Name: blog_posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2224,6 +2351,14 @@ ALTER TABLE ONLY announcements
 
 ALTER TABLE ONLY authors
     ADD CONSTRAINT authors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blog_post_user_ratings blog_post_user_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_post_user_ratings
+    ADD CONSTRAINT blog_post_user_ratings_pkey PRIMARY KEY (id);
 
 
 --
@@ -2678,6 +2813,13 @@ CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teach
 
 
 --
+-- Name: index_announcements_on_start_and_end; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_announcements_on_start_and_end ON announcements USING btree (start, "end" DESC);
+
+
+--
 -- Name: index_blog_posts_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2937,6 +3079,34 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING 
 
 
 --
+-- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_referrals_users_on_referred_user_id ON referrals_users USING btree (referred_user_id);
+
+
+--
+-- Name: index_referrals_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_referrals_users_on_user_id ON referrals_users USING btree (user_id);
+
+
+--
+-- Name: index_referrer_users_on_referral_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON referrer_users USING btree (referral_code);
+
+
+--
+-- Name: index_referrer_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btree (user_id);
+
+
+--
 -- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3189,6 +3359,13 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 
 
 --
+-- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tsv_idx ON blog_posts USING gin (tsv);
+
+
+--
 -- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3333,6 +3510,13 @@ CREATE INDEX users_to_tsvector_idx9 ON users USING gin (to_tsvector('english'::r
 --
 
 CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
+
+
+--
+-- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
 
 
 --
@@ -3814,4 +3998,14 @@ INSERT INTO schema_migrations (version) VALUES ('20180206235328');
 INSERT INTO schema_migrations (version) VALUES ('20180207154242');
 
 INSERT INTO schema_migrations (version) VALUES ('20180207165525');
+
+INSERT INTO schema_migrations (version) VALUES ('20180220204422');
+
+INSERT INTO schema_migrations (version) VALUES ('20180221162940');
+
+INSERT INTO schema_migrations (version) VALUES ('20180221163408');
+
+INSERT INTO schema_migrations (version) VALUES ('20180221170200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180222160302');
 
