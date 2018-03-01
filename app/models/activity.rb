@@ -134,6 +134,7 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  #this method is not used anywhere, consider deleting
   def homepage_path(path, classification)
     case classification.app_name.to_sym
     when :grammar
