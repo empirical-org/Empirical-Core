@@ -18,14 +18,14 @@ describe Subscription, type: :model do
 
       it 'is a subscription with multiple users_subscriptions linked' do
         user_subscription_2
-        old_sub_attributes = subscription.attributes
+        old_sub_attributes = subscription.reload.attributes
         subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
 
       it 'is a subscription with any school subscriptions linked' do
         school_subscription
-        old_sub_attributes = subscription.attributes
+        old_sub_attributes = subscription.reload.attributes
         subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
