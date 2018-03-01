@@ -1301,8 +1301,7 @@ CREATE TABLE referrals_users (
     user_id integer NOT NULL,
     referred_user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    activated boolean DEFAULT false
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1869,6 +1868,37 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
+-- Name: untitled_materialized_view; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW untitled_materialized_view AS
+ SELECT ((sum(a.total_students) / sum(b.total_students)) * (( SELECT count(DISTINCT s.id) AS students
+           FROM ((((((users t
+             LEFT JOIN ip_locations ON ((ip_locations.user_id = t.id)))
+             LEFT JOIN classrooms ON ((t.id = classrooms.teacher_id)))
+             LEFT JOIN users s ON (((classrooms.code)::text = (s.classcode)::text)))
+             LEFT JOIN activity_sessions ON ((s.id = activity_sessions.user_id)))
+             LEFT JOIN schools_users ON ((t.id = schools_users.user_id)))
+             LEFT JOIN schools ON ((schools_users.school_id = schools.id)))
+          WHERE (((activity_sessions.state)::text = 'finished'::text) AND (activity_sessions.completed_at < date_trunc('DAY'::text, (('now'::text)::date - '1 year'::interval))) AND ((ip_locations.country IS NULL) OR ((ip_locations.country)::text = 'United States'::text)))))::numeric)
+   FROM ( SELECT count(DISTINCT students.id) AS total_students
+           FROM ((((schools s
+             JOIN schools_users ON ((schools_users.school_id = s.id)))
+             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
+             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
+             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
+          WHERE ((schools_users.school_id IS NOT NULL) AND (s.free_lunches >= 40))) a,
+    ( SELECT count(DISTINCT students.id) AS total_students
+           FROM ((((schools s
+             JOIN schools_users ON ((schools_users.school_id = s.id)))
+             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
+             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
+             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
+          WHERE (schools_users.school_id IS NOT NULL)) b
+  WITH NO DATA;
+
+
+--
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2215,20 +2245,6 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
-
-
---
--- Name: referrals_users id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY referrals_users ALTER COLUMN id SET DEFAULT nextval('referrals_users_id_seq'::regclass);
-
-
---
--- Name: referrer_users id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY referrer_users ALTER COLUMN id SET DEFAULT nextval('referrer_users_id_seq'::regclass);
 
 
 --
@@ -2620,22 +2636,6 @@ ALTER TABLE ONLY objectives
 
 ALTER TABLE ONLY page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
-
-
---
--- Name: referrals_users referrals_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY referrals_users
-    ADD CONSTRAINT referrals_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: referrer_users referrer_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY referrer_users
-    ADD CONSTRAINT referrer_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -3185,13 +3185,6 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
-
-
---
--- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_referrals_users_on_activated ON referrals_users USING btree (activated);
 
 
 --
@@ -4148,10 +4141,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180102151559');
 
 INSERT INTO schema_migrations (version) VALUES ('20180110221301');
 
-INSERT INTO schema_migrations (version) VALUES ('20180119152409');
-
-INSERT INTO schema_migrations (version) VALUES ('20180119162847');
-
 INSERT INTO schema_migrations (version) VALUES ('20180122184126');
 
 INSERT INTO schema_migrations (version) VALUES ('20180123151650');
@@ -4213,4 +4202,3 @@ INSERT INTO schema_migrations (version) VALUES ('20180222160256');
 INSERT INTO schema_migrations (version) VALUES ('20180222160302');
 
 INSERT INTO schema_migrations (version) VALUES ('20180222190628');
-
