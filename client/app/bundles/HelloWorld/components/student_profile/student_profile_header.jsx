@@ -1,19 +1,19 @@
-import React from 'react';
+import React from 'react'
 
-const StudentProfileHeader = ({ classroomName, teacherName, studentName, }) => {
-  return (
-    <div className="container student-profile-header">
-      <div className="header">
-        <span>
-          {classroomName} | {teacherName}
-        </span>
-        <span>
-          {studentName}
-        </span>
+export default class StudentProfileHeader extends React.Component {
+  constructor() {
+    super()
+  }
+
+  render(){
+    return(
+      <div className="container student-profile-header">
+        <div className="header">
+          <span>{this.props.classroomName} | {this.props.teacherName}</span>
+          <span>{this.props.studentName}</span>
+        </div>
+        <div className="dividing-line"/>
       </div>
-      <div className="dividing-line" />
-    </div>
-  );
-};
-
-export default StudentProfileHeader;
+    )
+  }
+}
