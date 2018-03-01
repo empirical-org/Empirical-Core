@@ -69,4 +69,72 @@ module TeacherFixes
     SchoolsUsers.where(school_id: from_school_id).update_all(school_id: to_school_id)
   end
 
+  def self.merge_two_classrooms(class_id_1, class_id_2)
+    move_students_from_one_class_to_another(class_id_1, class_id_2)
+
+    move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
+
+    assign_teachers_to_other_class(class_id_1, class_id_2)
+    Classroom.find(class_id_1).update(visible: false)
+  end
+
+  def self.move_students_from_one_class_to_another(class_id_1, class_id_2)
+    StudentsClassrooms.where(classroom_id: class_id_1).each do |sc|
+      if StudentsClassrooms.find_by(classroom_id: class_id_2, student_id: sc.student_id)
+        sc.update(visible: false)
+      else
+        sc.update(classroom_id: class_id_2)
+      end
+    end
+  end
+
+  def self.move_classroom_activities_and_activity_sessions_from_one_class_to_another(class_id_1, class_id_2)
+    ClassroomActivity.where(classroom_id: class_id_1).each do |ca|
+      extant_ca = ClassroomActivity.find_by(classroom_id: class_id_2, activity_id: ca.activity_id, unit_id: ca.unit_id)
+      if extant_ca
+        ca.activity_sessions.update_all(classroom_activity_id: extant_ca.id)
+        extant_ca.update(assigned_student_ids: ca.assigned_student_ids.concat(extant_ca.assigned_student_ids).uniq)
+        extant_ca.assigned_student_ids.each do |student_id|
+          hide_extra_activity_sessions(extant_ca.id, student_id)
+        end
+        ca.update(visible: false)
+      else
+        ca.update(classroom_id: class_id_2)
+      end
+    end
+  end
+
+  def self.assign_teachers_to_other_class(class_id_1, class_id_2)
+    ClassroomsTeacher.where(classroom_id: class_id_1).each do |ct|
+      if ClassroomsTeacher.where(user_id: ct.user_id, classroom_id: class_id_2).any?
+        ct.destroy
+      else
+        ct.update(classroom_id: class_id_2, role: 'coteacher')
+      end
+    end
+  end
+
+  def self.delete_last_activity_session(user_id, activity_id)
+    last_activity_session = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id).order("activity_sessions.completed_at DESC").limit(1)[0]
+    if last_activity_session
+      last_activity_session.delete
+    else
+      raise 'This activity session does not exist'
+    end
+
+    remaining_activity_sessions = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)
+    if remaining_activity_sessions.length > 1 && remaining_activity_sessions.none? { |as| as.is_final_score} && remaining_activity_sessions.any? { |as| as.state === 'finished'}
+      remaining_activity_sessions.order(:percentage).first.update(is_final_score: true)
+    end
+  end
+
+  def self.get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)
+    ActivitySession.joins("JOIN users ON activity_sessions.user_id = users.id")
+    .joins("JOIN classroom_activities ON activity_sessions.classroom_activity_id = classroom_activities.id")
+    .where("users.id = ?", user_id)
+    .where("classroom_activities.activity_id = ?", activity_id)
+    .where("activity_sessions.visible = true")
+    .where("activity_sessions.state = 'finished'")
+  end
+
 end
