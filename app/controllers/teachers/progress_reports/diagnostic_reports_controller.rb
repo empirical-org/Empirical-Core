@@ -3,18 +3,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     include LessonsRecommendations
     require 'pusher'
 
+    before_filter :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
+
     def show
         @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
         @report = params[:report] || 'question'
     end
 
     def question_view
-        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: { data:   results_by_question(params) }.to_json
     end
 
     def students_by_classroom
-        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
     end
 
@@ -24,17 +24,14 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def recommendations_for_classroom
-        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: get_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
     def lesson_recommendations_for_classroom
-        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
         render json: {lessonsRecommendations: get_recommended_lessons(params[:unit_id], params[:classroom_id], params[:activity_id])}
     end
 
     def previously_assigned_recommendations
-      return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
       render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
     end
 
@@ -135,6 +132,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
             end
           end
         end
+    end
+
+    def authorize_teacher!
+      classroom_teacher!(params[:classroom_id])
     end
 
 end
