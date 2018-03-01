@@ -92,6 +92,7 @@ class Subscription < ActiveRecord::Base
     new_sub = self.dup
     new_sub.expiration = self.expiration + 365
     new_sub.start_date = self.expiration
+    self.update(de_activated_date: Date.today)
     new_sub.save!
   end
 
