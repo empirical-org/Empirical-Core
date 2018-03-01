@@ -63,7 +63,7 @@ export default class BlogPost extends React.Component {
         <article>
           <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>
           <BlogPostContent
-            updatedAt={this.props.blogPost.updated_at}
+            updatedAt={this.props.blogPost.published_at ? this.props.blogPost.published_at : this.props.blogPost.updated_at}
             title={this.props.blogPost.title}
             body={this.props.blogPost.body}
             author={this.props.author}
