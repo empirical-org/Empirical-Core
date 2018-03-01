@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Modal from 'react-bootstrap/lib/Modal';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-export default React.createClass({
+export default createReactClass({
   getModalContent() {
     const startD = moment(this.props.subscription.start_date);
     const endD = moment(this.props.subscription.expiration);

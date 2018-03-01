@@ -1,10 +1,12 @@
 'use strict';
-import React from 'react'
-import StudentsClassroomsHeader from './students_classrooms/students_classrooms_header.jsx'
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import StudentsClassroomsHeader from './students_classrooms/students_classrooms_header.jsx';
 
-export default  React.createClass({
+export default  createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired
+    data: PropTypes.object.isRequired
   },
 
   render: function () {

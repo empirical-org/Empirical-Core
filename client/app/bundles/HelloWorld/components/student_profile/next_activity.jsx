@@ -4,7 +4,7 @@ import ActivityIconWithTooltip from '../general_components/activity_icon_with_to
 import LoadingIndicator from '../shared/loading_indicator';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
-export default React.createClass({
+export default createReactClass({
 
   dataForActivityIconWithToolTip() {
     return {

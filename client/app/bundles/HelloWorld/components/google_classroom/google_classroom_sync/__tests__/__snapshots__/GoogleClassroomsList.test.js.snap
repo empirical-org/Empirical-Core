@@ -39,7 +39,9 @@ exports[`the GoogleClassroomsList component should render 1`] = `
   <div>
     <table>
       <tbody>
-        <tr>
+        <tr
+          key="3799271824"
+        >
           <td>
             <div
               className="donalito-checkbox"
@@ -101,6 +103,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                         className="select-grade has-grade"
                         disabled={false}
                         id="grade-dropdown-3799271824"
+                        key=".0"
                         onClick={[Function]}
                         onKeyDown={[Function]}
                         open={false}
@@ -142,6 +145,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                       <DropdownMenu
                         bsClass="dropdown-menu"
                         bsRole="menu"
+                        key=".1"
                         labelledBy="grade-dropdown-3799271824"
                         onClose={[Function]}
                         onSelect={[Function]}
@@ -169,6 +173,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="1-3799271824"
+                              key=".$1-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -209,6 +214,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="2-3799271824"
+                              key=".$2-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -249,6 +255,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="3-3799271824"
+                              key=".$3-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -289,6 +296,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="4-3799271824"
+                              key=".$4-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -329,6 +337,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="5-3799271824"
+                              key=".$5-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -369,6 +378,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="6-3799271824"
+                              key=".$6-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -409,6 +419,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="7-3799271824"
+                              key=".$7-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -449,6 +460,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="8-3799271824"
+                              key=".$8-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -489,6 +501,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="9-3799271824"
+                              key=".$9-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -529,6 +542,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="10-3799271824"
+                              key=".$10-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -569,6 +583,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="11-3799271824"
+                              key=".$11-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -609,6 +624,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="12-3799271824"
+                              key=".$12-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -649,6 +665,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="university-3799271824"
+                              key=".$university-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -689,6 +706,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="other-3799271824"
+                              key=".$other-3799271824"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -727,7 +745,9 @@ exports[`the GoogleClassroomsList component should render 1`] = `
             </DropdownButton>
           </td>
         </tr>
-        <tr>
+        <tr
+          key="4451629374"
+        >
           <td>
             <div
               className="donalito-checkbox"
@@ -787,6 +807,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                         className="select-grade null"
                         disabled={false}
                         id="grade-dropdown-4451629374"
+                        key=".0"
                         onClick={[Function]}
                         onKeyDown={[Function]}
                         open={false}
@@ -828,6 +849,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                       <DropdownMenu
                         bsClass="dropdown-menu"
                         bsRole="menu"
+                        key=".1"
                         labelledBy="grade-dropdown-4451629374"
                         onClose={[Function]}
                         onSelect={[Function]}
@@ -855,6 +877,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="1-4451629374"
+                              key=".$1-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -895,6 +918,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="2-4451629374"
+                              key=".$2-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -935,6 +959,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="3-4451629374"
+                              key=".$3-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -975,6 +1000,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="4-4451629374"
+                              key=".$4-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1015,6 +1041,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="5-4451629374"
+                              key=".$5-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1055,6 +1082,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="6-4451629374"
+                              key=".$6-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1095,6 +1123,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="7-4451629374"
+                              key=".$7-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1135,6 +1164,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="8-4451629374"
+                              key=".$8-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1175,6 +1205,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="9-4451629374"
+                              key=".$9-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1215,6 +1246,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="10-4451629374"
+                              key=".$10-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1255,6 +1287,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="11-4451629374"
+                              key=".$11-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1295,6 +1328,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="12-4451629374"
+                              key=".$12-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1335,6 +1369,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="university-4451629374"
+                              key=".$university-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1375,6 +1410,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="other-4451629374"
+                              key=".$other-4451629374"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1413,7 +1449,9 @@ exports[`the GoogleClassroomsList component should render 1`] = `
             </DropdownButton>
           </td>
         </tr>
-        <tr>
+        <tr
+          key="3783127312"
+        >
           <td>
             <div
               className="donalito-checkbox"
@@ -1462,6 +1500,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                         className="select-grade null"
                         disabled={true}
                         id="grade-dropdown-3783127312"
+                        key=".0"
                         onClick={[Function]}
                         onKeyDown={[Function]}
                         open={false}
@@ -1503,6 +1542,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                       <DropdownMenu
                         bsClass="dropdown-menu"
                         bsRole="menu"
+                        key=".1"
                         labelledBy="grade-dropdown-3783127312"
                         onClose={[Function]}
                         onSelect={[Function]}
@@ -1530,6 +1570,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="1-3783127312"
+                              key=".$1-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1570,6 +1611,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="2-3783127312"
+                              key=".$2-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1610,6 +1652,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="3-3783127312"
+                              key=".$3-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1650,6 +1693,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="4-3783127312"
+                              key=".$4-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1690,6 +1734,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="5-3783127312"
+                              key=".$5-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1730,6 +1775,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="6-3783127312"
+                              key=".$6-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1770,6 +1816,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="7-3783127312"
+                              key=".$7-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1810,6 +1857,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="8-3783127312"
+                              key=".$8-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1850,6 +1898,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="9-3783127312"
+                              key=".$9-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1890,6 +1939,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="10-3783127312"
+                              key=".$10-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1930,6 +1980,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="11-3783127312"
+                              key=".$11-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -1970,6 +2021,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="12-3783127312"
+                              key=".$12-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -2010,6 +2062,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="university-3783127312"
+                              key=".$university-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >
@@ -2050,6 +2103,7 @@ exports[`the GoogleClassroomsList component should render 1`] = `
                               }
                               header={false}
                               id="other-3783127312"
+                              key=".$other-3783127312"
                               onKeyDown={[Function]}
                               onSelect={[Function]}
                             >

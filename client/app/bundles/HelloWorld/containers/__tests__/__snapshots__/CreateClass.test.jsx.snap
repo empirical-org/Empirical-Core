@@ -54,6 +54,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={1}
               header={false}
+              key="1"
             >
               1st
             </MenuItem>
@@ -63,6 +64,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={2}
               header={false}
+              key="2"
             >
               2nd
             </MenuItem>
@@ -72,6 +74,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={3}
               header={false}
+              key="3"
             >
               3rd
             </MenuItem>
@@ -81,6 +84,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={4}
               header={false}
+              key="4"
             >
               4th
             </MenuItem>
@@ -90,6 +94,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={5}
               header={false}
+              key="5"
             >
               5th
             </MenuItem>
@@ -99,6 +104,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={6}
               header={false}
+              key="6"
             >
               6th
             </MenuItem>
@@ -108,6 +114,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={7}
               header={false}
+              key="7"
             >
               7th
             </MenuItem>
@@ -117,6 +124,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={8}
               header={false}
+              key="8"
             >
               8th
             </MenuItem>
@@ -126,6 +134,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={9}
               header={false}
+              key="9"
             >
               9th
             </MenuItem>
@@ -135,6 +144,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={10}
               header={false}
+              key="10"
             >
               10th
             </MenuItem>
@@ -144,6 +154,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={11}
               header={false}
+              key="11"
             >
               11th
             </MenuItem>
@@ -153,6 +164,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey={12}
               header={false}
+              key="12"
             >
               12th
             </MenuItem>
@@ -162,6 +174,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey="University"
               header={false}
+              key="University"
             >
               University
             </MenuItem>
@@ -171,6 +184,7 @@ exports[`CreateClass container should render a blank create class form if no cla
               divider={false}
               eventKey="Other"
               header={false}
+              key="Other"
             >
               Other
             </MenuItem>

@@ -20,6 +20,7 @@ exports[`BasicTeacherInfo component renders a signup form 1`] = `
   />
   <div
     className="text-input-row"
+    key="first_name"
   >
     <div
       className="form-label"
@@ -36,6 +37,7 @@ exports[`BasicTeacherInfo component renders a signup form 1`] = `
   </div>
   <div
     className="text-input-row"
+    key="last_name"
   >
     <div
       className="form-label"
@@ -52,6 +54,7 @@ exports[`BasicTeacherInfo component renders a signup form 1`] = `
   </div>
   <div
     className="text-input-row"
+    key="email"
   >
     <div
       className="form-label"
@@ -68,6 +71,7 @@ exports[`BasicTeacherInfo component renders a signup form 1`] = `
   </div>
   <div
     className="text-input-row"
+    key="password"
   >
     <div
       className="form-label"
