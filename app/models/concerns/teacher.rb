@@ -486,7 +486,7 @@ module Teacher
     self.referrals_users.count
   end
 
-  def teaches(student_id)
+  def teaches_student?(student_id)
     ActiveRecord::Base.connection.execute("
       SELECT 1
       FROM users
