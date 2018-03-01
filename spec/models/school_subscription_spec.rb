@@ -9,47 +9,39 @@ describe SchoolSubscription, type: :model do
   it { is_expected.to callback(:update_schools_users).after(:commit) }
   it { is_expected.to callback(:send_premium_emails).after(:create) }
 
+    describe "presence of" do
+      it "school_id" do
+        expect{school_sub.update!(school_id: nil)}.to raise_error
+      end
+    end
+
+
 
 let!(:school_sub) {create(:school_subscription)}
-
-  context "update_or_create" do
-    it "updates existing SchoolSubscriptions to the new subscription_id" do
-      SchoolSubscription.update_or_create(school_sub.school_id, 11)
-      expect(school_sub.reload.subscription_id).to eq(11)
-    end
-
-    it "creates new UserSubscriptions with the passed subscription_id and user_id" do
-      SchoolSubscription.update_or_create(99, 11)
-      new_school_sub = SchoolSubscription.last
-      expect([ new_school_sub.school_id,  new_school_sub.subscription_id]).to eq([99,11])
-    end
-  end
 
 
   context '#update_schools_users' do
     let(:user) { create(:user) }
-    let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385', users: [user]}
-    let!(:queens_teacher) { create(:teacher, school: queens_school) }
-    let!(:subscription) {create(:subscription)}
+    let!(:queens_teacher) { create(:teacher, name: 'queens teacher') }
+    let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385', users: [queens_teacher, user]}
+
+    let!(:subscription) {create(:subscription, account_type: 'School Paid')}
     let!(:school_sub) {create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
 
 
-    it "connects a premium account to school's users if they do not have one" do
-      expect(queens_teacher.subscription).to eq(nil)
+    it "connects a new premium account to school's users if they do not have one" do
+      queens_teacher.user_subscriptions.destroy_all
+      expect(queens_teacher.reload.subscription).to eq(nil)
       school_sub.update_schools_users
       expect(queens_teacher.reload.subscription).to eq(school_sub.subscription)
     end
 
     it "connects a new premium account to school's users if they do have one" do
-      old_sub = Subscription.create_or_update_with_user_join(queens_teacher.id, {account_type: 'paid', account_limit: 1000})
+      queens_teacher.user_subscriptions.destroy_all
+      old_sub = Subscription.create_with_user_join(queens_teacher.id, {account_type: 'paid', account_limit: 1000})
       expect(queens_teacher.reload.subscription).to eq(old_sub)
       school_sub.update_schools_users
       expect(queens_teacher.reload.subscription).to eq(school_sub.subscription)
-    end
-
-    it "update or create the user subscription" do
-      expect(UserSubscription).to receive(:update_or_create).with(user.id, subscription.id)
-      school_sub.update_schools_users
     end
   end
 

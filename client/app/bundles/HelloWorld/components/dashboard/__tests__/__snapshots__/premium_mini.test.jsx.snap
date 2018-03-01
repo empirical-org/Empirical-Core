@@ -29,9 +29,10 @@ exports[`PremiumMini component should render 1`] = `
         Unlock your Premium trial to save time grading and gain actionable insights.
       </p>
       <a
-        href="/premium"
+        href="https://support.quill.org/quill-premium"
+        target="_blank"
       >
-        Learn more about Premium &gt;
+        Learn more about Premium
       </a>
     </div>
   </div>
