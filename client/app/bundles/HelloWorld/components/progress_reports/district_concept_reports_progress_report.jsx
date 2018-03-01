@@ -32,11 +32,11 @@ export default class extends React.Component {
     }, (e, r, body) => {
       const data = JSON.parse(body).data
       const csvData = this.formatDataForCSV(data)
-      const classroomsData = data;
+      const conceptReportsData = data;
       // gets unique classroom names
-      const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
+      const classroomNames = [...new Set(conceptReportsData.map(row => row.classroom_name))]
       classroomNames.unshift(showAllClassroomKey)
-      that.setState({loading: false, errors: body.errors, classroomsData, csvData, classroomNames});
+      that.setState({loading: false, errors: body.errors, conceptReportsData, csvData, classroomNames});
     });
   }
 
@@ -99,11 +99,11 @@ export default class extends React.Component {
     this.setState({selectedClassroom: classroom})
   }
 
-  filteredClassroomsData() {
+  filteredConceptReportsData() {
     if (this.state.selectedClassroom === showAllClassroomKey) {
-      return this.state.classroomsData
+      return this.state.conceptReportsData
     }
-    return this.state.classroomsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
+    return this.state.conceptReportsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
   }
 
   tableOrEmptyMessage(filteredClassroomsData){
@@ -132,7 +132,7 @@ export default class extends React.Component {
     if (this.state.loading) {
       return <LoadingSpinner/>
     }
-    const filteredConceptReportsData = this.filteredConceptReportData()
+    const filteredConceptReportsData = this.filteredConceptReportsData()
     return (
       <div className='concept-reports-by-classroom progress-reports-2018'>
         <div className="meta-overview flex-row space-between">
