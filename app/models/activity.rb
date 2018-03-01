@@ -98,7 +98,7 @@ class Activity < ActiveRecord::Base
 
   def self.clear_activity_search_cache
     %w(production_ beta_ alpha_).push('').each do |flag|
-      $redis.del("default_#{}activity_search")
+      $redis.del("default_#{flag}activity_search")
     end
   end
 
@@ -134,6 +134,7 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  #this method is not used anywhere, consider deleting
   def homepage_path(path, classification)
     case classification.app_name.to_sym
     when :grammar

@@ -18,7 +18,7 @@ class ActivitiesController < ApplicationController
   def preview_lesson
     lesson = Activity.find_by(id: params[:lesson_id]) || Activity.find_by(uid: params[:lesson_id])
     base_route = lesson.classification.form_url
-    preview_url = "#{base_route}customize/#{lesson.uid}?&preview=true"
+    preview_url = "#{base_route}teach/class-lessons/#{lesson.uid}/preview"
     if current_user
       completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
       if completed
@@ -47,7 +47,9 @@ class ActivitiesController < ApplicationController
 protected
 
   def custom_search
-    activity_search_results = $redis.get("default_#{current_user.flag}_activity_search")
+    flag = current_user.flag
+    substring = flag ? flag + "_" : ""
+    activity_search_results = $redis.get("default_#{substring}activity_search")
     unless activity_search_results
       activity_search_results = JSON.parse(ActivitySearchWrapper.set_and_return_search_cache_data(current_user.flag))
     end

@@ -1,8 +1,10 @@
 module CleverIntegration::Creators::School
 
   def self.run(parsed_response)
-    school = ::School.find_or_create_by(name: parsed_response[:name])
-    school
+    unless parsed_response[:nces_id].blank?
+      school = ::School.find_by(nces_id: parsed_response[:nces_id])
+      school
+    end
   end
 
 end

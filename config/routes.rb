@@ -22,10 +22,28 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  # for Stripe
-  resources :charges
+  resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug do
+    collection do
+      get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
+    end
+  end
 
-  resources :subscriptions
+  post 'rate_blog_post', to: 'blog_post_user_ratings#create'
+
+
+  # for Stripe
+  resources :charges, only: [:create]
+  post 'charges/update_card' => 'charges#update_card'
+  post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
+  post 'charges/new_school_premium' => 'charges#new_school_premium'
+  put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
+
+  resources :subscriptions do
+    member do
+      get :purchaser_name
+    end
+  end
   resources :assessments
   resources :assignments
   resource :profile
@@ -135,6 +153,10 @@ EmpiricalGrammar::Application.routes.draw do
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
+    get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
+    # in actual use with progress_reports/student_overview, pass the query string ?classroom_id=x&student_id=y
+    get 'progress_reports/student_overview' => 'progress_reports#student_overview'
+
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
@@ -206,6 +228,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         post :hide
         get  :students_list, controller: 'classroom_manager', action: 'students_list'
+        post :transfer_ownership
       end
       #this can't go in with member because the id is outside of the default scope
 
@@ -265,6 +288,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :users,                   only: [:index]
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
+      post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
       resource :firebase_tokens,          only: [:create]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
@@ -273,9 +297,12 @@ EmpiricalGrammar::Application.routes.draw do
       put 'classroom_activities/:id/pin_activity' => 'classroom_activities#pin_activity'
       put 'classroom_activities/:id/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
       get 'classroom_activities/:id/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
+      get 'classroom_activities/:id/classroom_teacher_and_coteacher_ids' => 'classroom_activities#classroom_teacher_and_coteacher_ids'
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
+      get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
+      get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -313,6 +340,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'schools#select_school'
+  get '/select_school', to: 'schools#select_school'
 
   namespace :cms do
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
@@ -331,7 +359,10 @@ EmpiricalGrammar::Application.routes.draw do
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
-
+    put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
+    resources :blog_posts
+    get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
+    get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
     end
@@ -366,9 +397,11 @@ EmpiricalGrammar::Application.routes.draw do
         post :add_admin_by_email
       end
     end
+
+    resources :announcements, only: [:index, :new, :create, :update, :edit]
   end
 
-  other_pages = %w(beta board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium media_kit play news home_new map firewall_info)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
@@ -402,6 +435,9 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/recover_activity_sessions' => 'teacher_fix#index'
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
+  get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
+  get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
+  get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
@@ -410,6 +446,9 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#merge_teacher_accounts'
   post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
+  post 'teacher_fix/merge_two_schools' => 'teacher_fix#merge_two_schools'
+  post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
+  post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
@@ -457,7 +496,10 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews' => "rails/mailers#index"
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
+  get "/donate" => redirect("https://community.quill.org/donate")
   # catch-all 404
   get '*path', to: 'application#routing_error'
+
+
 
 end

@@ -1,8 +1,10 @@
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
   before_filter :teacher!
-  before_filter :authorize_owner!, except: [:scores, :units, :scorebook]
-  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook]
+  # The excepted/only methods below are ones that should be accessible to coteachers.
+  # TODO This authing could probably be refactored.
+  before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf]
+  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
   def index
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
@@ -33,7 +35,9 @@ class Teachers::ClassroomsController < ApplicationController
   def create
     @classroom = Classroom.create_with_join(classroom_params, current_user.id)
     if @classroom.valid?
-      render json: {classroom: @classroom, toInviteStudents: current_user.students.empty?}
+      # For onboarding purposes, we don't want to prompt a teacher to invite students before they've assigned any units.
+      should_redirect_to_invite_students = @classroom.students.empty? && current_user.units.any?
+      render json: {classroom: @classroom, toInviteStudents: should_redirect_to_invite_students}
     else
        render json: {errors: @classroom.errors.full_messages }, status: 422
     end
@@ -88,6 +92,24 @@ class Teachers::ClassroomsController < ApplicationController
         send_data pdf.render, filename: "quill_logins_for_#{filename.downcase}.pdf", type: "application/pdf"
       end
     end
+  end
+
+  def transfer_ownership
+    requested_new_owner_id = params[:requested_new_owner_id]
+    owner_role = ClassroomsTeacher::ROLE_TYPES[:owner]
+    coteacher_role = ClassroomsTeacher::ROLE_TYPES[:coteacher]
+
+    begin
+      ActiveRecord::Base.transaction do
+        ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: @classroom.id, role: owner_role).update(role: coteacher_role)
+        ClassroomsTeacher.find_by(user_id: requested_new_owner_id, classroom_id: @classroom.id, role: coteacher_role).update(role: owner_role)
+      end
+      CoteacherAnalytics.new.track_transfer_classroom(current_user, requested_new_owner_id)
+    rescue
+      return render json: { error: 'Please ensure this teacher is a co-teacher before transferring ownership.' }, status: 401
+    end
+
+    return render json: {}
   end
 
 private

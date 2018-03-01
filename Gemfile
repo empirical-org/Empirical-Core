@@ -10,7 +10,7 @@ gem 'puma', '~> 3.10.0'
 gem 'dotenv-rails'
 
 # DB/MODEL
-gem 'pg'
+gem 'pg', '0.18.4'
 gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'
@@ -21,7 +21,7 @@ gem 'atomic_arrays'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem 'doorkeeper', '1.4.1' # must use 1.4.1 or > 2.0.0 - http://seclists.org/oss-sec/2014/q4/1076
+gem 'doorkeeper', '1.4.1'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-clever'
@@ -64,6 +64,7 @@ gem 'ttfunk'
 gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
+gem 'intercom', '~> 3.5.23'
 
 # WEBSOCKETS
 gem 'pusher'
@@ -76,7 +77,7 @@ gem 'addressable'
 # QUEUE/CACHE
 gem 'sidekiq'
 gem 'sidekiq-retries', require: false
-gem 'redis'
+gem 'redis', "3.3.5"
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
@@ -120,6 +121,7 @@ gem 'kaminari'
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-host-redirect'
+gem 'rack-affiliates', '~> 0.4.0'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
@@ -127,7 +129,7 @@ gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby'
+gem 'clever-ruby', '~> 0.13.2'
 
 group :production, :staging do
   gem 'rails_12factor'
@@ -175,6 +177,8 @@ group :test, :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'capybara'
   gem 'poltergeist'
   gem "vcr"
@@ -183,6 +187,7 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'codecov'
+  # gem 'test_after_commit'
 end
 
 # Memory profiling

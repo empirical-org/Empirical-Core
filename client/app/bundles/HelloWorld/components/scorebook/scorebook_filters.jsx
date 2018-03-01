@@ -6,16 +6,19 @@ import moment from 'moment';
 export default React.createClass({
 
   render() {
-    const dropdownStyle = {
-      'width': '250px',
+    const datepickerDropdownStyle = {
       'position': 'relative',
       'display': 'inline-block',
       'marginRight': '20px'
     }
 
+    const inputDropdownStyle = Object.assign({}, datepickerDropdownStyle, {
+      'width': '250px'
+    });
+
     return (
       <div className="row activity-page-dropdown-wrapper scorebook-filters">
-        <div style={dropdownStyle}>
+        <div style={inputDropdownStyle}>
           <DropdownFilter
             options={this.props.classroomFilters}
             selectOption={this.props.selectClassroom}
@@ -24,7 +27,7 @@ export default React.createClass({
             icon="fa-group"
           />
         </div>
-        <div style={dropdownStyle}>
+        <div style={inputDropdownStyle}>
           <DropdownFilter
             options={this.props.unitFilters}
             selectOption={this.props.selectUnit}
@@ -32,7 +35,7 @@ export default React.createClass({
             icon="fa-book"
           />
         </div>
-        <div style={dropdownStyle}>
+        <div style={datepickerDropdownStyle}>
           <DateRangeFilter
             selectDates={this.props.selectDates}
             filterOptions={this.props.dateRangeFilterOptions}
