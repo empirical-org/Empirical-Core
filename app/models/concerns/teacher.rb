@@ -330,7 +330,7 @@ module Teacher
 
   def trial_days_remaining
     valid_subscription =   subscription && subscription.expiration > Date.today
-    if valid_subscription && (subscription.is_not_paid?)
+    if valid_subscription && (subscription.is_trial?)
       (subscription.expiration - Date.today).to_i
     else
       nil

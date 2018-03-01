@@ -18,5 +18,4 @@ namespace :report_demo do
     name = args[:name] ? args[:name].to_s : nil
     Demo::ReportDemoDestroyer::destroy_demo(name)
   end
-
 end
