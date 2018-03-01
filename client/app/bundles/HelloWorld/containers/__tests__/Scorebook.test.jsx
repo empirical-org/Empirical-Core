@@ -138,7 +138,7 @@ describe('Scorebook component', () => {
 
   describe('if it gets data when it had some', () => {
     const newResScores = new Map(resolvedScores);
-    const newRawScores = Array.slice(rawScores);
+    const newRawScores = rawScores.slice();
     newRawScores[0].user_id = 'fakey';
     const wrapper = shallow(<Scorebook allClassrooms={classrooms} />);
     data.scores = newRawScores;

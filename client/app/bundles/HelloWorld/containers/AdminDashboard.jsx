@@ -3,6 +3,7 @@ import React from 'react'
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TableSortingMixin from '../components/general_components/table/sortable_table/table_sorting_mixin.js';
+import $ from 'jquery';
 import _ from 'underscore';
 import AdminsTeachers from '../components/admin_dashboard/admins_teachers/admins_teachers.jsx';
 import PremiumFeatures from '../components/admin_dashboard/premium_features';
