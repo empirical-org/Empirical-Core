@@ -504,7 +504,11 @@ CREATE TABLE blog_posts (
     preview_card_content text NOT NULL,
     slug character varying,
     premium boolean DEFAULT false,
-    tsv tsvector
+    tsv tsvector,
+    published_at timestamp without time zone,
+    external_link character varying,
+    center_images boolean,
+    order_number integer
 );
 
 
@@ -4213,4 +4217,12 @@ INSERT INTO schema_migrations (version) VALUES ('20180222160256');
 INSERT INTO schema_migrations (version) VALUES ('20180222160302');
 
 INSERT INTO schema_migrations (version) VALUES ('20180222190628');
+
+INSERT INTO schema_migrations (version) VALUES ('20180227193833');
+
+INSERT INTO schema_migrations (version) VALUES ('20180227215931');
+
+INSERT INTO schema_migrations (version) VALUES ('20180228171538');
+
+INSERT INTO schema_migrations (version) VALUES ('20180301064334');
 
