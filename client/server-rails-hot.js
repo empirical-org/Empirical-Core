@@ -26,6 +26,7 @@ const devServer = new WebpackDevServer(compiler, {
   contentBase: `http://localhost:${hotRailsPort}`,
   publicPath: webpackConfig.output.publicPath,
   hot: true,
+  headers: { "Access-Control-Allow-Origin": "*" },
   inline: true,
   historyApiFallback: true,
   quiet: false,

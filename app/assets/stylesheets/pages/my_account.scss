@@ -155,10 +155,14 @@
   // .gray-text {
   //   color: rgb(100,100,100);
   // }
-  // .remove-from-class {
+  .remove-from-class {
   //   width: 186px;
-  //   font-weight: bold;
-  // }
+    font-weight: bold;
+  }
+  .edit-password-link {
+    color: $quillforestgreen;
+    margin-left: 3px;
+  }
   // .modal-dialog {
   //   .modal-header {
   //     min-height: 59px;

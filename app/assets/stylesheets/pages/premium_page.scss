@@ -1,5 +1,4 @@
 .premium-tab {
-  background-color: #EA9A1A !important;
   a {
     background-color: #EA9A1A !important;
     color: #FFFFFF !important;
@@ -58,11 +57,15 @@
 }
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
-  border-top: 3px solid #875A12 !important;
+  background-color: #D3982A !important;
+  // border-top: 3px solid #875A12 !important;
+  // padding-top: 0 !important;
 }
 .premium-tab a.active,
 .premium-tab a:hover {
-  border-top: 3px solid #875A12 !important;
+  background-color: #D3982A !important;
+  // border-top: 3px solid #875A12 !important;
+  // padding-top: 0 !important;
 }
 .preview-section {
   text-align: center;
@@ -237,6 +240,16 @@ li.premium-tab > a:hover {
     .button-container {
       padding-left: 22px;
       padding-right: 22px;
+    }
+  }
+  @media (max-width: 500px) {
+    .col-md-4 {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+    .row {
+      margin-left: 0px;
+      margin-right: 0px;
     }
   }
 }
@@ -494,7 +507,8 @@ li.premium-tab > a:hover {
   @media (max-width: 990px) {
     padding: 30px;
     max-width: 75%;
-    margin: auto;
+    margin: 50px auto;
+    margin: 50px auto;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -502,6 +516,9 @@ li.premium-tab > a:hover {
       margin-top: 15px;
       margin-left: 0px;
     }
+  }
+  @media (max-width: 500px) {
+    max-width: 90%;
   }
 }
 
@@ -536,6 +553,9 @@ li.premium-tab > a:hover {
         p {
           font-size: 18px !important;
           margin-bottom: 40px;
+          @media (max-width: 500px) {
+            margin-bottom: 20px;
+          }
         }
         .download-button {
           display: inline-block;

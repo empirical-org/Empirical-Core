@@ -13,6 +13,7 @@ class UnitTemplatePseudoSerializer
       time: ut.time,
       grades: ut.grades,
       order_number: ut.order_number,
+      created_at: ut.created_at.to_i,
       number_of_standards: number_of_standards,
       activity_info: ut.activity_info,
       author: author,
@@ -48,7 +49,7 @@ class UnitTemplatePseudoSerializer
   end
 
   def activities
-    activities = ActiveRecord::Base.connection.execute("SELECT activities.id, activities.name, activities.flags, activity_classifications.key, topics.id AS topic_id, topics.name AS topic_name, topic_categories.id AS topic_category_id, topic_categories.name AS topic_category_name
+    activities = ActiveRecord::Base.connection.execute("SELECT activities.id, activities.name, activities.flags, activity_classifications.key, activity_classifications.id AS activity_classification_id, topics.id AS topic_id, topics.name AS topic_name, topic_categories.id AS topic_category_id, topic_categories.name AS topic_category_name
       FROM activities
       INNER JOIN topics ON topics.id = activities.topic_id
       INNER JOIN topic_categories ON topics.topic_category_id = topic_categories.id
@@ -58,7 +59,6 @@ class UnitTemplatePseudoSerializer
       INNER JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
       WHERE activities_unit_templates.unit_template_id = #{@unit_template.id}
       ORDER BY activity_categories.order_number, activity_category_activities.order_number").to_a
-
     activities.map do |act|
       {
         id: act['id'],
@@ -72,7 +72,7 @@ class UnitTemplatePseudoSerializer
             name: act['topic_category_name']
           }
         },
-        classification: {key: act['key']}
+        classification: {key: act['key'], id: act['activity_classification_id']}
       }
     end
   end

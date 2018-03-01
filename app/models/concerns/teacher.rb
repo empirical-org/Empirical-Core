@@ -11,6 +11,9 @@ module Teacher
     has_many :units
     has_one :user_subscription
     has_one :subscription, through: :user_subscription
+    has_one :referrer_user
+    has_many :referrals_users
+    has_one :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
   end
 
   class << self
@@ -49,8 +52,6 @@ module Teacher
       all_ids.each{|row| row.each{|k,v| ids << v}}
       ids
   end
-
-
 
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
@@ -137,6 +138,10 @@ module Teacher
     classrooms_i_teach.map{|classroom| classroom.with_students}
   end
 
+  def classrooms_i_teach_with_student_ids
+    classrooms_i_teach.map{|classroom| classroom.with_students_ids}
+  end
+
   def classrooms_i_own_with_students
     classrooms_i_own.map{|classroom| classroom.with_students}
   end
@@ -220,15 +225,6 @@ module Teacher
     TransferAccountWorker.perform_async(self.id, new_user.id);
   end
 
-  def classrooms_i_teach_with_students
-    # TODO rewrite this in SQL at some point in the future.
-    classrooms_i_teach.map do |classroom|
-      classroom_as_h = classroom.attributes
-      classroom_as_h[:students] = classroom.students
-      classroom_as_h
-    end
-  end
-
   def classroom_activities(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
     if includes_value
@@ -288,29 +284,14 @@ module Teacher
   end
 
   def updated_school(school_id)
-    new_school_sub = SchoolSubscription.find_by_school_id(school_id)
-    current_sub = self.subscription
-    if current_sub&.school_subscriptions&.any?
-      # then they already belonged to a subscription through a school, which we destroy
-      self.user_subscription.destroy
+    if self.subscription && self.subscription.school_subscriptions.any?
+      # then they were previously in a school with a subscription, so we destroy the relationship
+      UserSubscription.find_by(user_id: self.id, subscription_id: self.subscription.id).destroy
     end
-    if new_school_sub
-      if current_sub
-        current_is_school = current_sub&.school_subscriptions.any?
-        if current_is_school
-          # we don't care about their old school -- give them the new school sub
-          new_sub_id = new_school_sub.subscription.id
-        else
-          # give them the better of their personal sub or the school sub
-          new_sub_id = later_expiration_date(new_school_sub.subscription, current_sub).id
-        end
-      else
-        # they get the new sub by default
-        new_sub_id = new_school_sub.subscription.id
-      end
-    end
-    if new_sub_id
-      UserSubscription.update_or_create(self.id, new_sub_id)
+    school = School.find(school_id)
+    if school && school.subscription
+      # then we let the user subscription handle everything else
+      UserSubscription.create_user_sub_from_school_sub(self.id, school.subscription.id)
     end
   end
 
@@ -363,16 +344,11 @@ module Teacher
   end
 
   def premium_state
-    # the beta period is obsolete -- but may break things by removing it
     if subscription
-      if !is_beta_period_over?
-        "beta"
-      elsif is_premium?
-        ## returns 'trial' or 'paid'
-        subscription.trial_or_paid
-      elsif subscription_is_expired?
-        "locked"
-      end
+      subscription.account_type == 'Teacher Trial' ? 'trial' : 'paid'
+    elsif self.subscriptions.exists?
+      # then they have an expired or 'locked' sub
+      'locked'
     else
       'none'
     end
@@ -380,10 +356,6 @@ module Teacher
 
   def is_beta_period_over?
     Date.today >= TRIAL_START_DATE
-  end
-
-  def later_expiration_date(sub_1, sub_2)
-    sub_1.expiration > sub_2.expiration ? sub_1 : sub_2
   end
 
   def finished_diagnostic_unit_ids
@@ -441,7 +413,53 @@ module Teacher
   end
 
   def has_outstanding_coteacher_invitation?
-    Invitation.exists?(invitee_email: self.email, archived: false)
+    Invitation.exists?(invitee_email: self.email, invitation_type: Invitation::TYPES[:coteacher], archived: false)
+  end
+
+  def ids_and_names_of_affiliated_classrooms
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT(classrooms.id), classrooms.name
+      FROM classrooms_teachers
+      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
+      WHERE classrooms_teachers.user_id = #{self.id}
+      ORDER BY classrooms.name ASC;
+    ").to_a
+  end
+
+  def ids_and_names_of_affiliated_students
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT(users.id), users.name, substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
+      FROM classrooms_teachers
+      JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id AND classrooms.visible = TRUE
+      JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible = TRUE
+      JOIN users ON users.id = students_classrooms.student_id
+      WHERE classrooms_teachers.user_id = #{self.id}
+      ORDER BY sorting_name ASC;
+    ").to_a
+  end
+
+  def ids_and_names_of_affiliated_units
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT(units.id), units.name
+      FROM classrooms_teachers
+      JOIN classrooms_teachers AS all_affiliated_classrooms ON all_affiliated_classrooms.classroom_id = classrooms_teachers.classroom_id
+      JOIN classrooms ON classrooms.id = all_affiliated_classrooms.classroom_id AND classrooms.visible = TRUE
+      JOIN units ON all_affiliated_classrooms.user_id = units.user_id AND units.visible = TRUE
+      WHERE classrooms_teachers.user_id = #{self.id}
+      ORDER BY units.name ASC;
+    ").to_a
+  end
+
+  def referrer_code
+    self.referrer_user.referral_code
+  end
+
+  def referral_code
+    self.referrer_user.referral_code
+  end
+
+  def referrals
+    self.referrals_users.count
   end
 
   private

@@ -30,6 +30,10 @@ export default class ActivityIconWithTooltip extends React.Component {
     });
   }
 
+  goToReport() {
+      window.location = `/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${this.props.data.caId}/user/${this.props.data.userId}`
+  }
+
   loadTooltipTitle(crData) {
     let data;
     data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
@@ -86,13 +90,7 @@ export default class ActivityIconWithTooltip extends React.Component {
     return `activate-tooltip icon-link icon-wrapper ${this.iconClass()}`;
   }
 
-  goToReport() {
-    $.get(`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${this.props.data.caId}/user/${this.props.data.userId}`)
-      .success((data) => {
-        window.location = data.url;
-      })
-      .fail(() => alert('This report is not available.'));
-  }
+
 
   checkForStudentReport() {
     if (this.props.data.percentage) {

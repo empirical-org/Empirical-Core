@@ -47,3 +47,23 @@ Please note that if the classes have different teachers, all of the student's ac
 This method will sever an account's connection with Google Classroom, allowing them to log in normally.
 
 The new email field is optional, and can be left blank if the user does not wish to change their email.
+
+## [Merge Two Schools](https://www.quill.org/teacher_fix/merge_two_schools)
+
+This allows you to transfer all of the teachers in one school over to a second school.
+
+This is useful for when teachers signed in with Clever and caused a new school to be created that is a duplicate of a school we already have in the database.
+
+## [Merge Two Classrooms](https://www.quill.org/teacher_fix/merge_two_classrooms)
+
+This allows you to transfer all of the students and activities in one classroom to a second classroom.
+
+If a student has completed the same activity in different classrooms, the highest score will be saved.
+
+## [Delete Last Activity Session](https://www.quill.org/teacher_fix/delete_last_activity_session)
+
+This allows you to delete the last activity session a student has completed for a given activity.
+
+This is to be used when a staff member has completed an activity on behalf of the student - we need to get rid of that data as it does not reflect the student's own work.
+
+Please make sure this student has only been assigned this activity once (so not in multiple classes, or multiple activity packs) or this method could delete the wrong activity session.
