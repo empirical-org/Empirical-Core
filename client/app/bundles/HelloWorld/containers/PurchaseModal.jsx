@@ -10,6 +10,11 @@ export default class PurchaseModal extends React.Component {
       schoolPremiumCreditCard: false,
     };
     this.purchaseSchoolPremium = this.purchaseSchoolPremium.bind(this);
+    this.setCreditCardToFalse = this.setCreditCardToFalse.bind(this);
+  }
+
+  setCreditCardToFalse() {
+    this.setState({ readyForSchoolPremiumPurchase: false, });
   }
 
   purchaseSchoolPremium() {
@@ -18,7 +23,7 @@ export default class PurchaseModal extends React.Component {
 
   render() {
     if (this.state.readyForSchoolPremiumPurchase) {
-      return <SelectCreditCardModal price={900} type={'school'} {...this.props} />;
+      return <SelectCreditCardModal price={900} type={'school'} setCreditCardToFalse={this.setCreditCardToFalse} {...this.props} />;
     } else if (this.props.subscriptionType === 'School') {
       return <SchoolPremiumModal purchaseSchoolPremium={this.purchaseSchoolPremium} {...this.props} />;
     }
