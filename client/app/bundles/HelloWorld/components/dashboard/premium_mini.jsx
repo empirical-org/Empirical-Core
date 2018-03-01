@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import createReactClass from 'create-react-class';
 import $ from 'jquery';
 
 export default createReactClass({
 
   beginTrial() {
-    $.post('/subscriptions', { account_limit: 1000, account_type: 'Teacher Trial', })
+    $.post('/subscriptions', { subscription: { account_limit: 1000, account_type: 'Teacher Trial', }, })
       .success(() => { window.location.assign('/'); });
   },
 
@@ -16,7 +16,7 @@ export default createReactClass({
         <button type="button" className="btn btn-orange" onClick={this.beginTrial}>Get Premium Free for 30 days</button>
         <p className="credit-card">No credit card required.</p>
         <p>Unlock your Premium trial to save time grading and gain actionable insights.</p>
-        <a href="/premium">Learn more about Premium ></a>
+        <a href="https://support.quill.org/quill-premium" target="_blank">Learn more about Premium</a>
       </div>
     );
   },

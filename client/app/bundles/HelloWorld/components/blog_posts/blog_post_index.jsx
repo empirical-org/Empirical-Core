@@ -21,13 +21,13 @@ export default class extends React.Component {
 
   renderPreviewCards() {
     return this.props.blogPosts.map(article =>
-      <PreviewCard key={article.title} content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+      <PreviewCard key={article.title} content={article.preview_card_content} link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`} />
     )
   }
 
   renderPreviewCardsByPopularity() {
     return this.state.blogPostsSortedByMostRead.map(article =>
-      <PreviewCard key={article.title} content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+      <PreviewCard key={article.title} content={article.preview_card_content} link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`} />
     )
   }
 
@@ -39,7 +39,7 @@ export default class extends React.Component {
       sections.push(<TopicSection
           key={topic}
           title={topic}
-          articles={articlesInThisTopic}
+          articles={articlesInThisTopic.sort(a => a.order_number)}
           articleCount={articlesInThisTopic.length}
         />
       );
@@ -116,21 +116,30 @@ export default class extends React.Component {
   renderMostReadPost() {
     const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
     if(window.location.pathname.includes('search')) { return null; }
+    const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher_resources/${mostReadArticle.slug}`
     return (
       <h3>
-        <a href={`/teacher_resources/${mostReadArticle.slug}`}>{mostReadArticle.title}</a>
+        <a href={link}>{mostReadArticle.title}</a>
       </h3>
     )
   }
 
   render() {
-    return (
-      <div id="knowledge-center">
-        <header>
-          <div className='container'>
-            <h1>Knowledge Center</h1>
-            <h2>Everything you need to know about Quill's pedgagogy and use in the classroom</h2>
-            <form className='width-422' action={`${process.env.DEFAULT_URL}/teacher_resources/search`}>
+    if (this.props.blogPosts.length === 0) {
+      return <div className="container">
+        <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
+          Coming Soon!
+          <img style={{marginTop: '20px'}} src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg"/>
+        </div>
+      </div>
+    } else {
+      return (
+        <div id="knowledge-center">
+          <header>
+            <div className='container'>
+              <h1>Knowledge Center</h1>
+              <h2>Everything you need to know about Quill's pedgagogy and use in the classroom</h2>
+              <form className='width-422' action={`${process.env.DEFAULT_URL}/teacher_resources/search`}>
               <input type='text' placeholder='Search for posts' name='query' defaultValue={this.props.query ? this.props.query : null} />
               {window.location.pathname.includes('search') ? null : <h3 className='most-read-post'>Most Read Post:</h3>}
               {this.renderMostReadPost()}
@@ -141,6 +150,6 @@ export default class extends React.Component {
         {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}
       </div>
-    );
+    )};
   }
 }

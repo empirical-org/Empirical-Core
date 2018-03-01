@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 import createReactClass from 'create-react-class';
 import moment from 'moment';
+
 import PreviewCard from '../shared/preview_card.jsx';
-import ReactMarkdown from 'react-markdown';
 import request from 'request';
+import BlogPostContent from './blog_post_content'
 
 const RATING_MESSAGES = {
   instructions: 'Was this article helpful?',
@@ -23,22 +24,8 @@ export default class BlogPost extends React.Component {
 
   renderMostRecentPosts() {
     return this.props.mostRecentPosts.map(post =>
-      <PreviewCard key={post.title} content={post.preview_card_content} link={`/teacher_resources/${post.slug}`} />
+      <PreviewCard key={post.title} content={post.preview_card_content} link={post.external_link ? post.external_link : `/teacher_resources/${post.slug}`} />
     )
-  }
-
-  renderBodyOrPaywall() {
-    if(this.props.displayPaywall) {
-      return (
-        <div id='quill-article-paywall'>
-          <h2>This article is only for Premium users.</h2>
-          <p>Quill Premium users have access to a slew of awesome features, including premium reports, priority support, and enhanced professional development opportunities.</p>
-          <a href='/premium'>Try Quill Premium <i className='fa fa-star'></i></a>
-        </div>
-      );
-    } else {
-      return <ReactMarkdown source={this.props.blogPost.body} />;
-    }
   }
 
   renderRatingEmoji() {
@@ -75,15 +62,14 @@ export default class BlogPost extends React.Component {
       <div id='article-container'>
         <article>
           <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>
-          <header>
-            <h1>{this.props.blogPost.title}</h1>
-            <img src={this.props.author.avatar} />
-            <p className='author'>{this.props.author.name}</p>
-            <p className='date'>{moment(this.props.blogPost.updated_at).format('MMMM Do, YYYY')}</p>
-          </header>
-          <main>
-            {this.renderBodyOrPaywall()}
-          </main>
+          <BlogPostContent
+            updatedAt={this.props.blogPost.updated_at}
+            title={this.props.blogPost.title}
+            body={this.props.blogPost.body}
+            author={this.props.author}
+            displayPaywall={this.props.displayPaywall}
+            centerImages={this.props.blogPost.center_images}
+          />
           <footer>
             <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>
             <p>{this.state.ratingMessage}</p>
