@@ -55,11 +55,6 @@ export default class extends React.Component {
     });
     return { earned, available: earned - spent, };
   }
-  //
-  // currentUserIsPurchaser(subscription) {
-  //   const currentUserId = document.getElementById('current-user-id').getAttribute('content');
-  //   return _.get(subscription, 'purchaser_id') === Number(currentUserId);
-  // }
 
   purchaserNameOrEmail() {
     const sub = (this.state && this.state.subscriptionStatus) || this.props.subscriptionStatus;
@@ -201,7 +196,7 @@ export default class extends React.Component {
           premiumCredits={this.props.premiumCredits}
           authorityLevel={this.state.authorityLevel}
         />
-        <RefundPolicy />;
+        <RefundPolicy />
         <PremiumConfirmationModal
           show={this.state.showPremiumConfirmationModal}
           hideModal={this.hidePremiumConfirmationModal}
