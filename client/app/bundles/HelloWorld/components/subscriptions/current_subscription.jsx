@@ -75,7 +75,7 @@ export default class extends React.Component {
 
   changePlan() {
     if (this.state.showChangePlan) {
-      return (<ChangePlan type={this.props.subscriptionType} price={this.getPrice()} recurring={this.state.recurring} changeRecurringStatus={this.changeRecurringStatus} />);
+      return (<ChangePlan subscriptionType={this.props.subscriptionType} price={this.getPrice()} recurring={this.state.recurring} changeRecurringStatus={this.changeRecurringStatus} />);
     }
   }
 
@@ -128,6 +128,10 @@ export default class extends React.Component {
     </div>);
   }
 
+  onceYourPlanExpires() {
+    return `Once your current ${this.props.subscriptionType} Premium subscription expires, you will be downgraded to the Quill Basic subscription.`;
+  }
+
   contactSales() {
     return <span>To renew your subscription for next year, contact us now at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>;
   }
@@ -135,11 +139,10 @@ export default class extends React.Component {
   nextPlanAlertOrButtons(condition, renewDate) {
     const conditionWithAuthorization = `${condition} authorization: ${!!this.props.authorityLevel}`;
     const expiration = moment(this.props.subscriptionStatus.expiration);
-    console.log();
     const remainingDays = expiration.diff(moment(), 'days');
     switch (conditionWithAuthorization) {
       case 'school sponsored authorization: false':
-        return this.nextPlanAlert(this.contactSales());
+        return this.nextPlanAlert(this.onceYourPlanExpires());
       case 'school expired authorization: false':
         return this.lessThan90Days();
       case 'school non-recurring authorization: true':
@@ -149,7 +152,7 @@ export default class extends React.Component {
         return this.lessThan90Days();
       case 'school non-recurring authorization: false':
         if (remainingDays > 90) {
-          return this.nextPlanAlert(<span>To renew your subscription for next year, contact the purchaser at your school.</span>);
+          return this.nextPlanAlert(this.onceYourPlanExpires());
         }
         return this.lessThan90Days();
       case 'recurring authorization: false':
@@ -213,7 +216,7 @@ export default class extends React.Component {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     } else {
-      nextPlanAlertOrButtons = this.nextPlanAlert('Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.');
+      nextPlanAlertOrButtons = this.nextPlanAlert(this.onceYourPlanExpires());
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     }
     return (

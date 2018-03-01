@@ -13,12 +13,12 @@ const schoolPremiumCopy = (
     free reports as well as additional advanced reporting. You will also
     be able to view and print reports of your students’ progress. Our
     advanced reports support concept, Common Core, and overall progress
-    analysis. <a className="green-link" href="/premium">Here’s more information</a> about your School Premium features.
+    analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your School Premium features.
   </span>
 );
 
 const teacherPremiumCopy = (
-  <span>With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. <a className="green-link" href="/premium">Here’s more information</a>about your Teacher Premium features.</span>
+  <span>With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a>about your Teacher Premium features.</span>
 );
 
 export default class extends React.Component {
