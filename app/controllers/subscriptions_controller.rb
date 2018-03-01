@@ -40,7 +40,7 @@ class SubscriptionsController < ApplicationController
     @subscription.destroy
     render json: @subscription
   end
-  
+
   private
 
   def subscription_is_associated_with_current_user?
@@ -104,6 +104,6 @@ class SubscriptionsController < ApplicationController
 
 
   def set_subscription
-    @subscription = current_user.subscriptions.find params[:id]
+    @subscription = current_user.subscriptions.find(params[:id])
   end
 end
