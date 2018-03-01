@@ -471,7 +471,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
   get 'student_demo' => 'students#student_demo'
-  get 'admin', to: 'teachers/progress_reports#admin_demo'
+  get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'
