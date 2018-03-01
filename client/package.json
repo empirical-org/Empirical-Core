@@ -50,6 +50,7 @@
     "react-datepicker": "^0.40.0",
     "react-dates": "=12.7.0",
     "react-dom": "^15.2.1",
+    "react-dropzone": "^4.2.8",
     "react-markdown": "^2.4.6",
     "react-on-rails": "=6.5.0",
     "react-radio-buttons": "^1.2.1",
