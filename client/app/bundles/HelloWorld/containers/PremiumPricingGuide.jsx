@@ -37,7 +37,7 @@ export default React.createClass({
           <p>Save time grading and gain actionable insights with Quill Premium.</p>
         </div>
         <NotificationBox>
-          <span>Upgrade now and get the rest of the school year free.</span> First time subscribers' subscriptions will be extended <br /> through July 31st, 2018.
+          <span><strong>Upgrade now and get the rest of the school year free.</strong><br/> First time subscribers' subscriptions will be extended through July 31st, 2019.</span>
         </NotificationBox>
         <PremiumPricingMinisRow {...this.props} />
         <DistrictPricingBox />
