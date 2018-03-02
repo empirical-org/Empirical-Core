@@ -5,7 +5,7 @@ import PreviewCard from '../shared/preview_card.jsx';
 export default class extends React.Component {
   renderArticleCards() {
     return this.props.articles.slice(0, 3).map(article =>
-      <PreviewCard content={article.preview_card_content} />
+      <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
     )
   }
 

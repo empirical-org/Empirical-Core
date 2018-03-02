@@ -59,8 +59,6 @@
   .renew-subscription.cta-button {
     height: 40px;
     padding: 8px 9px;
-    width: 160px;
-
   }
 
   .subscription-status {
@@ -68,6 +66,9 @@
     padding-top: 8px;
     color: #3b3b3b;
     padding-bottom: 0px;
+    strong {
+      padding-right: 4px;
+    }
     i {
       color: #ff4542;
       padding-right: 15px;
@@ -85,6 +86,9 @@
     p {
       padding: 0 30px 30px;
       font-size: 16px;
+      .green-link {
+        padding-right: 5px;
+      }
     }
 
     .q-button {

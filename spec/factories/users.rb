@@ -61,6 +61,12 @@ FactoryBot.define do
            end
         end
       end
+
+      trait :premium do
+        after(:create) do |teacher|
+          create(:user_subscription, user_id: teacher.id)
+        end
+      end
     end
 
     factory :student do

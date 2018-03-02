@@ -9,6 +9,11 @@ module Teacher
 
   included do
     has_many :units
+    has_one :user_subscription
+    has_one :subscription, through: :user_subscription
+    has_one :referrer_user
+    has_many :referrals_users
+    has_one :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
   end
 
   class << self
@@ -327,7 +332,7 @@ module Teacher
 
   def trial_days_remaining
     valid_subscription =   subscription && subscription.expiration > Date.today
-    if valid_subscription && (subscription.is_not_paid?)
+    if valid_subscription && (subscription.is_trial?)
       (subscription.expiration - Date.today).to_i
     else
       nil
@@ -445,6 +450,18 @@ module Teacher
       WHERE classrooms_teachers.user_id = #{self.id}
       ORDER BY units.name ASC;
     ").to_a
+  end
+
+  def referrer_code
+    self.referrer_user.referral_code
+  end
+
+  def referral_code
+    self.referrer_user.referral_code
+  end
+
+  def referrals
+    self.referrals_users.count
   end
 
   private

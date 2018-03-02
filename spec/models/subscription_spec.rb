@@ -2,6 +2,24 @@ require 'rails_helper'
 require 'ostruct'
 
 describe Subscription, type: :model do
+  describe '#is_trial?' do
+    let!(:subscription) { create(:subscription) }
+
+
+    it "returns true if the subscription is in Subscription::TRIAL_TYPES" do
+      Subscription::TRIAL_TYPES.each do |tt|
+        subscription.update(account_type: tt)
+        expect(subscription.is_trial?).to be
+      end
+    end
+    it "returns false if the subscription is not Subscription::TRIAL_TYPES" do
+      Subscription::ALL_PAID_TYPES.each do |tt|
+        subscription.update(account_type: tt)
+        expect(subscription.is_trial?).not_to be
+      end
+    end
+  end
+
   describe '#credit_user_and_de_activate' do
     let!(:user) { create(:user) }
     let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
@@ -18,14 +36,14 @@ describe Subscription, type: :model do
 
       it 'is a subscription with multiple users_subscriptions linked' do
         user_subscription_2
-        old_sub_attributes = subscription.attributes
+        old_sub_attributes = subscription.reload.attributes
         subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
 
       it 'is a subscription with any school subscriptions linked' do
         school_subscription
-        old_sub_attributes = subscription.attributes
+        old_sub_attributes = subscription.reload.attributes
         subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
@@ -118,6 +136,73 @@ describe Subscription, type: :model do
         old_user_sub_count = UserSubscription.count
         Subscription.give_teacher_premium_if_charge_succeeds(user)
         expect(UserSubscription.count - old_user_sub_count).to eq(0)
+      end
+
+    end
+  end
+
+  describe "#self.give_school_premium_if_charge_succeeds" do
+    let!(:school) { create(:school) }
+    let!(:user) { create(:user) }
+    let!(:subscription) { build(:subscription, expiration: Date.new(2018,4,6), purchaser: user, account_type: 'School Paid') }
+    # let!(:school_sub) {build(:school_subscription, school: school, subscription: subscription)}
+
+    before do
+      Subscription.any_instance.stub(:charge_user_for_school_premium).and_return({status: 'succeeded'})
+    end
+
+    it "calls #Subscription.new_school_premium_sub" do
+      Subscription.should receive(:new_school_premium_sub).with(school, user).and_return(subscription)
+      Subscription.give_school_premium_if_charge_succeeds(school, user)
+    end
+
+    it "calls #Subscription.save_if_charge_succeeds" do
+      expect_any_instance_of(Subscription).to receive(:save_if_charge_succeeds)
+      Subscription.give_school_premium_if_charge_succeeds(school, user)
+    end
+
+    it "creates a new subscription when the charge succeeds" do
+      old_sub_count = Subscription.count
+      Subscription.give_school_premium_if_charge_succeeds(school, user)
+      expect(Subscription.count - old_sub_count).to eq(1)
+    end
+
+    it "creates a new user-subscription join when the charge succeeds" do
+      old_user_sub_count = UserSubscription.count
+      Subscription.give_school_premium_if_charge_succeeds(school, user)
+      expect(SchoolSubscription.count - old_user_sub_count).to eq(1)
+    end
+
+    it "creates a new subscription with the correct payment amount" do
+      new_sub = Subscription.give_school_premium_if_charge_succeeds(school, user)
+      expect(new_sub.payment_amount).to eq(Subscription::SCHOOL_FIRST_PURCHASE_PRICE)
+    end
+
+    it "creates a new subscription with the correct payment method" do
+      new_sub = Subscription.give_school_premium_if_charge_succeeds(school, user)
+      expect(new_sub.payment_method).to eq('Credit Card')
+    end
+
+    it "creates a new subscription with the correct contact" do
+      new_sub = Subscription.give_school_premium_if_charge_succeeds(school, user)
+      expect(new_sub.purchaser).to eq(user)
+    end
+
+    context 'when the charge does not suceed' do
+      before do
+        Subscription.any_instance.stub(:charge_user_for_school_premium).and_return({status: 'failed'})
+      end
+
+      it "does not create a new subscription" do
+        old_sub_count = Subscription.count
+        Subscription.give_school_premium_if_charge_succeeds(school, user)
+        expect(Subscription.count - old_sub_count).to eq(0)
+      end
+
+      it "does not create a new school-subscription join" do
+        old_school_sub_count = UserSubscription.count
+        Subscription.give_school_premium_if_charge_succeeds(school, user)
+        expect(SchoolSubscription.count - old_school_sub_count).to eq(0)
       end
 
     end
@@ -280,11 +365,24 @@ describe Subscription, type: :model do
           recurring_subscription_expiring_today_1.update_if_charge_succeeds
         end
       end
+    end
 
+    describe '#renew_subscription' do
+      it "sets the date it was called as the de_activated_date" do
+        subscription.renew_subscription
+        expect(subscription.de_activated_date).to eq(Date.today)
+      end
 
+      it "creates a new subscription" do
+        old_sub_count = Subscription.count
+        subscription.renew_subscription
+        expect(Subscription.count).to eq(old_sub_count + 1)
+      end
 
-
-
+      it "creates a new subscription with an expiration date that is 365 days more" do
+        subscription.renew_subscription
+        expect(Subscription.last.expiration).to eq(subscription.expiration + 365)
+      end
     end
 
     describe '#renewal_price' do

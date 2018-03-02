@@ -10,7 +10,7 @@ export default function (priceInCents, description) {
     email: document.getElementById('current-user-email').getAttribute('content'),
     token(token) {
       $.post('charges.json',
-          { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, amount, })
+          { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, amount, description })
           .done((data) => {
             if (data.err) {
               // there is an error for this in the charges controller,
@@ -19,10 +19,10 @@ export default function (priceInCents, description) {
               alert(`Your card was not charged. ${initialMessage}. If the issue persists, please contact ryan@quill.org for help.`);
             } else if (data.message) {
               alert(data.message);
-            } else if (amount === 45000) {
+            } else if (amount === 90000) {
               alert('Premium has been activated for your account, and the accounts of any other teachers registered with your school on Quill. We will send a follow up email shortly.');
             }
-            window.location.assign('/profile');
+            window.location.assign('/subscriptions');
           });
     },
   });
