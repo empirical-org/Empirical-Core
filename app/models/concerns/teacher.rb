@@ -287,6 +287,8 @@ module Teacher
     if self.subscription && self.subscription.school_subscriptions.any?
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: self.id, subscription_id: self.subscription.id).destroy
+    elsif self&.subscription&.account_type == "Purchase Missing School"
+      SchoolSubscription.create(school_id: school_id, subscription_id: self.subscription.id)
     end
     school = School.find(school_id)
     if school && school.subscription
