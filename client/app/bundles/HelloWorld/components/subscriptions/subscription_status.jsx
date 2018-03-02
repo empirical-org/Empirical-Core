@@ -3,24 +3,22 @@ import moment from 'moment';
 import pluralize from 'pluralize';
 
 const quillBasicCopy = (
-  <p>
+  <span>
     Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. Teachers can earn free credits for Teacher Premium by sharing Quill and creating content.
-  </p>);
+  </span>);
 
 const schoolPremiumCopy = (
-  <p>
+  <span>
     With Quill School Premium, you will have access to all of Quill’s
     free reports as well as additional advanced reporting. You will also
     be able to view and print reports of your students’ progress. Our
     advanced reports support concept, Common Core, and overall progress
-    analysis. <a className="green-link" href="/premium">Here’s more information</a> about your School Premium features.
-  </p>
+    analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your School Premium features.
+  </span>
 );
 
 const teacherPremiumCopy = (
-  <p>
-    With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. <a className="green-link" href="/premium">Here’s more information</a>about your Teacher Premium features.
-  </p>
+  <span>With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a>about your Teacher Premium features.</span>
 );
 
 export default class extends React.Component {
@@ -33,11 +31,6 @@ export default class extends React.Component {
       content.status = <h2><i className="fa fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
       if (this.props.subscriptionType === 'School') {
         buttonCopy = 'Renew School Subscription';
-        content.pCopy = (
-          <p>
-            <strong>Your School Premium subscription has expired and you are back to Quill Basic.</strong>
-            {quillBasicCopy}
-          </p>);
         if (this.props.userIsContact) {
           statusOnClickEvent = this.props.showPurchaseModal;
         } else {
@@ -45,9 +38,13 @@ export default class extends React.Component {
         }
       } else {
         statusOnClickEvent = this.props.showPurchaseModal;
-        content.pCopy = quillBasicCopy;
         buttonCopy = 'Renew Subscription';
       }
+      content.pCopy = (
+        <span>
+          <strong>Your {this.props.subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>
+          {quillBasicCopy}
+        </span>);
       content.buttonOrDate = <button onClick={statusOnClickEvent} className="renew-subscription q-button bg-orange text-white cta-button">{buttonCopy}</button>;
     }
   }
@@ -118,7 +115,7 @@ export default class extends React.Component {
           </div>
           {content.buttonOrDate}
         </div>
-        {content.pCopy}
+        <p>{content.pCopy}</p>
       </section>
     );
   }
