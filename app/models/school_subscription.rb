@@ -3,7 +3,7 @@ class SchoolSubscription < ActiveRecord::Base
   belongs_to :school
   belongs_to :subscription
   after_commit :update_schools_users
-  after_create :send_premium_emails
+  after_create :send_premium_emails, :update_subscription
 
   def update_schools_users
     if self.school && self.school.users
@@ -24,6 +24,12 @@ class SchoolSubscription < ActiveRecord::Base
           PremiumSchoolSubscriptionEmailWorker.perform_async(u.id) if u.email.match('quill.org')
         end
       end
+    end
+  end
+
+  def update_subscription
+    if self.subscription.account_type === 'Purchase Missing School'
+      self.subscription.update(account_type: 'School Paid')
     end
   end
 
