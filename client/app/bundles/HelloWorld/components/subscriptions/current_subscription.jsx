@@ -14,11 +14,13 @@ export default class extends React.Component {
     this.state = {
       showChangePlan: false,
       lastFour: this.props.lastFour,
+      recurring: _.get(this.props.subscriptionStatus, 'recurring'),
     };
-    this.toggleChangePlan = this.toggleChangePlan.bind(this);
+    this.showChangePlan = this.showChangePlan.bind(this);
     this.updateRecurring = this.updateRecurring.bind(this);
     this.editCreditCard = this.editCreditCard.bind(this);
     this.updateLastFour = this.updateLastFour.bind(this);
+    this.changeRecurringStatus = this.changeRecurringStatus.bind(this);
   }
 
   editCreditCardElement() {
@@ -60,22 +62,25 @@ export default class extends React.Component {
     this.setState({ lastFour: newLastFour, });
   }
 
-  toggleChangePlan() {
+  showChangePlan() {
     this.setState({
-      showChangePlan: !this.state.showChangePlan,
+      showChangePlan: true,
     });
   }
 
   updateRecurring(recurring) {
-    this.props.updateSubscription({
-      recurring,
-    }, _.get(this.props.subscriptionStatus, 'id'));
+    this.props.updateSubscription(
+      { recurring: this.state.recurring, }, _.get(this.props.subscriptionStatus, 'id'));
   }
 
   changePlan() {
     if (this.state.showChangePlan) {
-      return (<ChangePlan type={this.props.subscriptionType} price={this.getPrice()} recurring={_.get(this.props.subscriptionStatus, 'recurring')} updateRecurring={this.updateRecurring} />);
+      return (<ChangePlan subscriptionType={this.props.subscriptionType} price={this.getPrice()} recurring={this.state.recurring} changeRecurringStatus={this.changeRecurringStatus} />);
     }
+  }
+
+  changeRecurringStatus(status) {
+    this.setState({ recurring: status, });
   }
 
   paymentMethod() {
@@ -93,9 +98,15 @@ export default class extends React.Component {
 
   changePlanInline() {
     if (this.props.authorityLevel && this.props.subscriptionStatus.payment_method === 'Credit Card') {
+      let onClickEvent = this.showChangePlan;
+      let copy = 'Change Plan';
+      if (this.state.showChangePlan) {
+        onClickEvent = this.updateRecurring;
+        copy = 'Save Change';
+      }
       return (
-        <span>
-          <span className="green-link" onClick={this.toggleChangePlan}>Change Plan</span>
+        <span key={`change-plan${this.state.showChangePlan}`}>
+          <span className="green-link" onClick={onClickEvent}>{copy}</span>
           {this.changePlan()}
         </span>
       );
@@ -117,6 +128,10 @@ export default class extends React.Component {
     </div>);
   }
 
+  onceYourPlanExpires() {
+    return `Once your current ${this.props.subscriptionType} Premium subscription expires, you will be downgraded to the Quill Basic subscription.`;
+  }
+
   contactSales() {
     return <span>To renew your subscription for next year, contact us now at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>;
   }
@@ -124,11 +139,10 @@ export default class extends React.Component {
   nextPlanAlertOrButtons(condition, renewDate) {
     const conditionWithAuthorization = `${condition} authorization: ${!!this.props.authorityLevel}`;
     const expiration = moment(this.props.subscriptionStatus.expiration);
-    console.log();
     const remainingDays = expiration.diff(moment(), 'days');
     switch (conditionWithAuthorization) {
       case 'school sponsored authorization: false':
-        return this.nextPlanAlert(this.contactSales());
+        return this.nextPlanAlert(this.onceYourPlanExpires());
       case 'school expired authorization: false':
         return this.lessThan90Days();
       case 'school non-recurring authorization: true':
@@ -138,7 +152,7 @@ export default class extends React.Component {
         return this.lessThan90Days();
       case 'school non-recurring authorization: false':
         if (remainingDays > 90) {
-          return this.nextPlanAlert(<span>To renew your subscription for next year, contact the purchaser at your school.</span>);
+          return this.nextPlanAlert(this.onceYourPlanExpires());
         }
         return this.lessThan90Days();
       case 'recurring authorization: false':
@@ -180,12 +194,7 @@ export default class extends React.Component {
     let beginsOn;
     let nextPlanAlertOrButtons;
     const condition = this.getCondition();
-    if (!this.props.subscriptionStatus) {
-      const content = (<span>N/A
-                        <a href="/premium" className="green-link">Change Plan</a>
-      </span>);
-      return (<TitleAndContent title={'Next Plan'} content={content} />);
-    } else if (this.props.subscriptionStatus.expired) {
+    if (this.props.subscriptionStatus.expired) {
       return this.nextPlanAlertOrButtons(`${condition} expired`);
     } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
       const content = (<span>Quill Basic - Free
@@ -207,13 +216,13 @@ export default class extends React.Component {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     } else {
-      nextPlanAlertOrButtons = this.nextPlanAlert('Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.');
+      nextPlanAlertOrButtons = this.nextPlanAlert(this.onceYourPlanExpires());
       nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
     }
     return (
       <div>
         <div className="flex-row space-between">
-          <TitleAndContent title={'Next Plan'} content={<span>{nextPlan}</span>} />
+          <TitleAndContent title={'Next Plan'} content={<span >{nextPlan}</span>} />
           {beginsOn}
         </div>
         {nextPlanAlertOrButtons}
@@ -222,12 +231,14 @@ export default class extends React.Component {
   }
 
   nextPlan() {
-    return (
-      <div className="meta-section">
-        <h3>NEXT SUBSCRIPTION</h3>
-        {this.nextPlanContent()}
-      </div>
-    );
+    if (this.props.subscriptionStatus) {
+      return (
+        <div className="meta-section">
+          <h3>NEXT SUBSCRIPTION</h3>
+          {this.nextPlanContent()}
+        </div>
+      );
+    }
   }
 
   content() {

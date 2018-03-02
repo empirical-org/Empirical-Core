@@ -756,7 +756,7 @@ DEPENDENCIES
   rack-affiliates (~> 0.4.0)
   rack-attack
   rack-cache (~> 1.6.1)
-  rack-cors (= 0.4.0)
+  rack-cors
   rack-heartbeat
   rack-host-redirect
   rails (= 4.2.7.1)
