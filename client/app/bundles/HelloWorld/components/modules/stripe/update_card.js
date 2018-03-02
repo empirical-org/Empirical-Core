@@ -27,7 +27,7 @@ export default function (successCallback, closeCallback) {
 
   handler.open({
     name: 'Quill Premium',
-    description: 'Update Your Credit Card',
+    description: 'Enter/Update Your Credit Card',
   });
 
     // Close Checkout on page navigation

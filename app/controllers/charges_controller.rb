@@ -65,17 +65,22 @@ class ChargesController < ApplicationController
       handle_subscription
     end
 
-   
+
     render json: {route: premium_redirect, err: err, message: @message}
- 
+
+  end
+
+  def create_customer_with_card
+    customer_id = Stripe::Customer.create(
+      :description => "premium",
+      :source  => params[:source][:id],
+      :email => current_user.email,
+      :metadata => { name: current_user.name, school: current_user.school&.name }
+    ).id
   end
 
   def update_card
-    customer_id = current_user.stripe_customer_id
-    customer = Stripe::Customer.retrieve(customer_id)
-    new_card = customer.sources.create(source: params[:source][:id])
-    customer.default_source = new_card.id
-    customer.save
+    update_card_helper
     render json: {error: @err}
   end
 
@@ -90,6 +95,14 @@ class ChargesController < ApplicationController
   end
 
   private
+
+  def update_card_helper
+    customer_id = current_user.stripe_customer_id
+    customer = Stripe::Customer.retrieve(customer_id)
+    new_card = customer.sources.create(source: params[:source][:id])
+    customer.default_source = new_card.id
+    customer.save
+  end
 
   def handle_subscription
     attributes = {account_limit: 1000}
