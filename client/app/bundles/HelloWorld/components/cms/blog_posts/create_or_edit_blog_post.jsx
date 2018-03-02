@@ -265,10 +265,10 @@ export default class extends React.Component {
 
   onDrop(acceptedFiles) {
     acceptedFiles.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = () => {
+      // const reader = new FileReader();
+      // reader.onload = () => {
           const data = new FormData()
-          data.append('file', reader.result)
+          data.append('file', file)
           fetch(`${process.env.DEFAULT_URL}/cms/images/save_image`, {
             method: 'POST',
             mode: 'cors',
@@ -278,20 +278,15 @@ export default class extends React.Component {
             },
             body: data
           })
-          // .then(
-          //   response => response.json() // if the response is a JSON object
-          // ).then(
-          //   success => console.log(success); // Handle the success response object
-          // ).catch(
-          //   error => console.log(error); // Handle the error response object
-          // );
-        };
+          .then(response => response.json()) // if the response is a JSON object
+          .then(response => this.setState({blogPostPreviewImage: response.url})); // Handle the success response object
+        });
           // do whatever you want with the file content
-          reader.onabort = () => console.log('file reading was aborted');
-          reader.onerror = () => console.log('file reading has failed');
-
-          reader.readAsBinaryString(file);
-      });
+      //     reader.onabort = () => console.log('file reading was aborted');
+      //     reader.onerror = () => console.log('file reading has failed');
+      //
+      //     reader.readAsBinaryString(file);
+      // });
   }
 
   updatePreviewCardBasedOnType() {
