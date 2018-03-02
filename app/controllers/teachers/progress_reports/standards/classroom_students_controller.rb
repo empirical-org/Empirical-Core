@@ -5,6 +5,8 @@ class Teachers::ProgressReports::Standards::ClassroomStudentsController < Teache
     respond_to do |format|
       format.html
       format.json do
+        return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
+
         students = ::ProgressReports::Standards::Student.new(current_user).results(params)
         students_json = students.map do |student|
           serializer = ::ProgressReports::Standards::StudentSerializer.new(student)
