@@ -1,6 +1,5 @@
-class Cms::SchoolsController < ApplicationController
+class Cms::SchoolsController < Cms::CmsController
   before_filter :signed_in!
-  before_filter :staff!
 
   before_action :text_search_inputs, only: [:index, :search]
 

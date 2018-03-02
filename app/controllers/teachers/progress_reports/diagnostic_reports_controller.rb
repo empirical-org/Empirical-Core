@@ -3,6 +3,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     include LessonsRecommendations
     require 'pusher'
 
+    before_filter :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations]
+
     def show
         @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
         @report = params[:report] || 'question'
@@ -112,9 +114,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     private
-
     def create_or_update_selected_packs
         if params[:whole_class]
+          return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
           UnitTemplate.assign_to_whole_class(params[:classroom_id], params[:unit_template_id])
         else
           selections_with_students = params[:selections].select do |ut|
@@ -126,10 +128,14 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
                 last = (number_of_selections - 1) == index
                 # this only accommodates one classroom at a time
                 classroom = value[:classrooms][0]
-                AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids].compact, last, false)
+                AssignRecommendationsWorker.perform_async(value[:id], classroom[:id], classroom[:student_ids].compact, last, false) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
             end
           end
         end
+    end
+
+    def authorize_teacher!
+      classroom_teacher!(params[:classroom_id])
     end
 
 end
