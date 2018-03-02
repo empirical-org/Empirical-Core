@@ -55,6 +55,9 @@ export default class extends React.Component {
   }
 
   loadingOrButtons() {
+    if (!this.state.last4) {
+      return <button key="enter a card" onClick={this.toggleChangeCard} className={this.state.extantCardSelected ? 'selected' : ''}>Enter Credit Card</button>;
+    }
     return ([
       <button key="extant" onClick={this.toggleExtantCard} className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`}>Credit Card ending with {this.state.last4}</button>,
       <button key="change" onClick={this.toggleChangeCard} className={this.state.extantCardSelected ? 'selected' : ''}>Use a Different Card</button>
@@ -68,6 +71,12 @@ export default class extends React.Component {
     this.props.hideModal();
   }
 
+  h2IfPaymentInfo() {
+    if (this.state.last4) {
+      return (<h2 className="q-h2">Which credit card would you like to pay with?</h2>);
+    }
+  }
+
   render() {
     return (
       <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="select-credit-card-modal" restoreFocus>
@@ -77,7 +86,7 @@ export default class extends React.Component {
             <h1>Quill {this.props.type} Premium</h1>
             <span>${this.props.price} for one-year subscription</span>
           </div>
-          <h2 className="q-h2">Which credit card would you like to pay with?</h2>
+          {this.h2IfPaymentInfo()}
           {this.loadingOrButtons()}
           {this.showBuyNowIfChargeSelection()}
         </Modal.Body>
