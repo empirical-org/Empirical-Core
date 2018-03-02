@@ -60,7 +60,7 @@ export default React.createClass({
   announcementMini() {
     const announcements = [];
     announcements.push(<CoteachingAnnouncement key="coteaching-announcement" />);
-    announcements.push(<ChampionInvitationMini key="champion-invitation-mini" />);
+    // announcements.push(<ChampionInvitationMini key="champion-invitation-mini" />);
     return announcements;
   },
 
