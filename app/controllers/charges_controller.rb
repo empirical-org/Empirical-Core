@@ -1,31 +1,73 @@
 class ChargesController < ApplicationController
 
+  def new
+  end
+
   def create
-    if params['source']['email'] != current_user.email
-      raise 'Email is different from the user that is currently logged into Quill'
+    begin
+      if params['source']['email'] != current_user.email
+        puts "This is where i am"
+        raise 'Email is different from the user that is currently logged into Quill'
+      end
+      if !current_user.stripe_customer_id
+        customer_id = Stripe::Customer.create(
+          :description => "premium",
+          :source  => params[:source][:id],
+          :email => current_user.email,
+          :metadata => { name: current_user.name, school: current_user.school&.name }
+        ).id
+      else
+        customer_id = current_user.stripe_customer_id
+      end
+      @charge = Stripe::Charge.create(
+        :customer    => customer_id,
+        :amount      => params['amount'].to_i,
+        :description => params['description'],
+        :currency    => 'usd',
+        :receipt_email =>  params['source']['email']
+      )
+
+    rescue Stripe::CardError => e
+      # Since it's a decline, Stripe::CardError will be caught
+      body = e.json_body
+      err  = body[:error]
+      puts 'card decline'
+
+    rescue Stripe::RateLimitError => e
+      err = e
+      puts 'rate limit'
+    # Too many requests made to the API too quickly
+    rescue Stripe::InvalidRequestError => e
+      err = e
+      puts 'invalid'
+    # Invalid parameters were supplied to Stripe's API
+    rescue Stripe::AuthenticationError => e
+      err = e
+      puts 'auth error'
+    # Authentication with Stripe's API failed
+    # (maybe you changed API keys recently)
+    rescue Stripe::APIConnectionError => e
+      err = e
+      puts 'api error'
+    # Network communication with Stripe failed
+    rescue Stripe::StripeError => e
+      err = e
+      puts 'stripe error'
+    # Display a very generic error to the user, and maybe send
+    # yourself an email
+    rescue => e
+      err = e
+      puts "other"
+    # Something else happened, completely unrelated to Stripe
     end
-    if !current_user.stripe_customer_id
-      customer_id = Stripe::Customer.create(
-        :description => "premium",
-        :source  => params[:source][:id],
-        :email => params[:source][:email]
-      ).id
-    else
-      customer_id = current_user.stripe_customer_id
-    end
-    @charge = Stripe::Charge.create(
-      :customer    => customer_id,
-      :amount      => params['amount'].to_i,
-      :description => 'Teacher Premium',
-      :currency    => 'usd',
-      :receipt_email =>  params['source']['email']
-    )
+
     if @charge && @charge.status == 'succeeded'
       handle_subscription
     end
-    respond_to  do |format|
-      format.json { render :json => {route: premium_redirect}}
-    end
+
+   
+    render json: {route: premium_redirect, err: err, message: @message}
+ 
   end
 
   def update_card
@@ -64,6 +106,7 @@ class ChargesController < ApplicationController
       else
         @message = 'You do not seem to be registered with a school. Your account has been upgraded, and we will reach out to you shortly to upgrade the rest of your school to premium.'
         attributes[:account_type] = 'Purchase Missing School'
+        PremiumMissingSchoolEmailWorker.perform_async(current_user.id)
         Subscription.create_with_school_or_user_join(current_user.id, 'user', attributes)
       end
     else
@@ -74,7 +117,7 @@ class ChargesController < ApplicationController
 
   def premium_redirect
     if current_user
-      teachers_progress_reports_concepts_students_path
+      subscriptions_path
     else
       new_session_path
     end
