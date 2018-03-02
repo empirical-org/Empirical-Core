@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.1
--- Dumped by pg_dump version 10.1
+-- Dumped from database version 10.0
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -501,7 +501,7 @@ CREATE TABLE blog_posts (
     topic character varying,
     draft boolean DEFAULT true,
     author_id integer,
-    preview_card_content text NOT NULL,
+    preview_card_content text,
     slug character varying,
     premium boolean DEFAULT false,
     tsv tsvector,
@@ -644,14 +644,14 @@ CREATE TABLE classrooms (
     id integer NOT NULL,
     name character varying(255),
     code character varying(255),
-    teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     clever_id character varying(255),
     grade character varying(255),
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
-    grade_level integer
+    grade_level integer,
+    teacher_id integer
 );
 
 
@@ -685,7 +685,7 @@ CREATE TABLE classrooms_teachers (
     role character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -694,6 +694,7 @@ CREATE TABLE classrooms_teachers (
 --
 
 CREATE SEQUENCE classrooms_teachers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -828,6 +829,7 @@ CREATE TABLE coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE coteacher_classroom_invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1073,6 +1075,7 @@ CREATE TABLE invitations (
 --
 
 CREATE SEQUENCE invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1706,6 +1709,7 @@ CREATE TABLE subscriptions (
     account_type character varying,
     purchaser_email character varying,
     start_date date DEFAULT '2018-02-22 00:00:00'::timestamp without time zone,
+    start_date date DEFAULT '2018-01-30 00:00:00'::timestamp without time zone,
     subscription_type_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
@@ -2024,6 +2028,35 @@ CREATE SEQUENCE user_subscriptions_id_seq
 --
 
 ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
+    active boolean DEFAULT false,
+    username character varying(255),
+    token character varying(255),
+    ip_address inet,
+    clever_id character varying(255),
+    signed_up_with_google boolean DEFAULT false,
+    send_newsletter boolean DEFAULT false,
+    flag character varying,
+    google_id character varying,
+    last_sign_in timestamp without time zone,
+    last_active timestamp without time zone,
+    stripe_customer_id character varying,
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['temporary'::character varying, 'staff'::character varying, 'admin'::character varying, 'student'::character varying, 'teacher'::character varying, 'user'::character varying])::text[])) AND (role IS NOT NULL)))
+);
 
 
 --
@@ -3108,13 +3141,6 @@ CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_le
 
 
 --
--- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
-
-
---
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3154,13 +3180,6 @@ CREATE INDEX index_concept_results_on_activity_classification_id ON concept_resu
 --
 
 CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
-
-
---
--- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
 
 
 --
@@ -4212,6 +4231,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171106201721');
 
 INSERT INTO schema_migrations (version) VALUES ('20171106203046');
 
+INSERT INTO schema_migrations (version) VALUES ('20171108201608');
+
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128192444');
@@ -4235,6 +4256,10 @@ INSERT INTO schema_migrations (version) VALUES ('20171218222306');
 INSERT INTO schema_migrations (version) VALUES ('20180102151559');
 
 INSERT INTO schema_migrations (version) VALUES ('20180110221301');
+
+INSERT INTO schema_migrations (version) VALUES ('20180111170306');
+
+INSERT INTO schema_migrations (version) VALUES ('20180111220811');
 
 INSERT INTO schema_migrations (version) VALUES ('20180119152409');
 
