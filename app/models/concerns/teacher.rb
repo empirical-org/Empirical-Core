@@ -287,6 +287,8 @@ module Teacher
     if self.subscription && self.subscription.school_subscriptions.any?
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: self.id, subscription_id: self.subscription.id).destroy
+    elsif self&.subscription&.account_type == "Purchase Missing School"
+      SchoolSubscription.create(school_id: school_id, subscription_id: self.subscription.id)
     end
     school = School.find(school_id)
     if school && school.subscription
@@ -330,7 +332,7 @@ module Teacher
 
   def trial_days_remaining
     valid_subscription =   subscription && subscription.expiration > Date.today
-    if valid_subscription && (subscription.is_not_paid?)
+    if valid_subscription && (subscription.is_trial?)
       (subscription.expiration - Date.today).to_i
     else
       nil
@@ -460,6 +462,18 @@ module Teacher
 
   def referrals
     self.referrals_users.count
+  end
+
+  def teaches_student?(student_id)
+    ActiveRecord::Base.connection.execute("
+      SELECT 1
+      FROM users
+      JOIN students_classrooms
+        ON users.id = students_classrooms.student_id
+      JOIN classrooms_teachers
+        ON students_classrooms.classroom_id = classrooms_teachers.classroom_id
+        AND classrooms_teachers.user_id = #{self.id}
+    ").to_a.any?
   end
 
   private

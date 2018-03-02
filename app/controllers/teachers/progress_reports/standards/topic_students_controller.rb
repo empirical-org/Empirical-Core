@@ -17,10 +17,11 @@ class Teachers::ProgressReports::Standards::TopicStudentsController < Teachers::
           serializer.classroom_id = params[:classroom_id]
           serializer.as_json(root: false)
         end
-        selected_classroom = params[:classroom_id] == 0 ? 'All Classrooms' : Classroom.find_by(id: params[:classroom_id])
+        classrooms_i_teach = current_user.classrooms_i_teach
+        selected_classroom = params[:classroom_id] == 0 ? 'All Classrooms' : classrooms_i_teach.find{|c| c.id == params[:classroom_id]}
         render json: {
           selected_classroom: selected_classroom,
-          classrooms: current_user.classrooms_i_teach,
+          classrooms: classrooms_i_teach,
           students: students_json,
           topics: topics_json,
           units: ProgressReports::Standards::Unit.new(current_user).results({}),

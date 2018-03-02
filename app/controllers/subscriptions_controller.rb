@@ -104,6 +104,6 @@ class SubscriptionsController < ApplicationController
 
 
   def set_subscription
-    @subscription = Subscription.find params[:id]
+    @subscription = current_user.subscriptions.find(params[:id])
   end
 end
