@@ -2,6 +2,24 @@ require 'rails_helper'
 require 'ostruct'
 
 describe Subscription, type: :model do
+  describe '#is_trial?' do
+    let!(:subscription) { create(:subscription) }
+
+
+    it "returns true if the subscription is in Subscription::TRIAL_TYPES" do
+      Subscription::TRIAL_TYPES.each do |tt|
+        subscription.update(account_type: tt)
+        expect(subscription.is_trial?).to be
+      end
+    end
+    it "returns false if the subscription is not Subscription::TRIAL_TYPES" do
+      Subscription::ALL_PAID_TYPES.each do |tt|
+        subscription.update(account_type: tt)
+        expect(subscription.is_trial?).not_to be
+      end
+    end
+  end
+
   describe '#credit_user_and_de_activate' do
     let!(:user) { create(:user) }
     let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
@@ -18,14 +36,14 @@ describe Subscription, type: :model do
 
       it 'is a subscription with multiple users_subscriptions linked' do
         user_subscription_2
-        old_sub_attributes = subscription.attributes
+        old_sub_attributes = subscription.reload.attributes
         subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
 
       it 'is a subscription with any school subscriptions linked' do
         school_subscription
-        old_sub_attributes = subscription.attributes
+        old_sub_attributes = subscription.reload.attributes
         subscription.credit_user_and_de_activate
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
