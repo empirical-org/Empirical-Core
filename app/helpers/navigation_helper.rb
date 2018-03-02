@@ -1,6 +1,6 @@
 module NavigationHelper
   def home_page_should_be_active?
-    ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)
+    ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)  || (controller_name == 'subscriptions' && action_name == 'index')
   end
 
   def classes_page_should_be_active?
@@ -36,6 +36,10 @@ module NavigationHelper
 
   def premium_page_should_be_active?
 
+  end
+
+  def premium_page_should_display?
+    !current_user.is_premium? || current_user.premium_state == 'trial'
   end
 
   def premium_tab_copy

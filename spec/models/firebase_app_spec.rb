@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'jwt'
 
 describe FirebaseApp, type: :model do
 
@@ -65,6 +66,75 @@ describe FirebaseApp, type: :model do
       let(:user) { create(:staff) }
 
       it_behaves_like 'generating a token'
+    end
+  end
+
+  describe '#connect_token_for' do
+    let(:time) { Time.new('1010') }
+    let(:key) { OpenSSL::PKey::RSA.new(2045) }
+
+    def payload_hash(user, claims)
+      user_id = user.present? ? user.id.to_s : 'anonymous'
+      now_seconds = Time.now.to_i
+      payload = {
+        'iss' => ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
+        'sub' => ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
+        'uid' => user_id,
+        'aud' =>"https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit",
+        'iat' => now_seconds,
+        'exp' => now_seconds+(60*60), # Maximum expiration time is one hour,
+        'claims' => claims
+      }
+    end
+
+    before do
+      allow(Time).to receive(:now).and_return(time)
+      #to decode the encrypted payload
+      allow(OpenSSL::PKey::RSA).to receive(:new).and_return(key)
+    end
+
+    context 'when no user' do
+      it 'should return the encoded payload with anonymous claims' do
+        connect_token = firebase_app.connect_token_for(nil)
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(nil, {'anonymous' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+      end
+    end
+
+    context 'when staff user' do
+      let(:user) { create(:user, role: 'staff') }
+
+      it 'should return the encoded payload with staff claims' do
+        connect_token = firebase_app.connect_token_for(user)
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'staff' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+      end
+    end
+
+    context 'when admin user' do
+      let(:user) { create(:user) }
+      let!(:admin) { user.schools_admins.create }
+
+      it 'should return the encoded payload with admin claims' do
+        connect_token = firebase_app.connect_token_for(user)
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'admin' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+      end
+    end
+
+    context 'when teacher user' do
+      let(:user) { create(:user, role: 'teacher') }
+
+      it 'should return the encoded payload with teacher claims' do
+        connect_token = firebase_app.connect_token_for(user)
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'teacher' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+      end
+    end
+
+    context 'when student user' do
+      let(:user) { create(:user, role: 'student') }
+
+      it 'should return the encoded payload with student claims' do
+        connect_token = firebase_app.connect_token_for(user)
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'student' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+      end
     end
   end
 
