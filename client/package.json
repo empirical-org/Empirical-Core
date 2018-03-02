@@ -134,7 +134,10 @@
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}"
     ],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/test_data/"]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test_data/"
+    ]
   },
   "author": "Empirical",
   "license": "ISC"

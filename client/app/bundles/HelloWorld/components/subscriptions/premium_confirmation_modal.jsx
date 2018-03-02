@@ -16,7 +16,6 @@ export default React.createClass({
   },
 
   paymentCopy(startD, endD) {
-    debugger;
     return (
       <span>
         We have received your payment. You will receive an email shortly with your receipt. Your {this.props.subscriptionType} Premium is valid until <strong>{moment(endD).format('MMMM Do, YYYY')}</strong>. Your subscription will auto-renew {moment(endD).format('MMMM Do, YYYY')}. You can review your subscription information and modify your renewal settings on the subscription page.
