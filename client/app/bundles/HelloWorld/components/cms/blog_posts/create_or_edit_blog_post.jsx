@@ -453,7 +453,14 @@ export default class extends React.Component {
   }
 
   renderArticleMarkdownOrPreview() {
-    let content, toolbarLeft, mdLink
+    let content, toolbarLeft, mdLink, dateDisplayed
+    if (this.state.publishedAt) {
+      dateDisplayed = this.state.publishedAt
+    } else if (this.props.postToEdit) {
+      dateDisplayed = this.props.postToEdit.updated_at
+    } else {
+      dateDisplayed = moment()
+    }
     if (this.state.showArticlePreview) {
       toolbarLeft = <div/>
       content = <div id="article-container">
@@ -461,7 +468,7 @@ export default class extends React.Component {
           <BlogPostContent
             body={this.state.body}
             title={this.state.title}
-            updatedAt={this.props.postToEdit.updated_at}
+            updatedAt={dateDisplayed}
             author={this.props.authors.find(a => a.id == this.state.author_id)}
             displayPaywall={false}
             centerImages={this.state.centerImages}
