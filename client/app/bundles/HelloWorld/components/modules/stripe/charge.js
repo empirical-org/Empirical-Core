@@ -22,7 +22,7 @@ export default function (priceInCents, description) {
             } else if (amount === 90000) {
               alert('Premium has been activated for your account, and the accounts of any other teachers registered with your school on Quill. We will send a follow up email shortly.');
             }
-            window.location.assign('/profile');
+            window.location.assign('/subscriptions');
           });
     },
   });
