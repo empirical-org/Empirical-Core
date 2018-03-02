@@ -464,6 +464,18 @@ module Teacher
     self.referrals_users.count
   end
 
+  def teaches_student?(student_id)
+    ActiveRecord::Base.connection.execute("
+      SELECT 1
+      FROM users
+      JOIN students_classrooms
+        ON users.id = students_classrooms.student_id
+      JOIN classrooms_teachers
+        ON students_classrooms.classroom_id = classrooms_teachers.classroom_id
+        AND classrooms_teachers.user_id = #{self.id}
+    ").to_a.any?
+  end
+
   private
 
   def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
