@@ -80,6 +80,7 @@ export default class extends React.Component {
     this.updatePublishedAt = this.updatePublishedAt.bind(this)
     this.goToPreview = this.goToPreview.bind(this)
     this.onDrop = this.onDrop.bind(this)
+    this.handlePreviewCardButtonTextChange = this.handlePreviewCardButtonTextChange.bind(this)
   }
 
   componentDidMount() {
@@ -294,6 +295,9 @@ export default class extends React.Component {
       case 'YouTube Video':
         this.updatePreviewCardVideoContent();
         break;
+      case 'Button':
+        this.updatePreviewCardButtonContent();
+        break;
       default:
         this.setState({ preview_card_content: this.state.custom_preview_card_content })
     }
@@ -320,21 +324,34 @@ export default class extends React.Component {
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
+  handlePreviewCardButtonTextChange(e) {
+    this.setState({
+      previewCardButtonText: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
   updatePreviewCardFromBlogPostPreview() {
     const author = this.props.authors.find(a => a.id == this.state.author_id)
     const publishDate = this.state.publishedAt
-    let footerContent
+    let footerContent, button
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishDate) {
-      footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
+    }
+    if (this.state.previewCardButtonText) {
+      button = `<div class='button-container'><a class='article-cta-primary' href=${this.state.externalLink}>${this.state.previewCardButtonText}</a></div>`
+    } else {
+      button = '<span/>'
     }
     const previewCardContent = `<img class='preview-card-image' src='${this.state.blogPostPreviewImage}' />
     <div class='preview-card-body'>
        <h3>${this.state.blogPostPreviewTitle}</h3>
        <p>${this.state.blogPostPreviewDescription}</p>
+       ${button}
     </div>
     <div class='preview-card-footer'>
       ${footerContent}
@@ -377,7 +394,7 @@ export default class extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishDate) {
-      footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -401,7 +418,7 @@ export default class extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishDate) {
-      footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -427,7 +444,9 @@ export default class extends React.Component {
         <label>Title:</label>,
         <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
         <label>Description:</label>,
-        <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />
+        <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />,
+        <label>Button Text (button will link to whatever the external link is above):</label>,
+        <input onChange={this.handlePreviewCardButtonTextChange} type='text' value={this.state.previewCardButtonText} />
       ]
     } else if (preview_card_type === 'Custom HTML') {
       contentFields = [
