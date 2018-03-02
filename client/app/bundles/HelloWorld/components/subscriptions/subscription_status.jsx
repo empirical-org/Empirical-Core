@@ -2,106 +2,120 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
+const quillBasicCopy = (
+  <span>
+    Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. Teachers can earn free credits for Teacher Premium by sharing Quill and creating content.
+  </span>);
+
+const schoolPremiumCopy = (
+  <span>
+    With Quill School Premium, you will have access to all of Quill’s
+    free reports as well as additional advanced reporting. You will also
+    be able to view and print reports of your students’ progress. Our
+    advanced reports support concept, Common Core, and overall progress
+    analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a> about your School Premium features.
+  </span>
+);
+
+const teacherPremiumCopy = (
+  <span>With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. <a className="green-link" href="https://support.quill.org/quill-premium">Here’s more information</a>about your Teacher Premium features.</span>
+);
+
 export default class extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      subscriptionType: this.subscriptionType(),
-      userIsContact: this.userIsContact(), };
-  }
-
-  userIsContact() {
-    if (this.props.subscriptionStatus) {
-      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.purchaser_id;
-    }
-    return false;
-  }
-
-  subscriptionType() {
-    if (!this.props.subscriptionStatus) {
-      return 'Basic';
-    }
-    const accountType = this.props.subscriptionStatus.account_type;
-    if (this.props.schoolSubscriptionTypes.includes(accountType)) {
-      return 'School';
-    } else if (this.props.trialSubscriptionTypes.includes(accountType)) {
-      return 'Trial';
-    }
-    return 'Teacher';
-  }
-
-  status() {
-    let image;
-    let subscriptionType = this.state.subscriptionType;
-    if (this.state.subscriptionType === 'Basic') {
-      image = 'basic_icon.png';
-      subscriptionType = 'Quill Basic';
-    } else if (this.props.subscriptionStatus.expired) {
-      return <span><i className="fa fa-exclamation-triangle" />{`Your ${subscriptionType} Premium subscription has expired`}</span>;
-    } else if (this.state.subscriptionType === 'Teacher') {
-      image = 'teacher_premium_icon.png';
-    } else if (this.state.subscriptionType === 'Trial') {
-      image = 'teacher_premium_icon.png';
-    } else if (this.state.subscriptionType === 'School') {
-      image = 'school_premium_icon.png';
-    }
-    return <span>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></span>;
-  }
-
-  buttonOrDate() {
-    let buttonOrDate;
-    if (this.props.subscriptionStatus) {
-      const expiration = moment(this.props.subscriptionStatus.expiration);
-      const remainingDays = expiration.diff(moment(), 'days');
-      if (!this.props.subscriptionStatus.expired) {
-        buttonOrDate = (
-          <span className="expiration-date">
-            <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
-          </span>
-          );
-      } else if (this.state.subscriptionType === 'School') {
-        if (this.state.userIsContact) {
-          buttonOrDate = <a href="/premium" className="q-button bg-orange text-white cta-button">Renew School Premium</a>;
+  handleExpired(content, remainingDays) {
+    let statusOnClickEvent,
+      buttonCopy;
+    if (remainingDays < 0) {
+      content.boxColor = '#ff4542';
+      content.status = <h2><i className="fa fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
+      if (this.props.subscriptionType === 'School') {
+        buttonCopy = 'Renew School Subscription';
+        if (this.props.userIsContact) {
+          statusOnClickEvent = this.props.showPurchaseModal;
         } else {
-          buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
+          statusOnClickEvent = () => alert('i will need to be something for when a school user is not the contact');
         }
       } else {
-        buttonOrDate = <button onClick={this.props.showPaymentModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>;
+        statusOnClickEvent = this.props.showPurchaseModal;
+        buttonCopy = 'Renew Subscription';
       }
-    } else {
-      buttonOrDate = <a href="/premium" className="q-button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
+      content.pCopy = (
+        <span>
+          <strong>Your {this.props.subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>
+          {quillBasicCopy}
+        </span>);
+      content.buttonOrDate = <button onClick={statusOnClickEvent} className="renew-subscription q-button bg-orange text-white cta-button">{buttonCopy}</button>;
     }
-    return buttonOrDate;
   }
 
-  getBoxColor() {
-    if (this.state.subscriptionType === 'Basic') {
-      return '#00c2a2';
-    } else if (this.props.subscriptionStatus.expired) {
-      return '#ff4542';
-    } else if (this.state.subscriptionType === 'School') {
-      return '#9c2bde';
+  checkIfExpired() {}
+
+  getContent() {
+    const content = {};
+    let image,
+      expiration,
+      remainingDays;
+    let subscriptionType = this.props.subscriptionType;
+    if (this.props.subscriptionType !== 'Basic') {
+      expiration = moment(this.props.subscriptionStatus.expiration);
+      remainingDays = expiration.diff(moment(), 'days');
     }
+    switch (this.props.subscriptionType) {
+      case 'Basic':
+        image = 'basic_icon.png';
+        content.pCopy = quillBasicCopy;
+        content.boxColor = '#00c2a2';
+        content.buttonOrDate = <a href="/premium" className="q-button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
+        subscriptionType = 'Quill Basic';
+        content.status = <h2>{`You have a ${subscriptionType} subscription`}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></h2>;
+        break;
+      case 'Teacher':
+        image = 'teacher_premium_icon.png';
+        content.pCopy = teacherPremiumCopy;
+        if (remainingDays < 0) {
+          content.boxColor = '#ff4542';
+        } else {
+          content.boxColor = '#348fdf';
+        }
+        break;
+      case 'Trial':
+        content.pCopy = teacherPremiumCopy;
+        image = 'teacher_premium_icon.png';
+        break;
+      case 'School':
+        content.pCopy = schoolPremiumCopy;
+        content.boxColor = '#9c2bde';
+        image = 'school_premium_icon.png';
+        if (remainingDays < 90 && !this.props.subscriptionStatus.recurring) {
+          if (this.props.userIsContact) {
+            content.buttonOrDate = <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white cta-button">Renew School Premium</button>;
+          } else {
+            content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
+          }
+        }
+        break;
+    }
+    this.handleExpired(content, remainingDays);
+    content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
+      <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
+      </span>);
+    content.status = content.status || <h2>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></h2>;
+    return content;
   }
 
   render() {
+    const content = this.getContent();
     return (
       <section className="subscription-status">
         <div className="flex-row space-between">
           <div className="box-and-h2 flex-row space-between">
-            <div className="box" style={{ backgroundColor: this.getBoxColor(), }} />
-            <h2>{this.status()}</h2>
+            <div className="box" style={{ backgroundColor: content.boxColor, }} />
+            <h2>{content.status}</h2>
           </div>
-          {this.buttonOrDate()}
+          {content.buttonOrDate}
         </div>
-        <p>
-          With Quill School Premium, you will have access to all of Quill’s
-          free reports as well as additional advanced reporting. You will also
-          be able to view and print reports of your students’ progress. Our
-          advanced reports support concept, Common Core, and overall progress
-          analysis. <a className="green-link">Here’s more information</a> about your Teacher Premium features.
-        </p>
+        <p>{content.pCopy}</p>
       </section>
     );
   }

@@ -7,14 +7,15 @@ class User < ActiveRecord::Base
   before_save :capitalize_name
   before_save :generate_student_username_if_absent
   after_save  :update_invitee_email_address, if: Proc.new { self.email_changed? }
+  after_create :generate_referrer_id, if: Proc.new { self.teacher? }
 
 
   has_secure_password validations: false
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
-  has_many :invitations
   has_many :credit_transactions
+  has_many :invitations, foreign_key: 'inviter_id'
   has_many :objectives, through: :checkboxes
   has_one :schools_users
   has_one :school, through: :schools_users
@@ -31,6 +32,8 @@ class User < ActiveRecord::Base
   has_one :ip_location
   has_many :user_milestones
   has_many :milestones, through: :user_milestones
+
+  has_many :blog_post_user_ratings
 
 
 
@@ -107,6 +110,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  def subscription_authority_level(subscription_id)
+    subscription = Subscription.find subscription_id
+    if subscription.purchaser_id == self.id
+        return 'purchaser'
+    elsif subscription.schools.include?(self.school)
+      if self.school.coordinator == self
+        return 'coordinator'
+      elsif self.school.authorizer == self
+        return 'authorizer'
+      end
+    end
+  end
+
   def eligible_for_new_subscription?
       if subscription
         # if they have a subscription it must be a trial one
@@ -118,7 +134,7 @@ class User < ActiveRecord::Base
   end
 
   def last_expired_subscription
-    self.subscriptions.where("expiration < ?", Date.today).order(expiration: :desc).limit(1).first
+    self.subscriptions.where("expiration <= ?", Date.today).order(expiration: :desc).limit(1).first
   end
 
   def subscription
@@ -520,5 +536,9 @@ private
 
   def update_invitee_email_address
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
+  end
+
+  def generate_referrer_id
+    ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + self.id.to_s)
   end
 end

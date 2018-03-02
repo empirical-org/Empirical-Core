@@ -15,7 +15,7 @@ export default React.createClass({
         <button type="button" className="btn btn-orange" onClick={this.beginTrial}>Get Premium Free for 30 days</button>
         <p className="credit-card">No credit card required.</p>
         <p>Unlock your Premium trial to save time grading and gain actionable insights.</p>
-        <a href="/premium">Learn more about Premium ></a>
+        <a href="https://support.quill.org/quill-premium" target="_blank">Learn more about Premium</a>
       </div>
     );
   },
