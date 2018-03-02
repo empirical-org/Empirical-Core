@@ -31,3 +31,9 @@ It includes a link that will join the user's account to that school when clicked
 The lesson plan email is sent when a teacher assigns any unit that contains one or more lesson emails.
 
 It includes links to lesson plans for each of the lessons in the unit, as well as the tutorial and the My Lessons page.
+
+## Premium Missing School Email
+
+The premium missing school email is sent when a teacher buys school premium for a school that either does not exist in the database or that their account is not linked to.
+
+This email is sent to Becca and Amr.
