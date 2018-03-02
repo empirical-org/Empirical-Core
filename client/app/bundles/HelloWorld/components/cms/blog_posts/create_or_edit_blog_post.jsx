@@ -265,28 +265,20 @@ export default class extends React.Component {
 
   onDrop(acceptedFiles) {
     acceptedFiles.forEach(file => {
-      // const reader = new FileReader();
-      // reader.onload = () => {
-          const data = new FormData()
-          data.append('file', file)
-          fetch(`${process.env.DEFAULT_URL}/cms/images/save_image`, {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-              'X-CSRF-Token': getAuthToken()
-            },
-            body: data
-          })
-          .then(response => response.json()) // if the response is a JSON object
-          .then(response => this.setState({blogPostPreviewImage: response.url})); // Handle the success response object
-        });
-          // do whatever you want with the file content
-      //     reader.onabort = () => console.log('file reading was aborted');
-      //     reader.onerror = () => console.log('file reading has failed');
-      //
-      //     reader.readAsBinaryString(file);
-      // });
+      const data = new FormData()
+      data.append('file', file)
+      fetch(`${process.env.DEFAULT_URL}/cms/images/save_image`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'X-CSRF-Token': getAuthToken()
+        },
+        body: data
+      })
+      .then(response => response.json()) // if the response is a JSON object
+      .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
+    });
   }
 
   updatePreviewCardBasedOnType() {
@@ -430,8 +422,6 @@ export default class extends React.Component {
     let contentFields;
     if (['Tiny Image', 'Medium Image', 'Large Image'].includes(preview_card_type)) {
       contentFields = [
-        <label>Link to an image with the dimensions in the preview:</label>,
-        <Dropzone onDrop={this.onDrop}/>,
         <label>Link to an image with the dimensions in the preview:</label>,
         <input onChange={this.handleBlogPostPreviewImageChange} type='text' value={this.state.blogPostPreviewImage} />,
         <label>Title:</label>,
@@ -586,6 +576,13 @@ export default class extends React.Component {
               <label>External Link: (Optional, use only if this card should point to another website)</label>
               <input onChange={this.handleExternalLinkChange} value={this.state.externalLink}/>
             </div>
+          </div>
+
+          <div>
+            <label>Click the square below or drag an image into it to upload an image:</label>
+            <Dropzone onDrop={this.onDrop}/>
+            <label>Here is the link to your uploaded image:</label>
+            <input value={this.state.uploadedImageLink}/>
           </div>
 
           <div className="side-by-side">
