@@ -73,10 +73,10 @@ class UserMailer < ActionMailer::Base
   def referral_invitation_email(inviter_hash, invitee_email)
     @inviter = inviter_hash
     mail from: "Quill Team <hello@quill.org>", 'reply-to': @inviter['email'], to: invitee_email, subject: "#{@inviter['name']} invites you to join Quill.org!"
+  end
 
   def premium_missing_school_email(user)
     @user = user
     mail to: ["Becca Garrison <becca@quill.org>", "Amr Thameen <amr@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
   end
-
 end
