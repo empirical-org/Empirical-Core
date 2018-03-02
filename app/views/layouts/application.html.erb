@@ -21,7 +21,7 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <% if controller.controller_name == "pages" && controller.action_name == "premium" %>
+    <% if %w(pages subscriptions).include?(controller.controller_name) && %w(index premium).include?(controller.action_name) %>
     <script>var stripePubKey="<%=ENV["STRIPE_PUBLIC_KEY"] %>"</script>
     <script src="https://checkout.stripe.com/checkout.js" >
           data-key= stripePubKey

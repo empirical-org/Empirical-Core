@@ -68,8 +68,14 @@
 	ul.dropdown-menu {
 		margin-left: 15px;
 	}
-	.row.activity-description {
-		margin-top: 2% !important;
+	h4 {
+		margin-bottom: 10px;
+	}
+	.row {
+		margin-top: none;
+	}
+	.col-xs-12 {
+		margin-bottom: 5px;
 	}
 }
 

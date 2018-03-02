@@ -22,20 +22,28 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  # TODO: remove this when we launch front end of knowlege center
-  get 'teacher_resources', to: 'blog_posts#temporarily_render_old_teacher_resources'
-
   resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug do
     collection do
       get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
     end
   end
 
+  post 'rate_blog_post', to: 'blog_post_user_ratings#create'
+
 
   # for Stripe
-  resources :charges
+  resources :charges, only: [:create]
+  post 'charges/update_card' => 'charges#update_card'
+  post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
+  post 'charges/new_school_premium' => 'charges#new_school_premium'
+  put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
 
-  resources :subscriptions
+  resources :subscriptions do
+    member do
+      get :purchaser_name
+    end
+  end
   resources :assessments
   resources :assignments
   resource :profile
@@ -319,8 +327,6 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
-  get '/admin', to: redirect('/demo?name=admin_demo')
-
   namespace :auth do
     get "/google_email_mismatch" => 'google#google_email_mismatch'
     get "/google_oauth2/callback" => 'google#google'
@@ -351,8 +357,10 @@ EmpiricalGrammar::Application.routes.draw do
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
+    put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
     resources :blog_posts
     get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
+    get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
     end
@@ -426,6 +434,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
+  get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
+  get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
@@ -435,6 +445,8 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
   post 'teacher_fix/merge_two_schools' => 'teacher_fix#merge_two_schools'
+  post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
+  post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
@@ -472,6 +484,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
   get 'student_demo' => 'students#student_demo'
+  get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'
