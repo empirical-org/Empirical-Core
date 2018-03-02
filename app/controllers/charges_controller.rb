@@ -116,7 +116,7 @@ class ChargesController < ApplicationController
 
   def premium_redirect
     if current_user
-      teachers_progress_reports_concepts_students_path
+      subscriptions_path
     else
       new_session_path
     end
