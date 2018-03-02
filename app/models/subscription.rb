@@ -53,8 +53,8 @@ class Subscription < ActiveRecord::Base
   ALL_TYPES = ALL_FREE_TYPES.dup.concat(ALL_PAID_TYPES)
 
 
-  def is_not_paid?
-    self.account_type && TRIAL_TYPES.include?(self.account_type.downcase == 'teacher trial')
+  def is_trial?
+    self.account_type && TRIAL_TYPES.include?(self.account_type)
   end
 
   def check_if_purchaser_email_is_in_database
@@ -92,6 +92,7 @@ class Subscription < ActiveRecord::Base
     new_sub = self.dup
     new_sub.expiration = self.expiration + 365
     new_sub.start_date = self.expiration
+    self.update(de_activated_date: Date.today)
     new_sub.save!
   end
 

@@ -18,6 +18,7 @@ export default class extends React.Component {
     this.toggleExtantCard = this.toggleExtantCard.bind(this);
     this.updateLastFour = this.updateLastFour.bind(this);
     this.stripeCharge = this.stripeCharge.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   updateLastFour(newLastFour) {
@@ -60,11 +61,18 @@ export default class extends React.Component {
     ]);
   }
 
+  hideModal() {
+    if (this.props.setCreditCardToFalse) {
+      this.props.setCreditCardToFalse();
+    }
+    this.props.hideModal();
+  }
+
   render() {
     return (
       <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="select-credit-card-modal" restoreFocus>
         <Modal.Body>
-          <img className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
+          <img className="pull-right react-bootstrap-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
           <div className="pricing-info text-center">
             <h1>Quill {this.props.type} Premium</h1>
             <span>${this.props.price} for one-year subscription</span>
