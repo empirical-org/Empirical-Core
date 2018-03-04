@@ -8,6 +8,8 @@
   },
   "main": "js/app.js",
   "dependencies": {
+    "@types/react": "^16.0.38",
+    "@types/react-dom": "^16.0.4",
     "autoprefixer": "^6.3.5",
     "babel": "^6.5.2",
     "babel-core": "^6.7.4",
@@ -21,6 +23,7 @@
     "bootstrap-tooltip": "^3.1.1",
     "bowser": "^1.6.0",
     "css-loader": "^0.23.1",
+    "enzyme-adapter-react-16": "^1.1.1",
     "es5-shim": "^4.5.7",
     "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -71,6 +74,7 @@
     "webpack": "^1.12.14"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.5.0",
     "babel-cli": "^6.26.0",
     "babel-jest": "=19.0.0",
     "babel-plugin-react-transform": "^2.0.2",
@@ -93,6 +97,8 @@
     "react-dom": "^15.2.1",
     "react-test-renderer": "^15.4.2",
     "react-transform-hmr": "^1.0.4",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.7.2",
     "webpack-dev-server": "^1.14.1"
   },
   "browser": {
@@ -119,8 +125,24 @@
     "jest:silent": "jest --silent"
   },
   "jest": {
+    "setupFiles": [
+      "<rootDir>/test-shim.js",
+      "<rootDir>/test-setup.js"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
+    },
+    "testMatch": [
+      "**/__tests__/*.(ts|tsx|js|jsx)"
     ],
     "globals": {
       "window": true
