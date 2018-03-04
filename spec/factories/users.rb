@@ -36,6 +36,10 @@ FactoryBot.define do
         end
       end
 
+      trait :has_a_stripe_customer_id do
+        stripe_customer_id 'fake_stripe_id'
+      end
+
       trait :signed_up_with_google do
         signed_up_with_google true
         google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
