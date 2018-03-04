@@ -136,7 +136,11 @@
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}"
     ],
-    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js"
+    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test_data/"
+    ]
   },
   "author": "Empirical",
   "license": "ISC"

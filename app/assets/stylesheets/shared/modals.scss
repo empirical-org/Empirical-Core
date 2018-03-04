@@ -216,6 +216,12 @@
     }
   }
 }
+
+.select-credit-card-modal {
+  h2 {
+    margin-top: 100px;
+  }
+}
 .premium-confirmation {
   text-align: center;
   .modal-content {
@@ -266,6 +272,14 @@
   .cta-section {
         padding: 28px 15px;
         background-color: #fff;
+        .q-button {
+          font-size: 14px;
+          font-weight: 700;
+          padding: 10px 25px;
+          height: 40px;
+          margin-top: 0;
+          border: none;
+        }
     .flex-row {
       width: 367px;
       margin: auto;
