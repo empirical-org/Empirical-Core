@@ -3,22 +3,6 @@ import QuoteRequestModal from '../quote_request_modal.jsx';
 
 export default React.createClass({
 
-  getInitialState() {
-    return { showModal: false, };
-  },
-
-  hideModal() {
-    this.setState({ showModal: false, });
-  },
-
-  showModal() {
-    this.setState({ showModal: true, });
-  },
-
-  quoteRequestModal() {
-    $(this.refs.quoteRequestModal).modal();
-  },
-
   render() {
     let savingsCopy = 'Get 50% off for the first year!';
     if (this.props.userBelongsToSchoolThatHasPaid) {
@@ -58,9 +42,9 @@ export default React.createClass({
         </li>
           </ul>
         </section>
-        <button type="button" onClick={this.showModal} className="btn btn-default mini-btn purple">Purchase</button>
+        <button type="button" onClick={this.props.showPurchaseModal} className="btn btn-default mini-btn purple">Purchase</button>
         <a href="https://quillpremium.youcanbook.me" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
-        <QuoteRequestModal show={this.state.showModal} hideModal={this.hideModal} />
+        // <QuoteRequestModal show={this.state.showModal} hideModal={this.hideModal} />
       </div>
     );
   },
