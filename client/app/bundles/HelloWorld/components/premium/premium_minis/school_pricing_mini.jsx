@@ -20,11 +20,15 @@ export default React.createClass({
   },
 
   render() {
+    let savingsCopy = 'Get 50% off for the first year!';
+    if (this.props.userBelongsToSchoolThatHasPaid) {
+      savingsCopy = 'Renew Now And Receive 50% Off!';
+    }
     return (
       <div className="pricing-mini">
-        <div className="promo-tab">Get 50% off for the first year!</div>
+        <div className="promo-tab">{savingsCopy}</div>
         <div className="placeholder-div">
-          <div className="promo-tab">Get 50% off for the first year!</div>
+          <div className="promo-tab">{savingsCopy}</div>
         </div>
         <header className="pricing-mini-header purple">
           <div className="img-holder">
@@ -54,7 +58,7 @@ export default React.createClass({
         </li>
           </ul>
         </section>
-        <button type="button" onClick={this.showModal} className="btn btn-default mini-btn purple">Request Quote</button>
+        <button type="button" onClick={this.showModal} className="btn btn-default mini-btn purple">Purchase</button>
         <a href="https://quillpremium.youcanbook.me" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
         <QuoteRequestModal show={this.state.showModal} hideModal={this.hideModal} />
       </div>
