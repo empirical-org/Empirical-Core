@@ -22,6 +22,7 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
     this.handlePrefilledTextChange = this.handlePrefilledTextChange.bind(this)
+    this.handleSampleCorrectAnswerChange = this.handleSampleCorrectAnswerChange.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -74,6 +75,12 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
     this.setState({question: newVals})
   }
 
+  handleSampleCorrectAnswerChange(e) {
+    const newVals = {...this.state.question}
+    _.set(newVals, 'play.sampleCorrectAnswer', e.target.value)
+    this.setState({question: newVals})
+  }
+
   save() {
     this.props.save(this.state.question)
   }
@@ -117,6 +124,12 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
           <label className="label">Cues comma separated (Optional)</label>
           <div className="control">
             <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Sample correct answer (Optional)</label>
+          <div className="control">
+            <input value={this.state.question.play.sampleCorrectAnswer} onChange={this.handleSampleCorrectAnswerChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
