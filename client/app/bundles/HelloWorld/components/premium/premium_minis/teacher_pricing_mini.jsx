@@ -20,11 +20,15 @@ export default React.createClass({
     };
   },
 
+  beginTrialButton() {
+    if (this.props.userIsEligibleForTrial) {
+      return <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>;
+    }
+  },
+
   beginTrial() {
     if (!this.state.isUserSignedIn === true) {
       alert('You must be logged in to begin a free trial.');
-    } else if (!this.props.userIsEligibleForTrial) {
-      alert('Our records show that you have already had a subscription and are therefor not eligible for a free trial.');
     } else {
       $.post('/subscriptions', {
         subscription: {
@@ -73,7 +77,7 @@ export default React.createClass({
         </section>
         <div className="row">
           {this.purchaseButton()}
-          <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>
+          {this.beginTrialButton()}
           <PleaseLoginModal ref="pleaseLoginModal" />
         </div>
       </div>
