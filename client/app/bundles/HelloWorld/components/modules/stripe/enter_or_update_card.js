@@ -1,15 +1,16 @@
 import $ from 'jquery';
 
-export default function (successCallback, closeCallback) {
+export default function (successCallback, enterOrUpdate) {
+  const urlString = enterOrUpdate === 'Update' ? 'update_card' : 'create_customer_with_card';
   const handler = StripeCheckout.configure({
     key: stripePubKey,
     image: 'https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Icon.svg',
     locale: 'auto',
-    panelLabel: 'Update Card Details',
+    panelLabel: `${enterOrUpdate} Card Details`,
     allowRememberMe: false,
     email: document.getElementById('current-user-email').getAttribute('content'),
     token(token) {
-      $.post('charges/update_card',
+      $.post(`charges/${urlString}`,
           { authenticity_token: $('meta[name=csrf-token]').attr('content'), source: token, card: token.card, })
           .done((data) => {
             if (data.err) {
@@ -27,7 +28,7 @@ export default function (successCallback, closeCallback) {
 
   handler.open({
     name: 'Quill Premium',
-    description: 'Enter/Update Your Credit Card',
+    description: `${enterOrUpdate} Your Credit Card`,
   });
 
     // Close Checkout on page navigation
