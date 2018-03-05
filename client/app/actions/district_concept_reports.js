@@ -17,11 +17,13 @@ export const switchTeacher = (teacher) => {
 }
 
 export const getDistrictConceptReports = () => {
+  console.log('making request for dist act scores');
   return (dispatch) => {
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`
     },
     (e, r, body) => {
+      console.log('successful request of dist act scores');
       dispatch(recieveDistrictConceptReports(body))
     });
   }
