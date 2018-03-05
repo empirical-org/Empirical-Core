@@ -21,7 +21,7 @@ export default React.createClass({
   },
 
   beginTrialButton() {
-    if (this.props.userIsEligibleForTrial) {
+    if (this.props.userIsEligibleForTrial || !this.state.isUserSignedIn) {
       return <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>;
     }
   },

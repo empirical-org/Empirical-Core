@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.1
--- Dumped by pg_dump version 10.1
+-- Dumped from database version 10.0
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -501,7 +501,7 @@ CREATE TABLE blog_posts (
     topic character varying,
     draft boolean DEFAULT true,
     author_id integer,
-    preview_card_content text NOT NULL,
+    preview_card_content text,
     slug character varying,
     premium boolean DEFAULT false,
     tsv tsvector,
@@ -644,14 +644,14 @@ CREATE TABLE classrooms (
     id integer NOT NULL,
     name character varying(255),
     code character varying(255),
-    teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     clever_id character varying(255),
     grade character varying(255),
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
-    grade_level integer
+    grade_level integer,
+    teacher_id integer
 );
 
 
@@ -685,7 +685,7 @@ CREATE TABLE classrooms_teachers (
     role character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -694,6 +694,7 @@ CREATE TABLE classrooms_teachers (
 --
 
 CREATE SEQUENCE classrooms_teachers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -828,6 +829,7 @@ CREATE TABLE coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE coteacher_classroom_invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1073,6 +1075,7 @@ CREATE TABLE invitations (
 --
 
 CREATE SEQUENCE invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1337,8 +1340,7 @@ CREATE TABLE referrals_users (
     user_id integer NOT NULL,
     referred_user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    activated boolean DEFAULT false
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1706,7 +1708,7 @@ CREATE TABLE subscriptions (
     updated_at timestamp without time zone,
     account_type character varying,
     purchaser_email character varying,
-    start_date date DEFAULT '2018-02-28 00:00:00'::timestamp without time zone,
+    start_date date DEFAULT '2018-01-30 00:00:00'::timestamp without time zone,
     subscription_type_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
@@ -1905,65 +1907,6 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_digest character varying(255),
-    role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    classcode character varying(255),
-    active boolean DEFAULT false,
-    username character varying(255),
-    token character varying(255),
-    ip_address inet,
-    clever_id character varying(255),
-    signed_up_with_google boolean DEFAULT false,
-    send_newsletter boolean DEFAULT false,
-    flag character varying,
-    google_id character varying,
-    last_sign_in timestamp without time zone,
-    last_active timestamp without time zone,
-    stripe_customer_id character varying
-);
-
-
---
--- Name: untitled_materialized_view; Type: MATERIALIZED VIEW; Schema: public; Owner: -
---
-
-CREATE MATERIALIZED VIEW untitled_materialized_view AS
- SELECT ((sum(a.total_students) / sum(b.total_students)) * (( SELECT count(DISTINCT s.id) AS students
-           FROM ((((((users t
-             LEFT JOIN ip_locations ON ((ip_locations.user_id = t.id)))
-             LEFT JOIN classrooms ON ((t.id = classrooms.teacher_id)))
-             LEFT JOIN users s ON (((classrooms.code)::text = (s.classcode)::text)))
-             LEFT JOIN activity_sessions ON ((s.id = activity_sessions.user_id)))
-             LEFT JOIN schools_users ON ((t.id = schools_users.user_id)))
-             LEFT JOIN schools ON ((schools_users.school_id = schools.id)))
-          WHERE (((activity_sessions.state)::text = 'finished'::text) AND (activity_sessions.completed_at < date_trunc('DAY'::text, (('now'::text)::date - '1 year'::interval))) AND ((ip_locations.country IS NULL) OR ((ip_locations.country)::text = 'United States'::text)))))::numeric)
-   FROM ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE ((schools_users.school_id IS NOT NULL) AND (s.free_lunches >= 40))) a,
-    ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE (schools_users.school_id IS NOT NULL)) b
-  WITH NO DATA;
-
-
---
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2051,7 +1994,8 @@ CREATE TABLE users (
     google_id character varying,
     last_sign_in timestamp without time zone,
     last_active timestamp without time zone,
-    stripe_customer_id character varying
+    stripe_customer_id character varying,
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['temporary'::character varying, 'staff'::character varying, 'admin'::character varying, 'student'::character varying, 'teacher'::character varying, 'user'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -2976,6 +2920,20 @@ CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING bt
 
 
 --
+-- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
+
+
+--
+-- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
+
+
+--
 -- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3123,13 +3081,6 @@ CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_le
 
 
 --
--- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
-
-
---
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3169,13 +3120,6 @@ CREATE INDEX index_concept_results_on_activity_classification_id ON concept_resu
 --
 
 CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
-
-
---
--- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
 
 
 --
@@ -3295,13 +3239,6 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
-
-
---
--- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_referrals_users_on_activated ON referrals_users USING btree (activated);
 
 
 --
@@ -4234,6 +4171,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171106201721');
 
 INSERT INTO schema_migrations (version) VALUES ('20171106203046');
 
+INSERT INTO schema_migrations (version) VALUES ('20171108201608');
+
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128192444');
@@ -4258,13 +4197,15 @@ INSERT INTO schema_migrations (version) VALUES ('20180102151559');
 
 INSERT INTO schema_migrations (version) VALUES ('20180110221301');
 
+INSERT INTO schema_migrations (version) VALUES ('20180111170306');
+
+INSERT INTO schema_migrations (version) VALUES ('20180111220811');
+
 INSERT INTO schema_migrations (version) VALUES ('20180119152409');
 
 INSERT INTO schema_migrations (version) VALUES ('20180119162847');
 
 INSERT INTO schema_migrations (version) VALUES ('20180122184126');
-
-INSERT INTO schema_migrations (version) VALUES ('20180123151650');
 
 INSERT INTO schema_migrations (version) VALUES ('20180126191518');
 
@@ -4323,8 +4264,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180222160256');
 INSERT INTO schema_migrations (version) VALUES ('20180222160302');
 
 INSERT INTO schema_migrations (version) VALUES ('20180222190628');
-
-INSERT INTO schema_migrations (version) VALUES ('20180226173947');
 
 INSERT INTO schema_migrations (version) VALUES ('20180227193833');
 
