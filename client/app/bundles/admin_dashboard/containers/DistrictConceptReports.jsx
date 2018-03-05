@@ -1,12 +1,12 @@
 import React from 'react';
 import LoadingSpinner from 'bundles/HelloWorld/components/shared/loading_indicator';
-import ActivityScores from 'bundles/admin_dashboard/components/activity_scores';
+import ConceptReports from 'bundles/admin_dashboard/components/concept_reports';
 import {
   switchClassroom,
   switchSchool,
   switchTeacher,
   getDistrictConceptReports,
-} from 'actions/district_activity_scores';
+} from 'actions/district_concept_reports';
 import { connect } from 'react-redux';
 
 class DistrictConceptReports extends React.Component {
@@ -108,7 +108,7 @@ function filterClassrooms(
 }
 
 const mapStateToProps = (state) => {
-  alert('we outchea concept reports')
+  console.log('we outchea concept reports')
   let filteredConceptReportsData = filterClassrooms(
     state.district_concept_reports.conceptReportsData,
     state.district_concept_reports.selectedSchool,
