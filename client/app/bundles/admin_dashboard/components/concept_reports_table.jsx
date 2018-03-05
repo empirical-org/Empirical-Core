@@ -6,8 +6,6 @@ import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
 
 const ConceptReportsTable = ({ data }) => {
-  console.log(data);
-
   let columns = [
     {
       Header: 'Student',
