@@ -306,6 +306,7 @@ a.all-blog-posts-back-button {
 #article-container {
   background: #ffffff;
 
+
   div p img { 
     max-width: 100%;
   }
@@ -314,6 +315,10 @@ a.all-blog-posts-back-button {
     margin: 0 auto;
     max-width: 945px;
     padding: 25px;
+
+    a {
+      text-decoration: underline;
+    }
 
     a.back-to-topic {
       color: #027360;
