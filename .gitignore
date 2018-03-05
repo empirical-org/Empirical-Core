@@ -43,6 +43,7 @@ activity-sessions*.json
 # React on Rails
 npm-debug.log*
 node_modules
+/public/webpack/*
 
 # Generated js bundles
 /app/assets/webpack/*
