@@ -1,25 +1,22 @@
-// Common client-side webpack configuration used by webpack.hot.config and webpack.rails.config.
-
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-
+const ManifestPlugin = require('webpack-manifest-plugin');
 const devBuild = process.env.NODE_ENV !== 'production';
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
-
+const { resolve } = require('path');
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+const configPath = resolve('..', 'config');
+const { output } = webpackConfigLoader(configPath);
 const nodeEnv = devBuild ? 'development' : 'production';
 
 module.exports = {
-
-  // the project dir
   context: __dirname,
   entry: {
-
-    // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
       'babel-polyfill',
       'es5-shim/es5-shim',
@@ -27,9 +24,6 @@ module.exports = {
       'jquery-ujs',
       'jquery'
     ],
-
-    // This will contain the app entry points defined by webpack.hot.config and
-    // webpack.rails.config
     app: [
       './app/bundles/HelloWorld/startup/clientRegistration'
     ],
@@ -42,7 +36,6 @@ module.exports = {
     session: [
       './app/bundles/Session/startup/clientRegistration'
     ],
-    // add a new login in bundle here
     login: [
       './app/bundles/Login/startup/clientRegistration'
     ],
@@ -58,8 +51,7 @@ module.exports = {
 
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    root: [ path.resolve('./app') ],
+    extensions: ['.js', '.jsx'],
     modules: ['node_modules'],
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
@@ -79,29 +71,67 @@ module.exports = {
       },
       TRACE_TURBOLINKS: devBuild,
     }),
-
-    // https://webpack.github.io/docs/list-of-plugins.html#2-explicit-vendor-chunk
+    new webpack.LoaderOptionsPlugin({
+      test: /\.scss$/,
+      options: {
+        sassResources: [
+          './app/assets/styles/app-variables.scss',
+        ]
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      test: /\.s?css$/,
+      options: {
+        postcss: [autoprefixer]
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin({
-
-      // This name 'vendor' ties into the entry definition
       name: 'vendor',
-
-      // We don't want the default vendor.js name
       filename: 'vendor-bundle.js',
-
-      // Passing Infinity just creates the commons chunk, but moves no modules into it.
-      // In other words, we only put what's in the vendor entry definition in vendor-bundle.js
       minChunks: Infinity,
-    })
+    }),
+    new ManifestPlugin({
+      publicPath: output.publicPath,
+      writeToFileEmit: true
+    }),
   ],
   module: {
-    loaders: [
-      { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000', },
-      { test: /\.(ttf|eot)$/, loader: 'file', },
-      { test: /\.(jpe?g|png|gif|svg|ico)$/, loader: 'url?limit=10000', },
-      { test: require.resolve('jquery'), loader: 'expose?jQuery', },
-      { test: require.resolve('jquery'), loader: 'expose?$', },
-      { test: /\.json$/, loader: 'json-loader', }
+    rules: [
+      {
+        test: /\.(ttf|eot)$/,
+        use: 'file-loader',
+      },
+      {
+        test: /\.(woff2?|jpe?g|png|gif|svg|ico)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name]-[hash].[ext]',
+            limit: 10000,
+          },
+        },
+      },
+      {
+        test: require.resolve('jquery'),
+        use: [
+          {
+            loader: 'expose-loader',
+            query: 'jQuery'
+          },
+          {
+            loader: 'expose-loader',
+            query: '$'
+          }
+        ]
+      },
+      {
+        test: /\.json$/,
+        use: [
+          {
+            loader: 'json-loader',
+          }
+        ]
+      }
     ],
   },
   node: {
@@ -110,14 +140,4 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-
-  // Place here all postCSS plugins here, so postcss-loader will apply them
-  postcss: [autoprefixer],
-
-  // Place here all SASS files with variables, mixins etc.
-  // And sass-resources-loader will load them in every CSS Module (SASS file) for you
-  // (so don't need to @import them explicitly)
-  // https://github.com/shakacode/sass-resources-loader
-  sassResources: ['./app/assets/styles/app-variables.scss'],
-
 };

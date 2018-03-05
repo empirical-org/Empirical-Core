@@ -47,24 +47,24 @@ config.module.loaders.push(
   {
     test: /\.css$/,
     loaders: [
-      'style',
-      'css',
-      'postcss'
+      'style-loader',
+      'css-loader',
+      'postcss-loader'
     ],
   },
   {
     test: /\.scss$/,
     loaders: [
-      'style',
-      'css',
-      'postcss',
-      'sass',
-      'sass-resources'
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+      'sass-loader',
+      'sass-resources-loader'
     ],
   },
   {
     test: require.resolve('jquery-ujs'),
-    loader: 'imports?jQuery=jquery',
+    loader: 'imports-loader?jQuery=jquery',
   }
 );
 
