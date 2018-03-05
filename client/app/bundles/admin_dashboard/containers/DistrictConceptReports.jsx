@@ -1,12 +1,12 @@
 import React from 'react';
 import LoadingSpinner from 'bundles/HelloWorld/components/shared/loading_indicator';
-import ConceptReports from 'bundles/admin_dashboard/components/concept_reports';
+import ActivityScores from 'bundles/admin_dashboard/components/activity_scores';
 import {
   switchClassroom,
   switchSchool,
   switchTeacher,
   getDistrictConceptReports,
-} from 'actions/district_concept_reports';
+} from 'actions/district_activity_scores';
 import { connect } from 'react-redux';
 
 class DistrictConceptReports extends React.Component {
@@ -108,36 +108,37 @@ function filterClassrooms(
 }
 
 const mapStateToProps = (state) => {
+  alert('we outchea concept reports')
   let filteredConceptReportsData = filterClassrooms(
-    state.conceptReportsData,
-    state.selectedSchool,
-    state.selectedTeacher,
-    state.selectedClassroom
+    state.district_concept_reports.conceptReportsData,
+    state.district_concept_reports.selectedSchool,
+    state.district_concept_reports.selectedTeacher,
+    state.district_concept_reports.selectedClassroom
   );
 
   let teacherNames = getTeacherNames(
-    state.conceptReportsData,
-    state.selectedSchool
+    state.district_concept_reports.conceptReportsData,
+    state.district_concept_reports.selectedSchool
   );
 
   let classroomNames = getClassroomNames(
-    state.conceptReportsData,
-    state.selectedSchool,
-    state.selectedTeacher,
+    state.district_concept_reports.conceptReportsData,
+    state.district_concept_reports.selectedSchool,
+    state.district_concept_reports.selectedTeacher,
   );
 
   return {
-    loading: state.loading,
-    errors: state.errors,
-    selectedClassroom: state.selectedClassroom,
-    selectedSchool: state.selectedSchool,
-    selectedTeacher: state.selectedTeacher,
-    conceptReportsData: state.conceptReportsData,
+    loading: state.district_concept_reports.loading,
+    errors: state.district_concept_reports.errors,
+    selectedClassroom: state.district_concept_reports.selectedClassroom,
+    selectedSchool: state.district_concept_reports.selectedSchool,
+    selectedTeacher: state.district_concept_reports.selectedTeacher,
+    conceptReportsData: state.district_concept_reports.conceptReportsData,
     filteredConceptReportsData,
     csvData: formatDataForCSV(filteredConceptReportsData),
     classroomNames,
     teacherNames,
-    schoolNames: getSchoolNames(state.conceptReportsData),
+    schoolNames: getSchoolNames(state.district_concept_reports.conceptReportsData),
   }
 };
 const mapDispatchToProps = (dispatch) => {

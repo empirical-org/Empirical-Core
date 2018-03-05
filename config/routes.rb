@@ -91,7 +91,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
-  get 'teachers/admin_dashboard/district_concept_results' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
