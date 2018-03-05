@@ -71,12 +71,8 @@ class ChargesController < ApplicationController
   end
 
   def create_customer_with_card
-    customer_id = Stripe::Customer.create(
-      :description => "premium",
-      :source  => params[:source][:id],
-      :email => current_user.email,
-      :metadata => { name: current_user.name, school: current_user.school&.name }
-    ).id
+    create_customer_and_update_user
+    render json: {current_user: current_user}
   end
 
   def update_card
@@ -95,6 +91,16 @@ class ChargesController < ApplicationController
   end
 
   private
+
+  def create_customer_and_update_user
+    customer_id = Stripe::Customer.create(
+      :description => "premium",
+      :source  => params[:source][:id],
+      :email => current_user.email,
+      :metadata => { name: current_user.name, school: current_user.school&.name }
+    ).id
+    current_user.update(stripe_customer_id: customer_id)
+  end
 
   def update_card_helper
     customer_id = current_user.stripe_customer_id
