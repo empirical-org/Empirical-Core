@@ -55,7 +55,8 @@ export default class extends React.Component {
 
   loadingOrButtons() {
     if (!this.state.lastFour) {
-      return <button key="enter a card" onClick={this.toggleChangeCard} className={this.state.extantCardSelected ? 'selected' : ''}>Enter Credit Card</button>;
+      const className = `enter-credit-card ${this.state.extantCardSelected ? 'selected' : ''}`;
+      return <button key="enter a card" onClick={this.toggleChangeCard} className={className}>Enter Credit Card</button>;
     }
     return ([
       <button key="extant" onClick={this.toggleExtantCard} className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`}>Credit Card ending with {this.state.lastFour}</button>,
