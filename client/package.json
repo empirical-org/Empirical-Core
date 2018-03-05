@@ -118,6 +118,9 @@
     "jest:coverage": "jest --coverage",
     "jest:silent": "jest --silent"
   },
+  "engines": {
+    "node": "7.5.0"
+  },
   "jest": {
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
