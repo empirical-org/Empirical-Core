@@ -41,16 +41,19 @@ const ActivityScores = ({
           items={schoolNames}
           callback={switchSchool}
           selectedItem={selectedSchool}
+          dropdownId='as-school-select-dropdown'
         />
         <ItemDropdown
           items={teacherNames}
           callback={switchTeacher}
           selectedItem={selectedTeacher}
+          dropdownId='as-teacher-select-dropdown'
         />
         <ItemDropdown
           items={classroomNames}
           callback={switchClassroom}
           selectedItem={selectedClassroom}
+          dropdownId='as-classroom-select-dropdown'
         />
       </div>
       <ActivityScoresTable data={filteredClassroomsData} />
