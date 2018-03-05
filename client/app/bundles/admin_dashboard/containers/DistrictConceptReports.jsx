@@ -108,7 +108,6 @@ function filterClassrooms(
 }
 
 const mapStateToProps = (state) => {
-  console.log('we outchea concept reports')
   let filteredConceptReportsData = filterClassrooms(
     state.district_concept_reports.conceptReportsData,
     state.district_concept_reports.selectedSchool,

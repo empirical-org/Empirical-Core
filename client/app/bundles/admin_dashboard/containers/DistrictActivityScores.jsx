@@ -104,8 +104,6 @@ function filterClassrooms(
 }
 
 const mapStateToProps = (state) => {
-
-  console.log('we outchea2');
   let filteredClassroomsData = filterClassrooms(
     state.district_activity_scores.classroomsData,
     state.district_activity_scores.selectedSchool,
