@@ -104,36 +104,38 @@ function filterClassrooms(
 }
 
 const mapStateToProps = (state) => {
+
+  console.log('we outchea2');
   let filteredClassroomsData = filterClassrooms(
-    state.classroomsData,
-    state.selectedSchool,
-    state.selectedTeacher,
-    state.selectedClassroom
+    state.district_activity_scores.classroomsData,
+    state.district_activity_scores.selectedSchool,
+    state.district_activity_scores.selectedTeacher,
+    state.district_activity_scores.selectedClassroom
   );
 
   let teacherNames = getTeacherNames(
-    state.classroomsData,
-    state.selectedSchool
+    state.district_activity_scores.classroomsData,
+    state.district_activity_scores.selectedSchool
   );
 
   let classroomNames = getClassroomNames(
-    state.classroomsData,
-    state.selectedSchool,
-    state.selectedTeacher,
+    state.district_activity_scores.classroomsData,
+    state.district_activity_scores.selectedSchool,
+    state.district_activity_scores.selectedTeacher,
   );
 
   return {
-    loading: state.loading,
-    errors: state.errors,
-    selectedClassroom: state.selectedClassroom,
-    selectedSchool: state.selectedSchool,
-    selectedTeacher: state.selectedTeacher,
-    classroomsData: state.classroomsData,
+    loading: state.district_activity_scores.loading,
+    errors: state.district_activity_scores.errors,
+    selectedClassroom: state.district_activity_scores.selectedClassroom,
+    selectedSchool: state.district_activity_scores.selectedSchool,
+    selectedTeacher: state.district_activity_scores.selectedTeacher,
+    classroomsData: state.district_activity_scores.classroomsData,
     filteredClassroomsData,
     csvData: formatDataForCSV(filteredClassroomsData),
     classroomNames,
     teacherNames,
-    schoolNames: getSchoolNames(state.classroomsData),
+    schoolNames: getSchoolNames(state.district_activity_scores.classroomsData),
   }
 };
 const mapDispatchToProps = (dispatch) => {
