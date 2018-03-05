@@ -1,8 +1,5 @@
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
-import UpdateStripeCard from '../modules/stripe/update_card.js';
-import getAuthToken from '../modules/get_auth_token';
-import request from 'request';
 
 export default class extends React.Component {
 
