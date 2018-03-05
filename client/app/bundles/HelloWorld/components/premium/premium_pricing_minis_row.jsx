@@ -15,7 +15,7 @@ export default React.createClass({
           <TeacherPricingMini {...this.props} />
         </div>
         <div className="col-md-4">
-          <SchoolPricingMini />
+          <SchoolPricingMini {...this.props} />
         </div>
       </div>
     );
