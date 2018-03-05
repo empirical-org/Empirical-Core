@@ -199,7 +199,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     let slide
     switch (current.type) {
       case 'CL-LB':
-        slide = <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title}/>
+        slide = <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title} projector={projector}/>
         break
       case 'CL-ST':
         slide = <CLStudentStatic key={data.current_slide} data={current.data} />
