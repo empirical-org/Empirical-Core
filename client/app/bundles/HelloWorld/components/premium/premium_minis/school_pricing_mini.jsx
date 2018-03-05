@@ -56,7 +56,7 @@ export default React.createClass({
         </section>
         <button type="button" onClick={this.showModal} className="btn btn-default mini-btn purple">Request Quote</button>
         <a href="https://quillpremium.youcanbook.me" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
-        <QuoteRequestModal show={this.state.showModal} hideModal={this.hideModal} />
+        <QuoteRequestModal userHasSchool={this.props.userHasSchool} show={this.state.showModal} hideModal={this.hideModal} />
       </div>
     );
   },
