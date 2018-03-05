@@ -306,6 +306,10 @@ a.all-blog-posts-back-button {
 #article-container {
   background: #ffffff;
 
+  div p img { 
+    max-width: 100%;
+  }
+
   article {
     margin: 0 auto;
     max-width: 945px;
