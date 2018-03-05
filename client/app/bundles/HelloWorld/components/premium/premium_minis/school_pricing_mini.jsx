@@ -4,9 +4,13 @@ import QuoteRequestModal from '../quote_request_modal.jsx';
 export default React.createClass({
 
   render() {
+    let onClickEvent = this.props.showPurchaseModal;
     let savingsCopy = 'Get 50% off for the first year!';
     if (this.props.userBelongsToSchoolThatHasPaid) {
       savingsCopy = 'Renew Now And Receive 50% Off!';
+    }
+    if (!this.props.userIsEligibleForNewSubscription) {
+      onClickEvent = () => alert('You have an active subscription and cannot buy premium now. You may buy a new Premium subscription when your current subscription expires.');
     }
     return (
       <div className="pricing-mini">
@@ -42,9 +46,8 @@ export default React.createClass({
         </li>
           </ul>
         </section>
-        <button type="button" onClick={this.props.showPurchaseModal} className="btn btn-default mini-btn purple">Purchase</button>
+        <button type="button" onClick={onClickEvent} className="btn btn-default mini-btn purple">Purchase</button>
         <a href="https://quillpremium.youcanbook.me" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
-        <QuoteRequestModal userHasSchool={this.props.userHasSchool} show={this.state.showModal} hideModal={this.hideModal} />
       </div>
     );
   },
