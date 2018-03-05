@@ -60,7 +60,7 @@ class SubscriptionsController < ApplicationController
     @premium_credits = current_user.credit_transactions
     subscription_status
     @school_subscription_types = Subscription::SCHOOL_SUBSCRIPTIONS_TYPES
-    @last_four = last_four
+    @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
     if @subscription_status
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])
@@ -90,12 +90,6 @@ class SubscriptionsController < ApplicationController
       @subscription_status = @subscription_status&.attributes&.merge({expired: expired})
     end
 
-  end
-
-  def last_four
-    if current_user.stripe_customer_id.present?
-      Stripe::Customer.retrieve(current_user.stripe_customer_id).sources.data.first.last4
-    end
   end
 
   def subscription_params

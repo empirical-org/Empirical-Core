@@ -46,6 +46,20 @@ describe User, type: :model do
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
+  describe '#last_four' do
+    it "returns nil if a user does not have a stripe_customer_id" do
+      expect(user.last_four).to eq(nil)
+    end
+
+    it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id " do
+      user.update(stripe_customer_id: 10)
+      expect(Stripe::Customer).to receive(:retrieve).with(user.stripe_customer_id) {
+        double('retrieve', sources: double(data: double(first: double(last4: 1000))))
+      }
+      expect(user.last_four).to eq(1000)
+    end
+  end
+
   describe 'subscription methods' do
 
     context('subscription methods') do

@@ -181,6 +181,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  # gets last four digits of Stripe card
+  def last_four
+    if self.stripe_customer_id
+      Stripe::Customer.retrieve(self.stripe_customer_id).sources.data.first.last4
+    end
+  end
+
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
       sanitized_role
