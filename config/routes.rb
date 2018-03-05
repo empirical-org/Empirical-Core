@@ -35,6 +35,7 @@ EmpiricalGrammar::Application.routes.draw do
   # for Stripe
   resources :charges, only: [:create]
   post 'charges/update_card' => 'charges#update_card'
+  post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
   post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
   post 'charges/new_school_premium' => 'charges#new_school_premium'
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
