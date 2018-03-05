@@ -115,6 +115,7 @@ li.premium-tab > a:hover {
     background: white;
     border: 1px solid #cecece;
     font-size: 15px;
+    min-height: 513px;
     @media (max-width: 990px) {
       max-width: 383px;
       margin: auto;
@@ -212,9 +213,6 @@ li.premium-tab > a:hover {
         width: 122px;
         margin-left: 6px;
         margin-right: 6px;
-      }
-      &.purple {
-        padding-left: 14px;
       }
       &.empty-purple {
         padding-left: 9px;
