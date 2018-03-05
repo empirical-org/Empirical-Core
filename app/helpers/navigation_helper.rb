@@ -50,6 +50,8 @@ module NavigationHelper
       "Premium  <i class='fa fa-star'></i> Trial Expired"
     when nil
       "Try Premium <i class='fa fa-star'></i>"
+    when 'none' 
+      "Try Premium <i class='fa fa-star'></i>"
     end
   end
 
