@@ -6,6 +6,8 @@ import MarkdownParser from '../../shared/markdown_parser.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 import BlogPostContent from '../../blog_posts/blog_post_content'
 import DatePicker from 'react-datepicker'
+import Dropzone from 'react-dropzone'
+import getAuthToken from '../../modules/get_auth_token'
 
 const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
@@ -77,6 +79,8 @@ export default class extends React.Component {
     this.showArticlePreview = this.showArticlePreview.bind(this)
     this.updatePublishedAt = this.updatePublishedAt.bind(this)
     this.goToPreview = this.goToPreview.bind(this)
+    this.onDrop = this.onDrop.bind(this)
+    this.handlePreviewCardButtonTextChange = this.handlePreviewCardButtonTextChange.bind(this)
   }
 
   componentDidMount() {
@@ -194,10 +198,12 @@ export default class extends React.Component {
         authenticity_token: ReactOnRails.authenticityToken()
       }
     }, (error, httpStatus, body) => {
+      const parsedBody = JSON.parse(body)
       if (httpStatus.statusCode === 200 && this.props.action === 'new') {
         alert('Post added successfully!');
-        window.location.href = `/cms/blog_posts/${JSON.parse(body).id}/edit`
+        window.location.href = (`/cms/blog_posts/${parsedBody.id}/edit`)
       } else if (httpStatus.statusCode === 200) {
+        this.setState({draft: parsedBody.draft})
         alert('Update successful!');
       } else {
         alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
@@ -225,7 +231,8 @@ export default class extends React.Component {
   }
 
   goToPreview() {
-    window.location.href = this.state.externalLink ? this.state.externalLink : `/teacher_resources/${this.state.slug}`
+    const url = this.state.externalLink ? this.state.externalLink : `/teacher_resources/${this.state.slug}`
+    window.open(url, '_blank')
   }
 
   insertMarkdown(startChar, endChar = null) {
@@ -257,6 +264,24 @@ export default class extends React.Component {
     this.setState({ preview_card_type: e }, this.updatePreviewCardBasedOnType)
   }
 
+  onDrop(acceptedFiles) {
+    acceptedFiles.forEach(file => {
+      const data = new FormData()
+      data.append('file', file)
+      fetch(`${process.env.DEFAULT_URL}/cms/images/save_image`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'X-CSRF-Token': getAuthToken()
+        },
+        body: data
+      })
+      .then(response => response.json()) // if the response is a JSON object
+      .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
+    });
+  }
+
   updatePreviewCardBasedOnType() {
     switch (this.state.preview_card_type) {
       case 'Tiny Image':
@@ -269,6 +294,9 @@ export default class extends React.Component {
         break;
       case 'YouTube Video':
         this.updatePreviewCardVideoContent();
+        break;
+      case 'Button':
+        this.updatePreviewCardButtonContent();
         break;
       default:
         this.setState({ preview_card_content: this.state.custom_preview_card_content })
@@ -296,21 +324,34 @@ export default class extends React.Component {
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
+  handlePreviewCardButtonTextChange(e) {
+    this.setState({
+      previewCardButtonText: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
   updatePreviewCardFromBlogPostPreview() {
     const author = this.props.authors.find(a => a.id == this.state.author_id)
     const publishDate = this.state.publishedAt
-    let footerContent
+    let footerContent, button
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishDate) {
-      footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
+    }
+    if (this.state.previewCardButtonText) {
+      button = `<div class='button-container'><a class='article-cta-primary' href=${this.state.externalLink}>${this.state.previewCardButtonText}</a></div>`
+    } else {
+      button = '<span/>'
     }
     const previewCardContent = `<img class='preview-card-image' src='${this.state.blogPostPreviewImage}' />
     <div class='preview-card-body'>
        <h3>${this.state.blogPostPreviewTitle}</h3>
        <p>${this.state.blogPostPreviewDescription}</p>
+       ${button}
     </div>
     <div class='preview-card-footer'>
       ${footerContent}
@@ -353,7 +394,7 @@ export default class extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishDate) {
-      footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -377,7 +418,7 @@ export default class extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishDate) {
-      footerContent = `<p class='published'>Published on ${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -403,9 +444,11 @@ export default class extends React.Component {
         <label>Title:</label>,
         <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
         <label>Description:</label>,
-        <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />
+        <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />,
+        <label>Button Text (button will link to whatever the external link is above):</label>,
+        <input onChange={this.handlePreviewCardButtonTextChange} type='text' value={this.state.previewCardButtonText} />
       ]
-    } else if(preview_card_type === 'Custom HTML') {
+    } else if (preview_card_type === 'Custom HTML') {
       contentFields = [
         <label>Custom HTML:</label>,
         <textarea rows={4} type="text" id="preview-markdown-content" value={this.state.custom_preview_card_content} onChange={this.handleCustomPreviewChange} />
@@ -534,7 +577,7 @@ export default class extends React.Component {
             <div>
               <label>Author:</label>
               <ItemDropdown items={[nullAuthor].concat(this.props.authors)} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id) || nullAuthor} />
-              <a className="create-new-author-link" href="/cms/authors/new">Create New Author</a>
+              <a className="create-new-author-link" href="/cms/authors/new" target="_blank">Create New Author</a>
             </div>
             <div>
               <label>Topic:</label>
@@ -552,6 +595,13 @@ export default class extends React.Component {
               <label>External Link: (Optional, use only if this card should point to another website)</label>
               <input onChange={this.handleExternalLinkChange} value={this.state.externalLink}/>
             </div>
+          </div>
+
+          <div>
+            <label>Click the square below or drag an image into it to upload an image:</label>
+            <Dropzone onDrop={this.onDrop}/>
+            <label>Here is the link to your uploaded image:</label>
+            <input value={this.state.uploadedImageLink}/>
           </div>
 
           <div className="side-by-side">

@@ -214,6 +214,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    justify-content: space-between;
   }
 
   .video-holder {
@@ -236,8 +237,13 @@ body {
     transition: all 0.3s ease-out;
     flex-grow: 1;
 
+    .button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     p {
-      flex-grow: 1;
       margin: 17px 0;
 
       &:first-of-type {
@@ -463,12 +469,15 @@ a.all-blog-posts-back-button {
 
 .article-cta-primary, .article-cta-secondary {
   border-radius: 4px;
-  display: inline-block;
+  text-align: center;
   font-size: 16px;
-  padding: 6px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40px;
   margin: 0px 15px;
   font-weight: bold;
+  padding: 20px;
   &:hover {
     text-decoration: none;
   }
