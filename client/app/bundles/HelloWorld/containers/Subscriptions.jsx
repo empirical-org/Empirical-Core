@@ -1,8 +1,6 @@
 import React from 'react';
 import request from 'request';
 import _ from 'lodash';
-import moment from 'moment';
-import pluralize from 'pluralize';
 import SubscriptionStatus from '../components/subscriptions/subscription_status';
 import PurchaseModal from './PurchaseModal';
 import AvailableCredits from '../components/subscriptions/available_credits';
@@ -37,10 +35,6 @@ export default class extends React.Component {
     this.updateCard = this.updateCard.bind(this);
     this.updateSubscription = this.updateSubscription.bind(this);
     // this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
-  }
-
-  updateSubscriptionStatus(subscription) {
-    this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
   }
 
   availableAndEarnedCredits() {
@@ -79,6 +73,10 @@ export default class extends React.Component {
     (e, r, body) => {
       that.setState({ purchaserNameOrEmail: JSON.parse(body).name, });
     });
+  }
+
+  updateSubscriptionStatus(subscription) {
+    this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
   }
 
   purchasePremiumButton() {
