@@ -17,12 +17,19 @@ export default class extends React.Component {
     this.changeExpirationDate = this.changeExpirationDate.bind(this);
     this.changeStartDate = this.changeStartDate.bind(this);
     this.changePurchaserId = this.changePurchaserId.bind(this);
+    this.changePurchaserInfoToTeacherInfo = this.changePurchaserInfoToTeacherInfo.bind(this);
   }
 
   changeAccountType(e) {
     const newSub = Object.assign({}, this.state.subscription);
     newSub.account_type = e;
     this.setState({ subscription: newSub, });
+  }
+
+  changePurchaserInfoToTeacherInfo() {
+    const newSub = Object.assign({}, this.state.subscription);
+    newSub.purchaser_id = this.props.user.id;
+    this.setState({ subscription: newSub, purchaserEmail: this.props.user.email, });
   }
 
   handlePaymentMethodChange(e) {
@@ -37,8 +44,18 @@ export default class extends React.Component {
     this.setState({ subscription: newSub, });
   }
 
+  getMatchingUserFromSchoolsUsers(newSub) {
+    const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.email === e.target.value);
+    if (matchingSchoolUser) {
+      newSub.purchaser_id = matchingSchoolUser.id;
+    }
+  }
+
   changePurchaserEmail(e) {
-    this.setState({ purchaserEmail: e.target.value, });
+    const newSub = Object.assign({}, this.state.subscription);
+    newSub.purchaser_email = e.target.value;
+    this.getMatchingUserFromSchoolsUsers(newSub);
+    this.setState({ subscription: newSub, purchaserEmail: e.target.value, });
   }
 
   changeExpirationDate(e) {
@@ -53,7 +70,6 @@ export default class extends React.Component {
   }
   changePurchaserId(e) {
     const newSub = Object.assign({}, this.state.subscription);
-    console.log(e);
     newSub.purchaser_id = e;
     this.setState({ subscription: newSub, });
   }
@@ -86,7 +102,7 @@ export default class extends React.Component {
           selectedItem={this.state.subscription.account_type || ''}
         />
         <label>Created At:</label>
-        <span>this.props.subscription.created</span>
+        <span>{this.props.subscription.created_at}</span>
         <h2>Payment Information</h2>
         <label>Payment Method</label>
         <ItemDropdown
@@ -97,9 +113,10 @@ export default class extends React.Component {
         <label>Payment Amount (dollar value as integer -- no decimal or symbol)</label>
         <input onChange={this.changePaymentAmount} type="text" value={this.state.subscription.payment_amount / 100} />
         <h2>Purchaser Information</h2>
+        <span onClick={this.changePurchaserInfoToTeacherInfo} className="green-text text-green">Same As Teacher Info</span>
         {this.purchaserFromSchool()}
         <label>Purchaser Email</label>
-        <input type="text" value={this.props.purchaserEmail} onChange={this.changePurchaserEmail} />
+        <input type="text" value={this.state.purchaserEmail} onChange={this.changePurchaserEmail} />
         <h2>Period</h2>
         <label>Start Date</label>
         <p>
