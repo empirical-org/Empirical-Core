@@ -27,8 +27,8 @@ class Cms::SchoolsController < Cms::CmsController
   def show
     @school_info = School.includes(:subscription).find(params[:id])
     @school_subscription_info = {
-      'School Premium Type' => @school_info.subscription&.account_type,
-      'Expiration' => @school_info.subscription&.expiration&.strftime('%b %d, %Y')
+      'School Premium Type' => @school_info&.subscription&.account_type,
+      'Expiration' => @school_info&.subscription&.expiration&.strftime('%b %d, %Y')
     }
     @school_info = {
       'Name' => @school_info.name,
