@@ -195,7 +195,8 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
     const projector = this.state.projector
-    const props = { mode, submissions, selected_submissions, selected_submission_order, projector};
+    const studentCount = data.students && Object.keys(data.students) ? Object.keys(data.students).length : 0
+    const props = { mode, submissions, selected_submissions, selected_submission_order, projector, studentCount};
     let slide
     switch (current.type) {
       case 'CL-LB':
@@ -205,7 +206,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         slide = <CLStudentStatic key={data.current_slide} data={current.data} />
         break
       case 'CL-MD':
-        slide = <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt}/>
+        slide = <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt} projector={projector}/>
         break
       case 'CL-SA':
         slide = <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />

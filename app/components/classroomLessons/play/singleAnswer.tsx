@@ -20,7 +20,8 @@ interface SingleAnswerProps {
   submissions?: QuestionSubmissionsList|null,
   selected_submissions?: SelectedSubmissionsForQuestion|null,
   selected_submission_order?: Array<string>|null,
-  projector?: boolean|null
+  projector?: boolean|null,
+  studentCount?: number
 }
 
 interface SingleAnswerState {
@@ -119,7 +120,6 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       return this.renderProject();
     }
     const textBoxDisabled = !!this.state.submitted;
-    if (!this.props.projector) {
       return (
         <TextEditor
           defaultValue={''}
@@ -128,10 +128,9 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           checkAnswer={this.submitSubmission}
           hasError={undefined}
           handleChange={this.handleChange}
-          placeholder="Type your answer here."
+          placeholder={this.props.projector ? 'Students type their response.' : "Type your answer here."}
         />
       );
-    }
   }
 
   renderInstructions() {
@@ -167,7 +166,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderSubmitButton() {
-    if (this.props.mode !== 'PROJECT' && !this.props.projector) {
+    if (this.props.mode !== 'PROJECT') {
       const disabled = !this.state.response || this.state.response.length === 0 ? 'is-disabled' : null
       return (<div className="question-button-group">
         <button disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission} className={`button student-submit ${disabled}`}>Submit</button>
@@ -175,9 +174,22 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     }
   }
 
+  renderProjectorHeader() {
+    if (this.props.projector) {
+      const studentCount:number = this.props.studentCount
+      const submissionCount:number = this.props.submissions ? Object.keys(this.props.submissions).length : 0
+      const studentCountText:string = studentCount && submissionCount ? `${submissionCount} of ${studentCount} Answered` : ''
+      return <div className="projector-header-section">
+        <div className="students-type-tag tag">Students Type Response</div>
+        <p className="answered-count">{studentCountText}</p>
+      </div>
+    }
+  }
+
   render() {
     return (
       <div>
+        {this.renderProjectorHeader()}
         <RenderSentenceFragments prompt={this.props.data.play.prompt} />
         {this.renderCues()}
         {this.renderInstructions()}
@@ -186,7 +198,6 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       </div>
     );
   }
-
 }
 
 export default SingleAnswer;

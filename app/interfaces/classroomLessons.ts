@@ -30,7 +30,7 @@ export interface TeachData {
   topic?: string;
   lesson?: number;
   title: string;
-  script: Array<ScriptItem>
+  script: Array<ScriptItem >
 }
 
 export interface ScriptItem {
