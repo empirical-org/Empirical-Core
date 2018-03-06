@@ -156,6 +156,8 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
+
+
   studentEnrolledInClass(student: string|null) {
     return student && this.props.classroomSessions.data.students ? !!this.props.classroomSessions.data.students[student] : false
   }
@@ -247,6 +249,39 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
+  renderLeftButton() {
+    if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== '0') {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+      const imageSrc = this.state.leftHover ? 'http://assets.quill.org/images/icons/left-button-hover.svg' : 'http://assets.quill.org/images/icons/left-button.svg'
+      return <img
+        className="left-button"
+        src={imageSrc}
+        onMouseOver={() => this.setState({leftHover: true})}
+        onMouseOut={() => this.setState({leftHover: false})}
+        onClick={() => this.props.dispatch(goToPreviousSlide(ca_id, sessionData, editionData))}
+      />
+    }
+
+  }
+
+  renderRightButton() {
+    if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== this.props.classroomLesson.data.questions.length - 1) {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+      const imageSrc = this.state.rightHover ? 'http://assets.quill.org/images/icons/right-button-hover.svg' : 'http://assets.quill.org/images/icons/right-button.svg'
+      return <img
+      className="right-button"
+      src={imageSrc}
+      onMouseOver={() => this.setState({rightHover: true})}
+      onMouseOut={() => this.setState({rightHover: false})}
+      onClick={() => this.props.dispatch(goToNextSlide(ca_id, sessionData, editionData))}
+    />
+    }
+  }
+
   public render() {
     const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = this.props.classroomSessions;
     const lessonError = this.props.classroomLesson.error;
@@ -291,6 +326,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
              <div>
               <WakeLock />
               {absentTeacher || watchTeacher}
+              {this.renderLeftButton()}
                 <div className="play-lesson-container">
                   <div className="main-content">
                    <div className="main-content-wrapper">
@@ -298,6 +334,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
                    </div>
                  </div>
                </div>
+              {this.renderRightButton()}
              </div>
            );
          }

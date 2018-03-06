@@ -171,3 +171,39 @@
     color: #666666;
   }
 }
+
+.left-button, .right-button {
+  position: absolute;
+  top: 45%;
+  cursor: pointer;
+}
+
+@media (min-width: 1440px) {
+  .left-button {
+    left: 10%;
+  }
+
+  .right-button {
+    right: 10%;
+  }
+}
+
+@media (max-width: 1440px) {
+  .left-button {
+    left: 5%;
+  }
+
+  .right-button {
+    right: 5%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .left-button {
+    left: 2%;
+  }
+
+  .right-button {
+    right: 2%;
+  }
+}
