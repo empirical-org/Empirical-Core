@@ -23,7 +23,7 @@ module.exports = {
     path: output.path,
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.tx', '.txs', '.js', '.jsx'],
     alias: {
       libs: path.join(process.cwd(), 'app', 'libs'),
     },
@@ -43,7 +43,16 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, },
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.css$/,
         loaders: [
