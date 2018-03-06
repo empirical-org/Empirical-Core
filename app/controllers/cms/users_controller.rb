@@ -71,6 +71,7 @@ class Cms::UsersController < Cms::CmsController
     @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
     @subscription_payment_methods = Subscription::PAYMENT_METHODS
     @purchaser_email = @subscription.purchaser&.email || @subscription.purchaser_email
+    @promo_expiration_date = Subscription.promotional_dates['expiration']
     # if @subscription
     #   @expiration_date = @subscription.expiration
     #   @account_type = @subscription.account_type
