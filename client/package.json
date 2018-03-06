@@ -75,6 +75,7 @@
     "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.5.0",
     "babel-cli": "^6.26.0",
     "babel-jest": "=19.0.0",
     "babel-plugin-module-resolver": "^3.1.0",
@@ -99,6 +100,7 @@
     "react-test-renderer": "^15.4.2",
     "react-transform-hmr": "^1.0.4",
     "redux-test-utils": "^0.2.2",
+    "typescript": "^2.7.2",
     "webpack-dev-server": "^2.9.4",
     "webpack-manifest-plugin": "^2.0.0-rc.2"
   },
