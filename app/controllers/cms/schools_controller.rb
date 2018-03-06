@@ -25,7 +25,7 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
   def show
-    @school_info = School.includes(:subscription).find(params[:id])
+    @school_info = School.find(params[:id])
     @school_subscription_info = {
       'School Premium Type' => @school_info.subscription&.account_type,
       'Expiration' => @school_info.subscription&.expiration&.strftime('%b %d, %Y')
@@ -66,7 +66,7 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def edit_subscription
-    @school = School.includes(:subscription).find(params[:id])
+    @school = School.find(params[:id])
     @school_premium_types = Subscription.account_types
 
     if @school.subscription
@@ -90,7 +90,7 @@ class Cms::SchoolsController < Cms::CmsController
       subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
       subscription.account_type = subscription_params[:premium_status]
       subscription.account_limit = 1000 # This is a default value and should be deprecated.
-      success = (subscription.save && school.subscription = subscription)
+      success = (subscription.save && SchoolSubscription.create(school: school, subscription: subscription))
     else
       subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
       subscription.account_type = subscription_params[:premium_status]
