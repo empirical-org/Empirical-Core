@@ -10,6 +10,7 @@ describe('DistrictActivityScores reducer', () => {
       selectedSchool: 'All Schools',
       selectedTeacher: 'All Teachers',
       classroomsData: [],
+      conceptReportsData: [],
     });
   });
 
