@@ -3,6 +3,7 @@ import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentFillInTheBlank from '../play/fillInTheBlank'
+import promptSplitter from '../shared/promptSplitter'
 
 interface AdminFillInTheBlanksProps {
   question: CLIntF.QuestionData,
@@ -10,22 +11,35 @@ interface AdminFillInTheBlanksProps {
 }
 
 interface AdminFillInTheBlanksState {
-  question: CLIntF.QuestionData
+  question: CLIntF.QuestionData,
+  prefilledSampleCorrectAnswer?: string
 }
 
 class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFillInTheBlanksState>{
   constructor(props){
     super(props);
 
+    const question = props.question
+    if (!question.play.sampleCorrectAnswer) {
+      const splitPrompt = question.play.sampleCorrectAnswer
+      question.play.sampleCorrectAnswer
+    }
+
     this.state = {
-      question: this.props.question
+      question: props.question
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handlePromptChange = this.handlePromptChange.bind(this)
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
+    this.handleSampleCorrectAnswerChange = this.handleSampleCorrectAnswerChange.bind(this)
+    this.updatePrefilledSampleCorrectAnswer = this.updatePrefilledSampleCorrectAnswer.bind(this)
     this.save = this.save.bind(this)
+  }
+
+  componentDidMount() {
+    this.updatePrefilledSampleCorrectAnswer(this.state.question.play.prompt)
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -34,6 +48,17 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
   //   }
   // }
   //
+  updatePrefilledSampleCorrectAnswer(prompt) {
+    const splitPrompt = promptSplitter(prompt)
+    let formattedPrompt = ''
+    splitPrompt.forEach((s, i) => {
+      if (i !== splitPrompt.length -1) {
+        formattedPrompt+=s.concat('<strong>').concat('___').concat('</strong>')
+      }
+    })
+     this.setState({prefilledSampleCorrectAnswer: formattedPrompt})
+  }
+
   handleTitleChange(e) {
     const newVals = Object.assign(
       {},
@@ -49,7 +74,7 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
       this.state.question
     );
     _.set(newVals, 'play.prompt', e.target.value)
-    this.setState({question: newVals})
+    this.setState({question: newVals}, () => this.updatePrefilledSampleCorrectAnswer(this.state.question.play.prompt))
   }
 
   handleInstructionsChange(e) {
@@ -68,6 +93,12 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
     );
     const formattedCues = e.target.value.split(',');
     _.set(newVals, 'play.cues', formattedCues)
+    this.setState({question: newVals})
+  }
+
+  handleSampleCorrectAnswerChange(e) {
+    const newVals = {...this.state.question}
+    _.set(newVals, 'play.sampleCorrectAnswer', e.target.value)
     this.setState({question: newVals})
   }
 
@@ -105,6 +136,12 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
           <label className="label">Cues comma separated (Optional)</label>
           <div className="control">
             <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Sample correct answer (Optional)</label>
+          <div className="control">
+            <input value={this.state.question.play.sampleCorrectAnswer && this.state.question.play.sampleCorrectAnswer.length > 0 ? this.state.question.play.sampleCorrectAnswer : this.state.prefilledSampleCorrectAnswer} onChange={this.handleSampleCorrectAnswerChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>

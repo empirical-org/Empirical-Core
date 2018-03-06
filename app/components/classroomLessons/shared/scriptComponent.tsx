@@ -289,7 +289,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
     return <tr className="sample-correct-answer-row">
           <td colSpan={2}><div>Sample Correct Response</div></td>
-          <td>{this.props.sampleCorrectAnswer}</td>
+          <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></td>
           <td/>
           <td>
             <input
@@ -346,7 +346,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   renderSampleCorrectAnswer() {
     if (this.props.sampleCorrectAnswer) {
-      return <div className="sample-correct-answer"><span>Sample Correct Response</span><span>{this.props.sampleCorrectAnswer}</span></div>
+      return <div className="sample-correct-answer"><span>Sample Correct Response</span><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></div>
     } else {
       return <span/>
     }
