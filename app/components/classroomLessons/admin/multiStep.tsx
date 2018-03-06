@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
-import _ from 'lodash'
+import * as _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentMultistep from '../play/multistep'
 
@@ -9,7 +9,7 @@ interface AdminMultistepProps {
   save: Function
 }
 
-class AdminMultistep extends Component<AdminMultistepProps, any>{
+class AdminMultistep extends React.Component<AdminMultistepProps, any>{
   constructor(props){
     super(props);
 
@@ -22,8 +22,26 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
     this.handleCuesChange = this.handleCuesChange.bind(this)
     this.deleteStepLabel = this.deleteStepLabel.bind(this)
+    this.handleSampleCorrectAnswerChange = this.handleSampleCorrectAnswerChange.bind(this)
     this.save = this.save.bind(this)
   }
+
+  componentDidMount() {
+    this.updatePrefilledSampleCorrectAnswer(this.state.question.play.stepLabels)
+  }
+
+  updatePrefilledSampleCorrectAnswer(stepLabels) {
+    let formattedAnswer = ''
+    stepLabels.forEach((s, i) => {
+      if (i === stepLabels.length - 1) {
+        formattedAnswer+=`<strong>${s}</strong> ___`
+      } else {
+        formattedAnswer+=`<strong>${s}</strong> ___, `
+      }
+    })
+    this.setState({prefilledSampleCorrectAnswer: formattedAnswer})
+  }
+
 
   handleTitleChange(e) {
     const newVals = Object.assign(
@@ -70,7 +88,7 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
     const newStepLabels = this.state.question.play.stepLabels.slice()
     newStepLabels[i] = e.target.value
     _.set(newVals, 'play.stepLabels', newStepLabels)
-    this.setState({question: newVals})
+    this.setState({question: newVals}, () => this.updatePrefilledSampleCorrectAnswer(this.state.question.play.stepLabels))
   }
 
   deleteStepLabel(i) {
@@ -81,6 +99,12 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
     const newStepLabels = this.state.question.play.stepLabels.slice()
     newStepLabels.splice(i, 1)
     _.set(newVals, 'play.stepLabels', newStepLabels)
+    this.setState({question: newVals})
+  }
+
+  handleSampleCorrectAnswerChange(e) {
+    const newVals = {...this.state.question}
+    _.set(newVals, 'play.sampleCorrectAnswer', e.target.value)
     this.setState({question: newVals})
   }
 
@@ -95,8 +119,7 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
       <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
       {deleteButton}
       </div>
-    }
-    )
+    })
   }
 
   render() {
@@ -134,6 +157,14 @@ class AdminMultistep extends Component<AdminMultistepProps, any>{
         <div className="field">
           <label className="label">Step Labels</label>
           {this.renderStepLabels()}
+        </div>
+        <div className="field">
+          <label className="label">Sample correct answer (Optional)</label>
+          <div className="control">
+            <i>Copy the text below into the input field and replace the blanks.</i>
+            <p style={{border: '1px dashed black', padding: '8px', margin: '5px 0px'}}>{this.state.prefilledSampleCorrectAnswer}</p>
+            <input value={this.state.question.play.sampleCorrectAnswer} onChange={this.handleSampleCorrectAnswerChange} className="input" type="text" placeholder="Text input"/>
+          </div>
         </div>
         <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
       </div>

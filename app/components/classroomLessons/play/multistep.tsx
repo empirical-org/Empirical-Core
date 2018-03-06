@@ -22,6 +22,7 @@ interface MultistepProps {
   handleStudentSubmission?: Function;
   selected_submissions?: SelectedSubmissionsForQuestion|null;
   submissions?: QuestionSubmissionsList|null;
+  selected_submission_order?: Array<string> | null,
   projector?: boolean|null
 }
 interface MultistepState {
@@ -117,21 +118,26 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
   }
 
   renderClassAnswersList() {
-    const { selected_submissions, submissions, } = this.props;
-    if (selected_submissions && submissions) {
-      const selected: Array<JSX.Element> = Object.keys(selected_submissions).map((key, index) => {
-        const html:any = submissions[key] ? submissions[key].data : null
+    const { selected_submissions, submissions, selected_submission_order, data} = this.props;
+    const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
+      let html
+      if (submissions && submissions[key] && submissions[key].data) {
+        html = submissions[key].data
+      } else if (key === 'correct' && data.play && data.play.sampleCorrectAnswer){
+        html = data.play.sampleCorrectAnswer
+      } else {
+        html = ''
+      }
         return (
           <li key={`li-${index}`}>
           <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
           </li>);
-        });
-        return (
-          <ul className="class-answer-list">
-          {selected}
-          </ul>
-        );
-    }
+        }) : <span/>
+      return (
+        <ul className="class-answer-list">
+        {selected}
+        </ul>
+      );
   }
 
 

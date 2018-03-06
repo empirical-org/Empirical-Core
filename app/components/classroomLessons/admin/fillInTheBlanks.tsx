@@ -19,12 +19,6 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
   constructor(props){
     super(props);
 
-    const question = props.question
-    if (!question.play.sampleCorrectAnswer) {
-      const splitPrompt = question.play.sampleCorrectAnswer
-      question.play.sampleCorrectAnswer
-    }
-
     this.state = {
       question: props.question
     }
@@ -141,7 +135,9 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
         <div className="field">
           <label className="label">Sample correct answer (Optional)</label>
           <div className="control">
-            <input value={this.state.question.play.sampleCorrectAnswer && this.state.question.play.sampleCorrectAnswer.length > 0 ? this.state.question.play.sampleCorrectAnswer : this.state.prefilledSampleCorrectAnswer} onChange={this.handleSampleCorrectAnswerChange} className="input" type="text" placeholder="Text input"/>
+            <i>Copy the text below into the input field and replace the blanks.</i>
+            <p style={{border: '1px dashed black', padding: '8px', margin: '5px 0px'}}>{this.state.prefilledSampleCorrectAnswer}</p>
+            <input value={this.state.question.play.sampleCorrectAnswer} onChange={this.handleSampleCorrectAnswerChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
