@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 9 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="S-12_17-Students-Type-Response" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-159.000000, -367.000000)">
+        <g id="Group-9-Copy" transform="translate(159.000000, 367.000000)" fill="#00C2A2" fill-rule="nonzero">
+            <path d="M40,1 C18.4608948,1 1,18.4608948 1,40 C1,61.5391052 18.4608948,79 40,79 C61.5391052,79 79,61.5391052 79,40 C79,18.4608948 61.5391052,1 40,1 Z M40,0 C62.09139,-4.05812251e-15 80,17.90861 80,40 C80,62.09139 62.09139,80 40,80 C17.90861,80 2.705415e-15,62.09139 0,40 C-2.705415e-15,17.90861 17.90861,4.05812251e-15 40,0 Z" id="Rectangle-9"></path>
+            <path d="M30.2165457,27.2771874 C29.9253882,26.9825686 29.9281941,26.5077032 30.2228128,26.2165457 C30.5174315,25.9253882 30.992297,25.9281941 31.2834545,26.2228128 L44.8044483,39.9045419 L31.5889069,53.2771874 C31.2977495,53.5718061 30.822884,53.574612 30.5282653,53.2834545 C30.2336466,52.992297 30.2308407,52.5174315 30.5219982,52.2228128 L42.6955519,39.9045419 L30.2165457,27.2771874 Z" id="Path-2" transform="translate(37.402224, 39.750000) rotate(-180.000000) translate(-37.402224, -39.750000) "></path>
+        </g>
+    </g>
+</svg>
