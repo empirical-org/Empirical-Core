@@ -40,16 +40,20 @@ class Subscription < ActiveRecord::Base
         'School Sponsored Free',
         'School Strategic Free']
 
-  # TODO: ultimately these should be clenaned up so we just have OFFICIAL_TYPES but until then, we keep them here
+  # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
   GRANDFATHERED_FREE_TYPES = ['trial']
   ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
+  ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
+
   # 2/27 - for now every school is 90000 cents, whether they are renewing or re-signing up.
   SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
   TEACHER_PRICE = 8000
+  ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
+  PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
   ALL_TYPES = ALL_FREE_TYPES.dup.concat(ALL_PAID_TYPES)
 
 
