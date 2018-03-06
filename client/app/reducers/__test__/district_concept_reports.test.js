@@ -9,7 +9,7 @@ describe('DistrictConceptReports reducer', () => {
       selectedClassroom: 'All Classrooms',
       selectedSchool: 'All Schools',
       selectedTeacher: 'All Teachers',
-      conceptRepotsData: [],
+      conceptReportsData: [],
       classroomsData: [],
     });
   });
