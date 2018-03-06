@@ -30,7 +30,7 @@ module Demo::AdminReportDemoCreator
     teachers << admin_teacher
 
     # Upgrade everyone to premium
-    subscription_id = Subscription.create!(user_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.today + 100.years, account_limit: 1000).id
+    subscription_id = Subscription.create!(purchaser_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.today + 100.years, account_limit: 1000).id
     teachers.each do |teacher|
       UserSubscription.create!(user_id: teacher.id, subscription_id: subscription_id)
     end
@@ -65,7 +65,7 @@ module Demo::AdminReportDemoCreator
     # List of author names to use for student names
     student_names = [
       "Richard Wright", "Alex Haley", "Ralph Ellison", "Octavia Butler", "Ursula LeGuin",
-      "John Steinbeck", "Neil Gaiman", "Mark Twain", "Isaac Asimov", "Salman Rushdie", "Aldous Huxley",
+      "John Steinbeck", "Irvine Welsh", "Mark Twain", "Isaac Asimov", "Salman Rushdie", "Aldous Huxley",
       "George Orwell", "William Shakespeare", "Franz Kafka", "Charles Dickens", "Virginia Woolf",
       "John Keats", "Herman Melville", "Marcel Proust", "Ernest Hemingway", "Pablo Neruda", "Leo Tolstoy",
       "Oscar Wilde", "James Joyce", "Fyodor Dostoevsky", "Umberto Eco", "Albert Camus", "Jules Verne",
