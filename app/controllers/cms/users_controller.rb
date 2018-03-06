@@ -70,19 +70,20 @@ class Cms::UsersController < Cms::CmsController
     @subscription = @user.subscription
     @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
     @subscription_payment_methods = Subscription::PAYMENT_METHODS
-    if @subscription
-      @expiration_date = @subscription.expiration
-      @account_type = @subscription.account_type
-      @payment_method = @subscription.payment_method
-      @payment_amount = @subscription.payment_amount
-      @purchaser_email = @subscription.purchaser&.email || @subscription.purchaser_email
-      @start_date = @subscription.start_date
-    else
-      # If this user does not already have a subscription, we want the
-      # default expiration date to be one year from today.
-      @expiration_date = Date.today + 1.years
-      @account_type = nil
-    end
+    @purchaser_email = @subscription.purchaser&.email || @subscription.purchaser_email
+    # if @subscription
+    #   @expiration_date = @subscription.expiration
+    #   @account_type = @subscription.account_type
+    #   @payment_method = @subscription.payment_method
+    #   @payment_amount = @subscription.payment_amount
+    #
+    #   @start_date = @subscription.start_date
+    # else
+    #   # If this user does not already have a subscription, we want the
+    #   # default expiration date to be one year from today.
+    #   @expiration_date = Date.today + 1.years
+    #   @account_type = nil
+    # end
   end
 
   def update_subscription
