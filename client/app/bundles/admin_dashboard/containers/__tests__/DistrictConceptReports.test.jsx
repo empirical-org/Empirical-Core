@@ -9,41 +9,45 @@ describe('DistrictConceptReports', () => {
   it('renders report for all students', () => {
     const classroom = {
       classroom_name: 'Professor Trelawney - Divination',
-      schools_name: 'Hogwarts',
-      students_name: 'Parvati Patil',
-      teachers_name: 'Sybill Trelawney',
+      school_name: 'Hogwarts',
+      student_name: 'Parvati Patil',
+      teacher_name: 'Sybill Trelawney',
     };
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: 'All Classrooms',
-      selectedSchool: 'All Schools',
-      selectedTeacher: 'All Teachers',
-      classroomsData: [classroom],
+      district_concept_reports: {
+        loading: false,
+        errors: false,
+        selectedClassroom: 'All Classrooms',
+        selectedSchool: 'All Schools',
+        selectedTeacher: 'All Teachers',
+        conceptReportsData: [classroom],
+      },
     };
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictConceptReports store={store} />);
 
-    expect(wrapper.prop('filteredClassroomsData')).toEqual([classroom]);
+    expect(wrapper.prop('filteredConceptReportsData')).toEqual([classroom]);
   });
 
   it('formats csv data', () => {
     const classroom = {
       classroom_name: 'Mrs. Krabapple - 4th Grade',
-      schools_name: 'Springfield Elementary',
-      students_name: 'Bart Simpson',
-      teachers_name: 'Mrs. Krabapple',
+      school_name: 'Springfield Elementary',
+      student_name: 'Bart Simpson',
+      teacher_name: 'Mrs. Krabapple',
       correct: '12',
       incorrect: '20',
       percentage: '37',
     };
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: 'All Classrooms',
-      selectedSchool: 'All Schools',
-      selectedTeacher: 'All Teachers',
-      classroomsData: [classroom],
+      district_concept_reports: {
+        loading: false,
+        errors: false,
+        selectedClassroom: 'All Classrooms',
+        selectedSchool: 'All Schools',
+        selectedTeacher: 'All Teachers',
+        conceptReportsData: [classroom],
+      },
     };
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictConceptReports store={store} />);
@@ -61,10 +65,11 @@ describe('DistrictConceptReports', () => {
       [
         'Bart Simpson',
         'Mrs. Krabapple',
+        'Mrs. Krabapple - 4th Grade',
         'Springfield Elementary',
         '12',
         '20',
-        '37%',
+        '37',
       ]
     ]);
   });
@@ -74,42 +79,44 @@ describe('DistrictConceptReports', () => {
     const classrooms = [
       {
         classroom_name: 'Poetry 101',
-        schools_name: 'Bel-Air Academy',
-        students_name: 'Carlton Banks',
-        teachers_name: 'Ned Fellows',
+        school_name: 'Bel-Air Academy',
+        student_name: 'Carlton Banks',
+        teacher_name: 'Ned Fellows',
       }, {
         classroom_name: "Mr. Garrison's 4th Grade",
-        schools_name: 'South Park Elementary',
-        students_name: 'Eric Cartman',
-        teachers_name: 'Mr. Garrison',
+        school_name: 'South Park Elementary',
+        student_name: 'Eric Cartman',
+        teacher_name: 'Mr. Garrison',
       }, {
         classroom_name: "Mrs. Crabtree's Morning Bus",
-        schools_name: 'South Park Elementary',
-        students_name: 'Stan Marsh',
-        teachers_name: 'Mrs. Crabtree',
+        school_name: 'South Park Elementary',
+        student_name: 'Stan Marsh',
+        teacher_name: 'Mrs. Crabtree',
       }, {
         classroom_name: "Mrs. Crabtree's Afternoon Bus",
-        schools_name: 'South Park Elementary',
-        students_name: 'Butters',
-        teachers_name: 'Mrs. Crabtree',
+        school_name: 'South Park Elementary',
+        student_name: 'Butters',
+        teacher_name: 'Mrs. Crabtree',
       }
     ];
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: "Mrs. Crabtree's Afternoon Bus",
-      selectedSchool: 'South Park Elementary',
-      selectedTeacher: 'Mrs. Crabtree',
-      classroomsData: classrooms,
+      district_concept_reports: {
+        loading: false,
+        errors: false,
+        selectedClassroom: "Mrs. Crabtree's Afternoon Bus",
+        selectedSchool: 'South Park Elementary',
+        selectedTeacher: 'Mrs. Crabtree',
+        conceptReportsData: classrooms,
+      },
     };
     const store = createMockStore(state);
-    const wrapper = shallow(<DistrictActivityScores store={store} />);
+    const wrapper = shallow(<DistrictConceptReports store={store} />);
 
-    expect(wrapper.prop('filteredClassroomsData')).toEqual([{
+    expect(wrapper.prop('filteredConceptReportsData')).toEqual([{
       classroom_name: "Mrs. Crabtree's Afternoon Bus",
-      schools_name: 'South Park Elementary',
-      students_name: 'Butters',
-      teachers_name: 'Mrs. Crabtree',
+      school_name: 'South Park Elementary',
+      student_name: 'Butters',
+      teacher_name: 'Mrs. Crabtree',
     }]);
   });
 
@@ -117,36 +124,38 @@ describe('DistrictConceptReports', () => {
     const classrooms = [
       {
         classroom_name: 'Poetry 101',
-        schools_name: 'Bel-Air Academy',
-        students_name: 'Carlton Banks',
-        teachers_name: 'Ned Fellows',
+        school_name: 'Bel-Air Academy',
+        student_name: 'Carlton Banks',
+        teacher_name: 'Ned Fellows',
       }, {
         classroom_name: "Mr. Garrison's 4th Grade",
-        schools_name: 'South Park Elementary',
-        students_name: 'Eric Cartman',
-        teachers_name: 'Mr. Garrison',
+        school_name: 'South Park Elementary',
+        student_name: 'Eric Cartman',
+        teacher_name: 'Mr. Garrison',
       }, {
         classroom_name: "Mrs. Crabtree's Morning Bus",
-        schools_name: 'South Park Elementary',
-        students_name: 'Stan Marsh',
-        teachers_name: 'Mrs. Crabtree',
+        school_name: 'South Park Elementary',
+        student_name: 'Stan Marsh',
+        teacher_name: 'Mrs. Crabtree',
       }, {
         classroom_name: "Mrs. Crabtree's Afternoon Bus",
-        schools_name: 'South Park Elementary',
-        students_name: 'Butters',
-        teachers_name: 'Mrs. Crabtree',
+        school_name: 'South Park Elementary',
+        student_name: 'Butters',
+        teacher_name: 'Mrs. Crabtree',
       }
     ];
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: "Mrs. Crabtree's Afternoon Bus",
-      selectedSchool: 'South Park Elementary',
-      selectedTeacher: 'Mrs. Crabtree',
-      classroomsData: classrooms,
+      district_concept_reports:{
+        loading: false,
+        errors: false,
+        selectedClassroom: "Mrs. Crabtree's Afternoon Bus",
+        selectedSchool: 'South Park Elementary',
+        selectedTeacher: 'Mrs. Crabtree',
+        conceptReportsData: classrooms,
+      },
     };
     const store = createMockStore(state);
-    const wrapper = shallow(<DistrictActivityScores store={store} />);
+    const wrapper = shallow(<DistrictConceptReports store={store} />);
 
     expect(wrapper.prop('schoolNames')).toEqual([
       'All Schools',

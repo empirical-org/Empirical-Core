@@ -14,12 +14,14 @@ describe('DistrictActivityScores', () => {
       teachers_name: 'Mr Rodney',
     };
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: 'All Classrooms',
-      selectedSchool: 'All Schools',
-      selectedTeacher: 'All Teachers',
-      classroomsData: [classroom],
+      district_activity_scores: {
+        loading: false,
+        errors: false,
+        selectedClassroom: 'All Classrooms',
+        selectedSchool: 'All Schools',
+        selectedTeacher: 'All Teachers',
+        classroomsData: [classroom],
+      },
     };
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
@@ -37,12 +39,14 @@ describe('DistrictActivityScores', () => {
       activity_count: '3',
     };
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: 'All Classrooms',
-      selectedSchool: 'All Schools',
-      selectedTeacher: 'All Teachers',
-      classroomsData: [classroom],
+      district_activity_scores: {
+        loading: false,
+        errors: false,
+        selectedClassroom: 'All Classrooms',
+        selectedSchool: 'All Schools',
+        selectedTeacher: 'All Teachers',
+        classroomsData: [classroom],
+      },
     };
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
@@ -91,12 +95,14 @@ describe('DistrictActivityScores', () => {
       }
     ];
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: 'Yeah Learning!',
-      selectedSchool: 'Kool School',
-      selectedTeacher: 'Ms. Applebee',
-      classroomsData: classrooms,
+      district_activity_scores: {
+        loading: false,
+        errors: false,
+        selectedClassroom: 'Yeah Learning!',
+        selectedSchool: 'Kool School',
+        selectedTeacher: 'Ms. Applebee',
+        classroomsData: classrooms,
+      },
     };
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
@@ -134,12 +140,14 @@ describe('DistrictActivityScores', () => {
       }
     ];
     const state = {
-      loading: false,
-      errors: false,
-      selectedClassroom: 'Yeah Learning!',
-      selectedSchool: 'Kool School',
-      selectedTeacher: 'Ms. Applebee',
-      classroomsData: classrooms,
+      district_activity_scores: {
+        loading: false,
+        errors: false,
+        selectedClassroom: 'Yeah Learning!',
+        selectedSchool: 'Kool School',
+        selectedTeacher: 'Ms. Applebee',
+        classroomsData: classrooms,
+      },
     };
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
