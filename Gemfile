@@ -107,9 +107,8 @@ gem 'slim-rails'
 gem 'haml-rails'
 
 gem 'es5-shim-rails'
-# gem 'react-rails', '~> 1.6', '>= 1.6.2'
-# gem 'react-rails-hot-loader'
-gem "react_on_rails", "=6.1.1"
+gem "react_on_rails", "~> 10.1.3"
+gem "webpacker", "~> 3.0.0"
 
 # ASSET/UI
 gem 'therubyracer', require: false
