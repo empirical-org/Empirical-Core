@@ -21,7 +21,7 @@ const ActivityScores = ({
       <div className="meta-overview flex-row space-between">
         <div className="header-and-info">
           <h1>
-            School Activity Scores
+            Activity Scores
           </h1>
           <p>
             View the overall average score for each student in an active
