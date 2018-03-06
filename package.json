@@ -25,7 +25,7 @@
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
     "build:dev:server": "(cd client && npm run build:dev:server --silent)",
     "hot-assets": "(cd client && npm run hot-assets)",
-    "jest": "cd client && npm run jest",
+    "jest": "./script/jest.sh",
     "jest:u": "cd client && npm run jest -- -u",
     "jest:update": "cd client && npm run jest -- -u",
     "jest:watch": "cd client && npm run jest:watch",
