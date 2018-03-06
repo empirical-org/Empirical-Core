@@ -52,7 +52,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    modules: ['node_modules'],
+    modules: [
+      './node_modules',
+      './app',
+    ],
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
       react: path.resolve('./node_modules/react'),
