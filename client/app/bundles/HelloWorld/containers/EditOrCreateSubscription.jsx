@@ -16,6 +16,7 @@ export default class extends React.Component {
     this.changePurchaserEmail = this.changePurchaserEmail.bind(this);
     this.changeExpirationDate = this.changeExpirationDate.bind(this);
     this.changeStartDate = this.changeStartDate.bind(this);
+    this.changePurchaserId = this.changePurchaserId.bind(this);
   }
 
   changeAccountType(e) {
@@ -50,6 +51,27 @@ export default class extends React.Component {
     newSub.start_date = e;
     this.setState({ subscription: newSub, });
   }
+  changePurchaserId(e) {
+    const newSub = Object.assign({}, this.state.subscription);
+    console.log(e);
+    newSub.purchaser_id = e;
+    this.setState({ subscription: newSub, });
+  }
+
+  purchaserFromSchool() {
+    if (this.props.schoolsUsers) {
+      return (
+        <div>
+          <label>Purchaser From School</label>
+          <ItemDropdown
+            items={this.props.schoolsUsers}
+            callBack={this.changePurchaserId}
+            selectedItem={this.state.subscription.purchaser_id || ''}
+          />
+        </div>
+      );
+    }
+  }
 
   render() {
     const schoolOrUser = this.props.school || this.props.user;
@@ -75,6 +97,7 @@ export default class extends React.Component {
         <label>Payment Amount (dollar value as integer -- no decimal or symbol)</label>
         <input onChange={this.changePaymentAmount} type="text" value={this.state.subscription.payment_amount / 100} />
         <h2>Purchaser Information</h2>
+        {this.purchaserFromSchool()}
         <label>Purchaser Email</label>
         <input type="text" value={this.props.purchaserEmail} onChange={this.changePurchaserEmail} />
         <h2>Period</h2>
@@ -82,12 +105,12 @@ export default class extends React.Component {
         <p>
           If this is a Teacher Subscription and no subscription already exists, the start date is set to today. If the subscription is being renewed, the start date is the day the old subscription ends.
         </p>
-        <DatePicker selected={moment(this.state.subscription.start_date || null)} onChange={this.changeStartDate} />
+        <DatePicker selected={this.state.subscription.start_date ? moment(this.state.subscription.start_date) : null} onChange={this.changeStartDate} />
         <label htmlFor="">End Date</label>
         <p>
-          If this a school or users first paid subscription, the default end date is {this.props.promo_expiration_date}. This value just stated will update automatically depending on the time of year.
+          If this a school or users first paid subscription, the default end date is {this.props.promoExpiration}. This value just stated will update automatically depending on the time of year.
         </p>
-        <DatePicker selected={moment(this.state.subscription.start_date || null)} onChange={this.changeEndDate} />
+        <DatePicker selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} onChange={this.changeExpirationDate} />
       </div>);
   }
 }
