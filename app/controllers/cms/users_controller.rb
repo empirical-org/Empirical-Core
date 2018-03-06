@@ -67,13 +67,16 @@ class Cms::UsersController < Cms::CmsController
 
   def edit_subscription
     @user = User.includes(:subscription).find(params[:id])
-    @user_premium_types = Subscription.account_types
-
-    if @user.subscription
-      # If this user already has a subscription, we want the expiration date
-      # to reflect the expiration date of that subscription.
-      @expiration_date = @user.subscription.expiration
-      @account_type = @user.subscription.account_type
+    @subscription = @user.subscription
+    @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
+    @subscription_payment_methods = Subscription::PAYMENT_METHODS
+    if @subscription
+      @expiration_date = @subscription.expiration
+      @account_type = @subscription.account_type
+      @payment_method = @subscription.payment_method
+      @payment_amount = @subscription.payment_amount
+      @purchaser_email = @subscription.purchaser&.email || @subscription.purchaser_email
+      @start_date = @subscription.start_date
     else
       # If this user does not already have a subscription, we want the
       # default expiration date to be one year from today.
@@ -85,17 +88,8 @@ class Cms::UsersController < Cms::CmsController
   def update_subscription
     user = User.find(subscription_params[:id])
     subscription = user.subscription
-    unless subscription
-      subscription = Subscription.new
-      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
-      subscription.account_type = subscription_params[:premium_status]
-      subscription.account_limit = 1000 # This is a default value and should be deprecated.
-      success = (subscription.save && user.subscription = subscription)
-    else
-      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
-      subscription.account_type = subscription_params[:premium_status]
-      success = subscription.save
-    end
+    set_subscription_from_params(subscription)
+    success = subscription.save && user.subscription == subscription
     return redirect_to cms_user_path(subscription_params[:id]) if success
     render :edit_subscription
   end
@@ -119,6 +113,18 @@ class Cms::UsersController < Cms::CmsController
   end
 
 protected
+
+  def set_subscription_from_params subscription
+    subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
+    subscription.start_date = Date.parse("#{subscription_params[:start_date]['day']}-#{subscription_params[:start_date]['month']}-#{subscription_params[:start_date]['year']}")
+    subscription.account_type = subscription_params[:premium_status]
+    subscription.payment_method = subscription_params[:payment_method]
+    subscription.payment_amount = subscription_params[:payment_amount]
+    subscription.purchaser_email = subscription_params[:purchaser_email]
+    subscription.account_limit = 1000 # This is a default value and should be deprecated.
+    subscription.save
+  end
+
   def set_user
     @user = User.find params[:id]
   end
@@ -237,6 +243,6 @@ protected
   end
 
   def subscription_params
-    params.permit([:id, :premium_status, :expiration_date => [:day, :month, :year]] + default_params)
+    params.permit([:id, :payment_method, :payment_amount, :purchaser_email, :premium_status, :start_date => [:day, :month, :year], :expiration_date => [:day, :month, :year]] + default_params)
   end
 end
