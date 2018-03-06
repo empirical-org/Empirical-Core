@@ -1,80 +1,88 @@
-// Run with Rails server like this:
-// rails s
-// cd client && babel-node server-rails-hot.js
-// Note that Foreman (Procfile.dev) has also been configured to take care of this.
-
-const path = require('path');
 const webpack = require('webpack');
 const config = require('./webpack.client.base.config');
+const merge = require('webpack-merge');
+const { resolve } = require('path');
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+const configPath = resolve('..', 'config');
+const { output } = webpackConfigLoader(configPath);
+const hotReloadingUrl = output.publicPathWithHost;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const hotRailsPort = process.env.HOT_RAILS_PORT || 3500;
+module.exports = merge(config, {
+  devtool: 'eval-source-map',
 
-config.entry.app.push(
-  `webpack-dev-server/client?http://localhost:${hotRailsPort}`,
-  'webpack/hot/only-dev-server'
-);
+  output: {
+    filename: '[name]-bundle.js',
+    publicPath: output.publicPath,
+    path: output.path,
+  },
 
-config.entry.vendor.push('jquery-ujs');
-
-config.output = {
-  filename: '[name]-bundle.js',
-  path: path.join(__dirname, 'public'),
-  publicPath: `http://localhost:${hotRailsPort}/`,
-};
-
-config.module.loaders.push(
-  {
-    test: /\.jsx?$/,
-    loader: 'babel-loader',
-    exclude: /node_modules/,
-    query: {
-      plugins: [
-        [
-          'react-transform',
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
           {
-            transforms: [
-              {
-                transform: 'react-transform-hmr',
-                imports: ['react'],
-                locals: ['module'],
-              }
-            ],
-          }
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 0,
+              localIdentName: '[local]'
+            }
+          },
+          'postcss-loader',
         ]
-      ],
-    },
-  },
-  {
-    test: /\.css$/,
-    loaders: [
-      'style-loader',
-      'css-loader',
-      'postcss-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 3,
+              localIdentName: '[local]',
+            }
+          },
+          'postcss-loader',
+          {
+            loader: 'sass-loader'
+          },
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: './app/assets/styles/app-variables.scss'
+            },
+          }
+        ],
+      },
+      {
+        test: require.resolve('jquery-ujs'),
+        use: {
+          loader: 'imports-loader',
+          options: {
+            jQuery: 'jquery',
+          }
+        }
+      },
     ],
+
   },
-  {
-    test: /\.scss$/,
-    loaders: [
-      'style-loader',
-      'css-loader',
-      'postcss-loader',
-      'sass-loader',
-      'sass-resources-loader'
-    ],
-  },
-  {
-    test: require.resolve('jquery-ujs'),
-    loader: 'imports-loader?jQuery=jquery',
-  }
-);
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin({
+      filename: '[name]-bundle.css',
+      allChunks: true
+    }),
 
-config.plugins.push(
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin()
-);
+  ]
+});
 
-config.devtool = 'eval-source-map';
-
-console.log('Webpack HOT dev build for Rails'); // eslint-disable-line no-console
-
-module.exports = config;
+console.log('Webpack HOT dev build for Rails');

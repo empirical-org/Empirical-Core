@@ -71,7 +71,8 @@
     "underscore": "^1.8.3",
     "underscore.string": "^3.3.4",
     "url-loader": "^0.5.7",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -99,8 +100,7 @@
     "react-transform-hmr": "^1.0.4",
     "redux-test-utils": "^0.2.2",
     "webpack-dev-server": "^2.9.4",
-    "webpack-manifest-plugin": "^2.0.0-rc.2",
-    "webpack-merge": "^4.1.2"
+    "webpack-manifest-plugin": "^2.0.0-rc.2"
   },
   "browser": {
     "fs": false
@@ -118,12 +118,13 @@
     "build:dev:client": "webpack -w --config webpack.client.rails.build.config.js",
     "build:dev:server": "webpack -w --config webpack.server.rails.build.config.js",
     "build:server": "webpack --config webpack.server.rails.build.config.js",
-    "hot-assets": "babel-node server-rails-hot.js",
+    "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js",
     "install-react-on-rails": "npm install 'react-on-rails'",
     "jest": "jest",
     "jest:watch": "jest --watch",
     "jest:coverage": "jest --coverage",
-    "jest:silent": "jest --silent"
+    "jest:silent": "jest --silent",
+    "webpack-dev-server": "webpack-dev-server --config webpack.client.rails.hot.config.js"
   },
   "jest": {
     "snapshotSerializers": [

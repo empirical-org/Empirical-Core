@@ -64,3 +64,6 @@ app/assets/webpack/vendor-bundle.js
 
 # GitBook
 _book/
+/public/packs
+/public/packs-test
+/node_modules

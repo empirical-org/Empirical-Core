@@ -51,7 +51,7 @@ module.exports = {
 
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     modules: ['node_modules'],
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
