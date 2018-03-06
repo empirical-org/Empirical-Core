@@ -9,6 +9,7 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   def update
+    @subscription = Subscription.find(params[:subscription][:id])
   end
 
   def destroy
