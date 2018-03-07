@@ -354,6 +354,7 @@ EmpiricalGrammar::Application.routes.draw do
     put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
     resources :activity_classifications
     resources :topics
+    resources :subscriptions
     resources :topic_categories
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'

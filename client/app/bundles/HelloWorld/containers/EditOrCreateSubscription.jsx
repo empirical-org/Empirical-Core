@@ -1,38 +1,36 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import request from 'request';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
+import getAuthToken from '../components/modules/get_auth_token';
 
 export default class extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      subscription: props.subscription,
-      purchaserEmail: props.purchaserEmail,
+      subscription: this.props.subscription,
     };
     this.changeAccountType = this.changeAccountType.bind(this);
     this.changePaymentAmount = this.changePaymentAmount.bind(this);
+    this.changePaymentMethod = this.changePaymentMethod.bind(this);
     this.changePurchaserEmail = this.changePurchaserEmail.bind(this);
     this.changeExpirationDate = this.changeExpirationDate.bind(this);
     this.changeStartDate = this.changeStartDate.bind(this);
     this.changePurchaserId = this.changePurchaserId.bind(this);
     this.changePurchaserInfoToTeacherInfo = this.changePurchaserInfoToTeacherInfo.bind(this);
-  }
-
-  changeAccountType(e) {
-    const newSub = Object.assign({}, this.state.subscription);
-    newSub.account_type = e;
-    this.setState({ subscription: newSub, });
+    this.submit = this.submit.bind(this);
   }
 
   changePurchaserInfoToTeacherInfo() {
     const newSub = Object.assign({}, this.state.subscription);
     newSub.purchaser_id = this.props.user.id;
-    this.setState({ subscription: newSub, purchaserEmail: this.props.user.email, });
+    newSub.purchaser_email = this.props.user.email;
+    this.setState({ subscription: newSub, });
   }
 
-  handlePaymentMethodChange(e) {
+  changePaymentMethod(e) {
     const newSub = Object.assign({}, this.state.subscription);
     newSub.payment_method = e;
     this.setState({ subscription: newSub, });
@@ -40,7 +38,7 @@ export default class extends React.Component {
 
   changePaymentAmount(e) {
     const newSub = Object.assign({}, this.state.subscription);
-    newSub.payment_method = e.target.value * 100;
+    newSub.payment_amount = e.target.value * 100;
     this.setState({ subscription: newSub, });
   }
 
@@ -51,11 +49,17 @@ export default class extends React.Component {
     }
   }
 
+  changeAccountType(e) {
+    const newSub = Object.assign({}, this.state.subscription);
+    newSub.account_type = e;
+    this.setState({ subscription: newSub, });
+  }
+
   changePurchaserEmail(e) {
     const newSub = Object.assign({}, this.state.subscription);
     newSub.purchaser_email = e.target.value;
     this.getMatchingUserFromSchoolsUsers(newSub);
-    this.setState({ subscription: newSub, purchaserEmail: e.target.value, });
+    this.setState({ subscription: newSub, });
   }
 
   changeExpirationDate(e) {
@@ -89,6 +93,21 @@ export default class extends React.Component {
     }
   }
 
+  submit() {
+    request.put({
+      url: `${process.env.DEFAULT_URL}/cms/subscriptions/${this.state.subscription.id}`,
+      json: { subscription: this.state.subscription, authenticity_token: getAuthToken(), },
+    },
+    (e, httpResponse, response) => {
+      if (httpResponse.statusCode === 200) {
+        alert('Subscription was updated');
+        location.reload();
+      } else {
+        alert('There was an error. Please try again and contact a dev if you get this warning.');
+      }
+    });
+  }
+
   render() {
     const schoolOrUser = this.props.school || this.props.user;
     return (
@@ -107,7 +126,7 @@ export default class extends React.Component {
         <label>Payment Method</label>
         <ItemDropdown
           items={this.props.subscriptionPaymentMethods}
-          callback={this.handlePaymentMethodChange}
+          callback={this.changePaymentMethod}
           selectedItem={this.state.subscription.payment_method || ''}
         />
         <label>Payment Amount (dollar value as integer -- no decimal or symbol)</label>
@@ -116,7 +135,7 @@ export default class extends React.Component {
         <span onClick={this.changePurchaserInfoToTeacherInfo} className="green-text text-green">Same As Teacher Info</span>
         {this.purchaserFromSchool()}
         <label>Purchaser Email</label>
-        <input type="text" value={this.state.purchaserEmail} onChange={this.changePurchaserEmail} />
+        <input type="text" value={this.state.subscription.purchaser_email} onChange={this.changePurchaserEmail} />
         <h2>Period</h2>
         <label>Start Date</label>
         <p>
@@ -128,6 +147,9 @@ export default class extends React.Component {
           If this a school or users first paid subscription, the default end date is {this.props.promoExpiration}. This value just stated will update automatically depending on the time of year.
         </p>
         <DatePicker selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} onChange={this.changeExpirationDate} />
+        <button onClick={this.submit}>
+          Update Subscription
+        </button>
       </div>);
   }
 }

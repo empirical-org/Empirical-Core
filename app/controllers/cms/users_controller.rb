@@ -70,7 +70,6 @@ class Cms::UsersController < Cms::CmsController
     @subscription = @user.subscription
     @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
     @subscription_payment_methods = Subscription::PAYMENT_METHODS
-    @purchaser_email = @subscription.purchaser&.email || @subscription.purchaser_email
     @promo_expiration_date = Subscription.promotional_dates[:expiration]
     if @user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(@user.school.name)
       @schools_users = @user.school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
