@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PremiumPricingGuide container should render 1`] = `
+exports['PremiumPricingGuide container should render 1'] = `
 <div
   className="container"
   id="premium-pricing-guide"
@@ -28,7 +28,7 @@ exports[`PremiumPricingGuide container should render 1`] = `
       </span>
     </_class>
   </div>
-  <premium_pricing_minis_row />
+  <_class />
   <_class />
   <_class />
   <teacher_testimonial />

@@ -42,7 +42,7 @@ gem 'validates_email_format_of'
 gem 'responders'
 
 # UPLOADS
-gem 'carrierwave', '=0.11.2'
+gem 'carrierwave', '~> 1.0'
 gem 'fog-aws'
 
 # TIME
@@ -119,7 +119,7 @@ gem 'kaminari'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
-gem 'rack-cors',  '0.4.0', require: 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rack-host-redirect'
 gem 'rack-affiliates', '~> 0.4.0'
 
