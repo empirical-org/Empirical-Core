@@ -122,19 +122,19 @@ class Subscription < ActiveRecord::Base
     Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
 
-  def self.school_or_user_has_ever_paid(school_or_user)
+  def self.school_or_user_has_ever_paid?(school_or_user)
     # TODO: 'subscription type spot'
     paid_accounts = school_or_user.subscriptions.pluck(:account_type) & ALL_PAID_TYPES
     paid_accounts.any?
   end
 
   def self.new_teacher_premium_sub(user)
-    expiration = school_or_user_has_ever_paid(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    expiration = school_or_user_has_ever_paid?(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
     self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
   def self.new_school_premium_sub(school, user)
-    expiration = school_or_user_has_ever_paid(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
     self.new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
@@ -225,7 +225,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
-      if !Subscription.school_or_user_has_ever_paid(school_or_user)
+      if !Subscription.school_or_user_has_ever_paid?(school_or_user)
         # We end their trial if they have one
         school_or_user.subscription&.update(de_activated_date: Date.today)
         # Then they get the promotional subscription

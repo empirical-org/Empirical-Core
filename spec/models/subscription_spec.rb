@@ -208,21 +208,21 @@ describe Subscription, type: :model do
     end
   end
 
-  describe "#self.school_or_user_has_ever_paid" do
+  describe "#self.school_or_user_has_ever_paid?" do
     let!(:subscription) { create(:subscription) }
     let!(:user) { create(:user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
     it "responds with true if school or user has ever had anything in the ALL_PAID_TYPES_LIST" do
       Subscription::ALL_PAID_TYPES.each do |type|
         subscription.update(account_type: type)
-        expect(Subscription.school_or_user_has_ever_paid(user)).to be
+        expect(Subscription.school_or_user_has_ever_paid?(user)).to be
       end
     end
 
     it "responds with false if school or user has only had things in the ALL_FREE_TYPES_LIST" do
       Subscription::ALL_FREE_TYPES.each do |type|
         subscription.update(account_type: type)
-        expect(Subscription.school_or_user_has_ever_paid(user)).not_to be
+        expect(Subscription.school_or_user_has_ever_paid?(user)).not_to be
       end
     end
   end
