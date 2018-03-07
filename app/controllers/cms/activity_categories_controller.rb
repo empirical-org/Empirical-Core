@@ -1,6 +1,4 @@
-class Cms::ActivityCategoriesController < ApplicationController
-  before_filter :staff!
-
+class Cms::ActivityCategoriesController < Cms::CmsController
   def index
     @activity_categories = ActivityCategory.order(order_number: :asc)
   end

@@ -51,8 +51,10 @@
     "react-datepicker": "^0.40.0",
     "react-dates": "=12.7.0",
     "react-dom": "^15.2.1",
+    "react-dropzone": "^4.2.8",
     "react-markdown": "^2.4.6",
     "react-on-rails": "=6.5.0",
+    "react-radio-buttons": "^1.2.1",
     "react-redux": "^4.4.1",
     "react-router": "^2.0.1",
     "react-select": "^1.1.0",
@@ -137,6 +139,10 @@
     },
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test_data/"
     ]
   },
   "author": "Empirical",

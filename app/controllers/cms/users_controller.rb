@@ -1,6 +1,5 @@
-class Cms::UsersController < ApplicationController
+class Cms::UsersController < Cms::CmsController
   before_filter :signed_in!
-  before_filter :staff!
   before_action :set_user, only: [:show, :show_json, :update, :destroy]
   before_action :set_search_inputs, only: [:index, :search]
 

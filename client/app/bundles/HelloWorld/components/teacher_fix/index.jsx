@@ -16,6 +16,8 @@ export default class TeacherFixIndex extends React.Component {
           <p><a href="/teacher_fix/move_student">Move Student from One Class to Another</a></p>
           <p><a href="/teacher_fix/google_unsync">Unsync User with Google Classroom</a></p>
           <p><a href="/teacher_fix/merge_two_schools">Merge Two Schools</a></p>
+          <p><a href="/teacher_fix/merge_two_classrooms">Merge Two Classrooms</a></p>
+          <p><a href="/teacher_fix/delete_last_activity_session">Delete Last Activity Session</a> - <span>Use when you have completed an activity session on behalf of a student and need to erase the evidence.</span></p>
       </div>
     }
   }
