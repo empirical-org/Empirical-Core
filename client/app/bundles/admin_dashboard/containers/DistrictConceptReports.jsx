@@ -1,18 +1,18 @@
 import React from 'react';
 import LoadingSpinner from 'bundles/HelloWorld/components/shared/loading_indicator';
-import ActivityScores from 'bundles/admin_dashboard/components/activity_scores';
+import ConceptReports from 'bundles/admin_dashboard/components/concept_reports';
 import {
   switchClassroom,
   switchSchool,
   switchTeacher,
-  getDistrictActivityScores,
-} from 'actions/district_activity_scores';
+  getDistrictConceptReports,
+} from 'actions/district_concept_reports';
 import { connect } from 'react-redux';
 
-class DistrictActivityScores extends React.Component {
+class DistrictConceptReports extends React.Component {
   componentDidMount() {
-    const { getDistrictActivityScores, } = this.props;
-    getDistrictActivityScores();
+    const { getDistrictConceptReports, } = this.props;
+    getDistrictConceptReports();
   }
 
   render() {
@@ -21,7 +21,7 @@ class DistrictActivityScores extends React.Component {
     if (loading) {
       return <LoadingSpinner />;
     }
-    return (<ActivityScores {...this.props} />);
+    return (<ConceptReports {...this.props} />);
   }
 }
 
@@ -33,31 +33,35 @@ function getClassroomNames(classrooms, selectedSchool, selectTeacher) {
 }
 
 function getSchoolNames(classrooms) {
-  let names = classrooms.map(row => row.schools_name);
+  let names = classrooms.map(row => row.school_name);
   return ['All Schools', ...new Set(names)];
 }
 
 function getTeacherNames(classrooms, selectedSchool) {
   let filtered = filterBySchool(classrooms, selectedSchool);
-  let names = filtered.map(row => row.teachers_name);
+  let names = filtered.map(row => row.teacher_name);
   return ['All Teachers', ...new Set(names)];
 }
 
 function formatDataForCSV(data) {
   const csvData = []
   const csvHeader = [
-    'Classroom Name',
-    'Student Name',
-    'School Name',
-    'Average Score',
-    'Activity Count'
+    'Student',
+    'Teacher',
+    'Classroom',
+    'School',
+    'Correct',
+    'Incorrect',
+    'Success Rate',
   ];
   const csvRow = (row) => [
+    row['student_name'],
+    row['teacher_name'],
     row['classroom_name'],
-    row['students_name'],
-    row['schools_name'],
-    (row['average_score'] * 100).toString() + '%',
-    row['activity_count'],
+    row['school_name'],
+    row['correct'],
+    row['incorrect'],
+    row['percentage'],
   ];
 
   csvData.push(csvHeader);
@@ -68,7 +72,7 @@ function formatDataForCSV(data) {
 
 function filterBySchool(classrooms, selected) {
   if (selected !== 'All Schools') {
-    return classrooms.filter(row => row.schools_name === selected);
+    return classrooms.filter(row => row.school_name === selected);
   }
 
   return classrooms;
@@ -84,7 +88,7 @@ function filterByClass(classrooms, selected) {
 
 function filterByTeacher(classrooms, selected) {
   if (selected !== 'All Teachers') {
-    return classrooms.filter(row => row.teachers_name === selected);
+    return classrooms.filter(row => row.teacher_name === selected);
   }
 
   return classrooms;
@@ -104,36 +108,36 @@ function filterClassrooms(
 }
 
 const mapStateToProps = (state) => {
-  let filteredClassroomsData = filterClassrooms(
-    state.district_activity_scores.classroomsData,
-    state.district_activity_scores.selectedSchool,
-    state.district_activity_scores.selectedTeacher,
-    state.district_activity_scores.selectedClassroom
+  let filteredConceptReportsData = filterClassrooms(
+    state.district_concept_reports.conceptReportsData,
+    state.district_concept_reports.selectedSchool,
+    state.district_concept_reports.selectedTeacher,
+    state.district_concept_reports.selectedClassroom
   );
 
   let teacherNames = getTeacherNames(
-    state.district_activity_scores.classroomsData,
-    state.district_activity_scores.selectedSchool
+    state.district_concept_reports.conceptReportsData,
+    state.district_concept_reports.selectedSchool
   );
 
   let classroomNames = getClassroomNames(
-    state.district_activity_scores.classroomsData,
-    state.district_activity_scores.selectedSchool,
-    state.district_activity_scores.selectedTeacher,
+    state.district_concept_reports.conceptReportsData,
+    state.district_concept_reports.selectedSchool,
+    state.district_concept_reports.selectedTeacher,
   );
 
   return {
-    loading: state.district_activity_scores.loading,
-    errors: state.district_activity_scores.errors,
-    selectedClassroom: state.district_activity_scores.selectedClassroom,
-    selectedSchool: state.district_activity_scores.selectedSchool,
-    selectedTeacher: state.district_activity_scores.selectedTeacher,
-    classroomsData: state.district_activity_scores.classroomsData,
-    filteredClassroomsData,
-    csvData: formatDataForCSV(filteredClassroomsData),
+    loading: state.district_concept_reports.loading,
+    errors: state.district_concept_reports.errors,
+    selectedClassroom: state.district_concept_reports.selectedClassroom,
+    selectedSchool: state.district_concept_reports.selectedSchool,
+    selectedTeacher: state.district_concept_reports.selectedTeacher,
+    conceptReportsData: state.district_concept_reports.conceptReportsData,
+    filteredConceptReportsData,
+    csvData: formatDataForCSV(filteredConceptReportsData),
     classroomNames,
     teacherNames,
-    schoolNames: getSchoolNames(state.district_activity_scores.classroomsData),
+    schoolNames: getSchoolNames(state.district_concept_reports.conceptReportsData),
   }
 };
 const mapDispatchToProps = (dispatch) => {
@@ -141,8 +145,8 @@ const mapDispatchToProps = (dispatch) => {
     switchSchool: school => dispatch(switchSchool(school)),
     switchClassroom: classroom => dispatch(switchClassroom(classroom)),
     switchTeacher: teacher => dispatch(switchTeacher(teacher)),
-    getDistrictActivityScores: () => dispatch(getDistrictActivityScores()),
+    getDistrictConceptReports: () => dispatch(getDistrictConceptReports()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DistrictActivityScores);
+export default connect(mapStateToProps, mapDispatchToProps)(DistrictConceptReports);

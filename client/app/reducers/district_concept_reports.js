@@ -4,15 +4,15 @@ const initialState = {
   selectedClassroom: 'All Classrooms',
   selectedSchool: 'All Schools',
   selectedTeacher: 'All Teachers',
-  classroomsData: [],
   conceptReportsData: [],
+  classroomsData: [],
 };
 
 function updateObject(oldObject, newObject) {
   return Object.assign({}, oldObject, newObject);
 }
 
-export default function district_activity_scores(state = initialState, action) {
+export default function district_concept_reports(state = initialState, action) {
   switch(action && action.type) {
     case 'SWITCH_SCHOOL':
       return updateObject(state, {
@@ -29,11 +29,11 @@ export default function district_activity_scores(state = initialState, action) {
       return updateObject(state, {
         selectedClassroom: action.classroom,
       });
-    case 'RECIEVE_DISTRICT_ACTIVITY_SCORES':
+    case 'RECIEVE_DISTRICT_CONCEPT_REPORTS':
       return updateObject(state, {
         loading: false,
         errors: action.body.errors,
-        classroomsData: JSON.parse(action.body).data,
+        conceptReportsData: JSON.parse(action.body).data,
       });
     default:
       return state;
