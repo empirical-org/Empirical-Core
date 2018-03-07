@@ -21,7 +21,10 @@ export default class extends React.Component {
     this.changePurchaserId = this.changePurchaserId.bind(this);
     this.changePurchaserInfoToTeacherInfo = this.changePurchaserInfoToTeacherInfo.bind(this);
     this.changeRecurring = this.changeRecurring.bind(this);
+    this.getMatchingUserFromSchoolsUsersById = this.getMatchingUserFromSchoolsUsersById.bind(this);
+    this.getMatchingUserFromSchoolsUsersByEmail = this.getMatchingUserFromSchoolsUsersByEmail.bind(this);
     this.submit = this.submit.bind(this);
+    this.submitConfirmation = this.submitConfirmation.bind(this);
   }
 
   changePurchaserInfoToTeacherInfo() {
@@ -43,7 +46,15 @@ export default class extends React.Component {
     this.setState({ subscription: newSub, });
   }
 
-  getMatchingUserFromSchoolsUsers(newSub) {
+  getMatchingUserFromSchoolsUsersById(newSub, e) {
+    debugger;
+    const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.id === e.target.value);
+    if (matchingSchoolUser) {
+      new_sub.purchaser_email = matchingSchoolUser.email;
+    }
+  }
+
+  getMatchingUserFromSchoolsUsersByEmail(newSub, e) {
     const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.email === e.target.value);
     if (matchingSchoolUser) {
       newSub.purchaser_id = matchingSchoolUser.id;
@@ -59,7 +70,7 @@ export default class extends React.Component {
   changePurchaserEmail(e) {
     const newSub = Object.assign({}, this.state.subscription);
     newSub.purchaser_email = e.target.value;
-    this.getMatchingUserFromSchoolsUsers(newSub);
+    this.getMatchingUserFromSchoolsUsersByEmail(newSub, e);
     this.setState({ subscription: newSub, });
   }
 
@@ -77,6 +88,7 @@ export default class extends React.Component {
 
   changePurchaserId(e) {
     const newSub = Object.assign({}, this.state.subscription);
+    this.getMatchingUserFromSchoolsUsersById(newSub, e);
     newSub.purchaser_id = e;
     this.setState({ subscription: newSub, });
   }
@@ -117,6 +129,16 @@ export default class extends React.Component {
     return varsObj;
   }
 
+  submitConfirmation() {
+    if (this.props.school) {
+      if (confirm("You know you are about to add/edit an entire school's subscription, right?")) {
+        this.submit();
+      } else {
+        alert('submission canceled');
+      }
+    }
+  }
+
   submit() {
     const submitVars = this.submitVars();
     request[submitVars.httpVerb]({
@@ -147,11 +169,18 @@ export default class extends React.Component {
     }
   }
 
+  changeToPurchaserInfo() {
+    if (this.props.user) {
+      return <span onClick={this.changePurchaserInfoToTeacherInfo} className="green-text text-green">Same As Teacher Info</span>;
+    }
+  }
+
   render() {
     const schoolOrUser = this.props.school || this.props.user;
+    const submitAction = this.props.school ? this.submitConfirmation : this.submit;
     return (
       <div className="cms-subscription">
-        <h1>Edit Subscription: {schoolOrUser.name}</h1>
+        <h1>{this.props.view} Subscription: {schoolOrUser.name}</h1>
         <h2>Subscription Information</h2>
         <label>Premium Status</label>
         <ItemDropdown
@@ -175,7 +204,7 @@ export default class extends React.Component {
         <label>Purchaser Email</label>
         <input type="text" value={this.state.subscription.purchaser_email} onChange={this.changePurchaserEmail} />
         <br />
-        <span onClick={this.changePurchaserInfoToTeacherInfo} className="green-text text-green">Same As Teacher Info</span>
+        {this.changeToPurchaserInfo()}
         {this.recurringIfCreditCard()}
         <h2>Period</h2>
         <label>Start Date</label>
@@ -189,8 +218,8 @@ export default class extends React.Component {
         </p>
         <DatePicker selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} onChange={this.changeExpirationDate} />
         <div>
-          <button className="q-button cta-button bg-quillgreen text-white" onClick={this.submit}>
-            {this.props.view === 'create' ? 'Create' : 'Upate'} Subscription
+          <button className="q-button cta-button bg-quillgreen text-white" onClick={submitAction}>
+            {this.props.view === 'create' ? 'Create' : 'Update'} Subscription
           </button>
         </div>
       </div>);

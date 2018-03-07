@@ -2,6 +2,7 @@ class Cms::SchoolsController < Cms::CmsController
   before_filter :signed_in!
 
   before_action :text_search_inputs, only: [:index, :search]
+  before_action :set_school, only: [:new_subscription, :edit_subscription]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 10.0
@@ -121,6 +122,11 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   private
+
+  def set_school
+    @school = School.find params[:id]
+  end
+
   def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.
     @text_search_inputs = ['school_name', 'school_city', 'school_state', 'school_zip', 'district_name']
