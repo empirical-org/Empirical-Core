@@ -94,23 +94,6 @@ class Cms::UsersController < Cms::CmsController
 
 protected
 
-  def get_subscription_data
-    @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
-    @subscription_payment_methods = Subscription::PAYMENT_METHODS
-    @promo_expiration_date = Subscription.promotional_dates[:expiration]
-    if @user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(@user.school.name)
-      @schools_users = @user.school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
-    end
-  end
-
-  # def get_data_for_new_sub
-  #   if @user.subscription
-  #     @new_sub = @user.subscription.dup
-  #     # @new_sub.start_date =
-  #     @new_sub.expiration = @new_sub.expiration + 365
-  #   end
-  # end
-
   def set_user
     @user = User.find params[:id]
   end

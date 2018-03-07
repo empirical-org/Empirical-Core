@@ -2,6 +2,7 @@ class Cms::SchoolsController < Cms::CmsController
   before_filter :signed_in!
 
   before_action :text_search_inputs, only: [:index, :search]
+  before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 10.0
 
@@ -66,20 +67,7 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def edit_subscription
-    @school = School.find(params[:id])
-    @school_premium_types = Subscription.account_types
-
-    if @school.subscription
-      # If this school already has a subscription, we want the expiration date
-      # to reflect the expiration date of that subscription.
-      @expiration_date = @school.subscription.expiration
-      @account_type = @school.subscription.account_type
-    else
-      # If this school does not already have a subscription, we want the
-      # default expiration date to be one year from today.
-      @expiration_date = Date.today + 1.years
-      @account_type = nil
-    end
+    @subscription = @school.subscription
   end
 
   def update_subscription
