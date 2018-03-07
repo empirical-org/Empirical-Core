@@ -15,6 +15,11 @@ const SubnavTabs = () => {
               Activity Scores
             </a>
           </li>
+          <li>
+            <a href="/teachers/admin_dashboard/district_concept_reports">
+              School Concept Reports
+            </a>
+          </li>
         </ul>
       </div>
     </div>
