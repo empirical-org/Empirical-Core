@@ -74,17 +74,19 @@ class Cms::UsersController < Cms::CmsController
     if @user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(@user.school.name)
       @schools_users = @user.school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
     end
-
   end
 
-  def update_subscription
-    user = User.find(subscription_params[:id])
-    subscription = user.subscription
-    set_subscription_from_params(subscription)
-    success = subscription.save && user.subscription == subscription
-    return redirect_to cms_user_path(subscription_params[:id]) if success
-    render :edit_subscription
+  def create_subscription
+    @user = User.includes(:subscription).find(params[:id])
+    @subscription = Subscription.new
+    @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
+    @subscription_payment_methods = Subscription::PAYMENT_METHODS
+    @promo_expiration_date = Subscription.promotional_dates[:expiration]
+    if @user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(@user.school.name)
+      @schools_users = @user.school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
+    end
   end
+
 
   def update
     if @user.update_attributes(user_params)
@@ -116,6 +118,14 @@ protected
     subscription.account_limit = 1000 # This is a default value and should be deprecated.
     subscription.save
   end
+
+  # def get_data_for_new_sub
+  #   if @user.subscription
+  #     @new_sub = @user.subscription.dup
+  #     # @new_sub.start_date =
+  #     @new_sub.expiration = @new_sub.expiration + 365
+  #   end
+  # end
 
   def set_user
     @user = User.find params[:id]
