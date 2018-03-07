@@ -20,7 +20,8 @@ describe('NextActivity component', () => {
   it('should display a linked button to start next activity if props.data is not empty', () => {
     const wrapper = shallow(
       <NextActivity
-        data={{name: 'Activity Name', ca_id: 1024}}
+        name={'Activity Name'}
+        caId={1024}
       />
     );
     expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
@@ -30,7 +31,7 @@ describe('NextActivity component', () => {
   it('should display the activity\'s name if props.data is not empty', () => {
     const wrapper = shallow(
       <NextActivity
-        data={{name: 'Activity Name'}}
+        name={'Activity Name'}
       />
     );
     expect(wrapper.find('p').text()).toBe('Activity Name');
