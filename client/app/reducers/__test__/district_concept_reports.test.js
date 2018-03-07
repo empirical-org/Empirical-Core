@@ -1,16 +1,16 @@
-import district_activity_scores from 'reducers/district_activity_scores';
+import district_concept_reports from 'reducers/district_concept_reports';
 
-describe('DistrictActivityScores reducer', () => {
+describe('DistrictConceptReports reducer', () => {
 
   it('has initial state', () => {
-    expect(district_activity_scores()).toEqual({
+    expect(district_concept_reports()).toEqual({
       loading: true,
       errors: false,
       selectedClassroom: 'All Classrooms',
       selectedSchool: 'All Schools',
       selectedTeacher: 'All Teachers',
-      classroomsData: [],
       conceptReportsData: [],
+      classroomsData: [],
     });
   });
 
@@ -26,7 +26,7 @@ describe('DistrictActivityScores reducer', () => {
       school: 'Rude School',
     }
 
-    expect(district_activity_scores(state, action)).toEqual({
+    expect(district_concept_reports(state, action)).toEqual({
       selectedClassroom: 'All Classrooms',
       selectedSchool: 'Rude School',
       selectedTeacher: 'All Teachers',
@@ -45,7 +45,7 @@ describe('DistrictActivityScores reducer', () => {
       teacher: 'Mr Buttz',
     }
 
-    expect(district_activity_scores(state, action)).toEqual({
+    expect(district_concept_reports(state, action)).toEqual({
       selectedClassroom: 'All Classrooms',
       selectedSchool: 'Coolio U',
       selectedTeacher: 'Mr Buttz',
@@ -64,7 +64,7 @@ describe('DistrictActivityScores reducer', () => {
       classroom: 'Roflcopter 2005',
     }
 
-    expect(district_activity_scores(state, action)).toEqual({
+    expect(district_concept_reports(state, action)).toEqual({
       selectedClassroom: 'Roflcopter 2005',
       selectedSchool: 'Coolio U',
       selectedTeacher: 'Mr Guy',

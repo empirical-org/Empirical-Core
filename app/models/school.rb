@@ -7,7 +7,7 @@ class School < ActiveRecord::Base
   has_many :admins, through: :schools_admins, source: :user
   belongs_to :authorizer, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
-
+  
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
 
