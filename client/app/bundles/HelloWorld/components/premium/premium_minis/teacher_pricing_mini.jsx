@@ -7,10 +7,10 @@ export default React.createClass({
     // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
   charge() {
-    if (!this.props.userIsEligibleForNewSubscription) {
-      alert('You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.');
+    if (this.props.userIsEligibleForNewSubscription) {
+      this.props.showPurchaseModal();
     } else {
-      new Stripe(8000, '$80 per Year - Teacher Premium');
+      alert('You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.');
     }
   },
 
@@ -20,11 +20,15 @@ export default React.createClass({
     };
   },
 
+  beginTrialButton() {
+    if (this.props.userIsEligibleForTrial || !this.state.isUserSignedIn) {
+      return <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>;
+    }
+  },
+
   beginTrial() {
     if (!this.state.isUserSignedIn === true) {
       alert('You must be logged in to begin a free trial.');
-    } else if (!this.props.userIsEligibleForTrial) {
-      alert('Our records show that you have already had a subscription and are therefor not eligible for a free trial.');
     } else {
       $.post('/subscriptions', {
         subscription: {
@@ -73,7 +77,7 @@ export default React.createClass({
         </section>
         <div className="row">
           {this.purchaseButton()}
-          <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>
+          {this.beginTrialButton()}
           <PleaseLoginModal ref="pleaseLoginModal" />
         </div>
       </div>
