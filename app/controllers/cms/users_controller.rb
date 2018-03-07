@@ -1,7 +1,8 @@
 class Cms::UsersController < Cms::CmsController
   before_filter :signed_in!
-  before_action :set_user, only: [:show, :show_json, :update, :destroy]
+  before_action :set_user, only: [:show, :show_json, :update, :destroy, :edit_subscription, :new_subscription]
   before_action :set_search_inputs, only: [:index, :search]
+  before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
   USERS_PER_PAGE = 10.0
 
@@ -66,27 +67,12 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def edit_subscription
-    @user = User.includes(:subscription).find(params[:id])
     @subscription = @user.subscription
-    @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
-    @subscription_payment_methods = Subscription::PAYMENT_METHODS
-    @promo_expiration_date = Subscription.promotional_dates[:expiration]
-    if @user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(@user.school.name)
-      @schools_users = @user.school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
-    end
   end
 
-  def create_subscription
-    @user = User.includes(:subscription).find(params[:id])
+  def new_subscription
     @subscription = Subscription.new
-    @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
-    @subscription_payment_methods = Subscription::PAYMENT_METHODS
-    @promo_expiration_date = Subscription.promotional_dates[:expiration]
-    if @user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(@user.school.name)
-      @schools_users = @user.school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
-    end
   end
-
 
   def update
     if @user.update_attributes(user_params)
@@ -108,15 +94,13 @@ class Cms::UsersController < Cms::CmsController
 
 protected
 
-  def set_subscription_from_params subscription
-    subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
-    subscription.start_date = Date.parse("#{subscription_params[:start_date]['day']}-#{subscription_params[:start_date]['month']}-#{subscription_params[:start_date]['year']}")
-    subscription.account_type = subscription_params[:premium_status]
-    subscription.payment_method = subscription_params[:payment_method]
-    subscription.payment_amount = subscription_params[:payment_amount]
-    subscription.purchaser_email = subscription_params[:purchaser_email]
-    subscription.account_limit = 1000 # This is a default value and should be deprecated.
-    subscription.save
+  def get_subscription_data
+    @user_premium_types = Subscription::ALL_OFFICIAL_TYPES
+    @subscription_payment_methods = Subscription::PAYMENT_METHODS
+    @promo_expiration_date = Subscription.promotional_dates[:expiration]
+    if @user.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(@user.school.name)
+      @schools_users = @user.school.users.map{|u| {id: u.id, name: u.name, email: u.email}}
+    end
   end
 
   # def get_data_for_new_sub

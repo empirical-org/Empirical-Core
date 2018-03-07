@@ -12,6 +12,8 @@ class Subscription < ActiveRecord::Base
   validates :expiration, presence: true
   validates :account_limit, presence: true
   after_commit :check_if_purchaser_email_is_in_database
+  after_initialize :set_null_start_date_to_today
+
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
     'School NYC Paid',
@@ -247,6 +249,12 @@ class Subscription < ActiveRecord::Base
       raise e
     rescue => e
       NewRelic::Agent.notice_error(e)
+    end
+  end
+
+  def set_null_start_date_to_today
+    if !self.start_date
+      self.start_date = Date.today
     end
   end
 

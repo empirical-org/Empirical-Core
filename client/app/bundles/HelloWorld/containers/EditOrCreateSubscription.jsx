@@ -102,14 +102,30 @@ export default class extends React.Component {
     this.setState({ subscription: newSub, });
   }
 
+  submitVars() {
+    const varsObj = { data: { subscription: this.state.subscription, authenticity_token: getAuthToken(), }, urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`, };
+    if (this.props.view === 'edit') {
+      varsObj.httpVerb = 'put';
+      varsObj.urlString += `/${this.state.subscription.id}`;
+    } else {
+      // we are creating
+      const schoolOrUser = this.props.schoolOrUser;
+      varsObj.data.school_or_user = schoolOrUser;
+      varsObj.data.school_or_user_id = this.props[schoolOrUser].id;
+      varsObj.httpVerb = 'post';
+    }
+    return varsObj;
+  }
+
   submit() {
-    request.put({
-      url: `${process.env.DEFAULT_URL}/cms/subscriptions/${this.state.subscription.id}`,
-      json: { subscription: this.state.subscription, authenticity_token: getAuthToken(), },
+    const submitVars = this.submitVars();
+    request[submitVars.httpVerb]({
+      url: submitVars.urlString,
+      json: submitVars.data,
     },
-    (e, httpResponse, response) => {
+    (e, httpResponse) => {
       if (httpResponse.statusCode === 200) {
-        alert('Subscription was updated');
+        alert('Subscription was saved');
         location.reload();
       } else {
         alert('There was an error. Please try again and contact a dev if you continue to get this warning.');
@@ -174,7 +190,7 @@ export default class extends React.Component {
         <DatePicker selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} onChange={this.changeExpirationDate} />
         <div>
           <button className="q-button cta-button bg-quillgreen text-white" onClick={this.submit}>
-            Update Subscription
+            {this.props.view === 'create' ? 'Create' : 'Upate'} Subscription
           </button>
         </div>
       </div>);

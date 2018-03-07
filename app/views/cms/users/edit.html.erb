@@ -5,6 +5,7 @@
     <h2>Edit: <%= @user.name %></h2>
     <br />
     <%= link_to 'Edit Subscription', edit_subscription_cms_user_path(params[:id]), class: 'btn button-green' %>
+    <%= link_to 'Create Subscription', "/cms/users/#{params[:id]}/new_subscription", class: 'btn button-green' %>
     <br /><br />
     <%= render "form" %>
   </article>
