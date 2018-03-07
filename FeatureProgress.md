@@ -7,7 +7,7 @@
 - ~client/app/bundles/HelloWorld/components/admin_dashboard/subnav_tabs.jsx - add 'District Standards Reports' to subnav~
 - ~**client/app/bundles/HelloWorld/components/progress_reports/district_standards_reports_progress_report.jsx**~
 - ~client/app/bundles/HelloWorld/containers/AdminDashboardRouter.jsx - add Route for district standards reports~
-- client/app/bundles/HelloWorld/startup/AdminDashboardAppClient.jsx - add new reducer to combined reducer
+- ~client/app/bundles/HelloWorld/startup/AdminDashboardAppClient.jsx - add new reducer to combined reducer~
 - client/app/bundles/admin_dashboard/components/standards_reports.jsx
 - client/app/bundles/admin_dashboard/components/standards_reports_table.jsx 
 - client/app/bundles/admin_dashboard/components/subnav_tabs.jsx - add 'District Standards Reports' to subnav
@@ -16,3 +16,7 @@
 - client/app/reducers/__test__/district_standards_reports.test.js
 - client/app/reducers/district_standards_reports.js
 - config/routes.rb
+
+
+TODO:
+  - Reducer names should not be snake cased client/app/bundles/HelloWorld/startup/AdminDashboardAppClient.jsx
