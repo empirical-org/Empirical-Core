@@ -10,7 +10,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      subscription: this.props.subscription,
+      subscription: this.props.subscription || this.props.current_subscription,
     };
     this.changeAccountType = this.changeAccountType.bind(this);
     this.changePaymentAmount = this.changePaymentAmount.bind(this);
@@ -20,6 +20,7 @@ export default class extends React.Component {
     this.changeStartDate = this.changeStartDate.bind(this);
     this.changePurchaserId = this.changePurchaserId.bind(this);
     this.changePurchaserInfoToTeacherInfo = this.changePurchaserInfoToTeacherInfo.bind(this);
+    this.changeRecurring = this.changeRecurring.bind(this);
     this.submit = this.submit.bind(this);
   }
 
@@ -67,11 +68,13 @@ export default class extends React.Component {
     newSub.expiration = e;
     this.setState({ subscription: newSub, });
   }
+
   changeStartDate(e) {
     const newSub = Object.assign({}, this.state.subscription);
     newSub.start_date = e;
     this.setState({ subscription: newSub, });
   }
+
   changePurchaserId(e) {
     const newSub = Object.assign({}, this.state.subscription);
     newSub.purchaser_id = e;
@@ -93,6 +96,12 @@ export default class extends React.Component {
     }
   }
 
+  changeRecurring() {
+    const newSub = Object.assign({}, this.state.subscription);
+    newSub.recurring = !newSub.recurring;
+    this.setState({ subscription: newSub, });
+  }
+
   submit() {
     request.put({
       url: `${process.env.DEFAULT_URL}/cms/subscriptions/${this.state.subscription.id}`,
@@ -103,15 +112,29 @@ export default class extends React.Component {
         alert('Subscription was updated');
         location.reload();
       } else {
-        alert('There was an error. Please try again and contact a dev if you get this warning.');
+        alert('There was an error. Please try again and contact a dev if you continue to get this warning.');
       }
     });
+  }
+
+  recurringIfCreditCard() {
+    if (this.state.subscription.payment_method === 'Credit Card') {
+      return (
+        <label>
+                Recurring:
+                <input
+                  type="checkbox"
+                  checked={this.state.subscription.recurring}
+                  onChange={this.changeRecurring}
+                />
+        </label>);
+    }
   }
 
   render() {
     const schoolOrUser = this.props.school || this.props.user;
     return (
-      <div>
+      <div className="cms-subscription">
         <h1>Edit Subscription: {schoolOrUser.name}</h1>
         <h2>Subscription Information</h2>
         <label>Premium Status</label>
@@ -129,13 +152,15 @@ export default class extends React.Component {
           callback={this.changePaymentMethod}
           selectedItem={this.state.subscription.payment_method || ''}
         />
-        <label>Payment Amount (dollar value as integer -- no decimal or symbol)</label>
+        <label>Purchase Amount (dollar value as integer -- no decimal or symbol)</label>
         <input onChange={this.changePaymentAmount} type="text" value={this.state.subscription.payment_amount / 100} />
         <h2>Purchaser Information</h2>
-        <span onClick={this.changePurchaserInfoToTeacherInfo} className="green-text text-green">Same As Teacher Info</span>
         {this.purchaserFromSchool()}
         <label>Purchaser Email</label>
         <input type="text" value={this.state.subscription.purchaser_email} onChange={this.changePurchaserEmail} />
+        <br />
+        <span onClick={this.changePurchaserInfoToTeacherInfo} className="green-text text-green">Same As Teacher Info</span>
+        {this.recurringIfCreditCard()}
         <h2>Period</h2>
         <label>Start Date</label>
         <p>
@@ -147,9 +172,11 @@ export default class extends React.Component {
           If this a school or users first paid subscription, the default end date is {this.props.promoExpiration}. This value just stated will update automatically depending on the time of year.
         </p>
         <DatePicker selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} onChange={this.changeExpirationDate} />
-        <button onClick={this.submit}>
-          Update Subscription
-        </button>
+        <div>
+          <button className="q-button cta-button bg-quillgreen text-white" onClick={this.submit}>
+            Update Subscription
+          </button>
+        </div>
       </div>);
   }
 }
