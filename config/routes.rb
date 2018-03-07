@@ -99,6 +99,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
@@ -303,6 +305,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
+      get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
+      get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
     end
 
