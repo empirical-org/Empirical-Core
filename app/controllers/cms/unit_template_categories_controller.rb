@@ -1,5 +1,4 @@
-class Cms::UnitTemplateCategoriesController < ApplicationController
-  before_filter :staff!
+class Cms::UnitTemplateCategoriesController < Cms::CmsController
   before_action :set_unit_template_category, only: [:update, :destroy]
 
   def index

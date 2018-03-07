@@ -3,7 +3,7 @@
 | ">
 
 #first-preview-section
-  = react_component('PremiumPricingGuideApp')
+  = react_component('PremiumPricingGuideApp', props: {lastFour: @last_four, userIsEligibleForNewSubscription: @user_is_eligible_for_new_subscription, userIsEligibleForTrial: @user_is_eligible_for_trial, userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid})
 .preview-section#second-preview-section
   .title Save Time Grading
   .copy
@@ -46,7 +46,7 @@
         .preview-question
           | How does payment work on a Premium Membership?
         .preview-answer
-          | Quill Premium is provided on an annual license based on the school year. You may pay via credit card or check.
+          | Quill Premium is provided on an annual license based on the school year. You may pay via credit card or check. Credit cards will be billed annually for Teacher and School Premium. If you pay with a check, you can request an invoice to renew your subscription.
 
     .preview-questions-column
       .preview-question-and-answer.preview-question-and-answer-with-margin
@@ -70,7 +70,7 @@
         .preview-question
           | Have more questions?
         .preview-answer
-          | You can call us at 646-442-1095 or visit our 
+          | You can call us at 646-442-1095 or visit our
           = link_to 'Support Center.', 'http://support.quill.org', target: '_new'
 
   .preview-questions-view-all

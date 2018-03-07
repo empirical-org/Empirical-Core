@@ -138,11 +138,33 @@
       margin-bottom: 20px;
     }
 
-    #markdown-shortcuts {
+    .article-content-container {
+      border: 1px solid #cecece;
+      border-radius: 6px;
+      div:last-of-type {
+        padding: 0px 10px;
+      }
+    }
+
+    #article-preview-bar {
       background: #cecece;
       border-radius: 5px 5px 0 0;
       padding: 5px;
-
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 36px;
+      .article-tab {
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 10px;
+        padding: 10px;
+        padding-top: 0px;
+        border-radius: 6px 6px 0px 0px;
+        &.active {
+          background-color: white;
+        }
+      }
       i {
         font-size: 16px;
         background: #fff;
@@ -216,10 +238,15 @@
       }
     }
 
-    .flex-three-cols {
+    .short-fields {
       display: flex;
-      justify-content: space-between;
       margin-bottom: 20px;
+      div {
+        flex: 1
+      }
+      input {
+        width: 214px;
+      }
     }
 
     .markdown-cheatsheet {
@@ -229,4 +256,19 @@
       text-align: right;
     }
   }
+}
+
+.premium-label, .center-images-label {
+  display: inline-block !important;
+}
+
+.premium-checkbox, .center-images-checkbox {
+  width: 20px !important;
+  display: inline-block !important;
+}
+.create-new-author-link {
+  margin-top: 5px;
+  margin-left: 5px;
+  color: $quillgreen;
+  display: block;
 }
