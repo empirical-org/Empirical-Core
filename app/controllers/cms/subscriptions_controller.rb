@@ -5,7 +5,7 @@ class Cms::SubscriptionsController < Cms::CmsController
 
   def create
     if params['school_or_user']
-      @subscription = Subscription.create_with_school_or_user_join(params[:school_or_user], params[:school_or_user_id], subscription_params)
+      @subscription = Subscription.create_with_school_or_user_join( params[:school_or_user_id], params[:school_or_user], subscription_params)
     else
       @subscription = Subscription.new
       @subscription.create(subscription_params)
