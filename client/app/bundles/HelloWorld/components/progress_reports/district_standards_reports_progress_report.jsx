@@ -122,7 +122,7 @@ export default class extends React.Component {
     }
     const filteredStandardsReportsData = this.filteredStandardsReportsData()
     return (
-      <div className='standars-reports-by-classroom progress-reports-2018'>
+      <div className='standards-reports-by-classroom progress-reports-2018'>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>District Standards Reports</h1>
