@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import $ from 'jquery';
 import _ from 'underscore';
 import AdminsTeachers from 'bundles/admin_dashboard/components/admins_teachers';
 import PremiumFeatures from 'bundles/admin_dashboard/components/premium_features';
