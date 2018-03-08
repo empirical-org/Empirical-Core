@@ -46,8 +46,7 @@ export default class extends React.Component {
     ]
     data.forEach((row) => {
       csvData.push([
-        row['section_name'], row['name'], row['total_student_count'], row['proficient_count'],
-        row['total_activity_count']
+        row['section_name'], row['name'], row['total_student_count'], row['proficient_count'], row['total_activity_count']
       ])
     })
     return csvData
