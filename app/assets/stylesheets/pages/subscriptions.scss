@@ -155,7 +155,9 @@
       padding: 20px 30px;
       background-color: white;
       .meta-section {
-        border-bottom: 1px solid #d8d8d8;
+        &:not(:last-of-type) {
+          border-bottom: 1px solid #d8d8d8;
+        }
         padding: 25px 0px 0px 0px;
         &.payment {
           padding-bottom: 20px;
