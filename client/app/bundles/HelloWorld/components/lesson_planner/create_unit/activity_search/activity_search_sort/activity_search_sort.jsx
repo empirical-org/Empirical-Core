@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 
-export default React.createClass({
+export default createReactClass({
 
   clickSort() {
     let new_asc_or_desc;

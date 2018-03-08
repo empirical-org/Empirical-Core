@@ -1,11 +1,12 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import Modal from 'react-bootstrap/lib/Modal';
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import ModalContent from './ModalContent.jsx'
 
-export default React.createClass({
+export default createReactClass({
   getInitialState() {
     return {show: true, slideIndex: 0};
   },

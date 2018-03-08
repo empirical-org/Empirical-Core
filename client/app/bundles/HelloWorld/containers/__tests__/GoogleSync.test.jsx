@@ -9,11 +9,6 @@ import SyncSuccessModal from '../../components/google_classroom/google_classroom
 describe('GoogleSync container', () => {
 
   describe('the loading indicator', () => {
-    it('should render a loading indicator by default', () => {
-        const wrapper = shallow(<GoogleSync />);
-        expect(wrapper.find(LoadingIndicator).length).toBe(1);
-    });
-
     it('should render a loading indicator if the state is loading', () => {
         const wrapper = shallow(<GoogleSync />);
         wrapper.setState({ loading: true });

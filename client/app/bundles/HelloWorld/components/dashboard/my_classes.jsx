@@ -1,11 +1,12 @@
 'use strict'
 
  import React from 'react'
+import createReactClass from 'create-react-class'
  import _ from 'underscore'
  import ClassMini from './class_mini.jsx'
  import AddOrSyncClassroomsMini from './add_or_sync_classrooms_mini.jsx'
 
- export default  React.createClass({
+ export default  createReactClass({
 
   createMinis: function() {
     var classes = this.props.classList;

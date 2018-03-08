@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 
 const styles = {
   row: {
@@ -10,7 +11,7 @@ const styles = {
   },
 };
 
-export default React.createClass({
+export default createReactClass({
   unitNameURIString() {
     return this.props.unitName ? `/${encodeURIComponent(this.props.unitName)}` : '';
   },

@@ -1,6 +1,6 @@
-import React from 'react';
-
-export default React.createClass({
+import React from 'react'
+import createReactClass from 'create-react-class'
+export default createReactClass({
 
   render() {
     let signupButtonOrNothing;

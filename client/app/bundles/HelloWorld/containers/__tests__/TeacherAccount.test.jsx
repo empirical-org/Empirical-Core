@@ -75,16 +75,16 @@ describe('TeacherAccount container', () => {
     wrapper.setState({googleId: 7});
     describe('input with ref email', () => {
       it('should render', () => {
-        expect(wrapperStaff.ref('email').exists()).toBe(true);
+        expect(wrapper.ref('email')).toBeInstanceOf(HTMLInputElement);
       });
 
       it('should have class inactive', () => {
-        expect(wrapperStaff.ref('email').props().className).toBe('inactive');
+        expect(wrapperStaff.ref('email').className).toBe('inactive');
       });
 
       it('should have value depending on state', () => {
         wrapperStaff.setState({email: 'george@vandelay.industries'});
-        expect(wrapperStaff.ref('email').props().value).toBe('george@vandelay.industries');
+        expect(wrapperStaff.ref('email').value).toBe('george@vandelay.industries');
       });
 
       it.skip('should have readOnly flag', () => {
@@ -95,16 +95,16 @@ describe('TeacherAccount container', () => {
     describe('if the user is staff', () => {
       describe('input with ref email', () => {
         it('should render', () => {
-          expect(wrapperStaff.ref('email').exists()).toBe(true);
+          expect(wrapper.ref('email')).toBeInstanceOf(HTMLInputElement);
         });
 
         it('should have class inactive', () => {
-          expect(wrapperStaff.ref('email').props().className).toBe('inactive');
+          expect(wrapperStaff.ref('email').className).toBe('inactive');
         });
 
         it('should have value depending on state', () => {
           wrapperStaff.setState({email: 'george@vandelay.industries'});
-          expect(wrapperStaff.ref('email').props().value).toBe('george@vandelay.industries');
+          expect(wrapperStaff.ref('email').value).toBe('george@vandelay.industries');
         });
 
         it.skip('should have readOnly flag', () => {
@@ -118,16 +118,16 @@ describe('TeacherAccount container', () => {
     wrapper.setState({googleId: null});
     describe('input with ref email', () => {
       it('should render', () => {
-        expect(wrapper.ref('email').exists()).toBe(true);
+        expect(wrapper.ref('email')).toBeInstanceOf(HTMLInputElement);
       });
 
       it('have value based on state', () => {
         wrapper.setState({email: 'george@vandelay.industries'});
-        expect(wrapper.ref('email').props().value).toBe('george@vandelay.industries');
+        expect(wrapper.ref('email').value).toBe('george@vandelay.industries');
       });
 
       it('should onChange prop that updates state', () => {
-        wrapper.ref('email').simulate('change', {target: {value: 'cosmo@kramerica.industries'}});
+        wrapper.find({name:"email"}).simulate('change', {target: {value: 'cosmo@kramerica.industries'}});
         expect(wrapper.state().email).toBe('cosmo@kramerica.industries');
       });
     });
@@ -139,16 +139,16 @@ describe('TeacherAccount container', () => {
 
   describe('input with ref name', () => {
     it('should render', () => {
-      expect(wrapper.ref('name').exists()).toBe(true);
+      expect(wrapper.ref('name')).toBeInstanceOf(HTMLInputElement);
     });
 
     it('should have value equal to state.name', () => {
       wrapper.setState({name: 'Cosmo Kramer'});
-      expect(wrapper.ref('name').props().value).toBe('Cosmo Kramer');
+      expect(wrapper.ref('name').value).toBe('Cosmo Kramer');
     });
 
     it('should have an onChange event that changes state.name', () => {
-      wrapper.ref('name').simulate('change', {target: {value: 'Cosmo'}});
+      wrapper.find({name:"name"}).simulate('change', {target: {value: 'Cosmo'}});
       expect(wrapper.state().name).toBe('Cosmo');
     });
   });
@@ -160,11 +160,11 @@ describe('TeacherAccount container', () => {
 
   describe('input of type password with ref password', () => {
     it('should render', () => {
-      expect(wrapper.ref('password').exists()).toBe(true);
+      expect(wrapper.ref('password')).toBeInstanceOf(HTMLInputElement);
     });
 
     it('should have an onChange event that changes state.password', () => {
-      wrapper.ref('password').simulate('change', {target: {value: 'bosco'}});
+      wrapper.find({name:"password"}).simulate('change', {target: {value: 'bosco'}});
       expect(wrapper.state().password).toBe('bosco');
     });
   });

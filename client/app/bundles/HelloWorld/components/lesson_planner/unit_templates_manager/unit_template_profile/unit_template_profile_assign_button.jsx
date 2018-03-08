@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
   },
 
   getInitialState() {

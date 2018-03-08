@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Stripe from '../modules/stripe/charge.js';
 
-export default React.createClass({
+export default createReactClass({
 
   charge() {
     new Stripe();

@@ -1,6 +1,8 @@
 'use strict'
 
  import React from 'react'
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types'
  import { Link } from 'react-router'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
  import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
@@ -9,10 +11,10 @@
  import _l from 'lodash'
 
 
- export default  React.createClass({
+ export default  createReactClass({
   propTypes: {
-    data: React.PropTypes.object,
-    actions: React.PropTypes.object
+    data: PropTypes.object,
+    actions: PropTypes.object
   },
 
   getInitialState: function () {

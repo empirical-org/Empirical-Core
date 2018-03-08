@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory, Redirect } from 'react-router'
 import LessonPlanner from './LessonPlanner.jsx'

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import CoteacherCapabilityChart from './coteacher_capability_chart.jsx';
 import getAuthToken from '../modules/get_auth_token';
 import request from 'request';

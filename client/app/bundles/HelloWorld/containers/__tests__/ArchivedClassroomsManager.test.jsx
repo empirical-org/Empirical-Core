@@ -54,6 +54,7 @@ describe('ArchivedClassroomsManager container', () => {
 
   describe('active classrooms section', () => {
     it('header should render', () => {
+      wrapper.update();
       expect(wrapper.find('#active-classes h1').text()).toBe('Active Classes');
     });
 

@@ -1,13 +1,15 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types';
 import ProgressReport from '../progress_report.jsx'
 import OverviewBoxes from './overview_boxes.jsx'
 import _ from 'underscore';
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    premiumStatus: React.PropTypes.string,
-    params: React.PropTypes.object.isRequired
+    premiumStatus: PropTypes.string,
+    params: PropTypes.object.isRequired
   },
 
   getInitialState: function() {

@@ -1,12 +1,13 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import _ from 'lodash'
 import ScrollToTop from '../components/shared/scroll_to_top'
 import ResultsIcon from '../components/activities/results_page/results_icon.jsx'
 import StudentResultsTables from '../components/activities/results_page/student_results_tables.jsx'
 
-export default React.createClass({
+export default createReactClass({
   headerButton: function () {
     if (this.props.anonymous) {
       return (<a href='/account/new'>

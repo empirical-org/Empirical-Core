@@ -1,13 +1,15 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    items: React.PropTypes.array.isRequired,
-    callback: React.PropTypes.func,
-    selectedItem: React.PropTypes.string.isRequired
+    items: PropTypes.array.isRequired,
+    callback: PropTypes.func,
+    selectedItem: PropTypes.string.isRequired
   },
 
   items: function() {

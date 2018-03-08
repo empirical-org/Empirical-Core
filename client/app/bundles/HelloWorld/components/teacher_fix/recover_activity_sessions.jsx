@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import request from 'request'
 import getAuthToken from '../modules/get_auth_token'
 

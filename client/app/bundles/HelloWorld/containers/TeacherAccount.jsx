@@ -1,13 +1,15 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    userType: React.PropTypes.string.isRequired,
+    userType: PropTypes.string.isRequired,
   },
 
   getInitialState() {
@@ -186,10 +188,10 @@ export default React.createClass({
   renderEmail() {
     let message, inputField;
     if (this.state.googleId || this.state.signedUpWithGoogle) {
-      inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
+      inputField = <input className="inactive" ref="email" name="email" value={this.state.email} readOnly />
       message = this.renderGoogleClassroomWarning()
     } else {
-      inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />
+      inputField = <input ref="email" name="email" onChange={this.updateEmail} value={this.state.email} />
     }
     return <div className="form-row email-row">
       <div className="form-label">Email</div>
@@ -234,7 +236,7 @@ export default React.createClass({
   						Full Name
   					</div>
             <div className="form-input">
-              <input ref="name" onChange={this.updateName} value={this.state.name} />
+              <input ref="name" name="name" onChange={this.updateName} value={this.state.name} />
             </div>
           </div>
 
@@ -246,7 +248,7 @@ export default React.createClass({
   						Password
   					</div>
             <div className="form-input">
-              <input type="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
+              <input type="password"  name="password" ref="password" onChange={this.updatePassword} placeholder="Input New Password" />
             </div>
           </div>
 

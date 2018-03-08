@@ -1,11 +1,13 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import NewNestedResource from './newNestedResource.jsx'
 import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
     /*
     data: {
       name: 'admins',
@@ -16,7 +18,7 @@ export default React.createClass({
     }
 
     */
-    actions: React.PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired
     /*
     actions: {
       save: fn,

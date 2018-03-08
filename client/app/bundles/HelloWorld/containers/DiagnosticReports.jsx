@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import {Router, Route, Link, hashHistory } from 'react-router'
 import Index from '../components/progress_reports/diagnostic_reports/index.jsx'
 import StudentReport from '../components/progress_reports/diagnostic_reports/student_report.jsx'
@@ -9,7 +10,7 @@ import ActivityPacks from '../components/progress_reports/diagnostic_reports/act
 import DiagnosticActivityPacks from '../components/progress_reports/diagnostic_reports/diagnostic_activity_packs.jsx'
 import NotCompleted from '../components/progress_reports/diagnostic_reports/not_completed.jsx'
 
-export default React.createClass({
+export default createReactClass({
 
 	render: function() {
 		return (

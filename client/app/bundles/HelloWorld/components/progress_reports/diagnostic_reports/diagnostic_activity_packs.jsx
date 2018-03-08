@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import Units from '../../lesson_planner/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
@@ -6,7 +7,7 @@ import $ from 'jquery'
 
 'use strict'
 
-export default React.createClass({
+export default createReactClass({
 
 	getInitialState: function() {
 		return {units: [], loaded: false, diagnosticStatus: ''}

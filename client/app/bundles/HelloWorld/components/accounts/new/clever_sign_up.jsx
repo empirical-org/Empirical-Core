@@ -1,8 +1,9 @@
 'use strict';
 import $ from 'jquery'
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
   getInitialState: function () {
     return {
       redirectUri: null,

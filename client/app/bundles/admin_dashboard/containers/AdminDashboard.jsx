@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import $ from 'jquery';
 import _ from 'underscore';
 import AdminsTeachers from 'bundles/admin_dashboard/components/admins_teachers';
 import PremiumFeatures from 'bundles/admin_dashboard/components/premium_features';
@@ -9,10 +12,10 @@ import pluralize from 'pluralize';
 import request from 'request';
 import getAuthToken from 'bundles/HelloWorld/components/modules/get_auth_token';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    route: React.PropTypes.shape({
-      adminId: React.PropTypes.number.isRequired,
+    route: PropTypes.shape({
+      adminId: PropTypes.number.isRequired,
     }),
   },
 

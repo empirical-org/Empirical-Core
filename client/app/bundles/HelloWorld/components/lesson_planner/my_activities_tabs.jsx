@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
     if ((window.location.pathname === '/teachers/classrooms/activity_planner')) {

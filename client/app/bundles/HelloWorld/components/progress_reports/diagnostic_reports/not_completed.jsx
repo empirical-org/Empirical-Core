@@ -1,7 +1,8 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 
-export default React.createClass({
+export default createReactClass({
 
   componentWillMount: function(){
     $('.diagnostic-tab').addClass('active');

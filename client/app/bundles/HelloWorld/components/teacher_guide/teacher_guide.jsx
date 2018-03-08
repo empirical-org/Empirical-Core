@@ -1,13 +1,15 @@
 'use strict'
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types';
 import GettingStartedMini from './getting_started_mini.jsx'
 import CheckboxSection from './checkbox_sections.jsx'
 import _ from 'underscore'
 
-export default React.createClass({
+export default createReactClass({
     propTypes: {
-        dashboardMini: React.PropTypes.bool.isRequired,
-        hideTeacherGuide: React.PropTypes.func
+        dashboardMini: PropTypes.bool.isRequired,
+        hideTeacherGuide: PropTypes.func
     },
 
     getInitialState: function() {

@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import $ from 'jquery';
@@ -10,10 +12,10 @@ import GoogleClassroomCreatesAccountSection from '../components/invite_users/add
 import EmptyProgressReport from '../components/shared/EmptyProgressReport.jsx';
 require('../../../../../app/assets/stylesheets/pages/invite-students.scss');
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    classrooms: React.PropTypes.array.isRequired,
+    classrooms: PropTypes.array.isRequired,
   },
 
   getInitialState() {
@@ -41,8 +43,9 @@ export default React.createClass({
 
   retrieveStudents(classroomId) {
     const that = this;
-    $.ajax({ url: `/teachers/classrooms/${classroomId}/students_list`, }).success((data) => {
-      that.setState({ students: data.students, loading: false, });
+    $.ajax({ 
+      url: `/teachers/classrooms/${classroomId}/students_list`, 
+      success: (data) => that.setState({ students: data.students, loading: false, }),
     });
   },
 
@@ -74,34 +77,35 @@ export default React.createClass({
     });
 
     const that = this;
-    $.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {
-      user: {
-        first_name: firstName,
-        last_name: lastName,
+    $.post({
+      url: `/teachers/classrooms/${this.state.selectedClassroom.id}/students`,
+      data: {
+        user: {
+          first_name: firstName,
+          last_name: lastName,
+        },
+      },
+      success: (data) => {
+        const student = data.user;
+        const students = this.state.students.slice(0);
+        students.unshift(student);
+        that.setState({
+          firstName: '',
+          lastName: '',
+          disabled: false,
+          students,
+          loading: false,
+          errors: null,
+        });
+      },
+      fail: (jqXHR) => {
+        that.setState({
+          disabled: false,
+          loading: false,
+          errors: jQuery.parseJSON(jqXHR.responseText).error,
+        });
       },
     })
-
-			.success((data) => {
-  const student = data.user;
-  const students = this.state.students.slice(0);
-  students.unshift(student);
-  that.setState({
-    firstName: '',
-    lastName: '',
-    disabled: false,
-    students,
-    loading: false,
-    errors: null,
-  });
-})
-
-			.fail((jqXHR) => {
-  that.setState({
-    disabled: false,
-    loading: false,
-    errors: jQuery.parseJSON(jqXHR.responseText).error,
-  });
-});
   },
 
   syncOrModal() {

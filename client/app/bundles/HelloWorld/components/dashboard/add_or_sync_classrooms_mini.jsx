@@ -1,12 +1,13 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import $ from 'jquery'
 import GoogleClassroomModal from './google_classroom_modal'
 import AddClassSection from './add_class_section.jsx'
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function(){
     return {showModal: false}

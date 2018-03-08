@@ -1,4 +1,6 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import $ from 'jquery'
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
 
@@ -62,11 +64,11 @@ class UpdateUnitButton extends React.Component {
 }
 
 UpdateUnitButton.propTypes = {
-  url: React.PropTypes.string.isRequired,
-  successCallback: React.PropTypes.func.isRequired,
-  buttonText: React.PropTypes.string.isRequired,
-  dataFunc: React.PropTypes.func.isRequired,
-  showButton: React.PropTypes.bool.isRequired,
+  url: PropTypes.string.isRequired,
+  successCallback: PropTypes.func.isRequired,
+  buttonText: PropTypes.string.isRequired,
+  dataFunc: PropTypes.func.isRequired,
+  showButton: PropTypes.bool.isRequired,
 }
 
 

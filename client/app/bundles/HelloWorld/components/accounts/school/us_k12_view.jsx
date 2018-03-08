@@ -1,10 +1,11 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import SelectSchool from './select_school'
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function () {
     return {

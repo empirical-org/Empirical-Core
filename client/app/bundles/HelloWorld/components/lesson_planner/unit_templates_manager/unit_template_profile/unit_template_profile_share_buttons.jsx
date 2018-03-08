@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'underscore';
 
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    url: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
   },
 
   urlEncodedMessage() {

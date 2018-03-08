@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import request from 'request';
 import Units from '../../lesson_planner/manage_units/activities_units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
@@ -8,7 +9,7 @@ import getParameterByName from '../../modules/get_parameter_by_name';
 
 'use strict'
 
-export default React.createClass({
+export default createReactClass({
 
 	getInitialState: function() {
 		return {

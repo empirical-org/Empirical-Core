@@ -1,13 +1,14 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import {Router, Route, Link, hashHistory, withRouter} from 'react-router'
 import NavBar from './nav_bar.jsx'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 require('../../../../../assets/styles/app-variables.scss')
 
-const DiagnosticReports = React.createClass({
+const DiagnosticReports = createReactClass({
 
 	getInitialState: function() {
 		return ({

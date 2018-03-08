@@ -1,20 +1,22 @@
 'use strict';
 
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import $ from 'jquery'
 import _ from 'underscore'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    update: React.PropTypes.func.isRequired,
-    name: React.PropTypes.string.isRequired,
-    default: React.PropTypes.string,
-    errors: React.PropTypes.array,
-    label: React.PropTypes.string,
-    errorLabel: React.PropTypes.string,
-    errorKey: React.PropTypes.string,
-    size: React.PropTypes.string,
-    noLabel: React.PropTypes.bool
+    update: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
+    default: PropTypes.string,
+    errors: PropTypes.array,
+    label: PropTypes.string,
+    errorLabel: PropTypes.string,
+    errorKey: PropTypes.string,
+    size: PropTypes.string,
+    noLabel: PropTypes.bool
   },
 
   update: function (event) {

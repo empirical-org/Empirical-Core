@@ -1,9 +1,10 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import UnitTemplate from '../components/unit_templates/unit_template.jsx'
 import Cms from './Cms.jsx'
 
 
-export default React.createClass({
+export default createReactClass({
 
   resourceComponentGenerator: function (cmsComponent) {
     // FIXME : replace below with more general EC.Resource and the appropriate props

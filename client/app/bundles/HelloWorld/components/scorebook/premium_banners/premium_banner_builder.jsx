@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import FreeTrialBanner from './free_trial_banner.jsx'
 import NewSignUpBanner from './new_signup_banner.jsx'
 import FreeTrialStatus from './free_trial_status.jsx'
 
-export default React.createClass({
+export default createReactClass({
 
 
   getInitialState: function() {

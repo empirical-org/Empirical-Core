@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import Classroom from './classroom';
 import ActivityDueDate from './activity_due_date';
 import ClassroomsWithStudents from './ClassroomsWithStudents.jsx';
 import AssigningIndicator from '../../../shared/button_loading_indicator';
 import NameTheUnit from './name_the_unit.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
     return {

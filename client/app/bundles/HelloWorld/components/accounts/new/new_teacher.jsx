@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import BasicTeacherInfo from './basic_teacher_info'
 import EducatorType from './educator_type'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 
-export default React.createClass({
+export default createReactClass({
   render: function () {
     if (this.props.stage === 1) {
       return (

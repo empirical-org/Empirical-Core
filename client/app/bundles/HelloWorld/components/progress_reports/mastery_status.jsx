@@ -1,9 +1,11 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import cutOff from '../../../../modules/proficiency_cutoffs.js'
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    score: React.PropTypes.number.isRequired
+    score: PropTypes.number.isRequired
   },
 
   circleClass: function() {

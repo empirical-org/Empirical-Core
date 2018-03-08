@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import QuoteRequestModal from '../quote_request_modal.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   render() {
     let onClickEvent = this.props.showPurchaseModal;

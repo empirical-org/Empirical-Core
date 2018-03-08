@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import ReactTable from 'react-table';
 import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post.jsx';
 import BlogPostTable from '../components/cms/blog_posts/blog_post_table.jsx';
@@ -10,7 +10,6 @@ import moment from 'moment';
 export default class BlogPosts extends React.Component {
   constructor(props) {
     super(props)
-
     this.renderBlogPostsByTopic = this.renderBlogPostsByTopic.bind(this)
   }
 

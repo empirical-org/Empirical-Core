@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import $ from 'jquery';
 import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
 import MyResources from '../components/dashboard/my_resources';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
 
-export default React.createClass({
+export default createReactClass({
   getInitialState() {
     return ({
       classrooms: null,

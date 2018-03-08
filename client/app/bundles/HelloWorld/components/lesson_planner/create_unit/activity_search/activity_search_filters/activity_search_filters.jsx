@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ActivitySearchFilter from './activity_search_filter';
 import _ from 'underscore';
 import SearchActivitiesInput from '../search_activities_input';
 
-export default React.createClass({
+export default createReactClass({
 
   render() {
     const dropDowns = [];

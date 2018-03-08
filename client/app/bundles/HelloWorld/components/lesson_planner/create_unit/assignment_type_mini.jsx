@@ -1,20 +1,22 @@
 'use strict'
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import $ from 'jquery'
 import Pluralize from 'pluralize'
 import LoadingIndicator from '../../shared/loading_indicator.jsx'
-export default React.createClass({
+export default createReactClass({
     propTypes: {
-        title: React.PropTypes.string.isRequired,
-        img: React.PropTypes.string.isRequired,
-        bodyText: React.PropTypes.string.isRequired,
-        directions: React.PropTypes.string.isRequired,
-        unit: React.PropTypes.string.isRequired,
-        timeDuration: React.PropTypes.string.isRequired,
-        toggleTab: React.PropTypes.func,
-        toggleTarget: React.PropTypes.string,
-        routeToGetQuantity: React.PropTypes.string,
-        quantity: React.PropTypes.number
+        title: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        bodyText: PropTypes.string.isRequired,
+        directions: PropTypes.string.isRequired,
+        unit: PropTypes.string.isRequired,
+        timeDuration: PropTypes.string.isRequired,
+        toggleTab: PropTypes.func,
+        toggleTarget: PropTypes.string,
+        routeToGetQuantity: PropTypes.string,
+        quantity: PropTypes.number
     },
 
     getInitialState: function(){

@@ -1,12 +1,14 @@
 'use strict'
 
  import React from 'react'
-
- export default  React.createClass({
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types'
+ 
+ export default  createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    select: React.PropTypes.func.isRequired,
-    isSelected: React.PropTypes.bool.isRequired,
+    data: PropTypes.object.isRequired,
+    select: PropTypes.func.isRequired,
+    isSelected: PropTypes.bool.isRequired,
   },
 
   getName: function () {

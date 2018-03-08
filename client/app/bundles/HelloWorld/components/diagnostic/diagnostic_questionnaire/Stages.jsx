@@ -1,12 +1,13 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ClassroomPage from './ClassroomPage.jsx'
 import IntroPage from './IntroPage.jsx'
 import StatusBar from './StatusBar.jsx'
 import ModalOverview from './ModalOverview.jsx'
 
-export default React.createClass({
+export default createReactClass({
 
   stage: function(){
     let stage, diagnosticName, diagnosticActivityId

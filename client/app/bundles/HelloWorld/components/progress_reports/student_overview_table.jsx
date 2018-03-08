@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import _ from 'underscore'
 import moment from 'moment'
 import gradeColor from '../modules/grade_color.js'

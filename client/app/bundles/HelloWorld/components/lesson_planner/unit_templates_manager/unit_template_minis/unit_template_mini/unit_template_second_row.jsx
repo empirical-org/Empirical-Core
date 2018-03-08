@@ -1,12 +1,14 @@
 'use strict'
 
  import React from 'react'
-
- export default  React.createClass({
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types'
+ 
+ export default  createReactClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    modules: React.PropTypes.shape({
-      string: React.PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    modules: PropTypes.shape({
+      string: PropTypes.object.isRequired
     })
   },
 

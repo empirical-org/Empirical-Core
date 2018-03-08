@@ -1,13 +1,15 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types';
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 require('../../../../../assets/styles/app-variables.scss')
 
 
-export default React.createClass({
+export default createReactClass({
 	propTypes: {
-		clickCallback: React.PropTypes.func.isRequired
+		clickCallback: PropTypes.func.isRequired
 	},
 
 	buttonBuilder: function (name) {

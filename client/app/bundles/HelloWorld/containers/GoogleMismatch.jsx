@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import UpdateEmail from '../components/shared/update_email.jsx'
 require('../../../assets/styles/app-variables.scss')
 

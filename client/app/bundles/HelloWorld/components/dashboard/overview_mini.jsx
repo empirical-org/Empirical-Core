@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import LoadingIndicator from '../shared/loading_indicator';
 
-export default React.createClass({
+export default createReactClass({
 
   overviewMiniBuilder() {
     this.stateSpecificComponents();

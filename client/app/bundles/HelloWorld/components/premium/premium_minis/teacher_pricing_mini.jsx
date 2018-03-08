@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import PleaseLoginModal from '../please_login_modal.jsx';
 import Stripe from '../../modules/stripe/charge.js';
 
-export default React.createClass({
+export default createReactClass({
 
     // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 

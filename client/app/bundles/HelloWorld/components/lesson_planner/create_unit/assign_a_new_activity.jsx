@@ -1,9 +1,10 @@
 'use strict'
 import React from 'react'
+import createReactClass from 'create-react-class'
 import AssignmentTypeMini from './assignment_type_mini.jsx'
 import LessonTypeMini from '../../shared/lesson_type_mini.jsx'
 
-export default React.createClass({
+export default createReactClass({
   minis: function(){
     let minis =
       [

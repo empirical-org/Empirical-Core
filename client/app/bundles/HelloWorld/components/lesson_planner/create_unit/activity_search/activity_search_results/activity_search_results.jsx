@@ -2,10 +2,11 @@
 
 
  import React from 'react'
+import createReactClass from 'create-react-class'
 	import _ from 'underscore'
 	import ActivitySearchResult from './activity_search_result'
 
- export default React.createClass({
+ export default createReactClass({
 	render: function () {
 		var rows = _.map(this.props.currentPageSearchResults, function (ele) {
 			var selectedIds = _.pluck(this.props.selectedActivities, 'id')

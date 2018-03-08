@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 
 export default class RecommendationsOverview extends React.Component {
   constructor(props) {

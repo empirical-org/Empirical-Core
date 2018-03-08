@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
 import TeacherTestimonial from '../components/premium/teacher_testimonial.jsx';
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
@@ -6,7 +7,7 @@ import DistrictPricingBox from '../components/premium/district_pricing_box.jsx';
 import PremiumFlyer from '../components/premium/premium_flyer';
 import NotificationBox from '../components/shared/notification_box.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   subscribers() {
     return (

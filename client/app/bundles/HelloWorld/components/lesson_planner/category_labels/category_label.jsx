@@ -1,14 +1,16 @@
 'use strict'
 
  import React from 'react'
+ import createReactClass from 'create-react-class'
+ import PropTypes from 'prop-types'
  import {Link} from 'react-router'
 
- export default  React.createClass({
+ export default  createReactClass({
 
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    extraClassName: React.PropTypes.string,
-    isLink: React.PropTypes.bool
+    data: PropTypes.object.isRequired,
+    extraClassName: PropTypes.string,
+    isLink: PropTypes.bool
   },
 
   generateClassName: function () {

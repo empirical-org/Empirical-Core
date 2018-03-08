@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx'
@@ -12,7 +13,7 @@ import AssignANewActivity from '../components/lesson_planner/create_unit/assign_
 import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic'
 import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
 
-export default React.createClass({
+export default createReactClass({
 	render: function() {
 		return (
 			<Router Router history={browserHistory}>

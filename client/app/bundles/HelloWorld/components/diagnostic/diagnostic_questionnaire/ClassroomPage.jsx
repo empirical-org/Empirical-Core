@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import $ from 'jquery';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
@@ -9,7 +10,7 @@ import CreateClass from '../../../containers/CreateClass.jsx';
 import Classroom from '../../lesson_planner/create_unit/stage2/classroom';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   componentDidMount() {
     this.getTeacher();

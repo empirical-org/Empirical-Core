@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { Router, Route, Link, hashHistory } from 'react-router'
 
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function(){
     return ({selectedGrade: '1st'})

@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx'
 import LoadingIndicator from '../components/shared/loading_indicator'
 import request from 'request';

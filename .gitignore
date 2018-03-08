@@ -8,6 +8,7 @@
 
 # ruby configs
 .bundle
+vendor/bundle/
 
 # database
 config/database.yml

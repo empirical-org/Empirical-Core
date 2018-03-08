@@ -1,9 +1,12 @@
 'use strict'
 import React from 'react'
-export default React.createClass({
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types';
+
+export default createReactClass({
   propTypes: {
-    checkboxes: React.PropTypes.array.isRequired,
-    dashboard: React.PropTypes.bool.isRequired
+    checkboxes: PropTypes.array.isRequired,
+    dashboard: PropTypes.bool.isRequired
   },
 
   checkOrNumber: function(box){

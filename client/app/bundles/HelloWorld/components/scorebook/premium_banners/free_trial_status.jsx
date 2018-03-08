@@ -1,6 +1,7 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 
-export default React.createClass({
+export default createReactClass({
 
   stateSpecificComponents: function() {
     if (this.props.status == 'trial') {

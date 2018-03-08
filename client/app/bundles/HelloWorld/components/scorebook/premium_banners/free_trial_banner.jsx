@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import $ from 'jquery';
 import NewSignUpBanner from './new_signup_banner.jsx';
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState() {
     return { trial_started: false, };

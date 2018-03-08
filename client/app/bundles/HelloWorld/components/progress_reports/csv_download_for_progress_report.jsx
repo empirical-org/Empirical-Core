@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import {CSVDownload, CSVLink} from 'react-csv'
 import userIsPremium from '../modules/user_is_premium'
 import _ from 'underscore'

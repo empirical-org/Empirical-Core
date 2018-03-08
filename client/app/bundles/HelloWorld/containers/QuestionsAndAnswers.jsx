@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 import lessons from '../components/modules/questionsAndAnswers/lessons'
 import admin from '../components/modules/questionsAndAnswers/admin'

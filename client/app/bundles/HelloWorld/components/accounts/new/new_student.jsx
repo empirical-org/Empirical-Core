@@ -1,11 +1,13 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 import AuthSignUp from './auth_sign_up'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    signUp: React.PropTypes.func.isRequired,
-    errors: React.PropTypes.object
+    signUp: PropTypes.func.isRequired,
+    errors: PropTypes.object
   },
 
   formFields: [

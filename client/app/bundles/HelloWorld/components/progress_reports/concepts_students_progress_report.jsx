@@ -1,6 +1,7 @@
 // The progress report showing all students in a given classroom
 // along with their result counts.
 import React from 'react'
+import createReactClass from 'create-react-class'
 import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import ReactTable from 'react-table'

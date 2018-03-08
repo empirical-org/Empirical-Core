@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import {Link} from 'react-router'
 import $ from 'jquery'
 import _ from 'underscore'
@@ -25,7 +26,8 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.getProfileInfo(this.props.params.activityPackId)
+    if (this.props.params && this.props.params.activityPackId)
+      this.getProfileInfo(this.props.params.activityPackId)
   }
 
   getProfileInfo(id) {
@@ -48,7 +50,8 @@ export default class UnitTemplateProfile extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.location, nextProps.location)) {
       this.setState({loading: true})
-      this.getProfileInfo(nextProps.params.activityPackId)
+      if (nextProps.params && nextProps.params.activityPackId)
+        this.getProfileInfo(nextProps.params.activityPackId)
     }
   }
 
@@ -57,13 +60,13 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   indexLink() {
-    return this.state.data.non_authenticated
+    return (this.state.data && this.state.data.non_authenticated)
       ? '/activities/packs'
       : '/teachers/classrooms/assign_activities/featured-activity-packs'
   }
 
   showListFilterOptions() {
-    return this.state.data.non_authenticated
+    return (this.state.data && this.state.data.non_authenticated)
       ? <ListFilterOptions userLoggedIn={!this.state.data.non_authenticated} options={[
           {
             id: 6,
@@ -113,7 +116,7 @@ export default class UnitTemplateProfile extends React.Component {
               </div>
             </div>
             <div className="related-activity-packs">
-              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId} authenticated={!this.state.data.non_authenticated}/>
+              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId} authenticated={!(this.state.data && this.state.data.non_authenticated)}/>
               <Link to={this.indexLink()}>
                 <button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button>
               </Link>

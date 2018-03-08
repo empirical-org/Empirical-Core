@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'underscore';
 import _l from 'lodash';
 import $ from 'jquery';
@@ -17,12 +19,12 @@ import naturalCmp from 'underscore.string/naturalCmp';
 const resultsPerPage = 25;
 const showAllId = 'showAllId';
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    selectedActivities: React.PropTypes.array.isRequired,
-    toggleActivitySelection: React.PropTypes.func.isRequired,
-    clickContinue: React.PropTypes.func,
-    errorMessage: React.PropTypes.string,
+    selectedActivities: PropTypes.array.isRequired,
+    toggleActivitySelection: PropTypes.func.isRequired,
+    clickContinue: PropTypes.func,
+    errorMessage: PropTypes.string,
   },
 
   defaultState() {

@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import emailValidator from '../modules/email_validator'
 import $ from 'jquery'
 

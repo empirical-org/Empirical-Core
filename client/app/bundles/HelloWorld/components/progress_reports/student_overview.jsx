@@ -1,4 +1,5 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import getParameterByName from '../modules/get_parameter_by_name'

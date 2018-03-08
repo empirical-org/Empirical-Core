@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 import pluralize from 'pluralize'
 
 import Modal from 'react-bootstrap/lib/Modal';
 
-export default React.createClass({
+export default createReactClass({
 
     render: function() {
       let archivedCount;

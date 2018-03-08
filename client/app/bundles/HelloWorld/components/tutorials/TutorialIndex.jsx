@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import createReactClass from 'create-react-class'
 import LessonsSlides from './LessonsSlides'
 import getParameterByName from '../modules/get_parameter_by_name'
 import request from 'request'

@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import $ from 'jquery'
 
 import UpdateEmail from '../shared/update_email.jsx'
 import Modal from 'react-bootstrap/lib/Modal';
 
-export default React.createClass({
+export default createReactClass({
     render: function() {
         return (
             <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName='google-classroom-modal' restoreFocus>

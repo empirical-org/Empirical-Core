@@ -1,9 +1,11 @@
 'use strict';
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 
-export default React.createClass({
+export default createReactClass({
   propTypes: {
-    selectRole: React.PropTypes.func.isRequired
+    selectRole: PropTypes.func.isRequired
   },
   selectRole: function () {
     var role = this.props.role == 'student' ? 'student' : 'teacher';

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import createReactClass from 'create-react-class';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip.jsx';
 import LoadingIndicator from '../shared/loading_indicator';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';

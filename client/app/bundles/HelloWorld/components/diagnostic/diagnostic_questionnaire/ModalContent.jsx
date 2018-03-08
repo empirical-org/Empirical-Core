@@ -1,10 +1,11 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 
-
-export default React.createClass({
+export default createReactClass({
 
   propTypes: {
-    content: React.PropTypes.object.isRequired
+    content: PropTypes.object.isRequired
   },
 
   render() {

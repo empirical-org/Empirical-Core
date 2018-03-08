@@ -1,9 +1,10 @@
 import React from 'react'
+import createReactClass from 'create-react-class'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import $ from 'jquery';
 
-export default React.createClass({
+export default createReactClass({
 
   getInitialState: function () {
     return {role: this.props.role,
