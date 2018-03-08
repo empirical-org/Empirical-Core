@@ -71,23 +71,11 @@ class Cms::SchoolsController < Cms::CmsController
     @subscription = @school.subscription
   end
 
-  def update_subscription
-    school = School.find(subscription_params[:id])
-    subscription = school.subscription
-    unless subscription
-      subscription = Subscription.new
-      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
-      subscription.account_type = subscription_params[:premium_status]
-      subscription.account_limit = 1000 # This is a default value and should be deprecated.
-      success = (subscription.save && SchoolSubscription.create(school: school, subscription: subscription))
-    else
-      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
-      subscription.account_type = subscription_params[:premium_status]
-      success = subscription.save
-    end
-    return redirect_to cms_school_path(subscription_params[:id]) if success
-    render :edit_subscription
+  def new_subscription
+    @subscription = Subscription.new
   end
+
+
 
   # This allows staff members to create a new school.
   def new

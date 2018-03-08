@@ -35,6 +35,7 @@
     <h2>School Subscription</h2>
     <br />
     <%= link_to 'Edit Subscription', edit_subscription_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <%= link_to 'New Subscription', new_subscription_cms_school_path(params[:id]), class: 'btn button-green' %>
     <br />
     <% @school_subscription_info.each do |k,v| %>
       <br />
