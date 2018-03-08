@@ -13,8 +13,8 @@
 - ~client/app/bundles/admin_dashboard/components/subnav_tabs.jsx - add 'District Standards Reports' to subnav~
 - ~**client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx**~
 - **client/app/bundles/admin_dashboard/containers/__tests__/DistrictStandardsReports.test.jsx**
-- client/app/reducers/__test__/district_standards_reports.test.js
-- client/app/reducers/district_standards_reports.js
+- **client/app/reducers/__test__/district_standards_reports.test.js**
+- ~~client/app/reducers/district_standards_reports.js~~
 - config/routes.rb
 
 
@@ -25,4 +25,5 @@ TODO:
     useful and readable. 
   - In some files, teacher filter dropdown and/or associated logic must be
     removed, ie, client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx 
-  -
+  - Issues #3971 and #3972 will cover dropdown filter functionality... unworking
+    filters OK at this point
