@@ -12,6 +12,8 @@ class Subscription < ActiveRecord::Base
   validates :expiration, presence: true
   validates :account_limit, presence: true
   after_commit :check_if_purchaser_email_is_in_database
+  after_initialize :set_null_start_date_to_today
+
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
     'School NYC Paid',
@@ -40,16 +42,20 @@ class Subscription < ActiveRecord::Base
         'School Sponsored Free',
         'School Strategic Free']
 
-  # TODO: ultimately these should be clenaned up so we just have OFFICIAL_TYPES but until then, we keep them here
+  # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
   GRANDFATHERED_FREE_TYPES = ['trial']
   ALL_FREE_TYPES = GRANDFATHERED_FREE_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
+  ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
+
   # 2/27 - for now every school is 90000 cents, whether they are renewing or re-signing up.
   SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
   TEACHER_PRICE = 8000
+  ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
+  PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
   ALL_TYPES = ALL_FREE_TYPES.dup.concat(ALL_PAID_TYPES)
 
 
@@ -116,19 +122,19 @@ class Subscription < ActiveRecord::Base
     Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
 
-  def self.school_or_user_has_ever_paid(school_or_user)
+  def self.school_or_user_has_ever_paid?(school_or_user)
     # TODO: 'subscription type spot'
     paid_accounts = school_or_user.subscriptions.pluck(:account_type) & ALL_PAID_TYPES
     paid_accounts.any?
   end
 
   def self.new_teacher_premium_sub(user)
-    expiration = school_or_user_has_ever_paid(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    expiration = school_or_user_has_ever_paid?(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
     self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
   def self.new_school_premium_sub(school, user)
-    expiration = school_or_user_has_ever_paid(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
+    expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
     self.new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
   end
 
@@ -219,7 +225,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
-      if !Subscription.school_or_user_has_ever_paid(school_or_user)
+      if !Subscription.school_or_user_has_ever_paid?(school_or_user)
         # We end their trial if they have one
         school_or_user.subscription&.update(de_activated_date: Date.today)
         # Then they get the promotional subscription
@@ -243,6 +249,12 @@ class Subscription < ActiveRecord::Base
       raise e
     rescue => e
       NewRelic::Agent.notice_error(e)
+    end
+  end
+
+  def set_null_start_date_to_today
+    if !self.start_date
+      self.start_date = Date.today
     end
   end
 
