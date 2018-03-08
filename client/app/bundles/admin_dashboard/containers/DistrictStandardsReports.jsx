@@ -46,22 +46,18 @@ function getTeacherNames(classrooms, selectedSchool) {
 function formatDataForCSV(data) {
   const csvData = []
   const csvHeader = [
-    'Student',
-    'Teacher',
-    'Classroom',
-    'School',
-    'Correct',
-    'Incorrect',
-    'Success Rate',
+    'Standard Level',
+    'Standard Name',
+    'Students',
+    'Proficient',
+    'Activities',
   ];
   const csvRow = (row) => [
-    row['student_name'],
-    row['teacher_name'],
-    row['classroom_name'],
-    row['school_name'],
-    row['correct'],
-    row['incorrect'],
-    row['percentage'],
+    row['section_name'],
+    row['name'],
+    row['total_student_count'],
+    row['proficent_count'],
+    row['total_activity_count'],
   ];
 
   csvData.push(csvHeader);

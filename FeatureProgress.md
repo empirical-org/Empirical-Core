@@ -11,8 +11,7 @@
 - ~**client/app/bundles/admin_dashboard/components/standards_reports.jsx**~
 - ~client/app/bundles/admin_dashboard/components/standards_reports_table.jsx~ 
 - ~client/app/bundles/admin_dashboard/components/subnav_tabs.jsx - add 'District Standards Reports' to subnav~
-- client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx
-  <<-- WIP, start here tomorrow
+- ~**client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx**~
 - client/app/bundles/admin_dashboard/containers/__tests__/DistrictStandardsReports.test.jsx
 - client/app/reducers/__test__/district_standards_reports.test.js
 - client/app/reducers/district_standards_reports.js
@@ -24,3 +23,6 @@ TODO:
   - Remove repetitive logic. It seems that some files in HelloWorld are twins or
     identical to those in admin_dashboard. Any extra files make the code less
     useful and readable. 
+  - In some files, teacher filter dropdown and/or associated logic must be
+    removed, ie, client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx 
+  -
