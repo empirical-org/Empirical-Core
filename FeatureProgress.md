@@ -15,7 +15,7 @@
 - **client/app/bundles/admin_dashboard/containers/__tests__/DistrictStandardsReports.test.jsx**
 - **client/app/reducers/__test__/district_standards_reports.test.js**
 - ~~client/app/reducers/district_standards_reports.js~~
-- config/routes.rb
+- ~~config/routes.rb~~
 
 
 TODO:
