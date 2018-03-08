@@ -63,8 +63,8 @@ describe('DistrictStandardsReports', () => {
         "Mrs. Bonker's 2nd Grade",
         '1.1b How to tell a cactus from a cow',
         60,
-        2,
         29,
+        2,
       ]
     ]);
   });

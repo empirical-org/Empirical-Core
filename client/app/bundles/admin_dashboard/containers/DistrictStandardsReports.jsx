@@ -56,7 +56,7 @@ function formatDataForCSV(data) {
     row['section_name'],
     row['name'],
     row['total_student_count'],
-    row['proficent_count'],
+    row['proficient_count'],
     row['total_activity_count'],
   ];
 
