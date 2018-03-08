@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
-import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
-const convertFromHTML = require('draft-convert').convertFromHTML
+const {convertFromHTML, convertToHTML} = require('draft-convert')
 
 class MultipleTextEditor extends React.Component {
   constructor(props) {
@@ -44,7 +43,7 @@ class MultipleTextEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.text !== stateToHTML(this.state.text.getCurrentContent())) {
+    if (nextProps.text !== convertToHTML(this.state.text.getCurrentContent())) {
       this.setState({
         text: EditorState.createWithContent(convertFromHTML(nextProps.text || '')),
       });
@@ -53,7 +52,7 @@ class MultipleTextEditor extends React.Component {
 
   handleTextChange(e) {
     this.setState({ text: e, }, () => {
-      this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()));
+      this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'));
     });
   }
 

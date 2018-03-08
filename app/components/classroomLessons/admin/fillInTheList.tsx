@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
-import _ from 'lodash'
+import * as _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentFillInTheList from '../play/listBlanks'
 
@@ -9,7 +9,7 @@ interface AdminFillInTheListProps {
   save: Function
 }
 
-class AdminFillInTheList extends Component<AdminFillInTheListProps, any>{
+class AdminFillInTheList extends React.Component<AdminFillInTheListProps, any>{
   constructor(props){
     super(props);
 
