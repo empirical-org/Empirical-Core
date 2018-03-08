@@ -64,4 +64,9 @@ class UserMailer < ActionMailer::Base
     mail from: "Becca Garrison <becca@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
+  def premium_missing_school_email(user)
+    @user = user
+    mail to: ["Becca Garrison <becca@quill.org>", "Amr Thameen <amr@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
+  end
+
 end
