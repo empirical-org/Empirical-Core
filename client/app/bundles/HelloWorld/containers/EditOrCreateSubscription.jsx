@@ -141,14 +141,18 @@ export default class extends React.Component {
 
   submit() {
     const submitVars = this.submitVars();
+    const that = this;
     request[submitVars.httpVerb]({
       url: submitVars.urlString,
       json: submitVars.data,
     },
-    (e, httpResponse) => {
+    (e, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
         alert('Subscription was saved');
-        location.reload();
+        if (this.props.view === 'new') {
+          // switch to the edit view after submission
+          window.location = window.location.href.replace('new', 'edit');
+        }
       } else {
         alert('There was an error. Please try again and contact a dev if you continue to get this warning.');
       }
@@ -219,7 +223,7 @@ export default class extends React.Component {
         <DatePicker selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} onChange={this.changeExpirationDate} />
         <div>
           <button className="q-button cta-button bg-quillgreen text-white" onClick={submitAction}>
-            {this.props.view === 'create' ? 'Create' : 'Update'} Subscription
+            {this.props.view === 'new' ? 'New' : 'Update'} Subscription
           </button>
         </div>
       </div>);
