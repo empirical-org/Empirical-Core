@@ -1,5 +1,4 @@
-class Cms::ActivityClassificationsController < ApplicationController
-
+class Cms::ActivityClassificationsController < Cms::CmsController
   def index
     respond_to do |format|
       format.html

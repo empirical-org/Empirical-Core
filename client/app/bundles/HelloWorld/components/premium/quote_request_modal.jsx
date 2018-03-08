@@ -23,6 +23,13 @@ export default createReactClass({
     }
   },
 
+  creditCardNotice() {
+    if (this.props.userHasSchool) {
+      return (<p>To pay now with a credit card, please <span data-toggle="modal" onClick={this.chargeOrLogin}>click here</span>.</p>);
+    }
+    return (<p>To pay now via credit card, please visit your <a href="/teachers/my_account">account page</a> and add a school.</p>);
+  },
+
   render() {
     return (
       <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="quote-request-modal">
@@ -33,7 +40,7 @@ export default createReactClass({
                   </a>
         </Modal.Body>
         <Modal.Footer>
-          <p>To pay now with a credit card, please <span data-toggle="modal" onClick={this.chargeOrLogin}>click here</span>.</p>
+          {this.creditCardNotice()}
           <p>You can also call us at 646-442-1095 </p>
         </Modal.Footer>
       </Modal>

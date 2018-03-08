@@ -4,28 +4,20 @@ import QuoteRequestModal from '../quote_request_modal.jsx';
 
 export default createReactClass({
 
-  getInitialState() {
-    return { showModal: false, };
-  },
-
-  hideModal() {
-    this.setState({ showModal: false, });
-  },
-
-  showModal() {
-    this.setState({ showModal: true, });
-  },
-
-  quoteRequestModal() {
-    $(this.refs.quoteRequestModal).modal();
-  },
-
   render() {
+    let onClickEvent = this.props.showPurchaseModal;
+    let savingsCopy = 'Get 50% off for the first year!';
+    if (this.props.userBelongsToSchoolThatHasPaid) {
+      savingsCopy = 'Renew Now And Receive 50% Off!';
+    }
+    if (!this.props.userIsEligibleForNewSubscription) {
+      onClickEvent = () => alert('You have an active subscription and cannot buy premium now. You may buy a new Premium subscription when your current subscription expires.');
+    }
     return (
       <div className="pricing-mini">
-        <div className="promo-tab">Get 50% off for the first year!</div>
+        <div className="promo-tab">{savingsCopy}</div>
         <div className="placeholder-div">
-          <div className="promo-tab">Get 50% off for the first year!</div>
+          <div className="promo-tab">{savingsCopy}</div>
         </div>
         <header className="pricing-mini-header purple">
           <div className="img-holder">
@@ -55,9 +47,8 @@ export default createReactClass({
         </li>
           </ul>
         </section>
-        <button type="button" onClick={this.showModal} className="btn btn-default mini-btn purple">Request Quote</button>
+        <button type="button" onClick={onClickEvent} className="btn btn-default mini-btn purple">Purchase</button>
         <a href="https://quillpremium.youcanbook.me" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
-        <QuoteRequestModal show={this.state.showModal} hideModal={this.hideModal} />
       </div>
     );
   },

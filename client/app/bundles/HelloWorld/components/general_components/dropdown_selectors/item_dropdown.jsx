@@ -3,8 +3,6 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import {Router, Route, Link, hashHistory} from 'react-router';
-import $ from 'jquery'
 
 export default createReactClass({
 
@@ -48,7 +46,7 @@ export default createReactClass({
 	render: function() {
 		const title = this.state.selectedItem.name || this.state.selectedItem
 		return (
-			<DropdownButton disabled={!this.props.items.length} bsStyle='default' title={title} id='select-item-dropdown' onSelect={this.handleSelect}>
+			<DropdownButton disabled={!this.props.items.length} bsStyle='default' title={title} class='select-item-dropdown' onSelect={this.handleSelect}>
 				{this.items()}
 			</DropdownButton>
 		);

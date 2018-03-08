@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
 
   has_many :schools_admins, class_name: 'SchoolsAdmins'
-  has_many :admin_rights, through: :schools_admins, source: :school, foreign_key: :user_id
+  has_many :administered_schools, through: :schools_admins, source: :school, foreign_key: :user_id
   has_many :classrooms_teachers
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
 
@@ -181,6 +181,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  # gets last four digits of Stripe card
+  def last_four
+    if self.stripe_customer_id
+      Stripe::Customer.retrieve(self.stripe_customer_id).sources.data.first.last4
+    end
+  end
+
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
       sanitized_role
@@ -283,7 +290,7 @@ class User < ActiveRecord::Base
   end
 
   def admins_teachers
-    schools = self.admin_rights.includes(:users)
+    schools = self.administered_schools.includes(:users)
     if schools.any?
       schools.map{|school| school.users.ids}.flatten
     end

@@ -17,7 +17,7 @@ describe User, type: :model do
   it { should have_one(:schools_users) }
   it { should have_one(:school).through(:schools_users) }
   it { should have_many(:schools_admins).class_name('SchoolsAdmins') }
-  it { should have_many(:admin_rights).through(:schools_admins).source(:school).with_foreign_key('user_id') }
+  it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
@@ -45,6 +45,20 @@ describe User, type: :model do
 
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
+
+  describe '#last_four' do
+    it "returns nil if a user does not have a stripe_customer_id" do
+      expect(user.last_four).to eq(nil)
+    end
+
+    it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id " do
+      user.update(stripe_customer_id: 10)
+      expect(Stripe::Customer).to receive(:retrieve).with(user.stripe_customer_id) {
+        double('retrieve', sources: double(data: double(first: double(last4: 1000))))
+      }
+      expect(user.last_four).to eq(1000)
+    end
+  end
 
   describe 'subscription methods' do
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import Modal from 'react-bootstrap/lib/Modal';
-import UpdateStripeCard from '../modules/stripe/update_card.js';
-import getAuthToken from '../modules/get_auth_token';
-import LoadingIndicator from '../shared/loading_indicator.jsx';
 import request from 'request';
+import Modal from 'react-bootstrap/lib/Modal';
+import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
+import getAuthToken from '../modules/get_auth_token';
 
 export default class extends React.Component {
 
@@ -12,7 +11,7 @@ export default class extends React.Component {
     this.state = {
       extantCardSelected: false,
       changeCardSelected: false,
-      last4: this.props.lastFour,
+      lastFour: this.props.lastFour,
     };
     this.toggleChangeCard = this.toggleChangeCard.bind(this);
     this.toggleExtantCard = this.toggleExtantCard.bind(this);
@@ -22,14 +21,14 @@ export default class extends React.Component {
   }
 
   updateLastFour(newLastFour) {
-    this.setState({ last4: newLastFour, extantCardSelected: true, changeCardSelected: false, });
+    this.setState({ lastFour: newLastFour, extantCardSelected: true, changeCardSelected: false, });
   }
 
   toggleChangeCard() {
     this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
         () => {
           if (this.state.changeCardSelected) {
-            new UpdateStripeCard(this.updateLastFour);
+            new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
           }
         }
     );
@@ -55,8 +54,12 @@ export default class extends React.Component {
   }
 
   loadingOrButtons() {
+    if (!this.state.lastFour) {
+      const className = `enter-credit-card ${this.state.extantCardSelected ? 'selected' : ''}`;
+      return <button key="enter a card" onClick={this.toggleChangeCard} className={className}>Enter Credit Card</button>;
+    }
     return ([
-      <button key="extant" onClick={this.toggleExtantCard} className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`}>Credit Card ending with {this.state.last4}</button>,
+      <button key="extant" onClick={this.toggleExtantCard} className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`}>Credit Card ending with {this.state.lastFour}</button>,
       <button key="change" onClick={this.toggleChangeCard} className={this.state.extantCardSelected ? 'selected' : ''}>Use a Different Card</button>
     ]);
   }
@@ -68,6 +71,12 @@ export default class extends React.Component {
     this.props.hideModal();
   }
 
+  h2IfPaymentInfo() {
+    if (this.state.lastFour) {
+      return (<h2 className="q-h2">Which credit card would you like to pay with?</h2>);
+    }
+  }
+
   render() {
     return (
       <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="select-credit-card-modal" restoreFocus>
@@ -77,7 +86,7 @@ export default class extends React.Component {
             <h1>Quill {this.props.type} Premium</h1>
             <span>${this.props.price} for one-year subscription</span>
           </div>
-          <h2 className="q-h2">Which credit card would you like to pay with?</h2>
+          {this.h2IfPaymentInfo()}
           {this.loadingOrButtons()}
           {this.showBuyNowIfChargeSelection()}
         </Modal.Body>

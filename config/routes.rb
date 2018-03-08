@@ -35,6 +35,7 @@ EmpiricalGrammar::Application.routes.draw do
   # for Stripe
   resources :charges, only: [:create]
   post 'charges/update_card' => 'charges#update_card'
+  post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
   post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
   post 'charges/new_school_premium' => 'charges#new_school_premium'
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
@@ -98,6 +99,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
@@ -302,6 +305,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
+      get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
+      get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
     end
 
@@ -341,6 +346,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/select_school', to: 'schools#select_school'
 
   namespace :cms do
+    post '/images/save_image', to: 'images#save_image'
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
     post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
     resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
@@ -352,6 +358,7 @@ EmpiricalGrammar::Application.routes.draw do
     put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
     resources :activity_classifications
     resources :topics
+    resources :subscriptions
     resources :topic_categories
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
@@ -366,7 +373,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :users do
-      resource :subscription
+      # resource :subscription
       collection do
         post :search
         get :search, to: 'users#index'
@@ -377,7 +384,7 @@ EmpiricalGrammar::Application.routes.draw do
         put :clear_data
         get :sign_in
         get :edit_subscription
-        post :update_subscription
+        get :new_subscription
       end
       put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
       put 'remove_admin/:school_id', to: 'users#remove_admin', as: :remove_admin
@@ -390,7 +397,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :edit_subscription
-        post :update_subscription
+        get :new_subscription
         get :new_admin
         post :add_admin_by_email
       end

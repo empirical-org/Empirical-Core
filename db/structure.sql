@@ -72,24 +72,6 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 SET search_path = public, pg_catalog;
 
---
--- Name: blog_posts_search_trigger(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION blog_posts_search_trigger() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-      begin
-        new.tsv :=
-          setweight(to_tsvector(COALESCE(new.title, '')), 'A') ||
-          setweight(to_tsvector(COALESCE(new.body, '')), 'B') ||
-          setweight(to_tsvector(COALESCE(new.subtitle, '')), 'B') ||
-          setweight(to_tsvector(COALESCE(new.topic, '')), 'C');
-        return new;
-      end
-      $$;
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -453,40 +435,6 @@ ALTER SEQUENCE authors_id_seq OWNED BY authors.id;
 
 
 --
--- Name: blog_post_user_ratings; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE blog_post_user_ratings (
-    id integer NOT NULL,
-    blog_post_id integer,
-    user_id integer,
-    rating integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE blog_post_user_ratings_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE blog_post_user_ratings_id_seq OWNED BY blog_post_user_ratings.id;
-
-
---
 -- Name: blog_posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -503,8 +451,6 @@ CREATE TABLE blog_posts (
     author_id integer,
     preview_card_content text NOT NULL,
     slug character varying,
-    premium boolean DEFAULT false,
-    tsv tsvector,
     published_at timestamp without time zone,
     external_link character varying,
     center_images boolean,
@@ -1019,6 +965,38 @@ CREATE SEQUENCE firebase_apps_id_seq
 --
 
 ALTER SEQUENCE firebase_apps_id_seq OWNED BY firebase_apps.id;
+
+
+--
+-- Name: images; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE images (
+    id integer NOT NULL,
+    file character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE images_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE images_id_seq OWNED BY images.id;
 
 
 --
@@ -1674,7 +1652,7 @@ CREATE TABLE subscriptions (
     updated_at timestamp without time zone,
     account_type character varying,
     purchaser_email character varying,
-    start_date date DEFAULT '2018-02-28 00:00:00'::timestamp without time zone,
+    start_date date,
     subscription_type_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
@@ -2054,13 +2032,6 @@ ALTER TABLE ONLY authors ALTER COLUMN id SET DEFAULT nextval('authors_id_seq'::r
 
 
 --
--- Name: blog_post_user_ratings id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY blog_post_user_ratings ALTER COLUMN id SET DEFAULT nextval('blog_post_user_ratings_id_seq'::regclass);
-
-
---
 -- Name: blog_posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2163,6 +2134,13 @@ ALTER TABLE ONLY file_uploads ALTER COLUMN id SET DEFAULT nextval('file_uploads_
 --
 
 ALTER TABLE ONLY firebase_apps ALTER COLUMN id SET DEFAULT nextval('firebase_apps_id_seq'::regclass);
+
+
+--
+-- Name: images id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
 
 
 --
@@ -2435,14 +2413,6 @@ ALTER TABLE ONLY authors
 
 
 --
--- Name: blog_post_user_ratings blog_post_user_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY blog_post_user_ratings
-    ADD CONSTRAINT blog_post_user_ratings_pkey PRIMARY KEY (id);
-
-
---
 -- Name: blog_posts blog_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2560,6 +2530,14 @@ ALTER TABLE ONLY file_uploads
 
 ALTER TABLE ONLY firebase_apps
     ADD CONSTRAINT firebase_apps_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT images_pkey PRIMARY KEY (id);
 
 
 --
@@ -2870,6 +2848,20 @@ CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING bt
 
 
 --
+-- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
+
+
+--
+-- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
+
+
+--
 -- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2909,13 +2901,6 @@ CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON admin_accounts
 --
 
 CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teachers USING btree (teacher_id);
-
-
---
--- Name: index_announcements_on_start_and_end; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_announcements_on_start_and_end ON announcements USING btree (start, "end" DESC);
 
 
 --
@@ -3049,20 +3034,6 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON classrooms_teachers USING b
 --
 
 CREATE INDEX index_comments_on_ancestry ON comments USING btree (ancestry);
-
-
---
--- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_activity_classification_id ON concept_results USING btree (activity_classification_id);
-
-
---
--- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
 
 
 --
@@ -3528,13 +3499,6 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 
 
 --
--- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX tsv_idx ON blog_posts USING gin (tsv);
-
-
---
 -- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3679,13 +3643,6 @@ CREATE INDEX users_to_tsvector_idx9 ON users USING gin (to_tsvector('english'::r
 --
 
 CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
-
-
---
--- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
 
 
 --
@@ -4158,8 +4115,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180119162847');
 
 INSERT INTO schema_migrations (version) VALUES ('20180122184126');
 
-INSERT INTO schema_migrations (version) VALUES ('20180123151650');
-
 INSERT INTO schema_migrations (version) VALUES ('20180126191518');
 
 INSERT INTO schema_migrations (version) VALUES ('20180126203911');
@@ -4225,4 +4180,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180227215931');
 INSERT INTO schema_migrations (version) VALUES ('20180228171538');
 
 INSERT INTO schema_migrations (version) VALUES ('20180301064334');
+
+INSERT INTO schema_migrations (version) VALUES ('20180301211956');
+
+INSERT INTO schema_migrations (version) VALUES ('20180307212219');
 
