@@ -1,4 +1,4 @@
-class SyncSalesmachine
+class SyncSalesmachineAccount
 
   def initialize(school_id, client = $smclient)
     @school_id = school_id

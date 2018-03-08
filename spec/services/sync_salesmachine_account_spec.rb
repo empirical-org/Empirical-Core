@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'SyncSalesmachine' do
+describe 'SyncSalesmachineAccount' do
   let(:school) do
     create(:school,
       name: 'Kool School',
@@ -22,13 +22,13 @@ describe 'SyncSalesmachine' do
 
     expect(client).to receive(:account)
 
-    SyncSalesmachine.new(school.id, client).sync
+    SyncSalesmachineAccount.new(school.id, client).sync
   end
 
   it 'generates basic school data' do
     client = double('sale_machine_client')
 
-    school_data = SyncSalesmachine.new(school.id, client).params
+    school_data = SyncSalesmachineAccount.new(school.id, client).params
 
     expect(school_data).to include(
       name: 'Kool School',
@@ -62,7 +62,7 @@ describe 'SyncSalesmachine' do
     )
     client = double('sale_machine_client')
 
-    school_data = SyncSalesmachine.new(school.id, client).params
+    school_data = SyncSalesmachineAccount.new(school.id, client).params
 
     expect(school_data).to include(
       school_subscription: 'SUPER SAVER PREMIUM',
@@ -82,7 +82,7 @@ describe 'SyncSalesmachine' do
     school.users << create(:user, role: 'teacher')
     client = double('sale_machine_client')
 
-    school_data = SyncSalesmachine.new(school.id, client).params
+    school_data = SyncSalesmachineAccount.new(school.id, client).params
 
     expect(school_data).to include(
       employee_count: 2,
@@ -100,7 +100,7 @@ describe 'SyncSalesmachine' do
     school.users << create(:user, role: 'student')
     client = double('sale_machine_client')
 
-    school_data = SyncSalesmachine.new(school.id, client).params
+    school_data = SyncSalesmachineAccount.new(school.id, client).params
 
     expect(school_data).to include(
       employee_count: 0,
