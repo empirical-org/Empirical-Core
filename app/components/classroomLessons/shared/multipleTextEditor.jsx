@@ -24,9 +24,12 @@ class MultipleTextEditor extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.text !== this.props.text) {
       if (nextProps.text === nextProps.lessonPrompt || nextProps.text === '' || this.props.text === '') {
-        this.setState({
-          text: EditorState.createWithContent(convertFromHTML(nextProps.text || '')),
-        });
+        if (nextProps.text !== convertToHTML(this.state.text.getCurrentContent())) {
+
+          this.setState({
+            text: EditorState.createWithContent(convertFromHTML(nextProps.text || '')),
+          });
+        }
       }
     }
     if (nextProps.boilerplate !== this.props.boilerplate) {
@@ -36,10 +39,6 @@ class MultipleTextEditor extends React.Component<any, any> {
       }
     );
     }
-  }
-
-  getState() {
-    return EditorState.createWithContent(convertFromHTML(this.props.text || ''));
   }
 
   handleTextChange(e) {
