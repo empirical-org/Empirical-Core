@@ -4,7 +4,7 @@
   "description": "example of server rendering",
   "main": "server.js",
   "engines": {
-    "node": "4.4.5",
+    "node": "7.5.0",
     "npm": "3.9.5"
   },
   "cacheDirectories": [
@@ -25,7 +25,7 @@
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
     "build:dev:server": "(cd client && npm run build:dev:server --silent)",
     "hot-assets": "(cd client && npm run hot-assets)",
-    "jest": "cd client && npm run jest",
+    "jest": "./script/jest.sh",
     "jest:u": "cd client && npm run jest -- -u",
     "jest:update": "cd client && npm run jest -- -u",
     "jest:watch": "cd client && npm run jest:watch",
@@ -52,6 +52,7 @@
     "istanbul-lib-instrument": "^1.9.1",
     "react-csv": "^1.0.8",
     "react-dropdown": "^1.3.2",
+    "react-radio-buttons": "^1.2.1",
     "react-select": "^1.1.0",
     "react-table": "^6.7.6",
     "tabslet": "^1.7.3"
@@ -63,6 +64,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
-    "gitbook-cli": "^2.3.2"
+    "gitbook-cli": "^2.3.2",
+    "redux-test-utils": "^0.2.2"
   }
 }

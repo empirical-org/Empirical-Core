@@ -42,7 +42,7 @@ gem 'validates_email_format_of'
 gem 'responders'
 
 # UPLOADS
-gem 'carrierwave', '=0.11.2'
+gem 'carrierwave', '~> 1.0'
 gem 'fog-aws'
 
 # TIME
@@ -64,6 +64,7 @@ gem 'ttfunk'
 gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
+gem 'intercom', '~> 3.5.23'
 
 # WEBSOCKETS
 gem 'pusher'
@@ -119,8 +120,9 @@ gem 'kaminari'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
-gem 'rack-cors',  '0.4.0', require: 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rack-host-redirect'
+gem 'rack-affiliates', '~> 0.4.0'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
@@ -176,6 +178,8 @@ group :test, :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'capybara'
   gem 'poltergeist'
   gem "vcr"

@@ -1,6 +1,7 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
+  # WARNING: these filter methods check against classroom_id, not id.
   before_filter :authorize_owner!, except: [:scores, :scorebook]
   before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
@@ -120,7 +121,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
 
   def students_list
-    @classroom = Classroom.find params[:id]
+    @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
     last_name = "substring(users.name, '(?=\s).*')"
     render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
   end
@@ -181,9 +182,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def clear_data
-    sign_out
-    User.find(params[:id]).clear_data
-    render json: {}
+    if params[:id] == current_user.id
+      sign_out
+      User.find(params[:id]).clear_data
+      render json: {}
+    end
   end
 
   def google_sync

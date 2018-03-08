@@ -1,5 +1,4 @@
 .premium-tab {
-  background-color: #EA9A1A !important;
   a {
     background-color: #EA9A1A !important;
     color: #FFFFFF !important;
@@ -58,11 +57,15 @@
 }
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
-  border-top: 3px solid #875A12 !important;
+  background-color: #D3982A !important;
+  // border-top: 3px solid #875A12 !important;
+  // padding-top: 0 !important;
 }
 .premium-tab a.active,
 .premium-tab a:hover {
-  border-top: 3px solid #875A12 !important;
+  background-color: #D3982A !important;
+  // border-top: 3px solid #875A12 !important;
+  // padding-top: 0 !important;
 }
 .preview-section {
   text-align: center;
@@ -112,6 +115,7 @@ li.premium-tab > a:hover {
     background: white;
     border: 1px solid #cecece;
     font-size: 15px;
+    min-height: 513px;
     @media (max-width: 990px) {
       max-width: 383px;
       margin: auto;
@@ -209,9 +213,6 @@ li.premium-tab > a:hover {
         width: 122px;
         margin-left: 6px;
         margin-right: 6px;
-      }
-      &.purple {
-        padding-left: 14px;
       }
       &.empty-purple {
         padding-left: 9px;

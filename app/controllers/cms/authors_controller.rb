@@ -1,6 +1,4 @@
-class Cms::AuthorsController < ApplicationController
-  before_filter :staff!
-
+class Cms::AuthorsController < Cms::CmsController
   def index
     @authors = Author.all
     render json: @authors
