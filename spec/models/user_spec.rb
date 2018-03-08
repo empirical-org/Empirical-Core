@@ -17,7 +17,7 @@ describe User, type: :model do
   it { should have_one(:schools_users) }
   it { should have_one(:school).through(:schools_users) }
   it { should have_many(:schools_admins).class_name('SchoolsAdmins') }
-  it { should have_many(:admin_rights).through(:schools_admins).source(:school).with_foreign_key('user_id') }
+  it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
