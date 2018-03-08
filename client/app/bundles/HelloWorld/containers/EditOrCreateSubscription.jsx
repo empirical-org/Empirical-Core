@@ -184,11 +184,11 @@ export default class extends React.Component {
     const submitAction = this.props.school ? this.submitConfirmation : this.submit;
     return (
       <div className="cms-subscription">
-        <h1>{this.props.view} Subscription: {schoolOrUser.name}</h1>
+        <h1>{this.props.view === 'edit' ? 'Edit' : 'New'} Subscription: {schoolOrUser.name}</h1>
         <h2>Subscription Information</h2>
         <label>Premium Status</label>
         <ItemDropdown
-          items={this.props.userPremiumTypes}
+          items={this.props.premiumTypes}
           callback={this.changeAccountType}
           selectedItem={this.state.subscription.account_type || ''}
         />
@@ -210,7 +210,7 @@ export default class extends React.Component {
         <br />
         {this.changeToPurchaserInfo()}
         {this.recurringIfCreditCard()}
-        <h2>Period</h2>
+        <h2>Period {this.props.view === 'edit' ? <span className="warning text-red">-- These should not be edited without good reason!</span> : null}</h2>
         <label>Start Date</label>
         <p>
           If this is a Teacher Subscription and no subscription already exists, the start date is set to today. If the subscription is being renewed, the start date is the day the old subscription ends.

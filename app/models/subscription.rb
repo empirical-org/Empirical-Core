@@ -32,7 +32,7 @@ class Subscription < ActiveRecord::Base
         'Teacher Sponsored Free',
         'Teacher Trial']
 
-  SCHOOL_SUBSCRIPTIONS_TYPES = ['School District Paid',
+  OFFICIAL_SCHOOL_TYPES = ['School District Paid',
         'School NYC Paid',
         'School Strategic Paid',
         'School Paid',
@@ -41,6 +41,14 @@ class Subscription < ActiveRecord::Base
         'School Research',
         'School Sponsored Free',
         'School Strategic Free']
+
+  OFFICIAL_TEACHER_TYPES = [
+        'Teacher Paid',
+        'Premium Credit',
+        'Teacher Contributor Free',
+        'Teacher Sponsored Free',
+        'Teacher Trial'
+  ]
 
   # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
