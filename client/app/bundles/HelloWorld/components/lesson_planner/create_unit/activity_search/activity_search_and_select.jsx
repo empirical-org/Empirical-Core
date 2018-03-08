@@ -250,6 +250,8 @@ export default React.createClass({
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
           unitName={this.props.unitName}
+          sortable={this.props.sortable}
+          sortCallback={this.props.sortCallback}
         />
       </section>
     );
