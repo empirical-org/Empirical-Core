@@ -2,7 +2,7 @@ class Cms::SchoolsController < Cms::CmsController
   before_filter :signed_in!
 
   before_action :text_search_inputs, only: [:index, :search]
-  before_action :set_school, only: [:new_subscription, :edit_subscription]
+  before_action :set_school, only: [:new_subscription, :edit_subscription, :show]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 10.0
@@ -27,20 +27,20 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
   def show
-    @school_info = School.find(params[:id])
+    @subscription = @school.subscription
     @school_subscription_info = {
-      'School Premium Type' => @school_info.subscription&.account_type,
-      'Expiration' => @school_info.subscription&.expiration&.strftime('%b %d, %Y')
+      'School Premium Type' => @school.subscription&.account_type,
+      'Expiration' => @school.subscription&.expiration&.strftime('%b %d, %Y')
     }
-    @school_info = {
-      'Name' => @school_info.name,
-      'City' => @school_info.city || @school_info.mail_city,
-      'State' => @school_info.state || @school_info.mail_state,
-      'ZIP' => @school_info.zipcode || @school_info.mail_zipcode,
-      'District' => @school_info.leanm,
-      'Free and Reduced Price Lunch' => "#{@school_info.free_lunches}%",
-      'NCES ID' => @school_info.nces_id,
-      'PPIN' => @school_info.ppin
+    @school = {
+      'Name' => @school.name,
+      'City' => @school.city || @school.mail_city,
+      'State' => @school.state || @school.mail_state,
+      'ZIP' => @school.zipcode || @school.mail_zipcode,
+      'District' => @school.leanm,
+      'Free and Reduced Price Lunch' => "#{@school.free_lunches}%",
+      'NCES ID' => @school.nces_id,
+      'PPIN' => @school.ppin
     }
     @teacher_data = teacher_search_query_for_school(params[:id])
     @admins = SchoolsAdmins.includes(:user).where(school_id: params[:id].to_i).map do |admin|

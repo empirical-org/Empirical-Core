@@ -25,6 +25,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def show
+    @subscription = @user.subscription
   end
 
   def show_json
