@@ -358,6 +358,7 @@ EmpiricalGrammar::Application.routes.draw do
     put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
     resources :activity_classifications
     resources :topics
+    resources :subscriptions
     resources :topic_categories
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
@@ -372,7 +373,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :users do
-      resource :subscription
+      # resource :subscription
       collection do
         post :search
         get :search, to: 'users#index'
@@ -383,7 +384,7 @@ EmpiricalGrammar::Application.routes.draw do
         put :clear_data
         get :sign_in
         get :edit_subscription
-        post :update_subscription
+        get :new_subscription
       end
       put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
       put 'remove_admin/:school_id', to: 'users#remove_admin', as: :remove_admin
@@ -396,7 +397,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :edit_subscription
-        post :update_subscription
+        get :new_subscription
         get :new_admin
         post :add_admin_by_email
       end

@@ -1708,7 +1708,7 @@ CREATE TABLE subscriptions (
     updated_at timestamp without time zone,
     account_type character varying,
     purchaser_email character varying,
-    start_date date DEFAULT '2018-01-30 00:00:00'::timestamp without time zone,
+    start_date date,
     subscription_type_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
@@ -4274,4 +4274,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180228171538');
 INSERT INTO schema_migrations (version) VALUES ('20180301064334');
 
 INSERT INTO schema_migrations (version) VALUES ('20180301211956');
+
+INSERT INTO schema_migrations (version) VALUES ('20180307212219');
 
