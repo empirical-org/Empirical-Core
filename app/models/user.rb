@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_many :checkboxes
   has_many :invitations
   has_many :objectives, through: :checkboxes
+  has_many :user_subscriptions
+  has_many :subscriptions, through: :user_subscriptions
+  has_many :activity_sessions
   has_one :schools_users
   has_one :school, through: :schools_users
 
@@ -467,7 +470,7 @@ private
     n_activities = ActivitySession.unscoped.where(classroom_activity_id: ClassroomActivity.unscoped.where(unit_id: Unit.unscoped.where(user_id: self.id)).pluck(:id), state: 'finished').count || 0
     activities_p_student = n_students * n_activities > 0 ? n_activities / n_students : 0
     $smclient.contact(
-      contact_uid: self.id, 
+      contact_uid: self.id,
       params: {
         email: self.email,
         name: self.name,

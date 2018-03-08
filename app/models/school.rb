@@ -19,13 +19,13 @@ class School < ActiveRecord::Base
       "11": "City, Large",
       "12": "City, Mid-size",
       "13": "City, Small",
-      "21": "Suburb, Large", 
+      "21": "Suburb, Large",
       "22": "Suburb, Mid-size",
-      "23": "Suburb, Small", 
+      "23": "Suburb, Small",
       "31": "Town, Fringe",
-      "32": "Town, Distant", 
+      "32": "Town, Distant",
       "33": "Town, Remote",
-      "41": "Rural, Fringe", 
+      "41": "Rural, Fringe",
       "42": "Rural, Distant"
     }
     data[ulocal.to_s.to_sym]
@@ -45,31 +45,4 @@ class School < ActiveRecord::Base
     return true unless self.lower_grade && self.upper_grade
     errors.add(:lower_grade, 'must be less than or equal to upper grade') if self.lower_grade.to_i > self.upper_grade.to_i
   end
-
-  def sync_salesmachine
-    $smclient.account(
-      account_uid: self.id, 
-      params: {
-        name: self.name,
-        city: self.mail_city,
-        state: self.mail_state,
-        zipcode: self.mail_zipcode,
-        district: self.leanm,
-        phone: self.phone,
-        charter: self.charter,
-        frl: self.free_lunches,
-        ppin: self.ppin,
-        nces_id: self.nces_id,
-        school_type: ulocal_to_school_type,
-        employee_count: self.schools_users.count,
-        buying_stage: "green field"
-      }
-    )
-    # self.users.each do |teacher|
-    #   teacher.method(:sync_salesmachine).call()
-    # end
-  end
-
-  
-
 end
