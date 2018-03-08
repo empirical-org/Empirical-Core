@@ -20,6 +20,15 @@ body {
 
 .home-nav-right {
   font-weight: 600;
+  font-size: 16px;
+  .sign-up-button {
+    height: 30px;
+    padding: 0px 13px;
+    align-items: center;
+    display: flex;
+    border-radius: 6px;
+    border: white 1px solid;
+  }
 }
 
 .q-h1, .q-h2 {
