@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import _ from 'lodash';
 import request from 'request';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import getAuthToken from '../components/modules/get_auth_token';
@@ -47,7 +48,6 @@ export default class extends React.Component {
   }
 
   getMatchingUserFromSchoolsUsersById(newSub, e) {
-    debugger;
     const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.id === e.target.value);
     if (matchingSchoolUser) {
       new_sub.purchaser_email = matchingSchoolUser.email;
@@ -180,11 +180,11 @@ export default class extends React.Component {
   }
 
   render() {
-    const schoolOrUser = this.props.school || this.props.user;
+    const schoolOrUser = this.props.school || this.props.user || null;
     const submitAction = this.props.school ? this.submitConfirmation : this.submit;
     return (
       <div className="cms-subscription">
-        <h1>{this.props.view === 'edit' ? 'Edit' : 'New'} Subscription: {schoolOrUser.name}</h1>
+        <h1>{this.props.view === 'edit' ? 'Edit' : 'New'} Subscription: {_.get(schoolOrUser, 'name')}</h1>
         <h2>Subscription Information</h2>
         <label>Premium Status</label>
         <ItemDropdown
