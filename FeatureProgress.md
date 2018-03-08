@@ -27,6 +27,7 @@ TODO:
     client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx
     or can it be kept around in a non-working state until issue #3972 and #3971
     are complete?
+  - Issue #3971 and #3972 should add test for filters and dropdowns to client/app/bundles/admin_dashboard/containers/__tests__/DistrictStandardsReports.test.jsx
 
 NOTES: 
   - Issues #3971 and #3972 will cover dropdown filter functionality... unworking
