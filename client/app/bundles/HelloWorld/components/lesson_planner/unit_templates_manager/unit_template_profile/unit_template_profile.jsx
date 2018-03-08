@@ -60,13 +60,13 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   indexLink() {
-    return this.state.data.non_authenticated
+    return (this.state.data && this.state.data.non_authenticated)
       ? '/activities/packs'
       : '/teachers/classrooms/assign_activities/featured-activity-packs'
   }
 
   showListFilterOptions() {
-    return this.state.data.non_authenticated
+    return (this.state.data && this.state.data.non_authenticated)
       ? <ListFilterOptions userLoggedIn={!this.state.data.non_authenticated} options={[
           {
             id: 6,
@@ -116,7 +116,7 @@ export default class UnitTemplateProfile extends React.Component {
               </div>
             </div>
             <div className="related-activity-packs">
-              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId} authenticated={!this.state.data.non_authenticated}/>
+              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId} authenticated={!(this.state.data && this.state.data.non_authenticated)}/>
               <Link to={this.indexLink()}>
                 <button className='see-all-activity-packs button-grey button-dark-grey text-center center-block'>See All Activity Packs</button>
               </Link>

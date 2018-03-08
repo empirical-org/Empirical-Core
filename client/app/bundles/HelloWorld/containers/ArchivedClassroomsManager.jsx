@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import request from 'request';
@@ -25,7 +25,7 @@ export default createReactClass({
       basePath = '/students_classrooms';
       getClassroomsPath = `${basePath}/classroom_manager_data`;
     }
-    return { loading: true, classrooms: null, basePath, getClassroomsPath, myName: ''};
+    return { loading: true, classrooms: null, basePath, getClassroomsPath, myName: '', };
   },
 
   componentDidMount() {
@@ -40,7 +40,7 @@ export default createReactClass({
           context: this,
           cache: false,
           success(data) {
-            this.formatData(data)
+            this.formatData(data);
           },
         });
       }
@@ -52,13 +52,15 @@ export default createReactClass({
     if (hash !== '') {
       const id = hash.replace('#', '');
       const element = document.getElementById(id);
-      element ? element.scrollIntoView() : null;
+      if (element) {
+        element.scrollIntoView();
+      }
     }
   },
 
-  formatData(data){
-    const coteacherClassroomsAndTeachers = this.formatCoteachers(data.coteachers, true)
-    data.coteachers = coteacherClassroomsAndTeachers.coteachers
+  formatData(data) {
+    const coteacherClassroomsAndTeachers = this.formatCoteachers(data.coteachers, true);
+    data.coteachers = coteacherClassroomsAndTeachers.coteachers;
     data.coteachersByClassroom = coteacherClassroomsAndTeachers.coteachersByClassroom
     data.pending_coteachers = this.formatCoteachers(data.pending_coteachers)
     const showArchivedNotification = data.active.length === 0;
