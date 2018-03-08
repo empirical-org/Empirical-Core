@@ -321,7 +321,7 @@ class PagesController < ApplicationController
   def premium
     @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
     @user_is_eligible_for_trial = current_user&.subscriptions&.none?
-    @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid(current_user&.school) : false
+    @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
   end
 
