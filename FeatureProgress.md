@@ -38,3 +38,10 @@ NOTES:
   - Made no changes to
     client/app/reducers/__test__/district_standards_reports.test.js.  Take a
     look at this file later.
+
+
+MANUAL TESTING FAILURES:
+*After the exisiting test suite passed, these failures showed their nasty
+  heads. They should be fixed, and tests should be added so they do not show up
+  again*
+- Warning: [react-router] Location "/teachers/admin_dashboard/district_standards_reports" did not match any routes
