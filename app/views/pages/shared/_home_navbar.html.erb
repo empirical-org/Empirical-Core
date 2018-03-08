@@ -19,7 +19,7 @@
       <a href="https://community.quill.org/donate/" target="_blank" class="text-white">Donate</a>
       <%- if current_user.nil? %>
         <a href="/session/new" class="text-white">Login</a>
-        <a href="/account/new" class="q-button text-white">Sign Up</a>
+        <a href="/account/new" class="sign-up-button text-white">Sign Up</a>
       <% else %>
         <%- if current_user.role == 'teacher' %>
           <%- if request.path.include?('teachers') %>
