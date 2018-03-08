@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import StudentProfile from '../StudentProfile.jsx';
 
 import $ from 'jquery'
-import StudentClassroomNavbar from '../../components/student_profile/student_classroom_navbar.jsx'
+import StudentsClassroomsHeader from '../../components/student_profile/students_classrooms/students_classrooms_header.jsx'
 import NextActivity from '../../components/student_profile/next_activity.jsx'
 import StudentProfileUnits from '../../components/student_profile/student_profile_units.jsx'
 
@@ -37,17 +37,17 @@ describe.skip('StudentProfile container', () => {
     loading: false
   });
 
-  describe('StudentClassroomNavbar component', () => {
+  describe('StudentsClassroomsHeader component', () => {
     it('should render', () => {
-      expect(wrapper.find(StudentClassroomNavbar).exists()).toBe(true);
+      expect(wrapper.find(StudentsClassroomsHeader).exists()).toBe(true);
     });
 
     it('should have student data in data prop', () => {
-      expect(wrapper.find(StudentClassroomNavbar).props().data.name).toBe('student');
+      expect(wrapper.find(StudentsClassroomsHeader).props().data.name).toBe('student');
     });
 
     it('should have fetchData prop that fetches data', () => {
-      wrapper.find(StudentClassroomNavbar).props().fetchData(3);
+      wrapper.find(StudentsClassroomsHeader).props().fetchData(3);
       expect(wrapper.state().currentClassroom).toBe(3);
       expect(wrapper.state().loading).toBe(true);
       expect($.ajax).toHaveBeenCalled();
