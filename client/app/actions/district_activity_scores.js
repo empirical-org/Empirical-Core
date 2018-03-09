@@ -18,6 +18,7 @@ export const switchTeacher = (teacher) => {
 
 export const getDistrictActivityScores = () => {
   return (dispatch) => {
+    console.log("Hi from activity scores");
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`
     },

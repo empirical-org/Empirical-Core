@@ -17,12 +17,12 @@ const SubnavTabs = () => {
           </li>
           <li>
             <a href="/teachers/admin_dashboard/district_concept_reports">
-              School Concept Reports 
+              Concept Reports 
             </a>
           </li>
           <li>
             <a href="/teachers/admin_dashboard/district_standards_reports">
-             School Standards Reports 
+             Standards Reports 
             </a>
           </li>
         </ul>
