@@ -30,6 +30,8 @@ export default function district_concept_reports(state = initialState, action) {
         selectedClassroom: action.classroom,
       });
     case 'RECIEVE_DISTRICT_CONCEPT_REPORTS':
+      console.log(action.body);
+      console.log(JSON.parse(action.body).data);
       return updateObject(state, {
         loading: false,
         errors: action.body.errors,

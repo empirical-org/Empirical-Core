@@ -11,27 +11,27 @@ const StandardsReportsTable = ({ data }) => {
       Header: 'Standard Level',
       accessor: 'section_name',
       resizable: false,
-      Cell: row => row.original.student_name,
+      Cell: row => row.original.section_name,
     }, {
       Header: 'Standard Name',
       accessor: 'name',
       resizable: false,
-      Cell: row => row.original.teacher_name,
+      Cell: row => row.original.name,
     }, {
       Header: 'Students',
       accessor: 'total_student_count',
       resizable: false,
-      Cell: row => row.original.classroom_name,
+      Cell: row => row.original.total_student_count,
     }, {
       Header: 'Proficent',
       accessor: 'proficient_count',
       resizable: false,
-      Cell: row => row.original.school_name,
+      Cell: row => row.original.proficient_count,
     }, {
       Header: 'Activities',
       accessor: 'total_activity_count',
       resizable: false,
-      Cell: row => Number(row.original.correct),
+      Cell: row => Number(row.original.total_activity_count),
     },
   ];
 
