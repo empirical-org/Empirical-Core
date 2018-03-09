@@ -15,7 +15,6 @@ const StandardsReportsTable = ({ data }) => {
     }, {
       Header: 'Standard Name',
       accessor: 'name',
-      resizable: false,
       Cell: row => row.original.name,
     }, {
       Header: 'Students',
@@ -26,7 +25,7 @@ const StandardsReportsTable = ({ data }) => {
       Header: 'Proficent',
       accessor: 'proficient_count',
       resizable: false,
-      Cell: row => row.original.proficient_count,
+      Cell: row => row.original.proficient_count + ' of ' + row.original.total_student_count,
     }, {
       Header: 'Activities',
       accessor: 'total_activity_count',
