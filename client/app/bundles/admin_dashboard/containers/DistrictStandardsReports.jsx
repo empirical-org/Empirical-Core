@@ -10,7 +10,6 @@ import {
 import { connect } from 'react-redux';
 
 class DistrictStandardsReports extends React.Component {
-  console.log('arrived in DistrictStandardsReports Component');
   componentDidMount() {
     console.log('client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx: componentDidMount');
     const { getDistrictStandardsReports, } = this.props;
