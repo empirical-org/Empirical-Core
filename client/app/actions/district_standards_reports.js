@@ -23,6 +23,7 @@ export const getDistrictStandardsReports = () => {
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports`
     },
     (e, r, body) => {
+      console.log('successful request to remote endpoint');
       dispatch(recieveDistrictStandardsReports(body))
     });
   }
