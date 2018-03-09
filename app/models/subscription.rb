@@ -58,6 +58,12 @@ class Subscription < ActiveRecord::Base
   ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
+  
+  TYPES_HASH = {
+    trial: TRIAL_TYPES,
+    teacher: OFFICIAL_TEACHER_TYPES,
+    school: OFFICIAL_SCHOOL_TYPES
+  }
 
   # 2/27 - for now every school is 90000 cents, whether they are renewing or re-signing up.
   SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
