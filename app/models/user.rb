@@ -548,28 +548,6 @@ private
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
   end
 
-  def sync_salesmachine
-    n_students = self.students.count || 0
-    n_activities = ActivitySession.unscoped.where(classroom_activity_id: ClassroomActivity.unscoped.where(unit_id: Unit.unscoped.where(user_id: self.id)).pluck(:id), state: 'finished').count || 0
-    activities_p_student = n_students * n_activities > 0 ? n_activities / n_students : 0
-    $smclient.contact(
-      contact_uid: self.id,
-      params: {
-        email: self.email,
-        name: self.name,
-        account_uid: self.school&.id,
-        signed_up: self.created_at.to_i,
-        admin: self.admin?,
-        premium_status: self.subscription&.account_type,
-        premium_expiry_date: self.subscription&.expiration,
-        number_of_students: n_students,
-        number_of_completed_activities: n_activities,
-        number_of_completed_activities_per_student: activities_p_student,
-        frl: self.school&.free_lunches
-      }
-    )
-  end
-
   def generate_referrer_id
     ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + self.id.to_s)
   end
