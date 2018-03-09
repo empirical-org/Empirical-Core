@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminDashboardRouter from 'bundles/admin_dashboard/containers/AdminDashboardRouter';
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import adminDashboardReducer from 'reducers/admin_dashboard';
 import district_activity_scores from 'reducers/district_activity_scores';
