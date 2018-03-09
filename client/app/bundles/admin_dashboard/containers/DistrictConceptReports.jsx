@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 
 class DistrictConceptReports extends React.Component {
   componentDidMount() {
-    console.log('client/app/bundles/admin_dashboard/containers/DistrictConceptReports.jsx: componentDidMount');
     const { getDistrictConceptReports, } = this.props;
     getDistrictConceptReports();
   }
@@ -142,7 +141,6 @@ const mapStateToProps = (state) => {
   }
 };
 const mapDispatchToProps = (dispatch) => {
-  console.log('map dispatch to props for concept reports');
   return {
     switchSchool: school => dispatch(switchSchool(school)),
     switchClassroom: classroom => dispatch(switchClassroom(classroom)),

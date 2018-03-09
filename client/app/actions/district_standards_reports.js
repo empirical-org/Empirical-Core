@@ -18,12 +18,10 @@ export const switchTeacher = (teacher) => {
 
 export const getDistrictStandardsReports = () => {
   return (dispatch) => {
-    console.log("Hi from standards fetch")
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports`
     },
     (e, r, body) => {
-      console.log('successful request to remote endpoint');
       dispatch(recieveDistrictStandardsReports(body))
     });
   }
