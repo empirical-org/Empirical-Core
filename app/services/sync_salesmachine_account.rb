@@ -6,7 +6,7 @@ class SyncSalesmachineAccount
   end
 
   def sync
-    @client.account(params)
+    @client.account(account_uid: school.id, params: params)
   end
 
   def params
@@ -60,7 +60,7 @@ class SyncSalesmachineAccount
   end
 
   def employee_count
-    school.users.where(role: 'teacher').count
+    school.users.where(role: 'teacher').count || 0
   end
 
   def paid_teacher_subscriptions
@@ -75,6 +75,6 @@ class SyncSalesmachineAccount
   end
 
   def school_link
-    "https://www.quill.org/cms/schools/#{@school_id}"
+    "https://www.quill.org/cms/schools/#{school.id}"
   end
 end

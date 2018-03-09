@@ -28,7 +28,7 @@ class SyncSalesmachineContact
   private
 
   def teacher_link
-    "https://www.quill.org/cms/users/#{@teacher_id}/sign_in"
+    "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
   end
 
   def free_lunches
@@ -82,11 +82,7 @@ class SyncSalesmachineContact
   end
 
   def account_uid
-    if teacher.school.present?
-      teacher.school.id
-    else
-      'NA'
-    end
+    teacher.school.id if teacher.school.present?
   end
 
   def teacher
