@@ -6,7 +6,9 @@ class ProgressReports::DistrictConceptReports
   end
 
   def results
-    ActiveRecord::Base.connection.execute(query).to_a
+    puts 'by-passing SQL query'
+    [{"school_name"=>"Hogwarts", "teacher_name"=>"Severus Snape", "classroom_name"=>"Potions III", "student_name"=>"Ron Weasley", "correct"=>"15", "incorrect"=>"8", "percentage"=>"65"}]
+    #ActiveRecord::Base.connection.execute(query).to_a
   end
 
   private
