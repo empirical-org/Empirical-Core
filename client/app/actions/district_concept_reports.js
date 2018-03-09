@@ -18,6 +18,7 @@ export const switchTeacher = (teacher) => {
 
 export const getDistrictConceptReports = () => {
   return (dispatch) => {
+    console.log("hi from concepts fetch")
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`
     },
