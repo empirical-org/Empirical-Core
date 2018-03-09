@@ -24,7 +24,7 @@ describe 'SyncSalesmachineContact' do
     expect(teacher_data).to include(
       email: 'teach@teaching.edu',
       name: 'Pops Mcgee',
-      account_uid: 'NA',
+      account_uid: nil,
       signed_up: teacher.created_at.to_i,
       admin: false,
       premium_status: 'NA',
@@ -32,7 +32,8 @@ describe 'SyncSalesmachineContact' do
       number_of_students: 0,
       number_of_completed_activities: 0,
       number_of_completed_activities_per_student: 0,
-      frl: 0
+      frl: 0,
+      teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
     )
   end
 
