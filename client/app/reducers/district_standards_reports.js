@@ -31,9 +31,6 @@ export default function district_standards_reports(state = initialState, action)
         selectedClassroom: action.classroom,
       });
     case 'RECIEVE_DISTRICT_STANDARDS_REPORTS':
-      console.log('resolving dispatched action');
-      console.log(action.body);
-      console.log(JSON.parse(action.body).data);
       return updateObject(state, {
         loading: false,
         errors: action.body.errors,
