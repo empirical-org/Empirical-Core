@@ -4,7 +4,7 @@ import AdminDashboard from 'bundles/admin_dashboard/containers/AdminDashboard';
 import AdminDashboardContainer from 'bundles/admin_dashboard/containers/AdminDashboardContainer'
 import DistrictActivityScoresProgressReport from 'bundles/admin_dashboard/containers/DistrictActivityScores'
 import DistrictConceptReportsProgressReport from 'bundles/admin_dashboard/containers/DistrictConceptReports'
-import DistrictStandardsReportsProgressReport from 'bundles/admin_dashboard/containers/DistrictConceptReports'
+import DistrictStandardsReportsProgressReport from 'bundles/admin_dashboard/containers/DistrictStandardsReports'
 
 const AdminDashboardRouter = (props) => {
   return (
