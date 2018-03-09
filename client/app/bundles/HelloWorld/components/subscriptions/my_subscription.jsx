@@ -43,6 +43,7 @@ export default class extends React.Component {
             <input disabled className="inactive" value={expiration ? moment(expiration).format('MMMM Do, YYYY') : 'N/A'} />
           </div>
         </div>
+        <a href="/subscriptions" className={'green-link'}>Manage Subscriptions</a>
       </span>
     );
   }
