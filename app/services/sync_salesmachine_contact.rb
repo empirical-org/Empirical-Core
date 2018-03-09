@@ -5,7 +5,7 @@ class SyncSalesmachineContact
   end
 
   def sync
-    @client.contact(params)
+    @client.contact({ contact_uid: @teacher_id, params: params })
   end
 
   def params
