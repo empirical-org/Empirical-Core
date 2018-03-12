@@ -186,6 +186,10 @@
   cursor: pointer;
 }
 
+.right-button.keep-right {
+  right: 1%;
+}
+
 @media (min-width: 1440px) {
   .left-button {
     left: 10%;

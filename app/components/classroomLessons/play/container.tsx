@@ -267,13 +267,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   renderRightButton() {
-    if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== this.props.classroomLesson.data.questions.length - 1) {
+    const currentSlide = Number(this.props.classroomSessions.data.current_slide)
+    if (getParameterByName('projector') && currentSlide !== this.props.classroomLesson.data.questions.length - 1) {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+      const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
       const imageSrc = this.state.rightHover ? 'http://assets.quill.org/images/icons/right-button-hover.svg' : 'http://assets.quill.org/images/icons/right-button.svg'
       return <img
-      className="right-button"
+      className={className}
       src={imageSrc}
       onMouseOver={() => this.setState({rightHover: true})}
       onMouseOut={() => this.setState({rightHover: false})}
