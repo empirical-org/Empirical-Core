@@ -15,27 +15,24 @@
 
     <meta name="description" content="<%= @description %>">
 
-    <meta property="og:type"               content="website" />
-    <meta property="og:title"              content="<%= @title %>" />
-    <meta property="og:description"              content="<%= @description %>" />
-    <meta property="og:image"              content=<%= image_url('share/facebook.png') %> />
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="<%= @title %>" />
+    <meta property="og:description" content="<%= @description %>" />
+    <meta property="og:image"       content=<%= image_url('share/facebook.png') %> />
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <%= render partial: 'typekit' unless Rails.env.test? %>
-    <!-- <%= env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js', 'http://localhost:3500/app-bundle.js', 'http://localhost:3500/home-bundle.js']) %> -->
-    <%= env_stylesheet_link_tag(static: 'home',
-                              hot: 'application_non_webpack',
-                              media: 'all',
-                              'data-turbolinks-track' => true) %>
-   <%= env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js', "http://localhost:3500/#{@js_file || 'home'}-bundle.js", 'http://localhost:3500/app-bundle.js'],
-                                 static: @js_file || 'home') %>
-   <%= csrf_meta_tags %>
-   <%= render partial: 'application/head_embed_codes' %>
+    <%= javascript_pack_tag('vendor') %>
+    <%= javascript_pack_tag(@js_file || 'home') %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_pack_tag('home') %>
+    <%= stylesheet_pack_tag('app') %>
+    <%= csrf_meta_tags %>
+    <%= render partial: 'application/head_embed_codes' %>
   </head>
   <body>
     <%= yield %>
     <%= render partial: 'remarketing_tag' %>
     <%= render partial: 'tracking_code' %>
   </body>
-  <!-- <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %> -->
 </html>
